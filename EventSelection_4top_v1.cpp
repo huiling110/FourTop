@@ -53,11 +53,11 @@ void EventSelection_4top_v1(const char * Input = ""){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v1/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v1/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v1/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v1/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v1/JERdo/"+fileName[Nfiles];/*}}}*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JESup/"+fileName[Nfiles];/*{{{*/
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JERdo/"+fileName[Nfiles];/*}}}*/
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -201,7 +201,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 			prefiringweight   = EVENT_prefiringweight_;
 			prefiringweightup = EVENT_prefiringweightup_;
 			prefiringweightdown = EVENT_prefiringweightdown_;
-			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of
+			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
 //      	if(!(HT>200)) continue;/*}}}*/
 		
@@ -247,6 +247,14 @@ void EventSelection_4top_v1(const char * Input = ""){
 
 
 
+
+//
+//
+void 
+
+
+//
+//
 
 
 void QCDWeight(int imin,int imax,float &w_QCDUp ,float &w_QCDDown){/*{{{*/
@@ -1162,6 +1170,9 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
 //
   NewTree->Branch("NumSeEle",          &NumSeEle,          "NumSeEle/I");
   NewTree->Branch("NumSeMu",           &NumSeMu,            "NumSeMu/I");
+  NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
+  NewTree->Branch("Centrality",        &Centrality,       "Centrality/F");
+  NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F")
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -1580,6 +1591,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
 //
  NewTreeSB->Branch("NumSeEle",      &NumSeEle,                "NumSeEle");
  NewTreeSB->Branch("NumSeMu",       &NumSeMu,                 "NumSeMu");
+ NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets");
 //
 //
   NewTreeSB->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2007,6 +2019,9 @@ void initializeVar(){/*{{{*/
 //
   NumSeEle=-99;
   NumSeMu=-99;
+  InvariantMassJets=-99;
+  Centrality=-99;
+  Aplanarity=-99;
 //
 //
   NumSelJets=-99;

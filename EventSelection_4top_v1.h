@@ -385,6 +385,9 @@ int   NumSelLeps=-99;
 //
 int   NumSeEle=-99;
 int   NumSeMu=-99;
+float   InvariantMassJets=-99;
+float   Centrality=-99;
+float   Aplanarity=-99;
 //
 //
 int   NumSelJets=-99;
