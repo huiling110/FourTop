@@ -395,6 +395,9 @@ int   NumSeMu=-99;
 float   InvariantMassJets=-99;
 float   Centrality=-99;
 float   Aplanarity=-99;
+float   LeadingJetPt=-99;
+float   deltaRjets=-99;
+float   Sphericity=-99;
 //
 //
 int   NumSelJets=-99;

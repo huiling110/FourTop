@@ -182,13 +182,6 @@ void EventSelection_4top_v1(const char * Input = ""){
 			if(ResolvedEvent)   TopQuark = TopQuarkResolved;//parameter in Fillbranch
 //			if(!ResolvedEvent) continue;/*}}}*/
 			NumSelLeps        = SelectedElectrons.size()+SelectedMuons.size();//branch in newtree and SB
-//
-//
-			NumSeEle = SelectedElectrons.size();
-			NumSeMu = SelectedMuons.size();
-			InvariantMassJets = InvariantMassCalculator(SelectedJets);
-//
-//
 			NumSelJets        = SelectedJets.size();
 			NumSelForwardJets = SelectedForwardJets.size();//185
 			NumSelBJetsL      = SelectedBJetsL.size();
@@ -204,6 +197,15 @@ void EventSelection_4top_v1(const char * Input = ""){
 			prefiringweightdown = EVENT_prefiringweightdown_;
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
+//
+//
+			NumSeEle = SelectedElectrons.size();
+			NumSeMu = SelectedMuons.size();  
+			InvariantMassJets = InvariantMassCalculator(SelectedJets);
+			Centrality = InvariantMassJets/HT;
+//			Aplanarity = 
+//
+//
 //      	if(!(HT>200)) continue;/*}}}*/
 
 		
@@ -939,7 +941,7 @@ float MHTcalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 
 //
 //
-float InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
+float InvariantMassCalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 	float InM = 0;
 	float SumE = 0;
 	float MHT = MHTcalculator(SelectedJets);
@@ -948,7 +950,20 @@ float InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
 	}	
 	InM = sqrt(SumE*SumE-MHT*MHT);
 	return InM;
-}
+}/*}}}*/
+
+/*float AplanarityCalcullator(vector<TLorentzVector> SelectedJets){
+	float PtSquare = 0;
+	float PtPt = -1;
+	 for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+		PtSquare = PtSquare+SelcctedJets.Pt()*SelectedJets.Pt();
+
+        for (UInt_t k = j+1; k < SelectedJets.size(); ++j){
+				
+		}
+
+	 }	 
+}	*/
 
 //
 //
@@ -1188,6 +1203,9 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/F");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
+  NewTree->Branch("LeadingJetPt",      &LeadingJetPt,      "LeadingJetPt/F");
+  NewTree->Branch("deltaRJets",        &deltaRJets,        "deltaRJets/F");
+  NewTree->Branch("Sphericity",        &Sphericity,        "Sphericity/F");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -1606,7 +1624,9 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
 //
  NewTreeSB->Branch("NumSeEle",      &NumSeEle,                "NumSeEle");
  NewTreeSB->Branch("NumSeMu",       &NumSeMu,                 "NumSeMu");
- NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets");
+  NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
+  NewTreeSB->Branch("Centrality",        &Centrality,       "Centrality/F");
+  NewTreeSB->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
 //
 //
   NewTreeSB->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
