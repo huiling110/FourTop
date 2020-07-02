@@ -40,8 +40,9 @@ float MHTcalculator(vector<TLorentzVector> SelectedJets);
 //
 //
 float InvariantMassCalculator(vector<TLorentzVector> SelectedJets);
-float CentralityCalculator(vector<TLorentzVector> SelectedJets);
 float AplanarityCalculator(vector<TLorentzVector> SelectedJets);
+float LeadingJetPtCal(vector<TLorentzVector> SelectedJets);
+float deltaRJetsCal(vector<TLorentzVector> SelectedJets);
 ////
 //
 void branchGetEntry(bool data, Long64_t tentry, string fileName);
@@ -396,7 +397,7 @@ float   InvariantMassJets=-99;
 float   Centrality=-99;
 float   Aplanarity=-99;
 float   LeadingJetPt=-99;
-float   deltaRjets=-99;
+float   deltaRJets=-99;
 float   Sphericity=-99;
 //
 //
