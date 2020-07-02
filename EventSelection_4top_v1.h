@@ -37,6 +37,13 @@ float DeltaR(float eta1, float eta2, float phi1, float phi2);
 float DeltaPhi(float phi1, float phi2);
 float HTcalculator(vector<TLorentzVector> SelectedJets);
 float MHTcalculator(vector<TLorentzVector> SelectedJets);
+//
+//
+float InvariantMassCalculator(vector<TLorentzVector> SelectedJets);
+float CentralityCalculator(vector<TLorentzVector> SelectedJets);
+float AplanarityCalculator(vector<TLorentzVector> SelectedJets);
+////
+//
 void branchGetEntry(bool data, Long64_t tentry, string fileName);
 void HistoFill(float pileupReweight,TTree *NewTree);
 void writeFile(TTree *NewTree,TTree *NewTreeSB);

@@ -186,6 +186,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 //
 			NumSeEle = SelectedElectrons.size();
 			NumSeMu = SelectedMuons.size();
+			InvariantMassJets = InvariantMassCalculator(SelectedJets);
 //
 //
 			NumSelJets        = SelectedJets.size();
@@ -204,6 +205,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
 //      	if(!(HT>200)) continue;/*}}}*/
+
 		
 			//categorization
 			if(selection==0){ //PRESELECTION
@@ -248,13 +250,9 @@ void EventSelection_4top_v1(const char * Input = ""){
 
 
 
-//
-//
-void 
 
 
-//
-//
+
 
 
 void QCDWeight(int imin,int imax,float &w_QCDUp ,float &w_QCDDown){/*{{{*/
@@ -939,6 +937,23 @@ float MHTcalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
   return MHTprov;
 }/*}}}*/
 
+//
+//
+float InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
+	float InM = 0;
+	float SumE = 0;
+	float MHT = MHTcalculator(SelectedJets);
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+		SumE = SumE+SelectedJets[j].E();
+	}	
+	InM = sqrt(SumE*SumE-MHT*MHT);
+	return InM;
+}
+
+//
+//
+
+
 //?it seems that fileName doesn't occur in the function .
 //
 void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
@@ -1172,7 +1187,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("NumSeMu",           &NumSeMu,            "NumSeMu/I");
   NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/F");
-  NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F")
+  NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
