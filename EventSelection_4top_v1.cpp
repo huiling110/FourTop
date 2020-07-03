@@ -206,6 +206,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 //			Aplanarity = 
 			LeadingJetPt = LeadingJetPtCal(SelectedJets);
 			MaxdeltaRJets = deltaRJetsCal(SelectedJets);
+//           Sphericity = 
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/

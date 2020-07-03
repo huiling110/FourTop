@@ -399,6 +399,18 @@ float   Aplanarity=-99;
 float   LeadingJetPt=-99;
 float   MaxdeltaRJets=-99;
 float   Sphericity=-99;
+float   MindeltaRJets=-99;
+float   SecondJetPt=-99;
+float   ThirdJetPt=-99;
+float   FourthJetPt=-99;
+float   FifthJetPt=-99:
+float SixthJet=-99;
+float SeventhJetPt=-99;
+float EightthJetPt=-99;
+float LeadingBJetPt=-99;
+float SecondBJetPt=-99;
+float HTDividedByMET=-99;
+
 //
 //
 int   NumSelJets=-99;
