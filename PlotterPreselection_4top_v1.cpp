@@ -16,34 +16,50 @@ void ch_plotterPreselection_v2(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
-  name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");/*{{{*/
-  name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
-  name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
+//    name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");/*{{{*/
+//    name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
+//    name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
 
-  name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
-  name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
+//    name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
+//    name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
   name.push_back("Jet3ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
   
-  name.push_back("TopMass"); bin.push_back(20);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Top Mass[GeV]");
-  name.push_back("TopPt");   bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Top pt[GeV] ");
-  name.push_back("TopEta");  bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Top #eta");
+//    name.push_back("TopMass"); bin.push_back(20);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Top Mass[GeV]");
+//    name.push_back("TopPt");   bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Top pt[GeV] ");
+//    name.push_back("TopEta");  bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Top #eta");
   
   name.push_back("Met_pt");  bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
   name.push_back("Met_phi"); bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Met #phi");
-  name.push_back("TransverseMassMetTop"); bin.push_back(30);     Min.push_back(500);    Max.push_back(2000);    axis.push_back("TransverseMassMetTop");
+//    name.push_back("TransverseMassMetTop"); bin.push_back(30);     Min.push_back(500);    Max.push_back(2000);    axis.push_back("TransverseMassMetTop");
 
-  name.push_back("deltaPhiMetTop"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("#Delta#phi(Met,top)");
+//    name.push_back("deltaPhiMetTop"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("#Delta#phi(Met,top)");
   name.push_back("MinDeltaPhiJetMet"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("Min#Delta#phi(Met,Jet)");
   name.push_back("HT"); bin.push_back(36);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");
   name.push_back("MHT"); bin.push_back(40);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("MHT pt[GeV]");
    
-  name.push_back("MostForwardJetPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Most Forward Jet pt [GeV]");
-  name.push_back("MostForwardJetEta"); bin.push_back(40);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("Most Forward Jet #eta");
+//    name.push_back("MostForwardJetPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Most Forward Jet pt [GeV]");
+//    name.push_back("MostForwardJetEta"); bin.push_back(40);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("Most Forward Jet #eta");
   name.push_back("NumSelForwardJets"); bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of forward jets");
 
   name.push_back("NumSelBJetsM");      bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of medium b-jets");
   name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Number of vertices");
-  name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets"); /*}}}*/
+  name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets");
+  //
+  //
+  name.push_back("NumSeEle");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of Electrons");
+  name.push_back("InvariantMassJets");      bin.push_back(200);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("Invariant mass of jets");
+  name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
+//  name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
+  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
+  name.push_back("MaxdeltaRJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Max deltaR of Jets");
+//  name.push_back("Sphericity");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Sphericity");
+  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
+  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
+  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
+  
+//
+//
+  /*}}}*/
   
   for(int i=0; i<name.size(); i++){
 	  const char *plot = name[i];

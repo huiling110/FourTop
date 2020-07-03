@@ -397,7 +397,7 @@ float   InvariantMassJets=-99;
 float   Centrality=-99;
 float   Aplanarity=-99;
 float   LeadingJetPt=-99;
-float   deltaRJets=-99;
+float   MaxdeltaRJets=-99;
 float   Sphericity=-99;
 //
 //

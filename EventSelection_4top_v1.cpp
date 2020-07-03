@@ -205,7 +205,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 			Centrality = InvariantMassJets/HT;
 //			Aplanarity = 
 			LeadingJetPt = LeadingJetPtCal(SelectedJets);
-			deltaRJets = deltaRJetsCal(SelectedJets);
+			MaxdeltaRJets = deltaRJetsCal(SelectedJets);
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/
@@ -985,7 +985,7 @@ float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
     float Phi = 0;
     float Phi2 = 0;
     for (UInt_t j = 0; j < SelectedJets.size(); ++j){
-        for(UInt_t k = j+1; k< SelectedJets.size();++j){
+        for(UInt_t k = j+1; k< SelectedJets.size();++k){
             Eta = SelectedJets[j].Eta();
             Eta2 = SelectedJets[k].Eta();
             Phi = SelectedJets[j].Phi();
@@ -1236,7 +1236,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/F");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
   NewTree->Branch("LeadingJetPt",      &LeadingJetPt,      "LeadingJetPt/F");
-  NewTree->Branch("deltaRJets",        &deltaRJets,        "deltaRJets/F");
+  NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/F");
   NewTree->Branch("Sphericity",        &Sphericity,        "Sphericity/F");
 //
 //
@@ -2090,7 +2090,7 @@ void initializeVar(){/*{{{*/
   Centrality=-99;
   Aplanarity=-99;
   LeadingJetPt=-99;
-  deltaRJets=-99;
+  MaxdeltaRJets=-99;
   Sphericity=-99;
 //
 //
