@@ -220,7 +220,7 @@ void EventSelection_4top_v1(const char * Input = ""){
 	      	}
 			//then what does category1,2 do?
 
-//      	if(!(category0==1)) continue;//I think this is for calculating the events have passed
+//      	if(!(category0==1)) continue;// this is for calculating the events have passed certain critiaria
 	
 			//TREE
 		    FillBranches(ResolvedEvent,TopQuark,SelectedMet,//2720
