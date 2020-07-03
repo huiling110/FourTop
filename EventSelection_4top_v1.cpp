@@ -204,8 +204,8 @@ void EventSelection_4top_v1(const char * Input = ""){
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
 			Centrality = InvariantMassJets/HT;
 //			Aplanarity = 
-//			LeadingJetPt = LeadingJetPtCal(SelectedJets);
-//			deltaRJets = deltaRJetsCal(SelectedJets);
+			LeadingJetPt = LeadingJetPtCal(SelectedJets);
+			deltaRJets = deltaRJetsCal(SelectedJets);
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/
@@ -980,12 +980,20 @@ float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
     float init = 0;
     float init2 = 0;
     float deltaR = 0;
+    float Eta = 0;
+    float Eta2 = 0;
+    float Phi = 0;
+    float Phi2 = 0;
     for (UInt_t j = 0; j < SelectedJets.size(); ++j){
-	for(UInt_t k = j+1; k< SelectedJets.size();++j){
-	    deltaR = DeltaR(SelectedJets[j].Eta(),SelectedJets[k].Eta(),SelectedJets[j].Phi(),SelectedJets[k].Phi());
-	    if(deltaR > init) init = deltaR;
-	}
-	if (init>init2) init2 = init;
+        for(UInt_t k = j+1; k< SelectedJets.size();++j){
+            Eta = SelectedJets[j].Eta();
+            Eta2 = SelectedJets[k].Eta();
+            Phi = SelectedJets[j].Phi();
+            Phi2 = SelectedJets[k].Phi();
+            deltaR = DeltaR(Eta,Eta2,Phi,Phi2);
+            if(deltaR > init) init = deltaR;
+        }
+        if (init>init2) init2 = init;
     }
     return init2;
 }/*}}}*/
