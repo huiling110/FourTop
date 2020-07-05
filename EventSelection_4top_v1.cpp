@@ -1,5 +1,6 @@
 #include "EventSelection_4top_v1.h" 
 #include "math.h"
+#include <algorithm>
 
 void EventSelection_4top_v1(const char * Input = ""){
   gStyle->SetCanvasColor(0);
@@ -199,14 +200,19 @@ void EventSelection_4top_v1(const char * Input = ""){
 			HT                = HTcalculator(SelectedJets);
 //
 //
-			NumSeEle = SelectedElectrons.size();
-			NumSeMu = SelectedMuons.size();  
+			NumSeEle          = SelectedElectrons.size();
+			NumSeMu           =  SelectedMuons.size();  
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
-			Centrality = InvariantMassJets/HT;
-//			Aplanarity = 
-			LeadingJetPt = LeadingJetPtCal(SelectedJets);
-			MaxdeltaRJets = deltaRJetsCal(SelectedJets);
-//           Sphericity = 
+			Centrality        = InvariantMassJets/HT;
+//			Aplanarity        = 
+//			LeadingJetPt      = LeadingJetPtCal(SelectedJets);
+			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
+//          Sphericity = 
+            if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
+            MHTDividedByMET   = HT/Met_pt;
+            vector<int> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
+            give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
+            
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/
@@ -998,6 +1004,49 @@ float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
     }
     return init2;
 }/*}}}*/
+
+//void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
+//    int size = 0;
+//    size = SelectedJets.size();
+//    int JetsPt[size] ; 
+//    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+//        JetsPt[size] = SelectedJets[j];
+//    }
+//    sort(JetsPt, JetsPt+size);
+//    for (int i =0; i < JetsPt.size();++i){
+//        JetsPtSorted.push_back(JetsPt[i]);
+//    }
+//}
+void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
+    int size = 0;
+    size = SelectedJets.size();
+    int k = 0;
+    float JetsPt[size] ; 
+    for (UInt_t j = 0; j < size; ++j){
+        JetsPt[j] = SelectedJets[j].Pt();
+    }
+    sort(JetsPt, JetsPt+size);
+    for (int i =0; i < size;++i){
+        k = size-i-1;//-1 because starts with 0
+        JetsPtSorted.push_back(JetsPt[k]);
+    }
+}
+void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){
+    for(int i = 0; i < JetsPtSorted.size();++i){
+        if(i == 0) LeadingJetPt = JetsPtSorted[i];
+        if(i == 1) SecondJetPt = JetsPtSorted[i];
+        if(i == 2) ThirdJetPt = JetsPtSorted[i];
+        if(i == 3) FourthJetPt = JetsPtSorted[i];
+        if(i == 4) FifthJetPt = JetsPtSorted[i];
+        if(i == 5) SixthJetPt = JetsPtSorted[i];
+        if(i == 6) SeventhJetPt = JetsPtSorted[i];
+        if(i == 7) EighthJetPt = JetsPtSorted[i];
+        if(i == 8) NighthJetPt = JetsPtSorted[i];
+        if(i == 9) TenthJetPt = JetsPtSorted[i];
+        
+    }
+
+}
 //
 //
 
@@ -1239,6 +1288,24 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("LeadingJetPt",      &LeadingJetPt,      "LeadingJetPt/F");
   NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/F");
   NewTree->Branch("Sphericity",        &Sphericity,        "Sphericity/F");
+  NewTree->Branch("MindeltaRJets",     &MindeltaRJets,     "MindeltaRJets/F");
+  NewTree->Branch("SecondJetPt",       &SecondJetPt,       "SecondJetPt/F");
+  NewTree->Branch("ThirdJetPt",        &ThirdJetPt,        "ThirdJetPt/F");
+  NewTree->Branch("FourthJetPt",       &FourthJetPt,       "FourthJetPt/F");
+  NewTree->Branch("FifthJetPt",        &FifthJetPt,        "FifthJetPt/F");
+  NewTree->Branch("SixthJetPt",        &SixthJetPt,        "SixthJetPt/F");
+  NewTree->Branch("SeventhJetPt",        &SeventhJetPt,        "SeventhJetPt/F");
+  NewTree->Branch("EighthJetPt",        &EighthJetPt,        "EighthJetPt/F");
+  NewTree->Branch("LeadingBJetPt",        &LeadingBJetPt,        "LeadingBJetPt/F");
+  NewTree->Branch("SecondBJetPt",        &SecondBJetPt,        "SecondBJetPt/F");
+  NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/F");
+  NewTree->Branch("MHTDividedByMET",        &MHTDividedByMET,        "MHTDividedByMET/F");
+
+  NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/F");
+  NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/F");
+
+
+
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2093,6 +2160,20 @@ void initializeVar(){/*{{{*/
   LeadingJetPt=-99;
   MaxdeltaRJets=-99;
   Sphericity=-99;
+MindeltaRJets=-99;
+SecondJetPt=-99;
+ThirdJetPt=-99;
+FourthJetPt=-99;
+FifthJetPt=-99;
+SixthJetPt=-99;
+SeventhJetPt=-99;
+EighthJetPt=-99;
+LeadingBJetPt=-99;
+SecondBJetPt=-99;
+HTDividedByMET=-99;
+MHTDividedByMET=-99;
+NighthJetPt=-99;
+TenthJetPt=-99;
 //
 //
   NumSelJets=-99;
