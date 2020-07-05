@@ -206,13 +206,20 @@ void EventSelection_4top_v1(const char * Input = ""){
 			Centrality        = InvariantMassJets/HT;
 //			Aplanarity        = 
 //			LeadingJetPt      = LeadingJetPtCal(SelectedJets);
-			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
+//			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
 //          Sphericity = 
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
             MHTDividedByMET   = HT/Met_pt;
             vector<int> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
-            
+            vector<int> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
+            give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
+            vector<float> MinMaxDeltaRBJets;  MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
+            //MinDeltaRBJets = MinMaxDeltaRBJets[0];
+            //MaxDeltaRBJets = MinMaxDeltaRBJets[1];
+//            MinDeltaRBJets = MinMaxDeltaRBJets.at(0);
+            MaxDeltaRBJets = MinMaxDeltaRBJets.at(1);
+
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/
@@ -983,9 +990,32 @@ float LeadingJetPtCal(vector<TLorentzVector> SelectedJets){/*{{{*/
     return Initial;
 }/*}}}*/
 
-float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
+//float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
+    //float init = 0;
+    //float init2 = 0;
+    //float deltaR = 0;
+//    float Eta = 0;
+//    float Eta2 = 0;
+//    float Phi = 0;
+//    float Phi2 = 0;
+//    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+//        for(UInt_t k = j+1; k< SelectedJets.size();++k){
+//            Eta = SelectedJets[j].Eta();
+//            Eta2 = SelectedJets[k].Eta();
+//            Phi = SelectedJets[j].Phi();
+//            Phi2 = SelectedJets[k].Phi();
+//            deltaR = DeltaR(Eta,Eta2,Phi,Phi2);
+//            if(deltaR > init) init = deltaR;
+//        }
+//        if (init>init2) init2 = init;
+//    }
+//    return init2;
+//}/*}}}*/
+void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinMaxDeltaR){/*{{{*/
     float init = 0;
     float init2 = 0;
+    float initMin1 = 1000000;
+    float initMin2 = 1000000;
     float deltaR = 0;
     float Eta = 0;
     float Eta2 = 0;
@@ -999,11 +1029,15 @@ float deltaRJetsCal(vector<TLorentzVector> SelectedJets){/*{{{*/
             Phi2 = SelectedJets[k].Phi();
             deltaR = DeltaR(Eta,Eta2,Phi,Phi2);
             if(deltaR > init) init = deltaR;
+            if(deltaR < initMin1) initMin1 = deltaR;
         }
         if (init>init2) init2 = init;
+        if (initMin1 < initMin2) initMin2 = initMin1;
     }
-    return init2;
-}/*}}}*/
+    MinMaxDeltaR.push_back(initMin2);
+    MinMaxDeltaR.push_back(init2);
+    cout<<MinMaxDeltaR[0];
+}
 
 //void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
 //    int size = 0;
@@ -1286,9 +1320,9 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/F");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
   NewTree->Branch("LeadingJetPt",      &LeadingJetPt,      "LeadingJetPt/F");
-  NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/F");
+  //NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/F");
   NewTree->Branch("Sphericity",        &Sphericity,        "Sphericity/F");
-  NewTree->Branch("MindeltaRJets",     &MindeltaRJets,     "MindeltaRJets/F");
+ // NewTree->Branch("MindeltaRJets",     &MindeltaRJets,     "MindeltaRJets/F");
   NewTree->Branch("SecondJetPt",       &SecondJetPt,       "SecondJetPt/F");
   NewTree->Branch("ThirdJetPt",        &ThirdJetPt,        "ThirdJetPt/F");
   NewTree->Branch("FourthJetPt",       &FourthJetPt,       "FourthJetPt/F");
@@ -1300,12 +1334,21 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("SecondBJetPt",        &SecondBJetPt,        "SecondBJetPt/F");
   NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/F");
   NewTree->Branch("MHTDividedByMET",        &MHTDividedByMET,        "MHTDividedByMET/F");
-
   NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/F");
   NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/F");
+  NewTree->Branch("ThirdBJetPt",        &ThirdBJetPt,        "ThirdBJetPt/F");
+  NewTree->Branch("FourthBJetPt",        &FourthBJetPt,        "FourthBJetPt/F");
+  NewTree->Branch("FifthBJetPt",        &FifthBJetPt,        "FifthBJetPt/F");
+  NewTree->Branch("SixthBJetPt",        &SixthBJetPt,        "SixthBJetPt/F");
+  NewTree->Branch("SeventhBJetPt",        &SeventhBJetPt,        "SeventhBJetPt/F");
+  NewTree->Branch("EighthBJetPt",        &EighthBJetPt,        "EighthBJetPt/F");
+  NewTree->Branch("NighthBJetPt",        &NighthBJetPt,        "NighthBJetPt/F");
+  NewTree->Branch("TenthBJetPt",        &TenthBJetPt,        "TenthBJetPt/F");
 
-
-
+  NewTree->Branch("MinDeltaRJets",        &MinDeltaRJets,        "MinDeltaRJets/F");
+  NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/F");
+  NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/F");
+  NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/F");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2158,9 +2201,9 @@ void initializeVar(){/*{{{*/
   Centrality=-99;
   Aplanarity=-99;
   LeadingJetPt=-99;
-  MaxdeltaRJets=-99;
+ // MaxdeltaRJets=-99;
   Sphericity=-99;
-MindeltaRJets=-99;
+//MindeltaRJets=-99;
 SecondJetPt=-99;
 ThirdJetPt=-99;
 FourthJetPt=-99;
@@ -2174,6 +2217,20 @@ HTDividedByMET=-99;
 MHTDividedByMET=-99;
 NighthJetPt=-99;
 TenthJetPt=-99;
+ThirdBJetPt=-99;
+FourthBJetPt=-99;
+FifthBJetPt=-99;
+SixthBJetPt=-99;
+SeventhBJetPt=-99;
+EighthBJetPt=-99;
+NighthBJetPt=-99;
+TenthBJetPt=-99;
+
+MinDeltaRJets=-99;
+MaxDeltaRJets=-99;
+MinDeltaRBJets=-99;
+MaxDeltaRBJets=-99;
+
 //
 //
   NumSelJets=-99;

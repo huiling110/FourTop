@@ -45,6 +45,7 @@ float LeadingJetPtCal(vector<TLorentzVector> SelectedJets);
 float deltaRJetsCal(vector<TLorentzVector> SelectedJets);
 void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
 void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt,  float          &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt);
+void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> MinMaxDeltaR);
 ////
 //
 void branchGetEntry(bool data, Long64_t tentry, string fileName);
@@ -399,9 +400,9 @@ float   InvariantMassJets=-99;
 float   Centrality=-99;
 float   Aplanarity=-99;
 float   LeadingJetPt=-99;
-float   MaxdeltaRJets=-99;
+//float   MaxdeltaRJets=-99;
 float   Sphericity=-99;
-float MindeltaRJets=-99;
+//float MindeltaRJets=-99;
 float SecondJetPt=-99;
 float ThirdJetPt=-99;
 float FourthJetPt=-99;
@@ -415,7 +416,19 @@ float HTDividedByMET=-99;
 float MHTDividedByMET=-99;
 float NighthJetPt=-99;
 float TenthJetPt=-99;
+float ThirdBJetPt=-99;
+float FourthBJetPt=-99;
+float FifthBJetPt=-99;
+float SixthBJetPt=-99;
+float SeventhBJetPt=-99;
+float EighthBJetPt=-99;
+float NighthBJetPt=-99;
+float TenthBJetPt=-99;
 
+float MinDeltaRJets=-99;
+float MaxDeltaRJets=-99;
+float MinDeltaRBJets=-99;
+float MaxDeltaRBJets=-99;
 //
 //
 int   NumSelJets=-99;
