@@ -214,12 +214,14 @@ void EventSelection_4top_v1(const char * Input = ""){
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
             vector<int> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
             give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
-            vector<float> MinMaxDeltaRBJets;  MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
-            //MinDeltaRBJets = MinMaxDeltaRBJets[0];
-            //MaxDeltaRBJets = MinMaxDeltaRBJets[1];
+            vector<float> MinMaxDeltaRBJets; MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
+            MinDeltaRBJets = MinMaxDeltaRBJets[0];
+            MaxDeltaRBJets = MinMaxDeltaRBJets[1];
 //            MinDeltaRBJets = MinMaxDeltaRBJets.at(0);
-            MaxDeltaRBJets = MinMaxDeltaRBJets.at(1);
-
+//            MaxDeltaRBJets = MinMaxDeltaRBJets.at(1);
+            vector<float> MinMaxDeltaRJets;  MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
+            MinDeltaRJets = MinMaxDeltaRJets[0];
+            MaxDeltaRJets = MinMaxDeltaRJets[1];
 //
 //
 //      	if(!(HT>200)) continue;/*}}}*/
@@ -1011,7 +1013,9 @@ float LeadingJetPtCal(vector<TLorentzVector> SelectedJets){/*{{{*/
 //    }
 //    return init2;
 //}/*}}}*/
-void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinMaxDeltaR){/*{{{*/
+
+
+void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinMaxDeltaR){
     float init = 0;
     float init2 = 0;
     float initMin1 = 1000000;
@@ -1021,22 +1025,28 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinM
     float Eta2 = 0;
     float Phi = 0;
     float Phi2 = 0;
-    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
-        for(UInt_t k = j+1; k< SelectedJets.size();++k){
+    if (SelectedJets.size() > 1){
+        for (UInt_t j = 0; j < SelectedJets.size(); ++j){
             Eta = SelectedJets[j].Eta();
-            Eta2 = SelectedJets[k].Eta();
             Phi = SelectedJets[j].Phi();
-            Phi2 = SelectedJets[k].Phi();
-            deltaR = DeltaR(Eta,Eta2,Phi,Phi2);
-            if(deltaR > init) init = deltaR;
-            if(deltaR < initMin1) initMin1 = deltaR;
+            for(UInt_t k = j+1; k < SelectedJets.size();++k){
+                Eta2 = SelectedJets[k].Eta();
+                Phi2 = SelectedJets[k].Phi();
+                deltaR = DeltaR(Eta,Eta2,Phi,Phi2);
+                if(deltaR > init) init = deltaR;
+                if(deltaR < initMin1) initMin1 = deltaR;
+            }
+            if (init>init2) init2 = init; 
+            if (initMin1 < initMin2) initMin2 = initMin1;
         }
-        if (init>init2) init2 = init;
-        if (initMin1 < initMin2) initMin2 = initMin1;
     }
-    MinMaxDeltaR.push_back(initMin2);
+    else {
+        initMin2 = -1;//means have less than 2 jets
+        init2 = -1;
+    }
+    MinMaxDeltaR.push_back(initMin2);// cout<<initMin2<<"  ";
     MinMaxDeltaR.push_back(init2);
-    cout<<MinMaxDeltaR[0];
+   // cout<<MinMaxDeltaR[0];
 }
 
 //void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
@@ -1051,7 +1061,7 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinM
 //        JetsPtSorted.push_back(JetsPt[i]);
 //    }
 //}
-void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
+void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/*{{{*/
     int size = 0;
     size = SelectedJets.size();
     int k = 0;
@@ -1064,8 +1074,8 @@ void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
         k = size-i-1;//-1 because starts with 0
         JetsPtSorted.push_back(JetsPt[k]);
     }
-}
-void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){
+}/*}}}*/
+void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){/*{{{*/
     for(int i = 0; i < JetsPtSorted.size();++i){
         if(i == 0) LeadingJetPt = JetsPtSorted[i];
         if(i == 1) SecondJetPt = JetsPtSorted[i];
@@ -1080,7 +1090,7 @@ void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &
         
     }
 
-}
+}/*}}}*/
 //
 //
 
@@ -1344,7 +1354,6 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("EighthBJetPt",        &EighthBJetPt,        "EighthBJetPt/F");
   NewTree->Branch("NighthBJetPt",        &NighthBJetPt,        "NighthBJetPt/F");
   NewTree->Branch("TenthBJetPt",        &TenthBJetPt,        "TenthBJetPt/F");
-
   NewTree->Branch("MinDeltaRJets",        &MinDeltaRJets,        "MinDeltaRJets/F");
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/F");
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/F");

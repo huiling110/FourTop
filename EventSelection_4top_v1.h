@@ -45,7 +45,7 @@ float LeadingJetPtCal(vector<TLorentzVector> SelectedJets);
 float deltaRJetsCal(vector<TLorentzVector> SelectedJets);
 void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
 void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt,  float          &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt);
-void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> MinMaxDeltaR);
+void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float>& MinMaxDeltaR);
 ////
 //
 void branchGetEntry(bool data, Long64_t tentry, string fileName);
