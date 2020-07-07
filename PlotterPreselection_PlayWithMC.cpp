@@ -670,7 +670,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
                  TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,
               TH1F* &TTTT_func){
   //no background
-  TH1F *data; TH1F *tptzm0700lh; TH1F *tptzm0900lh; TH1F *tptzm1400lh; TH1F *tptzm1700lh; /*{{{*/
+  TH1F *data; TH1F *TTTT; TH1F *QCD_HT200to300; TH1F *tptzm0900lh; TH1F *tptzm1400lh; TH1F *tptzm1700lh; /*{{{*/
   TH1F *ZToNuNu_1; TH1F *ZToNuNu_2; TH1F *ZToNuNu_3; TH1F *ZToNuNu_4; TH1F *ZToNuNu_5; TH1F *ZToNuNu_6; TH1F *ZToNuNu_7; 
   TH1F *QCD_1; TH1F *QCD_2; TH1F *QCD_3; TH1F *QCD_4; TH1F *QCD_5; TH1F *QCD_6; TH1F *QCD_7; 
   TH1F *WToLNu_1; TH1F *WToLNu_2; TH1F *WToLNu_3; TH1F *WToLNu_4; TH1F *WToLNu_5; TH1F *WToLNu_6; TH1F *WToLNu_7;
@@ -682,7 +682,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
 	//given at each call of the function.0,1,2,3,or 4
   if(JETSyst==0){/*{{{*/
     GetHisto(CUT, Tree01, data        ,plot,BIN,MIN,MAX);//tree01 different number means different files' tree
-    GetHisto(CUT, Tree02, tptzm0700lh ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree03, QCD_HT200to300 ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04, tptzm0900lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree09, tptzm1400lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree12, tptzm1700lh ,plot,BIN,MIN,MAX);
@@ -729,54 +730,19 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
   }
 	else if(JETSyst==1){
     GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);//J1 from JESup directory
-    GetHisto(CUT, Tree02_J1, tptzm0700lh ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree02_J1, TTTT ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree03_J1, QCD_HT200to300 ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04_J1, tptzm0900lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree09_J1, tptzm1400lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree12_J1, tptzm1700lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree14_J1, ZToNuNu_1   ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree15_J1, ZToNuNu_2   ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree16_J1, ZToNuNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree17_J1, ZToNuNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree18_J1, ZToNuNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree19_J1, ZToNuNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree20_J1, ZToNuNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree21_J1, QCD_1      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree22_J1, QCD_2      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree23_J1, QCD_3      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree24_J1, QCD_4      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree25_J1, QCD_5      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree26_J1, QCD_6      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree27_J1, QCD_7      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree28_J1, WToLNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree29_J1, WToLNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree30_J1, WToLNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree31_J1, WToLNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree32_J1, WToLNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree33_J1, WToLNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree34_J1, WToLNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree35_J1, TT_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree36_J1, TT_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree37_J1, ST_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree38_J1, ST_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree39_J1, ST_3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree40_J1, ST_4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree41_J1, ZZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree42_J1, ZZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree43_J1, ZZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree44_J1, WW1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree45_J1, WW2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree46_J1, WZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree47_J1, WZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree48_J1, WZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree49_J1, ttW    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree50_J1, ttZ    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree51_J1, tZq    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree52_J1, ZZ4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree53_J1, WZ4    ,plot,BIN,MIN,MAX);
   }
 	else if(JETSyst==2){
     GetHisto(CUT, Tree01_J2, data        ,plot,BIN,MIN,MAX);//J2 from JESdo
-    GetHisto(CUT, Tree02_J2, tptzm0700lh ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree02_J2, TTTT ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree03_J2, QCD_HT200to300 ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04_J2, tptzm0900lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree09_J2, tptzm1400lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree12_J2, tptzm1700lh ,plot,BIN,MIN,MAX);
@@ -823,7 +789,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
   }
 	else if(JETSyst==3){
     GetHisto(CUT, Tree01_J3, data        ,plot,BIN,MIN,MAX);//J3 from JERup
-    GetHisto(CUT, Tree02_J3, tptzm0700lh ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree02_J3, TTTT ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree03_J3, QCD_HT200to300 ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04_J3, tptzm0900lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree09_J3, tptzm1400lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree12_J3, tptzm1700lh ,plot,BIN,MIN,MAX);
@@ -870,7 +837,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
   }
 	else if(JETSyst==4){
     GetHisto(CUT, Tree01_J4, data        ,plot,BIN,MIN,MAX);//from JERdo
-    GetHisto(CUT, Tree02_J4, tptzm0700lh ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree02_J4, TTTT ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree03_J4, QCD_HT200to300 ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04_J4, tptzm0900lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree09_J4, tptzm1400lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree12_J4, tptzm1700lh ,plot,BIN,MIN,MAX);
@@ -918,7 +886,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
   TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
   for(int j=1; j<data->GetNbinsX()+1; j++){/*{{{*/
 		//???why do we reset the bin error?
-    if(tptzm0700lh->GetBinContent(j)>0){tptzm0700lh->SetBinError(j,sqrt(w0700*w0700*tptzm0700lh->GetBinContent(j)));}else{tptzm0700lh->SetBinError(j,0);}
+    if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(w0700*w0700*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
     if(tptzm0900lh->GetBinContent(j)>0){tptzm0900lh->SetBinError(j,sqrt(w0900*w0900*tptzm0900lh->GetBinContent(j)));}else{tptzm0900lh->SetBinError(j,0);}
     if(tptzm1400lh->GetBinContent(j)>0){tptzm1400lh->SetBinError(j,sqrt(w1400*w1400*tptzm1400lh->GetBinContent(j)));}else{tptzm1400lh->SetBinError(j,0);}
     if(tptzm1700lh->GetBinContent(j)>0){tptzm1700lh->SetBinError(j,sqrt(w1700*w1700*tptzm1700lh->GetBinContent(j)));}else{tptzm1700lh->SetBinError(j,0);}
@@ -974,7 +942,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
 
     background->SetBinError(j,sqrt(err01+err02+err03+err04+err05+err06+err07));/*{{{*/
 
-    tptzm0700lh->SetBinContent(j,w0700*tptzm0700lh->GetBinContent(j));
+    TTTT->SetBinContent(j,w0700*TTTT->GetBinContent(j));
     tptzm0900lh->SetBinContent(j,w0900*tptzm0900lh->GetBinContent(j));
     tptzm1400lh->SetBinContent(j,w1400*tptzm1400lh->GetBinContent(j));
     tptzm1700lh->SetBinContent(j,w1700*tptzm1700lh->GetBinContent(j));
@@ -1035,7 +1003,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
   //why clone then delete?
   background_func  = (TH1F*)background ->Clone(); /*{{{*/
   data_func        = (TH1F*)data       ->Clone(); 
-  tptzm0700lh_func = (TH1F*)tptzm0700lh->Clone(); 
+  TTTT_func = (TH1F*)TTTT->Clone(); 
   tptzm0900lh_func = (TH1F*)tptzm0900lh->Clone(); 
   tptzm1400lh_func = (TH1F*)tptzm1400lh->Clone(); 
   tptzm1700lh_func = (TH1F*)tptzm1700lh->Clone(); 
