@@ -1,6 +1,6 @@
-#include "PlotterPreselection_4top.h"
+#include "PlotterPreselection_PlayWithMC.h"
 
-void ch_plotterPreselection_v2(){ 
+void PlotterPreselection_PlayWithMC(){ 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);
@@ -30,22 +30,11 @@ void ch_plotterPreselection_v2(){
   
   name.push_back("Met_pt");  bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
   name.push_back("Met_phi"); bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Met #phi");
-//    name.push_back("TransverseMassMetTop"); bin.push_back(30);     Min.push_back(500);    Max.push_back(2000);    axis.push_back("TransverseMassMetTop");
-
-//    name.push_back("deltaPhiMetTop"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("#Delta#phi(Met,top)");
-  name.push_back("MinDeltaPhiJetMet"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("Min#Delta#phi(Met,Jet)");
   name.push_back("HT"); bin.push_back(36);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");
   name.push_back("MHT"); bin.push_back(40);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("MHT pt[GeV]");
-   
-//    name.push_back("MostForwardJetPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Most Forward Jet pt [GeV]");
-//    name.push_back("MostForwardJetEta"); bin.push_back(40);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("Most Forward Jet #eta");
-  name.push_back("NumSelForwardJets"); bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of forward jets");
-
   name.push_back("NumSelBJetsM");      bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of medium b-jets");
   name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Number of vertices");
   name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets");
-  //
-  //
   name.push_back("NumSeEle");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of Electrons");
   name.push_back("InvariantMassJets");      bin.push_back(200);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("Invariant mass of jets");
   name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
@@ -68,11 +57,9 @@ void ch_plotterPreselection_v2(){
     sprintf(CUTpre,"((NumSelLeps==0))");/*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
-	///did we multiply PUWeight etc or not?
-	//I think yes
+	///did we multiply PUWeight etc or not?	//I think yes
 	sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
-	//?what is the difinition of PUweight and w_Btag ? what's their value?
-
+	//what is the difinition of PUweight and w_Btag ? what's their value?
 	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
 	sprintf(CUTpup2,"PUWeightDOWN*w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
 	sprintf(CUTfir1,"PUWeight    *w_Btag    *genWeight  *prefiringweightup  *w_Trig  *%s",CUTpre);
@@ -92,26 +79,7 @@ void ch_plotterPreselection_v2(){
 	sprintf(CUTpdf2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_PDFDown  *%s",CUTpre);
 	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
-	/*
-	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTpup2,"PUWeightDOWN*w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTfir1,"PUWeight    *w_Btag    *genWeight  *prefiringweightup  *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTfir2,"PUWeight    *w_Btag    *genWeight  *prefiringweightdown*w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTbta1,"PUWeight    *w_BtagUp  *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTbta2,"PUWeight    *w_BtagDown*genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTzje1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTzje2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTwje1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTwje2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTttb1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTttb2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTqcd1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *w_QCDUp   *%s",CUTpre);
-	sprintf(CUTqcd2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *w_QCDDown *%s",CUTpre);
-	sprintf(CUTpdf1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *w_PDFUp   *%s",CUTpre);
-	sprintf(CUTpdf2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig*w_ZToNuNu    *w_WToLNu    *w_ttbar  *w_PDFDown *%s",CUTpre);
-	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *w_ZToNuNu    *w_WToLNu    *w_ttbar  *%s",CUTpre);
-        *//*}}}*/
+        /*}}}*/
 	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,data_SR,background_SR,ZToNuNu_1_SR,ZToNuNu_2_SR,ZToNuNu_3_SR,ZToNuNu_4_SR,ZToNuNu_5_SR,ZToNuNu_6_SR,ZToNuNu_7_SR,
 	QCD_1_SR,QCD_2_SR,QCD_3_SR,QCD_4_SR,QCD_5_SR,QCD_6_SR,QCD_7_SR,WToLNu_1_SR,WToLNu_2_SR,WToLNu_3_SR,WToLNu_4_SR,WToLNu_5_SR,WToLNu_6_SR,WToLNu_7_SR,
 	TT_1_SR,TT_2_SR,ST_1_SR,ST_2_SR,ST_3_SR,ST_4_SR,ZZ1_SR,ZZ2_SR,ZZ3_SR,WW1_SR,WW2_SR,WZ1_SR,WZ2_SR,WZ3_SR,ttW_SR,ttZ_SR,tZq_SR,ZZ4_SR,WZ4_SR,
@@ -698,13 +666,9 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 //for MC we multiply the scale factor, adjust error accordingly , and make background histogram
 //we get histograms based on CUT from MC and data,and we
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-		TH1F* &data_func,TH1F* &background_func,TH1F* &ZToNuNu_1_func,TH1F* &ZToNuNu_2_func,TH1F* &ZToNuNu_3_func,TH1F* &ZToNuNu_4_func,TH1F* &ZToNuNu_5_func,TH1F* &ZToNuNu_6_func,TH1F* &ZToNuNu_7_func,
-		TH1F* &QCD_1_func,TH1F* &QCD_2_func,TH1F* &QCD_3_func,TH1F* &QCD_4_func,TH1F* &QCD_5_func,TH1F* &QCD_6_func,TH1F* &QCD_7_func,
-		TH1F* &WToLNu_1_func,TH1F* &WToLNu_2_func,TH1F* &WToLNu_3_func,TH1F* &WToLNu_4_func,TH1F* &WToLNu_5_func,TH1F* &WToLNu_6_func,TH1F* &WToLNu_7_func,
-		TH1F* &TT_1_func,TH1F* &TT_2_func,TH1F* &ST_1_func,TH1F* &ST_2_func,TH1F* &ST_3_func,TH1F* &ST_4_func,
-		TH1F* &ZZ1_func,TH1F* &ZZ2_func,TH1F* &ZZ3_func,TH1F* &WW1_func,TH1F* &WW2_func,TH1F* &WZ1_func,TH1F* &WZ2_func,TH1F* &WZ3_func, 
-		TH1F* &ttW_func,TH1F* &ttZ_func,TH1F* &tZq_func,TH1F* &ZZ4_func,TH1F* &WZ4_func,
-		TH1F* &tptzm0700lh_func,TH1F* &tptzm0900lh_func,TH1F* &tptzm1400lh_func,TH1F* &tptzm1700lh_func){
+                TH1F* &data_func,TH1F* &background_func,TH1F* &QCD_HT200to300_func,TH1F* &QCD_HT300to500_func,TH1F* &QCD_HT500to700_func,  TH1F*  &QCD_HT700to1000_func,TH1F* &QCD_HT1000to1500_func,TH1F* &QCD_HT1500to2000_func,TH1F* &QCD_HT2000toIn_func,
+                 TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,
+              TH1F* &TTTT_func){
   //no background
   TH1F *data; TH1F *tptzm0700lh; TH1F *tptzm0900lh; TH1F *tptzm1400lh; TH1F *tptzm1700lh; /*{{{*/
   TH1F *ZToNuNu_1; TH1F *ZToNuNu_2; TH1F *ZToNuNu_3; TH1F *ZToNuNu_4; TH1F *ZToNuNu_5; TH1F *ZToNuNu_6; TH1F *ZToNuNu_7; 

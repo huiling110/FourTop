@@ -2,7 +2,8 @@
 #include "math.h"
 #include <algorithm>
 
-void EventSelection_4top_v1(const char * Input = ""){
+//void EventSelection_4top_v1(const char * Input = ""){
+void EventSelection_4top_v1(){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);//?
   gStyle->SetOptStat("rme");
@@ -26,13 +27,7 @@ void EventSelection_4top_v1(const char * Input = ""){
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
   vector<string> fileName;
-	//what is May18V1_METC.root? if it's data file , what does CDEF mean?
-  //fileName.push_back("May18V1_METB.root");/*{{{*/
-  //fileName.push_back("May18V1_METC.root");  //2
- // fileName.push_back("May18V1_METD.root");  //3
- // fileName.push_back("May18V1_METE.root");  //4
-  //fileName.push_back("May18V1_METF.root");  //5
- /* fileName.push_back("QCD_HT200to300.root");   //6
+  fileName.push_back("QCD_HT200to300.root");   //6
   fileName.push_back("QCD_HT300to500.root");   //7
   fileName.push_back("QCD_HT500to700.root");   //8
   fileName.push_back("QCD_HT700to1000.root");   //9
@@ -40,11 +35,11 @@ void EventSelection_4top_v1(const char * Input = ""){
   fileName.push_back("QCD_HT1500to2000.root");   //11
   fileName.push_back("QCD_HT2000toIn.root");   //12
   fileName.push_back("TTJets.root");   //13
-  fileName.push_back("TT.root");   //14
+//  fileName.push_back("TT.root");   //14
   fileName.push_back("TTWJetsToQQ.root");   //15
   fileName.push_back("TTZToQQ.root");   //16
-  fileName.push_back("TTTT.root");   //17 */
-  fileName.push_back(Input);/*}}}*/
+  fileName.push_back("TTTT.root");   //17 
+//  fileName.push_back(Input);
  //where is in put?what does input do?
 //in line 4, the function parameter.
 
@@ -54,11 +49,11 @@ void EventSelection_4top_v1(const char * Input = ""){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_v2/JERdo/"+fileName[Nfiles];/*}}}*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JESup/"+fileName[Nfiles];/*{{{*/
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JERdo/"+fileName[Nfiles];/*}}}*/
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -100,8 +95,8 @@ void EventSelection_4top_v1(const char * Input = ""){
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
-//      for (Int_t i=0; i<nentries; i++) {
-      for (Int_t i=0; i<100; i++) {
+      for (Int_t i=0; i<nentries; i++) {
+//      for (Int_t i=0; i<100; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
@@ -2234,7 +2229,6 @@ SeventhBJetPt=-99;
 EighthBJetPt=-99;
 NighthBJetPt=-99;
 TenthBJetPt=-99;
-
 MinDeltaRJets=-99;
 MaxDeltaRJets=-99;
 MinDeltaRBJets=-99;
