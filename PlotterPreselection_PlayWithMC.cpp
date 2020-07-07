@@ -670,390 +670,153 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
                  TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,
               TH1F* &TTTT_func){
   //no background
-  TH1F *data; TH1F *TTTT; TH1F *QCD_HT200to300; TH1F *tptzm0900lh; TH1F *tptzm1400lh; TH1F *tptzm1700lh; /*{{{*/
-  TH1F *ZToNuNu_1; TH1F *ZToNuNu_2; TH1F *ZToNuNu_3; TH1F *ZToNuNu_4; TH1F *ZToNuNu_5; TH1F *ZToNuNu_6; TH1F *ZToNuNu_7; 
-  TH1F *QCD_1; TH1F *QCD_2; TH1F *QCD_3; TH1F *QCD_4; TH1F *QCD_5; TH1F *QCD_6; TH1F *QCD_7; 
-  TH1F *WToLNu_1; TH1F *WToLNu_2; TH1F *WToLNu_3; TH1F *WToLNu_4; TH1F *WToLNu_5; TH1F *WToLNu_6; TH1F *WToLNu_7;
-  TH1F *TT_1; TH1F *TT_2; TH1F *ST_1; TH1F *ST_2; TH1F *ST_3; TH1F *ST_4; 
-  TH1F *ZZ1; TH1F *ZZ2; TH1F *ZZ3; TH1F *WZ1; TH1F *WZ2; TH1F *WZ3; TH1F *WW1; TH1F *WW2; 
-  TH1F *ttW; TH1F *ttZ; TH1F *tZq; TH1F *ZZ4; TH1F *WZ4;/*}}}*/
- 
+  TH1F *data;
+  TH1F *TTTT;
+  TH1F *QCD_HT200to300;
+  TH1F *QCD_HT300to500;
+  TH1F *QCD_HT500to700;
+  TH1F *QCD_HT700to1000;
+  TH1F *QCD_HT1000to1500;
+  TH1F *QCD_HT1500to2000;
+  TH1F *QCD_HT2000toIn;
+  TH1F *TTJets;
+  TH1F *TTWJets;
+  TH1F *TTZ; 
 	//what is JETSyst?
 	//given at each call of the function.0,1,2,3,or 4
   if(JETSyst==0){/*{{{*/
     GetHisto(CUT, Tree01, data        ,plot,BIN,MIN,MAX);//tree01 different number means different files' tree
     GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree03, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree04, tptzm0900lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree09, tptzm1400lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree12, tptzm1700lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree14, ZToNuNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree15, ZToNuNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree16, ZToNuNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree17, ZToNuNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree18, ZToNuNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree19, ZToNuNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree20, ZToNuNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree21, QCD_1      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree22, QCD_2      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree23, QCD_3      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree24, QCD_4      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree25, QCD_5      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree26, QCD_6      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree27, QCD_7      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree28, WToLNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree29, WToLNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree30, WToLNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree31, WToLNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree32, WToLNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree33, WToLNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree34, WToLNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree35, TT_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree36, TT_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree37, ST_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree38, ST_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree39, ST_3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree40, ST_4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree41, ZZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree42, ZZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree43, ZZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree44, WW1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree45, WW2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree46, WZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree47, WZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree48, WZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree49, ttW    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree50, ttZ    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree51, tZq    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree52, ZZ4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree53, WZ4    ,plot,BIN,MIN,MAX);
-  }
+    GetHisto(CUT, Tree04, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree05, QCD_HT500to700 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree06, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree07, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree08, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree09, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree10, TTJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree11, TTWJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree12, TTZ ,plot,BIN,MIN,MAX);
 	else if(JETSyst==1){
     GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);//J1 from JESup directory
     GetHisto(CUT, Tree02_J1, TTTT ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree03_J1, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree04_J1, tptzm0900lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree09_J1, tptzm1400lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree12_J1, tptzm1700lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree14_J1, ZToNuNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree15_J1, ZToNuNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree16_J1, ZToNuNu_3   ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree04_J1, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree05_J1, QCD_HT500to700 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree06_J1, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree07_J1, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree08_J1, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree09_J1, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree10_J1, TTJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree11_J1, TTWJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree12_J1, TTZ ,plot,BIN,MIN,MAX);
   }
 	else if(JETSyst==2){
     GetHisto(CUT, Tree01_J2, data        ,plot,BIN,MIN,MAX);//J2 from JESdo
     GetHisto(CUT, Tree02_J2, TTTT ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree03_J2, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree04_J2, tptzm0900lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree09_J2, tptzm1400lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree12_J2, tptzm1700lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree14_J2, ZToNuNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree15_J2, ZToNuNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree16_J2, ZToNuNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree17_J2, ZToNuNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree18_J2, ZToNuNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree19_J2, ZToNuNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree20_J2, ZToNuNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree21_J2, QCD_1      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree22_J2, QCD_2      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree23_J2, QCD_3      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree24_J2, QCD_4      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree25_J2, QCD_5      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree26_J2, QCD_6      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree27_J2, QCD_7      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree28_J2, WToLNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree29_J2, WToLNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree30_J2, WToLNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree31_J2, WToLNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree32_J2, WToLNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree33_J2, WToLNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree34_J2, WToLNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree35_J2, TT_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree36_J2, TT_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree37_J2, ST_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree38_J2, ST_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree39_J2, ST_3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree40_J2, ST_4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree41_J2, ZZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree42_J2, ZZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree43_J2, ZZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree44_J2, WW1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree45_J2, WW2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree46_J2, WZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree47_J2, WZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree48_J2, WZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree49_J2, ttW    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree50_J2, ttZ    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree51_J2, tZq    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree52_J2, ZZ4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree53_J2, WZ4    ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree04_J2, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree05_J2, QCD_HT500to700 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree06_J2, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree07_J2, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree08_J2, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree09_J2, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree10_J2, TTJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree11_J2, TTWJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree12_J2, TTZ ,plot,BIN,MIN,MAX);
   }
 	else if(JETSyst==3){
     GetHisto(CUT, Tree01_J3, data        ,plot,BIN,MIN,MAX);//J3 from JERup
     GetHisto(CUT, Tree02_J3, TTTT ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree03_J3, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree04_J3, tptzm0900lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree09_J3, tptzm1400lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree12_J3, tptzm1700lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree14_J3, ZToNuNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree15_J3, ZToNuNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree16_J3, ZToNuNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree17_J3, ZToNuNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree18_J3, ZToNuNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree19_J3, ZToNuNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree20_J3, ZToNuNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree21_J3, QCD_1      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree22_J3, QCD_2      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree23_J3, QCD_3      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree24_J3, QCD_4      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree25_J3, QCD_5      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree26_J3, QCD_6      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree27_J3, QCD_7      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree28_J3, WToLNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree29_J3, WToLNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree30_J3, WToLNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree31_J3, WToLNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree32_J3, WToLNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree33_J3, WToLNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree34_J3, WToLNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree35_J3, TT_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree36_J3, TT_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree37_J3, ST_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree38_J3, ST_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree39_J3, ST_3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree40_J3, ST_4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree41_J3, ZZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree42_J3, ZZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree43_J3, ZZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree44_J3, WW1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree45_J3, WW2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree46_J3, WZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree47_J3, WZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree48_J3, WZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree49_J3, ttW    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree50_J3, ttZ    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree51_J3, tZq    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree52_J3, ZZ4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree53_J3, WZ4    ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree04_J3, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree05_J3, QCD_HT500to700 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree06_J3, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree07_J3, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree08_J3, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree09_J3, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree10_J3, TTJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree11_J3, TTWJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree12_J3, TTZ ,plot,BIN,MIN,MAX);
   }
 	else if(JETSyst==4){
     GetHisto(CUT, Tree01_J4, data        ,plot,BIN,MIN,MAX);//from JERdo
     GetHisto(CUT, Tree02_J4, TTTT ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree03_J4, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree04_J4, tptzm0900lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree09_J4, tptzm1400lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree12_J4, tptzm1700lh ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree14_J4, ZToNuNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree15_J4, ZToNuNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree16_J4, ZToNuNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree17_J4, ZToNuNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree18_J4, ZToNuNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree19_J4, ZToNuNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree20_J4, ZToNuNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree21_J4, QCD_1      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree22_J4, QCD_2      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree23_J4, QCD_3      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree24_J4, QCD_4      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree25_J4, QCD_5      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree26_J4, QCD_6      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree27_J4, QCD_7      ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree28_J4, WToLNu_1   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree29_J4, WToLNu_2   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree30_J4, WToLNu_3   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree31_J4, WToLNu_4   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree32_J4, WToLNu_5   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree33_J4, WToLNu_6   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree34_J4, WToLNu_7   ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree35_J4, TT_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree36_J4, TT_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree37_J4, ST_1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree38_J4, ST_2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree39_J4, ST_3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree40_J4, ST_4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree41_J4, ZZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree42_J4, ZZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree43_J4, ZZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree44_J4, WW1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree45_J4, WW2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree46_J4, WZ1    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree47_J4, WZ2    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree48_J4, WZ3    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree49_J4, ttW    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree50_J4, ttZ    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree51_J4, tZq    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree52_J4, ZZ4    ,plot,BIN,MIN,MAX);
-    GetHisto(CUT, Tree53_J4, WZ4    ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree04_J4, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree05_J5, QCD_HT500to700 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree06_J5, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree07_J5, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree08_J5, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree09_J4, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree10_J4, TTJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree11_J4, TTWJets ,plot,BIN,MIN,MAX);
+    GetHisto(CUT, Tree12_J4, TTZ ,plot,BIN,MIN,MAX);
   }/*}}}*/
   TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
-  for(int j=1; j<data->GetNbinsX()+1; j++){/*{{{*/
-		//???why do we reset the bin error?
-    if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(w0700*w0700*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
-    if(tptzm0900lh->GetBinContent(j)>0){tptzm0900lh->SetBinError(j,sqrt(w0900*w0900*tptzm0900lh->GetBinContent(j)));}else{tptzm0900lh->SetBinError(j,0);}
-    if(tptzm1400lh->GetBinContent(j)>0){tptzm1400lh->SetBinError(j,sqrt(w1400*w1400*tptzm1400lh->GetBinContent(j)));}else{tptzm1400lh->SetBinError(j,0);}
-    if(tptzm1700lh->GetBinContent(j)>0){tptzm1700lh->SetBinError(j,sqrt(w1700*w1700*tptzm1700lh->GetBinContent(j)));}else{tptzm1700lh->SetBinError(j,0);}
-    if(ZToNuNu_1 ->GetBinContent(j)>0){ZToNuNu_1 ->SetBinError(j,sqrt(w01*w01*ZToNuNu_1 ->GetBinContent(j)));}else{ZToNuNu_1 ->SetBinError(j,0);}//w01);}
-    if(ZToNuNu_2 ->GetBinContent(j)>0){ZToNuNu_2 ->SetBinError(j,sqrt(w02*w02*ZToNuNu_2 ->GetBinContent(j)));}else{ZToNuNu_2 ->SetBinError(j,0);}//w02);}
-    if(ZToNuNu_3 ->GetBinContent(j)>0){ZToNuNu_3 ->SetBinError(j,sqrt(w03*w03*ZToNuNu_3 ->GetBinContent(j)));}else{ZToNuNu_3 ->SetBinError(j,0);}//w03);}
-    if(ZToNuNu_4 ->GetBinContent(j)>0){ZToNuNu_4 ->SetBinError(j,sqrt(w04*w04*ZToNuNu_4 ->GetBinContent(j)));}else{ZToNuNu_4 ->SetBinError(j,0);}//w04);}
-    if(ZToNuNu_5 ->GetBinContent(j)>0){ZToNuNu_5 ->SetBinError(j,sqrt(w05*w05*ZToNuNu_5 ->GetBinContent(j)));}else{ZToNuNu_5 ->SetBinError(j,0);}//w05);}
-    if(ZToNuNu_6 ->GetBinContent(j)>0){ZToNuNu_6 ->SetBinError(j,sqrt(w06*w06*ZToNuNu_6 ->GetBinContent(j)));}else{ZToNuNu_6 ->SetBinError(j,0);}//w06);}
-    if(ZToNuNu_7 ->GetBinContent(j)>0){ZToNuNu_7 ->SetBinError(j,sqrt(w07*w07*ZToNuNu_7 ->GetBinContent(j)));}else{ZToNuNu_7 ->SetBinError(j,0);}//w07);}
-    if(QCD_1->GetBinContent(j)>0){QCD_1 ->SetBinError(j,sqrt(w08*w08*QCD_1 ->GetBinContent(j)));}else{QCD_1 ->SetBinError(j,0);}//w08);}
-    if(QCD_2->GetBinContent(j)>0){QCD_2 ->SetBinError(j,sqrt(w09*w09*QCD_2 ->GetBinContent(j)));}else{QCD_2 ->SetBinError(j,0);}//w09);}
-    if(QCD_3->GetBinContent(j)>0){QCD_3 ->SetBinError(j,sqrt(w10*w10*QCD_3 ->GetBinContent(j)));}else{QCD_3 ->SetBinError(j,0);}//w10);}
-    if(QCD_4->GetBinContent(j)>0){QCD_4 ->SetBinError(j,sqrt(w11*w11*QCD_4 ->GetBinContent(j)));}else{QCD_4 ->SetBinError(j,0);}//w11);}
-    if(QCD_5->GetBinContent(j)>0){QCD_5 ->SetBinError(j,sqrt(w12*w12*QCD_5 ->GetBinContent(j)));}else{QCD_5 ->SetBinError(j,0);}//w12);}
-    if(QCD_6->GetBinContent(j)>0){QCD_6 ->SetBinError(j,sqrt(w13*w13*QCD_6 ->GetBinContent(j)));}else{QCD_6 ->SetBinError(j,0);}//w13);}
-    if(QCD_7->GetBinContent(j)>0){QCD_7 ->SetBinError(j,sqrt(w14*w14*QCD_7 ->GetBinContent(j)));}else{QCD_7 ->SetBinError(j,0);}//w14);}
-    if(WToLNu_1->GetBinContent(j)>0){WToLNu_1->SetBinError(j,sqrt(w15*w15*WToLNu_1->GetBinContent(j)));}else{WToLNu_1->SetBinError(j,0);}//w15);}
-    if(WToLNu_2->GetBinContent(j)>0){WToLNu_2->SetBinError(j,sqrt(w16*w16*WToLNu_2->GetBinContent(j)));}else{WToLNu_2->SetBinError(j,0);}//w16);}
-    if(WToLNu_3->GetBinContent(j)>0){WToLNu_3->SetBinError(j,sqrt(w17*w17*WToLNu_3->GetBinContent(j)));}else{WToLNu_3->SetBinError(j,0);}//w17);}
-    if(WToLNu_4->GetBinContent(j)>0){WToLNu_4->SetBinError(j,sqrt(w18*w18*WToLNu_4->GetBinContent(j)));}else{WToLNu_4->SetBinError(j,0);}//w18);}
-    if(WToLNu_5->GetBinContent(j)>0){WToLNu_5->SetBinError(j,sqrt(w19*w19*WToLNu_5->GetBinContent(j)));}else{WToLNu_5->SetBinError(j,0);}//w19);}
-    if(WToLNu_6->GetBinContent(j)>0){WToLNu_6->SetBinError(j,sqrt(w20*w20*WToLNu_6->GetBinContent(j)));}else{WToLNu_6->SetBinError(j,0);}//w20);}
-    if(WToLNu_7->GetBinContent(j)>0){WToLNu_7->SetBinError(j,sqrt(w21*w21*WToLNu_7->GetBinContent(j)));}else{WToLNu_7->SetBinError(j,0);}//w21);}
-    if(TT_1->GetBinContent(j)>0){TT_1->SetBinError(j,sqrt(w22*w22*TT_1->GetBinContent(j)));}else{TT_1->SetBinError(j,0);}//w22);}
-    if(TT_2->GetBinContent(j)>0){TT_2->SetBinError(j,sqrt(w23*w23*TT_2->GetBinContent(j)));}else{TT_2->SetBinError(j,0);}//w23);}
-    if(ST_1->GetBinContent(j)>0){ST_1->SetBinError(j,sqrt(w24*w24*ST_1->GetBinContent(j)));}else{ST_1->SetBinError(j,0);}//w24);}
-    if(ST_2->GetBinContent(j)>0){ST_2->SetBinError(j,sqrt(w25*w25*ST_2->GetBinContent(j)));}else{ST_2->SetBinError(j,0);}//w25);}
-    if(ST_3->GetBinContent(j)>0){ST_3->SetBinError(j,sqrt(w26*w26*ST_3->GetBinContent(j)));}else{ST_3->SetBinError(j,0);}//w26);}
-    if(ST_4->GetBinContent(j)>0){ST_4->SetBinError(j,sqrt(w27*w27*ST_4->GetBinContent(j)));}else{ST_4->SetBinError(j,0);}//w27);}
-    if(ZZ1->GetBinContent(j)>0){ZZ1->SetBinError(j,sqrt(w28*w28*ZZ1->GetBinContent(j)));}else{ZZ1->SetBinError(j,0);}//w28);}
-    if(ZZ2->GetBinContent(j)>0){ZZ2->SetBinError(j,sqrt(w29*w29*ZZ2->GetBinContent(j)));}else{ZZ2->SetBinError(j,0);}//w29);}
-    if(ZZ3->GetBinContent(j)>0){ZZ3->SetBinError(j,sqrt(w30*w30*ZZ3->GetBinContent(j)));}else{ZZ3->SetBinError(j,0);}//w30);}
-    if(WW1->GetBinContent(j)>0){WW1->SetBinError(j,sqrt(w31*w31*WW1->GetBinContent(j)));}else{WW1->SetBinError(j,0);}//w31);}
-    if(WW2->GetBinContent(j)>0){WW2->SetBinError(j,sqrt(w32*w32*WW2->GetBinContent(j)));}else{WW2->SetBinError(j,0);}//w32);}
-    if(WZ1->GetBinContent(j)>0){WZ1->SetBinError(j,sqrt(w33*w33*WZ1->GetBinContent(j)));}else{WZ1->SetBinError(j,0);}//w33);}
-    if(WZ2->GetBinContent(j)>0){WZ2->SetBinError(j,sqrt(w34*w34*WZ2->GetBinContent(j)));}else{WZ2->SetBinError(j,0);}//w34);}
-    if(WZ3->GetBinContent(j)>0){WZ3->SetBinError(j,sqrt(w35*w35*WZ3->GetBinContent(j)));}else{WZ3->SetBinError(j,0);}//w35);
-    if(ttW->GetBinContent(j)>0){ttW->SetBinError(j,sqrt(w36*w36*ttW->GetBinContent(j)));}else{ttW->SetBinError(j,0);}//w36);
-    if(ttZ->GetBinContent(j)>0){ttZ->SetBinError(j,sqrt(w37*w37*ttZ->GetBinContent(j)));}else{ttZ->SetBinError(j,0);}//w37);
-    if(tZq->GetBinContent(j)>0){tZq->SetBinError(j,sqrt(w38*w38*tZq->GetBinContent(j)));}else{tZq->SetBinError(j,0);}//w38);
-    if(ZZ4->GetBinContent(j)>0){ZZ4->SetBinError(j,sqrt(w39*w39*ZZ4->GetBinContent(j)));}else{ZZ4->SetBinError(j,0);}//w39);
-    if(WZ4->GetBinContent(j)>0){WZ4->SetBinError(j,sqrt(w40*w40*WZ4->GetBinContent(j)));}else{WZ4->SetBinError(j,0);}//w40);/*}}}*/
+  for(int j=1; j<data->GetNbinsX()+1; j++){
+		//why do we reset the bin error?
+    if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(wTTTT*wTTTT*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
+    if(QCD_HT200to300->GetBinContent(j)>0){QCD_HT200to300->SetBinError(j,sqrt(wQCD200to300*wQCD200to300*QCD_HT200to300->GetBinContent(j)));}else{QCD_HT200to300->SetBinError(j,0);}
+    if(QCD_HT300to500->GetBinContent(j)>0){QCD_HT300to500->SetBinError(j,sqrt(wQCD300to500*wQCD300to500*QCD_HT300to500->GetBinContent(j)));}else{QCD_HT300to500->SetBinError(j,0);}
+    if(QCD_HT500to700->GetBinContent(j)>0){QCD_HT500to700->SetBinError(j,sqrt(wQCD500to700*wQCD500to700*QCD_HT500to700->GetBinContent(j)));}else{QCD_HT500to700->SetBinError(j,0);}
+    if(QCD_HT700to1000 ->GetBinContent(j)>0){QCD_HT700to1000 ->SetBinError(j,sqrt(wQCD700to1000*wQCD700to1000*QCD_HT700to1000 ->GetBinContent(j)));}else{QCD_HT700to1000 ->SetBinError(j,0);}//wQCD700to1000);}
+    if(QCD_HT1000to1500 ->GetBinContent(j)>0){QCD_HT1000to1500 ->SetBinError(j,sqrt(wQCD1000to1500*wQCD1000to1500*QCD_HT1000to1500 ->GetBinContent(j)));}else{QCD_HT1000to1500 ->SetBinError(j,0);}//wQCD1000to1500);}
+    if(QCD_HT1500to2000 ->GetBinContent(j)>0){QCD_HT1500to2000 ->SetBinError(j,sqrt(wQCD1500to2000*wQCD1500to2000*QCD_HT1500to2000 ->GetBinContent(j)));}else{QCD_HT1500to2000 ->SetBinError(j,0);}//wQCD1500to2000);}
+    if(QCD_HT2000toIn ->GetBinContent(j)>0){QCD_HT2000toIn ->SetBinError(j,sqrt(wQCD2000toIn*wQCD2000toIn*QCD_HT2000toIn ->GetBinContent(j)));}else{QCD_HT2000toIn ->SetBinError(j,0);}//wQCD2000toIn);}
+    if(TTJets ->GetBinContent(j)>0){TTJets ->SetBinError(j,sqrt(wTTJets*wTTJets*TTJets ->GetBinContent(j)));}else{TTJets ->SetBinError(j,0);}//wTTJets);}
+    if(TTWJets ->GetBinContent(j)>0){TTWJets ->SetBinError(j,sqrt(wTTWJets*wTTWJets*TTWJets ->GetBinContent(j)));}else{TTWJets ->SetBinError(j,0);}//wTTWJets);}
+    if(TTZ ->GetBinContent(j)>0){TTZ ->SetBinError(j,sqrt(wTTZ*wTTZ*TTZ ->GetBinContent(j)));}else{TTZ ->SetBinError(j,0);}
 
-    float err00 = data->GetBinError(j)*data->GetBinError(j);/*{{{*/
-    float err01 = ZToNuNu_1->GetBinError(j)*ZToNuNu_1->GetBinError(j) + ZToNuNu_2->GetBinError(j)*ZToNuNu_2->GetBinError(j) + ZToNuNu_3->GetBinError(j)*ZToNuNu_3->GetBinError(j) + ZToNuNu_4->GetBinError(j)*ZToNuNu_4->GetBinError(j) + ZToNuNu_5->GetBinError(j)*ZToNuNu_5->GetBinError(j) + ZToNuNu_6->GetBinError(j)*ZToNuNu_6->GetBinError(j) + ZToNuNu_7->GetBinError(j)*ZToNuNu_7->GetBinError(j);
-    float err02 = QCD_1->GetBinError(j)*QCD_1->GetBinError(j) + QCD_2->GetBinError(j)*QCD_2->GetBinError(j) + QCD_3->GetBinError(j)*QCD_3->GetBinError(j) + QCD_4->GetBinError(j)*QCD_4->GetBinError(j) + QCD_5->GetBinError(j)*QCD_5->GetBinError(j) + QCD_6->GetBinError(j)*QCD_6->GetBinError(j) + QCD_7->GetBinError(j)*QCD_7->GetBinError(j);
-    float err03 = WToLNu_1->GetBinError(j)*WToLNu_1->GetBinError(j)+WToLNu_2->GetBinError(j)*WToLNu_2->GetBinError(j)+WToLNu_3->GetBinError(j)*WToLNu_3->GetBinError(j)+WToLNu_4->GetBinError(j)*WToLNu_4->GetBinError(j)+WToLNu_5->GetBinError(j)*WToLNu_5->GetBinError(j)+WToLNu_6->GetBinError(j)*WToLNu_6->GetBinError(j)+WToLNu_7->GetBinError(j)*WToLNu_7->GetBinError(j);
-    float err04 = TT_1->GetBinError(j)*TT_1->GetBinError(j)+TT_2->GetBinError(j)*TT_2->GetBinError(j);
-    float err05 = ST_1->GetBinError(j)*ST_1->GetBinError(j) + ST_2->GetBinError(j)*ST_2->GetBinError(j)+ ST_3->GetBinError(j)*ST_3->GetBinError(j)+ ST_4->GetBinError(j)*ST_4->GetBinError(j);
-    float err06 = ZZ1->GetBinError(j)*ZZ1->GetBinError(j) + ZZ2->GetBinError(j)*ZZ2->GetBinError(j) + ZZ3->GetBinError(j)*ZZ3->GetBinError(j) + ZZ4->GetBinError(j)*ZZ4->GetBinError(j) + WW1->GetBinError(j)*WW1->GetBinError(j) + WW2->GetBinError(j)*WW2->GetBinError(j) + WZ1->GetBinError(j)*WZ1->GetBinError(j) + WZ2->GetBinError(j)*WZ2->GetBinError(j) + WZ3->GetBinError(j)*WZ3->GetBinError(j)+ WZ4->GetBinError(j)*WZ4->GetBinError(j); 
-    float err07 = ttW->GetBinError(j)*ttW->GetBinError(j) + ttZ->GetBinError(j)*ttZ->GetBinError(j) + tZq->GetBinError(j)*tZq->GetBinError(j);/*}}}*/
+    float errdata= data->GetBinError(j)*data->GetBinError(j);
+    float errbg =
+        + QCD_HT200to300->GetBinError(j)*QCD_HT200to300->GetBinError(j)
+        + QCD_HT300to500->GetBinError(j)*QCD_HT300to500->GetBinError(j)
+        + QCD_HT500to700->GetBinError(j)*QCD_HT500to700->GetBinError(j)
+        + QCD_HT700to1000->GetBinError(j)*QCD_HT700to1000->GetBinError(j)
+        + QCD_HT1000to1500->GetBinError(j)*QCD_HT1000to1500->GetBinError(j)
+        + QCD_HT1500to2000->GetBinError(j)*QCD_HT1500to2000->GetBinError(j)
+        + QCD_HT2000toIn->GetBinError(j)*QCD_HT2000toIn->GetBinError(j)
+        + TTJets->GetBinError(j)*TTJets->GetBinError(j)
+        + TTWJets->GetBinError(j)*TTWJets->GetBinError(j)
+        + TTZ->GetBinError(j)*TTZ->GetBinError(j);
+    background->SetBinError(j,sqrt(errbg));
 
-    background->SetBinError(j,sqrt(err01+err02+err03+err04+err05+err06+err07));/*{{{*/
+    TTTT->SetBinContent(j,wTTTT*wTTTT->GetBinContent(j));
+    QCD_HT200to300->SetBinContent(j,wwQCD200to300*QCD_HT200to300->GetBinContent(j));
+    QCD_HT300to500->SetBinContent(j,wQCD300to500*QCD_HT300to500->GetBinContent(j));
+    QCD_HT500to700->SetBinContent(j,wQCD500to700*QCD_HT500to700->GetBinContent(j));
+    QCD_HT700to1000->SetBinContent(j,wQCD700to1000*QCD_HT700to1000->GetBinContent(j));
+    QCD_HT1000to1500->SetBinContent(j,wQCD1000to1500*QCD_HT1000to1500->GetBinContent(j));
+    QCD_HT1500to2000->SetBinContent(j,wQCD1500to2000*QCD_HT1500to2000->GetBinContent(j));
+    QCD_HT2000toIn->SetBinContent(j,wQCD2000toIn*QCD_HT2000toIn->GetBinContent(j));
+    TTJets->SetBinContent(j,wTTJets*TTJets->GetBinContent(j));
+    TTWJets->SetBinContent(j,wTTWJets*TTWJets->GetBinContent(j));
+    TTZ->SetBinContent(j,wTTZ*TTZ->GetBinContent(j));
 
-    TTTT->SetBinContent(j,w0700*TTTT->GetBinContent(j));
-    tptzm0900lh->SetBinContent(j,w0900*tptzm0900lh->GetBinContent(j));
-    tptzm1400lh->SetBinContent(j,w1400*tptzm1400lh->GetBinContent(j));
-    tptzm1700lh->SetBinContent(j,w1700*tptzm1700lh->GetBinContent(j));
-    ZToNuNu_1->SetBinContent(j,w01*ZToNuNu_1->GetBinContent(j));
-    ZToNuNu_2->SetBinContent(j,w02*ZToNuNu_2->GetBinContent(j));
-    ZToNuNu_3->SetBinContent(j,w03*ZToNuNu_3->GetBinContent(j));
-    ZToNuNu_4->SetBinContent(j,w04*ZToNuNu_4->GetBinContent(j));
-    ZToNuNu_5->SetBinContent(j,w05*ZToNuNu_5->GetBinContent(j));
-    ZToNuNu_6->SetBinContent(j,w06*ZToNuNu_6->GetBinContent(j));
-    ZToNuNu_7->SetBinContent(j,w07*ZToNuNu_7->GetBinContent(j));
-    QCD_1->SetBinContent(j,w08*QCD_1->GetBinContent(j));
-    QCD_2->SetBinContent(j,w09*QCD_2->GetBinContent(j));
-    QCD_3->SetBinContent(j,w10*QCD_3->GetBinContent(j));
-    QCD_4->SetBinContent(j,w11*QCD_4->GetBinContent(j));
-    QCD_5->SetBinContent(j,w12*QCD_5->GetBinContent(j));
-    QCD_6->SetBinContent(j,w13*QCD_6->GetBinContent(j));
-    QCD_7->SetBinContent(j,w14*QCD_7->GetBinContent(j));
-    WToLNu_1->SetBinContent(j,w15*WToLNu_1->GetBinContent(j));
-    WToLNu_2->SetBinContent(j,w16*WToLNu_2->GetBinContent(j));
-    WToLNu_3->SetBinContent(j,w17*WToLNu_3->GetBinContent(j));
-    WToLNu_4->SetBinContent(j,w18*WToLNu_4->GetBinContent(j));
-    WToLNu_5->SetBinContent(j,w19*WToLNu_5->GetBinContent(j));
-    WToLNu_6->SetBinContent(j,w20*WToLNu_6->GetBinContent(j));
-    WToLNu_7->SetBinContent(j,w21*WToLNu_7->GetBinContent(j));
-    TT_1->SetBinContent(j,w22*TT_1->GetBinContent(j));
-    TT_2->SetBinContent(j,w23*TT_2->GetBinContent(j));
-    ST_1->SetBinContent(j,w24*ST_1->GetBinContent(j));
-    ST_2->SetBinContent(j,w25*ST_2->GetBinContent(j));
-    ST_3->SetBinContent(j,w26*ST_3->GetBinContent(j));
-    ST_4->SetBinContent(j,w27*ST_4->GetBinContent(j));
-    ZZ1->SetBinContent(j,w28*ZZ1->GetBinContent(j));
-    ZZ2->SetBinContent(j,w29*ZZ2->GetBinContent(j));
-    ZZ3->SetBinContent(j,w30*ZZ3->GetBinContent(j));
-    WW1->SetBinContent(j,w31*WW1->GetBinContent(j));
-    WW2->SetBinContent(j,w32*WW2->GetBinContent(j));
-    WZ1->SetBinContent(j,w33*WZ1->GetBinContent(j));
-    WZ2->SetBinContent(j,w34*WZ2->GetBinContent(j));
-    WZ3->SetBinContent(j,w35*WZ3->GetBinContent(j));
-    ttW->SetBinContent(j,w36*ttW->GetBinContent(j));
-    ttZ->SetBinContent(j,w37*ttZ->GetBinContent(j));
-    tZq->SetBinContent(j,w38*tZq->GetBinContent(j));
-    ZZ4->SetBinContent(j,w39*ZZ4->GetBinContent(j));
-    WZ4->SetBinContent(j,w40*WZ4->GetBinContent(j));/*}}}*/
+    float DATA = data->GetBinContent(j);
+    float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j);
 
-    float DATA = data->GetBinContent(j);/*{{{*/
-    float bkg0 = ZToNuNu_1->GetBinContent(j) + ZToNuNu_2->GetBinContent(j) + ZToNuNu_3->GetBinContent(j) + ZToNuNu_4->GetBinContent(j) + ZToNuNu_5->GetBinContent(j) + ZToNuNu_6->GetBinContent(j) + ZToNuNu_7->GetBinContent(j);
-    float bkg1 = QCD_1->GetBinContent(j) + QCD_2->GetBinContent(j) + QCD_3->GetBinContent(j) + QCD_4->GetBinContent(j) + QCD_5->GetBinContent(j) + QCD_6->GetBinContent(j) + QCD_7->GetBinContent(j);
-    float bkg2 = WToLNu_1->GetBinContent(j) + WToLNu_2->GetBinContent(j) + WToLNu_3->GetBinContent(j) + WToLNu_4->GetBinContent(j) + WToLNu_5->GetBinContent(j) + WToLNu_6->GetBinContent(j)+ WToLNu_7->GetBinContent(j);
-    float bkg3 = TT_1->GetBinContent(j) + TT_2->GetBinContent(j);
-    float bkg4 = ST_1 ->GetBinContent(j) + ST_2 ->GetBinContent(j) + ST_3 ->GetBinContent(j) + ST_4 ->GetBinContent(j);
-    float bkg5 = ZZ1->GetBinContent(j)+ZZ2->GetBinContent(j)+ZZ3->GetBinContent(j)+ZZ4->GetBinContent(j)+WW1->GetBinContent(j)+WW2->GetBinContent(j)+WZ1->GetBinContent(j)+WZ2->GetBinContent(j)+WZ3->GetBinContent(j)+WZ4->GetBinContent(j);
-    float bkg6 = ttW->GetBinContent(j) + ttZ->GetBinContent(j) + tZq->GetBinContent(j);/*}}}*/
-
-    background->SetBinContent(j,bkg0+bkg1+bkg2+bkg3+bkg4+bkg5+bkg6);//difinition at 936
-    
+    background->SetBinContent(j,bkg0);//difinition at 936
   }
 
   //why clone then delete?
-  background_func  = (TH1F*)background ->Clone(); /*{{{*/
+  background_func  = (TH1F*)background ->Clone(); 
   data_func        = (TH1F*)data       ->Clone(); 
   TTTT_func = (TH1F*)TTTT->Clone(); 
-  tptzm0900lh_func = (TH1F*)tptzm0900lh->Clone(); 
-  tptzm1400lh_func = (TH1F*)tptzm1400lh->Clone(); 
-  tptzm1700lh_func = (TH1F*)tptzm1700lh->Clone(); 
-  ZToNuNu_1_func   = (TH1F*)ZToNuNu_1->Clone(); 
-  ZToNuNu_2_func   = (TH1F*)ZToNuNu_2->Clone(); 
-  ZToNuNu_3_func   = (TH1F*)ZToNuNu_3->Clone();  
-  ZToNuNu_4_func   = (TH1F*)ZToNuNu_4->Clone(); 
-  ZToNuNu_5_func   = (TH1F*)ZToNuNu_5->Clone();
-  ZToNuNu_6_func   = (TH1F*)ZToNuNu_6->Clone();
-  ZToNuNu_7_func   = (TH1F*)ZToNuNu_7->Clone();
+  QCD_HT200to300_func = (TH1F*)QCD_HT200to300->Clone(); 
+  QCD_HT300to500_func = (TH1F*)QCD_HT300to500->Clone(); 
+  QCD_HT500to700_func = (TH1F*)QCD_HT500to700->Clone(); 
+  QCD_HT700to1000_func   = (TH1F*)QCD_HT700to1000->Clone(); 
+  QCD_HT1000to1500_func   = (TH1F*)QCD_HT1000to1500->Clone(); 
+  QCD_HT1500to2000_func   = (TH1F*)QCD_HT1500to2000->Clone();  
+  QCD_HT2000toIn_func   = (TH1F*)QCD_HT2000toIn->Clone(); 
+  TTJets_func   = (TH1F*)TTJets->Clone();
+  TTWJets_func   = (TH1F*)TTWJets->Clone();
+  TTZ_func   = (TH1F*)TTZ->Clone();
   QCD_1_func = (TH1F*)QCD_1->Clone();    
-  QCD_2_func = (TH1F*)QCD_2->Clone();
-  QCD_3_func = (TH1F*)QCD_3->Clone(); 
-  QCD_4_func = (TH1F*)QCD_4->Clone();
-  QCD_5_func = (TH1F*)QCD_5->Clone();  
-  QCD_6_func = (TH1F*)QCD_6->Clone(); 
-  QCD_7_func = (TH1F*)QCD_7->Clone();
-  WToLNu_1_func = (TH1F*)WToLNu_1->Clone(); 
-  WToLNu_2_func = (TH1F*)WToLNu_2->Clone();
-  WToLNu_3_func = (TH1F*)WToLNu_3->Clone();
-  WToLNu_4_func = (TH1F*)WToLNu_4->Clone();
-  WToLNu_5_func = (TH1F*)WToLNu_5->Clone();
-  WToLNu_6_func = (TH1F*)WToLNu_6->Clone();
-  WToLNu_7_func = (TH1F*)WToLNu_7->Clone();
-  TT_1_func = (TH1F*)TT_1->Clone();  
-  TT_2_func = (TH1F*)TT_2->Clone();
-  ST_1_func = (TH1F*)ST_1->Clone();    
-  ST_2_func = (TH1F*)ST_2->Clone();    
-  ST_3_func = (TH1F*)ST_3->Clone();    
-  ST_4_func = (TH1F*)ST_4->Clone();    
-  ZZ1_func  = (TH1F*)ZZ1->Clone(); 
-  ZZ2_func  = (TH1F*)ZZ2->Clone();
-  ZZ3_func  = (TH1F*)ZZ3->Clone(); 
-  ZZ4_func  = (TH1F*)ZZ4->Clone(); 
-  WW1_func  = (TH1F*)WW1->Clone(); 
-  WW2_func  = (TH1F*)WW2->Clone(); 
-  WZ1_func  = (TH1F*)WZ1->Clone(); 
-  WZ2_func  = (TH1F*)WZ2->Clone();
-  WZ3_func  = (TH1F*)WZ3->Clone();
-  WZ4_func  = (TH1F*)WZ4->Clone();
-  ttW_func  = (TH1F*)ttW->Clone();
-  ttZ_func  = (TH1F*)ttZ->Clone();
-  tZq_func  = (TH1F*)tZq->Clone();/*}}}*/
 
-  delete data; delete background; delete ZToNuNu_1; delete ZToNuNu_2; delete ZToNuNu_3; delete ZToNuNu_4;  delete ZToNuNu_5;  delete ZToNuNu_6;  delete ZToNuNu_7;  /*{{{*/
-  delete QCD_1; delete QCD_2; delete QCD_3; delete QCD_4; delete QCD_5; delete QCD_6; delete QCD_7; 
-  delete WToLNu_1; delete WToLNu_2; delete WToLNu_3; delete WToLNu_4; delete WToLNu_5; delete WToLNu_6; delete WToLNu_7; 
-  delete TT_1; delete TT_2; delete ST_1; delete ST_2;  delete ST_3; delete ST_4;  
-  delete WW1; delete WW2; delete WZ1; delete WZ2; delete WZ3; delete WZ4; delete ZZ1; delete ZZ2;  delete ZZ3; delete ZZ4;
-  delete ttW; delete ttZ; delete tZq;/*}}}*/
+  delete data; delete background;delete TTTT; delete QCD_HT200to300;delete QCD_HT300to500; delete QCD_HT500to700; delete QCD_HT700to1000; delete QCD_HT1000to1500; delete QCD_HT1500to2000; delete QCD_HT2000toIn;  delete TTJets;  delete TTWJets;  delete TTZ;  
 }
 
 //reset histo_SR bin erro
