@@ -10,12 +10,6 @@
 #include <iostream>
 #include "TROOT.h"
 #include "TMath.h"
-
-
-
-
-
-
 void PlotterPreselection_PlayWithMC(){ 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -32,31 +26,40 @@ void PlotterPreselection_PlayWithMC(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
-//    name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");/*{{{*/
-//    name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
-//    name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
-
-//    name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
-//    name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
-//  name.push_back("Jet3ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
   
-//    name.push_back("TopMass"); bin.push_back(20);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Top Mass[GeV]");
-//    name.push_back("TopPt");   bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Top pt[GeV] ");
-//    name.push_back("TopEta");  bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Top #eta");
-  
-  name.push_back("Met_pt");  bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
-  name.push_back("Met_phi"); bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Met #phi");
-  name.push_back("HT"); bin.push_back(36);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");
-  name.push_back("MHT"); bin.push_back(40);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("MHT pt[GeV]");
-  name.push_back("NumSelBJetsM");      bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of medium b-jets");
-  name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Number of vertices");
-  name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets");
-  name.push_back("NumSeEle");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of Electrons");
-  name.push_back("InvariantMassJets");      bin.push_back(200);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("Invariant mass of jets");
-  name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
+ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
+ name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
 //  name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
-  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
-//  name.push_back("MaxdeltaRJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Max deltaR of Jets");
+//  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4800);    axis.push_back("Leading Jet Pt");
+//  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4000);    axis.push_back("Second Jet Pt");
+//  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1800);    axis.push_back("Third Jet Pt");
+//  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1500);    axis.push_back("Fourth Jet Pt");
+//  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1000);    axis.push_back("Fifth Jet Pt");
+//  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Sixth Jet Pt");
+//  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(700);    axis.push_back("Seventh Jet Pt");
+//  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Eighth Jet Pt");
+//  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4000);    axis.push_back("Leading B Jet Pt");
+//  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(-10);    Max.push_back(3000);    axis.push_back("Second B Jet Pt");
+//  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(3000);    axis.push_back("HT / MET");
+//  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5000);    axis.push_back("MHT / MET");
+//  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Nighth Jet Pt");
+//  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(500);    axis.push_back("Tenth Jet Pt");
+//  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1000);    axis.push_back("Third B Jet Pt");
+  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Fourth B Jet Pt");
+//  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
+//  name.push_back("MinDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Min delta R of Jets");
+//  name.push_back("MaxDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Maximum delta R of Jets");
+//  name.push_back("MinDeltaRBJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Min delta R of B Jets");
+//  name.push_back("MaxDeltaRBJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Maximum delta R of Jets");
+// name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets");
+// name.push_back("NumSelBJetsM");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of medium b-jets");
+// name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
+// name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("HT pt[GeV]");
+// name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("MHT pt[GeV]");
+//  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);   axis.push_back("Met pt[GeV] ");
+// name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
+ // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
+ // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
 //  name.push_back("Sphericity");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Sphericity");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
@@ -449,13 +452,13 @@ void PlotterPreselection_PlayWithMC(){
 	/////
 	//画上面的data/MC图
 	/////
-    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.32,0.99,1.0);
+    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.30,0.99,0.90);// bottom left point(),
     c1_2->Draw();
     c1_2->cd();
-    c1_2->SetTopMargin(0.08);
-    c1_2->SetBottomMargin(0.02);
-    c1_2->SetRightMargin(0.035);
-    c1_2->SetLeftMargin(0.11);
+   // c1_2->SetTopMargin(0.08);
+   // c1_2->SetBottomMargin(0.02);
+   // c1_2->SetRightMargin(0.035);
+   // c1_2->SetLeftMargin(0.20);
     
     THStack *hs = new THStack("hs","hs");
     hs->Add(TTZ_SR);
@@ -472,20 +475,20 @@ void PlotterPreselection_PlayWithMC(){
     
     hs->Draw("histo");///?
     hs->SetMinimum(0);
-    hs->GetYaxis()->SetTitleSize(0.070);
-    hs->GetXaxis()->SetTitleSize(0.070);
-    hs->GetYaxis()->SetLabelSize(0.070);
-    hs->GetXaxis()->SetLabelSize(0.0); 
+    hs->GetYaxis()->SetTitleSize(0.050);
+    hs->GetXaxis()->SetTitleSize(0.040);
+    hs->GetYaxis()->SetLabelSize(0.040);
+    hs->GetXaxis()->SetLabelSize(0.040); 
     hs->SetTitle("");
     hs->GetYaxis()->SetTitle("Events");
-    hs->GetXaxis()->SetTitle("");
+    hs->GetXaxis()->SetTitle(axis[i]);
     hs->GetYaxis()->SetTitleOffset(0.80);
-    hs->GetXaxis()->SetTitleOffset(0.85);
+    hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
     TTTT_SR->Draw("samehisto");
 		//?why background add up to meet data?
     //data_SR->Draw("E same"); 
     
-    background_SR->SetFillStyle(3005);
+    background_SR->SetFillStyle(3005);//3000+pattern_number,FillStyle = 3ijk
     background_SR->SetFillColor(12);
     background_SR->SetLineColor(12);
     background_SR->Draw("E2same");
@@ -499,13 +502,14 @@ void PlotterPreselection_PlayWithMC(){
    // hs->SetMaximum(maxy);
     hs->SetMaximum(1000000);
     hs->SetMinimum(3);
-    c1_2->SetLogy();//?
+    c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
 	/////
 	//画图上各种说明文字
 	/////
+    
     TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
-    gPad->RedrawAxis();/*{{{*/
+    gPad->RedrawAxis();
     TString channelText = "";
     float channelTextFont   = 42;
     float channelTextSize   = 0.06;
@@ -551,7 +555,7 @@ void PlotterPreselection_PlayWithMC(){
     latex.SetTextSize(extraTextSize*t);
     latex.DrawLatex(l+0.12, 0.94, extraText); 
     latex.SetTextFont(channelTextFont);
-    latex.SetTextSize(channelTextSize);/*}}}*/
+    latex.SetTextSize(channelTextSize);
 
 
     //定义图中各个线和直方图的颜色
@@ -573,7 +577,7 @@ void PlotterPreselection_PlayWithMC(){
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/test1/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
