@@ -45,7 +45,7 @@ void PlotterPreselection_PlayWithMC(){
 //  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Nighth Jet Pt");
 //  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(500);    axis.push_back("Tenth Jet Pt");
 //  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1000);    axis.push_back("Third B Jet Pt");
-  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Fourth B Jet Pt");
+//  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Fourth B Jet Pt");
 //  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
 //  name.push_back("MinDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Min delta R of Jets");
 //  name.push_back("MaxDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Maximum delta R of Jets");
@@ -54,7 +54,7 @@ void PlotterPreselection_PlayWithMC(){
 // name.push_back("NumSelJets");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of jets");
 // name.push_back("NumSelBJetsM");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of medium b-jets");
 // name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
-// name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("HT pt[GeV]");
+ name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("HT pt[GeV]");
 // name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("MHT pt[GeV]");
 //  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);   axis.push_back("Met pt[GeV] ");
 // name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
@@ -326,9 +326,9 @@ void PlotterPreselection_PlayWithMC(){
 		TTZ_SR->SetLineColor(kGreen+3); 
 
 		QCD_HT200to300_SR->SetFillColor(kOrange); QCD_HT300to500_SR->SetFillColor(kOrange);QCD_HT500to700_SR->SetFillColor(kOrange); QCD_HT700to1000_SR->SetFillColor(kOrange); QCD_HT1500to2000_SR->SetFillColor(kOrange); QCD_HT2000toIn_SR->SetFillColor(kOrange); QCD_HT1000to1500_SR->SetFillColor(kOrange);
-		TTJets_SR->SetFillColor(kGreen-3);
-		TTWJets_SR->SetFillColor(kCyan-4);
-		TTZ_SR->SetFillColor(kGreen+3);
+	//	TTJets_SR->SetFillColor(kGreen-3);
+	//	TTWJets_SR->SetFillColor(kCyan-4);
+	//	TTZ_SR->SetFillColor(kGreen+3);
 
 //		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
 
@@ -459,11 +459,11 @@ void PlotterPreselection_PlayWithMC(){
    // c1_2->SetBottomMargin(0.02);
    // c1_2->SetRightMargin(0.035);
    // c1_2->SetLeftMargin(0.20);
-    
+  
     THStack *hs = new THStack("hs","hs");
-   // hs->Add(TTZ_SR);
-   // hs->Add(TTWJets_SR);
-  //  hs->Add(TTJets_SR);
+    //hs->Add(TTZ_SR);
+    //hs->Add(TTWJets_SR);
+    //hs->Add(TTJets_SR);
     hs->Add(QCD_HT200to300_SR);
     hs->Add(QCD_HT300to500_SR);
     hs->Add(QCD_HT500to700_SR);
@@ -474,6 +474,7 @@ void PlotterPreselection_PlayWithMC(){
 	
     
     hs->Draw("histo");///?
+   // hs->Draw("histo NOSTACK");///?
     hs->SetMinimum(0);
     hs->GetYaxis()->SetTitleSize(0.050);
     hs->GetXaxis()->SetTitleSize(0.040);
@@ -484,8 +485,27 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetXaxis()->SetTitle(axis[i]);
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+    
     TTTT_SR->Draw("samehisto");
-    TTJets_SR->Draw("samehisto");
+   // TTJets_SR->Draw("samehisto");
+  //  TTWJets_SR->Draw("samehisto");
+//    TTZ_SR->Draw("samehisto");
+	background_SR->SetLineWidth(2);
+	background_SR->SetLineColor(kViolet-2); 
+    background_SR->Draw("samehisto");
+    
+    //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
+    TH1::SetDefaultSumw2();
+    TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
+    TTX->Add(TTJets_SR,TTWJets_SR,1,1);
+    TTX->Add(TTZ_SR,1);
+	TTX->SetLineWidth(2);
+	TTX->SetLineColor(kAzure); 
+    TTX->Draw("samehisto");
+
+   // TTJets_SR->Draw("samehisto");
+   // TTWJets_SR->Draw("samehisto");
+   // TTZ_SR->Draw("samehisto");
 		//?why background add up to meet data?
     //data_SR->Draw("E same"); 
     
@@ -566,11 +586,11 @@ void PlotterPreselection_PlayWithMC(){
   //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
     TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
     ple2 = pl2->AddEntry(QCD_HT200to300_SR, "QCD",  "F");
-    ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "F");
-    ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "F");
-    ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "F");
-//    ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
-    //ple2 = pl2->AddEntry(tptzm1700lh_SR, "T, M=1.7TeV, #sigma#times100",  "L"); 
+   // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
+   // ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "L");
+   // ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "L");
+    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+    ple2 = pl2->AddEntry(background_SR, "background",  "L");
     pl2->Draw();
     
     TString NAME = name[i];
