@@ -27,8 +27,8 @@ void PlotterPreselection_PlayWithMC(){
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
   
- name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
- name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
+// name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
+// name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
 //  name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
 //  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4800);    axis.push_back("Leading Jet Pt");
 //  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4000);    axis.push_back("Second Jet Pt");
@@ -461,9 +461,9 @@ void PlotterPreselection_PlayWithMC(){
    // c1_2->SetLeftMargin(0.20);
     
     THStack *hs = new THStack("hs","hs");
-    hs->Add(TTZ_SR);
-    hs->Add(TTWJets_SR);
-    hs->Add(TTJets_SR);
+   // hs->Add(TTZ_SR);
+   // hs->Add(TTWJets_SR);
+  //  hs->Add(TTJets_SR);
     hs->Add(QCD_HT200to300_SR);
     hs->Add(QCD_HT300to500_SR);
     hs->Add(QCD_HT500to700_SR);
@@ -485,13 +485,14 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
     TTTT_SR->Draw("samehisto");
+    TTJets_SR->Draw("samehisto");
 		//?why background add up to meet data?
     //data_SR->Draw("E same"); 
     
-    background_SR->SetFillStyle(3005);//3000+pattern_number,FillStyle = 3ijk
-    background_SR->SetFillColor(12);
-    background_SR->SetLineColor(12);
-    background_SR->Draw("E2same");
+    //background_SR->SetFillStyle(3005);//3000+pattern_number,FillStyle = 3ijk
+    //background_SR->SetFillColor(12);
+   // background_SR->SetLineColor(12);
+   // background_SR->Draw("E2same");
     
    // float maxy=-10;
    // float ADD=20;
@@ -577,7 +578,8 @@ void PlotterPreselection_PlayWithMC(){
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
+   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/background_unstacked/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
