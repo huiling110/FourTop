@@ -95,8 +95,8 @@ void EventSelection_4top_v1(){
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
-      for (Int_t i=0; i<nentries; i++) {
-//      for (Int_t i=0; i<100; i++) {
+ //     for (Int_t i=0; i<nentries; i++) {
+     for (Int_t i=0; i<100; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
@@ -152,7 +152,7 @@ void EventSelection_4top_v1(){
 			int CA8Index = -1;
 			//?not used in the macro
 			bool deltaPhiJetMet=true;
-		    vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+		   // vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//if (SelectedWJets.size()>0) continue;
 			//if (SelectedTopJets.size()>0) continue;
