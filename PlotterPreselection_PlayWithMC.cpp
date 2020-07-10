@@ -489,7 +489,8 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
     
-    TTTT_SR->Draw("samehisto");
+   // TTTT_SR->Draw("samehisto");
+      TTTT_SR->->DrawNormalized("samehisto", norm);
    // TTJets_SR->Draw("samehisto");
   //  TTWJets_SR->Draw("samehisto");
 //    TTZ_SR->Draw("samehisto");
