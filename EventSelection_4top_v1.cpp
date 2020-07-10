@@ -426,7 +426,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
 }/*}}}*/
 
 void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
-		   int SysJes, int SysJer, bool data,/* bool &deltaPhiJetMet*/){/*{{{*/
+		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){/*{{{*/
   //CA8jetType=0 -> W-jets
   //CA8jetType=1 -> top-jets
   for (UInt_t j = 0; j < BoostedJet_pt_->size(); ++j){
