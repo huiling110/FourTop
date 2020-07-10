@@ -35,7 +35,7 @@ void EventSelection_4top_v1(){
   fileName.push_back("QCD_HT1500to2000.root");   //11
   fileName.push_back("QCD_HT2000toIn.root");   //12
   fileName.push_back("TTJets.root");   //13
-//  fileName.push_back("TT.root");   //14
+  fileName.push_back("TT.root");   //14
   fileName.push_back("TTWJetsToQQ.root");   //15
   fileName.push_back("TTZToQQ.root");   //16
   fileName.push_back("TTTT.root");   //17 
@@ -49,11 +49,11 @@ void EventSelection_4top_v1(){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/JERdo/"+fileName[Nfiles];/*}}}*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESup/"+fileName[Nfiles];/*{{{*/
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERdo/"+fileName[Nfiles];/*}}}*/
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -152,7 +152,7 @@ void EventSelection_4top_v1(){
 			int CA8Index = -1;
 			//?not used in the macro
 			bool deltaPhiJetMet=true;
-			//vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+		    vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//if (SelectedWJets.size()>0) continue;
 			//if (SelectedTopJets.size()>0) continue;
@@ -426,7 +426,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
 }/*}}}*/
 
 void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
-		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){/*{{{*/
+		   int SysJes, int SysJer, bool data,/* bool &deltaPhiJetMet*/){/*{{{*/
   //CA8jetType=0 -> W-jets
   //CA8jetType=1 -> top-jets
   for (UInt_t j = 0; j < BoostedJet_pt_->size(); ++j){
@@ -445,9 +445,11 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
     if(!(BoostedJet_chargedHadronEnergyFraction_->at(j)>0.0)) continue;
     if(!(BoostedJet_chargedMultiplicity_->at(j)>0.0)) continue;
     if(CA8jetType==0){
-      if(!(SF*BoostedJet_puppi_softdrop_mass_->at(j)>65 && SF*BoostedJet_puppi_softdrop_mass_->at(j)<105)) continue;
+      if(!(SF*BoostedJet_puppi_softdrop_mass_->at(j)>65 && SF*BoostedJet_puppi_softdrop_mass_->at(j)<105)) continue;//wmass = 80
       if(!(BoostedJet_puppi_tau2_->at(j)/BoostedJet_puppi_tau1_->at(j)<0.45)) continue;
-    } else if(CA8jetType==1) {
+      //????what is softdrop and tau?
+    } 
+    else if(CA8jetType==1) {
       if(!(jetpt>400))                                                                           continue;
       if(!(SF*BoostedJet_puppi_softdrop_mass_->at(j)>105 && SF*BoostedJet_puppi_softdrop_mass_->at(j)<220)) continue;
       if(!(BoostedJet_puppi_tau3_->at(j)/BoostedJet_puppi_tau2_->at(j)<0.80)) continue;
@@ -1010,7 +1012,7 @@ float LeadingJetPtCal(vector<TLorentzVector> SelectedJets){/*{{{*/
 //}/*}}}*/
 
 
-void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinMaxDeltaR){
+void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinMaxDeltaR){/*{{{*/
     float init = 0;
     float init2 = 0;
     float initMin1 = 1000000;
@@ -1042,7 +1044,7 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinM
     MinMaxDeltaR.push_back(initMin2);// cout<<initMin2<<"  ";
     MinMaxDeltaR.push_back(init2);
    // cout<<MinMaxDeltaR[0];
-}
+}/*}}}*/
 
 //void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
 //    int size = 0;
