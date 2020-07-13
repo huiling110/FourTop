@@ -31,7 +31,7 @@ void PlotterPreselection_PlayWithMC(){
 //  name.push_back("Centrality");      bin.push_back(8);     Min.push_back(-0.5);    Max.push_back(7.5);    axis.push_back("Centrality");
  // name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
   name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
-  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
+ /* name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
   name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Third Jet Pt");
   name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Fourth Jet Pt");
   name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("Fifth Jet Pt");
@@ -60,6 +60,7 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("MHT pt[GeV]");
   name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
  name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
+ */
  
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
@@ -352,7 +353,7 @@ void PlotterPreselection_PlayWithMC(){
 
 		TTTT_SR->SetLineWidth(2);
         /*{{{*/
-		TTTT_SR->SetLineColor(2);
+		TTTT_SR->SetLineColor(kRed);
 		QCD_HT200to300_SR->SetLineWidth(2); QCD_HT300to500_SR->SetLineWidth(2);QCD_HT500to700_SR->SetLineWidth(2); QCD_HT700to1000_SR->SetLineWidth(2); QCD_HT1500to2000_SR->SetLineWidth(2); QCD_HT2000toIn_SR->SetLineWidth(2); QCD_HT1000to1500_SR->SetLineWidth(2);
 		TTJets_SR->SetLineWidth(2);
 		TTWJets_SR->SetLineWidth(2);
@@ -508,16 +509,16 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
   //  hs->DrawNormalized("hist", 1);
-    hs->Draw("histo");///?
+    hs->Draw("hist");///?
     
-    TTTT_SR->Draw("samehisto");
+    TTTT_SR->Draw("samehist");
    //   TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  TTWJets_SR->Draw("samehisto");
 //    TTZ_SR->Draw("samehisto");
 	background_SR->SetLineWidth(2);
 	background_SR->SetLineColor(kViolet-2); 
-    background_SR->Draw("samehisto");
+    background_SR->Draw("samehist");
    // background_SR->DrawNormalized("samehist", 1);
     
     //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
@@ -526,7 +527,7 @@ void PlotterPreselection_PlayWithMC(){
     TTX->Add(TTZ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
-    TTX->Draw("samehisto");
+    TTX->Draw("samehist");
 //    TTX->DrawNormalized("samehist", 1);
 
    // TTJets_SR->Draw("samehisto");
@@ -541,15 +542,17 @@ void PlotterPreselection_PlayWithMC(){
    // background_SR->Draw("E2same");
     
     float maxy=-10;
-    float ADD=20;
+    float ADD=20000;
    // for(int ABC=0; ABC<data_SR->GetNbinsX(); ABC++){
     for(int ABC=0; ABC<TTTT_SR->GetNbinsX(); ABC++){
         if(background_SR->GetBinContent(ABC+1)+ADD>=maxy) maxy=background_SR->GetBinContent(ABC+1)+ADD;
      // if(data_SR      ->GetBinContent(ABC+1)+ADD>=maxy) maxy=data_SR      ->GetBinContent(ABC+1)+ADD;
-   // }
+    }
     hs->SetMaximum(maxy);
- //   hs->SetMaximum(1000000);
-   // hs->SetMinimum(3);
+    
+//    hs->SetMaximum(1000000);
+//    hs->SetMinimum(3);
+    hs->SetMinimum(1);
     c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
 	/////
