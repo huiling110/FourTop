@@ -496,7 +496,6 @@ void PlotterPreselection_PlayWithMC(){
     
 	hs->SetLineWidth(2);
 	hs->SetLineColor(kYellow+2); 
-  //  hs->Draw("histo");///?
    // hs->Draw("histo NOSTACK");///?
     hs->SetMinimum(0);
     hs->GetYaxis()->SetTitleSize(0.050);
@@ -508,17 +507,18 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetXaxis()->SetTitle(axis[i]);
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-    hs->DrawNormalized("hist", 1);
+  //  hs->DrawNormalized("hist", 1);
+    hs->Draw("histo");///?
     
-   // TTTT_SR->Draw("samehisto");
-      TTTT_SR->DrawNormalized("samehist", 1);
+    TTTT_SR->Draw("samehisto");
+   //   TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  TTWJets_SR->Draw("samehisto");
 //    TTZ_SR->Draw("samehisto");
 	background_SR->SetLineWidth(2);
 	background_SR->SetLineColor(kViolet-2); 
-   // background_SR->Draw("samehisto");
-    background_SR->DrawNormalized("samehist", 1);
+    background_SR->Draw("samehisto");
+   // background_SR->DrawNormalized("samehist", 1);
     
     //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
@@ -526,8 +526,8 @@ void PlotterPreselection_PlayWithMC(){
     TTX->Add(TTZ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
-//    TTX->Draw("samehisto");
-    TTX->DrawNormalized("samehist", 1);
+    TTX->Draw("samehisto");
+//    TTX->DrawNormalized("samehist", 1);
 
    // TTJets_SR->Draw("samehisto");
    // TTWJets_SR->Draw("samehisto");
@@ -540,16 +540,17 @@ void PlotterPreselection_PlayWithMC(){
    // background_SR->SetLineColor(12);
    // background_SR->Draw("E2same");
     
-   // float maxy=-10;
-   // float ADD=20;
+    float maxy=-10;
+    float ADD=20;
    // for(int ABC=0; ABC<data_SR->GetNbinsX(); ABC++){
-     // if(background_SR->GetBinContent(ABC+1)+ADD>=maxy) maxy=background_SR->GetBinContent(ABC+1)+ADD;
+    for(int ABC=0; ABC<TTTT_SR->GetNbinsX(); ABC++){
+        if(background_SR->GetBinContent(ABC+1)+ADD>=maxy) maxy=background_SR->GetBinContent(ABC+1)+ADD;
      // if(data_SR      ->GetBinContent(ABC+1)+ADD>=maxy) maxy=data_SR      ->GetBinContent(ABC+1)+ADD;
    // }
-   // hs->SetMaximum(maxy);
+    hs->SetMaximum(maxy);
  //   hs->SetMaximum(1000000);
    // hs->SetMinimum(3);
-   // c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
+    c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
 	/////
 	//画图上各种说明文字
@@ -623,9 +624,8 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
-    //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".pdf");
-   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_unnormalized/"+NAME+".pdf");
+   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
@@ -794,7 +794,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
-    }
+      }
 
       //why clone then delete?
       background_func  = (TH1F*)background ->Clone(); 
