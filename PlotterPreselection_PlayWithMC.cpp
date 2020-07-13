@@ -26,41 +26,41 @@ void PlotterPreselection_PlayWithMC(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
- /* 
- name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
- name.push_back("Centrality");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Centrality");
+ 
+ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6000);    axis.push_back("Invariant mass of jets");
+//  name.push_back("Centrality");      bin.push_back(8);     Min.push_back(-0.5);    Max.push_back(7.5);    axis.push_back("Centrality");
  // name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
-  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4800);    axis.push_back("Leading Jet Pt");
-  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4000);    axis.push_back("Second Jet Pt");
-  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1800);    axis.push_back("Third Jet Pt");
-  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1500);    axis.push_back("Fourth Jet Pt");
-  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1000);    axis.push_back("Fifth Jet Pt");
-  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Sixth Jet Pt");
-  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(700);    axis.push_back("Seventh Jet Pt");
-  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Eighth Jet Pt");
-  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(4000);    axis.push_back("Leading B Jet Pt");
-  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(-10);    Max.push_back(3000);    axis.push_back("Second B Jet Pt");
-  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(3000);    axis.push_back("HT / MET");
-  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5000);    axis.push_back("MHT / MET");
-  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Nighth Jet Pt");
-  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(500);    axis.push_back("Tenth Jet Pt");
-  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(1000);    axis.push_back("Third B Jet Pt");
-  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(600);    axis.push_back("Fourth B Jet Pt");
-  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
-  name.push_back("MinDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Min delta R of Jets");
-  name.push_back("MaxDeltaRJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Maximum delta R of Jets");
-  name.push_back("MinDeltaRBJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Min delta R of B Jets");
-  */
- // name.push_back("MaxDeltaRBJets");      bin.push_back(9);     Min.push_back(-1);    Max.push_back(8);    axis.push_back("Maximum delta R of B Jets");
- name.push_back("NumSelJets");      bin.push_back(20);     Min.push_back(-0.5);    Max.push_back(19.5);    axis.push_back("Number of jets");
-/*
-  name.push_back("NumSelBJetsM");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Number of medium b-jets");
+  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
+  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
+  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Third Jet Pt");
+  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Fourth Jet Pt");
+  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("Fifth Jet Pt");
+  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Sixth Jet Pt");
+  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Seventh Jet Pt");
+  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Eighth Jet Pt");
+  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Leading B Jet Pt");
+  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second B Jet Pt");
+  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("HT / MET");
+  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("MHT / MET");
+  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Nighth Jet Pt");
+  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Tenth Jet Pt");
+  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Third B Jet Pt");
+  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
+ // name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
+  name.push_back("MinDeltaRJets");      bin.push_back(7);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of Jets");
+  name.push_back("MaxDeltaRJets");      bin.push_back(7);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of Jets");
+  name.push_back("MinDeltaRBJets");      bin.push_back(7);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of B Jets");
+  
+  name.push_back("MaxDeltaRBJets");      bin.push_back(7);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of B Jets");
+ name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
+
+  name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
  name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
- name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("HT pt[GeV]");
+ name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4444000);    axis.push_back("HT pt[GeV]");
  name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("MHT pt[GeV]");
-  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);   axis.push_back("Met pt[GeV] ");
+  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
  name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
- */
+ 
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
 //  name.push_back("Sphericity");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Sphericity");
@@ -102,7 +102,7 @@ void PlotterPreselection_PlayWithMC(){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
-	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR,QCD_HT200to300_SR,     QCD_HT300to500_SR,   QCD_HT500to700_SR,   QCD_HT700to1000_SR,   QCD_HT1000to1500_SR,   QCD_HT1500to2000_SR,   	   QCD_HT2000toIn_SR,   TTJets_SR,   TTWJets_SR,   TTZ_SR,   TTTT_SR);//682
+	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR,QCD_HT200to300_SR,     QCD_HT300to500_SR,   QCD_HT500to700_SR,   QCD_HT700to1000_SR,   QCD_HT1000to1500_SR,   QCD_HT1500to2000_SR,   	   QCD_HT2000toIn_SR,   TTJets_SR,   TTWJets_SR,   TTZ_SR,  TT_SR, TTTT_SR );//682
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -315,25 +315,6 @@ void PlotterPreselection_PlayWithMC(){
 						));
 		}*/
 	
-		TTTT_SR->SetLineWidth(2);
-        /*{{{*/
-		TTTT_SR->SetLineColor(2);
-		QCD_HT200to300_SR->SetLineWidth(2); QCD_HT300to500_SR->SetLineWidth(2);QCD_HT500to700_SR->SetLineWidth(2); QCD_HT700to1000_SR->SetLineWidth(2); QCD_HT1500to2000_SR->SetLineWidth(2); QCD_HT2000toIn_SR->SetLineWidth(2); QCD_HT1000to1500_SR->SetLineWidth(2);
-		TTJets_SR->SetLineWidth(2);
-		TTWJets_SR->SetLineWidth(2);
-		TTZ_SR->SetLineWidth(2);
-
-		QCD_HT200to300_SR->SetLineColor(kOrange); QCD_HT300to500_SR->SetLineColor(kOrange);QCD_HT500to700_SR->SetLineColor(kOrange); QCD_HT700to1000_SR->SetLineColor(kOrange); QCD_HT1500to2000_SR->SetLineColor(kOrange); QCD_HT2000toIn_SR->SetLineColor(kOrange); QCD_HT1000to1500_SR->SetLineColor(kOrange);
-		TTJets_SR->SetLineColor(kGreen-3);
-		TTWJets_SR->SetLineColor(kCyan-4);
-		TTZ_SR->SetLineColor(kGreen+3); 
-
-		QCD_HT200to300_SR->SetFillColor(kOrange); QCD_HT300to500_SR->SetFillColor(kOrange);QCD_HT500to700_SR->SetFillColor(kOrange); QCD_HT700to1000_SR->SetFillColor(kOrange); QCD_HT1500to2000_SR->SetFillColor(kOrange); QCD_HT2000toIn_SR->SetFillColor(kOrange); QCD_HT1000to1500_SR->SetFillColor(kOrange);
-	//	TTJets_SR->SetFillColor(kGreen-3);
-	//	TTWJets_SR->SetFillColor(kCyan-4);
-	//	TTZ_SR->SetFillColor(kGreen+3);
-
-//		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
 
 //		Double_t dataErr   = 0; Float_t dataYield = data_SR->IntegralAndError(1,TTTT_SR->GetNbinsX()-1,dataErr,"");/*{{{*/
 		Double_t QCD_HT200to300Err   = 0; Float_t QCD_HT200to300Yield = QCD_HT200to300_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT200to300Err,"");
@@ -346,6 +327,7 @@ void PlotterPreselection_PlayWithMC(){
 		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
 		Double_t TTWJetsErr = 0; Float_t TTWJetsYield = TTWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTWJetsErr,"");
 		Double_t TTZErr = 0; Float_t TTZYield = TTZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTZErr,"");
+		Double_t TTErr = 0; Float_t TTYield = TT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTErr,"");
 
 		Double_t TTTT_Err= 0; Float_t TTTT_Yield = TTTT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTTT_Err,"");
 
@@ -358,13 +340,40 @@ void PlotterPreselection_PlayWithMC(){
       cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
 	  cout<<"TTWJets    = "<<TTWJets_SR->Integral()<<" +/- "<<sqrt(TTWJetsErr*TTWJetsErr)<<endl;
 	  cout<<"TTZ       = "<<TTZ_SR->Integral()<<" +/- "<<sqrt(TTZErr*TTZErr)<<endl;
-	  cout<<"Total BKG = "<<QCD_HT200to300_SR->Integral()+QCD_HT300to500_SR->Integral()+QCD_HT500to700_SR->Integral()+QCD_HT700to1000_SR->Integral()+QCD_HT1500to2000_SR->Integral()+QCD_HT2000toIn_SR->Integral()+QCD_HT1000to1500_SR->Integral()+TTJets_SR->Integral()+TTWJets_SR->Integral()+TTZ_SR->Integral()<<" +/- "<<
+	  cout<<"TT       = "<<TT_SR->Integral()<<" +/- "<<sqrt(TTErr*TTErr)<<endl;
+	  cout<<"Total BKG = "<<QCD_HT200to300_SR->Integral()+QCD_HT300to500_SR->Integral()+QCD_HT500to700_SR->Integral()+QCD_HT700to1000_SR->Integral()+QCD_HT1500to2000_SR->Integral()+QCD_HT2000toIn_SR->Integral()+QCD_HT1000to1500_SR->Integral()+TTJets_SR->Integral()+TTWJets_SR->Integral()+TTZ_SR->Integral() +TT_SR->Integral()<<" +/- "<<
 		  sqrt(QCD_HT200to300Err*QCD_HT200to300Err+QCD_HT300to500Err*QCD_HT300to500Err+QCD_HT500to700Err*QCD_HT500to700Err+QCD_HT700to1000Err*QCD_HT700to1000Err+QCD_HT1500to2000Err*QCD_HT1500to2000Err+QCD_HT2000toInErr*QCD_HT2000toInErr+QCD_HT1000to1500Err*QCD_HT1000to1500Err+TTJetsErr*TTJetsErr+TTWJetsErr*TTWJetsErr+TTZErr*TTZErr)<<endl;
       cout<<"TTTT = "<<TTTT_SR->Integral()<<" +/- "<<sqrt(TTTT_Err*TTTT_Err)<<endl;
       
 	}/*}}}*/
 
     TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+
+
+		TTTT_SR->SetLineWidth(2);
+        /*{{{*/
+		TTTT_SR->SetLineColor(2);
+		QCD_HT200to300_SR->SetLineWidth(2); QCD_HT300to500_SR->SetLineWidth(2);QCD_HT500to700_SR->SetLineWidth(2); QCD_HT700to1000_SR->SetLineWidth(2); QCD_HT1500to2000_SR->SetLineWidth(2); QCD_HT2000toIn_SR->SetLineWidth(2); QCD_HT1000to1500_SR->SetLineWidth(2);
+		TTJets_SR->SetLineWidth(2);
+		TTWJets_SR->SetLineWidth(2);
+		TTZ_SR->SetLineWidth(2);
+		TT_SR->SetLineWidth(2);
+
+		QCD_HT200to300_SR->SetLineColor(kOrange); QCD_HT300to500_SR->SetLineColor(kOrange);QCD_HT500to700_SR->SetLineColor(kOrange); QCD_HT700to1000_SR->SetLineColor(kOrange); QCD_HT1500to2000_SR->SetLineColor(kOrange); QCD_HT2000toIn_SR->SetLineColor(kOrange); QCD_HT1000to1500_SR->SetLineColor(kOrange);
+		TTJets_SR->SetLineColor(kGreen-3);
+		TTWJets_SR->SetLineColor(kCyan-4);
+		TTZ_SR->SetLineColor(kGreen+3); 
+		TT_SR->SetLineColor(kGreen-4); 
+
+		QCD_HT200to300_SR->SetFillColor(kOrange); QCD_HT300to500_SR->SetFillColor(kOrange);QCD_HT500to700_SR->SetFillColor(kOrange); QCD_HT700to1000_SR->SetFillColor(kOrange); QCD_HT1500to2000_SR->SetFillColor(kOrange); QCD_HT2000toIn_SR->SetFillColor(kOrange); QCD_HT1000to1500_SR->SetFillColor(kOrange);
+	//	TTJets_SR->SetFillColor(kGreen-3);
+	//	TTWJets_SR->SetFillColor(kCyan-4);
+	//	TTZ_SR->SetFillColor(kGreen+3);
+
+//		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
+
+
+
 
 	//////
 	//画下面data/MC的比率计算图
@@ -463,20 +472,31 @@ void PlotterPreselection_PlayWithMC(){
    // c1_2->SetRightMargin(0.035);
    // c1_2->SetLeftMargin(0.20);
   
-    THStack *hs = new THStack("hs","hs");
+   // THStack *hs = new THStack("hs","hs");
+    TH1::SetDefaultSumw2();
+    TH1F *hs = new TH1F("hs","h1+h2",bin[i],Min[i],Max[i]);
     //hs->Add(TTZ_SR);
     //hs->Add(TTWJets_SR);
     //hs->Add(TTJets_SR);
-    hs->Add(QCD_HT200to300_SR);
+    /*hs->Add(QCD_HT200to300_SR);
     hs->Add(QCD_HT300to500_SR);
     hs->Add(QCD_HT500to700_SR);
     hs->Add(QCD_HT700to1000_SR);
     hs->Add(QCD_HT1500to2000_SR);
     hs->Add(QCD_HT2000toIn_SR);
-    hs->Add(QCD_HT1000to1500_SR);
+    hs->Add(QCD_HT1000to1500_SR);*/
+    hs->Add(QCD_HT200to300_SR,QCD_HT300to500_SR,1,1);
+    //hs->Add(QCD_HT300to500_SR,1);
+    hs->Add(QCD_HT500to700_SR,1);
+    hs->Add(QCD_HT700to1000_SR,1);
+    hs->Add(QCD_HT1500to2000_SR,1);
+    hs->Add(QCD_HT2000toIn_SR,1);
+    hs->Add(QCD_HT1000to1500_SR,1);
 	
     
-    hs->Draw("histo");///?
+	hs->SetLineWidth(2);
+	hs->SetLineColor(kYellow+2); 
+  //  hs->Draw("histo");///?
    // hs->Draw("histo NOSTACK");///?
     hs->SetMinimum(0);
     hs->GetYaxis()->SetTitleSize(0.050);
@@ -488,29 +508,31 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetXaxis()->SetTitle(axis[i]);
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+    hs->DrawNormalized("hist", 1);
     
    // TTTT_SR->Draw("samehisto");
-      TTTT_SR->->DrawNormalized("samehisto", norm);
+      TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  TTWJets_SR->Draw("samehisto");
 //    TTZ_SR->Draw("samehisto");
 	background_SR->SetLineWidth(2);
 	background_SR->SetLineColor(kViolet-2); 
-    background_SR->Draw("samehisto");
+   // background_SR->Draw("samehisto");
+    background_SR->DrawNormalized("samehist", 1);
     
     //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
-    TH1::SetDefaultSumw2();
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
     TTX->Add(TTJets_SR,TTWJets_SR,1,1);
     TTX->Add(TTZ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
-    TTX->Draw("samehisto");
+//    TTX->Draw("samehisto");
+    TTX->DrawNormalized("samehist", 1);
 
    // TTJets_SR->Draw("samehisto");
    // TTWJets_SR->Draw("samehisto");
    // TTZ_SR->Draw("samehisto");
-		//?why background add up to meet data?
+		//why background add up to meet data?
     //data_SR->Draw("E same"); 
     
     //background_SR->SetFillStyle(3005);//3000+pattern_number,FillStyle = 3ijk
@@ -525,9 +547,9 @@ void PlotterPreselection_PlayWithMC(){
      // if(data_SR      ->GetBinContent(ABC+1)+ADD>=maxy) maxy=data_SR      ->GetBinContent(ABC+1)+ADD;
    // }
    // hs->SetMaximum(maxy);
-    hs->SetMaximum(1000000);
-    hs->SetMinimum(3);
-    c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
+ //   hs->SetMaximum(1000000);
+   // hs->SetMinimum(3);
+   // c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
 	/////
 	//画图上各种说明文字
@@ -584,12 +606,12 @@ void PlotterPreselection_PlayWithMC(){
 
 
     //定义图中各个线和直方图的颜色
-    TLegend *pl2 = new TLegend(0.55,0.60,0.95,0.91);
+    TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
     pl2->SetTextSize(0.045); 
     pl2->SetFillColor(0);
   //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
     TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
-    ple2 = pl2->AddEntry(QCD_HT200to300_SR, "QCD",  "F");
+    ple2 = pl2->AddEntry(hs, "QCD",  "L");
    // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
    // ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "L");
    // ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "L");
@@ -603,7 +625,7 @@ void PlotterPreselection_PlayWithMC(){
     //c1->SaveAs(NAME+".png");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/background_unstacked/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
@@ -630,7 +652,7 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 //we get histograms based on CUT from MC and data,and we
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
                /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &QCD_HT200to300_func,TH1F* &QCD_HT300to500_func,TH1F* &QCD_HT500to700_func,  TH1F*  &QCD_HT700to1000_func,TH1F* &QCD_HT1000to1500_func,TH1F* &QCD_HT1500to2000_func,TH1F* &QCD_HT2000toIn_func,
-                 TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func, TH1F* &TTTT_func){
+                 TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,TH1F* &TT_func, TH1F* &TTTT_func){
       //no background
      // TH1F *data;
       TH1F *TTTT;
@@ -643,7 +665,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TH1F *QCD_HT2000toIn;
       TH1F *TTJets;
       TH1F *TTWJets;
-      TH1F *TTZ; 
+      TH1F *TTZ;
+      TH1F* TT;
         //what is JETSyst?
         //given at each call of the function.0,1,2,3,or 4
       if(JETSyst==0){
@@ -659,6 +682,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree10, TTJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12, TTZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==1){
        // GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);//J1 from JESup directory
@@ -673,6 +697,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree10_J1, TTJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J1, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12_J1, TTZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==2){
        // GetHisto(CUT, Tree01_J2, data        ,plot,BIN,MIN,MAX);//J2 from JESdo
@@ -687,6 +712,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree10_J2, TTJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J2, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12_J2, TTZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==3){
        // GetHisto(CUT, Tree01_J3, data        ,plot,BIN,MIN,MAX);//J3 from JERup
@@ -701,6 +727,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree10_J3, TTJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J3, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12_J3, TTZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==4){
        // GetHisto(CUT, Tree01_J4, data        ,plot,BIN,MIN,MAX);//from JERdo
@@ -715,6 +742,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree10_J4, TTJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J4, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12_J4, TTZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, TT ,plot,BIN,MIN,MAX);
       }
  // TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
       TH1F *background = new TH1F("","",TTTT->GetNbinsX(),TTTT->GetXaxis()->GetXmin(),TTTT->GetXaxis()->GetXmax());
@@ -732,6 +760,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         if(TTJets ->GetBinContent(j)>0){TTJets ->SetBinError(j,sqrt(wTTJets*wTTJets*TTJets ->GetBinContent(j)));}else{TTJets ->SetBinError(j,0);}//wTTJets);}
         if(TTWJets ->GetBinContent(j)>0){TTWJets ->SetBinError(j,sqrt(wTTWJets*wTTWJets*TTWJets ->GetBinContent(j)));}else{TTWJets ->SetBinError(j,0);}//wTTWJets);}
         if(TTZ ->GetBinContent(j)>0){TTZ ->SetBinError(j,sqrt(wTTZ*wTTZ*TTZ ->GetBinContent(j)));}else{TTZ ->SetBinError(j,0);}
+        if(TT ->GetBinContent(j)>0){TT ->SetBinError(j,sqrt(wTT*wTT*TT ->GetBinContent(j)));}else{TT ->SetBinError(j,0);}
 
        // float errdata= data->GetBinError(j)*data->GetBinError(j);
         float errbg =
@@ -744,7 +773,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + QCD_HT2000toIn->GetBinError(j)*QCD_HT2000toIn->GetBinError(j)
             + TTJets->GetBinError(j)*TTJets->GetBinError(j)
             + TTWJets->GetBinError(j)*TTWJets->GetBinError(j)
-            + TTZ->GetBinError(j)*TTZ->GetBinError(j);
+            + TTZ->GetBinError(j)*TTZ->GetBinError(j)
+            + TT->GetBinError(j)*TT->GetBinError(j);
         background->SetBinError(j,sqrt(errbg));
 
         TTTT->SetBinContent(j,wTTTT*TTTT->GetBinContent(j));
@@ -758,9 +788,10 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         TTJets->SetBinContent(j,wTTJets*TTJets->GetBinContent(j));
         TTWJets->SetBinContent(j,wTTWJets*TTWJets->GetBinContent(j));
         TTZ->SetBinContent(j,wTTZ*TTZ->GetBinContent(j));
+        TT->SetBinContent(j,wTT*TT->GetBinContent(j));
 
         //float DATA = data->GetBinContent(j);
-        float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j);
+        float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
     }
@@ -779,9 +810,10 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TTJets_func   = (TH1F*)TTJets->Clone();
       TTWJets_func   = (TH1F*)TTWJets->Clone();
       TTZ_func   = (TH1F*)TTZ->Clone();
+      TT_func   = (TH1F*)TT->Clone();
 
       //delete data;
-      delete background;delete TTTT; delete QCD_HT200to300;delete QCD_HT300to500; delete QCD_HT500to700; delete QCD_HT700to1000; delete QCD_HT1000to1500; delete QCD_HT1500to2000; delete QCD_HT2000toIn;  delete TTJets;  delete TTWJets;  delete TTZ;  
+      delete background;delete TTTT; delete QCD_HT200to300;delete QCD_HT300to500; delete QCD_HT500to700; delete QCD_HT700to1000; delete QCD_HT1000to1500; delete QCD_HT1500to2000; delete QCD_HT2000toIn;  delete TTJets;  delete TTWJets;  delete TTZ;  delete TT;
     
 }
 
