@@ -49,11 +49,11 @@ void EventSelection_4top_v1(){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERdo/"+fileName[Nfiles];/*}}}*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/JESup/"+fileName[Nfiles];/*{{{*/
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/JERdo/"+fileName[Nfiles];/*}}}*/
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
