@@ -487,9 +487,9 @@ void PlotterPreselection_PlayWithMC(){
     //hs->Add(QCD_HT300to500_SR,1);
     hs->Add(QCD_HT500to700_SR,1);
     hs->Add(QCD_HT700to1000_SR,1);
+    hs->Add(QCD_HT1000to1500_SR,1);
     hs->Add(QCD_HT1500to2000_SR,1);
     hs->Add(QCD_HT2000toIn_SR,1);
-    hs->Add(QCD_HT1000to1500_SR,1);
 	
     
 	hs->SetLineWidth(2);
@@ -655,7 +655,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
                  TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,TH1F* &TT_func, TH1F* &TTTT_func){
       //no background
      // TH1F *data;
-      TH1F *TTTT;
+      TH1F *TTTT;/*{{{*/
       TH1F *QCD_HT200to300;
       TH1F *QCD_HT300to500;
       TH1F *QCD_HT500to700;
@@ -666,10 +666,10 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TH1F *TTJets;
       TH1F *TTWJets;
       TH1F *TTZ;
-      TH1F* TT;
+      TH1F* TT;/*}}}*/
         //what is JETSyst?
         //given at each call of the function.0,1,2,3,or 4
-      if(JETSyst==0){
+      if(JETSyst==0){/*{{{*/
        // GetHisto(CUT, Tree01, data        ,plot,BIN,MIN,MAX);//tree01 different number means different files' tree
         GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03, QCD_HT200to300 ,plot,BIN,MIN,MAX);
@@ -743,11 +743,11 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree11_J4, TTWJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree12_J4, TTZ ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, TT ,plot,BIN,MIN,MAX);
-      }
+      }/*}}}*/
  // TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
       TH1F *background = new TH1F("","",TTTT->GetNbinsX(),TTTT->GetXaxis()->GetXmin(),TTTT->GetXaxis()->GetXmax());
       //for(int j=1; j<data->GetNbinsX()+1; j++){
-      for(int j=1; j<TTTT->GetNbinsX()+1; j++){
+      for(int j=1; j<TTTT->GetNbinsX()+1; j++){/*{{{*/
             //why do we reset the bin error?
         if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(wTTTT*wTTTT*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
         if(QCD_HT200to300->GetBinContent(j)>0){QCD_HT200to300->SetBinError(j,sqrt(wQCD200to300*wQCD200to300*QCD_HT200to300->GetBinContent(j)));}else{QCD_HT200to300->SetBinError(j,0);}
@@ -794,7 +794,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
-    }
+    }/*}}}*/
 
       //why clone then delete?
       background_func  = (TH1F*)background ->Clone(); 
