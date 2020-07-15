@@ -28,36 +28,35 @@ void PlotterPreselection_PlayWithMC(){
 //name is plots we want to show   
  
  name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6000);    axis.push_back("Invariant mass of jets");
- // name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Centrality");
+  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Centrality");
 ///// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
- // name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1600);    axis.push_back("Leading Jet Pt");
- // name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
-  //name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("Third Jet Pt");
-  //name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Fourth Jet Pt");
-  //name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("Fifth Jet Pt");
-  //name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(160);    axis.push_back("Sixth Jet Pt");
- // name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Seventh Jet Pt");
- // name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Eighth Jet Pt");
- // name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading B Jet Pt");
- // name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Second B Jet Pt");
- // name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("HT / MET");
- // name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("MHT / MET");
- // name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Nighth Jet Pt");
- // name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Tenth Jet Pt");
- // name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Third B Jet Pt");
- // name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
- //// name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
- // name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of Jets");
- // name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of Jets");
- // name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of B Jets");
- // name.push_back("MaxDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of B Jets");
- //name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
-
- // name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
- //name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
-// name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("HT pt[GeV]");
-// name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
- // name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
+  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1600);    axis.push_back("Leading Jet Pt");
+  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
+  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("Third Jet Pt");
+  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Fourth Jet Pt");
+  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("Fifth Jet Pt");
+  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(160);    axis.push_back("Sixth Jet Pt");
+  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Seventh Jet Pt");
+  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Eighth Jet Pt");
+  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading B Jet Pt");
+  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Second B Jet Pt");
+  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("HT / MET");
+  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("MHT / MET");
+  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Nighth Jet Pt");
+  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Tenth Jet Pt");
+  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Third B Jet Pt");
+  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
+  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
+  name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of Jets");
+  name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of Jets");
+  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of B Jets");
+  name.push_back("MaxDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of B Jets");
+ name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
+ name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
+ name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
+ name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("HT pt[GeV]");
+ name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
+ name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
  //name.push_back("Met_phi"); bin.push_back(100);     Min.push_back(-3.5);   Max.push_back(-3.5);      axis.push_back("Met #phi");
  
  
@@ -566,7 +565,8 @@ void PlotterPreselection_PlayWithMC(){
     TString cmsText     = "CMS";
     float cmsTextFont   = 61;  // default is helvetic-bold
     bool writeExtraText = true;
-    TString extraText   = "Preliminary";
+//    TString extraText   = "Preliminary";
+    TString extraText   = "MC";
     //TString extraText   = "";
     float extraTextFont = 52;  // default is helvetica-italics
     // text sizes and text offsets with respect to the top frame in unit of the top margin size
@@ -576,7 +576,7 @@ void PlotterPreselection_PlayWithMC(){
     float cmsTextOffset    = 0.1;  // only used in outOfFrame version
     float relPosX    = 0.045;
     float relPosY    = 0.035;
-    float relExtraDY = 1.2;
+    
     // ratio of "CMS" and extra text size
     float extraOverCmsTextSize  = 0.76;
     TString lumi_13TeV;
@@ -626,7 +626,7 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/test/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/MC_unnormalized_wQCDCorrected/"+NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
