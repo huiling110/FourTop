@@ -510,6 +510,9 @@ void PlotterPreselection_PlayWithMC(){
     hs->Draw("hist");///?
     
     TTTT_SR->Draw("samehist");
+	TT_SR->SetLineWidth(2);
+	TT_SR->SetLineColor(kOrange); 
+    TT_SR->Draw("samehist");
    //   TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  TTWJets_SR->Draw("samehisto");
@@ -615,10 +618,11 @@ void PlotterPreselection_PlayWithMC(){
   //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
     TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
     ple2 = pl2->AddEntry(hs, "QCD",  "L");
+    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
    // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
    // ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "L");
    // ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "L");
-    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
     ple2 = pl2->AddEntry(background_SR, "background",  "L");
     pl2->Draw();
     
@@ -626,7 +630,7 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/MC_unnormalized_wQCDCorrected/"+NAME+".pdf");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/MC_unnormalized_wQCDCorrected_addTT/"+NAME+".png");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
