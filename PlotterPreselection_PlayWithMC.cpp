@@ -26,7 +26,7 @@ void PlotterPreselection_PlayWithMC(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
- /*
+ 
  name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6000);    axis.push_back("Invariant mass of jets");
   name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Centrality");
 ///// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
@@ -46,7 +46,7 @@ void PlotterPreselection_PlayWithMC(){
   name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Tenth Jet Pt");
   name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Third B Jet Pt");
   name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
-  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
+//  name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
   name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of Jets");
   name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Maximum delta R of Jets");
   name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Min delta R of B Jets");
@@ -54,12 +54,12 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
  name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
  name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
- */
+ 
  name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("HT pt[GeV]");
-/* name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
+ name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
  //name.push_back("Met_phi"); bin.push_back(100);     Min.push_back(-3.5);   Max.push_back(-3.5);      axis.push_back("Met #phi");
- */
+ 
  
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
