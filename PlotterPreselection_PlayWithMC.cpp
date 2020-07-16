@@ -26,7 +26,7 @@ void PlotterPreselection_PlayWithMC(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
- 
+ /*
  name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6000);    axis.push_back("Invariant mass of jets");
   name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Centrality");
 ///// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
@@ -54,11 +54,12 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
  name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
  name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
+ */
  name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("HT pt[GeV]");
- name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
+/* name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
  //name.push_back("Met_phi"); bin.push_back(100);     Min.push_back(-3.5);   Max.push_back(-3.5);      axis.push_back("Met #phi");
- 
+ */
  
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
@@ -349,9 +350,7 @@ void PlotterPreselection_PlayWithMC(){
     TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
 
 
-		TTTT_SR->SetLineWidth(2);
         /*{{{*/
-		TTTT_SR->SetLineColor(kRed);
 		QCD_HT200to300_SR->SetLineWidth(2); QCD_HT300to500_SR->SetLineWidth(2);QCD_HT500to700_SR->SetLineWidth(2); QCD_HT700to1000_SR->SetLineWidth(2); QCD_HT1500to2000_SR->SetLineWidth(2); QCD_HT2000toIn_SR->SetLineWidth(2); QCD_HT1000to1500_SR->SetLineWidth(2);
 		TTJets_SR->SetLineWidth(2);
 		TTWJets_SR->SetLineWidth(2);
@@ -509,6 +508,8 @@ void PlotterPreselection_PlayWithMC(){
   //  hs->DrawNormalized("hist", 1);
     hs->Draw("hist");///?
     
+	TTTT_SR->SetLineWidth(2);
+	 TTTT_SR->SetLineColor(kRed);
     TTTT_SR->Draw("samehist");
 	TT_SR->SetLineWidth(2);
 	TT_SR->SetLineColor(kOrange); 
@@ -630,7 +631,7 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/MC_unnormalized_wQCDCorrected_addTT/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_UnNormalized/"+NAME+".png");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 

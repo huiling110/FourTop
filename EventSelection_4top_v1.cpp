@@ -49,7 +49,7 @@ void EventSelection_4top_v1(){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/NoJEC"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/NoJEC/"+fileName[Nfiles];
     if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/JESup/"+fileName[Nfiles];/*{{{*/
     if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/JESdown/"+fileName[Nfiles];
     if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/JERup/"+fileName[Nfiles];
