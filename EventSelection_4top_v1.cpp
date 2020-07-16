@@ -95,8 +95,8 @@ void EventSelection_4top_v1(){
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
-//     for (Int_t i=0; i<nentries; i++) {
-     for (Int_t i=0; i<1000; i++) {
+     for (Int_t i=0; i<nentries; i++) {
+//     for (Int_t i=0; i<10000; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
