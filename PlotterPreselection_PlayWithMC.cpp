@@ -31,7 +31,7 @@ void PlotterPreselection_PlayWithMC(){
 //  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 // //// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
 //  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
- name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
+// name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
 //  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Third Jet Pt");
 //  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Fourth Jet Pt");
 //  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Fifth Jet Pt");
@@ -40,8 +40,8 @@ void PlotterPreselection_PlayWithMC(){
 //  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Eighth Jet Pt");
 //  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Leading B Jet Pt");
 //  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second B Jet Pt");
-  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
-  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
+ // name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
+ // name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
 //  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Nighth Jet Pt");
 // name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Tenth Jet Pt");
 //  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("Third B Jet Pt");
@@ -54,7 +54,7 @@ void PlotterPreselection_PlayWithMC(){
  // name.push_back("NumSelJets");      bin.push_back(12);     Min.push_back(0);    Max.push_back(13);    axis.push_back("Number of jets");
  // name.push_back("NumSelBJetsM");      bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium b jets");
  //name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
- //name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(2200);    axis.push_back("HT pt[GeV]");
+ name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(2200);    axis.push_back("HT pt[GeV]");
  //name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
  //name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
 // name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
@@ -498,7 +498,7 @@ void PlotterPreselection_PlayWithMC(){
    // hs->Draw("histo NOSTACK");///?
     hs->SetMinimum(0);
 //    hs->SetMaximum(1);
-    hs->SetMaximum(4 * hs->GetMaximum());
+    hs->SetMaximum(2 * hs->GetMaximum());
     hs->GetYaxis()->SetTitleSize(0.050);
     hs->GetXaxis()->SetTitleSize(0.040);
     hs->GetYaxis()->SetLabelSize(0.040);
@@ -528,6 +528,10 @@ void PlotterPreselection_PlayWithMC(){
 	TTX->SetLineColor(kAzure); 
 //    TTX->Draw("samehisto");
     TTX->DrawNormalized("samehist", 1);
+	TT_SR->SetLineWidth(2);
+	TT_SR->SetLineColor(kOrange); 
+//    TTX->Draw("samehisto");
+    TT_SR->DrawNormalized("samehist", 1);
 
    // TTJets_SR->Draw("samehisto");
    // TTWJets_SR->Draw("samehisto");
@@ -616,6 +620,7 @@ void PlotterPreselection_PlayWithMC(){
    // ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "L");
    // ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "L");
     ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
     ple2 = pl2->AddEntry(background_SR, "background",  "L");
     pl2->Draw();
     
@@ -625,7 +630,7 @@ void PlotterPreselection_PlayWithMC(){
     //c1->SaveAs(NAME+".png");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v3/MC_normalized_wQCDCorrected/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_Normalized/"+NAME+".png");
     //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
