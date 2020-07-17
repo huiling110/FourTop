@@ -54,7 +54,7 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("NumSelJets");      bin.push_back(19);     Min.push_back(0);    Max.push_back(19);    axis.push_back("Number of jets");
  name.push_back("NumSelBJetsM");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("Number of medium b jets");
  name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Number of vertices");
- 
+
  name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("HT pt[GeV]");
  name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("MHT pt[GeV]");
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
@@ -72,7 +72,8 @@ void PlotterPreselection_PlayWithMC(){
   
   for(int i=0; i<name.size(); i++){
 	  const char *plot = name[i];
-	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
+	  char CUT[1000]; char CUTpre[1000];
+     // char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
       //
@@ -525,8 +526,9 @@ void PlotterPreselection_PlayWithMC(){
     
     //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
-    TTX->Add(TTJets_SR,TTWJets_SR,1,1);
-    TTX->Add(TTZ_SR,1);
+//    TTX->Add(TTJets_SR,TTWJets_SR,1,1);
+    TTX->Add(TTZ_SR,TTWJets_SR,1,1);
+//    TTX->Add(TTZ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
     TTX->Draw("samehist");
@@ -631,9 +633,9 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
     //c1->SaveAs(NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_UnNormalized/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_UnNormalizedRmTTJets/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_UnNormalizedRmTTJets/"+NAME+".eps");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/MC_nomarlized/"+NAME+".pdf");
-    //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
   }
@@ -778,7 +780,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + QCD_HT1000to1500->GetBinError(j)*QCD_HT1000to1500->GetBinError(j)
             + QCD_HT1500to2000->GetBinError(j)*QCD_HT1500to2000->GetBinError(j)
             + QCD_HT2000toIn->GetBinError(j)*QCD_HT2000toIn->GetBinError(j)
-            + TTJets->GetBinError(j)*TTJets->GetBinError(j)
+//            + TTJets->GetBinError(j)*TTJets->GetBinError(j)
             + TTWJets->GetBinError(j)*TTWJets->GetBinError(j)
             + TTZ->GetBinError(j)*TTZ->GetBinError(j)
             + TT->GetBinError(j)*TT->GetBinError(j);
@@ -798,7 +800,9 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         TT->SetBinContent(j,wTT*TT->GetBinContent(j));
 
         //float DATA = data->GetBinContent(j);
-        float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) + TTJets->GetBinContent(j) + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
+        float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j) 
+//            +  TTJets->GetBinContent(j)
+            + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
       }
