@@ -44,16 +44,17 @@ void EventSelection_4top_v1(){
 //in line 4, the function parameter.
 
 
-  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
+//  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
+  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
     string NewFileprov;
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v2/JERdo/"+fileName[Nfiles];/*}}}*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JESup/"+fileName[Nfiles];/*{{{*/
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JERdo/"+fileName[Nfiles];/*}}}*/
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -95,8 +96,8 @@ void EventSelection_4top_v1(){
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
-     for (Int_t i=0; i<nentries; i++) {
-//     for (Int_t i=0; i<100; i++) {
+//     for (Int_t i=0; i<nentries; i++) {
+     for (Int_t i=0; i<100; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
@@ -1088,9 +1089,6 @@ void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &
     }
 
 }/*}}}*/
-//
-//
-
 
 //?it seems that fileName doesn't occur in the function .
 //
