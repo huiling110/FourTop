@@ -38,7 +38,8 @@ void EventSelection_4top_v1(){
 //  fileName.push_back("TT.root");   //14
 //  fileName.push_back("TTWJetsToQQ.root");   //15
 //  fileName.push_back("TTZToQQ.root");   //16
-  fileName.push_back("TTTT.root");   //17 
+//  fileName.push_back("TTTT.root");   //17 
+  fileName.push_back("TTTT_1-10.root");   //17 
 //  fileName.push_back(Input);
  //where is in put?what does input do?
 //in line 4, the function parameter.
@@ -50,12 +51,11 @@ void EventSelection_4top_v1(){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JESup/"+fileName[Nfiles];/*{{{*/
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_test/JERdo/"+fileName[Nfiles];/*}}}*/
-    //NewFileprov = fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESup/"+fileName[Nfiles];
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERdo/"+fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
 	//c_str()Returns a pointer to an array that contains a null-terminated sequence of characters (i.e., a C-string) representing the current value of the string object.
@@ -67,24 +67,22 @@ void EventSelection_4top_v1(){
    //guessing file already exist ?
 	 //data and sample is data or MC? where do we get these files ?
 	 //where do we put the newfile?
-    string FILEprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/"+fileName[Nfiles];
+    string FILEprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
-		//?
     Tree = (TTree*)file->Get(openTree);
 	//what do you mean get open tree from file ?
 	//in 26 openTree=
     bool data = true;
 	//what does "may..." mean?   guess they are data file name.
-	
-    if(!(fileName[Nfiles].find("May18V1_MET")!=string::npos )) data = false;
+    if(!(fileName[Nfiles].find("Tau_data")!=string::npos )) data = false;
 	//find():The position of the first character of the first match.
 	//If no matches were found, the function returns string::npos.
 	//find May18V1_MET,data=true.
 	//what is data?	//if filename is data, data=true. data and MC files have different tree .
     branch(data,NewTree,NewTreeSB,fileName[Nfiles]);//line933
 		//Tree->SetBranchAddress;NewTree and SB->Branch
-		//every file have the same tree ?
+		//every file have the same tree ?yes
     Int_t nentries = (Int_t)Tree->GetEntries();
 		//how do we know the entries of Tree?
 		//Read all branches of entry and return total number of bytes read.
@@ -122,6 +120,7 @@ void EventSelection_4top_v1(){
 			if(!(Flag_HBHENoiseIsoFilter_==1))  continue;
 			if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))  continue;  //a branch in Tree
 		    if(!(Flag_BadPFMuonFilter_==1))  continue;  
+            if(!(Flag_METFilters_==1))  continue;//add
 			//if(!(Flag_BadChargedCandidateFilter_==1))  continue;
 //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))  continue;  cout<<"139";
 //			??why this filter not work?
@@ -189,9 +188,9 @@ void EventSelection_4top_v1(){
 			EVENT_event       = EVENT_event_;
 			EVENT_lumiBlock   = EVENT_lumiBlock_;
 			EVENT_genHT       = EVENT_genHT_;
-			prefiringweight   = EVENT_prefiringweight_;
-			prefiringweightup = EVENT_prefiringweightup_;
-			prefiringweightdown = EVENT_prefiringweightdown_;
+			prefiringweight   = EVENT_prefireWeight_;
+			prefiringweightup = EVENT_prefireWeightUp_;
+			prefiringweightdown = EVENT_prefireWeightDown_;
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
 //
@@ -335,7 +334,7 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 		//?SCeta?
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
 		//?
-    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
+//    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
     if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
 		//?
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
@@ -425,9 +424,9 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
 
   if(!(MinDeltaPhiJetMet>0.6)) deltaPhiJetMet=false;//used in Selectjets and SelectCA8Jets
 }/*}}}*/
-
+/*
 void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
-		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){/*{{{*/
+		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
   //CA8jetType=0 -> W-jets
   //CA8jetType=1 -> top-jets
   for (UInt_t j = 0; j < BoostedJet_pt_->size(); ++j){
@@ -461,8 +460,8 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
     SelectedCA8Jets.push_back(jet);
     CA8Indices.push_back(j);
   }
-}/*}}}*/
-
+}
+*/
 /*
 void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
 			     TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){
@@ -538,8 +537,8 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 }
 /*}}}*/
 
-
-void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){/*{{{*/
+/*
+void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){
   float TopPtMin=20;
   float TopMassInitial=99999;
   for(unsigned int i=0; i<SelectedWJets.size(); i++){
@@ -562,9 +561,9 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       WSubjet_ = BoostedJet_tau2_->at(CA8Indices[i])/BoostedJet_tau1_->at(CA8Indices[i]);
     }
   }
-}/*}}}*/
+}
 
-void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTopJets, TLorentzVector &TopQuark,vector<int> CA8Indices,float &TopSoftMass_,float &TopSubjet_, bool data){/*{{{*/
+void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTopJets, TLorentzVector &TopQuark,vector<int> CA8Indices,float &TopSoftMass_,float &TopSubjet_, bool data){
   float TopPtMin=400;
   for(unsigned int i=0; i<SelectedTopJets.size(); i++){
     if(!(SelectedTopJets[i].Pt()>TopPtMin)) continue;
@@ -575,7 +574,8 @@ void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTop
     TopSoftMass_  = SF*BoostedJet_softdrop_mass_->at(CA8Indices[i]);
     TopSubjet_    = BoostedJet_tau3_->at(CA8Indices[i])/BoostedJet_tau2_->at(CA8Indices[i]);
   }
-}/*}}}*/
+}
+*/
 
 /*
 void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float &SFerr){
@@ -1119,6 +1119,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Jet_chargedHadronEnergyFraction", &Jet_chargedHadronEnergyFraction_, &b_Jet_chargedHadronEnergyFraction);
   Tree->SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_, &b_Jet_chargedMultiplicity);
   if(!data) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
+/*
   Tree->SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,   &b_BoostedJet_pt);
   Tree->SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,   &b_BoostedJet_Uncorr_pt);
   Tree->SetBranchAddress("BoostedJet_softdrop_mass",   &BoostedJet_softdrop_mass_,   &b_BoostedJet_softdrop_mass);
@@ -1145,17 +1146,33 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("BoostedJet_tau2",         &BoostedJet_tau2_,         &b_BoostedJet_tau2);
   Tree->SetBranchAddress("BoostedJet_tau3",         &BoostedJet_tau3_,         &b_BoostedJet_tau3);
   Tree->SetBranchAddress("BoostedJet_pruned_mass",  &BoostedJet_pruned_mass_,  &b_BoostedJet_pruned_mass);
+  */
   Tree->SetBranchAddress("patElectron_pt",&patElectron_pt_,&b_patElectron_pt);
   Tree->SetBranchAddress("patElectron_eta",&patElectron_eta_,&b_patElectron_eta);
   Tree->SetBranchAddress("patElectron_phi",&patElectron_phi_,&b_patElectron_phi);
   Tree->SetBranchAddress("patElectron_energy",&patElectron_energy_,&b_patElectron_energy);
   Tree->SetBranchAddress("patElectron_SCeta",&patElectron_SCeta_,&b_patElectron_SCeta);
   Tree->SetBranchAddress("patElectron_charge",&patElectron_charge_,&b_patElectron_charge);
-  Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);          
+  Tree->SetBranchAddress("patElectron_Et",&patElectron_Et_,&b_patElectron_Et);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp80",&patElectron_mvaEleID_Fall17_noIso_V2_wp80_, &b_patElectron_mvaEleID_Fall17_noIso_V2_wp80);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp80",&patElectron_mvaEleID_Fall17_iso_V2_wp80_,&b_patElectron_mvaEleID_Fall17_iso_V2_wp80);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp90",&patElectron_mvaEleID_Fall17_iso_V2_wp90_,&b_patElectron_mvaEleID_Fall17_iso_V2_wp90);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp90",&patElectron_mvaEleID_Fall17_noIso_V2_wp90_,&b_patElectron_mvaEleID_Fall17_noIso_V2_wp90);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wpLoose",&patElectron_mvaEleID_Fall17_iso_V2_wpLoose_,&b_patElectron_mvaEleID_Fall17_iso_V2_wpLoose);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wpLoose",&patElectron_mvaEleID_Fall17_noIso_V2_wpLoose_,&b_patElectron_mvaEleID_Fall17_noIso_V2_wpLoose);
+  Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values",&patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_,&b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values);
+  Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories",&patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories_,&b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories);
+  Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values",&patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values_,&b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values);
+/*  Tree->SetBranchAddress("",&_,&b_);
+  Tree->SetBranchAddress("",&_,&b_);
+  Tree->SetBranchAddress("",&_,&b_);
+  Tree->SetBranchAddress("",&_,&b_);*/
+ /* Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);          
   Tree->SetBranchAddress("patElectron_isPassLoose",&patElectron_isPassLoose_,&b_patElectron_isPassLoose);
   Tree->SetBranchAddress("patElectron_isPassMedium",&patElectron_isPassMedium_,&b_patElectron_isPassMedium);
   Tree->SetBranchAddress("patElectron_isPassTight",&patElectron_isPassTight_,&b_patElectron_isPassTight);
-  Tree->SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);
+  Tree->SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);*/
+
   Tree->SetBranchAddress("patElectron_passConversionVeto",&patElectron_passConversionVeto_,&b_patElectron_passConversionVeto); 
   Tree->SetBranchAddress("patElectron_inCrack",&patElectron_inCrack_,&b_patElectron_inCrack);
   Tree->SetBranchAddress("patElectron_isMatchedToTrigger",&patElectron_isMatchedToTrigger_,&b_patElectron_isMatchedToTrigger);
@@ -1172,6 +1189,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Met_type1PF_sumEt",         &Met_type1PF_sumEt_,         &b_Met_type1PF_sumEt);
   Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04",&Muon_relIsoDeltaBetaR04_,&b_Muon_relIsoDeltaBetaR04);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger",&Muon_isMatchedToTrigger_,&b_Muon_isMatchedToTrigger);
+
   Tree->SetBranchAddress("Flag_goodVertices",&Flag_goodVertices_,&b_Flag_goodVertices);
   Tree->SetBranchAddress("Flag_globalSuperTightHalo2016Filter",&Flag_globalSuperTightHalo2016Filter_,&b_Flag_globalSuperTightHalo2016Filter);
   //Tree->SetBranchAddress("Flag_CSCTightHalo2015Filter",&Flag_CSCTightHalo2015Filter_,&b_Flag_CSCTightHalo2015Filter);
@@ -1180,16 +1198,18 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",&Flag_EcalDeadCellTriggerPrimitiveFilter_,&b_Flag_EcalDeadCellTriggerPrimitiveFilter);
   Tree->SetBranchAddress("Flag_BadPFMuonFilter",&Flag_BadPFMuonFilter_,&b_Flag_BadPFMuonFilter);
   Tree->SetBranchAddress("Flag_BadChargedCandidateFilter",&Flag_BadChargedCandidateFilter_,&b_Flag_BadChargedCandidateFilter);
-  Tree->SetBranchAddress("Flag_ecalBadCalibReducedMINIAODFilter",&Flag_ecalBadCalibReducedMINIAODFilter_,&b_Flag_ecalBadCalibReducedMINIAODFilter);
+//  Tree->SetBranchAddress("Flag_ecalBadCalibReducedMINIAODFilter",&Flag_ecalBadCalibReducedMINIAODFilter_,&b_Flag_ecalBadCalibReducedMINIAODFilter);
   Tree->SetBranchAddress("Flag_eeBadScFilter",&Flag_eeBadScFilter_,&b_Flag_eeBadScFilter);
+  Tree->SetBranchAddress("Flag_METFilters",&Flag_METFilters_,&b_Flag_METFilters);
+
   Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW",&HLT_DoubleEle33_CaloIdL_MW_,&b_HLT_DoubleEle33_CaloIdL_MW);
    Tree->SetBranchAddress("HLT_Mu50",&HLT_Mu50_,&b_HLT_Mu50);
    Tree->SetBranchAddress("HLT_TkMu50",&HLT_TkMu50_,&b_HLT_TkMu50);
   //Tree->SetBranchAddress("HLT_PFHT500_PFMET100_PFMHT100_IDTight", &HLT_PFHT500_PFMET100_PFMHT100_IDTight_, &b_HLT_PFHT500_PFMET100_PFMHT100_IDTight);
   //Tree->SetBranchAddress("HLT_PFHT700_PFMET85_PFMHT85_IDTight", &HLT_PFHT700_PFMET85_PFMHT85_IDTight_, &b_HLT_PFHT700_PFMET85_PFMHT85_IDTight);
   //Tree->SetBranchAddress("HLT_PFHT800_PFMET75_PFMHT75_IDTight", &HLT_PFHT800_PFMET75_PFMHT75_IDTight_, &b_HLT_PFHT800_PFMET75_PFMHT75_IDTight);
-	Tree->SetBranchAddress("HLT_PFMET120_PFMHT120_IDTight", &HLT_PFMET120_PFMHT120_IDTight_, &b_HLT_PFMET120_PFMHT120_IDTight);
-	Tree->SetBranchAddress("HLT_PFMETNoMu120_PFMHTNoMu120_IDTight", &HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_, &b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight);
+//	Tree->SetBranchAddress("HLT_PFMET120_PFMHT120_IDTight", &HLT_PFMET120_PFMHT120_IDTight_, &b_HLT_PFMET120_PFMHT120_IDTight);
+//	Tree->SetBranchAddress("HLT_PFMETNoMu120_PFMHTNoMu120_IDTight", &HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_, &b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight);
   //Tree->SetBranchAddress("HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight", &HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_,  &b_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight);
   //Tree->SetBranchAddress("HLT_CaloJet500_NoJetID", &HLT_CaloJet500_NoJetID_, &b_HLT_CaloJet500_NoJetID);
   //Tree->SetBranchAddress("HLT_AK8PFJet500", &HLT_AK8PFJet500_,   &b_HLT_AK8PFJet500);
@@ -1215,12 +1235,16 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   if(!data) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
   if(!data) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
   if(!data) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
+//  if(!data) Tree->SetBranchAddress("Gen_charge",&Gen_charge_,&b_Gen_charge);
+//  if(!data) Tree->SetBranchAddress("",&,&);
+//  if(!data) Tree->SetBranchAddress("",&,&);
+
 	//?what is these?
   Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
   Tree->SetBranchAddress("EVENT_genWeights",&genWeights_,&b_genWeights);
-  Tree->SetBranchAddress("EVENT_prefiringweight",&EVENT_prefiringweight_,&b_EVENT_prefiringweight);
-  Tree->SetBranchAddress("EVENT_prefiringweightup",&EVENT_prefiringweightup_,&b_EVENT_prefiringweightup);
-  Tree->SetBranchAddress("EVENT_prefiringweightdown",&EVENT_prefiringweightdown_,&b_EVENT_prefiringweightdown);
+  Tree->SetBranchAddress("EVENT_prefireWeight",&EVENT_prefireWeight_,&b_EVENT_prefireWeight);
+  Tree->SetBranchAddress("EVENT_prefireWeightUp",&EVENT_prefireWeightUp_,&b_EVENT_prefireWeightUp);
+  Tree->SetBranchAddress("EVENT_prefireWeightDown",&EVENT_prefireWeightDown_,&b_EVENT_prefireWeightDown);
   //?what does category do?
   NewTree->Branch("category0",         &category0,         "category0/I"         );
   NewTree->Branch("category1",         &category1,         "category1/I"         );
@@ -2574,7 +2598,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Jet_chargedHadronEnergyFraction->GetEntry(tentry);
   b_Jet_chargedMultiplicity->GetEntry(tentry);
   if(!data) b_Jet_hadronFlavour->GetEntry(tentry);
-  b_BoostedJet_pt->GetEntry(tentry);
+/*  b_BoostedJet_pt->GetEntry(tentry);
   b_BoostedJet_Uncorr_pt->GetEntry(tentry);
   b_BoostedJet_softdrop_mass->GetEntry(tentry);
   b_BoostedJet_puppi_softdrop_mass->GetEntry(tentry);
@@ -2600,7 +2624,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   //b_BoostedJet_neutralEmEmEnergyFraction->GetEntry(tentry);
   b_BoostedJet_numberOfConstituents->GetEntry(tentry);
   b_BoostedJet_chargedHadronEnergyFraction->GetEntry(tentry);
-  b_BoostedJet_chargedMultiplicity->GetEntry(tentry);
+  b_BoostedJet_chargedMultiplicity->GetEntry(tentry);*/
   //b_TopTagging_topMass->GetEntry(tentry);
   //b_TopTagging_minMass->GetEntry(tentry);
   //b_TopTagging_nSubJets->GetEntry(tentry);
@@ -2611,11 +2635,25 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   //b_patElectron_energyCorr->GetEntry(tentry);
   b_patElectron_SCeta->GetEntry(tentry);
   b_patElectron_charge->GetEntry(tentry);
-  b_patElectron_isPassVeto->GetEntry(tentry);          
+  b_patElectron_Et->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_noIso_V2_wp80->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_iso_V2_wp80->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_iso_V2_wp90->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_noIso_V2_wp90->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_iso_V2_wpLoose->GetEntry(tentry);
+  b_patElectron_mvaEleID_Fall17_noIso_V2_wpLoose->GetEntry(tentry);
+  b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values->GetEntry(tentry);
+  b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories->GetEntry(tentry);
+  b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values->GetEntry(tentry);
+//  ->GetEntry(tentry);
+//  ->GetEntry(tentry);
+//  ->GetEntry(tentry);
+//  ->GetEntry(tentry);
+/*  b_patElectron_isPassVeto->GetEntry(tentry);          
   b_patElectron_isPassLoose->GetEntry(tentry);
   b_patElectron_isPassMedium->GetEntry(tentry);
   b_patElectron_isPassTight->GetEntry(tentry);
-  b_patElectron_isPassHEEPId->GetEntry(tentry);
+  b_patElectron_isPassHEEPId->GetEntry(tentry);*/
   b_patElectron_passConversionVeto->GetEntry(tentry); 
   b_patElectron_inCrack->GetEntry(tentry);
   b_patElectron_isMatchedToTrigger->GetEntry(tentry);
@@ -2638,8 +2676,8 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
    // b_HLT_PFHT500_PFMET100_PFMHT100_IDTight->GetEntry(tentry);
    // b_HLT_PFHT700_PFMET85_PFMHT85_IDTight->GetEntry(tentry);
    // b_HLT_PFHT800_PFMET75_PFMHT75_IDTight->GetEntry(tentry);
- b_HLT_PFMET120_PFMHT120_IDTight->GetEntry(tentry);
-  b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight->GetEntry(tentry);
+// b_HLT_PFMET120_PFMHT120_IDTight->GetEntry(tentry);
+//  b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight->GetEntry(tentry);
   // b_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight->GetEntry(tentry);
   // b_HLT_CaloJet500_NoJetID->GetEntry(tentry);
   // b_HLT_AK8PFJet500->GetEntry(tentry);
@@ -2659,8 +2697,9 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Flag_EcalDeadCellTriggerPrimitiveFilter->GetEntry(tentry);
   b_Flag_BadPFMuonFilter->GetEntry(tentry);
   b_Flag_BadChargedCandidateFilter->GetEntry(tentry);
-  b_Flag_ecalBadCalibReducedMINIAODFilter->GetEntry(tentry);
+//  b_Flag_ecalBadCalibReducedMINIAODFilter->GetEntry(tentry);
   b_Flag_eeBadScFilter->GetEntry(tentry);
+  b_Flag_METFilters->GetEntry(tentry);//add
   b_Flag_globalSuperTightHalo2016Filter->GetEntry(tentry);
   b_nBestVtx->GetEntry(tentry);
   b_PUWeight->GetEntry(tentry);
@@ -2670,9 +2709,9 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_EVENT_event->GetEntry(tentry);
   b_EVENT_lumiBlock->GetEntry(tentry);
   b_EVENT_genHT->GetEntry(tentry);
-  b_EVENT_prefiringweight->GetEntry(tentry);
-  b_EVENT_prefiringweightup->GetEntry(tentry);
-  b_EVENT_prefiringweightdown->GetEntry(tentry);
+  b_EVENT_prefireWeight->GetEntry(tentry);
+  b_EVENT_prefireWeightUp->GetEntry(tentry);
+  b_EVENT_prefireWeightDown->GetEntry(tentry);
   b_genWeight->GetEntry(tentry);
   if(!data) b_Gen_pt->GetEntry(tentry);
   if(!data) b_Gen_eta->GetEntry(tentry);

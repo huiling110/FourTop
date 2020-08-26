@@ -143,7 +143,7 @@ vector <double> * Jet_numberOfConstituents_;        TBranch *b_Jet_numberOfConst
 vector <double> * Jet_chargedHadronEnergyFraction_; TBranch *b_Jet_chargedHadronEnergyFraction;
 vector <double> * Jet_chargedMultiplicity_;         TBranch *b_Jet_chargedMultiplicity;
 vector <double> * Jet_hadronFlavour_; TBranch *b_Jet_hadronFlavour;
-vector <double> * BoostedJet_pt_;        TBranch *b_BoostedJet_pt;
+/*vector <double> * BoostedJet_pt_;        TBranch *b_BoostedJet_pt;
 vector <double> * BoostedJet_Uncorr_pt_; TBranch *b_BoostedJet_Uncorr_pt;
 vector <double> * BoostedJet_softdrop_mass_; TBranch *b_BoostedJet_softdrop_mass;
 vector <double> * BoostedJet_puppi_softdrop_mass_; TBranch *b_BoostedJet_puppi_softdrop_mass;
@@ -169,7 +169,7 @@ vector <double> * BoostedJet_chargedEmEnergyFraction_;     TBranch *b_BoostedJet
 vector <double> * BoostedJet_neutralEmEmEnergyFraction_;     TBranch *b_BoostedJet_neutralEmEmEnergyFraction;
 vector <double> * BoostedJet_numberOfConstituents_;        TBranch *b_BoostedJet_numberOfConstituents;
 vector <double> * BoostedJet_chargedHadronEnergyFraction_; TBranch *b_BoostedJet_chargedHadronEnergyFraction;
-vector <double> * BoostedJet_chargedMultiplicity_;         TBranch *b_BoostedJet_chargedMultiplicity;
+vector <double> * BoostedJet_chargedMultiplicity_;         TBranch *b_BoostedJet_chargedMultiplicity;*/
 vector <double> * TopTagging_topMass_;  TBranch *b_TopTagging_topMass;
 vector <double> * TopTagging_minMass_;  TBranch *b_TopTagging_minMass;
 vector <double> * TopTagging_wMass_; TBranch *b_TopTagging_wMass;
@@ -181,11 +181,22 @@ vector <double> * patElectron_energy_; TBranch *b_patElectron_energy;
 vector <double> * patElectron_energyCorr_; TBranch *b_patElectron_energyCorr;  
 vector <double> * patElectron_SCeta_; TBranch *b_patElectron_SCeta;
 vector <int> * patElectron_charge_; TBranch *b_patElectron_charge;
-vector <int> * patElectron_isPassVeto_; TBranch *b_patElectron_isPassVeto;
+vector <double> * patElectron_Et_; TBranch *b_patElectron_Et;
+vector <int>* patElectron_mvaEleID_Fall17_noIso_V2_wp80_; TBranch *b_patElectron_mvaEleID_Fall17_noIso_V2_wp80;
+vector <int>* patElectron_mvaEleID_Fall17_iso_V2_wp80_; TBranch* b_patElectron_mvaEleID_Fall17_iso_V2_wp80;
+vector <int>* patElectron_mvaEleID_Fall17_iso_V2_wp90_; TBranch* b_patElectron_mvaEleID_Fall17_iso_V2_wp90;
+vector <int>* patElectron_mvaEleID_Fall17_noIso_V2_wp90_; TBranch* b_patElectron_mvaEleID_Fall17_noIso_V2_wp90;
+vector <int>* patElectron_mvaEleID_Fall17_iso_V2_wpLoose_; TBranch* b_patElectron_mvaEleID_Fall17_iso_V2_wpLoose;
+vector <int>* patElectron_mvaEleID_Fall17_noIso_V2_wpLoose_; TBranch* b_patElectron_mvaEleID_Fall17_noIso_V2_wpLoose;
+vector <float>* patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_; TBranch* b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values;
+vector <float>* patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories_; TBranch* b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories; 
+vector <float>* patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values_; TBranch* b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values; 
+//vector <>* _; TBranch* ; 
+/*vector <int> * patElectron_isPassVeto_; TBranch *b_patElectron_isPassVeto;
 vector <int> * patElectron_isPassLoose_; TBranch *b_patElectron_isPassLoose;
 vector <int> * patElectron_isPassMedium_; TBranch *b_patElectron_isPassMedium;
 vector <int> * patElectron_isPassTight_; TBranch *b_patElectron_isPassTight;
-vector <int> * patElectron_isPassHEEPId_; TBranch *b_patElectron_isPassHEEPId;
+vector <int> * patElectron_isPassHEEPId_; TBranch *b_patElectron_isPassHEEPId;*/
 vector <double> * patElectron_d0_; TBranch *b_patElectron_d0;
 vector <double> * patElectron_gsfTrack_dz_pv_; TBranch *b_patElectron_gsfTrack_dz_pv;
 vector <int> * patElectron_expectedMissingInnerHits_; TBranch *b_patElectron_expectedMissingInnerHits;
@@ -245,8 +256,9 @@ int Flag_HBHENoiseIsoFilter_; TBranch *b_Flag_HBHENoiseIsoFilter;
 int Flag_EcalDeadCellTriggerPrimitiveFilter_; TBranch *b_Flag_EcalDeadCellTriggerPrimitiveFilter;
 int Flag_BadPFMuonFilter_; TBranch *b_Flag_BadPFMuonFilter;
 int Flag_BadChargedCandidateFilter_; TBranch *b_Flag_BadChargedCandidateFilter;
-int Flag_ecalBadCalibReducedMINIAODFilter_; TBranch *b_Flag_ecalBadCalibReducedMINIAODFilter;
+//int Flag_ecalBadCalibReducedMINIAODFilter_; TBranch *b_Flag_ecalBadCalibReducedMINIAODFilter;
 int Flag_eeBadScFilter_; TBranch *b_Flag_eeBadScFilter;
+int Flag_METFilters_; TBranch *b_Flag_METFilters;
 int nBestVtx_; TBranch *b_nBestVtx;
 double PUWeight_; TBranch *b_PUWeight;
 double PUWeightUP_; TBranch *b_PUWeightUP;
@@ -254,8 +266,8 @@ double PUWeightDOWN_; TBranch *b_PUWeightDOWN;
 int HLT_PFHT500_PFMET100_PFMHT100_IDTight_;        TBranch * b_HLT_PFHT500_PFMET100_PFMHT100_IDTight;  
 int HLT_PFHT700_PFMET85_PFMHT85_IDTight_;          TBranch * b_HLT_PFHT700_PFMET85_PFMHT85_IDTight;
 int HLT_PFHT800_PFMET75_PFMHT75_IDTight_;          TBranch * b_HLT_PFHT800_PFMET75_PFMHT75_IDTight;
-int HLT_PFMET120_PFMHT120_IDTight_;                TBranch * b_HLT_PFMET120_PFMHT120_IDTight;
-int HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_;        TBranch * b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight;
+//int HLT_PFMET120_PFMHT120_IDTight_;                TBranch * b_HLT_PFMET120_PFMHT120_IDTight;
+//int HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_;        TBranch * b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight;
 int HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_;     TBranch * b_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight;
 int HLT_CaloJet500_NoJetID_;                       TBranch * b_HLT_CaloJet500_NoJetID;
 int HLT_AK8PFJet500_;                              TBranch * b_HLT_AK8PFJet500;
@@ -272,13 +284,14 @@ vector <double> * Gen_eta_; TBranch *b_Gen_eta;
 vector <double> * Gen_phi_; TBranch *b_Gen_phi;
 vector <double> * Gen_pdg_id_; TBranch *b_Gen_pdg_id;
 vector <double> * Gen_motherpdg_id_; TBranch *b_Gen_motherpdg_id;
-int EVENT_event_; TBranch *b_EVENT_event;
+//int EVENT_event_; TBranch *b_EVENT_event;
+ULong64_t EVENT_event_; TBranch *b_EVENT_event;
 int EVENT_run_; TBranch *b_EVENT_run;
 int EVENT_lumiBlock_; TBranch *b_EVENT_lumiBlock;
 double EVENT_genHT_; TBranch *b_EVENT_genHT;
-double EVENT_prefiringweight_; TBranch *b_EVENT_prefiringweight;
-double EVENT_prefiringweightup_; TBranch *b_EVENT_prefiringweightup;
-double EVENT_prefiringweightdown_; TBranch *b_EVENT_prefiringweightdown;/*}}}*/
+double EVENT_prefireWeight_; TBranch *b_EVENT_prefireWeight;
+double EVENT_prefireWeightUp_; TBranch *b_EVENT_prefireWeightUp;
+double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;/*}}}*/
 
 //for new tree
 int category0=0;/*{{{*/
