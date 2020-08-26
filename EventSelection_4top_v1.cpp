@@ -27,17 +27,17 @@ void EventSelection_4top_v1(){
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
   vector<string> fileName;
-  fileName.push_back("QCD_HT200to300.root");   //6
-  fileName.push_back("QCD_HT300to500.root");   //7
-  fileName.push_back("QCD_HT500to700.root");   //8
-  fileName.push_back("QCD_HT700to1000.root");   //9
-  fileName.push_back("QCD_HT1000to1500.root");   //10
-  fileName.push_back("QCD_HT1500to2000.root");   //11
-  fileName.push_back("QCD_HT2000toIn.root");   //12
-  fileName.push_back("TTJets.root");   //13
-  fileName.push_back("TT.root");   //14
-  fileName.push_back("TTWJetsToQQ.root");   //15
-  fileName.push_back("TTZToQQ.root");   //16
+//  fileName.push_back("QCD_HT200to300.root");   //6
+//  fileName.push_back("QCD_HT300to500.root");   //7
+//  fileName.push_back("QCD_HT500to700.root");   //8
+//  fileName.push_back("QCD_HT700to1000.root");   //9
+//  fileName.push_back("QCD_HT1000to1500.root");   //10
+//  fileName.push_back("QCD_HT1500to2000.root");   //11
+//  fileName.push_back("QCD_HT2000toIn.root");   //12
+//  fileName.push_back("TTJets.root");   //13
+//  fileName.push_back("TT.root");   //14
+//  fileName.push_back("TTWJetsToQQ.root");   //15
+//  fileName.push_back("TTZToQQ.root");   //16
   fileName.push_back("TTTT.root");   //17 
 //  fileName.push_back(Input);
  //where is in put?what does input do?
@@ -97,7 +97,7 @@ void EventSelection_4top_v1(){
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
 //     for (Int_t i=0; i<nentries; i++) {
-     for (Int_t i=0; i<100; i++) {
+     for (Int_t i=0; i<1000; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
@@ -577,7 +577,8 @@ void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTop
   }
 }/*}}}*/
 
-void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float &SFerr){/*{{{*/
+/*
+void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float &SFerr){
   bool DoubleUncertainty = false;
   float MinBJetPt = 20.;
   float MaxBJetPt = 1000.;
@@ -631,11 +632,13 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
   SF=jet_scalefactor;
   SFerr=max(fabs(jet_scalefactor-jet_scalefactor_up),fabs(jet_scalefactor-jet_scalefactor_do));
   //cout<<JetPt<<" "<<JetEta<<" "<<flav<<" ("<<btagentry_flav<<") "<<jet_scalefactor<<" "<<jet_scalefactor_up<<" "<<jet_scalefactor_do<<endl;
-}/*}}}*/
+}
 
+*/
 //w_Btag branch in NewTree and SB
 //?what is this doing exactly?
-void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){/*{{{*/
+/*
+void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
   string FILEprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/BtagEfficiency_new_v3/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
@@ -768,7 +771,8 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
   }
   //cout<<"BTAG WEIGHT  "<<wtbtagErrBC<<" "<<wtbtagErrUDSG<<" "<<w_Btag<<" "<<w_BtagUp<<" "<<endl;
   delete fileBTagEfficiency;
-}/*}}}*/
+}
+*/
 
 /*void ForwardJetSF(vector<TLorentzVector> SelectedForwardJets, float &w_for_, float &w_forUp_, float &w_forDown_){
   if(SelectedForwardJets.size()>0){

@@ -1,5 +1,5 @@
-#include "CondFormats/BTauObjects/interface/BTagCalibration.h"
-#include "CondFormats/BTauObjects/interface/BTagCalibrationReader.h"
+//#include "CondFormats/BTauObjects/interface/BTagCalibration.h"
+//#include "CondFormats/BTauObjects/interface/BTagCalibrationReader.h"
 #include "TBranch.h"
 #include "TTree.h"
 #include "TFile.h"
@@ -26,7 +26,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
 			      TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data);
 void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTopJets, TLorentzVector &TopQuark,vector<int> CA8Indices,float &TopSoftMass_,float &TopSubjet_, bool data);
-void BTagSF(float JetPt, float JetEta, int flav, float &SF, float &SFerr);
+//void BTagSF(float JetPt, float JetEta, int flav, float &SF, float &SFerr);
 void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName);
 void WSF(TLorentzVector WJet, bool PartiallyMerged, float &w_WJet_, float &w_WJetUp_, float &w_WJetDown_, int CA8Index, int SysJes, int SysJer);
 void TopSF(TLorentzVector SelectedTopJets, bool FullyMerged, float &w_topJet_, float &w_topJetUp_, float &w_topJetDown_);
@@ -67,10 +67,10 @@ void PDFWeight(int imin,int imax,float &w_PDFUp ,float &w_PDFDown);
 void MetCorrection(int SysJes, int SysJer, float &MET);/*}}}*/
 //BTAG SF
 //???what does this do?
+/*
 BTagCalibration calib("CSVv2", "SF_dineutrino/DeepCSV_94XSF_V2_B_F.csv");
   //BTagCalibration calib("DeepCSV", "SF_dineutrino/DeepCSV_94XSF_V2_B_F.csv");
-
-BTagCalibrationReader readerTIncl(&calib,      BTagEntry::OP_TIGHT, "incl",   "central");/*{{{*/
+BTagCalibrationReader readerTIncl(&calib,      BTagEntry::OP_TIGHT, "incl",   "central");
 BTagCalibrationReader readerTIncl_up(&calib,   BTagEntry::OP_TIGHT, "incl",   "up");
 BTagCalibrationReader readerTIncl_do(&calib,   BTagEntry::OP_TIGHT, "incl",   "down");
 BTagCalibrationReader readerTComb(&calib,    BTagEntry::OP_TIGHT, "comb", "central");
@@ -87,8 +87,8 @@ BTagCalibrationReader readerLIncl_up(&calib,   BTagEntry::OP_LOOSE,  "incl",   "
 BTagCalibrationReader readerLIncl_do(&calib,   BTagEntry::OP_LOOSE,  "incl",   "down");
 BTagCalibrationReader readerLComb(&calib,    BTagEntry::OP_LOOSE,  "comb", "central");
 BTagCalibrationReader readerLComb_up(&calib, BTagEntry::OP_LOOSE,  "comb", "up");
-BTagCalibrationReader readerLComb_do(&calib, BTagEntry::OP_LOOSE,  "comb", "down");/*}}}*/
-
+BTagCalibrationReader readerLComb_do(&calib, BTagEntry::OP_LOOSE,  "comb", "down");
+*/
 //Lepton SF
 //???
 TFile *fileForwardJet    = new TFile("SF_dineutrino/ForwardJetSFFinal.root");/*{{{*/
