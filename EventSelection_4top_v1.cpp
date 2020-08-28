@@ -98,21 +98,16 @@ void EventSelection_4top_v1(){
 			branchGetEntry(data, tentry,fileName[Nfiles]);//line2241; every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
 			initializeVar();//line1822  initialize for new tree. category0=0;
 			//
-			//
-			if(!(HLT_PFHT900_==1 || HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ==1))  continue;//a branch in tree, trigger we choose
-			//?flag=filter?
-			//?what are these Flag_branches?//?what choice should we make for our analysis?//?how many kinds of these filters are in MiniAOD?
-			//?what is the ppossibility of there filter to out signal events?
+//			if(!(HLT_PFHT900_==1 || HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ==1))  continue;//a branch in tree, trigger we choose
+			//what are these Flag_branches?//?what choice should we make for our analysis?//?how many kinds of these filters are in MiniAOD//what is the ppossibility of there filter to out signal events?
 			if(!(Flag_goodVertices_==1))  continue;//a branch in tree.
 			if(!(Flag_globalSuperTightHalo2016Filter_==1))  continue;  
 		    if(!(Flag_HBHENoiseFilter_==1))  continue;  
 			if(!(Flag_HBHENoiseIsoFilter_==1))  continue;
 			if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))  continue;  //a branch in Tree
 		    if(!(Flag_BadPFMuonFilter_==1))  continue;  
-            if(!(Flag_METFilters_==1))  continue;//add
-			//if(!(Flag_BadChargedCandidateFilter_==1))  continue;
-//			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))  continue;  cout<<"139";
-//			??why this filter not work?
+//			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))  continue;  
+//			why this filter not work?//applied only in 2017 and 2018
 			if(data) {if (!(Flag_eeBadScFilter_==1))  continue;}  
 
 			if(!data) GenClassifier(GenZPt,GenWPt);//line2590
@@ -121,14 +116,16 @@ void EventSelection_4top_v1(){
 			//large met
 			bool SelectedMet = false;
 			//?how does SysJes impact Met_pt ?
+            //?do we still have to correct Met?
 			MetCorrection(SysJes,SysJer,Met_pt);//270 Met_pt in newtree branch.
             if( Met_pt > 200)  SelectedMet = true;//228;parameter in Fillbranches
+            //we don't care about Met so much
 			//SelectMet(SelectedMet);
 			//Met_pt            = Met_type1PF_pt_;
 			Met_phi           = Met_type1PF_phi_;//Met_phi branch in newtree and SB
 
 			//Leptonic reject
-			//?it seems that we have not save information of leptons other than their number
+			//it seems that we have not save information of leptons other than their number
 			vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
 			vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
 			SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);//304
@@ -309,19 +306,37 @@ void MetCorrection(int SysJes, int SysJer, float &MET){/*{{{*/
     if( Met_type1PF_pt_ > 200)  SelectedMet = true;
 }
 */
+//void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
+//	//?data does not occur.
+//  for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
+//		//what is patElectron_pt?
+//    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
+//    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
+//    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
+//		//SCeta?//super cluster
+//    if(!(patElectron_inCrack_->at(j)==0))	         continue;
+////    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
+//    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
+//		//?
+//    //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
+//    TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
+//    SelectedElectrons.push_back(electron);
+//    SelectedElectronsIndex.push_back(j);
+//  }
+//}/*}}}*/
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
 	//?data does not occur.
-  for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
+  for (Int_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
 		//what is patElectron_pt?
-    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
-    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
-    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
-		//?SCeta?
+//    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
+//    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
+//    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
+		//SCeta?//super cluster
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
 		//?
 //    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
-    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
-		//?
+//    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;//no need to do it because already implemented in VID
+    if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_loose_->at(j) == 1)) continue;
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
     TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
     SelectedElectrons.push_back(electron);
