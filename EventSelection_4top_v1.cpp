@@ -43,8 +43,6 @@ void EventSelection_4top_v1(){
 //  fileName.push_back(Input);
  //where is in put?what does input do?
 //in line 4, the function parameter.
-
-
 //  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
   for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
     string NewFileprov;
@@ -71,8 +69,7 @@ void EventSelection_4top_v1(){
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);
-	//what do you mean get open tree from file ?
-	//in 26 openTree=
+	//what do you mean get open tree from file ?	//in 26 openTree=
     bool data = true;
 	//what does "may..." mean?   guess they are data file name.
     if(!(fileName[Nfiles].find("Tau_data")!=string::npos )) data = false;
@@ -84,8 +81,7 @@ void EventSelection_4top_v1(){
 		//Tree->SetBranchAddress;NewTree and SB->Branch
 		//every file have the same tree ?yes
     Int_t nentries = (Int_t)Tree->GetEntries();
-		//how do we know the entries of Tree?
-		//Read all branches of entry and return total number of bytes read.
+		//how do we know the entries of Tree?//Read all branches of entry and return total number of bytes read.
     for(int selection=0; selection<3; selection++){
 			//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
       //selection = 0 -> preselection=true; line 19, true
@@ -100,7 +96,6 @@ void EventSelection_4top_v1(){
 			//?why file name not in the function?
 			//what does data do here?
 			branchGetEntry(data, tentry,fileName[Nfiles]);//line2241; every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
-			//why we deal with data and MC differently?
 			initializeVar();//line1822  initialize for new tree. category0=0;
 			//
 			//
@@ -188,7 +183,6 @@ void EventSelection_4top_v1(){
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
 //
-//
 			NumSeEle          = SelectedElectrons.size();
 			NumSeMu           =  SelectedMuons.size();  
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
@@ -229,7 +223,6 @@ void EventSelection_4top_v1(){
 			//TREE
 		    FillBranches(ResolvedEvent,TopQuark,SelectedMet,//2720
 			TopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
-			
 			 
 				//WEIGHT
 //			if(!data){
@@ -1089,8 +1082,7 @@ void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &
 //?it seems that fileName doesn't occur in the function .
 //
 void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
-	//Change branch address, dealing with clone trees properly.
-	//?
+	//Change branch address, dealing with clone trees properly.	//copy the branch Jet_pt to b_Jet_pt
   Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
   Tree->SetBranchAddress("Jet_eta",  &Jet_eta_,  &b_Jet_eta);
   Tree->SetBranchAddress("Jet_phi",  &Jet_phi_,  &b_Jet_phi);
@@ -1146,6 +1138,12 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("patElectron_SCeta",&patElectron_SCeta_,&b_patElectron_SCeta);
   Tree->SetBranchAddress("patElectron_charge",&patElectron_charge_,&b_patElectron_charge);
   Tree->SetBranchAddress("patElectron_Et",&patElectron_Et_,&b_patElectron_Et);
+  Tree->SetBranchAddress("patElectron_pdgId",&patElectron_pdgId_,&b_patElectron_pdgId);
+  Tree->SetBranchAddress("patElectron_relIsoDeltaBeta",&patElectron_relIsoDeltaBeta_,&b_patElectron_relIsoDeltaBeta);
+  Tree->SetBranchAddress("patElectron_relIsoRhoEA_Update",&patElectron_relIsoRhoEA_Update_,&b_patElectron_relIsoRhoEA_Update);
+  if(!data) Tree->SetBranchAddress("patElectron_gen_pdgId", &patElectron_gen_pdgId_, &b_patElectron_gen_pdgId);
+  if(!data) Tree->SetBranchAddress("patElectron_gen_isDirectPromptTauDecayProductFinalState", &patElectron_gen_isDirectPromptTauDecayProductFinalState_, &b_patElectron_gen_isDirectPromptTauDecayProductFinalState);
+//  Tree->SetBranchAddress("",&_,&b_);
   Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp80",&patElectron_mvaEleID_Fall17_noIso_V2_wp80_, &b_patElectron_mvaEleID_Fall17_noIso_V2_wp80);
   Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp80",&patElectron_mvaEleID_Fall17_iso_V2_wp80_,&b_patElectron_mvaEleID_Fall17_iso_V2_wp80);
   Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp90",&patElectron_mvaEleID_Fall17_iso_V2_wp90_,&b_patElectron_mvaEleID_Fall17_iso_V2_wp90);
@@ -1155,16 +1153,21 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values",&patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_,&b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values);
   Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories",&patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories_,&b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories);
   Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values",&patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values_,&b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values);
-/*  Tree->SetBranchAddress("",&_,&b_);
-  Tree->SetBranchAddress("",&_,&b_);
-  Tree->SetBranchAddress("",&_,&b_);
-  Tree->SetBranchAddress("",&_,&b_);*/
+  Tree->SetBranchAddress("patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories",&patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories_,&b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80",&patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80_,&b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80);
+  Tree->SetBranchAddress("patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90",&patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90_,&b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90);
+  Tree->SetBranchAddress("patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1",&patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1_,&b_patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1);
+  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_loose",&patElectron_cutBasedElectronID_Fall17_94X_V2_loose_,&b_patElectron_cutBasedElectronID_Fall17_94X_V2_loose);
+  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_medium",&patElectron_cutBasedElectronID_Fall17_94X_V2_medium_,&b_patElectron_cutBasedElectronID_Fall17_94X_V2_medium);
+  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_tight",&patElectron_cutBasedElectronID_Fall17_94X_V2_tight_,&b_patElectron_cutBasedElectronID_Fall17_94X_V2_tight);
+  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_veto",&patElectron_cutBasedElectronID_Fall17_94X_V2_veto_,&b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto);
+  Tree->SetBranchAddress("patElectron_heepElectronID_HEEPV70",&patElectron_heepElectronID_HEEPV70_,&b_patElectron_heepElectronID_HEEPV70);
+ // Tree->SetBranchAddress("",&_,&b_);
  /* Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);          
   Tree->SetBranchAddress("patElectron_isPassLoose",&patElectron_isPassLoose_,&b_patElectron_isPassLoose);
   Tree->SetBranchAddress("patElectron_isPassMedium",&patElectron_isPassMedium_,&b_patElectron_isPassMedium);
   Tree->SetBranchAddress("patElectron_isPassTight",&patElectron_isPassTight_,&b_patElectron_isPassTight);
   Tree->SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);*/
-
   Tree->SetBranchAddress("patElectron_passConversionVeto",&patElectron_passConversionVeto_,&b_patElectron_passConversionVeto); 
   Tree->SetBranchAddress("patElectron_inCrack",&patElectron_inCrack_,&b_patElectron_inCrack);
   Tree->SetBranchAddress("patElectron_isMatchedToTrigger",&patElectron_isMatchedToTrigger_,&b_patElectron_isMatchedToTrigger);
@@ -1181,6 +1184,60 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Met_type1PF_sumEt",         &Met_type1PF_sumEt_,         &b_Met_type1PF_sumEt);
   Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04",&Muon_relIsoDeltaBetaR04_,&b_Muon_relIsoDeltaBetaR04);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger",&Muon_isMatchedToTrigger_,&b_Muon_isMatchedToTrigger);
+
+  Tree->SetBranchAddress("Tau_pt",&Tau_pt_,&b_Tau_pt);
+  Tree->SetBranchAddress("Tau_eta",&Tau_eta_,&b_Tau_eta);
+  Tree->SetBranchAddress("Tau_phi",&Tau_phi_,&b_Tau_phi);
+  Tree->SetBranchAddress("Tau_energy",&Tau_energy_,&b_Tau_energy);
+  Tree->SetBranchAddress("Tau_px",&Tau_px_,&b_Tau_px);
+  Tree->SetBranchAddress("Tau_py",&Tau_py_,&b_Tau_py);
+  Tree->SetBranchAddress("Tau_pz",&Tau_pz_,&b_Tau_pz);
+  Tree->SetBranchAddress("Tau_p",&Tau_p_,&b_Tau_p);
+/*  Tree->SetBranchAddress("Tau_leadChargedCandPt",&Tau_leadChargedCandPt_,&b_Tau_leadChargedCandPt);
+  Tree->SetBranchAddress("Tau_leadChargedCandEta",&Tau_leadChargedCandEta_,&b_Tau_leadChargedCandEta);
+  Tree->SetBranchAddress("Tau_leadChargedCandPhi",&Tau_leadChargedCandPhi_,&b_Tau_leadChargedCandPhi);
+  Tree->SetBranchAddress("Tau_leadChargedCandE",&Tau_leadChargedCandE_,&b_Tau_leadChargedCandE);*/
+  Tree->SetBranchAddress("Tau_charge",&Tau_charge_,&b_Tau_charge);
+  Tree->SetBranchAddress("Tau_decayModeFinding",&Tau_decayModeFinding_,&b_Tau_decayModeFinding);
+  Tree->SetBranchAddress("Tau_decayModeFindingNewDMs",&Tau_decayModeFindingNewDMs_,&b_Tau_decayModeFindingNewDMs);
+  Tree->SetBranchAddress("Tau_againstMuonLoose3",&Tau_againstMuonLoose3_,&b_Tau_againstMuonLoose3);
+  Tree->SetBranchAddress("Tau_againstMuonTight3",&Tau_againstMuonTight3_,&b_Tau_againstMuonTight3);
+/*  Tree->SetBranchAddress("Tau_againstElectronVLooseMVA6",&Tau_againstElectronVLooseMVA6_,&b_Tau_againstElectronVLooseMVA6);
+  Tree->SetBranchAddress("Tau_againstElectronLooseMVA6",&Tau_againstElectronLooseMVA6_,&b_Tau_againstElectronLooseMVA6);
+  Tree->SetBranchAddress("Tau_againstElectronMediumMVA6",&Tau_againstElectronMediumMVA6_,&b_Tau_againstElectronMediumMVA6);
+  Tree->SetBranchAddress("Tau_againstElectronTightMVA6",&Tau_againstElectronTightMVA6_,&b_Tau_againstElectronTightMVA6);
+  Tree->SetBranchAddress("Tau_chargedIsoPtSum",&Tau_chargedIsoPtSum_,&b_Tau_chargedIsoPtSum);
+  Tree->SetBranchAddress("Tau_neutralIsoPtSum",&Tau_neutralIsoPtSum_,&b_Tau_neutralIsoPtSum);
+  Tree->SetBranchAddress("Tau_puCorrPtSum",&Tau_puCorrPtSum_,&b_Tau_puCorrPtSum);*/
+/*  Tree->SetBranchAddress("Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT);
+  Tree->SetBranchAddress("Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT);
+  Tree->SetBranchAddress("Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017",&Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017_,&b_Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017);
+  Tree->SetBranchAddress("Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+  Tree->SetBranchAddress("Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);*/
+  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSjetraw",&Tau_byDeepTau2017v2p1VSjetraw_,&b_Tau_byDeepTau2017v2p1VSjetraw);
+  Tree->SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSjet",&Tau_byVVVLooseDeepTau2017v2p1VSjet_,&b_Tau_byVVVLooseDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSjet",&Tau_byVVLooseDeepTau2017v2p1VSjet_,&b_Tau_byVVLooseDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSjet",&Tau_byVLooseDeepTau2017v2p1VSjet_,&b_Tau_byVLooseDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSjet",&Tau_byLooseDeepTau2017v2p1VSjet_,&b_Tau_byLooseDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSjet",&Tau_byMediumDeepTau2017v2p1VSjet_,&b_Tau_byMediumDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSjet",&Tau_byTightDeepTau2017v2p1VSjet_,&b_Tau_byTightDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSjet",&Tau_byVTightDeepTau2017v2p1VSjet_,&b_Tau_byVTightDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSjet",&Tau_byVVTightDeepTau2017v2p1VSjet_,&b_Tau_byVVTightDeepTau2017v2p1VSjet);
+  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSmuraw",&Tau_byDeepTau2017v2p1VSmuraw_,&b_Tau_byDeepTau2017v2p1VSmuraw);
+  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSmu",&Tau_byVLooseDeepTau2017v2p1VSmu_,&b_Tau_byVLooseDeepTau2017v2p1VSmu);
+  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSmu",&Tau_byLooseDeepTau2017v2p1VSmu_,&b_Tau_byLooseDeepTau2017v2p1VSmu);
+  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSmu",&Tau_byMediumDeepTau2017v2p1VSmu_,&b_Tau_byMediumDeepTau2017v2p1VSmu);
+  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSmu",&Tau_byTightDeepTau2017v2p1VSmu_,&b_Tau_byTightDeepTau2017v2p1VSmu);
+  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSeraw",&Tau_byDeepTau2017v2p1VSeraw_,&b_Tau_byDeepTau2017v2p1VSeraw);
+  Tree->SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSe",&Tau_byVVVLooseDeepTau2017v2p1VSe_,&b_Tau_byVVVLooseDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSe",&Tau_byVVLooseDeepTau2017v2p1VSe_,&b_Tau_byVVLooseDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSe",&Tau_byVLooseDeepTau2017v2p1VSe_,&b_Tau_byVLooseDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSe",&Tau_byLooseDeepTau2017v2p1VSe_,&b_Tau_byLooseDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSe",&Tau_byMediumDeepTau2017v2p1VSe_,&b_Tau_byMediumDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSe",&Tau_byTightDeepTau2017v2p1VSe_,&b_Tau_byTightDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSe",&Tau_byVTightDeepTau2017v2p1VSe_,&b_Tau_byVTightDeepTau2017v2p1VSe);
+  Tree->SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSe",&Tau_byVVTightDeepTau2017v2p1VSe_,&b_Tau_byVVTightDeepTau2017v2p1VSe);
+//  Tree->SetBranchAddress("",&_,&b_);
 
   Tree->SetBranchAddress("Flag_goodVertices",&Flag_goodVertices_,&b_Flag_goodVertices);
   Tree->SetBranchAddress("Flag_globalSuperTightHalo2016Filter",&Flag_globalSuperTightHalo2016Filter_,&b_Flag_globalSuperTightHalo2016Filter);
@@ -1988,6 +2045,12 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_patElectron_SCeta->GetEntry(tentry);
   b_patElectron_charge->GetEntry(tentry);
   b_patElectron_Et->GetEntry(tentry);
+  b_patElectron_pdgId->GetEntry(tentry);
+  b_patElectron_relIsoDeltaBeta->GetEntry(tentry);
+  b_patElectron_relIsoRhoEA_Update->GetEntry(tentry);
+  b_patElectron_gen_pdgId->GetEntry(tentry);
+  b_patElectron_gen_isDirectPromptTauDecayProductFinalState->GetEntry(tentry);
+  //->GetEntry(tentry);
   b_patElectron_mvaEleID_Fall17_noIso_V2_wp80->GetEntry(tentry);
   b_patElectron_mvaEleID_Fall17_iso_V2_wp80->GetEntry(tentry);
   b_patElectron_mvaEleID_Fall17_iso_V2_wp90->GetEntry(tentry);
@@ -1997,9 +2060,15 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values->GetEntry(tentry);
   b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories->GetEntry(tentry);
   b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values->GetEntry(tentry);
-//  ->GetEntry(tentry);
-//  ->GetEntry(tentry);
-//  ->GetEntry(tentry);
+  b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories->GetEntry(tentry);
+  b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80->GetEntry(tentry);
+  b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90->GetEntry(tentry);
+  b_patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1->GetEntry(tentry);
+  b_patElectron_cutBasedElectronID_Fall17_94X_V2_loose->GetEntry(tentry);
+  b_patElectron_cutBasedElectronID_Fall17_94X_V2_medium->GetEntry(tentry);
+  b_patElectron_cutBasedElectronID_Fall17_94X_V2_tight->GetEntry(tentry);
+  b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto->GetEntry(tentry);
+  b_patElectron_heepElectronID_HEEPV70->GetEntry(tentry);
 //  ->GetEntry(tentry);
 /*  b_patElectron_isPassVeto->GetEntry(tentry);          
   b_patElectron_isPassLoose->GetEntry(tentry);
@@ -2019,6 +2088,42 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Muon_medium->GetEntry(tentry);       
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
+  b_Tau_pt->GetEntry(tentry);
+  b_Tau_eta->GetEntry(tentry);
+  b_Tau_phi->GetEntry(tentry);
+  b_Tau_energy->GetEntry(tentry);
+  b_Tau_px->GetEntry(tentry);
+  b_Tau_pz->GetEntry(tentry);
+  b_Tau_p->GetEntry(tentry);
+  b_Tau_charge->GetEntry(tentry);
+  b_Tau_decayModeFinding->GetEntry(tentry);
+  b_Tau_decayModeFindingNewDMs->GetEntry(tentry);
+  b_Tau_againstMuonLoose3->GetEntry(tentry);
+  b_Tau_againstMuonTight3->GetEntry(tentry);
+  b_Tau_byDeepTau2017v2p1VSjetraw->GetEntry(tentry);
+  b_Tau_byVVVLooseDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byVVLooseDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byVLooseDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byLooseDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byMediumDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byTightDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byVTightDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byVVTightDeepTau2017v2p1VSjet->GetEntry(tentry);
+  b_Tau_byDeepTau2017v2p1VSmuraw->GetEntry(tentry);
+  b_Tau_byVLooseDeepTau2017v2p1VSmu->GetEntry(tentry);
+  b_Tau_byLooseDeepTau2017v2p1VSmu->GetEntry(tentry);
+  b_Tau_byMediumDeepTau2017v2p1VSmu->GetEntry(tentry);
+  b_Tau_byTightDeepTau2017v2p1VSmu->GetEntry(tentry);
+  b_Tau_byDeepTau2017v2p1VSeraw->GetEntry(tentry);
+  b_Tau_byVVVLooseDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byVVLooseDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byVLooseDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byLooseDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byMediumDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byTightDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byVTightDeepTau2017v2p1VSe->GetEntry(tentry);
+  b_Tau_byVVTightDeepTau2017v2p1VSe->GetEntry(tentry);
+//  ->GetEntry(tentry);
   b_Met_type1PF_pt->GetEntry(tentry);
   b_Met_type1PF_phi->GetEntry(tentry);
   b_Met_type1PF_sumEt->GetEntry(tentry);
