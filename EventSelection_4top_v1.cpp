@@ -131,13 +131,20 @@ void EventSelection_4top_v1(){
 			SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);//304
 			SelectMuons(SelectedMuons, SelectedMuonsIndex);//320
 
+
+            //hadronic tau selection
+            vector<TLorentzVector> SelectedTausL;
+            SelectTaus(SelectedTausL,1);
+            NumOfTausL = SelectedTausL.size();
+
 			//Hadronic Top selection
 			vector<float> SelectedJetsCSV;
 			vector<float> SelectedBJetsMCSV, SelectedBJetsLCSV, SelectedBJetsTCSV,SelectedForwardJetsCSV; /*{{{*/
-			vector<int>   CA8Indices;
+//			vector<int>   CA8Indices;
 			int CA8Index = -1;
+            //?what does CA8Index do?
 			//?not used in the macro
-			bool deltaPhiJetMet=true;
+			bool deltaPhiJetMet=true;//used in SelectedJets
 		   // vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//if (SelectedWJets.size()>0) continue;
@@ -356,6 +363,32 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
     SelectedMuonsIndex.push_back(j);
   }
 }/*}}}*/
+void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
+    //this is tau ID in ttH
+    //1:loose;2:medium;3:tight
+    for (Int_t j = 0; j < Tau_pt_->size(); ++j){
+        if(!(Tau_pt_->at(j)>20))    continue;
+        if(!(Tau_eta_->at(j)<2.3))  continue;
+//     ?   if(!() )                    continue;//missing dz
+        if(!(Tau_decayModeFindingNewDMs_->at(j)==1)) continue;
+        //?not sure, is seem all are 1; 
+        //if(!())           continue;//for decay mode
+        if(TauWP==1) {
+            if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5)) continue;
+        }
+        if(TauWP==2) {
+            if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5&& Tau_byVLooseDeepTau2017v2p1VSmu_->at(j)>0.5 && Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j)>0.5)) continue;
+        }
+//        if(TauWP==3){//channel specific
+//            if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_ && Tau_byVLooseDeepTau2017v2p1VSmu_->at(j)>0.5 && Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j)>0.5)) continue;
+ //       }
+        //?need err handling
+        TLorentzVector tau; tau.SetPtEtaPhiE(Tau_pt_->at(j),Tau_eta_->at(j),Tau_phi_->at(j),Tau_energy_->at(j));
+        SelectedTaus.push_back(tau);
+    }
+
+}
+
 
 //?Selectedelectron and muon not appear in the function body
 void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){/*{{{*/
@@ -1444,6 +1477,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/F");
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/F");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/F");
+  NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -1898,6 +1932,7 @@ MinDeltaRJets=-99;
 MaxDeltaRJets=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
+NumOfTausL=-99;
 
 //
 //

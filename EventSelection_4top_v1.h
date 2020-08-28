@@ -16,6 +16,7 @@ void branch(bool data, TTree *NewTree, TTree *NewTreeSB, string fileName);/*{{{*
 void SelectMet(bool &SelectedMet);
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data);
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex);
+void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP=1);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,float dRLep1Lep2,float Zpt,float leadLepPt);
 void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, 
 		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
@@ -495,6 +496,7 @@ float MinDeltaRJets=-99;
 float MaxDeltaRJets=-99;
 float MinDeltaRBJets=-99;
 float MaxDeltaRBJets=-99;
+int NumOfTausL=-99;
 //
 //
 int   NumSelJets=-99;
