@@ -3,7 +3,7 @@
 #include <algorithm>
 
 //void EventSelection_4top_v1(const char * Input = ""){
-void EventSelection_4top_v1(){
+void EventSelection_4top_v1(const bool istest = true, const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);//?
   gStyle->SetOptStat("rme");
@@ -49,15 +49,22 @@ void EventSelection_4top_v1(){
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
 		//?it seems Jes and Jer can not aplly together?
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/test"+fileName[Nfiles];
+/*    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/test"+fileName[Nfiles];
     if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESup/"+fileName[Nfiles];
     if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESdo/"+fileName[Nfiles];
     if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERdo/"+fileName[Nfiles];*/
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = outputDir+"NoJEC/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = outputDir+"JESup/"+fileName[Nfiles];
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = outputDir+"JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = outputDir+"JERdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = outputDir+"JERup/"+fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
+//    cout<<"file here"<<NewFileName<<endl;
 	//c_str()Returns a pointer to an array that contains a null-terminated sequence of characters (i.e., a C-string) representing the current value of the string object.
-    TFile f(NewFileName,"new");
+//    TFile f(NewFileName,"new");//Create a new file and open it for writing, if the file already exists the file is not opened.
+    TFile f(NewFileName,"RECREATE");//Create a new file, if the file already exists it will be overwritten.
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
 		//?why 2 trees? what's the different?
@@ -77,10 +84,11 @@ void EventSelection_4top_v1(){
 	//If no matches were found, the function returns string::npos.
 	//find May18V1_MET,data=true.
 	//what is data?	//if filename is data, data=true. data and MC files have different tree .
-    branch(data,NewTree,NewTreeSB,fileName[Nfiles]);//line933
+ //   branch(data,NewTree,NewTreeSB,fileName[Nfiles]);//
 		//Tree->SetBranchAddress;NewTree and SB->Branch
 		//every file have the same tree ?yes
-    Int_t nentries = (Int_t)Tree->GetEntries();
+//    Int_t nentries = (Int_t)Tree->GetEntries();
+    Long64_t nentries = (Int_t)Tree->GetEntries();
 		//how do we know the entries of Tree?//Read all branches of entry and return total number of bytes read.
     for(int selection=0; selection<3; selection++){
 			//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
@@ -90,12 +98,19 @@ void EventSelection_4top_v1(){
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
+
+//        TTree *NewTree = new TTree("tree","tree");
+//        if(selection == 2) TTree *NewTreeSB = new TTree("treeSB","treeSB");
+        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//
+        Long64_t NumOfEvents;
+        if (istest){   NumOfEvents = 1000; }
+        else{ NumOfEvents = nentries;}
 //     for (Int_t i=0; i<nentries; i++) {
-     for (Int_t i=0; i<1000; i++) {
+       for (Long64_t i=0; i<NumOfEvents; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			//?why file name not in the function?
 			//what does data do here?
-			branchGetEntry(data, tentry,fileName[Nfiles]);//line2241; every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+			branchGetEntry(data, tentry,fileName[Nfiles]);// every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
 			initializeVar();//line1822  initialize for new tree. category0=0;
 			//
 //			if(!(HLT_PFHT900_==1 || HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ==1))  continue;//a branch in tree, trigger we choose
@@ -114,6 +129,7 @@ void EventSelection_4top_v1(){
 			//?according to pdg ID generate usdc quark and GenZPt GenWPt.
 
 			//large met
+            //?need to check met
 			bool SelectedMet = false;
 			//?how does SysJes impact Met_pt ?
             //?do we still have to correct Met?
@@ -138,6 +154,7 @@ void EventSelection_4top_v1(){
             vector<TLorentzVector> SelectedTausL;
             SelectTaus(SelectedTausL,1);
             NumOfTausL = SelectedTausL.size();
+            if(!(NumOfTausL>0)) continue;
 
             //jet and B jet selection
 			vector<float> SeclectedJetsBTags;
@@ -172,6 +189,7 @@ void EventSelection_4top_v1(){
 //			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
 //          Sphericity = 
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
+            MetDividedByHT = Met_pt/HT;
             MHTDividedByMET   = MHT/Met_pt;
             vector<int> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
@@ -186,6 +204,8 @@ void EventSelection_4top_v1(){
             MinDeltaRJets = MinMaxDeltaRJets[0];
             MaxDeltaRJets = MinMaxDeltaRJets[1];
 //      	if(!(HT>200)) continue;/*}}}*/
+            if(!(NumSelJets>0)) continue;
+            if(!(NumSelBJetsL>0)) continue;
 //
 //
 			//Hadronic Top selection
@@ -205,8 +225,10 @@ void EventSelection_4top_v1(){
 			if(ResolvedEvent)   HadronicTopQuark = HadronicTopQuarkResolved;//parameter in Fillbranch
             //HadronicTopQuark and HadronicTopQuarkResolved are identical
 //			if(!ResolvedEvent) continue;/*}}}*/
+//			//?use funtion to give value, wouldn't it be useless?
 		    WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
 
+            //event cut
 
 			NVertices         = nBestVtx_;
 			EVENT_run         = EVENT_run_;
@@ -240,14 +262,16 @@ void EventSelection_4top_v1(){
 //  	  			QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
 //					PDFWeight(10,111,w_PDFUp,w_PDFDown);
 //			}
-		
-			if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
+	//it seems we don't fill NewTree here.	
+//			if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
+			if(selection==0 || selection==1)  NewTree->Fill();
 			else if(selection==2)            HistoFill(PUWeight,NewTreeSB);
 		}
 	}
 
     f.cd();
-    writeFile(NewTree,NewTreeSB);//2456
+//    writeFile(NewTree,NewTreeSB);//
+    NewTree->Write();
     f.Close();
     cout<<"File "<<fileName[Nfiles]<<" ready!"<<endl;
   }
@@ -335,7 +359,7 @@ void MetCorrection(int SysJes, int SysJer, float &MET){/*{{{*/
 //}/*}}}*/
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
 	//?data does not occur.
-  for (Int_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
+  for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
 		//what is patElectron_pt?
 //    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
 //    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
@@ -368,11 +392,12 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
 void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
     //this is tau ID in ttH
     //1:loose;2:medium;3:tight
-    for (Int_t j = 0; j < Tau_pt_->size(); ++j){
+    for (UInt_t j = 0; j < Tau_pt_->size(); ++j){
         if(!(Tau_pt_->at(j)>20))    continue;
         if(!(Tau_eta_->at(j)<2.3))  continue;
 //     ?   if(!() )                    continue;//missing dz
         if(!(Tau_decayModeFindingNewDMs_->at(j)==1)) continue;
+        //???not sure why all taus is 1? if so no point in this requirement.
         //?not sure, is seem all are 1; 
         //if(!())           continue;//for decay mode
         if(TauWP==1) {
@@ -1131,7 +1156,7 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinM
 //    }
 //}
 void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/*{{{*/
-    int size = 0;
+    UInt_t size = 0;
     size = SelectedJets.size();
     int k = 0;
     float JetsPt[size] ; 
@@ -1139,13 +1164,13 @@ void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/
         JetsPt[j] = SelectedJets[j].Pt();
     }
     sort(JetsPt, JetsPt+size);
-    for (int i =0; i < size;++i){
+    for (UInt_t i =0; i < size;++i){
         k = size-i-1;//-1 because starts with 0
         JetsPtSorted.push_back(JetsPt[k]);
     }
 }/*}}}*/
 void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){/*{{{*/
-    for(int i = 0; i < JetsPtSorted.size();++i){
+    for(UInt_t i = 0; i < JetsPtSorted.size();++i){
         if(i == 0) LeadingJetPt = JetsPtSorted[i];
         if(i == 1) SecondJetPt = JetsPtSorted[i];
         if(i == 2) ThirdJetPt = JetsPtSorted[i];
@@ -1163,7 +1188,7 @@ void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &
 
 //?it seems that fileName doesn't occur in the function .
 //
-void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
+void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
 	//Change branch address, dealing with clone trees properly.	//copy the branch Jet_pt to b_Jet_pt
   Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
   Tree->SetBranchAddress("Jet_eta",  &Jet_eta_,  &b_Jet_eta);
@@ -1498,6 +1523,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("LeadingBJetPt",        &LeadingBJetPt,        "LeadingBJetPt/F");
   NewTree->Branch("SecondBJetPt",        &SecondBJetPt,        "SecondBJetPt/F");
   NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/F");
+  NewTree->Branch("MetDividedByHT",        &MetDividedByHT,        "MetDividedByHT/F");
   NewTree->Branch("MHTDividedByMET",        &MHTDividedByMET,        "MHTDividedByMET/F");
   NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/F");
   NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/F");
@@ -1613,213 +1639,214 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   NewTree->Branch("Met_phi",&Met_phi,"Met_phi/F");
   NewTree->Branch("TransverseMassMetTop",&TransverseMassMetTop,"TransverseMassMetTop/F");
 
-  
-  NewTreeSB->Branch("category0",         &category0,         "category0/I"         );
-  NewTreeSB->Branch("category1",         &category1,         "category1/I"         );
-  NewTreeSB->Branch("category2",         &category2,         "category2/I"         );
-  /*NewTreeSB->Branch("category3",         &category3,         "category3/I"         );
-  NewTreeSB->Branch("category4",         &category4,         "category4/I"         );
-  NewTreeSB->Branch("category5",         &category5,         "category5/I"         );
-  NewTreeSB->Branch("category6",         &category6,         "category6/I"         );
-  NewTreeSB->Branch("category7",         &category7,         "category7/I"         );*/
-  NewTreeSB->Branch("TopMass",           &TopMass,           "TopMass/F"           );
-  NewTreeSB->Branch("TopMassMerged",     &TopMassMerged,     "TopMassMerged/F"     );
-  NewTreeSB->Branch("TopMassPartial",    &TopMassPartial,    "TopMassPartial/F"    );
-  NewTreeSB->Branch("TopMassResolved",   &TopMassResolved,   "TopMassResolved/F"   );
-  NewTreeSB->Branch("TopPt",             &TopPt,             "TopPt/F"             );
-  NewTreeSB->Branch("TopPtMerged",       &TopPtMerged,       "TopPtMerged/F"       );
-  NewTreeSB->Branch("TopPtPartial",      &TopPtPartial,      "TopPtPartial/F"      );
-  NewTreeSB->Branch("TopPtResolved",     &TopPtResolved,     "TopPtResolved/F"     );
-  NewTreeSB->Branch("TopEta",            &TopEta,            "TopEta/F"            );
-  NewTreeSB->Branch("TopEtaMerged",      &TopEtaMerged,      "TopEtaMerged/F"      );
-  NewTreeSB->Branch("TopEtaPartial",     &TopEtaPartial,     "TopEtaPartial/F"     );
-  NewTreeSB->Branch("TopEtaResolved",    &TopEtaResolved,    "TopEtaResolved/F"    );
-  NewTreeSB->Branch("TopPhi",            &TopPhi,            "TopPhi/F"            );
-  NewTreeSB->Branch("TopPhiMerged",      &TopPhiMerged,      "TopPhiMerged/F"      );
-  NewTreeSB->Branch("TopPhiPartial",     &TopPhiPartial,     "TopPhiPartial/F"     );
-  NewTreeSB->Branch("TopPhiResolved",    &TopPhiResolved,    "TopPhiResolved/F"    );
-  NewTreeSB->Branch("WMassResolved1",    &WMassResolved1,    "WMassResolved1/F"    );
-  NewTreeSB->Branch("WMassResolved2",    &WMassResolved2,    "WMassResolved2/F"    );
-  NewTreeSB->Branch("WMassResolved3",    &WMassResolved3,    "WMassResolved3/F"    );
-  NewTreeSB->Branch("BMass",             &BMass,             "BMass/F"             );
-  NewTreeSB->Branch("BCSV",              &BCSV,              "BCSV/F"              );
-  NewTreeSB->Branch("BPt",               &BPt,               "BPt/F"               );
-  NewTreeSB->Branch("BEta",              &BEta,              "BEta/F"              );
-  NewTreeSB->Branch("BPhi",              &BPhi,              "BPhi/F"              );
-  NewTreeSB->Branch("ZMass",             &ZMass,             "ZMass/F"             );
-  NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/F"               );
-  NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/F"              );
-  NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
-  NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
-  NewTreeSB->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
-  NewTreeSB->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
-  NewTreeSB->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/F"         );
-  NewTreeSB->Branch("TprimeResolvedMass",&TprimeResolvedMass,"TprimeResolvedMass/F");
-  NewTreeSB->Branch("TprimeResolvedPt",  &TprimeResolvedPt,  "TprimeResolvedPt/F"  );
-  NewTreeSB->Branch("TprimeResolvedEta", &TprimeResolvedEta, "TprimeResolvedEta/F" );
-  NewTreeSB->Branch("TprimeResolvedPhi", &TprimeResolvedPhi, "TprimeResolvedPhi/F" );
-  NewTreeSB->Branch("TprimePartialMass", &TprimePartialMass, "TprimePartialMass/F" );
-  NewTreeSB->Branch("TprimePartialPt",   &TprimePartialPt,   "TprimePartialPt/F"   );
-  NewTreeSB->Branch("TprimePartialEta",  &TprimePartialEta,  "TprimePartialEta/F"  );
-  NewTreeSB->Branch("TprimePartialPhi",  &TprimePartialPhi,  "TprimePartialPhi/F"  );
-  NewTreeSB->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/F"  );
-  NewTreeSB->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/F"    );
-  NewTreeSB->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/F"   );
-  NewTreeSB->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );
-  NewTreeSB->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/F"       );
-  NewTreeSB->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/F"       );
-  NewTreeSB->Branch("Electron1E",        &Electron1E,        "Electron1E/F"        );
-  NewTreeSB->Branch("Electron2E",        &Electron2E,        "Electron2E/F"        );
-  NewTreeSB->Branch("Muon1Iso",          &Muon1Iso,          "Muon1Iso/F"          );
-  NewTreeSB->Branch("Muon2Iso",          &Muon2Iso,          "Muon2Iso/F"          );
-  NewTreeSB->Branch("Muon1Pt",           &Muon1Pt,           "Muon1Pt/F"           );
-  NewTreeSB->Branch("Muon2Pt",           &Muon2Pt,           "Muon2Pt/F"           );
-  NewTreeSB->Branch("Jet1ForwardEta",    &Jet1ForwardEta,    "Jet1ForwardEta/F"    );
-  NewTreeSB->Branch("Jet2ForwardEta",    &Jet2ForwardEta,    "Jet2ForwardEta/F"    );
-  NewTreeSB->Branch("Jet3ForwardEta",    &Jet3ForwardEta,    "Jet3ForwardEta/F"    );
-  NewTreeSB->Branch("Jet1ForwardPt",     &Jet1ForwardPt,     "Jet1ForwardPt/F"     );
-  NewTreeSB->Branch("Jet2ForwardPt",     &Jet2ForwardPt,     "Jet2ForwardPt/F"     );
-  NewTreeSB->Branch("Jet3ForwardPt",     &Jet3ForwardPt,     "Jet3ForwardPt/F"     );
-  NewTreeSB->Branch("Jet1ResolvedPt",    &Jet1ResolvedPt,    "Jet1ResolvedPt/F"    );
-  NewTreeSB->Branch("Jet2ResolvedPt",    &Jet2ResolvedPt,    "Jet2ResolvedPt/F"    );
-  NewTreeSB->Branch("Jet3ResolvedPt",    &Jet3ResolvedPt,    "Jet3ResolvedPt/F"    );
-  NewTreeSB->Branch("Jet1PartialPt",     &Jet1PartialPt,     "Jet1PartialPt/F"     );
-  NewTreeSB->Branch("Jet2PartialPt",     &Jet2PartialPt,     "Jet2PartialPt/F"     );
-  NewTreeSB->Branch("Jet1MergedPt",      &Jet1MergedPt,      "Jet1MergedPt/F"      );
-  NewTreeSB->Branch("MostForwardJetEta", &MostForwardJetEta, "MostForwardJetEta/F" );
-  NewTreeSB->Branch("MostForwardJetPt",  &MostForwardJetPt,  "MostForwardJetPt/F"  );
-  NewTreeSB->Branch("Electron1Eta",      &Electron1Eta,      "Electron1Eta/F"      );
-  NewTreeSB->Branch("Electron2Eta",      &Electron2Eta,      "Electron2Eta/F"      );
-  NewTreeSB->Branch("Muon1Eta",          &Muon1Eta,          "Muon1Eta/F"          );
-  NewTreeSB->Branch("Muon2Eta",          &Muon2Eta,          "Muon2Eta/F"          );
- NewTreeSB->Branch("Jet1ResolvedEta",   &Jet1ResolvedEta,   "Jet1ResolvedEta/F"   );
-  NewTreeSB->Branch("Jet2ResolvedEta",   &Jet2ResolvedEta,   "Jet2ResolvedEta/F"   );
-  NewTreeSB->Branch("Jet3ResolvedEta",   &Jet3ResolvedEta,   "Jet3ResolvedEta/F"   );
-  NewTreeSB->Branch("Jet1PartialEta",    &Jet1PartialEta,    "Jet1PartialEta/F"    );
-  NewTreeSB->Branch("Jet2PartialEta",    &Jet2PartialEta,    "Jet2PartialEta/F"    );
-  NewTreeSB->Branch("Jet1MergedEta",     &Jet1MergedEta,     "Jet1MergedEta/F"     );
-  NewTreeSB->Branch("Electron1Phi",      &Electron1Phi,      "Electron1Phi/F"      );
-  NewTreeSB->Branch("Electron2Phi",      &Electron2Phi,      "Electron2Phi/F"      );
-  NewTreeSB->Branch("Muon1Phi",          &Muon1Phi,          "Muon1Phi/F"          );
-  NewTreeSB->Branch("Muon2Phi",          &Muon2Phi,          "Muon2Phi/F"          );
-  NewTreeSB->Branch("deltaPhiZTop",      &deltaPhiZTop,      "deltaPhiZTop/F"      );
-  NewTreeSB->Branch("deltaRZTop",        &deltaRZTop,        "deltaRZTop/F"        );
-  NewTreeSB->Branch("deltaREle1Ele2",    &deltaREle1Ele2,    "deltaREle1Ele2/F"    );
-  NewTreeSB->Branch("deltaRMuo1Muo2",    &deltaRMuo1Muo2,    "deltaRMuo1Muo2/F"    );
-  NewTreeSB->Branch("Massb1b2",          &Massb1b2,          "Massb1b2/F"          );
-  NewTreeSB->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet, "MinDeltaPhiJetMet/F" );
-  NewTreeSB->Branch("MinDeltaPhiBoostedJetMet", &MinDeltaPhiBoostedJetMet, "MinDeltaPhiBoostedJetMet/F" );
-  NewTreeSB->Branch("deltaRb1b2",        &deltaRb1b2,        "deltaRb1b2/F"        );
-  NewTreeSB->Branch("deltaRb1Lep1",      &deltaRb1Lep1,      "deltaRb1Lep1/F"      );
-  NewTreeSB->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/F"      );
-  NewTreeSB->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/F"      );
-  NewTreeSB->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/F"      );
-  NewTreeSB->Branch("NumSelLeps",        &NumSelLeps,        "NumSelLeps/I"        );
-// 
-//
- NewTreeSB->Branch("NumSeEle",      &NumSeEle,                "NumSeEle");
- NewTreeSB->Branch("NumSeMu",       &NumSeMu,                 "NumSeMu");
-  NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
-  NewTreeSB->Branch("Centrality",        &Centrality,       "Centrality/F");
-  NewTreeSB->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
-//
-//
-  NewTreeSB->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
-  NewTreeSB->Branch("NumSelForwardJets", &NumSelForwardJets, "NumSelForwardJets/I" );
-  NewTreeSB->Branch("NumSelBJetsL",      &NumSelBJetsL,      "NumSelBJetsL/I"      );
-  NewTreeSB->Branch("NumSelBJetsM",      &NumSelBJetsM,      "NumSelBJetsM/I"      );
-  NewTreeSB->Branch("NumSelBJetsT",      &NumSelBJetsT,      "NumSelBJetsT/I"      );
-  NewTreeSB->Branch("NumSelWJets",       &NumSelWJets,       "NumSelWJets/I"       );
-  NewTreeSB->Branch("NumSelTopJets",     &NumSelTopJets,     "NumSelTopJets/I"     );
-  NewTreeSB->Branch("NVertices",         &NVertices,         "NVertices/I"         );
-  NewTreeSB->Branch("HT",                &HT,                "HT/F"                );
-  NewTreeSB->Branch("MHT",                &MHT,                "MHT/F"                );
-  NewTreeSB->Branch("PUWeight",          &PUWeight,          "PUWeight/F"          );
-  NewTreeSB->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/F"        );
-  NewTreeSB->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/F"      );
-  NewTreeSB->Branch("getTrueNumInteractions",&getTrueNumInteractions,"getTrueNumInteractions/I");
-  NewTreeSB->Branch("w_for",             &w_for,             "w_for/F"             );
-  NewTreeSB->Branch("w_forUp",           &w_forUp,           "w_forUp/F"           );
-  NewTreeSB->Branch("w_forDown",         &w_forDown,         "w_forDown/F"         );
-  NewTreeSB->Branch("w_topJet",          &w_topJet,          "w_topJet/F"          );
-  NewTreeSB->Branch("w_topJetUp",        &w_topJetUp,        "w_topJetUp/F"        );
-  NewTreeSB->Branch("w_topJetDown",      &w_topJetDown,      "w_topJetDown/F"      );
-  NewTreeSB->Branch("w_WJet",            &w_WJet,            "w_WJet/F"            );
-  NewTreeSB->Branch("w_WJetUp",          &w_WJetUp,          "w_WJetUp/F"          );
-  NewTreeSB->Branch("w_WJetDown",        &w_WJetDown,        "w_WJetDown/F"        );
-  NewTreeSB->Branch("w_Muon1",           &w_Muon1,           "w_Muon1/F"           );
-  NewTreeSB->Branch("w_Muon2",           &w_Muon2,           "w_Muon2/F"           );
-  NewTreeSB->Branch("w_Muon1Up",         &w_Muon1Up,         "w_Muon1Up/F"         );
-  NewTreeSB->Branch("w_Muon2Up",         &w_Muon2Up,         "w_Muon2Up/F"         );
-  NewTreeSB->Branch("w_Muon1Down",       &w_Muon1Down,       "w_Muon1Down/F"       );
-  NewTreeSB->Branch("w_Muon2Down",       &w_Muon2Down,       "w_Muon2Down/F"       );
-  NewTreeSB->Branch("w_TrigMuon",        &w_TrigMuon,        "w_TrigMuon/F"        );
-  NewTreeSB->Branch("w_TrigMuonUp",      &w_TrigMuonUp,      "w_TrigMuonUp/F"      );
-  NewTreeSB->Branch("w_TrigMuonDown",    &w_TrigMuonDown,    "w_TrigMuonDown/F"    );
-  NewTreeSB->Branch("w_Electron1",       &w_Electron1,       "w_Electron1/F"       );
-  NewTreeSB->Branch("w_Electron2",       &w_Electron2,       "w_Electron2/F"       );
-  NewTreeSB->Branch("w_Electron1Up",     &w_Electron1Up,     "w_Electron1Up/F"     );
-  NewTreeSB->Branch("w_Electron2Up",     &w_Electron2Up,     "w_Electron2Up/F"     );
-  NewTreeSB->Branch("w_Electron1Down",   &w_Electron1Down,   "w_Electron1Down/F"   );
-  NewTreeSB->Branch("w_Electron2Down",   &w_Electron2Down,   "w_Electron2Down/F"   );
-  NewTreeSB->Branch("w_TrigElec",        &w_TrigElec,        "w_TrigElec/F"        );
-  NewTreeSB->Branch("w_TrigElecUp",      &w_TrigElecUp,      "w_TrigElecUp/F"      );
-  NewTreeSB->Branch("w_TrigElecDown",    &w_TrigElecDown,    "w_TrigElecDown/F"    );
-  NewTreeSB->Branch("w_ZToNuNu",         &w_ZToNuNu,         "w_ZToNuNu/F"         );
-  NewTreeSB->Branch("w_ZToNuNuUp",       &w_ZToNuNuUp,       "w_ZToNuNuUp/F"       );
-  NewTreeSB->Branch("w_ZToNuNuDown",     &w_ZToNuNuDown,     "w_ZToNuNuDown/F"     );
-  NewTreeSB->Branch("w_WToLNu",          &w_WToLNu,          "w_WToLNu/F"          );
-  NewTreeSB->Branch("w_WToLNuUp",        &w_WToLNuUp,        "w_WToLNuUp/F"        );
-  NewTreeSB->Branch("w_WToLNuDown",      &w_WToLNuDown,      "w_WToLNuDown/F"      );
-  NewTreeSB->Branch("w_ttbar",           &w_ttbar,           "w_ttbar/F"           );
-  NewTreeSB->Branch("w_ttbarUp",         &w_ttbarUp,         "w_ttbarUp/F"         );
-  NewTreeSB->Branch("w_ttbarDown",       &w_ttbarDown,       "w_ttbarDown/F"       );
-  NewTreeSB->Branch("w_Trig",            &w_Trig,            "w_Trig/F"            );
-  NewTreeSB->Branch("w_TrigUp",          &w_TrigUp,          "w_TrigUp/F"          );
-  NewTreeSB->Branch("w_TrigDown",        &w_TrigDown,        "w_TrigDown/F"        );
-  NewTreeSB->Branch("WMass",             &WMass,             "WMass/F"             );
-  NewTreeSB->Branch("WSubjet",           &WSubjet,           "WSubjet/F"           );
-  NewTreeSB->Branch("TopSoftMass",       &TopSoftMass,       "TopSoftMass/F"       );
-  NewTreeSB->Branch("TopSubjet",         &TopSubjet,         "TopSubjet/F"         );
-  NewTreeSB->Branch("w_Btag",            &w_Btag,            "w_Btag/F"            );
-  NewTreeSB->Branch("w_BtagUp",          &w_BtagUp,          "w_BtagUp/F"          );
-  NewTreeSB->Branch("w_BtagDown",        &w_BtagDown,        "w_BtagDown/F"        );
-  NewTreeSB->Branch("w_Btag1Up",         &w_Btag1Up,         "w_Btag1Up/F"         );
-  NewTreeSB->Branch("w_Btag1Down",       &w_Btag1Down,       "w_Btag1Down/F"       );
-  NewTreeSB->Branch("w_Btag2Up",         &w_Btag2Up,         "w_Btag2Up/F"         );
-  NewTreeSB->Branch("w_Btag2Down",       &w_Btag2Down,       "w_Btag2Down/F"       );
-  NewTreeSB->Branch("w_BtagLoose",       &w_BtagLoose,       "w_BtagLoose/F"       );
-  NewTreeSB->Branch("w_BtagLooseUp",     &w_BtagLooseUp,     "w_BtagLooseUp/F"     );
-  NewTreeSB->Branch("w_BtagLooseDown",   &w_BtagLooseDown,   "w_BtagLooseDown/F"   );
-  NewTreeSB->Branch("w_QCDUp",           &w_QCDUp,           "w_QCDUp/F"           );
-  NewTreeSB->Branch("w_QCDDown",         &w_QCDDown,         "w_QCDDown/F"         );
-  NewTreeSB->Branch("w_PDFUp",           &w_PDFUp,           "w_PDFUp/F"           );
-  NewTreeSB->Branch("w_PDFDown",         &w_PDFDown,         "w_PDFDown/F"         );
-  NewTreeSB->Branch("deltaPhiZTopResolved", &deltaPhiZTopResolved, "deltaPhiZTopResolved/F");
-  NewTreeSB->Branch("deltaRZTopResolved",   &deltaRZTopResolved,   "deltaRZTopResolved/F"  );
-  NewTreeSB->Branch("deltaPhiZTopPartial",  &deltaPhiZTopPartial,  "deltaPhiZTopPartial/F" );
-  NewTreeSB->Branch("deltaRZTopPartial",    &deltaRZTopPartial,    "deltaRZTopPartial/F"   );
-  NewTreeSB->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
-  NewTreeSB->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
-  NewTreeSB->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
-  NewTreeSB->Branch("deltaPhiMetTop",       &deltaPhiMetTop,       "deltaPhiMetTop/F"      );
-  NewTreeSB->Branch("genWeight",            &genWeight,            "genWeight/F"           );
-  NewTreeSB->Branch("dQuark",&dQuark,"dQuark/I");
-  NewTreeSB->Branch("uQuark",&uQuark,"uQuark/I");
-  NewTreeSB->Branch("sQuark",&sQuark,"sQuark/I");
-  NewTreeSB->Branch("cQuark",&cQuark,"cQuark/I");
-  NewTreeSB->Branch("bQuark",&bQuark,"bQuark/I");
-  NewTreeSB->Branch("tQuark",&tQuark,"tQuark/I");
-  NewTreeSB->Branch("EVENT_event",&EVENT_event,"EVENT_event/I");
-  NewTreeSB->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
-  NewTreeSB->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
-  NewTreeSB->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
-  NewTreeSB->Branch("prefiringweight",&prefiringweight,"prefiringweight/F");
-  NewTreeSB->Branch("prefiringweightup",&prefiringweightup,"prefiringweightup/F");
-  NewTreeSB->Branch("prefiringweightdown",&prefiringweightdown,"prefiringweightdown/F");
-  NewTreeSB->Branch("Met_pt",&Met_pt,"Met_pt/F");
-  NewTreeSB->Branch("Met_phi",&Met_phi,"Met_phi/F");
-  NewTreeSB->Branch("TransverseMassMetTop",&TransverseMassMetTop,"TransverseMassMetTop/F");
+  if(selection==2){
+      NewTreeSB->Branch("category0",         &category0,         "category0/I"         );
+      NewTreeSB->Branch("category1",         &category1,         "category1/I"         );
+      NewTreeSB->Branch("category2",         &category2,         "category2/I"         );
+      /*NewTreeSB->Branch("category3",         &category3,         "category3/I"         );
+      NewTreeSB->Branch("category4",         &category4,         "category4/I"         );
+      NewTreeSB->Branch("category5",         &category5,         "category5/I"         );
+      NewTreeSB->Branch("category6",         &category6,         "category6/I"         );
+      NewTreeSB->Branch("category7",         &category7,         "category7/I"         );*/
+      NewTreeSB->Branch("TopMass",           &TopMass,           "TopMass/F"           );
+      NewTreeSB->Branch("TopMassMerged",     &TopMassMerged,     "TopMassMerged/F"     );
+      NewTreeSB->Branch("TopMassPartial",    &TopMassPartial,    "TopMassPartial/F"    );
+      NewTreeSB->Branch("TopMassResolved",   &TopMassResolved,   "TopMassResolved/F"   );
+      NewTreeSB->Branch("TopPt",             &TopPt,             "TopPt/F"             );
+      NewTreeSB->Branch("TopPtMerged",       &TopPtMerged,       "TopPtMerged/F"       );
+      NewTreeSB->Branch("TopPtPartial",      &TopPtPartial,      "TopPtPartial/F"      );
+      NewTreeSB->Branch("TopPtResolved",     &TopPtResolved,     "TopPtResolved/F"     );
+      NewTreeSB->Branch("TopEta",            &TopEta,            "TopEta/F"            );
+      NewTreeSB->Branch("TopEtaMerged",      &TopEtaMerged,      "TopEtaMerged/F"      );
+      NewTreeSB->Branch("TopEtaPartial",     &TopEtaPartial,     "TopEtaPartial/F"     );
+      NewTreeSB->Branch("TopEtaResolved",    &TopEtaResolved,    "TopEtaResolved/F"    );
+      NewTreeSB->Branch("TopPhi",            &TopPhi,            "TopPhi/F"            );
+      NewTreeSB->Branch("TopPhiMerged",      &TopPhiMerged,      "TopPhiMerged/F"      );
+      NewTreeSB->Branch("TopPhiPartial",     &TopPhiPartial,     "TopPhiPartial/F"     );
+      NewTreeSB->Branch("TopPhiResolved",    &TopPhiResolved,    "TopPhiResolved/F"    );
+      NewTreeSB->Branch("WMassResolved1",    &WMassResolved1,    "WMassResolved1/F"    );
+      NewTreeSB->Branch("WMassResolved2",    &WMassResolved2,    "WMassResolved2/F"    );
+      NewTreeSB->Branch("WMassResolved3",    &WMassResolved3,    "WMassResolved3/F"    );
+      NewTreeSB->Branch("BMass",             &BMass,             "BMass/F"             );
+      NewTreeSB->Branch("BCSV",              &BCSV,              "BCSV/F"              );
+      NewTreeSB->Branch("BPt",               &BPt,               "BPt/F"               );
+      NewTreeSB->Branch("BEta",              &BEta,              "BEta/F"              );
+      NewTreeSB->Branch("BPhi",              &BPhi,              "BPhi/F"              );
+      NewTreeSB->Branch("ZMass",             &ZMass,             "ZMass/F"             );
+      NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/F"               );
+      NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/F"              );
+      NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
+      NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
+      NewTreeSB->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
+      NewTreeSB->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
+      NewTreeSB->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/F"         );
+      NewTreeSB->Branch("TprimeResolvedMass",&TprimeResolvedMass,"TprimeResolvedMass/F");
+      NewTreeSB->Branch("TprimeResolvedPt",  &TprimeResolvedPt,  "TprimeResolvedPt/F"  );
+      NewTreeSB->Branch("TprimeResolvedEta", &TprimeResolvedEta, "TprimeResolvedEta/F" );
+      NewTreeSB->Branch("TprimeResolvedPhi", &TprimeResolvedPhi, "TprimeResolvedPhi/F" );
+      NewTreeSB->Branch("TprimePartialMass", &TprimePartialMass, "TprimePartialMass/F" );
+      NewTreeSB->Branch("TprimePartialPt",   &TprimePartialPt,   "TprimePartialPt/F"   );
+      NewTreeSB->Branch("TprimePartialEta",  &TprimePartialEta,  "TprimePartialEta/F"  );
+      NewTreeSB->Branch("TprimePartialPhi",  &TprimePartialPhi,  "TprimePartialPhi/F"  );
+      NewTreeSB->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/F"  );
+      NewTreeSB->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/F"    );
+      NewTreeSB->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/F"   );
+      NewTreeSB->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );
+      NewTreeSB->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/F"       );
+      NewTreeSB->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/F"       );
+      NewTreeSB->Branch("Electron1E",        &Electron1E,        "Electron1E/F"        );
+      NewTreeSB->Branch("Electron2E",        &Electron2E,        "Electron2E/F"        );
+      NewTreeSB->Branch("Muon1Iso",          &Muon1Iso,          "Muon1Iso/F"          );
+      NewTreeSB->Branch("Muon2Iso",          &Muon2Iso,          "Muon2Iso/F"          );
+      NewTreeSB->Branch("Muon1Pt",           &Muon1Pt,           "Muon1Pt/F"           );
+      NewTreeSB->Branch("Muon2Pt",           &Muon2Pt,           "Muon2Pt/F"           );
+      NewTreeSB->Branch("Jet1ForwardEta",    &Jet1ForwardEta,    "Jet1ForwardEta/F"    );
+      NewTreeSB->Branch("Jet2ForwardEta",    &Jet2ForwardEta,    "Jet2ForwardEta/F"    );
+      NewTreeSB->Branch("Jet3ForwardEta",    &Jet3ForwardEta,    "Jet3ForwardEta/F"    );
+      NewTreeSB->Branch("Jet1ForwardPt",     &Jet1ForwardPt,     "Jet1ForwardPt/F"     );
+      NewTreeSB->Branch("Jet2ForwardPt",     &Jet2ForwardPt,     "Jet2ForwardPt/F"     );
+      NewTreeSB->Branch("Jet3ForwardPt",     &Jet3ForwardPt,     "Jet3ForwardPt/F"     );
+      NewTreeSB->Branch("Jet1ResolvedPt",    &Jet1ResolvedPt,    "Jet1ResolvedPt/F"    );
+      NewTreeSB->Branch("Jet2ResolvedPt",    &Jet2ResolvedPt,    "Jet2ResolvedPt/F"    );
+      NewTreeSB->Branch("Jet3ResolvedPt",    &Jet3ResolvedPt,    "Jet3ResolvedPt/F"    );
+      NewTreeSB->Branch("Jet1PartialPt",     &Jet1PartialPt,     "Jet1PartialPt/F"     );
+      NewTreeSB->Branch("Jet2PartialPt",     &Jet2PartialPt,     "Jet2PartialPt/F"     );
+      NewTreeSB->Branch("Jet1MergedPt",      &Jet1MergedPt,      "Jet1MergedPt/F"      );
+      NewTreeSB->Branch("MostForwardJetEta", &MostForwardJetEta, "MostForwardJetEta/F" );
+      NewTreeSB->Branch("MostForwardJetPt",  &MostForwardJetPt,  "MostForwardJetPt/F"  );
+      NewTreeSB->Branch("Electron1Eta",      &Electron1Eta,      "Electron1Eta/F"      );
+      NewTreeSB->Branch("Electron2Eta",      &Electron2Eta,      "Electron2Eta/F"      );
+      NewTreeSB->Branch("Muon1Eta",          &Muon1Eta,          "Muon1Eta/F"          );
+      NewTreeSB->Branch("Muon2Eta",          &Muon2Eta,          "Muon2Eta/F"          );
+     NewTreeSB->Branch("Jet1ResolvedEta",   &Jet1ResolvedEta,   "Jet1ResolvedEta/F"   );
+      NewTreeSB->Branch("Jet2ResolvedEta",   &Jet2ResolvedEta,   "Jet2ResolvedEta/F"   );
+      NewTreeSB->Branch("Jet3ResolvedEta",   &Jet3ResolvedEta,   "Jet3ResolvedEta/F"   );
+      NewTreeSB->Branch("Jet1PartialEta",    &Jet1PartialEta,    "Jet1PartialEta/F"    );
+      NewTreeSB->Branch("Jet2PartialEta",    &Jet2PartialEta,    "Jet2PartialEta/F"    );
+      NewTreeSB->Branch("Jet1MergedEta",     &Jet1MergedEta,     "Jet1MergedEta/F"     );
+      NewTreeSB->Branch("Electron1Phi",      &Electron1Phi,      "Electron1Phi/F"      );
+      NewTreeSB->Branch("Electron2Phi",      &Electron2Phi,      "Electron2Phi/F"      );
+      NewTreeSB->Branch("Muon1Phi",          &Muon1Phi,          "Muon1Phi/F"          );
+      NewTreeSB->Branch("Muon2Phi",          &Muon2Phi,          "Muon2Phi/F"          );
+      NewTreeSB->Branch("deltaPhiZTop",      &deltaPhiZTop,      "deltaPhiZTop/F"      );
+      NewTreeSB->Branch("deltaRZTop",        &deltaRZTop,        "deltaRZTop/F"        );
+      NewTreeSB->Branch("deltaREle1Ele2",    &deltaREle1Ele2,    "deltaREle1Ele2/F"    );
+      NewTreeSB->Branch("deltaRMuo1Muo2",    &deltaRMuo1Muo2,    "deltaRMuo1Muo2/F"    );
+      NewTreeSB->Branch("Massb1b2",          &Massb1b2,          "Massb1b2/F"          );
+      NewTreeSB->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet, "MinDeltaPhiJetMet/F" );
+      NewTreeSB->Branch("MinDeltaPhiBoostedJetMet", &MinDeltaPhiBoostedJetMet, "MinDeltaPhiBoostedJetMet/F" );
+      NewTreeSB->Branch("deltaRb1b2",        &deltaRb1b2,        "deltaRb1b2/F"        );
+      NewTreeSB->Branch("deltaRb1Lep1",      &deltaRb1Lep1,      "deltaRb1Lep1/F"      );
+      NewTreeSB->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/F"      );
+      NewTreeSB->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/F"      );
+      NewTreeSB->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/F"      );
+      NewTreeSB->Branch("NumSelLeps",        &NumSelLeps,        "NumSelLeps/I"        );
+    // 
+    //
+     NewTreeSB->Branch("NumSeEle",      &NumSeEle,                "NumSeEle");
+     NewTreeSB->Branch("NumSeMu",       &NumSeMu,                 "NumSeMu");
+      NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/F");
+      NewTreeSB->Branch("Centrality",        &Centrality,       "Centrality/F");
+      NewTreeSB->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/F");
+    //
+    //
+      NewTreeSB->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
+      NewTreeSB->Branch("NumSelForwardJets", &NumSelForwardJets, "NumSelForwardJets/I" );
+      NewTreeSB->Branch("NumSelBJetsL",      &NumSelBJetsL,      "NumSelBJetsL/I"      );
+      NewTreeSB->Branch("NumSelBJetsM",      &NumSelBJetsM,      "NumSelBJetsM/I"      );
+      NewTreeSB->Branch("NumSelBJetsT",      &NumSelBJetsT,      "NumSelBJetsT/I"      );
+      NewTreeSB->Branch("NumSelWJets",       &NumSelWJets,       "NumSelWJets/I"       );
+      NewTreeSB->Branch("NumSelTopJets",     &NumSelTopJets,     "NumSelTopJets/I"     );
+      NewTreeSB->Branch("NVertices",         &NVertices,         "NVertices/I"         );
+      NewTreeSB->Branch("HT",                &HT,                "HT/F"                );
+      NewTreeSB->Branch("MHT",                &MHT,                "MHT/F"                );
+      NewTreeSB->Branch("PUWeight",          &PUWeight,          "PUWeight/F"          );
+      NewTreeSB->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/F"        );
+      NewTreeSB->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/F"      );
+      NewTreeSB->Branch("getTrueNumInteractions",&getTrueNumInteractions,"getTrueNumInteractions/I");
+      NewTreeSB->Branch("w_for",             &w_for,             "w_for/F"             );
+      NewTreeSB->Branch("w_forUp",           &w_forUp,           "w_forUp/F"           );
+      NewTreeSB->Branch("w_forDown",         &w_forDown,         "w_forDown/F"         );
+      NewTreeSB->Branch("w_topJet",          &w_topJet,          "w_topJet/F"          );
+      NewTreeSB->Branch("w_topJetUp",        &w_topJetUp,        "w_topJetUp/F"        );
+      NewTreeSB->Branch("w_topJetDown",      &w_topJetDown,      "w_topJetDown/F"      );
+      NewTreeSB->Branch("w_WJet",            &w_WJet,            "w_WJet/F"            );
+      NewTreeSB->Branch("w_WJetUp",          &w_WJetUp,          "w_WJetUp/F"          );
+      NewTreeSB->Branch("w_WJetDown",        &w_WJetDown,        "w_WJetDown/F"        );
+      NewTreeSB->Branch("w_Muon1",           &w_Muon1,           "w_Muon1/F"           );
+      NewTreeSB->Branch("w_Muon2",           &w_Muon2,           "w_Muon2/F"           );
+      NewTreeSB->Branch("w_Muon1Up",         &w_Muon1Up,         "w_Muon1Up/F"         );
+      NewTreeSB->Branch("w_Muon2Up",         &w_Muon2Up,         "w_Muon2Up/F"         );
+      NewTreeSB->Branch("w_Muon1Down",       &w_Muon1Down,       "w_Muon1Down/F"       );
+      NewTreeSB->Branch("w_Muon2Down",       &w_Muon2Down,       "w_Muon2Down/F"       );
+      NewTreeSB->Branch("w_TrigMuon",        &w_TrigMuon,        "w_TrigMuon/F"        );
+      NewTreeSB->Branch("w_TrigMuonUp",      &w_TrigMuonUp,      "w_TrigMuonUp/F"      );
+      NewTreeSB->Branch("w_TrigMuonDown",    &w_TrigMuonDown,    "w_TrigMuonDown/F"    );
+      NewTreeSB->Branch("w_Electron1",       &w_Electron1,       "w_Electron1/F"       );
+      NewTreeSB->Branch("w_Electron2",       &w_Electron2,       "w_Electron2/F"       );
+      NewTreeSB->Branch("w_Electron1Up",     &w_Electron1Up,     "w_Electron1Up/F"     );
+      NewTreeSB->Branch("w_Electron2Up",     &w_Electron2Up,     "w_Electron2Up/F"     );
+      NewTreeSB->Branch("w_Electron1Down",   &w_Electron1Down,   "w_Electron1Down/F"   );
+      NewTreeSB->Branch("w_Electron2Down",   &w_Electron2Down,   "w_Electron2Down/F"   );
+      NewTreeSB->Branch("w_TrigElec",        &w_TrigElec,        "w_TrigElec/F"        );
+      NewTreeSB->Branch("w_TrigElecUp",      &w_TrigElecUp,      "w_TrigElecUp/F"      );
+      NewTreeSB->Branch("w_TrigElecDown",    &w_TrigElecDown,    "w_TrigElecDown/F"    );
+      NewTreeSB->Branch("w_ZToNuNu",         &w_ZToNuNu,         "w_ZToNuNu/F"         );
+      NewTreeSB->Branch("w_ZToNuNuUp",       &w_ZToNuNuUp,       "w_ZToNuNuUp/F"       );
+      NewTreeSB->Branch("w_ZToNuNuDown",     &w_ZToNuNuDown,     "w_ZToNuNuDown/F"     );
+      NewTreeSB->Branch("w_WToLNu",          &w_WToLNu,          "w_WToLNu/F"          );
+      NewTreeSB->Branch("w_WToLNuUp",        &w_WToLNuUp,        "w_WToLNuUp/F"        );
+      NewTreeSB->Branch("w_WToLNuDown",      &w_WToLNuDown,      "w_WToLNuDown/F"      );
+      NewTreeSB->Branch("w_ttbar",           &w_ttbar,           "w_ttbar/F"           );
+      NewTreeSB->Branch("w_ttbarUp",         &w_ttbarUp,         "w_ttbarUp/F"         );
+      NewTreeSB->Branch("w_ttbarDown",       &w_ttbarDown,       "w_ttbarDown/F"       );
+      NewTreeSB->Branch("w_Trig",            &w_Trig,            "w_Trig/F"            );
+      NewTreeSB->Branch("w_TrigUp",          &w_TrigUp,          "w_TrigUp/F"          );
+      NewTreeSB->Branch("w_TrigDown",        &w_TrigDown,        "w_TrigDown/F"        );
+      NewTreeSB->Branch("WMass",             &WMass,             "WMass/F"             );
+      NewTreeSB->Branch("WSubjet",           &WSubjet,           "WSubjet/F"           );
+      NewTreeSB->Branch("TopSoftMass",       &TopSoftMass,       "TopSoftMass/F"       );
+      NewTreeSB->Branch("TopSubjet",         &TopSubjet,         "TopSubjet/F"         );
+      NewTreeSB->Branch("w_Btag",            &w_Btag,            "w_Btag/F"            );
+      NewTreeSB->Branch("w_BtagUp",          &w_BtagUp,          "w_BtagUp/F"          );
+      NewTreeSB->Branch("w_BtagDown",        &w_BtagDown,        "w_BtagDown/F"        );
+      NewTreeSB->Branch("w_Btag1Up",         &w_Btag1Up,         "w_Btag1Up/F"         );
+      NewTreeSB->Branch("w_Btag1Down",       &w_Btag1Down,       "w_Btag1Down/F"       );
+      NewTreeSB->Branch("w_Btag2Up",         &w_Btag2Up,         "w_Btag2Up/F"         );
+      NewTreeSB->Branch("w_Btag2Down",       &w_Btag2Down,       "w_Btag2Down/F"       );
+      NewTreeSB->Branch("w_BtagLoose",       &w_BtagLoose,       "w_BtagLoose/F"       );
+      NewTreeSB->Branch("w_BtagLooseUp",     &w_BtagLooseUp,     "w_BtagLooseUp/F"     );
+      NewTreeSB->Branch("w_BtagLooseDown",   &w_BtagLooseDown,   "w_BtagLooseDown/F"   );
+      NewTreeSB->Branch("w_QCDUp",           &w_QCDUp,           "w_QCDUp/F"           );
+      NewTreeSB->Branch("w_QCDDown",         &w_QCDDown,         "w_QCDDown/F"         );
+      NewTreeSB->Branch("w_PDFUp",           &w_PDFUp,           "w_PDFUp/F"           );
+      NewTreeSB->Branch("w_PDFDown",         &w_PDFDown,         "w_PDFDown/F"         );
+      NewTreeSB->Branch("deltaPhiZTopResolved", &deltaPhiZTopResolved, "deltaPhiZTopResolved/F");
+      NewTreeSB->Branch("deltaRZTopResolved",   &deltaRZTopResolved,   "deltaRZTopResolved/F"  );
+      NewTreeSB->Branch("deltaPhiZTopPartial",  &deltaPhiZTopPartial,  "deltaPhiZTopPartial/F" );
+      NewTreeSB->Branch("deltaRZTopPartial",    &deltaRZTopPartial,    "deltaRZTopPartial/F"   );
+      NewTreeSB->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
+      NewTreeSB->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
+      NewTreeSB->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
+      NewTreeSB->Branch("deltaPhiMetTop",       &deltaPhiMetTop,       "deltaPhiMetTop/F"      );
+      NewTreeSB->Branch("genWeight",            &genWeight,            "genWeight/F"           );
+      NewTreeSB->Branch("dQuark",&dQuark,"dQuark/I");
+      NewTreeSB->Branch("uQuark",&uQuark,"uQuark/I");
+      NewTreeSB->Branch("sQuark",&sQuark,"sQuark/I");
+      NewTreeSB->Branch("cQuark",&cQuark,"cQuark/I");
+      NewTreeSB->Branch("bQuark",&bQuark,"bQuark/I");
+      NewTreeSB->Branch("tQuark",&tQuark,"tQuark/I");
+      NewTreeSB->Branch("EVENT_event",&EVENT_event,"EVENT_event/I");
+      NewTreeSB->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
+      NewTreeSB->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
+      NewTreeSB->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
+      NewTreeSB->Branch("prefiringweight",&prefiringweight,"prefiringweight/F");
+      NewTreeSB->Branch("prefiringweightup",&prefiringweightup,"prefiringweightup/F");
+      NewTreeSB->Branch("prefiringweightdown",&prefiringweightdown,"prefiringweightdown/F");
+      NewTreeSB->Branch("Met_pt",&Met_pt,"Met_pt/F");
+      NewTreeSB->Branch("Met_phi",&Met_phi,"Met_phi/F");
+      NewTreeSB->Branch("TransverseMassMetTop",&TransverseMassMetTop,"TransverseMassMetTop/F");
+  }
 }/*}}}*/
 
 void initializeVar(){/*{{{*/
@@ -1953,6 +1980,7 @@ EighthJetPt=-99;
 LeadingBJetPt=-99;
 SecondBJetPt=-99;
 HTDividedByMET=-99;
+MetDividedByHT=-99;
 MHTDividedByMET=-99;
 NighthJetPt=-99;
 TenthJetPt=-99;
@@ -2072,7 +2100,6 @@ NumOfTausL=-99;
 void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
  //GetEntry?
  //?is that OK fileName not in the function?
- //?why the b_?
   b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
   b_Jet_eta->GetEntry(tentry);
   b_Jet_phi->GetEntry(tentry);
@@ -2270,11 +2297,11 @@ void HistoFill(float puweight,TTree *NewTree){
 	//?has nothing to do with puweigh,why use puweight then?
   NewTree->Fill();
 }
-
+/*
 void writeFile(TTree *NewTree,TTree *NewTreeSB){
   NewTree->Write();
   NewTreeSB->Write();
-}
+}*/
 
 void GenClassifier(float &GenZPt_,float &GenWPt_){/*{{{*/
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
@@ -2325,7 +2352,8 @@ void GenWBoson(bool &matched, TLorentzVector Wjet){/*{{{*/
 }/*}}}*/
 
 //?what is GenWeight doing?
-void GenWeight(string fileName, float GenZPt_,float GenWPt_){/*{{{*/
+/*
+void GenWeight(string fileName, float GenZPt_,float GenWPt_){
   genWeight=(genWeight_)/abs(genWeight_);// genWeight_ in Tree, genWeight in NewTree
   //?what is genWeight? what does it do?
   if(fileName.find("DY")!=string::npos || fileName.find("ZToNuNu")!=string::npos) {
@@ -2338,8 +2366,8 @@ void GenWeight(string fileName, float GenZPt_,float GenWPt_){/*{{{*/
     else genWeight = 1;
     }
 
-}/*}}}*/
-
+}
+*/
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){/*{{{*/
   double *npuProbs = 0;
   double *npuProbsNEW = 0;
@@ -2419,4 +2447,3 @@ void WriteTopRelatedBranches(bool ResolvedEvent,TLorentzVector HadronicTopQuark,
   if(SelectedForwardJets.size()>1) Jet2ForwardEta=SelectedForwardJets[1].Eta();
   if(SelectedForwardJets.size()>2) Jet3ForwardEta=SelectedForwardJets[2].Eta();
 }/*}}}*/
-  
