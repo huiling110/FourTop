@@ -139,7 +139,7 @@ void EventSelection_4top_v1(){
             SelectTaus(SelectedTausL,1);
             NumOfTausL = SelectedTausL.size();
 
-			//Hadronic Top selection
+            //jet and B jet selection
 			vector<float> SeclectedJetsBTags;
 			vector<float> SelectedBJetsMBTtags, SelectedBJetsLBTags, SelectedBJetsTBTags,SelectedForwardJetsBTags; /*{{{*/
 //			vector<int>   CA8Indices;
@@ -151,8 +151,7 @@ void EventSelection_4top_v1(){
 			//vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
 			//if (SelectedWJets.size()>0) continue;
 			//if (SelectedTopJets.size()>0) continue;
-			//330; return vector of SelectedJets and selectedJetsCSV
-			//0,11,12 range for Jet_pfDeepCSVBJetTags is different
+			//330; return vector of SelectedJets and selectedJetsCSV//0,11,12 range for Jet_pfDeepCSVBJetTags is different
             bool deepJet = true;
 			vector<TLorentzVector> SelectedJets;        SelectJets(0,deepJet,SelectedJets, SeclectedJetsBTags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 			vector<TLorentzVector> SelectedBJetsL;    SelectJets(11,deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
@@ -164,31 +163,8 @@ void EventSelection_4top_v1(){
 			NumSelBJetsL      = SelectedBJetsL.size();
 			NumSelBJetsM      = SelectedBJetsM.size();//
 			NumSelBJetsT      = SelectedBJetsT.size();
-
-			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-			TLorentzVector Jet3Resolved;     Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-			TLorentzVector TopQuark;         TopQuark.SetPtEtaPhiE(0, 0, 0, 0);
-			TLorentzVector TopQuarkResolved; TopQuarkResolved.SetPtEtaPhiE(0, 0, 0, 0);
-			bool ResolvedEvent   = false;//parameter in function FillBranch
-				//466; give Jet1,2,3,Toppt etc
-				//last 2 parameter are TopMassCut and btag
-			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
-			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );/*{{{*/
-			if(selection==2) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
-			if(ResolvedEvent)   TopQuark = TopQuarkResolved;//parameter in Fillbranch
-//			if(!ResolvedEvent) continue;/*}}}*/
-			NVertices         = nBestVtx_;
-			EVENT_run         = EVENT_run_;
-			EVENT_event       = EVENT_event_;
-			EVENT_lumiBlock   = EVENT_lumiBlock_;
-			EVENT_genHT       = EVENT_genHT_;
-			prefiringweight   = EVENT_prefireWeight_;
-			prefiringweightup = EVENT_prefireWeightUp_;
-			prefiringweightdown = EVENT_prefireWeightDown_;
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
-//
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
 			Centrality        = InvariantMassJets/HT;
 //			Aplanarity        = 
@@ -196,7 +172,7 @@ void EventSelection_4top_v1(){
 //			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
 //          Sphericity = 
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
-            MHTDividedByMET   = HT/Met_pt;
+            MHTDividedByMET   = MHT/Met_pt;
             vector<int> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
             vector<int> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
@@ -209,12 +185,41 @@ void EventSelection_4top_v1(){
             vector<float> MinMaxDeltaRJets;  MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
             MinDeltaRJets = MinMaxDeltaRJets[0];
             MaxDeltaRJets = MinMaxDeltaRJets[1];
-//
-//
 //      	if(!(HT>200)) continue;/*}}}*/
+//
+//
+			//Hadronic Top selection
+            //only top that decay into 3 jets
+			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+			TLorentzVector Jet3Resolved;     Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+			TLorentzVector HadronicTopQuark;         HadronicTopQuark.SetPtEtaPhiE(0, 0, 0, 0);
+			TLorentzVector HadronicTopQuarkResolved; HadronicTopQuarkResolved.SetPtEtaPhiE(0, 0, 0, 0);
+			bool ResolvedEvent   = false;//parameter in function FillBranch
+				//466; give Jet1,2,3,Toppt etc				//last 2 parameter are TopMassCut and btag
+                //ResolvedRegionSelection need modification because it only have 1 top
+//			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
+			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, true, true);
+			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );/*{{{*/
+			if(selection==2) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
+			if(ResolvedEvent)   HadronicTopQuark = HadronicTopQuarkResolved;//parameter in Fillbranch
+            //HadronicTopQuark and HadronicTopQuarkResolved are identical
+//			if(!ResolvedEvent) continue;/*}}}*/
+		    WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
+
+
+			NVertices         = nBestVtx_;
+			EVENT_run         = EVENT_run_;
+			EVENT_event       = EVENT_event_;
+			EVENT_lumiBlock   = EVENT_lumiBlock_;
+			EVENT_genHT       = EVENT_genHT_;
+			prefiringweight   = EVENT_prefireWeight_;
+			prefiringweightup = EVENT_prefireWeightUp_;
+			prefiringweightdown = EVENT_prefireWeightDown_;
 
 		
 			//categorization
+            //?need modification because we do not care about ResolvdEvent and Met that much to categorize event according to them.
 			if(selection==0){ //PRESELECTION
 				if(ResolvedEvent  && SelectedMet)  category0=1; //branch in NewTree and SB 
 			}
@@ -224,9 +229,6 @@ void EventSelection_4top_v1(){
 			//then what does category1,2 do?
 //      	if(!(category0==1)) continue;// this is for calculating the events have passed certain critiaria
 	
-			//TREE
-		    FillBranches(ResolvedEvent,TopQuark,SelectedMet,//2720
-			TopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
 			 
 				//WEIGHT
 //			if(!data){
@@ -530,7 +532,7 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
 }
 */
 /*
-void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,
+void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &HadronicTopQuark,
 			     TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){
   float TopPtMin=250;
   float TopMassInitial=99999;
@@ -558,23 +560,22 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 	}
 	TopPtMin = (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt();
 	TopMassInitial=fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1);
-	TopQuark=(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]);//argument in FillBranches
-//	deltaPhiMetTop = DeltaPhi(TopQuark.Phi(),Met_phi);//in NewTree
-//	TransverseMassMetTop = sqrt(2*TopQuark.Pt()*Met_pt*(1-cos(deltaPhiMetTop)));
+	HadronicTopQuark=(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]);//argument in WriteTopRelatedBranches
+//	deltaPhiMetTop = DeltaPhi(HadronicTopQuark.Phi(),Met_phi);//in NewTree
+//	TransverseMassMetTop = sqrt(2*HadronicTopQuark.Pt()*Met_pt*(1-cos(deltaPhiMetTop)));
 	if(!(TransverseMassMetTop>500)) continue;
-	ResolvedEvent=true;//argument in FillBranches
+	ResolvedEvent=true;//argument in WriteTopRelatedBranches
       }
     }
   }
 }
 */
 
-
-void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,
+//I think this function only works for top decay to 3 jets
+void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &HadronicTopQuark,
                             TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){/*{{{*/
-  float TopPtMin=250;
+  float TopPtMin=250; //refresh in the loop
   //how do we set this number?
-  //refresh in the loop
   float TopMassInitial=99999;
   for(unsigned int i=0; i<SelectedJets.size(); i++){
     for(unsigned int j=i+1; j<SelectedJets.size(); j++){
@@ -582,30 +583,29 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
          if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin)) continue;
          //if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial)) continue;
          if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
-         if(btag){if(!(SeclectedJetsBTags[i]>0.4941 || SeclectedJetsBTags[j]>0.4941 || SeclectedJetsBTags[k]>0.4941)) continue;}
-				 //btag has something to do with CSV?
-         float TM = sqrt(2*(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()*Met_pt*(1-cos(DeltaPhi((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Phi(),Met_phi))));
+         if(btag){if(!(SeclectedJetsBTags[i]>0.6321 || SeclectedJetsBTags[j]>0.6321 || SeclectedJetsBTags[k]>0.6321)) continue;}//require a least 1  medium b jet
+        // float TM = sqrt(2*(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()*Met_pt*(1-cos(DeltaPhi((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Phi(),Met_phi))));
 		 //?what is TM?
-         if(!(TM>500)) continue;
+        // if(!(TM>500)) continue;
+         //???why make this cut?
 				 //?what if we have more than one pair of three jet?
          Jet1.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
          Jet2.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
          Jet3.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
-         TopPtMin = (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt();
+         TopPtMin = (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt();//refresh in the loop
          TopMassInitial=fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1);
-         TopQuark=(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]);
-		 //???will not work if we have more than 1 TopQuark
-         deltaPhiMetTop = DeltaPhi(TopQuark.Phi(),Met_phi);//880
-         TransverseMassMetTop = sqrt(2*TopQuark.Pt()*Met_pt*(1-cos(deltaPhiMetTop)));//branch in NewTree and SB
+         HadronicTopQuark=(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]);
+		 //???will not work if we have more than 1 HadronicTopQuark
+         deltaPhiMetTop = DeltaPhi(HadronicTopQuark.Phi(),Met_phi);//branch in new tree
+         TransverseMassMetTop = sqrt(2*HadronicTopQuark.Pt()*Met_pt*(1-cos(deltaPhiMetTop)));//branch in NewTree and SB
          ResolvedEvent=true;
       }
     }
   }
 }
 /*}}}*/
-
 /*
-void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){
+void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &HadronicTopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){
   float TopPtMin=20;
   float TopMassInitial=99999;
   for(unsigned int i=0; i<SelectedWJets.size(); i++){
@@ -620,7 +620,7 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       TopPtMin = (SelectedWJets[i]+SelectedJets[k]).Pt();
       PartiallyMerged=true;
       TopMassInitial=fabs((SelectedWJets[i]+SelectedJets[k]).M()-173.1);
-      TopQuark=(SelectedWJets[i]+SelectedJets[k]);
+      HadronicTopQuark=(SelectedWJets[i]+SelectedJets[k]);
       CA8Index=CA8Indices[i];
 	 
       float SF = (BoostedJet_Uncorr_pt_->at(CA8Indices[i])/BoostedJet_pt_->at(CA8Indices[i]))*BoostedJet_JesSF_->at(CA8Indices[i])*BoostedJet_JerSF_->at(CA8Indices[i]);
@@ -630,13 +630,13 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
   }
 }
 
-void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTopJets, TLorentzVector &TopQuark,vector<int> CA8Indices,float &TopSoftMass_,float &TopSubjet_, bool data){
+void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTopJets, TLorentzVector &HadronicTopQuark,vector<int> CA8Indices,float &TopSoftMass_,float &TopSubjet_, bool data){
   float TopPtMin=400;
   for(unsigned int i=0; i<SelectedTopJets.size(); i++){
     if(!(SelectedTopJets[i].Pt()>TopPtMin)) continue;
     FullyMerged=true;
     TopPtMin=SelectedTopJets[i].Pt();
-    TopQuark=SelectedTopJets[i];
+    HadronicTopQuark=SelectedTopJets[i];
     float SF = (BoostedJet_Uncorr_pt_->at(CA8Indices[i])/BoostedJet_pt_->at(CA8Indices[i]))*BoostedJet_JesSF_->at(CA8Indices[i])*BoostedJet_JerSF_->at(CA8Indices[i]);
     TopSoftMass_  = SF*BoostedJet_softdrop_mass_->at(CA8Indices[i]);
     TopSubjet_    = BoostedJet_tau3_->at(CA8Indices[i])/BoostedJet_tau2_->at(CA8Indices[i]);
@@ -2388,20 +2388,20 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){/*{{{*/
   getTrueNumInteractions=NPU;
 }/*}}}*/
 
-void FillBranches(bool ResolvedEvent,TLorentzVector TopQuark,bool SelectedMet,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){/*{{{*/
+void WriteTopRelatedBranches(bool ResolvedEvent,TLorentzVector HadronicTopQuark,bool SelectedMet,TLorentzVector HadronicTopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){/*{{{*/
   int NumSelBJets = SelectedBJets.size();
   if(ResolvedEvent){
-    TopMass=TopQuark.M();
-    TopPt  =TopQuark.Pt();
-    TopEta =TopQuark.Eta();
-    TopPhi =TopQuark.Phi();
+    TopMass=HadronicTopQuark.M();
+    TopPt  =HadronicTopQuark.Pt();
+    TopEta =HadronicTopQuark.Eta();
+    TopPhi =HadronicTopQuark.Phi();
   }
 	//?why the same condition in two parts?
   if(ResolvedEvent){
-    TopMassResolved=TopQuarkResolved.M();//branch in NewTree and SB
-    TopPtResolved=TopQuarkResolved.Pt();
-    TopEtaResolved=TopQuarkResolved.Eta();
-    TopPhiResolved=TopQuarkResolved.Phi();
+    TopMassResolved=HadronicTopQuarkResolved.M();//branch in NewTree and SB
+    TopPtResolved=HadronicTopQuarkResolved.Pt();
+    TopEtaResolved=HadronicTopQuarkResolved.Eta();
+    TopPhiResolved=HadronicTopQuarkResolved.Phi();
     Jet1ResolvedPt = Jet1Resolved.Pt();
     Jet2ResolvedPt = Jet2Resolved.Pt(); 
     Jet3ResolvedPt = Jet3Resolved.Pt();
@@ -2419,3 +2419,4 @@ void FillBranches(bool ResolvedEvent,TLorentzVector TopQuark,bool SelectedMet,TL
   if(SelectedForwardJets.size()>1) Jet2ForwardEta=SelectedForwardJets[1].Eta();
   if(SelectedForwardJets.size()>2) Jet3ForwardEta=SelectedForwardJets[2].Eta();
 }/*}}}*/
+  

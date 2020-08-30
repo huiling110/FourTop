@@ -61,7 +61,7 @@ void GenClassifier(float &GenZPt_,float &GenWPt_);
 void GenWBoson(bool &matched, TLorentzVector Wjet);
 void GenWeight(string fileName, float GenZPt_,float GenWPt_);
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN);
-void FillBranches(bool ResolvedEvent,TLorentzVector TopQuark,bool SelectedMet,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
+void WriteTopRelatedBranches(bool ResolvedEvent,TLorentzVector TopQuark,bool SelectedMet,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
 void HTSF(string fileName, float HT, float Met_pt, float &w_SF1, float &w_SF1Up, float &w_SF1Down, float &w_SF2, float &w_SF2Up, float &w_SF2Down, float &w_SF3, float &w_SF3Up, float &w_SF3Down);
 void TriggerSF(float HT, float MHT, float &w_Trig, float &w_TrigUp, float &w_TrigDown);
 void QCDWeight(int imin,int imax,float &w_QCDUp ,float &w_QCDDown);
