@@ -18,8 +18,9 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex);
 void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP=1);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,float dRLep1Lep2,float Zpt,float leadLepPt);
-void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, 
-		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
+//void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, 
+//		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
+void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets, vector<float> & SeclectedJetsBTags, int SysJes, int SysJer, bool  &deltaPhiJetMet);
 void SelectCA8Jets(int CA8jetType, vector<TLorentzVector> & SelectedWJets, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
 		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
 void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
@@ -137,6 +138,7 @@ vector <double> * Jet_JerSFdown_;TBranch *b_Jet_JerSFdown;
 vector <double> * Jet_Uncorr_pt_; TBranch *b_Jet_Uncorr_pt;
 vector <double> * Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_;              TBranch *b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags;
 vector <double> * Jet_pfDeepCSVBJetTags_;           TBranch *b_Jet_pfDeepCSVBJetTags;
+vector <double>* Jet_pfDeepFlavourBJetTags_; TBranch* b_Jet_pfDeepFlavourBJetTags;
 vector <double> * Jet_neutralHadEnergyFraction_;    TBranch *b_Jet_neutralHadEnergyFraction;
 vector <double> * Jet_chargedEmEnergyFraction_;     TBranch *b_Jet_chargedEmEnergyFraction;
 vector <double> * Jet_neutralEmEnergyFraction_;   TBranch *b_Jet_neutralEmEnergyFraction;
@@ -144,6 +146,7 @@ vector <double> * Jet_numberOfConstituents_;        TBranch *b_Jet_numberOfConst
 vector <double> * Jet_chargedHadronEnergyFraction_; TBranch *b_Jet_chargedHadronEnergyFraction;
 vector <double> * Jet_chargedMultiplicity_;         TBranch *b_Jet_chargedMultiplicity;
 vector <double> * Jet_hadronFlavour_; TBranch *b_Jet_hadronFlavour;
+vector <double>* Jet_muonEnergyFraction_; TBranch* b_Jet_muonEnergyFraction;
 /*vector <double> * BoostedJet_pt_;        TBranch *b_BoostedJet_pt;
 vector <double> * BoostedJet_Uncorr_pt_; TBranch *b_BoostedJet_Uncorr_pt;
 vector <double> * BoostedJet_softdrop_mass_; TBranch *b_BoostedJet_softdrop_mass;

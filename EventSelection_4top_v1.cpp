@@ -130,7 +130,9 @@ void EventSelection_4top_v1(){
 			vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
 			SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);//304
 			SelectMuons(SelectedMuons, SelectedMuonsIndex);//320
-
+			NumSelLeps        = SelectedElectrons.size()+SelectedMuons.size();//branch in newtree and SB
+			NumSeEle          = SelectedElectrons.size();
+			NumSeMu           =  SelectedMuons.size();  
 
             //hadronic tau selection
             vector<TLorentzVector> SelectedTausL;
@@ -138,8 +140,8 @@ void EventSelection_4top_v1(){
             NumOfTausL = SelectedTausL.size();
 
 			//Hadronic Top selection
-			vector<float> SelectedJetsCSV;
-			vector<float> SelectedBJetsMCSV, SelectedBJetsLCSV, SelectedBJetsTCSV,SelectedForwardJetsCSV; /*{{{*/
+			vector<float> SeclectedJetsBTags;
+			vector<float> SelectedBJetsMBTtags, SelectedBJetsLBTags, SelectedBJetsTBTags,SelectedForwardJetsBTags; /*{{{*/
 //			vector<int>   CA8Indices;
 			int CA8Index = -1;
             //?what does CA8Index do?
@@ -151,11 +153,17 @@ void EventSelection_4top_v1(){
 			//if (SelectedTopJets.size()>0) continue;
 			//330; return vector of SelectedJets and selectedJetsCSV
 			//0,11,12 range for Jet_pfDeepCSVBJetTags is different
-			vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
-			vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
-			vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
-			vector<TLorentzVector> SelectedBJetsT;      SelectJets(13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
-			vector<TLorentzVector> SelectedForwardJets; SelectJets(2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+            bool deepJet = true;
+			vector<TLorentzVector> SelectedJets;        SelectJets(0,deepJet,SelectedJets, SeclectedJetsBTags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+			vector<TLorentzVector> SelectedBJetsL;    SelectJets(11,deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+			vector<TLorentzVector> SelectedBJetsM;    SelectJets(12,deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+			vector<TLorentzVector> SelectedBJetsT;   SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer,  deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+			vector<TLorentzVector> SelectedForwardJets; SelectJets(2,deepJet, SelectedForwardJets,SelectedForwardJetsBTags, SysJes, SysJer,deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+			NumSelJets        = SelectedJets.size();
+			NumSelForwardJets = SelectedForwardJets.size();//185
+			NumSelBJetsL      = SelectedBJetsL.size();
+			NumSelBJetsM      = SelectedBJetsM.size();//
+			NumSelBJetsT      = SelectedBJetsT.size();
 
 			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -165,17 +173,11 @@ void EventSelection_4top_v1(){
 			bool ResolvedEvent   = false;//parameter in function FillBranch
 				//466; give Jet1,2,3,Toppt etc
 				//last 2 parameter are TopMassCut and btag
-			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
-			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );/*{{{*/
-			if(selection==2) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
+			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
+			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );/*{{{*/
+			if(selection==2) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
 			if(ResolvedEvent)   TopQuark = TopQuarkResolved;//parameter in Fillbranch
 //			if(!ResolvedEvent) continue;/*}}}*/
-			NumSelLeps        = SelectedElectrons.size()+SelectedMuons.size();//branch in newtree and SB
-			NumSelJets        = SelectedJets.size();
-			NumSelForwardJets = SelectedForwardJets.size();//185
-			NumSelBJetsL      = SelectedBJetsL.size();
-			NumSelBJetsM      = SelectedBJetsM.size();//
-			NumSelBJetsT      = SelectedBJetsT.size();
 			NVertices         = nBestVtx_;
 			EVENT_run         = EVENT_run_;
 			EVENT_event       = EVENT_event_;
@@ -187,8 +189,6 @@ void EventSelection_4top_v1(){
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
 //
-			NumSeEle          = SelectedElectrons.size();
-			NumSeMu           =  SelectedMuons.size();  
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
 			Centrality        = InvariantMassJets/HT;
 //			Aplanarity        = 
@@ -391,70 +391,104 @@ void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
 
 
 //?Selectedelectron and muon not appear in the function body
-void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){/*{{{*/
-  //jetType=0  -> usual jets
+//void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets, vector<float> & SeclectedJetsBTags, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
+void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets, vector<float> & SeclectedJetsBTags,  int SysJes, int SysJer,  bool &deltaPhiJetMet){
+    //this is for 2016data
+  //jetType=0  -> usual jets; we use loose ID here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
   //jetType=11 -> b-jets L
   //jetType=12 -> b-jets M
   //jetType=13 -> b-jets T
   //jetType=2  -> forward jets
   //MinDeltaPhiJetMet = 99.0;
-  float MaxMostForwardJetEta = -99;
+  float MaxMostForwardJetEta = -99;/*{{{*/
 	//?is Jet_pt_a string?
 	//maybe j means j th jet?
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
-    float jetpt = 0.;
-    if(SysJes==0 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
-    if(SysJes==1 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFup_->at(j)  *Jet_JerSF_->at(j)    ;}
-    if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
-    if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
-    if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
-    if(fabs(Jet_eta_->at(j))>2.65&&fabs(Jet_eta_->at(j))<3.139&&jetpt>50)    continue;
-    if(!(jetpt>30))                                        continue;
-    if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
-    if(fabs(Jet_eta_->at(j))<2.4){
-      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
-      if(!(Jet_numberOfConstituents_->at(j)>1))                             continue;
-      if(!(Jet_chargedHadronEnergyFraction_->at(j)>0.0))                    continue;
-      if(!(Jet_chargedMultiplicity_->at(j)>0.0))                            continue;
-      //if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
-    }
-	else if(fabs(Jet_eta_->at(j))>2.4 && fabs(Jet_eta_->at(j))<2.7){
-      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
-      if(!(Jet_numberOfConstituents_->at(j)>1))                             continue;
-    }
-	else if(fabs(Jet_eta_->at(j))>2.7 && fabs(Jet_eta_->at(j))<3.0){
-      if(!(Jet_neutralEmEnergyFraction_->at(j)>0.02))                       continue;
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
-      if(!((Jet_numberOfConstituents_->at(j) -Jet_chargedMultiplicity_->at(j)) >2)) continue;
-    }
-	else if(fabs(Jet_eta_->at(j))>3.0){
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
-      if(!(Jet_neutralHadEnergyFraction_->at(j)>0.02))                      continue;
-      if(!((Jet_numberOfConstituents_->at(j) -Jet_chargedMultiplicity_->at(j)) >10)) continue;
-    }
-    if(jetType==11){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.1522)) continue;}
-    if(jetType==12){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.4941)) continue;}
-    if(jetType==13){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.8001)) continue;}
-		//?
-    if(jetType==0){
-      if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {MaxMostForwardJetEta = fabs(Jet_eta_->at(j)); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;}
-			//MostForwardJetEta branch in new tree and SB.
-    }
-		//what does MaxMostForwardJetEta do?
-    if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30)) continue;}
-    else {if(!(fabs(Jet_eta_->at(j))<2.4))		                            continue;}
-    if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiJetMet) MinDeltaPhiJetMet = DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_);//880
-		//MinDeltaPhiJetMe a branch in newtree and SB
-    float SF = jetpt/Jet_pt_->at(j);
-    TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
-    TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
-    SelectedJets.push_back(jet);
-    SelectedJetsCSV.push_back(Jet_pfDeepCSVBJetTags_->at(j));
-		//?
-  }
+        float jetpt = 0.;
+        if(SysJes==0 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
+        if(SysJes==1 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFup_->at(j)  *Jet_JerSF_->at(j)    ;}
+        if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
+        if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
+        if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
+    //    if(fabs(Jet_eta_->at(j))>2.65&&fabs(Jet_eta_->at(j))<3.139&&jetpt>50)    continue;
+    //    ?what does this do?
+        if(!(jetpt>25))                                        continue;
+        double NHF = Jet_neutralHadEnergyFraction_->at(j);
+        double NEMF = Jet_neutralEmEnergyFraction_->at(j);
+        double CHF = Jet_chargedHadronEnergyFraction_->at(j);
+        double MUF = Jet_muonEnergyFraction_->at(j);
+        double CEMF = Jet_chargedEmEnergyFraction_->at(j);
+        double NumConst = Jet_numberOfConstituents_->at(j);
+        double NumNeutralParticles = Jet_numberOfConstituents_->at(j)-Jet_chargedMultiplicity_->at(j);
+        double CHM = Jet_chargedMultiplicity_->at(j);
+        if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
+        //it seems that b jet also have to meet below requirements?
+        //yes
+        if(fabs(Jet_eta_->at(j))<2.4){
+            if(!(NHF<0.99)) continue;
+            if(!(NEMF<0.99)) continue;
+            if(!(NumConst>1)) continue;
+    //        if(!(MUF<0.8)) continue;
+            if(!(CHF>0))  continue;
+            if(!(CHM>0))  continue;
+            if(!(CEMF<0.99)) continue;
+        }
+        else if(fabs(Jet_eta_->at(j))>2.4 && fabs(Jet_eta_->at(j))<2.7){
+            if(!(NHF<0.99)) continue;
+            if(!(NEMF<0.99)) continue;
+            if(!(NumConst>1)) continue;
+         //   if(!(MUF<0.8)) continue;
+        }
+        else if(fabs(Jet_eta_->at(j))>2.7 && fabs(Jet_eta_->at(j))<3.0){
+            if(!(NEMF>0.01))  continue;
+            if(!(NHF<0.98))   continue;
+            if(!(NumNeutralParticles>2)) continue;
+        }
+        else if(fabs(Jet_eta_->at(j))>3.0){
+            if(!(NEMF<0.90))              continue;
+            if(!(NumNeutralParticles>10)) continue;
+        }
 
+        if(deepJet){
+            if(jetType==11){
+                if(!(Jet_pfDeepFlavourBJetTags_->at(j)>0.0614))continue;
+            }
+            if(jetType==12){
+                if(!(Jet_pfDeepFlavourBJetTags_->at(j)>0.3093)) continue;
+            }
+            if(jetType==13){
+                if(!(Jet_pfDeepFlavourBJetTags_->at(j)>0.7221)) continue;
+            }
+        }else{
+            if(jetType==11){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.2217)) continue;}
+            if(jetType==12){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.6321)) continue;}
+            if(jetType==13){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.8953)) continue;}
+        }
+            //find mostforwardjeteta
+        if(jetType==0){//normal jet
+            if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {
+               MaxMostForwardJetEta = fabs(Jet_eta_->at(j)); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;
+            }//MostForwardJetEta branch in new tree and SB.
+            if(!(fabs(Jet_eta_->at(j))<2.4)) continue;
+        }
+        if(jetType==2) {//forwardjet
+            if(!(fabs(Jet_eta_->at(j))>=2.4))      continue;
+            if(!(jetpt>30)) continue;
+        }
+    //    else {
+    //        if(!(fabs(Jet_eta_->at(j))<2.4)) continue;
+    //    }
+        if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiJetMet) MinDeltaPhiJetMet = DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_);//MinDeltaPhiJetMe a branch in newtree and SB
+        float SF = jetpt/Jet_pt_->at(j);
+        TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
+        TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
+        SelectedJets.push_back(jet);
+        if(deepJet) {
+            SeclectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags_->at(j));
+        }else{
+            SeclectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags_->at(j));
+        }
+  }
   if(!(MinDeltaPhiJetMet>0.6)) deltaPhiJetMet=false;//used in Selectjets and SelectCA8Jets
 }/*}}}*/
 /*
@@ -496,7 +530,7 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
 }
 */
 /*
-void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
+void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,
 			     TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){
   float TopPtMin=250;
   float TopMassInitial=99999;
@@ -506,18 +540,18 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 		  if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin))   continue;
 	//if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                                    continue;
 	if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
-	if(btag){if(!(SelectedJetsCSV[i]>0.4941 || SelectedJetsCSV[j]>0.4941 || SelectedJetsCSV[k]>0.4941))                                          continue;}
-	if(SelectedJetsCSV[i]>SelectedJetsCSV[j] && SelectedJetsCSV[i]>SelectedJetsCSV[k]){
+	if(btag){if(!(SeclectedJetsBTags[i]>0.4941 || SeclectedJetsBTags[j]>0.4941 || SeclectedJetsBTags[k]>0.4941))                                          continue;}
+	if(SeclectedJetsBTags[i]>SeclectedJetsBTags[j] && SeclectedJetsBTags[i]>SeclectedJetsBTags[k]){
 	  Jet1.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
 	  Jet2.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
 	  Jet3.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
 	}
-	if(SelectedJetsCSV[j]>SelectedJetsCSV[i] && SelectedJetsCSV[j]>SelectedJetsCSV[k]){
+	if(SeclectedJetsBTags[j]>SeclectedJetsBTags[i] && SeclectedJetsBTags[j]>SeclectedJetsBTags[k]){
 	  Jet1.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
 	  Jet2.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
 	  Jet3.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
 	}
-	if(SelectedJetsCSV[k]>SelectedJetsCSV[i] && SelectedJetsCSV[k]>SelectedJetsCSV[j]){
+	if(SeclectedJetsBTags[k]>SeclectedJetsBTags[i] && SeclectedJetsBTags[k]>SeclectedJetsBTags[j]){
 	  Jet1.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
 	  Jet2.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
 	  Jet3.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
@@ -536,7 +570,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 */
 
 
-void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
+void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,
                             TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){/*{{{*/
   float TopPtMin=250;
   //how do we set this number?
@@ -548,7 +582,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
          if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin)) continue;
          //if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial)) continue;
          if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
-         if(btag){if(!(SelectedJetsCSV[i]>0.4941 || SelectedJetsCSV[j]>0.4941 || SelectedJetsCSV[k]>0.4941)) continue;}
+         if(btag){if(!(SeclectedJetsBTags[i]>0.4941 || SeclectedJetsBTags[j]>0.4941 || SeclectedJetsBTags[k]>0.4941)) continue;}
 				 //btag has something to do with CSV?
          float TM = sqrt(2*(SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()*Met_pt*(1-cos(DeltaPhi((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Phi(),Met_phi))));
 		 //?what is TM?
@@ -571,7 +605,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 /*}}}*/
 
 /*
-void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){
+void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SeclectedJetsBTags,TLorentzVector &TopQuark,TLorentzVector &Jet1,TLorentzVector &Jet2,bool TopMassCut,bool btag,vector<int> CA8Indices,int & CA8Index,float &WMass_,float &WSubjet_, bool data){
   float TopPtMin=20;
   float TopMassInitial=99999;
   for(unsigned int i=0; i<SelectedWJets.size(); i++){
@@ -579,7 +613,7 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       if(!((SelectedWJets[i]+SelectedJets[k]).Pt()>TopPtMin))                                                        continue;
       //if(!(fabs((SelectedWJets[i]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                     continue;
       if(!(DeltaR(SelectedWJets[i].Eta(),SelectedJets[k].Eta(),SelectedWJets[i].Phi(),SelectedJets[k].Phi())>0.8))   continue;
-      if(btag){if(!(SelectedJetsCSV[k]>0.4941))                                                                       continue;}
+      if(btag){if(!(SeclectedJetsBTags[k]>0.4941))                                                                       continue;}
       if(TopMassCut){if(!((SelectedWJets[i]+SelectedJets[k]).M()>100 && (SelectedWJets[i]+SelectedJets[k]).M()<300)) continue;}
       Jet1.SetPtEtaPhiE(SelectedWJets[i].Pt(),SelectedWJets[i].Eta(),SelectedWJets[i].Phi(),SelectedWJets[i].E());
       Jet2.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
@@ -1144,6 +1178,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Jet_Uncorr_pt",   &Jet_Uncorr_pt_,   &b_Jet_Uncorr_pt);
   Tree->SetBranchAddress("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags", &Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_, &b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags);
   Tree->SetBranchAddress("Jet_pfDeepCSVBJetTags", &Jet_pfDeepCSVBJetTags_, &b_Jet_pfDeepCSVBJetTags);
+  Tree->SetBranchAddress("Jet_pfDeepFlavourBJetTags", &Jet_pfDeepFlavourBJetTags_, &b_Jet_pfDeepFlavourBJetTags);
   Tree->SetBranchAddress("Jet_neutralHadEnergyFraction", &Jet_neutralHadEnergyFraction_, &b_Jet_neutralHadEnergyFraction);
   Tree->SetBranchAddress("Jet_chargedEmEnergyFraction", &Jet_chargedEmEnergyFraction_, &b_Jet_chargedEmEnergyFraction);
   Tree->SetBranchAddress("Jet_neutralEmEnergyFraction", &Jet_neutralEmEnergyFraction_, &b_Jet_neutralEmEnergyFraction);
@@ -1151,6 +1186,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
   Tree->SetBranchAddress("Jet_chargedHadronEnergyFraction", &Jet_chargedHadronEnergyFraction_, &b_Jet_chargedHadronEnergyFraction);
   Tree->SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_, &b_Jet_chargedMultiplicity);
   if(!data) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
+  Tree->SetBranchAddress("Jet_muonEnergyFraction", &Jet_muonEnergyFraction_, &b_Jet_muonEnergyFraction);
 /*
   Tree->SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,   &b_BoostedJet_pt);
   Tree->SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,   &b_BoostedJet_Uncorr_pt);
@@ -2050,6 +2086,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Jet_Uncorr_pt->GetEntry(tentry);
   b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags->GetEntry(tentry);
   b_Jet_pfDeepCSVBJetTags->GetEntry(tentry);
+  b_Jet_pfDeepFlavourBJetTags->GetEntry(tentry);
   b_Jet_neutralHadEnergyFraction->GetEntry(tentry);
   b_Jet_chargedEmEnergyFraction->GetEntry(tentry);
   b_Jet_neutralEmEnergyFraction->GetEntry(tentry);
@@ -2057,6 +2094,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Jet_chargedHadronEnergyFraction->GetEntry(tentry);
   b_Jet_chargedMultiplicity->GetEntry(tentry);
   if(!data) b_Jet_hadronFlavour->GetEntry(tentry);
+  b_Jet_muonEnergyFraction->GetEntry(tentry);
 /*  b_BoostedJet_pt->GetEntry(tentry);
   b_BoostedJet_Uncorr_pt->GetEntry(tentry);
   b_BoostedJet_softdrop_mass->GetEntry(tentry);
