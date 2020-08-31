@@ -3,7 +3,7 @@
 #include <algorithm>
 
 //void EventSelection_4top_v1(const char * Input = ""){
-void EventSelection_4top_v1(const bool istest = true, const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
+void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT_1-10.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);//?
   gStyle->SetOptStat("rme");
@@ -39,7 +39,7 @@ void EventSelection_4top_v1(const bool istest = true, const string outputDir = "
 //  fileName.push_back("TTWJetsToQQ.root");   //15
 //  fileName.push_back("TTZToQQ.root");   //16
 //  fileName.push_back("TTTT.root");   //17 
-  fileName.push_back("TTTT_1-10.root");   //17 
+  fileName.push_back(input);   //17 
 //  fileName.push_back(Input);
  //where is in put?what does input do?
 //in line 4, the function parameter.
@@ -1434,7 +1434,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("ZPt",               &ZPt,               "ZPt/F"               );
   NewTree->Branch("ZEta",              &ZEta,              "ZEta/F"              );
   NewTree->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
-   NewTree->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
+/*   NewTree->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
    NewTree->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
    NewTree->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
    NewTree->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/F"         );
@@ -1449,7 +1449,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
    NewTree->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/F"  );
    NewTree->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/F"    );
    NewTree->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/F"   );
- NewTree->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );
+ NewTree->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );*/
  NewTree->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/F"       );
   //give no value of Electron1Pt other than -99
   NewTree->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/F"       );
@@ -1676,7 +1676,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
       NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/F"               );
       NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/F"              );
       NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
-      NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
+/*      NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
       NewTreeSB->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
       NewTreeSB->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
       NewTreeSB->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/F"         );
@@ -1691,7 +1691,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
       NewTreeSB->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/F"  );
       NewTreeSB->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/F"    );
       NewTreeSB->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/F"   );
-      NewTreeSB->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );
+      NewTreeSB->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/F"   );*/
       NewTreeSB->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/F"       );
       NewTreeSB->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/F"       );
       NewTreeSB->Branch("Electron1E",        &Electron1E,        "Electron1E/F"        );
@@ -1886,6 +1886,7 @@ void initializeVar(){/*{{{*/
   ZPt=-99;
   ZEta=-99;
   ZPhi=-99;
+  /*
   TprimeMass=-99;
   TprimePt=-99;
   TprimeEta=-99;
@@ -1902,6 +1903,7 @@ void initializeVar(){/*{{{*/
   TprimeMergedPt=-99;
   TprimeMergedEta=-99;
   TprimeMergedPhi=-99;
+  */
   Electron1Pt=-99;
   Electron2Pt=-99;
   Electron1E=-99;
@@ -2368,7 +2370,8 @@ void GenWeight(string fileName, float GenZPt_,float GenWPt_){
 
 }
 */
-void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){/*{{{*/
+/*
+void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
   double *npuProbs = 0;
   double *npuProbsNEW = 0;
   unsigned int nPUMax = 99;
@@ -2414,8 +2417,8 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){/*{{{*/
   if(resultNEWUp[NPU]<9999) puweightUP   = resultNEWUp[NPU];
   if(resultNEWDo[NPU]<9999) puweightDOWN = resultNEWDo[NPU];
   getTrueNumInteractions=NPU;
-}/*}}}*/
-
+}
+*/
 void WriteTopRelatedBranches(bool ResolvedEvent,TLorentzVector HadronicTopQuark,bool SelectedMet,TLorentzVector HadronicTopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){/*{{{*/
   int NumSelBJets = SelectedBJets.size();
   if(ResolvedEvent){
