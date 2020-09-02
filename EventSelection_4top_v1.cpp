@@ -3,7 +3,7 @@
 #include <algorithm>
 
 //void EventSelection_4top_v1(const char * Input = ""){
-void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT_1-10.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
+void EventSelection_4top_v1(const bool istest = true, const string input = "TauOfTTTT_Toptagger_oldEID.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);//?
   gStyle->SetOptStat("rme");
@@ -79,6 +79,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 	//what do you mean get open tree from file ?	//in 26 openTree=
     bool data = true;
 	//what does "may..." mean?   guess they are data file name.
+//    if(fileName.size()==0) break;
     if(!(fileName[Nfiles].find("Tau_data")!=string::npos )) data = false;
 	//find():The position of the first character of the first match.
 	//If no matches were found, the function returns string::npos.
@@ -103,13 +104,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //        if(selection == 2) TTree *NewTreeSB = new TTree("treeSB","treeSB");
         branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//
         Long64_t NumOfEvents;
-        if (istest){   NumOfEvents = 1000; }
+        if (istest){   NumOfEvents = 100; }
         else{ NumOfEvents = nentries;}
 //     for (Int_t i=0; i<nentries; i++) {
        for (Long64_t i=0; i<NumOfEvents; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
-			//?why file name not in the function?
-			//what does data do here?
+			//?why file name not in the function?	//what does data do here?
 			branchGetEntry(data, tentry,fileName[Nfiles]);// every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
 			initializeVar();//line1822  initialize for new tree. category0=0;
 			//
@@ -139,6 +139,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			//SelectMet(SelectedMet);
 			//Met_pt            = Met_type1PF_pt_;
 			Met_phi           = Met_type1PF_phi_;//Met_phi branch in newtree and SB
+//            cout<<__LINE__<<"  ";
 
 			//Leptonic reject
 			//it seems that we have not save information of leptons other than their number
