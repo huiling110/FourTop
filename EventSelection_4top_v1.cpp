@@ -217,7 +217,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 
  
             //only top that decay into 3 jets
-			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+/*			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector Jet3Resolved;     Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector HadronicTopQuark;         HadronicTopQuark.SetPtEtaPhiE(0, 0, 0, 0);
@@ -227,14 +227,14 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
                 //ResolvedRegionSelection need modification because it only have 1 top
 //			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
 			if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, true, true);
-			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );/*{{{*/
+			if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );
 			if(selection==2) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SeclectedJetsBTags, HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
 			if(ResolvedEvent)   HadronicTopQuark = HadronicTopQuarkResolved;//parameter in Fillbranch
             //HadronicTopQuark and HadronicTopQuarkResolved are identical
-//			if(!ResolvedEvent) continue;/*}}}*/
+//			if(!ResolvedEvent) continue;
 //			//?use funtion to give value, wouldn't it be useless?
 		    WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
-
+*/
             //event cut
 
 			NVertices         = nBestVtx_;
@@ -249,12 +249,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 		
 			//categorization
             //?need modification because we do not care about ResolvdEvent and Met that much to categorize event according to them.
-			if(selection==0){ //PRESELECTION
+/*			if(selection==0){ //PRESELECTION
 				if(ResolvedEvent  && SelectedMet)  category0=1; //branch in NewTree and SB 
 			}
 			else if(selection==1){ //SELECTION
 				if(ResolvedEvent && NumSelBJetsM>0 && SelectedMet)     category0=1; 
-	      	}
+	      	}    */
 			//then what does category1,2 do?
 //      	if(!(category0==1)) continue;// this is for calculating the events have passed certain critiaria
 	
