@@ -4,6 +4,7 @@
   * cmsrel CMSSW_10_2_20_UL
   * cd CMSSW_10_2_20_UL/src
   * git clone git@github.com:huiling110/FourTop.git 
+  * cd FourTop
   * git checkout TauOfTTTT_102
   * cmsenv
  * run
