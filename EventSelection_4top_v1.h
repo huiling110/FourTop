@@ -50,6 +50,7 @@ float deltaRJetsCal(vector<TLorentzVector> SelectedJets);
 void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
 void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt,  float          &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt);
 void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float>& MinMaxDeltaR);
+void SelectTops(vector<TLorentzVector> & SelectedTops);
 ////
 //
 void branchGetEntry(bool data, Long64_t tentry, string fileName);
@@ -250,6 +251,13 @@ vector <double> * Muon_isoCharParPt_; TBranch *b_Muon_isoCharParPt;
 vector <double> * Muon_relIsoDeltaBetaR04_; TBranch *b_Muon_relIsoDeltaBetaR04;
 vector <int> * Muon_isMatchedToTrigger_; TBranch *b_Muon_isMatchedToTrigger;
 vector <int> * Muon_pdgId_; TBranch *b_Muon_pdgId;
+
+vector <int>* TopTagger_type_; TBranch* b_TopTagger_type;
+vector <float>* TopTagger_discriminator_; TBranch* b_TopTagger_discriminator;
+vector <int>* TopTagger_jet1Idx_; TBranch* b_TopTagger_jet1Idx;
+vector <int>* TopTagger_jet2Idx_; TBranch* b_TopTagger_jet2Idx;
+vector <int>* TopTagger_jet3Idx_; TBranch* b_TopTagger_jet3Idx;
+
 vector <double>* Tau_pt_; TBranch* b_Tau_pt;
 vector <double>* Tau_eta_; TBranch* b_Tau_eta;
 vector <double>* Tau_leadChargedCandDz_pv_; TBranch* b_Tau_leadChargedCandDz_pv;
@@ -504,6 +512,7 @@ float MaxDeltaRJets=-99;
 float MinDeltaRBJets=-99;
 float MaxDeltaRBJets=-99;
 int NumOfTausL=-99;
+int NumofTops=-99;
 //
 //
 int   NumSelJets=-99;

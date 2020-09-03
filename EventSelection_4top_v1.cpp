@@ -210,6 +210,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 //
 //
 			//Hadronic Top selection
+            //using resuts of SUSY toptagger here
+            vector<TLorentzVector> SelectedTops;
+            SelectTops(SelectedTops);
+            NumofTops = SelectedTops.size();            
+
+ 
             //only top that decay into 3 jets
 			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -520,6 +526,21 @@ void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets
   }
   if(!(MinDeltaPhiJetMet>0.6)) deltaPhiJetMet=false;//used in Selectjets and SelectCA8Jets
 }/*}}}*/
+
+void SelectTops(vector<TLorentzVector> & SelectedTops){
+    for (UInt_t j = 0; j < TopTagger_type_->size(); ++j){
+        if(!(TopTagger_type_->at(j)==3)) continue;//resolved 
+//        if(!(TopTagger_discriminator_->at(j)>0.6)) continue;
+//        ??not sure of the effect of discriminator
+        double top_pt = Jet_pt_->at(TopTagger_jet1Idx_->at(j))+Jet_pt_->at(TopTagger_jet2Idx_->at(j))+Jet_pt_->at(TopTagger_jet3Idx_->at(j));
+        double top_eta = Jet_eta_->at(TopTagger_jet1Idx_->at(j))+Jet_eta_->at(TopTagger_jet2Idx_->at(j))+Jet_eta_->at(TopTagger_jet3Idx_->at(j));
+        double top_phi = Jet_phi_->at(TopTagger_jet1Idx_->at(j))+Jet_phi_->at(TopTagger_jet2Idx_->at(j))+Jet_phi_->at(TopTagger_jet3Idx_->at(j));
+        double top_m = Jet_mass_->at(TopTagger_jet1Idx_->at(j))+Jet_mass_->at(TopTagger_jet2Idx_->at(j))+Jet_mass_->at(TopTagger_jet3Idx_->at(j));
+        TLorentzVector top; top.SetPtEtaPhiM(top_pt,top_eta,top_phi,top_m);
+        SelectedTops.push_back(top);
+    }
+
+}
 /*
 void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
 		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
@@ -1296,6 +1317,12 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04",&Muon_relIsoDeltaBetaR04_,&b_Muon_relIsoDeltaBetaR04);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger",&Muon_isMatchedToTrigger_,&b_Muon_isMatchedToTrigger);
 
+  Tree->SetBranchAddress("TopTagger_type",&TopTagger_type_,&b_TopTagger_type);
+  Tree->SetBranchAddress("TopTagger_discriminator",&TopTagger_discriminator_,&b_TopTagger_discriminator);
+  Tree->SetBranchAddress("TopTagger_jet1Idx",&TopTagger_jet1Idx_,&b_TopTagger_jet1Idx);
+  Tree->SetBranchAddress("TopTagger_jet2Idx",&TopTagger_jet2Idx_,&b_TopTagger_jet2Idx);
+  Tree->SetBranchAddress("TopTagger_jet3Idx",&TopTagger_jet3Idx_,&b_TopTagger_jet3Idx);
+
   Tree->SetBranchAddress("Tau_pt",&Tau_pt_,&b_Tau_pt);
   Tree->SetBranchAddress("Tau_eta",&Tau_eta_,&b_Tau_eta);
   Tree->SetBranchAddress("Tau_leadChargedCandDz_pv",&Tau_leadChargedCandDz_pv_,&b_Tau_leadChargedCandDz_pv);
@@ -1545,6 +1572,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/F");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/F");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
+  NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2004,6 +2032,7 @@ MaxDeltaRJets=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
+NumofTops=-99;
 
 //
 //
@@ -2210,6 +2239,13 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Muon_medium->GetEntry(tentry);       
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
+
+  b_TopTagger_type->GetEntry(tentry);
+  b_TopTagger_discriminator->GetEntry(tentry);
+  b_TopTagger_jet1Idx->GetEntry(tentry);
+  b_TopTagger_jet2Idx->GetEntry(tentry);
+  b_TopTagger_jet3Idx->GetEntry(tentry);
+
   b_Tau_pt->GetEntry(tentry);
   b_Tau_eta->GetEntry(tentry);
   b_Tau_leadChargedCandDz_pv->GetEntry(tentry);
