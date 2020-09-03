@@ -396,11 +396,12 @@ void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
     for (UInt_t j = 0; j < Tau_pt_->size(); ++j){
         if(!(Tau_pt_->at(j)>20))    continue;
         if(!(Tau_eta_->at(j)<2.3))  continue;
-//     ?   if(!() )                    continue;//missing dz
+//       if(!(Tau_leadChargedCandDz_pv_->at(j)<0.2)) continue;
+        if(!(Tau_packedLeadTauCand_dz_->at(j)<0.2))  continue;//missing dz
+        //?use which dz still need more thinking
         if(!(Tau_decayModeFindingNewDMs_->at(j)==1)) continue;
-        //???not sure why all taus is 1? if so no point in this requirement.
-        //?not sure, is seem all are 1; 
-        //if(!())           continue;//for decay mode
+        //???not sure why all taus is 1? if so no point in this requirement. //?not sure, is seem all are 1; 
+        if(Tau_decayMode_->at(j)==5 or Tau_decayMode_->at(j)==6)    continue;//for decay mode
         if(TauWP==1) {
             if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5)) continue;
         }
@@ -1297,6 +1298,8 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
 
   Tree->SetBranchAddress("Tau_pt",&Tau_pt_,&b_Tau_pt);
   Tree->SetBranchAddress("Tau_eta",&Tau_eta_,&b_Tau_eta);
+  Tree->SetBranchAddress("Tau_leadChargedCandDz_pv",&Tau_leadChargedCandDz_pv_,&b_Tau_leadChargedCandDz_pv);
+  Tree->SetBranchAddress("Tau_packedLeadTauCand_dz",&Tau_packedLeadTauCand_dz_,&b_Tau_packedLeadTauCand_dz);
   Tree->SetBranchAddress("Tau_phi",&Tau_phi_,&b_Tau_phi);
   Tree->SetBranchAddress("Tau_energy",&Tau_energy_,&b_Tau_energy);
   Tree->SetBranchAddress("Tau_px",&Tau_px_,&b_Tau_px);
@@ -1310,6 +1313,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   Tree->SetBranchAddress("Tau_charge",&Tau_charge_,&b_Tau_charge);
   Tree->SetBranchAddress("Tau_decayModeFinding",&Tau_decayModeFinding_,&b_Tau_decayModeFinding);
   Tree->SetBranchAddress("Tau_decayModeFindingNewDMs",&Tau_decayModeFindingNewDMs_,&b_Tau_decayModeFindingNewDMs);
+  Tree->SetBranchAddress("Tau_decayMode",&Tau_decayMode_,&b_Tau_decayMode);
   Tree->SetBranchAddress("Tau_againstMuonLoose3",&Tau_againstMuonLoose3_,&b_Tau_againstMuonLoose3);
   Tree->SetBranchAddress("Tau_againstMuonTight3",&Tau_againstMuonTight3_,&b_Tau_againstMuonTight3);
 /*  Tree->SetBranchAddress("Tau_againstElectronVLooseMVA6",&Tau_againstElectronVLooseMVA6_,&b_Tau_againstElectronVLooseMVA6);
@@ -2208,6 +2212,8 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
   b_Tau_pt->GetEntry(tentry);
   b_Tau_eta->GetEntry(tentry);
+  b_Tau_leadChargedCandDz_pv->GetEntry(tentry);
+  b_Tau_packedLeadTauCand_dz->GetEntry(tentry);
   b_Tau_phi->GetEntry(tentry);
   b_Tau_energy->GetEntry(tentry);
   b_Tau_px->GetEntry(tentry);
@@ -2216,6 +2222,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Tau_charge->GetEntry(tentry);
   b_Tau_decayModeFinding->GetEntry(tentry);
   b_Tau_decayModeFindingNewDMs->GetEntry(tentry);
+  b_Tau_decayMode->GetEntry(tentry);
   b_Tau_againstMuonLoose3->GetEntry(tentry);
   b_Tau_againstMuonTight3->GetEntry(tentry);
   b_Tau_byDeepTau2017v2p1VSjetraw->GetEntry(tentry);
