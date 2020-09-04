@@ -13,7 +13,7 @@
      * add a + would speed up
  * tips
     * git pull origin
-    * use this command to get the most recent version from Huiling's repositary
+      * use this command to get the most recent version from Huiling's repositary
   
       
      
