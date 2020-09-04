@@ -219,6 +219,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
             vector<TLorentzVector> SelectedTops;
             SelectTops(SelectedTops);
             NumofTops = SelectedTops.size();            
+            vector<double> TopPtSorted; sort_jetPt(SelectedTops,TopPtSorted);
+            if(NumofTops>0)  LeadingTopPt = TopPtSorted[0];
+            if(NumofTops>1)  SecondTopPt = TopPtSorted[1];
 
  
             //only top that decay into 3 jets
@@ -1578,6 +1581,8 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("LeadingTauPt",        &LeadingTauPt,        "LeadingTauPt/D");
   NewTree->Branch("SecondTauPt",        &SecondTauPt,        "SecondTauPt/D");
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
+  NewTree->Branch("LeadingTopPt",        &LeadingTopPt,        "LeadingTopPt/D");
+  NewTree->Branch("SecondTopPt",        &SecondTopPt,        "SecondTopPt/D");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2040,6 +2045,8 @@ NumOfTausL=-99;
 LeadingTauPt=-99;
 SecondTauPt=-99;
 NumofTops=-99;
+LeadingTopPt=-99;
+SecondTopPt=-99;
 
 //
 //

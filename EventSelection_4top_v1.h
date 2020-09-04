@@ -516,6 +516,8 @@ int NumOfTausL=-99;
 double LeadingTauPt=-99;
 double SecondTauPt=-99;
 int NumofTops=-99;
+double LeadingTopPt=-99;
+double SecondTopPt=-99;
 //
 //
 int   NumSelJets=-99;
