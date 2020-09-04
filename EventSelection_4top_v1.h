@@ -47,8 +47,9 @@ float InvariantMassCalculator(vector<TLorentzVector> SelectedJets);
 float AplanarityCalculator(vector<TLorentzVector> SelectedJets);
 float LeadingJetPtCal(vector<TLorentzVector> SelectedJets);
 float deltaRJetsCal(vector<TLorentzVector> SelectedJets);
-void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
-void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt,  float          &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt);
+//void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
+void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<float> &JetsPtSorted);
+void give_value_JetPtSorted(vector<float> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt,  float          &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt);
 void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float>& MinMaxDeltaR);
 void SelectTops(vector<TLorentzVector> & SelectedTops);
 ////
@@ -512,6 +513,7 @@ float MaxDeltaRJets=-99;
 float MinDeltaRBJets=-99;
 float MaxDeltaRBJets=-99;
 int NumOfTausL=-99;
+double LeadingTauPt=-99;
 int NumofTops=-99;
 //
 //

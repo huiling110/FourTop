@@ -128,13 +128,14 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 			if(!data) GenClassifier(GenZPt,GenWPt);//line2590
 			//?according to pdg ID generate usdc quark and GenZPt GenWPt.
 
-			//large met
+			//met
             //?need to check met
-			bool SelectedMet = false;
+//			bool SelectedMet = false;
 			//?how does SysJes impact Met_pt ?
             //?do we still have to correct Met?
 			MetCorrection(SysJes,SysJer,Met_pt);//270 Met_pt in newtree branch.
-            if( Met_pt > 200)  SelectedMet = true;//228;parameter in Fillbranches
+            //?why have to do this MetCorrection
+//            if( Met_pt > 200)  SelectedMet = true;//228;parameter in Fillbranches
             //we don't care about Met so much
 			//SelectMet(SelectedMet);
 			//Met_pt            = Met_type1PF_pt_;
@@ -156,6 +157,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
             SelectTaus(SelectedTausL,1);
             NumOfTausL = SelectedTausL.size();
             if(!(NumOfTausL>0)) continue;
+            vector<double> TauPtSorted; sort_jetPt(SelectedTausL,TauPtSorted);
+            if(TauPtSorted.size()>0)  LeadingTauPt = TauPtSorted[0];
+//
+//            
 
             //jet and B jet selection
 			vector<float> SeclectedJetsBTags;
@@ -192,9 +197,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
             MetDividedByHT = Met_pt/HT;
             MHTDividedByMET   = MHT/Met_pt;
-            vector<int> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
+            vector<float> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
-            vector<int> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
+            vector<float> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
             give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
             vector<float> MinMaxDeltaRBJets; MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
             MinDeltaRBJets = MinMaxDeltaRBJets[0];
@@ -533,6 +538,7 @@ void SelectTops(vector<TLorentzVector> & SelectedTops){
 //        if(!(TopTagger_discriminator_->at(j)>0.6)) continue;
 //        ??not sure of the effect of discriminator
         double top_pt = Jet_pt_->at(TopTagger_jet1Idx_->at(j))+Jet_pt_->at(TopTagger_jet2Idx_->at(j))+Jet_pt_->at(TopTagger_jet3Idx_->at(j));
+       // top_eta and phi need modification
         double top_eta = Jet_eta_->at(TopTagger_jet1Idx_->at(j))+Jet_eta_->at(TopTagger_jet2Idx_->at(j))+Jet_eta_->at(TopTagger_jet3Idx_->at(j));
         double top_phi = Jet_phi_->at(TopTagger_jet1Idx_->at(j))+Jet_phi_->at(TopTagger_jet2Idx_->at(j))+Jet_phi_->at(TopTagger_jet3Idx_->at(j));
         double top_m = Jet_mass_->at(TopTagger_jet1Idx_->at(j))+Jet_mass_->at(TopTagger_jet2Idx_->at(j))+Jet_mass_->at(TopTagger_jet3Idx_->at(j));
@@ -1166,19 +1172,8 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<float> &MinM
    // cout<<MinMaxDeltaR[0];
 }/*}}}*/
 
-//void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){
-//    int size = 0;
-//    size = SelectedJets.size();
-//    int JetsPt[size] ; 
-//    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
-//        JetsPt[size] = SelectedJets[j];
-//    }
-//    sort(JetsPt, JetsPt+size);
-//    for (int i =0; i < JetsPt.size();++i){
-//        JetsPtSorted.push_back(JetsPt[i]);
-//    }
-//}
-void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/*{{{*/
+//void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/*{{{*/
+void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<float> &JetsPtSorted){/*{{{*/
     UInt_t size = 0;
     size = SelectedJets.size();
     int k = 0;
@@ -1192,7 +1187,8 @@ void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/
         JetsPtSorted.push_back(JetsPt[k]);
     }
 }/*}}}*/
-void give_value_JetPtSorted(vector<int> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){/*{{{*/
+//?what is the poit of this function when you can just give value?
+void give_value_JetPtSorted(vector<float> JetsPtSorted,float &LeadingJetPt,float &SecondJetPt, float &ThirdJetPt, float &FourthJetPt, float &FitthJetPt,float &SixthJetPt, float &SeventhJetPt, float &EighthJetPt, float &NighthJetPt, float &TenthJetPt){/*{{{*/
     for(UInt_t i = 0; i < JetsPtSorted.size();++i){
         if(i == 0) LeadingJetPt = JetsPtSorted[i];
         if(i == 1) SecondJetPt = JetsPtSorted[i];
@@ -1572,6 +1568,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/F");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/F");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
+  NewTree->Branch("LeadingTauPt",        &LeadingTauPt,        "LeadingTauPt/D");
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
 //
 //
@@ -2032,6 +2029,7 @@ MaxDeltaRJets=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
+LeadingTauPt=-99;
 NumofTops=-99;
 
 //
