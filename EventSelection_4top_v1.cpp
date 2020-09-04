@@ -159,8 +159,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
             if(!(NumOfTausL>0)) continue;
             vector<double> TauPtSorted; sort_jetPt(SelectedTausL,TauPtSorted);
             if(NumOfTausL>0)  LeadingTauPt = TauPtSorted[0];
-            if(NumOfTausL>1)      SecondTauPt = TauPtSorted[1];
-//
+            if(NumOfTausL>1)  SecondTauPt = TauPtSorted[1];
 //            
 
             //jet and B jet selection
@@ -538,12 +537,19 @@ void SelectTops(vector<TLorentzVector> & SelectedTops){
         if(!(TopTagger_type_->at(j)==3)) continue;//resolved 
 //        if(!(TopTagger_discriminator_->at(j)>0.6)) continue;
 //        ??not sure of the effect of discriminator
-        double top_pt = Jet_pt_->at(TopTagger_jet1Idx_->at(j))+Jet_pt_->at(TopTagger_jet2Idx_->at(j))+Jet_pt_->at(TopTagger_jet3Idx_->at(j));
+        TLorentzVector jet1; jet1.SetPtEtaPhiM(Jet_pt_->at(TopTagger_jet1Idx_->at(j)),Jet_eta_->at(TopTagger_jet1Idx_->at(j)),Jet_phi_->at(j),Jet_mass_->at(TopTagger_jet1Idx_->at(j)));
+        TLorentzVector jet2; jet2.SetPtEtaPhiM(Jet_pt_->at(TopTagger_jet2Idx_->at(j)),Jet_eta_->at(TopTagger_jet2Idx_->at(j)),Jet_phi_->at(j),Jet_mass_->at(TopTagger_jet2Idx_->at(j)));
+        TLorentzVector jet3; jet3.SetPtEtaPhiM(Jet_pt_->at(TopTagger_jet3Idx_->at(j)),Jet_eta_->at(TopTagger_jet3Idx_->at(j)),Jet_phi_->at(j),Jet_mass_->at(TopTagger_jet3Idx_->at(j)));
+
+/*        double top_pt = Jet_pt_->at(TopTagger_jet1Idx_->at(j))+Jet_pt_->at(TopTagger_jet2Idx_->at(j))+Jet_pt_->at(TopTagger_jet3Idx_->at(j));//this top_pt calculation is wrong
+//         TopPtMin = (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt();//refresh in the loop
        // top_eta and phi need modification
         double top_eta = Jet_eta_->at(TopTagger_jet1Idx_->at(j))+Jet_eta_->at(TopTagger_jet2Idx_->at(j))+Jet_eta_->at(TopTagger_jet3Idx_->at(j));
         double top_phi = Jet_phi_->at(TopTagger_jet1Idx_->at(j))+Jet_phi_->at(TopTagger_jet2Idx_->at(j))+Jet_phi_->at(TopTagger_jet3Idx_->at(j));
-        double top_m = Jet_mass_->at(TopTagger_jet1Idx_->at(j))+Jet_mass_->at(TopTagger_jet2Idx_->at(j))+Jet_mass_->at(TopTagger_jet3Idx_->at(j));
-        TLorentzVector top; top.SetPtEtaPhiM(top_pt,top_eta,top_phi,top_m);
+        double top_m = Jet_mass_->at(TopTagger_jet1Idx_->at(j))+Jet_mass_->at(TopTagger_jet2Idx_->at(j))+Jet_mass_->at(TopTagger_jet3Idx_->at(j));*/
+//        TLorentzVector top; top.SetPtEtaPhiM(top_pt,top_eta,top_phi,top_m);
+        TLorentzVector top; 
+        top = jet1 + jet2 + jet3;
         SelectedTops.push_back(top);
     }
 
