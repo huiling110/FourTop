@@ -8,8 +8,12 @@
   * git checkout TauOfTTTT_102
   * cmsenv
  * run
-   * root -b -q EventSelection_4top_v1.cpp
-     * use the default parameters, you can change to what you need
-   * .x EventSelection_4top_v1.cpp+
-     * this would speed up 
+   * root -b -q EventSelection_4top_v1.cpp+
+     * use the default parameters
+     * add a + would speed up
+ * tips
+    * git pull origin
+    * use this command to get the most recent version from Huiling's repositary
+  
+      
      
