@@ -104,7 +104,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 //        if(selection == 2) TTree *NewTreeSB = new TTree("treeSB","treeSB");
         branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//
         Long64_t NumOfEvents;
-        if (istest){   NumOfEvents = 100; }
+        if (istest){   NumOfEvents = 1000; }
         else{ NumOfEvents = nentries;}
 //     for (Int_t i=0; i<nentries; i++) {
        for (Long64_t i=0; i<NumOfEvents; i++) {
@@ -158,7 +158,8 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
             NumOfTausL = SelectedTausL.size();
             if(!(NumOfTausL>0)) continue;
             vector<double> TauPtSorted; sort_jetPt(SelectedTausL,TauPtSorted);
-            if(TauPtSorted.size()>0)  LeadingTauPt = TauPtSorted[0];
+            if(NumOfTausL>0)  LeadingTauPt = TauPtSorted[0];
+            if(NumOfTausL>1)      SecondTauPt = TauPtSorted[1];
 //
 //            
 
@@ -1569,6 +1570,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
   NewTree->Branch("LeadingTauPt",        &LeadingTauPt,        "LeadingTauPt/D");
+  NewTree->Branch("SecondTauPt",        &SecondTauPt,        "SecondTauPt/D");
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
 //
 //
@@ -2030,6 +2032,7 @@ MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
 LeadingTauPt=-99;
+SecondTauPt=-99;
 NumofTops=-99;
 
 //

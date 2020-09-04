@@ -514,6 +514,7 @@ double MinDeltaRBJets=-99;
 double MaxDeltaRBJets=-99;
 int NumOfTausL=-99;
 double LeadingTauPt=-99;
+double SecondTauPt=-99;
 int NumofTops=-99;
 //
 //
