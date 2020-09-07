@@ -143,7 +143,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 //            cout<<__LINE__<<"  ";
 
 			//Leptonic reject
-			//it seems that we have not save information of leptons other than their number
+            //
 			vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
 			vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
 			SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);//304
@@ -380,8 +380,8 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 //    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
 //    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
 		//SCeta?//super cluster
-    if(!(patElectron_inCrack_->at(j)==0))	         continue;
-		//?
+//    if(!(patElectron_inCrack_->at(j)==0))	         continue;
+		//?//1.4442<fabs(EleSCeta) && fabs(EleSCeta)<1.5660
 //    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
 //    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;//no need to do it because already implemented in VID
     if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_loose_->at(j) == 1)) continue;
@@ -393,12 +393,16 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 }/*}}}*/
 
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex){/*{{{*/
+    //changed ISO to ss of TTTT
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
     if(!(Muon_loose_->at(j)==1))                  continue;
-    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose iso->change to 0.15(tight) from 0.25
-		//?Muon_relIsoDeltaBetaR04?_
+//    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose iso->change to 0.15(tight) from 0.25
+		//Muon_relIsoDeltaBetaR04?_
+    double I1 = 0.4, I2 = 0, I3 = 0;//looseWP from ss of TTTT
+    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))  continue;
+    //?Muon_jetptratioV2?
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
     SelectedMuonsIndex.push_back(j);
@@ -1321,6 +1325,10 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   Tree->SetBranchAddress("Met_type1PF_phi",         &Met_type1PF_phi_,         &b_Met_type1PF_phi);
   Tree->SetBranchAddress("Met_type1PF_sumEt",         &Met_type1PF_sumEt_,         &b_Met_type1PF_sumEt);
   Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04",&Muon_relIsoDeltaBetaR04_,&b_Muon_relIsoDeltaBetaR04);
+  Tree->SetBranchAddress("Muon_miniIsoRel",         &Muon_miniIsoRel_,         &b_Muon_miniIsoRel);
+  Tree->SetBranchAddress("Muon_ptrel",         &Muon_ptrel_,         &b_Muon_ptrel);
+  Tree->SetBranchAddress("Muon_jetptratio",         &Muon_jetptratio_,         &b_Muon_jetptratio);
+  Tree->SetBranchAddress("Muon_jetptratioV2",         &Muon_jetptratioV2_,         &b_Muon_jetptratioV2);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger",&Muon_isMatchedToTrigger_,&b_Muon_isMatchedToTrigger);
 
   Tree->SetBranchAddress("TopTagger_type",&TopTagger_type_,&b_TopTagger_type);
@@ -2252,6 +2260,11 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
   b_Muon_loose->GetEntry(tentry);
   b_Muon_medium->GetEntry(tentry);       
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
+  b_Muon_miniIsoRel->GetEntry(tentry);
+  b_Muon_ptrel->GetEntry(tentry);
+  b_Muon_jetptratio->GetEntry(tentry);
+  b_Muon_jetptratioV2->GetEntry(tentry);
+
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
 
   b_TopTagger_type->GetEntry(tentry);

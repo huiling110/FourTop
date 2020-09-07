@@ -250,6 +250,11 @@ vector <double> * Muon_isoCharged_; TBranch *b_Muon_isoCharged;
 vector <double> * Muon_isoSum_; TBranch *b_Muon_isoSum;
 vector <double> * Muon_isoCharParPt_; TBranch *b_Muon_isoCharParPt;
 vector <double> * Muon_relIsoDeltaBetaR04_; TBranch *b_Muon_relIsoDeltaBetaR04;
+vector <double> * Muon_miniIsoRel_; TBranch *b_Muon_miniIsoRel;
+vector <double> * Muon_ptrel_; TBranch *b_Muon_ptrel;
+vector <double> * Muon_jetptratio_; TBranch *b_Muon_jetptratio;
+vector <double> * Muon_jetptratioV2_; TBranch *b_Muon_jetptratioV2;
+
 vector <int> * Muon_isMatchedToTrigger_; TBranch *b_Muon_isMatchedToTrigger;
 vector <int> * Muon_pdgId_; TBranch *b_Muon_pdgId;
 
