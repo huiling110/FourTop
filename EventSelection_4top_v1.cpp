@@ -376,8 +376,8 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 	//?data does not occur.
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
 		//what is patElectron_pt?
-//    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
-//    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
+    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
+    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
 //    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
 		//SCeta?//super cluster
 //    if(!(patElectron_inCrack_->at(j)==0))	         continue;
