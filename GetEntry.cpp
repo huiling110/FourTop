@@ -29,12 +29,10 @@ void GetEntry(){
   //fileName.push_back("QCD_HT1500to2000.root");   //11
   //fileName.push_back("QCD_HT2000toIn.root");   //12
   //fileName.push_back("TTJets.root");   //13
-  fileName.push_back("TT.root");   //14
-  //fileName.push_back("TTWJetsToQQ.root");   //15
-  //fileName.push_back("TTZToQQ.root");   //16
-  //fileName.push_back("TTTT.root");   //17
+  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //14
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
-    string FILEprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/"+fileName[Nfiles];    
+//    string FILEprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/"+fileName[Nfiles];    
+    string FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];    
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);

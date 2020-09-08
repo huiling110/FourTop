@@ -17,10 +17,67 @@ void CloneHistos();
 int SigSF = 1;
 //float LUMI  = 41500.0; 
 float LUMI = 36733; //36.773 /fb
-//where to get this LUMI
-//what's these number?where to get these number?
-//
-//                pb
+//where to get this LUMI//what's these number?where to get these number?
+float wTTTT = (SigSF*LUMI*0.009103)/(1739606-716434);//0.009103//9.103e-03 +- 1.401e-05 pb
+float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
+//SIGNAL
+double wTTTT = (SigSF*LUMI*0.00821)/
+//tt
+double wTT = 
+double wTTJet  //not sure the difference of TT and TTJets?
+double wTTGamma_SL
+double wTTGamma_DL
+double wTTGJets
+double wttZJets
+double wTTWJetsToLNu
+double wTTWJetsToQQ
+double wttWJets//not
+double wTTZToQQ
+double wTTZToLL
+double wTTZToLLNuNu
+double wttHToNonbb
+//need bb? 
+double wttHJetToNonbb
+double wttbb
+//diboson and triboson an w/z+jets
+double wWZ
+//double wWZTo3LNu
+double wWW
+///double wWWTo2L2Nu //not avalible
+double wWWTo2L2Nu_DoubleScattering
+double wWpWpJJ
+double wZZ
+double wZZTo2Tau2Nu
+double wZZTo2Q2Nu
+double wZZTo2L2Q
+double wWGToLNuG
+double wWGJets//not in tth
+double wZGTo2LG
+double wZGJetsToLLG//NOT IN TTH
+double wWWW
+double wWWZ
+double wWWG//not
+double wZZZ
+double wWZZ
+double wWZG
+double wWGG//not
+double wWGGJets//not
+double wZGGToLLGG
+double wZGGJets
+double wWZJToLLLNu
+double wWWJTo2L2Nu
+double wWJetsJetsToLNu
+//Drell-Yan
+//double wDYJetsToTauTau//?
+//single top
+double wtZq_ll
+double wtZq_nunu
+//H //?missing some samples
+double wVHToNonbb
+
+//HH count as minor
+//minor
+
 float wTTTT = (SigSF*LUMI*0.009103)/(1739606-716434);//0.009103//9.103e-03 +- 1.401e-05 pb
 float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
 float wQCD300to500 = (LUMI*347300)/(17035891-0); //351300 //3.473e+05 +- 3.327e+02 pb

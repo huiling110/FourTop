@@ -27,24 +27,58 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
   vector<string> fileName;
-//  fileName.push_back("QCD_HT200to300.root");   //6
-//  fileName.push_back("QCD_HT300to500.root");   //7
-//  fileName.push_back("QCD_HT500to700.root");   //8
-//  fileName.push_back("QCD_HT700to1000.root");   //9
-//  fileName.push_back("QCD_HT1000to1500.root");   //10
-//  fileName.push_back("QCD_HT1500to2000.root");   //11
-//  fileName.push_back("QCD_HT2000toIn.root");   //12
-//  fileName.push_back("TTJets.root");   //13
-//  fileName.push_back("TT.root");   //14
-//  fileName.push_back("TTWJetsToQQ.root");   //15
-//  fileName.push_back("TTZToQQ.root");   //16
-//  fileName.push_back("TTTT.root");   //17 
-  fileName.push_back(input);   //17 
-//  fileName.push_back(Input);
- //where is in put?what does input do?
-//in line 4, the function parameter.
-//  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
-  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
+//  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //17
+//tt
+  fileName.push_back("TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");   
+  fileName.push_back("TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");    
+  fileName.push_back("TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp.root");    
+  fileName.push_back("TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp.root");    
+  fileName.push_back("TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");    
+  fileName.push_back("ttZJets_13TeV_madgraphMLM-pythia8.root");    
+  fileName.push_back("TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");    
+  fileName.push_back("TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");    
+  fileName.push_back("ttWJets_13TeV_madgraphMLM.root");    
+  fileName.push_back("TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("TTZToLL_M-1to10_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");    
+  fileName.push_back("TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("ttHToNonbb_M125_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8.root");    
+  fileName.push_back("ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8_mWCutfix.root");    
+  fileName.push_back("ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");    
+//second job
+/*
+//diboson and triboson an w/z+jets
+  fileName.push_back("WZ_TuneCUETP8M1_13TeV-pythia8.root");    
+  fileName.push_back("WW_TuneCUETP8M1_13TeV-pythia8.root");    
+  fileName.push_back("WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root");    
+  fileName.push_back("WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");    
+  fileName.push_back("");    //ZZ
+  fileName.push_back("");    //WGToLNuG
+  fileName.push_back("");    //WGJets
+  fileName.push_back("ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");    
+  fileName.push_back("ZGJetsToLLG_EW_LO_13TeV-sherpa.root");    
+  fileName.push_back("WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("");    //WWZ
+  fileName.push_back("WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("");    //WGG
+  fileName.push_back("");    //WGGJets
+  fileName.push_back("ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");    
+  fileName.push_back("WZJToLLLNu_TuneCUETP8M1_13TeV-amcnlo-pythia8.root");    
+  fileName.push_back("WWJTo2L2Nu_NNLOPS_TuneCUEP8M1_13TeV-powheg-pythia8.root");    
+  fileName.push_back("");    //WJetsJetsToLNu
+//DY
+//  fileName.push_back("");    
+//single top
+  fileName.push_back("tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");    
+  fileName.push_back("");    //VHToNonbb
+*/
+//  fileName.push_back(input);   //17 
+  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
+//  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
     string NewFileprov;
 		//do these files already exist or not?what does the number 1 or 2 mean ?
 		//file already exist, new file is what we want build.
@@ -71,11 +105,15 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 		//treeSB has something todo with sideband
    //guessing file already exist ?
 	 //data and sample is data or MC? where do we get these files ?
-	 //where do we put the newfile?
-    string FILEprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
+    string FILEprov;
+    // FILEprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
+    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);
+
+
+
 	//what do you mean get open tree from file ?	//in 26 openTree=
     bool data = true;
 	//what does "may..." mean?   guess they are data file name.
