@@ -29,32 +29,27 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
   vector<string> fileName;
 //  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //17
 //tt
+/*
   fileName.push_back("TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");   
   fileName.push_back("TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");    
   fileName.push_back("TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp.root");    
   fileName.push_back("TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp.root");    
   fileName.push_back("TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");    
+  */
+  
+//  fileName.push_back("");    //TTGJets
   fileName.push_back("ttZJets_13TeV_madgraphMLM-pythia8.root");    
-  fileName.push_back("TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");    
-  fileName.push_back("TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");    
   fileName.push_back("ttWJets_13TeV_madgraphMLM.root");    
-  fileName.push_back("TTZToQQ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
-  fileName.push_back("TTZToLL_M-1to10_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");    
-  fileName.push_back("TTZToLLNuNu_M-10_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
-  fileName.push_back("ttHToNonbb_M125_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8.root");    
   fileName.push_back("ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8_mWCutfix.root");    
   fileName.push_back("ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");    
 //second job
-/*
 //diboson and triboson an w/z+jets
   fileName.push_back("WZ_TuneCUETP8M1_13TeV-pythia8.root");    
   fileName.push_back("WW_TuneCUETP8M1_13TeV-pythia8.root");    
-  fileName.push_back("WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root");    
   fileName.push_back("WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");    
-  fileName.push_back("");    //ZZ
-  fileName.push_back("");    //WGToLNuG
-  fileName.push_back("");    //WGJets
-  fileName.push_back("ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");    
+//  fileName.push_back("");    //ZZ running
+  fileName.push_back("WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");    
+//  fileName.push_back("ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");    
   fileName.push_back("ZGJetsToLLG_EW_LO_13TeV-sherpa.root");    
   fileName.push_back("WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("");    //WWZ
@@ -62,21 +57,19 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
   fileName.push_back("ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
-  fileName.push_back("");    //WGG
-  fileName.push_back("");    //WGGJets
-  fileName.push_back("ZGGToLLGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
+  fileName.push_back("WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    //WGG
+//  fileName.push_back("");    //WGGJets
   fileName.push_back("ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");    
   fileName.push_back("WZJToLLLNu_TuneCUETP8M1_13TeV-amcnlo-pythia8.root");    
   fileName.push_back("WWJTo2L2Nu_NNLOPS_TuneCUEP8M1_13TeV-powheg-pythia8.root");    
-  fileName.push_back("");    //WJetsJetsToLNu
+//  fileName.push_back("");    //WJetsToLNu
 //DY
 //  fileName.push_back("");    
 //single top
   fileName.push_back("tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");    
-  fileName.push_back("");    //VHToNonbb
-*/
-//  fileName.push_back(input);   //17 
+//  fileName.push_back("");    //VHToNonbb
+//  fileName.push_back(input);    
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
 //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
     string NewFileprov;

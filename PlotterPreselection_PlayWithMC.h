@@ -23,19 +23,19 @@ float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
 //SIGNAL
 double wTTTT = (SigSF*LUMI*0.00821)/
 //tt
-double wTT = 
-double wTTJet  //not sure the difference of TT and TTJets?
+//double wTT = 
+double wTTJets =   //not sure the difference of TT and TTJets?
 double wTTGamma_SL
 double wTTGamma_DL
 double wTTGJets
 double wttZJets
-double wTTWJetsToLNu
-double wTTWJetsToQQ
+//double wTTWJetsToLNu
+//double wTTWJetsToQQ
 double wttWJets//not
-double wTTZToQQ
-double wTTZToLL
-double wTTZToLLNuNu
-double wttHToNonbb
+//double wTTZToQQ
+//double wTTZToLL
+//double wTTZToLLNuNu
+//double wttHToNonbb
 //need bb? 
 double wttHJetToNonbb
 double wttbb
@@ -44,15 +44,15 @@ double wWZ
 //double wWZTo3LNu
 double wWW
 ///double wWWTo2L2Nu //not avalible
-double wWWTo2L2Nu_DoubleScattering
+//double wWWTo2L2Nu_DoubleScattering
 double wWpWpJJ
 double wZZ
-double wZZTo2Tau2Nu
-double wZZTo2Q2Nu
-double wZZTo2L2Q
-double wWGToLNuG
+//double wZZTo2Tau2Nu
+//double wZZTo2Q2Nu
+//double wZZTo2L2Q
+//double wWGToLNuG
 double wWGJets//not in tth
-double wZGTo2LG
+//double wZGTo2LG
 double wZGJetsToLLG//NOT IN TTH
 double wWWW
 double wWWZ
@@ -61,14 +61,15 @@ double wZZZ
 double wWZZ
 double wWZG
 double wWGG//not
-double wWGGJets//not
-double wZGGToLLGG
+//double wWGGJets//not
+//double wZGGToLLGG
 double wZGGJets
-double wWZJToLLLNu
-double wWWJTo2L2Nu
-double wWJetsJetsToLNu
+//double wWZJToLLLNu
+//double wWWJTo2L2Nu
+double wWJetsToLNu
+//?missing ZJets?
 //Drell-Yan
-//double wDYJetsToTauTau//?
+double wDYJetsToTauTau
 //single top
 double wtZq_ll
 double wtZq_nunu

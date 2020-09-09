@@ -7,7 +7,7 @@
 #include "EventSelection_4top_v1.h"
 #include<iostream>
 
-void GetEntry(){
+void GetEntry(const TString inputfile){
     gStyle->SetCanvasColor(0);
     gStyle->SetFrameBorderMode(0);//?
     gStyle->SetOptStat("rme");
@@ -21,15 +21,9 @@ void GetEntry(){
 //  char openTree1[500];   sprintf(openTree1, "TNT/BOOM");
   char openTree[500];   sprintf(openTree, "TNT/evtree");
   vector<string> fileName;
-  //fileName.push_back("QCD_HT200to300.root");   //6
-  //fileName.push_back("QCD_HT300to500.root");   //7
-  //fileName.push_back("QCD_HT500to700.root");   //8
-  //fileName.push_back("QCD_HT700to1000.root");   //9
-  //fileName.push_back("QCD_HT1000to1500.root");   //10
-  //fileName.push_back("QCD_HT1500to2000.root");   //11
-  //fileName.push_back("QCD_HT2000toIn.root");   //12
   //fileName.push_back("TTJets.root");   //13
-  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //14
+  fileName.push_back(inputfile);   
+  //fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
 //    string FILEprov = "/publicfs/cms/user/huahuil/FourTop/2016v1/"+fileName[Nfiles];    
     string FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];    
