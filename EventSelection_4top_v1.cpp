@@ -36,23 +36,25 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
   fileName.push_back("TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp.root");    
   fileName.push_back("TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");    
   */
-  
+  /*
 //  fileName.push_back("");    //TTGJets
   fileName.push_back("ttZJets_13TeV_madgraphMLM-pythia8.root");    
   fileName.push_back("ttWJets_13TeV_madgraphMLM.root");    
   fileName.push_back("ttHJetToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8_mWCutfix.root");    
+//  fileName.push_back("");    //ttHJetTobb
   fileName.push_back("ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");    
 //second job
 //diboson and triboson an w/z+jets
-  fileName.push_back("WZ_TuneCUETP8M1_13TeV-pythia8.root");    
-  fileName.push_back("WW_TuneCUETP8M1_13TeV-pythia8.root");    
+  fileName.push_back("WZ_TuneCUETP8M1_13TeV-pythia8.root");   //success third job
+  */
+//  fileName.push_back("WW_TuneCUETP8M1_13TeV-pythia8.root");    //fail
   fileName.push_back("WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");    
 //  fileName.push_back("");    //ZZ running
   fileName.push_back("WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");    
 //  fileName.push_back("ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");    
   fileName.push_back("ZGJetsToLLG_EW_LO_13TeV-sherpa.root");    
   fileName.push_back("WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
-  fileName.push_back("");    //WWZ
+//  fileName.push_back("");    //WWZ
   fileName.push_back("WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");    
@@ -64,11 +66,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
   fileName.push_back("WWJTo2L2Nu_NNLOPS_TuneCUEP8M1_13TeV-powheg-pythia8.root");    
 //  fileName.push_back("");    //WJetsToLNu
 //DY
-//  fileName.push_back("");    
+//  fileName.push_back("");   //DYJetsToTauTau 
 //single top
   fileName.push_back("tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");    
   fileName.push_back("tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");    
-//  fileName.push_back("");    //VHToNonbb
+//  fileName.push_back("");    //ST_tW_antitop
+//  fileName.push_back("");    //ST_tW_top
 //  fileName.push_back(input);    
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
 //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){

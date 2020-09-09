@@ -7,7 +7,7 @@
 #include "EventSelection_4top_v1.h"
 #include<iostream>
 
-void GetEntry(const TString inputfile){
+void GetEntry(const string inputfile){
     gStyle->SetCanvasColor(0);
     gStyle->SetFrameBorderMode(0);//?
     gStyle->SetOptStat("rme");

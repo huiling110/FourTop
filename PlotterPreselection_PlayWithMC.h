@@ -5,8 +5,6 @@
 
 
 
-
-
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
 		/*TH1F* &data_func,*/ TH1F* &background_func,TH1F* &QCD_HT200to300_func,TH1F* &QCD_HT300to500_func,TH1F* &QCD_HT500to700_func,TH1F* &QCD_HT700to1000_func,TH1F* &QCD_HT1000to1500_func,TH1F* &QCD_HT1500to2000_func,TH1F* &QCD_HT2000toIn_func,
 		TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func, TH1F* &TT_func,
@@ -16,7 +14,9 @@ void CloneHistos();
 
 int SigSF = 1;
 //float LUMI  = 41500.0; 
-float LUMI = 36733; //36.773 /fb
+//float LUMI = 36733; //36.773 /fb
+float LUMI = 35900; //fb
+//?where to get the more precise LUMI?
 //where to get this LUMI//what's these number?where to get these number?
 float wTTTT = (SigSF*LUMI*0.009103)/(1739606-716434);//0.009103//9.103e-03 +- 1.401e-05 pb
 float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
@@ -24,11 +24,11 @@ float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
 double wTTTT = (SigSF*LUMI*0.00821)/
 //tt
 //double wTT = 
-double wTTJets =   //not sure the difference of TT and TTJets?
-double wTTGamma_SL
-double wTTGamma_DL
+double wTTJets =   
+//double wTTGamma_SL
+//double wTTGamma_DL
 double wTTGJets
-double wttZJets
+double wttZJets         //Special care is taken when scaling the ttZ background to the cross-section
 //double wTTWJetsToLNu
 //double wTTWJetsToQQ
 double wttWJets//not
@@ -38,6 +38,7 @@ double wttWJets//not
 //double wttHToNonbb
 //need bb? 
 double wttHJetToNonbb
+double wttHJetTobb
 double wttbb
 //diboson and triboson an w/z+jets
 double wWZ
@@ -73,7 +74,10 @@ double wDYJetsToTauTau
 //single top
 double wtZq_ll
 double wtZq_nunu
-//H //?missing some samples
+double wST_tW_antitop
+double wST_tW_top
+double wTGJets
+//H 
 double wVHToNonbb
 
 //HH count as minor
