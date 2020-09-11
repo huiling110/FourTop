@@ -4,96 +4,78 @@ import glob
 import string
 import subprocess
 
-Jobsubmitpath = "/afs/ihep.ac.cn/users/y/yutz/CMSSW_7_4_14/src/Tprime_2016"
-rootplizer = "EventSelection_dineutrino_Resolved_v3.cpp"
+#Jobsubmitpath = "/afs/ihep.ac.cn/users/y/yutz/CMSSW_7_4_14/src/Tprime_2016"
+#rootplizer = "EventSelection_dineutrino_Resolved_v3.cpp"
+Jobsubmitpath = "/workfs/cms/huahuil/TauOfTTTT/CMSSW_10_2_20_UL/src/FourTop"
+rootplizer = "EventSelection_4top_v1.cpp"
 allJobFileName = Jobsubmitpath+"/hepsub.sh"
 if os.path.exists(allJobFileName):
         os.popen('rm -fr '+allJobFileName)
 if os.path.exists(Jobsubmitpath+"/Jobsubmit"):
         os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit")
 os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit")
+#sample = {
+#"Tprime_0600":"0",
+#"Tprime_0700":"1",
+#"Tprime_0700_10p":"1_1",
+#"Aug17V1_METH":"59",
+#}
+
 sample = {
-"Tprime_0600":"0",
-"Tprime_0700":"1",
-"Tprime_0700_10p":"1_1",
-"Tprime_0800":"2",
-"Tprime_0800_10p":"2_1",
-"Tprime_0800_20p":"2_2",
-"Tprime_0800_30p":"2_3",
-"Tprime_0900":"3",
-"Tprime_0900_10p":"3_1",
-"Tprime_1000":"4",
-"Tprime_1000_10p":"4_1",
-"Tprime_1000_20p":"4_2",
-"Tprime_1000_30p":"4_3",
-"Tprime_1100":"5",
-"Tprime_1100_10p":"5_1",
-"Tprime_1200":"6",
-"Tprime_1200_10p":"6_1",
-"Tprime_1200_20p":"6_2",
-"Tprime_1200_30p":"6_3",
-"Tprime_1300":"7",
-"Tprime_1300_10p":"7_1",
-"Tprime_1400":"8",
-"Tprime_1400_10p":"8_1",
-"Tprime_1400_20p":"8_2",
-"Tprime_1400_30p":"8_3",
-"Tprime_1500":"9",
-"Tprime_1500_10p":"9_1",
-"Tprime_1600":"10",
-"Tprime_1600_10p":"10_1",
-"Tprime_1600_20p":"10_2",
-"Tprime_1600_30p":"10_3",
-"Tprime_1700":"11",
-"Tprime_1700_10p":"11_1",
-"Tprime_1800":"12",
-"ZToNuNu_HT100to200":"13",
-"ZToNuNu_HT200to400":"14",
-"ZToNuNu_HT400to600":"15",
-"ZToNuNu_HT600to800":"16", 
-"ZToNuNu_HT800to1200":"17",
-"ZToNuNu_HT1200to2500":"18",
-"ZToNuNu_HT2500toInf":"19", 
-"QCD_HT200to300":"20",  
-"QCD_HT300to500":"21",  
-"QCD_HT500to700":"22",  
-"QCD_HT700to1000":"23", 
-"QCD_HT1000to1500":"24",
-"QCD_HT1500to2000":"25",
-"QCD_HT2000toInf":"26", 
-"WToLNu_HT100to200":"27",  
-"WToLNu_HT200to400":"28",  
-"WToLNu_HT400to600":"29",  
-"WToLNu_HT600to800":"30",  
-"WToLNu_HT800to1200":"31", 
-"WToLNu_HT1200to2500":"32",
-"WToLNu_HT2500toInf":"33", 
-"TT":"34", 
-"TTToSemiLeptonic":"35", 
-"ST_t-channel_antitop":"36",  
-"ST_t-channel_top":"37",  
-"ST_tW_antitop":"38",  
-"ST_tW_top":"39",  
-"ZZTo4L":"40",   
-"ZZTo2L2Nu":"41",  
-"ZZTo2Q2Nu":"42",
-"ZZTo2L2Q":"43",
-"WWTo2L2Nu":"44",
-"WWToLNuQQ":"45",
-"WZTo1L1Nu2Q":"46",
-"WZTo1L3Nu":"47",
-"WZTo2L2Q":"48",
-"WZTo3LNu":"49", 
-"TTWToLNu":"50",
-"TTZToLLNuNu":"51",
-"tZq":"52",
-"Aug17V1_METB":"53",
-"Aug17V1_METC":"54",
-"Aug17V1_METD":"55",
-"Aug17V1_METE":"56",
-"Aug17V1_METF":"57",
-"Aug17V1_METG":"58",
-"Aug17V1_METH":"59",
+
+#  "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root":"0", #done   
+##tt
+#  "TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root":"1",    #done
+"TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8":"1",    #TTGJets
+#  "ttZJets_13TeV_madgraphMLM-pythia8.root":"2",    #done
+#  "ttWJets_13TeV_madgraphMLM.root":"3",    #done
+"ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root":"4",#ttH
+#  "ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root":"5",    #done
+#diboson and triboson an w/z+jets
+#  "WZ_TuneCUETP8M1_13TeV-pythia8.root":"6",   #success third job#done
+"WW_TuneCUETP8M1_13TeV-pythia8.root":"7_0",    #fail
+#  "WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root":"7_1",    #done
+"ZZ_TuneCUETP8M1_13TeV-pythia8":"8",    #ZZ running
+#  "WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root":"9",  #done  
+#  "ZGJetsToLLG_EW_LO_13TeV-sherpa.root":"10",    #done
+#  "WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root":"11",     #done
+"WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8":"12",    #WWZ
+#  "WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root":"13",    #done
+#  "ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root":"14",    #done
+#  "WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root":"15",    #done
+#  "WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root":"16",    #done
+"WGGJets_TuneCUETP8M1_13TeV_madgraphMLM_pythia8":"17",    #WGGJets
+#  "ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root":"18",    #done
+"WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8":"19",    #WJetsToLNu
+#DY
+"DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1":"20",   #DYJetsToTauTau 
+#single top
+#  "tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root":"21_1",    #done
+#  "tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root":21_2,    #done
+"ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4":"21_3",    #ST_tW_antitop
+"ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4":"21_4",    #ST_tW_top
+#  "TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root":"22",    #done
+"THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8":"23_1",
+"THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1":"23_2",
+#  H
+"VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8":"24",
+"ZHToTauTau_M125_13TeV_powheg_pythia8":"25_1",
+"ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8":"25_2",
+"GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8":"26_0",
+"GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8":"26_1",
+"GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8":"26_2",
+"GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8":"26_3",
+"GluGluHToTauTau_M125_13TeV_powheg_pythia8":"26_4",
+"GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8":"26_5",
+"GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8":"26_6",
+"VBFHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8":"27_0",
+"VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8":"27_1",
+"VBFHToTauTau_M125_13TeV_powheg_pythia8":"27_2",
+"VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8":"27_3",
+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2":"27_4",
+"VBFHToBB_M-125_13TeV_powheg_pythia8_weightfix":"27_5",
+"VBF_HToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8":"27_6",
+
 }
 
 allJobFile = file(allJobFileName,"w")
@@ -106,19 +88,24 @@ def prepareCshJob(inputFile,shFile):
         print >> subFile, "gcc -v"
         print >> subFile, "pwd"
         print >> subFile, "cd "+Jobsubmitpath
-        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
+#        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
+        print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
 for k in sample:
         print k
         print sample[k]
         sampleName = k
         sampleNumber = sample[k]
-	shFile = "EventSelection_dineutrino_Resolved_2016"+"_"+sampleNumber+".sh"
+#	shFile = "EventSelection_dineutrino_Resolved_2016"+"_"+sampleNumber+".sh"
+#	shFile = "ES_TauOfTTTT_2016"+"_"+sampleNumber+".sh"
+	shFile = "ES_TauOfTTTT_2016"+"_"+sampleName+".sh"
 	shFileName = "Jobsubmit/"+shFile
 	inputFile = sampleName+".root"
 	prepareCshJob(inputFile,shFileName)	
-   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
-   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
+#   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
+#   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
+   	logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/"+"sampleNumber_"+sampleNumber+".log"
+   	errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/"+"sampleNumber_"+sampleNumber+".err"
 	print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
 
 

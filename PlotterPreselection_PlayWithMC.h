@@ -24,21 +24,13 @@ float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
 double wTTTT = (SigSF*LUMI*0.00821)/
 //tt
 //double wTT = 
-double wTTJets =   
+double wTTJets = (LUMI*746.7)/(-)//746.7 //  7.467e+02 +- 2.820e+00 pb 
 //double wTTGamma_SL
 //double wTTGamma_DL
-double wTTGJets
+double wTTGJets = (LUMI*)/(-)
 double wttZJets         //Special care is taken when scaling the ttZ background to the cross-section
-//double wTTWJetsToLNu
-//double wTTWJetsToQQ
 double wttWJets//not
-//double wTTZToQQ
-//double wTTZToLL
-//double wTTZToLLNuNu
-//double wttHToNonbb
-//need bb? 
-double wttHJetToNonbb
-double wttHJetTobb
+double wttH
 double wttbb
 //diboson and triboson an w/z+jets
 double wWZ
@@ -47,7 +39,7 @@ double wWW
 ///double wWWTo2L2Nu //not avalible
 //double wWWTo2L2Nu_DoubleScattering
 double wWpWpJJ
-double wZZ
+double wZZ   //
 //double wZZTo2Tau2Nu
 //double wZZTo2Q2Nu
 //double wZZTo2L2Q
@@ -61,12 +53,9 @@ double wWWG//not
 double wZZZ
 double wWZZ
 double wWZG
-double wWGG//not
-//double wWGGJets//not
-//double wZGGToLLGG
+//double wWGG//not
+double wWGGJets//not
 double wZGGJets
-//double wWZJToLLLNu
-//double wWWJTo2L2Nu
 double wWJetsToLNu
 //?missing ZJets?
 //Drell-Yan
@@ -77,8 +66,26 @@ double wtZq_nunu
 double wST_tW_antitop
 double wST_tW_top
 double wTGJets
+double wTHW
+double wTHQ
 //H 
 double wVHToNonbb
+double wZHToTauTau
+double wZH_HToBB_ZToLL
+double wGluGluHToZZTo4L
+double wGluGluHToBB
+double wGluGluHToGG
+double wGluGluHToMuMu
+double wGluGluHToTauTau
+double wGluGluHToWWTo2L2Nu
+double wGluGluHToWWToLNuQQ
+double wVBFHToWWToLNuQQ
+double wVBFHToWWTo2L2Nu
+double wVBFHToTauTau
+double wVBFHToMuMu
+double wVBFHToGG
+double wVBFHToBB
+double wVBF_HToZZTo4L
 
 //HH count as minor
 //minor
