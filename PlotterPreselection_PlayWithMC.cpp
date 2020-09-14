@@ -10,6 +10,7 @@
 #include <iostream>
 #include "TROOT.h"
 #include "TMath.h"
+#include "TString.h"
 void PlotterPreselection_PlayWithMC(){ 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -31,6 +32,7 @@ void PlotterPreselection_PlayWithMC(){
   name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //// //// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
   name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
+  /*
  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
   name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Third Jet Pt");
   name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Fourth Jet Pt");
@@ -58,7 +60,7 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
 // name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
- 
+ */
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
  // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
 //  name.push_back("Sphericity");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Sphericity");
@@ -67,14 +69,13 @@ void PlotterPreselection_PlayWithMC(){
 //
 //
   /*}}}*/
-  
   for(int i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
-      //
-    sprintf(CUTpre,"((NumSelLeps==0))");/*{{{*/
+//    sprintf(CUTpre,"((NumSelLeps==0))");/*{{{*/
+    sprintf(CUTpre,"((NumOfTausL>0))");/*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
 	///did we multiply PUWeight etc or not?	//I think yes
@@ -100,7 +101,7 @@ void PlotterPreselection_PlayWithMC(){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
-	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR,QCD_HT200to300_SR,     QCD_HT300to500_SR,   QCD_HT500to700_SR,   QCD_HT700to1000_SR,   QCD_HT1000to1500_SR,   QCD_HT1500to2000_SR,   	   QCD_HT2000toIn_SR,   TTJets_SR,   TTWJets_SR,   TTZ_SR,  TT_SR, TTTT_SR );//682
+	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR,TTJets_SR,   /*  QCD_HT300to500_SR,*/   ttZJets_SR,   ttWJets_SR,   /*QCD_HT1000to1500_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */ WpWpJJ_SR, /*  TTZToQQ_SR,*/ /* TT_SR,*/ TTTT_SR );//682
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -315,17 +316,17 @@ void PlotterPreselection_PlayWithMC(){
 	
 
 //		Double_t dataErr   = 0; Float_t dataYield = data_SR->IntegralAndError(1,TTTT_SR->GetNbinsX()-1,dataErr,"");/*{{{*/
-		Double_t QCD_HT200to300Err   = 0; Float_t QCD_HT200to300Yield = QCD_HT200to300_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT200to300Err,"");
-		Double_t QCD_HT300to500Err   = 0; Float_t QCD_HT300to500Yield = QCD_HT300to500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT300to500Err,"");
-		Double_t QCD_HT500to700Err   = 0; Float_t QCD_HT500to700Yield = QCD_HT500to700_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT500to700Err,"");
-		Double_t QCD_HT700to1000Err   = 0; Float_t QCD_HT700to1000Yield = QCD_HT700to1000_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT700to1000Err,"");
-		Double_t QCD_HT1500to2000Err   = 0; Float_t QCD_HT1500to2000Yield = QCD_HT1500to2000_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT1500to2000Err,"");
-		Double_t QCD_HT2000toInErr   = 0; Float_t QCD_HT2000toInYield = QCD_HT2000toIn_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT2000toInErr,"");
-		Double_t QCD_HT1000to1500Err   = 0; Float_t QCD_HT1000to1500Yield = QCD_HT1000to1500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT1000to1500Err,"");
 		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
-		Double_t TTWJetsErr = 0; Float_t TTWJetsYield = TTWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTWJetsErr,"");
-		Double_t TTZErr = 0; Float_t TTZYield = TTZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTZErr,"");
-		Double_t TTErr = 0; Float_t TTYield = TT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTErr,"");
+//		Double_t QCD_HT300to500Err   = 0; Float_t QCD_HT300to500Yield = QCD_HT300to500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT300to500Err,"");
+		Double_t ttZJetsErr   = 0; Float_t ttZJetsYield = ttZJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttZJetsErr,"");
+		Double_t ttWJetsErr   = 0; Float_t ttWJetsYield = ttWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttWJetsErr,"");
+		Double_t ttbbErr   = 0; Float_t ttbbYield = ttbb_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttbbErr,"");
+		Double_t WZErr   = 0; Float_t WZYield = WZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WZErr,"");
+//		Double_t QCD_HT1000to1500Err   = 0; Float_t QCD_HT1000to1500Yield = QCD_HT1000to1500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT1000to1500Err,"");
+//		Double_t WWErr   = 0; Float_t WWYield = WW_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WWErr,"");
+		Double_t WpWpJJErr = 0; Float_t WpWpJJYield = WpWpJJ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WpWpJJErr,"");
+//		Double_t TTZToQQErr = 0; Float_t TTZToQQYield = TTZToQQ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTZToQQErr,"");
+//		Double_t TTErr = 0; Float_t TTYield = TT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTErr,"");
 
 		Double_t TTTT_Err= 0; Float_t TTTT_Yield = TTTT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTTT_Err,"");
 
@@ -333,14 +334,27 @@ void PlotterPreselection_PlayWithMC(){
       cout<<endl;
       //cout<<"Plotting "<<name[i]<<endl;
     //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
-      cout<<"QCD   = "<<QCD_HT200to300_SR->Integral()+QCD_HT300to500_SR->Integral()+QCD_HT500to700_SR->Integral()+QCD_HT700to1000_SR->Integral()+QCD_HT1500to2000_SR->Integral()+QCD_HT2000toIn_SR->Integral()+QCD_HT1000to1500_SR->Integral()<<" +/- "<<
-	sqrt(QCD_HT200to300Err*QCD_HT200to300Err+QCD_HT300to500Err*QCD_HT300to500Err+QCD_HT500to700Err*QCD_HT500to700Err+QCD_HT700to1000Err*QCD_HT700to1000Err+QCD_HT1500to2000Err*QCD_HT1500to2000Err+QCD_HT2000toInErr*QCD_HT2000toInErr+QCD_HT1000to1500Err*QCD_HT1000to1500Err)<<endl;
-      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
-	  cout<<"TTWJets    = "<<TTWJets_SR->Integral()<<" +/- "<<sqrt(TTWJetsErr*TTWJetsErr)<<endl;
-	  cout<<"TTZ       = "<<TTZ_SR->Integral()<<" +/- "<<sqrt(TTZErr*TTZErr)<<endl;
-	  cout<<"TT       = "<<TT_SR->Integral()<<" +/- "<<sqrt(TTErr*TTErr)<<endl;
-	  cout<<"Total BKG = "<<QCD_HT200to300_SR->Integral()+QCD_HT300to500_SR->Integral()+QCD_HT500to700_SR->Integral()+QCD_HT700to1000_SR->Integral()+QCD_HT1500to2000_SR->Integral()+QCD_HT2000toIn_SR->Integral()+QCD_HT1000to1500_SR->Integral()+TTJets_SR->Integral()+TTWJets_SR->Integral()+TTZ_SR->Integral() +TT_SR->Integral()<<" +/- "<<
-		  sqrt(QCD_HT200to300Err*QCD_HT200to300Err+QCD_HT300to500Err*QCD_HT300to500Err+QCD_HT500to700Err*QCD_HT500to700Err+QCD_HT700to1000Err*QCD_HT700to1000Err+QCD_HT1500to2000Err*QCD_HT1500to2000Err+QCD_HT2000toInErr*QCD_HT2000toInErr+QCD_HT1000to1500Err*QCD_HT1000to1500Err+TTJetsErr*TTJetsErr+TTWJetsErr*TTWJetsErr+TTZErr*TTZErr)<<endl;
+//      cout<<"QCD   = "<<TTJets_SR->Integral()
+//          +QCD_HT300to500_SR->Integral()
+//          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()+QCD_HT1000to1500_SR->Integral()<<" +/- "<<
+//	sqrt(WWErr*WWErr
+//            +QCD_HT300to500Err*QCD_HT300to500Err
+//            +ttZJetsErr*ttZJetsErr+ttWJetsErr*ttWJetsErr+ttbbErr*ttbbErr+WZErr*WZErr+QCD_HT1000to1500Err*QCD_HT1000to1500Err)<<endl;
+//      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
+//	  cout<<"WpWpJJ    = "<<WpWpJJ_SR->Integral()<<" +/- "<<sqrt(WpWpJJErr*WpWpJJErr)<<endl;
+//	  cout<<"TTZToQQ       = "<<TTZToQQ_SR->Integral()<<" +/- "<<sqrt(TTZToQQErr*TTZToQQErr)<<endl;
+//	  cout<<"TT       = "<<TT_SR->Integral()<<" +/- "<<sqrt(TTErr*TTErr)<<endl;
+
+	  cout<<"Total BKG = "<<TTJets_SR->Integral()
+//          +QCD_HT300to500_SR->Integral()
+          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral();
+//          +QCD_HT1000to1500_SR->Integral()
+//          +WW_SR->Integral()+WpWpJJ_SR->Integral()
+//          +TTZToQQ_SR->Integral()
+//          +TT_SR->Integral()<<
+//           " +/- "<<sqrt(TTJetsErr*TTJetsErr
+//                  +QCD_HT300to500Err*QCD_HT300to500Err
+  //                +ttZJetsErr*ttZJetsErr+ttWJetsErr*ttWJetsErr+ttbbErr*ttbbErr+WZErr*WZErr/*+QCD_HT1000to1500Err*QCD_HT1000to1500Err+WWErr*WWErr+WpWpJJErr*WpWpJJErr+TTZToQQErr*TTZToQQErr*/)<<endl;
       cout<<"TTTT = "<<TTTT_SR->Integral()<<" +/- "<<sqrt(TTTT_Err*TTTT_Err)<<endl;
       
 	}/*}}}*/
@@ -351,22 +365,31 @@ void PlotterPreselection_PlayWithMC(){
 		TTTT_SR->SetLineWidth(2);
         /*{{{*/
 		TTTT_SR->SetLineColor(2);
-		QCD_HT200to300_SR->SetLineWidth(2); QCD_HT300to500_SR->SetLineWidth(2);QCD_HT500to700_SR->SetLineWidth(2); QCD_HT700to1000_SR->SetLineWidth(2); QCD_HT1500to2000_SR->SetLineWidth(2); QCD_HT2000toIn_SR->SetLineWidth(2); QCD_HT1000to1500_SR->SetLineWidth(2);
-		TTJets_SR->SetLineWidth(2);
-		TTWJets_SR->SetLineWidth(2);
-		TTZ_SR->SetLineWidth(2);
-		TT_SR->SetLineWidth(2);
+		TTJets_SR->SetLineWidth(2); 
+//        QCD_HT300to500_SR->SetLineWidth(2);
+        ttZJets_SR->SetLineWidth(2); ttWJets_SR->SetLineWidth(2); ttbb_SR->SetLineWidth(2); WZ_SR->SetLineWidth(2); 
+        //QCD_HT1000to1500_SR->SetLineWidth(2);
+//		WW_SR->SetLineWidth(2);
+		WpWpJJ_SR->SetLineWidth(2);
+//		TTZToQQ_SR->SetLineWidth(2);
+//		TT_SR->SetLineWidth(2);
 
-		QCD_HT200to300_SR->SetLineColor(kOrange); QCD_HT300to500_SR->SetLineColor(kOrange);QCD_HT500to700_SR->SetLineColor(kOrange); QCD_HT700to1000_SR->SetLineColor(kOrange); QCD_HT1500to2000_SR->SetLineColor(kOrange); QCD_HT2000toIn_SR->SetLineColor(kOrange); QCD_HT1000to1500_SR->SetLineColor(kOrange);
-		TTJets_SR->SetLineColor(kGreen-3);
-		TTWJets_SR->SetLineColor(kCyan-4);
-		TTZ_SR->SetLineColor(kGreen+3); 
-		TT_SR->SetLineColor(kGreen-4); 
+		TTJets_SR->SetLineColor(kOrange); 
+//        QCD_HT300to500_SR->SetLineColor(kOrange);
+        ttZJets_SR->SetLineColor(kOrange); ttWJets_SR->SetLineColor(kOrange); ttbb_SR->SetLineColor(kOrange); WZ_SR->SetLineColor(kOrange); 
+//        QCD_HT1000to1500_SR->SetLineColor(kOrange);
+//		WW_SR->SetLineColor(kGreen-3);
+		WpWpJJ_SR->SetLineColor(kCyan-4);
+//		TTZToQQ_SR->SetLineColor(kGreen+3); 
+//		TT_SR->SetLineColor(kGreen-4); 
 
-		QCD_HT200to300_SR->SetFillColor(kOrange); QCD_HT300to500_SR->SetFillColor(kOrange);QCD_HT500to700_SR->SetFillColor(kOrange); QCD_HT700to1000_SR->SetFillColor(kOrange); QCD_HT1500to2000_SR->SetFillColor(kOrange); QCD_HT2000toIn_SR->SetFillColor(kOrange); QCD_HT1000to1500_SR->SetFillColor(kOrange);
-	//	TTJets_SR->SetFillColor(kGreen-3);
-	//	TTWJets_SR->SetFillColor(kCyan-4);
-	//	TTZ_SR->SetFillColor(kGreen+3);
+		TTJets_SR->SetFillColor(kOrange); 
+//        QCD_HT300to500_SR->SetFillColor(kOrange);
+        ttZJets_SR->SetFillColor(kOrange); ttWJets_SR->SetFillColor(kOrange); ttbb_SR->SetFillColor(kOrange); WZ_SR->SetFillColor(kOrange); 
+//        QCD_HT1000to1500_SR->SetFillColor(kOrange);
+	//	WW_SR->SetFillColor(kGreen-3);
+	//	WpWpJJ_SR->SetFillColor(kCyan-4);
+	//	TTZToQQ_SR->SetFillColor(kGreen+3);
 
 //		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
 
@@ -473,23 +496,23 @@ void PlotterPreselection_PlayWithMC(){
    // THStack *hs = new THStack("hs","hs");
     TH1::SetDefaultSumw2();
     TH1F *hs = new TH1F("hs","h1+h2",bin[i],Min[i],Max[i]);
-    //hs->Add(TTZ_SR);
-    //hs->Add(TTWJets_SR);
+    //hs->Add(TTZToQQ_SR);
+    //hs->Add(WpWpJJ_SR);
     //hs->Add(TTJets_SR);
-    /*hs->Add(QCD_HT200to300_SR);
+    /*hs->Add(TTJets_SR);
     hs->Add(QCD_HT300to500_SR);
-    hs->Add(QCD_HT500to700_SR);
-    hs->Add(QCD_HT700to1000_SR);
-    hs->Add(QCD_HT1500to2000_SR);
-    hs->Add(QCD_HT2000toIn_SR);
+    hs->Add(ttZJets_SR);
+    hs->Add(ttWJets_SR);
+    hs->Add(ttbb_SR);
+    hs->Add(WZ_SR);
     hs->Add(QCD_HT1000to1500_SR);*/
-    hs->Add(QCD_HT200to300_SR,QCD_HT300to500_SR,1,1);
-    //hs->Add(QCD_HT300to500_SR,1);
-    hs->Add(QCD_HT500to700_SR,1);
-    hs->Add(QCD_HT700to1000_SR,1);
-    hs->Add(QCD_HT1000to1500_SR,1);
-    hs->Add(QCD_HT1500to2000_SR,1);
-    hs->Add(QCD_HT2000toIn_SR,1);
+//    hs->Add(WW_SR,QCD_HT300to500_SR,1,1);//TTG
+    hs->Add(TTJets_SR,ttZJets_SR,1,1);//TTG
+//    hs->Add(ttZJets_SR,1);
+    hs->Add(ttWJets_SR,1);
+//    hs->Add(QCD_HT1000to1500_SR,1);
+    hs->Add(ttbb_SR,1);
+//    hs->Add(WZ_SR,1);
 	
     
 	hs->SetLineWidth(2);
@@ -513,30 +536,30 @@ void PlotterPreselection_PlayWithMC(){
    // TTTT_SR->Draw("samehisto");
       TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
-  //  TTWJets_SR->Draw("samehisto");
-//    TTZ_SR->Draw("samehisto");
+  //  WpWpJJ_SR->Draw("samehisto");
+//    TTZToQQ_SR->Draw("samehisto");
 	background_SR->SetLineWidth(2);
 	background_SR->SetLineColor(kViolet-2); 
    // background_SR->Draw("samehisto");
     background_SR->DrawNormalized("samehist", 1);
-    
-    //TH1F * TTX = TTJets_SR + TTWJets_SR + TTZ_SR;
+   /* 
+    //TH1F * TTX = TTJets_SR + WpWpJJ_SR + TTZToQQ_SR;
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
-    TTX->Add(TTZ_SR,TTWJets_SR,1,1);
-//    TTX->Add(TTJets_SR,TTWJets_SR,1,1);
-//    TTX->Add(TTZ_SR,1);
+    TTX->Add(TTZToQQ_SR,WpWpJJ_SR,1,1);
+//    TTX->Add(TTJets_SR,WpWpJJ_SR,1,1);
+//    TTX->Add(TTZToQQ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
 //    TTX->Draw("samehisto");
     TTX->DrawNormalized("samehist", 1);
-	TT_SR->SetLineWidth(2);
-	TT_SR->SetLineColor(kOrange); 
+//	TT_SR->SetLineWidth(2);
+//	TT_SR->SetLineColor(kOrange); 
 //    TTX->Draw("samehisto");
-    TT_SR->DrawNormalized("samehist", 1);
-
+    //TT_SR->DrawNormalized("samehist", 1);
+*/
    // TTJets_SR->Draw("samehisto");
-   // TTWJets_SR->Draw("samehisto");
-   // TTZ_SR->Draw("samehisto");
+   // WpWpJJ_SR->Draw("samehisto");
+   // TTZToQQ_SR->Draw("samehisto");
 		//why background add up to meet data?
     //data_SR->Draw("E same"); 
     
@@ -618,10 +641,10 @@ void PlotterPreselection_PlayWithMC(){
     TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
     ple2 = pl2->AddEntry(hs, "QCD",  "L");
    // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
-   // ple2 = pl2->AddEntry(TTWJets_SR, "TTWJets",  "L");
-   // ple2 = pl2->AddEntry(TTZ_SR, "TTZ",  "L");
-    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
-    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
+   // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
+   // ple2 = pl2->AddEntry(TTZToQQ_SR, "TTZToQQ",  "L");
+//    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+//    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
     ple2 = pl2->AddEntry(background_SR, "background",  "L");
     pl2->Draw();
     
@@ -629,8 +652,9 @@ void PlotterPreselection_PlayWithMC(){
     cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
     c1->Draw(); 
 
   }
@@ -655,147 +679,156 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 //for MC we multiply the scale factor, adjust error accordingly , and make background histogram
 //we get histograms based on CUT from MC and data,and we
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &QCD_HT200to300_func,TH1F* &QCD_HT300to500_func,TH1F* &QCD_HT500to700_func,  TH1F*  &QCD_HT700to1000_func,TH1F* &QCD_HT1000to1500_func,TH1F* &QCD_HT1500to2000_func,TH1F* &QCD_HT2000toIn_func,
-                 TH1F* &TTJets_func,TH1F* &TTWJets_func,TH1F* &TTZ_func,TH1F* &TT_func, TH1F* &TTTT_func){
+               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,/*TH1F* &QCD_HT300to500_func,*/TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,/*TH1F* &QCD_HT1000to1500_func,*/TH1F* &ttbb_func,TH1F* &WZ_func,
+                /* TH1F* &WW_func,*/TH1F* &WpWpJJ_func,/*TH1F* &TTZToQQ_func,*//*TH1F* &TT_func,*/ TH1F* &TTTT_func){
       //no background
      // TH1F *data;
       TH1F *TTTT;/*{{{*/
-      TH1F *QCD_HT200to300;
-      TH1F *QCD_HT300to500;
-      TH1F *QCD_HT500to700;
-      TH1F *QCD_HT700to1000;
-      TH1F *QCD_HT1000to1500;
-      TH1F *QCD_HT1500to2000;
-      TH1F *QCD_HT2000toIn;
       TH1F *TTJets;
-      TH1F *TTWJets;
-      TH1F *TTZ;
-      TH1F* TT;/*}}}*/
+//      TH1F *QCD_HT300to500;
+      TH1F *ttZJets;
+      TH1F *ttWJets;
+//      TH1F *QCD_HT1000to1500;
+      TH1F *ttbb;
+      TH1F *WZ;
+//      TH1F *WW;
+      TH1F *WpWpJJ;
+//      TH1F *TTZToQQ;
+//      TH1F* TT;/*}}}*/
         //what is JETSyst?
         //given at each call of the function.0,1,2,3,or 4
-      if(JETSyst==0){/*{{{*/
+      if(JETSyst==0){
        // GetHisto(CUT, Tree01, data        ,plot,BIN,MIN,MAX);//tree01 different number means different files' tree
         GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree03, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree04, QCD_HT300to500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree05, QCD_HT500to700 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree06, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree07, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree08, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree09, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree10, TTJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree11, TTWJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree12, TTZ ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree13, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree03, TTJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree04, QCD_HT300to500 ,plot,BIN,MIN,MAX);////TTGJets
+        GetHisto(CUT, Tree05, ttZJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree06, ttWJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree07, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);//ttH
+        GetHisto(CUT, Tree08, ttbb ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree09, WZ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree10, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree11, WpWpJJ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree12, TTZToQQ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree13, TT ,plot,BIN,MIN,MAX);
       }
+      /*
         else if(JETSyst==1){
        // GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);//J1 from JESup directory
         GetHisto(CUT, Tree02_J1, TTTT ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree03_J1, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree04_J1, QCD_HT300to500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree05_J1, QCD_HT500to700 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree06_J1, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree07_J1, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree08_J1, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree09_J1, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree10_J1, TTJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree11_J1, TTWJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree12_J1, TTZ ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree13_J1, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree03_J1, TTJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree04_J1, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree05_J1, ttZJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree06_J1, ttWJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree07_J1, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree08_J1, ttbb ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree09_J1, WZ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree10_J1, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree11_J1, WpWpJJ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree12_J1, TTZToQQ ,plot,BIN,MIN,MAX);
+  //      GetHisto(CUT, Tree13_J1, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==2){
        // GetHisto(CUT, Tree01_J2, data        ,plot,BIN,MIN,MAX);//J2 from JESdo
         GetHisto(CUT, Tree02_J2, TTTT ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree03_J2, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree04_J2, QCD_HT300to500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree05_J2, QCD_HT500to700 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree06_J2, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree07_J2, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree08_J2, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree09_J2, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree10_J2, TTJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree11_J2, TTWJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree12_J2, TTZ ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree13_J2, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree03_J2, TTJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree04_J2, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree05_J2, ttZJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree06_J2, ttWJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree07_J2, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree08_J2, ttbb ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree09_J2, WZ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree10_J2, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree11_J2, WpWpJJ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree12_J2, TTZToQQ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree13_J2, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==3){
        // GetHisto(CUT, Tree01_J3, data        ,plot,BIN,MIN,MAX);//J3 from JERup
         GetHisto(CUT, Tree02_J3, TTTT ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree03_J3, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree04_J3, QCD_HT300to500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree05_J3, QCD_HT500to700 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree06_J3, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree07_J3, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree08_J3, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree09_J3, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree10_J3, TTJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree11_J3, TTWJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree12_J3, TTZ ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree13_J3, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree03_J3, TTJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree04_J3, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree05_J3, ttZJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree06_J3, ttWJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree07_J3, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree08_J3, ttbb ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree09_J3, WZ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree10_J3, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree11_J3, WpWpJJ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree12_J3, TTZToQQ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree13_J3, TT ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==4){
        // GetHisto(CUT, Tree01_J4, data        ,plot,BIN,MIN,MAX);//from JERdo
         GetHisto(CUT, Tree02_J4, TTTT ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree03_J4, QCD_HT200to300 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree04_J4, QCD_HT300to500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree05_J4, QCD_HT500to700 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree06_J4, QCD_HT700to1000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree07_J4, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree08_J4, QCD_HT1500to2000 ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree09_J4, QCD_HT2000toIn ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree10_J4, TTJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree11_J4, TTWJets ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree12_J4, TTZ ,plot,BIN,MIN,MAX);
-        GetHisto(CUT, Tree13_J4, TT ,plot,BIN,MIN,MAX);
-      }/*}}}*/
+        GetHisto(CUT, Tree03_J4, TTJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree04_J4, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree05_J4, ttZJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree06_J4, ttWJets ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree07_J4, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree08_J4, ttbb ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree09_J4, WZ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree10_J4, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree11_J4, WpWpJJ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree12_J4, TTZToQQ ,plot,BIN,MIN,MAX);
+//        GetHisto(CUT, Tree13_J4, TT ,plot,BIN,MIN,MAX);
+      }
+*/
+
  // TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
       TH1F *background = new TH1F("","",TTTT->GetNbinsX(),TTTT->GetXaxis()->GetXmin(),TTTT->GetXaxis()->GetXmax());
       //for(int j=1; j<data->GetNbinsX()+1; j++){
       for(int j=1; j<TTTT->GetNbinsX()+1; j++){/*{{{*/
             //why do we reset the bin error?
         if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(wTTTT*wTTTT*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
-        if(QCD_HT200to300->GetBinContent(j)>0){QCD_HT200to300->SetBinError(j,sqrt(wQCD200to300*wQCD200to300*QCD_HT200to300->GetBinContent(j)));}else{QCD_HT200to300->SetBinError(j,0);}
-        if(QCD_HT300to500->GetBinContent(j)>0){QCD_HT300to500->SetBinError(j,sqrt(wQCD300to500*wQCD300to500*QCD_HT300to500->GetBinContent(j)));}else{QCD_HT300to500->SetBinError(j,0);}
-        if(QCD_HT500to700->GetBinContent(j)>0){QCD_HT500to700->SetBinError(j,sqrt(wQCD500to700*wQCD500to700*QCD_HT500to700->GetBinContent(j)));}else{QCD_HT500to700->SetBinError(j,0);}
-        if(QCD_HT700to1000 ->GetBinContent(j)>0){QCD_HT700to1000 ->SetBinError(j,sqrt(wQCD700to1000*wQCD700to1000*QCD_HT700to1000 ->GetBinContent(j)));}else{QCD_HT700to1000 ->SetBinError(j,0);}
-        if(QCD_HT1000to1500 ->GetBinContent(j)>0){QCD_HT1000to1500 ->SetBinError(j,sqrt(wQCD1000to1500*wQCD1000to1500*QCD_HT1000to1500 ->GetBinContent(j)));}else{QCD_HT1000to1500 ->SetBinError(j,0);}
-        if(QCD_HT1500to2000 ->GetBinContent(j)>0){QCD_HT1500to2000 ->SetBinError(j,sqrt(wQCD1500to2000*wQCD1500to2000*QCD_HT1500to2000 ->GetBinContent(j)));}else{QCD_HT1500to2000 ->SetBinError(j,0);}
-        if(QCD_HT2000toIn ->GetBinContent(j)>0){QCD_HT2000toIn ->SetBinError(j,sqrt(wQCD2000toIn*wQCD2000toIn*QCD_HT2000toIn ->GetBinContent(j)));}else{QCD_HT2000toIn ->SetBinError(j,0);}
-        if(TTJets ->GetBinContent(j)>0){TTJets ->SetBinError(j,sqrt(wTTJets*wTTJets*TTJets ->GetBinContent(j)));}else{TTJets ->SetBinError(j,0);}//wTTJets);}
-        if(TTWJets ->GetBinContent(j)>0){TTWJets ->SetBinError(j,sqrt(wTTWJets*wTTWJets*TTWJets ->GetBinContent(j)));}else{TTWJets ->SetBinError(j,0);}//wTTWJets);}
-        if(TTZ ->GetBinContent(j)>0){TTZ ->SetBinError(j,sqrt(wTTZ*wTTZ*TTZ ->GetBinContent(j)));}else{TTZ ->SetBinError(j,0);}
-        if(TT ->GetBinContent(j)>0){TT ->SetBinError(j,sqrt(wTT*wTT*TT ->GetBinContent(j)));}else{TT ->SetBinError(j,0);}
+        if(TTJets->GetBinContent(j)>0){TTJets->SetBinError(j,sqrt(wTTJets*wTTJets*TTJets->GetBinContent(j)));}else{TTJets->SetBinError(j,0);}
+//        if(QCD_HT300to500->GetBinContent(j)>0){QCD_HT300to500->SetBinError(j,sqrt(wQCD300to500*wQCD300to500*QCD_HT300to500->GetBinContent(j)));}else{QCD_HT300to500->SetBinError(j,0);}
+        if(ttZJets->GetBinContent(j)>0){ttZJets->SetBinError(j,sqrt(wttZJets*wttZJets*ttZJets->GetBinContent(j)));}else{ttZJets->SetBinError(j,0);}
+        if(ttWJets ->GetBinContent(j)>0){ttWJets ->SetBinError(j,sqrt(wttWJets*wttWJets*ttWJets ->GetBinContent(j)));}else{ttWJets ->SetBinError(j,0);}
+//        if(QCD_HT1000to1500 ->GetBinContent(j)>0){QCD_HT1000to1500 ->SetBinError(j,sqrt(wQCD1000to1500*wQCD1000to1500*QCD_HT1000to1500 ->GetBinContent(j)));}else{QCD_HT1000to1500 ->SetBinError(j,0);}
+        if(ttbb ->GetBinContent(j)>0){ttbb ->SetBinError(j,sqrt(wttbb*wttbb*ttbb ->GetBinContent(j)));}else{ttbb ->SetBinError(j,0);}
+        if(WZ ->GetBinContent(j)>0){WZ ->SetBinError(j,sqrt(wWZ*wWZ*WZ ->GetBinContent(j)));}else{WZ ->SetBinError(j,0);}
+//        if(WW ->GetBinContent(j)>0){WW ->SetBinError(j,sqrt(wWW*wWW*WW ->GetBinContent(j)));}else{WW ->SetBinError(j,0);}//wWW);}
+        if(WpWpJJ ->GetBinContent(j)>0){WpWpJJ ->SetBinError(j,sqrt(wWpWpJJ*wWpWpJJ*WpWpJJ ->GetBinContent(j)));}else{WpWpJJ ->SetBinError(j,0);}//wWpWpJJ);}
+//        if(TTZToQQ ->GetBinContent(j)>0){TTZToQQ ->SetBinError(j,sqrt(wTTZToQQ*wTTZToQQ*TTZToQQ ->GetBinContent(j)));}else{TTZToQQ ->SetBinError(j,0);}
+ //       if(TT ->GetBinContent(j)>0){TT ->SetBinError(j,sqrt(wTT*wTT*TT ->GetBinContent(j)));}else{TT ->SetBinError(j,0);}
 
        // float errdata= data->GetBinError(j)*data->GetBinError(j);
         float errbg =
-            + QCD_HT200to300->GetBinError(j)*QCD_HT200to300->GetBinError(j)
-            + QCD_HT300to500->GetBinError(j)*QCD_HT300to500->GetBinError(j)
-            + QCD_HT500to700->GetBinError(j)*QCD_HT500to700->GetBinError(j)
-            + QCD_HT700to1000->GetBinError(j)*QCD_HT700to1000->GetBinError(j)
-            + QCD_HT1000to1500->GetBinError(j)*QCD_HT1000to1500->GetBinError(j)
-            + QCD_HT1500to2000->GetBinError(j)*QCD_HT1500to2000->GetBinError(j)
-            + QCD_HT2000toIn->GetBinError(j)*QCD_HT2000toIn->GetBinError(j)
-           // + TTJets->GetBinError(j)*TTJets->GetBinError(j)
-            + TTWJets->GetBinError(j)*TTWJets->GetBinError(j)
-            + TTZ->GetBinError(j)*TTZ->GetBinError(j)
-            + TT->GetBinError(j)*TT->GetBinError(j);
+            + TTJets->GetBinError(j)*TTJets->GetBinError(j)
+//            + QCD_HT300to500->GetBinError(j)*QCD_HT300to500->GetBinError(j)
+            + ttZJets->GetBinError(j)*ttZJets->GetBinError(j)
+            + ttWJets->GetBinError(j)*ttWJets->GetBinError(j)
+//            + QCD_HT1000to1500->GetBinError(j)*QCD_HT1000to1500->GetBinError(j)
+            + ttbb->GetBinError(j)*ttbb->GetBinError(j)
+            + WZ->GetBinError(j)*WZ->GetBinError(j)
+           // + WW->GetBinError(j)*WW->GetBinError(j)
+            + WpWpJJ->GetBinError(j)*WpWpJJ->GetBinError(j);
+//            + TTZToQQ->GetBinError(j)*TTZToQQ->GetBinError(j);
+//            + TT->GetBinError(j)*TT->GetBinError(j);
         background->SetBinError(j,sqrt(errbg));
 
         TTTT->SetBinContent(j,wTTTT*TTTT->GetBinContent(j));
-        QCD_HT200to300->SetBinContent(j,wQCD200to300*QCD_HT200to300->GetBinContent(j));
-        QCD_HT300to500->SetBinContent(j,wQCD300to500*QCD_HT300to500->GetBinContent(j));
-        QCD_HT500to700->SetBinContent(j,wQCD500to700*QCD_HT500to700->GetBinContent(j));
-        QCD_HT700to1000->SetBinContent(j,wQCD700to1000*QCD_HT700to1000->GetBinContent(j));
-        QCD_HT1000to1500->SetBinContent(j,wQCD1000to1500*QCD_HT1000to1500->GetBinContent(j));
-        QCD_HT1500to2000->SetBinContent(j,wQCD1500to2000*QCD_HT1500to2000->GetBinContent(j));
-        QCD_HT2000toIn->SetBinContent(j,wQCD2000toIn*QCD_HT2000toIn->GetBinContent(j));
         TTJets->SetBinContent(j,wTTJets*TTJets->GetBinContent(j));
-        TTWJets->SetBinContent(j,wTTWJets*TTWJets->GetBinContent(j));
-        TTZ->SetBinContent(j,wTTZ*TTZ->GetBinContent(j));
-        TT->SetBinContent(j,wTT*TT->GetBinContent(j));
+//        QCD_HT300to500->SetBinContent(j,wQCD300to500*QCD_HT300to500->GetBinContent(j));
+        ttZJets->SetBinContent(j,wttZJets*ttZJets->GetBinContent(j));
+        ttWJets->SetBinContent(j,wttWJets*ttWJets->GetBinContent(j));
+//        QCD_HT1000to1500->SetBinContent(j,wQCD1000to1500*QCD_HT1000to1500->GetBinContent(j));
+        ttbb->SetBinContent(j,wttbb*ttbb->GetBinContent(j));
+        WZ->SetBinContent(j,wWZ*WZ->GetBinContent(j));
+//        WW->SetBinContent(j,wWW*WW->GetBinContent(j));
+        WpWpJJ->SetBinContent(j,wWpWpJJ*WpWpJJ->GetBinContent(j));
+//        TTZToQQ->SetBinContent(j,wTTZToQQ*TTZToQQ->GetBinContent(j));
+//        TT->SetBinContent(j,wTT*TT->GetBinContent(j));
 
         //float DATA = data->GetBinContent(j);
-        float bkg0 =QCD_HT200to300->GetBinContent(j)+  QCD_HT300to500->GetBinContent(j)+ QCD_HT500to700->GetBinContent(j)+ QCD_HT700to1000->GetBinContent(j) + QCD_HT1000to1500->GetBinContent(j) + QCD_HT1500to2000->GetBinContent(j) + QCD_HT2000toIn->GetBinContent(j)  + TTWJets->GetBinContent(j) + TTZ->GetBinContent(j)+ TT->GetBinContent(j);
+        float bkg0 =TTJets->GetBinContent(j)
+//            +  QCD_HT300to500->GetBinContent(j)
+            + ttZJets->GetBinContent(j)+ ttWJets->GetBinContent(j) 
+//            + QCD_HT1000to1500->GetBinContent(j) 
+            + ttbb->GetBinContent(j) + WZ->GetBinContent(j)  + WpWpJJ->GetBinContent(j); 
+//            + TTZToQQ->GetBinContent(j)
+//            + TT->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
     }/*}}}*/
@@ -804,20 +837,28 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       background_func  = (TH1F*)background ->Clone(); 
     //  data_func        = (TH1F*)data       ->Clone(); 
       TTTT_func = (TH1F*)TTTT->Clone(); 
-      QCD_HT200to300_func = (TH1F*)QCD_HT200to300->Clone(); 
-      QCD_HT300to500_func = (TH1F*)QCD_HT300to500->Clone(); 
-      QCD_HT500to700_func = (TH1F*)QCD_HT500to700->Clone(); 
-      QCD_HT700to1000_func   = (TH1F*)QCD_HT700to1000->Clone(); 
-      QCD_HT1000to1500_func   = (TH1F*)QCD_HT1000to1500->Clone(); 
-      QCD_HT1500to2000_func   = (TH1F*)QCD_HT1500to2000->Clone();  
-      QCD_HT2000toIn_func   = (TH1F*)QCD_HT2000toIn->Clone(); 
-      TTJets_func   = (TH1F*)TTJets->Clone();
-      TTWJets_func   = (TH1F*)TTWJets->Clone();
-      TTZ_func   = (TH1F*)TTZ->Clone();
-      TT_func   = (TH1F*)TT->Clone();
+      TTJets_func = (TH1F*)TTJets->Clone(); 
+//      QCD_HT300to500_func = (TH1F*)QCD_HT300to500->Clone(); 
+      ttZJets_func = (TH1F*)ttZJets->Clone(); 
+      ttWJets_func   = (TH1F*)ttWJets->Clone(); 
+//      QCD_HT1000to1500_func   = (TH1F*)QCD_HT1000to1500->Clone(); 
+      ttbb_func   = (TH1F*)ttbb->Clone();  
+      WZ_func   = (TH1F*)WZ->Clone(); 
+//      WW_func   = (TH1F*)WW->Clone();
+      WpWpJJ_func   = (TH1F*)WpWpJJ->Clone();
+//      TTZToQQ_func   = (TH1F*)TTZToQQ->Clone();
+//      TT_func   = (TH1F*)TT->Clone();
 
       //delete data;
-      delete background;delete TTTT; delete QCD_HT200to300;delete QCD_HT300to500; delete QCD_HT500to700; delete QCD_HT700to1000; delete QCD_HT1000to1500; delete QCD_HT1500to2000; delete QCD_HT2000toIn;  delete TTJets;  delete TTWJets;  delete TTZ;  delete TT;
+      delete background;delete TTTT; delete TTJets;
+//      delete QCD_HT300to500;
+      delete ttZJets; delete ttWJets; 
+//      delete QCD_HT1000to1500;
+      delete ttbb; delete WZ; 
+//      delete WW;
+      delete WpWpJJ; 
+//      delete TTZToQQ;  
+//      delete TT;
     
 }
 
