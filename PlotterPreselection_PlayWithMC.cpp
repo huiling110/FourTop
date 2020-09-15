@@ -48,7 +48,7 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Tenth Jet Pt");
   name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("Third B Jet Pt");
   name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
-////// // name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
+ // name.push_back("FifthBJetPt");      bin.push_back(100);     Min.push_back(-100);    Max.push_back(800);    axis.push_back("Fifth B Jet Pt");
   name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2.5);    axis.push_back("Min delta R of Jets");
   name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(2);    Max.push_back(6);    axis.push_back("Maximum delta R of Jets");
   name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Min delta R of B Jets");
@@ -61,21 +61,28 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
 // name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
  */
- // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
- // name.push_back("");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("");
-//  name.push_back("Sphericity");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("Sphericity");
+  name.push_back("LeadingLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("Leading lepton pt");
+  name.push_back("SecondLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Second lepton pt");
+  name.push_back("ThirdLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Third lepton pt");
+  name.push_back("LeadingTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading tau pt");
+  name.push_back("SecondTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Second tau pt");
+  name.push_back("NumofTops");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of tops");
+  name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading top pt");
+  name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second top pt");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //
 //
   /*}}}*/
-  for(int i=0; i<name.size(); i++){
+//  for(int i=0; i<name.size(); i++){
+  for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
-//    sprintf(CUTpre,"((NumSelLeps==0))");/*{{{*/
-    sprintf(CUTpre,"((NumOfTausL>0))");/*{{{*/
+//    sprintf(CUTpre,"((NumOfTausL>0))");
+    sprintf(CUTpre,"((channel_1Tau0L==1))");
+    /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
 	///did we multiply PUWeight etc or not?	//I think yes
@@ -101,7 +108,8 @@ void PlotterPreselection_PlayWithMC(){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
-	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR,TTJets_SR,   /*  QCD_HT300to500_SR,*/   ttZJets_SR,   ttWJets_SR,   /*QCD_HT1000to1500_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */ WpWpJJ_SR, /*  TTZToQQ_SR,*/ /* TT_SR,*/ TTTT_SR );//682
+	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,  /* ttH_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,   TTTT_SR );//682
+
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -317,79 +325,70 @@ void PlotterPreselection_PlayWithMC(){
 
 //		Double_t dataErr   = 0; Float_t dataYield = data_SR->IntegralAndError(1,TTTT_SR->GetNbinsX()-1,dataErr,"");/*{{{*/
 		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
-//		Double_t QCD_HT300to500Err   = 0; Float_t QCD_HT300to500Yield = QCD_HT300to500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT300to500Err,"");
+		Double_t TTGJetsErr   = 0; Float_t TTGJetsYield = TTGJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTGJetsErr,"");
 		Double_t ttZJetsErr   = 0; Float_t ttZJetsYield = ttZJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttZJetsErr,"");
 		Double_t ttWJetsErr   = 0; Float_t ttWJetsYield = ttWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttWJetsErr,"");
 		Double_t ttbbErr   = 0; Float_t ttbbYield = ttbb_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttbbErr,"");
 		Double_t WZErr   = 0; Float_t WZYield = WZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WZErr,"");
-//		Double_t QCD_HT1000to1500Err   = 0; Float_t QCD_HT1000to1500Yield = QCD_HT1000to1500_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),QCD_HT1000to1500Err,"");
+//		Double_t ttHErr   = 0; Float_t ttHYield = ttH_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttHErr,"");
 //		Double_t WWErr   = 0; Float_t WWYield = WW_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WWErr,"");
 		Double_t WpWpJJErr = 0; Float_t WpWpJJYield = WpWpJJ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WpWpJJErr,"");
-//		Double_t TTZToQQErr = 0; Float_t TTZToQQYield = TTZToQQ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTZToQQErr,"");
-//		Double_t TTErr = 0; Float_t TTYield = TT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTErr,"");
-
+		Double_t ZZErr = 0; Float_t ZZYield = ZZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ZZErr,"");
 		Double_t TTTT_Err= 0; Float_t TTTT_Yield = TTTT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTTT_Err,"");
+        //?why not use result of this?
 
     if(i==0){
       cout<<endl;
-      //cout<<"Plotting "<<name[i]<<endl;
+      cout<<"Plotting "<<name[i]<<endl;
     //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
-//      cout<<"QCD   = "<<TTJets_SR->Integral()
-//          +QCD_HT300to500_SR->Integral()
-//          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()+QCD_HT1000to1500_SR->Integral()<<" +/- "<<
-//	sqrt(WWErr*WWErr
-//            +QCD_HT300to500Err*QCD_HT300to500Err
-//            +ttZJetsErr*ttZJetsErr+ttWJetsErr*ttWJetsErr+ttbbErr*ttbbErr+WZErr*WZErr+QCD_HT1000to1500Err*QCD_HT1000to1500Err)<<endl;
-//      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
+      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
 //	  cout<<"WpWpJJ    = "<<WpWpJJ_SR->Integral()<<" +/- "<<sqrt(WpWpJJErr*WpWpJJErr)<<endl;
-//	  cout<<"TTZToQQ       = "<<TTZToQQ_SR->Integral()<<" +/- "<<sqrt(TTZToQQErr*TTZToQQErr)<<endl;
+//	  cout<<"ZZ       = "<<ZZ_SR->Integral()<<" +/- "<<sqrt(ZZErr*ZZErr)<<endl;
 //	  cout<<"TT       = "<<TT_SR->Integral()<<" +/- "<<sqrt(TTErr*TTErr)<<endl;
 
 	  cout<<"Total BKG = "<<TTJets_SR->Integral()
-//          +QCD_HT300to500_SR->Integral()
+          +TTGJets_SR->Integral()
           +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral();
-//          +QCD_HT1000to1500_SR->Integral()
+//          +ttH_SR->Integral()
 //          +WW_SR->Integral()+WpWpJJ_SR->Integral()
-//          +TTZToQQ_SR->Integral()
+          +ZZ_SR->Integral()
 //          +TT_SR->Integral()<<
 //           " +/- "<<sqrt(TTJetsErr*TTJetsErr
-//                  +QCD_HT300to500Err*QCD_HT300to500Err
-  //                +ttZJetsErr*ttZJetsErr+ttWJetsErr*ttWJetsErr+ttbbErr*ttbbErr+WZErr*WZErr/*+QCD_HT1000to1500Err*QCD_HT1000to1500Err+WWErr*WWErr+WpWpJJErr*WpWpJJErr+TTZToQQErr*TTZToQQErr*/)<<endl;
-      cout<<"TTTT = "<<TTTT_SR->Integral()<<" +/- "<<sqrt(TTTT_Err*TTTT_Err)<<endl;
+                  +TTGJetsErr*TTGJetsErr;
+  //                +ttZJetsErr*ttZJetsErr+ttWJetsErr*ttWJetsErr+ttbbErr*ttbbErr+WZErr*WZErr/*+ttHErr*ttHErr+WWErr*WWErr+WpWpJJErr*WpWpJJErr+ZZErr*ZZErr*/)<<endl;
+      cout<<"TTTT = "<<TTTT_SR->Integral()<<" +/- "<<sqrt(TTTT_Err*TTTT_Err)<<"or"<<TTTT_Yield<<endl;
       
 	}/*}}}*/
 
     TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
-
-
 		TTTT_SR->SetLineWidth(2);
         /*{{{*/
 		TTTT_SR->SetLineColor(2);
 		TTJets_SR->SetLineWidth(2); 
-//        QCD_HT300to500_SR->SetLineWidth(2);
+        TTGJets_SR->SetLineWidth(2);
         ttZJets_SR->SetLineWidth(2); ttWJets_SR->SetLineWidth(2); ttbb_SR->SetLineWidth(2); WZ_SR->SetLineWidth(2); 
-        //QCD_HT1000to1500_SR->SetLineWidth(2);
+        //ttH_SR->SetLineWidth(2);
 //		WW_SR->SetLineWidth(2);
 		WpWpJJ_SR->SetLineWidth(2);
-//		TTZToQQ_SR->SetLineWidth(2);
+//		ZZ_SR->SetLineWidth(2);
 //		TT_SR->SetLineWidth(2);
 
 		TTJets_SR->SetLineColor(kOrange); 
-//        QCD_HT300to500_SR->SetLineColor(kOrange);
+        TTGJets_SR->SetLineColor(kOrange);
         ttZJets_SR->SetLineColor(kOrange); ttWJets_SR->SetLineColor(kOrange); ttbb_SR->SetLineColor(kOrange); WZ_SR->SetLineColor(kOrange); 
-//        QCD_HT1000to1500_SR->SetLineColor(kOrange);
+//        ttH_SR->SetLineColor(kOrange);
 //		WW_SR->SetLineColor(kGreen-3);
 		WpWpJJ_SR->SetLineColor(kCyan-4);
-//		TTZToQQ_SR->SetLineColor(kGreen+3); 
+//		ZZ_SR->SetLineColor(kGreen+3); 
 //		TT_SR->SetLineColor(kGreen-4); 
 
 		TTJets_SR->SetFillColor(kOrange); 
-//        QCD_HT300to500_SR->SetFillColor(kOrange);
+        TTGJets_SR->SetFillColor(kOrange);
         ttZJets_SR->SetFillColor(kOrange); ttWJets_SR->SetFillColor(kOrange); ttbb_SR->SetFillColor(kOrange); WZ_SR->SetFillColor(kOrange); 
-//        QCD_HT1000to1500_SR->SetFillColor(kOrange);
+//        ttH_SR->SetFillColor(kOrange);
 	//	WW_SR->SetFillColor(kGreen-3);
 	//	WpWpJJ_SR->SetFillColor(kCyan-4);
-	//	TTZToQQ_SR->SetFillColor(kGreen+3);
+	//	ZZ_SR->SetFillColor(kGreen+3);
 
 //		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
 
@@ -496,21 +495,21 @@ void PlotterPreselection_PlayWithMC(){
    // THStack *hs = new THStack("hs","hs");
     TH1::SetDefaultSumw2();
     TH1F *hs = new TH1F("hs","h1+h2",bin[i],Min[i],Max[i]);
-    //hs->Add(TTZToQQ_SR);
+    //hs->Add(ZZ_SR);
     //hs->Add(WpWpJJ_SR);
     //hs->Add(TTJets_SR);
     /*hs->Add(TTJets_SR);
-    hs->Add(QCD_HT300to500_SR);
+    hs->Add(TTGJets_SR);
     hs->Add(ttZJets_SR);
     hs->Add(ttWJets_SR);
     hs->Add(ttbb_SR);
     hs->Add(WZ_SR);
-    hs->Add(QCD_HT1000to1500_SR);*/
-//    hs->Add(WW_SR,QCD_HT300to500_SR,1,1);//TTG
+    hs->Add(ttH_SR);*/
+//    hs->Add(WW_SR,TTGJets_SR,1,1);//TTG
     hs->Add(TTJets_SR,ttZJets_SR,1,1);//TTG
 //    hs->Add(ttZJets_SR,1);
     hs->Add(ttWJets_SR,1);
-//    hs->Add(QCD_HT1000to1500_SR,1);
+//    hs->Add(ttH_SR,1);
     hs->Add(ttbb_SR,1);
 //    hs->Add(WZ_SR,1);
 	
@@ -534,20 +533,20 @@ void PlotterPreselection_PlayWithMC(){
     hs->DrawNormalized("hist", 1);
     
    // TTTT_SR->Draw("samehisto");
-      TTTT_SR->DrawNormalized("samehist", 1);
+    TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  WpWpJJ_SR->Draw("samehisto");
-//    TTZToQQ_SR->Draw("samehisto");
+//    ZZ_SR->Draw("samehisto");
 	background_SR->SetLineWidth(2);
 	background_SR->SetLineColor(kViolet-2); 
    // background_SR->Draw("samehisto");
     background_SR->DrawNormalized("samehist", 1);
    /* 
-    //TH1F * TTX = TTJets_SR + WpWpJJ_SR + TTZToQQ_SR;
+    //TH1F * TTX = TTJets_SR + WpWpJJ_SR + ZZ_SR;
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
-    TTX->Add(TTZToQQ_SR,WpWpJJ_SR,1,1);
+    TTX->Add(ZZ_SR,WpWpJJ_SR,1,1);
 //    TTX->Add(TTJets_SR,WpWpJJ_SR,1,1);
-//    TTX->Add(TTZToQQ_SR,1);
+//    TTX->Add(ZZ_SR,1);
 	TTX->SetLineWidth(2);
 	TTX->SetLineColor(kAzure); 
 //    TTX->Draw("samehisto");
@@ -559,7 +558,7 @@ void PlotterPreselection_PlayWithMC(){
 */
    // TTJets_SR->Draw("samehisto");
    // WpWpJJ_SR->Draw("samehisto");
-   // TTZToQQ_SR->Draw("samehisto");
+   // ZZ_SR->Draw("samehisto");
 		//why background add up to meet data?
     //data_SR->Draw("E same"); 
     
@@ -639,10 +638,10 @@ void PlotterPreselection_PlayWithMC(){
     pl2->SetFillColor(0);
   //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
     TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
-    ple2 = pl2->AddEntry(hs, "QCD",  "L");
+    ple2 = pl2->AddEntry(hs, "TTX",  "L");
    // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
    // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
-   // ple2 = pl2->AddEntry(TTZToQQ_SR, "TTZToQQ",  "L");
+   // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
 //    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
 //    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
     ple2 = pl2->AddEntry(background_SR, "background",  "L");
@@ -654,7 +653,8 @@ void PlotterPreselection_PlayWithMC(){
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
     c1->Draw(); 
 
   }
@@ -679,99 +679,149 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 //for MC we multiply the scale factor, adjust error accordingly , and make background histogram
 //we get histograms based on CUT from MC and data,and we
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,/*TH1F* &QCD_HT300to500_func,*/TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,/*TH1F* &QCD_HT1000to1500_func,*/TH1F* &ttbb_func,TH1F* &WZ_func,
-                /* TH1F* &WW_func,*/TH1F* &WpWpJJ_func,/*TH1F* &TTZToQQ_func,*//*TH1F* &TT_func,*/ TH1F* &TTTT_func){
+               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,TH1F* &TTGJets_func,TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,/*TH1F* &ttH_func,*/TH1F* &ttbb_func,TH1F* &WZ_func,
+                /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func, TH1F* &TTTT_func){
       //no background
      // TH1F *data;
-      TH1F *TTTT;/*{{{*/
+      TH1F *TTTT;
       TH1F *TTJets;
-//      TH1F *QCD_HT300to500;
+      TH1F *TTGJets;
       TH1F *ttZJets;
       TH1F *ttWJets;
-//      TH1F *QCD_HT1000to1500;
+//      TH1F *ttH;
       TH1F *ttbb;
       TH1F *WZ;
 //      TH1F *WW;
+      TH1F *WWTo2L2Nu;
       TH1F *WpWpJJ;
-//      TH1F *TTZToQQ;
-//      TH1F* TT;/*}}}*/
+      TH1F *ZZ;
+      TH1F* WGJets;
+      TH1F* ZGJetsToLLG;
+      TH1F* WWW;
+      TH1F* WWZ;
+      TH1F* WWG;
+      TH1F* ZZZ;
+      TH1F* WZZ;
+      TH1F* WZG;
+      TH1F* WGG;
         //what is JETSyst?
         //given at each call of the function.0,1,2,3,or 4
       if(JETSyst==0){
        // GetHisto(CUT, Tree01, data        ,plot,BIN,MIN,MAX);//tree01 different number means different files' tree
         GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03, TTJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree04, QCD_HT300to500 ,plot,BIN,MIN,MAX);////TTGJets
+        GetHisto(CUT, Tree04, TTGJets ,plot,BIN,MIN,MAX);////TTGJets
         GetHisto(CUT, Tree05, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);//ttH
+//        GetHisto(CUT, Tree07, ttH ,plot,BIN,MIN,MAX);//ttH
         GetHisto(CUT, Tree08, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10, WW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree10_1, WWTo2L2Nu ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11, WpWpJJ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree12, TTZToQQ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree13, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree12, ZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13, WGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree14, ZGJetsToLLG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree15, WWW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree16, WWZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree17, WWG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree18, ZZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree19, WZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree20, WZG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree21, WGG ,plot,BIN,MIN,MAX);
       }
       /*
         else if(JETSyst==1){
        // GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);//J1 from JESup directory
         GetHisto(CUT, Tree02_J1, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03_J1, TTJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree04_J1, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree04_J1, TTGJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree05_J1, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06_J1, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07_J1, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree07_J1, ttH ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree08_J1, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09_J1, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10_J1, WW ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J1, WpWpJJ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree12_J1, TTZToQQ ,plot,BIN,MIN,MAX);
-  //      GetHisto(CUT, Tree13_J1, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree12_J1, ZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, ZGJetsToLLG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WWW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WWZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WWG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, ZZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WZG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WGG ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==2){
        // GetHisto(CUT, Tree01_J2, data        ,plot,BIN,MIN,MAX);//J2 from JESdo
         GetHisto(CUT, Tree02_J2, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03_J2, TTJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree04_J2, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree04_J2, TTGJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree05_J2, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06_J2, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07_J2, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree07_J2, ttH ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree08_J2, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09_J2, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10_J2, WW ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J2, WpWpJJ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree12_J2, TTZToQQ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree13_J2, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree12_J2, ZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, ZGJetsToLLG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WWW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WWZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WWG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, ZZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WZG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WGG ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==3){
        // GetHisto(CUT, Tree01_J3, data        ,plot,BIN,MIN,MAX);//J3 from JERup
         GetHisto(CUT, Tree02_J3, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03_J3, TTJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree04_J3, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree04_J3, TTGJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree05_J3, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06_J3, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07_J3, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree07_J3, ttH ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree08_J3, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09_J3, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10_J3, WW ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J3, WpWpJJ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree12_J3, TTZToQQ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree13_J3, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree12_J3, ZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, ZGJetsToLLG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WWW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WWZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WWG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, ZZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WZG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WGG ,plot,BIN,MIN,MAX);
       }
         else if(JETSyst==4){
        // GetHisto(CUT, Tree01_J4, data        ,plot,BIN,MIN,MAX);//from JERdo
         GetHisto(CUT, Tree02_J4, TTTT ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree03_J4, TTJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree04_J4, QCD_HT300to500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree04_J4, TTGJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree05_J4, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06_J4, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07_J4, QCD_HT1000to1500 ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree07_J4, ttH ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree08_J4, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09_J4, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10_J4, WW ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree11_J4, WpWpJJ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree12_J4, TTZToQQ ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree13_J4, TT ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree12_J4, ZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, ZGJetsToLLG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4,WWW ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WWZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WWG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, ZZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WZZ ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WZG ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WGG ,plot,BIN,MIN,MAX);
       }
 */
 
@@ -782,53 +832,88 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             //why do we reset the bin error?
         if(TTTT->GetBinContent(j)>0){TTTT->SetBinError(j,sqrt(wTTTT*wTTTT*TTTT->GetBinContent(j)));}else{TTTT->SetBinError(j,0);}
         if(TTJets->GetBinContent(j)>0){TTJets->SetBinError(j,sqrt(wTTJets*wTTJets*TTJets->GetBinContent(j)));}else{TTJets->SetBinError(j,0);}
-//        if(QCD_HT300to500->GetBinContent(j)>0){QCD_HT300to500->SetBinError(j,sqrt(wQCD300to500*wQCD300to500*QCD_HT300to500->GetBinContent(j)));}else{QCD_HT300to500->SetBinError(j,0);}
+        if(TTGJets->GetBinContent(j)>0){TTGJets->SetBinError(j,sqrt(wTTGJets*wTTGJets*TTGJets->GetBinContent(j)));}else{TTGJets->SetBinError(j,0);}
         if(ttZJets->GetBinContent(j)>0){ttZJets->SetBinError(j,sqrt(wttZJets*wttZJets*ttZJets->GetBinContent(j)));}else{ttZJets->SetBinError(j,0);}
         if(ttWJets ->GetBinContent(j)>0){ttWJets ->SetBinError(j,sqrt(wttWJets*wttWJets*ttWJets ->GetBinContent(j)));}else{ttWJets ->SetBinError(j,0);}
-//        if(QCD_HT1000to1500 ->GetBinContent(j)>0){QCD_HT1000to1500 ->SetBinError(j,sqrt(wQCD1000to1500*wQCD1000to1500*QCD_HT1000to1500 ->GetBinContent(j)));}else{QCD_HT1000to1500 ->SetBinError(j,0);}
+//        if(ttH ->GetBinContent(j)>0){ttH ->SetBinError(j,sqrt(wttH*wttH*ttH ->GetBinContent(j)));}else{ttH ->SetBinError(j,0);}
         if(ttbb ->GetBinContent(j)>0){ttbb ->SetBinError(j,sqrt(wttbb*wttbb*ttbb ->GetBinContent(j)));}else{ttbb ->SetBinError(j,0);}
         if(WZ ->GetBinContent(j)>0){WZ ->SetBinError(j,sqrt(wWZ*wWZ*WZ ->GetBinContent(j)));}else{WZ ->SetBinError(j,0);}
 //        if(WW ->GetBinContent(j)>0){WW ->SetBinError(j,sqrt(wWW*wWW*WW ->GetBinContent(j)));}else{WW ->SetBinError(j,0);}//wWW);}
+        if(WWTo2L2Nu ->GetBinContent(j)>0){WWTo2L2Nu ->SetBinError(j,sqrt(wWWTo2L2Nu*wWWTo2L2Nu*WWTo2L2Nu ->GetBinContent(j)));}else{WWTo2L2Nu ->SetBinError(j,0);}//wWWTo2L2Nu);}
         if(WpWpJJ ->GetBinContent(j)>0){WpWpJJ ->SetBinError(j,sqrt(wWpWpJJ*wWpWpJJ*WpWpJJ ->GetBinContent(j)));}else{WpWpJJ ->SetBinError(j,0);}//wWpWpJJ);}
-//        if(TTZToQQ ->GetBinContent(j)>0){TTZToQQ ->SetBinError(j,sqrt(wTTZToQQ*wTTZToQQ*TTZToQQ ->GetBinContent(j)));}else{TTZToQQ ->SetBinError(j,0);}
- //       if(TT ->GetBinContent(j)>0){TT ->SetBinError(j,sqrt(wTT*wTT*TT ->GetBinContent(j)));}else{TT ->SetBinError(j,0);}
+        if(ZZ ->GetBinContent(j)>0){ZZ ->SetBinError(j,sqrt(wZZ*wZZ*ZZ ->GetBinContent(j)));}else{ZZ ->SetBinError(j,0);}
+        if(WGJets ->GetBinContent(j)>0){WGJets ->SetBinError(j,sqrt(wWGJets*wWGJets*WGJets ->GetBinContent(j)));}else{WGJets ->SetBinError(j,0);}
+        if(ZGJetsToLLG ->GetBinContent(j)>0){ZGJetsToLLG ->SetBinError(j,sqrt(wZGJetsToLLG*wZGJetsToLLG*ZGJetsToLLG ->GetBinContent(j)));}else{ZGJetsToLLG ->SetBinError(j,0);}
+        if(WWW ->GetBinContent(j)>0){ WWW->SetBinError(j,sqrt(wWWW*wWWW* WWW->GetBinContent(j)));}else{ WWW->SetBinError(j,0);}
+        if(WWZ ->GetBinContent(j)>0){WWZ ->SetBinError(j,sqrt(wWWZ*wWWZ*WWZ ->GetBinContent(j)));}else{WWZ ->SetBinError(j,0);}
+        if(WWG ->GetBinContent(j)>0){WWG ->SetBinError(j,sqrt(wWWG*wWWG*WWG ->GetBinContent(j)));}else{WWG ->SetBinError(j,0);}
+        if(ZZZ ->GetBinContent(j)>0){ZZZ ->SetBinError(j,sqrt(wZZZ*wZZZ*ZZZ ->GetBinContent(j)));}else{ZZZ ->SetBinError(j,0);}
+        if(WZZ ->GetBinContent(j)>0){WZZ ->SetBinError(j,sqrt(wWZZ*wWZZ*WZZ ->GetBinContent(j)));}else{WZZ ->SetBinError(j,0);}
+        if(WZG ->GetBinContent(j)>0){WZG ->SetBinError(j,sqrt(wWZG*wWZG*WZG ->GetBinContent(j)));}else{WZG ->SetBinError(j,0);}
+        if(WGG ->GetBinContent(j)>0){WGG ->SetBinError(j,sqrt(wWGG*wWGG*WGG ->GetBinContent(j)));}else{WGG ->SetBinError(j,0);}
 
        // float errdata= data->GetBinError(j)*data->GetBinError(j);
         float errbg =
             + TTJets->GetBinError(j)*TTJets->GetBinError(j)
-//            + QCD_HT300to500->GetBinError(j)*QCD_HT300to500->GetBinError(j)
+            + TTGJets->GetBinError(j)*TTGJets->GetBinError(j)
             + ttZJets->GetBinError(j)*ttZJets->GetBinError(j)
             + ttWJets->GetBinError(j)*ttWJets->GetBinError(j)
-//            + QCD_HT1000to1500->GetBinError(j)*QCD_HT1000to1500->GetBinError(j)
+//            + ttH->GetBinError(j)*ttH->GetBinError(j)
             + ttbb->GetBinError(j)*ttbb->GetBinError(j)
             + WZ->GetBinError(j)*WZ->GetBinError(j)
            // + WW->GetBinError(j)*WW->GetBinError(j)
+            + WWTo2L2Nu->GetBinError(j)*WWTo2L2Nu->GetBinError(j)
             + WpWpJJ->GetBinError(j)*WpWpJJ->GetBinError(j);
-//            + TTZToQQ->GetBinError(j)*TTZToQQ->GetBinError(j);
-//            + TT->GetBinError(j)*TT->GetBinError(j);
+            + ZZ->GetBinError(j)*ZZ->GetBinError(j);
+            + WGJets->GetBinError(j)*WGJets->GetBinError(j);
+            + ZGJetsToLLG->GetBinError(j)*ZGJetsToLLG->GetBinError(j);
+            + WWW->GetBinError(j)*WWW->GetBinError(j);
+            + WWZ->GetBinError(j)*WWZ->GetBinError(j);
+            + WWG->GetBinError(j)*WWG->GetBinError(j);
+            + ZZZ->GetBinError(j)*ZZZ->GetBinError(j);
+            + WZZ->GetBinError(j)*WZZ->GetBinError(j);
+            + WZG->GetBinError(j)*WZG->GetBinError(j);
+            + WGG->GetBinError(j)*WGG->GetBinError(j);
         background->SetBinError(j,sqrt(errbg));
 
         TTTT->SetBinContent(j,wTTTT*TTTT->GetBinContent(j));
         TTJets->SetBinContent(j,wTTJets*TTJets->GetBinContent(j));
-//        QCD_HT300to500->SetBinContent(j,wQCD300to500*QCD_HT300to500->GetBinContent(j));
+        TTGJets->SetBinContent(j,wTTGJets*TTGJets->GetBinContent(j));
         ttZJets->SetBinContent(j,wttZJets*ttZJets->GetBinContent(j));
         ttWJets->SetBinContent(j,wttWJets*ttWJets->GetBinContent(j));
-//        QCD_HT1000to1500->SetBinContent(j,wQCD1000to1500*QCD_HT1000to1500->GetBinContent(j));
+//        ttH->SetBinContent(j,wttH*ttH->GetBinContent(j));
         ttbb->SetBinContent(j,wttbb*ttbb->GetBinContent(j));
         WZ->SetBinContent(j,wWZ*WZ->GetBinContent(j));
 //        WW->SetBinContent(j,wWW*WW->GetBinContent(j));
+        WWTo2L2Nu->SetBinContent(j,wWWTo2L2Nu*WWTo2L2Nu->GetBinContent(j));
         WpWpJJ->SetBinContent(j,wWpWpJJ*WpWpJJ->GetBinContent(j));
-//        TTZToQQ->SetBinContent(j,wTTZToQQ*TTZToQQ->GetBinContent(j));
-//        TT->SetBinContent(j,wTT*TT->GetBinContent(j));
+        ZZ->SetBinContent(j,wZZ*ZZ->GetBinContent(j));
+        WGJets->SetBinContent(j,wWGJets*WGJets->GetBinContent(j));
+        ZGJetsToLLG->SetBinContent(j,wZGJetsToLLG*ZGJetsToLLG->GetBinContent(j));
+        WWW->SetBinContent(j,wWWW*WWW->GetBinContent(j));
+        WWZ->SetBinContent(j,wWWZ*WWZ->GetBinContent(j));
+        WWG->SetBinContent(j,wWWG*WWG->GetBinContent(j));
+        ZZZ->SetBinContent(j,wZZZ*ZZZ->GetBinContent(j));
+        WZZ->SetBinContent(j,wWZZ*WZZ->GetBinContent(j));
+        WZG->SetBinContent(j,wWZG*WZG->GetBinContent(j));
+        WGG->SetBinContent(j,wWGG*WGG->GetBinContent(j));
 
         //float DATA = data->GetBinContent(j);
         float bkg0 =TTJets->GetBinContent(j)
-//            +  QCD_HT300to500->GetBinContent(j)
+            +  TTGJets->GetBinContent(j)
             + ttZJets->GetBinContent(j)+ ttWJets->GetBinContent(j) 
-//            + QCD_HT1000to1500->GetBinContent(j) 
-            + ttbb->GetBinContent(j) + WZ->GetBinContent(j)  + WpWpJJ->GetBinContent(j); 
-//            + TTZToQQ->GetBinContent(j)
-//            + TT->GetBinContent(j);
+//            + ttH->GetBinContent(j) 
+            + ttbb->GetBinContent(j) + WZ->GetBinContent(j)  + WpWpJJ->GetBinContent(j) 
+            + ZZ->GetBinContent(j)
+            + WGJets->GetBinContent(j);
+            + ZGJetsToLLG->GetBinContent(j);
+            + WWW->GetBinContent(j);
+            + WWZ->GetBinContent(j);
+            + WWG->GetBinContent(j);
+            + ZZZ->GetBinContent(j);
+            + WZZ->GetBinContent(j);
+            + WZG->GetBinContent(j);
+            + WGG->GetBinContent(j);
 
         background->SetBinContent(j,bkg0);//difinition at 936
     }/*}}}*/
@@ -838,27 +923,45 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
     //  data_func        = (TH1F*)data       ->Clone(); 
       TTTT_func = (TH1F*)TTTT->Clone(); 
       TTJets_func = (TH1F*)TTJets->Clone(); 
-//      QCD_HT300to500_func = (TH1F*)QCD_HT300to500->Clone(); 
+      TTGJets_func = (TH1F*)TTGJets->Clone(); 
       ttZJets_func = (TH1F*)ttZJets->Clone(); 
       ttWJets_func   = (TH1F*)ttWJets->Clone(); 
-//      QCD_HT1000to1500_func   = (TH1F*)QCD_HT1000to1500->Clone(); 
+      //ttH_func   = (TH1F*)ttH->Clone(); 
       ttbb_func   = (TH1F*)ttbb->Clone();  
       WZ_func   = (TH1F*)WZ->Clone(); 
 //      WW_func   = (TH1F*)WW->Clone();
+      WWTo2L2Nu_func   = (TH1F*)WWTo2L2Nu->Clone();
       WpWpJJ_func   = (TH1F*)WpWpJJ->Clone();
-//      TTZToQQ_func   = (TH1F*)TTZToQQ->Clone();
-//      TT_func   = (TH1F*)TT->Clone();
+      ZZ_func   = (TH1F*)ZZ->Clone();
+      WGJets_func   = (TH1F*)WGJets->Clone();
+      ZGJetsToLLG_func   = (TH1F*)ZGJetsToLLG->Clone();
+      WWW_func   = (TH1F*)WWW->Clone();
+      WWZ_func   = (TH1F*)WWZ->Clone();
+      WWG_func   = (TH1F*)WWG->Clone();
+      ZZZ_func   = (TH1F*)ZZZ->Clone();
+      WZZ_func   = (TH1F*)WZZ->Clone();
+      WZG_func   = (TH1F*)WZG->Clone();
+      WGG_func   = (TH1F*)WGG->Clone();
 
       //delete data;
       delete background;delete TTTT; delete TTJets;
-//      delete QCD_HT300to500;
+      delete TTGJets;
       delete ttZJets; delete ttWJets; 
-//      delete QCD_HT1000to1500;
+//      delete ttH;
       delete ttbb; delete WZ; 
 //      delete WW;
+      delete WWTo2L2Nu;
       delete WpWpJJ; 
-//      delete TTZToQQ;  
-//      delete TT;
+      delete ZZ;  
+      delete WGJets;  
+      delete ZGJetsToLLG;  
+      delete WWW;  
+      delete WWZ;  
+      delete WWG;  
+      delete ZZZ;  
+      delete WZZ;  
+      delete WZG;  
+      delete WGG;  
     
 }
 
