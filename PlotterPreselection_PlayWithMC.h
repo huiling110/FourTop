@@ -13,7 +13,8 @@ void CloneHistos();
 
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
                /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,TH1F* &TTGJets_func,TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,/*TH1F*     &ttH_func,*/TH1F* &ttbb_func,TH1F* &WZ_func,
-                /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func, TH1F* &TTTT_func);
+                /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func,TH1F* &ZGGJets_func, TH1F* &DYJetsToTauTau_func, TH1F*   &tZq_ll_func,TH1F* &ST_tW_antitop_func, TH1F* &ST_tW_top_func, TH1F* &TGJets_func,TH1F* &THW_func, TH1F* &THQ_func,TH1F* &VHToNonbb_func, TH1F*           &ZHToTauTau_func, TH1F* &ZH_HToBB_ZToLL_func, TH1F* &GluGluHToZZTo4L_func, TH1F* &GluGluHToBB_func, TH1F* &GluGluHToGG_func, TH1F* &GluGluHToMuMu_func,   TH1F* &GluGluHToTauTau_func, TH1F* &GluGluHToWWTo2L2Nu_func, TH1F* &GluGluHToWWToLNuQQ_func,TH1F* &VBFHToWWTo2L2Nu_func,TH1F* &VBFHToGG_func,  TH1F*      &TTTT_func);
+
 
 int SigSF = 1;
 //float LUMI  = 41500.0; //float LUMI = 36733; //36.773 /fb
@@ -55,6 +56,7 @@ double wDYJetsToTauTau= (LUMI*1983)/(21891344-4380454);//DYJetsToTauTau_ForcedMu
 //single top
 double wtZq_ll= (LUMI*0.07358)/(8784890-5147710);//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root:  Positive:8784890  Negtive:5147710  ;
 //double wtZq_nunu= (LUMI*)/(630623-368977);//tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root:  Positive:630623  Negtive:368977  ;
+//?
 double wST_tW_antitop= (LUMI*38.06)/(418378-0);//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root:  Positive:418378  Negtive:0  ;
 double wST_tW_top= (LUMI*38.09)/(992024-0);//  ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root:  Positive:992024  Negtive:0  ;
 double wTGJets= (LUMI*2.967)/(933719-623277);//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root:  Positive:933719  Negtive:623277  ;
@@ -125,6 +127,28 @@ TFile *file18 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewN
 TFile *file19 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file20 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file21 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");
+TFile *file22 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");
+//TFile *file23 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/");//WJets
+TFile *file24 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root");
+TFile *file25 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");
+TFile *file26 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");
+TFile *file27 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
+TFile *file28 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
+TFile *file29 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");
+TFile *file30 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root");
+TFile *file31 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root");
+TFile *file32 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root");
+TFile *file33 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/ZHToTauTau_M125_13TeV_powheg_pythia8.root");
+TFile *file34 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root");
+TFile *file35 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root");
+TFile *file36 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root");
+TFile *file37 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root");
+TFile *file38 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
+TFile *file39 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToTauTau_M125_13TeV_powheg_pythia8.root");
+TFile *file40 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root");
+TFile *file41 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root");
+TFile *file42 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root");
+TFile *file43 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root");
 //TTree *Tree01 = (TTree*)file01->Get("tree");
 TTree *Tree02 = (TTree*)file02->Get("tree");
 TTree *Tree03 = (TTree*)file03->Get("tree");
@@ -147,6 +171,28 @@ TTree *Tree18 = (TTree*)file18->Get("tree");
 TTree *Tree19 = (TTree*)file19->Get("tree");
 TTree *Tree20 = (TTree*)file20->Get("tree");
 TTree *Tree21 = (TTree*)file21->Get("tree");
+TTree *Tree22 = (TTree*)file21->Get("tree");
+TTree *Tree23 = (TTree*)file21->Get("tree");
+TTree *Tree24 = (TTree*)file21->Get("tree");
+TTree *Tree25 = (TTree*)file21->Get("tree");
+TTree *Tree26 = (TTree*)file21->Get("tree");
+TTree *Tree27 = (TTree*)file21->Get("tree");
+TTree *Tree28 = (TTree*)file21->Get("tree");
+TTree *Tree29 = (TTree*)file21->Get("tree");
+TTree *Tree30 = (TTree*)file21->Get("tree");
+TTree *Tree31 = (TTree*)file21->Get("tree");
+TTree *Tree32 = (TTree*)file21->Get("tree");
+TTree *Tree33 = (TTree*)file21->Get("tree");
+TTree *Tree34 = (TTree*)file21->Get("tree");
+TTree *Tree35 = (TTree*)file21->Get("tree");
+TTree *Tree36 = (TTree*)file21->Get("tree");
+TTree *Tree37 = (TTree*)file21->Get("tree");
+TTree *Tree38 = (TTree*)file21->Get("tree");
+TTree *Tree39 = (TTree*)file21->Get("tree");
+TTree *Tree40 = (TTree*)file21->Get("tree");
+TTree *Tree41 = (TTree*)file21->Get("tree");
+TTree *Tree42 = (TTree*)file21->Get("tree");
+TTree *Tree43 = (TTree*)file21->Get("tree");
 /*}}}*/
 
 
@@ -288,6 +334,26 @@ TH1F* ZZZ_SR;
 TH1F* WZZ_SR;
 TH1F* WZG_SR;
 TH1F* WGG_SR;
+TH1F* ZGGJets_SR;
+TH1F* DYJetsToTauTau_SR;
+TH1F* tZq_ll_SR;
+TH1F* ST_tW_antitop_SR;
+TH1F* ST_tW_top_SR;
+TH1F* TGJets_SR;
+TH1F* THW_SR;
+TH1F* THQ_SR;
+TH1F* VHToNonbb_SR;
+TH1F* ZHToTauTau_SR;
+TH1F* ZH_HToBB_ZToLL_SR;
+TH1F* GluGluHToZZTo4L_SR;
+TH1F* GluGluHToBB_SR;
+TH1F* GluGluHToGG_SR;
+TH1F* GluGluHToMuMu_SR;
+TH1F* GluGluHToTauTau_SR;
+TH1F* GluGluHToWWTo2L2Nu_SR;
+TH1F* GluGluHToWWToLNuQQ_SR;
+TH1F* VBFHToWWTo2L2Nu_SR;
+TH1F* VBFHToGG_SR;
 TH1F* TTTT_SR;
 
 /* 
