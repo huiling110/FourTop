@@ -3,7 +3,8 @@
 #include <algorithm>
 
 //void EventSelection_4top_v1(const char * Input = ""){
-void EventSelection_4top_v1(const bool istest = true, const string input = "TauOfTTTT_Toptagger_oldEID.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
+//void EventSelection_4top_v1(const bool istest = true, const string input = "TauOfTTTT_Toptagger_oldEID.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
+void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);//?
   gStyle->SetOptStat("rme");
@@ -134,13 +135,24 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TauO
 
 			//Leptonic reject
             //
-			vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
-			vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
-			SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);//304
-			SelectMuons(SelectedMuons, SelectedMuonsIndex);//320
-			NumSelLeps        = SelectedElectrons.size()+SelectedMuons.size();//branch in newtree and SB
-			NumSeEle          = SelectedElectrons.size();
-			NumSeMu           =  SelectedMuons.size();  
+			vector<TLorentzVector> SelectedElectronsL; vector<int> SelectedElectronsLIndex;
+			vector<TLorentzVector> SelectedElectronsM; vector<int> SelectedElectronsMIndex;
+			vector<TLorentzVector> SelectedElectronsT; vector<int> SelectedElectronsTIndex;
+			vector<TLorentzVector> SelectedElectronsVeto; vector<int> SelectedElectronsVetoIndex;
+			SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//304
+			SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);//304
+			SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
+			SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3);//304
+
+			vector<TLorentzVector> SelectedMuonsL;     vector<int> SelectedMuonsLIndex;
+			vector<TLorentzVector> SelectedMuonsT;     vector<int> SelectedMuonsTIndex;
+			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
+			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
+            NumSeEle          = SelectedElectronsL.size();
+			NumSeMu           =  SelectedMuonsL.size();  
+			NumSelLeps        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
+//            vector<TLorentzVector> LeptonsT = SelectedMuonsT + SelectedElectronsL;
+            NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
 
             //hadronic tau selection
             vector<TLorentzVector> SelectedTausL;
@@ -362,8 +374,12 @@ void MetCorrection(int SysJes, int SysJer, double &MET){/*{{{*/
 //    SelectedElectronsIndex.push_back(j);
 //  }
 //}/*}}}*/
-void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
+void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type ){/*{{{*/
 	//?data does not occur.
+    //0; loose
+    //1;medium
+    //2;tight
+    //3;veto
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
 		//what is patElectron_pt?
     if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
@@ -374,7 +390,18 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 		//?//1.4442<fabs(EleSCeta) && fabs(EleSCeta)<1.5660
 //    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
 //    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;//no need to do it because already implemented in VID
-    if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_loose_->at(j) == 1)) continue;
+    if(type==0){
+        if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_loose_->at(j) == 1)) continue;
+    }
+    if(type==1){
+        if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_medium_->at(j) == 1)) continue;
+    }
+    if(type==2){
+        if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_tight_->at(j) == 1)) continue;
+    }
+    if(type==3){
+        if(!(patElectron_cutBasedElectronID_Fall17_94X_V2_veto_->at(j) == 1)) continue;
+    }
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
     TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
     SelectedElectrons.push_back(electron);
@@ -382,12 +409,21 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
   }
 }/*}}}*/
 
-void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex){/*{{{*/
+void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type){/*{{{*/
     //changed ISO to ss of TTTT
+    //0:loose; 1:medium; 2 :tight
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
-    if(!(Muon_loose_->at(j)==1))                  continue;
+    if(type==0){
+        if(!(Muon_loose_->at(j)==1))                  continue;
+    }
+    if(type==1){
+        if(!(Muon_medium_->at(j)==1))    continue;
+    }
+    if(type==2){
+        if(!(Muon_tight_->at(j)==1))     continue;
+    }
 //    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose iso->change to 0.15(tight) from 0.25
 		//Muon_relIsoDeltaBetaR04?_
     double I1 = 0.4, I2 = 0, I3 = 0;//looseWP from ss of TTTT
@@ -1538,6 +1574,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
   NewTree->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
   NewTree->Branch("NumSelLeps",        &NumSelLeps,        "NumSelLeps/I"        );
+  NewTree->Branch("NumOfLeptonsT",        &NumOfLeptonsT,        "NumOfLeptonsT/I"        );
 //
 //
   NewTree->Branch("NumSeEle",          &NumSeEle,          "NumSeEle/I");
@@ -2002,6 +2039,7 @@ void initializeVar(){/*{{{*/
   MostForwardJetEta=-99;
   MostForwardJetPt=-99;
   NumSelLeps=-99;
+  NumOfLeptonsT=-99;
 //
 //
   NumSeEle=-99;

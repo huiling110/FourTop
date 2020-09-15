@@ -14,8 +14,8 @@
 //BTagCalibration not working in 102
 void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, string fileName);/*{{{*/
 void SelectMet(bool &SelectedMet);
-void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data);
-void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex);
+void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
+void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
 void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP=1);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);
 //void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<double> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, 
@@ -479,6 +479,8 @@ double deltaPhiMetTop=-99.;
 double MinDeltaPhiJetMet=99.;
 double MinDeltaPhiBoostedJetMet=99.;
 int   NumSelLeps=-99;
+int NumOfLeptonsT=-99; 
+
 //
 //
 int   NumSeEle=-99;

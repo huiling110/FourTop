@@ -262,7 +262,7 @@
 \end{frame}
 
 
-\begin{frame}{Data and MC samples}
+\begin{frame}{Samples and Conditions}
     \begin{table}[htbp] %[h]
     \centering
 %    \small
@@ -419,6 +419,47 @@
     \item
         at least 1 loose tau
     \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Subchannel Categorization}
+    \begin{itemize}
+    \item
+        categorization a bit diffrent than ttH
+    \item
+        we have medium tau for each channel while they do not.
+    \item
+        we maybe need optimaze channel categorization
+    \end{itemize}
+    \begin{table}[htbp] %[h]
+    \centering
+%    \small
+    \footnotesize%Use \footnotesize for a 20% (linear) reduction in font size
+    \setlength\tabcolsep{2pt}%Reduce the amount of intercolumn whitespace
+%    \begin{tabular}{|l | l | c|}
+    \resizebox{\textwidth}{!}{% 
+%        \begin{tabular}{|l | l |>{$}c<{$}|} 
+        \begin{tabular}{|c | c |c|} 
+         \hline
+         channel & lepton & tau  \\% [0.5ex] %\[1ex]This adds extra space to the cell
+         \hline
+         \hline
+         1Tau 0L & 0 tight electrons or muons & 1 medium tau\\  
+         1Tau 1L & exact 1 tight electron or 1 tight muon & 1 medium tau \\ 
+         1Tau 2OSL & 2 tight leptons of the opposite charge & 1 medium tau\\
+         1Tau 2SSL & 2 tight leptons of the same charge & 1 medium tau\\
+         1Tau 3L & 3 tight letons & 1 medium tau\\
+         2Tau 0L & 0 tight electrons or muons& 2 medium tau\\
+         2Tau 1L & exact 1 tight electron or 1 tighy moun & 2 medium tau\\
+         2Tau 2OSL&2 tight leptons of the opposite charge & 2 medim tau\\
+         2Tau 2SSL & 2 tight leptons of the same charge & 2 medium tau\\
+         2Tau 3L & 3 tight lepton & 2 medium tau\\
+         \hline
+        \end{tabular}
+    }
+    \caption{Subchannel}
+    \label{table:3}
+    \end{table}   
 \end{frame}
 
 
