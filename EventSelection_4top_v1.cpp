@@ -1539,10 +1539,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   Tree->SetBranchAddress("EVENT_prefireWeight",&EVENT_prefireWeight_,&b_EVENT_prefireWeight);
   Tree->SetBranchAddress("EVENT_prefireWeightUp",&EVENT_prefireWeightUp_,&b_EVENT_prefireWeightUp);
   Tree->SetBranchAddress("EVENT_prefireWeightDown",&EVENT_prefireWeightDown_,&b_EVENT_prefireWeightDown);
-  //?what does category do?
-//  NewTree->Branch("category0",         &category0,         "category0/I"         );
-//  NewTree->Branch("category1",         &category1,         "category1/I"         );
-//  NewTree->Branch("category2",         &category2,         "category2/I"         );
   NewTree->Branch("channel_1Tau0L",         &channel_1Tau0L,         "channel_1Tau0L/I"         );
   NewTree->Branch("channel_1Tau1L",         &channel_1Tau1L,         "channel_1Tau1L/I"         );
   NewTree->Branch("channel_1Tau2OS",         &channel_1Tau2OS,         "channel_1Tau2OS/I"         );
@@ -1801,14 +1797,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("TransverseMassMetTop",&TransverseMassMetTop,"TransverseMassMetTop/D");
 
   if(selection==2){
-//      NewTreeSB->Branch("category0",         &category0,         "category0/I"         );
-//      NewTreeSB->Branch("category1",         &category1,         "category1/I"         );
-//      NewTreeSB->Branch("category2",         &category2,         "category2/I"         );
-      /*NewTreeSB->Branch("category3",         &category3,         "category3/I"         );
-      NewTreeSB->Branch("category4",         &category4,         "category4/I"         );
-      NewTreeSB->Branch("category5",         &category5,         "category5/I"         );
-      NewTreeSB->Branch("category6",         &category6,         "category6/I"         );
-      NewTreeSB->Branch("category7",         &category7,         "category7/I"         );*/
       NewTreeSB->Branch("TopMass",           &TopMass,           "TopMass/D"           );
       NewTreeSB->Branch("TopMassMerged",     &TopMassMerged,     "TopMassMerged/D"     );
       NewTreeSB->Branch("TopMassPartial",    &TopMassPartial,    "TopMassPartial/D"    );
@@ -2011,15 +1999,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
 }/*}}}*/
 
 void initializeVar(){/*{{{*/
-/*  category0=0;
-  category1=0;
-  category2=0;
-  category3=0;
-  category4=0;
-  category5=0;
-  category6=0;
-  category7=0;
-*/
  channel_1Tau0L=0;
 channel_1Tau1L=0;
 channel_1Tau2OS=0;

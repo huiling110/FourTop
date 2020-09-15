@@ -367,15 +367,6 @@ double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;/*}}}*/
 
 //for new tree
 /*{{{*/
-/*int category0=0;
-int category1=0;
-int category2=0;
-int category3=0;
-int category4=0;
-int category5=0;
-int category6=0;
-int category7=0;
-*/
 int channel_1Tau0L=0;
 int channel_1Tau1L=0;
 int channel_1Tau2OS=0;
