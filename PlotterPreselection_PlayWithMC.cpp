@@ -28,7 +28,7 @@ void PlotterPreselection_PlayWithMC(){
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
  
- name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("Invariant mass of jets");
+ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("Invariant mass of jets");/*{{{*/
   name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //// //// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
   name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
@@ -70,10 +70,9 @@ void PlotterPreselection_PlayWithMC(){
   name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading top pt");
   name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second top pt");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
-//  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
+//  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");/*}}}*/
 //
 //
-  /*}}}*/
 //  for(int i=0; i<name.size(); i++){
   for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
@@ -82,7 +81,13 @@ void PlotterPreselection_PlayWithMC(){
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 //    sprintf(CUTpre,"((channel_1Tau0L==1))");
-    sprintf(CUTpre,"((channel_1Tau1L==1))");
+//    sprintf(CUTpre,"((channel_1Tau1L==1))");
+//    sprintf(CUTpre,"((channel_1Tau2OS==1))");
+//    sprintf(CUTpre,"((channel_1Tau2SS==1))");
+//    sprintf(CUTpre,"((channel_1Tau3L==1))");
+//    sprintf(CUTpre,"((channel_2Tau0L==1))");   TString postfix = "2Tau0L.png";
+    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
+    
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -112,7 +117,7 @@ void PlotterPreselection_PlayWithMC(){
 	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,  /* ttH_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
  THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
    TTTT_SR );//682
-
+//?need to simply this. or add all this samples would be very time cosuming
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -488,7 +493,8 @@ void PlotterPreselection_PlayWithMC(){
 	/////
 	//»­ÉÏÃæµÄdata/MCÍ¼
 	/////
-    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.30,0.99,0.90);// bottom left point(),
+//    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.30,0.99,0.90);// bottom left point(),
+    TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
     c1_2->Draw();
     c1_2->cd();
    // c1_2->SetTopMargin(0.08);
@@ -548,7 +554,7 @@ void PlotterPreselection_PlayWithMC(){
     TTTT_SR->SetTitle("");
     TTTT_SR->GetYaxis()->SetTitle("Events");
     TTTT_SR->GetXaxis()->SetTitle(axis[i]);
-    TTTT_SR->GetYaxis()->SetTitleOffset(0.80);
+    TTTT_SR->GetYaxis()->SetTitleOffset(1.00);
     TTTT_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
     TTTT_SR->DrawNormalized("hist", 1);
 //    TTTT_SR->DrawNormalized("samehist", 1);
@@ -666,7 +672,6 @@ void PlotterPreselection_PlayWithMC(){
     pl2->Draw();
     
     TString NAME = name[i];
-    cout<<"Finished "<<NAME<<endl;
    //c1->SaveAs(NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
@@ -674,7 +679,12 @@ void PlotterPreselection_PlayWithMC(){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/channel_1Tau0L/"+NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"_1Tau1L.png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"_1Tau1L.png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau2OS.png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau2SS.png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+postfix);
+    cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
 
   }
@@ -1030,37 +1040,37 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + WZ->GetBinError(j)*WZ->GetBinError(j)
            // + WW->GetBinError(j)*WW->GetBinError(j)
             + WWTo2L2Nu->GetBinError(j)*WWTo2L2Nu->GetBinError(j)
-            + WpWpJJ->GetBinError(j)*WpWpJJ->GetBinError(j);
-            + ZZ->GetBinError(j)*ZZ->GetBinError(j);
-            + WGJets->GetBinError(j)*WGJets->GetBinError(j);
-            + ZGJetsToLLG->GetBinError(j)*ZGJetsToLLG->GetBinError(j);
-            + WWW->GetBinError(j)*WWW->GetBinError(j);
-            + WWZ->GetBinError(j)*WWZ->GetBinError(j);
-            + WWG->GetBinError(j)*WWG->GetBinError(j);
-            + ZZZ->GetBinError(j)*ZZZ->GetBinError(j);
-            + WZZ->GetBinError(j)*WZZ->GetBinError(j);
-            + WZG->GetBinError(j)*WZG->GetBinError(j);
-            + WGG->GetBinError(j)*WGG->GetBinError(j);
-            + ZGGJets->GetBinError(j)*ZGGJets->GetBinError(j);
-            + DYJetsToTauTau->GetBinError(j)*DYJetsToTauTau->GetBinError(j);
-            + tZq_ll->GetBinError(j)*tZq_ll->GetBinError(j);
-//            + tZq_nunu->GetBinError(j)*tZq_nunu->GetBinError(j);
-            + ST_tW_antitop->GetBinError(j)*ST_tW_antitop->GetBinError(j);
-            + ST_tW_top->GetBinError(j)*ST_tW_top->GetBinError(j);
-            + TGJets->GetBinError(j)*TGJets->GetBinError(j);
-            + THW->GetBinError(j)*THW->GetBinError(j);
-            + THQ->GetBinError(j)*THQ->GetBinError(j);
-            + VHToNonbb->GetBinError(j)*VHToNonbb->GetBinError(j);
-            + ZHToTauTau->GetBinError(j)*ZHToTauTau->GetBinError(j);
-            + ZH_HToBB_ZToLL->GetBinError(j)*ZH_HToBB_ZToLL->GetBinError(j);
-            + GluGluHToZZTo4L->GetBinError(j)*GluGluHToZZTo4L->GetBinError(j);
-            + GluGluHToBB->GetBinError(j)*GluGluHToBB->GetBinError(j);
-            + GluGluHToGG->GetBinError(j)*GluGluHToGG->GetBinError(j);
-            + GluGluHToMuMu->GetBinError(j)*GluGluHToMuMu->GetBinError(j);
-            + GluGluHToTauTau->GetBinError(j)*GluGluHToTauTau->GetBinError(j);
-            + GluGluHToWWTo2L2Nu->GetBinError(j)*GluGluHToWWTo2L2Nu->GetBinError(j);
-            + GluGluHToWWToLNuQQ->GetBinError(j)*GluGluHToWWToLNuQQ->GetBinError(j);
-            + VBFHToWWTo2L2Nu->GetBinError(j)*VBFHToWWTo2L2Nu->GetBinError(j);
+            + WpWpJJ->GetBinError(j)*WpWpJJ->GetBinError(j)
+            + ZZ->GetBinError(j)*ZZ->GetBinError(j)
+            + WGJets->GetBinError(j)*WGJets->GetBinError(j)
+            + ZGJetsToLLG->GetBinError(j)*ZGJetsToLLG->GetBinError(j)
+            + WWW->GetBinError(j)*WWW->GetBinError(j)
+            + WWZ->GetBinError(j)*WWZ->GetBinError(j)
+            + WWG->GetBinError(j)*WWG->GetBinError(j)
+            + ZZZ->GetBinError(j)*ZZZ->GetBinError(j)
+            + WZZ->GetBinError(j)*WZZ->GetBinError(j)
+            + WZG->GetBinError(j)*WZG->GetBinError(j)
+            + WGG->GetBinError(j)*WGG->GetBinError(j)
+            + ZGGJets->GetBinError(j)*ZGGJets->GetBinError(j)
+            + DYJetsToTauTau->GetBinError(j)*DYJetsToTauTau->GetBinError(j)
+            + tZq_ll->GetBinError(j)*tZq_ll->GetBinError(j)
+//            + tZq_nunu->GetBinError(j)*tZq_nunu->GetBinError(j)
+            + ST_tW_antitop->GetBinError(j)*ST_tW_antitop->GetBinError(j)
+            + ST_tW_top->GetBinError(j)*ST_tW_top->GetBinError(j)
+            + TGJets->GetBinError(j)*TGJets->GetBinError(j)
+            + THW->GetBinError(j)*THW->GetBinError(j)
+            + THQ->GetBinError(j)*THQ->GetBinError(j)
+            + VHToNonbb->GetBinError(j)*VHToNonbb->GetBinError(j)
+            + ZHToTauTau->GetBinError(j)*ZHToTauTau->GetBinError(j)
+            + ZH_HToBB_ZToLL->GetBinError(j)*ZH_HToBB_ZToLL->GetBinError(j)
+            + GluGluHToZZTo4L->GetBinError(j)*GluGluHToZZTo4L->GetBinError(j)
+            + GluGluHToBB->GetBinError(j)*GluGluHToBB->GetBinError(j)
+            + GluGluHToGG->GetBinError(j)*GluGluHToGG->GetBinError(j)
+            + GluGluHToMuMu->GetBinError(j)*GluGluHToMuMu->GetBinError(j)
+            + GluGluHToTauTau->GetBinError(j)*GluGluHToTauTau->GetBinError(j)
+            + GluGluHToWWTo2L2Nu->GetBinError(j)*GluGluHToWWTo2L2Nu->GetBinError(j)
+            + GluGluHToWWToLNuQQ->GetBinError(j)*GluGluHToWWToLNuQQ->GetBinError(j)
+            + VBFHToWWTo2L2Nu->GetBinError(j)*VBFHToWWTo2L2Nu->GetBinError(j)
             + VBFHToGG->GetBinError(j)*VBFHToGG->GetBinError(j);
         background->SetBinError(j,sqrt(errbg));
 
@@ -1127,28 +1137,26 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + DYJetsToTauTau->GetBinContent(j)
             + tZq_ll->GetBinContent(j)
 //            + tZq_nunu->GetBinContent(j)
-            + ST_tW_antitop->GetBinContent(j);
-            + ST_tW_top->GetBinContent(j);
-            + TGJets->GetBinContent(j);
-            + THW->GetBinContent(j);
-            + THQ->GetBinContent(j);
-            + VHToNonbb->GetBinContent(j);
-            + ZHToTauTau->GetBinContent(j);
-            + ZH_HToBB_ZToLL->GetBinContent(j);
-            + GluGluHToZZTo4L->GetBinContent(j);
-            + GluGluHToBB->GetBinContent(j);
-            + GluGluHToGG->GetBinContent(j);
-            + GluGluHToMuMu->GetBinContent(j);
-            + GluGluHToTauTau->GetBinContent(j);
-            + GluGluHToWWTo2L2Nu->GetBinContent(j);
-            + GluGluHToWWToLNuQQ->GetBinContent(j);
-            + VBFHToWWTo2L2Nu->GetBinContent(j);
+            + ST_tW_antitop->GetBinContent(j)
+            + ST_tW_top->GetBinContent(j)
+            + TGJets->GetBinContent(j)
+            + THW->GetBinContent(j)
+            + THQ->GetBinContent(j)
+            + VHToNonbb->GetBinContent(j)
+            + ZHToTauTau->GetBinContent(j)
+            + ZH_HToBB_ZToLL->GetBinContent(j)
+            + GluGluHToZZTo4L->GetBinContent(j)
+            + GluGluHToBB->GetBinContent(j)
+            + GluGluHToGG->GetBinContent(j)
+            + GluGluHToMuMu->GetBinContent(j)
+            + GluGluHToTauTau->GetBinContent(j)
+            + GluGluHToWWTo2L2Nu->GetBinContent(j)
+            + GluGluHToWWToLNuQQ->GetBinContent(j)
+            + VBFHToWWTo2L2Nu->GetBinContent(j)
             + VBFHToGG->GetBinContent(j);
-
         background->SetBinContent(j,bkg0);//difinition at 936
     }/*}}}*/
-
-      //why clone then delete?
+      //why clone then delete? because we have to pass value to parameters
       background_func  = (TH1F*)background ->Clone(); 
     //  data_func        = (TH1F*)data       ->Clone(); 
       TTTT_func = (TH1F*)TTTT->Clone(); 
