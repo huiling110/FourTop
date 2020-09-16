@@ -102,7 +102,7 @@ float wTTZ = (LUMI*0.5297)/(550282-199118);//5.297e-01 +- 7.941e-04 pb
 //
 //float w0700 = SigSF*(0.5*0.5*5.820 *0.25*LUMI/(386981-1075)); //SIG1/*{{{*/
 //float w40 = (3.05*LUMI/(4297198-1269149)); //WZTo1L3Nu/*}}}*/
-
+//?should use a better way to add all samples at once
 //TFile *file01 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/data.root");/*{{{*/
 TFile *file02 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
 TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");

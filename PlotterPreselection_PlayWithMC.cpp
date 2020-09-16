@@ -29,10 +29,10 @@ void PlotterPreselection_PlayWithMC(){
 //name is plots we want to show   
  
  name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("Invariant mass of jets");
-//  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
+  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //// //// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
-//  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
-  /*
+  name.push_back("LeadingJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("Leading Jet Pt");
+  
  name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
   name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Third Jet Pt");
   name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Fourth Jet Pt");
@@ -60,15 +60,15 @@ void PlotterPreselection_PlayWithMC(){
  name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
  name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
 // name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
- */
+
   name.push_back("LeadingLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("Leading lepton pt");
-//  name.push_back("SecondLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Second lepton pt");
-//  name.push_back("ThirdLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Third lepton pt");
+  name.push_back("SecondLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Second lepton pt");
+  name.push_back("ThirdLeptonPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("Third lepton pt");
   name.push_back("LeadingTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading tau pt");
-//  name.push_back("SecondTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Second tau pt");
+  name.push_back("SecondTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Second tau pt");
   name.push_back("NumofTops");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of tops");
-//  name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading top pt");
-//  name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second top pt");
+  name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("Leading top pt");
+  name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second top pt");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //
@@ -81,7 +81,8 @@ void PlotterPreselection_PlayWithMC(){
 	  //apply selection cuts here
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
-    sprintf(CUTpre,"((channel_1Tau0L==1))");
+//    sprintf(CUTpre,"((channel_1Tau0L==1))");
+    sprintf(CUTpre,"((channel_1Tau1L==1))");
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -494,20 +495,20 @@ void PlotterPreselection_PlayWithMC(){
    // c1_2->SetBottomMargin(0.02);
    // c1_2->SetRightMargin(0.035);
    // c1_2->SetLeftMargin(0.20);
-  
+ /* 
    // THStack *hs = new THStack("hs","hs");
     TH1::SetDefaultSumw2();
     TH1F *hs = new TH1F("hs","h1+h2",bin[i],Min[i],Max[i]);
     //hs->Add(ZZ_SR);
     //hs->Add(WpWpJJ_SR);
     //hs->Add(TTJets_SR);
-    /*hs->Add(TTJets_SR);
+   hs->Add(TTJets_SR);
     hs->Add(TTGJets_SR);
     hs->Add(ttZJets_SR);
     hs->Add(ttWJets_SR);
     hs->Add(ttbb_SR);
     hs->Add(WZ_SR);
-    hs->Add(ttH_SR);*/
+    hs->Add(ttH_SR);
 //    hs->Add(WW_SR,TTGJets_SR,1,1);//TTG
     hs->Add(TTJets_SR,ttZJets_SR,1,1);//TTG
 //    hs->Add(ttZJets_SR,1);
@@ -534,8 +535,23 @@ void PlotterPreselection_PlayWithMC(){
     hs->GetYaxis()->SetTitleOffset(0.80);
     hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
     hs->DrawNormalized("hist", 1);
+    */
    // TTTT_SR->Draw("samehisto");
-    TTTT_SR->DrawNormalized("samehist", 1);
+   //
+    TTTT_SR->SetMinimum(0);
+//    hs->SetMaximum(1);
+    TTTT_SR->SetMaximum(3 * TTTT_SR->GetMaximum());
+    TTTT_SR->GetYaxis()->SetTitleSize(0.050);
+    TTTT_SR->GetXaxis()->SetTitleSize(0.040);
+    TTTT_SR->GetYaxis()->SetLabelSize(0.040);
+    TTTT_SR->GetXaxis()->SetLabelSize(0.040); 
+    TTTT_SR->SetTitle("");
+    TTTT_SR->GetYaxis()->SetTitle("Events");
+    TTTT_SR->GetXaxis()->SetTitle(axis[i]);
+    TTTT_SR->GetYaxis()->SetTitleOffset(0.80);
+    TTTT_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+    TTTT_SR->DrawNormalized("hist", 1);
+//    TTTT_SR->DrawNormalized("samehist", 1);
    // TTJets_SR->Draw("samehisto");
   //  WpWpJJ_SR->Draw("samehisto");
 //    ZZ_SR->Draw("samehisto");
@@ -606,7 +622,7 @@ void PlotterPreselection_PlayWithMC(){
     // ratio of "CMS" and extra text size
     float extraOverCmsTextSize  = 0.76;
     TString lumi_13TeV;
-    lumi_13TeV = "36.773fb^{-1}";
+    lumi_13TeV = "35.9fb^{-1}";
     TString lumiText;
     lumiText += lumi_13TeV;
     lumiText += " (2016, 13 TeV)";
@@ -656,8 +672,10 @@ void PlotterPreselection_PlayWithMC(){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-    c1->Draw(); 
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/channel_1Tau0L/"+NAME+".png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"_1Tau1L.png");
+//    c1->Draw(); 
 
   }
 
