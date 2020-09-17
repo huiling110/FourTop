@@ -27,7 +27,7 @@ void PlotterPreselection_PlayWithMC(){
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
- 
+//?is there a more clever way to push_back all in a loop? 
  name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("Invariant mass of jets");/*{{{*/
   name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //// //// name.push_back("Aplanarity");      bin.push_back(100);     Min.push_back(-0.5);    Max.push_back(2000);    axis.push_back("Aplanarity");
@@ -72,10 +72,6 @@ void PlotterPreselection_PlayWithMC(){
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");
 //  name.push_back("");      bin.push_back(11);     Min.push_back(-0.5);    Max.push_back(10.5);    axis.push_back("");/*}}}*/
 //
-//
-//  for(int i=0; i<name.size(); i++){
-  for(UInt_t i=0; i<name.size(); i++){
-	  const char *plot = name[i];
 	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
@@ -86,8 +82,18 @@ void PlotterPreselection_PlayWithMC(){
 //    sprintf(CUTpre,"((channel_1Tau2SS==1))");
 //    sprintf(CUTpre,"((channel_1Tau3L==1))");
 //    sprintf(CUTpre,"((channel_2Tau0L==1))");   TString postfix = "2Tau0L.png";
-    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
+//    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
+//??failed
+/*
+vector<string> Channel = {"channel_1Tau0L==1","channel_1Tau1L==1","channel_1Tau2OS==1"        };
+//vector<char> Channel = {"1Tau0L","1Tau1L","1Tau2OS"        };
+for ( string channel : Channel){
+//    char chann[100] = channel+"==1";
     
+    sprintf(CUTpre,channel);
+    TString postfix = channel + ".png";
+//    sprintf(CUTpre,"channel_2Tau1L==1");   TString postfix = "2Tau1L.png";
+*/   
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -114,6 +120,9 @@ void PlotterPreselection_PlayWithMC(){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
+//  for(int i=0; i<name.size(); i++){
+  for(UInt_t i=0; i<name.size(); i++){
+	  const char *plot = name[i];
 	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,  /* ttH_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
  THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
    TTTT_SR );//682
@@ -548,7 +557,7 @@ void PlotterPreselection_PlayWithMC(){
 //    hs->SetMaximum(1);
     TTTT_SR->SetMaximum(3 * TTTT_SR->GetMaximum());
     TTTT_SR->GetYaxis()->SetTitleSize(0.050);
-    TTTT_SR->GetXaxis()->SetTitleSize(0.040);
+    TTTT_SR->GetXaxis()->SetTitleSize(0.050);
     TTTT_SR->GetYaxis()->SetLabelSize(0.040);
     TTTT_SR->GetXaxis()->SetLabelSize(0.040); 
     TTTT_SR->SetTitle("");
@@ -678,17 +687,13 @@ void PlotterPreselection_PlayWithMC(){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/channel_1Tau0L/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"_1Tau1L.png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau2OS.png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau2SS.png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+postfix);
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots//add_all_bg"+NAME+postfix);
     cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
 
   }
-
+}
 }
 
 //from Tree, get tree plot, apply CUT and name the new histogram histo.
