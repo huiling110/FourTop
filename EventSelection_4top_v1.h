@@ -12,7 +12,8 @@
 
 
 //BTagCalibration not working in 102
-void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, string fileName);/*{{{*/
+//void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, string fileName);
+void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB);/*{{{*/
 void SelectMet(bool &SelectedMet);
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
@@ -54,7 +55,7 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<double>& Min
 void SelectTops(vector<TLorentzVector> & SelectedTops);
 ////
 //
-void branchGetEntry(bool data, Long64_t tentry, string fileName);
+void branchGetEntry(bool data, Long64_t tentry);
 void HistoFill(double pileupReweight,TTree *NewTree);
 void writeFile(TTree *NewTree,TTree *NewTreeSB);
 void initializeVar();

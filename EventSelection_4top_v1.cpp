@@ -17,71 +17,49 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
   bool sideband     = false;//associate with selection
 //?what's sideband and signal ?
   bool signal       = false;
-	//?signal occur nowhere else
-
-	//what does these mean?
+	//?signal occur nowhere else	//what does these mean?
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
-	//appear in 95
   int SysJes = 0;//jet enenrgy scale 
   int SysJer = 0;//jet  energy resolution 
   
   using namespace std;
-  char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
+
   vector<string> fileName;
 //  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //17
   fileName.push_back(input);    
-  for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
+  for(UInt_t Nfiles=0; Nfiles<fileName.size(); Nfiles++){
 //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
-    string NewFileprov;
-		//do these files already exist or not?what does the number 1 or 2 mean ?
-		//file already exist, new file is what we want build.
-		//?it seems Jes and Jer can not aplly together?
-/*    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/test"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESup/"+fileName[Nfiles];
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/JERdo/"+fileName[Nfiles];*/
+    string NewFileprov;		//file already exist, new file is what we want build.
+//?it seems Jes and Jer can not aplly together?
+    //?is it nessesary to put different SF in different files?
     if ((SysJes==0)&&(SysJer==0)) NewFileprov = outputDir+"NoJEC/"+fileName[Nfiles];
     if ((SysJes==1)&&(SysJer==0)) NewFileprov = outputDir+"JESup/"+fileName[Nfiles];
     if ((SysJes==2)&&(SysJer==0)) NewFileprov = outputDir+"JESdo/"+fileName[Nfiles];
     if ((SysJes==0)&&(SysJer==1)) NewFileprov = outputDir+"JERdo/"+fileName[Nfiles];
     if ((SysJes==0)&&(SysJer==2)) NewFileprov = outputDir+"JERup/"+fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
-    const char *NewFileName = NewFileprov.c_str();
+    const char *NewFileName = NewFileprov.c_str();//c_str()Returns a pointer to an array that contains a null-terminated sequence of characters (i.e., a C-string) representing the current value of the string object.
 //    cout<<"file here"<<NewFileName<<endl;
-	//c_str()Returns a pointer to an array that contains a null-terminated sequence of characters (i.e., a C-string) representing the current value of the string object.
 //    TFile f(NewFileName,"new");//Create a new file and open it for writing, if the file already exists the file is not opened.
     TFile f(NewFileName,"RECREATE");//Create a new file, if the file already exists it will be overwritten.
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
 		//?why 2 trees? what's the different?
 		//treeSB has something todo with sideband
-   //guessing file already exist ?
-	 //data and sample is data or MC? where do we get these files ?
     string FILEprov;
     // FILEprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
     FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
-    Tree = (TTree*)file->Get(openTree);
-
-
-
-	//what do you mean get open tree from file ?	//in 26 openTree=
+    char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
+    Tree = (TTree*)file->Get(openTree);//sprintf(openTree, "TNT/BOOM")
     bool data = true;
-	//what does "may..." mean?   guess they are data file name.
+    cout<<"data"<<data<<endl;
 //    if(fileName.size()==0) break;
-    if(!(fileName[Nfiles].find("Tau_data")!=string::npos )) data = false;
-	//find():The position of the first character of the first match.
-	//If no matches were found, the function returns string::npos.
-	//find May18V1_MET,data=true.
-	//what is data?	//if filename is data, data=true. data and MC files have different tree .
- //   branch(data,NewTree,NewTreeSB,fileName[Nfiles]);//
-		//Tree->SetBranchAddress;NewTree and SB->Branch
-		//every file have the same tree ?yes
-//    Int_t nentries = (Int_t)Tree->GetEntries();
-    Long64_t nentries = (Int_t)Tree->GetEntries();
-		//how do we know the entries of Tree?//Read all branches of entry and return total number of bytes read.
+    if(!(fileName[Nfiles].find("Tau_data")!=string::npos )) data = false;	//find():The position of the first character of the first match.
+	//If no matches were found, the function returns string::npos.//what is data?	//if filename is data, data=true. data and MC files have different tree .
+    cout<<"data"<<data<<endl;
+    Long64_t nentries = (Int_t)Tree->GetEntries();	//how do we know the entries of Tree?//Read all branches of entry and return total number of bytes read.
     for(int selection=0; selection<3; selection++){
 			//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
       //selection = 0 -> preselection=true; line 19, true
@@ -90,22 +68,17 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
-
-//        TTree *NewTree = new TTree("tree","tree");
-//        if(selection == 2) TTree *NewTreeSB = new TTree("treeSB","treeSB");
-        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//
+//        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//Tree->SetBranchAddress;NewTree and SB->Branch
+        branch(data,selection,NewTree,NewTreeSB);//Tree->SetBranchAddress;NewTree and SB->Branch
+        //Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         Long64_t NumOfEvents;
-        if (istest){   NumOfEvents = 10000; }
+        if (istest){   NumOfEvents = 1000; }
         else{ NumOfEvents = nentries;}
-//     for (Int_t i=0; i<nentries; i++) {
-       for (Long64_t i=0; i<NumOfEvents; i++) {
+        for (Long64_t i=0; i<NumOfEvents; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
-			//?why file name not in the function?	//what does data do here?
-			branchGetEntry(data, tentry,fileName[Nfiles]);// every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
-			initializeVar();//line1822  initialize for new tree. category0=0;
-			//
+			branchGetEntry(data, tentry);// every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+			initializeVar();//initialize for new tree. 
 //			if(!(HLT_PFHT900_==1 || HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ==1))  continue;//a branch in tree, trigger we choose
-			//what are these Flag_branches?//?what choice should we make for our analysis?//?how many kinds of these filters are in MiniAOD//what is the ppossibility of there filter to out signal events?
 			if(!(Flag_goodVertices_==1))  continue;//a branch in tree.
 			if(!(Flag_globalSuperTightHalo2016Filter_==1))  continue;  
 		    if(!(Flag_HBHENoiseFilter_==1))  continue;  
@@ -116,25 +89,22 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //			why this filter not work?//applied only in 2017 and 2018
 			if(data) {if (!(Flag_eeBadScFilter_==1))  continue;}  
 
-			if(!data) GenClassifier(GenZPt,GenWPt);//line2590
-			//?according to pdg ID generate usdc quark and GenZPt GenWPt.
+			if(!data) GenClassifier(GenZPt,GenWPt);//according to pdg ID generate the number of  usdc quark and GenZPt GenWPt.
+            //not sure what our analysis can do with it
 
 			//met
             //?need to check met
 //			bool SelectedMet = false;
 			//?how does SysJes impact Met_pt ?
             //?do we still have to correct Met?
-			MetCorrection(SysJes,SysJer,Met_pt);//270 Met_pt in newtree branch.
-            //?why have to do this MetCorrection
+			MetCorrection(SysJes,SysJer,Met_pt);// Met_pt in newtree branch.
+            //why have to do this MetCorrection//take jet SF into consideration.correct met_pt
 //            if( Met_pt > 200)  SelectedMet = true;//228;parameter in Fillbranches
             //we don't care about Met so much
-			//SelectMet(SelectedMet);
 			//Met_pt            = Met_type1PF_pt_;
 			Met_phi           = Met_type1PF_phi_;//Met_phi branch in newtree and SB
-//            cout<<__LINE__<<"  ";
 
-			//Leptonic reject
-            //
+			//lepton selection
 			vector<TLorentzVector> SelectedElectronsL; vector<int> SelectedElectronsLIndex;
 			vector<TLorentzVector> SelectedElectronsM; vector<int> SelectedElectronsMIndex;
 			vector<TLorentzVector> SelectedElectronsT; vector<int> SelectedElectronsTIndex;
@@ -151,8 +121,6 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumSeEle          = SelectedElectronsL.size();
 			NumSeMu           =  SelectedMuonsL.size();  
 			NumSelLeps        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
-//            vector<TLorentzVector> LeptonsT = SelectedMuonsT + SelectedElectronsL;
-//            v1.insert(v1.end(), v2.begin(), v2.end());
             vector<TLorentzVector> LeptonsT = SelectedMuonsT;
          //   vector<TLorentzVector> LeptonsTIndex = SelectedMuonsTIndex;
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
@@ -225,9 +193,6 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     else channel_2Tau2SS = 1;
                 }
            } 
-//           if(NumOfTausM==3 && NumOfLeptonsT_v2==3) channel_2Tau3L = 1;
-
-
 
 
             //jet and B jet selection
@@ -311,8 +276,6 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //			//?use funtion to give value, wouldn't it be useless?
 		    WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
 */
-            //event cut
-
 			NVertices         = nBestVtx_;
 			EVENT_run         = EVENT_run_;
 			EVENT_event       = EVENT_event_;
@@ -322,19 +285,8 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			prefiringweightup = EVENT_prefireWeightUp_;
 			prefiringweightdown = EVENT_prefireWeightDown_;
 
-	        	
-			//categorization
-            //?need modification because we do not care about ResolvdEvent and Met that much to categorize event according to them.
-/*			if(selection==0){ //PRESELECTION
-				if(ResolvedEvent  && SelectedMet)  category0=1; //branch in NewTree and SB 
-			}
-			else if(selection==1){ //SELECTION
-				if(ResolvedEvent && NumSelBJetsM>0 && SelectedMet)     category0=1; 
-	      	}    */
-			//then what does category1,2 do?
-//      	if(!(category0==1)) continue;// this is for calculating the events have passed certain critiaria
 			 
-				//WEIGHT
+		//WEIGHT
 //			if(!data){
 //					get_weight_btag(selection,w_Btag, w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up, w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown, fileName[Nfiles]);//606 w_Btagall in NewTree
 //					newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);//2729PUWeigh is a branch in Tree and newTree,PU and UP and DOWN are in New
@@ -344,15 +296,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //  	  			QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
 //					PDFWeight(10,111,w_PDFUp,w_PDFDown);
 //			}
-	//it seems we don't fill NewTree here.	
-//			if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
 			if(selection==0 || selection==1)  NewTree->Fill();
 			else if(selection==2)            HistoFill(PUWeight,NewTreeSB);
 		}
 	}
 
     f.cd();
-//    writeFile(NewTree,NewTreeSB);//
     NewTree->Write();
     f.Close();
     cout<<"File "<<fileName[Nfiles]<<" ready!"<<endl;
@@ -401,9 +350,7 @@ void MetCorrection(int SysJes, int SysJer, double &MET){/*{{{*/
      double METy = Met_type1PF_pt_*TMath::Sin(Met_type1PF_phi_);
      for (UInt_t j = 0; j < Jet_pt_->size(); ++j){ 
 	     if(!(Jet_Uncorr_pt_->at(j)>15)) continue;
-			 //?Jet_Uncorr_pt in Tbrowser seems not a string ?
 	     double jetpt = 0.;
-			 ///?what does Jes Jer mean?
 			 //?the difference of Jet_pt and Jet_Uncorr_pt?
 	     if(SysJes==0 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j) *Jet_JerSF_->at(j) ;}
 	     if(SysJes==1 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFup_->at(j) *Jet_JerSF_->at(j) ;}
@@ -417,10 +364,6 @@ void MetCorrection(int SysJes, int SysJer, double &MET){/*{{{*/
      MET = sqrt(METx*METx + METy*METy);
 }/*}}}*/
 
-/*void SelectMet(bool &SelectedMet){ 
-    if( Met_type1PF_pt_ > 200)  SelectedMet = true;
-}
-*/
 //void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
 //	//?data does not occur.
 //  for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
@@ -620,6 +563,8 @@ void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets
         double SF = jetpt/Jet_pt_->at(j);
         TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
         TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
+        //?is this  step necessary?
+        //???why do this?
         SelectedJets.push_back(jet);
         if(deepJet) {
             SeclectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags_->at(j));
@@ -1197,7 +1142,15 @@ double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 	InM = sqrt(SumE*SumE-MHT*MHT);
 	return InM;
 }/*}}}*/
+/*
+double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
+	double SumE = 0;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+		SumE = SumE+SelectedJets[j].E();
 
+    }
+}
+*/
 /*double AplanarityCalcullator(vector<TLorentzVector> SelectedJets){
 	double PtSquare = 0;
 	double PtPt = -1;
@@ -1310,9 +1263,9 @@ void give_value_JetPtSorted(vector<double> JetsPtSorted,double &LeadingJetPt,dou
 
 }/*}}}*/
 
-//?it seems that fileName doesn't occur in the function .
-//
-void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fileName){/*{{{*/
+//it seems that fileName doesn't occur in the function .
+//void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fileName){
+void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
 	//Change branch address, dealing with clone trees properly.	//copy the branch Jet_pt to b_Jet_pt
   Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
   Tree->SetBranchAddress("Jet_eta",  &Jet_eta_,  &b_Jet_eta);
@@ -1577,22 +1530,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
   NewTree->Branch("ZPt",               &ZPt,               "ZPt/D"               );
   NewTree->Branch("ZEta",              &ZEta,              "ZEta/D"              );
   NewTree->Branch("ZPhi",              &ZPhi,              "ZPhi/D"              );
-/*   NewTree->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/D"        );
-   NewTree->Branch("TprimePt",          &TprimePt,          "TprimePt/D"          );
-   NewTree->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/D"         );
-   NewTree->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/D"         );
-   NewTree->Branch("TprimeResolvedMass",&TprimeResolvedMass,"TprimeResolvedMass/D");
-   NewTree->Branch("TprimeResolvedPt",  &TprimeResolvedPt,  "TprimeResolvedPt/D"  );
-   NewTree->Branch("TprimeResolvedEta", &TprimeResolvedEta, "TprimeResolvedEta/D" );
-   NewTree->Branch("TprimeResolvedPhi", &TprimeResolvedPhi, "TprimeResolvedPhi/D" );
-   NewTree->Branch("TprimePartialMass", &TprimePartialMass, "TprimePartialMass/D" );
-   NewTree->Branch("TprimePartialPt",   &TprimePartialPt,   "TprimePartialPt/D"   );
-   NewTree->Branch("TprimePartialEta",  &TprimePartialEta,  "TprimePartialEta/D"  );
-   NewTree->Branch("TprimePartialPhi",  &TprimePartialPhi,  "TprimePartialPhi/D"  );
-   NewTree->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/D"  );
-   NewTree->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/D"    );
-   NewTree->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/D"   );
- NewTree->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/D"   );*/
  NewTree->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/D"       );
   //give no value of Electron1Pt other than -99
   NewTree->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/D"       );
@@ -1825,22 +1762,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fil
       NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/D"               );
       NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/D"              );
       NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/D"              );
-/*      NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/D"        );
-      NewTreeSB->Branch("TprimePt",          &TprimePt,          "TprimePt/D"          );
-      NewTreeSB->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/D"         );
-      NewTreeSB->Branch("TprimePhi",         &TprimePhi,         "TprimePhi/D"         );
-      NewTreeSB->Branch("TprimeResolvedMass",&TprimeResolvedMass,"TprimeResolvedMass/D");
-      NewTreeSB->Branch("TprimeResolvedPt",  &TprimeResolvedPt,  "TprimeResolvedPt/D"  );
-      NewTreeSB->Branch("TprimeResolvedEta", &TprimeResolvedEta, "TprimeResolvedEta/D" );
-      NewTreeSB->Branch("TprimeResolvedPhi", &TprimeResolvedPhi, "TprimeResolvedPhi/D" );
-      NewTreeSB->Branch("TprimePartialMass", &TprimePartialMass, "TprimePartialMass/D" );
-      NewTreeSB->Branch("TprimePartialPt",   &TprimePartialPt,   "TprimePartialPt/D"   );
-      NewTreeSB->Branch("TprimePartialEta",  &TprimePartialEta,  "TprimePartialEta/D"  );
-      NewTreeSB->Branch("TprimePartialPhi",  &TprimePartialPhi,  "TprimePartialPhi/D"  );
-      NewTreeSB->Branch("TprimeMergedMass",  &TprimeMergedMass,  "TprimeMergedMass/D"  );
-      NewTreeSB->Branch("TprimeMergedPt",    &TprimeMergedPt,    "TprimeMergedPt/D"    );
-      NewTreeSB->Branch("TprimeMergedEta",   &TprimeMergedEta,   "TprimeMergedEta/D"   );
-      NewTreeSB->Branch("TprimeMergedPhi",   &TprimeMergedPhi,   "TprimeMergedPhi/D"   );*/
       NewTreeSB->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/D"       );
       NewTreeSB->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/D"       );
       NewTreeSB->Branch("Electron1E",        &Electron1E,        "Electron1E/D"        );
@@ -2036,24 +1957,6 @@ channel_2Tau2OS=0;
   ZPt=-99;
   ZEta=-99;
   ZPhi=-99;
-  /*
-  TprimeMass=-99;
-  TprimePt=-99;
-  TprimeEta=-99;
-  TprimePhi=-99;
-  TprimeResolvedMass=-99;
-  TprimeResolvedPt=-99;
-  TprimeResolvedEta=-99;
-  TprimeResolvedPhi=-99;
-  TprimePartialMass=-99;
-  TprimePartialPt=-99;
-  TprimePartialEta=-99;
-  TprimePartialPhi=-99;
-  TprimeMergedMass=-99;
-  TprimeMergedPt=-99;
-  TprimeMergedEta=-99;
-  TprimeMergedPhi=-99;
-  */
   Electron1Pt=-99;
   Electron2Pt=-99;
   Electron1E=-99;
@@ -2263,8 +2166,8 @@ SecondTopPt=-99;
 }/*}}}*/
 //?filename not occur
 //
-void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
- //GetEntry?
+//void branchGetEntry(bool data, Long64_t tentry, string fileName){
+void branchGetEntry(bool data, Long64_t tentry){/*{{{*/
  //?is that OK fileName not in the function?
   b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
   b_Jet_eta->GetEntry(tentry);
@@ -2475,7 +2378,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){/*{{{*/
 }/*}}}*/
 
 void HistoFill(double puweight,TTree *NewTree){
-	//?has nothing to do with puweigh,why use puweight then?
+	//has nothing to do with puweigh,why use puweight then?
   NewTree->Fill();
 }
 /*
