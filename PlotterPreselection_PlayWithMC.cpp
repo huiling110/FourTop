@@ -76,24 +76,17 @@ void PlotterPreselection_PlayWithMC(){
 	  //apply selection cuts here
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
-//    sprintf(CUTpre,"((channel_1Tau0L==1))");
-//    sprintf(CUTpre,"((channel_1Tau1L==1))");
-//    sprintf(CUTpre,"((channel_1Tau2OS==1))");
-//    sprintf(CUTpre,"((channel_1Tau2SS==1))");
-//    sprintf(CUTpre,"((channel_1Tau3L==1))");
 //    sprintf(CUTpre,"((channel_2Tau0L==1))");   TString postfix = "2Tau0L.png";
 //    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
-//??failed
-/*
-vector<string> Channel = {"channel_1Tau0L==1","channel_1Tau1L==1","channel_1Tau2OS==1"        };
-//vector<char> Channel = {"1Tau0L","1Tau1L","1Tau2OS"        };
-for ( string channel : Channel){
+vector<string> Channel = {"1Tau0L","1Tau1L","1Tau2OS", "1Tau2SS", "1Tau3L", "2Tau1L","2Tau2OS","2Tau2SS"   };
+for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
-    
-    sprintf(CUTpre,channel);
-    TString postfix = channel + ".png";
+    TString postfix = ch + ".png";
+    ch = "channel_"+ ch + "==1";
+    const char*    channel= ch.c_str();//.c_str() returns a const char*
+//   sprintf(CUTpre,channel);
+   sprintf(CUTpre,"%s", channel);
 //    sprintf(CUTpre,"channel_2Tau1L==1");   TString postfix = "2Tau1L.png";
-*/   
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -688,7 +681,7 @@ for ( string channel : Channel){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots//add_all_bg"+NAME+postfix);
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots//add_all_bg/"+NAME+postfix);
     cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
 
