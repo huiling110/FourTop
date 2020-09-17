@@ -1132,7 +1132,7 @@ double MHTcalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 
 //
 //
-double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
+double InvariantMassLike_Calculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 	double InM = 0;
 	double SumE = 0;
 	double MHT = MHTcalculator(SelectedJets);
@@ -1142,15 +1142,16 @@ double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 	InM = sqrt(SumE*SumE-MHT*MHT);
 	return InM;
 }/*}}}*/
-/*
 double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
-	double SumE = 0;
+//	double SumE = 0;
+//    TVector3 p = {0,0,0} ;
+    TLorentzVector jet_sum = {0,0,0,0};
     for (UInt_t j = 0; j < SelectedJets.size(); ++j){
-		SumE = SumE+SelectedJets[j].E();
-
+        jet_sum = jet_sum + SelectedJets[j];
     }
+    InMass = jet_sum.M();
+    return InMass;
 }
-*/
 /*double AplanarityCalcullator(vector<TLorentzVector> SelectedJets){
 	double PtSquare = 0;
 	double PtPt = -1;

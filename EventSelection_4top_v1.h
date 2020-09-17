@@ -44,6 +44,7 @@ double HTcalculator(vector<TLorentzVector> SelectedJets);
 double MHTcalculator(vector<TLorentzVector> SelectedJets);
 //
 //
+double InvariantMassLike_Calculator(vector<TLorentzVector> SelectedJets);
 double InvariantMassCalculator(vector<TLorentzVector> SelectedJets);
 double AplanarityCalculator(vector<TLorentzVector> SelectedJets);
 double LeadingJetPtCal(vector<TLorentzVector> SelectedJets);
