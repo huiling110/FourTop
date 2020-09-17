@@ -1149,7 +1149,7 @@ double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
     for (UInt_t j = 0; j < SelectedJets.size(); ++j){
         jet_sum = jet_sum + SelectedJets[j];
     }
-    InMass = jet_sum.M();
+    double InMass = jet_sum.M();
     return InMass;
 }
 /*double AplanarityCalcullator(vector<TLorentzVector> SelectedJets){
