@@ -513,6 +513,7 @@ double LeadingBJetPt=-99;
 double SecondBJetPt=-99;
 double HTDividedByMET=-99;
 double MetDividedByHT=-99;
+double HTDividedByMet=-99;
 double MHTDividedByMET=-99;
 double NighthJetPt=-99;
 double TenthJetPt=-99;
@@ -537,6 +538,8 @@ double SecondTauPt=-99;
 int NumofTops=-99;
 double LeadingTopPt=-99;
 double SecondTopPt=-99;
+double MinDeltaRTops=-99;
+double MaxDeltaRTops=-99;
 //
 //
 int   NumSelJets=-99;

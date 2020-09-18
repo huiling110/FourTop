@@ -229,6 +229,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //          Sphericity = 
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
             MetDividedByHT = Met_pt/HT;
+            HTDividedByMet = HT/Met_pt;
             MHTDividedByMET   = MHT/Met_pt;
             vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
@@ -242,7 +243,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaRJets;  MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
             MinDeltaRJets = MinMaxDeltaRJets[0];
             MaxDeltaRJets = MinMaxDeltaRJets[1];
-//      	if(!(HT>200)) continue;/*}}}*/
+            DeltaPhiJetMet =
             if(!(NumSelJets>0)) continue;
             if(!(NumSelBJetsL>0)) continue;
 //
@@ -255,6 +256,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> TopPtSorted; sort_jetPt(SelectedTops,TopPtSorted);
             if(NumofTops>0)  LeadingTopPt = TopPtSorted[0];
             if(NumofTops>1)  SecondTopPt = TopPtSorted[1];
+            if(NumofTops>1){
+                vector<double> MinMaxDeltaRTops; MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
+                MinDeltaRTops = MinMaxDeltaRTops[0];            MaxDeltaRTops = MinMaxDeltaRTops[1];}
 
  
             //only top that decay into 3 jets
@@ -480,9 +484,8 @@ void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets
   //jetType=12 -> b-jets M
   //jetType=13 -> b-jets T
   //jetType=2  -> forward jets
-  //MinDeltaPhiJetMet = 99.0;
+  MinDeltaPhiJetMet = 99.0;
   double MaxMostForwardJetEta = -99;/*{{{*/
-	//?is Jet_pt_a string?
 	//maybe j means j th jet?
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
         double jetpt = 0.;
@@ -1112,6 +1115,56 @@ double DeltaPhi(double phi1, double phi2){/*{{{*/
   return deltaPhi;
 }/*}}}*/
 
+void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMaxDeltaPhi){
+    double initMaxPhi = 0;
+    double MaxPhi = 0;
+    double initMin = 1000000;
+    double MinPhi = 1000000;
+//    double deltaR = 0;
+    double deltaPhi = 0;
+    double Eta = 0;
+    double Eta2 = 0;
+    double Phi = 0;
+    double Phi2 = 0;
+    if (SelectedJets.size() > 1){
+        for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+            Eta = SelectedJets[j].Eta();
+            Phi = SelectedJets[j].Phi();
+            for(UInt_t k = j+1; k < SelectedJets.size();++k){
+                Eta2 = SelectedJets[k].Eta();
+                Phi2 = SelectedJets[k].Phi();
+                deltaPhi = DeltaPhi(Phi,Phi2);
+                if(deltaPhi > initMaxPhi) initMaxPhi = deltaPhi;
+                if(deltaPhi < initMin) initMin = deltaPhi;
+            }
+            if (initMaxPhi>MaxPhi) MaxPhi = initMaxPhi; 
+            if (initMin < MinPhi) MinPhi = initMin;
+        }
+    }
+    else {
+        MaxPhi = -1;
+        MinPhi = -1;//means have less than 2 jets
+    }
+    MinMaxDeltaR.push_back(MinPhi);// cout<<MinPhi<<"  ";
+    MinMaxDeltaR.push_back(MaxPhi);
+}/*}}}*/
+
+void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPtSorted){/*{{{*/
+    UInt_t size = 0;
+    size = SelectedJets.size();
+    int k = 0;
+    double JetsPt[size] ; 
+    for (UInt_t j = 0; j < size; ++j){
+        JetsPt[j] = SelectedJets[j].Pt();
+    }
+    sort(JetsPt, JetsPt+size);
+    for (UInt_t i =0; i < size;++i){
+        k = size-i-1;//-1 because starts with 0
+        JetsPtSorted.push_back(JetsPt[k]);
+    }
+    
+}
+
 double HTcalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
   double HTprov=0;
   for (UInt_t j = 0; j < SelectedJets.size(); ++j){
@@ -1612,6 +1665,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("SecondBJetPt",        &SecondBJetPt,        "SecondBJetPt/D");
   NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/D");
   NewTree->Branch("MetDividedByHT",        &MetDividedByHT,        "MetDividedByHT/D");
+  NewTree->Branch("HTDividedByMet",        &HTDividedByMet,        "HTDividedByMet/D");
   NewTree->Branch("MHTDividedByMET",        &MHTDividedByMET,        "MHTDividedByMET/D");
   NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/D");
   NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/D");
@@ -1635,6 +1689,8 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
   NewTree->Branch("LeadingTopPt",        &LeadingTopPt,        "LeadingTopPt/D");
   NewTree->Branch("SecondTopPt",        &SecondTopPt,        "SecondTopPt/D");
+  NewTree->Branch("MinDeltaRTops",        &MinDeltaRTops,        "MinDeltaRTops/D");
+  NewTree->Branch("MaxDeltaRTops",        &MaxDeltaRTops,        "MaxDeltaRTops/D");
 //
 //
   NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
@@ -2044,6 +2100,7 @@ LeadingBJetPt=-99;
 SecondBJetPt=-99;
 HTDividedByMET=-99;
 MetDividedByHT=-99;
+HTDividedByMet=-99;
 MHTDividedByMET=-99;
 NighthJetPt=-99;
 TenthJetPt=-99;
@@ -2067,6 +2124,8 @@ SecondTauPt=-99;
 NumofTops=-99;
 LeadingTopPt=-99;
 SecondTopPt=-99;
+MinDeltaRTops=-99;
+MaxDeltaRTops=-99;
 
 //
 //
