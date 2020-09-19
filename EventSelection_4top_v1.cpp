@@ -239,7 +239,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             MHTDividedByMET   = MHT/Met_pt;
 
             vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
-            give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
+            if(NumSelJets>0) LeadingJetPt = JetsPtSorted[0];
+            if(NumSelJets>1) SecondJetPt = JetsPtSorted[1];
+//            give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
             vector<double> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
             give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
 
