@@ -78,7 +78,9 @@ void PlotterPreselection_PlayWithMC(){
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 //    sprintf(CUTpre,"((channel_2Tau0L==1))");   TString postfix = "2Tau0L.png";
 //    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
-vector<string> Channel = {"1Tau0L","1Tau1L","1Tau2OS", "1Tau2SS", "1Tau3L", "2Tau1L","2Tau2OS","2Tau2SS"   };
+//vector<string> Channel = {"1Tau0L","1Tau1L","1Tau2OS", "1Tau2SS", "1Tau3L", "2Tau1L","2Tau2OS","2Tau2SS"   };
+//vector<string> Channel = { "1Tau0L"   };
+vector<string> Channel = { "2Tau0L"   };
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
     TString postfix = ch + ".png";

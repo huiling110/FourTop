@@ -95,8 +95,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			//met
             //?need to check met
 //			bool SelectedMet = false;
-			//?how does SysJes impact Met_pt ?
-            //?do we still have to correct Met?
+			//?how does SysJes impact Met_pt ?//?do we still have to correct Met?
 			MetCorrection(SysJes,SysJer,Met_pt);// Met_pt in newtree branch.
             //why have to do this MetCorrection//take jet SF into consideration.correct met_pt
 //            if( Met_pt > 200)  SelectedMet = true;//228;parameter in Fillbranches
@@ -221,8 +220,15 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			NumSelBJetsT      = SelectedBJetsT.size();
 			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
 			HT                = HTcalculator(SelectedJets);
+            HT_BJetL          = HTcalculator(SelectedBJetsL);
+            HT_BJetM          = HTcalculator(SelectedBJetsM);
+            HT_BJetT          = HTcalculator(SelectedBJetsT);
 			InvariantMassJets = InvariantMassCalculator(SelectedJets);
-			Centrality        = InvariantMassJets/HT;
+            InvariantMassBJetsL = InvariantMassCalculator(SelectedBJetsL);
+            InvariantMassBJetsM = InvariantMassCalculator(SelectedBJetsM);
+            InvariantMassBJetsT = InvariantMassCalculator(SelectedBJetsT);
+//			Centrality        = InvariantMassJets/HT;
+            Centrality        = HT/InvariantMassJets;
 //			Aplanarity        = 
 //			LeadingJetPt      = LeadingJetPtCal(SelectedJets);
 //			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
@@ -231,10 +237,18 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             MetDividedByHT = Met_pt/HT;
             HTDividedByMet = HT/Met_pt;
             MHTDividedByMET   = MHT/Met_pt;
+
             vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
             vector<double> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
             give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
+
+            Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
+            FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);       
+            if(NumSelJets>0) LeadingJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(leading_pt_index);
+            if(NumSelJets>1) SecondJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(second_pt_index);
+            if(NumSelJets>2) ThirdJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(third_pt_index);
+
             vector<double> MinMaxDeltaRBJets; MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
             MinDeltaRBJets = MinMaxDeltaRBJets[0];
             MaxDeltaRBJets = MinMaxDeltaRBJets[1];
@@ -243,7 +257,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaRJets;  MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
             MinDeltaRJets = MinMaxDeltaRJets[0];
             MaxDeltaRJets = MinMaxDeltaRJets[1];
-            DeltaPhiJetMet =
+            vector<double> MinMaxDeltaPhiJets;   MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
+            MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
+//?            Jet_pfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_;
+            
             if(!(NumSelJets>0)) continue;
             if(!(NumSelBJetsL>0)) continue;
 //
@@ -1120,7 +1137,6 @@ void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMa
     double MaxPhi = 0;
     double initMin = 1000000;
     double MinPhi = 1000000;
-//    double deltaR = 0;
     double deltaPhi = 0;
     double Eta = 0;
     double Eta2 = 0;
@@ -1145,25 +1161,10 @@ void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMa
         MaxPhi = -1;
         MinPhi = -1;//means have less than 2 jets
     }
-    MinMaxDeltaR.push_back(MinPhi);// cout<<MinPhi<<"  ";
-    MinMaxDeltaR.push_back(MaxPhi);
+    MinMaxDeltaPhi.push_back(MinPhi);// cout<<MinPhi<<"  ";
+    MinMaxDeltaPhi.push_back(MaxPhi);
 }/*}}}*/
 
-void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPtSorted){/*{{{*/
-    UInt_t size = 0;
-    size = SelectedJets.size();
-    int k = 0;
-    double JetsPt[size] ; 
-    for (UInt_t j = 0; j < size; ++j){
-        JetsPt[j] = SelectedJets[j].Pt();
-    }
-    sort(JetsPt, JetsPt+size);
-    for (UInt_t i =0; i < size;++i){
-        k = size-i-1;//-1 because starts with 0
-        JetsPtSorted.push_back(JetsPt[k]);
-    }
-    
-}
 
 double HTcalculator(vector<TLorentzVector> SelectedJets){/*{{{*/
   double HTprov=0;
@@ -1284,7 +1285,6 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<double> &Min
    // cout<<MinMaxDeltaR[0];
 }/*}}}*/
 
-//void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted){/*{{{*/
 void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPtSorted){/*{{{*/
     UInt_t size = 0;
     size = SelectedJets.size();
@@ -1293,12 +1293,27 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPt
     for (UInt_t j = 0; j < size; ++j){
         JetsPt[j] = SelectedJets[j].Pt();
     }
-    sort(JetsPt, JetsPt+size);
+    sort(JetsPt, JetsPt+size);//Sorts the elements in the range [first,last) into ascending order.
     for (UInt_t i =0; i < size;++i){
         k = size-i-1;//-1 because starts with 0
-        JetsPtSorted.push_back(JetsPt[k]);
+        JetsPtSorted.push_back(JetsPt[k]);//std::reverse
     }
 }/*}}}*/
+
+void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const vector<double> JetsPtSorted, Int_t &LeadingPtIndex, Int_t &SecondPtIndex, Int_t &ThirdPtIndex){
+    Int_t    size = SelectedJets.size();
+    double leading_pt = -99 ; double second_pt = -99;    double third_pt = -99;
+    if (size >0)  leading_pt = JetsPtSorted[0];
+    if (size > 1) second_pt = JetsPtSorted[1];
+    if (size > 2) third_pt = JetsPtSorted[2];
+    for (UInt_t j = 0; j < size; ++j){
+        if (SelectedJets[j].Pt() == leading_pt)   LeadingPtIndex = j; 
+        if (SelectedJets[j].Pt() == second_pt)    SecondPtIndex = j;
+        if (SelectedJets[j].Pt() == third_pt)     ThirdPtIndex = j;
+   } 
+}
+
+
 //?what is the poit of this function when you can just give value?
 void give_value_JetPtSorted(vector<double> JetsPtSorted,double &LeadingJetPt,double &SecondJetPt, double &ThirdJetPt, double &FourthJetPt, double &FitthJetPt,double &SixthJetPt, double &SeventhJetPt, double &EighthJetPt, double &NighthJetPt, double &TenthJetPt){/*{{{*/
     for(UInt_t i = 0; i < JetsPtSorted.size();++i){
@@ -1648,6 +1663,9 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumSeEle",          &NumSeEle,          "NumSeEle/I");
   NewTree->Branch("NumSeMu",           &NumSeMu,            "NumSeMu/I");
   NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/D");
+  NewTree->Branch("InvariantMassBJetsL",  &InvariantMassBJetsL,   "InvariantMassBJetsL/D");
+  NewTree->Branch("InvariantMassBJetsM",  &InvariantMassBJetsM,   "InvariantMassBJetsM/D");
+  NewTree->Branch("InvariantMassBJetsT",  &InvariantMassBJetsT,   "InvariantMassBJetsT/D");
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/D");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/D");
   NewTree->Branch("LeadingJetPt",      &LeadingJetPt,      "LeadingJetPt/D");
@@ -1677,8 +1695,12 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("EighthBJetPt",        &EighthBJetPt,        "EighthBJetPt/D");
   NewTree->Branch("NighthBJetPt",        &NighthBJetPt,        "NighthBJetPt/D");
   NewTree->Branch("TenthBJetPt",        &TenthBJetPt,        "TenthBJetPt/D");
+  NewTree->Branch("LeadingJetpfDeepFlavourBJetTags",        &LeadingJetpfDeepFlavourBJetTags,        "LeadingJetpfDeepFlavourBJetTags/D");
+  NewTree->Branch("SecondJetpfDeepFlavourBJetTags",        &SecondJetpfDeepFlavourBJetTags,        "SecondJetpfDeepFlavourBJetTags/D");
+  NewTree->Branch("ThirdJetpfDeepFlavourBJetTags",        &ThirdJetpfDeepFlavourBJetTags,        "ThirdJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("MinDeltaRJets",        &MinDeltaRJets,        "MinDeltaRJets/D");
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/D");
+  NewTree->Branch("MinDeltaPhiJets",        &MinDeltaPhiJets,        "MinDeltaPhiJets/D");
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
@@ -1702,6 +1724,9 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumSelTopJets",     &NumSelTopJets,     "NumSelTopJets/I"     );
   NewTree->Branch("NVertices",         &NVertices,         "NVertices/I"         );
   NewTree->Branch("HT",                &HT,                "HT/D"                );
+  NewTree->Branch("HT_BJetL",                &HT_BJetL,                "HT_BJetL/D"                );
+  NewTree->Branch("HT_BJetM",                &HT_BJetM,                "HT_BJetM/D"                );
+  NewTree->Branch("HT_BJetT",                &HT_BJetT,                "HT_BJetT/D"                );
   NewTree->Branch("MHT",                &MHT,                "MHT/D"             );
   NewTree->Branch("PUWeight",          &PUWeight,          "PUWeight/D"          );
   NewTree->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/D"        );
@@ -2083,6 +2108,9 @@ ThirdLeptonPt=-99;
   NumSeEle=-99;
   NumSeMu=-99;
   InvariantMassJets=-99;
+InvariantMassBJetsL=-99;
+InvariantMassBJetsM=-99;
+InvariantMassBJetsT=-99;
   Centrality=-99;
   Aplanarity=-99;
   LeadingJetPt=-99;
@@ -2112,8 +2140,12 @@ SeventhBJetPt=-99;
 EighthBJetPt=-99;
 NighthBJetPt=-99;
 TenthBJetPt=-99;
+LeadingJetpfDeepFlavourBJetTags=-99;
+SecondJetpfDeepFlavourBJetTags=-99;
+ThirdJetpfDeepFlavourBJetTags=-99;
 MinDeltaRJets=-99;
 MaxDeltaRJets=-99;
+MinDeltaPhiJets=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
@@ -2138,6 +2170,9 @@ MaxDeltaRTops=-99;
   NumSelTopJets=-99;
   NVertices=-99;
   HT=-99;
+  HT_BJetL=-99;
+  HT_BJetM=-99;
+  HT_BJetT=-99;
   MHT=-99;
   PUWeight=1;
   PUWeightUP=1;
