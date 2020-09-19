@@ -241,9 +241,18 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
             if(NumSelJets>0) LeadingJetPt = JetsPtSorted[0];
             if(NumSelJets>1) SecondJetPt = JetsPtSorted[1];
-//            give_value_JetPtSorted(JetsPtSorted,LeadingJetPt,SecondJetPt, ThirdJetPt,FourthJetPt,FifthJetPt,SixthJetPt,SeventhJetPt,EighthJetPt,NighthJetPt,TenthJetPt );
-            vector<double> BJetsPtSorted; sort_jetPt(SelectedBJetsM,BJetsPtSorted);
-            give_value_JetPtSorted(BJetsPtSorted,LeadingBJetPt,SecondBJetPt, ThirdBJetPt,FourthBJetPt,FifthBJetPt,SixthBJetPt,SeventhBJetPt,EighthBJetPt,  NighthBJetPt,TenthBJetPt);
+            if(NumSelJets>2) ThirdJetPt = JetsPtSorted[2];
+            if(NumSelJets>3) FourthJetPt = JetsPtSorted[3];
+            if(NumSelJets>4) FifthJetPt = JetsPtSorted[4];
+            if(NumSelJets>5) SixthJetPt = JetsPtSorted[5];
+            if(NumSelJets>6) SeventhJetPt = JetsPtSorted[6];
+            if(NumSelJets>7) EighthJetPt = JetsPtSorted[7];
+            if(NumSelJets>8) NighthJetPt = JetsPtSorted[8];
+            vector<double> BJetsMPtSorted; sort_jetPt(SelectedBJetsM,BJetsMPtSorted);
+            if(NumSelBJetsM > 0 ) LeadingBJetPt = BJetsMPtSorted[0];
+            if(NumSelBJetsM > 1 ) SecondBJetPt = BJetsMPtSorted[1];
+            if(NumSelBJetsM > 2 ) ThirdBJetPt = BJetsMPtSorted[2];
+            if(NumSelBJetsM > 3 ) FourthBJetPt = BJetsMPtSorted[3];
 
             Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
             FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);       
@@ -1316,23 +1325,6 @@ void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const v
 }
 
 
-//?what is the poit of this function when you can just give value?
-void give_value_JetPtSorted(vector<double> JetsPtSorted,double &LeadingJetPt,double &SecondJetPt, double &ThirdJetPt, double &FourthJetPt, double &FitthJetPt,double &SixthJetPt, double &SeventhJetPt, double &EighthJetPt, double &NighthJetPt, double &TenthJetPt){/*{{{*/
-    for(UInt_t i = 0; i < JetsPtSorted.size();++i){
-        if(i == 0) LeadingJetPt = JetsPtSorted[i];
-        if(i == 1) SecondJetPt = JetsPtSorted[i];
-        if(i == 2) ThirdJetPt = JetsPtSorted[i];
-        if(i == 3) FourthJetPt = JetsPtSorted[i];
-        if(i == 4) FifthJetPt = JetsPtSorted[i];
-        if(i == 5) SixthJetPt = JetsPtSorted[i];
-        if(i == 6) SeventhJetPt = JetsPtSorted[i];
-        if(i == 7) EighthJetPt = JetsPtSorted[i];
-        if(i == 8) NighthJetPt = JetsPtSorted[i];
-        if(i == 9) TenthJetPt = JetsPtSorted[i];
-        
-    }
-
-}/*}}}*/
 
 //it seems that fileName doesn't occur in the function .
 //void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string fileName){
