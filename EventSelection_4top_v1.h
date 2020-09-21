@@ -16,6 +16,7 @@
 void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB);/*{{{*/
 void SelectMet(bool &SelectedMet);
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
+void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type );
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
 void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP=1);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);
@@ -215,11 +216,6 @@ vector <int>* patElectron_cutBasedElectronID_Fall17_94X_V2_loose_; TBranch* b_pa
 vector <int>* patElectron_cutBasedElectronID_Fall17_94X_V2_tight_; TBranch* b_patElectron_cutBasedElectronID_Fall17_94X_V2_tight; 
 vector <int>* patElectron_cutBasedElectronID_Fall17_94X_V2_veto_; TBranch* b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto;
 vector <int>* patElectron_heepElectronID_HEEPV70_; TBranch* b_patElectron_heepElectronID_HEEPV70; 
-/*vector <int> * patElectron_isPassVeto_; TBranch *b_patElectron_isPassVeto;
-vector <int> * patElectron_isPassLoose_; TBranch *b_patElectron_isPassLoose;
-vector <int> * patElectron_isPassMedium_; TBranch *b_patElectron_isPassMedium;
-vector <int> * patElectron_isPassTight_; TBranch *b_patElectron_isPassTight;
-vector <int> * patElectron_isPassHEEPId_; TBranch *b_patElectron_isPassHEEPId;*/
 vector <double> * patElectron_d0_; TBranch *b_patElectron_d0;
 vector <double> * patElectron_gsfTrack_dz_pv_; TBranch *b_patElectron_gsfTrack_dz_pv;
 vector <int> * patElectron_expectedMissingInnerHits_; TBranch *b_patElectron_expectedMissingInnerHits;
@@ -236,6 +232,12 @@ vector <double> * patElectron_ooEmooP_; TBranch *b_patElectron_ooEmooP;
 vector <double> * patElectron_relIsoRhoEA_; TBranch *b_patElectron_relIsoRhoEA;
 vector <double> * patElectron_inCrack_; TBranch *b_patElectron_inCrack;
 vector <int> * patElectron_isMatchedToTrigger_; TBranch *b_patElectron_isMatchedToTrigger;
+
+vector <double>* patElectron_miniIsoRel_; TBranch *b_patElectron_miniIsoRel;
+vector <double>* patElectron_jetptratio_; TBranch *b_patElectron_jetptratio;
+vector <double>* patElectron_ptrel_; TBranch *b_patElectron_ptrel;
+vector <double>* patElectron_IP3D_sig_; TBranch *b_patElectron_IP3D_sig;
+
 vector <double> * Muon_pt_; TBranch *b_Muon_pt;
 vector <double> * Muon_eta_; TBranch *b_Muon_eta;
 vector <double> * Muon_phi_; TBranch *b_Muon_phi;
@@ -484,19 +486,25 @@ double deltaRb2Lep2=-99;
 double deltaPhiMetTop=-99.;
 double MinDeltaPhiJetMet=99.;
 double MinDeltaPhiBoostedJetMet=99.;
-int   NumSelLeps=-99;
+int   NumOfLeptonsL=-99;
 int NumOfLeptonsT=-99; 
 int NumOfLeptonsT_v2=-99; 
+int NumOfLeptonsM=-99;
 int NumOfMuonsT=-99;
-int NumOfElectronsT=-99;
 double LeadingLeptonPt=-99;
 double SecondLeptonPt=-99;
 double ThirdLeptonPt=-99;
 
+int NumOfElectronsMVAL=-99;
+int NumOfElectronsMVAF=-99;
+int NumOfElectronsMVAT=-99;
+
 //
 //
-int   NumSeEle=-99;
-int   NumSeMu=-99;
+int   NumOfElectronsL=-99;
+int   NumOfElectronsM=-99;
+int   NumOfElectronsT=-99;
+int   NumOfMuonsL=-99;
 double   InvariantMassJets=-99;
 double InvariantMassBJetsL= -99;
 double InvariantMassBJetsM= -99;
@@ -514,22 +522,26 @@ double FifthJetPt=-99;
 double SixthJetPt=-99;
 double SeventhJetPt=-99;
 double EighthJetPt=-99;
-double LeadingBJetPt=-99;
-double SecondBJetPt=-99;
+double LeadingBJetMPt=-99;
+double SecondBJetMPt=-99;
 double HTDividedByMET=-99;
 double MetDividedByHT=-99;
 double HTDividedByMet=-99;
 double MHTDividedByMET=-99;
 double NighthJetPt=-99;
 double TenthJetPt=-99;
-double ThirdBJetPt=-99;
-double FourthBJetPt=-99;
-double FifthBJetPt=-99;
-double SixthBJetPt=-99;
-double SeventhBJetPt=-99;
-double EighthBJetPt=-99;
-double NighthBJetPt=-99;
-double TenthBJetPt=-99;
+double ThirdBJetMPt=-99;
+double FourthBJetMPt=-99;
+double ThirdBJetLPt=-99;
+double FourthBJetLPt=-99;
+double LeadingBJetLPt=-99;
+double SecondBJetLPt=-99;
+double ThirdBJetTPt=-99;
+double FourthBJetTPt=-99;
+double LeadingBJetTPt=-99;
+double SecondBJetTPt=-99;
+
+
 double LeadingJetpfDeepFlavourBJetTags=-99;
 double SecondJetpfDeepFlavourBJetTags=-99;
 double ThirdJetpfDeepFlavourBJetTags=-99;

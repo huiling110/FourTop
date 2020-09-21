@@ -103,35 +103,51 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			//Met_pt            = Met_type1PF_pt_;
 			Met_phi           = Met_type1PF_phi_;//Met_phi branch in newtree and SB
 
+
+
 			//lepton selection
 			vector<TLorentzVector> SelectedElectronsL; vector<int> SelectedElectronsLIndex;
 			vector<TLorentzVector> SelectedElectronsM; vector<int> SelectedElectronsMIndex;
 			vector<TLorentzVector> SelectedElectronsT; vector<int> SelectedElectronsTIndex;
 			vector<TLorentzVector> SelectedElectronsVeto; vector<int> SelectedElectronsVetoIndex;
-			SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//304
-			SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);//304
+			SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);
+			SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
 			SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
 			SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3);//304
-
 			vector<TLorentzVector> SelectedMuonsL;     vector<int> SelectedMuonsLIndex;
+			vector<TLorentzVector> SelectedMuonsM;     vector<int> SelectedMuonsMIndex;
 			vector<TLorentzVector> SelectedMuonsT;     vector<int> SelectedMuonsTIndex;
 			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
+			SelectMuons(SelectedMuonsM, SelectedMuonsMIndex,1);
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
-            NumSeEle          = SelectedElectronsL.size();
-			NumSeMu           =  SelectedMuonsL.size();  
-			NumSelLeps        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
+            NumOfElectronsL          = SelectedElectronsL.size();
+            NumOfElectronsM          = SelectedElectronsM.size();
+			NumOfMuonsL           =  SelectedMuonsL.size();  
+            NumOfMuonsT = SelectedMuonsT.size();
             vector<TLorentzVector> LeptonsT = SelectedMuonsT;
-         //   vector<TLorentzVector> LeptonsTIndex = SelectedMuonsTIndex;
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
-       //     LeptonsTIndex.insert(LeptonsTIndex.end(),SelectedElectronsTIndex.begin(),SelectedElectronsTIndex.end());
+            vector<TLorentzVector> LeptonsM = SelectedMuonsM;
+            LeptonsM.insert(LeptonsM.end(),SelectedElectronsM.begin(),SelectedElectronsM.end());
+			NumOfLeptonsL        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
             NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
             NumOfLeptonsT_v2 = LeptonsT.size();
-            NumOfMuonsT = SelectedMuonsT.size();
+            NumOfLeptonsM = LeptonsM.size();
             NumOfElectronsT = SelectedElectronsT.size();
             vector<double> LeptonsTPtSorted; sort_jetPt(LeptonsT,LeptonsTPtSorted);
             if(NumOfLeptonsT_v2>0) LeadingLeptonPt = LeptonsTPtSorted[0];
             if(NumOfLeptonsT_v2>1) SecondLeptonPt = LeptonsTPtSorted[1];
             if(NumOfLeptonsT_v2>2) ThirdLeptonPt = LeptonsTPtSorted[2];
+
+            //lepton MVA
+			vector<TLorentzVector> SelectedElectronsMVAL; vector<int> SelectedElectronsMVALIndex;
+			vector<TLorentzVector> SelectedElectronsMVAF; vector<int> SelectedElectronsMVAFIndex;//F for fakeble
+			vector<TLorentzVector> SelectedElectronsMVAT; vector<int> SelectedElectronsMVATIndex;
+			SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex, 0);
+			SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex, 1);
+			SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex, 2);
+            NumOfElectronsMVAL          = SelectedElectronsMVAL.size();
+            NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
+            NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
 
 
             //hadronic tau selection
@@ -249,10 +265,20 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             if(NumSelJets>7) EighthJetPt = JetsPtSorted[7];
             if(NumSelJets>8) NighthJetPt = JetsPtSorted[8];
             vector<double> BJetsMPtSorted; sort_jetPt(SelectedBJetsM,BJetsMPtSorted);
-            if(NumSelBJetsM > 0 ) LeadingBJetPt = BJetsMPtSorted[0];
-            if(NumSelBJetsM > 1 ) SecondBJetPt = BJetsMPtSorted[1];
-            if(NumSelBJetsM > 2 ) ThirdBJetPt = BJetsMPtSorted[2];
-            if(NumSelBJetsM > 3 ) FourthBJetPt = BJetsMPtSorted[3];
+            if(NumSelBJetsM > 0 ) LeadingBJetMPt = BJetsMPtSorted[0];
+            if(NumSelBJetsM > 1 ) SecondBJetMPt = BJetsMPtSorted[1];
+            if(NumSelBJetsM > 2 ) ThirdBJetMPt = BJetsMPtSorted[2];
+            if(NumSelBJetsM > 3 ) FourthBJetMPt = BJetsMPtSorted[3];
+            vector<double> BJetsLPtSorted; sort_jetPt(SelectedBJetsL,BJetsLPtSorted);
+            if(NumSelBJetsL > 0 ) LeadingBJetLPt = BJetsLPtSorted[0];
+            if(NumSelBJetsL > 1 ) SecondBJetLPt = BJetsLPtSorted[1];
+            if(NumSelBJetsL > 2 ) ThirdBJetLPt = BJetsLPtSorted[2];
+            if(NumSelBJetsL > 3 ) FourthBJetLPt = BJetsLPtSorted[3];
+            vector<double> BJetsTPtSorted; sort_jetPt(SelectedBJetsT,BJetsTPtSorted);
+            if(NumSelBJetsT > 0 ) LeadingBJetTPt = BJetsTPtSorted[0];
+            if(NumSelBJetsT > 1 ) SecondBJetTPt = BJetsTPtSorted[1];
+            if(NumSelBJetsT > 2 ) ThirdBJetTPt = BJetsTPtSorted[2];
+            if(NumSelBJetsT > 3 ) FourthBJetTPt = BJetsTPtSorted[3];
 
             Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
             FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);       
@@ -396,24 +422,6 @@ void MetCorrection(int SysJes, int SysJer, double &MET){/*{{{*/
      MET = sqrt(METx*METx + METy*METy);
 }/*}}}*/
 
-//void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){/*{{{*/
-//	//?data does not occur.
-//  for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
-//		//what is patElectron_pt?
-//    if(!(patElectron_pt_->at(j)>20))                 continue;//A continue skips the rest of the body of an iteration-statement.
-//    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;//std::string::at can be used to extract characters by characters from a given string.
-//    if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
-//		//SCeta?//super cluster
-//    if(!(patElectron_inCrack_->at(j)==0))	         continue;
-////    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
-//    if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
-//		//?
-//    //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
-//    TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
-//    SelectedElectrons.push_back(electron);
-//    SelectedElectronsIndex.push_back(j);
-//  }
-//}/*}}}*/
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type ){/*{{{*/
 	//?data does not occur.
     //0; loose
@@ -448,6 +456,140 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
     SelectedElectronsIndex.push_back(j);
   }
 }/*}}}*/
+
+void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type ){
+    //0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
+  //2016 - MVANoIso94XV2, from SUSY
+   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){//banch in tree line945
+       double pt = patElectron_pt_->at(j);
+       double eta = patElectron_eta_->at(j);
+       double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
+        if(!(fabs(eta)<2.4))	     continue;
+        if(fabs(eta)<0.8){
+            if(type == 2){
+                if(10<pt && pt<40){
+                    if(!(MVA_value>3.447+0.063*(pt-25))) continue;
+                }
+                if(pt>=40){
+                    if(!(MVA_value>4.392)) continue;
+                }
+            }
+            if(type == 0){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>1.309)) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>0.887+0.088*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>0.887)) continue;
+                }
+            }
+            if(type == 1){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>(-0.259))) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>(-0.388)+0.109*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>(-0.388))) continue;
+                }
+            }
+        }
+        if(0.8<fabs(eta) && fabs(eta) <1.479){
+            if(type == 2){
+                if(10<pt && pt<40){
+                    if(!(MVA_value>2.522+0.058*(pt-25))) continue;
+                }
+                if(pt>=40){
+                    if(!(MVA_value>3.392)) continue;
+                }
+            }
+            if(type == 0){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>0.373)) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>0.112+0.099*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>0.112)) continue;
+                }
+            }
+            if(type == 1){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>(-0.256))) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>(-0.696)+0.106*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>(-0.696))) continue;
+                }
+            }
+        }
+        if(1.479<fabs(eta) && fabs(eta)<2.5){
+            if(type == 2){
+                if(10<pt && pt<40){
+                    if(!(MVA_value>1.555+0.075*(pt-25))) continue;
+                }
+                if(pt>=40){
+                    if(!(MVA_value>2.680)) continue;
+                }
+            }
+            if(type == 0){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>0.071)) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>(-0.017)+0.137*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>(-0.017))) continue;
+                }
+            }
+            if(type == 1){
+                if(5<pt && pt<10){
+                    if(!(MVA_value>(-1.630))) continue;
+                }
+                if(10<pt && pt<25){
+                    if(!(MVA_value>(-1.219)+0.148*(pt-25))) continue;
+                }
+                if(pt>25){
+                    if(!(MVA_value>(-1.219))) continue;
+                }
+            }
+        }
+        //ISO
+        double I1 = 0.4, I2 = 0, I3 = 0;
+        if(type == 0 or type == 1){  I1 = 0.4; I2 = 0; I3 = 0;}//looseWP from ss of TTTT}
+//        if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+    //    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))  continue;
+    //    ??patElectron_jetptratioV2?
+//        if(!((patElectron_miniIsoRel_->at(j)<I1)|((patElectron_jetptratio_->at(j)>I2)&&(patElectron_ptrel_->at(j)>I3))))  continue;
+        if(!((patElectron_miniIsoRel_->at(j)<I1) && ((patElectron_jetptratio_->at(j)>I2) || (patElectron_ptrel_->at(j)>I3))))  continue;
+//?if we apply this for tight , the number would be very low.
+        //emulation selection
+        
+        //IP
+//?        patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
+        if(!(patElectron_d0_->at(j)<0.05)) continue;
+        if(!(patElectron_gsfTrack_dz_pv_->at(j)<0.1)) continue;
+        if(type == 1 or type == 2) {
+            if(!(patElectron_IP3D_sig_->at(j)<4)) continue;
+        }
+
+        //charge
+        //patElectron_inCrack
+        //?missing inner hits;conversion veto;tight charge not avalible on ntuple
+        
+
+        TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
+        SelectedElectrons.push_back(electron);
+        SelectedElectronsIndex.push_back(j);
+    }
+}
 
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type){/*{{{*/
     //changed ISO to ss of TTTT
@@ -1317,7 +1459,7 @@ void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const v
     if (size >0)  leading_pt = JetsPtSorted[0];
     if (size > 1) second_pt = JetsPtSorted[1];
     if (size > 2) third_pt = JetsPtSorted[2];
-    for (UInt_t j = 0; j < size; ++j){
+    for (Int_t j = 0; j < size; ++j){
         if (SelectedJets[j].Pt() == leading_pt)   LeadingPtIndex = j; 
         if (SelectedJets[j].Pt() == second_pt)    SecondPtIndex = j;
         if (SelectedJets[j].Pt() == third_pt)     ThirdPtIndex = j;
@@ -1420,6 +1562,15 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   Tree->SetBranchAddress("patElectron_passConversionVeto",&patElectron_passConversionVeto_,&b_patElectron_passConversionVeto); 
   Tree->SetBranchAddress("patElectron_inCrack",&patElectron_inCrack_,&b_patElectron_inCrack);
   Tree->SetBranchAddress("patElectron_isMatchedToTrigger",&patElectron_isMatchedToTrigger_,&b_patElectron_isMatchedToTrigger);
+
+  Tree->SetBranchAddress("patElectron_miniIsoRel",&patElectron_miniIsoRel_,&b_patElectron_miniIsoRel);
+  Tree->SetBranchAddress("patElectron_jetptratio",&patElectron_jetptratio_,&b_patElectron_jetptratio);
+  Tree->SetBranchAddress("patElectron_ptrel",&patElectron_ptrel_,&b_patElectron_ptrel);
+  Tree->SetBranchAddress("patElectron_d0",&patElectron_d0_,&b_patElectron_d0);
+  Tree->SetBranchAddress("patElectron_gsfTrack_dz_pv",&patElectron_gsfTrack_dz_pv_,&b_patElectron_gsfTrack_dz_pv);
+  Tree->SetBranchAddress("patElectron_IP3D_sig",&patElectron_IP3D_sig_,&b_patElectron_IP3D_sig);
+//  Tree->SetBranchAddress("",&_,&b_);
+
   Tree->SetBranchAddress("Muon_pt",&Muon_pt_,&b_Muon_pt);
   Tree->SetBranchAddress("Muon_eta",&Muon_eta_,&b_Muon_eta);
   Tree->SetBranchAddress("Muon_phi",&Muon_phi_,&b_Muon_phi);
@@ -1644,18 +1795,24 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/D"      );
   NewTree->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
   NewTree->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
-  NewTree->Branch("NumSelLeps",        &NumSelLeps,        "NumSelLeps/I"        );
+  NewTree->Branch("NumOfLeptonsL",        &NumOfLeptonsL,        "NumOfLeptonsL/I"        );
   NewTree->Branch("NumOfLeptonsT",        &NumOfLeptonsT,        "NumOfLeptonsT/I"        );
   NewTree->Branch("NumOfLeptonsT_v2",        &NumOfLeptonsT_v2,        "NumOfLeptonsT_v2/I"        );
+  NewTree->Branch("NumOfLeptonsM",        &NumOfLeptonsM,        "NumOfLeptonsM/I"        );
   NewTree->Branch("NumOfMuonsT",        &NumOfMuonsT,        "NumOfMuonsT/I"        );
   NewTree->Branch("NumOfElectronsT",        &NumOfElectronsT,        "NumOfElectronsT/I"        );
   NewTree->Branch("LeadingLeptonPt",          &LeadingLeptonPt,          "LeadingLeptonPt/D");
   NewTree->Branch("SecondLeptonPt",          &SecondLeptonPt,          "SecondLeptonPt/D");
   NewTree->Branch("ThirdLeptonPt",          &ThirdLeptonPt,          "ThirdLeptonPt/D");
 //
+  NewTree->Branch("NumOfElectronsMVAL",          &NumOfElectronsMVAL,          "NumOfElectronsMVAL/I");
+  NewTree->Branch("NumOfElectronsMVAT",          &NumOfElectronsMVAT,          "NumOfElectronsMVAT/I");
+  NewTree->Branch("NumOfElectronsMVAF",          &NumOfElectronsMVAF,          "NumOfElectronsMVAF/I");
+
 //
-  NewTree->Branch("NumSeEle",          &NumSeEle,          "NumSeEle/I");
-  NewTree->Branch("NumSeMu",           &NumSeMu,            "NumSeMu/I");
+  NewTree->Branch("NumOfElectronsL",          &NumOfElectronsL,          "NumOfElectronsL/I");
+  NewTree->Branch("NumOfElectronsM",          &NumOfElectronsM,          "NumOfElectronsM/I");
+  NewTree->Branch("NumOfMuonsL",           &NumOfMuonsL,            "NumOfMuonsL/I");
   NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/D");
   NewTree->Branch("InvariantMassBJetsL",  &InvariantMassBJetsL,   "InvariantMassBJetsL/D");
   NewTree->Branch("InvariantMassBJetsM",  &InvariantMassBJetsM,   "InvariantMassBJetsM/D");
@@ -1673,22 +1830,28 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("SixthJetPt",        &SixthJetPt,        "SixthJetPt/D");
   NewTree->Branch("SeventhJetPt",        &SeventhJetPt,        "SeventhJetPt/D");
   NewTree->Branch("EighthJetPt",        &EighthJetPt,        "EighthJetPt/D");
-  NewTree->Branch("LeadingBJetPt",        &LeadingBJetPt,        "LeadingBJetPt/D");
-  NewTree->Branch("SecondBJetPt",        &SecondBJetPt,        "SecondBJetPt/D");
+  NewTree->Branch("LeadingBJetMPt",        &LeadingBJetMPt,        "LeadingBJetMPt/D");
+  NewTree->Branch("SecondBJetMPt",        &SecondBJetMPt,        "SecondBJetMPt/D");
   NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/D");
   NewTree->Branch("MetDividedByHT",        &MetDividedByHT,        "MetDividedByHT/D");
   NewTree->Branch("HTDividedByMet",        &HTDividedByMet,        "HTDividedByMet/D");
   NewTree->Branch("MHTDividedByMET",        &MHTDividedByMET,        "MHTDividedByMET/D");
   NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/D");
   NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/D");
-  NewTree->Branch("ThirdBJetPt",        &ThirdBJetPt,        "ThirdBJetPt/D");
-  NewTree->Branch("FourthBJetPt",        &FourthBJetPt,        "FourthBJetPt/D");
-  NewTree->Branch("FifthBJetPt",        &FifthBJetPt,        "FifthBJetPt/D");
-  NewTree->Branch("SixthBJetPt",        &SixthBJetPt,        "SixthBJetPt/D");
-  NewTree->Branch("SeventhBJetPt",        &SeventhBJetPt,        "SeventhBJetPt/D");
-  NewTree->Branch("EighthBJetPt",        &EighthBJetPt,        "EighthBJetPt/D");
-  NewTree->Branch("NighthBJetPt",        &NighthBJetPt,        "NighthBJetPt/D");
-  NewTree->Branch("TenthBJetPt",        &TenthBJetPt,        "TenthBJetPt/D");
+
+  NewTree->Branch("ThirdBJetMPt",        &ThirdBJetMPt,        "ThirdBJetMPt/D");
+  NewTree->Branch("FourthBJetMPt",        &FourthBJetMPt,        "FourthBJetMPt/D");
+  NewTree->Branch("LeadingBJetLPt",        &LeadingBJetLPt,        "LeadingBJetLPt/D");
+  NewTree->Branch("SecondBJetLPt",        &SecondBJetLPt,        "SecondBJetLPt/D");
+  NewTree->Branch("ThirdBJetLPt",        &ThirdBJetLPt,        "ThirdBJetLPt/D");
+  NewTree->Branch("FourthBJetLPt",        &FourthBJetLPt,        "FourthBJetLPt/D");
+  NewTree->Branch("LeadingBJetTPt",        &LeadingBJetTPt,        "LeadingBJetTPt/D");
+  NewTree->Branch("SecondBJetTPt",        &SecondBJetTPt,        "SecondBJetTPt/D");
+  NewTree->Branch("ThirdBJetTPt",        &ThirdBJetTPt,        "ThirdBJetTPt/D");
+  NewTree->Branch("FourthBJetTPt",        &FourthBJetTPt,        "FourthBJetTPt/D");
+
+
+
   NewTree->Branch("LeadingJetpfDeepFlavourBJetTags",        &LeadingJetpfDeepFlavourBJetTags,        "LeadingJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("SecondJetpfDeepFlavourBJetTags",        &SecondJetpfDeepFlavourBJetTags,        "SecondJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("ThirdJetpfDeepFlavourBJetTags",        &ThirdJetpfDeepFlavourBJetTags,        "ThirdJetpfDeepFlavourBJetTags/D");
@@ -1886,11 +2049,11 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
       NewTreeSB->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/D"      );
       NewTreeSB->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
       NewTreeSB->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
-      NewTreeSB->Branch("NumSelLeps",        &NumSelLeps,        "NumSelLeps/I"        );
+      NewTreeSB->Branch("NumOfLeptonsL",        &NumOfLeptonsL,        "NumOfLeptonsL/I"        );
     // 
     //
-     NewTreeSB->Branch("NumSeEle",      &NumSeEle,                "NumSeEle");
-     NewTreeSB->Branch("NumSeMu",       &NumSeMu,                 "NumSeMu");
+     NewTreeSB->Branch("NumOfElectronsL",      &NumOfElectronsL,                "NumOfElectronsL");
+     NewTreeSB->Branch("NumOfMuonsL",       &NumOfMuonsL,                 "NumOfMuonsL");
       NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/D");
       NewTreeSB->Branch("Centrality",        &Centrality,       "Centrality/D");
       NewTreeSB->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/D");
@@ -2089,18 +2252,24 @@ channel_2Tau2OS=0;
   Jet1MergedEta=-99;
   MostForwardJetEta=-99;
   MostForwardJetPt=-99;
-  NumSelLeps=-99;
+  NumOfLeptonsL=-99;
   NumOfLeptonsT=-99;
   NumOfLeptonsT_v2=-99;
+  NumOfLeptonsM=-99;
  NumOfMuonsT=-99;
  NumOfElectronsT=-99;
 LeadingLeptonPt=-99;
 SecondLeptonPt=-99;
 ThirdLeptonPt=-99;
+
+NumOfElectronsMVAL=-99;
+NumOfElectronsMVAF=-99;
+NumOfElectronsMVAT=-99;
 //
 //
-  NumSeEle=-99;
-  NumSeMu=-99;
+  NumOfElectronsL=-99;
+  NumOfElectronsM=-99;
+  NumOfMuonsL=-99;
   InvariantMassJets=-99;
 InvariantMassBJetsL=-99;
 InvariantMassBJetsM=-99;
@@ -2118,22 +2287,26 @@ FifthJetPt=-99;
 SixthJetPt=-99;
 SeventhJetPt=-99;
 EighthJetPt=-99;
-LeadingBJetPt=-99;
-SecondBJetPt=-99;
+LeadingBJetMPt=-99;
+SecondBJetMPt=-99;
 HTDividedByMET=-99;
 MetDividedByHT=-99;
 HTDividedByMet=-99;
 MHTDividedByMET=-99;
 NighthJetPt=-99;
 TenthJetPt=-99;
-ThirdBJetPt=-99;
-FourthBJetPt=-99;
-FifthBJetPt=-99;
-SixthBJetPt=-99;
-SeventhBJetPt=-99;
-EighthBJetPt=-99;
-NighthBJetPt=-99;
-TenthBJetPt=-99;
+ThirdBJetMPt=-99;
+FourthBJetMPt=-99;
+LeadingBJetLPt=-99;
+SecondBJetLPt=-99;
+ThirdBJetLPt=-99;
+FourthBJetLPt=-99;
+LeadingBJetTPt=-99;
+SecondBJetTPt=-99;
+ThirdBJetTPt=-99;
+FourthBJetTPt=-99;
+
+
 LeadingJetpfDeepFlavourBJetTags=-99;
 SecondJetpfDeepFlavourBJetTags=-99;
 ThirdJetpfDeepFlavourBJetTags=-99;
@@ -2342,6 +2515,15 @@ void branchGetEntry(bool data, Long64_t tentry){/*{{{*/
   b_patElectron_cutBasedElectronID_Fall17_94X_V2_tight->GetEntry(tentry);
   b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto->GetEntry(tentry);
   b_patElectron_heepElectronID_HEEPV70->GetEntry(tentry);
+
+  b_patElectron_miniIsoRel->GetEntry(tentry);
+  b_patElectron_jetptratio->GetEntry(tentry);
+  b_patElectron_ptrel->GetEntry(tentry);
+  b_patElectron_d0->GetEntry(tentry);
+  b_patElectron_gsfTrack_dz_pv->GetEntry(tentry);
+  b_patElectron_IP3D_sig->GetEntry(tentry);
+
+
 //  ->GetEntry(tentry);
 /*  b_patElectron_isPassVeto->GetEntry(tentry);          
   b_patElectron_isPassLoose->GetEntry(tentry);
