@@ -115,10 +115,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
 			SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3);//304
 			vector<TLorentzVector> SelectedMuonsL;     vector<int> SelectedMuonsLIndex;
-			vector<TLorentzVector> SelectedMuonsM;     vector<int> SelectedMuonsMIndex;
+			vector<TLorentzVector> SelectedMuonsF;     vector<int> SelectedMuonsFIndex;
 			vector<TLorentzVector> SelectedMuonsT;     vector<int> SelectedMuonsTIndex;
 			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
-			SelectMuons(SelectedMuonsM, SelectedMuonsMIndex,1);
+			SelectMuons(SelectedMuonsF, SelectedMuonsFIndex,1);
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
             NumOfElectronsL          = SelectedElectronsL.size();
             NumOfElectronsM          = SelectedElectronsM.size();
@@ -126,12 +126,12 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumOfMuonsT = SelectedMuonsT.size();
             vector<TLorentzVector> LeptonsT = SelectedMuonsT;
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
-            vector<TLorentzVector> LeptonsM = SelectedMuonsM;
-            LeptonsM.insert(LeptonsM.end(),SelectedElectronsM.begin(),SelectedElectronsM.end());
+            vector<TLorentzVector> LeptonsF = SelectedMuonsF;
+            LeptonsF.insert(LeptonsF.end(),SelectedElectronsM.begin(),SelectedElectronsM.end());
 			NumOfLeptonsL        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
             NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
             NumOfLeptonsT_v2 = LeptonsT.size();
-            NumOfLeptonsM = LeptonsM.size();
+            NumOfLeptonsF = LeptonsF.size();
             NumOfElectronsT = SelectedElectronsT.size();
             vector<double> LeptonsTPtSorted; sort_jetPt(LeptonsT,LeptonsTPtSorted);
             if(NumOfLeptonsT_v2>0) LeadingLeptonPt = LeptonsTPtSorted[0];
@@ -464,7 +464,7 @@ void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> 
        double pt = patElectron_pt_->at(j);
        double eta = patElectron_eta_->at(j);
        double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
-        if(!(fabs(eta)<2.4))	     continue;
+        if(!(fabs(eta)<2.5))	     continue;
         if(fabs(eta)<0.8){
             if(type == 2){
                 if(10<pt && pt<40){
@@ -593,24 +593,33 @@ void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> 
 
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type){/*{{{*/
     //changed ISO to ss of TTTT
+    //0 for Loose; 1 for LooseFO(fakeble object); 2 for tight
     //0:loose; 1:medium; 2 :tight
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
-    if(!(Muon_pt_->at(j)>20))                     continue;
+//    if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
     if(type==0){
         if(!(Muon_loose_->at(j)==1))                  continue;
     }
-    if(type==1){
+    if(type==1 or type == 2){
         if(!(Muon_medium_->at(j)==1))    continue;
     }
-    if(type==2){
-        if(!(Muon_tight_->at(j)==1))     continue;
-    }
+//    if(type==2){ if(!(Muon_tight_->at(j)==1))     continue; }
 //    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose iso->change to 0.15(tight) from 0.25
 		//Muon_relIsoDeltaBetaR04?_
     double I1 = 0.4, I2 = 0, I3 = 0;//looseWP from ss of TTTT
 //    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))  continue;
     if(!((Muon_miniIsoRel_->at(j)<I1)&&((Muon_jetptratio_->at(j)>I2)||(Muon_ptrel_->at(j)>I3))))  continue;
+
+    //IP
+    //Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
+//        if(!(patElectron_d0_->at(j)<0.05)) continue;
+//        if(!(patElectron_gsfTrack_dz_pv_->at(j)<0.1)) continue;
+//        if(type == 1 or type == 2) {
+//            if(!(patElectron_IP3D_sig_->at(j)<4)) continue;
+//        }
+
+
     //?Muon_jetptratioV2?
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
@@ -1799,7 +1808,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumOfLeptonsL",        &NumOfLeptonsL,        "NumOfLeptonsL/I"        );
   NewTree->Branch("NumOfLeptonsT",        &NumOfLeptonsT,        "NumOfLeptonsT/I"        );
   NewTree->Branch("NumOfLeptonsT_v2",        &NumOfLeptonsT_v2,        "NumOfLeptonsT_v2/I"        );
-  NewTree->Branch("NumOfLeptonsM",        &NumOfLeptonsM,        "NumOfLeptonsM/I"        );
+  NewTree->Branch("NumOfLeptonsF",        &NumOfLeptonsF,        "NumOfLeptonsF/I"        );
   NewTree->Branch("NumOfMuonsT",        &NumOfMuonsT,        "NumOfMuonsT/I"        );
   NewTree->Branch("NumOfElectronsT",        &NumOfElectronsT,        "NumOfElectronsT/I"        );
   NewTree->Branch("LeadingLeptonPt",          &LeadingLeptonPt,          "LeadingLeptonPt/D");
@@ -2256,7 +2265,7 @@ channel_2Tau2OS=0;
   NumOfLeptonsL=-99;
   NumOfLeptonsT=-99;
   NumOfLeptonsT_v2=-99;
-  NumOfLeptonsM=-99;
+  NumOfLeptonsF=-99;
  NumOfMuonsT=-99;
  NumOfElectronsT=-99;
 LeadingLeptonPt=-99;
