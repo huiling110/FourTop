@@ -114,24 +114,22 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
 			SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
 			SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3);//304
+            NumOfElectronsL          = SelectedElectronsL.size();
+            NumOfElectronsM          = SelectedElectronsM.size();
+
 			vector<TLorentzVector> SelectedMuonsL;     vector<int> SelectedMuonsLIndex;
 			vector<TLorentzVector> SelectedMuonsF;     vector<int> SelectedMuonsFIndex;
 			vector<TLorentzVector> SelectedMuonsT;     vector<int> SelectedMuonsTIndex;
 			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
 			SelectMuons(SelectedMuonsF, SelectedMuonsFIndex,1);
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
-            NumOfElectronsL          = SelectedElectronsL.size();
-            NumOfElectronsM          = SelectedElectronsM.size();
 			NumOfMuonsL           =  SelectedMuonsL.size();  
             NumOfMuonsT = SelectedMuonsT.size();
             vector<TLorentzVector> LeptonsT = SelectedMuonsT;
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
-            vector<TLorentzVector> LeptonsF = SelectedMuonsF;
-            LeptonsF.insert(LeptonsF.end(),SelectedElectronsM.begin(),SelectedElectronsM.end());
 			NumOfLeptonsL        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
             NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
             NumOfLeptonsT_v2 = LeptonsT.size();
-            NumOfLeptonsF = LeptonsF.size();
             NumOfElectronsT = SelectedElectronsT.size();
             vector<double> LeptonsTPtSorted; sort_jetPt(LeptonsT,LeptonsTPtSorted);
             if(NumOfLeptonsT_v2>0) LeadingLeptonPt = LeptonsTPtSorted[0];
@@ -148,17 +146,20 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumOfElectronsMVAL          = SelectedElectronsMVAL.size();
             NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
             NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
+            vector<TLorentzVector> LeptonsF = SelectedMuonsF;
+            LeptonsF.insert(LeptonsF.end(),SelectedElectronsM.begin(),SelectedElectronsMVAF.end());
+            NumOfLeptonsF = LeptonsF.size();
 
 
             //hadronic tau selection
             vector<TLorentzVector> SelectedTausL;
-            vector<TLorentzVector> SelectedTausM;
+            vector<TLorentzVector> SelectedTausF;
             vector<TLorentzVector> SelectedTausT;
             SelectTaus(SelectedTausL,1);
-            SelectTaus(SelectedTausM,2);
+            SelectTaus(SelectedTausF,2);
             SelectTaus(SelectedTausT,3);
             NumOfTausL = SelectedTausL.size();
-            NumOfTausM = SelectedTausM.size();
+            NumOfTausF = SelectedTausF.size();
             NumOfTausT = SelectedTausT.size();
             if(!(NumOfTausL>0)) continue;
             vector<double> TauPtSorted; sort_jetPt(SelectedTausL,TauPtSorted);
@@ -167,9 +168,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //          
 
             //subchannel
-            if(NumOfTausM==1 && NumOfLeptonsT_v2==0) channel_1Tau0L = 1;  
-            if(NumOfTausM==1 && NumOfLeptonsT_v2==1) channel_1Tau1L = 1;
-            if(NumOfTausM==1 && NumOfLeptonsT_v2==2){
+            if(NumOfTausF==1 && NumOfLeptonsT_v2==0) channel_1Tau0L = 1;  
+            if(NumOfTausF==1 && NumOfLeptonsT_v2==1) channel_1Tau1L = 1;
+            if(NumOfTausF==1 && NumOfLeptonsT_v2==2){
                 if(NumOfElectronsT==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == -1)  channel_1Tau2OS = 1;
                 }
@@ -180,7 +181,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS = 1;
                 }
             }
-            if(NumOfTausM==1 && NumOfLeptonsT_v2==2){
+            if(NumOfTausF==1 && NumOfLeptonsT_v2==2){
                 if(NumOfElectronsT==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == 1)  channel_1Tau2SS = 1;
                 }
@@ -191,10 +192,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == 1)  channel_1Tau2SS = 1;
                 }
             }
-            if(NumOfTausM==1 && NumOfLeptonsT_v2==3) channel_1Tau3L = 1;
-            if(NumOfTausM==2 && NumOfLeptonsT_v2==0) channel_2Tau0L = 1;
-            if(NumOfTausM==2 && NumOfLeptonsT_v2==1) channel_2Tau1L = 1;
-            if(NumOfTausM==2 && NumOfLeptonsT_v2==2) {
+            if(NumOfTausF==1 && NumOfLeptonsT_v2==3) channel_1Tau3L = 1;
+            if(NumOfTausF==2 && NumOfLeptonsT_v2==0) channel_2Tau0L = 1;
+            if(NumOfTausF==2 && NumOfLeptonsT_v2==1) channel_2Tau1L = 1;
+            if(NumOfTausF==2 && NumOfLeptonsT_v2==2) {
                 if(NumOfElectronsT==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == -1)  channel_2Tau2OS = 1;
                     else channel_2Tau2SS = 1;
@@ -628,7 +629,7 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
 }/*}}}*/
 void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
     //this is tau ID in ttH
-    //1:loose;2:medium;3:tight
+    //1:loose;2:fakeble;3:tight
     for (UInt_t j = 0; j < Tau_pt_->size(); ++j){
         if(!(Tau_pt_->at(j)>20))    continue;
         if(!(Tau_eta_->at(j)<2.3))  continue;
@@ -1871,7 +1872,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
-  NewTree->Branch("NumOfTausM",        &NumOfTausM,        "NumOfTausM/I");
+  NewTree->Branch("NumOfTausF",        &NumOfTausF,        "NumOfTausF/I");
   NewTree->Branch("NumOfTausT",        &NumOfTausT,        "NumOfTausT/I");
   NewTree->Branch("LeadingTauPt",        &LeadingTauPt,        "LeadingTauPt/D");
   NewTree->Branch("SecondTauPt",        &SecondTauPt,        "SecondTauPt/D");
@@ -2326,7 +2327,7 @@ MinDeltaPhiJets=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
-NumOfTausM=-99;
+NumOfTausF=-99;
 NumOfTausT=-99;
 LeadingTauPt=-99;
 SecondTauPt=-99;
