@@ -609,7 +609,8 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
 //    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose iso->change to 0.15(tight) from 0.25
 		//Muon_relIsoDeltaBetaR04?_
     double I1 = 0.4, I2 = 0, I3 = 0;//looseWP from ss of TTTT
-    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))  continue;
+//    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))  continue;
+    if(!((Muon_miniIsoRel_->at(j)<I1)&&((Muon_jetptratio_->at(j)>I2)||(Muon_ptrel_->at(j)>I3))))  continue;
     //?Muon_jetptratioV2?
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
