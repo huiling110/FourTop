@@ -147,7 +147,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
             NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
             vector<TLorentzVector> LeptonsF = SelectedMuonsF;
-            LeptonsF.insert(LeptonsF.end(),SelectedElectronsM.begin(),SelectedElectronsMVAF.end());
+            LeptonsF.insert(LeptonsF.end(),SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end());
             NumOfLeptonsF = LeptonsF.size();
 
 
