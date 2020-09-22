@@ -78,9 +78,9 @@ void PlotterPreselection_PlayWithMC(){
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 //    sprintf(CUTpre,"((channel_2Tau0L==1))");   TString postfix = "2Tau0L.png";
 //    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
-//vector<string> Channel = {"1Tau0L","1Tau1L","1Tau2OS", "1Tau2SS", "1Tau3L", "2Tau1L","2Tau2OS","2Tau2SS"   };
+//vector<string> Channel = {"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu","1Tau2OS", "1Tau2SS", "1Tau3L", "2Tau1L","2Tau2OS","2Tau2SS"   };
 //vector<string> Channel = { "1Tau0L"   };
-vector<string> Channel = { "2Tau0L"   };
+vector<string> Channel = { "2Tau0L_v2"   };
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
     TString postfix = ch + ".png";
@@ -117,7 +117,7 @@ for ( string ch : Channel){
 //  for(int i=0; i<name.size(); i++){
   for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
-	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,  /* ttH_SR,*/   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
+	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
  THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
    TTTT_SR );//682
 //?need to simply this. or add all this samples would be very time cosuming
@@ -682,7 +682,7 @@ for ( string ch : Channel){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots//add_all_bg/"+NAME+postfix);
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/plots/"+NAME+postfix);
     cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
 
@@ -708,8 +708,8 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 //for MC we multiply the scale factor, adjust error accordingly , and make background histogram
 //we get histograms based on CUT from MC and data,and we
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,TH1F* &TTGJets_func,TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,/*TH1F* &ttH_func,*/TH1F* &ttbb_func,TH1F* &WZ_func,
-                /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func,TH1F* &ZGGJets_func, TH1F* &DYJetsToTauTau_func, TH1F* &tZq_ll_func,TH1F* &ST_tW_antitop_func, TH1F* &ST_tW_top_func, TH1F* &TGJets_func,TH1F* &THW_func, TH1F* &THQ_func,TH1F* &VHToNonbb_func, TH1F* &ZHToTauTau_func, TH1F* &ZH_HToBB_ZToLL_func, TH1F* &GluGluHToZZTo4L_func, TH1F* &GluGluHToBB_func, TH1F* &GluGluHToGG_func, TH1F* &GluGluHToMuMu_func, TH1F* &GluGluHToTauTau_func, TH1F* &GluGluHToWWTo2L2Nu_func, TH1F* &GluGluHToWWToLNuQQ_func,TH1F* &VBFHToWWTo2L2Nu_func,TH1F* &VBFHToGG_func,  TH1F* &TTTT_func){
+               /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,TH1F* &TTGJets_func,TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,TH1F* &ttH_func,TH1F* &ttbb_func,TH1F* &WZ_func,
+                /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func,TH1F* &ZGGJets_func,TH1F* &WJetsToLNu_func,         TH1F* &DYJetsToTauTau_func, TH1F* &tZq_ll_func,TH1F* &ST_tW_antitop_func, TH1F* &ST_tW_top_func, TH1F* &TGJets_func,TH1F* &THW_func, TH1F* &THQ_func,TH1F* &VHToNonbb_func, TH1F* &ZHToTauTau_func, TH1F* &ZH_HToBB_ZToLL_func, TH1F* &GluGluHToZZTo4L_func, TH1F* &GluGluHToBB_func, TH1F* &GluGluHToGG_func, TH1F* &GluGluHToMuMu_func, TH1F* &GluGluHToTauTau_func, TH1F* &GluGluHToWWTo2L2Nu_func, TH1F* &GluGluHToWWToLNuQQ_func,TH1F* &VBFHToWWTo2L2Nu_func,TH1F* &VBFHToGG_func,  TH1F* &TTTT_func){
       //no background
      // TH1F *data;
       TH1F *TTTT;
@@ -717,7 +717,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TH1F *TTGJets;
       TH1F *ttZJets;
       TH1F *ttWJets;
-//      TH1F *ttH;
+      TH1F *ttH;
       TH1F *ttbb;
       TH1F *WZ;
 //      TH1F *WW;
@@ -734,6 +734,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TH1F* WZG;
       TH1F* WGG;
       TH1F* ZGGJets;
+      TH1F* WJetsToLNu;
+
       TH1F* DYJetsToTauTau;
       TH1F* tZq_ll;
 //      TH1F* tZq_nunu;
@@ -763,7 +765,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree04, TTGJets ,plot,BIN,MIN,MAX);////TTGJets
         GetHisto(CUT, Tree05, ttZJets ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree06, ttWJets ,plot,BIN,MIN,MAX);
-//        GetHisto(CUT, Tree07, ttH ,plot,BIN,MIN,MAX);//ttH
+        GetHisto(CUT, Tree07, ttH ,plot,BIN,MIN,MAX);//ttH
         GetHisto(CUT, Tree08, ttbb ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree09, WZ ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree10, WW ,plot,BIN,MIN,MAX);
@@ -780,6 +782,8 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree20, WZG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree21, WGG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree22, ZGGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree22, WJetsToLNu ,plot,BIN,MIN,MAX);
+
         GetHisto(CUT, Tree24, DYJetsToTauTau ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree25, tZq_ll ,plot,BIN,MIN,MAX);
 //        GetHisto(CUT, Tree26, tZq_nunu ,plot,BIN,MIN,MAX);
@@ -825,6 +829,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree13_J1, WZG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J1, WGG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J1, ZGGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J1, WJetsToLNu ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J1, DYJetsToTauTau ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J1, tZq_ll ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J1, tZq_nunu ,plot,BIN,MIN,MAX);
@@ -869,6 +874,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree13_J2, WZG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J2, WGG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J2, ZGGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J2, WJetsToLNu ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J2, DYJetsToTauTau ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J2, tZq_ll ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J2, tZq_nunu ,plot,BIN,MIN,MAX);
@@ -913,6 +919,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree13_J3, WZG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J3, WGG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J3, ZGGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J3, WJetsToLNu ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J3, DYJetsToTauTau ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J3, tZq_ll ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J3, tZq_nunu ,plot,BIN,MIN,MAX);
@@ -957,6 +964,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         GetHisto(CUT, Tree13_J4, WZG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, WGG ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, ZGGJets ,plot,BIN,MIN,MAX);
+        GetHisto(CUT, Tree13_J4, WJetsToLNu ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, DYJetsToTauTau ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, tZq_ll ,plot,BIN,MIN,MAX);
         GetHisto(CUT, Tree13_J4, tZq_nunu ,plot,BIN,MIN,MAX);
@@ -990,7 +998,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         if(TTGJets->GetBinContent(j)>0){TTGJets->SetBinError(j,sqrt(wTTGJets*wTTGJets*TTGJets->GetBinContent(j)));}else{TTGJets->SetBinError(j,0);}
         if(ttZJets->GetBinContent(j)>0){ttZJets->SetBinError(j,sqrt(wttZJets*wttZJets*ttZJets->GetBinContent(j)));}else{ttZJets->SetBinError(j,0);}
         if(ttWJets ->GetBinContent(j)>0){ttWJets ->SetBinError(j,sqrt(wttWJets*wttWJets*ttWJets ->GetBinContent(j)));}else{ttWJets ->SetBinError(j,0);}
-//        if(ttH ->GetBinContent(j)>0){ttH ->SetBinError(j,sqrt(wttH*wttH*ttH ->GetBinContent(j)));}else{ttH ->SetBinError(j,0);}
+        if(ttH ->GetBinContent(j)>0){ttH ->SetBinError(j,sqrt(wttH*wttH*ttH ->GetBinContent(j)));}else{ttH ->SetBinError(j,0);}
         if(ttbb ->GetBinContent(j)>0){ttbb ->SetBinError(j,sqrt(wttbb*wttbb*ttbb ->GetBinContent(j)));}else{ttbb ->SetBinError(j,0);}
         if(WZ ->GetBinContent(j)>0){WZ ->SetBinError(j,sqrt(wWZ*wWZ*WZ ->GetBinContent(j)));}else{WZ ->SetBinError(j,0);}
 //        if(WW ->GetBinContent(j)>0){WW ->SetBinError(j,sqrt(wWW*wWW*WW ->GetBinContent(j)));}else{WW ->SetBinError(j,0);}//wWW);}
@@ -1007,6 +1015,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         if(WZG ->GetBinContent(j)>0){WZG ->SetBinError(j,sqrt(wWZG*wWZG*WZG ->GetBinContent(j)));}else{WZG ->SetBinError(j,0);}
         if(WGG ->GetBinContent(j)>0){WGG ->SetBinError(j,sqrt(wWGG*wWGG*WGG ->GetBinContent(j)));}else{WGG ->SetBinError(j,0);}
         if(ZGGJets ->GetBinContent(j)>0){ZGGJets ->SetBinError(j,sqrt(wZGGJets*wZGGJets*ZGGJets ->GetBinContent(j)));}else{ZGGJets ->SetBinError(j,0);}
+        if(WJetsToLNu ->GetBinContent(j)>0){WJetsToLNu ->SetBinError(j,sqrt(wWJetsToLNu*wWJetsToLNu*WJetsToLNu ->GetBinContent(j)));}else{WJetsToLNu ->SetBinError(j,0);}
         if(DYJetsToTauTau ->GetBinContent(j)>0){DYJetsToTauTau ->SetBinError(j,sqrt(wDYJetsToTauTau*wDYJetsToTauTau*DYJetsToTauTau ->GetBinContent(j)));}else{DYJetsToTauTau ->SetBinError(j,0);}
         if(tZq_ll ->GetBinContent(j)>0){tZq_ll ->SetBinError(j,sqrt(wtZq_ll*wtZq_ll*tZq_ll ->GetBinContent(j)));}else{tZq_ll ->SetBinError(j,0);}
 //        if(tZq_nunu ->GetBinContent(j)>0){tZq_nunu ->SetBinError(j,sqrt(wtZq_nunu*wtZq_nunu*tZq_nunu ->GetBinContent(j)));}else{tZq_nunu ->SetBinError(j,0);}
@@ -1034,7 +1043,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + TTGJets->GetBinError(j)*TTGJets->GetBinError(j)
             + ttZJets->GetBinError(j)*ttZJets->GetBinError(j)
             + ttWJets->GetBinError(j)*ttWJets->GetBinError(j)
-//            + ttH->GetBinError(j)*ttH->GetBinError(j)
+            + ttH->GetBinError(j)*ttH->GetBinError(j)
             + ttbb->GetBinError(j)*ttbb->GetBinError(j)
             + WZ->GetBinError(j)*WZ->GetBinError(j)
            // + WW->GetBinError(j)*WW->GetBinError(j)
@@ -1050,6 +1059,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + WZZ->GetBinError(j)*WZZ->GetBinError(j)
             + WZG->GetBinError(j)*WZG->GetBinError(j)
             + WGG->GetBinError(j)*WGG->GetBinError(j)
+            + WJetsToLNu->GetBinError(j)*WJetsToLNu->GetBinError(j)
             + ZGGJets->GetBinError(j)*ZGGJets->GetBinError(j)
             + DYJetsToTauTau->GetBinError(j)*DYJetsToTauTau->GetBinError(j)
             + tZq_ll->GetBinError(j)*tZq_ll->GetBinError(j)
@@ -1078,7 +1088,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         TTGJets->SetBinContent(j,wTTGJets*TTGJets->GetBinContent(j));
         ttZJets->SetBinContent(j,wttZJets*ttZJets->GetBinContent(j));
         ttWJets->SetBinContent(j,wttWJets*ttWJets->GetBinContent(j));
-//        ttH->SetBinContent(j,wttH*ttH->GetBinContent(j));
+        ttH->SetBinContent(j,wttH*ttH->GetBinContent(j));
         ttbb->SetBinContent(j,wttbb*ttbb->GetBinContent(j));
         WZ->SetBinContent(j,wWZ*WZ->GetBinContent(j));
 //        WW->SetBinContent(j,wWW*WW->GetBinContent(j));
@@ -1095,6 +1105,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         WZG->SetBinContent(j,wWZG*WZG->GetBinContent(j));
         WGG->SetBinContent(j,wWGG*WGG->GetBinContent(j));
         ZGGJets->SetBinContent(j,wZGGJets*ZGGJets->GetBinContent(j));
+        WJetsToLNu->SetBinContent(j,wWJetsToLNu*WJetsToLNu->GetBinContent(j));
         DYJetsToTauTau->SetBinContent(j,wDYJetsToTauTau*DYJetsToTauTau->GetBinContent(j));
         tZq_ll->SetBinContent(j,wtZq_ll*tZq_ll->GetBinContent(j));
 //        tZq_nunu->SetBinContent(j,wtZq_nunu*tZq_nunu->GetBinContent(j));
@@ -1120,7 +1131,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
         float bkg0 =TTJets->GetBinContent(j)
             +  TTGJets->GetBinContent(j)
             + ttZJets->GetBinContent(j)+ ttWJets->GetBinContent(j) 
-//            + ttH->GetBinContent(j) 
+            + ttH->GetBinContent(j) 
             + ttbb->GetBinContent(j) + WZ->GetBinContent(j)  + WpWpJJ->GetBinContent(j) 
             + ZZ->GetBinContent(j)
             + WGJets->GetBinContent(j)
@@ -1133,6 +1144,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
             + WZG->GetBinContent(j)
             + WGG->GetBinContent(j)
             + ZGGJets->GetBinContent(j)
+            + WJetsToLNu->GetBinContent(j)
             + DYJetsToTauTau->GetBinContent(j)
             + tZq_ll->GetBinContent(j)
 //            + tZq_nunu->GetBinContent(j)
@@ -1163,7 +1175,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       TTGJets_func = (TH1F*)TTGJets->Clone(); 
       ttZJets_func = (TH1F*)ttZJets->Clone(); 
       ttWJets_func   = (TH1F*)ttWJets->Clone(); 
-      //ttH_func   = (TH1F*)ttH->Clone(); 
+      ttH_func   = (TH1F*)ttH->Clone(); 
       ttbb_func   = (TH1F*)ttbb->Clone();  
       WZ_func   = (TH1F*)WZ->Clone(); 
 //      WW_func   = (TH1F*)WW->Clone();
@@ -1180,6 +1192,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       WZG_func   = (TH1F*)WZG->Clone();
       WGG_func   = (TH1F*)WGG->Clone();
       ZGGJets_func   = (TH1F*)ZGGJets->Clone();
+      WJetsToLNu_func   = (TH1F*)WJetsToLNu->Clone();
       DYJetsToTauTau_func   = (TH1F*)DYJetsToTauTau->Clone();
       tZq_ll_func   = (TH1F*)tZq_ll->Clone();
 //      tZq_nunu_func   = (TH1F*)tZq_nunu->Clone();
@@ -1205,7 +1218,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       delete background;delete TTTT; delete TTJets;
       delete TTGJets;
       delete ttZJets; delete ttWJets; 
-//      delete ttH;
+      delete ttH;
       delete ttbb; delete WZ; 
 //      delete WW;
       delete WWTo2L2Nu;
@@ -1221,6 +1234,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
       delete WZG;  
       delete WGG;  
       delete ZGGJets;  
+      delete WJetsToLNu;  
       delete DYJetsToTauTau;  
       delete tZq_ll;  
 //      delete tZq_nunu;  
