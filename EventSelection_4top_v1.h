@@ -53,10 +53,11 @@ double deltaRJetsCal(vector<TLorentzVector> SelectedJets);
 //void sort_jetPt(vector<TLorentzVector> SelectedJets,vector<int> &JetsPtSorted);
 void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPtSorted);
 void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const vector<double> JetsPtSorted, Int_t &LeadingPtIndex, Int_t     &SecondPtIndex, Int_t &ThirdPtIndex);
-void give_value_JetPtSorted(vector<double> JetsPtSorted,double &LeadingJetPt,double &SecondJetPt, double &ThirdJetPt, double &FourthJetPt,  double          &FitthJetPt,double &SixthJetPt, double &SeventhJetPt, double &EighthJetPt, double &NighthJetPt, double &TenthJetPt);
+double BScoreAllJetsCal(vector<double> SeclectedJetsBTags);
 void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<double>& MinMaxDeltaR);
 void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMaxDeltaPhi);
 void SelectTops(vector<TLorentzVector> & SelectedTops);
+double TopScoreAllTopsCal(const vector<TLorentzVector>  SelectedTops);
 ////
 //
 void branchGetEntry(bool data, Long64_t tentry);
@@ -564,6 +565,7 @@ double SecondBJetTPt=-99;
 double LeadingJetpfDeepFlavourBJetTags=-99;
 double SecondJetpfDeepFlavourBJetTags=-99;
 double ThirdJetpfDeepFlavourBJetTags=-99;
+double BScoreOfAllJetsL=-99;
 
 double MinDeltaRJets=-99;
 double MaxDeltaRJets=-99;
@@ -575,11 +577,22 @@ int NumOfTausF=-99;
 int NumOfTausT=-99;
 double LeadingTauPt=-99;
 double SecondTauPt=-99;
+double MHT_TausL=-99;
+double MHT_TausF=-99;
+double MHT_TausT=-99;
+double HT_TauL=-99;
+double HT_TauF=-99;
+double InvariantMassTausL=-99;
+double InvariantMassTausF=-99;
+double MinDeltaRTausL=-99;
+double MaxDeltaRTausL=-99;
+
 int NumofTops=-99;
 double LeadingTopPt=-99;
 double SecondTopPt=-99;
 double MinDeltaRTops=-99;
 double MaxDeltaRTops=-99;
+double TopTaggerScoreAllTops=-99;
 //
 //
 int   NumSelJets=-99;
