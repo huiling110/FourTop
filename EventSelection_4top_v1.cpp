@@ -152,7 +152,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<TLorentzVector> LeptonsMVAT = SelectedMuonsT;
             LeptonsMVAT.insert(LeptonsMVAT.end(),SelectedElectronsMVAT.begin(),SelectedElectronsMVAT.end());
             NumOfLeptonsTMVA = LeptonsMVAT.size();
-
+//            cout<<__LINE__;
             vector<double> LeptonsMVATPtSorted; sort_jetPt(LeptonsMVAT,LeptonsMVATPtSorted);
             if(NumOfLeptonsT_v2>0) LeadingLeptonMVATPt = LeptonsMVATPtSorted[0];
             if(NumOfLeptonsT_v2>1) SecondLeptonMVATPt = LeptonsMVATPtSorted[1];
