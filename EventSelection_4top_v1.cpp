@@ -154,9 +154,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumOfLeptonsTMVA = LeptonsMVAT.size();
 //            cout<<__LINE__;
             vector<double> LeptonsMVATPtSorted; sort_jetPt(LeptonsMVAT,LeptonsMVATPtSorted);
-            if(NumOfLeptonsT_v2>0) LeadingLeptonMVATPt = LeptonsMVATPtSorted[0];
-            if(NumOfLeptonsT_v2>1) SecondLeptonMVATPt = LeptonsMVATPtSorted[1];
-            if(NumOfLeptonsT_v2>2) ThirdLeptonMVATPt = LeptonsMVATPtSorted[2];
+            if(NumOfLeptonsTMVA>0) LeadingLeptonMVATPt = LeptonsMVATPtSorted[0];
+            if(NumOfLeptonsTMVA>1) SecondLeptonMVATPt = LeptonsMVATPtSorted[1];
+            if(NumOfLeptonsTMVA>2) ThirdLeptonMVATPt = LeptonsMVATPtSorted[2];
             //Cone-pT of selected leptons
 
             //hadronic tau selection
