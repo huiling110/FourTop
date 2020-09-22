@@ -382,6 +382,20 @@ int channel_2Tau0L=0;
 int channel_2Tau1L=0;
 int channel_2Tau2SS=0;
 int channel_2Tau2OS=0;
+
+int channel_1Tau0L_v2=0;
+int channel_1Tau1L_v2=0;
+int channel_1Tau1Mu_v2=0;
+int channel_1Tau1E_v2=0;
+int channel_1Tau2OS_v2=0;
+int channel_1Tau2SS_v2=0;
+int channel_1Tau3L_v2=0;
+int channel_2Tau0L_v2=0;
+int channel_2Tau1L_v2=0;
+int channel_2Tau2SS_v2=0;
+int channel_2Tau2OS_v2=0;
+
+
 double TopMass=-99;
 double TopMassMerged=-99;
 double TopMassPartial=-99;
@@ -489,7 +503,8 @@ double MinDeltaPhiBoostedJetMet=99.;
 int   NumOfLeptonsL=-99;
 int NumOfLeptonsT=-99; 
 int NumOfLeptonsT_v2=-99; 
-int NumOfLeptonsF=-99;
+int NumOfLeptonsFMVA=-99;
+int NumOfLeptonsTMVA=-99;
 int NumOfMuonsT=-99;
 double LeadingLeptonPt=-99;
 double SecondLeptonPt=-99;
