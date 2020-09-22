@@ -505,6 +505,10 @@ int NumOfLeptonsT=-99;
 int NumOfLeptonsT_v2=-99; 
 int NumOfLeptonsFMVA=-99;
 int NumOfLeptonsTMVA=-99;
+double LeadingLeptonMVATPt =-99;
+double SecondLeptonMVATPt=-99;
+double ThirdLeptonMVATPt=-99;
+
 int NumOfMuonsT=-99;
 double LeadingLeptonPt=-99;
 double SecondLeptonPt=-99;

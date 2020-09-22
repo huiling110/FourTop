@@ -153,6 +153,11 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             LeptonsMVAT.insert(LeptonsMVAT.end(),SelectedElectronsMVAT.begin(),SelectedElectronsMVAT.end());
             NumOfLeptonsTMVA = LeptonsMVAT.size();
 
+            vector<double> LeptonsMVATPtSorted; sort_jetPt(LeptonsMVAT,LeptonsMVATPtSorted);
+            if(NumOfLeptonsT_v2>0) LeadingLeptonMVATPt = LeptonsMVATPtSorted[0];
+            if(NumOfLeptonsT_v2>1) SecondLeptonMVATPt = LeptonsMVATPtSorted[1];
+            if(NumOfLeptonsT_v2>2) ThirdLeptonMVATPt = LeptonsMVATPtSorted[2];
+            //Cone-pT of selected leptons
 
             //hadronic tau selection
             vector<TLorentzVector> SelectedTausL;
@@ -206,8 +211,6 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     else channel_2Tau2SS_v2 = 1;
                 }
            } 
-            
-            
             
 
             //subchannel
@@ -1866,6 +1869,9 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumOfLeptonsT_v2",        &NumOfLeptonsT_v2,        "NumOfLeptonsT_v2/I"        );
   NewTree->Branch("NumOfLeptonsFMVA",        &NumOfLeptonsFMVA,        "NumOfLeptonsFMVA/I"        );
   NewTree->Branch("NumOfLeptonsTMVA",        &NumOfLeptonsTMVA,        "NumOfLeptonsTMVA/I"        );
+  NewTree->Branch("LeadingLeptonMVATPt",        &LeadingLeptonMVATPt,        "LeadingLeptonMVATPt/D"        );
+  NewTree->Branch("SecondLeptonMVATPt",        &SecondLeptonMVATPt,        "SecondLeptonMVATPt/D"        );
+  NewTree->Branch("ThirdLeptonMVATPt",        &ThirdLeptonMVATPt,        "ThirdLeptonMVATPt/D"        );
   NewTree->Branch("NumOfMuonsT",        &NumOfMuonsT,        "NumOfMuonsT/I"        );
   NewTree->Branch("NumOfElectronsT",        &NumOfElectronsT,        "NumOfElectronsT/I"        );
   NewTree->Branch("LeadingLeptonPt",          &LeadingLeptonPt,          "LeadingLeptonPt/D");
@@ -2337,6 +2343,10 @@ channel_2Tau2OS_v2=0;
   NumOfLeptonsT_v2=-99;
   NumOfLeptonsFMVA=-99;
   NumOfLeptonsTMVA=-99;
+ LeadingLeptonMVATPt=-99;
+ SecondLeptonMVATPt=-99;
+ ThirdLeptonMVATPt=-99;
+
  NumOfMuonsT=-99;
  NumOfElectronsT=-99;
 LeadingLeptonPt=-99;
