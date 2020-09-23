@@ -87,6 +87,16 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);//VBFHToGG_M125_13TeV_amcatnlo_py
 //double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
 //HH count as minor
 //minor
+//
+
+vector<double> bg_scale {
+    wTTTT,
+    wTTJets,wTTGJets,wTTGJets,wttZJets,wttWJets,wttH,                         wttbb,
+    wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG
+}
+
+
+
 /*
 float wTTTT = (SigSF*LUMI*0.009103)/(1739606-716434);//0.009103//9.103e-03 +- 1.401e-05 pb
 float wQCD200to300 = (LUMI*1710000)/(18722416-0); //1.710e+06 +- 1.626e+03 pb
@@ -196,8 +206,9 @@ TTree *Tree41 = (TTree*)file41->Get("tree");
 TTree *Tree42 = (TTree*)file42->Get("tree");
 TTree *Tree43 = (TTree*)file43->Get("tree");
 /*}}}*/
-
-
+vector<TTree*> bgTree = {
+    Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,Tree08,Tree09,Tree10_1Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,Tree26,Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,Tree43
+}
 /*
 //TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/JESup/data.root");
 TFile *file02_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/JESup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
