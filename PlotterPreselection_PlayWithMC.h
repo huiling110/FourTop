@@ -7,6 +7,10 @@
 //		/*TH1F* &data_func,*/ TH1F* &background_func,TH1F* &TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_func,TH1F* &TTGJets_func,TH1F* &ttZJets_13TeV_madgraphMLM-pythia8.root_func,TH1F* &ttWJets_13TeV_madgraphMLM_func,TH1F* &ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root_func,TH1F* &ttbb_4FS_ckm_amcatnlo_madspin_pythia8_func,TH1F* &WZ_TuneCUETP8M1_13TeV-pythia8_func,
 //		TH1F* &WW_TuneCUETP8M1_13TeV-pythia8_func,TH1F* &TTWJets_func,TH1F* &TTZ_func, TH1F* &WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_func,
 //		TH1F* &TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8func);
+
+void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int BIN, float MIN, float MAX);
+
+
 void MakeHistoErrors(int m, TH1F* &histo_SR, TH1F* histo_P1, TH1F* histo_P2, TH1F* histo_F1, TH1F* histo_F2, TH1F* histo_B1, TH1F* histo_B2, TH1F* histo_Z1, TH1F* histo_Z2, TH1F* histo_W1, TH1F* histo_W2, TH1F* histo_T1, TH1F* histo_T2, TH1F* histo_J1, TH1F* histo_J2, TH1F* histo_J3, TH1F* histo_J4, TH1F* histo_qcd1, TH1F* histo_qcd2, TH1F* histo_pdf1, TH1F* histo_pdf2, TH1F* histo_TR1, TH1F* histo_TR2);
 
 void CloneHistos();
@@ -91,9 +95,8 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);//VBFHToGG_M125_13TeV_amcatnlo_py
 
 vector<double> bg_scale {
     wTTTT,
-    wTTJets,wTTGJets,wTTGJets,wttZJets,wttWJets,wttH,                         wttbb,
-    wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG
-}
+    wTTJets,wTTGJets,wTTGJets,wttZJets,wttWJets,wttH, wttbb,
+    wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG};
 
 
 
@@ -207,8 +210,8 @@ TTree *Tree42 = (TTree*)file42->Get("tree");
 TTree *Tree43 = (TTree*)file43->Get("tree");
 /*}}}*/
 vector<TTree*> bgTree = {
-    Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,Tree08,Tree09,Tree10_1Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,Tree26,Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,Tree43
-}
+    Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,Tree08,Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,Tree26,Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,Tree43
+};
 /*
 //TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/JESup/data.root");
 TFile *file02_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/JESup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
@@ -327,7 +330,7 @@ TTree *Tree13_J4 = (TTree*)file13_J4->Get("tree");
                                                    
 
 //TH1F *data_SR; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_SR; TH1F *TTGJets_SR; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_SR; TH1F *ttWJets_13TeV_madgraphMLM_SR;
-TH1F* background_SR;
+//TH1F* background_SR;
 TH1F* TTJets_SR;
 TH1F* TTGJets_SR;
 TH1F* ttZJets_SR;

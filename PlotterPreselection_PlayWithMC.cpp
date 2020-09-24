@@ -128,8 +128,8 @@ void PlotterPreselection_PlayWithMC(){
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 //    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
-vector<string> Channel = {/*"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",*/"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-//vector<string> Channel = { "1Tau0L"   };
+//vector<string> Channel = {/*"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",*/"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
+vector<string> Channel = { "1Tau0L"   };
 //vector<string> Channel = { "2Tau0L_v2"   };
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
@@ -164,30 +164,179 @@ for ( string ch : Channel){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
-//  for(int i=0; i<name.size(); i++){
-  for(UInt_t i=0; i<name.size(); i++){
+  for(int i=0; i<2; i++){
+//  for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
 // THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
 //   TTTT_SR );//682
 //?need to simply this. or add all this samples would be very time cosuming
 
-        TH1F* TTTT,
-        TH1F* TTJets,TTGJets,ttZJets, ttWJets, ttH, ttbb;
-        vector<TH1F*> BGFiles  {
-            TTTT,
-            TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb
-        }
-        vector<TH1F*> BGFiles_NormalizedToXSection  {
-            TTTT_SR,
-            TTJets_SR,TTGJets_SR,ttZJets_SR,ttWJets_SR,ttH_SR,ttbb_SR
-        }
-        for(Int_t j = 0,j < BGFiles.size(),j++){
+        TH1F* TTTT;
+        TH1F* TTJets; TH1F* TTGJets;TH1F* ttZJets; TH1F* ttWJets;TH1F* ttH; TH1F* ttbb;
+        vector<TH1F*> BGFiles;
+//        vector<TH1F> BGFiles;
+//            = {            TTTT, TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb };
+        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
+        vector<TH1F*> BGFiles_NormalizedToXSection;
+//            = {TTJets_SR,TTGJets_SR,ttZJets_SR,ttWJets_SR,ttH_SR,ttbb_SR       };
+        BGFiles_NormalizedToXSection.push_back(TTJets_SR);BGFiles_NormalizedToXSection.push_back(TTGJets_SR); BGFiles_NormalizedToXSection.push_back(ttZJets_SR); BGFiles_NormalizedToXSection.push_back(ttWJets_SR); BGFiles_NormalizedToXSection.push_back(ttH_SR); BGFiles_NormalizedToXSection.push_back(ttbb_SR);             
+        TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content) 
+        TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
+        
+        for(UInt_t j = 0; j < BGFiles.size(); j++){
 //            TH1F* background = BGFiles[j];
         //    GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
             GetHisto(CUT,bgTree[j],BGFiles[j],plot,bin[i],Min[i],Max[i]);
-           BGFiles_NormalizedToXSection[j] = bg_scale[j]*BGFiles[j]; 
+            cout<<__LINE__;
+            BGFiles[j]->Draw(); 
+            BGFiles[j]->Print();
+
+            cout<<__LINE__<<endl;
+//            cout<<bg_scale[j];
+//            *BGFiles_NormalizedToXSection[j] = bg_scale[j]*(*(BGFiles[j])); 
+            BGFiles[j]->Scale(bg_scale[j]);
+//            if(j==0) *background_SR = *BGFiles_NormalizedToXSection[j];
+//            if(j>0) *background_SR  = *background_SR + *(BGFiles_NormalizedToXSection[j]);
+//            BGFiles_NormalizedToXSection[j]->Print();            
+            cout<<__LINE__;
+//            background_SR->Add((BGFiles_NormalizedToXSection[j]),1);
+            if(j > 0) background_SR->Add((BGFiles[j]),1);
+            background_SR->Print();
+//          delete (BGFiles[j]);
         }
+         
+    if(i==0){
+      cout<<endl;
+      cout<<"Plotting "<<name[i]<<endl;
+    //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
+/*      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
+        cout<<"WJets = "<<WJetsToLNu_SR->Integral()<<endl;      
+        cout<<"DY = "<<DYJetsToTauTau_SR->Integral()<<endl;      
+        cout<<"ttbb = "<<ttbb_SR->Integral()<<endl;      
+        cout<<"WZ = "<<WZ_SR->Integral()<<endl;      
+        cout<<"WW = "<<WWTo2L2Nu_SR->Integral()<<endl;      
+        cout<<"ZZ = "<<ZZ_SR->Integral()<<endl;      
+        cout<<"WG = "<<WGJets_SR->Integral()<<endl;      
+        cout<<"SINGLE TOP = "<<tZq_ll_SR->Integral()+ST_tW_antitop_SR->Integral()+ST_tW_top_SR->Integral()<<endl;      
+        cout<<"H = "<<VHToNonbb_SR->Integral()+ZHToTauTau_SR->Integral()+ZH_HToBB_ZToLL_SR->Integral()+GluGluHToZZTo4L_SR->Integral()+GluGluHToBB_SR->Integral()+GluGluHToGG_SR->Integral()+GluGluHToMuMu_SR->Integral()+GluGluHToTauTau_SR->Integral()+GluGluHToWWTo2L2Nu_SR->Integral()+GluGluHToWWToLNuQQ_SR->Integral()+VBFHToWWTo2L2Nu_SR->Integral()+VBFHToGG_SR->Integral()<<endl;
+*/
+//	  cout<<"Total BKG = "<<TTJets_SR->Integral()          +TTGJets_SR->Integral()          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()          +ttH_SR->Integral()          +WW_SR->Integral()+WpWpJJ_SR->Integral()          +ZZ_SR->Integral()     " +/- "<<sqrt(TTJetsErr*TTJetsErr            +TTGJetsErr*TTGJetsErr;
+      cout<<"TTTT = "<<(BGFiles[0])->Integral()<<endl;
+	  cout<<"Total BKG = "<<background_SR->Integral()<<endl;
+      
+	}/*}}}*/
+    TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+		BGFiles[0]->SetLineWidth(2);
+		BGFiles[0]->SetLineColor(2);
+    TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
+    c1_2->Draw();
+    c1_2->cd();
+
+    BGFiles[0]->SetMinimum(0);
+//    hs->SetMaximum(1);
+    BGFiles[0]->SetMaximum(3 * BGFiles[0]->GetMaximum());
+    BGFiles[0]->GetYaxis()->SetTitleSize(0.050);
+    BGFiles[0]->GetXaxis()->SetTitleSize(0.050);
+    BGFiles[0]->GetYaxis()->SetLabelSize(0.040);
+    BGFiles[0]->GetXaxis()->SetLabelSize(0.040); 
+    BGFiles[0]->SetTitle("");
+    BGFiles[0]->GetYaxis()->SetTitle("Events");
+    BGFiles[0]->GetXaxis()->SetTitle(axis[i]);
+    BGFiles[0]->GetYaxis()->SetTitleOffset(1.00);
+    BGFiles[0]->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+    BGFiles[0]->DrawNormalized("hist", 1);
+//    TTTT_SR->DrawNormalized("samehist", 1);
+   // TTJets_SR->Draw("samehisto");
+  //  WpWpJJ_SR->Draw("samehisto");
+//    ZZ_SR->Draw("samehisto");
+	background_SR->SetLineWidth(2);
+	background_SR->SetLineColor(kViolet-2); 
+   // background_SR->Draw("samehisto");
+    background_SR->DrawNormalized("samehist", 1);
+    delete background_SR;
+
+
+    TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
+    gPad->RedrawAxis();
+    TString channelText = "";
+    float channelTextFont   = 42;
+    float channelTextSize   = 0.06;
+    TString cmsText     = "CMS";
+    float cmsTextFont   = 61;  // default is helvetic-bold
+    bool writeExtraText = true;
+    TString extraText   = "MC";
+    //TString extraText   = "";
+    float extraTextFont = 52;  // default is helvetica-italics
+    // text sizes and text offsets with respect to the top frame in unit of the top margin size
+    float lumiTextSize     = 0.6;
+    float lumiTextOffset   = 0.2;
+    float cmsTextSize      = 0.75;
+    float cmsTextOffset    = 0.1;  // only used in outOfFrame version
+    float relPosX    = 0.045;
+    float relPosY    = 0.035;
+    float relExtraDY = 1.2;
+    // ratio of "CMS" and extra text size
+    float extraOverCmsTextSize  = 0.76;
+    TString lumi_13TeV;
+    lumi_13TeV = "35.9fb^{-1}";
+    TString lumiText;
+    lumiText += lumi_13TeV;
+    lumiText += " (2016, 13 TeV)";
+    float t = pad->GetTopMargin();
+    float b = pad->GetBottomMargin();
+    float r = pad->GetRightMargin();
+    float l = pad->GetLeftMargin();
+    TLatex latex;
+    latex.SetNDC();
+    latex.SetTextAngle(0);
+    latex.SetTextColor(kBlack);    
+    float extraTextSize = extraOverCmsTextSize*cmsTextSize;
+    latex.SetTextFont(42);
+    latex.SetTextAlign(31); 
+    latex.SetTextSize(lumiTextSize*t);    
+    latex.DrawLatex(1-r+0.06,0.94,lumiText);
+    latex.SetTextFont(cmsTextFont);
+    latex.SetTextAlign(11); 
+    latex.SetTextSize(cmsTextSize*t);    
+    latex.DrawLatex(l+0.01, 0.94,cmsText);
+    latex.SetTextFont(extraTextFont);
+    latex.SetTextSize(extraTextSize*t);
+    latex.DrawLatex(l+0.12, 0.94, extraText); 
+    latex.SetTextFont(channelTextFont);
+    latex.SetTextSize(channelTextSize);
+
+
+    //定义图中各个线和直方图的颜色
+    TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
+    pl2->SetTextSize(0.045); 
+    pl2->SetFillColor(0);
+  //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
+    TLegendEntry *ple2 = pl2->AddEntry(BGFiles[0], "TTTT",  "L"); 
+//    ple2 = pl2->AddEntry(hs, "TTX",  "L");
+   // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
+   // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
+   // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
+//    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+//    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
+    ple2 = pl2->AddEntry(background_SR, "background",  "L");
+    pl2->Draw();
+    
+    TString NAME = name[i];
+   //c1->SaveAs(NAME+".pdf");
+   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
+    cout<<"Finished "<<NAME+postfix<<endl;
+//    c1->Draw(); 
+
+
+
+
 
 
 //what is SYST and why we do it this way?   
@@ -207,7 +356,7 @@ for ( string ch : Channel){
 	
 
 //		Double_t dataErr   = 0; Float_t dataYield = data_SR->IntegralAndError(1,TTTT_SR->GetNbinsX()-1,dataErr,"");/*{{{*/
-		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
+/*		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
 		Double_t TTGJetsErr   = 0; Float_t TTGJetsYield = TTGJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTGJetsErr,"");
 		Double_t ttZJetsErr   = 0; Float_t ttZJetsYield = ttZJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttZJetsErr,"");
 		Double_t ttWJetsErr   = 0; Float_t ttWJetsYield = ttWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttWJetsErr,"");
@@ -218,12 +367,14 @@ for ( string ch : Channel){
 		Double_t WpWpJJErr = 0; Float_t WpWpJJYield = WpWpJJ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WpWpJJErr,"");
 		Double_t ZZErr = 0; Float_t ZZYield = ZZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ZZErr,"");
 		Double_t TTTT_Err= 0; Float_t TTTT_Yield = TTTT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTTT_Err,"");
+*/        
         //?why not use result of this?
 
-    if(i==0){
+    
+/*    if(i==0){
       cout<<endl;
       cout<<"Plotting "<<name[i]<<endl;
-    //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
+    //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;
       cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
         cout<<"WJets = "<<WJetsToLNu_SR->Integral()<<endl;      
         cout<<"DY = "<<DYJetsToTauTau_SR->Integral()<<endl;      
@@ -239,11 +390,9 @@ for ( string ch : Channel){
       cout<<"TTTT = "<<TTTT_SR->Integral()<<endl;
 	  cout<<"Total BKG = "<<background_SR->Integral()<<endl;
       
-	}/*}}}*/
-
+	}
     TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
 		TTTT_SR->SetLineWidth(2);
-        /*{{{*/
 		TTTT_SR->SetLineColor(2);
 		TTJets_SR->SetLineWidth(2); 
         TTGJets_SR->SetLineWidth(2);
@@ -271,8 +420,9 @@ for ( string ch : Channel){
 	//	WpWpJJ_SR->SetFillColor(kCyan-4);
 	//	ZZ_SR->SetFillColor(kGreen+3);
 
-//		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);/*}}}*/
+//		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);
 
+*/
 
 
 
@@ -366,9 +516,11 @@ for ( string ch : Channel){
 	//画上面的data/MC图
 	/////
 //    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.30,0.99,0.90);// bottom left point(),
+/*
     TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
     c1_2->Draw();
     c1_2->cd();
+*/    
    // c1_2->SetTopMargin(0.08);
    // c1_2->SetBottomMargin(0.02);
    // c1_2->SetRightMargin(0.035);
@@ -416,6 +568,7 @@ for ( string ch : Channel){
     */
    // TTTT_SR->Draw("samehisto");
    //
+/*
     TTTT_SR->SetMinimum(0);
 //    hs->SetMaximum(1);
     TTTT_SR->SetMaximum(3 * TTTT_SR->GetMaximum());
@@ -437,6 +590,9 @@ for ( string ch : Channel){
 	background_SR->SetLineColor(kViolet-2); 
    // background_SR->Draw("samehisto");
     background_SR->DrawNormalized("samehist", 1);
+    delete background_SR;
+
+*/    
    /* 
     //TH1F * TTX = TTJets_SR + WpWpJJ_SR + ZZ_SR;
     TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
@@ -477,7 +633,7 @@ for ( string ch : Channel){
 	/////
 	//画图上各种说明文字
 	/////
-    
+/*    
     TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
     gPad->RedrawAxis();
     TString channelText = "";
@@ -551,10 +707,10 @@ for ( string ch : Channel){
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
 //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/plots/"+NAME+postfix);
+    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
     cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
-
+*/
   }
 }
 }
