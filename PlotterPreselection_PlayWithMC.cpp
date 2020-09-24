@@ -174,13 +174,12 @@ for ( string ch : Channel){
 
         TH1F* TTTT;
         TH1F* TTJets; TH1F* TTGJets;TH1F* ttZJets; TH1F* ttWJets;TH1F* ttH; TH1F* ttbb;
-        vector<TH1F*> BGFiles;
-//        vector<TH1F> BGFiles;
-//            = {            TTTT, TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb };
-        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
-        vector<TH1F*> BGFiles_NormalizedToXSection;
+//        vector<TH1F*> BGFiles;
+        vector<TH1F> BGFiles  {           TTTT, TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb };
+//        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
+//        vector<TH1F*> BGFiles_NormalizedToXSection;
 //            = {TTJets_SR,TTGJets_SR,ttZJets_SR,ttWJets_SR,ttH_SR,ttbb_SR       };
-        BGFiles_NormalizedToXSection.push_back(TTJets_SR);BGFiles_NormalizedToXSection.push_back(TTGJets_SR); BGFiles_NormalizedToXSection.push_back(ttZJets_SR); BGFiles_NormalizedToXSection.push_back(ttWJets_SR); BGFiles_NormalizedToXSection.push_back(ttH_SR); BGFiles_NormalizedToXSection.push_back(ttbb_SR);             
+//        BGFiles_NormalizedToXSection.push_back(TTJets_SR);BGFiles_NormalizedToXSection.push_back(TTGJets_SR); BGFiles_NormalizedToXSection.push_back(ttZJets_SR); BGFiles_NormalizedToXSection.push_back(ttWJets_SR); BGFiles_NormalizedToXSection.push_back(ttH_SR); BGFiles_NormalizedToXSection.push_back(ttbb_SR);             
         TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content) 
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
         
@@ -189,17 +188,13 @@ for ( string ch : Channel){
         //    GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
             GetHisto(CUT,bgTree[j],BGFiles[j],plot,bin[i],Min[i],Max[i]);
             cout<<__LINE__;
-            BGFiles[j]->Draw(); 
             BGFiles[j]->Print();
-
-            cout<<__LINE__<<endl;
 //            cout<<bg_scale[j];
 //            *BGFiles_NormalizedToXSection[j] = bg_scale[j]*(*(BGFiles[j])); 
             BGFiles[j]->Scale(bg_scale[j]);
 //            if(j==0) *background_SR = *BGFiles_NormalizedToXSection[j];
 //            if(j>0) *background_SR  = *background_SR + *(BGFiles_NormalizedToXSection[j]);
 //            BGFiles_NormalizedToXSection[j]->Print();            
-            cout<<__LINE__;
 //            background_SR->Add((BGFiles_NormalizedToXSection[j]),1);
             if(j > 0) background_SR->Add((BGFiles[j]),1);
             background_SR->Print();
