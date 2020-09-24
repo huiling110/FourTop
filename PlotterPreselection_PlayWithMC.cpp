@@ -182,12 +182,12 @@ for ( string ch : Channel){
 //        TH1F* ;TH1F* ;TH1F* ;TH1F* ;TH1F* ;TH1F* ;i
 //        vector<TH1F*> BGFiles;
         vector<TH1F*> BGFiles  {
-            TTTT,
-            TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb,
-            WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,
-             WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,
-             WJetsToLNu,  DYJetsToTauTau,
-             tZq_ll,  ST_tW_antitop,  ST_tW_top,  TGJets, THW,  THQ,
+            TTTT,//0
+            TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb,//6
+            WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//12
+             WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//20
+             WJetsToLNu,  DYJetsToTauTau,//22
+             tZq_ll,  ST_tW_antitop,  ST_tW_top,  TGJets, THW,  THQ,//28
              VHToNonbb,  ZHToTauTau,  ZH_HToBB_ZToLL,  GluGluHToZZTo4L,  GluGluHToBB,  GluGluHToGG,  GluGluHToMuMu,  GluGluHToTauTau,  GluGluHToWWTo2L2Nu,  GluGluHToWWToLNuQQ,  VBFHToWWTo2L2Nu, /* VBFHToTauTau, */ VBFHToMuMu,  VBFHToGG 
         };
 //        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
@@ -203,7 +203,7 @@ for ( string ch : Channel){
 //            TH1F* background = BGFiles[j];
         //    GetHisto(CUT, Tree02, TTTT ,plot,BIN,MIN,MAX);
             GetHisto(CUT,bgTree[j],BGFiles[j],plot,bin[i],Min[i],Max[i]);
-            BGFiles[j]->Print();
+//            BGFiles[j]->Print();
 //            cout<<bg_scale[j];
 //            *BGFiles_NormalizedToXSection[j] = bg_scale[j]*(*(BGFiles[j])); 
             BGFiles[j]->Scale(bg_scale[j]);
@@ -212,146 +212,154 @@ for ( string ch : Channel){
 //            BGFiles_NormalizedToXSection[j]->Print();            
 //            background_SR->Add((BGFiles_NormalizedToXSection[j]),1);
             if(j > 0) background_SR->Add((BGFiles[j]),1);
-            background_SR->Print();
-            cout<<j<<endl;
+//            background_SR->Print();
+//            cout<<j<<endl;
 //          delete (BGFiles[j]);
         }
          
-    if(i==0){
-      cout<<endl;
-      cout<<"Plotting "<<name[i]<<endl;
-    //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
-/*      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
-        cout<<"WJets = "<<WJetsToLNu_SR->Integral()<<endl;      
-        cout<<"DY = "<<DYJetsToTauTau_SR->Integral()<<endl;      
-        cout<<"ttbb = "<<ttbb_SR->Integral()<<endl;      
-        cout<<"WZ = "<<WZ_SR->Integral()<<endl;      
-        cout<<"WW = "<<WWTo2L2Nu_SR->Integral()<<endl;      
-        cout<<"ZZ = "<<ZZ_SR->Integral()<<endl;      
-        cout<<"WG = "<<WGJets_SR->Integral()<<endl;      
-        cout<<"SINGLE TOP = "<<tZq_ll_SR->Integral()+ST_tW_antitop_SR->Integral()+ST_tW_top_SR->Integral()<<endl;      
-        cout<<"H = "<<VHToNonbb_SR->Integral()+ZHToTauTau_SR->Integral()+ZH_HToBB_ZToLL_SR->Integral()+GluGluHToZZTo4L_SR->Integral()+GluGluHToBB_SR->Integral()+GluGluHToGG_SR->Integral()+GluGluHToMuMu_SR->Integral()+GluGluHToTauTau_SR->Integral()+GluGluHToWWTo2L2Nu_SR->Integral()+GluGluHToWWToLNuQQ_SR->Integral()+VBFHToWWTo2L2Nu_SR->Integral()+VBFHToGG_SR->Integral()<<endl;
-*/
-//	  cout<<"Total BKG = "<<TTJets_SR->Integral()          +TTGJets_SR->Integral()          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()          +ttH_SR->Integral()          +WW_SR->Integral()+WpWpJJ_SR->Integral()          +ZZ_SR->Integral()     " +/- "<<sqrt(TTJetsErr*TTJetsErr            +TTGJetsErr*TTGJetsErr;
-      cout<<"TTTT = "<<(BGFiles[0])->Integral()<<endl;
-	  cout<<"Total BKG = "<<background_SR->Integral()<<endl;
-      
-	}/*}}}*/
+        if(i==0){
+            cout<<endl;
+            cout<<"Plotting "<<name[i]<<endl;
+         //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
+            cout<<"TTJets   = "<<BGFiles[1]->Integral()<<endl;
+            cout<<"WJets = "<<BGFiles[21]->Integral()<<endl;      
+            cout<<"DY = "<<BGFiles[22]->Integral()<<endl;      
+            cout<<"ttbb = "<<BGFiles[6]->Integral()<<endl;      
+            cout<<"WZ = "<<BGFiles[7]->Integral()<<endl;      
+            cout<<"WW = "<<BGFiles[8]->Integral()+BGFiles[9]->Integral()<<endl;      
+            cout<<"ZZ = "<<BGFiles[10]->Integral()<<endl;      
+            cout<<"WG = "<<BGFiles[11]->Integral()<<endl;      
+    //        cout<<"SINGLE TOP = "<<+->Integral()+ST_tW_top_SR->Integral()<<endl;      
+    //        cout<<"H = "<<VHToNonbb_SR->Integral()+ZHToTauTau_SR->Integral()+ZH_HToBB_ZToLL_SR->Integral()+GluGluHToZZTo4L_SR->Integral()+GluGluHToBB_SR->Integral()+GluGluHToGG_SR->Integral()+GluGluHToMuMu_SR->Integral()+GluGluHToTauTau_SR->Integral()+GluGluHToWWTo2L2Nu_SR->Integral()+GluGluHToWWToLNuQQ_SR->Integral()+VBFHToWWTo2L2Nu_SR->Integral()+VBFHToGG_SR->Integral()<<endl;
+    //	  cout<<"Total BKG = "<<TTJets_SR->Integral()          +TTGJets_SR->Integral()          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()          +ttH_SR->Integral()          +WW_SR->Integral()+WpWpJJ_SR->Integral()          +ZZ_SR->Integral()     " +/- "<<sqrt(TTJetsErr*TTJetsErr            +TTGJetsErr*TTGJetsErr;
+          cout<<"TTTT = "<<(BGFiles[0])->Integral()<<endl;
+          cout<<"Total BKG = "<<background_SR->Integral()<<endl;
+          
+        }/*}}}*/
 
-    TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
-		BGFiles[0]->SetLineWidth(2);
-		BGFiles[0]->SetLineColor(2);
-    TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
-    c1_2->Draw();
-    c1_2->cd();
+        TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+            BGFiles[0]->SetLineWidth(2);
+            BGFiles[0]->SetLineColor(2);
+        TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
+        c1_2->Draw();
+        c1_2->cd();
 
-    BGFiles[0]->SetMinimum(0);
-//    hs->SetMaximum(1);
-    BGFiles[0]->SetMaximum(3 * BGFiles[0]->GetMaximum());
-    BGFiles[0]->GetYaxis()->SetTitleSize(0.050);
-    BGFiles[0]->GetXaxis()->SetTitleSize(0.050);
-    BGFiles[0]->GetYaxis()->SetLabelSize(0.040);
-    BGFiles[0]->GetXaxis()->SetLabelSize(0.040); 
-    BGFiles[0]->SetTitle("");
-    BGFiles[0]->GetYaxis()->SetTitle("Events");
-    BGFiles[0]->GetXaxis()->SetTitle(axis[i]);
-    BGFiles[0]->GetYaxis()->SetTitleOffset(1.00);
-    BGFiles[0]->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-    BGFiles[0]->DrawNormalized("hist", 1);
-//    TTTT_SR->DrawNormalized("samehist", 1);
-   // TTJets_SR->Draw("samehisto");
-  //  WpWpJJ_SR->Draw("samehisto");
-//    ZZ_SR->Draw("samehisto");
-	background_SR->SetLineWidth(2);
-	background_SR->SetLineColor(kViolet-2); 
-   // background_SR->Draw("samehisto");
-    background_SR->DrawNormalized("samehist", 1);
-    delete background_SR;
-
-
-    TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
-    gPad->RedrawAxis();
-    TString channelText = "";
-    float channelTextFont   = 42;
-    float channelTextSize   = 0.06;
-    TString cmsText     = "CMS";
-    float cmsTextFont   = 61;  // default is helvetic-bold
-    bool writeExtraText = true;
-    TString extraText   = "MC";
-    //TString extraText   = "";
-    float extraTextFont = 52;  // default is helvetica-italics
-    // text sizes and text offsets with respect to the top frame in unit of the top margin size
-    float lumiTextSize     = 0.6;
-    float lumiTextOffset   = 0.2;
-    float cmsTextSize      = 0.75;
-    float cmsTextOffset    = 0.1;  // only used in outOfFrame version
-    float relPosX    = 0.045;
-    float relPosY    = 0.035;
-    float relExtraDY = 1.2;
-    // ratio of "CMS" and extra text size
-    float extraOverCmsTextSize  = 0.76;
-    TString lumi_13TeV;
-    lumi_13TeV = "35.9fb^{-1}";
-    TString lumiText;
-    lumiText += lumi_13TeV;
-    lumiText += " (2016, 13 TeV)";
-    float t = pad->GetTopMargin();
-    float b = pad->GetBottomMargin();
-    float r = pad->GetRightMargin();
-    float l = pad->GetLeftMargin();
-    TLatex latex;
-    latex.SetNDC();
-    latex.SetTextAngle(0);
-    latex.SetTextColor(kBlack);    
-    float extraTextSize = extraOverCmsTextSize*cmsTextSize;
-    latex.SetTextFont(42);
-    latex.SetTextAlign(31); 
-    latex.SetTextSize(lumiTextSize*t);    
-    latex.DrawLatex(1-r+0.06,0.94,lumiText);
-    latex.SetTextFont(cmsTextFont);
-    latex.SetTextAlign(11); 
-    latex.SetTextSize(cmsTextSize*t);    
-    latex.DrawLatex(l+0.01, 0.94,cmsText);
-    latex.SetTextFont(extraTextFont);
-    latex.SetTextSize(extraTextSize*t);
-    latex.DrawLatex(l+0.12, 0.94, extraText); 
-    latex.SetTextFont(channelTextFont);
-    latex.SetTextSize(channelTextSize);
+        BGFiles[0]->SetMinimum(0);
+    //    hs->SetMaximum(1);
+        BGFiles[0]->SetMaximum(3 * BGFiles[0]->GetMaximum());
+        BGFiles[0]->GetYaxis()->SetTitleSize(0.050);
+        BGFiles[0]->GetXaxis()->SetTitleSize(0.050);
+        BGFiles[0]->GetYaxis()->SetLabelSize(0.040);
+        BGFiles[0]->GetXaxis()->SetLabelSize(0.040); 
+        BGFiles[0]->SetTitle("");
+        BGFiles[0]->GetYaxis()->SetTitle("Events");
+        BGFiles[0]->GetXaxis()->SetTitle(axis[i]);
+        BGFiles[0]->GetYaxis()->SetTitleOffset(1.00);
+        BGFiles[0]->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+        BGFiles[0]->DrawNormalized("hist", 1);
+    //    TTTT_SR->DrawNormalized("samehist", 1);
+       // TTJets_SR->Draw("samehisto");
+      //  WpWpJJ_SR->Draw("samehisto");
+    //    ZZ_SR->Draw("samehisto");
+        background_SR->SetLineWidth(2);
+//        background_SR->SetLineColor(kViolet-2); 
+        background_SR->SetLineColor(kBlue); 
+       // background_SR->Draw("samehisto");
+        background_SR->DrawNormalized("samehist", 1);
 
 
-    //定义图中各个线和直方图的颜色
-    TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
-    pl2->SetTextSize(0.045); 
-    pl2->SetFillColor(0);
-  //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
-    TLegendEntry *ple2 = pl2->AddEntry(BGFiles[0], "TTTT",  "L"); 
-//    ple2 = pl2->AddEntry(hs, "TTX",  "L");
-   // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
-   // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
-   // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
-//    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
-//    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
-    ple2 = pl2->AddEntry(background_SR, "background",  "L");
-    pl2->Draw();
-    
-    TString NAME = name[i];
-   //c1->SaveAs(NAME+".pdf");
-   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
-    cout<<"Finished "<<NAME+postfix<<endl;
-//    c1->Draw(); 
+        TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
+        gPad->RedrawAxis();
+        TString channelText = "";
+        float channelTextFont   = 42;
+        float channelTextSize   = 0.06;
+        TString cmsText     = "CMS";
+        float cmsTextFont   = 61;  // default is helvetic-bold
+        bool writeExtraText = true;
+        TString extraText   = "MC";
+        //TString extraText   = "";
+        float extraTextFont = 52;  // default is helvetica-italics
+        // text sizes and text offsets with respect to the top frame in unit of the top margin size
+        float lumiTextSize     = 0.6;
+        float lumiTextOffset   = 0.2;
+        float cmsTextSize      = 0.75;
+        float cmsTextOffset    = 0.1;  // only used in outOfFrame version
+        float relPosX    = 0.045;
+        float relPosY    = 0.035;
+        float relExtraDY = 1.2;
+        // ratio of "CMS" and extra text size
+        float extraOverCmsTextSize  = 0.76;
+        TString lumi_13TeV;
+        lumi_13TeV = "35.9fb^{-1}";
+        TString lumiText;
+        lumiText += lumi_13TeV;
+        lumiText += " (2016, 13 TeV)";
+        float t = pad->GetTopMargin();
+        float b = pad->GetBottomMargin();
+        float r = pad->GetRightMargin();
+        float l = pad->GetLeftMargin();
+        TLatex latex;
+        latex.SetNDC();
+        latex.SetTextAngle(0);
+        latex.SetTextColor(kBlack);    
+        float extraTextSize = extraOverCmsTextSize*cmsTextSize;
+        latex.SetTextFont(42);
+        latex.SetTextAlign(31); 
+        latex.SetTextSize(lumiTextSize*t);    
+        latex.DrawLatex(1-r+0.06,0.94,lumiText);
+        latex.SetTextFont(cmsTextFont);
+        latex.SetTextAlign(11); 
+        latex.SetTextSize(cmsTextSize*t);    
+        latex.DrawLatex(l+0.01, 0.94,cmsText);
+        latex.SetTextFont(extraTextFont);
+        latex.SetTextSize(extraTextSize*t);
+        latex.DrawLatex(l+0.12, 0.94, extraText); 
+        latex.SetTextFont(channelTextFont);
+        latex.SetTextSize(channelTextSize);
 
+
+        //定义图中各个线和直方图的颜色
+        TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
+        pl2->SetTextSize(0.045); 
+        pl2->SetFillColor(0);
+      //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
+        TLegendEntry *ple2 = pl2->AddEntry(BGFiles[0], "TTTT",  "L"); 
+    //    ple2 = pl2->AddEntry(hs, "TTX",  "L");
+       // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
+       // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
+       // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
+    //    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
+    //    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
+        ple2 = pl2->AddEntry(background_SR, "background",  "L");
+        pl2->Draw();
+        
+        TString NAME = name[i];
+       //c1->SaveAs(NAME+".pdf");
+       // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
+    //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
+    //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
+    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
+    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
+        cout<<"Finished "<<NAME+postfix<<endl;
+    //    c1->Draw(); 
+
+//        float scale_TTTT = BGFiles[0]->Integral();
+//        cout<<scale_TTTT<<endl;
+//          cout<<"Total BKG = "<<background_SR->Integral()<<endl;
+//          background_SR->Print();
+        vector<float> separation_power;
+        //?for different range we have different sp, how to deal with this?
+        float sp = separationPower(BGFiles[0], background_SR);
+        separation_power.push_back(sp);
+        cout<<NAME<<"  separation power"<<sp<<endl;
 
         for(UInt_t j = 0; j < BGFiles.size(); j++){
-          delete (BGFiles[j]);
+             delete (BGFiles[j]);
         }
 
-
+        delete background_SR;//put delete in the last
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -698,20 +706,6 @@ for ( string ch : Channel){
     latex.SetTextSize(channelTextSize);
 
 
-    //定义图中各个线和直方图的颜色
-    TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
-    pl2->SetTextSize(0.045); 
-    pl2->SetFillColor(0);
-  //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
-    TLegendEntry *ple2 = pl2->AddEntry(TTTT_SR, "TTTT",  "L"); 
-//    ple2 = pl2->AddEntry(hs, "TTX",  "L");
-   // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
-   // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
-   // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
-//    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
-//    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
-    ple2 = pl2->AddEntry(background_SR, "background",  "L");
-    pl2->Draw();
     
     TString NAME = name[i];
    //c1->SaveAs(NAME+".pdf");
@@ -744,6 +738,25 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
   delete temp;
  }/*}}}*/
 
+float separationPower(TH1F* h1, TH1F* h2){
+    float norm = 1;
+    h1->Scale(norm/h1->Integral());
+    h1->Print();
+    h2->Scale(norm/h2->Integral());
+    h2->Print();
+  int nbins=h1->GetXaxis()->GetNbins();
+  cout<<nbins<<endl;
+  float s=0;
+//  float width=h1->GetBinWidth(1);
+  for(int i=1;i<nbins+1;i++){
+//  for(int i=0;i<nbins;i++){
+      if(h1->GetBinContent(i)+h2->GetBinContent(i)!=0)
+//      s+=0.5*TMath::Power((h1->GetBinContent(i)-h2->GetBinContent(i))/width,2)/(h1->GetBinContent(i)+h2->GetBinContent(i))*width*width;
+      s+=0.5*TMath::Power((h1->GetBinContent(i)-h2->GetBinContent(i)),2)/(h1->GetBinContent(i)+h2->GetBinContent(i));
+      //?it seems you do not use width at all.
+  }
+  return s;
+}
 //for MC we multiply the scale factor, adjust error accordingly , and make background histogram
 //we get histograms based on CUT from MC and data,and we
 /*
