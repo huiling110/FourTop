@@ -175,7 +175,9 @@ for ( string ch : Channel){
         TH1F* TTTT;
         TH1F* TTJets; TH1F* TTGJets;TH1F* ttZJets; TH1F* ttWJets;TH1F* ttH; TH1F* ttbb;
 //        vector<TH1F*> BGFiles;
-        vector<TH1F> BGFiles  {           TTTT, TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb };
+        vector<TH1F*> BGFiles  {
+            TTTT,
+            TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb };
 //        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
 //        vector<TH1F*> BGFiles_NormalizedToXSection;
 //            = {TTJets_SR,TTGJets_SR,ttZJets_SR,ttWJets_SR,ttH_SR,ttbb_SR       };
