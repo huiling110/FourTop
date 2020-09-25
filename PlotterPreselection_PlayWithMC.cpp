@@ -28,94 +28,94 @@ void PlotterPreselection_PlayWithMC(){
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 //name is plots we want to show   
 //?is there a more clever way to push_back all in a loop?
-/*
+
   name.push_back("NumSelJets");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
- name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4000);    axis.push_back("Invariant mass of jets");
-  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
- name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
-  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Third Jet Pt");
-  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Fourth Jet Pt");
-  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Fifth Jet Pt");
-  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(130);    axis.push_back("Sixth Jet Pt");
-  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(90);    axis.push_back("Seventh Jet Pt");
-  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Eighth Jet Pt");
-//  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Leading B Jet Pt");
-//  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second B Jet Pt");
-  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
-  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
-  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Nighth Jet Pt");
- name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Tenth Jet Pt");
-//  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("Third B Jet Pt");
-//  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
-  name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2.5);    axis.push_back("Min delta R of Jets");
-  name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(2);    Max.push_back(6);    axis.push_back("Maximum delta R of Jets");
-  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Min delta R of B Jets");
-  name.push_back("MaxDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Maximum delta R of B Jets");
-  name.push_back("NumSelJets");      bin.push_back(12);     Min.push_back(0);    Max.push_back(12);    axis.push_back("Number of jets");
-  name.push_back("NumSelBJetsM");      bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium b jets");
- name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(2200);    axis.push_back("HT pt[GeV]");
- name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
- name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
- name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
-*/
-  
-  //second part
-  name.push_back("NumOfLeptonsFMVA");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of fakeble leptons");
-  name.push_back("NumOfLeptonsTMVA");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of Tight Leptons");
-  name.push_back("LeadingLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("leading tight lepton pt");
-  name.push_back("SecondLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("second tight lepton pt");
-  name.push_back("ThirdLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("third tight lepton pt");
-  name.push_back("NumOfMuonsT");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of tight mouns");
-  name.push_back("NumOfElectronsT");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of tight electrons");
-  name.push_back("NumOfElectronsMVAL");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of loose electron");
-  name.push_back("NumOfElectronsMVAT");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tight electrons");
-  name.push_back("NumOfElectronsMVAF");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of fakeble electrons");
-  name.push_back("NumOfMuonsL");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of loose muons");
-
-  name.push_back("InvariantMassBJetsL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("invariant mass of loose b jet");
-  name.push_back("InvariantMassBJetsM");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("invariant mass of medium b jet");
-  name.push_back("InvariantMassBJetsT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("invariant mass of tight b jet");
-  name.push_back("MetDividedByHT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("MET/HT");
-  name.push_back("ThirdBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("third medium b jet pt");
-  name.push_back("FourthBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("fourth medium b jet pt");
-  name.push_back("LeadingBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("leading medium b jet pt");
-  name.push_back("SecondBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("second medium b jet pt");
-  name.push_back("LeadingBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("leading loose b jet pt");
-  name.push_back("SecondBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("second loose b jet pt");
-  name.push_back("ThirdBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("third loose b jet pt");
-  name.push_back("FourthBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("fourth loose b jet pt");
-  name.push_back("LeadingBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("leading tight b jet pt");
-  name.push_back("SecondBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("second tight b jet pt");
-  name.push_back("ThirdBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("third tight b jet pt");
-  name.push_back("FourthBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("fourth tight b jet pt");
-  
- // name.push_back("LeadingJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("leading jet Deep Flavour score");
-//  name.push_back("SecondJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("second  jet Deep Flavour score");
- // name.push_back("ThirdJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("third  jet Deep Flavour score");
-  name.push_back("BScoreOfAllJetsL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Deep Flavour b score of all loose jets");
-  name.push_back("MinDeltaPhiJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("min delta phi of jets");
-//  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back();    axis.push_back("");
-  name.push_back("HT_BJetL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("HT of loose b jets");
-  name.push_back("HT_BJetM");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("HT of medium b jets");
-  name.push_back("HT_BJetT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("HT of tight b jets");
-
-  name.push_back("NumOfTausL");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of loose tau");
-  name.push_back("NumOfTausF");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of fakeble tau");
-  name.push_back("LeadingTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("leading tau pt");
-  name.push_back("SecondTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("second tau pt");
-  name.push_back("MHT_TausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT of loose tau");
-  name.push_back("MHT_TausF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("MHT of fakeble tau");
-  name.push_back("HT_TauL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("HT of loose tau");
-  name.push_back("HT_TauF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("HT of fakeble tau");
-  name.push_back("InvariantMassTausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("invariant mass of loose tau");
-  name.push_back("InvariantMassTausF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("invariant mass of fakeble tau");
-  name.push_back("MinDeltaRTausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("min delta R of loose tau");
-
-  name.push_back("NumofTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tops");
-  name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(700);    axis.push_back("leading top pt");
-  name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("second top pt");
-  name.push_back("MinDeltaRTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3);    axis.push_back("min delta R of tops");
-  name.push_back("TopTaggerScoreAllTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("top tagger score of all tops");
+//name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(10);    Max.push_back(2000);    axis.push_back("Invariant mass of jets");
+//  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
+// name.push_back("SecondJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("Second Jet Pt");
+//  name.push_back("ThirdJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Third Jet Pt");
+//  name.push_back("FourthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("Fourth Jet Pt");
+//  name.push_back("FifthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("Fifth Jet Pt");
+//  name.push_back("SixthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(130);    axis.push_back("Sixth Jet Pt");
+//  name.push_back("SeventhJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(90);    axis.push_back("Seventh Jet Pt");
+//  name.push_back("EighthJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Eighth Jet Pt");
+////  name.push_back("LeadingBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Leading B Jet Pt");
+////  name.push_back("SecondBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Second B Jet Pt");
+//  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
+//  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
+//  name.push_back("NighthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Nighth Jet Pt");
+// name.push_back("TenthJetPt");      bin.push_back(100);     Min.push_back(20);    Max.push_back(70);    axis.push_back("Tenth Jet Pt");
+////  name.push_back("ThirdBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("Third B Jet Pt");
+////  name.push_back("FourthBJetPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("Fourth B Jet Pt");
+//  name.push_back("MinDeltaRJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2.5);    axis.push_back("Min delta R of Jets");
+//  name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(2);    Max.push_back(6);    axis.push_back("Maximum delta R of Jets");
+//  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Min delta R of B Jets");
+//  name.push_back("MaxDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Maximum delta R of B Jets");
+//  name.push_back("NumSelJets");      bin.push_back(12);     Min.push_back(0);    Max.push_back(12);    axis.push_back("Number of jets");
+//  name.push_back("NumSelBJetsM");      bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium b jets");
+// name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(2200);    axis.push_back("HT pt[GeV]");
+// name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
+// name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(400);   axis.push_back("Met pt[GeV] ");
+// name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(-4);      axis.push_back("Met #phi");
+//
+//  
+//  //second part
+//  name.push_back("NumOfLeptonsFMVA");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of fakeble leptons");
+//  name.push_back("NumOfLeptonsTMVA");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Number of Tight Leptons");
+//  name.push_back("LeadingLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("leading tight lepton pt");
+//  name.push_back("SecondLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(150);    axis.push_back("second tight lepton pt");
+//  name.push_back("ThirdLeptonMVATPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("third tight lepton pt");
+//  name.push_back("NumOfMuonsT");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of tight mouns");
+//  name.push_back("NumOfElectronsT");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of tight electrons");
+//  name.push_back("NumOfElectronsMVAL");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of loose electron");
+//  name.push_back("NumOfElectronsMVAT");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tight electrons");
+//  name.push_back("NumOfElectronsMVAF");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of fakeble electrons");
+//  name.push_back("NumOfMuonsL");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of loose muons");
+//
+//  name.push_back("InvariantMassBJetsL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("invariant mass of loose b jet");
+//  name.push_back("InvariantMassBJetsM");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("invariant mass of medium b jet");
+//  name.push_back("InvariantMassBJetsT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("invariant mass of tight b jet");
+//  name.push_back("MetDividedByHT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("MET/HT");
+//  name.push_back("ThirdBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("third medium b jet pt");
+//  name.push_back("FourthBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(100);    axis.push_back("fourth medium b jet pt");
+//  name.push_back("LeadingBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("leading medium b jet pt");
+//  name.push_back("SecondBJetMPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("second medium b jet pt");
+//  name.push_back("LeadingBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(800);    axis.push_back("leading loose b jet pt");
+//  name.push_back("SecondBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("second loose b jet pt");
+//  name.push_back("ThirdBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("third loose b jet pt");
+//  name.push_back("FourthBJetLPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("fourth loose b jet pt");
+//  name.push_back("LeadingBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(600);    axis.push_back("leading tight b jet pt");
+//  name.push_back("SecondBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("second tight b jet pt");
+//  name.push_back("ThirdBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("third tight b jet pt");
+//  name.push_back("FourthBJetTPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("fourth tight b jet pt");
+//  
+// // name.push_back("LeadingJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("leading jet Deep Flavour score");
+////  name.push_back("SecondJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("second  jet Deep Flavour score");
+// // name.push_back("ThirdJetpfDeepFlavourBJetTags");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("third  jet Deep Flavour score");
+//  name.push_back("BScoreOfAllJetsL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(7);    axis.push_back("Deep Flavour b score of all loose jets");
+//  name.push_back("MinDeltaPhiJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1);    axis.push_back("min delta phi of jets");
+////  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back();    axis.push_back("");
+//  name.push_back("HT_BJetL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("HT of loose b jets");
+//  name.push_back("HT_BJetM");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("HT of medium b jets");
+//  name.push_back("HT_BJetT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("HT of tight b jets");
+//
+//  name.push_back("NumOfTausL");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of loose tau");
+//  name.push_back("NumOfTausF");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of fakeble tau");
+//  name.push_back("LeadingTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("leading tau pt");
+//  name.push_back("SecondTauPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("second tau pt");
+//  name.push_back("MHT_TausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT of loose tau");
+//  name.push_back("MHT_TausF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("MHT of fakeble tau");
+//  name.push_back("HT_TauL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("HT of loose tau");
+//  name.push_back("HT_TauF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("HT of fakeble tau");
+//  name.push_back("InvariantMassTausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("invariant mass of loose tau");
+//  name.push_back("InvariantMassTausF");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("invariant mass of fakeble tau");
+//  name.push_back("MinDeltaRTausL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("min delta R of loose tau");
+//
+//  name.push_back("NumofTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tops");
+//  name.push_back("LeadingTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(700);    axis.push_back("leading top pt");
+//  name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("second top pt");
+//  name.push_back("MinDeltaRTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3);    axis.push_back("min delta R of tops");
+//  name.push_back("TopTaggerScoreAllTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("top tagger score of all tops");
 
 //  name.push_back("");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10.5);    axis.push_back("");
 
@@ -128,8 +128,8 @@ void PlotterPreselection_PlayWithMC(){
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 //    sprintf(CUTpre,"((channel_2Tau1L==1))");   TString postfix = "2Tau1L.png";
-//vector<string> Channel = {/*"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",*/"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-vector<string> Channel = { "1Tau0L"   };
+vector<string> Channel = {/*"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",*/"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
+//vector<string> Channel = { "1Tau0L_v2"   };
 //vector<string> Channel = { "2Tau0L_v2"   };
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
@@ -164,8 +164,8 @@ for ( string ch : Channel){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
-  for(int i=0; i<2; i++){
-//  for(UInt_t i=0; i<name.size(); i++){
+//  for(int i=0; i<2; i++){
+  for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
 // THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
@@ -236,7 +236,7 @@ for ( string ch : Channel){
           cout<<"Total BKG = "<<background_SR->Integral()<<endl;
           
         }/*}}}*/
-
+/*
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
             BGFiles[0]->SetLineWidth(2);
             BGFiles[0]->SetLineColor(2);
@@ -336,12 +336,9 @@ for ( string ch : Channel){
         TString NAME = name[i];
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
-    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/plots_v2_newcode/"+NAME+postfix);
         cout<<"Finished "<<NAME+postfix<<endl;
     //    c1->Draw(); 
 
@@ -354,7 +351,7 @@ for ( string ch : Channel){
         float sp = separationPower(BGFiles[0], background_SR);
         separation_power.push_back(sp);
         cout<<NAME<<"  separation power"<<sp<<endl;
-
+*/
         for(UInt_t j = 0; j < BGFiles.size(); j++){
              delete (BGFiles[j]);
         }
@@ -741,11 +738,9 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
 float separationPower(TH1F* h1, TH1F* h2){
     float norm = 1;
     h1->Scale(norm/h1->Integral());
-    h1->Print();
     h2->Scale(norm/h2->Integral());
-    h2->Print();
   int nbins=h1->GetXaxis()->GetNbins();
-  cout<<nbins<<endl;
+//  cout<<nbins<<endl;
   float s=0;
 //  float width=h1->GetBinWidth(1);
   for(int i=1;i<nbins+1;i++){
