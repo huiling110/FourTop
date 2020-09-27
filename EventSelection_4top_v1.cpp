@@ -143,9 +143,11 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex, 0);
 			SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex, 1);
 			SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex, 2);
+            
             NumOfElectronsMVAL          = SelectedElectronsMVAL.size();
             NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
             NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
+//            FirstIndexPtMVAEle          = patElectron_pt_->at(SelectedElectronMVALIndex.at(0)); 
             vector<TLorentzVector> LeptonsMVAF = SelectedMuonsF;
             LeptonsMVAF.insert(LeptonsMVAF.end(),SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end());
             NumOfLeptonsFMVA = LeptonsMVAF.size();
@@ -357,7 +359,11 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaPhiJets;   MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
             MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
 //?            Jet_pfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_;
-            
+           
+            sort(SelectedJets.begin(),SelectedJets.end(),compEle);
+            LeadingJetPt_new   = SelectedJets[0].Pt();
+
+ 
             if(!(NumSelJets>0)) continue;
             if(!(NumSelBJetsL>0)) continue;
 //
@@ -1533,6 +1539,12 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPt
     }
 }/*}}}*/
 
+//bool compEle(const edm::Ptr<flashgg::Electron>& a, const edm::Ptr<flashgg::Electron>& b)
+bool compEle(const TLorentzVector a , const  TLorentzVector b)
+{
+ return a.Pt() > b.Pt();
+}
+
 
 //?no correct
 void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const vector<double> JetsPtSorted, Int_t &LeadingPtIndex, Int_t &SecondPtIndex, Int_t &ThirdPtIndex){
@@ -1966,6 +1978,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("MinDeltaPhiJets",        &MinDeltaPhiJets,        "MinDeltaPhiJets/D");
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
+  NewTree->Branch("LeadingJetPt_new",        &LeadingJetPt_new,        "LeadingJetPt_new/D");
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
   NewTree->Branch("NumOfTausF",        &NumOfTausF,        "NumOfTausF/I");
   NewTree->Branch("NumOfTausT",        &NumOfTausT,        "NumOfTausT/I");
@@ -2450,6 +2463,7 @@ BScoreOfAllJetsL=-99;
 MinDeltaRJets=-99;
 MaxDeltaRJets=-99;
 MinDeltaPhiJets=-99;
+LeadingJetPt_new=-99;
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;

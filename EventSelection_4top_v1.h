@@ -43,6 +43,8 @@ double DeltaR(double eta1, double eta2, double phi1, double phi2);
 double DeltaPhi(double phi1, double phi2);
 double HTcalculator(vector<TLorentzVector> SelectedJets);
 double MHTcalculator(vector<TLorentzVector> SelectedJets);
+
+bool compEle(const TLorentzVector a , const  TLorentzVector b);
 //
 //
 double InvariantMassLike_Calculator(vector<TLorentzVector> SelectedJets);
@@ -572,6 +574,8 @@ double MaxDeltaRJets=-99;
 double MinDeltaPhiJets=-99;
 double MinDeltaRBJets=-99;
 double MaxDeltaRBJets=-99;
+double LeadingJetPt_new = -99;
+
 int NumOfTausL=-99;
 int NumOfTausF=-99;
 int NumOfTausT=-99;
@@ -580,6 +584,7 @@ double SecondTauPt=-99;
 double MHT_TausL=-99;
 double MHT_TausF=-99;
 double MHT_TausT=-99;
+
 double HT_TauL=-99;
 double HT_TauF=-99;
 double InvariantMassTausL=-99;
