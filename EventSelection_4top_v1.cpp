@@ -361,8 +361,61 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //?            Jet_pfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_;
            
             sort(SelectedJets.begin(),SelectedJets.end(),compEle);
-            LeadingJetPt_new   = SelectedJets[0].Pt();
-
+            if(NumSelJets>0) {
+                LeadingJetPt_new   = SelectedJets[0].Pt();
+                leading_Ljet_eta = SelectedJets[0].Pt();
+                leading_Ljet_phi = SelectedJets[0].Phi();
+            }
+            if(NumSelJets>1){
+                second_Ljet_pt = SelectedJets[1].Pt();
+                second_Ljet_eta = SelectedJets[1].Eta();
+                second_Ljet_phi = SelectedJets[1].Phi();
+            }
+            if(NumSelJets>2){
+                third_Ljet_pt = SelectedJets[2].Pt();
+                third_Ljet_eta = SelectedJets[2].Eta();
+                third_Ljet_phi = SelectedJets[2].Phi();
+            }
+            if(NumSelJets>3){
+                fourth_Ljet_pt = SelectedJets[3].Pt();
+                fourth_Ljet_eta = SelectedJets[3].Eta();
+                fourth_Ljet_phi = SelectedJets[3].Pt();
+            }
+            if(NumSelJets>4){
+                fifth_Ljet_pt = SelectedJets[4].Pt();
+                fifth_Ljet_eta = SelectedJets[4].Eta();
+                fifth_Ljet_phi = SelectedJets[4].Phi();
+            }
+            if(NumSelJets>5){
+                sixth_Ljet_pt = SelectedJets[5].Pt();
+                sixth_Ljet_eta = SelectedJets[5].Eta();
+                sixth_Ljet_phi = SelectedJets[5].Phi();
+            }
+            if(NumSelJets>6){
+                seventh_Ljet_pt = SelectedJets[6].Pt();
+                seventh_Ljet_eta = SelectedJets[6].Eta();
+                seventh_Ljet_phi = SelectedJets[6].Phi();
+            }
+            if(NumSelJets>7){
+                eighth_Ljet_pt = SelectedJets[7].Pt();
+                eighth_Ljet_eta = SelectedJets[7].Eta();
+                eighth_Ljet_phi = SelectedJets[7].Phi();
+            }
+            if(NumSelJets>8){
+                nineth_Ljet_pt = SelectedJets[8].Pt();
+                nineth_Ljet_eta = SelectedJets[8].Eta();
+                nineth_Ljet_phi = SelectedJets[8].Phi();
+            }
+            if(NumSelJets>9){
+                tenth_Ljet_pt = SelectedJets[9].Pt();
+                tenth_Ljet_eta = SelectedJets[9].Eta();
+                tenth_Ljet_phi = SelectedJets[9].Phi();
+            }
+            if(NumSelJets>10){
+                eleventh_Ljet_pt = SelectedJets[10].Pt();
+                eleventh_Ljet_eta = SelectedJets[10].Eta();
+                eleventh_Ljet_phi = SelectedJets[10].Phi();
+            }
  
             if(!(NumSelJets>0)) continue;
             if(!(NumSelBJetsL>0)) continue;
@@ -1979,6 +2032,39 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
   NewTree->Branch("LeadingJetPt_new",        &LeadingJetPt_new,        "LeadingJetPt_new/D");
+  NewTree->Branch("leading_Ljet_eta",        &leading_Ljet_eta,        "leading_Ljet_eta/D");
+  NewTree->Branch("leading_Ljet_phi",        &leading_Ljet_phi,        "leading_Ljet_phi/D");
+  NewTree->Branch("second_Ljet_pt",        &second_Ljet_pt,        "second_Ljet_pt/D");
+  NewTree->Branch("second_Ljet_eta",        &second_Ljet_eta,        "second_Ljet_eta/D");
+  NewTree->Branch("second_Ljet_phi",        &second_Ljet_phi,        "second_Ljet_phi/D");
+  NewTree->Branch("third_Ljet_pt",        &third_Ljet_pt,        "third_Ljet_pt/D");
+  NewTree->Branch("third_Ljet_eta",        &third_Ljet_eta,        "third_Ljet_eta/D");
+  NewTree->Branch("third_Ljet_phi",        &third_Ljet_phi,        "third_Ljet_phi/D");
+  NewTree->Branch("fourth_Ljet_pt",        &fourth_Ljet_pt,        "fourth_Ljet_pt/D");
+  NewTree->Branch("fourth_Ljet_eta",        &fourth_Ljet_eta,        "fourth_Ljet_eta/D");
+  NewTree->Branch("fourth_Ljet_phi",        &fourth_Ljet_phi,        "fourth_Ljet_phi/D");
+  NewTree->Branch("fifth_Ljet_pt",        &fifth_Ljet_pt,        "fifth_Ljet_pt/D");
+  NewTree->Branch("fifth_Ljet_eta",        &fifth_Ljet_eta,        "fifth_Ljet_eta/D");
+  NewTree->Branch("fifth_Ljet_phi",        &fifth_Ljet_phi,        "fifth_Ljet_phi/D");
+  NewTree->Branch("sixth_Ljet_pt",        &sixth_Ljet_pt,        "sixth_Ljet_pt/D");
+  NewTree->Branch("sixth_Ljet_eta",        &sixth_Ljet_eta,        "sixth_Ljet_eta/D");
+  NewTree->Branch("sixth_Ljet_phi",        &sixth_Ljet_phi,        "sixth_Ljet_phi/D");
+  NewTree->Branch("seventh_Ljet_pt",        &seventh_Ljet_pt,        "seventh_Ljet_pt/D");
+  NewTree->Branch("seventh_Ljet_eta",        &seventh_Ljet_eta,        "seventh_Ljet_eta/D");
+  NewTree->Branch("seventh_Ljet_phi",        &seventh_Ljet_phi,        "seventh_Ljet_phi/D");
+  NewTree->Branch("eighth_Ljet_pt",        &eighth_Ljet_pt,        "eighth_Ljet_pt/D");
+  NewTree->Branch("eighth_Ljet_eta",        &eighth_Ljet_eta,        "eighth_Ljet_eta/D");
+  NewTree->Branch("eighth_Ljet_phi",        &eighth_Ljet_phi,        "eighth_Ljet_phi/D");
+  NewTree->Branch("nineth_Ljet_pt",        &nineth_Ljet_pt,        "nineth_Ljet_pt/D");
+  NewTree->Branch("nineth_Ljet_eta",        &nineth_Ljet_eta,        "nineth_Ljet_eta/D");
+  NewTree->Branch("nineth_Ljet_phi",        &nineth_Ljet_phi,        "nineth_Ljet_phi/D");
+  NewTree->Branch("tenth_Ljet_pt",        &tenth_Ljet_pt,        "tenth_Ljet_pt/D");
+  NewTree->Branch("tenth_Ljet_eta",        &tenth_Ljet_eta,        "tenth_Ljet_eta/D");
+  NewTree->Branch("tenth_Ljet_phi",        &tenth_Ljet_phi,        "tenth_Ljet_phi/D");
+  NewTree->Branch("eleventh_Ljet_pt",        &eleventh_Ljet_pt,        "eleventh_Ljet_pt/D");
+  NewTree->Branch("eleventh_Ljet_eta",        &eleventh_Ljet_eta,        "eleventh_Ljet_eta/D");
+  NewTree->Branch("eleventh_Ljet_phi",        &eleventh_Ljet_phi,        "eleventh_Ljet_phi/D");
+
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
   NewTree->Branch("NumOfTausF",        &NumOfTausF,        "NumOfTausF/I");
   NewTree->Branch("NumOfTausT",        &NumOfTausT,        "NumOfTausT/I");
@@ -2464,6 +2550,51 @@ MinDeltaRJets=-99;
 MaxDeltaRJets=-99;
 MinDeltaPhiJets=-99;
 LeadingJetPt_new=-99;
+leading_Ljet_eta = -99;
+leading_Ljet_phi = -99;
+second_Ljet_pt = -99;
+second_Ljet_eta = -99;
+second_Ljet_phi = -99;
+third_Ljet_pt = -99;
+third_Ljet_eta = -99;
+third_Ljet_phi = -99;
+fourth_Ljet_pt = -99;
+fourth_Ljet_eta =-99;
+fourth_Ljet_phi = -99;
+fifth_Ljet_pt = -99;
+fifth_Ljet_eta = -99;
+fifth_Ljet_phi = -99;
+sixth_Ljet_pt = -99;
+sixth_Ljet_eta = -99;
+sixth_Ljet_phi = -99;
+seventh_Ljet_pt = -99;
+seventh_Ljet_eta = -99;
+seventh_Ljet_phi = -99;
+eighth_Ljet_pt = -99;
+eighth_Ljet_eta = -99;
+eighth_Ljet_phi = -99;
+nineth_Ljet_pt = -99;
+nineth_Ljet_eta = -99;
+nineth_Ljet_phi = -99;
+tenth_Ljet_pt = -99;
+tenth_Ljet_eta = -99;
+tenth_Ljet_phi = -99;
+eleventh_Ljet_pt = -99;
+eleventh_Ljet_eta = -99;
+eleventh_Ljet_phi = -99;
+
+
+
+
+
+
+
+
+
+
+
+
+
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
 NumOfTausL=-99;
