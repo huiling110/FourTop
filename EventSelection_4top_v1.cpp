@@ -72,7 +72,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
         branch(data,selection,NewTree,NewTreeSB);//Tree->SetBranchAddress;NewTree and SB->Branch
         //Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         Long64_t NumOfEvents;
-        if (istest){   NumOfEvents = 10000; }
+        if (istest){   NumOfEvents = 1000; }
         else{ NumOfEvents = nentries;}
         for (Long64_t i=0; i<NumOfEvents; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
@@ -125,7 +125,8 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
 			NumOfMuonsL           =  SelectedMuonsL.size();  
             NumOfMuonsT = SelectedMuonsT.size();
-            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
+//            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
+            vector<TLorentzVector> LeptonsT  (SelectedMuonsT.begin(),SelectedMuonsT.end());
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
 			NumOfLeptonsL        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
             NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
@@ -147,34 +148,54 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             NumOfElectronsMVAL          = SelectedElectronsMVAL.size();
             NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
             NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
-//            FirstIndexPtMVAEle          = patElectron_pt_->at(SelectedElectronMVALIndex.at(0)); 
-            vector<TLorentzVector> LeptonsMVAF = SelectedMuonsF;
+
+//            vector<TLorentzVector> LeptonsMVAF = SelectedMuonsF;
+            vector<TLorentzVector> LeptonsMVAF  (SelectedMuonsF.begin(), SelectedMuonsF.end());
             LeptonsMVAF.insert(LeptonsMVAF.end(),SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end());
             NumOfLeptonsFMVA = LeptonsMVAF.size();
-            vector<TLorentzVector> LeptonsMVAT = SelectedMuonsT;
+            vector<TLorentzVector> LeptonsMVAT  (SelectedMuonsT.begin(),SelectedMuonsT.end());
             LeptonsMVAT.insert(LeptonsMVAT.end(),SelectedElectronsMVAT.begin(),SelectedElectronsMVAT.end());
+
             NumOfLeptonsTMVA = LeptonsMVAT.size();
-//            cout<<__LINE__;
-            vector<double> LeptonsMVATPtSorted; sort_jetPt(LeptonsMVAT,LeptonsMVATPtSorted);
-            if(NumOfLeptonsTMVA>0) LeadingLeptonMVATPt = LeptonsMVATPtSorted[0];
-            if(NumOfLeptonsTMVA>1) SecondLeptonMVATPt = LeptonsMVATPtSorted[1];
-            if(NumOfLeptonsTMVA>2) ThirdLeptonMVATPt = LeptonsMVATPtSorted[2];
+            leptonsTMVA_transMass = TransMassCal(LeptonsMVAT);
+//            leptonsTMVA_maxDeltaEta = 
+
+            sort(SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end(), compEle);
+            if(NumOfElectronsMVAF > 0){
+                leadingEleMVAF_pt = SelectedElectronsMVAF[0].Pt();
+            }
+
+            sort(LeptonsMVAT.begin(),LeptonsMVAT.end(), compEle);
+            if(NumOfLeptonsTMVA > 0) {
+                leading_leptonsMVATpt = LeptonsMVAT[0].Pt();
+                leading_leptohsMVAT_eta = LeptonsMVAT[0].Eta();
+                leading_leptonsMVAT_phi = LeptonsMVAT[0].Phi();
+            }
+            if(NumOfLeptonsTMVA > 1) {
+                second_leptonsMVATpt = LeptonsMVAT[1].Pt();
+                second_leptohsMVAT_eta = LeptonsMVAT[1].Eta();
+                second_leptonsMVAT_phi = LeptonsMVAT[1].Phi();
+            }
+            if(NumOfLeptonsTMVA > 2) {
+                third_leptonsMVATpt = LeptonsMVAT[2].Pt();
+                third_leptohsMVAT_eta = LeptonsMVAT[2].Eta();
+                third_leptonsMVAT_phi = LeptonsMVAT[2].Phi();
+            }
+            
             //Cone-pT of selected leptons
 
+
+
             //hadronic tau selection
-            vector<TLorentzVector> SelectedTausL;
-            vector<TLorentzVector> SelectedTausF;
-            vector<TLorentzVector> SelectedTausT;
-            SelectTaus(SelectedTausL,1);
-            SelectTaus(SelectedTausF,2);
-            SelectTaus(SelectedTausT,3);//tight not working yet
+            vector<TLorentzVector> SelectedTausL; vector<int> SelectedTausLIndex;
+            vector<TLorentzVector> SelectedTausF; vector<int> SelectedTausFIndex;
+            vector<TLorentzVector> SelectedTausT; vector<int> SelectedTausTIndex;
+            SelectTaus(SelectedTausL,SelectedTausLIndex,1);
+            SelectTaus(SelectedTausF,SelectedTausFIndex,2);
+            SelectTaus(SelectedTausT,SelectedTausTIndex,3);//tight 
             NumOfTausL = SelectedTausL.size();
             NumOfTausF = SelectedTausF.size();
             NumOfTausT = SelectedTausT.size();
-            if(!(NumOfTausL>0)) continue;
-            vector<double> TauPtSorted; sort_jetPt(SelectedTausL,TauPtSorted);
-            if(NumOfTausL>0)  LeadingTauPt = TauPtSorted[0];
-            if(NumOfTausL>1)  SecondTauPt = TauPtSorted[1];
 
 			MHT_TausL               = MHTcalculator(SelectedTausL);
 			MHT_TausF               = MHTcalculator(SelectedTausF);//900;return the pt sum of,vetctor sum
@@ -186,7 +207,35 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaRTausL;  MinMaxdeltaRJetsCal(SelectedTausL, MinMaxDeltaRTausL);
             MinDeltaRTausL = MinMaxDeltaRTausL[0];
             MaxDeltaRTausL = MinMaxDeltaRTausL[1];
+            tausL_minDeltaR = MinDeltaRSingleCal(SelectedTausL);
+            tausF_minDeltaR = MinDeltaRSingleCal(SelectedTausF);
+
+            transMass_tausF_leptonsT = TransMassSysCal(SelectedTausF, LeptonsMVAT);
+            transMass_tausT_leptonsT = TransMassSysCal(SelectedTausT, LeptonsMVAT);
+            tausF_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausF,LeptonsMVAT);
+            tausF_leptonsT_chargeSum = ChargeSum(SelectedTausFIndex,1) + ChargeSum(SelectedElectronsMVATIndex,0) + ChargeSum(SelectedMuonsTIndex,2) ;
+            leptonsTMVA_tausF_minDeltaR = MinDeltaRCal(LeptonsMVAT,SelectedTausF); 
             
+
+            sort(SelectedTausL.begin(),SelectedTausL.end(),compEle);
+            if(NumOfTausL>0){
+                leadingTauL_pt = SelectedTausL[0].Pt();
+                leadingTauL_eta = SelectedTausL[0].Eta();
+                leadingTauL_phi = SelectedTausL[0].Phi();
+            }
+            if(NumOfTausL>1){
+                secondTauL_pt = SelectedTausL[1].Pt();
+                secondTauL_eta = SelectedTausL[1].Eta();
+                secondTauL_phi = SelectedTausL[1].Phi();
+            }
+            if(NumOfTausL>0){
+                thirdTauL_pt = SelectedTausL[0].Pt();
+                thirdTauL_eta = SelectedTausL[0].Eta();
+                thirdTauL_phi = SelectedTausL[0].Phi();
+            }
+
+
+            if(!(NumOfTausL>0)) continue;
 //          
 
             //channel difinition version2
@@ -304,6 +353,14 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             InvariantMassBJetsL = InvariantMassCalculator(SelectedBJetsL);
             InvariantMassBJetsM = InvariantMassCalculator(SelectedBJetsM);
             InvariantMassBJetsT = InvariantMassCalculator(SelectedBJetsT);
+            transMass_Ljets     = TransMassCal(SelectedJets);
+            transMass_BjetsL    = TransMassCal(SelectedBJetsL);
+            transMass_BjetsM    = TransMassCal(SelectedBJetsM);
+            transMass_BjetsT    = TransMassCal(SelectedBJetsT);
+            jetL_minDeltaR = MinDeltaRSingleCal(SelectedJets);
+            bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
+            bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
+            bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
             Centrality        = HT/InvariantMassJets;
 //			Aplanarity        = 
 //			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
@@ -348,6 +405,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             average_deltaR = AverageDeltaRCal(SelectedJets);
             vector<double> MinMaxDeltaPhiJets;   MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
             MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
+
+            jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets,LeptonsMVAT);
+            jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets,SelectedTausF);
           
             sort(SelectedForwardJets.begin(), SelectedForwardJets.end(),compEle);
             if(NumSelForwardJets > 0) {
@@ -743,7 +803,7 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
     SelectedMuonsIndex.push_back(j);
   }
 }/*}}}*/
-void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
+void SelectTaus(vector<TLorentzVector>& SelectedTaus, vector<int> & SelectedTausIndex, Int_t TauWP){
     //this is tau ID in ttH
     //1:loose;2:fakeble;3:tight
     for (UInt_t j = 0; j < Tau_pt_->size(); ++j){
@@ -761,12 +821,13 @@ void SelectTaus(vector<TLorentzVector>& SelectedTaus, Int_t TauWP){
         if(TauWP==2) {
             if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5&& Tau_byVLooseDeepTau2017v2p1VSmu_->at(j)>0.5 && Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j)>0.5)) continue;
         }
-//        if(TauWP==3){//channel specific
-//            if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_ && Tau_byVLooseDeepTau2017v2p1VSmu_->at(j)>0.5 && Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j)>0.5)) continue;
- //       }
+        if(TauWP==3){//channel specific in ttH. use the tight from 1t 1l
+            if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5&& Tau_byVLooseDeepTau2017v2p1VSmu_->at(j)>0.5 && Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j)>0.5 && Tau_byMediumDeepTau2017v2p1VSjet_->at(j)>0.5)) continue;
+        }
         //?need err handling
         TLorentzVector tau; tau.SetPtEtaPhiE(Tau_pt_->at(j),Tau_eta_->at(j),Tau_phi_->at(j),Tau_energy_->at(j));
         SelectedTaus.push_back(tau);
+        SelectedTausIndex.push_back(j);
     }
 
 }
@@ -1509,6 +1570,100 @@ double InvariantMassCalculator(vector<TLorentzVector> SelectedJets){
     double InMass = jet_sum.M();
     return InMass;
 }
+double InvariantMass2SysCal(const vector<TLorentzVector> a, const vector<TLorentzVector> b){
+    vector<TLorentzVector> vector_sum (a.begin(),a.end());
+    vector_sum.insert(vector_sum.end(),b.begin(),b.end());
+/*    TLorentzVector jet_sum = {0,0,0,0};
+    for (UInt_t j = 0; j < a.size(); ++j){
+        jet_sum = jet_sum + a[j];
+    }
+    TLorentzVector b_sum = {0,0,0,0};
+    for (UInt_t k = 0; k < b.size(); ++k){
+        b_sum = b_sum + b[k];
+    }*/
+    double invariantMass = InvariantMassCalculator(vector_sum);
+    return invariantMass;
+}
+
+int ChargeSum(const vector<int> SelectedElectronsMVATIndex, int type){
+    int charge_sum = 0;
+    for (UInt_t j = 0; j < SelectedElectronsMVATIndex.size(); ++j){
+        if(type == 0) charge_sum += patElectron_charge_->at(j);
+        if(type == 1) charge_sum += Tau_charge_->at(j);
+        if(type == 2) charge_sum += Muon_charge_->at(j);
+    }
+    return charge_sum;
+}
+
+double TransEnergyCal(const TLorentzVector SelectedJets){
+//    TVector3 p =  SelectedJets.Vect();
+    double pt = SelectedJets.Pt();
+    double trans_energy = sqrt(SelectedJets.M()*SelectedJets.M()+pt*pt);
+    return trans_energy;
+}
+double TransEnergySysCal(const vector<TLorentzVector> SelectedJets){
+    double transE = 0;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+        transE += TransEnergyCal(SelectedJets[j]);
+    }
+    return transE;
+}
+double TransMassCal(const vector<TLorentzVector> SelectedJets){
+    double MHT = MHTcalculator(SelectedJets);
+    double transE = 0;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+        transE += TransEnergyCal(SelectedJets[j]);
+    }
+    double trans_mass = sqrt(MHT*MHT + transE*transE);
+    return trans_mass;
+}
+
+double TransMassSysCal(const vector<TLorentzVector> Jets, const vector<TLorentzVector> Leptons){
+    double transE1 = TransEnergySysCal(Jets);
+    double transE2 = TransEnergySysCal(Leptons);
+    TLorentzVector SumJets;     SumJets.SetPtEtaPhiE(0, 0, 0, 0);
+    TLorentzVector SumLeptons;     SumLeptons.SetPtEtaPhiE(0, 0, 0, 0);
+    for(UInt_t j = 0; j < Jets.size(); ++j){
+        SumJets=SumJets+Jets[j];
+    }
+    for(UInt_t k = 0; k < Leptons.size(); ++k){
+        SumLeptons = SumLeptons + Leptons[k];
+    }
+    TVector3  MHTsum = (SumJets+SumLeptons).Vect();
+    double transMass = sqrt((transE1+transE2)*(transE1+transE2)-MHTsum*MHTsum);
+    return transMass;
+}
+
+double MinDeltaRCal(const vector<TLorentzVector> Jets, const vector<TLorentzVector> Leptons){
+    double deltaR_init = 10;
+    double min_deltar = 10;
+    double min_deltaR = 10;
+    for(UInt_t j = 0; j < Jets.size(); ++j){
+    
+        for(UInt_t k=0; k<Leptons.size(); ++k){
+            deltaR_init = Jets[j].DeltaR(Leptons[k]);
+            if(min_deltar > deltaR_init) min_deltar = deltaR_init;
+        }
+        if(min_deltar < min_deltaR ) min_deltaR = min_deltar;
+    }
+    return min_deltaR;
+}
+double MinDeltaRSingleCal(const vector<TLorentzVector> Jets){
+    double min = 10;
+    double min_2 = 10;
+    double min_3 = 10;
+    double min_1 = 10;
+    for(UInt_t j = 0; j < Jets.size(); ++j){
+        for(UInt_t k=j+1; k<Jets.size(); ++k){
+            min_1 = Jets[j].DeltaR(Jets[k]);
+            if(min_1<min) min = min_1; 
+        }
+        min_2 = min;
+        if(min_2<min_3) min_3 = min_2;
+    }
+    return min_3;
+}
+
 /*double AplanarityCalcullator(vector<TLorentzVector> SelectedJets){
 	double PtSquare = 0;
 	double PtPt = -1;
@@ -1627,6 +1782,14 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPt
         JetsPtSorted.push_back(JetsPt[k]);//std::reverse
     }
 }/*}}}*/
+/*
+void AddTwoVectors(const vector<TLorentzVector> SelectedMuonsT, const vector<TLorentzVector> SelectedElectronsMVAT, vector<TLorentzVector> & SelectedLeptonsMVAT){
+    SelectedLeptonsMVAT = SeletedMuonsT;
+    for(auto ele = SelectedElectronsMVAT.begin(), ele != SelectedElectronsMVAT.end(), ++ele){
+        SelectedLeptonsMVAT.push_back(ele);
+    }
+}
+*/
 
 //bool compEle(const edm::Ptr<flashgg::Electron>& a, const edm::Ptr<flashgg::Electron>& b)
 bool compEle(const TLorentzVector a , const  TLorentzVector b)
@@ -2002,9 +2165,18 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumOfLeptonsT_v2",        &NumOfLeptonsT_v2,        "NumOfLeptonsT_v2/I"        );
   NewTree->Branch("NumOfLeptonsFMVA",        &NumOfLeptonsFMVA,        "NumOfLeptonsFMVA/I"        );
   NewTree->Branch("NumOfLeptonsTMVA",        &NumOfLeptonsTMVA,        "NumOfLeptonsTMVA/I"        );
-  NewTree->Branch("LeadingLeptonMVATPt",        &LeadingLeptonMVATPt,        "LeadingLeptonMVATPt/D"        );
-  NewTree->Branch("SecondLeptonMVATPt",        &SecondLeptonMVATPt,        "SecondLeptonMVATPt/D"        );
-  NewTree->Branch("ThirdLeptonMVATPt",        &ThirdLeptonMVATPt,        "ThirdLeptonMVATPt/D"        );
+  NewTree->Branch("leptonsTMVA_transMass",        &leptonsTMVA_transMass,        "leptonsTMVA_transMass/I"        );
+  NewTree->Branch("leadingEleMVAF_pt",        &leadingEleMVAF_pt,        "leadingEleMVAF_pt/D"        );
+  NewTree->Branch("leading_leptonsMVATpt",        &leading_leptonsMVATpt,        "leading_leptonsMVATpt/D"        );
+  NewTree->Branch("leading_leptohsMVAT_eta",        &leading_leptohsMVAT_eta,        "leading_leptohsMVAT_eta/D"        );
+  NewTree->Branch("leading_leptonsMVAT_phi",        &leading_leptonsMVAT_phi,        "leading_leptonsMVAT_phi/D"        );
+  NewTree->Branch("second_leptonsMVATpt",        &second_leptonsMVATpt,        "second_leptonsMVATpt/D"        );
+  NewTree->Branch("second_leptohsMVAT_eta",        &second_leptohsMVAT_eta,        "second_leptohsMVAT_eta/D"        );
+  NewTree->Branch("second_leptonsMVAT_phi",        &second_leptonsMVAT_phi,        "second_leptonsMVAT_phi/D"        );
+  NewTree->Branch("third_leptonsMVATpt",        &third_leptonsMVATpt,        "third_leptonsMVATpt/D"        );
+  NewTree->Branch("third_leptohsMVAT_eta",        &third_leptohsMVAT_eta,        "third_leptohsMVAT_eta/D"        );
+  NewTree->Branch("third_leptonsMVAT_phi",        &third_leptonsMVAT_phi,        "third_leptonsMVAT_phi/D"        );
+//  NewTree->Branch("",        &,        "/D"        );
   NewTree->Branch("NumOfMuonsT",        &NumOfMuonsT,        "NumOfMuonsT/I"        );
   NewTree->Branch("NumOfElectronsT",        &NumOfElectronsT,        "NumOfElectronsT/I"        );
   NewTree->Branch("LeadingLeptonPt",          &LeadingLeptonPt,          "LeadingLeptonPt/D");
@@ -2023,6 +2195,14 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("InvariantMassBJetsL",  &InvariantMassBJetsL,   "InvariantMassBJetsL/D");
   NewTree->Branch("InvariantMassBJetsM",  &InvariantMassBJetsM,   "InvariantMassBJetsM/D");
   NewTree->Branch("InvariantMassBJetsT",  &InvariantMassBJetsT,   "InvariantMassBJetsT/D");
+  NewTree->Branch("transMass_Ljets",  &transMass_Ljets,   "transMass_Ljets/D");
+  NewTree->Branch("transMass_BjetsL",  &transMass_BjetsL,   "transMass_BjetsL/D");
+  NewTree->Branch("transMass_BjetsM",  &transMass_BjetsM,   "transMass_BjetsM/D");
+  NewTree->Branch("transMass_BjetsT",  &transMass_BjetsT,   "transMass_BjetsT/D");
+  NewTree->Branch("jetL_minDeltaR",  &jetL_minDeltaR,   "jetL_minDeltaR/D");
+  NewTree->Branch("bjetsL_minDeltaR",  &bjetsL_minDeltaR,   "bjetsL_minDeltaR/D");
+  NewTree->Branch("bjetsM_minDeltaR",  &bjetsM_minDeltaR,   "bjetsM_minDeltaR/D");
+  NewTree->Branch("bjetsT_minDeltaR",  &bjetsT_minDeltaR,   "bjetsT_minDeltaR/D");
   NewTree->Branch("Centrality",        &Centrality,       "Centrality/D");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/D");
   //NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/D");
@@ -2058,6 +2238,8 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("average_deltaR",        &average_deltaR,        "average_deltaR/D");
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/D");
   NewTree->Branch("MinDeltaPhiJets",        &MinDeltaPhiJets,        "MinDeltaPhiJets/D");
+  NewTree->Branch("jetsL_leptonsMVAT_minDeltaR",        &jetsL_leptonsMVAT_minDeltaR,        "jetsL_leptonsMVAT_minDeltaR/D");
+  NewTree->Branch("jetsL_tausF_minDeltaR",        &jetsL_tausF_minDeltaR,        "jetsL_tausF_minDeltaR/D");
   NewTree->Branch("leading_forwardjet_pt",        &leading_forwardjet_pt,        "leading_forwardjet_pt/D");
   NewTree->Branch("leading_forwardjet_eta_absolute",        &leading_forwardjet_eta_absolute,        "leading_forwardjet_eta_absolute/D");
   NewTree->Branch("leading_forwardjet_phi",        &leading_forwardjet_phi,        "leading_forwardjet_phi/D");
@@ -2101,8 +2283,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
   NewTree->Branch("NumOfTausF",        &NumOfTausF,        "NumOfTausF/I");
   NewTree->Branch("NumOfTausT",        &NumOfTausT,        "NumOfTausT/I");
-  NewTree->Branch("LeadingTauPt",        &LeadingTauPt,        "LeadingTauPt/D");
-  NewTree->Branch("SecondTauPt",        &SecondTauPt,        "SecondTauPt/D");
   NewTree->Branch("MHT_TausL",        &MHT_TausL,        "MHT_TausL/D");
   NewTree->Branch("MHT_TausF",        &MHT_TausF,        "MHT_TausF/D");
   NewTree->Branch("MHT_TausT",        &MHT_TausT,        "MHT_TausT/D");
@@ -2112,6 +2292,22 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("InvariantMassTausF",        &InvariantMassTausF,        "InvariantMassTausF/D");
   NewTree->Branch("MinDeltaRTausL",        &MinDeltaRTausL,        "MinDeltaRTausL/D");
   NewTree->Branch("MaxDeltaRTausL",        &MaxDeltaRTausL,        "MaxDeltaRTausL/D");
+  NewTree->Branch("tausL_minDeltaR",        &tausL_minDeltaR,        "tausL_minDeltaR/D");
+  NewTree->Branch("tausF_minDeltaR",        &tausF_minDeltaR,        "tausF_minDeltaR/D");
+  NewTree->Branch("transMass_tausF_leptonsT",        &transMass_tausF_leptonsT,        "transMass_tausF_leptonsT/D");
+  NewTree->Branch("transMass_tausT_leptonsT",        &transMass_tausT_leptonsT,        "transMass_tausT_leptonsT/D");
+  NewTree->Branch("tausF_leptonsT_invariantMass",        &tausF_leptonsT_invariantMass,        "tausF_leptonsT_invariantMass/D");
+  NewTree->Branch("tausF_leptonsT_chargeSum",        &tausF_leptonsT_chargeSum,        "tausF_leptonsT_chargeSum/D");
+  NewTree->Branch("leptonsTMVA_tausF_minDeltaR",        &leptonsTMVA_tausF_minDeltaR,        "leptonsTMVA_tausF_minDeltaR/D");
+  NewTree->Branch("leadingTauL_pt",        &leadingTauL_pt,        "leadingTauL_pt/D");
+  NewTree->Branch("leadingTauL_eta",        &leadingTauL_eta,        "leadingTauL_eta/D");
+  NewTree->Branch("leadingTauL_phi",        &leadingTauL_phi,        "leadingTauL_phi/D");
+  NewTree->Branch("secondTauL_pt",        &secondTauL_pt,        "secondTauL_pt/D");
+  NewTree->Branch("secondTauL_eta",        &secondTauL_eta,        "secondTauL_eta/D");
+  NewTree->Branch("secondTauL_phi",        &secondTauL_phi,        "secondTauL_phi/D");
+  NewTree->Branch("thirdTauL_pt",        &thirdTauL_pt,        "thirdTauL_pt/D");
+  NewTree->Branch("thirdTauL_eta",        &thirdTauL_eta,        "thirdTauL_eta/D");
+  NewTree->Branch("thirdTauL_phi",        &thirdTauL_phi,        "thirdTauL_phi/D");
 
 
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
@@ -2520,9 +2716,20 @@ channel_2Tau2OS_v2=0;
   NumOfLeptonsT_v2=-99;
   NumOfLeptonsFMVA=-99;
   NumOfLeptonsTMVA=-99;
- LeadingLeptonMVATPt=-99;
- SecondLeptonMVATPt=-99;
- ThirdLeptonMVATPt=-99;
+  leptonsTMVA_transMass = -99;
+ leadingEleMVAF_pt = -99;
+ leading_leptonsMVATpt = -99;
+ leading_leptohsMVAT_eta = -99;
+ leading_leptonsMVAT_phi = -99;
+ second_leptonsMVATpt = -99;
+second_leptohsMVAT_eta = -99;
+second_leptonsMVAT_phi =-99;
+third_leptonsMVATpt = -99;
+third_leptohsMVAT_eta = -99;
+third_leptonsMVAT_phi = -99;
+
+
+
 
  NumOfMuonsT=-99;
  NumOfElectronsT=-99;
@@ -2542,6 +2749,14 @@ NumOfElectronsMVAT=-99;
 InvariantMassBJetsL=-99;
 InvariantMassBJetsM=-99;
 InvariantMassBJetsT=-99;
+transMass_Ljets = -99;
+transMass_BjetsL = -99;
+transMass_BjetsM = -99;
+transMass_BjetsT = -99;
+jetL_minDeltaR = -99;
+bjetsL_minDeltaR = -99;
+bjetsM_minDeltaR = -99;
+bjetsT_minDeltaR = -99;
   Centrality=-99;
   Aplanarity=-99;
  // MaxdeltaRJets=-99;
@@ -2575,6 +2790,8 @@ MinDeltaRJets=-99;
 average_deltaR = -99;
 MaxDeltaRJets=-99;
 MinDeltaPhiJets=-99;
+jetsL_leptonsMVAT_minDeltaR = -99;
+jetsL_tausF_minDeltaR = -99;
 leading_forwardjet_pt = -99;
 leading_forwardjet_eta_absolute = -99;
 leading_forwardjet_phi = -99;
@@ -2630,8 +2847,6 @@ MaxDeltaRBJets=-99;
 NumOfTausL=-99;
 NumOfTausF=-99;
 NumOfTausT=-99;
-LeadingTauPt=-99;
-SecondTauPt=-99;
 MHT_TausL=-99;
 MHT_TausF=-99;
 MHT_TausT=-99;
@@ -2641,6 +2856,22 @@ InvariantMassTausL=-99;
 InvariantMassTausF=-99;
 MinDeltaRTausL=-99;
 MaxDeltaRTausL=-99;
+tausL_minDeltaR = -99;
+tausL_minDeltaR = -99;
+transMass_tausF_leptonsT = -99;
+transMass_tausT_leptonsT = -99;
+tausF_leptonsT_invariantMass = -99;
+tausF_leptonsT_chargeSum = -99;
+leptonsTMVA_tausF_minDeltaR = -99;
+leadingTauL_pt = -99;
+leadingTauL_eta = -99;
+leadingTauL_phi = -99;
+secondTauL_pt = -99;
+secondTauL_eta = -99;
+secondTauL_phi = -99;
+thirdTauL_pt = -99;
+thirdTauL_eta = -99;
+thirdTauL_phi = -99;
 
 NumofTops=-99;
 LeadingTopPt=-99;
