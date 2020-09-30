@@ -57,8 +57,7 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
   name.push_back("NumOfElectronsMVAT");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tight electrons");
   name.push_back("NumOfElectronsMVAF");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of fakeble electrons");
   name.push_back("NumOfMuonsL");      bin.push_back(4);     Min.push_back(0);    Max.push_back(4);    axis.push_back("number of loose muons");
-  */
-  /*
+  
 //?  name.push_back("leptonsTMVA_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("transverse mass of tight leptons");//?
   name.push_back("leadingEleMVAF_pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("leading tight electron pt");
   name.push_back("leading_leptonsMVATpt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(300);    axis.push_back("leading tight lepton pt");
@@ -93,7 +92,7 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
   name.push_back("HT_BJetL");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("HT of loose b jets");
   name.push_back("HT_BJetM");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1500);    axis.push_back("HT of medium b jets");
   name.push_back("HT_BJetT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("HT of tight b jets");
-  */
+  
   //second part
 
   //name.push_back("NumSelBJetsL");      bin.push_back(5);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of loose b jets");
@@ -179,6 +178,7 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
   name.push_back("secondTauL_phi");      bin.push_back(8);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("second loose tau phi");
   name.push_back("thirdTauL_pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(180);    axis.push_back("third loose tau pt");
   name.push_back("thirdTauL_eta");      bin.push_back(6);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("third loose tau eta");
+  */
   name.push_back("thirdTauL_phi");      bin.push_back(8);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("third loose tau phi");
 
   name.push_back("NumofTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("number of tops");
@@ -186,8 +186,6 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
   name.push_back("SecondTopPt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(400);    axis.push_back("second top pt");
   name.push_back("MinDeltaRTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3);    axis.push_back("min delta R of tops");
   name.push_back("TopTaggerScoreAllTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("top tagger score of all tops");
-  
-//  name.push_back("");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10.5);    axis.push_back("");
 
 
 
@@ -196,16 +194,17 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
 	  //apply selection cuts here
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
-vector<string> Channel = {/*"1Tau0L_v2",*/"1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2","2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-//vector<string> Channel = { "1Tau0L_v2"   };
+//vector<string> Channel = {"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2"/*,"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"  */ };
+vector<string> Channel = { "1Tau0L_v2"   };
 //vector<string> Channel = { "2Tau0L_v2"   };
+
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
     TString postfix = ch + ".png";
     ch = "channel_"+ ch + "==1";
     const char*    channel= ch.c_str();//.c_str() returns a const char*
-//   sprintf(CUTpre,channel);
-   sprintf(CUTpre,"%s", channel);
+//   sprintf(CUTpre,"%s", channel);
+   sprintf(CUTpre,"(NumSelJets>5)&&(NumSelBJetsM>1)&&(%s)", channel);
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -232,6 +231,9 @@ for ( string ch : Channel){
 //	sprintf(CUTtri1,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigUp   *%s",CUTpre);
 //	sprintf(CUTtri2,"PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_TrigDown *%s",CUTpre);
         /*}}}*/
+
+
+  std::map<float, TString> mymap;
 //  for(int i=0; i<2; i++){
   for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
@@ -405,7 +407,8 @@ for ( string ch : Channel){
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/plots_newcode/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/test/"+NAME+postfix);
+//        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/plots_newcode/add_jetCut/"+NAME+postfix);
         cout<<"Finished "<<NAME+postfix<<endl;
     //    c1->Draw(); 
 
@@ -413,17 +416,30 @@ for ( string ch : Channel){
 //        cout<<scale_TTTT<<endl;
 //          cout<<"Total BKG = "<<background_SR->Integral()<<endl;
 //          background_SR->Print();
-        vector<float> separation_power;
+//        vector<float> separation_power;
         //?for different range we have different sp, how to deal with this?
         float sp = separationPower(BGFiles[0], background_SR);
-        separation_power.push_back(sp);
+//        separation_power.push_back(sp);
         cout<<NAME<<"  separation power"<<sp<<endl;
+
+  //      std::map<float, TString> mymap;
+        mymap.insert(std::make_pair(sp, NAME));
+
 
         for(UInt_t j = 0; j < BGFiles.size(); j++){
              delete (BGFiles[j]);
         }
 
         delete background_SR;//put delete in the last
+  }
+    auto it{ mymap.cbegin() }; // declare a const iterator and assign to start of vector
+    while (it != mymap.cend()) // while it hasn't reach the end
+    {
+        std::cout << it->first << "=" << it->second << " "; // print the value of the element it points to
+        ++it; // and iterate to the next element
+    }
+ 
+    std::cout << '\n';
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
@@ -716,61 +732,9 @@ for ( string ch : Channel){
    // hs->SetMinimum(3);
    // c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
-	/////
-	//画图上各种说明文字
-	/////
-/*    
-    TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
-    gPad->RedrawAxis();
-    TString channelText = "";
-    float channelTextFont   = 42;
-    float channelTextSize   = 0.06;
-    TString cmsText     = "CMS";
-    float cmsTextFont   = 61;  // default is helvetic-bold
-    bool writeExtraText = true;
-    TString extraText   = "MC";
-    //TString extraText   = "";
-    float extraTextFont = 52;  // default is helvetica-italics
-    // text sizes and text offsets with respect to the top frame in unit of the top margin size
-    float lumiTextSize     = 0.6;
-    float lumiTextOffset   = 0.2;
-    float cmsTextSize      = 0.75;
-    float cmsTextOffset    = 0.1;  // only used in outOfFrame version
-    float relPosX    = 0.045;
-    float relPosY    = 0.035;
-    float relExtraDY = 1.2;
-    // ratio of "CMS" and extra text size
-    float extraOverCmsTextSize  = 0.76;
-    TString lumi_13TeV;
-    lumi_13TeV = "35.9fb^{-1}";
-    TString lumiText;
-    lumiText += lumi_13TeV;
-    lumiText += " (2016, 13 TeV)";
-    float t = pad->GetTopMargin();
-    float b = pad->GetBottomMargin();
-    float r = pad->GetRightMargin();
-    float l = pad->GetLeftMargin();
-    TLatex latex;
-    latex.SetNDC();
-    latex.SetTextAngle(0);
-    latex.SetTextColor(kBlack);    
-    float extraTextSize = extraOverCmsTextSize*cmsTextSize;
-    latex.SetTextFont(42);
-    latex.SetTextAlign(31); 
-    latex.SetTextSize(lumiTextSize*t);    
-    latex.DrawLatex(1-r+0.06,0.94,lumiText);
-    latex.SetTextFont(cmsTextFont);
-    latex.SetTextAlign(11); 
-    latex.SetTextSize(cmsTextSize*t);    
-    latex.DrawLatex(l+0.01, 0.94,cmsText);
-    latex.SetTextFont(extraTextFont);
-    latex.SetTextSize(extraTextSize*t);
-    latex.DrawLatex(l+0.12, 0.94, extraText); 
-    latex.SetTextFont(channelTextFont);
-    latex.SetTextSize(channelTextSize);
 
 
-    
+   /* 
     TString NAME = name[i];
    //c1->SaveAs(NAME+".pdf");
    // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
@@ -783,7 +747,6 @@ for ( string ch : Channel){
     cout<<"Finished "<<NAME+postfix<<endl;
 //    c1->Draw(); 
 */
-  }
 }
 }
 
