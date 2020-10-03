@@ -1,4 +1,4 @@
-#include "EventSelection_4top_v1.h" 
+#include "EventSelection_4top_v1.h"
 #include "math.h"
 #include <algorithm>
 
@@ -12,20 +12,20 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
-  bool preselection = true;//associate with selection 
+  bool preselection = true;//associate with selection
   bool sideband     = false;//associate with selection
 //?what's sideband and signal ?
   bool signal       = false;
 	//?signal occur nowhere else	//what does these mean?
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
-  int SysJes = 0;//jet enenrgy scale 
-  int SysJer = 0;//jet  energy resolution 
-  
+  int SysJes = 0;//jet enenrgy scale
+  int SysJer = 0;//jet  energy resolution
+
   using namespace std;
 
   vector<string> fileName;
 //  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");   //17
-  fileName.push_back(input);    
+  fileName.push_back(input);
   for(UInt_t Nfiles=0; Nfiles<fileName.size(); Nfiles++){
 //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
     string NewFileprov;		//file already exist, new file is what we want build.
@@ -49,7 +49,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
     FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
-    char openTree[500];   sprintf(openTree, "TNT/BOOM");//117 
+    char openTree[500];   sprintf(openTree, "TNT/BOOM");//117
     Tree = (TTree*)file->Get(openTree);//sprintf(openTree, "TNT/BOOM")
     bool data = true;
     cout<<"data"<<data<<endl;
@@ -62,7 +62,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
       //selection = 0 -> preselection=true; line 19, true
       //selection = 1 -> signal selection; preselection=false and, not continue , that means go to the next line of the loop.
-      //selection = 2 -> sideband=true and pre=false; line 14 sideband=false 
+      //selection = 2 -> sideband=true and pre=false; line 14 sideband=false
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
 			//?what does sideband and signal do?
@@ -75,17 +75,17 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
         for (Long64_t i=0; i<NumOfEvents; i++) {
 			Long64_t tentry = Tree->LoadTree(i);//Set current entry.
 			branchGetEntry(data, tentry);// every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
-			initializeVar();//initialize for new tree. 
+			initializeVar();//initialize for new tree.
 //			if(!(HLT_PFHT900_==1 || HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ==1))  continue;//a branch in tree, trigger we choose
 			if(!(Flag_goodVertices_==1))  continue;//a branch in tree.
-			if(!(Flag_globalSuperTightHalo2016Filter_==1))  continue;  
-		    if(!(Flag_HBHENoiseFilter_==1))  continue;  
+			if(!(Flag_globalSuperTightHalo2016Filter_==1))  continue;
+		    if(!(Flag_HBHENoiseFilter_==1))  continue;
 			if(!(Flag_HBHENoiseIsoFilter_==1))  continue;
 			if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))  continue;  //a branch in Tree
-		    if(!(Flag_BadPFMuonFilter_==1))  continue;  
-//			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))  continue;  
+		    if(!(Flag_BadPFMuonFilter_==1))  continue;
+//			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))  continue;
 //			why this filter not work?//applied only in 2017 and 2018
-			if(data) {if (!(Flag_eeBadScFilter_==1))  continue;}  
+			if(data) {if (!(Flag_eeBadScFilter_==1))  continue;}
 
 			if(!data) GenClassifier(GenZPt,GenWPt);//according to pdg ID generate the number of  usdc quark and GenZPt GenWPt.
             //not sure what our analysis can do with it
@@ -122,7 +122,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
 			SelectMuons(SelectedMuonsF, SelectedMuonsFIndex,1);
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
-			muonsL_number           =  SelectedMuonsL.size();  
+			muonsL_number           =  SelectedMuonsL.size();
             muonsT_number = SelectedMuonsT.size();
 //            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
             vector<TLorentzVector> LeptonsT  (SelectedMuonsT.begin(),SelectedMuonsT.end());
@@ -139,7 +139,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex, 0);
 			SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex, 1);
 			SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex, 2);
-            
+
             elesMVAL_number          = SelectedElectronsMVAL.size();
             elesMVAF_number          = SelectedElectronsMVAF.size();
             elesMVAT_number          = SelectedElectronsMVAT.size();
@@ -152,7 +152,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 
             leptonsMVAT_number = LeptonsMVAT.size();
             leptonsTMVA_transMass = TransMassCal(LeptonsMVAT);
-//            leptonsTMVA_maxDeltaEta = 
+//            leptonsTMVA_maxDeltaEta =
 
             sort(SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end(), compEle);
             if(elesMVAF_number > 0){
@@ -175,7 +175,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                 third_leptohsMVAT_eta = LeptonsMVAT[2].Eta();
                 third_leptonsMVAT_phi = LeptonsMVAT[2].Phi();
             }
-            
+
             //Cone-pT of selected leptons
 
 
@@ -186,7 +186,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<TLorentzVector> SelectedTausT; vector<int> SelectedTausTIndex;
             SelectTaus(SelectedTausL,SelectedTausLIndex,1);
             SelectTaus(SelectedTausF,SelectedTausFIndex,2);
-            SelectTaus(SelectedTausT,SelectedTausTIndex,3);//tight 
+            SelectTaus(SelectedTausT,SelectedTausTIndex,3);//tight
             tausL_number = SelectedTausL.size();
             tausF_number = SelectedTausF.size();
             tausT_number = SelectedTausT.size();
@@ -205,8 +205,8 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             tausT_leptonsT_transMass = TransMassSysCal(SelectedTausT, LeptonsMVAT);
             tausF_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausF,LeptonsMVAT);
             tausF_leptonsT_chargeSum = ChargeSum(SelectedTausFIndex,1) + ChargeSum(SelectedElectronsMVATIndex,0) + ChargeSum(SelectedMuonsTIndex,2) ;
-            tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT,SelectedTausF); 
-            
+            tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT,SelectedTausF);
+
 
             sort(SelectedTausL.begin(),SelectedTausL.end(),compEle);
             if(tausL_number>0){
@@ -227,7 +227,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 
 
             if(!(tausL_number>0)) continue;
-//          
+//
 
             //channel difinition version2
             if(tausF_number==1 && leptonsMVAT_number==0) channel_1Tau0L_v2 = 1;  /*{{{*/
@@ -247,7 +247,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS_v2 = 1;
                     else channel_2Tau2SS_v2 = 1;
                 }
-           } 
+           }
             if(tausF_number==1 && leptonsMVAT_number==3) channel_1Tau3L_v2 = 1;
             if(tausF_number==2 && leptonsMVAT_number==0) channel_2Tau0L_v2 = 1;
             if(tausF_number==2 && leptonsMVAT_number==1) channel_2Tau1L_v2 = 1;
@@ -265,10 +265,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     else channel_2Tau2SS_v2 = 1;
                 }
            } /*}}}*/
-            
+
 
             //subchannel/*{{{*/
-            if(tausF_number==1 && leptonsT_number_v2==0) channel_1Tau0L = 1;  
+            if(tausF_number==1 && leptonsT_number_v2==0) channel_1Tau0L = 1;
             if(tausF_number==1 && leptonsT_number_v2==1) channel_1Tau1L = 1;
             if(tausF_number==1 && leptonsT_number_v2==2){
                 if(eleT_number==2){
@@ -354,10 +354,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
             jetsL_centrality        = jetsL_HT/jetsL_invariantMass;
             jetsL_bScore = BScoreAllJetsCal(SelectedJetsBTags);
-            average_deltaR = AverageDeltaRCal(SelectedJets);
-//			Aplanarity        = 
-//          Sphericity = 
-          
+            jetsL_average_deltaR = AverageDeltaRCal(SelectedJets);
+//			Aplanarity        =
+//          Sphericity =
+
             if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = jetsL_HT/Met_pt;}
             MetDividedByHT = Met_pt/jetsL_HT;
             HTDividedByMet = jetsL_HT/Met_pt;
@@ -369,7 +369,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> BJetsMPtSorted; sort_jetPt(SelectedBJetsM,BJetsMPtSorted);*/
 
 /*            Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
-            FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);       
+            FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);
             if(jetsL_number>0) LeadingJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(leading_pt_index);
             if(jetsL_number>1) SecondJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(second_pt_index);
             if(jetsL_number>2) ThirdJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(third_pt_index);*/
@@ -386,7 +386,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaPhiJets;   MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
             MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
 
-         
+
             sort(SelectedBJetsL.begin(),SelectedBJetsL.end(),compEle);
             if(bjetsL_num>0){
                 bjetsL_1pt = SelectedBJetsL[0].Pt();
@@ -456,7 +456,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                 eleventh_Ljet_eta = SelectedJets[10].Eta();
                 eleventh_Ljet_phi = SelectedJets[10].Phi();
             }
- 
+
             if(!(jetsL_number>0)) continue;
             if(!(bjetsL_num>0)) continue;
 //
@@ -465,7 +465,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             //using resuts of SUSY toptagger here
             vector<TLorentzVector> SelectedTops;
             SelectTops(SelectedTops);
-            NumofTops = SelectedTops.size();            
+            NumofTops = SelectedTops.size();
             vector<double> TopPtSorted; sort_jetPt(SelectedTops,TopPtSorted);
             if(NumofTops>0)  LeadingTopPt = TopPtSorted[0];
             if(NumofTops>1)  SecondTopPt = TopPtSorted[1];
@@ -474,7 +474,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                 MinDeltaRTops = MinMaxDeltaRTops[0];            MaxDeltaRTops = MinMaxDeltaRTops[1];}
             TopTaggerScoreAllTops = TopScoreAllTopsCal(SelectedTops);
 
- 
+
             //only top that decay into 3 jets
 /*			TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 			TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -503,7 +503,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			prefiringweightup = EVENT_prefireWeightUp_;
 			prefiringweightdown = EVENT_prefireWeightDown_;
 
-			 
+
 		//WEIGHT
 //			if(!data){
 //					get_weight_btag(selection,w_Btag, w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up, w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown, fileName[Nfiles]);//606 w_Btagall in NewTree
@@ -566,7 +566,7 @@ void PDFWeight(int imin,int imax,double &w_PDFUp ,double &w_PDFDown){/*{{{*/
 void MetCorrection(int SysJes, int SysJer, double &MET){/*{{{*/
      double METx = Met_type1PF_pt_*TMath::Cos(Met_type1PF_phi_);//in tree branch.
      double METy = Met_type1PF_pt_*TMath::Sin(Met_type1PF_phi_);
-     for (UInt_t j = 0; j < Jet_pt_->size(); ++j){ 
+     for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
 	     if(!(Jet_Uncorr_pt_->at(j)>15)) continue;
 	     double jetpt = 0.;
 			 //?the difference of Jet_pt and Jet_Uncorr_pt?
@@ -731,7 +731,7 @@ void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> 
         if(!((patElectron_miniIsoRel_->at(j)<I1) && ((patElectron_jetptratio_->at(j)>I2) || (patElectron_ptrel_->at(j)>I3))))  continue;
 //?if we apply this for tight , the number would be very low.
         //emulation selection
-        
+
         //IP
 //?        patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
         if(!(patElectron_d0_->at(j)<0.05)) continue;
@@ -743,7 +743,7 @@ void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> 
         //charge
         //patElectron_inCrack
         //?missing inner hits;conversion veto;tight charge not avalible on ntuple
-        
+
 
         TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
         SelectedElectrons.push_back(electron);
@@ -796,7 +796,7 @@ void SelectTaus(vector<TLorentzVector>& SelectedTaus, vector<int> & SelectedTaus
         if(!(Tau_packedLeadTauCand_dz_->at(j)<0.2))  continue;//missing dz
         //?use which dz still need more thinking
         if(!(Tau_decayModeFindingNewDMs_->at(j)==1)) continue;
-        //???not sure why all taus is 1? if so no point in this requirement. //?not sure, is seem all are 1; 
+        //???not sure why all taus is 1? if so no point in this requirement. //?not sure, is seem all are 1;
         if(Tau_decayMode_->at(j)==5 or Tau_decayMode_->at(j)==6)    continue;//for decay mode
         if(TauWP==1) {
             if(!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j)>0.5)) continue;
@@ -924,7 +924,7 @@ void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets
 
 void SelectTops(vector<TLorentzVector> & SelectedTops){
     for (UInt_t j = 0; j < TopTagger_type_->size(); ++j){
-        if(!(TopTagger_type_->at(j)==3)) continue;//resolved 
+        if(!(TopTagger_type_->at(j)==3)) continue;//resolved
 //        if(!(TopTagger_discriminator_->at(j)>0.6)) continue;
 //        ??not sure of the effect of discriminator
         TLorentzVector jet1; jet1.SetPtEtaPhiM(Jet_pt_->at(TopTagger_jet1Idx_->at(j)),Jet_eta_->at(TopTagger_jet1Idx_->at(j)),Jet_phi_->at(j),Jet_mass_->at(TopTagger_jet1Idx_->at(j)));
@@ -938,7 +938,7 @@ void SelectTops(vector<TLorentzVector> & SelectedTops){
         double top_phi = Jet_phi_->at(TopTagger_jet1Idx_->at(j))+Jet_phi_->at(TopTagger_jet2Idx_->at(j))+Jet_phi_->at(TopTagger_jet3Idx_->at(j));
         double top_m = Jet_mass_->at(TopTagger_jet1Idx_->at(j))+Jet_mass_->at(TopTagger_jet2Idx_->at(j))+Jet_mass_->at(TopTagger_jet3Idx_->at(j));*/
 //        TLorentzVector top; top.SetPtEtaPhiM(top_pt,top_eta,top_phi,top_m);
-        TLorentzVector top; 
+        TLorentzVector top;
         top = jet1 + jet2 + jet3;
         SelectedTops.push_back(top);
     }
@@ -954,7 +954,7 @@ double TopScoreAllTopsCal(const vector<TLorentzVector>  SelectedTops){
 }
 
 /*
-void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
+void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices,
 		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
   //CA8jetType=0 -> W-jets
   //CA8jetType=1 -> top-jets
@@ -977,7 +977,7 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
       if(!(SF*BoostedJet_puppi_softdrop_mass_->at(j)>65 && SF*BoostedJet_puppi_softdrop_mass_->at(j)<105)) continue;//wmass = 80
       if(!(BoostedJet_puppi_tau2_->at(j)/BoostedJet_puppi_tau1_->at(j)<0.45)) continue;
       //????what is softdrop and tau?
-    } 
+    }
     else if(CA8jetType==1) {
       if(!(jetpt>400))                                                                           continue;
       if(!(SF*BoostedJet_puppi_softdrop_mass_->at(j)>105 && SF*BoostedJet_puppi_softdrop_mass_->at(j)<220)) continue;
@@ -1082,7 +1082,7 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       TopMassInitial=fabs((SelectedWJets[i]+SelectedJets[k]).M()-173.1);
       HadronicTopQuark=(SelectedWJets[i]+SelectedJets[k]);
       CA8Index=CA8Indices[i];
-	 
+
       double SF = (BoostedJet_Uncorr_pt_->at(CA8Indices[i])/BoostedJet_pt_->at(CA8Indices[i]))*BoostedJet_JesSF_->at(CA8Indices[i])*BoostedJet_JerSF_->at(CA8Indices[i]);
       WMass_   = SF*BoostedJet_pruned_mass_->at(CA8Indices[i]);
       WSubjet_ = BoostedJet_tau2_->at(CA8Indices[i])/BoostedJet_tau1_->at(CA8Indices[i]);
@@ -1111,15 +1111,15 @@ void BTagSF(int selection, double JetPt, double JetEta, int flav, double &SF, do
   double MaxBJetPt = 1000.;
   double MaxLJetPt = 1000.;
   if((flav==5 || flav==4) && JetPt<=MinBJetPt){
-    JetPt = MinBJetPt+0.1; 
+    JetPt = MinBJetPt+0.1;
     DoubleUncertainty = true;
-  }  
+  }
   if((flav==5 || flav==4) && JetPt>=MaxBJetPt){
-    JetPt = MaxBJetPt-0.1; 
+    JetPt = MaxBJetPt-0.1;
     DoubleUncertainty = true;
-  }  
+  }
   if(flav==0 && JetPt>=MaxLJetPt){
-    JetPt = MaxLJetPt-0.1; 
+    JetPt = MaxLJetPt-0.1;
     DoubleUncertainty = true;
   }
   auto btagentry_flav = flav == 5 ? BTagEntry::FLAV_B : (flav == 4 ? BTagEntry::FLAV_C : BTagEntry::FLAV_UDSG);
@@ -1129,27 +1129,27 @@ void BTagSF(int selection, double JetPt, double JetEta, int flav, double &SF, do
   if(selection==0 || selection==1){
     if(flav==5 || flav==4){
       jet_scalefactor    = readerMComb.eval(btagentry_flav, JetEta, JetPt);
-      jet_scalefactor_up = readerMComb_up.eval(btagentry_flav, JetEta, JetPt); 
+      jet_scalefactor_up = readerMComb_up.eval(btagentry_flav, JetEta, JetPt);
       jet_scalefactor_do = readerMComb_do.eval(btagentry_flav, JetEta, JetPt);
     } else {
       jet_scalefactor    = readerMIncl.eval(btagentry_flav, JetEta, JetPt);
-      jet_scalefactor_up = readerMIncl_up.eval(btagentry_flav, JetEta, JetPt); 
+      jet_scalefactor_up = readerMIncl_up.eval(btagentry_flav, JetEta, JetPt);
       jet_scalefactor_do = readerMIncl_do.eval(btagentry_flav, JetEta, JetPt);
     }
   } else if(selection==2){
     if(flav==5 || flav==4){
       jet_scalefactor    = readerLComb.eval(btagentry_flav, JetEta, JetPt);
-      jet_scalefactor_up = readerLComb_up.eval(btagentry_flav, JetEta, JetPt); 
+      jet_scalefactor_up = readerLComb_up.eval(btagentry_flav, JetEta, JetPt);
       jet_scalefactor_do = readerLComb_do.eval(btagentry_flav, JetEta, JetPt);
     } else {
       jet_scalefactor    = readerLIncl.eval(btagentry_flav, JetEta, JetPt);
-      jet_scalefactor_up = readerLIncl_up.eval(btagentry_flav, JetEta, JetPt); 
+      jet_scalefactor_up = readerLIncl_up.eval(btagentry_flav, JetEta, JetPt);
       jet_scalefactor_do = readerLIncl_do.eval(btagentry_flav, JetEta, JetPt);
     }
   }
   if(DoubleUncertainty) {
-    jet_scalefactor_up = 2*(jet_scalefactor_up - jet_scalefactor) + jet_scalefactor; 
-    jet_scalefactor_do = 2*(jet_scalefactor_do - jet_scalefactor) + jet_scalefactor; 
+    jet_scalefactor_up = 2*(jet_scalefactor_up - jet_scalefactor) + jet_scalefactor;
+    jet_scalefactor_do = 2*(jet_scalefactor_do - jet_scalefactor) + jet_scalefactor;
   }
   if(jet_scalefactor==0){
     jet_scalefactor=1;
@@ -1186,22 +1186,22 @@ void get_weight_btag(int selection, double &w_Btag, double &w_BtagUp, double &w_
     if(!(Jet_chargedHadronEnergyFraction_->at(j)>0.0))                    continue;
     if(!(Jet_chargedMultiplicity_->at(j)>0.0))                            continue;
     //if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
-    double JetPt  = (Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)*Jet_JerSF_->at(j)); 
-    double JetEta = fabs(Jet_eta_->at(j)); 
+    double JetPt  = (Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)*Jet_JerSF_->at(j));
+    double JetEta = fabs(Jet_eta_->at(j));
     int flav = Jet_hadronFlavour_->at(j);
     double MinBJetPt = 20.;
     double MaxBJetPt = 1000.;
     double MaxLJetPt = 1000.;
     if((flav==5 || flav==4) && JetPt<MinBJetPt){
-      JetPt = MinBJetPt; 
-    }  
+      JetPt = MinBJetPt;
+    }
     if((flav==5 || flav==4) && JetPt>MaxBJetPt){
-      JetPt = MaxBJetPt; 
-    }  
+      JetPt = MaxBJetPt;
+    }
     if(flav==0 && JetPt>MaxLJetPt){
-      JetPt = MaxLJetPt; 
-    }  
-    TH2F *NUM = (TH2F*)fileBTagEfficiency->Get("histM_b_passing_"); 
+      JetPt = MaxLJetPt;
+    }
+    TH2F *NUM = (TH2F*)fileBTagEfficiency->Get("histM_b_passing_");
     TH2F *DEN = (TH2F*)fileBTagEfficiency->Get("histM_b_total_");
     if(selection==0 || selection==1){
       if(flav == 5) {
@@ -1271,24 +1271,24 @@ void get_weight_btag(int selection, double &w_Btag, double &w_BtagUp, double &w_
   double wtbtagMedium        = 1; double wtbtagLoose        = 1;
   double wtbtagErrBCMedium   = 0; double wtbtagErrBCLoose   = 0;
   double wtbtagErrUDSGMedium = 0; double wtbtagErrUDSGLoose = 0;
-  if((mcNoTagMedium*mcTagMedium)!=0) wtbtagMedium        = (dataNoTagMedium * dataTagMedium ) / ( mcNoTagMedium * mcTagMedium ); 
+  if((mcNoTagMedium*mcTagMedium)!=0) wtbtagMedium        = (dataNoTagMedium * dataTagMedium ) / ( mcNoTagMedium * mcTagMedium );
   if((mcNoTagMedium*mcTagMedium)!=0) wtbtagErrBCMedium   = fabs(err1Medium+err2Medium) * wtbtagMedium;
   if((mcNoTagMedium*mcTagMedium)!=0) wtbtagErrUDSGMedium = fabs(err3Medium+err4Medium) * wtbtagMedium;
-  if((mcNoTagLoose*mcTagLoose)!=0) wtbtagLoose        = (dataNoTagLoose * dataTagLoose ) / ( mcNoTagLoose * mcTagLoose ); 
+  if((mcNoTagLoose*mcTagLoose)!=0) wtbtagLoose        = (dataNoTagLoose * dataTagLoose ) / ( mcNoTagLoose * mcTagLoose );
   if((mcNoTagLoose*mcTagLoose)!=0) wtbtagErrBCLoose   = fabs(err1Loose+err2Loose) * wtbtagLoose;
   if((mcNoTagLoose*mcTagLoose)!=0) wtbtagErrUDSGLoose = fabs(err3Loose+err4Loose) * wtbtagLoose;
-  w_Btag     = wtbtagMedium; 
+  w_Btag     = wtbtagMedium;
   w_BtagUp   = wtbtagMedium+sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium+wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
   w_BtagDown = wtbtagMedium-sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium+wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
   w_Btag1Up   = wtbtagMedium+sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium);
   w_Btag1Down = wtbtagMedium-sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium);
   w_Btag2Up   = wtbtagMedium+sqrt(wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
   w_Btag2Down = wtbtagMedium-sqrt(wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
-  w_BtagLoose     = wtbtagLoose; 
+  w_BtagLoose     = wtbtagLoose;
   w_BtagLooseUp   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
   w_BtagLooseDown = wtbtagLoose-sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
   if(selection==2){
-    w_Btag     = wtbtagLoose; 
+    w_Btag     = wtbtagLoose;
     w_BtagUp   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
     w_BtagDown = wtbtagLoose-sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
     w_Btag1Up   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose);
@@ -1353,60 +1353,60 @@ void WSF(TLorentzVector WJet, bool PartiallyMerged, double &w_WJet_, double &w_W
 //?what's the purpose of thisi?
 /*
 void HTSF(string fileName, double HT, double Met_pt, double &w_SF1, double &w_SF1Up, double &w_SF1Down, double &w_SF2, double &w_SF2Up, double &w_SF2Down, double &w_SF3, double &w_SF3Up, double &w_SF3Down){
-  if(fileName.find("ZToNuNu")!=string::npos ){	
+  if(fileName.find("ZToNuNu")!=string::npos ){
         int htBin = 0;   int metBin = 0;
         if (HT>200 && HT<400) htBin = 1;
         if (HT>400 && HT<600) htBin = 2;
-        if (HT>600 && HT<800) htBin = 3; 
-        if (HT>800 && HT<1200) htBin = 4; 
-        if (HT>1200 && HT<3000) htBin = 5; 
-        if (Met_pt>200 && Met_pt<400) metBin = 1; 
-        if (Met_pt>400 && Met_pt<700) metBin = 2; 
-        if (Met_pt>700 && Met_pt<1600) metBin = 3; 
-        if (htBin==0 || metBin==0){ 
+        if (HT>600 && HT<800) htBin = 3;
+        if (HT>800 && HT<1200) htBin = 4;
+        if (HT>1200 && HT<3000) htBin = 5;
+        if (Met_pt>200 && Met_pt<400) metBin = 1;
+        if (Met_pt>400 && Met_pt<700) metBin = 2;
+        if (Met_pt>700 && Met_pt<1600) metBin = 3;
+        if (htBin==0 || metBin==0){
            w_SF1=1; w_SF1Up=1; w_SF1Down=1;
-        }  else {  
+        }  else {
 					//?what is histoSF1
 					//in .h file, from SF_dineutrino/SF_2D.root
            w_SF1 = histoSF1->GetBinContent(htBin,metBin);
            w_SF1Up = histoSF1->GetBinContent(htBin,metBin)+ //778histoSF1->GetBinError(htBin,metBin);
-           w_SF1Down = TMath::Max(0.,histoSF1->GetBinContent(htBin,metBin)- histoSF1->GetBinError(htBin,metBin)); 
+           w_SF1Down = TMath::Max(0.,histoSF1->GetBinContent(htBin,metBin)- histoSF1->GetBinError(htBin,metBin));
         }
   }
-  if(fileName.find("WToLNu")!=string::npos ){	
+  if(fileName.find("WToLNu")!=string::npos ){
         int htBin = 0;   int metBin = 0;
         if (HT>200 && HT<400) htBin = 1;
         if (HT>400 && HT<600) htBin = 2;
-        if (HT>600 && HT<800) htBin = 3; 
-        if (HT>800 && HT<1200) htBin = 4; 
-        if (HT>1200 && HT<3000) htBin = 5; 
-        if (Met_pt>200 && Met_pt<400) metBin = 1; 
-        if (Met_pt>400 && Met_pt<700) metBin = 2; 
-        if (Met_pt>700 && Met_pt<1600) metBin = 3; 
-        if (htBin==0 || metBin==0){ 
+        if (HT>600 && HT<800) htBin = 3;
+        if (HT>800 && HT<1200) htBin = 4;
+        if (HT>1200 && HT<3000) htBin = 5;
+        if (Met_pt>200 && Met_pt<400) metBin = 1;
+        if (Met_pt>400 && Met_pt<700) metBin = 2;
+        if (Met_pt>700 && Met_pt<1600) metBin = 3;
+        if (htBin==0 || metBin==0){
            w_SF2=1; w_SF2Up=1; w_SF2Down=1;
-        }  else {  
+        }  else {
            w_SF2 = histoSF2->GetBinContent(htBin,metBin);
            w_SF2Up = histoSF2->GetBinContent(htBin,metBin)+ histoSF2->GetBinError(htBin,metBin);
-           w_SF2Down = TMath::Max(0.,histoSF2->GetBinContent(htBin,metBin)- histoSF2->GetBinError(htBin,metBin)); 
+           w_SF2Down = TMath::Max(0.,histoSF2->GetBinContent(htBin,metBin)- histoSF2->GetBinError(htBin,metBin));
         }
   }
-   if(fileName.find("TT")!=string::npos||fileName.find("tZq")!=string::npos||fileName.find("ST")!=string::npos ){	
+   if(fileName.find("TT")!=string::npos||fileName.find("tZq")!=string::npos||fileName.find("ST")!=string::npos ){
         int htBin = 0;   int metBin = 0;
         if (HT>200 && HT<400) htBin = 1;
         if (HT>400 && HT<600) htBin = 2;
-        if (HT>600 && HT<800) htBin = 3; 
-        if (HT>800 && HT<1200) htBin = 4; 
-        if (HT>1200 && HT<3000) htBin = 5; 
-        if (Met_pt>200 && Met_pt<400) metBin = 1; 
-        if (Met_pt>400 && Met_pt<700) metBin = 2; 
-        if (Met_pt>700 && Met_pt<1600) metBin = 3; 
-        if (htBin==0 || metBin==0){ 
+        if (HT>600 && HT<800) htBin = 3;
+        if (HT>800 && HT<1200) htBin = 4;
+        if (HT>1200 && HT<3000) htBin = 5;
+        if (Met_pt>200 && Met_pt<400) metBin = 1;
+        if (Met_pt>400 && Met_pt<700) metBin = 2;
+        if (Met_pt>700 && Met_pt<1600) metBin = 3;
+        if (htBin==0 || metBin==0){
            w_SF3=1; w_SF3Up=1; w_SF3Down=1;
-        }  else {  
+        }  else {
            w_SF3 = histoSF3->GetBinContent(htBin,metBin);
            w_SF3Up = histoSF3->GetBinContent(htBin,metBin)+ histoSF3->GetBinError(htBin,metBin);
-           w_SF3Down = TMath::Max(0.,histoSF3->GetBinContent(htBin,metBin)- histoSF3->GetBinError(htBin,metBin)); 
+           w_SF3Down = TMath::Max(0.,histoSF3->GetBinContent(htBin,metBin)- histoSF3->GetBinError(htBin,metBin));
         }
   }
 
@@ -1489,7 +1489,7 @@ void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMa
                 if(deltaPhi > initMaxPhi) initMaxPhi = deltaPhi;
                 if(deltaPhi < initMin) initMin = deltaPhi;
             }
-            if (initMaxPhi>MaxPhi) MaxPhi = initMaxPhi; 
+            if (initMaxPhi>MaxPhi) MaxPhi = initMaxPhi;
             if (initMin < MinPhi) MinPhi = initMin;
         }
     }
@@ -1539,7 +1539,7 @@ double InvariantMassLike_Calculator(vector<TLorentzVector> SelectedJets){/*{{{*/
 	double MHT = MHTcalculator(SelectedJets);
     for (UInt_t j = 0; j < SelectedJets.size(); ++j){
 		SumE = SumE+SelectedJets[j].E();
-	}	
+	}
 	InM = sqrt(SumE*SumE-MHT*MHT);
 	return InM;
 }/*}}}*/
@@ -1622,7 +1622,7 @@ double MinDeltaRCal(const vector<TLorentzVector> Jets, const vector<TLorentzVect
     double min_deltar = 10;
     double min_deltaR = 10;
     for(UInt_t j = 0; j < Jets.size(); ++j){
-    
+
         for(UInt_t k=0; k<Leptons.size(); ++k){
             deltaR_init = Jets[j].DeltaR(Leptons[k]);
             if(min_deltar > deltaR_init) min_deltar = deltaR_init;
@@ -1639,7 +1639,7 @@ double MinDeltaRSingleCal(const vector<TLorentzVector> Jets){
     for(UInt_t j = 0; j < Jets.size(); ++j){
         for(UInt_t k=j+1; k<Jets.size(); ++k){
             min_1 = Jets[j].DeltaR(Jets[k]);
-            if(min_1<min) min = min_1; 
+            if(min_1<min) min = min_1;
         }
         min_2 = min;
         if(min_2<min_3) min_3 = min_2;
@@ -1654,10 +1654,10 @@ double MinDeltaRSingleCal(const vector<TLorentzVector> Jets){
 		PtSquare = PtSquare+SelcctedJets.Pt()*SelectedJets.Pt();
 
         for (UInt_t k = j+1; k < SelectedJets.size(); ++j){
-				
+
 		}
 
-	 }	 
+	 }
 }	*/
 
 double LeadingJetPtCal(vector<TLorentzVector> SelectedJets){/*{{{*/
@@ -1713,7 +1713,7 @@ void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<double> &Min
                 if(deltaR > init) init = deltaR;
                 if(deltaR < initMin1) initMin1 = deltaR;
             }
-            if (init>init2) init2 = init; 
+            if (init>init2) init2 = init;
             if (initMin1 < initMin2) initMin2 = initMin1;
         }
     }
@@ -1744,7 +1744,7 @@ double AverageDeltaRCal(const vector<TLorentzVector> SelectedJets){
                 sum_delta_R = sum_delta_R + DeltaR(eta_1,eta_2,phi_1,phi_2);
            }
         }
-        
+
     }
     sum_delta_R = sum_delta_R/((num-1)*num);
     return sum_delta_R;
@@ -1755,7 +1755,7 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPt
     UInt_t size = 0;
     size = SelectedJets.size();
     int k = 0;
-    double JetsPt[size] ; 
+    double JetsPt[size] ;
     for (UInt_t j = 0; j < size; ++j){
         JetsPt[j] = SelectedJets[j].Pt();
     }
@@ -1789,10 +1789,10 @@ void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const v
     if (size > 1) second_pt = JetsPtSorted[1];
     if (size > 2) third_pt = JetsPtSorted[2];
     for (Int_t j = 0; j < size; ++j){
-        if (SelectedJets[j].Pt() == leading_pt)   LeadingPtIndex = j; 
+        if (SelectedJets[j].Pt() == leading_pt)   LeadingPtIndex = j;
         if (SelectedJets[j].Pt() == second_pt)    SecondPtIndex = j;
         if (SelectedJets[j].Pt() == third_pt)     ThirdPtIndex = j;
-   } 
+   }
 }
 
 double BScoreAllJetsCal(const vector<double> SelectedJetsBTags){
@@ -1890,12 +1890,12 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_veto",&patElectron_cutBasedElectronID_Fall17_94X_V2_veto_,&b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto);
   Tree->SetBranchAddress("patElectron_heepElectronID_HEEPV70",&patElectron_heepElectronID_HEEPV70_,&b_patElectron_heepElectronID_HEEPV70);
  // Tree->SetBranchAddress("",&_,&b_);
- /* Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);          
+ /* Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);
   Tree->SetBranchAddress("patElectron_isPassLoose",&patElectron_isPassLoose_,&b_patElectron_isPassLoose);
   Tree->SetBranchAddress("patElectron_isPassMedium",&patElectron_isPassMedium_,&b_patElectron_isPassMedium);
   Tree->SetBranchAddress("patElectron_isPassTight",&patElectron_isPassTight_,&b_patElectron_isPassTight);
   Tree->SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);*/
-  Tree->SetBranchAddress("patElectron_passConversionVeto",&patElectron_passConversionVeto_,&b_patElectron_passConversionVeto); 
+  Tree->SetBranchAddress("patElectron_passConversionVeto",&patElectron_passConversionVeto_,&b_patElectron_passConversionVeto);
   Tree->SetBranchAddress("patElectron_inCrack",&patElectron_inCrack_,&b_patElectron_inCrack);
   Tree->SetBranchAddress("patElectron_isMatchedToTrigger",&patElectron_isMatchedToTrigger_,&b_patElectron_isMatchedToTrigger);
 
@@ -2183,7 +2183,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("ThirdJetpfDeepFlavourBJetTags",        &ThirdJetpfDeepFlavourBJetTags,        "ThirdJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("jetsL_bScore",        &jetsL_bScore,        "jetsL_bScore/D");
   NewTree->Branch("MinDeltaRJets",        &MinDeltaRJets,        "MinDeltaRJets/D");
-  NewTree->Branch("average_deltaR",        &average_deltaR,        "average_deltaR/D");
+  NewTree->Branch("jetsL_average_deltaR",        &jetsL_average_deltaR,        "jetsL_average_deltaR/D");
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/D");
   NewTree->Branch("MinDeltaPhiJets",        &MinDeltaPhiJets,        "MinDeltaPhiJets/D");
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR",        &jetsL_leptonsMVAT_minDeltaR,        "jetsL_leptonsMVAT_minDeltaR/D");
@@ -2426,7 +2426,7 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
       NewTreeSB->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
       NewTreeSB->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
       NewTreeSB->Branch("leptonsL_number",        &leptonsL_number,        "leptonsL_number/I"        );
-    // 
+    //
     //
      NewTreeSB->Branch("eleL_number",      &eleL_number,                "eleL_number");
      NewTreeSB->Branch("muonsL_number",       &muonsL_number,                 "muonsL_number");
@@ -2685,7 +2685,7 @@ SecondJetpfDeepFlavourBJetTags=-99;
 ThirdJetpfDeepFlavourBJetTags=-99;
 jetsL_bScore=-99;
 MinDeltaRJets=-99;
-average_deltaR = -99;
+jetsL_average_deltaR = -99;
 MaxDeltaRJets=-99;
 MinDeltaPhiJets=-99;
 jetsL_leptonsMVAT_minDeltaR = -99;
@@ -2976,12 +2976,12 @@ void branchGetEntry(bool data, Long64_t tentry){/*{{{*/
 
 
 //  ->GetEntry(tentry);
-/*  b_patElectron_isPassVeto->GetEntry(tentry);          
+/*  b_patElectron_isPassVeto->GetEntry(tentry);
   b_patElectron_isPassLoose->GetEntry(tentry);
   b_patElectron_isPassMedium->GetEntry(tentry);
   b_patElectron_isPassTight->GetEntry(tentry);
   b_patElectron_isPassHEEPId->GetEntry(tentry);*/
-  b_patElectron_passConversionVeto->GetEntry(tentry); 
+  b_patElectron_passConversionVeto->GetEntry(tentry);
   b_patElectron_inCrack->GetEntry(tentry);
   b_patElectron_isMatchedToTrigger->GetEntry(tentry);
   b_Muon_pt->GetEntry(tentry);
@@ -2991,7 +2991,7 @@ void branchGetEntry(bool data, Long64_t tentry){/*{{{*/
   b_Muon_charge->GetEntry(tentry);
   b_Muon_tight->GetEntry(tentry);
   b_Muon_loose->GetEntry(tentry);
-  b_Muon_medium->GetEntry(tentry);       
+  b_Muon_medium->GetEntry(tentry);
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
   b_Muon_miniIsoRel->GetEntry(tentry);
   b_Muon_ptrel->GetEntry(tentry);
@@ -3127,9 +3127,9 @@ void GenClassifier(double &GenZPt_,double &GenWPt_){/*{{{*/
 
 
 void GenWBoson(bool &matched, TLorentzVector Wjet){/*{{{*/
-  double dr1=99;  double dr2=99;  double dr3=99;  double dr4=99;  double dr5=99;  double dr6=99; 
-  double dr7=99;  double dr8=99;  double dr9=99;  double dr10=99; double dr11=99; double dr12=99; 
-  double dr13=99; double dr14=99; double dr15=99; double dr16=99; double dr17=99; double dr18=99; 
+  double dr1=99;  double dr2=99;  double dr3=99;  double dr4=99;  double dr5=99;  double dr6=99;
+  double dr7=99;  double dr8=99;  double dr9=99;  double dr10=99; double dr11=99; double dr12=99;
+  double dr13=99; double dr14=99; double dr15=99; double dr16=99; double dr17=99; double dr18=99;
   for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
     //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
     if(abs(Gen_pdg_id_->at(j))==1 && abs(Gen_motherpdg_id_->at(j))==24) dr1 = DeltaR(Wjet.Eta(),Gen_eta_->at(j),Wjet.Phi(),Gen_phi_->at(j));
@@ -3206,7 +3206,7 @@ void newPUWeight(double &puweight,double &puweightUP,double &puweightDOWN){
     sNEWUp += npu_estimatedNEWUp;
     sNEWDo += npu_estimatedNEWDo;
   }
-  unsigned int NPU = -1;              
+  unsigned int NPU = -1;
   for(unsigned int npu = 0; npu < nPUMax; ++npu) {
     result[npu] /= s;
     resultNEW[npu]   /= sNEW;
@@ -3238,10 +3238,10 @@ void WriteTopRelatedBranches(bool ResolvedEvent,TLorentzVector HadronicTopQuark,
     TopEtaResolved=HadronicTopQuarkResolved.Eta();
     TopPhiResolved=HadronicTopQuarkResolved.Phi();
     Jet1ResolvedPt = Jet1Resolved.Pt();
-    Jet2ResolvedPt = Jet2Resolved.Pt(); 
+    Jet2ResolvedPt = Jet2Resolved.Pt();
     Jet3ResolvedPt = Jet3Resolved.Pt();
     Jet1ResolvedEta = Jet1Resolved.Eta();
-    Jet2ResolvedEta = Jet2Resolved.Eta(); 
+    Jet2ResolvedEta = Jet2Resolved.Eta();
     Jet3ResolvedEta = Jet3Resolved.Eta();
     WMassResolved1 = (Jet1Resolved+Jet2Resolved).M();
     WMassResolved2 = (Jet1Resolved+Jet3Resolved).M();
