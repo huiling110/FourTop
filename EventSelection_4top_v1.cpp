@@ -16,7 +16,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
   bool sideband     = false;//associate with selection
 //?what's sideband and signal ?
   bool signal       = false;
-	//?signal occur nowhere else	//what does these mean?
+//?signal occur nowhere else	//what does these mean?
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
   int SysJes = 0;//jet enenrgy scale
   int SysJer = 0;//jet  energy resolution
@@ -394,67 +394,67 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 
             sort(SelectedForwardJets.begin(), SelectedForwardJets.end(),compEle);
             if(forwardJets_num > 0) {
-                leading_forwardjet_pt = SelectedForwardJets[0].Pt();
-                leading_forwardjet_eta_absolute = fabs(SelectedForwardJets[0].Eta());
-                leading_forwardjet_phi = SelectedForwardJets[0].Phi();
-                leadingforwardJet_jets_minDeltaEta  = MinDeltaEtaCal(SelectedForwardJets[0], SelectedJets);
+                forwardjet_1pt = SelectedForwardJets[0].Pt();
+                forwardjet_1eta = fabs(SelectedForwardJets[0].Eta());
+                forwardjet_1phi = SelectedForwardJets[0].Phi();
+                forwardjet1_jetsL_minDeltaEta  = MinDeltaEtaCal(SelectedForwardJets[0], SelectedJets);
             }
 
             sort(SelectedJets.begin(),SelectedJets.end(),compEle);
             if(jetsL_number>0) {
-                LeadingJetPt_new   = SelectedJets[0].Pt();
-                leading_Ljet_eta = SelectedJets[0].Eta();
-                leading_Ljet_phi = SelectedJets[0].Phi();
+                jetsL_1pt   = SelectedJets[0].Pt();
+                jetsL_1eta = SelectedJets[0].Eta();
+                jetsL_1phi = SelectedJets[0].Phi();
             }
             if(jetsL_number>1){
-                second_Ljet_pt = SelectedJets[1].Pt();
-                second_Ljet_eta = SelectedJets[1].Eta();
-                second_Ljet_phi = SelectedJets[1].Phi();
+                jetsL_2pt = SelectedJets[1].Pt();
+                jetsL_2eta = SelectedJets[1].Eta();
+                jetsL_2phi = SelectedJets[1].Phi();
             }
             if(jetsL_number>2){
-                third_Ljet_pt = SelectedJets[2].Pt();
-                third_Ljet_eta = SelectedJets[2].Eta();
-                third_Ljet_phi = SelectedJets[2].Phi();
+                jetsL_3pt = SelectedJets[2].Pt();
+                jetsL_3eta = SelectedJets[2].Eta();
+                jetsL_3phi = SelectedJets[2].Phi();
             }
             if(jetsL_number>3){
-                fourth_Ljet_pt = SelectedJets[3].Pt();
-                fourth_Ljet_eta = SelectedJets[3].Eta();
-                fourth_Ljet_phi = SelectedJets[3].Pt();
+                jetsL_4pt = SelectedJets[3].Pt();
+                jetsL_4eta = SelectedJets[3].Eta();
+                jetsL_4phi = SelectedJets[3].Pt();
             }
             if(jetsL_number>4){
-                fifth_Ljet_pt = SelectedJets[4].Pt();
-                fifth_Ljet_eta = SelectedJets[4].Eta();
-                fifth_Ljet_phi = SelectedJets[4].Phi();
+                jetsL_5pt = SelectedJets[4].Pt();
+                jetsL_5eta = SelectedJets[4].Eta();
+                jetsL_5phi = SelectedJets[4].Phi();
             }
             if(jetsL_number>5){
-                sixth_Ljet_pt = SelectedJets[5].Pt();
-                sixth_Ljet_eta = SelectedJets[5].Eta();
-                sixth_Ljet_phi = SelectedJets[5].Phi();
+                jetsL_6pt = SelectedJets[5].Pt();
+                jetsL_6eta = SelectedJets[5].Eta();
+                jetsL_6phi = SelectedJets[5].Phi();
             }
             if(jetsL_number>6){
-                seventh_Ljet_pt = SelectedJets[6].Pt();
-                seventh_Ljet_eta = SelectedJets[6].Eta();
-                seventh_Ljet_phi = SelectedJets[6].Phi();
+                jetsL_7pt = SelectedJets[6].Pt();
+                jetsL_7eta = SelectedJets[6].Eta();
+                jetL_7phi = SelectedJets[6].Phi();
             }
             if(jetsL_number>7){
-                eighth_Ljet_pt = SelectedJets[7].Pt();
-                eighth_Ljet_eta = SelectedJets[7].Eta();
-                eighth_Ljet_phi = SelectedJets[7].Phi();
+                jetsL_8pt = SelectedJets[7].Pt();
+                jetsL_8eta = SelectedJets[7].Eta();
+                jetsL_8phi = SelectedJets[7].Phi();
             }
             if(jetsL_number>8){
-                nineth_Ljet_pt = SelectedJets[8].Pt();
-                nineth_Ljet_eta = SelectedJets[8].Eta();
-                nineth_Ljet_phi = SelectedJets[8].Phi();
+                jetsL_9pt = SelectedJets[8].Pt();
+                jetsL_9eta = SelectedJets[8].Eta();
+                jetsL_9phi = SelectedJets[8].Phi();
             }
             if(jetsL_number>9){
-                tenth_Ljet_pt = SelectedJets[9].Pt();
-                tenth_Ljet_eta = SelectedJets[9].Eta();
-                tenth_Ljet_phi = SelectedJets[9].Phi();
+                jetsL_10pt = SelectedJets[9].Pt();
+                jetsL_10eta = SelectedJets[9].Eta();
+                jetsL_10phi = SelectedJets[9].Phi();
             }
             if(jetsL_number>10){
-                eleventh_Ljet_pt = SelectedJets[10].Pt();
-                eleventh_Ljet_eta = SelectedJets[10].Eta();
-                eleventh_Ljet_phi = SelectedJets[10].Phi();
+                jetsL_11pt = SelectedJets[10].Pt();
+                jetsL_11eta = SelectedJets[10].Eta();
+                jetsL_11phi = SelectedJets[10].Phi();
             }
 
             if(!(jetsL_number>0)) continue;
@@ -2189,45 +2189,45 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR",        &jetsL_leptonsMVAT_minDeltaR,        "jetsL_leptonsMVAT_minDeltaR/D");
   NewTree->Branch("jetsL_tausF_minDeltaR",        &jetsL_tausF_minDeltaR,        "jetsL_tausF_minDeltaR/D");
   NewTree->Branch("bjetsL_1pt",        &bjetsL_1pt,        "bjetsL_1pt/D");
-  NewTree->Branch("leading_forwardjet_pt",        &leading_forwardjet_pt,        "leading_forwardjet_pt/D");
-  NewTree->Branch("leading_forwardjet_eta_absolute",        &leading_forwardjet_eta_absolute,        "leading_forwardjet_eta_absolute/D");
-  NewTree->Branch("leading_forwardjet_phi",        &leading_forwardjet_phi,        "leading_forwardjet_phi/D");
-  NewTree->Branch("leadingforwardJet_jets_minDeltaEta",        &leadingforwardJet_jets_minDeltaEta,        "leadingforwardJet_jets_minDeltaEta/D");
+  NewTree->Branch("forwardjet_1pt",        &forwardjet_1pt,        "forwardjet_1pt/D");
+  NewTree->Branch("forwardjet_1eta",        &forwardjet_1eta,        "forwardjet_1eta/D");
+  NewTree->Branch("forwardjet_1phi",        &forwardjet_1phi,        "forwardjet_1phi/D");
+  NewTree->Branch("forwardjet1_jetsL_minDeltaEta",        &forwardjet1_jetsL_minDeltaEta,        "forwardjet1_jetsL_minDeltaEta/D");
   NewTree->Branch("MinDeltaRBJets",        &MinDeltaRBJets,        "MinDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRBJets",        &MaxDeltaRBJets,        "MaxDeltaRBJets/D");
-  NewTree->Branch("LeadingJetPt_new",        &LeadingJetPt_new,        "LeadingJetPt_new/D");
-  NewTree->Branch("leading_Ljet_eta",        &leading_Ljet_eta,        "leading_Ljet_eta/D");
-  NewTree->Branch("leading_Ljet_phi",        &leading_Ljet_phi,        "leading_Ljet_phi/D");
-  NewTree->Branch("second_Ljet_pt",        &second_Ljet_pt,        "second_Ljet_pt/D");
-  NewTree->Branch("second_Ljet_eta",        &second_Ljet_eta,        "second_Ljet_eta/D");
-  NewTree->Branch("second_Ljet_phi",        &second_Ljet_phi,        "second_Ljet_phi/D");
-  NewTree->Branch("third_Ljet_pt",        &third_Ljet_pt,        "third_Ljet_pt/D");
-  NewTree->Branch("third_Ljet_eta",        &third_Ljet_eta,        "third_Ljet_eta/D");
-  NewTree->Branch("third_Ljet_phi",        &third_Ljet_phi,        "third_Ljet_phi/D");
-  NewTree->Branch("fourth_Ljet_pt",        &fourth_Ljet_pt,        "fourth_Ljet_pt/D");
-  NewTree->Branch("fourth_Ljet_eta",        &fourth_Ljet_eta,        "fourth_Ljet_eta/D");
-  NewTree->Branch("fourth_Ljet_phi",        &fourth_Ljet_phi,        "fourth_Ljet_phi/D");
-  NewTree->Branch("fifth_Ljet_pt",        &fifth_Ljet_pt,        "fifth_Ljet_pt/D");
-  NewTree->Branch("fifth_Ljet_eta",        &fifth_Ljet_eta,        "fifth_Ljet_eta/D");
-  NewTree->Branch("fifth_Ljet_phi",        &fifth_Ljet_phi,        "fifth_Ljet_phi/D");
-  NewTree->Branch("sixth_Ljet_pt",        &sixth_Ljet_pt,        "sixth_Ljet_pt/D");
-  NewTree->Branch("sixth_Ljet_eta",        &sixth_Ljet_eta,        "sixth_Ljet_eta/D");
-  NewTree->Branch("sixth_Ljet_phi",        &sixth_Ljet_phi,        "sixth_Ljet_phi/D");
-  NewTree->Branch("seventh_Ljet_pt",        &seventh_Ljet_pt,        "seventh_Ljet_pt/D");
-  NewTree->Branch("seventh_Ljet_eta",        &seventh_Ljet_eta,        "seventh_Ljet_eta/D");
-  NewTree->Branch("seventh_Ljet_phi",        &seventh_Ljet_phi,        "seventh_Ljet_phi/D");
-  NewTree->Branch("eighth_Ljet_pt",        &eighth_Ljet_pt,        "eighth_Ljet_pt/D");
-  NewTree->Branch("eighth_Ljet_eta",        &eighth_Ljet_eta,        "eighth_Ljet_eta/D");
-  NewTree->Branch("eighth_Ljet_phi",        &eighth_Ljet_phi,        "eighth_Ljet_phi/D");
-  NewTree->Branch("nineth_Ljet_pt",        &nineth_Ljet_pt,        "nineth_Ljet_pt/D");
-  NewTree->Branch("nineth_Ljet_eta",        &nineth_Ljet_eta,        "nineth_Ljet_eta/D");
-  NewTree->Branch("nineth_Ljet_phi",        &nineth_Ljet_phi,        "nineth_Ljet_phi/D");
-  NewTree->Branch("tenth_Ljet_pt",        &tenth_Ljet_pt,        "tenth_Ljet_pt/D");
-  NewTree->Branch("tenth_Ljet_eta",        &tenth_Ljet_eta,        "tenth_Ljet_eta/D");
-  NewTree->Branch("tenth_Ljet_phi",        &tenth_Ljet_phi,        "tenth_Ljet_phi/D");
-  NewTree->Branch("eleventh_Ljet_pt",        &eleventh_Ljet_pt,        "eleventh_Ljet_pt/D");
-  NewTree->Branch("eleventh_Ljet_eta",        &eleventh_Ljet_eta,        "eleventh_Ljet_eta/D");
-  NewTree->Branch("eleventh_Ljet_phi",        &eleventh_Ljet_phi,        "eleventh_Ljet_phi/D");
+  NewTree->Branch("jetsL_1pt",        &jetsL_1pt,        "jetsL_1pt/D");
+  NewTree->Branch("jetsL_1eta",        &jetsL_1eta,        "jetsL_1eta/D");
+  NewTree->Branch("jetsL_1phi",        &jetsL_1phi,        "jetsL_1phi/D");
+  NewTree->Branch("jetsL_2pt",        &jetsL_2pt,        "jetsL_2pt/D");
+  NewTree->Branch("jetsL_2eta",        &jetsL_2eta,        "jetsL_2eta/D");
+  NewTree->Branch("jetsL_2phi",        &jetsL_2phi,        "jetsL_2phi/D");
+  NewTree->Branch("jetsL_3pt",        &jetsL_3pt,        "jetsL_3pt/D");
+  NewTree->Branch("jetsL_3eta",        &jetsL_3eta,        "jetsL_3eta/D");
+  NewTree->Branch("jetsL_3phi",        &jetsL_3phi,        "jetsL_3phi/D");
+  NewTree->Branch("jetsL_4pt",        &jetsL_4pt,        "jetsL_4pt/D");
+  NewTree->Branch("jetsL_4eta",        &jetsL_4eta,        "jetsL_4eta/D");
+  NewTree->Branch("jetsL_4phi",        &jetsL_4phi,        "jetsL_4phi/D");
+  NewTree->Branch("jetsL_5pt",        &jetsL_5pt,        "jetsL_5pt/D");
+  NewTree->Branch("jetsL_5eta",        &jetsL_5eta,        "jetsL_5eta/D");
+  NewTree->Branch("jetsL_5phi",        &jetsL_5phi,        "jetsL_5phi/D");
+  NewTree->Branch("jetsL_6pt",        &jetsL_6pt,        "jetsL_6pt/D");
+  NewTree->Branch("jetsL_6eta",        &jetsL_6eta,        "jetsL_6eta/D");
+  NewTree->Branch("jetsL_6phi",        &jetsL_6phi,        "jetsL_6phi/D");
+  NewTree->Branch("jetsL_7pt",        &jetsL_7pt,        "jetsL_7pt/D");
+  NewTree->Branch("jetsL_7eta",        &jetsL_7eta,        "jetsL_7eta/D");
+  NewTree->Branch("jetL_7phi",        &jetL_7phi,        "jetL_7phi/D");
+  NewTree->Branch("jetsL_8pt",        &jetsL_8pt,        "jetsL_8pt/D");
+  NewTree->Branch("jetsL_8eta",        &jetsL_8eta,        "jetsL_8eta/D");
+  NewTree->Branch("jetsL_8phi",        &jetsL_8phi,        "jetsL_8phi/D");
+  NewTree->Branch("jetsL_9pt",        &jetsL_9pt,        "jetsL_9pt/D");
+  NewTree->Branch("jetsL_9eta",        &jetsL_9eta,        "jetsL_9eta/D");
+  NewTree->Branch("jetsL_9phi",        &jetsL_9phi,        "jetsL_9phi/D");
+  NewTree->Branch("jetsL_10pt",        &jetsL_10pt,        "jetsL_10pt/D");
+  NewTree->Branch("jetsL_10eta",        &jetsL_10eta,        "jetsL_10eta/D");
+  NewTree->Branch("jetsL_10phi",        &jetsL_10phi,        "jetsL_10phi/D");
+  NewTree->Branch("jetsL_11pt",        &jetsL_11pt,        "jetsL_11pt/D");
+  NewTree->Branch("jetsL_11eta",        &jetsL_11eta,        "jetsL_11eta/D");
+  NewTree->Branch("jetsL_11phi",        &jetsL_11phi,        "jetsL_11phi/D");
 
   NewTree->Branch("tausL_number",        &tausL_number,        "tausL_number/I");
   NewTree->Branch("tausF_number",        &tausF_number,        "tausF_number/I");
@@ -2691,43 +2691,43 @@ MinDeltaPhiJets=-99;
 jetsL_leptonsMVAT_minDeltaR = -99;
 jetsL_tausF_minDeltaR = -99;
 bjetsL_1pt = -99;
-leading_forwardjet_pt = -99;
-leading_forwardjet_eta_absolute = -99;
-leading_forwardjet_phi = -99;
-leadingforwardJet_jets_minDeltaEta = -99;
-LeadingJetPt_new=-99;
-leading_Ljet_eta = -99;
-leading_Ljet_phi = -99;
-second_Ljet_pt = -99;
-second_Ljet_eta = -99;
-second_Ljet_phi = -99;
-third_Ljet_pt = -99;
-third_Ljet_eta = -99;
-third_Ljet_phi = -99;
-fourth_Ljet_pt = -99;
-fourth_Ljet_eta =-99;
-fourth_Ljet_phi = -99;
-fifth_Ljet_pt = -99;
-fifth_Ljet_eta = -99;
-fifth_Ljet_phi = -99;
-sixth_Ljet_pt = -99;
-sixth_Ljet_eta = -99;
-sixth_Ljet_phi = -99;
-seventh_Ljet_pt = -99;
-seventh_Ljet_eta = -99;
-seventh_Ljet_phi = -99;
-eighth_Ljet_pt = -99;
-eighth_Ljet_eta = -99;
-eighth_Ljet_phi = -99;
-nineth_Ljet_pt = -99;
-nineth_Ljet_eta = -99;
-nineth_Ljet_phi = -99;
-tenth_Ljet_pt = -99;
-tenth_Ljet_eta = -99;
-tenth_Ljet_phi = -99;
-eleventh_Ljet_pt = -99;
-eleventh_Ljet_eta = -99;
-eleventh_Ljet_phi = -99;
+forwardjet_1pt = -99;
+forwardjet_1eta = -99;
+forwardjet_1phi = -99;
+forwardjet1_jetsL_minDeltaEta = -99;
+jetsL_1pt=-99;
+jetsL_1eta = -99;
+jetsL_1phi = -99;
+jetsL_2pt = -99;
+jetsL_2eta = -99;
+jetsL_2phi = -99;
+jetsL_3pt = -99;
+jetsL_3eta = -99;
+jetsL_3phi = -99;
+jetsL_4pt = -99;
+jetsL_4eta =-99;
+jetsL_4phi = -99;
+jetsL_5pt = -99;
+jetsL_5eta = -99;
+jetsL_5phi = -99;
+jetsL_6pt = -99;
+jetsL_6eta = -99;
+jetsL_6phi = -99;
+jetsL_7pt = -99;
+jetsL_7eta = -99;
+jetL_7phi = -99;
+jetsL_8pt = -99;
+jetsL_8eta = -99;
+jetsL_8phi = -99;
+jetsL_9pt = -99;
+jetsL_9eta = -99;
+jetsL_9phi = -99;
+jetsL_10pt = -99;
+jetsL_10eta = -99;
+jetsL_10phi = -99;
+jetsL_11pt = -99;
+jetsL_11eta = -99;
+jetsL_11phi = -99;
 
 
 
