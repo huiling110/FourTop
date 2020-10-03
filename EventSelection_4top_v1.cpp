@@ -2,7 +2,6 @@
 #include "math.h"
 #include <algorithm>
 
-//void EventSelection_4top_v1(const char * Input = ""){
 //void EventSelection_4top_v1(const bool istest = true, const string input = "TauOfTTTT_Toptagger_oldEID.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
 void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root", const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
   gStyle->SetCanvasColor(0);
@@ -44,8 +43,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
     TFile f(NewFileName,"RECREATE");//Create a new file, if the file already exists it will be overwritten.
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
-		//?why 2 trees? what's the different?
-		//treeSB has something todo with sideband
+		//?why 2 trees? what's the different?		//treeSB has something todo with sideband
     string FILEprov;
     // FILEprov = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
     FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/"+fileName[Nfiles];
@@ -114,8 +112,9 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
 			SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
 			SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3);//304
-            NumOfElectronsL          = SelectedElectronsL.size();
-            NumOfElectronsM          = SelectedElectronsM.size();
+            eleL_number          = SelectedElectronsL.size();
+            eleM_number          = SelectedElectronsM.size();
+            eleT_number = SelectedElectronsT.size();
 
 			vector<TLorentzVector> SelectedMuonsL;     vector<int> SelectedMuonsLIndex;
 			vector<TLorentzVector> SelectedMuonsF;     vector<int> SelectedMuonsFIndex;
@@ -123,19 +122,15 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectMuons(SelectedMuonsL, SelectedMuonsLIndex,0);
 			SelectMuons(SelectedMuonsF, SelectedMuonsFIndex,1);
 			SelectMuons(SelectedMuonsT, SelectedMuonsTIndex,2);
-			NumOfMuonsL           =  SelectedMuonsL.size();  
-            NumOfMuonsT = SelectedMuonsT.size();
+			muonsL_number           =  SelectedMuonsL.size();  
+            muonsT_number = SelectedMuonsT.size();
 //            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
             vector<TLorentzVector> LeptonsT  (SelectedMuonsT.begin(),SelectedMuonsT.end());
             LeptonsT.insert(LeptonsT.end(),SelectedElectronsT.begin(),SelectedElectronsT.end());
-			NumOfLeptonsL        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
-            NumOfLeptonsT = SelectedElectronsT.size()+SelectedMuonsT.size();
-            NumOfLeptonsT_v2 = LeptonsT.size();
-            NumOfElectronsT = SelectedElectronsT.size();
+			leptonsL_number        = SelectedElectronsL.size()+SelectedMuonsL.size();//branch in newtree and SB
+            leptonsT_number = SelectedElectronsT.size()+SelectedMuonsT.size();
+            leptonsT_number_v2 = LeptonsT.size();
             vector<double> LeptonsTPtSorted; sort_jetPt(LeptonsT,LeptonsTPtSorted);
-            if(NumOfLeptonsT_v2>0) LeadingLeptonPt = LeptonsTPtSorted[0];
-            if(NumOfLeptonsT_v2>1) SecondLeptonPt = LeptonsTPtSorted[1];
-            if(NumOfLeptonsT_v2>2) ThirdLeptonPt = LeptonsTPtSorted[2];
 
             //lepton MVA
 			vector<TLorentzVector> SelectedElectronsMVAL; vector<int> SelectedElectronsMVALIndex;
@@ -145,38 +140,37 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex, 1);
 			SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex, 2);
             
-            NumOfElectronsMVAL          = SelectedElectronsMVAL.size();
-            NumOfElectronsMVAF          = SelectedElectronsMVAF.size();
-            NumOfElectronsMVAT          = SelectedElectronsMVAT.size();
+            elesMVAL_number          = SelectedElectronsMVAL.size();
+            elesMVAF_number          = SelectedElectronsMVAF.size();
+            elesMVAT_number          = SelectedElectronsMVAT.size();
 
-//            vector<TLorentzVector> LeptonsMVAF = SelectedMuonsF;
             vector<TLorentzVector> LeptonsMVAF  (SelectedMuonsF.begin(), SelectedMuonsF.end());
             LeptonsMVAF.insert(LeptonsMVAF.end(),SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end());
-            NumOfLeptonsFMVA = LeptonsMVAF.size();
+            leptonsMVAF_number = LeptonsMVAF.size();
             vector<TLorentzVector> LeptonsMVAT  (SelectedMuonsT.begin(),SelectedMuonsT.end());
             LeptonsMVAT.insert(LeptonsMVAT.end(),SelectedElectronsMVAT.begin(),SelectedElectronsMVAT.end());
 
-            NumOfLeptonsTMVA = LeptonsMVAT.size();
+            leptonsMVAT_number = LeptonsMVAT.size();
             leptonsTMVA_transMass = TransMassCal(LeptonsMVAT);
 //            leptonsTMVA_maxDeltaEta = 
 
             sort(SelectedElectronsMVAF.begin(),SelectedElectronsMVAF.end(), compEle);
-            if(NumOfElectronsMVAF > 0){
+            if(elesMVAF_number > 0){
                 leadingEleMVAF_pt = SelectedElectronsMVAF[0].Pt();
             }
 
             sort(LeptonsMVAT.begin(),LeptonsMVAT.end(), compEle);
-            if(NumOfLeptonsTMVA > 0) {
+            if(leptonsMVAT_number > 0) {
                 leading_leptonsMVATpt = LeptonsMVAT[0].Pt();
                 leading_leptohsMVAT_eta = LeptonsMVAT[0].Eta();
                 leading_leptonsMVAT_phi = LeptonsMVAT[0].Phi();
             }
-            if(NumOfLeptonsTMVA > 1) {
+            if(leptonsMVAT_number > 1) {
                 second_leptonsMVATpt = LeptonsMVAT[1].Pt();
                 second_leptohsMVAT_eta = LeptonsMVAT[1].Eta();
                 second_leptonsMVAT_phi = LeptonsMVAT[1].Phi();
             }
-            if(NumOfLeptonsTMVA > 2) {
+            if(leptonsMVAT_number > 2) {
                 third_leptonsMVATpt = LeptonsMVAT[2].Pt();
                 third_leptohsMVAT_eta = LeptonsMVAT[2].Eta();
                 third_leptonsMVAT_phi = LeptonsMVAT[2].Phi();
@@ -193,83 +187,80 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             SelectTaus(SelectedTausL,SelectedTausLIndex,1);
             SelectTaus(SelectedTausF,SelectedTausFIndex,2);
             SelectTaus(SelectedTausT,SelectedTausTIndex,3);//tight 
-            NumOfTausL = SelectedTausL.size();
-            NumOfTausF = SelectedTausF.size();
-            NumOfTausT = SelectedTausT.size();
+            tausL_number = SelectedTausL.size();
+            tausF_number = SelectedTausF.size();
+            tausT_number = SelectedTausT.size();
 
-			MHT_TausL               = MHTcalculator(SelectedTausL);
-			MHT_TausF               = MHTcalculator(SelectedTausF);//900;return the pt sum of,vetctor sum
-			MHT_TausT               = MHTcalculator(SelectedTausT);//900;return the pt sum of,vetctor sum
-			HT_TauL                = HTcalculator(SelectedTausL);
-			HT_TauF                = HTcalculator(SelectedTausF);
-			InvariantMassTausL = InvariantMassCalculator(SelectedTausL);
-			InvariantMassTausF = InvariantMassCalculator(SelectedTausF);
-            vector<double> MinMaxDeltaRTausL;  MinMaxdeltaRJetsCal(SelectedTausL, MinMaxDeltaRTausL);
-            MinDeltaRTausL = MinMaxDeltaRTausL[0];
-            MaxDeltaRTausL = MinMaxDeltaRTausL[1];
+			tausL_MHT               = MHTcalculator(SelectedTausL);
+			tausF_MHT               = MHTcalculator(SelectedTausF);//900;return the pt sum of,vetctor sum
+			tausT_MHT               = MHTcalculator(SelectedTausT);//900;return the pt sum of,vetctor sum
+			tausL_HT                = HTcalculator(SelectedTausL);
+			tausF_HT                = HTcalculator(SelectedTausF);
+			tausL_invariantMass = InvariantMassCalculator(SelectedTausL);
+			tausF_invariantMass = InvariantMassCalculator(SelectedTausF);
             tausL_minDeltaR = MinDeltaRSingleCal(SelectedTausL);
             tausF_minDeltaR = MinDeltaRSingleCal(SelectedTausF);
 
-            transMass_tausF_leptonsT = TransMassSysCal(SelectedTausF, LeptonsMVAT);
-            transMass_tausT_leptonsT = TransMassSysCal(SelectedTausT, LeptonsMVAT);
+            tausF_leptonsT_transMass = TransMassSysCal(SelectedTausF, LeptonsMVAT);
+            tausT_leptonsT_transMass = TransMassSysCal(SelectedTausT, LeptonsMVAT);
             tausF_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausF,LeptonsMVAT);
             tausF_leptonsT_chargeSum = ChargeSum(SelectedTausFIndex,1) + ChargeSum(SelectedElectronsMVATIndex,0) + ChargeSum(SelectedMuonsTIndex,2) ;
-            leptonsTMVA_tausF_minDeltaR = MinDeltaRCal(LeptonsMVAT,SelectedTausF); 
+            tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT,SelectedTausF); 
             
 
             sort(SelectedTausL.begin(),SelectedTausL.end(),compEle);
-            if(NumOfTausL>0){
-                leadingTauL_pt = SelectedTausL[0].Pt();
-                leadingTauL_eta = SelectedTausL[0].Eta();
-                leadingTauL_phi = SelectedTausL[0].Phi();
+            if(tausL_number>0){
+                tauL_1pt = SelectedTausL[0].Pt();
+                tauL_1eta = SelectedTausL[0].Eta();
+                tauL_1phi = SelectedTausL[0].Phi();
             }
-            if(NumOfTausL>1){
-                secondTauL_pt = SelectedTausL[1].Pt();
-                secondTauL_eta = SelectedTausL[1].Eta();
-                secondTauL_phi = SelectedTausL[1].Phi();
+            if(tausL_number>1){
+                tauL_2pt = SelectedTausL[1].Pt();
+                tauL_2eta = SelectedTausL[1].Eta();
+                tauL_2phi = SelectedTausL[1].Phi();
             }
-            if(NumOfTausL>0){
-                thirdTauL_pt = SelectedTausL[0].Pt();
-                thirdTauL_eta = SelectedTausL[0].Eta();
-                thirdTauL_phi = SelectedTausL[0].Phi();
+            if(tausL_number>0){
+                tauL_3pt = SelectedTausL[0].Pt();
+                tauL_3eta = SelectedTausL[0].Eta();
+                tauL_3phi = SelectedTausL[0].Phi();
             }
 
 
-            if(!(NumOfTausL>0)) continue;
+            if(!(tausL_number>0)) continue;
 //          
 
             //channel difinition version2
-            if(NumOfTausF==1 && NumOfLeptonsTMVA==0) channel_1Tau0L_v2 = 1;  /*{{{*/
-            if(NumOfTausF==1 && NumOfLeptonsTMVA==1) channel_1Tau1L_v2 = 1;
-            if(NumOfTausF==1 && NumOfMuonsT==1) channel_1Tau1Mu_v2 = 1;
-            if(NumOfTausF==1 && NumOfElectronsMVAT==1) channel_1Tau1E_v2 = 1;
-            if(NumOfTausF==1 && NumOfLeptonsTMVA==2){
-                if(NumOfElectronsMVAT==2){
+            if(tausF_number==1 && leptonsMVAT_number==0) channel_1Tau0L_v2 = 1;  /*{{{*/
+            if(tausF_number==1 && leptonsMVAT_number==1) channel_1Tau1L_v2 = 1;
+            if(tausF_number==1 && muonsT_number==1) channel_1Tau1Mu_v2 = 1;
+            if(tausF_number==1 && elesMVAT_number==1) channel_1Tau1E_v2 = 1;
+            if(tausF_number==1 && leptonsMVAT_number==2){
+                if(elesMVAT_number==2){
                     if( patElectron_charge_->at(SelectedElectronsMVATIndex[0])*patElectron_charge_->at(SelectedElectronsMVATIndex[1]) == -1)  channel_1Tau2OS_v2 = 1;
                     else channel_1Tau2SS_v2 = 1;
                 }
-                if(NumOfElectronsMVAT==1){
+                if(elesMVAT_number==1){
                     if( patElectron_charge_->at(SelectedElectronsMVATIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS_v2 = 1;
                     else channel_1Tau2SS_v2 = 1;
                 }
-                if(NumOfElectronsMVAT==0){
+                if(elesMVAT_number==0){
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS_v2 = 1;
                     else channel_2Tau2SS_v2 = 1;
                 }
            } 
-            if(NumOfTausF==1 && NumOfLeptonsTMVA==3) channel_1Tau3L_v2 = 1;
-            if(NumOfTausF==2 && NumOfLeptonsTMVA==0) channel_2Tau0L_v2 = 1;
-            if(NumOfTausF==2 && NumOfLeptonsTMVA==1) channel_2Tau1L_v2 = 1;
-            if(NumOfTausF==2 && NumOfLeptonsTMVA==2) {
-                if(NumOfElectronsMVAT==2){
+            if(tausF_number==1 && leptonsMVAT_number==3) channel_1Tau3L_v2 = 1;
+            if(tausF_number==2 && leptonsMVAT_number==0) channel_2Tau0L_v2 = 1;
+            if(tausF_number==2 && leptonsMVAT_number==1) channel_2Tau1L_v2 = 1;
+            if(tausF_number==2 && leptonsMVAT_number==2) {
+                if(elesMVAT_number==2){
                     if( patElectron_charge_->at(SelectedElectronsMVATIndex[0])*patElectron_charge_->at(SelectedElectronsMVATIndex[1]) == -1)  channel_2Tau2OS_v2 = 1;
                     else channel_2Tau2SS_v2 = 1;
                 }
-                if(NumOfElectronsMVAT==1){
+                if(elesMVAT_number==1){
                     if( patElectron_charge_->at(SelectedElectronsMVATIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_2Tau2OS_v2 = 1;
                     else channel_2Tau2SS_v2 = 1;
                 }
-                if(NumOfElectronsMVAT==0){
+                if(elesMVAT_number==0){
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_2Tau2OS_v2 = 1;
                     else channel_2Tau2SS_v2 = 1;
                 }
@@ -277,43 +268,43 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             
 
             //subchannel/*{{{*/
-            if(NumOfTausF==1 && NumOfLeptonsT_v2==0) channel_1Tau0L = 1;  
-            if(NumOfTausF==1 && NumOfLeptonsT_v2==1) channel_1Tau1L = 1;
-            if(NumOfTausF==1 && NumOfLeptonsT_v2==2){
-                if(NumOfElectronsT==2){
+            if(tausF_number==1 && leptonsT_number_v2==0) channel_1Tau0L = 1;  
+            if(tausF_number==1 && leptonsT_number_v2==1) channel_1Tau1L = 1;
+            if(tausF_number==1 && leptonsT_number_v2==2){
+                if(eleT_number==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == -1)  channel_1Tau2OS = 1;
                 }
-                if(NumOfElectronsT==1){
+                if(eleT_number==1){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS = 1;
                 }
-                if(NumOfElectronsT==0){
+                if(eleT_number==0){
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_1Tau2OS = 1;
                 }
             }
-            if(NumOfTausF==1 && NumOfLeptonsT_v2==2){
-                if(NumOfElectronsT==2){
+            if(tausF_number==1 && leptonsT_number_v2==2){
+                if(eleT_number==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == 1)  channel_1Tau2SS = 1;
                 }
-                if(NumOfElectronsT==1){
+                if(eleT_number==1){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0]) == 1)  channel_1Tau2SS = 1;
                 }
-                if(NumOfElectronsT==0){
+                if(eleT_number==0){
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == 1)  channel_1Tau2SS = 1;
                 }
             }
-            if(NumOfTausF==1 && NumOfLeptonsT_v2==3) channel_1Tau3L = 1;
-            if(NumOfTausF==2 && NumOfLeptonsT_v2==0) channel_2Tau0L = 1;
-            if(NumOfTausF==2 && NumOfLeptonsT_v2==1) channel_2Tau1L = 1;
-            if(NumOfTausF==2 && NumOfLeptonsT_v2==2) {
-                if(NumOfElectronsT==2){
+            if(tausF_number==1 && leptonsT_number_v2==3) channel_1Tau3L = 1;
+            if(tausF_number==2 && leptonsT_number_v2==0) channel_2Tau0L = 1;
+            if(tausF_number==2 && leptonsT_number_v2==1) channel_2Tau1L = 1;
+            if(tausF_number==2 && leptonsT_number_v2==2) {
+                if(eleT_number==2){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*patElectron_charge_->at(SelectedElectronsTIndex[1]) == -1)  channel_2Tau2OS = 1;
                     else channel_2Tau2SS = 1;
                 }
-                if(NumOfElectronsT==1){
+                if(eleT_number==1){
                     if( patElectron_charge_->at(SelectedElectronsTIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_2Tau2OS = 1;
                     else channel_2Tau2SS = 1;
                 }
-                if(NumOfElectronsT==0){
+                if(eleT_number==0){
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_2Tau2OS = 1;
                     else channel_2Tau2SS = 1;
                 }
@@ -339,60 +330,50 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 			vector<TLorentzVector> SelectedBJetsM;    SelectJets(12,deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 			vector<TLorentzVector> SelectedBJetsT;   SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer,  deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 			vector<TLorentzVector> SelectedForwardJets; SelectJets(2,deepJet, SelectedForwardJets,SelectedForwardJetsBTags, SysJes, SysJer,deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
-			NumSelJets        = SelectedJets.size();
-			NumSelForwardJets = SelectedForwardJets.size();//185
-			NumSelBJetsL      = SelectedBJetsL.size();
-			NumSelBJetsM      = SelectedBJetsM.size();//
-			NumSelBJetsT      = SelectedBJetsT.size();
-			MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
-			HT                = HTcalculator(SelectedJets);
-            HT_BJetL          = HTcalculator(SelectedBJetsL);
-            HT_BJetM          = HTcalculator(SelectedBJetsM);
-            HT_BJetT          = HTcalculator(SelectedBJetsT);
-			InvariantMassJets = InvariantMassCalculator(SelectedJets);
-            InvariantMassBJetsL = InvariantMassCalculator(SelectedBJetsL);
-            InvariantMassBJetsM = InvariantMassCalculator(SelectedBJetsM);
-            InvariantMassBJetsT = InvariantMassCalculator(SelectedBJetsT);
-            transMass_Ljets     = TransMassCal(SelectedJets);
-            transMass_BjetsL    = TransMassCal(SelectedBJetsL);
-            transMass_BjetsM    = TransMassCal(SelectedBJetsM);
-            transMass_BjetsT    = TransMassCal(SelectedBJetsT);
+			jetsL_number        = SelectedJets.size();
+			forwardJets_num = SelectedForwardJets.size();//185
+			bjetsL_num      = SelectedBJetsL.size();
+			bjetsM_num      = SelectedBJetsM.size();//
+			bjetsT_num      = SelectedBJetsT.size();
+			jetsL_MHT               = MHTcalculator(SelectedJets);//900;return the pt sum of,vetctor sum
+			jetsL_HT                = HTcalculator(SelectedJets);
+            bjetsL_HT          = HTcalculator(SelectedBJetsL);
+            bjetsM_HT          = HTcalculator(SelectedBJetsM);
+            bjetsT_HT          = HTcalculator(SelectedBJetsT);
+			jetsL_invariantMass = InvariantMassCalculator(SelectedJets);
+            bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
+            bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
+            bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
+            jetsL_transMass     = TransMassCal(SelectedJets);
+            bjetsL_transMass    = TransMassCal(SelectedBJetsL);
+            bjetsM_transMass    = TransMassCal(SelectedBJetsM);
+            bjetsT_transMass    = TransMassCal(SelectedBJetsT);
             jetL_minDeltaR = MinDeltaRSingleCal(SelectedJets);
             bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
             bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
             bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
-            Centrality        = HT/InvariantMassJets;
+            jetsL_centrality        = jetsL_HT/jetsL_invariantMass;
+            jetsL_bScore = BScoreAllJetsCal(SelectedJetsBTags);
+            average_deltaR = AverageDeltaRCal(SelectedJets);
 //			Aplanarity        = 
-//			MaxdeltaRJets     = deltaRJetsCal(SelectedJets);
 //          Sphericity = 
-            if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = HT/Met_pt;}
-            MetDividedByHT = Met_pt/HT;
-            HTDividedByMet = HT/Met_pt;
-            MHTDividedByMET   = MHT/Met_pt;
+          
+            if(Met_pt== 0){ HTDividedByMET    = 0;}  else{HTDividedByMET    = jetsL_HT/Met_pt;}
+            MetDividedByHT = Met_pt/jetsL_HT;
+            HTDividedByMet = jetsL_HT/Met_pt;
+            MHTDividedByMET   = jetsL_MHT/Met_pt;
+            jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets,LeptonsMVAT);
+            jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets,SelectedTausF);
 
-            vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
-            vector<double> BJetsMPtSorted; sort_jetPt(SelectedBJetsM,BJetsMPtSorted);
-            if(NumSelBJetsM > 0 ) LeadingBJetMPt = BJetsMPtSorted[0];
-            if(NumSelBJetsM > 1 ) SecondBJetMPt = BJetsMPtSorted[1];
-            if(NumSelBJetsM > 2 ) ThirdBJetMPt = BJetsMPtSorted[2];
-            if(NumSelBJetsM > 3 ) FourthBJetMPt = BJetsMPtSorted[3];
-            vector<double> BJetsLPtSorted; sort_jetPt(SelectedBJetsL,BJetsLPtSorted);
-            if(NumSelBJetsL > 0 ) LeadingBJetLPt = BJetsLPtSorted[0];
-            if(NumSelBJetsL > 1 ) SecondBJetLPt = BJetsLPtSorted[1];
-            if(NumSelBJetsL > 2 ) ThirdBJetLPt = BJetsLPtSorted[2];
-            if(NumSelBJetsL > 3 ) FourthBJetLPt = BJetsLPtSorted[3];
-            vector<double> BJetsTPtSorted; sort_jetPt(SelectedBJetsT,BJetsTPtSorted);
-            if(NumSelBJetsT > 0 ) LeadingBJetTPt = BJetsTPtSorted[0];
-            if(NumSelBJetsT > 1 ) SecondBJetTPt = BJetsTPtSorted[1];
-            if(NumSelBJetsT > 2 ) ThirdBJetTPt = BJetsTPtSorted[2];
-            if(NumSelBJetsT > 3 ) FourthBJetTPt = BJetsTPtSorted[3];
+/*            vector<double> JetsPtSorted; sort_jetPt(SelectedJets,JetsPtSorted);
+            vector<double> BJetsMPtSorted; sort_jetPt(SelectedBJetsM,BJetsMPtSorted);*/
 
-            Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
+/*            Int_t leading_pt_index = -99; Int_t second_pt_index = -99; Int_t third_pt_index = -99;
             FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);       
-            if(NumSelJets>0) LeadingJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(leading_pt_index);
-            if(NumSelJets>1) SecondJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(second_pt_index);
-            if(NumSelJets>2) ThirdJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(third_pt_index);
-            BScoreOfAllJetsL = BScoreAllJetsCal(SelectedJetsBTags);
+            if(jetsL_number>0) LeadingJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(leading_pt_index);
+            if(jetsL_number>1) SecondJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(second_pt_index);
+            if(jetsL_number>2) ThirdJetpfDeepFlavourBJetTags = Jet_pfDeepFlavourBJetTags_->at(third_pt_index);*/
+
 
             vector<double> MinMaxDeltaRBJets; MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
             MinDeltaRBJets = MinMaxDeltaRBJets[0];
@@ -402,15 +383,17 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             vector<double> MinMaxDeltaRJets;  MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
             MinDeltaRJets = MinMaxDeltaRJets[0];
             MaxDeltaRJets = MinMaxDeltaRJets[1];
-            average_deltaR = AverageDeltaRCal(SelectedJets);
             vector<double> MinMaxDeltaPhiJets;   MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
             MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
 
-            jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets,LeptonsMVAT);
-            jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets,SelectedTausF);
-          
+         
+            sort(SelectedBJetsL.begin(),SelectedBJetsL.end(),compEle);
+            if(bjetsL_num>0){
+                bjetsL_1pt = SelectedBJetsL[0].Pt();
+            }
+
             sort(SelectedForwardJets.begin(), SelectedForwardJets.end(),compEle);
-            if(NumSelForwardJets > 0) {
+            if(forwardJets_num > 0) {
                 leading_forwardjet_pt = SelectedForwardJets[0].Pt();
                 leading_forwardjet_eta_absolute = fabs(SelectedForwardJets[0].Eta());
                 leading_forwardjet_phi = SelectedForwardJets[0].Phi();
@@ -418,64 +401,64 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             }
 
             sort(SelectedJets.begin(),SelectedJets.end(),compEle);
-            if(NumSelJets>0) {
+            if(jetsL_number>0) {
                 LeadingJetPt_new   = SelectedJets[0].Pt();
                 leading_Ljet_eta = SelectedJets[0].Eta();
                 leading_Ljet_phi = SelectedJets[0].Phi();
             }
-            if(NumSelJets>1){
+            if(jetsL_number>1){
                 second_Ljet_pt = SelectedJets[1].Pt();
                 second_Ljet_eta = SelectedJets[1].Eta();
                 second_Ljet_phi = SelectedJets[1].Phi();
             }
-            if(NumSelJets>2){
+            if(jetsL_number>2){
                 third_Ljet_pt = SelectedJets[2].Pt();
                 third_Ljet_eta = SelectedJets[2].Eta();
                 third_Ljet_phi = SelectedJets[2].Phi();
             }
-            if(NumSelJets>3){
+            if(jetsL_number>3){
                 fourth_Ljet_pt = SelectedJets[3].Pt();
                 fourth_Ljet_eta = SelectedJets[3].Eta();
                 fourth_Ljet_phi = SelectedJets[3].Pt();
             }
-            if(NumSelJets>4){
+            if(jetsL_number>4){
                 fifth_Ljet_pt = SelectedJets[4].Pt();
                 fifth_Ljet_eta = SelectedJets[4].Eta();
                 fifth_Ljet_phi = SelectedJets[4].Phi();
             }
-            if(NumSelJets>5){
+            if(jetsL_number>5){
                 sixth_Ljet_pt = SelectedJets[5].Pt();
                 sixth_Ljet_eta = SelectedJets[5].Eta();
                 sixth_Ljet_phi = SelectedJets[5].Phi();
             }
-            if(NumSelJets>6){
+            if(jetsL_number>6){
                 seventh_Ljet_pt = SelectedJets[6].Pt();
                 seventh_Ljet_eta = SelectedJets[6].Eta();
                 seventh_Ljet_phi = SelectedJets[6].Phi();
             }
-            if(NumSelJets>7){
+            if(jetsL_number>7){
                 eighth_Ljet_pt = SelectedJets[7].Pt();
                 eighth_Ljet_eta = SelectedJets[7].Eta();
                 eighth_Ljet_phi = SelectedJets[7].Phi();
             }
-            if(NumSelJets>8){
+            if(jetsL_number>8){
                 nineth_Ljet_pt = SelectedJets[8].Pt();
                 nineth_Ljet_eta = SelectedJets[8].Eta();
                 nineth_Ljet_phi = SelectedJets[8].Phi();
             }
-            if(NumSelJets>9){
+            if(jetsL_number>9){
                 tenth_Ljet_pt = SelectedJets[9].Pt();
                 tenth_Ljet_eta = SelectedJets[9].Eta();
                 tenth_Ljet_phi = SelectedJets[9].Phi();
             }
-            if(NumSelJets>10){
+            if(jetsL_number>10){
                 eleventh_Ljet_pt = SelectedJets[10].Pt();
                 eleventh_Ljet_eta = SelectedJets[10].Eta();
                 eleventh_Ljet_phi = SelectedJets[10].Phi();
             }
  
-            if(!(NumSelJets>0)) continue;
-            if(!(NumSelBJetsL>0)) continue;
+            if(!(jetsL_number>0)) continue;
+            if(!(bjetsL_num>0)) continue;
 //
 //
 			//Hadronic Top selection
@@ -527,7 +510,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
 //					newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);//2729PUWeigh is a branch in Tree and newTree,PU and UP and DOWN are in New
 //					GenWeight(fileName[Nfiles], GenZPt, GenWPt);2681
 //					HTSF(fileName[Nfiles],HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
-//					TriggerSF(Met_pt, MHT, w_Trig, w_TrigUp, w_TrigDown );
+//					TriggerSF(Met_pt, jetsL_MHT, w_Trig, w_TrigUp, w_TrigDown );
 //  	  			QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
 //					PDFWeight(10,111,w_PDFUp,w_PDFDown);
 //			}
@@ -1430,7 +1413,7 @@ void HTSF(string fileName, double HT, double Met_pt, double &w_SF1, double &w_SF
 }
 */
 
-void TriggerSF(double Met_pt, double MHT, double &w_Trig, double &w_TrigUp, double &w_TrigDown){/*{{{*/
+void TriggerSF(double Met_pt, double jetsL_MHT, double &w_Trig, double &w_TrigUp, double &w_TrigDown){/*{{{*/
   int metBin = 0; int mhtBin = 0;
   if (Met_pt>0 && Met_pt<25)    metBin = 1;
   if (Met_pt>25 && Met_pt<50)   metBin = 2;
@@ -1447,20 +1430,20 @@ void TriggerSF(double Met_pt, double MHT, double &w_Trig, double &w_TrigUp, doub
   if (Met_pt>400 && Met_pt<500) metBin = 13;
   if (Met_pt>500 && Met_pt<1000) metBin = 14;
 
-  if (MHT>0 && MHT<25)    mhtBin = 1;
-  if (MHT>25 && MHT<50)   mhtBin = 2;
-  if (MHT>50 && MHT<75)   mhtBin = 3;
-  if (MHT>75 && MHT<100)  mhtBin = 4;
-  if (MHT>100 && MHT<125) mhtBin = 5;
-  if (MHT>125 && MHT<150) mhtBin = 6;
-  if (MHT>150 && MHT<175) mhtBin = 7;
-  if (MHT>175 && MHT<200) mhtBin = 8;
-  if (MHT>200 && MHT<225) mhtBin = 9;
-  if (MHT>225 && MHT<250) mhtBin = 10;
-  if (MHT>250 && MHT<300) mhtBin = 11;
-  if (MHT>300 && MHT<400) mhtBin = 12;
-  if (MHT>400 && MHT<500) mhtBin = 13;
-  if (MHT>500 && MHT<1000) mhtBin = 14;
+  if (jetsL_MHT>0 && jetsL_MHT<25)    mhtBin = 1;
+  if (jetsL_MHT>25 && jetsL_MHT<50)   mhtBin = 2;
+  if (jetsL_MHT>50 && jetsL_MHT<75)   mhtBin = 3;
+  if (jetsL_MHT>75 && jetsL_MHT<100)  mhtBin = 4;
+  if (jetsL_MHT>100 && jetsL_MHT<125) mhtBin = 5;
+  if (jetsL_MHT>125 && jetsL_MHT<150) mhtBin = 6;
+  if (jetsL_MHT>150 && jetsL_MHT<175) mhtBin = 7;
+  if (jetsL_MHT>175 && jetsL_MHT<200) mhtBin = 8;
+  if (jetsL_MHT>200 && jetsL_MHT<225) mhtBin = 9;
+  if (jetsL_MHT>225 && jetsL_MHT<250) mhtBin = 10;
+  if (jetsL_MHT>250 && jetsL_MHT<300) mhtBin = 11;
+  if (jetsL_MHT>300 && jetsL_MHT<400) mhtBin = 12;
+  if (jetsL_MHT>400 && jetsL_MHT<500) mhtBin = 13;
+  if (jetsL_MHT>500 && jetsL_MHT<1000) mhtBin = 14;
 
   if (metBin==0 || mhtBin==0){
      w_Trig = 1; w_TrigUp = 1; w_TrigDown = 1;
@@ -2109,15 +2092,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("ZPt",               &ZPt,               "ZPt/D"               );
   NewTree->Branch("ZEta",              &ZEta,              "ZEta/D"              );
   NewTree->Branch("ZPhi",              &ZPhi,              "ZPhi/D"              );
- NewTree->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/D"       );
-  //give no value of Electron1Pt other than -99
-  NewTree->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/D"       );
-  NewTree->Branch("Electron1E",        &Electron1E,        "Electron1E/D"        );
-  NewTree->Branch("Electron2E",        &Electron2E,        "Electron2E/D"        );
-  NewTree->Branch("Muon1Iso",          &Muon1Iso,          "Muon1Iso/D"          );
-  NewTree->Branch("Muon2Iso",          &Muon2Iso,          "Muon2Iso/D"          );
-  NewTree->Branch("Muon1Pt",           &Muon1Pt,           "Muon1Pt/D"           );
-  NewTree->Branch("Muon2Pt",           &Muon2Pt,           "Muon2Pt/D"           );
   NewTree->Branch("Jet1ForwardEta",    &Jet1ForwardEta,    "Jet1ForwardEta/D"    );
   NewTree->Branch("Jet2ForwardEta",    &Jet2ForwardEta,    "Jet2ForwardEta/D"    );
   NewTree->Branch("Jet3ForwardEta",    &Jet3ForwardEta,    "Jet3ForwardEta/D"    );
@@ -2130,10 +2104,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
  NewTree->Branch("Jet1PartialPt",     &Jet1PartialPt,     "Jet1PartialPt/D"     );
   NewTree->Branch("Jet2PartialPt",     &Jet2PartialPt,     "Jet2PartialPt/D"     );
   NewTree->Branch("Jet1MergedPt",      &Jet1MergedPt,      "Jet1MergedPt/D"      );
-  NewTree->Branch("Electron1Eta",      &Electron1Eta,      "Electron1Eta/D"      );
-  NewTree->Branch("Electron2Eta",      &Electron2Eta,      "Electron2Eta/D"      );
-  NewTree->Branch("Muon1Eta",          &Muon1Eta,          "Muon1Eta/D"          );
-  NewTree->Branch("Muon2Eta",          &Muon2Eta,          "Muon2Eta/D"          );
   NewTree->Branch("Jet1ResolvedEta",   &Jet1ResolvedEta,   "Jet1ResolvedEta/D"   );
   NewTree->Branch("Jet2ResolvedEta",   &Jet2ResolvedEta,   "Jet2ResolvedEta/D"   );
   NewTree->Branch("Jet3ResolvedEta",   &Jet3ResolvedEta,   "Jet3ResolvedEta/D"   );
@@ -2142,11 +2112,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("Jet1MergedEta",     &Jet1MergedEta,     "Jet1MergedEta/D"     );
   NewTree->Branch("MostForwardJetEta", &MostForwardJetEta, "MostForwardJetEta/D" );
   NewTree->Branch("MostForwardJetPt",  &MostForwardJetPt,  "MostForwardJetPt/D"  );
-  NewTree->Branch("Electron1Phi",      &Electron1Phi,      "Electron1Phi/D"      );
-  NewTree->Branch("Electron2Phi",      &Electron2Phi,      "Electron2Phi/D"      );
-  NewTree->Branch("Muon1Phi",          &Muon1Phi,          "Muon1Phi/D"          );
-  NewTree->Branch("Muon2Phi",          &Muon2Phi,          "Muon2Phi/D"          );
-  NewTree->Branch("deltaPhiZTop",      &deltaPhiZTop,      "deltaPhiZTop/D"      );
   NewTree->Branch("deltaRZTop",        &deltaRZTop,        "deltaRZTop/D"        );
   NewTree->Branch("deltaPhiZB",        &deltaPhiZB,        "deltaPhiZB/D"        );
   NewTree->Branch("deltaRZB",          &deltaRZB,          "deltaRZB/D"          );
@@ -2160,11 +2125,12 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/D"      );
   NewTree->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
   NewTree->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
-  NewTree->Branch("NumOfLeptonsL",        &NumOfLeptonsL,        "NumOfLeptonsL/I"        );
-  NewTree->Branch("NumOfLeptonsT",        &NumOfLeptonsT,        "NumOfLeptonsT/I"        );
-  NewTree->Branch("NumOfLeptonsT_v2",        &NumOfLeptonsT_v2,        "NumOfLeptonsT_v2/I"        );
-  NewTree->Branch("NumOfLeptonsFMVA",        &NumOfLeptonsFMVA,        "NumOfLeptonsFMVA/I"        );
-  NewTree->Branch("NumOfLeptonsTMVA",        &NumOfLeptonsTMVA,        "NumOfLeptonsTMVA/I"        );
+
+  NewTree->Branch("leptonsL_number",        &leptonsL_number,        "leptonsL_number/I"        );
+  NewTree->Branch("leptonsT_number",        &leptonsT_number,        "leptonsT_number/I"        );
+  NewTree->Branch("leptonsT_number_v2",        &leptonsT_number_v2,        "leptonsT_number_v2/I"        );
+  NewTree->Branch("leptonsMVAF_number",        &leptonsMVAF_number,        "leptonsMVAF_number/I"        );
+  NewTree->Branch("leptonsMVAT_number",        &leptonsMVAT_number,        "leptonsMVAT_number/I"        );
   NewTree->Branch("leptonsTMVA_transMass",        &leptonsTMVA_transMass,        "leptonsTMVA_transMass/I"        );
   NewTree->Branch("leadingEleMVAF_pt",        &leadingEleMVAF_pt,        "leadingEleMVAF_pt/D"        );
   NewTree->Branch("leading_leptonsMVATpt",        &leading_leptonsMVATpt,        "leading_leptonsMVATpt/D"        );
@@ -2176,40 +2142,32 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("third_leptonsMVATpt",        &third_leptonsMVATpt,        "third_leptonsMVATpt/D"        );
   NewTree->Branch("third_leptohsMVAT_eta",        &third_leptohsMVAT_eta,        "third_leptohsMVAT_eta/D"        );
   NewTree->Branch("third_leptonsMVAT_phi",        &third_leptonsMVAT_phi,        "third_leptonsMVAT_phi/D"        );
-//  NewTree->Branch("",        &,        "/D"        );
-  NewTree->Branch("NumOfMuonsT",        &NumOfMuonsT,        "NumOfMuonsT/I"        );
-  NewTree->Branch("NumOfElectronsT",        &NumOfElectronsT,        "NumOfElectronsT/I"        );
-  NewTree->Branch("LeadingLeptonPt",          &LeadingLeptonPt,          "LeadingLeptonPt/D");
-  NewTree->Branch("SecondLeptonPt",          &SecondLeptonPt,          "SecondLeptonPt/D");
-  NewTree->Branch("ThirdLeptonPt",          &ThirdLeptonPt,          "ThirdLeptonPt/D");
-//
-  NewTree->Branch("NumOfElectronsMVAL",          &NumOfElectronsMVAL,          "NumOfElectronsMVAL/I");
-  NewTree->Branch("NumOfElectronsMVAT",          &NumOfElectronsMVAT,          "NumOfElectronsMVAT/I");
-  NewTree->Branch("NumOfElectronsMVAF",          &NumOfElectronsMVAF,          "NumOfElectronsMVAF/I");
+  NewTree->Branch("elesMVAL_number",          &elesMVAL_number,          "elesMVAL_number/I");
+  NewTree->Branch("elesMVAT_number",          &elesMVAT_number,          "elesMVAT_number/I");
+  NewTree->Branch("elesMVAF_number",          &elesMVAF_number,          "elesMVAF_number/I");
+  NewTree->Branch("eleL_number",          &eleL_number,          "eleL_number/I");
+  NewTree->Branch("eleM_number",          &eleM_number,          "eleM_number/I");
+  NewTree->Branch("eleT_number",        &eleT_number,        "eleT_number/I"        );
+  NewTree->Branch("muonsL_number",           &muonsL_number,            "muonsL_number/I");
+  NewTree->Branch("muonsT_number",        &muonsT_number,        "muonsT_number/I"        );
 
-//
-  NewTree->Branch("NumOfElectronsL",          &NumOfElectronsL,          "NumOfElectronsL/I");
-  NewTree->Branch("NumOfElectronsM",          &NumOfElectronsM,          "NumOfElectronsM/I");
-  NewTree->Branch("NumOfMuonsL",           &NumOfMuonsL,            "NumOfMuonsL/I");
-  NewTree->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/D");
-  NewTree->Branch("InvariantMassBJetsL",  &InvariantMassBJetsL,   "InvariantMassBJetsL/D");
-  NewTree->Branch("InvariantMassBJetsM",  &InvariantMassBJetsM,   "InvariantMassBJetsM/D");
-  NewTree->Branch("InvariantMassBJetsT",  &InvariantMassBJetsT,   "InvariantMassBJetsT/D");
-  NewTree->Branch("transMass_Ljets",  &transMass_Ljets,   "transMass_Ljets/D");
-  NewTree->Branch("transMass_BjetsL",  &transMass_BjetsL,   "transMass_BjetsL/D");
-  NewTree->Branch("transMass_BjetsM",  &transMass_BjetsM,   "transMass_BjetsM/D");
-  NewTree->Branch("transMass_BjetsT",  &transMass_BjetsT,   "transMass_BjetsT/D");
+  NewTree->Branch("jetsL_invariantMass",  &jetsL_invariantMass,   "jetsL_invariantMass/D");
+  NewTree->Branch("bjetsL_invariantMass",  &bjetsL_invariantMass,   "bjetsL_invariantMass/D");
+  NewTree->Branch("bjetsM_invariantMass",  &bjetsM_invariantMass,   "bjetsM_invariantMass/D");
+  NewTree->Branch("bjetsT_invariantMass",  &bjetsT_invariantMass,   "bjetsT_invariantMass/D");
+  NewTree->Branch("jetsL_transMass",  &jetsL_transMass,   "jetsL_transMass/D");
+  NewTree->Branch("bjetsL_transMass",  &bjetsL_transMass,   "bjetsL_transMass/D");
+  NewTree->Branch("bjetsM_transMass",  &bjetsM_transMass,   "bjetsM_transMass/D");
+  NewTree->Branch("bjetsT_transMass",  &bjetsT_transMass,   "bjetsT_transMass/D");
   NewTree->Branch("jetL_minDeltaR",  &jetL_minDeltaR,   "jetL_minDeltaR/D");
   NewTree->Branch("bjetsL_minDeltaR",  &bjetsL_minDeltaR,   "bjetsL_minDeltaR/D");
   NewTree->Branch("bjetsM_minDeltaR",  &bjetsM_minDeltaR,   "bjetsM_minDeltaR/D");
   NewTree->Branch("bjetsT_minDeltaR",  &bjetsT_minDeltaR,   "bjetsT_minDeltaR/D");
-  NewTree->Branch("Centrality",        &Centrality,       "Centrality/D");
+  NewTree->Branch("jetsL_centrality",        &jetsL_centrality,       "jetsL_centrality/D");
   NewTree->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/D");
   //NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets,        "MaxdeltaRJets/D");
   NewTree->Branch("Sphericity",        &Sphericity,        "Sphericity/D");
  // NewTree->Branch("MindeltaRJets",     &MindeltaRJets,     "MindeltaRJets/D");
-  NewTree->Branch("LeadingBJetMPt",        &LeadingBJetMPt,        "LeadingBJetMPt/D");
-  NewTree->Branch("SecondBJetMPt",        &SecondBJetMPt,        "SecondBJetMPt/D");
   NewTree->Branch("HTDividedByMET",        &HTDividedByMET,        "HTDividedByMET/D");
   NewTree->Branch("MetDividedByHT",        &MetDividedByHT,        "MetDividedByHT/D");
   NewTree->Branch("HTDividedByMet",        &HTDividedByMet,        "HTDividedByMet/D");
@@ -2217,29 +2175,20 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("NighthJetPt",        &NighthJetPt,        "NighthJetPt/D");
   NewTree->Branch("TenthJetPt",        &TenthJetPt,        "TenthJetPt/D");
 
-  NewTree->Branch("ThirdBJetMPt",        &ThirdBJetMPt,        "ThirdBJetMPt/D");
-  NewTree->Branch("FourthBJetMPt",        &FourthBJetMPt,        "FourthBJetMPt/D");
-  NewTree->Branch("LeadingBJetLPt",        &LeadingBJetLPt,        "LeadingBJetLPt/D");
-  NewTree->Branch("SecondBJetLPt",        &SecondBJetLPt,        "SecondBJetLPt/D");
-  NewTree->Branch("ThirdBJetLPt",        &ThirdBJetLPt,        "ThirdBJetLPt/D");
-  NewTree->Branch("FourthBJetLPt",        &FourthBJetLPt,        "FourthBJetLPt/D");
-  NewTree->Branch("LeadingBJetTPt",        &LeadingBJetTPt,        "LeadingBJetTPt/D");
-  NewTree->Branch("SecondBJetTPt",        &SecondBJetTPt,        "SecondBJetTPt/D");
-  NewTree->Branch("ThirdBJetTPt",        &ThirdBJetTPt,        "ThirdBJetTPt/D");
-  NewTree->Branch("FourthBJetTPt",        &FourthBJetTPt,        "FourthBJetTPt/D");
 
 
 
   NewTree->Branch("LeadingJetpfDeepFlavourBJetTags",        &LeadingJetpfDeepFlavourBJetTags,        "LeadingJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("SecondJetpfDeepFlavourBJetTags",        &SecondJetpfDeepFlavourBJetTags,        "SecondJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("ThirdJetpfDeepFlavourBJetTags",        &ThirdJetpfDeepFlavourBJetTags,        "ThirdJetpfDeepFlavourBJetTags/D");
-  NewTree->Branch("BScoreOfAllJetsL",        &BScoreOfAllJetsL,        "BScoreOfAllJetsL/D");
+  NewTree->Branch("jetsL_bScore",        &jetsL_bScore,        "jetsL_bScore/D");
   NewTree->Branch("MinDeltaRJets",        &MinDeltaRJets,        "MinDeltaRJets/D");
   NewTree->Branch("average_deltaR",        &average_deltaR,        "average_deltaR/D");
   NewTree->Branch("MaxDeltaRJets",        &MaxDeltaRJets,        "MaxDeltaRJets/D");
   NewTree->Branch("MinDeltaPhiJets",        &MinDeltaPhiJets,        "MinDeltaPhiJets/D");
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR",        &jetsL_leptonsMVAT_minDeltaR,        "jetsL_leptonsMVAT_minDeltaR/D");
   NewTree->Branch("jetsL_tausF_minDeltaR",        &jetsL_tausF_minDeltaR,        "jetsL_tausF_minDeltaR/D");
+  NewTree->Branch("bjetsL_1pt",        &bjetsL_1pt,        "bjetsL_1pt/D");
   NewTree->Branch("leading_forwardjet_pt",        &leading_forwardjet_pt,        "leading_forwardjet_pt/D");
   NewTree->Branch("leading_forwardjet_eta_absolute",        &leading_forwardjet_eta_absolute,        "leading_forwardjet_eta_absolute/D");
   NewTree->Branch("leading_forwardjet_phi",        &leading_forwardjet_phi,        "leading_forwardjet_phi/D");
@@ -2280,34 +2229,32 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("eleventh_Ljet_eta",        &eleventh_Ljet_eta,        "eleventh_Ljet_eta/D");
   NewTree->Branch("eleventh_Ljet_phi",        &eleventh_Ljet_phi,        "eleventh_Ljet_phi/D");
 
-  NewTree->Branch("NumOfTausL",        &NumOfTausL,        "NumOfTausL/I");
-  NewTree->Branch("NumOfTausF",        &NumOfTausF,        "NumOfTausF/I");
-  NewTree->Branch("NumOfTausT",        &NumOfTausT,        "NumOfTausT/I");
-  NewTree->Branch("MHT_TausL",        &MHT_TausL,        "MHT_TausL/D");
-  NewTree->Branch("MHT_TausF",        &MHT_TausF,        "MHT_TausF/D");
-  NewTree->Branch("MHT_TausT",        &MHT_TausT,        "MHT_TausT/D");
-  NewTree->Branch("HT_TauL",        &HT_TauL,        "HT_TauL/D");
-  NewTree->Branch("HT_TauF",        &HT_TauF,        "HT_TauF/D");
-  NewTree->Branch("InvariantMassTausL",        &InvariantMassTausL,        "InvariantMassTausL/D");
-  NewTree->Branch("InvariantMassTausF",        &InvariantMassTausF,        "InvariantMassTausF/D");
-  NewTree->Branch("MinDeltaRTausL",        &MinDeltaRTausL,        "MinDeltaRTausL/D");
-  NewTree->Branch("MaxDeltaRTausL",        &MaxDeltaRTausL,        "MaxDeltaRTausL/D");
+  NewTree->Branch("tausL_number",        &tausL_number,        "tausL_number/I");
+  NewTree->Branch("tausF_number",        &tausF_number,        "tausF_number/I");
+  NewTree->Branch("tausT_number",        &tausT_number,        "tausT_number/I");
+  NewTree->Branch("tausL_MHT",        &tausL_MHT,        "tausL_MHT/D");
+  NewTree->Branch("tausF_MHT",        &tausF_MHT,        "tausF_MHT/D");
+  NewTree->Branch("tausT_MHT",        &tausT_MHT,        "tausT_MHT/D");
+  NewTree->Branch("tausL_HT",        &tausL_HT,        "tausL_HT/D");
+  NewTree->Branch("tausF_HT",        &tausF_HT,        "tausF_HT/D");
+  NewTree->Branch("tausL_invariantMass",        &tausL_invariantMass,        "tausL_invariantMass/D");
+  NewTree->Branch("tausF_invariantMass",        &tausF_invariantMass,        "tausF_invariantMass/D");
   NewTree->Branch("tausL_minDeltaR",        &tausL_minDeltaR,        "tausL_minDeltaR/D");
   NewTree->Branch("tausF_minDeltaR",        &tausF_minDeltaR,        "tausF_minDeltaR/D");
-  NewTree->Branch("transMass_tausF_leptonsT",        &transMass_tausF_leptonsT,        "transMass_tausF_leptonsT/D");
-  NewTree->Branch("transMass_tausT_leptonsT",        &transMass_tausT_leptonsT,        "transMass_tausT_leptonsT/D");
+  NewTree->Branch("tausF_leptonsT_transMass",        &tausF_leptonsT_transMass,        "tausF_leptonsT_transMass/D");
+  NewTree->Branch("tausT_leptonsT_transMass",        &tausT_leptonsT_transMass,        "tausT_leptonsT_transMass/D");
   NewTree->Branch("tausF_leptonsT_invariantMass",        &tausF_leptonsT_invariantMass,        "tausF_leptonsT_invariantMass/D");
   NewTree->Branch("tausF_leptonsT_chargeSum",        &tausF_leptonsT_chargeSum,        "tausF_leptonsT_chargeSum/D");
-  NewTree->Branch("leptonsTMVA_tausF_minDeltaR",        &leptonsTMVA_tausF_minDeltaR,        "leptonsTMVA_tausF_minDeltaR/D");
-  NewTree->Branch("leadingTauL_pt",        &leadingTauL_pt,        "leadingTauL_pt/D");
-  NewTree->Branch("leadingTauL_eta",        &leadingTauL_eta,        "leadingTauL_eta/D");
-  NewTree->Branch("leadingTauL_phi",        &leadingTauL_phi,        "leadingTauL_phi/D");
-  NewTree->Branch("secondTauL_pt",        &secondTauL_pt,        "secondTauL_pt/D");
-  NewTree->Branch("secondTauL_eta",        &secondTauL_eta,        "secondTauL_eta/D");
-  NewTree->Branch("secondTauL_phi",        &secondTauL_phi,        "secondTauL_phi/D");
-  NewTree->Branch("thirdTauL_pt",        &thirdTauL_pt,        "thirdTauL_pt/D");
-  NewTree->Branch("thirdTauL_eta",        &thirdTauL_eta,        "thirdTauL_eta/D");
-  NewTree->Branch("thirdTauL_phi",        &thirdTauL_phi,        "thirdTauL_phi/D");
+  NewTree->Branch("tausF_leptonsTMVA_minDeltaR",        &tausF_leptonsTMVA_minDeltaR,        "tausF_leptonsTMVA_minDeltaR/D");
+  NewTree->Branch("tauL_1pt",        &tauL_1pt,        "tauL_1pt/D");
+  NewTree->Branch("tauL_1eta",        &tauL_1eta,        "tauL_1eta/D");
+  NewTree->Branch("tauL_1phi",        &tauL_1phi,        "tauL_1phi/D");
+  NewTree->Branch("tauL_2pt",        &tauL_2pt,        "tauL_2pt/D");
+  NewTree->Branch("tauL_2eta",        &tauL_2eta,        "tauL_2eta/D");
+  NewTree->Branch("tauL_2phi",        &tauL_2phi,        "tauL_2phi/D");
+  NewTree->Branch("tauL_3pt",        &tauL_3pt,        "tauL_3pt/D");
+  NewTree->Branch("tauL_3eta",        &tauL_3eta,        "tauL_3eta/D");
+  NewTree->Branch("tauL_3phi",        &tauL_3phi,        "tauL_3phi/D");
 
 
   NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
@@ -2318,19 +2265,19 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("TopTaggerScoreAllTops",        &TopTaggerScoreAllTops,        "TopTaggerScoreAllTops/D");
 //
 //
-  NewTree->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
-  NewTree->Branch("NumSelForwardJets", &NumSelForwardJets, "NumSelForwardJets/I" );
-  NewTree->Branch("NumSelBJetsL",      &NumSelBJetsL,      "NumSelBJetsL/I"      );
-  NewTree->Branch("NumSelBJetsM",      &NumSelBJetsM,      "NumSelBJetsM/I"      );
-  NewTree->Branch("NumSelBJetsT",      &NumSelBJetsT,      "NumSelBJetsT/I"      );
+  NewTree->Branch("jetsL_number",        &jetsL_number,        "jetsL_number/I"        );
+  NewTree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I" );
+  NewTree->Branch("bjetsL_num",      &bjetsL_num,      "bjetsL_num/I"      );
+  NewTree->Branch("bjetsM_num",      &bjetsM_num,      "bjetsM_num/I"      );
+  NewTree->Branch("bjetsT_num",      &bjetsT_num,      "bjetsT_num/I"      );
   NewTree->Branch("NumSelWJets",       &NumSelWJets,       "NumSelWJets/I"       );
   NewTree->Branch("NumSelTopJets",     &NumSelTopJets,     "NumSelTopJets/I"     );
   NewTree->Branch("NVertices",         &NVertices,         "NVertices/I"         );
-  NewTree->Branch("HT",                &HT,                "HT/D"                );
-  NewTree->Branch("HT_BJetL",                &HT_BJetL,                "HT_BJetL/D"                );
-  NewTree->Branch("HT_BJetM",                &HT_BJetM,                "HT_BJetM/D"                );
-  NewTree->Branch("HT_BJetT",                &HT_BJetT,                "HT_BJetT/D"                );
-  NewTree->Branch("MHT",                &MHT,                "MHT/D"             );
+  NewTree->Branch("jetsL_HT",                &jetsL_HT,                "jetsL_HT/D"                );
+  NewTree->Branch("bjetsL_HT",                &bjetsL_HT,                "bjetsL_HT/D"                );
+  NewTree->Branch("bjetsM_HT",                &bjetsM_HT,                "bjetsM_HT/D"                );
+  NewTree->Branch("bjetsT_HT",                &bjetsT_HT,                "bjetsT_HT/D"                );
+  NewTree->Branch("jetsL_MHT",                &jetsL_MHT,                "jetsL_MHT/D"             );
   NewTree->Branch("PUWeight",          &PUWeight,          "PUWeight/D"          );
   NewTree->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/D"        );
   NewTree->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/D"      );
@@ -2447,14 +2394,6 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
       NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/D"               );
       NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/D"              );
       NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/D"              );
-      NewTreeSB->Branch("Electron1Pt",       &Electron1Pt,       "Electron1Pt/D"       );
-      NewTreeSB->Branch("Electron2Pt",       &Electron2Pt,       "Electron2Pt/D"       );
-      NewTreeSB->Branch("Electron1E",        &Electron1E,        "Electron1E/D"        );
-      NewTreeSB->Branch("Electron2E",        &Electron2E,        "Electron2E/D"        );
-      NewTreeSB->Branch("Muon1Iso",          &Muon1Iso,          "Muon1Iso/D"          );
-      NewTreeSB->Branch("Muon2Iso",          &Muon2Iso,          "Muon2Iso/D"          );
-      NewTreeSB->Branch("Muon1Pt",           &Muon1Pt,           "Muon1Pt/D"           );
-      NewTreeSB->Branch("Muon2Pt",           &Muon2Pt,           "Muon2Pt/D"           );
       NewTreeSB->Branch("Jet1ForwardEta",    &Jet1ForwardEta,    "Jet1ForwardEta/D"    );
       NewTreeSB->Branch("Jet2ForwardEta",    &Jet2ForwardEta,    "Jet2ForwardEta/D"    );
       NewTreeSB->Branch("Jet3ForwardEta",    &Jet3ForwardEta,    "Jet3ForwardEta/D"    );
@@ -2469,21 +2408,12 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
       NewTreeSB->Branch("Jet1MergedPt",      &Jet1MergedPt,      "Jet1MergedPt/D"      );
       NewTreeSB->Branch("MostForwardJetEta", &MostForwardJetEta, "MostForwardJetEta/D" );
       NewTreeSB->Branch("MostForwardJetPt",  &MostForwardJetPt,  "MostForwardJetPt/D"  );
-      NewTreeSB->Branch("Electron1Eta",      &Electron1Eta,      "Electron1Eta/D"      );
-      NewTreeSB->Branch("Electron2Eta",      &Electron2Eta,      "Electron2Eta/D"      );
-      NewTreeSB->Branch("Muon1Eta",          &Muon1Eta,          "Muon1Eta/D"          );
-      NewTreeSB->Branch("Muon2Eta",          &Muon2Eta,          "Muon2Eta/D"          );
      NewTreeSB->Branch("Jet1ResolvedEta",   &Jet1ResolvedEta,   "Jet1ResolvedEta/D"   );
       NewTreeSB->Branch("Jet2ResolvedEta",   &Jet2ResolvedEta,   "Jet2ResolvedEta/D"   );
       NewTreeSB->Branch("Jet3ResolvedEta",   &Jet3ResolvedEta,   "Jet3ResolvedEta/D"   );
       NewTreeSB->Branch("Jet1PartialEta",    &Jet1PartialEta,    "Jet1PartialEta/D"    );
       NewTreeSB->Branch("Jet2PartialEta",    &Jet2PartialEta,    "Jet2PartialEta/D"    );
       NewTreeSB->Branch("Jet1MergedEta",     &Jet1MergedEta,     "Jet1MergedEta/D"     );
-      NewTreeSB->Branch("Electron1Phi",      &Electron1Phi,      "Electron1Phi/D"      );
-      NewTreeSB->Branch("Electron2Phi",      &Electron2Phi,      "Electron2Phi/D"      );
-      NewTreeSB->Branch("Muon1Phi",          &Muon1Phi,          "Muon1Phi/D"          );
-      NewTreeSB->Branch("Muon2Phi",          &Muon2Phi,          "Muon2Phi/D"          );
-      NewTreeSB->Branch("deltaPhiZTop",      &deltaPhiZTop,      "deltaPhiZTop/D"      );
       NewTreeSB->Branch("deltaRZTop",        &deltaRZTop,        "deltaRZTop/D"        );
       NewTreeSB->Branch("deltaREle1Ele2",    &deltaREle1Ele2,    "deltaREle1Ele2/D"    );
       NewTreeSB->Branch("deltaRMuo1Muo2",    &deltaRMuo1Muo2,    "deltaRMuo1Muo2/D"    );
@@ -2495,26 +2425,26 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
       NewTreeSB->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/D"      );
       NewTreeSB->Branch("deltaRb2Lep1",      &deltaRb2Lep1,      "deltaRb2Lep1/D"      );
       NewTreeSB->Branch("deltaRb2Lep2",      &deltaRb2Lep2,      "deltaRb2Lep2/D"      );
-      NewTreeSB->Branch("NumOfLeptonsL",        &NumOfLeptonsL,        "NumOfLeptonsL/I"        );
+      NewTreeSB->Branch("leptonsL_number",        &leptonsL_number,        "leptonsL_number/I"        );
     // 
     //
-     NewTreeSB->Branch("NumOfElectronsL",      &NumOfElectronsL,                "NumOfElectronsL");
-     NewTreeSB->Branch("NumOfMuonsL",       &NumOfMuonsL,                 "NumOfMuonsL");
-      NewTreeSB->Branch("InvariantMassJets",  &InvariantMassJets,   "InvariantMassJets/D");
-      NewTreeSB->Branch("Centrality",        &Centrality,       "Centrality/D");
+     NewTreeSB->Branch("eleL_number",      &eleL_number,                "eleL_number");
+     NewTreeSB->Branch("muonsL_number",       &muonsL_number,                 "muonsL_number");
+      NewTreeSB->Branch("jetsL_invariantMass",  &jetsL_invariantMass,   "jetsL_invariantMass/D");
+      NewTreeSB->Branch("jetsL_centrality",        &jetsL_centrality,       "jetsL_centrality/D");
       NewTreeSB->Branch("Aplanarity",        &Aplanarity,        "Aplanarity/D");
     //
     //
-      NewTreeSB->Branch("NumSelJets",        &NumSelJets,        "NumSelJets/I"        );
-      NewTreeSB->Branch("NumSelForwardJets", &NumSelForwardJets, "NumSelForwardJets/I" );
-      NewTreeSB->Branch("NumSelBJetsL",      &NumSelBJetsL,      "NumSelBJetsL/I"      );
-      NewTreeSB->Branch("NumSelBJetsM",      &NumSelBJetsM,      "NumSelBJetsM/I"      );
-      NewTreeSB->Branch("NumSelBJetsT",      &NumSelBJetsT,      "NumSelBJetsT/I"      );
+      NewTreeSB->Branch("jetsL_number",        &jetsL_number,        "jetsL_number/I"        );
+      NewTreeSB->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I" );
+      NewTreeSB->Branch("bjetsL_num",      &bjetsL_num,      "bjetsL_num/I"      );
+      NewTreeSB->Branch("bjetsM_num",      &bjetsM_num,      "bjetsM_num/I"      );
+      NewTreeSB->Branch("bjetsT_num",      &bjetsT_num,      "bjetsT_num/I"      );
       NewTreeSB->Branch("NumSelWJets",       &NumSelWJets,       "NumSelWJets/I"       );
       NewTreeSB->Branch("NumSelTopJets",     &NumSelTopJets,     "NumSelTopJets/I"     );
       NewTreeSB->Branch("NVertices",         &NVertices,         "NVertices/I"         );
-      NewTreeSB->Branch("HT",                &HT,                "HT/D"                );
-      NewTreeSB->Branch("MHT",                &MHT,                "MHT/D"                );
+      NewTreeSB->Branch("jetsL_HT",                &jetsL_HT,                "jetsL_HT/D"                );
+      NewTreeSB->Branch("jetsL_MHT",                &jetsL_MHT,                "jetsL_MHT/D"                );
       NewTreeSB->Branch("PUWeight",          &PUWeight,          "PUWeight/D"          );
       NewTreeSB->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/D"        );
       NewTreeSB->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/D"      );
@@ -2655,23 +2585,6 @@ channel_2Tau2OS_v2=0;
   ZPt=-99;
   ZEta=-99;
   ZPhi=-99;
-  Electron1Pt=-99;
-  Electron2Pt=-99;
-  Electron1E=-99;
-  Electron2E=-99;
-  Muon1Iso=-99;
-  Muon2Iso=-99;
-  Muon1Pt=-99;
-  Muon2Pt=-99;
- Electron1Eta=-99;
-  Electron2Eta=-99;
-  Muon1Eta=-99;
-  Muon2Eta=-99;
-  Electron1Phi=-99;
-  Electron2Phi=-99;
-  Muon1Phi=-99;
-  Muon2Phi=-99;
-  deltaPhiZTop=-99;
   deltaRZTop=-99;
   deltaPhiZTopResolved=-99;
   deltaRZTopResolved=-99;
@@ -2711,11 +2624,11 @@ channel_2Tau2OS_v2=0;
   Jet1MergedEta=-99;
   MostForwardJetEta=-99;
   MostForwardJetPt=-99;
-  NumOfLeptonsL=-99;
-  NumOfLeptonsT=-99;
-  NumOfLeptonsT_v2=-99;
-  NumOfLeptonsFMVA=-99;
-  NumOfLeptonsTMVA=-99;
+  leptonsL_number=-99;
+  leptonsT_number=-99;
+  leptonsT_number_v2=-99;
+  leptonsMVAF_number=-99;
+  leptonsMVAT_number=-99;
   leptonsTMVA_transMass = -99;
  leadingEleMVAF_pt = -99;
  leading_leptonsMVATpt = -99;
@@ -2731,67 +2644,53 @@ third_leptonsMVAT_phi = -99;
 
 
 
- NumOfMuonsT=-99;
- NumOfElectronsT=-99;
-LeadingLeptonPt=-99;
-SecondLeptonPt=-99;
-ThirdLeptonPt=-99;
+ muonsT_number=-99;
+ eleT_number=-99;
 
-NumOfElectronsMVAL=-99;
-NumOfElectronsMVAF=-99;
-NumOfElectronsMVAT=-99;
+elesMVAL_number=-99;
+elesMVAF_number=-99;
+elesMVAT_number=-99;
 //
 //
-  NumOfElectronsL=-99;
-  NumOfElectronsM=-99;
-  NumOfMuonsL=-99;
-  InvariantMassJets=-99;
-InvariantMassBJetsL=-99;
-InvariantMassBJetsM=-99;
-InvariantMassBJetsT=-99;
-transMass_Ljets = -99;
-transMass_BjetsL = -99;
-transMass_BjetsM = -99;
-transMass_BjetsT = -99;
+  eleL_number=-99;
+  eleM_number=-99;
+  muonsL_number=-99;
+  jetsL_invariantMass=-99;
+bjetsL_invariantMass=-99;
+bjetsM_invariantMass=-99;
+bjetsT_invariantMass=-99;
+jetsL_transMass = -99;
+bjetsL_transMass = -99;
+bjetsM_transMass = -99;
+bjetsT_transMass = -99;
 jetL_minDeltaR = -99;
 bjetsL_minDeltaR = -99;
 bjetsM_minDeltaR = -99;
 bjetsT_minDeltaR = -99;
-  Centrality=-99;
+  jetsL_centrality=-99;
   Aplanarity=-99;
  // MaxdeltaRJets=-99;
   Sphericity=-99;
 //MindeltaRJets=-99;
-LeadingBJetMPt=-99;
-SecondBJetMPt=-99;
 HTDividedByMET=-99;
 MetDividedByHT=-99;
 HTDividedByMet=-99;
 MHTDividedByMET=-99;
 NighthJetPt=-99;
 TenthJetPt=-99;
-ThirdBJetMPt=-99;
-FourthBJetMPt=-99;
-LeadingBJetLPt=-99;
-SecondBJetLPt=-99;
-ThirdBJetLPt=-99;
-FourthBJetLPt=-99;
-LeadingBJetTPt=-99;
-SecondBJetTPt=-99;
-ThirdBJetTPt=-99;
-FourthBJetTPt=-99;
 
 
 LeadingJetpfDeepFlavourBJetTags=-99;
 SecondJetpfDeepFlavourBJetTags=-99;
 ThirdJetpfDeepFlavourBJetTags=-99;
-BScoreOfAllJetsL=-99;
+jetsL_bScore=-99;
 MinDeltaRJets=-99;
 average_deltaR = -99;
 MaxDeltaRJets=-99;
 MinDeltaPhiJets=-99;
 jetsL_leptonsMVAT_minDeltaR = -99;
 jetsL_tausF_minDeltaR = -99;
+bjetsL_1pt = -99;
 leading_forwardjet_pt = -99;
 leading_forwardjet_eta_absolute = -99;
 leading_forwardjet_phi = -99;
@@ -2844,34 +2743,32 @@ eleventh_Ljet_phi = -99;
 
 MinDeltaRBJets=-99;
 MaxDeltaRBJets=-99;
-NumOfTausL=-99;
-NumOfTausF=-99;
-NumOfTausT=-99;
-MHT_TausL=-99;
-MHT_TausF=-99;
-MHT_TausT=-99;
-HT_TauL=-99;
-HT_TauF=-99;
-InvariantMassTausL=-99;
-InvariantMassTausF=-99;
-MinDeltaRTausL=-99;
-MaxDeltaRTausL=-99;
+tausL_number=-99;
+tausF_number=-99;
+tausT_number=-99;
+tausL_MHT=-99;
+tausF_MHT=-99;
+tausT_MHT=-99;
+tausL_HT=-99;
+tausF_HT=-99;
+tausL_invariantMass=-99;
+tausF_invariantMass=-99;
 tausL_minDeltaR = -99;
 tausL_minDeltaR = -99;
-transMass_tausF_leptonsT = -99;
-transMass_tausT_leptonsT = -99;
+tausF_leptonsT_transMass = -99;
+tausT_leptonsT_transMass = -99;
 tausF_leptonsT_invariantMass = -99;
 tausF_leptonsT_chargeSum = -99;
-leptonsTMVA_tausF_minDeltaR = -99;
-leadingTauL_pt = -99;
-leadingTauL_eta = -99;
-leadingTauL_phi = -99;
-secondTauL_pt = -99;
-secondTauL_eta = -99;
-secondTauL_phi = -99;
-thirdTauL_pt = -99;
-thirdTauL_eta = -99;
-thirdTauL_phi = -99;
+tausF_leptonsTMVA_minDeltaR = -99;
+tauL_1pt = -99;
+tauL_1eta = -99;
+tauL_1phi = -99;
+tauL_2pt = -99;
+tauL_2eta = -99;
+tauL_2phi = -99;
+tauL_3pt = -99;
+tauL_3eta = -99;
+tauL_3phi = -99;
 
 NumofTops=-99;
 LeadingTopPt=-99;
@@ -2882,19 +2779,19 @@ TopTaggerScoreAllTops=-99;
 
 //
 //
-  NumSelJets=-99;
-  NumSelForwardJets=-99;
-  NumSelBJetsL=-99;
-  NumSelBJetsM=-99;
-  NumSelBJetsT=-99;
+  jetsL_number=-99;
+  forwardJets_num=-99;
+  bjetsL_num=-99;
+  bjetsM_num=-99;
+  bjetsT_num=-99;
   NumSelWJets=-99;
   NumSelTopJets=-99;
   NVertices=-99;
-  HT=-99;
-  HT_BJetL=-99;
-  HT_BJetM=-99;
-  HT_BJetT=-99;
-  MHT=-99;
+  jetsL_HT=-99;
+  bjetsL_HT=-99;
+  bjetsM_HT=-99;
+  bjetsT_HT=-99;
+  jetsL_MHT=-99;
   PUWeight=1;
   PUWeightUP=1;
   PUWeightDOWN=1;
