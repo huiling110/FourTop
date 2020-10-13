@@ -59,13 +59,13 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
     cout<<"data"<<data<<endl;
     Long64_t nentries = (Int_t)Tree->GetEntries();	//how do we know the entries of Tree?//Read all branches of entry and return total number of bytes read.
     for(int selection=0; selection<3; selection++){
-			//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
-      //selection = 0 -> preselection=true; line 19, true
-      //selection = 1 -> signal selection; preselection=false and, not continue , that means go to the next line of the loop.
-      //selection = 2 -> sideband=true and pre=false; line 14 sideband=false
+		//? it seems when pre = false, sideband=true,both 1 and 2 will go in the loop.signal=false
+        //selection = 0 -> preselection=true; line 19, true
+        //selection = 1 -> signal selection; preselection=false and, not continue , that means go to the next line of the loop.
+        //selection = 2 -> sideband=true and pre=false; line 14 sideband=false
     	if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
 		//preselection=true ,sideband=false,in this case selection=0
-			//?what does sideband and signal do?
+		//?what does sideband and signal do?
 //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//Tree->SetBranchAddress;NewTree and SB->Branch
         branch(data,selection,NewTree,NewTreeSB);//Tree->SetBranchAddress;NewTree and SB->Branch
         //Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
@@ -308,10 +308,10 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
                     if( Muon_charge_->at(SelectedMuonsTIndex[1])*Muon_charge_->at(SelectedMuonsTIndex[0]) == -1)  channel_2Tau2OS = 1;
                     else channel_2Tau2SS = 1;
                 }
-           } /*}}}*/
+            } /*}}}*/
 
 
-            //jet and B jet selection
+             //jet and B jet selection
 			vector<double> SelectedJetsBTags;
 			vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags, SelectedBJetsTBTags,SelectedForwardJetsBTags; /*{{{*/
 //			vector<int>   CA8Indices;
@@ -390,6 +390,7 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             sort(SelectedBJetsL.begin(),SelectedBJetsL.end(),compEle);
             if(bjetsL_num>0){
                 bjetsL_1pt = SelectedBJetsL[0].Pt();
+                bjetsL_1eta = SelectedBJetsL[0].Eta();
             }
 
             sort(SelectedForwardJets.begin(), SelectedForwardJets.end(),compEle);
@@ -465,11 +466,23 @@ void EventSelection_4top_v1(const bool istest = true, const string input = "TTTT
             //using resuts of SUSY toptagger here
             vector<TLorentzVector> SelectedTops;
             SelectTops(SelectedTops);
-            NumofTops = SelectedTops.size();
+            toptagger_num = SelectedTops.size();
+            sort(SelectedTops.begin(), SelectedTops.end(),compEle);
+            if(toptagger_num>0) {
+                toptagger_1pt = SelectedTops[0].Pt();    
+                toptagger_1eta = SelectedTops[0].Eta();
+                toptagger_1phi = SelectedTops[0].Phi();
+            }
+            if(){
+            }
+
+
+
+            sort(SelectedTops.begin(),SelectedTops.end(), compEle);
             vector<double> TopPtSorted; sort_jetPt(SelectedTops,TopPtSorted);
-            if(NumofTops>0)  LeadingTopPt = TopPtSorted[0];
-            if(NumofTops>1)  SecondTopPt = TopPtSorted[1];
-            if(NumofTops>1){
+            if(toptagger_num>0)  LeadingTopPt = TopPtSorted[0];
+            if(toptagger_num>1)  SecondTopPt = TopPtSorted[1];
+            if(toptagger_num>1){
                 vector<double> MinMaxDeltaRTops; MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
                 MinDeltaRTops = MinMaxDeltaRTops[0];            MaxDeltaRTops = MinMaxDeltaRTops[1];}
             TopTaggerScoreAllTops = TopScoreAllTopsCal(SelectedTops);
@@ -2257,7 +2270,10 @@ void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB ){/*{{{*/
   NewTree->Branch("tauL_3phi",        &tauL_3phi,        "tauL_3phi/D");
 
 
-  NewTree->Branch("NumofTops",        &NumofTops,        "NumofTops/I");
+  NewTree->Branch("toptagger_num",        &toptagger_num,        "toptagger_num/I");
+  NewTree->Branch("toptagger_1pt",        &toptagger_1pt,        "toptagger_1pt/I");
+  NewTree->Branch("toptagger_1eta",        &toptagger_1eta,        "toptagger_1eta/I");
+  NewTree->Branch("toptagger_1phi",        &toptagger_1phi,        "toptagger_1phi/I");
   NewTree->Branch("LeadingTopPt",        &LeadingTopPt,        "LeadingTopPt/D");
   NewTree->Branch("SecondTopPt",        &SecondTopPt,        "SecondTopPt/D");
   NewTree->Branch("MinDeltaRTops",        &MinDeltaRTops,        "MinDeltaRTops/D");
@@ -2770,7 +2786,10 @@ tauL_3pt = -99;
 tauL_3eta = -99;
 tauL_3phi = -99;
 
-NumofTops=-99;
+toptagger_num=-99;
+toptagger_1pt = -99;
+toptagger_1eta = -99;
+toptagger_1phi = -99;
 LeadingTopPt=-99;
 SecondTopPt=-99;
 MinDeltaRTops=-99;
