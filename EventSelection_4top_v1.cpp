@@ -384,88 +384,11 @@ void EventSelection_4top_v1(
           }
         } /*}}}*/
 
-        // subchannel/*{{{*/
-        if (tausF_number == 1 && leptonsT_number_v2 == 0)
-          channel_1Tau0L = 1;
-        if (tausF_number == 1 && leptonsT_number_v2 == 1)
-          channel_1Tau1L = 1;
-        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-        }
-        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-        }
-        if (tausF_number == 1 && leptonsT_number_v2 == 3)
-          channel_1Tau3L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 0)
-          channel_2Tau0L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 1)
-          channel_2Tau1L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-        } /*}}}*/
 
         // jet and B jet selection
         vector<double> SelectedJetsBTags;
         vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags,
-            SelectedBJetsTBTags, SelectedForwardJetsBTags; /*{{{*/
+            SelectedBJetsTBTags, SelectedForwardJetsBTags; 
         //			vector<int>   CA8Indices;
         int CA8Index = -1;
         //?what does CA8Index do?
@@ -645,6 +568,89 @@ void EventSelection_4top_v1(
           continue;
         if (!(bjetsL_num > 0))
           continue;
+        //
+        //
+        //
+        
+        // subchannel/*{{{*/
+        if (tausF_number == 1 && leptonsT_number_v2 == 0)
+          channel_1Tau0L = 1;
+        if (tausF_number == 1 && leptonsT_number_v2 == 1)
+          channel_1Tau1L = 1;
+        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
+          if (eleT_number == 2) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
+                -1)
+              channel_1Tau2OS = 1;
+          }
+          if (eleT_number == 1) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                -1)
+              channel_1Tau2OS = 1;
+          }
+          if (eleT_number == 0) {
+            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                -1)
+              channel_1Tau2OS = 1;
+          }
+        }
+        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
+          if (eleT_number == 2) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
+                1)
+              channel_1Tau2SS = 1;
+          }
+          if (eleT_number == 1) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                1)
+              channel_1Tau2SS = 1;
+          }
+          if (eleT_number == 0) {
+            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                1)
+              channel_1Tau2SS = 1;
+          }
+        }
+        if (tausF_number == 1 && leptonsT_number_v2 == 3)
+          channel_1Tau3L = 1;
+        if (tausF_number == 2 && leptonsT_number_v2 == 0)
+          channel_2Tau0L = 1;
+        if (tausF_number == 2 && leptonsT_number_v2 == 1)
+          channel_2Tau1L = 1;
+        if (tausF_number == 2 && leptonsT_number_v2 == 2) {
+          if (eleT_number == 2) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
+                -1)
+              channel_2Tau2OS = 1;
+            else
+              channel_2Tau2SS = 1;
+          }
+          if (eleT_number == 1) {
+            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                -1)
+              channel_2Tau2OS = 1;
+            else
+              channel_2Tau2SS = 1;
+          }
+          if (eleT_number == 0) {
+            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
+                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
+                -1)
+              channel_2Tau2OS = 1;
+            else
+              channel_2Tau2SS = 1;
+          }
+        } /*}}}*/
+        //
+        //
         //
         //
         // Hadronic Top selection
@@ -2074,7 +2080,7 @@ void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,
   }
   MinMaxDeltaPhi.push_back(MinPhi); // cout<<MinPhi<<"  ";
   MinMaxDeltaPhi.push_back(MaxPhi);
-} /*}}}*/
+} 
 
 double MinDeltaEtaCal(const TLorentzVector jets,
                       const vector<TLorentzVector> SelectedJets) {
