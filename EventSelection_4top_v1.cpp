@@ -19,7 +19,7 @@ void EventSelection_4top_v1(
   gStyle->SetPaintTextFormat(".2f");
 
   bool preselection = true; // associate with selection
-  bool sideband = false; // associate with selection
+  bool sideband = false;    // associate with selection
   //?what's sideband and signal ?
   bool signal = false;
   //?signal occur nowhere else	//what does these mean?
@@ -51,7 +51,9 @@ void EventSelection_4top_v1(
     // const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName =
         NewFileprov.c_str(); // c_str()Returns a pointer to an array that
-                             // contains a null-terminated sequence of characters (i.e., a C-string) representing  current value of the string object.
+                             // contains a null-terminated sequence of
+                             // characters (i.e., a C-string) representing
+                             // current value of the string object.
     //    cout<<"file here"<<NewFileName<<endl;
     //    TFile f(NewFileName,"new");//Create a new file and open it for
     // writing, if the file already exists the file is not opened.
@@ -59,35 +61,36 @@ void EventSelection_4top_v1(
                                       // exists it will be overwritten.
     TTree *NewTree = new TTree("tree", "tree");
     TTree *NewTreeSB = new TTree("treeSB", "treeSB");
-    //?why 2 trees? what's the different?		//treeSB has something todo with
-    //sideband
+    //?why 2 trees? what's the different?		//treeSB has something
+    // todo
+    // with
+    // sideband
     string FILEprov;
-    // FILEprov =
-    // "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/data_and_sample/"+fileName[Nfiles];
     FILEprov =
         "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     char openTree[500];
-    sprintf(openTree, "TNT/BOOM"); // 117
+    sprintf(openTree, "TNT/BOOM");       // 117
     Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
     bool data = true;
     cout << "data" << data << endl;
     //    if(fileName.size()==0) break;
     if (!(fileName[Nfiles].find("Tau_data") != string::npos))
       data = false; // find():The position of the first character of the first
-                    // match.
+                    // // match.
     // If no matches were found, the function returns string::npos.//what is
-    // data?	//if filename is data, data=true. data and MC files have different
+    // data?	//if filename is data, data=true. data and MC files have
+    // different
     // tree .
     cout << "data" << data << endl;
     Long64_t nentries =
         (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
                                    // all branches of entry and return total
-                                   // number of bytes read.
+                                   // // number of bytes read.
     for (int selection = 0; selection < 3; selection++) {
       //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
-      //loop.signal=false
+      // loop.signal=false
       // selection = 0 -> preselection=true; line 19, true
       // selection = 1 -> signal selection; preselection=false and, not continue
       // , that means go to the next line of the loop.
@@ -111,12 +114,12 @@ void EventSelection_4top_v1(
       }
       for (Long64_t i = 0; i < NumOfEvents; i++) {
         Long64_t tentry = Tree->LoadTree(i); // Set current entry.
-        branchGetEntry(data, tentry); // every branch in Tree, Getentry.
-                                      // b_Jet_pt->GetEntry(tentry);//is a
-                                      // branch in tree, setadress.
+        branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
+        // b_Jet_pt->GetEntry(tentry);//is a
+        // branch in tree, setadress.
         initializeVar(); // initialize for new tree.
-        //			if(!(HLT_PFHT900_==1 ||
-        //HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_
+                         //			if(!(HLT_PFHT900_==1 ||
+        // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_
         //==1))  continue;//a branch in tree, trigger we choose
         if (!(Flag_goodVertices_ == 1))
           continue; // a branch in tree.
@@ -131,9 +134,10 @@ void EventSelection_4top_v1(
         if (!(Flag_BadPFMuonFilter_ == 1))
           continue;
         //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
-        //continue;
-        //			why this filter not work?//applied only in 2017 and
-        //2018
+        // continue;
+        //			why this filter not work?//applied only in 2017
+        // and
+        // 2018
         if (data) {
           if (!(Flag_eeBadScFilter_ == 1))
             continue;
@@ -461,7 +465,7 @@ void EventSelection_4top_v1(
         // jet and B jet selection
         vector<double> SelectedJetsBTags;
         vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags,
-        SelectedBJetsTBTags, SelectedForwardJetsBTags; /*{{{*/
+            SelectedBJetsTBTags, SelectedForwardJetsBTags; /*{{{*/
         //			vector<int>   CA8Indices;
         int CA8Index = -1;
         //?what does CA8Index do?
@@ -654,8 +658,6 @@ void EventSelection_4top_v1(
           toptagger_1eta = SelectedTops[0].Eta();
           toptagger_1phi = SelectedTops[0].Phi();
         }
-                 
-        
 
         sort(SelectedTops.begin(), SelectedTops.end(), compEle);
         vector<double> TopPtSorted;
@@ -726,17 +728,20 @@ void EventSelection_4top_v1(
         // WEIGHT
         //			if(!data){
         //					get_weight_btag(selection,w_Btag,
-        //w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
-        //w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,
-        //fileName[Nfiles]);//606 w_Btagall in NewTree
-        //					newPUWeight(PUWeight, PUWeightUP,
-        //PUWeightDOWN);//2729PUWeigh is a branch in Tree and newTree,PU and UP
-        //and DOWN are in New
-        //					GenWeight(fileName[Nfiles], GenZPt,
-        //GenWPt);2681
+        // w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
+        // w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,
+        // fileName[Nfiles]);//606 w_Btagall in NewTree
+        //					newPUWeight(PUWeight,
+        // PUWeightUP,
+        // PUWeightDOWN);//2729PUWeigh is a branch in Tree and newTree,PU and UP
+        // and DOWN are in New
+        //					GenWeight(fileName[Nfiles],
+        // GenZPt,
+        // GenWPt);2681
         //					HTSF(fileName[Nfiles],HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
-        //					TriggerSF(Met_pt, jetsL_MHT, w_Trig,
-        //w_TrigUp, w_TrigDown );
+        //					TriggerSF(Met_pt, jetsL_MHT,
+        // w_Trig,
+        // w_TrigUp, w_TrigDown );
         //  	  			QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
         //					PDFWeight(10,111,w_PDFUp,w_PDFDown);
         //			}
@@ -1025,7 +1030,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
 
     // IP
     //?
-    //patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
+    // patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
     if (!(patElectron_d0_->at(j) < 0.05))
       continue;
     if (!(patElectron_gsfTrack_dz_pv_->at(j) < 0.1))
@@ -1107,7 +1112,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
     if (!(Tau_decayModeFindingNewDMs_->at(j) == 1))
       continue;
     //???not sure why all taus is 1? if so no point in this requirement. //?not
-    //sure, is seem all are 1;
+    // sure, is seem all are 1;
     if (Tau_decayMode_->at(j) == 5 or Tau_decayMode_->at(j) == 6)
       continue; // for decay mode
     if (TauWP == 1) {
@@ -1461,7 +1466,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,
                              TLorentzVector &Jet1, TLorentzVector &Jet2,
                              TLorentzVector &Jet3, bool TopMassCut,
                              bool btag) { /*{{{*/
-  double TopPtMin = 250; // refresh in the loop
+  double TopPtMin = 250;                  // refresh in the loop
   // how do we set this number?
   double TopMassInitial = 99999;
   for (unsigned int i = 0; i < SelectedJets.size(); i++) {
@@ -2351,7 +2356,7 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,
   sort(JetsPt, JetsPt + size); // Sorts the elements in the range [first,last)
                                // into ascending order.
   for (UInt_t i = 0; i < size; ++i) {
-    k = size - i - 1; //-1 because starts with 0
+    k = size - i - 1;                  //-1 because starts with 0
     JetsPtSorted.push_back(JetsPt[k]); // std::reverse
   }
 } /*}}}*/
@@ -4008,7 +4013,7 @@ void GenClassifier(double &GenZPt_, double &GenWPt_) { /*{{{*/
     // std::string::at can be used to extract characters by characters from a
     // given string.
     //?what is Gen_pt? is Gen_pt of the final state? if so, how can we have Z
-    //and W ?
+    // and W ?
     if (abs(Gen_pdg_id_->at(j)) == 1 &&
         (abs(Gen_motherpdg_id_->at(j)) == 2212 ||
          abs(Gen_motherpdg_id_->at(j)) == 21))
