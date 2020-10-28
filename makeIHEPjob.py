@@ -6,24 +6,16 @@ import subprocess
 
 #Jobsubmitpath = "/afs/ihep.ac.cn/users/y/yutz/CMSSW_7_4_14/src/Tprime_2016"
 #rootplizer = "EventSelection_dineutrino_Resolved_v3.cpp"
-Jobsubmitpath = "/workfs/cms/huahuil/TauOfTTTT/CMSSW_10_2_20_UL/src/FourTop"
+#  Jobsubmitpath = "/workfs/cms/huahuil/TauOfTTTT/CMSSW_10_2_20_UL/src/FourTop"
+Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop"
 rootplizer = "EventSelection_4top_v1.cpp"
-#allJobFileName = Jobsubmitpath+"/hepsub.sh"
-allJobFileName = Jobsubmitpath+"/hepsub_2.sh"
+allJobFileName = Jobsubmitpath+"/hepsub.sh"
+#  allJobFileName = Jobsubmitpath+"/hepsub_2.sh"
 if os.path.exists(allJobFileName):
-        os.popen('rm -fr '+allJobFileName)
-#if os.path.exists(Jobsubmitpath+"/Jobsubmit"):
-#        os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit")
-#os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit")
-if os.path.exists(Jobsubmitpath+"/Jobsubmit_2"):
-        os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_2")
-os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_2")
-#sample = {
-#"Tprime_0600":"0",
-#"Tprime_0700":"1",
-#"Tprime_0700_10p":"1_1",
-#"Aug17V1_METH":"59",
-#}
+    os.popen('rm -fr '+allJobFileName)
+if os.path.exists(Jobsubmitpath+"/Jobsubmit"):
+   os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit")
+os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit")
 
 sample = {
 
@@ -94,42 +86,43 @@ sample = {
 }
 
 allJobFile = file(allJobFileName,"w")
-#print >> allJobFile, "cd "+Jobsubmitpath+"/Jobsubmit"
-print >> allJobFile, "cd "+Jobsubmitpath+"/Jobsubmit_2"
+print >> allJobFile, "cd "+Jobsubmitpath+"/Jobsubmit"
+#  print >> allJobFile, "cd "+Jobsubmitpath+"/Jobsubmit_2"
 
 def prepareCshJob(inputFile,shFile):
-        subFile      = file(shFile,"w")
-        print >> subFile, "#!/bin/bash"
-        print >> subFile, "/bin/hostname"
-        print >> subFile, "gcc -v"
-        print >> subFile, "pwd"
-        print >> subFile, "cd "+Jobsubmitpath
+    subFile  = file(shFile,"w")
+    print >> subFile, "#!/bin/bash"
+    print >> subFile, "/bin/hostname"
+    print >> subFile, "gcc -v"
+    print >> subFile, "pwd"
+    print >> subFile, "cd "+Jobsubmitpath
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
-        print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v5_NewNtuple/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
+
+
 for k in sample:
-        print k
-        print sample[k]
-        sampleName = k
-        sampleNumber = sample[k]
+    print k
+    print sample[k]
+    sampleName = k
+    sampleNumber = sample[k]
 #	shFile = "EventSelection_dineutrino_Resolved_2016"+"_"+sampleNumber+".sh"
-#	shFile = "ES_TauOfTTTT_2016"+"_"+sampleNumber+".sh"
-	shFile = "ES_TauOfTTTT_2016"+"_"+sampleName+".sh"
-#	shFileName = "Jobsubmit/"+shFile
-	shFileName = "Jobsubmit_2/"+shFile
-	inputFile = sampleName+".root"
-	prepareCshJob(inputFile,shFileName)	
+    shFile = "ES_2016"+"_"+sampleName+".sh"
+    shFileName = "Jobsubmit/"+shFile
+    #  shFileName = "Jobsubmit_2/"+shFile
+    inputFile = sampleName+".root"
+    prepareCshJob(inputFile,shFileName)	
 #   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
 #   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
-   	logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/"+"sampleNumber_"+sampleNumber+".log"
-   	errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/"+"sampleNumber_"+sampleNumber+".err"
-	print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
+    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v5_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
+    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v5_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
+    print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
 
 
-#os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit/*sh")
-os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_2/*sh")
-#os.popen('chmod 777 '+Jobsubmitpath+"/hepsub.sh")
-os.popen('chmod 777 '+Jobsubmitpath+"/hepsub_2.sh")
+os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit/*sh")
+#  os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_2/*sh")
+os.popen('chmod 777 '+Jobsubmitpath+"/hepsub.sh")
+#  os.popen('chmod 777 '+Jobsubmitpath+"/hepsub_2.sh")
 
 
 
