@@ -662,21 +662,23 @@ void EventSelection_4top_v1(
           toptagger_1eta = SelectedTops[0].Eta();
           toptagger_1phi = SelectedTops[0].Phi();
         }
-
-        sort(SelectedTops.begin(), SelectedTops.end(), compEle);
-        vector<double> TopPtSorted;
-        sort_jetPt(SelectedTops, TopPtSorted);
-        if (toptagger_num > 0)
-          LeadingTopPt = TopPtSorted[0];
-        if (toptagger_num > 1)
-          SecondTopPt = TopPtSorted[1];
+        // sort(SelectedTops.begin(), SelectedTops.end(), compEle);
+        // vector<double> TopPtSorted;
+        // sort_jetPt(SelectedTops, TopPtSorted);
+        // if (toptagger_num > 0)
+          // toptagger_1pt = TopPtSorted[0];
+        // if (toptagger_num > 1)
+          // toptagger_2pt = TopPtSorted[1];
         if (toptagger_num > 1) {
+          toptagger_2pt = SelectedTops[1].Pt();
+          toptagger_2eta = SelectedTops[1].Eta();
+          toptagger_2phi = SelectedTops[1].Phi();
           vector<double> MinMaxDeltaRTops;
           MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
-          MinDeltaRTops = MinMaxDeltaRTops[0];
-          MaxDeltaRTops = MinMaxDeltaRTops[1];
+          toptagger_minDeltaR = MinMaxDeltaRTops[0];
+          toptagger_maxDeltaR = MinMaxDeltaRTops[1];
         }
-        TopTaggerScoreAllTops = TopScoreAllTopsCal(SelectedTops);
+        toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
 
         // only top that decay into 3 jets
         /*			TLorentzVector Jet1Resolved;
@@ -3146,12 +3148,13 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
   NewTree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
   NewTree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
-  NewTree->Branch("LeadingTopPt", &LeadingTopPt, "LeadingTopPt/D");
-  NewTree->Branch("SecondTopPt", &SecondTopPt, "SecondTopPt/D");
-  NewTree->Branch("MinDeltaRTops", &MinDeltaRTops, "MinDeltaRTops/D");
-  NewTree->Branch("MaxDeltaRTops", &MaxDeltaRTops, "MaxDeltaRTops/D");
-  NewTree->Branch("TopTaggerScoreAllTops", &TopTaggerScoreAllTops,
-                  "TopTaggerScoreAllTops/D");
+  NewTree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
+  NewTree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
+  NewTree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
+  NewTree->Branch("toptagger_minDeltaR", &toptagger_minDeltaR, "toptagger_minDeltaR/D");
+  NewTree->Branch("toptagger_maxDeltaR", &toptagger_maxDeltaR, "toptagger_maxDeltaR/D");
+  NewTree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops,
+                  "toptagger_scoreAllTops/D");
   //
   //
   NewTree->Branch("NumSelWJets", &NumSelWJets, "NumSelWJets/I");
@@ -3656,11 +3659,12 @@ void initializeVar() { /*{{{*/
   toptagger_1pt = -99;
   toptagger_1eta = -99;
   toptagger_1phi = -99;
-  LeadingTopPt = -99;
-  SecondTopPt = -99;
-  MinDeltaRTops = -99;
-  MaxDeltaRTops = -99;
-  TopTaggerScoreAllTops = -99;
+  toptagger_2pt = -99;
+  toptagger_2eta = -99;
+  toptagger_2phi = -99;
+  toptagger_minDeltaR = -99;
+  toptagger_maxDeltaR = -99;
+  toptagger_scoreAllTops = -99;
 
   //
   //

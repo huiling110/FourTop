@@ -531,8 +531,6 @@ double HTDividedByMET=-99;
 double MetDividedByHT=-99;
 double HTDividedByMet=-99;
 double MHTDividedByMET=-99;
-double NighthJetPt=-99;
-double TenthJetPt=-99;
 
 
 double LeadingJetpfDeepFlavourBJetTags=-99;
@@ -619,11 +617,12 @@ int toptagger_num=-99;
 double toptagger_1pt=-99;
 double toptagger_1eta = -99;
 double toptagger_1phi = -99;
-double LeadingTopPt=-99;
-double SecondTopPt=-99;
-double MinDeltaRTops=-99;
-double MaxDeltaRTops=-99;
-double TopTaggerScoreAllTops=-99;
+double toptagger_2pt=-99;
+double toptagger_2eta=-99;
+double toptagger_2phi=-99;
+double toptagger_minDeltaR=-99;
+double toptagger_maxDeltaR=-99;
+double toptagger_scoreAllTops=-99;
 //
 //
 int   jetsL_number=-99;
