@@ -29,9 +29,9 @@ void PlotterPreselection_PlayWithMC(){
 //name is plots we want to show   
 //?is there a more clever way to push_back all in a loop?
 
-  name.push_back("NumSelJets");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
+  // name.push_back("NumSelJets");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
 
-//name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(10);    Max.push_back(2000);    axis.push_back("Invariant mass of jets");
+name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(10);    Max.push_back(2000);    axis.push_back("Invariant mass of jets");
 //  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
 //  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
@@ -189,13 +189,12 @@ void PlotterPreselection_PlayWithMC(){
 
 
 
-//
 	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
-vector<string> Channel = {/*"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",*/"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-//vector<string> Channel = { "1Tau0L_v2"   };
+// vector<string> Channel = {[>"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",<]"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
+vector<string> Channel = { "1Tau0L_v2"   };
 //vector<string> Channel = { "1Tau1L_v2"   };
 
 for ( string ch : Channel){
@@ -308,7 +307,6 @@ for ( string ch : Channel){
           
         }/*}}}*/
 
-/*
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
         TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
         c1_2->Draw();
@@ -429,7 +427,6 @@ for ( string ch : Channel){
 
   //      std::map<float, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
-*/
 
         for(UInt_t j = 0; j < BGFiles.size(); j++){
              delete (BGFiles[j]);
@@ -770,6 +767,8 @@ void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int 
   histo->SetName("histo");
   delete temp;
  }/*}}}*/
+
+
 
 float separationPower(TH1F* h1, TH1F* h2){
     float norm = 1;

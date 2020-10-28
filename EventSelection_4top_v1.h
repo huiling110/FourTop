@@ -480,22 +480,23 @@ double deltaRb2Lep2=-99;
 double deltaPhiMetTop=-99.;
 double MinDeltaPhiJetMet=99.;
 double MinDeltaPhiBoostedJetMet=99.;
+
 int   leptonsL_number=-99;
 int leptonsT_number=-99;
 int leptonsT_number_v2=-99;
 int leptonsMVAF_number=-99;
 int leptonsMVAT_number=-99;
 double leptonsTMVA_transMass = -99;
-double leadingEleMVAF_pt = -99;
-double leading_leptonsMVATpt = -99;
-double leading_leptohsMVAT_eta = -99;
-double leading_leptonsMVAT_phi = -99;
-double second_leptonsMVATpt= -99;
-double second_leptohsMVAT_eta = -99;
-double second_leptonsMVAT_phi= -99;
-double third_leptonsMVATpt = -99;
-double third_leptohsMVAT_eta = -99;
-double third_leptonsMVAT_phi = -99;
+double elesMVAF_1pt = -99;
+double leptonsMVAT_1pt = -99;
+double leptonsMVAT_1eta = -99;
+double leptonsMVAT_1phi = -99;
+double leptonsMVAT_2pt= -99;
+double leptonsMVAT_2eta = -99;
+double leptonsMVAT_2phi= -99;
+double leptonsMVAT_3pt = -99;
+double leptonsMVAT_3eta = -99;
+double leptonsMVAT_3phi = -99;
 
 int muonsT_number=-99;
 
