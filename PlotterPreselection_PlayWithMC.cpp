@@ -29,9 +29,9 @@ void PlotterPreselection_PlayWithMC(){
 //name is plots we want to show   
 //?is there a more clever way to push_back all in a loop?
 
-  // name.push_back("NumSelJets");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
+  // name.push_back("jetsL_number");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
 
-name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(10);    Max.push_back(2000);    axis.push_back("Invariant mass of jets");
+name.push_back("jetsL_invariantMass");      bin.push_back(100);     Min.push_back(10);    Max.push_back(2000);    axis.push_back("Invariant mass of jets");
 //  name.push_back("Centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(4);    axis.push_back("Centrality");
 //  name.push_back("HTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(40);    axis.push_back("HT / MET");
 //  name.push_back("MHTDividedByMET");      bin.push_back(100);     Min.push_back(0);    Max.push_back(50);    axis.push_back("MHT / MET");
@@ -40,8 +40,8 @@ name.push_back("InvariantMassJets");      bin.push_back(100);     Min.push_back(
 //  name.push_back("MaxDeltaRJets");      bin.push_back(100);     Min.push_back(2);    Max.push_back(6);    axis.push_back("Maximum delta R of Jets");
 //  name.push_back("MinDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Min delta R of B Jets");
 //  name.push_back("MaxDeltaRBJets");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("Maximum delta R of B Jets");
-//  name.push_back("NumSelJets");      bin.push_back(12);     Min.push_back(0);    Max.push_back(12);    axis.push_back("Number of jets");
-//  name.push_back("NumSelBJetsM");      bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium b jets");
+//  name.push_back("jetsL_number");      bin.push_back(12);     Min.push_back(0);    Max.push_back(12);    axis.push_back("Number of jets");
+//  name.push_back("bjetsL_num");      bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium b jets");
 //  
 // name.push_back("HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(2200);    axis.push_back("HT pt[GeV]");
 // name.push_back("MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("MHT pt[GeV]");
@@ -203,8 +203,8 @@ for ( string ch : Channel){
     ch = "channel_"+ ch + "==1";
     const char*    channel= ch.c_str();//.c_str() returns a const char*
 //   sprintf(CUTpre,"%s", channel);
-//   sprintf(CUTpre,"(NumSelJets>5)&&(NumSelBJetsM>1)&&(%s)", channel);
-   sprintf(CUTpre,"(NumSelJets>6)&&(NumSelBJetsM>1)&&(%s)", channel);
+//   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
+   sprintf(CUTpre,"(jetsL_number>8)&&(bjetsL_num>2)&&(%s)", channel);
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -408,10 +408,10 @@ for ( string ch : Channel){
         TString NAME = name[i];
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    //    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
 //        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/test/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/plots_newcode/add_jetCut/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v4_NewNtupleAfterEventSelection/plots_newcode/add_jetCut/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v5_NewNtuple/plots_and_results/test/"+NAME+postfix);
         cout<<"Finished "<<NAME+postfix<<endl;
     //    c1->Draw(); 
 
@@ -425,7 +425,7 @@ for ( string ch : Channel){
 //        separation_power.push_back(sp);
         cout<<NAME<<"  separation power"<<sp<<endl;
 
-  //      std::map<float, TString> mymap;
+       // std::map<float, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
 
         for(UInt_t j = 0; j < BGFiles.size(); j++){
@@ -737,19 +737,6 @@ for ( string ch : Channel){
 
 
 
-   /* 
-    TString NAME = name[i];
-   //c1->SaveAs(NAME+".pdf");
-   // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/PlayWithMC_RemoveHLT_PFHT900/MC_NormalizedRmTTJets/"+NAME+".eps");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v1_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots_test/"+NAME+".png");
-//    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v3_NewNtupleAfterEventSelection/test/"+NAME+postfix);
-    cout<<"Finished "<<NAME+postfix<<endl;
-//    c1->Draw(); 
-*/
 }
 }
 
