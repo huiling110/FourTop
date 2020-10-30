@@ -562,9 +562,9 @@ void EventSelection_4top_v1(
           jetsL_11phi = SelectedJets[10].Phi();
         }
 
-        if (!(jetsL_number > 0))
+        if (!(jetsL_number > 3))
           continue;
-        if (!(bjetsL_num > 0))
+        if (!(bjetsL_num > 1))
           continue;
         //
         //
