@@ -2984,8 +2984,6 @@ void branch(bool data, int selection, TTree *NewTree,
                   "leptonsMVAT_number/I");
   NewTree->Branch("leptonsTMVA_transMass", &leptonsTMVA_transMass,
                   "leptonsTMVA_transMass/I");
-  NewTree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
-                  "elesMVAF_1pt/D");
   NewTree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
                   "leptonsMVAT_1pt/D");
   NewTree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
@@ -3010,44 +3008,23 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("eleL_number", &eleL_number, "eleL_number/I");
   NewTree->Branch("eleM_number", &eleM_number, "eleM_number/I");
   NewTree->Branch("eleT_number", &eleT_number, "eleT_number/I");
+  NewTree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
+                  "elesMVAF_1pt/D");
   NewTree->Branch("muonsL_number", &muonsL_number, "muonsL_number/I");
   NewTree->Branch("muonsT_number", &muonsT_number, "muonsT_number/I");
 
   NewTree->Branch("jetsL_number", &jetsL_number, "jetsL_number/I");
-  NewTree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
-  NewTree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
-  NewTree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
-  NewTree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
   NewTree->Branch("jetsL_HT", &jetsL_HT, "jetsL_HT/D");
-  NewTree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
-  NewTree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
-  NewTree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
   NewTree->Branch("jetsL_MHT", &jetsL_MHT, "jetsL_MHT/D");
   NewTree->Branch("jetsL_invariantMass", &jetsL_invariantMass,
                   "jetsL_invariantMass/D");
-  NewTree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
-                  "bjetsL_invariantMass/D");
-  NewTree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
-                  "bjetsM_invariantMass/D");
-  NewTree->Branch("bjetsT_invariantMass", &bjetsT_invariantMass,
-                  "bjetsT_invariantMass/D");
   NewTree->Branch("jetsL_transMass", &jetsL_transMass, "jetsL_transMass/D");
-  NewTree->Branch("bjetsL_transMass", &bjetsL_transMass, "bjetsL_transMass/D");
-  NewTree->Branch("bjetsM_transMass", &bjetsM_transMass, "bjetsM_transMass/D");
-  NewTree->Branch("bjetsT_transMass", &bjetsT_transMass, "bjetsT_transMass/D");
   NewTree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
-  NewTree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
-  NewTree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
-  NewTree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
   NewTree->Branch("jetsL_centrality", &jetsL_centrality, "jetsL_centrality/D");
   NewTree->Branch("Aplanarity", &Aplanarity, "Aplanarity/D");
   // NewTree->Branch("MaxdeltaRJets",        &MaxdeltaRJets, "MaxdeltaRJets/D");
   NewTree->Branch("Sphericity", &Sphericity, "Sphericity/D");
   // NewTree->Branch("MindeltaRJets",     &MindeltaRJets, "MindeltaRJets/D");
-  NewTree->Branch("HTDividedByMET", &HTDividedByMET, "HTDividedByMET/D");
-  NewTree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
-  NewTree->Branch("HTDividedByMet", &HTDividedByMet, "HTDividedByMet/D");
-  NewTree->Branch("MHTDividedByMET", &MHTDividedByMET, "MHTDividedByMET/D");
   NewTree->Branch("LeadingJetpfDeepFlavourBJetTags",
                   &LeadingJetpfDeepFlavourBJetTags,
                   "LeadingJetpfDeepFlavourBJetTags/D");
@@ -3064,13 +3041,6 @@ void branch(bool data, int selection, TTree *NewTree,
                   "jetsL_leptonsMVAT_minDeltaR/D");
   NewTree->Branch("jetsL_tausF_minDeltaR", &jetsL_tausF_minDeltaR,
                   "jetsL_tausF_minDeltaR/D");
-  NewTree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
-  NewTree->Branch("forwardjet_1pt", &forwardjet_1pt, "forwardjet_1pt/D");
-  NewTree->Branch("forwardjet_1eta", &forwardjet_1eta, "forwardjet_1eta/D");
-  NewTree->Branch("forwardjet_1phi", &forwardjet_1phi, "forwardjet_1phi/D");
-  NewTree->Branch("forwardjet1_jetsL_minDeltaEta",
-                  &forwardjet1_jetsL_minDeltaEta,
-                  "forwardjet1_jetsL_minDeltaEta/D");
   NewTree->Branch("jetsL_1pt", &jetsL_1pt, "jetsL_1pt/D");
   NewTree->Branch("jetsL_1eta", &jetsL_1eta, "jetsL_1eta/D");
   NewTree->Branch("jetsL_1phi", &jetsL_1phi, "jetsL_1phi/D");
@@ -3109,6 +3079,38 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("MaxDeltaRBJets", &MaxDeltaRBJets, "MaxDeltaRBJets/D");
   NewTree->Branch("MaxDeltaRJets", &MaxDeltaRJets, "MaxDeltaRJets/D");
   NewTree->Branch("MinDeltaPhiJets", &MinDeltaPhiJets, "MinDeltaPhiJets/D");
+  NewTree->Branch("HTDividedByMET", &HTDividedByMET, "HTDividedByMET/D");
+  NewTree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
+  NewTree->Branch("HTDividedByMet", &HTDividedByMet, "HTDividedByMet/D");
+  NewTree->Branch("MHTDividedByMET", &MHTDividedByMET, "MHTDividedByMET/D");
+
+  NewTree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
+  NewTree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
+  NewTree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
+  NewTree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
+  NewTree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
+  NewTree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
+  NewTree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
+                  "bjetsL_invariantMass/D");
+  NewTree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
+                  "bjetsM_invariantMass/D");
+  NewTree->Branch("bjetsT_invariantMass", &bjetsT_invariantMass,
+                  "bjetsT_invariantMass/D");
+  NewTree->Branch("bjetsL_transMass", &bjetsL_transMass, "bjetsL_transMass/D");
+  NewTree->Branch("bjetsM_transMass", &bjetsM_transMass, "bjetsM_transMass/D");
+  NewTree->Branch("bjetsT_transMass", &bjetsT_transMass, "bjetsT_transMass/D");
+  NewTree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
+  NewTree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
+  NewTree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
+  NewTree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
+
+  NewTree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
+  NewTree->Branch("forwardjet_1pt", &forwardjet_1pt, "forwardjet_1pt/D");
+  NewTree->Branch("forwardjet_1eta", &forwardjet_1eta, "forwardjet_1eta/D");
+  NewTree->Branch("forwardjet_1phi", &forwardjet_1phi, "forwardjet_1phi/D");
+  NewTree->Branch("forwardjet1_jetsL_minDeltaEta",
+                  &forwardjet1_jetsL_minDeltaEta,
+                  "forwardjet1_jetsL_minDeltaEta/D");
 
   NewTree->Branch("tausL_number", &tausL_number, "tausL_number/I");
   NewTree->Branch("tausF_number", &tausF_number, "tausF_number/I");
@@ -3124,6 +3126,15 @@ void branch(bool data, int selection, TTree *NewTree,
                   "tausF_invariantMass/D");
   NewTree->Branch("tausL_minDeltaR", &tausL_minDeltaR, "tausL_minDeltaR/D");
   NewTree->Branch("tausF_minDeltaR", &tausF_minDeltaR, "tausF_minDeltaR/D");
+  NewTree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
+  NewTree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
+  NewTree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
+  NewTree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
+  NewTree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
+  NewTree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
+  NewTree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
+  NewTree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
+  NewTree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
   NewTree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass,
                   "tausF_leptonsT_transMass/D");
   NewTree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
@@ -3134,15 +3145,11 @@ void branch(bool data, int selection, TTree *NewTree,
                   "tausF_leptonsT_chargeSum/D");
   NewTree->Branch("tausF_leptonsTMVA_minDeltaR", &tausF_leptonsTMVA_minDeltaR,
                   "tausF_leptonsTMVA_minDeltaR/D");
-  NewTree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
-  NewTree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
-  NewTree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
-  NewTree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
-  NewTree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
-  NewTree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
-  NewTree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
-  NewTree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
-  NewTree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
+
+  NewTree->Branch("Met_pt", &Met_pt, "Met_pt/D");
+  NewTree->Branch("Met_phi", &Met_phi, "Met_phi/D");
+  NewTree->Branch("TransverseMassMetTop", &TransverseMassMetTop,
+                  "TransverseMassMetTop/D");
 
   NewTree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
   NewTree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
@@ -3251,10 +3258,6 @@ void branch(bool data, int selection, TTree *NewTree,
                   "prefiringweightup/D");
   NewTree->Branch("prefiringweightdown", &prefiringweightdown,
                   "prefiringweightdown/D");
-  NewTree->Branch("Met_pt", &Met_pt, "Met_pt/D");
-  NewTree->Branch("Met_phi", &Met_phi, "Met_phi/D");
-  NewTree->Branch("TransverseMassMetTop", &TransverseMassMetTop,
-                  "TransverseMassMetTop/D");
 
   if (selection == 2) {
     NewTreeSB->Branch("TopMass", &TopMass, "TopMass/D");
