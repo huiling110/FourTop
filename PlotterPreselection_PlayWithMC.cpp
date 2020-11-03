@@ -185,8 +185,10 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 // vector<string> Channel = {[>"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",<]"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-vector<string> Channel = { "1Tau0L_v2"   };
-//vector<string> Channel = { "1Tau1L_v2"   };
+// vector<string> Channel = { "1Tau0L_v2"   };
+// vector<string> Channel = { "1Tau1E_v2"   };
+// vector<string> Channel = { "1Tau1Mu_v2"   };
+vector<string> Channel = { "1Tau2OS_v2"   };
 
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
@@ -195,7 +197,9 @@ for ( string ch : Channel){
     const char*    channel= ch.c_str();//.c_str() returns a const char*
 //   sprintf(CUTpre,"%s", channel);
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
-   sprintf(CUTpre,"(jetsL_number>8)&&(bjetsL_num>2)&&(%s)", channel);
+   // sprintf(CUTpre,"(jetsL_number>8)&&(bjetsL_num>2)&&(%s)", channel);//1Tau0L
+   // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau1L
+   sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
@@ -225,7 +229,7 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- // for(int i=0; i<2; i++){
+ // for(UInt_t i=0; i<3; i++){
   for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
@@ -247,7 +251,7 @@ for ( string ch : Channel){
              WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//20
              WJetsToLNu,  DYJetsToTauTau,//22
              tZq_ll,  ST_tW_antitop,  ST_tW_top,  TGJets, THW,  THQ,//28
-             VHToNonbb,  ZHToTauTau,  ZH_HToBB_ZToLL,  GluGluHToZZTo4L,  GluGluHToBB,  GluGluHToGG,  GluGluHToMuMu,  GluGluHToTauTau,  GluGluHToWWTo2L2Nu,  GluGluHToWWToLNuQQ,  VBFHToWWTo2L2Nu, /* VBFHToTauTau, */ VBFHToMuMu,  VBFHToGG 
+             VHToNonbb,  ZHToTauTau,  ZH_HToBB_ZToLL,  GluGluHToZZTo4L,  GluGluHToBB,  GluGluHToGG,  GluGluHToMuMu,  GluGluHToTauTau,  GluGluHToWWTo2L2Nu,  GluGluHToWWToLNuQQ,  VBFHToWWTo2L2Nu, /* VBFHToTauTau, */ VBFHToMuMu,  VBFHToGG// 41
         };
 //        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
 //        vector<TH1F*> BGFiles_NormalizedToXSection;
@@ -268,7 +272,7 @@ for ( string ch : Channel){
             bgTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); BGFiles[j] = (TH1F*)h->Clone(); delete h; 
         	
             BGFiles[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory.
-            BGFiles[j]->SetName("histo");
+            // BGFiles[j]->SetName("histo");
 
             // auto histo = BGFiles[j];
             // bgTree[j]->Project("histo",plot,CUT);
@@ -297,20 +301,21 @@ for ( string ch : Channel){
             cout<<endl;
             cout<<"Plotting "<<name[i]<<postfix<<endl;
          //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
-            cout<<"TTJets   = "<<BGFiles[1]->Integral()<<endl;
-            cout<<"WJets = "<<BGFiles[21]->Integral()<<endl;      
-            cout<<"DY = "<<BGFiles[22]->Integral()<<endl;      
-            cout<<"ttbb = "<<BGFiles[6]->Integral()<<endl;      
-            cout<<"WZ = "<<BGFiles[7]->Integral()<<endl;      
-            cout<<"WW = "<<BGFiles[8]->Integral()+BGFiles[9]->Integral()<<endl;      
-            cout<<"ZZ = "<<BGFiles[10]->Integral()<<endl;      
-            cout<<"WG = "<<BGFiles[11]->Integral()<<endl;      
-    //        cout<<"SINGLE TOP = "<<+->Integral()+ST_tW_top_SR->Integral()<<endl;      
-    //        cout<<"H = "<<VHToNonbb_SR->Integral()+ZHToTauTau_SR->Integral()+ZH_HToBB_ZToLL_SR->Integral()+GluGluHToZZTo4L_SR->Integral()+GluGluHToBB_SR->Integral()+GluGluHToGG_SR->Integral()+GluGluHToMuMu_SR->Integral()+GluGluHToTauTau_SR->Integral()+GluGluHToWWTo2L2Nu_SR->Integral()+GluGluHToWWToLNuQQ_SR->Integral()+VBFHToWWTo2L2Nu_SR->Integral()+VBFHToGG_SR->Integral()<<endl;
-    //	  cout<<"Total BKG = "<<TTJets_SR->Integral()          +TTGJets_SR->Integral()          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()          +ttH_SR->Integral()          +WW_SR->Integral()+WpWpJJ_SR->Integral()          +ZZ_SR->Integral()     " +/- "<<sqrt(TTJetsErr*TTJetsErr            +TTGJetsErr*TTGJetsErr;
-          cout<<"TTTT = "<<(BGFiles[0])->Integral()<<endl;
-          cout<<"Total BKG = "<<background_SR->Integral()<<endl;
-          
+            cout<<"TTTT   = "<<(BGFiles[0])->Integral()<<endl;
+            cout<<"TTJets = "<<BGFiles[1]->Integral()<<endl;
+            cout<<"TTX    = "<<BGFiles[2]->Integral()+BGFiles[3]->Integral()+BGFiles[4]->Integral()+BGFiles[5]->Integral()<<endl;
+            cout<<"ttbb   = "<<BGFiles[6]->Integral()<<endl;      
+            cout<<"VV     = "<<BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()+BGFiles[12]->Integral()<<endl;
+            cout<<"VVV    = "<<BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()+BGFiles[20]->Integral()<<endl;
+            cout<<"WJets  = "<<BGFiles[21]->Integral()<<endl;      
+            cout<<"DY     = "<<BGFiles[22]->Integral()<<endl;      
+            cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
+            cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
+            // cout<<"WZ = "<<BGFiles[7]->Integral()<<endl;
+            // cout<<"WW = "<<BGFiles[8]->Integral()+BGFiles[9]->Integral()<<endl;
+            // cout<<"ZZ = "<<BGFiles[10]->Integral()<<endl;
+            // cout<<"WG = "<<BGFiles[11]->Integral()<<endl;
+            cout<<"Total BKG = "<<background_SR->Integral()<<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -416,7 +421,8 @@ for ( string ch : Channel){
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/test/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/test_v2/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/test_v2/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/v6/"+NAME+postfix);
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
 
@@ -431,7 +437,8 @@ for ( string ch : Channel){
 //        separation_power.push_back(sp);
         cout<<NAME<<" separation power"<<sp<<endl;
         std::cout << '\n';
-
+        if(i==(name.size()-1)) cout<<ch<<endl;
+        // if(i==2) cout<<ch<<endl;
        // std::map<float, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
 
@@ -448,9 +455,10 @@ for ( string ch : Channel){
         // std::cout <<it->second << " = " << it->first  << " "<<endl; // print the value of the element it points to
         // ++it; // and iterate to the next element
     // }
-    for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit)
-    std::cout <<  rit->second << " = "<< rit->first << endl;
-    std::cout << '\n';
+    for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
+        std::cout <<  rit->second << " = "<< rit->first << endl;
+        // std::cout << '\n';
+    }
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
