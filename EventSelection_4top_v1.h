@@ -64,6 +64,7 @@ void sort_jetPt(const vector<TLorentzVector> SelectedJets,vector<double> &JetsPt
 void AddTwoVectors(const vector<TLorentzVector> SelectedMuonsT, const vector<TLorentzVector> SelectedElectronsMVAT,  vector<TLorentzVector> & SelectedLeptonsMVAT);
 void FindLeadingToThirdPtIndex(const vector<TLorentzVector> SelectedJets,const vector<double> JetsPtSorted, Int_t &LeadingPtIndex, Int_t     &SecondPtIndex, Int_t &ThirdPtIndex);
 double BScoreAllJetsCal(vector<double> SeclectedJetsBTags);
+double bscoreSumOf4largestCal(const vector<double> SelectedJetsBTags) ;
 void MinMaxdeltaRJetsCal(vector<TLorentzVector> SelectedJets,vector<double>& MinMaxDeltaR);
 double AverageDeltaRCal(const vector<TLorentzVector> SelectedJets);
 void MinMaxDeltaPhiCal(vector<TLorentzVector> SelectedJets,vector<double> &MinMaxDeltaPhi);
@@ -540,6 +541,7 @@ double jetsL_bScore=-99;
 
 double MinDeltaRJets=-99;
 double jetsL_average_deltaR = -99;
+double jetsL_4largestBscoreSum = -99;
 double MaxDeltaRJets=-99;
 double MinDeltaPhiJets=-99;
 double jetsL_leptonsMVAT_minDeltaR = -99;

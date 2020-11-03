@@ -8,8 +8,7 @@
 void EventSelection_4top_v1(
     const bool istest = true,
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/"
-                             "NewNtupleAfterEventSelection_test/") {
+    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
   gStyle->SetOptStat("rme");
@@ -422,34 +421,15 @@ void EventSelection_4top_v1(
                    SysJes, SysJer,
                    deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
         jetsL_number = SelectedJets.size();
-        forwardJets_num = SelectedForwardJets.size(); // 185
-        bjetsL_num = SelectedBJetsL.size();
-        bjetsM_num = SelectedBJetsM.size(); //
-        bjetsT_num = SelectedBJetsT.size();
-        jetsL_MHT =
-            MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
+        jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
         jetsL_HT = HTcalculator(SelectedJets);
-        bjetsL_HT = HTcalculator(SelectedBJetsL);
-        bjetsM_HT = HTcalculator(SelectedBJetsM);
-        bjetsT_HT = HTcalculator(SelectedBJetsT);
         jetsL_invariantMass = InvariantMassCalculator(SelectedJets);
-        bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
-        bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
-        bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
         jetsL_transMass = TransMassCal(SelectedJets);
-        bjetsL_transMass = TransMassCal(SelectedBJetsL);
-        bjetsM_transMass = TransMassCal(SelectedBJetsM);
-        bjetsT_transMass = TransMassCal(SelectedBJetsT);
         jetL_minDeltaR = MinDeltaRSingleCal(SelectedJets);
-        bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
-        bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
-        bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
         jetsL_centrality = jetsL_HT / jetsL_invariantMass;
         jetsL_bScore = BScoreAllJetsCal(SelectedJetsBTags);
         jetsL_average_deltaR = AverageDeltaRCal(SelectedJets);
-        //			Aplanarity        =
-        //          Sphericity =
-
+        jetsL_4largestBscoreSum = bscoreSumOf4largestCal(SelectedJetsBTags);
         if (Met_pt == 0) {
           HTDividedByMET = 0;
         } else {
@@ -461,11 +441,24 @@ void EventSelection_4top_v1(
         jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets, LeptonsMVAT);
         jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets, SelectedTausF);
 
-        /*            vector<double> JetsPtSorted;
-           sort_jetPt(SelectedJets,JetsPtSorted);
-                    vector<double> BJetsMPtSorted;
-           sort_jetPt(SelectedBJetsM,BJetsMPtSorted);*/
+        bjetsL_num = SelectedBJetsL.size();
+        bjetsM_num = SelectedBJetsM.size(); //
+        bjetsT_num = SelectedBJetsT.size();
+        bjetsL_HT = HTcalculator(SelectedBJetsL);
+        bjetsM_HT = HTcalculator(SelectedBJetsM);
+        bjetsT_HT = HTcalculator(SelectedBJetsT);
+        bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
+        bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
+        bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
+        bjetsL_transMass = TransMassCal(SelectedBJetsL);
+        bjetsM_transMass = TransMassCal(SelectedBJetsM);
+        bjetsT_transMass = TransMassCal(SelectedBJetsT);
+        bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
+        bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
+        bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
 
+
+        forwardJets_num = SelectedForwardJets.size(); // 185
         /*            Int_t leading_pt_index = -99; Int_t second_pt_index = -99;
            Int_t third_pt_index = -99;
                     FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);
@@ -2417,6 +2410,20 @@ double BScoreAllJetsCal(const vector<double> SelectedJetsBTags) {
   return initB;
 }
 
+
+double bscoreSumOf4largestCal(const vector<double> SelectedJetsBTags) {
+    vector<double> jetsBtags = SelectedJetsBTags;
+    sort(jetsBtags.begin(),jetsBtags.end());
+    reverse(jetsBtags.begin(),jetsBtags.end());
+    double sum = -99;
+    if(SelectedJetsBTags.size()>3) {
+        sum = jetsBtags[0]+jetsBtags[1]+jetsBtags[2]+jetsBtags[3];
+    }
+    else{
+        sum =  -99;
+    }
+    return sum;
+}
 // it seems that fileName doesn't occur in the function .
 // void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string
 // fileName){
@@ -3035,8 +3042,8 @@ void branch(bool data, int selection, TTree *NewTree,
                   &ThirdJetpfDeepFlavourBJetTags,
                   "ThirdJetpfDeepFlavourBJetTags/D");
   NewTree->Branch("jetsL_bScore", &jetsL_bScore, "jetsL_bScore/D");
-  NewTree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR,
-                  "jetsL_average_deltaR/D");
+  NewTree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
+  NewTree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
                   "jetsL_leptonsMVAT_minDeltaR/D");
   NewTree->Branch("jetsL_tausF_minDeltaR", &jetsL_tausF_minDeltaR,
@@ -3586,6 +3593,7 @@ void initializeVar() { /*{{{*/
   jetsL_bScore = -99;
   MinDeltaRJets = -99;
   jetsL_average_deltaR = -99;
+  jetsL_4largestBscoreSum = -99;
   MaxDeltaRJets = -99;
   MinDeltaPhiJets = -99;
   jetsL_leptonsMVAT_minDeltaR = -99;
