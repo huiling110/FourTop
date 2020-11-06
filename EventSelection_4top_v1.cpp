@@ -80,8 +80,7 @@ void EventSelection_4top_v1(
                     // // match.
     // If no matches were found, the function returns string::npos.//what is
     // data?	//if filename is data, data=true. data and MC files have
-    // different
-    // tree .
+    // different    // tree .
     cout << "data" << data << endl;
     Long64_t nentries =
         (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
@@ -100,22 +99,20 @@ void EventSelection_4top_v1(
         continue;
       // preselection=true ,sideband=false,in this case selection=0
       //?what does sideband and signal do?
-      //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);//Tree->SetBranchAddress;NewTree
-      // and SB->Branch
+      //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);Tree->SetBranchAddress;NewTree and SB->Branch
       branch(data, selection, NewTree,
              NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 1000;
+        NumOfEvents = 10000;
       } else {
         NumOfEvents = nentries;
       }
       for (Long64_t i = 0; i < NumOfEvents; i++) {
         Long64_t tentry = Tree->LoadTree(i); // Set current entry.
         branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
-        // b_Jet_pt->GetEntry(tentry);//is a
-        // branch in tree, setadress.
+        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
         initializeVar(); // initialize for new tree.
                          //			if(!(HLT_PFHT900_==1 ||
         // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_
@@ -134,9 +131,7 @@ void EventSelection_4top_v1(
           continue;
         //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
         // continue;
-        //			why this filter not work?//applied only in 2017
-        // and
-        // 2018
+        //			why this filter not work?//applied only in 2017 and 2018
         if (data) {
           if (!(Flag_eeBadScFilter_ == 1))
             continue;
@@ -170,11 +165,11 @@ void EventSelection_4top_v1(
         vector<int> SelectedElectronsTIndex;
         vector<TLorentzVector> SelectedElectronsVeto;
         vector<int> SelectedElectronsVetoIndex;
-        SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);
+        SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//cut based ID
         SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
         SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
-        SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex,
-                        3); // 304
+        SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3); 
+
         eleL_number = SelectedElectronsL.size();
         eleM_number = SelectedElectronsM.size();
         eleT_number = SelectedElectronsT.size();
@@ -887,10 +882,11 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
         patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
     if (!(fabs(eta) < 2.5))
       continue;
+    //id
     if (fabs(eta) < 0.8) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > 3.447 + 0.063 * (pt - 25)))
+          if (!(MVA_value > (3.447 + 0.063 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
@@ -904,10 +900,10 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > 0.887 + 0.088 * (pt - 25)))
+          if (!(MVA_value > ( 0.887 + 0.088 * (pt - 25))))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > 0.887))
             continue;
         }
@@ -917,20 +913,20 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
           if (!(MVA_value > (-0.259)))
             continue;
         }
-        if (10 < pt && pt < 25) {
-          if (!(MVA_value > (-0.388) + 0.109 * (pt - 25)))
+        if (10 < pt && pt <= 25) {
+          if (!(MVA_value >( (-0.388) + 0.109 * (pt - 25))))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > (-0.388)))
             continue;
         }
       }
     }
-    if (0.8 < fabs(eta) && fabs(eta) < 1.479) {
+    if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > 2.522 + 0.058 * (pt - 25)))
+          if (!(MVA_value > (2.522 + 0.058 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
@@ -939,21 +935,21 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
         }
       }
       if (type == 0) {
-        if (5 < pt && pt < 10) {
+        if (5 < pt && pt <= 10) {
           if (!(MVA_value > 0.373))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > 0.112 + 0.099 * (pt - 25)))
+          if (!(MVA_value > (0.112 + 0.099 * (pt - 25))))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > 0.112))
             continue;
         }
       }
       if (type == 1) {
-        if (5 < pt && pt < 10) {
+        if (5 < pt && pt <= 10) {
           if (!(MVA_value > (-0.256)))
             continue;
         }
@@ -961,16 +957,16 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
           if (!(MVA_value > (-0.696) + 0.106 * (pt - 25)))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > (-0.696)))
             continue;
         }
       }
     }
-    if (1.479 < fabs(eta) && fabs(eta) < 2.5) {
+    if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > 1.555 + 0.075 * (pt - 25)))
+          if (!(MVA_value > (1.555 + 0.075 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
@@ -979,29 +975,29 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
         }
       }
       if (type == 0) {
-        if (5 < pt && pt < 10) {
+        if (5 < pt && pt <= 10) {
           if (!(MVA_value > 0.071))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > (-0.017) + 0.137 * (pt - 25)))
+          if (!(MVA_value > ((-0.017) + 0.137 * (pt - 25))))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > (-0.017)))
             continue;
         }
       }
       if (type == 1) {
-        if (5 < pt && pt < 10) {
+        if (5 < pt && pt <= 10) {
           if (!(MVA_value > (-1.630)))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > (-1.219) + 0.148 * (pt - 25)))
+          if (!(MVA_value > ((-1.219) + 0.148 * (pt - 25))))
             continue;
         }
-        if (pt > 25) {
+        if (pt >= 25) {
           if (!(MVA_value > (-1.219)))
             continue;
         }
