@@ -8,8 +8,8 @@
 void EventSelection_4top_v1(
     const bool istest = true,
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-    // const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
-    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/addEleIsoCut/") {
+    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
+    // const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/addEleIsoCut/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
   gStyle->SetOptStat("rme");
@@ -106,7 +106,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 10000;
+        NumOfEvents = 50000;
       } else {
         NumOfEvents = nentries;
       }
@@ -1011,7 +1011,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
       I2 = 0;
       I3 = 0;
     } // looseWP from ss of TTTT}
-    if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+    // if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
     //    ??patElectron_jetptratioV2?
     if (!((patElectron_miniIsoRel_->at(j) < I1) &&
           ((patElectron_jetptratio_->at(j) > I2) ||
@@ -1067,6 +1067,9 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     // iso->change to 0.15(tight) from 0.25
     // Muon_relIsoDeltaBetaR04?_
     double I1 = 0.4, I2 = 0, I3 = 0; // looseWP from ss of TTTT
+    if(type == 2){
+        I1 = 0.16; I2 = 0.76, I3 = 7.2;
+    }
     //    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))
     // continue;
     if (!((Muon_miniIsoRel_->at(j) < I1) &&
