@@ -513,6 +513,7 @@ int   eleL_number=-99;
 int   eleM_number=-99;
 int   eleT_number=-99;
 int   muonsL_number=-99;
+int  muonsL_number = -99;
 double   jetsL_invariantMass=-99;
 double bjetsL_invariantMass= -99;
 double bjetsM_invariantMass= -99;

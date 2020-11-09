@@ -185,6 +185,7 @@ void EventSelection_4top_v1(
         SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1);
         SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2);
         muonsL_number = SelectedMuonsL.size();
+        mounsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
         //            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
         vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
@@ -1083,6 +1084,8 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     // if(type == 1 or type == 2) {
         // if(!(Muon_IP3D_sig_->at(j)<4)) continue;
     // }
+
+    //charge
 
     //?Muon_jetptratioV2?
     TLorentzVector muon;
@@ -3018,6 +3021,7 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
                   "elesMVAF_1pt/D");
   NewTree->Branch("muonsL_number", &muonsL_number, "muonsL_number/I");
+  NewTree->Branch("muonsF_number", &muonsF_number, "muonsF_number/I");
   NewTree->Branch("muonsT_number", &muonsT_number, "muonsT_number/I");
 
   NewTree->Branch("jetsL_number", &jetsL_number, "jetsL_number/I");
@@ -3557,7 +3561,6 @@ void initializeVar() { /*{{{*/
   leptonsMVAT_3pt = -99;
   leptonsMVAT_3eta = -99;
   leptonsMVAT_3phi = -99;
-  muonsT_number = -99;
   eleT_number = -99;
   elesMVAL_number = -99;
   elesMVAF_number = -99;
@@ -3567,6 +3570,8 @@ void initializeVar() { /*{{{*/
   eleL_number = -99;
   eleM_number = -99;
   muonsL_number = -99;
+  mounsF_number = -99;
+  muonsT_number = -99;
   jetsL_invariantMass = -99;
   bjetsL_invariantMass = -99;
   bjetsM_invariantMass = -99;
