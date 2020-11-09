@@ -187,6 +187,7 @@ void EventSelection_4top_v1(
         muonsL_number = SelectedMuonsL.size();
         muonsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
+
         vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
                                         SelectedMuonsT.end());
         LeptonsT.insert(LeptonsT.end(), SelectedElectronsT.begin(),
@@ -225,6 +226,8 @@ void EventSelection_4top_v1(
         leptonsMVAF_number = LeptonsMVAF.size();
         leptonsMVAL_number = LeptonsMVAL.size();
         leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
+        leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
+        leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
         //            leptonsTMVA_maxDeltaEta =
 
         sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
@@ -250,6 +253,23 @@ void EventSelection_4top_v1(
           leptonsMVAT_3phi = LeptonsMVAT[2].Phi();
         }
 
+        sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
+        if (muonsT_number > 0) {
+          muonsT_1pt = SelectedMuonsT[0].Pt();
+          muonsT_1eta = SelectedMuonsT[0].Eta();
+          muonsT_1phi = SelectedMuonsT[0].Phi();
+        }
+        if (muonsT_number > 1) {
+          muonsT_2pt = SelectedMuonsT[1].Pt();
+          muonsT_2eta = SelectedMuonsT[1].Eta();
+          muonsT_2phi = SelectedMuonsT[1].Phi();
+        }
+        if (muonsT_number > 2) {
+          muonsT_3pt = SelectedMuonsT[2].Pt();
+          muonsT_3eta = SelectedMuonsT[2].Eta();
+          muonsT_3phi = SelectedMuonsT[2].Phi();
+        }
+
         // Cone-pT of selected leptons
 
         // hadronic tau selection
@@ -273,6 +293,7 @@ void EventSelection_4top_v1(
             SelectedTausT); // 900;return the pt sum of,vetctor sum
         tausL_HT = HTcalculator(SelectedTausL);
         tausF_HT = HTcalculator(SelectedTausF);
+        tausT_HT = HTcalculator(SelectedTausT);
         tausL_invariantMass = InvariantMassCalculator(SelectedTausL);
         tausF_invariantMass = InvariantMassCalculator(SelectedTausF);
         tausL_minDeltaR = MinDeltaRSingleCal(SelectedTausL);
@@ -2991,6 +3012,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("leptonsMVAT_number", &leptonsMVAT_number,"leptonsMVAT_number/I");
   NewTree->Branch("leptonsMVAL_number", &leptonsMVAL_number,"leptonsMVAL_number/I");
   NewTree->Branch("leptonsMVAT_transMass", &leptonsMVAT_transMass, "leptonsMVAT_transMass/I");
+  NewTree->Branch("leptonsMVAF_transMass", &leptonsMVAF_transMass, "leptonsMVAF_transMass/I");
+  NewTree->Branch("leptonsMVAL_transMass", &leptonsMVAL_transMass, "leptonsMVAL_transMass/I");
   NewTree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
                   "leptonsMVAT_1pt/D");
   NewTree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
@@ -3020,6 +3043,15 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("muonsL_number", &muonsL_number, "muonsL_number/I");
   NewTree->Branch("muonsF_number", &muonsF_number, "muonsF_number/I");
   NewTree->Branch("muonsT_number", &muonsT_number, "muonsT_number/I");
+  NewTree->Branch("muonsT_1pt", &muonsT_1pt, "muonsT_1pt/D");
+  NewTree->Branch("muonsT_1eta", &muonsT_1eta, "muonsT_1eta/D");
+  NewTree->Branch("muonsT_1phi", &muonsT_1phi, "muonsT_1phi/D");
+  NewTree->Branch("muonsT_2pt", &muonsT_2pt, "muonsT_2pt/D");
+  NewTree->Branch("muonsT_2eta", &muonsT_2eta, "muonsT_2eta/D");
+  NewTree->Branch("muonsT_2phi", &muonsT_2phi, "muonsT_2phi/D");
+  NewTree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/I");
+  NewTree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/I");
+  NewTree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/I");
 
   NewTree->Branch("jetsL_number", &jetsL_number, "jetsL_number/I");
   NewTree->Branch("jetsL_HT", &jetsL_HT, "jetsL_HT/D");
@@ -3128,6 +3160,7 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("tausT_MHT", &tausT_MHT, "tausT_MHT/D");
   NewTree->Branch("tausL_HT", &tausL_HT, "tausL_HT/D");
   NewTree->Branch("tausF_HT", &tausF_HT, "tausF_HT/D");
+  NewTree->Branch("tausT_HT", &tausT_HT, "tausT_HT/D");
   NewTree->Branch("tausL_invariantMass", &tausL_invariantMass,
                   "tausL_invariantMass/D");
   NewTree->Branch("tausF_invariantMass", &tausF_invariantMass,
@@ -3549,6 +3582,8 @@ void initializeVar() { /*{{{*/
   leptonsMVAT_number = -99;
   leptonsMVAL_number = -99;
   leptonsMVAT_transMass = -99;
+  leptonsMVAL_transMass = -99;
+  leptonsMVAF_transMass = -99;
   elesMVAF_1pt = -99;
   leptonsMVAT_1pt = -99;
   leptonsMVAT_1eta = -99;
@@ -3570,6 +3605,16 @@ void initializeVar() { /*{{{*/
   muonsL_number = -99;
   muonsF_number = -99;
   muonsT_number = -99;
+  muonsT_1pt = -99;
+  muonsT_1eta = -99;
+  muonsT_1phi = -99;
+  muonsT_2pt = -99;
+  muonsT_2eta = -99;
+  muonsT_2phi = -99;
+  muonsT_3pt = -99;
+  muonsT_3eta = -99;
+  muonsT_3phi = -99;
+
   jetsL_invariantMass = -99;
   bjetsL_invariantMass = -99;
   bjetsM_invariantMass = -99;
@@ -3650,6 +3695,7 @@ void initializeVar() { /*{{{*/
   tausT_MHT = -99;
   tausL_HT = -99;
   tausF_HT = -99;
+  tausT_HT = -99;
   tausL_invariantMass = -99;
   tausF_invariantMass = -99;
   tausL_minDeltaR = -99;
