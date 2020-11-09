@@ -185,9 +185,8 @@ void EventSelection_4top_v1(
         SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1);
         SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2);
         muonsL_number = SelectedMuonsL.size();
-        mounsF_number = SelectedMuonsF.size();
+        muonsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
-        //            vector<TLorentzVector> LeptonsT = SelectedMuonsT;
         vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
                                         SelectedMuonsT.end());
         LeptonsT.insert(LeptonsT.end(), SelectedElectronsT.begin(),
@@ -215,17 +214,16 @@ void EventSelection_4top_v1(
         elesMVAF_number = SelectedElectronsMVAF.size();
         elesMVAT_number = SelectedElectronsMVAT.size();
 
-        vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(),
-                                           SelectedMuonsF.end());
-        LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(),
-                           SelectedElectronsMVAF.end());
-        leptonsMVAF_number = LeptonsMVAF.size();
-        vector<TLorentzVector> LeptonsMVAT(SelectedMuonsT.begin(),
-                                           SelectedMuonsT.end());
-        LeptonsMVAT.insert(LeptonsMVAT.end(), SelectedElectronsMVAT.begin(),
-                           SelectedElectronsMVAT.end());
+        vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(), SelectedMuonsF.end());
+        LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end());
+        vector<TLorentzVector> LeptonsMVAT(SelectedMuonsT.begin(),  SelectedMuonsT.end());
+        LeptonsMVAT.insert(LeptonsMVAT.end(), SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end());
+        vector<TLorentzVector> LeptonsMVAL(SelectedMuonsL.begin(),  SelectedMuonsL.end());
+        LeptonsMVAL.insert(LeptonsMVAL.end(), SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end());
 
         leptonsMVAT_number = LeptonsMVAT.size();
+        leptonsMVAF_number = LeptonsMVAF.size();
+        leptonsMVAL_number = LeptonsMVAL.size();
         leptonsTMVA_transMass = TransMassCal(LeptonsMVAT);
         //            leptonsTMVA_maxDeltaEta =
 
@@ -2990,10 +2988,9 @@ void branch(bool data, int selection, TTree *NewTree,
                   "leptonsT_number_v2/I");
   NewTree->Branch("leptonsMVAF_number", &leptonsMVAF_number,
                   "leptonsMVAF_number/I");
-  NewTree->Branch("leptonsMVAT_number", &leptonsMVAT_number,
-                  "leptonsMVAT_number/I");
-  NewTree->Branch("leptonsTMVA_transMass", &leptonsTMVA_transMass,
-                  "leptonsTMVA_transMass/I");
+  NewTree->Branch("leptonsMVAT_number", &leptonsMVAT_number,"leptonsMVAT_number/I");
+  NewTree->Branch("leptonsMVAL_number", &leptonsMVAL_number,"leptonsMVAL_number/I");
+  NewTree->Branch("leptonsTMVA_transMass", &leptonsTMVA_transMass, "leptonsTMVA_transMass/I");
   NewTree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
                   "leptonsMVAT_1pt/D");
   NewTree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
@@ -3550,6 +3547,7 @@ void initializeVar() { /*{{{*/
   leptonsT_number_v2 = -99;
   leptonsMVAF_number = -99;
   leptonsMVAT_number = -99;
+  leptonsMVAL_number = -99;
   leptonsTMVA_transMass = -99;
   elesMVAF_1pt = -99;
   leptonsMVAT_1pt = -99;
@@ -3570,7 +3568,7 @@ void initializeVar() { /*{{{*/
   eleL_number = -99;
   eleM_number = -99;
   muonsL_number = -99;
-  mounsF_number = -99;
+  muonsF_number = -99;
   muonsT_number = -99;
   jetsL_invariantMass = -99;
   bjetsL_invariantMass = -99;
