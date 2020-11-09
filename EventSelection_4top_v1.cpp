@@ -1078,11 +1078,11 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
 
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
+    // if(!(Muon_dz_pv_->at(j)<0.1)) continue;
     //        if(!(patElectron_d0_->at(j)<0.05)) continue;
-    //        if(!(patElectron_gsfTrack_dz_pv_->at(j)<0.1)) continue;
-    //        if(type == 1 or type == 2) {
-    //            if(!(patElectron_IP3D_sig_->at(j)<4)) continue;
-    //        }
+    // if(type == 1 or type == 2) {
+        // if(!(Muon_IP3D_sig_->at(j)<4)) continue;
+    // }
 
     //?Muon_jetptratioV2?
     TLorentzVector muon;
@@ -2664,6 +2664,9 @@ void branch(bool data, int selection, TTree *NewTree,
                          &b_Muon_jetptratioV2);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger", &Muon_isMatchedToTrigger_,
                          &b_Muon_isMatchedToTrigger);
+  Tree->SetBranchAddress("Muon_dz_pv", &Muon_dz_pv_, &b_Muon_dz_pv);
+  Tree->SetBranchAddress("Muon_IP3D_sig", &Muon_IP3D_sig_, &b_Muon_IP3D_sig);
+  Tree->SetBranchAddress("Muon_dxy_pv", &Muon_dxy_pv_, &b_Muon_dxy_pv);
 
   Tree->SetBranchAddress("TopTagger_type", &TopTagger_type_, &b_TopTagger_type);
   Tree->SetBranchAddress("TopTagger_discriminator", &TopTagger_discriminator_,

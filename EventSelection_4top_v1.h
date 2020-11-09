@@ -274,6 +274,8 @@ vector <double> * Muon_miniIsoRel_; TBranch *b_Muon_miniIsoRel;
 vector <double> * Muon_ptrel_; TBranch *b_Muon_ptrel;
 vector <double> * Muon_jetptratio_; TBranch *b_Muon_jetptratio;
 vector <double> * Muon_jetptratioV2_; TBranch *b_Muon_jetptratioV2;
+vector <double>* Muon_IP3D_sig_; TBranch* b_Muon_IP3D_sig;
+
 
 vector <int> * Muon_isMatchedToTrigger_; TBranch *b_Muon_isMatchedToTrigger;
 vector <int> * Muon_pdgId_; TBranch *b_Muon_pdgId;
