@@ -224,7 +224,7 @@ void EventSelection_4top_v1(
         leptonsMVAT_number = LeptonsMVAT.size();
         leptonsMVAF_number = LeptonsMVAF.size();
         leptonsMVAL_number = LeptonsMVAL.size();
-        leptonsTMVA_transMass = TransMassCal(LeptonsMVAT);
+        leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
         //            leptonsTMVA_maxDeltaEta =
 
         sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
@@ -2990,7 +2990,7 @@ void branch(bool data, int selection, TTree *NewTree,
                   "leptonsMVAF_number/I");
   NewTree->Branch("leptonsMVAT_number", &leptonsMVAT_number,"leptonsMVAT_number/I");
   NewTree->Branch("leptonsMVAL_number", &leptonsMVAL_number,"leptonsMVAL_number/I");
-  NewTree->Branch("leptonsTMVA_transMass", &leptonsTMVA_transMass, "leptonsTMVA_transMass/I");
+  NewTree->Branch("leptonsMVAT_transMass", &leptonsMVAT_transMass, "leptonsMVAT_transMass/I");
   NewTree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
                   "leptonsMVAT_1pt/D");
   NewTree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
@@ -3548,7 +3548,7 @@ void initializeVar() { /*{{{*/
   leptonsMVAF_number = -99;
   leptonsMVAT_number = -99;
   leptonsMVAL_number = -99;
-  leptonsTMVA_transMass = -99;
+  leptonsMVAT_transMass = -99;
   elesMVAF_1pt = -99;
   leptonsMVAT_1pt = -99;
   leptonsMVAT_1eta = -99;
