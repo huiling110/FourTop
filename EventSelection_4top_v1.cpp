@@ -476,6 +476,10 @@ void EventSelection_4top_v1(
         bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
         bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
         bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
+        bjetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsL, LeptonsMVAT);
+        bjetsM_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsM, LeptonsMVAT);
+        bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsT, LeptonsMVAT);
+        bjetsL_tausF_minDeltaR = MinDeltaRCal(SelectedBJetsL, SelectedTausF);
 
 
         forwardJets_num = SelectedForwardJets.size(); // 185
@@ -3206,6 +3210,11 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
   NewTree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
   NewTree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
+  NewTree->Branch("bjetsL_leptonsMVAT_minDeltaR", &bjetsL_leptonsMVAT_minDeltaR, "bjetsL_leptonsMVAT_minDeltaR/D");
+  NewTree->Branch("bjetsM_leptonsMVAT_minDeltaR", &bjetsM_leptonsMVAT_minDeltaR, "bjetsM_leptonsMVAT_minDeltaR/D");
+  NewTree->Branch("bjetsT_leptonsMVAT_minDeltaR", &bjetsT_leptonsMVAT_minDeltaR, "bjetsT_leptonsMVAT_minDeltaR/D");
+  NewTree->Branch("bjetsL_tausF_minDeltaR", &bjetsL_tausF_minDeltaR, "bjetsL_tausF_minDeltaR/D");
+  // NewTree->Branch("", &, "/D");
   NewTree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
   NewTree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
   NewTree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
@@ -3729,6 +3738,11 @@ void initializeVar() { /*{{{*/
   bjetsL_minDeltaR = -99;
   bjetsM_minDeltaR = -99;
   bjetsT_minDeltaR = -99;
+  bjetsL_leptonsMVAT_minDeltaR = -99;
+  bjetsM_leptonsMVAT_minDeltaR = -99;
+  bjetsT_leptonsMVAT_minDeltaR = -99;
+  bjetsL_tausF_minDeltaR = -99;
+
   jetsL_centrality = -99;
   Aplanarity = -99;
   Sphericity = -99;
