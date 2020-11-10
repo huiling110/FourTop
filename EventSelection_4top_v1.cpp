@@ -508,7 +508,7 @@ void EventSelection_4top_v1(
         MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
 
         sort(SelectedBJetsL.begin(), SelectedBJetsL.end(), compEle);
-        if (bjetsL_num > 0) {
+        if (bjetsL_num > 0) {/*{{{*/
           bjetsL_1pt = SelectedBJetsL[0].Pt();
           bjetsL_1eta = SelectedBJetsL[0].Eta();
           bjetsL_1phi = SelectedBJetsL[0].Phi();
@@ -571,7 +571,7 @@ void EventSelection_4top_v1(
           bjetsT_4pt = SelectedBJetsT[3].Pt();
           bjetsT_4eta = SelectedBJetsT[3].Eta();
           bjetsT_4phi = SelectedBJetsT[3].Phi();
-        }
+        }/*}}}*/
 
 
         sort(SelectedForwardJets.begin(), SelectedForwardJets.end(), compEle);
@@ -584,7 +584,7 @@ void EventSelection_4top_v1(
         }
 
         sort(SelectedJets.begin(), SelectedJets.end(), compEle);
-        if (jetsL_number > 0) {
+        if (jetsL_number > 0) {/*{{{*/
           jetsL_1pt = SelectedJets[0].Pt();
           jetsL_1eta = SelectedJets[0].Eta();
           jetsL_1phi = SelectedJets[0].Phi();
@@ -638,7 +638,7 @@ void EventSelection_4top_v1(
           jetsL_11pt = SelectedJets[10].Pt();
           jetsL_11eta = SelectedJets[10].Eta();
           jetsL_11phi = SelectedJets[10].Phi();
-        }
+        }/*}}}*/
 
         if (!(jetsL_number > 3))
           continue;
@@ -740,13 +740,6 @@ void EventSelection_4top_v1(
           toptagger_1eta = SelectedTops[0].Eta();
           toptagger_1phi = SelectedTops[0].Phi();
         }
-        // sort(SelectedTops.begin(), SelectedTops.end(), compEle);
-        // vector<double> TopPtSorted;
-        // sort_jetPt(SelectedTops, TopPtSorted);
-        // if (toptagger_num > 0)
-          // toptagger_1pt = TopPtSorted[0];
-        // if (toptagger_num > 1)
-          // toptagger_2pt = TopPtSorted[1];
         if (toptagger_num > 1) {
           toptagger_2pt = SelectedTops[1].Pt();
           toptagger_2eta = SelectedTops[1].Eta();
