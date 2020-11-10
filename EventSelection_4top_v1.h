@@ -695,6 +695,7 @@ double toptagger_3phi = -99;
 double toptagger_minDeltaR=-99;
 double toptagger_maxDeltaR=-99;
 double toptagger_scoreAllTops=-99;
+double toptagger_leptonsMVAT_minDeltaR=-99;
 //
 //
 int   jetsL_number=-99;

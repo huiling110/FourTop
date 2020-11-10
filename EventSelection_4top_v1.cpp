@@ -742,6 +742,8 @@ void EventSelection_4top_v1(
         toptagger_invariantMass = InvariantMassCalculator(SelectedTops);
         toptagger_transMass = TransMassCal(SelectedTops);
         toptagger_minDeltaR_v1 = MinDeltaRSingleCal(SelectedTops);
+        toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
+        toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedTops, LeptonsMVAT);
         sort(SelectedTops.begin(), SelectedTops.end(), compEle);
         if (toptagger_num > 0) {
           toptagger_1pt = SelectedTops[0].Pt();
@@ -762,7 +764,6 @@ void EventSelection_4top_v1(
           toptagger_3eta = SelectedTops[2].Eta();
           toptagger_3phi = SelectedTops[2].Phi();
         }
-        toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
 
         // only top that decay into 3 jets
         /*			TLorentzVector Jet1Resolved;
@@ -3329,8 +3330,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
   NewTree->Branch("toptagger_minDeltaR", &toptagger_minDeltaR, "toptagger_minDeltaR/D");
   NewTree->Branch("toptagger_maxDeltaR", &toptagger_maxDeltaR, "toptagger_maxDeltaR/D");
-  NewTree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops,
-                  "toptagger_scoreAllTops/D");
+  NewTree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
+  NewTree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
   //
   //
   NewTree->Branch("NumSelWJets", &NumSelWJets, "NumSelWJets/I");
@@ -3913,6 +3914,7 @@ void initializeVar() { /*{{{*/
   toptagger_minDeltaR = -99;
   toptagger_maxDeltaR = -99;
   toptagger_scoreAllTops = -99;
+  toptagger_leptonsMVAT_minDeltaR = -99;
 
   //
   //
