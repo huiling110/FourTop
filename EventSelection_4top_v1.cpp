@@ -467,6 +467,9 @@ void EventSelection_4top_v1(
         bjetsL_HT = HTcalculator(SelectedBJetsL);
         bjetsM_HT = HTcalculator(SelectedBJetsM);
         bjetsT_HT = HTcalculator(SelectedBJetsT);
+        bjetsL_MHT =  MHTcalculator(SelectedBJetsL); // 900;return the pt sum of,vetctor sum
+        bjetsM_MHT =  MHTcalculator(SelectedBJetsM); // 900;return the pt sum of,vetctor sum
+        bjetsT_MHT =  MHTcalculator(SelectedBJetsT); // 900;return the pt sum of,vetctor sum
         bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
         bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
         bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
@@ -734,6 +737,11 @@ void EventSelection_4top_v1(
         vector<TLorentzVector> SelectedTops;
         SelectTops(SelectedTops);
         toptagger_num = SelectedTops.size();
+        toptagger_MHT =  MHTcalculator(SelectedTops); // 900;return the pt sum of,vetctor sum
+        toptagger_HT = HTcalculator(SelectedTops);
+        toptagger_invariantMass = InvariantMassCalculator(SelectedTops);
+        toptagger_transMass = TransMassCal(SelectedTops);
+        toptagger_minDeltaR_v1 = MinDeltaRSingleCal(SelectedTops);
         sort(SelectedTops.begin(), SelectedTops.end(), compEle);
         if (toptagger_num > 0) {
           toptagger_1pt = SelectedTops[0].Pt();
@@ -748,6 +756,11 @@ void EventSelection_4top_v1(
           MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
           toptagger_minDeltaR = MinMaxDeltaRTops[0];
           toptagger_maxDeltaR = MinMaxDeltaRTops[1];
+        }
+        if (toptagger_num > 2) {
+          toptagger_3pt = SelectedTops[2].Pt();
+          toptagger_3eta = SelectedTops[2].Eta();
+          toptagger_3phi = SelectedTops[2].Phi();
         }
         toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
 
@@ -3191,6 +3204,9 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
   NewTree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
   NewTree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
+  NewTree->Branch("bjetsL_MHT", &bjetsL_MHT, "bjetsL_MHT/D");
+  NewTree->Branch("bjetsM_MHT", &bjetsM_MHT, "bjetsM_MHT/D");
+  NewTree->Branch("bjetsT_MHT", &bjetsT_MHT, "bjetsT_MHT/D");
   NewTree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
                   "bjetsL_invariantMass/D");
   NewTree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
@@ -3297,12 +3313,20 @@ void branch(bool data, int selection, TTree *NewTree,
                   "TransverseMassMetTop/D");
 
   NewTree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
+  NewTree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
+  NewTree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
+  NewTree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
+  NewTree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
+  NewTree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
   NewTree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
   NewTree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
   NewTree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
   NewTree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
   NewTree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
   NewTree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
+  NewTree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
+  NewTree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
+  NewTree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
   NewTree->Branch("toptagger_minDeltaR", &toptagger_minDeltaR, "toptagger_minDeltaR/D");
   NewTree->Branch("toptagger_maxDeltaR", &toptagger_maxDeltaR, "toptagger_maxDeltaR/D");
   NewTree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops,
@@ -3870,12 +3894,22 @@ void initializeVar() { /*{{{*/
   tauL_3phi = -99;
 
   toptagger_num = -99;
+  toptagger_MHT = -99;
+  toptagger_HT  = -99;
+  toptagger_invariantMass = -99;
+  toptagger_transMass = -99;
+  toptagger_minDeltaR_v1 = -99;  
+
+
   toptagger_1pt = -99;
   toptagger_1eta = -99;
   toptagger_1phi = -99;
   toptagger_2pt = -99;
   toptagger_2eta = -99;
   toptagger_2phi = -99;
+  toptagger_3pt  = -99;
+  toptagger_3eta = -99;
+  toptagger_3phi = -99;
   toptagger_minDeltaR = -99;
   toptagger_maxDeltaR = -99;
   toptagger_scoreAllTops = -99;
@@ -3894,6 +3928,9 @@ void initializeVar() { /*{{{*/
   bjetsL_HT = -99;
   bjetsM_HT = -99;
   bjetsT_HT = -99;
+  bjetsL_MHT = -99;
+  bjetsM_MHT = -99;
+  bjetsT_MHT = -99;
   jetsL_MHT = -99;
   PUWeight = 1;
   PUWeightUP = 1;

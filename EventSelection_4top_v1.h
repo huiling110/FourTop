@@ -677,6 +677,12 @@ double tauL_3eta = -99;
 double tauL_3phi = -99;
 
 int toptagger_num=-99;
+double toptagger_MHT = -99;
+double toptagger_HT = -99;
+double toptagger_invariantMass = -99;
+double toptagger_transMass = -99;
+double toptagger_minDeltaR_v1 = -99;
+
 double toptagger_1pt=-99;
 double toptagger_1eta = -99;
 double toptagger_1phi = -99;
@@ -703,6 +709,9 @@ double jetsL_HT=-99;
 double bjetsT_HT=-99;
 double bjetsM_HT=-99;
 double bjetsL_HT=-99;
+double bjetsT_MHT=-99;
+double bjetsM_MHT=-99;
+double bjetsL_MHT=-99;
 double jetsL_MHT=-99;
 double PUWeight=1;
 double PUWeightUP=1;
