@@ -17,8 +17,7 @@ if os.path.exists(Jobsubmitpath+"/Jobsubmit"):
 os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit")
 
 sample = {
-
-  "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8":"0", #done   
+  "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8":"0", #done   # {{{
 ##tt
  "TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8":"1",    #done
 "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8":"1",    #TTGJets
@@ -80,7 +79,7 @@ sample = {
 "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8":"27_3",
 "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2":"27_4",
 "VBFHToBB_M-125_13TeV_powheg_pythia8_weightfix":"27_5",
-"VBF_HToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8":"27_6",
+"VBF_HToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8":"27_6",# }}}
 
 }
 
@@ -95,7 +94,7 @@ def prepareCshJob(inputFile,shFile):
     print >> subFile, "pwd"
     print >> subFile, "cd "+Jobsubmitpath
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v7_NewNtuple/\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
 
 
@@ -112,8 +111,8 @@ for k in sample:
     prepareCshJob(inputFile,shFileName)	
 #   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
 #   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
-    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v7_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
-    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v7_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
+    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
+    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
     print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
 
 
