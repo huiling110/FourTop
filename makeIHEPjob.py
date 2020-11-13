@@ -94,7 +94,8 @@ def prepareCshJob(inputFile,shFile):
     print >> subFile, "pwd"
     print >> subFile, "cd "+Jobsubmitpath
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/\")"+"\'"
+    #  print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
 
 
@@ -111,8 +112,10 @@ for k in sample:
     prepareCshJob(inputFile,shFileName)	
 #   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
 #   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
-    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
-    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
+    #  logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
+    #  errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
+    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/"+"sampleNumber_"+sampleNumber+".log"
+    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/"+"sampleNumber_"+sampleNumber+".err"
     print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
 
 

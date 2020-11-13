@@ -649,7 +649,8 @@ void EventSelection_4top_v1(
           continue;
         //
         //
-        //
+        //channel selection for MVA
+        if (!((channel_1Tau0L_v2 == 1) && (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
         
         // subchannel/*{{{*/
         if (tausF_number == 1 && leptonsT_number_v2 == 0)
