@@ -95,7 +95,7 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);//VBFHToGG_M125_13TeV_amcatnlo_py
 //minor
 //
 vector<double> bg_scale {
-    wTTTT,//1
+    wTTTT,//0
     wTTJets,wTTGJets,wttZJets,wttWJets,wttH, wttbb,//6
     wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG,
     wWWW,wWWZ,wWWG,wZZZ,wWZZ,wWZG,wWGG,wZGGJets,

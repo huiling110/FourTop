@@ -29,11 +29,11 @@ void PlotterPreselection_PlayWithMC(){
 //name is plots we want to show   
 //?is there a more clever way to push_back all in a loop?
 
-  name.push_back("jetsL_number");      bin.push_back(20);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
-name.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("HT pt[GeV]");
+  name.push_back("jetsL_number");      bin.push_back(14);     Min.push_back(0);    Max.push_back(20);    axis.push_back("Number of jets");
+name.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("HT pt[GeV]");
 name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("MHT pt[GeV]");
   name.push_back("jetsL_invariantMass");  bin.push_back(100);     Min.push_back(10);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
- name.push_back("jetsL_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("transverse mass of loose jets ");
+ name.push_back("jetsL_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(3000);    axis.push_back("jetsL_transMass");
  name.push_back("jetL_minDeltaR");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6);    axis.push_back("min delta R of loose jets");
  name.push_back("jetsL_centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(8);    axis.push_back("jetsL_centrality");
  name.push_back("jetsL_HTDividedByMet");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("HT / MET");
@@ -65,7 +65,7 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
  name.push_back("jetsL_7pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("seventh loose jet pt");
  name.push_back("jetsL_7eta");      bin.push_back(100);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("senventh loose jet eta");
  name.push_back("jetL_7phi");      bin.push_back(100);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("seventh loose jet phi");
- name.push_back("jetsL_8pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("eighth loose jet pt");
+ name.push_back("jetsL_8pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(500);    axis.push_back("jetsL_8pt");
  name.push_back("jetsL_8eta");      bin.push_back(100);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("eighth loose jet eta");
  name.push_back("jetsL_8phi");      bin.push_back(100);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("eighth loose jet phi");
  name.push_back("jetsL_9pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("nineth loose jet pt");
@@ -129,7 +129,7 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
  name.push_back("forwardjet_1eta");      bin.push_back(100);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("forwardjet_1eta");
  name.push_back("forwardjet_1phi");      bin.push_back(100);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("forwardjet_1phi");
  name.push_back("forwardjet1_jetsL_minDeltaEta");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("forwardjet1_jetsL_minDeltaEta");
-
+//
 name.push_back("Met_pt");  bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
 name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_back(4);      axis.push_back("Met #phi");
 //
@@ -165,8 +165,7 @@ name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_b
  name.push_back("muonsT_3pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5000);    axis.push_back("muonsT_3pt");//?
  name.push_back("muonsT_3eta");      bin.push_back(100);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("muonsT_3eta");//?
  name.push_back("muonsT_3phi");      bin.push_back(100);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("muonsT_3phi");//?
-//  
-/* //  //second part */
+
  name.push_back("tausL_number");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("number of loose tau");
  name.push_back("tausF_number");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("number of fakeble tau");
  name.push_back("tausT_number");      bin.push_back(10);     Min.push_back(0);    Max.push_back(10);    axis.push_back("number of fakeble tau");
@@ -218,8 +217,6 @@ name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_b
  name.push_back("toptagger_3phi");      bin.push_back(100);     Min.push_back(-6);    Max.push_back(6);    axis.push_back("toptagger_3phi");
  name.push_back("toptagger_minDeltaR");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("min delta R of tops");
  name.push_back("toptagger_scoreAllTops");      bin.push_back(100);     Min.push_back(0);    Max.push_back(5);    axis.push_back("top tagger score of all tops");
- // name.push_back("");      bin.push_back(100);     Min.push_back(-6);    Max.push_back(6);    axis.push_back("");
- // name.push_back("");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6);    axis.push_back("");
 
 
 
@@ -242,7 +239,9 @@ for ( string ch : Channel){
     const char*    channel= ch.c_str();//.c_str() returns a const char*
 //   sprintf(CUTpre,"%s", channel);
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
-   sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau0L
+   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau0L
+   sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L for testing
+   // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau1L
    // sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
    // sprintf(CUTpre,"(jetsL_number>=2)&&(bjetsL_num>=2)&&(%s)", channel);//1Tau3L
@@ -276,7 +275,7 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- // for(UInt_t i=0; i<3; i++){
+ // for(UInt_t i=0; i<1; i++){
   for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
@@ -466,7 +465,10 @@ for ( string ch : Channel){
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/v6/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/test/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/tausT/"+NAME+postfix);
+        
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
 
