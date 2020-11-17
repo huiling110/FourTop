@@ -1198,7 +1198,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
   for (UInt_t j = 0; j < Tau_pt_->size(); ++j) {
     if (!(Tau_pt_->at(j) > 20))
       continue;
-    if (!(Tau_eta_->at(j) < 2.3))
+    if (!(Tau_eta_->at(j) < 2.3 && Tau_eta_->at(j) > -2.3))
       continue;
     //       if(!(Tau_leadChargedCandDz_pv_->at(j)<0.2)) continue;
     if (!(Tau_packedLeadTauCand_dz_->at(j) < 0.2))
@@ -1208,8 +1208,8 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
       continue;
     //???not sure why all taus is 1? if so no point in this requirement. //?not
     // sure, is seem all are 1;
-    if (Tau_decayMode_->at(j) == 5 or Tau_decayMode_->at(j) == 6)
-      continue; // for decay mode
+    if (TauWP == 2 || TauWP == 3) {
+       if( Tau_decayMode_->at(j) == 5 || Tau_decayMode_->at(j) == 6)      continue;} // for decay mode
     if (TauWP == 1) {
       if (!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j) > 0.5))
         continue;
@@ -1221,8 +1221,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
         continue;
     }
     if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
-      if (!(Tau_byVVLooseDeepTau2017v2p1VSjet_->at(j) > 0.5 &&
-            Tau_byVLooseDeepTau2017v2p1VSmu_->at(j) > 0.5 &&
+      if (!(Tau_byVLooseDeepTau2017v2p1VSmu_->at(j) > 0.5 &&
             Tau_byVVVLooseDeepTau2017v2p1VSe_->at(j) > 0.5 &&
             Tau_byMediumDeepTau2017v2p1VSjet_->at(j) > 0.5))
         continue;
