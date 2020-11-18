@@ -90,13 +90,13 @@ def prepareCshJob(inputFile,shFile):
     subFile  = file(shFile,"w")
     print >> subFile, "#!/bin/bash"
     print >> subFile, "/bin/hostname"
-    #  print >> subFile, "gcc -v"
+    print >> subFile, "gcc -v"
     print >> subFile, "pwd"
     print >> subFile, "cd "+Jobsubmitpath
-    print >> subFile, "cmsenv"
+    #  print >> subFile, "cmsenv" # cmsenv not working in job
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/\")"+"\'"
-    #  print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/\")"+"\'"
+    #  print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
 
 
@@ -113,11 +113,14 @@ for k in sample:
     prepareCshJob(inputFile,shFileName)	
 #   	logFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".log"
 #   	errorFileName = "/publicfs/cms/user/yutz/Tprime/Jobs_data/log/"+"Event_"+sampleNumber+".err"
-    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
-    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
-    #  logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/"+"sampleNumber_"+sampleNumber+".log"
-    #  errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0l/"+"sampleNumber_"+sampleNumber+".err"
+    #  logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/"+"sampleNumber_"+sampleNumber+".log"
+    #  errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/"+"sampleNumber_"+sampleNumber+".err"
+    #  logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleNumber_"+sampleNumber+".log"
+    #  errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleNumber_"+sampleNumber+".err"
+    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleName_"+sampleName+".log"
+    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleName_"+sampleName+".err"
     print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
+    #  print >> allJobFile, "cd .."
 
 
 os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit/*sh")
