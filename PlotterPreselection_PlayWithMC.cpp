@@ -225,8 +225,8 @@ name.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Max.push_b
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 // vector<string> Channel = {[>"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",<]"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-// vector<string> Channel = { "1Tau0L_v2"   };
-vector<string> Channel = { "1Tau1E_v2"   };
+vector<string> Channel = { "1Tau0L_v2"   };
+// vector<string> Channel = { "1Tau1E_v2"   };
 // vector<string> Channel = { "1Tau1Mu_v2"   };
 // vector<string> Channel = { "1Tau2OS_v2"   };
 // vector<string> Channel = { "1Tau3L_v2"   };
@@ -240,9 +240,9 @@ for ( string ch : Channel){
 //   sprintf(CUTpre,"%s", channel);
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L for testing
+   sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
-   sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
+   // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
    // sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
    // sprintf(CUTpre,"(jetsL_number>=2)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau3L
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2)&&(%s)", channel);//2Tau0L
@@ -360,18 +360,18 @@ for ( string ch : Channel){
             cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
             cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
             cout<<"Total BKG = "<<background_SR->Integral()<<endl;
-
-            cout<<"statistics"<<endl;
-            cout<<"TTTT   = "<<(BGFiles[0])->Integral()*bg_scale[0]<<endl;
-            cout<<"TTJets = "<<BGFiles[1]->Integral()* bg_scale[1]<<endl;
-            cout<<"TTX    = "<<(BGFiles[2]->Integral()* bg_scale[2]) + (BGFiles[3]->Integral()*bg_scale[3]) + (BGFiles[4]->Integral()*bg_scale[4]) + ( BGFiles[5]->Integral()*bg_scale[5]) <<endl;
-            cout<<"ttbb   = "<<BGFiles[6]->Integral()*bg_scale[6]<<endl;      
-            cout<<"VV     = "<<BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()+BGFiles[12]->Integral()<<endl;
-            cout<<"VVV    = "<<BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()+BGFiles[20]->Integral()<<endl;
-            cout<<"WJets  = "<<BGFiles[21]->Integral()*bg_scale[21]<<endl;      
-            cout<<"DY     = "<<BGFiles[22]->Integral()*bg_scale[22]<<endl;      
-            cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
-            cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
+            cout<<endl;
+            cout<<"Statistics"<<endl;
+            cout<<"TTTT   = "<<(BGFiles[0])->Integral()/bg_scale[0]<<endl;
+            cout<<"TTJets = "<<(BGFiles[1]->Integral()/ bg_scale[1])<<endl;
+            cout<<"TTX    = "<<(BGFiles[2]->Integral()/ bg_scale[2]) + (BGFiles[3]->Integral()/bg_scale[3]) + (BGFiles[4]->Integral()/bg_scale[4]) + ( BGFiles[5]->Integral()/bg_scale[5]) <<endl;
+            cout<<"ttbb   = "<<(BGFiles[6]->Integral()/bg_scale[6])<<endl;      
+            cout<<"VV     = "<<(BGFiles[7]->Integral()/bg_scale[7]) +(BGFiles[8]->Integral()/bg_scale[8]) +(BGFiles[9]->Integral()/bg_scale[9]) + (BGFiles[10]->Integral()/bg_scale[10]) + (BGFiles[11]->Integral()/bg_scale[11]) + (BGFiles[12]->Integral()/bg_scale[12]) <<endl;
+            cout<<"VVV    = "<<(BGFiles[13]->Integral()/bg_scale[13]) + (BGFiles[14]->Integral()/bg_scale[14]) + (BGFiles[15]->Integral()/bg_scale[15]) + (BGFiles[16]->Integral()/bg_scale[16]) + (BGFiles[17]->Integral()/bg_scale[17]) + (BGFiles[18]->Integral()/bg_scale[18]) + (BGFiles[19]->Integral()/bg_scale[19]) + (BGFiles[20]->Integral()/bg_scale[20]) <<endl;
+            cout<<"WJets  = "<<(BGFiles[21]->Integral()*bg_scale[21])<<endl;      
+            cout<<"DY     = "<<(BGFiles[22]->Integral()*bg_scale[22])<<endl;      
+            cout<<"ST     = "<<(BGFiles[23]->Integral()/bg_scale[23])+(BGFiles[24]->Integral()/bg_scale[24]) + (BGFiles[25]->Integral()/bg_scale[25]) + (BGFiles[26]->Integral()/bg_scale[26]) + (BGFiles[27]->Integral()/bg_scale[27]) + (BGFiles[28]->Integral()/bg_scale[28]) <<endl;
+            cout<<"H      = "<<(BGFiles[29]->Integral()/bg_scale[29])+(BGFiles[30]->Integral()/bg_scale[30]) + (BGFiles[31]->Integral()/bg_scale[31]) + (BGFiles[32]->Integral()/bg_scale[32]) + (BGFiles[33]->Integral()/bg_scale[33]) + (BGFiles[34]->Integral()/bg_scale[34]) + (BGFiles[35]->Integral()/bg_scale[35]) + (BGFiles[36]->Integral()/bg_scale[36]) + (BGFiles[37]->Integral()/bg_scale[37]) + (BGFiles[38]->Integral()/bg_scale[38]) + (BGFiles[39]->Integral()/bg_scale[39]) + (BGFiles[40]->Integral()/bg_scale[40]) + (BGFiles[41]->Integral()/bg_scale[41]) <<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -445,7 +445,7 @@ for ( string ch : Channel){
         latex.SetTextFont(cmsTextFont);
         latex.SetTextAlign(11); 
         latex.SetTextSize(cmsTextSize*t);    
-        Lady GagalLady Gagaatex.DrawLatex(l+0.01, 0.94,cmsText);
+        latex.DrawLatex(l+0.01, 0.94,cmsText);
         latex.SetTextFont(extraTextFont);
         latex.SetTextSize(extraTextSize*t);
         latex.DrawLatex(l+0.12, 0.94, extraText); 
