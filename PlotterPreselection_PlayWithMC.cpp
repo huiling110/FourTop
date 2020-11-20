@@ -275,8 +275,8 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- // for(UInt_t i=0; i<1; i++){
-  for(UInt_t i=0; i<name.size(); i++){
+ for(UInt_t i=0; i<1; i++){
+  // for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
 // THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
@@ -305,6 +305,7 @@ for ( string ch : Channel){
 //        BGFiles_NormalizedToXSection.push_back(TTJets_SR);BGFiles_NormalizedToXSection.push_back(TTGJets_SR); BGFiles_NormalizedToXSection.push_back(ttZJets_SR); BGFiles_NormalizedToXSection.push_back(ttWJets_SR); BGFiles_NormalizedToXSection.push_back(ttH_SR); BGFiles_NormalizedToXSection.push_back(ttbb_SR);             
         TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
+        // TH1F* signalAndBg_beforeScale = new TH1F("allFile", "allFile",bin[i],Min[i],Max[i]);
         // TH1F* background_SR = new TH1F;
         TList *list = new TList;
         // cout<<"signal and bg files ="<< BGFiles.size()<<endl;
@@ -325,6 +326,7 @@ for ( string ch : Channel){
            // BGFiles[j]->Print();
 //            cout<<bg_scale[j];
 //            *BGFiles_NormalizedToXSection[j] = bg_scale[j]*(*(BGFiles[j])); 
+
             BGFiles[j]->Scale(bg_scale[j]);
 //            if(j==0) *background_SR = *BGFiles_NormalizedToXSection[j];
 //            if(j>0) *background_SR  = *background_SR + *(BGFiles_NormalizedToXSection[j]);
@@ -357,11 +359,19 @@ for ( string ch : Channel){
             cout<<"DY     = "<<BGFiles[22]->Integral()<<endl;      
             cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
             cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
-            // cout<<"WZ = "<<BGFiles[7]->Integral()<<endl;
-            // cout<<"WW = "<<BGFiles[8]->Integral()+BGFiles[9]->Integral()<<endl;
-            // cout<<"ZZ = "<<BGFiles[10]->Integral()<<endl;
-            // cout<<"WG = "<<BGFiles[11]->Integral()<<endl;
             cout<<"Total BKG = "<<background_SR->Integral()<<endl;
+
+            cout<<"statistics"<<endl;
+            cout<<"TTTT   = "<<(BGFiles[0])->Integral()*bg_scale[0]<<endl;
+            cout<<"TTJets = "<<BGFiles[1]->Integral()* bg_scale[1]<<endl;
+            cout<<"TTX    = "<<(BGFiles[2]->Integral()* bg_scale[2]) + (BGFiles[3]->Integral()*bg_scale[3]) + (BGFiles[4]->Integral()*bg_scale[4]) + ( BGFiles[5]->Integral()*bg_scale[5]) <<endl;
+            cout<<"ttbb   = "<<BGFiles[6]->Integral()*bg_scale[6]<<endl;      
+            cout<<"VV     = "<<BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()+BGFiles[12]->Integral()<<endl;
+            cout<<"VVV    = "<<BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()+BGFiles[20]->Integral()<<endl;
+            cout<<"WJets  = "<<BGFiles[21]->Integral()*bg_scale[21]<<endl;      
+            cout<<"DY     = "<<BGFiles[22]->Integral()*bg_scale[22]<<endl;      
+            cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
+            cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -435,7 +445,7 @@ for ( string ch : Channel){
         latex.SetTextFont(cmsTextFont);
         latex.SetTextAlign(11); 
         latex.SetTextSize(cmsTextSize*t);    
-        latex.DrawLatex(l+0.01, 0.94,cmsText);
+        Lady GagalLady Gagaatex.DrawLatex(l+0.01, 0.94,cmsText);
         latex.SetTextFont(extraTextFont);
         latex.SetTextSize(extraTextSize*t);
         latex.DrawLatex(l+0.12, 0.94, extraText); 
