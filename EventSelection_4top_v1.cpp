@@ -1369,7 +1369,7 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
       // overlap removal
     double deltaR = 0;
     double minDeltaR = 100;
-    for (int lep = 0, lep < LeptonsMVAF.size(), lep++){
+    for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
         deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta_->at(j), LeptonsMVAF[lep].Phi(), Jet_phi_->at(j));
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
