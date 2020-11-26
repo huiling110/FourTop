@@ -426,15 +426,15 @@ void EventSelection_4top_v1(
         // for Jet_pfDeepCSVBJetTags is different
         bool deepJet = true;
         vector<TLorentzVector> SelectedJets;
-        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF); // if(!deltaPhiJetMet)  continue;
+        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsL;
-        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer, LeptonsMVAF /* deltaPhiJetMet*/); // if(!deltaPhiJetMet)  continue;
+        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsM;
-        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, LeptonsMVAF); // if(!deltaPhiJetMet)  continue;
+        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsT;
-        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF); // if(!deltaPhiJetMet)  continue;
+        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedForwardJets;
-        SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SysJes, SysJer, LeptonsMVAF);
+        SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
         jetsL_number = SelectedJets.size();
         jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
         jetsL_HT = HTcalculator(SelectedJets);
@@ -1235,7 +1235,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
 // SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int
 // SysJer, bool data, bool &deltaPhiJetMet){
 void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<double> &SelectedJetsBTags, const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF  /*, bool &deltaPhiJetMet*/) {
+                vector<double> &SelectedJetsBTags, const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
   // jetType=0  -> usual jets; we use loose ID
   // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
@@ -1374,6 +1374,13 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
     if ( !( minDeltaR >= 0.4 ) ) continue;
+    double deltaR_tau =0;
+    double minDeltaR_tau = 100;
+    for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
+        deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta_->at(j), SelectedTausL[tau].Phi(), Jet_phi_->at(j));
+        if ( deltaR < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+    }
+    if ( !(minDeltaR_tau >= 0.4)) continue;
 
     double SF = jetpt / Jet_pt_->at(j);
     TLorentzVector jet_prov;
