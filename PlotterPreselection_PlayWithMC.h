@@ -32,63 +32,63 @@ float LUMI = 35900; //fb
 double wTTTT = (SigSF*LUMI*0.01197)/(1709406-704054);//
 //tt
 double wTTJets = (LUMI*746.7)/(29509487-14335648);//746.7 // TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root:  Positive:29509487  Negtive:14335648
-double wTTGJets = (LUMI*3.773)/(3224372-1646539);//TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root:  Positive:3224372  Negtive:1646539  ;
+double wTTGJets = (LUMI*3.773)/(3224372-1646539);// TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root:  Positive:3224372  Negtive:1646539  ;
 double wttZJets = (LUMI*0.6559)/(9883364-0) ;// ttZJets_13TeV_madgraphMLM-pythia8.root:  Positive:9883364  Negtive:0      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-)
-double wttWJets = (LUMI*0.2014)/(6700440-0);//ttWJets_13TeV_madgraphMLM.root:  Positive:6700440  Negtive:0  ;
-double wttH= (LUMI*0.3372)/(9566400-0);//ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root:  Positive:9566400  Negtive:0  ;
-double wttbb= (LUMI*1.393)/(2556073-1427835);//ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root:  Positive:2556073  Negtive:1427835  ;
+double wttWJets = (LUMI*0.2014)/(6700440-0);// ttWJets_13TeV_madgraphMLM.root:  Positive:6700440  Negtive:0  ;
+double wttH= (LUMI*0.3372)/(9566400-0);// ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root:  Positive:9566400  Negtive:0  ;
+// double wttbb= (LUMI*1.393)/(2556073-1427835);// ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root:  Positive:2556073  Negtive:1427835  ;
 //diboson and triboson an w/z+jets
-double wWZ= (LUMI*2.343)/(2997571-0);//WZ_TuneCUETP8M1_13TeV-pythia8.root:  Positive:2997571  Negtive:0  ;
+double wWZ= (LUMI*2.343)/(2997571-0);// WZ_TuneCUETP8M1_13TeV-pythia8.root:  Positive:2997571  Negtive:0  ;
 //double wWW= (LUMI*6.430)/(-);//?something wrong with ntuple
-double wWWTo2L2Nu = (LUMI*0.1697)/(999367-0); //WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root:  Positive:999367  Negtive:0  ;
-double wWpWpJJ= (LUMI*0.05390)/(149681-0);//WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root:  Positive:149681  Negtive:0  ;
-double wZZ  = (LUMI*1.016)/(998034-0);//ZZ_TuneCUETP8M1_13TeV-pythia8.root:  Positive:998034  Negtive:0  ;
-double wWGJets = (LUMI*1.269)/(5077680-0);//WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root:  Positive:5077680  Negtive:0  ;
-double wZGJetsToLLG = (LUMI*0.1319)/(498406-0);//ZGJetsToLLG_EW_LO_13TeV-sherpa.root:  Positive:498406  Negtive:394  ;
+double wWWTo2L2Nu = (LUMI*0.1697)/(999367-0); // WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root:  Positive:999367  Negtive:0  ;
+double wWpWpJJ= (LUMI*0.05390)/(149681-0);// WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root:  Positive:149681  Negtive:0  ;
+double wZZ  = (LUMI*1.016)/(998034-0);// ZZ_TuneCUETP8M1_13TeV-pythia8.root:  Positive:998034  Negtive:0  ;
+double wWGJets = (LUMI*1.269)/(5077680-0);// WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root:  Positive:5077680  Negtive:0  ;
+double wZGJetsToLLG = (LUMI*0.1319)/(498406-0);// ZGJetsToLLG_EW_LO_13TeV-sherpa.root:  Positive:498406  Negtive:394  ;
 //
-double wWWW= (LUMI*0.2086)/(225269-14731);//WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:225269  Negtive:14731  ;
-double wWWZ= (LUMI*0.1651)/(235734-14266);//WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:235734  Negtive:14266  ;
-double wWWG = (LUMI*0.2147)/(913515-85885);//WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:913515  Negtive:85885  ;
-double wZZZ= (LUMI*0.01398)/(231217-18020);//ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:231217  Negtive:18020  ;
-double wWZZ= (LUMI*0.05565)/(231583-15217);//WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:231583  Negtive:15217  ;
-double wWZG= (LUMI*0.04123)/(921527-76673);//WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:921527  Negtive:76673  ;
+double wWWW= (LUMI*0.2086)/(225269-14731);// WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:225269  Negtive:14731  ;
+double wWWZ= (LUMI*0.1651)/(235734-14266);// WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:235734  Negtive:14266  ;
+double wWWG = (LUMI*0.2147)/(913515-85885);// WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:913515  Negtive:85885  ;
+double wZZZ= (LUMI*0.01398)/(231217-18020);// ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:231217  Negtive:18020  ;
+double wWZZ= (LUMI*0.05565)/(231583-15217);// WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:231583  Negtive:15217  ;
+double wWZG= (LUMI*0.04123)/(921527-76673);// WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:921527  Negtive:76673  ;
 //double wWGGJets = (LUMI*1.711)/(-);//
-double wWGG =(LUMI*1.819)/(889832-110168); //WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:889832  Negtive:110168  ;
-double wZGGJets= (LUMI*0.3717)/(291922-0);//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root:  Positive:291922  Negtive:0  ;
+double wWGG =(LUMI*1.819)/(889832-110168); // WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root:  Positive:889832  Negtive:110168  ;
+double wZGGJets= (LUMI*0.3717)/(291922-0);// ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root:  Positive:291922  Negtive:0  ;
 
-double wWJetsToLNu= (LUMI*50300)/(29514020-0) ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root:  Positive:29514020  Negtive:0  ;
+double wWJetsToLNu= (LUMI*50300)/(29514020-0) ;// WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root:  Positive:29514020  Negtive:0  ;
 //?missing ZJets?= (LUMI*)/(-)
 //Drell-Yan
-double wDYJetsToTauTau= (LUMI*1983)/(21891344-4380454);//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.rootDYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root:  Positive:21891344  Negtive:4380454  ;
+double wDYJetsToTauTau= (LUMI*1983)/(21891344-4380454);// DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.rootDYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root:  Positive:21891344  Negtive:4380454  ;
 //
 //single top
-double wtZq_ll= (LUMI*0.07358)/(8784890-5147710);//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root:  Positive:8784890  Negtive:5147710  ;
-//double wtZq_nunu= (LUMI*)/(630623-368977);//tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root:  Positive:630623  Negtive:368977  ;
+double wtZq_ll= (LUMI*0.07358)/(8784890-5147710);// tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root:  Positive:8784890  Negtive:5147710  ;
+//double wtZq_nunu= (LUMI*)/(630623-368977);// tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root:  Positive:630623  Negtive:368977  ;
 //?
-double wST_tW_antitop= (LUMI*38.06)/(418378-0);//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root:  Positive:418378  Negtive:0  ;
+double wST_tW_antitop= (LUMI*38.06)/(418378-0);// ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root:  Positive:418378  Negtive:0  ;
 double wST_tW_top= (LUMI*38.09)/(992024-0);//  ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root:  Positive:992024  Negtive:0  ;
-double wTGJets= (LUMI*2.967)/(933719-623277);//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root:  Positive:933719  Negtive:623277  ;
-double wTHW= (LUMI*0.1467)/(4995329-2967);//THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root:  Positive:4995329  Negtive:2967  ;
-double wTHQ= (LUMI*0.8816)/(9829911-0);//THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root:  Positive:9829911  Negtive:0  ;
+double wTGJets= (LUMI*2.967)/(933719-623277);// TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root:  Positive:933719  Negtive:623277  ;
+double wTHW= (LUMI*0.1467)/(4995329-2967);// THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root:  Positive:4995329  Negtive:2967  ;
+double wTHQ= (LUMI*0.8816)/(9829911-0);// THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root:  Positive:9829911  Negtive:0  ;
 
 //H 
-double wVHToNonbb= (LUMI*2.137)/(799942-297663);//VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root:  Positive:799942  Negtive:297663  ;
-double wZHToTauTau= (LUMI*0.7524)/(581490-18313);//ZHToTauTau_M125_13TeV_powheg_pythia8.root:  Positive:581490  Negtive:18313  ;
-double wZH_HToBB_ZToLL= (LUMI*0.07523)/(1920440-59420);//ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root:  Positive:1920440  Negtive:59420  ;
-double wGluGluHToZZTo4L= (LUMI*2.999)/(999800-0);//GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root:  Positive:999800  Negtive:0  ;
-double wGluGluHToBB= (LUMI*32.10)/(2946318-853055);//GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root:  Positive:2946318  Negtive:853055  ;
-double wGluGluHToGG= (LUMI*31.98)/(335240-96369);//GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root:  Positive:335240  Negtive:96369  ;
-double wGluGluHToMuMu= (LUMI*29.99)/(1991200-0);//GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:1991200  Negtive:0  ;
-double wGluGluHToTauTau= (LUMI*30.52)/(1497800-0);//GluGluHToTauTau_M125_13TeV_powheg_pythia8.root:  Positive:1497800  Negtive:0  ;
-double wGluGluHToWWTo2L2Nu= (LUMI*30.52)/(492200-0);//GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root:  Positive:492200  Negtive:0  ;
-double wGluGluHToWWToLNuQQ= (LUMI*29.99)/(198000-0);//GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root:  Positive:198000  Negtive:0  ;
+double wVHToNonbb= (LUMI*2.137)/(799942-297663);// VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root:  Positive:799942  Negtive:297663  ;
+double wZHToTauTau= (LUMI*0.7524)/(581490-18313);// ZHToTauTau_M125_13TeV_powheg_pythia8.root:  Positive:581490  Negtive:18313  ;
+double wZH_HToBB_ZToLL= (LUMI*0.07523)/(1920440-59420);// ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root:  Positive:1920440  Negtive:59420  ;
+double wGluGluHToZZTo4L= (LUMI*2.999)/(999800-0);// GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root:  Positive:999800  Negtive:0  ;
+double wGluGluHToBB= (LUMI*32.10)/(2946318-853055);// GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root:  Positive:2946318  Negtive:853055  ;
+double wGluGluHToGG= (LUMI*31.98)/(335240-96369);// GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root:  Positive:335240  Negtive:96369  ;
+double wGluGluHToMuMu= (LUMI*29.99)/(1991200-0);// GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:1991200  Negtive:0  ;
+double wGluGluHToTauTau= (LUMI*30.52)/(1497800-0);// GluGluHToTauTau_M125_13TeV_powheg_pythia8.root:  Positive:1497800  Negtive:0  ;
+double wGluGluHToWWTo2L2Nu= (LUMI*30.52)/(492200-0);// GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root:  Positive:492200  Negtive:0  ;
+double wGluGluHToWWToLNuQQ= (LUMI*29.99)/(198000-0);// GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root:  Positive:198000  Negtive:0  ;
 //double wVBFHToWWToLNuQQ= (LUMI*3.769)/(-)//
-double wVBFHToWWTo2L2Nu= (LUMI*3.769)/(99931-69);//VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root:  Positive:99931  Negtive:69  ;
+double wVBFHToWWTo2L2Nu= (LUMI*3.769)/(99931-69);// VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root:  Positive:99931  Negtive:69  ;
 //??very different from ttH
 //double wVBFHToWWTo2L2Nu= (LUMI*)/(99931-69);
-//double wVBFHToTauTau= (LUMI*0.237)/(996835-765);//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:996835  Negtive:765  ;
-double wVBFHToMuMu= (LUMI*0.000823)/(996835-765);//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:996835  Negtive:765  ;
-double wVBFHToGG= (LUMI*3.992)/(639138-338962);//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root:  Positive:639138  Negtive:338962  ;
+//double wVBFHToTauTau= (LUMI*0.237)/(996835-765);// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:996835  Negtive:765  ;
+double wVBFHToMuMu= (LUMI*0.000823)/(996835-765);// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:996835  Negtive:765  ;
+double wVBFHToGG= (LUMI*3.992)/(639138-338962);// VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root:  Positive:639138  Negtive:338962  ;
 //double wVBFHToBB= (LUMI*)/(-)//
 //double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
 //HH count as minor
@@ -96,7 +96,7 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);//VBFHToGG_M125_13TeV_amcatnlo_py
 //
 vector<double> bg_scale {
     wTTTT,//0
-    wTTJets,wTTGJets,wttZJets,wttWJets,wttH, wttbb,//6
+    wTTJets,wTTGJets,wttZJets,wttWJets,wttH, /* wttbb,*/ //6
     wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG,
     wWWW,wWWZ,wWWG,wZZZ,wWZZ,wWZG,wWGG,wZGGJets,
     wWJetsToLNu,wDYJetsToTauTau,
@@ -117,7 +117,7 @@ TFile *file05 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewN
 TFile *file06 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/ttWJets_13TeV_madgraphMLM.root");
 TFile *file07 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root");//ttH
 //?something wrong with ttH ntuple
-TFile *file08 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+// TFile *file08 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
 //6
 TFile *file09 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/WZ_TuneCUETP8M1_13TeV-pythia8.root");
 //TFile *file10 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/NoJEC/WW_TuneCUETP8M1_13TeV-pythia8.root");
@@ -218,7 +218,7 @@ TTree *Tree04 = (TTree*)file04->Get("tree");
 TTree *Tree05 = (TTree*)file05->Get("tree");
 TTree *Tree06 = (TTree*)file06->Get("tree");
 TTree *Tree07 = (TTree*)file07->Get("tree");
-TTree *Tree08 = (TTree*)file08->Get("tree");
+// TTree *Tree08 = (TTree*)file08->Get("tree");
 TTree *Tree09 = (TTree*)file09->Get("tree");
 //TTree *Tree10 = (TTree*)file10->Get("tree");
 TTree *Tree10_1 = (TTree*)file10_1->Get("tree");
@@ -259,7 +259,7 @@ TTree *Tree44 = (TTree*)file44->Get("tree");
 TTree *Tree45 = (TTree*)file45->Get("tree");
 /*}}}*/
 vector<TTree*> bgTree = {
-    Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,Tree08,Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
+    Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
 /*
 //TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/JESup/data.root");{{{
@@ -537,3 +537,4 @@ TH1F *QCD_HT1000to1500_TR2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_TR2; TH1
 TH1F *background_TR2;
 TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_TR2;
 */
+#include "TH1.h"

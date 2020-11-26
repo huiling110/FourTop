@@ -275,16 +275,13 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- for(UInt_t i=0; i<1; i++){
-  // for(UInt_t i=0; i<name.size(); i++){
+ // for(UInt_t i=0; i<1; i++){
+  for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
-//	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,/*data_SR,*/background_SR, TTJets_SR,    TTGJets_SR,  ttZJets_SR,   ttWJets_SR,   ttH_SR,   ttbb_SR,   	   WZ_SR, /*  WW_SR,  */WWTo2L2Nu_SR, WpWpJJ_SR,   ZZ_SR, WGJets_SR, ZGJetsToLLG_SR, WWW_SR, WWZ_SR, WWG_SR, ZZZ_SR, WZZ_SR, WZG_SR, WGG_SR,ZGGJets_SR, WJetsToLNu_SR,          DYJetsToTauTau_SR, tZq_ll_SR,ST_tW_antitop_SR, ST_tW_top_SR, TGJets_SR,THW_SR, 
-// THQ_SR,VHToNonbb_SR, ZHToTauTau_SR, ZH_HToBB_ZToLL_SR, GluGluHToZZTo4L_SR, GluGluHToBB_SR, GluGluHToGG_SR,       GluGluHToMuMu_SR, GluGluHToTauTau_SR, GluGluHToWWTo2L2Nu_SR, GluGluHToWWToLNuQQ_SR,VBFHToWWTo2L2Nu_SR,       VBFHToGG_SR, 
-//   TTTT_SR );//682
 //?need to simply this. or add all this samples would be very time cosuming
 
         TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
-        TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
+        TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);*/ //6
         TH1F* WZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WpWpJJ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* WGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZGJetsToLLG = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
         TH1F* WWW = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZGGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//8
         TH1F* WJetsToLNu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* DYJetsToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//2
@@ -292,7 +289,7 @@ for ( string ch : Channel){
         TH1F* VHToNonbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZH_HToBB_ZToLL = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToZZTo4L = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToBB = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWToLNuQQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]);/* TH1F* VBFHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); */TH1F* VBFHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
         vector<TH1F*> BGFiles  {
             TTTT,//0
-            TTJets,TTGJets,ttZJets,ttWJets,ttH,ttbb,//6
+            TTJets,TTGJets,ttZJets,ttWJets,ttH,/* ttbb, */ //6
             WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//12
              WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//20
              WJetsToLNu,  DYJetsToTauTau,//22
@@ -352,26 +349,26 @@ for ( string ch : Channel){
             cout<<"TTTT   = "<<(BGFiles[0])->Integral()<<endl;
             cout<<"TTJets = "<<BGFiles[1]->Integral()<<endl;
             cout<<"TTX    = "<<BGFiles[2]->Integral()+BGFiles[3]->Integral()+BGFiles[4]->Integral()+BGFiles[5]->Integral()<<endl;
-            cout<<"ttbb   = "<<BGFiles[6]->Integral()<<endl;      
-            cout<<"VV     = "<<BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()+BGFiles[12]->Integral()<<endl;
-            cout<<"VVV    = "<<BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()+BGFiles[20]->Integral()<<endl;
-            cout<<"WJets  = "<<BGFiles[21]->Integral()<<endl;      
-            cout<<"DY     = "<<BGFiles[22]->Integral()<<endl;      
-            cout<<"ST     = "<<BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()+BGFiles[28]->Integral()<<endl;
-            cout<<"H      = "<<BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()+BGFiles[41]->Integral()<<endl;
+            // cout<<"ttbb   = "<<BGFiles[6]->Integral()<<endl;
+            cout<<"VV     = "<<BGFiles[6]->Integral()+BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()<<endl;
+            cout<<"VVV    = "<<BGFiles[12]->Integral()+BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()<<endl;
+            cout<<"WJets  = "<<BGFiles[20]->Integral()<<endl;      
+            cout<<"DY     = "<<BGFiles[21]->Integral()<<endl;      
+            cout<<"ST     = "<<BGFiles[22]->Integral()+BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()<<endl;
+            cout<<"H      = "<<BGFiles[28]->Integral()+BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()<<endl;
             cout<<"Total BKG = "<<background_SR->Integral()<<endl;
             cout<<endl;
             cout<<"Statistics"<<endl;
             cout<<"TTTT   = "<<(BGFiles[0])->Integral()/bg_scale[0]<<endl;
             cout<<"TTJets = "<<(BGFiles[1]->Integral()/ bg_scale[1])<<endl;
             cout<<"TTX    = "<<(BGFiles[2]->Integral()/ bg_scale[2]) + (BGFiles[3]->Integral()/bg_scale[3]) + (BGFiles[4]->Integral()/bg_scale[4]) + ( BGFiles[5]->Integral()/bg_scale[5]) <<endl;
-            cout<<"ttbb   = "<<(BGFiles[6]->Integral()/bg_scale[6])<<endl;      
-            cout<<"VV     = "<<(BGFiles[7]->Integral()/bg_scale[7]) +(BGFiles[8]->Integral()/bg_scale[8]) +(BGFiles[9]->Integral()/bg_scale[9]) + (BGFiles[10]->Integral()/bg_scale[10]) + (BGFiles[11]->Integral()/bg_scale[11]) + (BGFiles[12]->Integral()/bg_scale[12]) <<endl;
-            cout<<"VVV    = "<<(BGFiles[13]->Integral()/bg_scale[13]) + (BGFiles[14]->Integral()/bg_scale[14]) + (BGFiles[15]->Integral()/bg_scale[15]) + (BGFiles[16]->Integral()/bg_scale[16]) + (BGFiles[17]->Integral()/bg_scale[17]) + (BGFiles[18]->Integral()/bg_scale[18]) + (BGFiles[19]->Integral()/bg_scale[19]) + (BGFiles[20]->Integral()/bg_scale[20]) <<endl;
-            cout<<"WJets  = "<<(BGFiles[21]->Integral()*bg_scale[21])<<endl;      
-            cout<<"DY     = "<<(BGFiles[22]->Integral()*bg_scale[22])<<endl;      
-            cout<<"ST     = "<<(BGFiles[23]->Integral()/bg_scale[23])+(BGFiles[24]->Integral()/bg_scale[24]) + (BGFiles[25]->Integral()/bg_scale[25]) + (BGFiles[26]->Integral()/bg_scale[26]) + (BGFiles[27]->Integral()/bg_scale[27]) + (BGFiles[28]->Integral()/bg_scale[28]) <<endl;
-            cout<<"H      = "<<(BGFiles[29]->Integral()/bg_scale[29])+(BGFiles[30]->Integral()/bg_scale[30]) + (BGFiles[31]->Integral()/bg_scale[31]) + (BGFiles[32]->Integral()/bg_scale[32]) + (BGFiles[33]->Integral()/bg_scale[33]) + (BGFiles[34]->Integral()/bg_scale[34]) + (BGFiles[35]->Integral()/bg_scale[35]) + (BGFiles[36]->Integral()/bg_scale[36]) + (BGFiles[37]->Integral()/bg_scale[37]) + (BGFiles[38]->Integral()/bg_scale[38]) + (BGFiles[39]->Integral()/bg_scale[39]) + (BGFiles[40]->Integral()/bg_scale[40]) + (BGFiles[41]->Integral()/bg_scale[41]) <<endl;
+            // cout<<"ttbb   = "<<(BGFiles[6]->Integral()/bg_scale[6])<<endl;
+            cout<<"VV     = "<<(BGFiles[6]->Integral()/bg_scale[6]) +(BGFiles[7]->Integral()/bg_scale[7]) +(BGFiles[8]->Integral()/bg_scale[8]) + (BGFiles[9]->Integral()/bg_scale[9]) + (BGFiles[10]->Integral()/bg_scale[10]) + (BGFiles[11]->Integral()/bg_scale[11]) <<endl;
+            cout<<"VVV    = "<<(BGFiles[12]->Integral()/bg_scale[12]) + (BGFiles[13]->Integral()/bg_scale[13]) + (BGFiles[14]->Integral()/bg_scale[14]) + (BGFiles[15]->Integral()/bg_scale[15]) + (BGFiles[16]->Integral()/bg_scale[16]) + (BGFiles[17]->Integral()/bg_scale[17]) + (BGFiles[18]->Integral()/bg_scale[18]) + (BGFiles[19]->Integral()/bg_scale[19]) <<endl;
+            cout<<"WJets  = "<<(BGFiles[20]->Integral()*bg_scale[20])<<endl;      
+            cout<<"DY     = "<<(BGFiles[21]->Integral()*bg_scale[21])<<endl;      
+            cout<<"ST     = "<<(BGFiles[22]->Integral()/bg_scale[22])+(BGFiles[23]->Integral()/bg_scale[23]) + (BGFiles[24]->Integral()/bg_scale[24]) + (BGFiles[25]->Integral()/bg_scale[25]) + (BGFiles[26]->Integral()/bg_scale[26]) + (BGFiles[27]->Integral()/bg_scale[27]) <<endl;
+            cout<<"H      = "<<(BGFiles[28]->Integral()/bg_scale[28])+(BGFiles[29]->Integral()/bg_scale[29]) + (BGFiles[30]->Integral()/bg_scale[30]) + (BGFiles[31]->Integral()/bg_scale[31]) + (BGFiles[32]->Integral()/bg_scale[32]) + (BGFiles[33]->Integral()/bg_scale[33]) + (BGFiles[34]->Integral()/bg_scale[34]) + (BGFiles[35]->Integral()/bg_scale[35]) + (BGFiles[36]->Integral()/bg_scale[36]) + (BGFiles[37]->Integral()/bg_scale[37]) + (BGFiles[38]->Integral()/bg_scale[38]) + (BGFiles[39]->Integral()/bg_scale[39]) + (BGFiles[40]->Integral()/bg_scale[40]) <<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -477,7 +474,8 @@ for ( string ch : Channel){
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/v6/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/tausT/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/tausT/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();

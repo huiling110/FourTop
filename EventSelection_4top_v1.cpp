@@ -411,7 +411,7 @@ void EventSelection_4top_v1(
         int CA8Index = -1;
         //?what does CA8Index do?
         //?not used in the macro
-        bool deltaPhiJetMet = true; // used in SelectedJets
+        // bool deltaPhiJetMet = true; // used in SelectedJets
         // vector<TLorentzVector> SelectedWJets;
         // SelectCA8Jets(0,SelectedWJets,
         // SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data,
@@ -426,21 +426,16 @@ void EventSelection_4top_v1(
         // for Jet_pfDeepCSVBJetTags is different
         bool deepJet = true;
         vector<TLorentzVector> SelectedJets;
-        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,
-                   deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
+        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsL;
-        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,
-                   SysJer, deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
+        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer/* deltaPhiJetMet*/); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsM;
-        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes,
-                   SysJer, deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
+        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedBJetsT;
-        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes,
-                   SysJer, deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
+        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer); // if(!deltaPhiJetMet)  continue;
         vector<TLorentzVector> SelectedForwardJets;
         SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags,
-                   SysJes, SysJer,
-                   deltaPhiJetMet); // if(!deltaPhiJetMet)  continue;
+                   SysJes, SysJer);
         jetsL_number = SelectedJets.size();
         jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
         jetsL_HT = HTcalculator(SelectedJets);
@@ -1240,9 +1235,8 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
 // SelectedJets, vector<double> & SelectedJetsBTags, vector<TLorentzVector>
 // SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int
 // SysJer, bool data, bool &deltaPhiJetMet){
-void SelectJets(int jetType, bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<double> &SelectedJetsBTags, int SysJes, int SysJer,
-                bool &deltaPhiJetMet) {
+void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
+                vector<double> &SelectedJetsBTags, const int SysJes, const int SysJer/*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
   // jetType=0  -> usual jets; we use loose ID
   // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
@@ -1250,9 +1244,8 @@ void SelectJets(int jetType, bool deepJet, vector<TLorentzVector> &SelectedJets,
   // jetType=12 -> b-jets M
   // jetType=13 -> b-jets T
   // jetType=2  -> forward jets
-  MinDeltaPhiJetMet = 99.0;
+  // MinDeltaPhiJetMet = 99.0;
   double MaxMostForwardJetEta = -99; /*{{{*/
-  // maybe j means j th jet?
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j) {
     double jetpt = 0.;
     if (SysJes == 0 && SysJer == 0) {
@@ -1356,13 +1349,13 @@ void SelectJets(int jetType, bool deepJet, vector<TLorentzVector> &SelectedJets,
       if (fabs(Jet_eta_->at(j)) > MaxMostForwardJetEta) {
         MaxMostForwardJetEta = fabs(Jet_eta_->at(j));
         MostForwardJetEta = Jet_eta_->at(j);
-        MostForwardJetPt = jetpt;
+        MostForwardJetPt = jetpt;//a branch in new tree
       } // MostForwardJetEta branch in new tree and SB.
       if (!(fabs(Jet_eta_->at(j)) < 2.4))
         continue;
     }
     if (jetType == 2) { // forwardjet
-      if (!(fabs(Jet_eta_->at(j)) >= 2.4))
+      if (!(fabs(Jet_eta_->at(j)) >= 2.4 && fabs(Jet_eta_->at(j)) <= 5))
         continue;
       if (!(jetpt > 25))
         continue;
@@ -1371,13 +1364,8 @@ void SelectJets(int jetType, bool deepJet, vector<TLorentzVector> &SelectedJets,
           continue;
       }
     }
-    //    else {
-    //        if(!(fabs(Jet_eta_->at(j))<2.4)) continue;
-    //    }
-    if (DeltaPhi(Jet_phi_->at(j), Met_type1PF_phi_) < MinDeltaPhiJetMet)
-      MinDeltaPhiJetMet = DeltaPhi(
-          Jet_phi_->at(j),
-          Met_type1PF_phi_); // MinDeltaPhiJetMe a branch in newtree and SB
+    // if (DeltaPhi(Jet_phi_->at(j), Met_type1PF_phi_) < MinDeltaPhiJetMet)
+      // MinDeltaPhiJetMet = DeltaPhi( Jet_phi_->at(j),   Met_type1PF_phi_); // MinDeltaPhiJetMe a branch in newtree and SB
     double SF = jetpt / Jet_pt_->at(j);
     TLorentzVector jet_prov;
     jet_prov.SetPtEtaPhiM(Jet_pt_->at(j), Jet_eta_->at(j), Jet_phi_->at(j),
@@ -1394,8 +1382,8 @@ void SelectJets(int jetType, bool deepJet, vector<TLorentzVector> &SelectedJets,
       SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags_->at(j));
     }
   }
-  if (!(MinDeltaPhiJetMet > 0.6))
-    deltaPhiJetMet = false; // used in Selectjets and SelectCA8Jets
+  // if (!(MinDeltaPhiJetMet > 0.6))
+    // deltaPhiJetMet = false; // used in Selectjets and SelectCA8Jets
 } /*}}}*/
 
 void SelectTops(vector<TLorentzVector> &SelectedTops) {
@@ -3069,8 +3057,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("deltaREle1Ele2", &deltaREle1Ele2, "deltaREle1Ele2/D");
   NewTree->Branch("deltaRMuo1Muo2", &deltaRMuo1Muo2, "deltaRMuo1Muo2/D");
   NewTree->Branch("Massb1b2", &Massb1b2, "Massb1b2/D");
-  NewTree->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet,
-                  "MinDeltaPhiJetMet/D");
+  // NewTree->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet,
+                  // "MinDeltaPhiJetMet/D");
   NewTree->Branch("MinDeltaPhiBoostedJetMet", &MinDeltaPhiBoostedJetMet,
                   "MinDeltaPhiBoostedJetMet/D");
   NewTree->Branch("deltaRb1b2", &deltaRb1b2, "deltaRb1b2/D");
@@ -3484,8 +3472,8 @@ void branch(bool data, int selection, TTree *NewTree,
     NewTreeSB->Branch("deltaREle1Ele2", &deltaREle1Ele2, "deltaREle1Ele2/D");
     NewTreeSB->Branch("deltaRMuo1Muo2", &deltaRMuo1Muo2, "deltaRMuo1Muo2/D");
     NewTreeSB->Branch("Massb1b2", &Massb1b2, "Massb1b2/D");
-    NewTreeSB->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet,
-                      "MinDeltaPhiJetMet/D");
+    // NewTreeSB->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet,
+                      // "MinDeltaPhiJetMet/D");
     NewTreeSB->Branch("MinDeltaPhiBoostedJetMet", &MinDeltaPhiBoostedJetMet,
                       "MinDeltaPhiBoostedJetMet/D");
     NewTreeSB->Branch("deltaRb1b2", &deltaRb1b2, "deltaRb1b2/D");
@@ -3677,7 +3665,7 @@ void initializeVar() { /*{{{*/
   deltaRMuo1Muo2 = -99;
   deltaPhiMetTop = -99.;
   Massb1b2 = -99;
-  MinDeltaPhiJetMet = 99.;
+  // MinDeltaPhiJetMet = 99.;
   MinDeltaPhiBoostedJetMet = 99.;
   deltaRb1b2 = -99;
   deltaRb1Lep1 = -99;

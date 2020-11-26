@@ -22,7 +22,7 @@ void SelectTaus(vector<TLorentzVector>& SelectedTaus,vector<int> & SelectedTausI
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);
 //void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<double> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons,
 //		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
-void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> & SelectedJets, vector<double> & SeclectedJetsBTags, int SysJes, int SysJer, bool  &deltaPhiJetMet);
+void SelectJets(const int jetType,const bool deepJet,  vector<TLorentzVector> & SelectedJets, vector<double> & SeclectedJetsBTags, const int SysJes, const int SysJer/*,  bool  &deltaPhiJetMet*/);
 void SelectCA8Jets(int CA8jetType, vector<TLorentzVector> & SelectedWJets, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices,
 		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
 void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<double> SelectedJetsCSV,TLorentzVector &TopQuark,
@@ -481,7 +481,7 @@ double deltaRb1Lep2=-99;
 double deltaRb2Lep1=-99;
 double deltaRb2Lep2=-99;
 double deltaPhiMetTop=-99.;
-double MinDeltaPhiJetMet=99.;
+// double MinDeltaPhiJetMet=99.;
 double MinDeltaPhiBoostedJetMet=99.;
 
 int   leptonsL_number=-99;
