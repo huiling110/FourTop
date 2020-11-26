@@ -1316,7 +1316,7 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
         continue;
     }
 
-    if (deepJet) {
+    if (deepJet) {//https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
       if (jetType == 11) {
         if (!(Jet_pfDeepFlavourBJetTags_->at(j) > 0.0614))
           continue;
