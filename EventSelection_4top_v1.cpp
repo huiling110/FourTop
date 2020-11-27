@@ -279,9 +279,9 @@ void EventSelection_4top_v1(
         vector<int> SelectedTausFIndex;
         vector<TLorentzVector> SelectedTausT;
         vector<int> SelectedTausTIndex;
-        SelectTaus(SelectedTausL, SelectedTausLIndex, 1);
-        SelectTaus(SelectedTausF, SelectedTausFIndex, 2);
-        SelectTaus(SelectedTausT, SelectedTausTIndex, 3); // tight
+        SelectTaus(SelectedTausL, SelectedTausLIndex, 1, LeptonsMVAL);
+        SelectTaus(SelectedTausF, SelectedTausFIndex, 2, LeptonsMVAL);
+        SelectTaus(SelectedTausT, SelectedTausTIndex, 3, LeptonsMVAL); // tight
         tausL_number = SelectedTausL.size();
         tausF_number = SelectedTausF.size();
         tausT_number = SelectedTausT.size();
@@ -1185,11 +1185,10 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     SelectedMuonsIndex.push_back(j);
   }
 } /*}}}*/
-void SelectTaus(vector<TLorentzVector> &SelectedTaus,
-                vector<int> &SelectedTausIndex, Int_t TauWP) {
+void SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
-  for (UInt_t j = 0; j < Tau_pt_->size(); ++j) {
+  for (UInt_t j = 0; j < Tau_pt_->size(); ++j) {/*{{{*/
     if (!(Tau_pt_->at(j) > 20))
       continue;
     if (!(Tau_eta_->at(j) < 2.3 && Tau_eta_->at(j) > -2.3))
@@ -1220,6 +1219,11 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
             Tau_byMediumDeepTau2017v2p1VSjet_->at(j) > 0.5))
         continue;
     }
+    //overlap removal
+    double minDeltaR_lep;
+    minDeltaR_lep = deltRmin(Tau_eta_->at(j), Tau_phi_->at(j), LeptonsMVAL);
+    if( !(minDeltaR_lep >= 0.3 )) continue;
+
     //?need err handling
     TLorentzVector tau;
     tau.SetPtEtaPhiE(Tau_pt_->at(j), Tau_eta_->at(j), Tau_phi_->at(j),
@@ -1227,7 +1231,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
   }
-}
+}/*}}}*/
 
 //?Selectedelectron and muon not appear in the function body
 // void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> &
@@ -2128,6 +2132,16 @@ double DeltaR(double eta1, double eta2, double phi1, double phi2) {
   if (deltaPhi > TMath::Pi())
     deltaPhi = TMath::TwoPi() - deltaPhi;
   return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
+}
+
+double deltRmin(const double eta1, const double phi1, const vector<TLorentzVector> LeptonsMVAF){
+    double deltaR = 0;
+    double minDeltaR = 100;
+    for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
+        deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
+        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+    }
+    return minDeltaR; 
 }
 
 double DeltaPhi(double phi1, double phi2) { /*{{{*/

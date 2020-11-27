@@ -18,7 +18,7 @@ void SelectMet(bool &SelectedMet);
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
 void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type );
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
-void SelectTaus(vector<TLorentzVector>& SelectedTaus,vector<int> & SelectedTausIndex, Int_t TauWP=1);
+void SelectTaus(vector<TLorentzVector>& SelectedTaus,vector<int> & SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);
 //void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<double> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons,
 //		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
@@ -40,6 +40,7 @@ void ElectronSF(bool SelectedZBosonElectrons, double pt, double eta, double &w_E
 void MuonTriggerSF(double pt, double eta);
 void ElectronTriggerSF(double pt, double eta);
 double DeltaR(double eta1, double eta2, double phi1, double phi2);
+double deltRmin(const double eta1, const double phi1, const vector<TLorentzVector> LeptonsMVAF);
 double DeltaPhi(double phi1, double phi2);
 double HTcalculator(vector<TLorentzVector> SelectedJets);
 double MHTcalculator(vector<TLorentzVector> SelectedJets);
