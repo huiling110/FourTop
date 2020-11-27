@@ -585,7 +585,7 @@ void EventSelection_4top_v1(
         if (jetsL_number > 3) {
           jetsL_4pt = SelectedJets[3].Pt();
           jetsL_4eta = SelectedJets[3].Eta();
-          jetsL_4phi = SelectedJets[3].Pt();
+          jetsL_4phi = SelectedJets[3].Phi();
         }
         if (jetsL_number > 4) {
           jetsL_5pt = SelectedJets[4].Pt();
@@ -2319,7 +2319,6 @@ double MinDeltaRCal(const vector<TLorentzVector> Jets,
   double min_deltar = 10;
   double min_deltaR = 10;
   for (UInt_t j = 0; j < Jets.size(); ++j) {
-
     for (UInt_t k = 0; k < Leptons.size(); ++k) {
       deltaR_init = Jets[j].DeltaR(Leptons[k]);
       if (min_deltar > deltaR_init)
