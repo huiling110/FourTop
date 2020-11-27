@@ -558,15 +558,12 @@ double SecondJetpfDeepFlavourBJetTags=-99;
 double ThirdJetpfDeepFlavourBJetTags=-99;
 double jetsL_bScore=-99;
 
-double MinDeltaRJets=-99;
 double jetsL_average_deltaR = -99;
 double jetsL_4largestBscoreSum = -99;
-double MaxDeltaRJets=-99;
+double jetsL_leading2invariantMass = -99;
 double MinDeltaPhiJets=-99;
 double jetsL_leptonsMVAT_minDeltaR = -99;
 double jetsL_tausF_minDeltaR = -99;
-double MinDeltaRBJets=-99;
-double MaxDeltaRBJets=-99;
 double bjetsL_1pt = -99;
 double bjetsL_1eta = -99;
 double bjetsL_1phi = -99;

@@ -405,7 +405,6 @@ void EventSelection_4top_v1(
         vector<double> SelectedJetsBTags;
         vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags,
             SelectedBJetsTBTags, SelectedForwardJetsBTags; 
-        //			vector<int>   CA8Indices;
         int CA8Index = -1;
         //?what does CA8Index do?
         //?not used in the macro
@@ -430,6 +429,7 @@ void EventSelection_4top_v1(
         SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
         vector<TLorentzVector> SelectedForwardJets;
         SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
+
         jetsL_number = SelectedJets.size();
         jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
         jetsL_HT = HTcalculator(SelectedJets);
@@ -485,16 +485,6 @@ void EventSelection_4top_v1(
                     if(jetsL_number>2) ThirdJetpfDeepFlavourBJetTags =
            Jet_pfDeepFlavourBJetTags_->at(third_pt_index);*/
 
-        vector<double> MinMaxDeltaRBJets;
-        MinMaxdeltaRJetsCal(SelectedBJetsM, MinMaxDeltaRBJets);
-        MinDeltaRBJets = MinMaxDeltaRBJets[0];
-        MaxDeltaRBJets = MinMaxDeltaRBJets[1];
-        //            MinDeltaRBJets = MinMaxDeltaRBJets.at(0);
-        //            MaxDeltaRBJets = MinMaxDeltaRBJets.at(1);
-        vector<double> MinMaxDeltaRJets;
-        MinMaxdeltaRJetsCal(SelectedJets, MinMaxDeltaRJets);
-        MinDeltaRJets = MinMaxDeltaRJets[0];
-        MaxDeltaRJets = MinMaxDeltaRJets[1];
         vector<double> MinMaxDeltaPhiJets;
         MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
         MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
@@ -585,6 +575,7 @@ void EventSelection_4top_v1(
           jetsL_2pt = SelectedJets[1].Pt();
           jetsL_2eta = SelectedJets[1].Eta();
           jetsL_2phi = SelectedJets[1].Phi();
+          jetsL_leading2invariantMass = (SelectedJets[0]+SelectedJets[1]).M();
         }
         if (jetsL_number > 2) {
           jetsL_3pt = SelectedJets[2].Pt();
@@ -3164,6 +3155,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("jetsL_bScore", &jetsL_bScore, "jetsL_bScore/D");
   NewTree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
   NewTree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
+  NewTree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
+
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
                   "jetsL_leptonsMVAT_minDeltaR/D");
   NewTree->Branch("jetsL_tausF_minDeltaR", &jetsL_tausF_minDeltaR,
@@ -3201,11 +3194,6 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("jetsL_11pt", &jetsL_11pt, "jetsL_11pt/D");
   NewTree->Branch("jetsL_11eta", &jetsL_11eta, "jetsL_11eta/D");
   NewTree->Branch("jetsL_11phi", &jetsL_11phi, "jetsL_11phi/D");
-  NewTree->Branch("MinDeltaRJets", &MinDeltaRJets, "MinDeltaRJets/D");
-  NewTree->Branch("MinDeltaRBJets", &MinDeltaRBJets, "MinDeltaRBJets/D");
-  NewTree->Branch("MaxDeltaRBJets", &MaxDeltaRBJets, "MaxDeltaRBJets/D");
-  NewTree->Branch("MaxDeltaRJets", &MaxDeltaRJets, "MaxDeltaRJets/D");
-  NewTree->Branch("MinDeltaPhiJets", &MinDeltaPhiJets, "MinDeltaPhiJets/D");
   NewTree->Branch("jetsL_HTDividedByMet", &jetsL_HTDividedByMet, "jetsL_HTDividedByMet/D");
   NewTree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
   NewTree->Branch("jetsL_MHTDividedByMet", &jetsL_MHTDividedByMet, "jetsL_MHTDividedByMet/D");
@@ -3783,10 +3771,9 @@ void initializeVar() { /*{{{*/
   SecondJetpfDeepFlavourBJetTags = -99;
   ThirdJetpfDeepFlavourBJetTags = -99;
   jetsL_bScore = -99;
-  MinDeltaRJets = -99;
   jetsL_average_deltaR = -99;
   jetsL_4largestBscoreSum = -99;
-  MaxDeltaRJets = -99;
+  jetsL_leading2invariantMass = -99;
   MinDeltaPhiJets = -99;
   jetsL_leptonsMVAT_minDeltaR = -99;
   jetsL_tausF_minDeltaR = -99;
@@ -3869,8 +3856,6 @@ void initializeVar() { /*{{{*/
   jetsL_11eta = -99;
   jetsL_11phi = -99;
 
-  MinDeltaRBJets = -99;
-  MaxDeltaRBJets = -99;
   tausL_number = -99;
   tausF_number = -99;
   tausT_number = -99;
