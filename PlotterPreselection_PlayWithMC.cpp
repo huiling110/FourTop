@@ -289,7 +289,7 @@ for ( string ch : Channel){
         TH1F* WJetsToLNu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* DYJetsToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//2
         TH1F* tZq_ll = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_antitop = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_top = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* TGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* THW = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* THQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
         TH1F* VHToNonbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZH_HToBB_ZToLL = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToZZTo4L = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToBB = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWToLNuQQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]);/* TH1F* VBFHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); */TH1F* VBFHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
-        vector<TH1F*> BGFiles  {
+        vector<TH1F*> allTrees  {
             TTTT,//0
             TTJets,TTGJets,ttZJets,ttWJets,ttH,/* ttbb, */ //6
             WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//12
@@ -298,48 +298,47 @@ for ( string ch : Channel){
              tZq_ll,  ST_tW_antitop,  ST_tW_top,  TGJets, THW,  THQ,//28
              VHToNonbb,  ZHToTauTau,  ZH_HToBB_ZToLL,  GluGluHToZZTo4L,  GluGluHToBB,  GluGluHToGG,  GluGluHToMuMu,  GluGluHToTauTau,  GluGluHToWWTo2L2Nu,  GluGluHToWWToLNuQQ,  VBFHToWWTo2L2Nu, /* VBFHToTauTau, */ VBFHToMuMu,  VBFHToGG// 41
         };
-//        BGFiles.push_back(TTTT); BGFiles.push_back(TTJets);BGFiles.push_back(TTGJets); BGFiles.push_back(ttZJets); BGFiles.push_back(ttWJets); BGFiles.push_back(ttH); BGFiles.push_back(ttbb);// BGFiles.push_back();     
-//        vector<TH1F*> BGFiles_NormalizedToXSection;
+//        allTrees.push_back(TTTT); allTrees.push_back(TTJets);allTrees.push_back(TTGJets); allTrees.push_back(ttZJets); allTrees.push_back(ttWJets); allTrees.push_back(ttH); allTrees.push_back(ttbb);// allTrees.push_back();     
+//        vector<TH1F*> allTrees_NormalizedToXSection;
 //            = {TTJets_SR,TTGJets_SR,ttZJets_SR,ttWJets_SR,ttH_SR,ttbb_SR       };
-//        BGFiles_NormalizedToXSection.push_back(TTJets_SR);BGFiles_NormalizedToXSection.push_back(TTGJets_SR); BGFiles_NormalizedToXSection.push_back(ttZJets_SR); BGFiles_NormalizedToXSection.push_back(ttWJets_SR); BGFiles_NormalizedToXSection.push_back(ttH_SR); BGFiles_NormalizedToXSection.push_back(ttbb_SR);             
+//        allTrees_NormalizedToXSection.push_back(TTJets_SR);allTrees_NormalizedToXSection.push_back(TTGJets_SR); allTrees_NormalizedToXSection.push_back(ttZJets_SR); allTrees_NormalizedToXSection.push_back(ttWJets_SR); allTrees_NormalizedToXSection.push_back(ttH_SR); allTrees_NormalizedToXSection.push_back(ttbb_SR);             
         TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
         // TH1F* signalAndBg_beforeScale = new TH1F("allFile", "allFile",bin[i],Min[i],Max[i]);
         // TH1F* background_SR = new TH1F;
         TList *list = new TList;
-        // cout<<"signal and bg files ="<< BGFiles.size()<<endl;
-        // cout<<"number of weights ="<<bg_scale.size()<<endl;
-        // cout<<"number of trees = "<<bgTree.size()<<endl;
-        for(UInt_t j = 0; j < BGFiles.size(); j++){
-//            TH1F* background = BGFiles[j];
-            // GetHisto(CUT,bgTree[j],BGFiles[j],plot,bin[i],Min[i],Max[i]);
+        // cout<<"signal and bg files ="<< allTrees.size()<<endl;
+        // cout<<"number of weights ="<<allScales.size()<<endl;
+        // cout<<"number of trees = "<<allTree.size()<<endl;
+        for(UInt_t j = 0; j < allTrees.size(); j++){
+//            TH1F* background = allTrees[j];
+            // GetHisto(CUT,allTree[j],allTrees[j],plot,bin[i],Min[i],Max[i]);
 // void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int BIN, float MIN, float MAX){[><]
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            bgTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); BGFiles[j] = (TH1F*)h->Clone(); delete h; 
-        	
-            BGFiles[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory.
-            // BGFiles[j]->SetName("histo");
+            allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allTrees[j] = (TH1F*)h->Clone(); delete h; 
+            allTrees[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory.
+            // allTrees[j]->SetName("histo");
 
-            // auto histo = BGFiles[j];
-            // bgTree[j]->Project("histo",plot,CUT);
-           // BGFiles[j]->Print();
-//            cout<<bg_scale[j];
-//            *BGFiles_NormalizedToXSection[j] = bg_scale[j]*(*(BGFiles[j])); 
+            // auto histo = allTrees[j];
+            // allTree[j]->Project("histo",plot,CUT);
+           // allTrees[j]->Print();
+//            cout<<allScales[j];
+//            *allTrees_NormalizedToXSection[j] = allScales[j]*(*(allTrees[j])); 
 
-            BGFiles[j]->Scale(bg_scale[j]);
-//            if(j==0) *background_SR = *BGFiles_NormalizedToXSection[j];
-//            if(j>0) *background_SR  = *background_SR + *(BGFiles_NormalizedToXSection[j]);
-//            BGFiles_NormalizedToXSection[j]->Print();            
-            // background_SR->Add((BGFiles_NormalizedToXSection[j]),1);
-            if(j > 0) background_SR->Add((BGFiles[j]),1);
-            // if(j>0) list->Add(BGFiles[j]);
-            // double xmax = BGFiles[j]->GetXaxis()->GetXmax();
+            allTrees[j]->Scale(allScales[j]);
+//            if(j==0) *background_SR = *allTrees_NormalizedToXSection[j];
+//            if(j>0) *background_SR  = *background_SR + *(allTrees_NormalizedToXSection[j]);
+//            allTrees_NormalizedToXSection[j]->Print();            
+            // background_SR->Add((allTrees_NormalizedToXSection[j]),1);
+            if(j > 0) background_SR->Add((allTrees[j]),1);
+            // if(j>0) list->Add(allTrees[j]);
+            // double xmax = allTrees[j]->GetXaxis()->GetXmax();
             // cout<<xmax<<endl;
 //            background_SR->Print();
 //            cout<<j<<endl;
-//          delete (BGFiles[j]);
+//          delete (allTrees[j]);
         }
-        // TH1F *bg_forSP = (TH1F*)BGFiles[1]->Clone("bg_forSP");
+        // TH1F *bg_forSP = (TH1F*)allTrees[1]->Clone("bg_forSP");
         // bg_forSP->Reset(); //resets the bin contents and errors of an histogram
         // bg_forSP->Merge(list);
         // bg_forSP->Print();
@@ -348,29 +347,29 @@ for ( string ch : Channel){
             cout<<endl;
             cout<<"Plotting "<<name[i]<<postfix<<endl;
          //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
-            cout<<"TTTT   = "<<(BGFiles[0])->Integral()<<endl;
-            cout<<"TTJets = "<<BGFiles[1]->Integral()<<endl;
-            cout<<"TTX    = "<<BGFiles[2]->Integral()+BGFiles[3]->Integral()+BGFiles[4]->Integral()+BGFiles[5]->Integral()<<endl;
-            // cout<<"ttbb   = "<<BGFiles[6]->Integral()<<endl;
-            cout<<"VV     = "<<BGFiles[6]->Integral()+BGFiles[7]->Integral()+BGFiles[8]->Integral()+BGFiles[9]->Integral()+BGFiles[10]->Integral()+BGFiles[11]->Integral()<<endl;
-            cout<<"VVV    = "<<BGFiles[12]->Integral()+BGFiles[13]->Integral()+BGFiles[14]->Integral()+BGFiles[15]->Integral()+BGFiles[16]->Integral()+BGFiles[17]->Integral()+BGFiles[18]->Integral()+BGFiles[19]->Integral()<<endl;
-            cout<<"WJets  = "<<BGFiles[20]->Integral()<<endl;      
-            cout<<"DY     = "<<BGFiles[21]->Integral()<<endl;      
-            cout<<"ST     = "<<BGFiles[22]->Integral()+BGFiles[23]->Integral()+BGFiles[24]->Integral()+BGFiles[25]->Integral()+BGFiles[26]->Integral()+BGFiles[27]->Integral()<<endl;
-            cout<<"H      = "<<BGFiles[28]->Integral()+BGFiles[29]->Integral()+BGFiles[30]->Integral()+BGFiles[31]->Integral()+BGFiles[32]->Integral()+BGFiles[33]->Integral()+BGFiles[34]->Integral()+BGFiles[35]->Integral()+BGFiles[36]->Integral()+BGFiles[37]->Integral()+BGFiles[38]->Integral()+BGFiles[39]->Integral()+BGFiles[40]->Integral()<<endl;
+            cout<<"TTTT   = "<<(allTrees[0])->Integral()<<endl;
+            cout<<"TTJets = "<<allTrees[1]->Integral()<<endl;
+            cout<<"TTX    = "<<allTrees[2]->Integral()+allTrees[3]->Integral()+allTrees[4]->Integral()+allTrees[5]->Integral()<<endl;
+            // cout<<"ttbb   = "<<allTrees[6]->Integral()<<endl;
+            cout<<"VV     = "<<allTrees[6]->Integral()+allTrees[7]->Integral()+allTrees[8]->Integral()+allTrees[9]->Integral()+allTrees[10]->Integral()+allTrees[11]->Integral()<<endl;
+            cout<<"VVV    = "<<allTrees[12]->Integral()+allTrees[13]->Integral()+allTrees[14]->Integral()+allTrees[15]->Integral()+allTrees[16]->Integral()+allTrees[17]->Integral()+allTrees[18]->Integral()+allTrees[19]->Integral()<<endl;
+            cout<<"WJets  = "<<allTrees[20]->Integral()<<endl;      
+            cout<<"DY     = "<<allTrees[21]->Integral()<<endl;      
+            cout<<"ST     = "<<allTrees[22]->Integral()+allTrees[23]->Integral()+allTrees[24]->Integral()+allTrees[25]->Integral()+allTrees[26]->Integral()+allTrees[27]->Integral()<<endl;
+            cout<<"H      = "<<allTrees[28]->Integral()+allTrees[29]->Integral()+allTrees[30]->Integral()+allTrees[31]->Integral()+allTrees[32]->Integral()+allTrees[33]->Integral()+allTrees[34]->Integral()+allTrees[35]->Integral()+allTrees[36]->Integral()+allTrees[37]->Integral()+allTrees[38]->Integral()+allTrees[39]->Integral()+allTrees[40]->Integral()<<endl;
             cout<<"Total BKG = "<<background_SR->Integral()<<endl;
             cout<<endl;
             cout<<"Statistics"<<endl;
-            cout<<"TTTT   = "<<(BGFiles[0])->Integral()/bg_scale[0]<<endl;
-            cout<<"TTJets = "<<(BGFiles[1]->Integral()/ bg_scale[1])<<endl;
-            cout<<"TTX    = "<<(BGFiles[2]->Integral()/ bg_scale[2]) + (BGFiles[3]->Integral()/bg_scale[3]) + (BGFiles[4]->Integral()/bg_scale[4]) + ( BGFiles[5]->Integral()/bg_scale[5]) <<endl;
-            // cout<<"ttbb   = "<<(BGFiles[6]->Integral()/bg_scale[6])<<endl;
-            cout<<"VV     = "<<(BGFiles[6]->Integral()/bg_scale[6]) +(BGFiles[7]->Integral()/bg_scale[7]) +(BGFiles[8]->Integral()/bg_scale[8]) + (BGFiles[9]->Integral()/bg_scale[9]) + (BGFiles[10]->Integral()/bg_scale[10]) + (BGFiles[11]->Integral()/bg_scale[11]) <<endl;
-            cout<<"VVV    = "<<(BGFiles[12]->Integral()/bg_scale[12]) + (BGFiles[13]->Integral()/bg_scale[13]) + (BGFiles[14]->Integral()/bg_scale[14]) + (BGFiles[15]->Integral()/bg_scale[15]) + (BGFiles[16]->Integral()/bg_scale[16]) + (BGFiles[17]->Integral()/bg_scale[17]) + (BGFiles[18]->Integral()/bg_scale[18]) + (BGFiles[19]->Integral()/bg_scale[19]) <<endl;
-            cout<<"WJets  = "<<(BGFiles[20]->Integral()*bg_scale[20])<<endl;      
-            cout<<"DY     = "<<(BGFiles[21]->Integral()*bg_scale[21])<<endl;      
-            cout<<"ST     = "<<(BGFiles[22]->Integral()/bg_scale[22])+(BGFiles[23]->Integral()/bg_scale[23]) + (BGFiles[24]->Integral()/bg_scale[24]) + (BGFiles[25]->Integral()/bg_scale[25]) + (BGFiles[26]->Integral()/bg_scale[26]) + (BGFiles[27]->Integral()/bg_scale[27]) <<endl;
-            cout<<"H      = "<<(BGFiles[28]->Integral()/bg_scale[28])+(BGFiles[29]->Integral()/bg_scale[29]) + (BGFiles[30]->Integral()/bg_scale[30]) + (BGFiles[31]->Integral()/bg_scale[31]) + (BGFiles[32]->Integral()/bg_scale[32]) + (BGFiles[33]->Integral()/bg_scale[33]) + (BGFiles[34]->Integral()/bg_scale[34]) + (BGFiles[35]->Integral()/bg_scale[35]) + (BGFiles[36]->Integral()/bg_scale[36]) + (BGFiles[37]->Integral()/bg_scale[37]) + (BGFiles[38]->Integral()/bg_scale[38]) + (BGFiles[39]->Integral()/bg_scale[39]) + (BGFiles[40]->Integral()/bg_scale[40]) <<endl;
+            cout<<"TTTT   = "<<(allTrees[0])->Integral()/allScales[0]<<endl;
+            cout<<"TTJets = "<<(allTrees[1]->Integral()/ allScales[1])<<endl;
+            cout<<"TTX    = "<<(allTrees[2]->Integral()/ allScales[2]) + (allTrees[3]->Integral()/allScales[3]) + (allTrees[4]->Integral()/allScales[4]) + ( allTrees[5]->Integral()/allScales[5]) <<endl;
+            // cout<<"ttbb   = "<<(allTrees[6]->Integral()/allScales[6])<<endl;
+            cout<<"VV     = "<<(allTrees[6]->Integral()/allScales[6]) +(allTrees[7]->Integral()/allScales[7]) +(allTrees[8]->Integral()/allScales[8]) + (allTrees[9]->Integral()/allScales[9]) + (allTrees[10]->Integral()/allScales[10]) + (allTrees[11]->Integral()/allScales[11]) <<endl;
+            cout<<"VVV    = "<<(allTrees[12]->Integral()/allScales[12]) + (allTrees[13]->Integral()/allScales[13]) + (allTrees[14]->Integral()/allScales[14]) + (allTrees[15]->Integral()/allScales[15]) + (allTrees[16]->Integral()/allScales[16]) + (allTrees[17]->Integral()/allScales[17]) + (allTrees[18]->Integral()/allScales[18]) + (allTrees[19]->Integral()/allScales[19]) <<endl;
+            cout<<"WJets  = "<<(allTrees[20]->Integral()*allScales[20])<<endl;      
+            cout<<"DY     = "<<(allTrees[21]->Integral()*allScales[21])<<endl;      
+            cout<<"ST     = "<<(allTrees[22]->Integral()/allScales[22])+(allTrees[23]->Integral()/allScales[23]) + (allTrees[24]->Integral()/allScales[24]) + (allTrees[25]->Integral()/allScales[25]) + (allTrees[26]->Integral()/allScales[26]) + (allTrees[27]->Integral()/allScales[27]) <<endl;
+            cout<<"H      = "<<(allTrees[28]->Integral()/allScales[28])+(allTrees[29]->Integral()/allScales[29]) + (allTrees[30]->Integral()/allScales[30]) + (allTrees[31]->Integral()/allScales[31]) + (allTrees[32]->Integral()/allScales[32]) + (allTrees[33]->Integral()/allScales[33]) + (allTrees[34]->Integral()/allScales[34]) + (allTrees[35]->Integral()/allScales[35]) + (allTrees[36]->Integral()/allScales[36]) + (allTrees[37]->Integral()/allScales[37]) + (allTrees[38]->Integral()/allScales[38]) + (allTrees[39]->Integral()/allScales[39]) + (allTrees[40]->Integral()/allScales[40]) <<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -394,12 +393,12 @@ for ( string ch : Channel){
         background_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
         background_SR->DrawNormalized("hist", 1);
         // background_SR->Draw("hist");
-        BGFiles[0]->SetLineWidth(2);
-        BGFiles[0]->SetLineColor(2);
-//        BGFiles[0]->SetLineColor(kViolet-2); 
-       // BGFiles[0]->Draw("samehisto");
-        BGFiles[0]->DrawNormalized("samehist", 1);
-        // BGFiles[0]->Draw("samehist");
+        allTrees[0]->SetLineWidth(2);
+        allTrees[0]->SetLineColor(2);
+//        allTrees[0]->SetLineColor(kViolet-2); 
+       // allTrees[0]->Draw("samehisto");
+        allTrees[0]->DrawNormalized("samehist", 1);
+        // allTrees[0]->Draw("samehist");
 
 
         TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
@@ -457,7 +456,7 @@ for ( string ch : Channel){
         pl2->SetTextSize(0.045); 
         pl2->SetFillColor(0);
       //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
-        TLegendEntry *ple2 = pl2->AddEntry(BGFiles[0], "TTTT",  "L"); 
+        TLegendEntry *ple2 = pl2->AddEntry(allTrees[0], "TTTT",  "L"); 
     //    ple2 = pl2->AddEntry(hs, "TTX",  "L");
        // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
        // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
@@ -480,14 +479,14 @@ for ( string ch : Channel){
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
 
-//        float scale_TTTT = BGFiles[0]->Integral();
+//        float scale_TTTT = allTrees[0]->Integral();
 //        cout<<scale_TTTT<<endl;
 //          cout<<"Total BKG = "<<background_SR->Integral()<<endl;
 //          background_SR->Print();
 //        vector<float> separation_power;
         //?for different range we have different sp, how to deal with this?
-        float sp = separationPower(BGFiles[0], background_SR);
-        // float sp = separationPower(BGFiles[0], bg_forSP);
+        float sp = separationPower(allTrees[0], background_SR);
+        // float sp = separationPower(allTrees[0], bg_forSP);
 //        separation_power.push_back(sp);
         cout<<NAME<<" separation power"<<sp<<endl;
         std::cout << '\n';
@@ -496,8 +495,8 @@ for ( string ch : Channel){
        // std::map<float, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
 
-        for(UInt_t j = 0; j < BGFiles.size(); j++){
-             delete (BGFiles[j]);
+        for(UInt_t j = 0; j < allTrees.size(); j++){
+             delete (allTrees[j]);
         }
 
         delete background_SR;//put delete in the last

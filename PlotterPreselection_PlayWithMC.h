@@ -70,7 +70,6 @@ double wST_tW_top= (LUMI*38.09)/(992024-0);//  ST_tW_top_5f_inclusiveDecays_13Te
 double wTGJets= (LUMI*2.967)/(933719-623277);// TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root:  Positive:933719  Negtive:623277  ;
 double wTHW= (LUMI*0.1467)/(4995329-2967);// THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root:  Positive:4995329  Negtive:2967  ;
 double wTHQ= (LUMI*0.8816)/(9829911-0);// THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root:  Positive:9829911  Negtive:0  ;
-
 //H 
 double wVHToNonbb= (LUMI*2.137)/(799942-297663);// VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root:  Positive:799942  Negtive:297663  ;
 double wZHToTauTau= (LUMI*0.7524)/(581490-18313);// ZHToTauTau_M125_13TeV_powheg_pythia8.root:  Positive:581490  Negtive:18313  ;
@@ -94,7 +93,7 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);// VBFHToGG_M125_13TeV_amcatnlo_p
 //HH count as minor
 //minor
 //
-vector<double> bg_scale {
+vector<double> allScales {
     wTTTT,//0
     wTTJets,wTTGJets,wttZJets,wttWJets,wttH, /* wttbb,*/ //6
     wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG,
@@ -258,7 +257,7 @@ TTree *Tree42 = (TTree*)file42->Get("tree");
 TTree *Tree44 = (TTree*)file44->Get("tree");
 TTree *Tree45 = (TTree*)file45->Get("tree");
 
-vector<TTree*> bgTree = {
+vector<TTree*> allTree = {
     Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
 /*
