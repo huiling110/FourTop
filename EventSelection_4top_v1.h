@@ -39,14 +39,14 @@ void MuonSF(bool SelectedZBosonMuons, double pt, double eta, double &w_Muon_, do
 void ElectronSF(bool SelectedZBosonElectrons, double pt, double eta, double &w_Electron_, double &w_ElectronUp_, double &w_ElectronDown_);
 void MuonTriggerSF(double pt, double eta);
 void ElectronTriggerSF(double pt, double eta);
+
 double DeltaR(double eta1, double eta2, double phi1, double phi2);
 double deltRmin(const double eta1, const double phi1, const vector<TLorentzVector> LeptonsMVAF);
 double DeltaPhi(double phi1, double phi2);
 double HTcalculator(vector<TLorentzVector> SelectedJets);
 double MHTcalculator(vector<TLorentzVector> SelectedJets);
-
+double rationHT_4toRestCal(vector<TLorentzVector> SelectedJets);
 bool compEle(const TLorentzVector a , const  TLorentzVector b);
-//
 //
 double InvariantMassLike_Calculator(vector<TLorentzVector> SelectedJets);
 double InvariantMassCalculator(vector<TLorentzVector> SelectedJets);
@@ -561,6 +561,7 @@ double jetsL_bScore=-99;
 double jetsL_average_deltaR = -99;
 double jetsL_4largestBscoreSum = -99;
 double jetsL_leading2invariantMass = -99;
+double jetsL_rationHT_4toRest = -99;
 double MinDeltaPhiJets=-99;
 double jetsL_leptonsMVAT_minDeltaR = -99;
 double jetsL_tausF_minDeltaR = -99;

@@ -591,6 +591,7 @@ void EventSelection_4top_v1(
           jetsL_5pt = SelectedJets[4].Pt();
           jetsL_5eta = SelectedJets[4].Eta();
           jetsL_5phi = SelectedJets[4].Phi();
+          jetsL_rationHT_4toRest = rationHT_4toRestCal(SelectedJets);
         }
         if (jetsL_number > 5) {
           jetsL_6pt = SelectedJets[5].Pt();
@@ -2205,6 +2206,18 @@ double MHTcalculator(vector<TLorentzVector> SelectedJets) { /*{{{*/
   return MHTprov;
 } /*}}}*/
 
+double rationHT_4toRestCal(vector<TLorentzVector> SelectedJets){
+    vector<TLorentzVector> leading4 ;
+    vector<TLorentzVector> rest;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+        if ( j < 4 ) leading4.push_back(SelectedJets[j]);
+        if ( j >= 4) rest.push_back(SelectedJets[j]);
+    }
+    if ( SelectedJets.size() > 4){
+        return HTcalculator(leading4)/HTcalculator(rest);
+    }
+    else return -99;
+}
 //
 //
 double
@@ -3156,6 +3169,7 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
   NewTree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
   NewTree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
+  NewTree->Branch("jetsL_rationHT_4toRest", &jetsL_rationHT_4toRest,"jetsL_rationHT_4toRest/D");
 
   NewTree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
                   "jetsL_leptonsMVAT_minDeltaR/D");
@@ -3774,6 +3788,7 @@ void initializeVar() { /*{{{*/
   jetsL_average_deltaR = -99;
   jetsL_4largestBscoreSum = -99;
   jetsL_leading2invariantMass = -99;
+  jetsL_rationHT_4toRest = -99;
   MinDeltaPhiJets = -99;
   jetsL_leptonsMVAT_minDeltaR = -99;
   jetsL_tausF_minDeltaR = -99;
