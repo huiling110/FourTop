@@ -42,6 +42,8 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
  name.push_back("jetsL_bScore");      bin.push_back(50);     Min.push_back(0);    Max.push_back(20);    axis.push_back("jetsL_bScore");
  name.push_back("jetsL_average_deltaR");      bin.push_back(20);     Min.push_back(0);    Max.push_back(10);    axis.push_back("average delta R of loose jets");
  name.push_back("jetsL_4largestBscoreSum");      bin.push_back(50);     Min.push_back(0);    Max.push_back(10);    axis.push_back("jetsL_4largestBscoreSum");
+ name.push_back("jetsL_leading2invariantMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("jetsL_leading2invariantMass");
+ name.push_back("jetsL_rationHT_4toRest");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("jetsL_rationHT_4toRest");
  name.push_back("jetsL_leptonsMVAT_minDeltaR");      bin.push_back(20);     Min.push_back(0);    Max.push_back(5);    axis.push_back("min delta R of loose jets and tight leptons");
  name.push_back("jetsL_tausF_minDeltaR");      bin.push_back(20);     Min.push_back(0);    Max.push_back(10);    axis.push_back("min delta R of loose jets and fakeble taus");
  name.push_back("jetsL_1pt");      bin.push_back(100);     Min.push_back(0);    Max.push_back(2000);    axis.push_back("jetsL_1pt");
@@ -275,8 +277,8 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- // for(UInt_t i=0; i<1; i++){
-  for(UInt_t i=0; i<name.size(); i++){
+ for(UInt_t i=0; i<1; i++){
+  // for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 //?need to simply this. or add all this samples would be very time cosuming
 
@@ -471,11 +473,9 @@ for ( string ch : Channel){
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v6_NewNtuple/plots_and_results/v6/"+NAME+postfix);
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v8_NewNtuple/plots_and_results/"+NAME+postfix);
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/tausT/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
