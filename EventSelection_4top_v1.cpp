@@ -106,7 +106,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 50000;
+        NumOfEvents = 10000;
       } else {
         NumOfEvents = nentries;
       }
@@ -330,8 +330,6 @@ void EventSelection_4top_v1(
           tauL_3phi = SelectedTausL[0].Phi();
         }
 
-        if (!(tausL_number > 0))
-          continue;
         //
 
         // channel difinition version2
@@ -419,20 +417,17 @@ void EventSelection_4top_v1(
         // vector<TLorentzVector> SelectedTopJets;
         // SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices,
         // SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)
-        // continue;
-        // if (SelectedWJets.size()>0) continue;
-        // if (SelectedTopJets.size()>0) continue;
         // 330; return vector of SelectedJets and selectedJetsCSV//0,11,12 range
         // for Jet_pfDeepCSVBJetTags is different
         bool deepJet = true;
         vector<TLorentzVector> SelectedJets;
-        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); // if(!deltaPhiJetMet)  continue;
+        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
         vector<TLorentzVector> SelectedBJetsL;
-        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
+        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); 
         vector<TLorentzVector> SelectedBJetsM;
-        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
+        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
         vector<TLorentzVector> SelectedBJetsT;
-        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); // if(!deltaPhiJetMet)  continue;
+        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
         vector<TLorentzVector> SelectedForwardJets;
         SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
         jetsL_number = SelectedJets.size();
@@ -637,14 +632,12 @@ void EventSelection_4top_v1(
           jetsL_11phi = SelectedJets[10].Phi();
         }/*}}}*/
 
-        if (!(jetsL_number > 3))
-          continue;
-        if (!(bjetsL_num > 1))
-          continue;
-        //
-        //
+        //event preselection
+        if (!(tausL_number > 0))      continue;
+        if (!(jetsL_number > 3))      continue;
+        if (!(bjetsL_num > 1))        continue;
         //channel selection for MVA
-        if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
+        // if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
         
         // subchannel/*{{{*/
         if (tausF_number == 1 && leptonsT_number_v2 == 0)
