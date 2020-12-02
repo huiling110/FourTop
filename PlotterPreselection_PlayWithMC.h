@@ -94,13 +94,13 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);// VBFHToGG_M125_13TeV_amcatnlo_p
 //minor
 //
 vector<double> allScales {
-    wTTTT,//0
-    wTTJets,wTTGJets,wttZJets,wttWJets,wttH, /* wttbb,*/ //6
-    wWZ,wWWTo2L2Nu,wWpWpJJ,wZZ,wWGJets,wZGJetsToLLG,
-    wWWW,wWWZ,wWWG,wZZZ,wWZZ,wWZG,wWGG,wZGGJets,
-    wWJetsToLNu,wDYJetsToTauTau,
-    wtZq_ll,wST_tW_antitop,wST_tW_top,wTGJets,wTHW,wTHQ,
-    wVHToNonbb,wZHToTauTau,wZH_HToBB_ZToLL,wGluGluHToZZTo4L,wGluGluHToBB,wGluGluHToGG,wGluGluHToMuMu,wGluGluHToTauTau,wGluGluHToWWTo2L2Nu,wGluGluHToWWToLNuQQ,wVBFHToWWTo2L2Nu,/*wVBFHToTauTau,*/wVBFHToMuMu,wVBFHToGG
+    wTTTT, //0
+    wTTJets, wTTGJets, wttZJets, wttWJets, wttH,  /* wttbb, */ //6
+    wWZ, wWWTo2L2Nu, wWpWpJJ, wZZ, wWGJets, wZGJetsToLLG, 
+    wWWW, wWWZ, wWWG, wZZZ, wWZZ, wWZG, wWGG, wZGGJets, 
+    wWJetsToLNu, wDYJetsToTauTau, 
+    wtZq_ll, wST_tW_antitop, wST_tW_top, wTGJets, wTHW, wTHQ, 
+    wVHToNonbb, wZHToTauTau, wZH_HToBB_ZToLL, wGluGluHToZZTo4L, wGluGluHToBB, wGluGluHToGG, wGluGluHToMuMu, wGluGluHToTauTau, wGluGluHToWWTo2L2Nu, wGluGluHToWWToLNuQQ, wVBFHToWWTo2L2Nu, /*wVBFHToTauTau, */wVBFHToMuMu, wVBFHToGG
 
 };
 
@@ -109,7 +109,7 @@ vector<double> allScales {
 //sequence matter very much here
 //TFile *file01 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/data.root");
 TFile *file02 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-//6
+//5
 TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");/*{{{*/
 TFile *file04 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");//TTGJets
 TFile *file05 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/ttZJets_13TeV_madgraphMLM-pythia8.root");
