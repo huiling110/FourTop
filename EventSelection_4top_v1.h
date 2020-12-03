@@ -386,7 +386,8 @@ int EVENT_lumiBlock_; TBranch *b_EVENT_lumiBlock;
 double EVENT_genHT_; TBranch *b_EVENT_genHT;
 double EVENT_prefireWeight_; TBranch *b_EVENT_prefireWeight;
 double EVENT_prefireWeightUp_; TBranch *b_EVENT_prefireWeightUp;
-double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;/*}}}*/
+double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;
+/*}}}*/
 
 //for new tree
 /*{{{*/
@@ -779,6 +780,7 @@ double w_BtagLooseDown=1;
 double prefiringweight = 1;
 double prefiringweightup = 1;
 double prefiringweightdown = 1;
+double puWeight = 1;
 double GenZPt=-99.;
 double GenWPt=-99.;
 double genWeight=1;

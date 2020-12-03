@@ -796,26 +796,22 @@ void EventSelection_4top_v1(
         prefiringweightup = EVENT_prefireWeightUp_;
         prefiringweightdown = EVENT_prefireWeightDown_;
 
+
+
         // WEIGHT
-        //			if(!data){
-        //					get_weight_btag(selection,w_Btag,
-        // w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
-        // w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,
-        // fileName[Nfiles]);//606 w_Btagall in NewTree
-        //					newPUWeight(PUWeight,
-        // PUWeightUP,
-        // PUWeightDOWN);//2729PUWeigh is a branch in Tree and newTree,PU and UP
-        // and DOWN are in New
-        //					GenWeight(fileName[Nfiles],
-        // GenZPt,
-        // GenWPt);2681
-        //					HTSF(fileName[Nfiles],HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
-        //					TriggerSF(Met_pt, jetsL_MHT,
-        // w_Trig,
-        // w_TrigUp, w_TrigDown );
-        //  	  			QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
-        //					PDFWeight(10,111,w_PDFUp,w_PDFDown);
+        //if(!data){
+        //		get_weight_btag(selection,w_Btag,
+        //      w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
+        //      w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,fileName[Nfiles]);//606 w_Btagall in NewTree
+        //		newPUWeight(PUWeight, PUWeightUP,PUWeightDOWN);//PUWeigh is a branch in Tree and newTree,PU and UP and DOWN are in New
+        //		GenWeight(fileName[Nfiles],GenZPt,GenWPt);2681
+                // HTSF(fileName[Nfiles],HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
+                // TriggerSF(Met_pt, jetsL_MHT, w_Trig, w_TrigUp, w_TrigDown );
+               // QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
+                // PDFWeight(10,111,w_PDFUp,w_PDFDown);
         //			}
+        puWeight = PUWeight_ ;
+
         if (selection == 0 || selection == 1)
           NewTree->Fill();
         else if (selection == 2)
@@ -2994,8 +2990,10 @@ void branch(bool data, int selection, TTree *NewTree,
                          &b_EVENT_prefireWeight);
   Tree->SetBranchAddress("EVENT_prefireWeightUp", &EVENT_prefireWeightUp_,
                          &b_EVENT_prefireWeightUp);
-  Tree->SetBranchAddress("EVENT_prefireWeightDown", &EVENT_prefireWeightDown_,
-                         &b_EVENT_prefireWeightDown);
+  Tree->SetBranchAddress("EVENT_prefireWeightDown", &EVENT_prefireWeightDown_,   &b_EVENT_prefireWeightDown);
+  Tree->SetBranchAddress("PUWeight", &PUWeight_,   &b_PUWeight);
+
+
   NewTree->Branch("channel_1Tau0L", &channel_1Tau0L, "channel_1Tau0L/I");
   NewTree->Branch("channel_1Tau1L", &channel_1Tau1L, "channel_1Tau1L/I");
   NewTree->Branch("channel_1Tau2OS", &channel_1Tau2OS, "channel_1Tau2OS/I");
@@ -3439,8 +3437,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("prefiringweight", &prefiringweight, "prefiringweight/D");
   NewTree->Branch("prefiringweightup", &prefiringweightup,
                   "prefiringweightup/D");
-  NewTree->Branch("prefiringweightdown", &prefiringweightdown,
-                  "prefiringweightdown/D");
+  NewTree->Branch("prefiringweightdown", &prefiringweightdown,  "prefiringweightdown/D");
+  NewTree->Branch("puWeight", &puWeight,  "puWeight/D");
 
   if (selection == 2) {
     NewTreeSB->Branch("TopMass", &TopMass, "TopMass/D");
@@ -3955,6 +3953,8 @@ void initializeVar() { /*{{{*/
   prefiringweight = 1;
   prefiringweightup = 1;
   prefiringweightdown = 1;
+  puWeight = 1;
+
   Met_pt = -99.;
   Met_phi = -99.;
   getTrueNumInteractions = -99;
@@ -4245,6 +4245,7 @@ void branchGetEntry(bool data, Long64_t tentry) { /*{{{*/
   b_EVENT_prefireWeight->GetEntry(tentry);
   b_EVENT_prefireWeightUp->GetEntry(tentry);
   b_EVENT_prefireWeightDown->GetEntry(tentry);
+  b_PUWeight->GetEntry(tentry);
   b_genWeight->GetEntry(tentry);
   if (!data)
     b_Gen_pt->GetEntry(tentry);
