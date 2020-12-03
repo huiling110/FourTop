@@ -32,6 +32,7 @@ float LUMI = 35900; //fb
 double wTTTT = (SigSF*LUMI*0.01197)/(1709406-704054);//
 //tt
 double wTTJets = (LUMI*746.7)/(29509487-14335648);//746.7 // TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root:  Positive:29509487  Negtive:14335648
+double wTT     = (LUMI*746.7)/(76915549-0)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root:  Positive:76915549  Negtive:0
 double wTTGJets = (LUMI*3.773)/(3224372-1646539);// TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root:  Positive:3224372  Negtive:1646539  ;
 double wttZJets = (LUMI*0.6559)/(9883364-0) ;// ttZJets_13TeV_madgraphMLM-pythia8.root:  Positive:9883364  Negtive:0      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-)
 double wttWJets = (LUMI*0.2014)/(6700440-0);// ttWJets_13TeV_madgraphMLM.root:  Positive:6700440  Negtive:0  ;
@@ -95,7 +96,8 @@ double wVBFHToGG= (LUMI*3.992)/(639138-338962);// VBFHToGG_M125_13TeV_amcatnlo_p
 //
 vector<double> allScales {
     wTTTT, //0
-    wTTJets, wTTGJets, wttZJets, wttWJets, wttH,  /* wttbb, */ //6
+    wTT, //changed wTTJets to wTT
+    wTTGJets, wttZJets, wttWJets, wttH,  /* wttbb, */ //6
     wWZ, wWWTo2L2Nu, wWpWpJJ, wZZ, wWGJets, wZGJetsToLLG, 
     wWWW, wWWZ, wWWG, wZZZ, wWZZ, wWZG, wWGG, wZGGJets, 
     wWJetsToLNu, wDYJetsToTauTau, 
@@ -110,7 +112,9 @@ vector<double> allScales {
 //TFile *file01 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/data.root");
 TFile *file02 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
 //5
-TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");/*{{{*/
+// TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");
+/*{{{*/
 TFile *file04 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");//TTGJets
 TFile *file05 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/ttZJets_13TeV_madgraphMLM-pythia8.root");
 TFile *file06 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_ObjectRemoval/NoJEC/ttWJets_13TeV_madgraphMLM.root");

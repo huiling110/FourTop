@@ -225,7 +225,8 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
 
 
 
-	  char CUT[1000]; char CUTpre[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
+	  char CUT[1000]; char CUTpre[1000];
+      char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
@@ -245,10 +246,9 @@ for ( string ch : Channel){
 //   sprintf(CUTpre,"%s", channel);
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&& (jetsL_7pt>30) && (%s)", channel);//1Tau0L for testing
+   sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=3)&&(tausT_number==1)  && (%s)", channel);//1Tau0L for testing
-   sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=3)&&(tausT_number==1)  && (%s)", channel);//1Tau0L for testing
+    // CUTpre = "tausT_number==1 && leptonsMVAT_number==0 &&  (jetsL_number>=8)&&(bjetsM_num>=2)"
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
    // sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
@@ -288,7 +288,9 @@ for ( string ch : Channel){
 	  const char *plot = name[i];
 
         TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
-        TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);*/ //6
+        // TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);
+        TH1F* TT= new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
+        TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);*/ //6
         TH1F* WZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WpWpJJ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* WGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZGJetsToLLG = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
         TH1F* WWW = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZGGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//8
         TH1F* WJetsToLNu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* DYJetsToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//2
@@ -296,7 +298,9 @@ for ( string ch : Channel){
         TH1F* VHToNonbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZH_HToBB_ZToLL = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToZZTo4L = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToBB = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWToLNuQQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]);/* TH1F* VBFHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); */TH1F* VBFHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
         vector<TH1F*> allHistos  {
             TTTT,//0
-            TTJets,TTGJets,ttZJets,ttWJets,ttH,/* ttbb, */ //5
+            // TTJets,
+            TT,
+            TTGJets,ttZJets,ttWJets,ttH,/* ttbb, */ //5
             WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//11
              WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//19
              WJetsToLNu,  DYJetsToTauTau,//21
@@ -331,24 +335,18 @@ for ( string ch : Channel){
 //            allHistos_NormalizedToXSection[j]->Print();            
             // background_SR->Add((allHistos_NormalizedToXSection[j]),1);
             if(j > 0) background_SR->Add((allHistos[j]),1);
-            // if(j>0) list->Add(allHistos[j]);
             // double xmax = allHistos[j]->GetXaxis()->GetXmax();
             // cout<<xmax<<endl;
 //            background_SR->Print();
-//            cout<<j<<endl;
-//          delete (allHistos[j]);
         }
-        // TH1F *bg_forSP = (TH1F*)allHistos[1]->Clone("bg_forSP");
-        // bg_forSP->Reset(); //resets the bin contents and errors of an histogram
-        // bg_forSP->Merge(list);
-        // bg_forSP->Print();
 
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<name[i]<<postfix<<endl;
          //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
             cout<<"TTTT   = "<<(allHistos[0])->Integral()<<endl;
-            cout<<"TTJets = "<<allHistos[1]->Integral()<<endl;
+            // cout<<"TTJets = "<<allHistos[1]->Integral()<<endl;
+            cout<<"TT     = "<<allHistos[1]->Integral()<<endl;
             cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
             // cout<<"ttbb   = "<<allHistos[6]->Integral()<<endl;
             cout<<"VV     = "<<allHistos[6]->Integral()+allHistos[7]->Integral()+allHistos[8]->Integral()+allHistos[9]->Integral()+allHistos[10]->Integral()+allHistos[11]->Integral()<<endl;
@@ -361,9 +359,9 @@ for ( string ch : Channel){
             cout<<endl;
             cout<<"Statistics"<<endl;
             cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales[0]<<endl;
-            cout<<"TTJets = "<<(allHistos[1]->Integral()/ allScales[1])<<endl;
+            // cout<<"TTJets = "<<(allHistos[1]->Integral()/ allScales[1])<<endl;
+            cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales[1])<<endl;
             cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales[2]) + (allHistos[3]->Integral()/allScales[3]) + (allHistos[4]->Integral()/allScales[4]) + ( allHistos[5]->Integral()/allScales[5]) <<endl;
-            // cout<<"ttbb   = "<<(allHistos[6]->Integral()/allScales[6])<<endl;
             cout<<"VV     = "<<(allHistos[6]->Integral()/allScales[6]) +(allHistos[7]->Integral()/allScales[7]) +(allHistos[8]->Integral()/allScales[8]) + (allHistos[9]->Integral()/allScales[9]) + (allHistos[10]->Integral()/allScales[10]) + (allHistos[11]->Integral()/allScales[11]) <<endl;
             cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales[12]) + (allHistos[13]->Integral()/allScales[13]) + (allHistos[14]->Integral()/allScales[14]) + (allHistos[15]->Integral()/allScales[15]) + (allHistos[16]->Integral()/allScales[16]) + (allHistos[17]->Integral()/allScales[17]) + (allHistos[18]->Integral()/allScales[18]) + (allHistos[19]->Integral()/allScales[19]) <<endl;
             cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales[20])<<endl;      
