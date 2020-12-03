@@ -183,7 +183,7 @@ void EventSelection_4top_v1(
         vector<int> SelectedMuonsTIndex;
         SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0);
         SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1);
-        SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2);
+        SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2);//this T is actually the medium in SS
         muonsL_number = SelectedMuonsL.size();
         muonsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
@@ -1124,8 +1124,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
 void SelectMuons(vector<TLorentzVector> &SelectedMuons,
                  vector<int> &SelectedMuonsIndex, int type) { /*{{{*/
   // changed ISO to ss of TTTT
-  // 0 for Loose; 1 for LooseFO(fakeble object); 2 for tight
-  // 0:loose; 1:medium; 2 :tight
+  // 0 for Loose; 2 for medium 
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j) {
     //    if(!(Muon_pt_->at(j)>20))                     continue;
     if (!(fabs(Muon_eta_->at(j)) < 2.4))
@@ -1170,6 +1169,8 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     SelectedMuonsIndex.push_back(j);
   }
 } /*}}}*/
+
+
 void SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight

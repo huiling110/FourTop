@@ -231,7 +231,7 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
       //
 //    sprintf(CUTpre,"((NumOfTausL>0))");
 // vector<string> Channel = {[>"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",<]"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-vector<string> Channel = { "1Tau0L_v2"   };
+vector<string> Channel = { "1Tau0L_v2"   };//tausF_number == 1 && leptonsMVAT_number == 0
 // vector<string> Channel = { "1Tau1E_v2"   };
 // vector<string> Channel = { "1Tau1Mu_v2"   };
 // vector<string> Channel = { "1Tau2OS_v2"   };
@@ -246,9 +246,11 @@ for ( string ch : Channel){
 //   sprintf(CUTpre,"%s", channel);
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
-   sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=3)&&(tausT_number==1)  && (%s)", channel);//1Tau0L for testing
-    // CUTpre = "tausT_number==1 && leptonsMVAT_number==0 &&  (jetsL_number>=8)&&(bjetsM_num>=2)"
+   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
+   sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
+   // sprintf(CUTpre,"%s","(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)");//1Tau0L
+      // sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
+      // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
    // sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
@@ -258,7 +260,9 @@ for ( string ch : Channel){
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
 	///did we multiply PUWeight etc or not?	//I think yes
-	sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
+    cout<<CUTpre<<endl;
+    sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
+    //prefiringweight is not all 1
 	//what is the difinition of PUweight and w_Btag ? what's their value?
 //	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
 //	sprintf(CUTpup2,"PUWeightDOWN*w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
@@ -318,7 +322,8 @@ for ( string ch : Channel){
         for(UInt_t j = 0; j < allHistos.size(); j++){
             // GetHisto(CUT,allTree[j],allHistos[j],plot,bin[i],Min[i],Max[i]);
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
+            // allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
+            allTree[j]->Draw(input,CUTpre); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
             allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed
             // allHistos[j]->SetName("histo");
             // cout<<allHistos[j]->GetName()<<endl;//GetName works
@@ -470,10 +475,10 @@ for ( string ch : Channel){
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
     //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v9_NewNtuple/plots_and_results/tausT/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/changedToTT/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
