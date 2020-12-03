@@ -247,9 +247,9 @@ for ( string ch : Channel){
 //   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
-   sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
+   // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
    // sprintf(CUTpre,"%s","(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)");//1Tau0L
-      // sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
+      sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
       // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
