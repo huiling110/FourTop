@@ -2,9 +2,6 @@
 #include "math.h"
 #include <algorithm>
 
-// void EventSelection_4top_v1(const bool istest = true, const string input =
-// "TauOfTTTT_Toptagger_oldEID.root", const string outputDir =
-// "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"){
 void EventSelection_4top_v1(
     const bool istest = true,
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
@@ -30,8 +27,6 @@ void EventSelection_4top_v1(
   using namespace std;
 
   vector<string> fileName;
-  //  fileName.push_back("TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-  // //17
   fileName.push_back(input);
   for (UInt_t Nfiles = 0; Nfiles < fileName.size(); Nfiles++) {
     //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
@@ -99,7 +94,7 @@ void EventSelection_4top_v1(
             (!preselection && !sideband && selection == 1)))
         continue;
       // preselection=true ,sideband=false,in this case selection=0
-      //?what does sideband and signal do?
+      //what does sideband and signal do?
       //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);Tree->SetBranchAddress;NewTree and SB->Branch
       branch(data, selection, NewTree,
              NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
@@ -416,8 +411,6 @@ void EventSelection_4top_v1(
         // vector<TLorentzVector> SelectedTopJets;
         // SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices,
         // SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)
-        // 330; return vector of SelectedJets and selectedJetsCSV//0,11,12 range
-        // for Jet_pfDeepCSVBJetTags is different
         bool deepJet = true;
         vector<TLorentzVector> SelectedJets;
         SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
@@ -1215,11 +1208,6 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<int> &SelectedTaus
   }
 }/*}}}*/
 
-//?Selectedelectron and muon not appear in the function body
-// void SelectJets(int jetType,bool deepJet,  vector<TLorentzVector> &
-// SelectedJets, vector<double> & SelectedJetsBTags, vector<TLorentzVector>
-// SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int
-// SysJer, bool data, bool &deltaPhiJetMet){
 void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
                 vector<double> &SelectedJetsBTags, const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
@@ -1368,6 +1356,15 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
     }
     if ( !(minDeltaR_tau >= 0.4)) continue;
 
+    //jet jet removal
+    double deltaR_jet = 0;
+    double minDeltaR_jet = 100;
+    for (UInt_t k = j+1; k < Jet_pt_->size(); ++k) {
+        deltaR_jet = DeltaR( Jet_eta_->at(k), Jet_eta_->at(j), Jet_phi_->at(k), Jet_phi_->at(j));
+        if ( deltaR_jet < minDeltaR_jet  ) minDeltaR_jet = deltaR_jet;
+    }
+    if ( !(minDeltaR_jet >= 0.4 )) continue;
+
     double SF = jetpt / Jet_pt_->at(j);
     TLorentzVector jet_prov;
     jet_prov.SetPtEtaPhiM(Jet_pt_->at(j), Jet_eta_->at(j), Jet_phi_->at(j),
@@ -1384,8 +1381,6 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
       SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags_->at(j));
     }
   }
-  // if (!(MinDeltaPhiJetMet > 0.6))
-    // deltaPhiJetMet = false; // used in Selectjets and SelectCA8Jets
 } /*}}}*/
 
 void SelectTops(vector<TLorentzVector> &SelectedTops) {
