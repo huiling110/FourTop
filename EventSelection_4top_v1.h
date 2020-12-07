@@ -391,27 +391,6 @@ double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;
 
 //for new tree
 /*{{{*/
-int channel_1Tau0L=0;
-int channel_1Tau1L=0;
-int channel_1Tau2OS=0;
-int channel_1Tau2SS=0;
-int channel_1Tau3L=0;
-int channel_2Tau0L=0;
-int channel_2Tau1L=0;
-int channel_2Tau2SS=0;
-int channel_2Tau2OS=0;
-
-int channel_1Tau0L_v2=0;
-int channel_1Tau1L_v2=0;
-int channel_1Tau1Mu_v2=0;
-int channel_1Tau1E_v2=0;
-int channel_1Tau2OS_v2=0;
-int channel_1Tau2SS_v2=0;
-int channel_1Tau3L_v2=0;
-int channel_2Tau0L_v2=0;
-int channel_2Tau1L_v2=0;
-int channel_2Tau2SS_v2=0;
-int channel_2Tau2OS_v2=0;
 
 
 double TopMass=-99;

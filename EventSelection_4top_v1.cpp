@@ -110,7 +110,7 @@ void EventSelection_4top_v1(
         branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
         // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
         initializeVar(); // initialize for new tree.
-                         //			if(!(HLT_PFHT900_==1 ||
+         //			if(!(HLT_PFHT900_==1 ||
         // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_
         //==1))  continue;//a branch in tree, trigger we choose
         if (!(Flag_goodVertices_ == 1))
@@ -328,72 +328,6 @@ void EventSelection_4top_v1(
         //
 
         // channel difinition version2
-        if (tausF_number == 1 && leptonsMVAT_number == 0)
-          channel_1Tau0L_v2 = 1; /*{{{*/
-        if (tausF_number == 1 && leptonsMVAT_number == 1)
-          channel_1Tau1L_v2 = 1;
-        if (tausF_number == 1 && muonsT_number == 1)
-          channel_1Tau1Mu_v2 = 1;
-        if (tausF_number == 1 && elesMVAT_number == 1)
-          channel_1Tau1E_v2 = 1;
-        if (tausF_number == 1 && leptonsMVAT_number == 2) {
-          if (elesMVAT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsMVATIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsMVATIndex[1]) ==
-                -1)
-              channel_1Tau2OS_v2 = 1;
-            else
-              channel_1Tau2SS_v2 = 1;
-          }
-          if (elesMVAT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsMVATIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS_v2 = 1;
-            else
-              channel_1Tau2SS_v2 = 1;
-          }
-          if (elesMVAT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS_v2 = 1;
-            else
-              channel_2Tau2SS_v2 = 1;
-          }
-        }
-        if (tausF_number == 1 && leptonsMVAT_number == 3)
-          channel_1Tau3L_v2 = 1;
-        if (tausF_number == 2 && leptonsMVAT_number == 0)
-          channel_2Tau0L_v2 = 1;
-        if (tausF_number == 2 && leptonsMVAT_number == 1)
-          channel_2Tau1L_v2 = 1;
-        if (tausF_number == 2 && leptonsMVAT_number == 2) {
-          if (elesMVAT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsMVATIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsMVATIndex[1]) ==
-                -1)
-              channel_2Tau2OS_v2 = 1;
-            else
-              channel_2Tau2SS_v2 = 1;
-          }
-          if (elesMVAT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsMVATIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS_v2 = 1;
-            else
-              channel_2Tau2SS_v2 = 1;
-          }
-          if (elesMVAT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS_v2 = 1;
-            else
-              channel_2Tau2SS_v2 = 1;
-          }
-        } /*}}}*/
 
 
         // jet and B jet selection
@@ -624,83 +558,6 @@ void EventSelection_4top_v1(
         //channel selection for MVA
         // if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
         
-        // subchannel/*{{{*/
-        if (tausF_number == 1 && leptonsT_number_v2 == 0)
-          channel_1Tau0L = 1;
-        if (tausF_number == 1 && leptonsT_number_v2 == 1)
-          channel_1Tau1L = 1;
-        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_1Tau2OS = 1;
-          }
-        }
-        if (tausF_number == 1 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                1)
-              channel_1Tau2SS = 1;
-          }
-        }
-        if (tausF_number == 1 && leptonsT_number_v2 == 3)
-          channel_1Tau3L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 0)
-          channel_2Tau0L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 1)
-          channel_2Tau1L = 1;
-        if (tausF_number == 2 && leptonsT_number_v2 == 2) {
-          if (eleT_number == 2) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    patElectron_charge_->at(SelectedElectronsTIndex[1]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-          if (eleT_number == 1) {
-            if (patElectron_charge_->at(SelectedElectronsTIndex[0]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-          if (eleT_number == 0) {
-            if (Muon_charge_->at(SelectedMuonsTIndex[1]) *
-                    Muon_charge_->at(SelectedMuonsTIndex[0]) ==
-                -1)
-              channel_2Tau2OS = 1;
-            else
-              channel_2Tau2SS = 1;
-          }
-        } /*}}}*/
         //
         //
         //
@@ -2989,38 +2846,6 @@ void branch(bool data, int selection, TTree *NewTree,
   Tree->SetBranchAddress("PUWeight", &PUWeight_,   &b_PUWeight);
 
 
-  NewTree->Branch("channel_1Tau0L", &channel_1Tau0L, "channel_1Tau0L/I");
-  NewTree->Branch("channel_1Tau1L", &channel_1Tau1L, "channel_1Tau1L/I");
-  NewTree->Branch("channel_1Tau2OS", &channel_1Tau2OS, "channel_1Tau2OS/I");
-  NewTree->Branch("channel_1Tau2SS", &channel_1Tau2SS, "channel_1Tau2SS/I");
-  NewTree->Branch("channel_1Tau3L", &channel_1Tau3L, "channel_1Tau3L/I");
-  NewTree->Branch("channel_2Tau0L", &channel_2Tau0L, "channel_2Tau0L/I");
-  NewTree->Branch("channel_2Tau1L", &channel_2Tau1L, "channel_2Tau1L/I");
-  NewTree->Branch("channel_2Tau2SS", &channel_2Tau2SS, "channel_2Tau2SS/I");
-  NewTree->Branch("channel_2Tau2OS", &channel_2Tau2OS_v2, "channel_2Tau2OS/I");
-
-  NewTree->Branch("channel_1Tau0L_v2", &channel_1Tau0L_v2,
-                  "channel_1Tau0L_v2/I");
-  NewTree->Branch("channel_1Tau1L_v2", &channel_1Tau1L_v2,
-                  "channel_1Tau1L_v2/I");
-  NewTree->Branch("channel_1Tau1Mu_v2", &channel_1Tau1Mu_v2,
-                  "channel_1Tau1Mu_v2/I");
-  NewTree->Branch("channel_1Tau1E_v2", &channel_1Tau1E_v2,
-                  "channel_1Tau1E_v2/I");
-  NewTree->Branch("channel_1Tau2OS_v2", &channel_1Tau2OS_v2,
-                  "channel_1Tau2OS_v2/I");
-  NewTree->Branch("channel_1Tau2SS_v2", &channel_1Tau2SS_v2,
-                  "channel_1Tau2SS_v2/I");
-  NewTree->Branch("channel_1Tau3L_v2", &channel_1Tau3L_v2,
-                  "channel_1Tau3L_v2/I");
-  NewTree->Branch("channel_2Tau0L_v2", &channel_2Tau0L_v2,
-                  "channel_2Tau0L_v2/I");
-  NewTree->Branch("channel_2Tau1L_v2", &channel_2Tau1L_v2,
-                  "channel_2Tau1L_v2/I");
-  NewTree->Branch("channel_2Tau2SS_v2", &channel_2Tau2SS_v2,
-                  "channel_2Tau2SS_v2/I");
-  NewTree->Branch("channel_2Tau2OS_v2", &channel_2Tau2OS_v2,
-                  "channel_2Tau2OS_v2/I");
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");
@@ -3621,27 +3446,6 @@ void branch(bool data, int selection, TTree *NewTree,
 } /*}}}*/
 
 void initializeVar() { /*{{{*/
-  channel_1Tau0L = 0;
-  channel_1Tau1L = 0;
-  channel_1Tau2OS = 0;
-  channel_1Tau2SS = 0;
-  channel_1Tau3L = 0;
-  channel_2Tau0L = 0;
-  channel_2Tau1L = 0;
-  channel_2Tau2SS = 0;
-  channel_2Tau2OS = 0;
-
-  channel_1Tau0L_v2 = 0;
-  channel_1Tau1L_v2 = 0;
-  channel_1Tau1Mu_v2 = 0;
-  channel_1Tau1E_v2 = 0;
-  channel_1Tau2OS_v2 = 0;
-  channel_1Tau2SS_v2 = 0;
-  channel_1Tau3L_v2 = 0;
-  channel_2Tau0L_v2 = 0;
-  channel_2Tau1L_v2 = 0;
-  channel_2Tau2SS_v2 = 0;
-  channel_2Tau2OS_v2 = 0;
 
   BMass = -99;
   BCSV = -99;
