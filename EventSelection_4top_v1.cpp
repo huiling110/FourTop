@@ -346,16 +346,16 @@ void EventSelection_4top_v1(
         // SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices,
         // SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)
         bool deepJet = true;
-        vector<TLorentzVector> SelectedJets;
-        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
-        vector<TLorentzVector> SelectedBJetsL;
-        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedBJetsM;
-        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedBJetsT;
-        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedForwardJets;
-        SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
+        vector<TLorentzVector> SelectedJets; vector<int> SelectedJetsIndex;
+        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags,SelectedJetsIndex, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
+        vector<TLorentzVector> SelectedBJetsL; vector<int> SelectedBJetsLIndex;
+        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SelectedBJetsLIndex, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); 
+        vector<TLorentzVector> SelectedBJetsM; vector<int> SelectedBJetsMIndex;
+        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SelectedBJetsMIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
+        vector<TLorentzVector> SelectedBJetsT; vector<int> SelectedBJetsTIndex;
+        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SelectedBJetsTIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
+        vector<TLorentzVector> SelectedForwardJets; vector<int> SelectedForwardJetsIndex;
+        SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SelectedForwardJetsIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
 
         jetsL_number = SelectedJets.size();
         jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
@@ -402,15 +402,6 @@ void EventSelection_4top_v1(
 
 
         forwardJets_num = SelectedForwardJets.size(); // 185
-        /*            Int_t leading_pt_index = -99; Int_t second_pt_index = -99;
-           Int_t third_pt_index = -99;
-                    FindLeadingToThirdPtIndex(SelectedJets,JetsPtSorted,leading_pt_index,second_pt_index,third_pt_index);
-                    if(jetsL_number>0) LeadingJetpfDeepFlavourBJetTags =
-           Jet_pfDeepFlavourBJetTags_->at(leading_pt_index);
-                    if(jetsL_number>1) SecondJetpfDeepFlavourBJetTags =
-           Jet_pfDeepFlavourBJetTags_->at(second_pt_index);
-                    if(jetsL_number>2) ThirdJetpfDeepFlavourBJetTags =
-           Jet_pfDeepFlavourBJetTags_->at(third_pt_index);*/
 
         vector<double> MinMaxDeltaPhiJets;
         MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
@@ -1066,7 +1057,7 @@ void SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<int> &SelectedTaus
 }/*}}}*/
 
 void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<double> &SelectedJetsBTags, const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+                vector<double> &SelectedJetsBTags, vector<int> &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
   // jetType=0  -> usual jets; we use loose ID
   // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
@@ -1214,13 +1205,13 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
     if ( !(minDeltaR_tau >= 0.4)) continue;
 
     //jet jet removal
-    double deltaR_jet = 0;
-    double minDeltaR_jet = 100;
-    for (UInt_t k = j+1; k < Jet_pt_->size(); ++k) {
-        deltaR_jet = DeltaR( Jet_eta_->at(k), Jet_eta_->at(j), Jet_phi_->at(k), Jet_phi_->at(j));
-        if ( deltaR_jet < minDeltaR_jet  ) minDeltaR_jet = deltaR_jet;
-    }
-    if ( !(minDeltaR_jet >= 0.4 )) continue;
+    // double deltaR_jet = 0;
+    // double minDeltaR_jet = 100;
+    // for (UInt_t k = j+1; k < Jet_pt_->size(); ++k) {
+        // deltaR_jet = DeltaR( Jet_eta_->at(k), Jet_eta_->at(j), Jet_phi_->at(k), Jet_phi_->at(j));
+        // if ( deltaR_jet < minDeltaR_jet  ) minDeltaR_jet = deltaR_jet;
+    // }
+    // if ( !(minDeltaR_jet >= 0.4 )) continue;
 
     double SF = jetpt / Jet_pt_->at(j);
     TLorentzVector jet_prov;
@@ -1232,12 +1223,26 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
     //?is this  step necessary?
     //???why do this?
     SelectedJets.push_back(jet);
+    SelectedJetsIndex.push_back(j);
     if (deepJet) {
       SelectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags_->at(j));
     } else {
       SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags_->at(j));
     }
   }
+  //jetjet overlap removal
+    double deltaR_jet = 0;
+    for ( UInt_t jet = 0; jet < SelectedJets.size(); jet++){
+        deltaR_jet = 10;      
+        for (UInt_t k = jet+1; k < SelectedJets.size(); ++k) {
+            deltaR_jet = DeltaR( SelectedJets[k].Eta(), SelectedJets[jet].Eta(), SelectedJets[k].Phi(), SelectedJets[jet].Phi() );
+            if ( deltaR_jet < 0.4){
+                if ( SelectedJets[jet].Pt() > SelectedJets[k].Pt()) SelectedJets.erase( SelectedJets.begin()+k);
+                else  SelectedJets.erase( SelectedJets.begin()+jet);
+            }
+        }
+    }
+
 } /*}}}*/
 
 void SelectTops(vector<TLorentzVector> &SelectedTops) {
