@@ -1231,17 +1231,17 @@ void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &S
     }
   }
   //jetjet overlap removal
-    double deltaR_jet = 0;
-    for ( UInt_t jet = 0; jet < SelectedJets.size(); jet++){
-        deltaR_jet = 10;      
-        for (UInt_t k = jet+1; k < SelectedJets.size(); ++k) {
-            deltaR_jet = DeltaR( SelectedJets[k].Eta(), SelectedJets[jet].Eta(), SelectedJets[k].Phi(), SelectedJets[jet].Phi() );
-            if ( deltaR_jet < 0.4){
-                if ( SelectedJets[jet].Pt() > SelectedJets[k].Pt()) SelectedJets.erase( SelectedJets.begin()+k);
-                else  SelectedJets.erase( SelectedJets.begin()+jet);
-            }
-        }
-    }
+    // double deltaR_jet = 0;
+    // for ( UInt_t jet = 0; jet < SelectedJets.size(); jet++){
+        // deltaR_jet = 10;
+        // for (UInt_t k = jet+1; k < SelectedJets.size(); ++k) {
+            // deltaR_jet = DeltaR( SelectedJets[k].Eta(), SelectedJets[jet].Eta(), SelectedJets[k].Phi(), SelectedJets[jet].Phi() );
+            // if ( deltaR_jet < 0.4){
+                // if ( SelectedJets[jet].Pt() > SelectedJets[k].Pt()) SelectedJets.erase( SelectedJets.begin()+k);
+                // else  SelectedJets.erase( SelectedJets.begin()+jet);
+            // }
+        // }
+    // }
 
 } /*}}}*/
 
