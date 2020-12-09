@@ -244,12 +244,11 @@ for ( string ch : Channel){
     ch = "channel_"+ ch + "==1";
     const char*    channel= ch.c_str();//.c_str() returns a const char*
 //   sprintf(CUTpre,"%s", channel);
-//   sprintf(CUTpre,"(jetsL_number>5)&&(bjetsL_num>1)&&(%s)", channel);
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
-   // sprintf(CUTpre,"%s","(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)");//1Tau0L
-      sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
+      sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2"); //1Tau0L
+      // sprintf(CUTpre, "%s", "(tausT_number==1) && (leptonsMVAT_number==0) &&  (jetsL_number>=8) && (bjetsM_num>=2)"); //1Tau0L
       // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
    // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
@@ -287,8 +286,8 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- for(UInt_t i=0; i<1; i++){
-  // for(UInt_t i=0; i<name.size(); i++){
+ // for(UInt_t i=0; i<1; i++){
+  for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 
         TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
@@ -478,7 +477,7 @@ for ( string ch : Channel){
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/changedToTT/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v11_jetjetRemoval_corrected/plots/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
