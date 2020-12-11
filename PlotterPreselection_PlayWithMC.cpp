@@ -286,8 +286,8 @@ for ( string ch : Channel){
 
 
   std::map<float, TString> mymap;
- // for(UInt_t i=0; i<1; i++){
-  for(UInt_t i=0; i<name.size(); i++){
+ for(UInt_t i=0; i<1; i++){
+  // for(UInt_t i=0; i<name.size(); i++){
 	  const char *plot = name[i];
 
         TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
