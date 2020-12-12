@@ -6,7 +6,6 @@ void EventSelection_4top_v1(
     const bool istest = true,
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
-    // const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/addEleIsoCut/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
   gStyle->SetOptStat("rme");
