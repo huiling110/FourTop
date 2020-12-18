@@ -92,8 +92,7 @@ void EventSelection_4top_v1(
       // preselection=true ,sideband=false,in this case selection=0
       //what does sideband and signal do?
       //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);Tree->SetBranchAddress;NewTree and SB->Branch
-      branch(data, selection, NewTree,
-             NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
+      branch(data, selection, NewTree,  NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
@@ -103,7 +102,9 @@ void EventSelection_4top_v1(
       }
       for (Long64_t i = 0; i < NumOfEvents; i++) {
         Long64_t tentry = Tree->LoadTree(i); // Set current entry.
+        cout<<__LINE__<<endl;
         branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
+        cout<<__LINE__<<endl;
         // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
         initializeVar(); // initialize for new tree.
          //			if(!(HLT_PFHT900_==1 ||
@@ -3833,8 +3834,8 @@ void initializeVar() { /*{{{*/
   //?filename not occur
   //
 // void branchGetEntry(bool data, Long64_t tentry, string fileName){
-void branchGetEntry(bool data, Long64_t tentry) { /*{{{*/
-  //?is that OK fileName not in the function?
+void branchGetEntry(bool data, Long64_t tentry) { 
+    /*{{{*/
   b_Jet_pt->GetEntry(tentry); // is a branch in tree, setadress.
   b_Jet_eta->GetEntry(tentry);
   b_Jet_phi->GetEntry(tentry);
