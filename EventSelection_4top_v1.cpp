@@ -4,7 +4,8 @@
 
 void EventSelection_4top_v1(
     const bool istest = true,
-    const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
@@ -43,40 +44,36 @@ void EventSelection_4top_v1(
     if ((SysJes == 0) && (SysJer == 2))
       NewFileprov = outputDir + "JERup/" + fileName[Nfiles];
     // const char *NewFileName = fileName[Nfiles].c_str();
+    bool data = true;
+    cout << "data" << data << endl;
+    //    if(fileName.size()==0) break;
+    if (!(fileName[Nfiles].find("TauBlock") != string::npos))
+      data = false; // find():The position of the first character of the first // match.
+    // If no matches were found, the function returns string::npos.//what is
+	//if filename is data, data=true. data and MC files have different    // tree .
+    cout << "data" << data << endl;
+
     const char *NewFileName =
         NewFileprov.c_str(); // c_str()Returns a pointer to an array that
                              // contains a null-terminated sequence of
                              // characters (i.e., a C-string) representing
                              // current value of the string object.
-    //    cout<<"file here"<<NewFileName<<endl;
+    cout<<"New file here"<<NewFileName<<endl;
     //    TFile f(NewFileName,"new");//Create a new file and open it for
     // writing, if the file already exists the file is not opened.
-    TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already
-                                      // exists it will be overwritten.
+    TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
     TTree *NewTree = new TTree("tree", "tree");
     TTree *NewTreeSB = new TTree("treeSB", "treeSB");
-    //?why 2 trees? what's the different?		//treeSB has something
-    // todo
-    // with
-    // sideband
+    //?why 2 trees? what's the different?		//treeSB has something todo with sideband
     string FILEprov;
-    FILEprov =
-        "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
+    if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + fileName[Nfiles];
+    else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
+    cout<<__LINE__<<endl;
     char openTree[500];
     sprintf(openTree, "TNT/BOOM");       // 117
     Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
-    bool data = true;
-    cout << "data" << data << endl;
-    //    if(fileName.size()==0) break;
-    if (!(fileName[Nfiles].find("Tau_data") != string::npos))
-      data = false; // find():The position of the first character of the first
-                    // // match.
-    // If no matches were found, the function returns string::npos.//what is
-    // data?	//if filename is data, data=true. data and MC files have
-    // different    // tree .
-    cout << "data" << data << endl;
     Long64_t nentries =
         (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
                                    // all branches of entry and return total
