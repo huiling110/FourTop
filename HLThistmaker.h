@@ -34,6 +34,9 @@ Int_t HLT_PFHT1050_;                                 TBranch * b_HLT_PFHT1050;
 
 Double_t Met_type1PF_pt_;                            TBranch * b_Met_type1PF_pt;
 
+Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_;            TBranch * b_HLT_PFHT450_SixJet40_BTagCSV_p056;
+Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;      TBranch * b_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+
 Int_t HLT_PFHT500_PFMET100_PFMHT100_IDTight = -9999;
 Int_t HLT_PFHT700_PFMET85_PFMHT85_IDTight = -9999;
 Int_t HLT_PFHT800_PFMET75_PFMHT75_IDTight = -9999;        
@@ -44,6 +47,8 @@ Int_t HLT_CaloJet500_NoJetID = -9999;
 Int_t HLT_AK8PFJet500 = -9999;
 Int_t HLT_PFJet500 = -9999;
 Int_t HLT_PFHT1050 = -9999;
+
+Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 = -999;
 
 Int_t Trigger  = -9999;
 
