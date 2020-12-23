@@ -15,6 +15,7 @@
 //void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, string fileName);
 void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB);/*{{{*/
 void SelectMet(bool &SelectedMet);
+void selectGenTaus( vector<TLorentzVector> &genTaus );
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
 void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type );
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
@@ -379,6 +380,10 @@ vector <double> * Gen_eta_; TBranch *b_Gen_eta;
 vector <double> * Gen_phi_; TBranch *b_Gen_phi;
 vector <double> * Gen_pdg_id_; TBranch *b_Gen_pdg_id;
 vector <double> * Gen_motherpdg_id_; TBranch *b_Gen_motherpdg_id;
+vector <double> * Gen_energy_; TBranch *b_Gen_energy;
+vector <double> * Gen_charge_; TBranch *b_Gen_charge;
+
+
 //int EVENT_event_; TBranch *b_EVENT_event;
 ULong64_t EVENT_event_; TBranch *b_EVENT_event;
 int EVENT_run_; TBranch *b_EVENT_run;
@@ -392,6 +397,8 @@ double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;
 //for new tree
 /*{{{*/
 
+
+int    genTaus_number = -99;
 
 double TopMass=-99;
 double TopMassMerged=-99;
@@ -762,6 +769,7 @@ double prefiringweightdown = 1;
 double puWeight = 1;
 double GenZPt=-99.;
 double GenWPt=-99.;
+
 double genWeight=1;
 double w_QCDUp = 1;
 double w_QCDDown = 1;

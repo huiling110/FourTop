@@ -4,8 +4,8 @@
 
 void EventSelection_4top_v1(
     const bool istest = true,
-    // const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-    const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
+    const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
@@ -70,7 +70,6 @@ void EventSelection_4top_v1(
     else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
-    cout<<__LINE__<<endl;
     char openTree[500];
     sprintf(openTree, "TNT/BOOM");       // 117
     Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
@@ -102,9 +101,7 @@ void EventSelection_4top_v1(
       }
       for (Long64_t i = 0; i < NumOfEvents; i++) {
         Long64_t tentry = Tree->LoadTree(i); // Set current entry.
-        cout<<__LINE__<<endl;
         branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
-        cout<<__LINE__<<endl;
         // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
         initializeVar(); // initialize for new tree.
          //			if(!(HLT_PFHT900_==1 ||
@@ -129,6 +126,18 @@ void EventSelection_4top_v1(
           if (!(Flag_eeBadScFilter_ == 1))
             continue;
         }
+
+        //gen tau and lepton
+        if ( !data ){
+            vector<TLorentzVector> genTaus; 
+            vector<TLorentzVector> genElectrons;
+            vector<TLorentzVector> genMuons;
+            selectGenTaus(genTaus);
+            genTaus_number = genTaus.size();
+        }
+
+
+
 
         if (!data)
           GenClassifier(GenZPt, GenWPt); // according to pdg ID generate the
@@ -731,6 +740,15 @@ void MetCorrection(int SysJes, int SysJer, double &MET) { /*{{{*/
   }
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
+
+void selectGenTaus( vector<TLorentzVector> &genTaus ){
+    for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
+        if(!(abs(Gen_motherpdg_id_->at(j))==6)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6
+        TLorentzVector gentau;
+        gentau.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
+        genTaus.push_back(gentau);
+    }
+}
 
 void SelectElectrons(vector<TLorentzVector> &SelectedElectrons,
                      vector<int> &SelectedElectronsIndex, int type) { /*{{{*/
@@ -2826,6 +2844,10 @@ void branch(bool data, int selection, TTree *NewTree,
   if (!data)
     Tree->SetBranchAddress("Gen_pt", &Gen_pt_, &b_Gen_pt);
   if (!data)
+    Tree->SetBranchAddress("Gen_energy", &Gen_energy_, &b_Gen_energy);
+  if (!data)
+    Tree->SetBranchAddress("Gen_charge", &Gen_charge_, &b_Gen_charge);
+  if (!data)
     Tree->SetBranchAddress("Gen_eta", &Gen_eta_, &b_Gen_eta);
   if (!data)
     Tree->SetBranchAddress("Gen_phi", &Gen_phi_, &b_Gen_phi);
@@ -2848,6 +2870,8 @@ void branch(bool data, int selection, TTree *NewTree,
   Tree->SetBranchAddress("PUWeight", &PUWeight_,   &b_PUWeight);
 
 
+  NewTree->Branch("genTaus_number", &genTaus_number, "genTaus_number/I");
+  // NewTree->Branch("", &, "/");
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");
@@ -3449,6 +3473,8 @@ void branch(bool data, int selection, TTree *NewTree,
 
 void initializeVar() { /*{{{*/
 
+    genTaus_number = -99;
+
   BMass = -99;
   BCSV = -99;
   BPt = -99;
@@ -3819,6 +3845,9 @@ void initializeVar() { /*{{{*/
   genWeight = 1;
   GenZPt = -99.;
   GenWPt = -99.;
+  genTaus_number = -99;  
+
+
   dQuark = 0;
   uQuark = 0;
   sQuark = 0;
@@ -4054,6 +4083,10 @@ void branchGetEntry(bool data, Long64_t tentry) {
     b_Gen_eta->GetEntry(tentry);
   if (!data)
     b_Gen_phi->GetEntry(tentry);
+  if (!data)
+    b_Gen_charge->GetEntry(tentry);
+  if (!data)
+    b_Gen_energy->GetEntry(tentry);
   if (!data)
     b_Gen_pdg_id->GetEntry(tentry);
   if (!data)
