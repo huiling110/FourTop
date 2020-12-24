@@ -751,7 +751,7 @@ void MetCorrection(int SysJes, int SysJer, double &MET) { /*{{{*/
 
 void selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
+        if(!(abs(Gen_motherpdg_id_->at(j))==24 && abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
         TLorentzVector gentau;
         gentau.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
         genTaus.push_back(gentau);
@@ -759,7 +759,7 @@ void selectGenTaus( vector<TLorentzVector> &genTaus ){
 }
 void selectGenEles( vector<TLorentzVector> &genEles ){
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==11)) continue;//tau:15; ele:11;
+        if(!(abs(Gen_motherpdg_id_->at(j))==24 && abs(Gen_pdg_id_->at(j))==11)) continue;//tau:15; ele:11;
         TLorentzVector genele;
         genele.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
         genEles.push_back(genele);
@@ -767,7 +767,7 @@ void selectGenEles( vector<TLorentzVector> &genEles ){
 }
 void selectGenMuons( vector<TLorentzVector> &genMuons ){
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
+        if(!(abs(Gen_motherpdg_id_->at(j))==24  && abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
         TLorentzVector genmuon;
         genmuon.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
         genMuons.push_back(genmuon);
@@ -4135,7 +4135,6 @@ void GenClassifier(double &GenZPt_, double &GenWPt_) { /*{{{*/
     // cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<"
     // "<<Gen_pt_->at(j)<<endl;
     // std::string::at can be used to extract characters by characters from a
-    // given string.
     //?what is Gen_pt? is Gen_pt of the final state? if so, how can we have Z
     // and W ?
     if (abs(Gen_pdg_id_->at(j)) == 1 &&
