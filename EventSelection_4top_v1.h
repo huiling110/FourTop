@@ -16,6 +16,8 @@
 void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB);/*{{{*/
 void SelectMet(bool &SelectedMet);
 void selectGenTaus( vector<TLorentzVector> &genTaus );
+void selectGenEles( vector<TLorentzVector> &genEles );
+void selectGenMuons( vector<TLorentzVector> &genMuons );
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
 void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type );
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
@@ -399,6 +401,8 @@ double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;
 
 
 int    genTaus_number = -99;
+int genEles_number = -99;
+int genMuons_number = -99;
 
 double TopMass=-99;
 double TopMassMerged=-99;

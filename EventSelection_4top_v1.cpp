@@ -130,10 +130,14 @@ void EventSelection_4top_v1(
         //gen tau and lepton
         if ( !data ){
             vector<TLorentzVector> genTaus; 
-            vector<TLorentzVector> genElectrons;
+            vector<TLorentzVector> genEles;
             vector<TLorentzVector> genMuons;
             selectGenTaus(genTaus);
+            selectGenEles(genEles);
+            selectGenMuons(genMuons);
             genTaus_number = genTaus.size();
+            genEles_number = genEles.size();
+            genMuons_number = genMuons.size();
         }
 
 
@@ -743,10 +747,26 @@ void MetCorrection(int SysJes, int SysJer, double &MET) { /*{{{*/
 
 void selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-        if(!(abs(Gen_motherpdg_id_->at(j))==6)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6
+        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
         TLorentzVector gentau;
         gentau.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
         genTaus.push_back(gentau);
+    }
+}
+void selectGenEles( vector<TLorentzVector> &genEles ){
+    for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
+        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==11)) continue;//tau:15; ele:11;
+        TLorentzVector genele;
+        genele.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
+        genEles.push_back(genele);
+    }
+}
+void selectGenMuons( vector<TLorentzVector> &genMuons ){
+    for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
+        if(!(abs(Gen_motherpdg_id_->at(j))==24)&&(abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
+        TLorentzVector genmuon;
+        genmuon.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
+        genMuons.push_back(genmuon);
     }
 }
 
@@ -2871,7 +2891,8 @@ void branch(bool data, int selection, TTree *NewTree,
 
 
   NewTree->Branch("genTaus_number", &genTaus_number, "genTaus_number/I");
-  // NewTree->Branch("", &, "/");
+  NewTree->Branch("genEles_number", &genEles_number, "genEles_number/I");
+  NewTree->Branch("genMuons_number", &genMuons_number, "genMuons_number/I");
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");
@@ -3474,6 +3495,8 @@ void branch(bool data, int selection, TTree *NewTree,
 void initializeVar() { /*{{{*/
 
     genTaus_number = -99;
+    genEles_number = -99;
+    genMuons_number = -99;
 
   BMass = -99;
   BCSV = -99;
@@ -3845,7 +3868,6 @@ void initializeVar() { /*{{{*/
   genWeight = 1;
   GenZPt = -99.;
   GenWPt = -99.;
-  genTaus_number = -99;  
 
 
   dQuark = 0;
