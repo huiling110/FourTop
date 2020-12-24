@@ -15,14 +15,14 @@ void EventSelection_4top_v1(
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
-  bool preselection = true; // associate with selection
-  bool sideband = false;    // associate with selection
+  const bool preselection = true; // associate with selection
+  const bool sideband = false;    // associate with selection
   //?what's sideband and signal ?
-  bool signal = false;
+  const bool signal = false;
   //?signal occur nowhere else	//what does these mean?
   // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
-  int SysJes = 0; // jet enenrgy scale
-  int SysJer = 0; // jet  energy resolution
+  const int SysJes = 0; // jet enenrgy scale
+  const int SysJer = 0; // jet  energy resolution
   const bool isHLTstudy = true;
 
   using namespace std;
