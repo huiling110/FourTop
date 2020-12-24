@@ -23,6 +23,7 @@ void EventSelection_4top_v1(
   // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
   int SysJes = 0; // jet enenrgy scale
   int SysJer = 0; // jet  energy resolution
+  const bool isHLTstudy = true;
 
   using namespace std;
 
@@ -104,28 +105,29 @@ void EventSelection_4top_v1(
         branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
         // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
         initializeVar(); // initialize for new tree.
-         //			if(!(HLT_PFHT900_==1 ||
-        // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_
-        //==1))  continue;//a branch in tree, trigger we choose
-        if (!(Flag_goodVertices_ == 1))
-          continue; // a branch in tree.
-        if (!(Flag_globalSuperTightHalo2016Filter_ == 1))
-          continue;
-        if (!(Flag_HBHENoiseFilter_ == 1))
-          continue;
-        if (!(Flag_HBHENoiseIsoFilter_ == 1))
-          continue;
-        if (!(Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
-          continue; // a branch in Tree
-        if (!(Flag_BadPFMuonFilter_ == 1))
-          continue;
-        //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
-        // continue;
-        //			why this filter not work?//applied only in 2017 and 2018
-        if (data) {
-          if (!(Flag_eeBadScFilter_ == 1))
-            continue;
+        if ( !isHLTstudy ){
+             //			if(!(HLT_PFHT900_==1 ||
+            // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1))  continue;//a branch in tree, trigger we choose
+            if (!(Flag_goodVertices_ == 1))
+              continue; // a branch in tree.
+            if (!(Flag_globalSuperTightHalo2016Filter_ == 1))
+              continue;
+            if (!(Flag_HBHENoiseFilter_ == 1))
+              continue;
+            if (!(Flag_HBHENoiseIsoFilter_ == 1))
+              continue;
+            if (!(Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
+              continue; // a branch in Tree
+            if (!(Flag_BadPFMuonFilter_ == 1))
+              continue;
+            //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
+            // continue;
+            //			why this filter not work?//applied only in 2017 and 2018
+            if (data) {
+              if (!(Flag_eeBadScFilter_ == 1)) continue;
+            }
         }
+
 
         //gen tau and lepton
         if ( !data ){
@@ -553,9 +555,11 @@ void EventSelection_4top_v1(
         }/*}}}*/
 
         //event preselection
-        if (!(tausL_number > 0))      continue;
-        if (!(jetsL_number > 3))      continue;
-        if (!(bjetsL_num > 1))        continue;
+        if ( !isHLTstudy){
+            if (!(tausL_number > 0))      continue;
+            if (!(jetsL_number > 3))      continue;
+            if (!(bjetsL_num > 1))        continue;
+        }
         //channel selection for MVA
         // if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
         
