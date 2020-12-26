@@ -2822,37 +2822,65 @@ void branch(bool data, int selection, TTree *NewTree,
                          &b_HLT_DoubleEle33_CaloIdL_MW);
   Tree->SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
   Tree->SetBranchAddress("HLT_TkMu50", &HLT_TkMu50_, &b_HLT_TkMu50);
-  // Tree->SetBranchAddress("HLT_PFHT500_PFMET100_PFMHT100_IDTight",
-  // &HLT_PFHT500_PFMET100_PFMHT100_IDTight_,
-  // &b_HLT_PFHT500_PFMET100_PFMHT100_IDTight);
-  // Tree->SetBranchAddress("HLT_PFHT700_PFMET85_PFMHT85_IDTight",
-  // &HLT_PFHT700_PFMET85_PFMHT85_IDTight_,
-  // &b_HLT_PFHT700_PFMET85_PFMHT85_IDTight);
-  // Tree->SetBranchAddress("HLT_PFHT800_PFMET75_PFMHT75_IDTight",
-  // &HLT_PFHT800_PFMET75_PFMHT75_IDTight_,
-  // &b_HLT_PFHT800_PFMET75_PFMHT75_IDTight);
-  //	Tree->SetBranchAddress("HLT_PFMET120_PFMHT120_IDTight",
-  //&HLT_PFMET120_PFMHT120_IDTight_, &b_HLT_PFMET120_PFMHT120_IDTight);
-  //	Tree->SetBranchAddress("HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
-  //&HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_,
-  //&b_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight);
-  // Tree->SetBranchAddress("HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight",
-  // &HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_,
-  // &b_HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight);
-  // Tree->SetBranchAddress("HLT_CaloJet500_NoJetID", &HLT_CaloJet500_NoJetID_,
-  // &b_HLT_CaloJet500_NoJetID);
-  // Tree->SetBranchAddress("HLT_AK8PFJet500", &HLT_AK8PFJet500_,
-  // &b_HLT_AK8PFJet500);
-  // Tree->SetBranchAddress("HLT_PFJet500", &HLT_PFJet500_, &b_HLT_PFJet500);
   //
   //                                 add.
   Tree->SetBranchAddress("HLT_PFHT900", &HLT_PFHT900_, &b_HLT_PFHT900);
-  Tree->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056",
-                         &HLT_PFHT450_SixJet40_BTagCSV_p056_,
-                         &b_HLT_PFHT450_SixJet40_BTagCSV_p056);
-  Tree->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056",
-                         &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_,
-                         &b_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
+  Tree->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056_, &b_HLT_PFHT450_SixJet40_BTagCSV_p056);
+  Tree->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_,&b_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
+  Tree->SetBranchAddress("HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg);
+  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg);
+
+  Tree->SetBranchAddress("HLT_Ele27_eta2p1_WPTight_Gsf", &HLT_Ele27_eta2p1_WPTight_Gsf_, &b_HLT_Ele27_eta2p1_WPTight_Gsf);
+  Tree->SetBranchAddress("HLT_Ele27_WPTight_Gsf", &HLT_Ele27_WPTight_Gsf_, &b_HLT_Ele27_WPTight_Gsf);
+  Tree->SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &HLT_Ele25_eta2p1_WPTight_Gsf_, &b_HLT_Ele25_eta2p1_WPTight_Gsf);
+  Tree->SetBranchAddress("HLT_IsoMu22", &HLT_IsoMu22_, &b_HLT_IsoMu22);
+  Tree->SetBranchAddress("HLT_IsoTkMu22", &HLT_IsoTkMu22_, &b_HLT_IsoTkMu22);
+  Tree->SetBranchAddress("HLT_IsoMu24", &HLT_IsoMu24_, &b_HLT_IsoMu24);
+  Tree->SetBranchAddress("HLT_IsoTkMu24", &HLT_IsoTkMu24_, &b_HLT_IsoTkMu24);
+  Tree->SetBranchAddress("HLT_IsoMu22_eta2p1", &HLT_IsoMu22_eta2p1_, &b_HLT_IsoMu22_eta2p1);
+  Tree->SetBranchAddress("HLT_IsoTkMu22_eta2p1", &HLT_IsoTkMu22_eta2p1_, &b_HLT_IsoTkMu22_eta2p1);
+  Tree->SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
+  Tree->SetBranchAddress("HLT_TkMu50", &HLT_TkMu50_, &b_HLT_TkMu50);
+  Tree->SetBranchAddress("HLT_Ele32_WPTight_Gsf", &HLT_Ele32_WPTight_Gsf_, &b_HLT_Ele32_WPTight_Gsf);
+  Tree->SetBranchAddress("HLT_Ele35_WPTight_Gsf", &HLT_Ele35_WPTight_Gsf_, &b_HLT_Ele35_WPTight_Gsf);
+  Tree->SetBranchAddress("HLT_IsoMu27", &HLT_IsoMu27_, &b_HLT_IsoMu27);
+
+  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20);
+  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1);
+  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30);
+  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1);
+  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1);
+  Tree->SetBranchAddress("HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", &HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_, &b_HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1);
+  Tree->SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1);
+  Tree->SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1);
+
+  Tree->SetBranchAddress("HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf", &HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_, &b_HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf);
+  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW", &HLT_DoubleEle33_CaloIdL_MW_, &b_HLT_DoubleEle33_CaloIdL_MW);
+  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW", &HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_, &b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW);
+  Tree->SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
+  Tree->SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL);
+  Tree->SetBranchAddress("HLT_DoubleMu33NoFiltersNoVtx", &HLT_DoubleMu33NoFiltersNoVtx_, &b_HLT_DoubleMu33NoFiltersNoVtx);
+  Tree->SetBranchAddress("HLT_DoubleMu23NoFiltersNoVtxDisplaced", &HLT_DoubleMu23NoFiltersNoVtxDisplaced_, &b_HLT_DoubleMu23NoFiltersNoVtxDisplaced);
+  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ);
+  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8);
+  Tree->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL);
+  Tree->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
+  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL);
+  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
+  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL);
+  Tree->SetBranchAddress("HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
+
+  Tree->SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_, &b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
+  Tree->SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_, &b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL);
+  Tree->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ);
+  Tree->SetBranchAddress("HLT_TripleMu_12_10_5", &HLT_TripleMu_12_10_5_, &b_HLT_TripleMu_12_10_5);
+  Tree->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL);
+  // Tree->SetBranchAddress("", &_, &b_);
   //
   //
   Tree->SetBranchAddress("nBestVtx", &nBestVtx_, &b_nBestVtx);
