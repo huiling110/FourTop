@@ -452,6 +452,65 @@ double EVENT_prefireWeightDown_; TBranch *b_EVENT_prefireWeightDown;
 /*{{{*/
 
 
+
+int HLT_PFHT900 = -99; 
+int HLT_PFHT450_SixJet40_BTagCSV_p056 = -99; 
+int HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99; 
+int HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = -99;  
+int HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = -99;  
+int HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg = -99;   
+int HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg = -99;  
+int HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg = -99;  
+int HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg = -99;  
+int HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg = -99;  
+
+int HLT_Ele27_eta2p1_WPTight_Gsf = -99;  
+int HLT_Ele27_WPTight_Gsf = -99;  
+int HLT_IsoMu22 = -99;  
+int HLT_Ele25_eta2p1_WPTight_Gsf = -99;  
+int HLT_IsoTkMu22 = -99;  
+int HLT_IsoMu24 = -99;  
+int HLT_IsoTkMu24 = -99;  
+int HLT_IsoMu22_eta2p1 = -99;  
+int HLT_IsoTkMu22_eta2p1 = -99;  
+int HLT_Mu50 = -99;  
+int HLT_TkMu50 = -99;  
+int HLT_Ele32_WPTight_Gsf = -99;  
+int HLT_Ele35_WPTight_Gsf = -99;  
+int HLT_IsoMu27 = -99;  
+
+   int HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = -99; 
+   int HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = -99; 
+   int HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = -99; 
+   int HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1 = -99; 
+   int HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1 = -99; 
+   int HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = -99; 
+   int HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1 = -99; 
+   int HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1 = -99; 
+
+   int HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf = -99; 
+   int HLT_DoubleEle33_CaloIdL_MW = -99; 
+   int HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW = -99; 
+   int HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
+   int HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = -99; 
+   int HLT_DoubleMu33NoFiltersNoVtx = -99; 
+   int HLT_DoubleMu23NoFiltersNoVtxDisplaced = -99; 
+   int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = -99; 
+   int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 = -99; 
+   int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL = -99; 
+   int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
+   int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = -99; 
+   int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
+   int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = -99; 
+   int HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
+
+   int HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL = -99; 
+   int HLT_Mu8_DiEle12_CaloIdL_TrackIdL = -99; 
+   int HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ = -99; 
+   int HLT_TripleMu_12_10_5 = -99; 
+   int HLT_DiMu9_Ele9_CaloIdL_TrackIdL = -99; 
+
+
 int    genTaus_number = -99;
 int genEles_number = -99;
 int genMuons_number = -99;
