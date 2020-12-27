@@ -2,6 +2,8 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1F.h"
+#include "TCut.h"
+
 
 #include <iostream>
 
@@ -11,22 +13,52 @@ void HLTstudy_v1(){
     TTree *tree_TTTT = (TTree*)file_TTTT->Get("tree");
     
     const TCut channel_1tau0l =  "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+    // const TCut channel_1tau1e =  "tausT_number==1 && elesMVAT_number==1  && jetsL_number>=6 && bjetsM_num>=2";
+    // const TCut channel_1tau1mu =
+    const TCut channel_1tau1l = "tausT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
+    // const TCut channel_1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && &&  jetsL_number>=8 && bjetsM_num>=2";//no branch available in ntuple
+    // const TCut channel_1tau2ss =
+    const TCut channel_1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jetsL_number>=4 && bjetsM_num>=2";
+    const TCut channel_1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 && bjetsM_num>=2";
+    const TCut channel_2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
+    const TCut channel_2tau1l = "tausT_number==2 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
+    const TCut channel_2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jetsL_number>=2 && bjetsM_num>=2";
 
-    TH1F  *h_HLT = new TH1F("HLT", "HLT", 2, 0, 2);
-    tree_TTTT->Project( "HLT", "HLT_PFHT450_SixJet40_BTagCSV_p056", channel_1tau0l); 
-    h_HLT->Print();
+    TH1F  *h_HLT_1tau0l = new TH1F("HLT_1tau0l", "HLT_1tau0l", 2, 0, 2);
+    tree_TTTT->Project( "HLT_1tau0l", "HLT_PFHT450_SixJet40_BTagCSV_p056", channel_1tau0l); 
+    // h_HLT_1tau0l->Print();
+    double eventsFail_1tau0l = h_HLT_1tau0l->GetBinContent(1);
+    double eventsPass_1tau0l = h_HLT_1tau0l->GetBinContent(2);
+    std::cout<<"denominator = "<<eventsPass_1tau0l+eventsFail_1tau0l<<endl;
+    std::cout<<"numerator   = "<<eventsPass_1tau0l<<endl;
+    std::cout<<"1tau0l efficiency = "<<eventsPass_1tau0l/(eventsPass_1tau0l+eventsFail_1tau0l)<<endl;
+    std::cout<<endl;
 
-    double eventsFail = h_HLT->GetBinContent(1);
-    double eventsPass = h_HLT->GetBinContent(2);
+    TH1F  *h_HLT_1tau1l = new TH1F("HLT_1tau1l", "HLT_1tau1l", 2, 0, 2);
+    tree_TTTT->Project( "HLT_1tau1l", "HLT_PFHT450_SixJet40_BTagCSV_p056", channel_1tau1l); 
+    double eventsFail_1tau1l = h_HLT_1tau1l->GetBinContent(1);
+    double eventsPass_1tau1l = h_HLT_1tau1l->GetBinContent(2);
+    std::cout<<"denominator = "<<eventsPass_1tau1l+eventsFail_1tau1l<<endl;
+    std::cout<<"numerator   = "<<eventsPass_1tau1l<<endl;
+    std::cout<<"1tau1l efficiency = "<<eventsPass_1tau1l/(eventsPass_1tau1l+eventsFail_1tau1l)<<endl;
+    std::cout<<endl;
 
-    std::cout<<"denominator = "<<eventsPass+eventsFail<<endl;
-    std::cout<<"nemeritor   = "<<eventsPass<<endl;
-    std::cout<<"global efficiency = "<<eventsPass/(eventsPass+eventsFail)<<endl;
+
+    TH1F  *h_HLT_1tau2l = new TH1F("HLT_1tau2l", "HLT_1tau2l", 2, 0, 2);
+    tree_TTTT->Project( "HLT_1tau2l", "HLT_PFHT450_SixJet40_BTagCSV_p056", channel_1tau2l); 
+    double eventsFail_1tau2l = h_HLT_1tau2l->GetBinContent(1);
+    double eventsPass_1tau2l = h_HLT_1tau2l->GetBinContent(2);
+    std::cout<<"denominator = "<<eventsPass_1tau2l+eventsFail_1tau2l<<endl;
+    std::cout<<"numerator   = "<<eventsPass_1tau2l<<endl;
+    std::cout<<"1tau2l efficiency = "<<eventsPass_1tau2l/(eventsPass_1tau2l+eventsFail_1tau2l)<<endl;
+    std::cout<<endl;
 
 
 
 
-    delete h_HLT;
+    delete h_HLT_1tau0l;
+    delete h_HLT_1tau1l;
+    delete h_HLT_1tau2l;
 
 
 
