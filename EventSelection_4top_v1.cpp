@@ -827,7 +827,7 @@ void selectGenEles( vector<TLorentzVector> &genEles ){
 }
 void selectGenMuons( vector<TLorentzVector> &genMuons ){
     for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-        if(!(abs(Gen_motherpdg_id_->at(j))==24  && abs(Gen_pdg_id_->at(j))==15)) continue;//tau:15; top:6;W:
+        if(!(abs(Gen_motherpdg_id_->at(j))==24  && abs(Gen_pdg_id_->at(j))==13)) continue;//tau:15; top:6;W:;muon:13
         TLorentzVector genmuon;
         genmuon.SetPtEtaPhiE(Gen_pt_->at(j), Gen_eta_->at(j), Gen_phi_->at(j), Gen_energy_->at(j));
         genMuons.push_back(genmuon);
