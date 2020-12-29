@@ -60,14 +60,15 @@ void HLTstudy_v1(){
     const TCut HLTset_2tau0l = doubleTauHLT;
     const TCut HLTset_2tau1l = HLTset_1tau1l;
     const TCut HLTset_2tau2l = HLTset_1tau2l;
-    const vector<TCut> HLTsets = { HLTset_1tau0l, HLTset_1tau1l, HLTset_1tau2l, HLTset_1tau3l, HLTset_2tau0l, HLTset_2tau1l, HLTset_2tau2l };
+    const vector<TCut> HLTsets_tth     = { HLTset_1tau0l, HLTset_1tau1l, HLTset_1tau2l, HLTset_1tau3l, HLTset_2tau0l, HLTset_2tau1l, HLTset_2tau2l };
+    const vector<TCut> HLTsets_jetbjet = { HLTset_1tau0l, HLTset_1tau0l, HLTset_1tau0l, HLTset_1tau0l, HLTset_1tau0l, HLTset_1tau0l, HLTset_1tau0l };
 
     // const TString HLTname = "HLT_PFHT450_SixJet40_BTagCSV_p056";
     const vector<TString> HLTnames = { "HLT_PFHT450_SixJet40_BTagCSV_p056", "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
 
     for (UInt_t i=0; i<channels.size(); i++){
     // for (UInt_t i=1; i<channels.size(); i++){
-        if( !(channels.size()==channelNames.size() && channels.size()==HLTsets.size())) {
+        if( !(channels.size()==channelNames.size() && channels.size()==HLTsets_tth.size())) {
             std::cout<<"size not matching"<<endl;
             return;
         }
@@ -75,14 +76,18 @@ void HLTstudy_v1(){
         TH1F *denominator = new TH1F("1tau0l_de", "1tau0l_de", 2, 0, 2);
         TH1F *numerator   = new TH1F("1tau0l_nu", "1tau0l_nu", 2, 0, 2);
         if ( !isGen ){
-            std::cout<<"global efficiency of "<<channelNames[i]<<"in preselection region :"<<endl;
+            std::cout<<"global efficiency of "<<channelNames[i]<<" in preselection region:"<<endl;
+            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]);
+            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_tth[i]);
             tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]);
-            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets[i]);
+            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_jetbjet[i]);
             // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&leptonTauHLT);
         }else{
-            std::cout<<"global efficiency of "<<channelNames[i]<<"in truth region :"<<endl;
+            std::cout<<"global efficiency of "<<channelNames[i]<<" in truth region:"<<endl;
+            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
+            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_tth[i]);
             tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
-            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets[i]);
+            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_jetbjet[i]);
         }
         // denominator->Print();
         std::cout<<"denominator = "<<denominator->Integral()<<endl;
