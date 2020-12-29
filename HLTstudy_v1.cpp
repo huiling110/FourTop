@@ -12,8 +12,8 @@ void HLTstudy_v1(){
     // bool isGen = false;
     bool isGen = true;
 
-    // TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forHLT_v1/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-    TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+    TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forHLT_v3_correctedgenMuons_added4HLT/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+    // TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
     TTree *tree_TTTT = (TTree*)file_TTTT->Get("tree");
     
     const TCut channel_1tau0l =  "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
@@ -56,7 +56,8 @@ void HLTstudy_v1(){
     const TCut HLTset_1tau1l = singleEleHLT || singleMuHLT || eleTauHLT || muTauHLT; 
     const TCut HLTset_1tau2l = singleEleHLT || singleMuHLT || doubleEleHLT || doubleMuHLT || eleMuHLT;
     const TCut HLTset_1tau3l = singleEleHLT || singleMuHLT || doubleEleHLT || doubleMuHLT || eleMuHLT || tripleleptons;
-    const TCut HLTset_2tau0l = HLTset_1tau0l;
+    // const TCut HLTset_2tau0l = HLTset_1tau0l;
+    const TCut HLTset_2tau0l = doubleTauHLT;
     const TCut HLTset_2tau1l = HLTset_1tau1l;
     const TCut HLTset_2tau2l = HLTset_1tau2l;
     const vector<TCut> HLTsets = { HLTset_1tau0l, HLTset_1tau1l, HLTset_1tau2l, HLTset_1tau3l, HLTset_2tau0l, HLTset_2tau1l, HLTset_2tau2l };
@@ -83,7 +84,7 @@ void HLTstudy_v1(){
             tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
             tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets[i]);
         }
-        denominator->Print();
+        // denominator->Print();
         std::cout<<"denominator = "<<denominator->Integral()<<endl;
         std::cout<<"numerator   = "<<numerator->Integral()<<endl;
         std::cout<<"efficiency  = "<<numerator->Integral()/denominator->Integral()<<endl;
