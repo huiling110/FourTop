@@ -333,7 +333,6 @@ vector <int>* Tau_byVVTightDeepTau2017v2p1VSe_; TBranch* b_Tau_byVVTightDeepTau2
 //vector <>* _; TBranch* ;
 
   int HLT_Ele27_eta2p1_WP75_Gsf_; TBranch *b_HLT_Ele27_eta2p1_WP75_Gsf;
-  int HLT_Ele27_eta2p1_WPLoose_Gsf_; TBranch *b_HLT_Ele27_eta2p1_WPLoose_Gsf;
 //
 //add
 int HLT_PFHT900_; TBranch *b_HLT_PFHT900;
@@ -348,6 +347,7 @@ int HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_;  TBranch *b_HLT_DoubleTig
 int HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_;  TBranch *b_HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg ;
 
 int HLT_Ele27_eta2p1_WPTight_Gsf_;  TBranch *b_HLT_Ele27_eta2p1_WPTight_Gsf ;
+int HLT_Ele27_eta2p1_WPLoose_Gsf_; TBranch *b_HLT_Ele27_eta2p1_WPLoose_Gsf;
 int HLT_Ele27_WPTight_Gsf_;  TBranch *b_HLT_Ele27_WPTight_Gsf ;
 int HLT_IsoMu22_;  TBranch *b_HLT_IsoMu22 ;
 int HLT_Ele25_eta2p1_WPTight_Gsf_;  TBranch *b_HLT_Ele25_eta2p1_WPTight_Gsf ;
@@ -380,8 +380,12 @@ int HLT_IsoMu27_;  TBranch *b_HLT_IsoMu27 ;
    int HLT_DoubleMu23NoFiltersNoVtxDisplaced_; TBranch *b_HLT_DoubleMu23NoFiltersNoVtxDisplaced;
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_; TBranch *b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ;
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_; TBranch *b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8;
+   int HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_; TBranch *b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
+   int HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_; TBranch *b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
    int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_; TBranch *b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
    int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_; TBranch *b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+   int HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_; TBranch *b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
+   int HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_; TBranch *b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
    int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_; TBranch *b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
    int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_; TBranch *b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_; TBranch *b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
@@ -465,6 +469,7 @@ int HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg = -99;
 int HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg = -99;  
 
 int HLT_Ele27_eta2p1_WPTight_Gsf = -99;  
+int HLT_Ele27_eta2p1_WPLoose_Gsf =-99;
 int HLT_Ele27_WPTight_Gsf = -99;  
 int HLT_IsoMu22 = -99;  
 int HLT_Ele25_eta2p1_WPTight_Gsf = -99;  
@@ -497,8 +502,12 @@ int HLT_IsoMu27 = -99;
    int HLT_DoubleMu23NoFiltersNoVtxDisplaced = -99; 
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = -99; 
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 = -99; 
+   int HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = -99;
+   int HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = -99;
    int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL = -99; 
    int HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
+   int HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL = -99;
+   int HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ = -99;
    int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = -99; 
    int HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = -99; 
    int HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = -99; 

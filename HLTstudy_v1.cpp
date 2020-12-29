@@ -12,7 +12,8 @@ void HLTstudy_v1(){
     // bool isGen = false;
     bool isGen = true;
 
-    TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forHLT_v1/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+    // TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forHLT_v1/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+    TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
     TTree *tree_TTTT = (TTree*)file_TTTT->Get("tree");
     
     const TCut channel_1tau0l =  "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
@@ -27,9 +28,9 @@ void HLTstudy_v1(){
     const TCut channel_2tau1l = "tausT_number==2 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
     const TCut channel_2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jetsL_number>=2 && bjetsM_num>=2";
 
-    // const TCut channel_1tau0l_gen = "genTaus_number==1 && genEles_number==0 && genMuons_number==0";
+    const TCut channel_1tau0l_gen = "genTaus_number==1 && genEles_number==0 && genMuons_number==0";
     // const TCut channel_1tau0l_gen = "genTaus_number==1 && genEles_number==0  ";
-    const TCut channel_1tau0l_gen = "genTaus_number==1 && genMuons_number==0";
+    // const TCut channel_1tau0l_gen = "genTaus_number==1 && genMuons_number==0";
     const TCut channel_1tau1l_gen = "genTaus_number==1 && (genEles_number==1 || genMuons_number==1)";
     const TCut channel_1tau2l_gen = "genTaus_number==1 && (genEles_number+genMuons_number)==2";
     const TCut channel_1tau3l_gen = "genTaus_number==1 && (genEles_number+genMuons_number)==3";
@@ -41,15 +42,16 @@ void HLTstudy_v1(){
     const vector<TCut> channels_gen = { channel_1tau0l_gen, channel_1tau1l_gen, channel_1tau2l_gen, channel_1tau3l_gen, channel_2tau0l_gen, channel_2tau1l_gen, channel_2tau2l_gen};
     const vector<TString> channelNames = { "1tau0l", "1tau1l",      "1tau2l",       "1tau3l",       "2tau0l",       "2tau1l",       "2tau2l"};
 
-    
-    const TCut singleEleHLT  =  "HLT_Ele25_eta2p1_WPTight_Gsf==1 || HLT_Ele27_WPTight_Gsf==1 || HLT_Ele27_eta2p1_WPTight_Gsf==1";
-    const TCut singleMuHLT   = " HLT_IsoMu22==1 || HLT_IsoTkMu22==1 || HLT_IsoMu22_eta2p1==1 || HLT_IsoTkMu22_eta2p1==1 || HLT_IsoMu24==1 || HLT_IsoTkMu24==1 || HLT_IsoMu27==1";
-    const TCut eleTauHLT     = "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20==1 || HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1==1 || HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30==1";
-    const TCut muTauHLT      = "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1==1 || HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1==1";
-    const TCut doubleEleHLT  = "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1";
-    const TCut doubleMuHLT   = "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL==1 || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1";
-    const TCut eleMuHLT      = "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ==1 || HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 ||          HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL==1";
-    const TCut tripleleptons = "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 || HLT_TripleMu_12_10_5==1  || HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL==1";
+    const TCut doubleTauHLT  = "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg==1 || HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg==1";
+    const TCut singleEleHLT  = "HLT_Ele25_eta2p1_WPTight_Gsf==1 || HLT_Ele27_WPTight_Gsf==1 || HLT_Ele27_eta2p1_WPLoose_Gsf==1";
+    const TCut singleMuHLT   = "HLT_IsoMu22==1 || HLT_IsoTkMu22==1 || HLT_IsoMu22_eta2p1==1 || HLT_IsoTkMu22_eta2p1==1 || HLT_IsoMu24==1 || HLT_IsoTkMu24==1";
+    const TCut eleTauHLT     =  "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20==1 || HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1==1 || HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30==1";
+    const TCut muTauHLT      = "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1==1 ";
+    const TCut doubleEleHLT  =  "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1";
+    const TCut doubleMuHLT   =   "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL==1 || HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL==1 || HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1";
+    const TCut eleMuHLT      =   "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL==1 || HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ==1 || HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL==1 || HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ==1 || HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL==1 || HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1";
+    const TCut tripleleptons =  "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 || HLT_TripleMu_12_10_5==1 || HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1";
+
     const TCut HLTset_1tau0l = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
     const TCut HLTset_1tau1l = singleEleHLT || singleMuHLT || eleTauHLT || muTauHLT; 
     const TCut HLTset_1tau2l = singleEleHLT || singleMuHLT || doubleEleHLT || doubleMuHLT || eleMuHLT;
