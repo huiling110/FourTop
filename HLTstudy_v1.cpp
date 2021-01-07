@@ -9,8 +9,8 @@
 
 void HLTstudy_v1(){
 
-    // bool isGen = false;
-    bool isGen = true;
+    bool isGen = false;
+    // bool isGen = true;
 
     TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forHLT_v3_correctedgenMuons_added4HLT/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
     // TFile *file_TTTT  = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
@@ -53,7 +53,9 @@ void HLTstudy_v1(){
     const TCut tripleleptons =  "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 || HLT_TripleMu_12_10_5==1 || HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL==1 || HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1";
 
     const TCut HLTset_1tau0l = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
-    const TCut HLTset_1tau1l = singleEleHLT || singleMuHLT || eleTauHLT || muTauHLT; 
+    const TCut HLTset_1tau1l = singleEleHLT || singleMuHLT || eleTauHLT || muTauHLT;
+    // const TCut HLTset_1tau1l = singleEleHLT || singleMuHLT  ; //test
+    // const TCut HLTset_1tau1l =  eleTauHLT || muTauHLT;
     const TCut HLTset_1tau2l = singleEleHLT || singleMuHLT || doubleEleHLT || doubleMuHLT || eleMuHLT;
     const TCut HLTset_1tau3l = singleEleHLT || singleMuHLT || doubleEleHLT || doubleMuHLT || eleMuHLT || tripleleptons;
     // const TCut HLTset_2tau0l = HLTset_1tau0l;
@@ -77,17 +79,17 @@ void HLTstudy_v1(){
         TH1F *numerator   = new TH1F("1tau0l_nu", "1tau0l_nu", 2, 0, 2);
         if ( !isGen ){
             std::cout<<"global efficiency of "<<channelNames[i]<<" in preselection region:"<<endl;
-            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]);
-            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_tth[i]);
             tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]);
-            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_jetbjet[i]);
+            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_tth[i]);
+            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]);
+            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&HLTsets_jetbjet[i]);
             // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels[i]&&leptonTauHLT);
         }else{
             std::cout<<"global efficiency of "<<channelNames[i]<<" in truth region:"<<endl;
-            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
-            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_tth[i]);
             tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
-            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_jetbjet[i]);
+            tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_tth[i]);
+            // tree_TTTT->Project( "1tau0l_de", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]);
+            // tree_TTTT->Project( "1tau0l_nu", "HLT_PFHT450_SixJet40_BTagCSV_p056", channels_gen[i]&&HLTsets_jetbjet[i]);
         }
         // denominator->Print();
         std::cout<<"denominator = "<<denominator->Integral()<<endl;
