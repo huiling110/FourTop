@@ -105,14 +105,14 @@ vector<double> allScales {
     wVHToNonbb, wZHToTauTau, wZH_HToBB_ZToLL, wGluGluHToZZTo4L, wGluGluHToBB, wGluGluHToGG, wGluGluHToMuMu, wGluGluHToTauTau, wGluGluHToWWTo2L2Nu, wGluGluHToWWToLNuQQ, wVBFHToWWTo2L2Nu, /*wVBFHToTauTau, */wVBFHToMuMu, wVBFHToGG
 };
 
-double wTTTT_v2; //0
-double wTT_v2; //changed  wTTJets to  wTT
-double wTTGJets_v2,  wttZJets_v2,  wttWJets_v2,  wttH_v2;  /*  wttbb_v2, */ //6
-double wWZ_v2,  wWWTo2L2Nu_v2,  wWpWpJJ_v2,  wZZ_v2,  wWGJets_v2,  wZGJetsToLLG_v2;
-double wWWW_v2,  wWWZ_v2,  wWWG_v2,  wZZZ_v2,  wWZZ_v2,  wWZG_v2,  wWGG_v2,  wZGGJets_v2;
-double wWJetsToLNu_v2,  wDYJetsToTauTau_v2;
-double wtZq_ll_v2,  wST_tW_antitop_v2,  wST_tW_top_v2,  wTGJets_v2,  wTHW_v2,  wTHQ_v2;
-double wVHToNonbb_v2,  wZHToTauTau_v2,  wZH_HToBB_ZToLL_v2,  wGluGluHToZZTo4L_v2,  wGluGluHToBB_v2,  wGluGluHToGG_v2,  wGluGluHToMuMu_v2,  wGluGluHToTauTau_v2,  wGluGluHToWWTo2L2Nu_v2,  wGluGluHToWWToLNuQQ_v2,  wVBFHToWWTo2L2Nu_v2, /* wVBFHToTauTau_v2, */ wVBFHToMuMu_v2,  wVBFHToGG;
+// double wTTTT_v2; //0
+// double wTT_v2; //changed  wTTJets to  wTT
+// double wTTGJets_v2,  wttZJets_v2,  wttWJets_v2,  wttH_v2;  [>  wttbb_v2, <] //6
+// double wWZ_v2,  wWWTo2L2Nu_v2,  wWpWpJJ_v2,  wZZ_v2,  wWGJets_v2,  wZGJetsToLLG_v2;
+// double wWWW_v2,  wWWZ_v2,  wWWG_v2,  wZZZ_v2,  wWZZ_v2,  wWZG_v2,  wWGG_v2,  wZGGJets_v2;
+// double wWJetsToLNu_v2,  wDYJetsToTauTau_v2;
+// double wtZq_ll_v2,  wST_tW_antitop_v2,  wST_tW_top_v2,  wTGJets_v2,  wTHW_v2,  wTHQ_v2;
+// double wVHToNonbb_v2,  wZHToTauTau_v2,  wZH_HToBB_ZToLL_v2,  wGluGluHToZZTo4L_v2,  wGluGluHToBB_v2,  wGluGluHToGG_v2,  wGluGluHToMuMu_v2,  wGluGluHToTauTau_v2,  wGluGluHToWWTo2L2Nu_v2,  wGluGluHToWWToLNuQQ_v2,  wVBFHToWWTo2L2Nu_v2, [> wVBFHToTauTau_v2, <] wVBFHToMuMu_v2,  wVBFHToGG;
 vector<double> allScales_v2 {
     wTTTT_v2, //0
     wTT_v2, //changed wTTJets to wTT

@@ -891,6 +891,7 @@ double prefiringweight = 1;
 double prefiringweightup = 1;
 double prefiringweightdown = 1;
 double puWeight = 1;
+double EVENT_genWeight = 1;
 double GenZPt=-99.;
 double GenWPt=-99.;
 

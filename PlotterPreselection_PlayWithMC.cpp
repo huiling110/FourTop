@@ -329,7 +329,6 @@ for ( string ch : Channel){
             // auto histo = allHistos[j];
             // allTree[j]->Project("histo",plot,CUT);
            // allHistos[j]->Print();
-             allScales_v2[j] = getGenNum( allTree[j] );
 //            cout<<allScales[j];
 //            *allHistos_NormalizedToXSection[j] = allScales[j]*(*(allHistos[j])); 
 

@@ -715,7 +715,8 @@ void EventSelection_4top_v1(
         prefiringweight = EVENT_prefireWeight_;
         prefiringweightup = EVENT_prefireWeightUp_;
         prefiringweightdown = EVENT_prefireWeightDown_;
-
+        puWeight = PUWeight_ ;
+        EVENT_genWeight = genWeight_;
 
 
         // WEIGHT
@@ -730,7 +731,6 @@ void EventSelection_4top_v1(
                // QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
                 // PDFWeight(10,111,w_PDFUp,w_PDFDown);
         //			}
-        puWeight = PUWeight_ ;
 
         if (selection == 0 || selection == 1)
           NewTree->Fill();
@@ -3471,6 +3471,7 @@ void branch(bool data, int selection, TTree *NewTree,
                   "prefiringweightup/D");
   NewTree->Branch("prefiringweightdown", &prefiringweightdown,  "prefiringweightdown/D");
   NewTree->Branch("puWeight", &puWeight,  "puWeight/D");
+  NewTree->Branch("EVENT_genWeight", &EVENT_genWeight,  "EVENT_genWeight/D");
 
   if (selection == 2) {
     NewTreeSB->Branch("TopMass", &TopMass, "TopMass/D");
