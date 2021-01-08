@@ -21,10 +21,12 @@ void getGenNum( const string inputfile="TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythi
         sum = sum + EVENT_genWeight_;
     }
     std::cout<<"gen number for "<<inputfile<<" : "<<sum<<endl;
+    std::cout<<endl;
     
-    Int_t Pnentries = (Int_t)tree2->GetEntries("eventnumnegative==1"); 
-    Int_t Nnentries = (Int_t)tree2->GetEntries("eventnumnegative==-1"); 
-    std::cout<<"gen number v2: "<<genWeight_ab*(Pnentries-Nnentries);
-
+    // Int_t Pnentries = (Int_t)tree2->GetEntries("eventnumnegative==1");
+    // Int_t Nnentries = (Int_t)tree2->GetEntries("eventnumnegative==-1");
+    // std::cout<<"gen number v2: "<<genWeight_ab*(Pnentries-Nnentries);
+    
+    // file_->close();
 
 }
