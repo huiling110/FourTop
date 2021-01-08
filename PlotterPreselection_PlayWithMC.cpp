@@ -324,12 +324,12 @@ for ( string ch : Channel){
             // allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
             allTree[j]->Draw(input,CUTpre); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
             allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed
-            // allHistos[j]->SetName("histo");
             // cout<<allHistos[j]->GetName()<<endl;//GetName works
 
             // auto histo = allHistos[j];
             // allTree[j]->Project("histo",plot,CUT);
            // allHistos[j]->Print();
+             allScales_v2[j] = getGenNum( allTree[j] );
 //            cout<<allScales[j];
 //            *allHistos_NormalizedToXSection[j] = allScales[j]*(*(allHistos[j])); 
 
