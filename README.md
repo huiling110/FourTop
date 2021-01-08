@@ -16,6 +16,13 @@
  * tips
     * git pull origin
       * use this command to get the most recent version from Huiling's repositary
+ * notes
+    * EventSelection_4top_v1.cpp : take ntuples(poduced from crab job) as input, and produce a corresponding root file with new branches of our interest in it 
+    * GetEntry.cpp : get the positive and negative event in MC ntuples
+    * HLTstudy_v1.cpp: calculate the efficiency of HLT, take root file produced by HLTstudy_v1.cpp as input
+    * PlotterPreselection_PlayWithMC.cpp : look at the root files produced by PlotterPreselection_PlayWithMC.cpp, calculate separation power and make some plots of variables
+    * makeIHEPjob.py: make IHEP job script and submission shell script .
+      
   
       
      
