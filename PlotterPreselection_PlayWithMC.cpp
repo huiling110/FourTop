@@ -332,7 +332,8 @@ for ( string ch : Channel){
 //            cout<<allScales[j];
 //            *allHistos_NormalizedToXSection[j] = allScales[j]*(*(allHistos[j])); 
 
-            allHistos[j]->Scale(allScales[j]);
+            // allHistos[j]->Scale(allScales[j]);
+            allHistos[j]->Scale(allScales_v2[j]);
 //            if(j==0) *background_SR = *allHistos_NormalizedToXSection[j];
 //            if(j>0) *background_SR  = *background_SR + *(allHistos_NormalizedToXSection[j]);
 //            allHistos_NormalizedToXSection[j]->Print();            
@@ -476,7 +477,7 @@ for ( string ch : Channel){
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v11_jetjetRemoval_corrected/plots/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v11_jetjetRemoval_corrected/plots/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
