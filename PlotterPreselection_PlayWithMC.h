@@ -177,8 +177,8 @@ double wVBFHToGG_v2= (LUMI*3.992)/(3.90874e+06);  ;//VBFHToGG_M125_13TeV_amcatnl
 //minor
 vector<double> allScales_v2 {
     wTTTT_v2, //0
-    // wTT_v2, //changed wTTJets to wTT
-    wTTJets,
+    wTT_v2, //changed wTTJets to wTT
+    // wTTJets,
     wTTGJets_v2, wttZJets_v2, wttWJets_v2, wttH_v2,  /* wttbb_v2, */ //6
     wWZ_v2, wWWTo2L2Nu_v2, wWpWpJJ_v2, wZZ_v2, wWGJets_v2, wZGJetsToLLG_v2, 
     wWWW_v2, wWWZ_v2, wWWG_v2, wZZZ_v2, wWZZ_v2, wWZG_v2, wWGG_v2, wZGGJets_v2, 
@@ -190,62 +190,62 @@ vector<double> allScales_v2 {
 
 //?should use a better way to add all samples at once
 //sequence matter very much here
-//TFile *file01 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/data.root");
-TFile *file02 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+//TFile *file01 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/data.root");
+TFile *file02 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
 //5
-TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
-// TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");
+// TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file03 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root");
 /*{{{*/
-TFile *file04 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");//TTGJets
-TFile *file05 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ttZJets_13TeV_madgraphMLM-pythia8.root");
-TFile *file06 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ttWJets_13TeV_madgraphMLM.root");
-TFile *file07 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root");//ttH
+TFile *file04 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");//TTGJets
+TFile *file05 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ttZJets_13TeV_madgraphMLM-pythia8.root");
+TFile *file06 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ttWJets_13TeV_madgraphMLM.root");
+TFile *file07 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root");//ttH
 //?something wrong with ttH ntuple
-// TFile *file08 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+// TFile *file08 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
 //6
-TFile *file09 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WZ_TuneCUETP8M1_13TeV-pythia8.root");
-//TFile *file10 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WW_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file10_1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root");
-TFile *file11 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");//?missing this in other places
-TFile *file12 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZZ_TuneCUETP8M1_13TeV-pythia8.root");//ZZ
-TFile *file13 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");//
+TFile *file09 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+//TFile *file10 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WW_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file10_1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root");
+TFile *file11 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");//?missing this in other places
+TFile *file12 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZZ_TuneCUETP8M1_13TeV-pythia8.root");//ZZ
+TFile *file13 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");//
 
-TFile *file14 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZGJetsToLLG_EW_LO_13TeV-sherpa.root");//
+TFile *file14 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZGJetsToLLG_EW_LO_13TeV-sherpa.root");//
 //8
-TFile *file15 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file16 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file17 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file18 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file19 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file20 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file21 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");
-TFile *file22 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");
+TFile *file15 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file16 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file17 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file18 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file19 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file20 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+TFile *file21 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");
+TFile *file22 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");
 //
-TFile *file23 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");//WJets
-TFile *file24 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root");
+TFile *file23 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");//WJets
+TFile *file24 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root");
 //7-1
-TFile *file25 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");
-//TFile *file26 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");
-TFile *file27 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
-TFile *file28 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
-TFile *file29 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");
-TFile *file30 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root");
-TFile *file31 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root");
+TFile *file25 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");
+//TFile *file26 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root");
+TFile *file27 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
+TFile *file28 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root");
+TFile *file29 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root");
+TFile *file30 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root");
+TFile *file31 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root");
 //12
-TFile *file32 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root");
-TFile *file33 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZHToTauTau_M125_13TeV_powheg_pythia8.root");
-TFile *file34 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root");
-TFile *file35 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root");
-TFile *file36 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root");
-TFile *file37 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root");
-TFile *file38 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
-TFile *file39 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToTauTau_M125_13TeV_powheg_pythia8.root");
-TFile *file40 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root");
-TFile *file41 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root");
-TFile *file42 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root");
-//TFile *file43 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/VBFHToTauTau_M125_13TeV_powheg_pythia8.root");//bad input file
-TFile *file44 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
-TFile *file45 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/NoJEC/VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root");/*}}}*/
+TFile *file32 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root");
+TFile *file33 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZHToTauTau_M125_13TeV_powheg_pythia8.root");
+TFile *file34 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root");
+TFile *file35 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root");
+TFile *file36 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root");
+TFile *file37 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root");
+TFile *file38 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
+TFile *file39 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToTauTau_M125_13TeV_powheg_pythia8.root");
+TFile *file40 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root");
+TFile *file41 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root");
+TFile *file42 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root");
+//TFile *file43 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/VBFHToTauTau_M125_13TeV_powheg_pythia8.root");//bad input file
+TFile *file44 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
+TFile *file45 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/NoJEC/VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root");/*}}}*/
 //TTree *Tree01 = (TTree*)file01->Get("tree");
 TTree *Tree02 = (TTree*)file02->Get("tree");
 TTree *Tree03 = (TTree*)file03->Get("tree");
@@ -297,19 +297,19 @@ vector<TTree*> allTree = {
     Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
 /*
-//TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/data.root");{{{
-TFile *file02_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-TFile *file03_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
-TFile *file04_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
-TFile *file05_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
-TFile *file06_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/ttWJets_13TeV_madgraphMLM.root");
-TFile *file07_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
-TFile *file08_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
-TFile *file09_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/WZ_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file10_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/WW_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file11_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
-TFile *file12_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
-TFile *file13_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESup/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
+//TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/data.root");{{{
+TFile *file02_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+TFile *file03_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file04_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
+TFile *file05_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
+TFile *file06_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/ttWJets_13TeV_madgraphMLM.root");
+TFile *file07_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
+TFile *file08_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+TFile *file09_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file10_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/WW_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file11_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
+TFile *file12_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
+TFile *file13_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESup/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
 //TTree *Tree01_J1 = (TTree*)file01_J1->Get("tree");
 TTree *Tree02_J1 = (TTree*)file02_J1->Get("tree");
 TTree *Tree03_J1 = (TTree*)file03_J1->Get("tree");
@@ -325,20 +325,20 @@ TTree *Tree12_J1 = (TTree*)file12_J1->Get("tree");
 TTree *Tree13_J1 = (TTree*)file13_J1->Get("tree");
 
 
-//TFile *file01_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/data.root");
-TFile *file02_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-TFile *file03_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
-TFile *file04_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
-TFile *file05_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
+//TFile *file01_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/data.root");
+TFile *file02_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+TFile *file03_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file04_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
+TFile *file05_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
 
-TFile *file06_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/ttWJets_13TeV_madgraphMLM.root");
-TFile *file07_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
-TFile *file08_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
-TFile *file09_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/WZ_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file10_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/WW_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file11_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
-TFile *file12_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
-TFile *file13_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JESdown/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
+TFile *file06_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/ttWJets_13TeV_madgraphMLM.root");
+TFile *file07_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
+TFile *file08_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+TFile *file09_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file10_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/WW_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file11_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
+TFile *file12_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
+TFile *file13_J2 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JESdown/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
 //TTree *Tree01_J2 = (TTree*)file01_J2->Get("tree");
 TTree *Tree02_J2 = (TTree*)file02_J2->Get("tree");
 TTree *Tree03_J2 = (TTree*)file03_J2->Get("tree");
@@ -356,19 +356,19 @@ TTree *Tree13_J2 = (TTree*)file13_J2->Get("tree");
 
 
 
-//TFile *file01_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/data.root");
-TFile *file02_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-TFile *file03_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
-TFile *file04_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
-TFile *file05_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
-TFile *file06_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/ttWJets_13TeV_madgraphMLM.root");
-TFile *file07_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
-TFile *file08_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
-TFile *file09_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/WZ_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file10_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/WW_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file11_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
-TFile *file12_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
-TFile *file13_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERup/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
+//TFile *file01_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/data.root");
+TFile *file02_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+TFile *file03_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file04_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
+TFile *file05_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
+TFile *file06_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/ttWJets_13TeV_madgraphMLM.root");
+TFile *file07_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");
+TFile *file08_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+TFile *file09_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file10_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/WW_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file11_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
+TFile *file12_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
+TFile *file13_J3 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERup/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
 //TTree *Tree01_J3 = (TTree*)file01_J3->Get("tree");
 TTree *Tree02_J3 = (TTree*)file02_J3->Get("tree");
 TTree *Tree03_J3 = (TTree*)file03_J3->Get("tree");
@@ -383,19 +383,19 @@ TTree *Tree11_J3 = (TTree*)file11_J3->Get("tree");
 TTree *Tree12_J3 = (TTree*)file12_J3->Get("tree");
 TTree *Tree13_J3 = (TTree*)file13_J3->Get("tree");
 
-//TFile *file01_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/data.root");
-TFile *file02_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
-TFile *file03_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
-TFile *file04_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
-TFile *file05_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
-TFile *file06_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/ttWJets_13TeV_madgraphMLM.root");
-TFile *file07_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");//ttH
-TFile *file08_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
-TFile *file09_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/WZ_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file10_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/WW_TuneCUETP8M1_13TeV-pythia8.root");
-TFile *file11_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
-TFile *file12_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
-TFile *file13_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v10_objectRemoval_nojetjetRemoval_retry/JERdown/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
+//TFile *file01_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/data.root");
+TFile *file02_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");
+TFile *file03_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root");
+TFile *file04_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root");
+TFile *file05_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/ttZJets_13TeV_madgraphMLM-pythia8.root.root");
+TFile *file06_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/ttWJets_13TeV_madgraphMLM.root");
+TFile *file07_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root.root");//ttH
+TFile *file08_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root");
+TFile *file09_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file10_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/WW_TuneCUETP8M1_13TeV-pythia8.root");
+TFile *file11_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root");
+TFile *file12_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/ZZ_TuneCUETP8M1_13TeV-pythia8.root.root");
+TFile *file13_J4 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v12_addgenWeight/JERdown/WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root");
 //TTree *Tree01_J4 = (TTree*)file01_J4->Get("tree");
 TTree *Tree02_J4 = (TTree*)file02_J4->Get("tree");
 TTree *Tree03_J4 = (TTree*)file03_J4->Get("tree");

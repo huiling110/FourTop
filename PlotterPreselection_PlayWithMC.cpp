@@ -260,7 +260,8 @@ for ( string ch : Channel){
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
 	///did we multiply PUWeight etc or not?	//I think yes
     cout<<CUTpre<<endl;
-    sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
+    // sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
+    sprintf(CUT,    "EVENT_genWeight       *%s",CUTpre);
     //prefiringweight is not all 1
 	//what is the difinition of PUweight and w_Btag ? what's their value?
 //	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
@@ -312,17 +313,16 @@ for ( string ch : Channel){
         };
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
-        // TH1F* signalAndBg_beforeScale = new TH1F("allFile", "allFile",bin[i],Min[i],Max[i]);
         // TH1F* background_SR = new TH1F;
-        TList *list = new TList;
+        // TList *list = new TList;
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
         for(UInt_t j = 0; j < allHistos.size(); j++){
             // GetHisto(CUT,allTree[j],allHistos[j],plot,bin[i],Min[i],Max[i]);
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            // allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
-            allTree[j]->Draw(input,CUTpre); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
+            allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
+            // allTree[j]->Draw(input,CUTpre); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
             allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed
             // cout<<allHistos[j]->GetName()<<endl;//GetName works
 
