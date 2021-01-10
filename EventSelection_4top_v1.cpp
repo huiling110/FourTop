@@ -304,14 +304,14 @@ void EventSelection_4top_v1(
         leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
         leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
         // leptonsMVAT_chargeSum = ChargeSum()
-        // if ( leptonsMVAT_number==2 ) {
-            // if (leptonsMVAT_number != LeptonsMVATIndex.size()) {
-                // cout<<"leptonsMVAT_number != LeptonsMVATIndex.size()"<<endl;
-                // return;
-            // }
-            // if (patElectron_charge_->at(LeptonsMVATIndex[0])*patElectron_charge_->at(LeptonsMVATIndex[1])==1) leptonsMVAT_2SS = 1;
-            // else leptonsMVAT_2OS = 1 ;
-        // }
+        if ( leptonsMVAT_number==2 ) {
+            if (leptonsMVAT_number != LeptonsMVATIndex.size()) {
+                cout<<"leptonsMVAT_number != LeptonsMVATIndex.size()"<<endl;
+                return;
+            }
+            if (patElectron_charge_->at(LeptonsMVATIndex[0])*patElectron_charge_->at(LeptonsMVATIndex[1])==1) leptonsMVAT_2SS = 1;
+            else leptonsMVAT_2OS = 1 ;
+        }
         //            leptonsTMVA_maxDeltaEta =
 
         sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
