@@ -294,12 +294,24 @@ void EventSelection_4top_v1(
         vector<TLorentzVector> LeptonsMVAL(SelectedMuonsL.begin(),  SelectedMuonsL.end());
         LeptonsMVAL.insert(LeptonsMVAL.end(), SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end());
 
+        vector<int> LeptonsMVATIndex(SelectedMuonsTIndex.begin(),  SelectedMuonsTIndex.end());
+        LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), SelectedElectronsMVATIndex.begin(), SelectedElectronsMVATIndex.end());
+
         leptonsMVAT_number = LeptonsMVAT.size();
         leptonsMVAF_number = LeptonsMVAF.size();
         leptonsMVAL_number = LeptonsMVAL.size();
         leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
         leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
         leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
+        // leptonsMVAT_chargeSum = ChargeSum()
+        // if ( leptonsMVAT_number==2 ) {
+            // if (leptonsMVAT_number != LeptonsMVATIndex.size()) {
+                // cout<<"leptonsMVAT_number != LeptonsMVATIndex.size()"<<endl;
+                // return;
+            // }
+            // if (patElectron_charge_->at(LeptonsMVATIndex[0])*patElectron_charge_->at(LeptonsMVATIndex[1])==1) leptonsMVAT_2SS = 1;
+            // else leptonsMVAT_2OS = 1 ;
+        // }
         //            leptonsTMVA_maxDeltaEta =
 
         sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
@@ -313,11 +325,13 @@ void EventSelection_4top_v1(
           leptonsMVAT_1pt = LeptonsMVAT[0].Pt();
           leptonsMVAT_1eta = LeptonsMVAT[0].Eta();
           leptonsMVAT_1phi = LeptonsMVAT[0].Phi();
+        
         }
         if (leptonsMVAT_number > 1) {
           leptonsMVAT_2pt = LeptonsMVAT[1].Pt();
           leptonsMVAT_2eta = LeptonsMVAT[1].Eta();
           leptonsMVAT_2phi = LeptonsMVAT[1].Phi();
+          
         }
         if (leptonsMVAT_number > 2) {
           leptonsMVAT_3pt = LeptonsMVAT[2].Pt();
@@ -2219,11 +2233,12 @@ int ChargeSum(const vector<int> SelectedElectronsMVATIndex, int type) {
   int charge_sum = 0;
   for (UInt_t j = 0; j < SelectedElectronsMVATIndex.size(); ++j) {
     if (type == 0)
-      charge_sum += patElectron_charge_->at(j);
+      // charge_sum += patElectron_charge_->at(j);
+      charge_sum += patElectron_charge_->at(SelectedElectronsMVATIndex[j]);
     if (type == 1)
-      charge_sum += Tau_charge_->at(j);
+      charge_sum += Tau_charge_->at(SelectedElectronsMVATIndex[j]);
     if (type == 2)
-      charge_sum += Muon_charge_->at(j);
+      charge_sum += Muon_charge_->at(SelectedElectronsMVATIndex[j]);
   }
   return charge_sum;
 }
@@ -3151,8 +3166,9 @@ void branch(bool data, int selection, TTree *NewTree,
                   "leptonsMVAT_3pt/D");
   NewTree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
                   "leptonsMVAT_3eta/D");
-  NewTree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi,
-                  "leptonsMVAT_3phi/D");
+  NewTree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
+  NewTree->Branch("leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
+  NewTree->Branch("leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
   NewTree->Branch("elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
   NewTree->Branch("elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
   NewTree->Branch("elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");

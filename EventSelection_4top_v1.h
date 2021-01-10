@@ -615,6 +615,8 @@ double leptonsMVAT_2phi= -99;
 double leptonsMVAT_3pt = -99;
 double leptonsMVAT_3eta = -99;
 double leptonsMVAT_3phi = -99;
+int   leptonsMVAT_2SS = 0;
+int   leptonsMVAT_2OS = 0;
 
 int muonsT_number=-99;
 int   muonsL_number=-99;
