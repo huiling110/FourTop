@@ -11,6 +11,9 @@
 #include "TROOT.h"
 #include "TMath.h"
 #include "TString.h"
+#include "TCut.h"
+
+
 void PlotterPreselection_PlayWithMC(){ 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -237,7 +240,8 @@ vector<string> Channel = { "1Tau0L_v2"   };//tausF_number == 1 && leptonsMVAT_nu
 // vector<string> Channel = { "1Tau2OS_v2"   };
 // vector<string> Channel = { "1Tau3L_v2"   };
 // vector<string> Channel = { "2Tau0L_v2"   };
-
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut weight = "EVENT_genWeight";
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
     TString postfix = ch + ".png";
@@ -247,7 +251,8 @@ for ( string ch : Channel){
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
-      sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2"); //1Tau0L
+      sprintf(CUTpre, "%s", "(tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2)"); //1Tau0L
+      // sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2"); //1Tau0L
       // sprintf(CUTpre, "%s", "(tausT_number==1) && (leptonsMVAT_number==0) &&  (jetsL_number>=8) && (bjetsM_num>=2)"); //1Tau0L
       // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
@@ -261,6 +266,7 @@ for ( string ch : Channel){
 	///did we multiply PUWeight etc or not?	//I think yes
     cout<<CUTpre<<endl;
     // sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
+    // sprintf(CUT,    "0.8       *%s",CUTpre);
     sprintf(CUT,    "EVENT_genWeight       *%s",CUTpre);
     //prefiringweight is not all 1
 	//what is the difinition of PUweight and w_Btag ? what's their value?
@@ -292,7 +298,8 @@ for ( string ch : Channel){
 	  const char *plot = name[i];
 
         TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
-        // TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);
+        // TH1F* TTTT = new TH1F("TTTT",plot,bin[i],Min[i],Max[i]);//1
+        TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);
         TH1F* TT= new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
         TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);*/ //6
         TH1F* WZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WpWpJJ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* WGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZGJetsToLLG = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
@@ -318,19 +325,22 @@ for ( string ch : Channel){
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
+        TString hname;
         for(UInt_t j = 0; j < allHistos.size(); j++){
-            // GetHisto(CUT,allTree[j],allHistos[j],plot,bin[i],Min[i],Max[i]);
+        // for(UInt_t j = 0; j < 1; j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            allTree[j]->Draw(input,CUT); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
-            // allTree[j]->Draw(input,CUTpre); TH1F* h=(TH1F*)gDirectory->Get("h"); allHistos[j] = (TH1F*)h->Clone(); delete h;
-            allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed
+            // allTree[j]->Draw(input,CUT);
+            allTree[j]->Draw(input,weight*ES1tau0l);
+            TH1F* h=(TH1F*)gDirectory->Get("h");
+            allHistos[j] = (TH1F*)h->Clone();
+            delete h;
+            // gDirectory->pwd();
+            allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed.It is now your responsibility to delete this histogram object once you are finished with it.
             // cout<<allHistos[j]->GetName()<<endl;//GetName works
-
-            // auto histo = allHistos[j];
-            // allTree[j]->Project("histo",plot,CUT);
+            // hname = allHistos[j]->GetName();
+            // allTree[j]->Project(hname,plot,CUTpre);
            // allHistos[j]->Print();
 //            cout<<allScales[j];
-//            *allHistos_NormalizedToXSection[j] = allScales[j]*(*(allHistos[j])); 
 
             // allHistos[j]->Scale(allScales[j]);
             allHistos[j]->Scale(allScales_v2[j]);
