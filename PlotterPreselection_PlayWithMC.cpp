@@ -241,6 +241,16 @@ vector<string> Channel = { "1Tau0L_v2"   };//tausF_number == 1 && leptonsMVAT_nu
 // vector<string> Channel = { "1Tau3L_v2"   };
 // vector<string> Channel = { "2Tau0L_v2"   };
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && muonsT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
 for ( string ch : Channel){
 //    char chann[100] = channel+"==1";
@@ -252,7 +262,6 @@ for ( string ch : Channel){
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
       sprintf(CUTpre, "%s", "(tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2)"); //1Tau0L
-      // sprintf(CUTpre, "%s", "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2"); //1Tau0L
       // sprintf(CUTpre, "%s", "(tausT_number==1) && (leptonsMVAT_number==0) &&  (jetsL_number>=8) && (bjetsM_num>=2)"); //1Tau0L
       // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
