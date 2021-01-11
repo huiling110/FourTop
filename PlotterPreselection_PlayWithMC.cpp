@@ -276,7 +276,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
         // TH1F* background_SR = new TH1F;
-        // TList *list = new TList;
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
