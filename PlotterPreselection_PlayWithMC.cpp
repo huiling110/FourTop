@@ -247,28 +247,26 @@ vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau
 
 for (UInt_t  cha=0; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
-
-
   std::map<float, TString> mymap;
  for(UInt_t i=0; i<1; i++){
   // for(UInt_t i=0; i<variablelist.size(); i++){
 	  const char *plot = variablelist[i];
 
-        TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
-        // TH1F* TTTT = new TH1F("TTTT",plot,bin[i],Min[i],Max[i]);//1
-        TH1F* TTJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);
-        TH1F* TT= new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
-        TH1F* TTGJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttZJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ttWJets= new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ttH= new TH1F(plot,plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]);*/ //6
-        TH1F* WZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WpWpJJ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* WGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* ZGJetsToLLG = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
-        TH1F* WWW = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WWG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZZ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WZG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* WGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZGGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//8
-        TH1F* WJetsToLNu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* DYJetsToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//2
-        TH1F* tZq_ll = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_antitop = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_top = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* TGJets = new TH1F(plot,plot,bin[i],Min[i],Max[i]);TH1F* THW = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* THQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//6
-        TH1F* VHToNonbb = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* ZH_HToBB_ZToLL = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToZZTo4L = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToBB = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWToLNuQQ = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToWWTo2L2Nu = new TH1F(plot,plot,bin[i],Min[i],Max[i]);/* TH1F* VBFHToTauTau = new TH1F(plot,plot,bin[i],Min[i],Max[i]); */TH1F* VBFHToMuMu = new TH1F(plot,plot,bin[i],Min[i],Max[i]); TH1F* VBFHToGG = new TH1F(plot,plot,bin[i],Min[i],Max[i]); 
+        // TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
+        TH1F* TTTT = new TH1F("TTTT",plot,bin[i],Min[i],Max[i]);//1
+        // TH1F* TTJets = new TH1F( "TTJets",plot,bin[i],Min[i],Max[i]);
+        TH1F* TT = new TH1F( "TT",plot,bin[i],Min[i],Max[i]); 
+        TH1F* TTGJets = new TH1F( "TTGJets",plot,bin[i],Min[i],Max[i]);TH1F* ttZJets = new TH1F( "ttZJets",plot,bin[i],Min[i],Max[i]); TH1F* ttWJets = new TH1F( "ttWJets",plot,bin[i],Min[i],Max[i]);TH1F* ttH = new TH1F( "ttH",plot,bin[i],Min[i],Max[i]); /*TH1F* ttbb = new TH1F( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
+        TH1F* WZ = new TH1F( "WZ",plot,bin[i],Min[i],Max[i]); TH1F* WWTo2L2Nu = new TH1F( "WWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1F* WpWpJJ = new TH1F( "WpWpJJ",plot,bin[i],Min[i],Max[i]);TH1F* ZZ = new TH1F( "ZZ",plot,bin[i],Min[i],Max[i]);TH1F* WGJets = new TH1F( "WGJets",plot,bin[i],Min[i],Max[i]);TH1F* ZGJetsToLLG = new TH1F( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
+        TH1F* WWW = new TH1F( "WWW",plot,bin[i],Min[i],Max[i]); TH1F* WWZ = new TH1F( "WWZ",plot,bin[i],Min[i],Max[i]); TH1F* WWG = new TH1F( "WWG",plot,bin[i],Min[i],Max[i]); TH1F* ZZZ = new TH1F( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1F* WZZ = new TH1F( "WZZ",plot,bin[i],Min[i],Max[i]); TH1F* WZG = new TH1F( "WZG",plot,bin[i],Min[i],Max[i]); TH1F* WGG = new TH1F( "WGG",plot,bin[i],Min[i],Max[i]); TH1F* ZGGJets = new TH1F( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
+        TH1F* WJetsToLNu = new TH1F( "WJetsToLNu",plot,bin[i],Min[i],Max[i]); TH1F* DYJetsToTauTau = new TH1F( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
+        TH1F* tZq_ll = new TH1F( "tZq_ll",plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_antitop = new TH1F( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]); TH1F* ST_tW_top = new TH1F( "ST_tW_top",plot,bin[i],Min[i],Max[i]); TH1F* TGJets = new TH1F( "TGJets",plot,bin[i],Min[i],Max[i]);TH1F* THW = new TH1F( "THW",plot,bin[i],Min[i],Max[i]); TH1F* THQ = new TH1F( "THQ",plot,bin[i],Min[i],Max[i]);//6
+        TH1F* VHToNonbb = new TH1F( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1F* ZHToTauTau = new TH1F( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1F* ZH_HToBB_ZToLL = new TH1F( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToZZTo4L = new TH1F( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToBB = new TH1F( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToGG = new TH1F( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToMuMu = new TH1F( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToTauTau = new TH1F( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWTo2L2Nu = new TH1F( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1F* GluGluHToWWToLNuQQ = new TH1F( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1F* VBFHToWWTo2L2Nu = new TH1F( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);/* TH1F* VBFHToTauTau = new TH1F( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); */TH1F* VBFHToMuMu = new TH1F( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1F* VBFHToGG = new TH1F( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
         vector<TH1F*> allHistos  {
             TTTT,//0
             // TTJets,
             TT,
-            TTGJets,ttZJets,ttWJets,ttH,/* ttbb, */ //5
+            TTGJets,ttZJets,ttWJets,ttH, //5
             WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//11
              WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//19
              WJetsToLNu,  DYJetsToTauTau,//21
@@ -282,17 +280,18 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
+        TString hname ;
         for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 1; j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            // allTree[j]->Draw(input,weight*ES1tau0l);
-            allTree[j]->Draw(input,weight*channelCut[cha]);
-            TH1F* h=(TH1F*)gDirectory->Get("h");
-            allHistos[j] = (TH1F*)h->Clone();
-            delete h;
-            allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed.It is now your responsibility to delete this histogram object once you are finished with it.
+            // allTree[j]->Draw(input,weight*channelCut[cha]);
+            // TH1F* h=(TH1F*)gDirectory->Get("h");
+            // allHistos[j] = (TH1F*)h->Clone();
+            // delete h;
+            // allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed.It is now your responsibility to delete this histogram object once you are finished with it.
             // cout<<allHistos[j]->GetName()<<endl;//GetName works
-            // allTree[j]->Project(hname,plot,CUTpre);
+            hname = allHistos[j]->GetName();
+            allTree[j]->Project(hname,plot, weight*channelCut[cha]);
            // allHistos[j]->Print();
 
             // allHistos[j]->Scale(allScales[j]);
@@ -311,7 +310,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // cout<<"TTJets = "<<allHistos[1]->Integral()<<endl;
             cout<<"TT     = "<<allHistos[1]->Integral()<<endl;
             cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
-            // cout<<"ttbb   = "<<allHistos[6]->Integral()<<endl;
             cout<<"VV     = "<<allHistos[6]->Integral()+allHistos[7]->Integral()+allHistos[8]->Integral()+allHistos[9]->Integral()+allHistos[10]->Integral()+allHistos[11]->Integral()<<endl;
             cout<<"VVV    = "<<allHistos[12]->Integral()+allHistos[13]->Integral()+allHistos[14]->Integral()+allHistos[15]->Integral()+allHistos[16]->Integral()+allHistos[17]->Integral()+allHistos[18]->Integral()+allHistos[19]->Integral()<<endl;
             cout<<"WJets  = "<<allHistos[20]->Integral()<<endl;      
