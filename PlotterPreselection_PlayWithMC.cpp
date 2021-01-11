@@ -232,27 +232,28 @@ name.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.pu
       char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];  char CUTfir1[1000];  char CUTfir2[1000];char CUTqcd1[1000]; char CUTqcd2[1000];char CUTpdf1[1000]; char CUTpdf2[1000]; char CUTtri1[1000]; char CUTtri2[1000];
 	  //apply selection cuts here
       //
-//    sprintf(CUTpre,"((NumOfTausL>0))");
-// vector<string> Channel = {[>"1Tau0L_v2","1Tau1L_v2","1Tau1E_v2","1Tau1Mu_v2","1Tau2OS_v2", "1Tau2SS_v2", "1Tau3L_v2",<]"2Tau0L_v2", "2Tau1L_v2","2Tau2OS_v2","2Tau2SS_v2"   };
-vector<string> Channel = { "1Tau0L_v2"   };//tausF_number == 1 && leptonsMVAT_number == 0
-// vector<string> Channel = { "1Tau1E_v2"   };
-// vector<string> Channel = { "1Tau1Mu_v2"   };
-// vector<string> Channel = { "1Tau2OS_v2"   };
-// vector<string> Channel = { "1Tau3L_v2"   };
-// vector<string> Channel = { "2Tau0L_v2"   };
+// vector<string> channnelName = { "1Tau0L_v2"   };//tausF_number == 1 && leptonsMVAT_number == 0
+// vector<string> channnelName = { "1Tau1E_v2"   };
+// vector<string> channnelName = { "1Tau1Mu_v2"   };
+// vector<string> channnelName = { "1Tau2OS_v2"   };
+// vector<string> channnelName = { "1Tau3L_v2"   };
+// vector<string> channnelName = { "2Tau0L_v2"   };
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
 const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && muonsT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 && bjetsM_num>=2";
+const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  jetsL_number>=2 && bjetsM_num>=2";
+const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
-for ( string ch : Channel){
+vector<string> channnelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
+vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
+
+for ( string ch : channnelName){
 //    char chann[100] = channel+"==1";
     TString postfix = ch + ".png";
     ch = "channel_"+ ch + "==1";
@@ -261,7 +262,7 @@ for ( string ch : Channel){
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
    // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
-      sprintf(CUTpre, "%s", "(tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2)"); //1Tau0L
+      // sprintf(CUTpre, "%s", "(tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2)"); //1Tau0L
       // sprintf(CUTpre, "%s", "(tausT_number==1) && (leptonsMVAT_number==0) &&  (jetsL_number>=8) && (bjetsM_num>=2)"); //1Tau0L
       // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
    // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
