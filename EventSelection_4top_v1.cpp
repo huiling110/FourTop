@@ -23,7 +23,7 @@ void EventSelection_4top_v1(
   // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
   const int SysJes = 0; // jet enenrgy scale
   const int SysJer = 0; // jet  energy resolution
-  const bool isHLTstudy = true;
+  const bool isHLTstudy = false;
 
   using namespace std;
 
@@ -422,9 +422,7 @@ void EventSelection_4top_v1(
           tauL_3phi = SelectedTausL[0].Phi();
         }
 
-        //
 
-        // channel difinition version2
 
 
         // jet and B jet selection
