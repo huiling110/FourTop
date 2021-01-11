@@ -250,34 +250,23 @@ const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 &
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
-vector<string> channnelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
+vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
 
-for ( string ch : channnelName){
-//    char chann[100] = channel+"==1";
-    TString postfix = ch + ".png";
-    ch = "channel_"+ ch + "==1";
-    const char*    channel= ch.c_str();//.c_str() returns a const char*
+// for ( string ch : channnelName){
+for (UInt_t  cha=0; cha<channelName.size(); cha++){
+    // TString postfix = ch + ".png";
+    TString postfix = channelName[cha] + ".png";
+    // ch = "channel_"+ ch + "==1";
+    // const char*    channel= ch.c_str();//.c_str() returns a const char*
 //   sprintf(CUTpre,"%s", channel);
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"(jetsL_number>=8)&&(bjetsM_num>=2)&&(tausT_number==1)&&(%s)", channel);//1Tau0L
-   // sprintf(CUTpre,"jetsL_number>=8&&bjetsM_num>=2&&tausT_number==1&&%s", channel);//1Tau0L //?
-      // sprintf(CUTpre, "%s", "(tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2)"); //1Tau0L
-      // sprintf(CUTpre, "%s", "(tausT_number==1) && (leptonsMVAT_number==0) &&  (jetsL_number>=8) && (bjetsM_num>=2)"); //1Tau0L
-      // sprintf(CUTpre, "%s", "tausT_number==1 && elesMVAT_number==0 && muonsT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2");
-   // sprintf(CUTpre,"(jetsL_number>=9)&&(bjetsM_num>=2&&(leptonsMVAT_number==0))&&(%s)", channel);//1Tau0L for testing
-   // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2) && (tausT_number == 1)&&(%s)", channel);//1Tau1L
-   // sprintf(CUTpre,"(jetsL_number>=4)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau2OS AND 1Tau2SS
-   // sprintf(CUTpre,"(jetsL_number>=2)&&(bjetsM_num>=2)&&(%s)", channel);//1Tau3L
-   // sprintf(CUTpre,"(jetsL_number>=6)&&(bjetsM_num>=2)&&(%s)", channel);//2Tau0L
     /*{{{*/
 // 	sprintf(CUTpre,"((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetEta<4&&MostForwardJetEta>-4)&&((MostForwardJetEta<-3.139&&MostForwardJetEta>-4||(MostForwardJetEta>-2.65&&MostForwardJetEta<2.65)||MostForwardJetEta>3.139)||(MostForwardJetPt>50)))");
     //sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig  *w_ZToNuNu  *w_WToLNu  *w_ttbar *%s",CUTpre);
 	///did we multiply PUWeight etc or not?	//I think yes
-    cout<<CUTpre<<endl;
+    // cout<<CUTpre<<endl;
     // sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *prefiringweight    *w_Trig      *%s",CUTpre);
-    // sprintf(CUT,    "0.8       *%s",CUTpre);
-    sprintf(CUT,    "EVENT_genWeight       *%s",CUTpre);
+    // sprintf(CUT,    "EVENT_genWeight       *%s",CUTpre);
     //prefiringweight is not all 1
 	//what is the difinition of PUweight and w_Btag ? what's their value?
 //	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *prefiringweight    *w_Trig  *%s",CUTpre);
@@ -339,8 +328,8 @@ for ( string ch : channnelName){
         for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 1; j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            // allTree[j]->Draw(input,CUT);
-            allTree[j]->Draw(input,weight*ES1tau0l);
+            // allTree[j]->Draw(input,weight*ES1tau0l);
+            allTree[j]->Draw(input,weight*channelCut[cha]);
             TH1F* h=(TH1F*)gDirectory->Get("h");
             allHistos[j] = (TH1F*)h->Clone();
             delete h;
@@ -493,11 +482,10 @@ for ( string ch : channnelName){
         TString NAME = name[i];
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-    //    c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v2_NewNtupleAfterEventSelection/Plots/"+NAME+"1Tau3L.png");
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v9/tausT_removettbb/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
+        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
         // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v11_jetjetRemoval_corrected/plots/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v13_correctChargeSum_add2SSand2OS/plots/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();
@@ -513,8 +501,7 @@ for ( string ch : channnelName){
 //        separation_power.push_back(sp);
         cout<<NAME<<" separation power"<<sp<<endl;
         std::cout << '\n';
-        if(i==(name.size()-1)) cout<<ch<<endl;
-        // if(i==2) cout<<ch<<endl;
+        if(i==(name.size()-1)) cout<<channelName[cha]<<endl;
        // std::map<float, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
 
@@ -538,294 +525,6 @@ for ( string ch : channnelName){
 
 //what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
-/*	if(SYST){//15
-		MakeHistos(CUTpup1,plot,bin[i],Min[i],Max[i],0,data_P1,background_P1,ZToNuNu_1_P1,ZToNuNu_2_P1,ZToNuNu_3_P1,ZToNuNu_4_P1,ZToNuNu_5_P1,ZToNuNu_6_P1,ZToNuNu_7_P1,
-				QCD_1_P1,QCD_2_P1,QCD_3_P1,QCD_4_P1,QCD_5_P1,QCD_6_P1,QCD_7_P1,WToLNu_1_P1,WToLNu_2_P1,WToLNu_3_P1,WToLNu_4_P1,WToLNu_5_P1,WToLNu_6_P1,WToLNu_7_P1,
-				 TT_1_P1,TT_2_P1,ST_1_P1,ST_2_P1,ST_3_P1,ST_4_P1,ZZ1_P1,ZZ2_P1,ZZ3_P1,WW1_P1,WW2_P1,WZ1_P1,WZ2_P1,WZ3_P1,ttW_P1,ttZ_P1,tZq_P1,ZZ4_P1,WZ4_P1,
-				 tptzm0700lh_P1,tptzm0900lh_P1,tptzm1400lh_P1,tptzm1700lh_P1);
-
-*/
-		//according to SYST we reset our bin error to histo_SR
-		//
-/*	for(int m=1; m<background_SR->GetNbinsX()+1; m++){ //1112
-		MakeHistoErrors(m, ZToNuNu_1_SR, ZToNuNu_1_P1, ZToNuNu_1_P2, ZToNuNu_1_F1, ZToNuNu_1_F2, ZToNuNu_1_B1, ZToNuNu_1_B2, ZToNuNu_1_Z1, ZToNuNu_1_Z2, ZToNuNu_1_W1, ZToNuNu_1_W2, ZToNuNu_1_T1, ZToNuNu_1_T2, ZToNuNu_1_J1, ZToNuNu_1_J2, ZToNuNu_1_J3, ZToNuNu_1_J4, ZToNuNu_1_qcd1, ZToNuNu_1_qcd2, ZToNuNu_1_pdf1, ZToNuNu_1_pdf2, ZToNuNu_1_TR1, ZToNuNu_1_TR2);
-		}*/
-	
-
-//		Double_t dataErr   = 0; Float_t dataYield = data_SR->IntegralAndError(1,TTTT_SR->GetNbinsX()-1,dataErr,"");/*{{{*/
-/*		Double_t TTJetsErr   = 0; Float_t TTJetsYield = TTJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTJetsErr,"");
-		Double_t TTGJetsErr   = 0; Float_t TTGJetsYield = TTGJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTGJetsErr,"");
-		Double_t ttZJetsErr   = 0; Float_t ttZJetsYield = ttZJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttZJetsErr,"");
-		Double_t ttWJetsErr   = 0; Float_t ttWJetsYield = ttWJets_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttWJetsErr,"");
-		Double_t ttbbErr   = 0; Float_t ttbbYield = ttbb_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttbbErr,"");
-		Double_t WZErr   = 0; Float_t WZYield = WZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WZErr,"");
-//		Double_t ttHErr   = 0; Float_t ttHYield = ttH_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ttHErr,"");
-//		Double_t WWErr   = 0; Float_t WWYield = WW_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WWErr,"");
-		Double_t WpWpJJErr = 0; Float_t WpWpJJYield = WpWpJJ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),WpWpJJErr,"");
-		Double_t ZZErr = 0; Float_t ZZYield = ZZ_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),ZZErr,"");
-		Double_t TTTT_Err= 0; Float_t TTTT_Yield = TTTT_SR->IntegralAndError(1,TTTT_SR->GetNbinsX(),TTTT_Err,"");
-*/        
-        //?why not use result of this?
-
-    
-/*    if(i==0){
-      cout<<endl;
-      cout<<"Plotting "<<name[i]<<endl;
-    //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;
-      cout<<"TTJets   = "<<TTJets_SR->Integral()<<" +/- "<<	sqrt(TTJetsErr*TTJetsErr)<<endl;
-        cout<<"WJets = "<<WJetsToLNu_SR->Integral()<<endl;      
-        cout<<"DY = "<<DYJetsToTauTau_SR->Integral()<<endl;      
-        cout<<"ttbb = "<<ttbb_SR->Integral()<<endl;      
-        cout<<"WZ = "<<WZ_SR->Integral()<<endl;      
-        cout<<"WW = "<<WWTo2L2Nu_SR->Integral()<<endl;      
-        cout<<"ZZ = "<<ZZ_SR->Integral()<<endl;      
-        cout<<"WG = "<<WGJets_SR->Integral()<<endl;      
-        cout<<"SINGLE TOP = "<<tZq_ll_SR->Integral()+ST_tW_antitop_SR->Integral()+ST_tW_top_SR->Integral()<<endl;      
-        cout<<"H = "<<VHToNonbb_SR->Integral()+ZHToTauTau_SR->Integral()+ZH_HToBB_ZToLL_SR->Integral()+GluGluHToZZTo4L_SR->Integral()+GluGluHToBB_SR->Integral()+GluGluHToGG_SR->Integral()+GluGluHToMuMu_SR->Integral()+GluGluHToTauTau_SR->Integral()+GluGluHToWWTo2L2Nu_SR->Integral()+GluGluHToWWToLNuQQ_SR->Integral()+VBFHToWWTo2L2Nu_SR->Integral()+VBFHToGG_SR->Integral()<<endl;
-
-//	  cout<<"Total BKG = "<<TTJets_SR->Integral()          +TTGJets_SR->Integral()          +ttZJets_SR->Integral()+ttWJets_SR->Integral()+ttbb_SR->Integral()+WZ_SR->Integral()          +ttH_SR->Integral()          +WW_SR->Integral()+WpWpJJ_SR->Integral()          +ZZ_SR->Integral()     " +/- "<<sqrt(TTJetsErr*TTJetsErr            +TTGJetsErr*TTGJetsErr;
-      cout<<"TTTT = "<<TTTT_SR->Integral()<<endl;
-	  cout<<"Total BKG = "<<background_SR->Integral()<<endl;
-      
-	}
-    TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
-		TTTT_SR->SetLineWidth(2);
-		TTTT_SR->SetLineColor(2);
-		TTJets_SR->SetLineWidth(2); 
-        TTGJets_SR->SetLineWidth(2);
-        ttZJets_SR->SetLineWidth(2); ttWJets_SR->SetLineWidth(2); ttbb_SR->SetLineWidth(2); WZ_SR->SetLineWidth(2); 
-        //ttH_SR->SetLineWidth(2);
-//		WW_SR->SetLineWidth(2);
-		WpWpJJ_SR->SetLineWidth(2);
-//		ZZ_SR->SetLineWidth(2);
-//		TT_SR->SetLineWidth(2);
-
-		TTJets_SR->SetLineColor(kOrange); 
-        TTGJets_SR->SetLineColor(kOrange);
-        ttZJets_SR->SetLineColor(kOrange); ttWJets_SR->SetLineColor(kOrange); ttbb_SR->SetLineColor(kOrange); WZ_SR->SetLineColor(kOrange); 
-//        ttH_SR->SetLineColor(kOrange);
-//		WW_SR->SetLineColor(kGreen-3);
-		WpWpJJ_SR->SetLineColor(kCyan-4);
-//		ZZ_SR->SetLineColor(kGreen+3); 
-//		TT_SR->SetLineColor(kGreen-4); 
-
-		TTJets_SR->SetFillColor(kOrange); 
-        TTGJets_SR->SetFillColor(kOrange);
-        ttZJets_SR->SetFillColor(kOrange); ttWJets_SR->SetFillColor(kOrange); ttbb_SR->SetFillColor(kOrange); WZ_SR->SetFillColor(kOrange); 
-//        ttH_SR->SetFillColor(kOrange);
-	//	WW_SR->SetFillColor(kGreen-3);
-	//	WpWpJJ_SR->SetFillColor(kCyan-4);
-	//	ZZ_SR->SetFillColor(kGreen+3);
-
-//		data_SR->SetLineWidth(2); data_SR->SetLineColor(1); data_SR->SetMarkerColor(1); data_SR->SetMarkerStyle(20); data_SR->SetMarkerSize(1.3);
-
-*/
-
-
-
-	//////
-	//画下面data/MC的比率计算图
-	//////
-   /* TPad *c1_1 = new TPad("c1_1","newpad",0.01,0.01,0.99,0.32);
-    c1_1->Draw();
-    c1_1->cd();
-    c1_1->SetTopMargin(0.045);
-    c1_1->SetBottomMargin(0.3);
-    c1_1->SetRightMargin(0.035);
-    c1_1->SetLeftMargin(0.11);
-    
-    TGraphAsymmErrors *gDATA = new TGraphAsymmErrors(data_SR);	
-    gDATA->SetLineWidth(2); 
-    gDATA->SetLineColor(1);
-    gDATA->SetMarkerColor(1); 
-    gDATA->SetMarkerStyle(20); 
-    gDATA->SetMarkerSize(1.3);
-    for (int i = 0; i < gDATA->GetN(); ++i) {
-      double alpha = 1 - 0.6827;
-      int M = gDATA->GetY()[i];
-      double L =  (M==0) ? 0  : (ROOT::Math::gamma_quantile(alpha/2,M,1.));//condition ? result_if_true : result_if_false
-			//???
-      double U =  ROOT::Math::gamma_quantile_c(alpha/2,M+1,1);
-      //if(M!=0){
-      gDATA->SetPointEYlow(i, M-L);
-      gDATA->SetPointEYhigh(i, U-M);
-      //}
-    }
-
-		//RATIO2 is the gray.
-    TH1F *RATIO2 = (TH1F*)background_SR->Clone();
-    Double_t x[bin[i]]; Double_t exl[bin[i]]; Double_t exh[bin[i]];
-    Double_t y[bin[i]]; Double_t eyl[bin[i]]; Double_t eyh[bin[i]]; 
-    for(int m=0; m<background_SR->GetNbinsX(); m++){ 
-      x[m]=Min[i]+m*(Max[i]-Min[i])/bin[i]+(Max[i]-Min[i])/(2*bin[i]);
-      exl[m]=(Max[i]-Min[i])/(2*bin[i]);
-      exh[m]=(Max[i]-Min[i])/(2*bin[i]);
-      RATIO2->SetBinContent(m+1,1);
-      if(background_SR->GetBinContent(m+1)!=0) {
-				y[m]=data_SR->GetBinContent(m+1)/background_SR->GetBinContent(m+1);
-				eyl[m]=sqrt(gDATA->GetErrorYlow(m)*gDATA->GetErrorYlow(m))/background_SR->GetBinContent(m+1);
-				eyh[m]=sqrt(gDATA->GetErrorYhigh(m)*gDATA->GetErrorYhigh(m))/background_SR->GetBinContent(m+1);
-				//it is error of data / background bin content.
-				RATIO2->SetBinError(m+1,background_SR->GetBinError(m+1)/background_SR->GetBinContent(m+1));
-				//?reflects what?
-      }
-			else {
-				y[m]=-1;
-				eyl[m]=0;
-				eyh[m]=0;
-      }
-    }
-
-    TGraphAsymmErrors *RATIO = new TGraphAsymmErrors(bin[i],x,y,exl,exh,eyl,eyh);
-    RATIO->Draw("AE0p");
-    RATIO->SetMarkerColor(1); 
-    RATIO->SetMarkerStyle(21); 
-    RATIO->SetMarkerSize(1.0);
-    RATIO->SetMaximum(1.7);
-    RATIO->SetMinimum(0.3);
-    RATIO->SetLineColor(1);
-    RATIO->SetLineWidth(2);
-    RATIO->GetXaxis()->SetTitleOffset(0.9);
-    RATIO->GetYaxis()->SetTitleOffset(0.5);
-    RATIO->SetTitle("");
-    RATIO->GetYaxis()->SetTitle("observed/expected");
-    RATIO->GetXaxis()->SetTitle(axis[i]);
-    RATIO->GetXaxis()->SetLabelSize(0.13);
-    RATIO->GetYaxis()->SetLabelSize(0.13);
-    RATIO->GetXaxis()->SetTitleSize(0.15);
-    RATIO->GetYaxis()->SetTitleSize(0.09);
-    RATIO->GetYaxis()->SetNdivisions(505);
-    RATIO->GetXaxis()->SetRangeUser(Min[i],Max[i]);
-    RATIO2->SetFillStyle(3002);
-    RATIO2->SetFillColor(12);
-    RATIO2->SetLineColor(12);
-    RATIO2->SetMarkerSize(0);
-    RATIO2->Draw("E2same");
-    RATIO->Draw("E0psame");
-
-    TLine* line = new TLine(Min[i],1,Max[i],1);
-    line->SetLineColor(2);
-    line->SetLineWidth(2);
-    line->Draw("same");	
-    c1->cd();
-    */
-	/////
-	//画上面的data/MC图
-	/////
-//    TPad *c1_2 = new TPad("c1_2", "newpad",0.01,0.30,0.99,0.90);// bottom left point(),
-/*
-    TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
-    c1_2->Draw();
-    c1_2->cd();
-*/    
-   // c1_2->SetTopMargin(0.08);
-   // c1_2->SetBottomMargin(0.02);
-   // c1_2->SetRightMargin(0.035);
-   // c1_2->SetLeftMargin(0.20);
- /* 
-   // THStack *hs = new THStack("hs","hs");
-    TH1::SetDefaultSumw2();
-    TH1F *hs = new TH1F("hs","h1+h2",bin[i],Min[i],Max[i]);
-    //hs->Add(ZZ_SR);
-    //hs->Add(WpWpJJ_SR);
-    //hs->Add(TTJets_SR);
-   hs->Add(TTJets_SR);
-    hs->Add(TTGJets_SR);
-    hs->Add(ttZJets_SR);
-    hs->Add(ttWJets_SR);
-    hs->Add(ttbb_SR);
-    hs->Add(WZ_SR);
-    hs->Add(ttH_SR);
-//    hs->Add(WW_SR,TTGJets_SR,1,1);//TTG
-    hs->Add(TTJets_SR,ttZJets_SR,1,1);//TTG
-//    hs->Add(ttZJets_SR,1);
-//    hs->Add(ttWJets_SR,1);
-//    hs->Add(ttH_SR,1);
-//    hs->Add(ttbb_SR,1);
-//    hs->Add(WZ_SR,1);
-	
-    
-	hs->SetLineWidth(2);
-	hs->SetLineColor(kYellow+2); 
-  //  hs->Draw("histo");///?
-   // hs->Draw("histo NOSTACK");///?
-    hs->SetMinimum(0);
-//    hs->SetMaximum(1);
-    hs->SetMaximum(2 * hs->GetMaximum());
-    hs->GetYaxis()->SetTitleSize(0.050);
-    hs->GetXaxis()->SetTitleSize(0.040);
-    hs->GetYaxis()->SetLabelSize(0.040);
-    hs->GetXaxis()->SetLabelSize(0.040); 
-    hs->SetTitle("");
-    hs->GetYaxis()->SetTitle("Events");
-    hs->GetXaxis()->SetTitle(axis[i]);
-    hs->GetYaxis()->SetTitleOffset(0.80);
-    hs->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-    hs->DrawNormalized("hist", 1);
-    */
-   // TTTT_SR->Draw("samehisto");
-   //
-/*
-    TTTT_SR->SetMinimum(0);
-//    hs->SetMaximum(1);
-    TTTT_SR->SetMaximum(3 * TTTT_SR->GetMaximum());
-    TTTT_SR->GetYaxis()->SetTitleSize(0.050);
-    TTTT_SR->GetXaxis()->SetTitleSize(0.050);
-    TTTT_SR->GetYaxis()->SetLabelSize(0.040);
-    TTTT_SR->GetXaxis()->SetLabelSize(0.040); 
-    TTTT_SR->SetTitle("");
-    TTTT_SR->GetYaxis()->SetTitle("Events");
-    TTTT_SR->GetXaxis()->SetTitle(axis[i]);
-    TTTT_SR->GetYaxis()->SetTitleOffset(1.00);
-    TTTT_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-    TTTT_SR->DrawNormalized("hist", 1);
-//    TTTT_SR->DrawNormalized("samehist", 1);
-   // TTJets_SR->Draw("samehisto");
-  //  WpWpJJ_SR->Draw("samehisto");
-//    ZZ_SR->Draw("samehisto");
-	background_SR->SetLineWidth(2);
-	background_SR->SetLineColor(kViolet-2); 
-   // background_SR->Draw("samehisto");
-    background_SR->DrawNormalized("samehist", 1);
-    delete background_SR;
-
-*/    
-   /* 
-    //TH1F * TTX = TTJets_SR + WpWpJJ_SR + ZZ_SR;
-    TH1D *TTX = new TH1D("TTX","h1+h2",bin[i],Min[i],Max[i]);
-    TTX->Add(ZZ_SR,WpWpJJ_SR,1,1);
-//    TTX->Add(TTJets_SR,WpWpJJ_SR,1,1);
-//    TTX->Add(ZZ_SR,1);
-	TTX->SetLineWidth(2);
-	TTX->SetLineColor(kAzure); 
-//    TTX->Draw("samehisto");
-    TTX->DrawNormalized("samehist", 1);
-//	TT_SR->SetLineWidth(2);
-//	TT_SR->SetLineColor(kOrange); 
-//    TTX->Draw("samehisto");
-    //TT_SR->DrawNormalized("samehist", 1);
-*/
-   // TTJets_SR->Draw("samehisto");
-   // WpWpJJ_SR->Draw("samehisto");
-   // ZZ_SR->Draw("samehisto");
-		//why background add up to meet data?
-    //data_SR->Draw("E same"); 
-    
-    //background_SR->SetFillStyle(3005);//3000+pattern_number,FillStyle = 3ijk
-    //background_SR->SetFillColor(12);
-   // background_SR->SetLineColor(12);
-   // background_SR->Draw("E2same");
-    
-   // float maxy=-10;
-   // float ADD=20;
-   // for(int ABC=0; ABC<data_SR->GetNbinsX(); ABC++){
-     // if(background_SR->GetBinContent(ABC+1)+ADD>=maxy) maxy=background_SR->GetBinContent(ABC+1)+ADD;
-     // if(data_SR      ->GetBinContent(ABC+1)+ADD>=maxy) maxy=data_SR      ->GetBinContent(ABC+1)+ADD;
-   // }
-//    hs->SetMaximum(maxy);
-    //hs->SetMaximum(1);
-   // hs->SetMinimum(3);
-   // c1_2->SetLogy();//Set Lin/Log scale for Y,value = 0 Y scale will be linear,value = 1 Y scale will be logarithmic (base 10)
 
 
 
