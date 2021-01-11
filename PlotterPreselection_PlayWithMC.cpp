@@ -247,7 +247,7 @@ const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number
 const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
 const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  jetsL_number>=2 && bjetsM_num>=2";
+const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
