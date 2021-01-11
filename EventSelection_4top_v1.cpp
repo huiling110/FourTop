@@ -1043,17 +1043,17 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     }
     // ISO
     double I1 = 0.4, I2 = 0, I3 = 0;
-    if (type == 0 or type == 1) {
+    if (type == 0 || type == 1) {
       I1 = 0.4;
       I2 = 0;
       I3 = 0;
     } // looseWP from ss of TTTT}
     // if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
     //    ??patElectron_jetptratioV2?
-    if (!((patElectron_miniIsoRel_->at(j) < I1) &&
-          ((patElectron_jetptratio_->at(j) > I2) ||
-           (patElectron_ptrel_->at(j) > I3))))
-      continue;
+    // if (!((patElectron_miniIsoRel_->at(j) < I1) &&
+          // ((patElectron_jetptratio_->at(j) > I2) ||
+           // (patElectron_ptrel_->at(j) > I3))))
+      // continue;
     //?if we apply this for tight , the number would be very low.
 
     // emulation selection
@@ -1115,6 +1115,7 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
     // if(!(Muon_dz_pv_->at(j)<0.1)) continue;
+    //?throwing an instance of 'std::out_of_range'
     //        if(!(patElectron_d0_->at(j)<0.05)) continue;
     // if(type == 1 or type == 2) {
         // if(!(Muon_IP3D_sig_->at(j)<4)) continue;
