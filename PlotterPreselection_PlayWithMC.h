@@ -189,7 +189,7 @@ vector<double> allScales_v2 {
 
 
 //sequence matter very much here
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/NoJEC/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v14_removeISOforE/NoJEC/";
 // vector<TString> files = {
     // "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
 // }
@@ -198,7 +198,6 @@ TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctCharge
     // sprintf(ifile, "file%d", f);
     // sprintf(itree, "tree%d", f);
     // TFile *ifile =
-//
 // }
 
 //TFile *file01 =   TFile::Open("data.root");

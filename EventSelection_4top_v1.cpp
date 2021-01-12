@@ -15,6 +15,7 @@ void EventSelection_4top_v1(
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
+  const bool isHLTstudy = false;
   const bool preselection = true; // associate with selection
   const bool sideband = false;    // associate with selection
   //?what's sideband and signal ?
@@ -23,7 +24,6 @@ void EventSelection_4top_v1(
   // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
   const int SysJes = 0; // jet enenrgy scale
   const int SysJer = 0; // jet  energy resolution
-  const bool isHLTstudy = false;
 
   using namespace std;
 
@@ -3771,6 +3771,9 @@ void initializeVar() { /*{{{*/
   leptonsMVAT_3pt = -99;
   leptonsMVAT_3eta = -99;
   leptonsMVAT_3phi = -99;
+  leptonsMVAT_2SS = 0;
+  leptonsMVAT_2OS = 0;
+
   eleT_number = -99;
   elesMVAL_number = -99;
   elesMVAF_number = -99;
