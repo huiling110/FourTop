@@ -283,12 +283,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 1; j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
-            // allTree[j]->Draw(input,weight*channelCut[cha]);
-            // TH1F* h=(TH1F*)gDirectory->Get("h");
-            // allHistos[j] = (TH1F*)h->Clone();
-            // delete h;
-            // allHistos[j]->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory. Once a histogram is removed from the directory, it will not be deleted when the directory is closed.It is now your responsibility to delete this histogram object once you are finished with it.
-            // cout<<allHistos[j]->GetName()<<endl;//GetName works
             hname = allHistos[j]->GetName();
             allTree[j]->Project(hname,plot, weight*channelCut[cha]);
            // allHistos[j]->Print();
