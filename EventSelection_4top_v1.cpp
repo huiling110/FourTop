@@ -4,7 +4,8 @@
 
 void EventSelection_4top_v1(
     const bool istest = true,
-    const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    const string input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
   gStyle->SetCanvasColor(0);
@@ -1106,9 +1107,9 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     }
     //    if(!((Muon_miniIsoRel_->at(j)<I1)|((Muon_jetptratio_->at(j)>I2)&&(Muon_ptrel_->at(j)>I3))))
     // continue;
-    if (!((Muon_miniIsoRel_->at(j) < I1) &&
-          ((Muon_jetptratio_->at(j) > I2) || (Muon_ptrel_->at(j) > I3))))
-      continue;
+    // if (!((Muon_miniIsoRel_->at(j) < I1) &&
+          // ((Muon_jetptratio_->at(j) > I2) || (Muon_ptrel_->at(j) > I3))))
+      // continue;
 
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
