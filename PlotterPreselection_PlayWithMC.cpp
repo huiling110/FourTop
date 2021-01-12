@@ -277,7 +277,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         TH1F* background_SR = new TH1F("BG","BG",bin[i],Min[i],Max[i]);
         // TH1F* background_SR = new TH1F;
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
-        // cout<<"number of weights ="<<allScales.size()<<endl;
+        // cout<<"number of weights ="<<allScales_v2.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
         TString hname ;
         for(UInt_t j = 0; j < allHistos.size(); j++){
@@ -312,16 +312,16 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             cout<<"Total BKG = "<<background_SR->Integral()<<endl;
             cout<<endl;
             cout<<"Statistics"<<endl;
-            cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales[0]<<endl;
-            // cout<<"TTJets = "<<(allHistos[1]->Integral()/ allScales[1])<<endl;
-            cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales[1])<<endl;
-            cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales[2]) + (allHistos[3]->Integral()/allScales[3]) + (allHistos[4]->Integral()/allScales[4]) + ( allHistos[5]->Integral()/allScales[5]) <<endl;
-            cout<<"VV     = "<<(allHistos[6]->Integral()/allScales[6]) +(allHistos[7]->Integral()/allScales[7]) +(allHistos[8]->Integral()/allScales[8]) + (allHistos[9]->Integral()/allScales[9]) + (allHistos[10]->Integral()/allScales[10]) + (allHistos[11]->Integral()/allScales[11]) <<endl;
-            cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales[12]) + (allHistos[13]->Integral()/allScales[13]) + (allHistos[14]->Integral()/allScales[14]) + (allHistos[15]->Integral()/allScales[15]) + (allHistos[16]->Integral()/allScales[16]) + (allHistos[17]->Integral()/allScales[17]) + (allHistos[18]->Integral()/allScales[18]) + (allHistos[19]->Integral()/allScales[19]) <<endl;
-            cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales[20])<<endl;      
-            cout<<"DY     = "<<(allHistos[21]->Integral()*allScales[21])<<endl;      
-            cout<<"ST     = "<<(allHistos[22]->Integral()/allScales[22])+(allHistos[23]->Integral()/allScales[23]) + (allHistos[24]->Integral()/allScales[24]) + (allHistos[25]->Integral()/allScales[25]) + (allHistos[26]->Integral()/allScales[26]) + (allHistos[27]->Integral()/allScales[27]) <<endl;
-            cout<<"H      = "<<(allHistos[28]->Integral()/allScales[28])+(allHistos[29]->Integral()/allScales[29]) + (allHistos[30]->Integral()/allScales[30]) + (allHistos[31]->Integral()/allScales[31]) + (allHistos[32]->Integral()/allScales[32]) + (allHistos[33]->Integral()/allScales[33]) + (allHistos[34]->Integral()/allScales[34]) + (allHistos[35]->Integral()/allScales[35]) + (allHistos[36]->Integral()/allScales[36]) + (allHistos[37]->Integral()/allScales[37]) + (allHistos[38]->Integral()/allScales[38]) + (allHistos[39]->Integral()/allScales[39]) + (allHistos[40]->Integral()/allScales[40]) <<endl;
+            cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
+            // cout<<"TTJets = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
+            cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
+            cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
+            cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
+            cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales_v2[12]) + (allHistos[13]->Integral()/allScales_v2[13]) + (allHistos[14]->Integral()/allScales_v2[14]) + (allHistos[15]->Integral()/allScales_v2[15]) + (allHistos[16]->Integral()/allScales_v2[16]) + (allHistos[17]->Integral()/allScales_v2[17]) + (allHistos[18]->Integral()/allScales_v2[18]) + (allHistos[19]->Integral()/allScales_v2[19]) <<endl;
+            cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales_v2[20])<<endl;      
+            cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;      
+            cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
+            cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
