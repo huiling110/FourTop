@@ -34,7 +34,8 @@ double wTTTT_v2 = (SigSF*LUMI*0.01197)/(21942.3);//TTTT_TuneCUETP8M2T4_13TeV-amc
 //tt
 double wTTJets_v2 = (LUMI*746.7)/(9.68684e+10);//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root : 9.68684e+10
 double wTT_v2     = (LUMI*746.7)/(7.69155e+07)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root : 7.69155e+07
-double wTTGJets_v2 = (LUMI*3.773)/(3224372-1646539);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root: 3.33781e+07
+
+double wTTGJets_v2 = (LUMI*3.773)/(3.33781e+07);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root: 3.33781e+07
 double wttZJets_v2 = (LUMI*0.6559)/(9.88336e+06) ;      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-) //ttZJets_13TeV_madgraphMLM-pythia8.root : 9.88336e+06
 double wttWJets_v2 = (LUMI*0.2014)/(6.70044e+06);  ; //  ttWJets_13TeV_madgraphMLM.root : 6.70044e+06
 double wttH_v2= (LUMI*0.3372)/(9.5664e+06);  ; //ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root : 9.5664e+06
@@ -102,7 +103,7 @@ vector<double> allScales_v2 {
     wTTTT_v2, //0
     wTT_v2, //changed wTTJets to wTT
     // wTTJets,
-    wTTGJets_v2, wttZJets_v2, wttWJets_v2, wttH_v2,  /* wttbb_v2, */ //6
+    wTTGJets_v2, wttZJets_v2, wttWJets_v2, wttH_v2, //5
     wWZ_v2, wWWTo2L2Nu_v2, wWpWpJJ_v2, wZZ_v2, wWGJets_v2, wZGJetsToLLG_v2, 
     wWWW_v2, wWWZ_v2, wWWG_v2, wZZZ_v2, wWZZ_v2, wWZG_v2, wWGG_v2, wZGGJets_v2, 
     wWJetsToLNu_v2, wDYJetsToTauTau_v2, 
