@@ -113,7 +113,7 @@ vector<double> allScales_v2 {
 
 
 //sequence matter very much here
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v16_removeISOforE_change2SS2OS_invitializeAll/NoJEC/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v17_removeMuonISO/NoJEC/";
 // vector<TString> files = {
     // "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
 // }

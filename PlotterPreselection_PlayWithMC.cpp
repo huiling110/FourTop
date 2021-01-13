@@ -229,6 +229,42 @@ variablelist.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);  
 
 
   //apply selection cuts here
+const TCut ES1tau0l_step1 = "tausT_number==1 ";
+const TCut ES1tau1e_step1 = "tausT_number==1 ";
+const TCut ES1tau1m_step1 = "tausT_number==1 ";
+const TCut ES1tau2os_step1 = "tausT_number==1 ";
+const TCut ES1tau2ss_step1 = "tausT_number==1 ";
+const TCut ES1tau3l_step1 = "tausT_number==1 ";
+const TCut ES2tau0l_step1 = "tausT_number==2 ";
+const TCut ES2tau1e_step1 = "tausT_number==2 ";
+const TCut ES2tau1m_step1 = "tausT_number==2 ";
+const TCut ES2tau2os_step1 = "tausT_number==2 ";
+const TCut ES2tau2ss_step1 = "tausT_number==2 ";
+//step2
+const TCut ES1tau0l_step2 = "tausT_number==1 && leptonsMVAT_number==0 ";
+const TCut ES1tau1e_step2 = "tausT_number==1 && elesMVAT_number==1 ";
+const TCut ES1tau1m_step2 = "tausT_number==1 && muonsT_number==1 ";
+const TCut ES1tau2os_step2 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  ";
+const TCut ES1tau2ss_step2 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 ";
+const TCut ES1tau3l_step2 = "tausT_number==1 && leptonsMVAT_number==3 ";
+const TCut ES2tau0l_step2 = "tausT_number==2 && leptonsMVAT_number==0 ";
+const TCut ES2tau1e_step2 = "tausT_number==2 && elesMVAT_number==1 ";
+const TCut ES2tau1m_step2 = "tausT_number==2 && muonsT_number==0 ";
+const TCut ES2tau2os_step2 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  ";
+const TCut ES2tau2ss_step2 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 ";
+//step3
+const TCut ES1tau0l_step3 = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 ";
+const TCut ES1tau1e_step3 = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 ";
+const TCut ES1tau1m_step3 = "tausT_number==1 && muonsT_number==1 &&  jetsL_number>=6 ";
+const TCut ES1tau2os_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jetsL_number>=4 ";
+const TCut ES1tau2ss_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=4 ";
+const TCut ES1tau3l_step3 = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 ";
+const TCut ES2tau0l_step3 = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 ";
+const TCut ES2tau1e_step3 = "tausT_number==2 && elesMVAT_number==1 &&  jetsL_number>=4 ";
+const TCut ES2tau1m_step3 = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 ";
+const TCut ES2tau2os_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 ";
+const TCut ES2tau2ss_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 ";
+//step4
       //
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
 const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
@@ -242,8 +278,12 @@ const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 &
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
+
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
+vector<TCut>   channelCut_step1   = { ES1tau0l_step1, ES1tau1e_step1,  ES1tau1m_step1, ES1tau2os_step1, ES1tau2ss_step1, ES1tau3l_step1, ES2tau0l_step1, ES2tau1e_step1, ES2tau1m_step1, ES2tau2os_step1, ES2tau2ss_step1};
+vector<TCut>   channelCut_step2   = { ES1tau0l_step2, ES1tau1e_step2,  ES1tau1m_step2, ES1tau2os_step2, ES1tau2ss_step2, ES1tau3l_step2, ES2tau0l_step2, ES2tau1e_step2, ES2tau1m_step2, ES2tau2os_step2, ES2tau2ss_step2 };
+vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_step3, ES1tau2os_step3, ES1tau2ss_step3, ES1tau3l_step3, ES2tau0l_step3, ES2tau1e_step3, ES2tau1m_step3, ES2tau2os_step3, ES2tau2ss_step3 };
 
 for (UInt_t  cha=0; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
@@ -252,7 +292,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
   // for(UInt_t i=0; i<variablelist.size(); i++){
 	  const char *plot = variablelist[i];
 
-        // TH1F* TTTT = new TH1F(plot,plot,bin[i],Min[i],Max[i]);//1
         TH1F* TTTT = new TH1F("TTTT",plot,bin[i],Min[i],Max[i]);//1
         // TH1F* TTJets = new TH1F( "TTJets",plot,bin[i],Min[i],Max[i]);
         TH1F* TT = new TH1F( "TT",plot,bin[i],Min[i],Max[i]); 
@@ -281,10 +320,13 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         // cout<<"number of trees = "<<allTree.size()<<endl;
         TString hname ;
         for(UInt_t j = 0; j < allHistos.size(); j++){
-        // for(UInt_t j = 0; j < 1; j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
             hname = allHistos[j]->GetName();
-            allTree[j]->Project(hname,plot, weight*channelCut[cha]);
+            allTree[j]->Project(hname,plot, weight*channelCut[cha]);//step4
+            // allTree[j]->Project(hname,plot, weight);//step0
+            // allTree[j]->Project(hname,plot, weight*channelCut_step1[cha]);//step1
+            // allTree[j]->Project(hname,plot, weight*channelCut_step2[cha]);//step2
+            // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
            // allHistos[j]->Print();
 
             // allHistos[j]->Scale(allScales[j]);
@@ -298,7 +340,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
-         //  cout<<"DATA      = "<<data_SR->Integral()<<" +/- "<<dataErr<<endl;/*{{{*/
             cout<<"TTTT   = "<<(allHistos[0])->Integral()<<endl;
             // cout<<"TTJets = "<<allHistos[1]->Integral()<<endl;
             cout<<"TT     = "<<allHistos[1]->Integral()<<endl;
@@ -309,19 +350,20 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             cout<<"DY     = "<<allHistos[21]->Integral()<<endl;      
             cout<<"ST     = "<<allHistos[22]->Integral()+allHistos[23]->Integral()+allHistos[24]->Integral()+allHistos[25]->Integral()+allHistos[26]->Integral()+allHistos[27]->Integral()<<endl;
             cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
-            cout<<"Total BKG = "<<background_SR->Integral()<<endl;
+            cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+            cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
             cout<<endl;
-            cout<<"Statistics"<<endl;
-            cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
-            // cout<<"TTJets = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
-            cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
-            cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
-            cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
-            cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales_v2[12]) + (allHistos[13]->Integral()/allScales_v2[13]) + (allHistos[14]->Integral()/allScales_v2[14]) + (allHistos[15]->Integral()/allScales_v2[15]) + (allHistos[16]->Integral()/allScales_v2[16]) + (allHistos[17]->Integral()/allScales_v2[17]) + (allHistos[18]->Integral()/allScales_v2[18]) + (allHistos[19]->Integral()/allScales_v2[19]) <<endl;
-            cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales_v2[20])<<endl;      
-            cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;      
-            cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
-            cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
+            
+            // cout<<"Statistics"<<endl;
+            // cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
+            // cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
+            // cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
+            // cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
+            // cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales_v2[12]) + (allHistos[13]->Integral()/allScales_v2[13]) + (allHistos[14]->Integral()/allScales_v2[14]) + (allHistos[15]->Integral()/allScales_v2[15]) + (allHistos[16]->Integral()/allScales_v2[16]) + (allHistos[17]->Integral()/allScales_v2[17]) + (allHistos[18]->Integral()/allScales_v2[18]) + (allHistos[19]->Integral()/allScales_v2[19]) <<endl;
+            // cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales_v2[20])<<endl;
+            // cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;
+            // cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
+            // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
         }/*}}}*/
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
