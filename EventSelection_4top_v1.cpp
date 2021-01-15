@@ -102,8 +102,12 @@ void EventSelection_4top_v1(
       }
       for (Long64_t i = 0; i < NumOfEvents; i++) {
         Long64_t tentry = Tree->LoadTree(i); // Set current entry.
-        branchGetEntry(data, tentry);        // every branch in Tree, Getentry.
-        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+        branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+
+        h_genWeight->Fill( 0.0 , genWeight_ );
+
+
+
         initializeVar(); // initialize for new tree.
         if ( !isHLTstudy ){
              //			if(!(HLT_PFHT900_==1 ||
@@ -759,6 +763,7 @@ void EventSelection_4top_v1(
 
     f.cd();
     NewTree->Write();
+    h_genWeight->Write();
     f.Close();
     cout << "File " << fileName[Nfiles] << " ready!" << endl;
   }
