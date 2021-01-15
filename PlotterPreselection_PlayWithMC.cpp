@@ -318,13 +318,10 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales_v2.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
-        h_genweight_->Print();
-        cout<<h_genweight_->GetSumOfWeights()<<endl;
-        return;
         TString hname ;
         double scale;
         for(UInt_t j = 0; j < allHistos.size(); j++){
-            char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
+            // char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
             hname = allHistos[j]->GetName();
 
             allTree[j]->Project(hname,plot, weight*channelCut[cha]);//step4
@@ -337,15 +334,12 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // allHistos[j]->Scale(allScales[j]);
             // allHistos[j]->Scale(allScales_v2[j]);
 
-            scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights()
+            scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights();
             allHistos[j]->Scale(scale);
-
+            if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
             if(j > 0) background_SR->Add((allHistos[j]),1);
-            // double xmax = allHistos[j]->GetXaxis()->GetXmax();
-            // cout<<xmax<<endl;
 //            background_SR->Print();
-            // if(j==0) cout<<h_genweight_->Integral()<<endl;
-            // if(j==0) cout<<h_genweight_->GetSumOfWeights()<<endl;
+
         }
 
         if(i==0){
@@ -476,9 +470,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         TString NAME = variablelist[i];
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/"+NAME+postfix);
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v10_ObjectRemoval/test/"+NAME+postfix);
-        // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v11_jetjetRemoval_corrected/plots/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v13_correctChargeSum_add2SSand2OS/plots/"+NAME+postfix);
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v13_correctChargeSum_add2SSand2OS/plots/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;

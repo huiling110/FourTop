@@ -32,6 +32,7 @@ double wTTTT_v2 = (SigSF*LUMI*0.01197)/(21942.3);//TTTT_TuneCUETP8M2T4_13TeV-amc
 //tt
 double wTTJets_v2 = (LUMI*746.7)/(9.68684e+10);//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root : 9.68684e+10
 double wTT_v2     = (LUMI*746.7)/(7.69155e+07)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root : 7.69155e+07
+//1.67772e+07
 
 double wTTGJets_v2 = (LUMI*3.773)/(3.33781e+07);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root: 3.33781e+07
 double wttZJets_v2 = (LUMI*0.6559)/(9.88336e+06) ;      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-) //ttZJets_13TeV_madgraphMLM-pythia8.root : 9.88336e+06
@@ -176,7 +177,7 @@ double wVBFHToGG_sigma= (LUMI*3.992);  ;//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v
 //double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
 //HH count as minor
 //minor
-vector<double> allSigmas_v2 {
+vector<double> allSigmas {
     wTTTT_sigma, //0
     wTT_sigma, //changed wTTJets to wTT
     wTTGJets_sigma, wttZJets_sigma, wttWJets_sigma, wttH_sigma, //5
@@ -190,7 +191,8 @@ vector<double> allSigmas_v2 {
 //sequence matter very much here
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v17_removeMuonISO/NoJEC/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/NoJEC/";
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v18_withISO_filetersAndPreselection/NoJEC/";
+// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v18_withISO_filetersAndPreselection/NoJEC/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/NoJEC/";
 // vector<TString> files = {
     // "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
 // }
@@ -304,61 +306,58 @@ TTree *Tree42 =   (TTree*)file42->Get("tree");
 TTree *Tree44 =   (TTree*)file44->Get("tree");
 TTree *Tree45 =   (TTree*)file45->Get("tree");
 
-TTree *h_genWeight02 =   (TH1F**)file02->Get("h_genweight");
-TTree *h_genWeight03 =   (TH1F**)file03->Get("h_genweight");
-TTree *h_genWeight04 =   (TH1F**)file04->Get("h_genweight");
-TTree *h_genWeight05 =   (TH1F**)file05->Get("h_genweight");
-TTree *h_genWeight06 =   (TH1F**)file06->Get("h_genweight");
-TTree *h_genWeight07 =   (TH1F**)file07->Get("h_genweight");
-// TTree *h_genWeight08 =   (TH1F**)file08->Get("h_genweight");
-TTree *h_genWeight09 =   (TH1F**)file09->Get("h_genweight");
-//TTree *h_genWeight10 =   (TH1F**)file10->Get("h_genweight");
-TTree *h_genWeight10_1 =   (TH1F**)file10_1->Get("h_genweight");
-TTree *h_genWeight11 =   (TH1F**)file11->Get("h_genweight");
-TTree *h_genWeight12 =   (TH1F**)file12->Get("h_genweight");
-TTree *h_genWeight13 =   (TH1F**)file13->Get("h_genweight");
-TTree *h_genWeight14 =   (TH1F**)file14->Get("h_genweight");
-TTree *h_genWeight15 =   (TH1F**)file15->Get("h_genweight");
-TTree *h_genWeight16 =   (TH1F**)file16->Get("h_genweight");
-TTree *h_genWeight17 =   (TH1F**)file17->Get("h_genweight");
-TTree *h_genWeight18 =   (TH1F**)file18->Get("h_genweight");
-TTree *h_genWeight19 =   (TH1F**)file19->Get("h_genweight");
-TTree *h_genWeight20 =   (TH1F**)file20->Get("h_genweight");
-TTree *h_genWeight21 =   (TH1F**)file21->Get("h_genweight");
-TTree *h_genWeight22 =   (TH1F**)file22->Get("h_genweight");
-TTree *h_genWeight23 =   (TH1F**)file23->Get("h_genweight");
-TTree *h_genWeight24 =   (TH1F**)file24->Get("h_genweight");
-TTree *h_genWeight25 =   (TH1F**)file25->Get("h_genweight");
-//TTree *h_genWeight26 =   (TH1F**)file26->Get("h_genweight");
-TTree *h_genWeight27 =   (TH1F**)file27->Get("h_genweight");
-TTree *h_genWeight28 =   (TH1F**)file28->Get("h_genweight");
-TTree *h_genWeight29 =   (TH1F**)file29->Get("h_genweight");
-TTree *h_genWeight30 =   (TH1F**)file30->Get("h_genweight");
-TTree *h_genWeight31 =   (TH1F**)file31->Get("h_genweight");
-TTree *h_genWeight32 =   (TH1F**)file32->Get("h_genweight");
-TTree *h_genWeight33 =   (TH1F**)file33->Get("h_genweight");
-TTree *h_genWeight34 =   (TH1F**)file34->Get("h_genweight");
-TTree *h_genWeight35 =   (TH1F**)file35->Get("h_genweight");
-TTree *h_genWeight36 =   (TH1F**)file36->Get("h_genweight");
-TTree *h_genWeight37 =   (TH1F**)file37->Get("h_genweight");
-TTree *h_genWeight38 =   (TH1F**)file38->Get("h_genweight");
-TTree *h_genWeight39 =   (TH1F**)file39->Get("h_genweight");
-TTree *h_genWeight40 =   (TH1F**)file40->Get("h_genweight");
-TTree *h_genWeight41 =   (TH1F**)file41->Get("h_genweight");
-TTree *h_genWeight42 =   (TH1F**)file42->Get("h_genweight");
-//TTree *h_genWeight43 =   (TH1F**)file43->Get("h_genweight");
-TTree *h_genWeight44 =   (TH1F**)file44->Get("h_genweight");
-TTree *h_genWeight45 =   (TH1F**)file45->Get("h_genweight");
+TH1F *h_genWeight02 =   (TH1F*)file02->Get("h_genweight");
+TH1F *h_genWeight03 =   (TH1F*)file03->Get("h_genweight");
+TH1F *h_genWeight04 =   (TH1F*)file04->Get("h_genweight");
+TH1F *h_genWeight05 =   (TH1F*)file05->Get("h_genweight");
+TH1F *h_genWeight06 =   (TH1F*)file06->Get("h_genweight");
+TH1F *h_genWeight07 =   (TH1F*)file07->Get("h_genweight");
+// TH1F *h_genWeight08 =   (TH1F*)file08->Get("h_genweight");
+TH1F *h_genWeight09 =   (TH1F*)file09->Get("h_genweight");
+//TH1F *h_genWeight10 =   (TH1F*)file10->Get("h_genweight");
+TH1F *h_genWeight10_1 =   (TH1F*)file10_1->Get("h_genweight");
+TH1F *h_genWeight11 =   (TH1F*)file11->Get("h_genweight");
+TH1F *h_genWeight12 =   (TH1F*)file12->Get("h_genweight");
+TH1F *h_genWeight13 =   (TH1F*)file13->Get("h_genweight");
+TH1F *h_genWeight14 =   (TH1F*)file14->Get("h_genweight");
+TH1F *h_genWeight15 =   (TH1F*)file15->Get("h_genweight");
+TH1F *h_genWeight16 =   (TH1F*)file16->Get("h_genweight");
+TH1F *h_genWeight17 =   (TH1F*)file17->Get("h_genweight");
+TH1F *h_genWeight18 =   (TH1F*)file18->Get("h_genweight");
+TH1F *h_genWeight19 =   (TH1F*)file19->Get("h_genweight");
+TH1F *h_genWeight20 =   (TH1F*)file20->Get("h_genweight");
+TH1F *h_genWeight21 =   (TH1F*)file21->Get("h_genweight");
+TH1F *h_genWeight22 =   (TH1F*)file22->Get("h_genweight");
+TH1F *h_genWeight23 =   (TH1F*)file23->Get("h_genweight");
+TH1F *h_genWeight24 =   (TH1F*)file24->Get("h_genweight");
+TH1F *h_genWeight25 =   (TH1F*)file25->Get("h_genweight");
+//TH1F *h_genWeight26 =   (TH1F*)file26->Get("h_genweight");
+TH1F *h_genWeight27 =   (TH1F*)file27->Get("h_genweight");
+TH1F *h_genWeight28 =   (TH1F*)file28->Get("h_genweight");
+TH1F *h_genWeight29 =   (TH1F*)file29->Get("h_genweight");
+TH1F *h_genWeight30 =   (TH1F*)file30->Get("h_genweight");
+TH1F *h_genWeight31 =   (TH1F*)file31->Get("h_genweight");
+TH1F *h_genWeight32 =   (TH1F*)file32->Get("h_genweight");
+TH1F *h_genWeight33 =   (TH1F*)file33->Get("h_genweight");
+TH1F *h_genWeight34 =   (TH1F*)file34->Get("h_genweight");
+TH1F *h_genWeight35 =   (TH1F*)file35->Get("h_genweight");
+TH1F *h_genWeight36 =   (TH1F*)file36->Get("h_genweight");
+TH1F *h_genWeight37 =   (TH1F*)file37->Get("h_genweight");
+TH1F *h_genWeight38 =   (TH1F*)file38->Get("h_genweight");
+TH1F *h_genWeight39 =   (TH1F*)file39->Get("h_genweight");
+TH1F *h_genWeight40 =   (TH1F*)file40->Get("h_genweight");
+TH1F *h_genWeight41 =   (TH1F*)file41->Get("h_genweight");
+TH1F *h_genWeight42 =   (TH1F*)file42->Get("h_genweight");
+//TH1F *h_genWeight43 =   (TH1F*)file43->Get("h_genweight");
+TH1F *h_genWeight44 =   (TH1F*)file44->Get("h_genweight");
+TH1F *h_genWeight45 =   (TH1F*)file45->Get("h_genweight");
 
 vector<TTree*> allTree = {
     Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
-vector<TTree*> allgenWeights = {
+vector<TH1F*> allgenWeights = {
     h_genWeight02,h_genWeight03,h_genWeight04,h_genWeight05,h_genWeight06,h_genWeight07,/*h_genWeight08,*/h_genWeight09,h_genWeight10_1,h_genWeight11,h_genWeight12,h_genWeight13,h_genWeight14,h_genWeight15,h_genWeight16,h_genWeight17,h_genWeight18,h_genWeight19,h_genWeight20,h_genWeight21,h_genWeight22,h_genWeight23,h_genWeight24,h_genWeight25,/*h_genWeight26,*/h_genWeight27,h_genWeight28,h_genWeight29,h_genWeight30,h_genWeight31,h_genWeight32,h_genWeight33,h_genWeight34,h_genWeight35,h_genWeight36,h_genWeight37,h_genWeight38,h_genWeight39,h_genWeight40,h_genWeight41,h_genWeight42,/*h_genWeight43,*/h_genWeight44,h_genWeight45
 };
-// TH1F *h_genweight_;
-// file02->GetObject("h_genweight;1", h_genweight_);
-TH1F *h_genweight_ = (TH1F*)file02->Get("h_genweight");
 
 /*
 //TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/JESup/data.root");{{{
