@@ -288,8 +288,8 @@ vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_
 for (UInt_t  cha=0; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
   std::map<float, TString> mymap;
- // for(UInt_t i=0; i<1; i++){
-  for(UInt_t i=0; i<variablelist.size(); i++){
+ for(UInt_t i=0; i<1; i++){
+  // for(UInt_t i=0; i<variablelist.size(); i++){
 	  const char *plot = variablelist[i];
 
         TH1F* TTTT = new TH1F("TTTT",plot,bin[i],Min[i],Max[i]);//1
