@@ -26,8 +26,6 @@ int SigSF = 1;
 //float LUMI  = 41500.0; //float LUMI = 36733; //36.773 /fb
 float LUMI = 35900; //fb
 //?where to get the more precise LUMI?
-//where to get this LUMI//what's these number?where to get these number?
-
 //SIGNAL
 //double wTTTT = (SigSF*LUMI*0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
 double wTTTT_v2 = (SigSF*LUMI*0.01197)/(21942.3);//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root : 21942.3
@@ -102,7 +100,6 @@ double wVBFHToGG_v2= (LUMI*3.992)/(3.90874e+06);  ;//VBFHToGG_M125_13TeV_amcatnl
 vector<double> allScales_v2 {
     wTTTT_v2, //0
     wTT_v2, //changed wTTJets to wTT
-    // wTTJets,
     wTTGJets_v2, wttZJets_v2, wttWJets_v2, wttH_v2, //5
     wWZ_v2, wWWTo2L2Nu_v2, wWpWpJJ_v2, wZZ_v2, wWGJets_v2, wZGJetsToLLG_v2, 
     wWWW_v2, wWWZ_v2, wWWG_v2, wZZZ_v2, wWZZ_v2, wWZG_v2, wWGG_v2, wZGGJets_v2, 
@@ -111,6 +108,84 @@ vector<double> allScales_v2 {
     wVHToNonbb_v2, wZHToTauTau_v2, wZH_HToBB_ZToLL_v2, wGluGluHToZZTo4L_v2, wGluGluHToBB_v2, wGluGluHToGG_v2, wGluGluHToMuMu_v2, wGluGluHToTauTau_v2, wGluGluHToWWTo2L2Nu_v2, wGluGluHToWWToLNuQQ_v2, wVBFHToWWTo2L2Nu_v2, /*wVBFHToTauTau_v2, */wVBFHToMuMu_v2, wVBFHToGG_v2
 };
 
+//double wTTTT = (SigSF*LUMI*0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
+double wTTTT_sigma = (SigSF*LUMI*0.01197);//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root 
+//tt
+double wTTJets_sigma = (LUMI*746.7);//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root 
+double wTT_sigma     = (LUMI*746.7)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root 
+
+double wTTGJets_sigma = (LUMI*3.773);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root
+double wttZJets_sigma = (LUMI*0.6559) ;      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-) //ttZJets_13TeV_madgraphMLM-pythia8.root 
+double wttWJets_sigma = (LUMI*0.2014);  ; //  ttWJets_13TeV_madgraphMLM.root 
+double wttH_sigma= (LUMI*0.3372);  ; //ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root 
+
+//diboson and triboson an w_sigma/z+jets
+double wWZ_sigma= (LUMI*2.343);  ;//WZ_TuneCUETP8M1_13TeV-pythia8.root 
+//double wWW_sigma= (LUMI*6.430);//?something wrong with ntuple
+double wWWTo2L2Nu_sigma = (LUMI*0.1697);   ;//r WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root 
+double wWpWpJJ_sigma= (LUMI*0.05390);  ;//WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root 
+double wZZ_sigma  = (LUMI*1.016);  ;//ZZ_TuneCUETP8M1_13TeV-pythia8.root 
+double wWGJets_sigma = (LUMI*1.269);  ;//WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root 
+double wZGJetsToLLG_sigma = (LUMI*0.1319);  ;// ZGJetsToLLG_EW_LO_13TeV-sherpa.root 
+//
+double wWWW_sigma= (LUMI*0.2086);  ;// WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWWZ_sigma= (LUMI*0.1651);  ;//WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWWG_sigma = (LUMI*0.2147);  ; //WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wZZZ_sigma= (LUMI*0.01398);  ;//ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWZZ_sigma= (LUMI*0.05565);  ; //WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWZG_sigma= (LUMI*0.04123);  ;// WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+//double wWGGJets_sigma = (LUMI*1.711);//
+double wWGG_sigma =(LUMI*1.819);   ;// WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wZGGJets_sigma= (LUMI*0.3717);  ;//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root 
+
+
+double wWJetsToLNu_sigma= (LUMI*50300) ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root 
+//?missing ZJets?= (LUMI*)
+//Drell-Yan
+double wDYJetsToTauTau_sigma= (LUMI*1983);  ;//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root 
+//
+//single top
+double wtZq_ll_sigma= (LUMI*0.07358);  ;//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root 
+//double wtZq_nunu_sigma= (LUMI*);// tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root Positive:630623  Negtive:368977  ;//
+//?
+double wST_tW_antitop_sigma= (LUMI*38.06);  ;//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
+double wST_tW_top_sigma= (LUMI*38.09);  ;//ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
+double wTGJets_sigma= (LUMI*2.967);  ;//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root 
+double wTHW_sigma= (LUMI*0.1467);  ;//THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root 
+double wTHQ_sigma= (LUMI*0.8816);  ;//THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root 
+//H 
+double wVHToNonbb_sigma= (LUMI*2.137);  ;//VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root 
+double wZHToTauTau_sigma= (LUMI*0.7524);  ;// ZHToTauTau_M125_13TeV_powheg_pythia8.root 
+double wZH_HToBB_ZToLL_sigma= (LUMI*0.07523);  ;//ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root 
+double wGluGluHToZZTo4L_sigma= (LUMI*2.999);  ;//GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root 
+double wGluGluHToBB_sigma= (LUMI*32.10);  ;//GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root 
+double wGluGluHToGG_sigma= (LUMI*31.98);  ;//GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root 
+double wGluGluHToMuMu_sigma= (LUMI*29.99);  ;//GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
+
+double wGluGluHToTauTau_sigma= (LUMI*30.52);  ;//GluGluHToTauTau_M125_13TeV_powheg_pythia8.root 
+double wGluGluHToWWTo2L2Nu_sigma= (LUMI*30.52);  ;//GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root 
+double wGluGluHToWWToLNuQQ_sigma= (LUMI*29.99);  ;//GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root 
+//double wVBFHToWWToLNuQQ_sigma= (LUMI*3.769)//
+double wVBFHToWWTo2L2Nu_sigma= (LUMI*3.769);  ;//VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root 
+//??very different from ttH
+//double wVBFHToWWTo2L2Nu_sigma= (LUMI*);
+//double wVBFHToTauTau_sigma= (LUMI*0.237);// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root Positive:996835  Negtive:765  ;
+double wVBFHToMuMu_sigma= (LUMI*0.000823);  ;//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
+double wVBFHToGG_sigma= (LUMI*3.992);  ;//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root 
+// double wVBFHToBB= (LUMI*)/(-)//
+//double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
+//HH count as minor
+//minor
+vector<double> allSigmas_v2 {
+    wTTTT_sigma, //0
+    wTT_sigma, //changed wTTJets to wTT
+    wTTGJets_sigma, wttZJets_sigma, wttWJets_sigma, wttH_sigma, //5
+    wWZ_sigma, wWWTo2L2Nu_sigma, wWpWpJJ_sigma, wZZ_sigma, wWGJets_sigma, wZGJetsToLLG_sigma, 
+    wWWW_sigma, wWWZ_sigma, wWWG_sigma, wZZZ_sigma, wWZZ_sigma, wWZG_sigma, wWGG_sigma, wZGGJets_sigma, 
+    wWJetsToLNu_sigma, wDYJetsToTauTau_sigma, 
+    wtZq_ll_sigma, wST_tW_antitop_sigma, wST_tW_top_sigma, wTGJets_sigma, wTHW_sigma, wTHQ_sigma, 
+    wVHToNonbb_sigma, wZHToTauTau_sigma, wZH_HToBB_ZToLL_sigma, wGluGluHToZZTo4L_sigma, wGluGluHToBB_sigma, wGluGluHToGG_sigma, wGluGluHToMuMu_sigma, wGluGluHToTauTau_sigma, wGluGluHToWWTo2L2Nu_sigma, wGluGluHToWWToLNuQQ_sigma, wVBFHToWWTo2L2Nu_sigma, /*wVBFHToTauTau_sigma, */wVBFHToMuMu_sigma, wVBFHToGG_sigma
+};
 
 //sequence matter very much here
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v17_removeMuonISO/NoJEC/";
@@ -229,10 +304,62 @@ TTree *Tree42 =   (TTree*)file42->Get("tree");
 TTree *Tree44 =   (TTree*)file44->Get("tree");
 TTree *Tree45 =   (TTree*)file45->Get("tree");
 
+TTree *h_genWeight02 =   (TH1F**)file02->Get("h_genweight");
+TTree *h_genWeight03 =   (TH1F**)file03->Get("h_genweight");
+TTree *h_genWeight04 =   (TH1F**)file04->Get("h_genweight");
+TTree *h_genWeight05 =   (TH1F**)file05->Get("h_genweight");
+TTree *h_genWeight06 =   (TH1F**)file06->Get("h_genweight");
+TTree *h_genWeight07 =   (TH1F**)file07->Get("h_genweight");
+// TTree *h_genWeight08 =   (TH1F**)file08->Get("h_genweight");
+TTree *h_genWeight09 =   (TH1F**)file09->Get("h_genweight");
+//TTree *h_genWeight10 =   (TH1F**)file10->Get("h_genweight");
+TTree *h_genWeight10_1 =   (TH1F**)file10_1->Get("h_genweight");
+TTree *h_genWeight11 =   (TH1F**)file11->Get("h_genweight");
+TTree *h_genWeight12 =   (TH1F**)file12->Get("h_genweight");
+TTree *h_genWeight13 =   (TH1F**)file13->Get("h_genweight");
+TTree *h_genWeight14 =   (TH1F**)file14->Get("h_genweight");
+TTree *h_genWeight15 =   (TH1F**)file15->Get("h_genweight");
+TTree *h_genWeight16 =   (TH1F**)file16->Get("h_genweight");
+TTree *h_genWeight17 =   (TH1F**)file17->Get("h_genweight");
+TTree *h_genWeight18 =   (TH1F**)file18->Get("h_genweight");
+TTree *h_genWeight19 =   (TH1F**)file19->Get("h_genweight");
+TTree *h_genWeight20 =   (TH1F**)file20->Get("h_genweight");
+TTree *h_genWeight21 =   (TH1F**)file21->Get("h_genweight");
+TTree *h_genWeight22 =   (TH1F**)file22->Get("h_genweight");
+TTree *h_genWeight23 =   (TH1F**)file23->Get("h_genweight");
+TTree *h_genWeight24 =   (TH1F**)file24->Get("h_genweight");
+TTree *h_genWeight25 =   (TH1F**)file25->Get("h_genweight");
+//TTree *h_genWeight26 =   (TH1F**)file26->Get("h_genweight");
+TTree *h_genWeight27 =   (TH1F**)file27->Get("h_genweight");
+TTree *h_genWeight28 =   (TH1F**)file28->Get("h_genweight");
+TTree *h_genWeight29 =   (TH1F**)file29->Get("h_genweight");
+TTree *h_genWeight30 =   (TH1F**)file30->Get("h_genweight");
+TTree *h_genWeight31 =   (TH1F**)file31->Get("h_genweight");
+TTree *h_genWeight32 =   (TH1F**)file32->Get("h_genweight");
+TTree *h_genWeight33 =   (TH1F**)file33->Get("h_genweight");
+TTree *h_genWeight34 =   (TH1F**)file34->Get("h_genweight");
+TTree *h_genWeight35 =   (TH1F**)file35->Get("h_genweight");
+TTree *h_genWeight36 =   (TH1F**)file36->Get("h_genweight");
+TTree *h_genWeight37 =   (TH1F**)file37->Get("h_genweight");
+TTree *h_genWeight38 =   (TH1F**)file38->Get("h_genweight");
+TTree *h_genWeight39 =   (TH1F**)file39->Get("h_genweight");
+TTree *h_genWeight40 =   (TH1F**)file40->Get("h_genweight");
+TTree *h_genWeight41 =   (TH1F**)file41->Get("h_genweight");
+TTree *h_genWeight42 =   (TH1F**)file42->Get("h_genweight");
+//TTree *h_genWeight43 =   (TH1F**)file43->Get("h_genweight");
+TTree *h_genWeight44 =   (TH1F**)file44->Get("h_genweight");
+TTree *h_genWeight45 =   (TH1F**)file45->Get("h_genweight");
 
 vector<TTree*> allTree = {
     Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
+vector<TTree*> allgenWeights = {
+    h_genWeight02,h_genWeight03,h_genWeight04,h_genWeight05,h_genWeight06,h_genWeight07,/*h_genWeight08,*/h_genWeight09,h_genWeight10_1,h_genWeight11,h_genWeight12,h_genWeight13,h_genWeight14,h_genWeight15,h_genWeight16,h_genWeight17,h_genWeight18,h_genWeight19,h_genWeight20,h_genWeight21,h_genWeight22,h_genWeight23,h_genWeight24,h_genWeight25,/*h_genWeight26,*/h_genWeight27,h_genWeight28,h_genWeight29,h_genWeight30,h_genWeight31,h_genWeight32,h_genWeight33,h_genWeight34,h_genWeight35,h_genWeight36,h_genWeight37,h_genWeight38,h_genWeight39,h_genWeight40,h_genWeight41,h_genWeight42,/*h_genWeight43,*/h_genWeight44,h_genWeight45
+};
+// TH1F *h_genweight_;
+// file02->GetObject("h_genweight;1", h_genweight_);
+TH1F *h_genweight_ = (TH1F*)file02->Get("h_genweight");
+
 /*
 //TFile *file01_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/JESup/data.root");{{{
 TFile *file02_J1 = TFile::Open("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/JESup/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root");

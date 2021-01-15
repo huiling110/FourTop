@@ -318,10 +318,15 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of weights ="<<allScales_v2.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
+        h_genweight_->Print();
+        cout<<h_genweight_->GetSumOfWeights()<<endl;
+        return;
         TString hname ;
+        double scale;
         for(UInt_t j = 0; j < allHistos.size(); j++){
             char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
             hname = allHistos[j]->GetName();
+
             allTree[j]->Project(hname,plot, weight*channelCut[cha]);//step4
             // allTree[j]->Project(hname,plot, weight);//step0
             // allTree[j]->Project(hname,plot, weight*channelCut_step1[cha]);//step1
@@ -330,11 +335,17 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
            // allHistos[j]->Print();
 
             // allHistos[j]->Scale(allScales[j]);
-            allHistos[j]->Scale(allScales_v2[j]);
+            // allHistos[j]->Scale(allScales_v2[j]);
+
+            scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights()
+            allHistos[j]->Scale(scale);
+
             if(j > 0) background_SR->Add((allHistos[j]),1);
             // double xmax = allHistos[j]->GetXaxis()->GetXmax();
             // cout<<xmax<<endl;
 //            background_SR->Print();
+            // if(j==0) cout<<h_genweight_->Integral()<<endl;
+            // if(j==0) cout<<h_genweight_->GetSumOfWeights()<<endl;
         }
 
         if(i==0){
