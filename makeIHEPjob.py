@@ -99,7 +99,7 @@ def prepareCshJob(inputFile,shFile):
     print >> subFile, "cd "+Jobsubmitpath
     #  print >> subFile, "cmsenv" # cmsenv not working in job
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/\")"+"\'"
     #  print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/\")"+"\'"
 #	subprocess.call("chmod 777 "+shFile, shell=True)
 
@@ -115,10 +115,8 @@ for k in sample:
     #  shFileName = "Jobsubmit_2/"+shFile
     inputFile = sampleName+".root"
     prepareCshJob(inputFile,shFileName)	
-    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/log/"+"sampleName_"+sampleName+".log"
-    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/log/"+"sampleName_"+sampleName+".err"
-    #  logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleNumber_"+sampleNumber+".log"
-    #  errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/"+"sampleNumber_"+sampleNumber+".err"
+    logFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/log/"+"sampleName_"+sampleName+".log"
+    errorFileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/log/"+"sampleName_"+sampleName+".err"
     print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName	 
     #  print >> allJobFile, "cd .."
 

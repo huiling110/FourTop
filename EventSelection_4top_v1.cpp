@@ -5,6 +5,7 @@
 void EventSelection_4top_v1(
     const bool istest = true,
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const string input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/") {
   gStyle->SetCanvasColor(0);
@@ -65,7 +66,7 @@ void EventSelection_4top_v1(
     TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
     TTree *NewTree = new TTree("tree", "tree");
     TTree *NewTreeSB = new TTree("treeSB", "treeSB");
-    //?why 2 trees? what's the different?		//treeSB has something todo with sideband
+    //why 2 trees? what's the different?		//treeSB has something todo with sideband
     string FILEprov;
     if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + fileName[Nfiles];
     else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
@@ -96,7 +97,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 10000;
+        NumOfEvents = 100000;
       } else {
         NumOfEvents = nentries;
       }
