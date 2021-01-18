@@ -101,7 +101,7 @@ def prepareCshJob(inputFile,shFile):
 #        print >> subFile, "root -l -b -q "+rootplizer+"\'(\""+inputFile+"\")\'"
     print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/\")"+"\'"
     #  print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\"/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/1tau0lTausT/\")"+"\'"
-#	subprocess.call("chmod 777 "+shFile, shell=True)
+#v20_checkforv19	v20_checkforv19sv20_checkforv19uv20_checkforv19b/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/p/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v20_checkforv19/rocess.call("chmod 777 "+shFile, shell=True)
 
 
 for k in sample:

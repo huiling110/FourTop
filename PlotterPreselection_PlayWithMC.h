@@ -192,7 +192,8 @@ vector<double> allSigmas {
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v17_removeMuonISO/NoJEC/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v13_correctChargeSum_add2SSand2OS/NoJEC/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v18_withISO_filetersAndPreselection/NoJEC/";
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/NoJEC/";
+// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v19_addGenHisto/NoJEC/";
+TString baseDir = "/publicfs/cms/user/fabioiemmi/v20_checkforv19/NoJEC/";
 // vector<TString> files = {
     // "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
 // }
