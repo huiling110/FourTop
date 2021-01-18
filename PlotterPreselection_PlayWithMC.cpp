@@ -336,7 +336,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
 
             scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights();
             allHistos[j]->Scale(scale);
-            if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
+            // if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
 
@@ -470,8 +470,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         TString NAME = variablelist[i];
        //c1->SaveAs(NAME+".pdf");
        // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v13_correctChargeSum_add2SSand2OS/plots/"+NAME+postfix);
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/v13_correctChargeSum_add2SSand2OS/plots/"+NAME+postfix);
+        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
         c1->Draw();

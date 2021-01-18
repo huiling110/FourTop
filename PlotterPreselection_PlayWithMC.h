@@ -1,25 +1,25 @@
 #include "TH1.h"
 #include "TFile.h"
 #include "TTree.h"
-#include "TH1F.h"
+#include "TH1D.h"
 
 //void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-//		/*TH1F* &data_func,*/ TH1F* &background_func,TH1F* &TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_func,TH1F* &TTGJets_func,TH1F* &ttZJets_13TeV_madgraphMLM-pythia8.root_func,TH1F* &ttWJets_13TeV_madgraphMLM_func,TH1F* &ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root_func,TH1F* &ttbb_4FS_ckm_amcatnlo_madspin_pythia8_func,TH1F* &WZ_TuneCUETP8M1_13TeV-pythia8_func,
-//		TH1F* &WW_TuneCUETP8M1_13TeV-pythia8_func,TH1F* &TTWJets_func,TH1F* &TTZ_func, TH1F* &WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_func,
-//		TH1F* &TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8func);
+//		/*TH1D* &data_func,*/ TH1D* &background_func,TH1D* &TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_func,TH1D* &TTGJets_func,TH1D* &ttZJets_13TeV_madgraphMLM-pythia8.root_func,TH1D* &ttWJets_13TeV_madgraphMLM_func,TH1D* &ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root_func,TH1D* &ttbb_4FS_ckm_amcatnlo_madspin_pythia8_func,TH1D* &WZ_TuneCUETP8M1_13TeV-pythia8_func,
+//		TH1D* &WW_TuneCUETP8M1_13TeV-pythia8_func,TH1D* &TTWJets_func,TH1D* &TTZ_func, TH1D* &WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_func,
+//		TH1D* &TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8func);
 
-void GetHisto(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int BIN, float MIN, float MAX);
-void GetHisto_noBoundry(char CUT[1000], TTree *Tree, TH1F* & histo, const char *plot, int BIN, float MIN, float MAX);
-float separationPower(TH1F* h1, TH1F* h2);
+void GetHisto(char CUT[1000], TTree *Tree, TH1D* & histo, const char *plot, int BIN, float MIN, float MAX);
+void GetHisto_noBoundry(char CUT[1000], TTree *Tree, TH1D* & histo, const char *plot, int BIN, float MIN, float MAX);
+float separationPower(TH1D* h1, TH1D* h2);
 
-void MakeHistoErrors(int m, TH1F* &histo_SR, TH1F* histo_P1, TH1F* histo_P2, TH1F* histo_F1, TH1F* histo_F2, TH1F* histo_B1, TH1F* histo_B2, TH1F* histo_Z1, TH1F* histo_Z2, TH1F* histo_W1, TH1F* histo_W2, TH1F* histo_T1, TH1F* histo_T2, TH1F* histo_J1, TH1F* histo_J2, TH1F* histo_J3, TH1F* histo_J4, TH1F* histo_qcd1, TH1F* histo_qcd2, TH1F* histo_pdf1, TH1F* histo_pdf2, TH1F* histo_TR1, TH1F* histo_TR2);
+void MakeHistoErrors(int m, TH1D* &histo_SR, TH1D* histo_P1, TH1D* histo_P2, TH1D* histo_F1, TH1D* histo_F2, TH1D* histo_B1, TH1D* histo_B2, TH1D* histo_Z1, TH1D* histo_Z2, TH1D* histo_W1, TH1D* histo_W2, TH1D* histo_T1, TH1D* histo_T2, TH1D* histo_J1, TH1D* histo_J2, TH1D* histo_J3, TH1D* histo_J4, TH1D* histo_qcd1, TH1D* histo_qcd2, TH1D* histo_pdf1, TH1D* histo_pdf2, TH1D* histo_TR1, TH1D* histo_TR2);
 
 void CloneHistos();
 
 
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-                       /* TH1F* &data_func,*/TH1F* &background_func,TH1F* &TTJets_func,TH1F* &TTGJets_func,TH1F* &ttZJets_func,  TH1F*  &ttWJets_func,TH1F*       &ttH_func,TH1F* &ttbb_func,TH1F* &WZ_func,
-                                       /* TH1F* &WW_func,*/TH1F* &WWTo2L2Nu_func, TH1F* &WpWpJJ_func,TH1F* &ZZ_func,TH1F* &WGJets_func, TH1F* &ZGJetsToLLG_func, TH1F* &WWW_func,TH1F* &WWZ_func,TH1F* &WWG_func,TH1F* &ZZZ_func,TH1F* &WZZ_func,TH1F* &WZG_func, TH1F* &WGG_func,TH1F* &ZGGJets_func,TH1F* &WJetsToLNu_func,              TH1F* &DYJetsToTauTau_func, TH1F* &tZq_ll_func,TH1F* &ST_tW_antitop_func, TH1F* &ST_tW_top_func, TH1F* &TGJets_func,TH1F* &THW_func, TH1F* &THQ_func,     TH1F* &VHToNonbb_func, TH1F* &ZHToTauTau_func, TH1F* &ZH_HToBB_ZToLL_func, TH1F* &GluGluHToZZTo4L_func, TH1F* &GluGluHToBB_func, TH1F* &GluGluHToGG_func, TH1F* &GluGluHToMuMu_func, TH1F* &GluGluHToTauTau_func, TH1F* &GluGluHToWWTo2L2Nu_func, TH1F* &GluGluHToWWToLNuQQ_func,TH1F* &VBFHToWWTo2L2Nu_func,TH1F*  &VBFHToGG_func,  TH1F* &TTTT_func);
+                       /* TH1D* &data_func,*/TH1D* &background_func,TH1D* &TTJets_func,TH1D* &TTGJets_func,TH1D* &ttZJets_func,  TH1D*  &ttWJets_func,TH1D*       &ttH_func,TH1D* &ttbb_func,TH1D* &WZ_func,
+                                       /* TH1D* &WW_func,*/TH1D* &WWTo2L2Nu_func, TH1D* &WpWpJJ_func,TH1D* &ZZ_func,TH1D* &WGJets_func, TH1D* &ZGJetsToLLG_func, TH1D* &WWW_func,TH1D* &WWZ_func,TH1D* &WWG_func,TH1D* &ZZZ_func,TH1D* &WZZ_func,TH1D* &WZG_func, TH1D* &WGG_func,TH1D* &ZGGJets_func,TH1D* &WJetsToLNu_func,              TH1D* &DYJetsToTauTau_func, TH1D* &tZq_ll_func,TH1D* &ST_tW_antitop_func, TH1D* &ST_tW_top_func, TH1D* &TGJets_func,TH1D* &THW_func, TH1D* &THQ_func,     TH1D* &VHToNonbb_func, TH1D* &ZHToTauTau_func, TH1D* &ZH_HToBB_ZToLL_func, TH1D* &GluGluHToZZTo4L_func, TH1D* &GluGluHToBB_func, TH1D* &GluGluHToGG_func, TH1D* &GluGluHToMuMu_func, TH1D* &GluGluHToTauTau_func, TH1D* &GluGluHToWWTo2L2Nu_func, TH1D* &GluGluHToWWToLNuQQ_func,TH1D* &VBFHToWWTo2L2Nu_func,TH1D*  &VBFHToGG_func,  TH1D* &TTTT_func);
 
 
 int SigSF = 1;
@@ -307,56 +307,56 @@ TTree *Tree42 =   (TTree*)file42->Get("tree");
 TTree *Tree44 =   (TTree*)file44->Get("tree");
 TTree *Tree45 =   (TTree*)file45->Get("tree");
 
-TH1F *h_genWeight02 =   (TH1F*)file02->Get("h_genweight");
-TH1F *h_genWeight03 =   (TH1F*)file03->Get("h_genweight");
-TH1F *h_genWeight04 =   (TH1F*)file04->Get("h_genweight");
-TH1F *h_genWeight05 =   (TH1F*)file05->Get("h_genweight");
-TH1F *h_genWeight06 =   (TH1F*)file06->Get("h_genweight");
-TH1F *h_genWeight07 =   (TH1F*)file07->Get("h_genweight");
-// TH1F *h_genWeight08 =   (TH1F*)file08->Get("h_genweight");
-TH1F *h_genWeight09 =   (TH1F*)file09->Get("h_genweight");
-//TH1F *h_genWeight10 =   (TH1F*)file10->Get("h_genweight");
-TH1F *h_genWeight10_1 =   (TH1F*)file10_1->Get("h_genweight");
-TH1F *h_genWeight11 =   (TH1F*)file11->Get("h_genweight");
-TH1F *h_genWeight12 =   (TH1F*)file12->Get("h_genweight");
-TH1F *h_genWeight13 =   (TH1F*)file13->Get("h_genweight");
-TH1F *h_genWeight14 =   (TH1F*)file14->Get("h_genweight");
-TH1F *h_genWeight15 =   (TH1F*)file15->Get("h_genweight");
-TH1F *h_genWeight16 =   (TH1F*)file16->Get("h_genweight");
-TH1F *h_genWeight17 =   (TH1F*)file17->Get("h_genweight");
-TH1F *h_genWeight18 =   (TH1F*)file18->Get("h_genweight");
-TH1F *h_genWeight19 =   (TH1F*)file19->Get("h_genweight");
-TH1F *h_genWeight20 =   (TH1F*)file20->Get("h_genweight");
-TH1F *h_genWeight21 =   (TH1F*)file21->Get("h_genweight");
-TH1F *h_genWeight22 =   (TH1F*)file22->Get("h_genweight");
-TH1F *h_genWeight23 =   (TH1F*)file23->Get("h_genweight");
-TH1F *h_genWeight24 =   (TH1F*)file24->Get("h_genweight");
-TH1F *h_genWeight25 =   (TH1F*)file25->Get("h_genweight");
-//TH1F *h_genWeight26 =   (TH1F*)file26->Get("h_genweight");
-TH1F *h_genWeight27 =   (TH1F*)file27->Get("h_genweight");
-TH1F *h_genWeight28 =   (TH1F*)file28->Get("h_genweight");
-TH1F *h_genWeight29 =   (TH1F*)file29->Get("h_genweight");
-TH1F *h_genWeight30 =   (TH1F*)file30->Get("h_genweight");
-TH1F *h_genWeight31 =   (TH1F*)file31->Get("h_genweight");
-TH1F *h_genWeight32 =   (TH1F*)file32->Get("h_genweight");
-TH1F *h_genWeight33 =   (TH1F*)file33->Get("h_genweight");
-TH1F *h_genWeight34 =   (TH1F*)file34->Get("h_genweight");
-TH1F *h_genWeight35 =   (TH1F*)file35->Get("h_genweight");
-TH1F *h_genWeight36 =   (TH1F*)file36->Get("h_genweight");
-TH1F *h_genWeight37 =   (TH1F*)file37->Get("h_genweight");
-TH1F *h_genWeight38 =   (TH1F*)file38->Get("h_genweight");
-TH1F *h_genWeight39 =   (TH1F*)file39->Get("h_genweight");
-TH1F *h_genWeight40 =   (TH1F*)file40->Get("h_genweight");
-TH1F *h_genWeight41 =   (TH1F*)file41->Get("h_genweight");
-TH1F *h_genWeight42 =   (TH1F*)file42->Get("h_genweight");
-//TH1F *h_genWeight43 =   (TH1F*)file43->Get("h_genweight");
-TH1F *h_genWeight44 =   (TH1F*)file44->Get("h_genweight");
-TH1F *h_genWeight45 =   (TH1F*)file45->Get("h_genweight");
+TH1D *h_genWeight02 =   (TH1D*)file02->Get("h_genweight");
+TH1D *h_genWeight03 =   (TH1D*)file03->Get("h_genweight");
+TH1D *h_genWeight04 =   (TH1D*)file04->Get("h_genweight");
+TH1D *h_genWeight05 =   (TH1D*)file05->Get("h_genweight");
+TH1D *h_genWeight06 =   (TH1D*)file06->Get("h_genweight");
+TH1D *h_genWeight07 =   (TH1D*)file07->Get("h_genweight");
+// TH1D *h_genWeight08 =   (TH1D*)file08->Get("h_genweight");
+TH1D *h_genWeight09 =   (TH1D*)file09->Get("h_genweight");
+//TH1D *h_genWeight10 =   (TH1D*)file10->Get("h_genweight");
+TH1D *h_genWeight10_1 =   (TH1D*)file10_1->Get("h_genweight");
+TH1D *h_genWeight11 =   (TH1D*)file11->Get("h_genweight");
+TH1D *h_genWeight12 =   (TH1D*)file12->Get("h_genweight");
+TH1D *h_genWeight13 =   (TH1D*)file13->Get("h_genweight");
+TH1D *h_genWeight14 =   (TH1D*)file14->Get("h_genweight");
+TH1D *h_genWeight15 =   (TH1D*)file15->Get("h_genweight");
+TH1D *h_genWeight16 =   (TH1D*)file16->Get("h_genweight");
+TH1D *h_genWeight17 =   (TH1D*)file17->Get("h_genweight");
+TH1D *h_genWeight18 =   (TH1D*)file18->Get("h_genweight");
+TH1D *h_genWeight19 =   (TH1D*)file19->Get("h_genweight");
+TH1D *h_genWeight20 =   (TH1D*)file20->Get("h_genweight");
+TH1D *h_genWeight21 =   (TH1D*)file21->Get("h_genweight");
+TH1D *h_genWeight22 =   (TH1D*)file22->Get("h_genweight");
+TH1D *h_genWeight23 =   (TH1D*)file23->Get("h_genweight");
+TH1D *h_genWeight24 =   (TH1D*)file24->Get("h_genweight");
+TH1D *h_genWeight25 =   (TH1D*)file25->Get("h_genweight");
+//TH1D *h_genWeight26 =   (TH1D*)file26->Get("h_genweight");
+TH1D *h_genWeight27 =   (TH1D*)file27->Get("h_genweight");
+TH1D *h_genWeight28 =   (TH1D*)file28->Get("h_genweight");
+TH1D *h_genWeight29 =   (TH1D*)file29->Get("h_genweight");
+TH1D *h_genWeight30 =   (TH1D*)file30->Get("h_genweight");
+TH1D *h_genWeight31 =   (TH1D*)file31->Get("h_genweight");
+TH1D *h_genWeight32 =   (TH1D*)file32->Get("h_genweight");
+TH1D *h_genWeight33 =   (TH1D*)file33->Get("h_genweight");
+TH1D *h_genWeight34 =   (TH1D*)file34->Get("h_genweight");
+TH1D *h_genWeight35 =   (TH1D*)file35->Get("h_genweight");
+TH1D *h_genWeight36 =   (TH1D*)file36->Get("h_genweight");
+TH1D *h_genWeight37 =   (TH1D*)file37->Get("h_genweight");
+TH1D *h_genWeight38 =   (TH1D*)file38->Get("h_genweight");
+TH1D *h_genWeight39 =   (TH1D*)file39->Get("h_genweight");
+TH1D *h_genWeight40 =   (TH1D*)file40->Get("h_genweight");
+TH1D *h_genWeight41 =   (TH1D*)file41->Get("h_genweight");
+TH1D *h_genWeight42 =   (TH1D*)file42->Get("h_genweight");
+//TH1D *h_genWeight43 =   (TH1D*)file43->Get("h_genweight");
+TH1D *h_genWeight44 =   (TH1D*)file44->Get("h_genweight");
+TH1D *h_genWeight45 =   (TH1D*)file45->Get("h_genweight");
 
 vector<TTree*> allTree = {
     Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,/*Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,*/Tree44,Tree45
 };
-vector<TH1F*> allgenWeights = {
+vector<TH1D*> allgenWeights = {
     h_genWeight02,h_genWeight03,h_genWeight04,h_genWeight05,h_genWeight06,h_genWeight07,/*h_genWeight08,*/h_genWeight09,h_genWeight10_1,h_genWeight11,h_genWeight12,h_genWeight13,h_genWeight14,h_genWeight15,h_genWeight16,h_genWeight17,h_genWeight18,h_genWeight19,h_genWeight20,h_genWeight21,h_genWeight22,h_genWeight23,h_genWeight24,h_genWeight25,/*h_genWeight26,*/h_genWeight27,h_genWeight28,h_genWeight29,h_genWeight30,h_genWeight31,h_genWeight32,h_genWeight33,h_genWeight34,h_genWeight35,h_genWeight36,h_genWeight37,h_genWeight38,h_genWeight39,h_genWeight40,h_genWeight41,h_genWeight42,/*h_genWeight43,*/h_genWeight44,h_genWeight45
 };
 
@@ -476,164 +476,164 @@ TTree *Tree13_J4 = (TTree*)file13_J4->Get("tree");
 
                                                    
 
-//TH1F *data_SR; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_SR; TH1F *TTGJets_SR; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_SR; TH1F *ttWJets_13TeV_madgraphMLM_SR;
-//TH1F* background_SR;
-TH1F* TTJets_SR;
-TH1F* TTGJets_SR;
-TH1F* ttZJets_SR;
-TH1F* ttWJets_SR;
-TH1F* ttH_SR;
-TH1F* ttbb_SR;
-TH1F* WZ_SR;
-TH1F* WWTo2L2Nu_SR;
-TH1F* WpWpJJ_SR;
-TH1F* ZZ_SR;
-TH1F* WGJets_SR;
-TH1F* ZGJetsToLLG_SR;
-TH1F* WWW_SR;
-TH1F* WWZ_SR;
-TH1F* WWG_SR;
-TH1F* ZZZ_SR;
-TH1F* WZZ_SR;
-TH1F* WZG_SR;
-TH1F* WGG_SR;
-TH1F* ZGGJets_SR;
-TH1F* WJetsToLNu_SR;
-TH1F* DYJetsToTauTau_SR;
-TH1F* tZq_ll_SR;
-TH1F* ST_tW_antitop_SR;
-TH1F* ST_tW_top_SR;
-TH1F* TGJets_SR;
-TH1F* THW_SR;
-TH1F* THQ_SR;
-TH1F* VHToNonbb_SR;
-TH1F* ZHToTauTau_SR;
-TH1F* ZH_HToBB_ZToLL_SR;
-TH1F* GluGluHToZZTo4L_SR;
-TH1F* GluGluHToBB_SR;
-TH1F* GluGluHToGG_SR;
-TH1F* GluGluHToMuMu_SR;
-TH1F* GluGluHToTauTau_SR;
-TH1F* GluGluHToWWTo2L2Nu_SR;
-TH1F* GluGluHToWWToLNuQQ_SR;
-TH1F* VBFHToWWTo2L2Nu_SR;
-TH1F* VBFHToGG_SR;
-TH1F* TTTT_SR;
+//TH1D *data_SR; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_SR; TH1D *TTGJets_SR; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_SR; TH1D *ttWJets_13TeV_madgraphMLM_SR;
+//TH1D* background_SR;
+TH1D* TTJets_SR;
+TH1D* TTGJets_SR;
+TH1D* ttZJets_SR;
+TH1D* ttWJets_SR;
+TH1D* ttH_SR;
+TH1D* ttbb_SR;
+TH1D* WZ_SR;
+TH1D* WWTo2L2Nu_SR;
+TH1D* WpWpJJ_SR;
+TH1D* ZZ_SR;
+TH1D* WGJets_SR;
+TH1D* ZGJetsToLLG_SR;
+TH1D* WWW_SR;
+TH1D* WWZ_SR;
+TH1D* WWG_SR;
+TH1D* ZZZ_SR;
+TH1D* WZZ_SR;
+TH1D* WZG_SR;
+TH1D* WGG_SR;
+TH1D* ZGGJets_SR;
+TH1D* WJetsToLNu_SR;
+TH1D* DYJetsToTauTau_SR;
+TH1D* tZq_ll_SR;
+TH1D* ST_tW_antitop_SR;
+TH1D* ST_tW_top_SR;
+TH1D* TGJets_SR;
+TH1D* THW_SR;
+TH1D* THQ_SR;
+TH1D* VHToNonbb_SR;
+TH1D* ZHToTauTau_SR;
+TH1D* ZH_HToBB_ZToLL_SR;
+TH1D* GluGluHToZZTo4L_SR;
+TH1D* GluGluHToBB_SR;
+TH1D* GluGluHToGG_SR;
+TH1D* GluGluHToMuMu_SR;
+TH1D* GluGluHToTauTau_SR;
+TH1D* GluGluHToWWTo2L2Nu_SR;
+TH1D* GluGluHToWWToLNuQQ_SR;
+TH1D* VBFHToWWTo2L2Nu_SR;
+TH1D* VBFHToGG_SR;
+TH1D* TTTT_SR;
 
-TH1F *QCD_HT1000to1500_SR; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_SR; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_SR; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_SR; TH1F *TTWJets_SR; TH1F *TTZ_SR; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8SR; 
-TH1F *background_SR;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_SR;
+TH1D *QCD_HT1000to1500_SR; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_SR; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_SR; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_SR; TH1D *TTWJets_SR; TH1D *TTZ_SR; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8SR; 
+TH1D *background_SR;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_SR;
 
-TH1F *data_P1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_P1; TH1F *TTGJets_P1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_P1; TH1F *ttWJets_13TeV_madgraphMLM_P1; 
-TH1F *QCD_HT1000to1500_P1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_P1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_P1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_P1; TH1F *TTWJets_P1; TH1F *TTZ_P1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8P1; 
-TH1F *background_P1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_P1;
+TH1D *data_P1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_P1; TH1D *TTGJets_P1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_P1; TH1D *ttWJets_13TeV_madgraphMLM_P1; 
+TH1D *QCD_HT1000to1500_P1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_P1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_P1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_P1; TH1D *TTWJets_P1; TH1D *TTZ_P1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8P1; 
+TH1D *background_P1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_P1;
 
-TH1F *data_P2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_P2; TH1F *TTGJets_P2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_P2; TH1F *ttWJets_13TeV_madgraphMLM_P2; 
-TH1F *QCD_HT1000to1500_P2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_P2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_P2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_P2; TH1F *TTWJets_P2; TH1F *TTZ_P2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8P2; 
-TH1F *background_P2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_P2;
+TH1D *data_P2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_P2; TH1D *TTGJets_P2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_P2; TH1D *ttWJets_13TeV_madgraphMLM_P2; 
+TH1D *QCD_HT1000to1500_P2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_P2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_P2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_P2; TH1D *TTWJets_P2; TH1D *TTZ_P2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8P2; 
+TH1D *background_P2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_P2;
 
-TH1F *data_F1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_F1; TH1F *TTGJets_F1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_F1; TH1F *ttWJets_13TeV_madgraphMLM_F1; 
-TH1F *QCD_HT1000to1500_F1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_F1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_F1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_F1; TH1F *TTWJets_F1; TH1F *TTZ_F1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8F1; 
-TH1F *background_F1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_F1;
+TH1D *data_F1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_F1; TH1D *TTGJets_F1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_F1; TH1D *ttWJets_13TeV_madgraphMLM_F1; 
+TH1D *QCD_HT1000to1500_F1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_F1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_F1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_F1; TH1D *TTWJets_F1; TH1D *TTZ_F1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8F1; 
+TH1D *background_F1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_F1;
 
-TH1F *data_F2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_F2; TH1F *TTGJets_F2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_F2; TH1F *ttWJets_13TeV_madgraphMLM_F2; 
-TH1F *QCD_HT1000to1500_F2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_F2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_F2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_F2; TH1F *TTWJets_F2; TH1F *TTZ_F2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8F2; 
-TH1F *background_F2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_F2;
+TH1D *data_F2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_F2; TH1D *TTGJets_F2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_F2; TH1D *ttWJets_13TeV_madgraphMLM_F2; 
+TH1D *QCD_HT1000to1500_F2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_F2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_F2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_F2; TH1D *TTWJets_F2; TH1D *TTZ_F2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8F2; 
+TH1D *background_F2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_F2;
 
-TH1F *data_B1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_B1; TH1F *TTGJets_B1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_B1; TH1F *ttWJets_13TeV_madgraphMLM_B1; 
-TH1F *QCD_HT1000to1500_B1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_B1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_B1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_B1; TH1F *TTWJets_B1; TH1F *TTZ_B1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8B1; 
-TH1F *background_B1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_B1;
+TH1D *data_B1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_B1; TH1D *TTGJets_B1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_B1; TH1D *ttWJets_13TeV_madgraphMLM_B1; 
+TH1D *QCD_HT1000to1500_B1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_B1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_B1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_B1; TH1D *TTWJets_B1; TH1D *TTZ_B1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8B1; 
+TH1D *background_B1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_B1;
 
-TH1F *data_B2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_B2; TH1F *TTGJets_B2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_B2; TH1F *ttWJets_13TeV_madgraphMLM_B2; 
-TH1F *QCD_HT1000to1500_B2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_B2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_B2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_B2; TH1F *TTWJets_B2; TH1F *TTZ_B2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8B2; 
-TH1F *background_B2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_B2;
+TH1D *data_B2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_B2; TH1D *TTGJets_B2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_B2; TH1D *ttWJets_13TeV_madgraphMLM_B2; 
+TH1D *QCD_HT1000to1500_B2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_B2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_B2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_B2; TH1D *TTWJets_B2; TH1D *TTZ_B2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8B2; 
+TH1D *background_B2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_B2;
 
-TH1F *data_Z1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_Z1; TH1F *TTGJets_Z1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_Z1; TH1F *ttWJets_13TeV_madgraphMLM_Z1; 
-TH1F *QCD_HT1000to1500_Z1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_Z1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_Z1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_Z1; TH1F *TTWJets_Z1; TH1F *TTZ_Z1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8Z1; 
-TH1F *background_Z1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_Z1;
+TH1D *data_Z1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_Z1; TH1D *TTGJets_Z1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_Z1; TH1D *ttWJets_13TeV_madgraphMLM_Z1; 
+TH1D *QCD_HT1000to1500_Z1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_Z1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_Z1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_Z1; TH1D *TTWJets_Z1; TH1D *TTZ_Z1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8Z1; 
+TH1D *background_Z1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_Z1;
 
-TH1F *data_Z2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_Z2; TH1F *TTGJets_Z2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_Z2; TH1F *ttWJets_13TeV_madgraphMLM_Z2; 
-TH1F *QCD_HT1000to1500_Z2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_Z2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_Z2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_Z2; TH1F *TTWJets_Z2; TH1F *TTZ_Z2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8Z2; 
-TH1F *background_Z2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_Z2;
+TH1D *data_Z2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_Z2; TH1D *TTGJets_Z2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_Z2; TH1D *ttWJets_13TeV_madgraphMLM_Z2; 
+TH1D *QCD_HT1000to1500_Z2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_Z2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_Z2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_Z2; TH1D *TTWJets_Z2; TH1D *TTZ_Z2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8Z2; 
+TH1D *background_Z2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_Z2;
 
-TH1F *data_W1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_W1; TH1F *TTGJets_W1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_W1; TH1F *ttWJets_13TeV_madgraphMLM_W1; 
-TH1F *QCD_HT1000to1500_W1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_W1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_W1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_W1; TH1F *TTWJets_W1; TH1F *TTZ_W1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8W1; 
-TH1F *background_W1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_W1;
+TH1D *data_W1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_W1; TH1D *TTGJets_W1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_W1; TH1D *ttWJets_13TeV_madgraphMLM_W1; 
+TH1D *QCD_HT1000to1500_W1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_W1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_W1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_W1; TH1D *TTWJets_W1; TH1D *TTZ_W1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8W1; 
+TH1D *background_W1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_W1;
 
-TH1F *data_W2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_W2; TH1F *TTGJets_W2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_W2; TH1F *ttWJets_13TeV_madgraphMLM_W2; 
-TH1F *QCD_HT1000to1500_W2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_W2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_W2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_W2; TH1F *TTWJets_W2; TH1F *TTZ_W2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8W2; 
-TH1F *background_W2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_W2;
+TH1D *data_W2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_W2; TH1D *TTGJets_W2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_W2; TH1D *ttWJets_13TeV_madgraphMLM_W2; 
+TH1D *QCD_HT1000to1500_W2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_W2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_W2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_W2; TH1D *TTWJets_W2; TH1D *TTZ_W2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8W2; 
+TH1D *background_W2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_W2;
 
-TH1F *data_T1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_T1; TH1F *TTGJets_T1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_T1; TH1F *ttWJets_13TeV_madgraphMLM_T1; 
-TH1F *QCD_HT1000to1500_T1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_T1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_T1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_T1; TH1F *TTWJets_T1; TH1F *TTZ_T1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8T1; 
-TH1F *background_T1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_T1;
+TH1D *data_T1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_T1; TH1D *TTGJets_T1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_T1; TH1D *ttWJets_13TeV_madgraphMLM_T1; 
+TH1D *QCD_HT1000to1500_T1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_T1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_T1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_T1; TH1D *TTWJets_T1; TH1D *TTZ_T1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8T1; 
+TH1D *background_T1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_T1;
 
-TH1F *data_T2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_T2; TH1F *TTGJets_T2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_T2; TH1F *ttWJets_13TeV_madgraphMLM_T2; 
-TH1F *QCD_HT1000to1500_T2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_T2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_T2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_T2; TH1F *TTWJets_T2; TH1F *TTZ_T2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8T2; 
-TH1F *background_T2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_T2;
+TH1D *data_T2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_T2; TH1D *TTGJets_T2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_T2; TH1D *ttWJets_13TeV_madgraphMLM_T2; 
+TH1D *QCD_HT1000to1500_T2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_T2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_T2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_T2; TH1D *TTWJets_T2; TH1D *TTZ_T2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8T2; 
+TH1D *background_T2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_T2;
 
-TH1F *data_J1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J1; TH1F *TTGJets_J1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_J1; TH1F *ttWJets_13TeV_madgraphMLM_J1; 
-TH1F *QCD_HT1000to1500_J1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_J1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_J1; TH1F *TTWJets_J1; TH1F *TTZ_J1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J1; 
-TH1F *background_J1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J1;
+TH1D *data_J1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J1; TH1D *TTGJets_J1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_J1; TH1D *ttWJets_13TeV_madgraphMLM_J1; 
+TH1D *QCD_HT1000to1500_J1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_J1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_J1; TH1D *TTWJets_J1; TH1D *TTZ_J1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J1; 
+TH1D *background_J1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J1;
 
-TH1F *data_J2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J2; TH1F *TTGJets_J2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_J2; TH1F *ttWJets_13TeV_madgraphMLM_J2; 
-TH1F *QCD_HT1000to1500_J2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_J2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_J2; TH1F *TTWJets_J2; TH1F *TTZ_J2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J2; 
-TH1F *background_J2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J2;
+TH1D *data_J2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J2; TH1D *TTGJets_J2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_J2; TH1D *ttWJets_13TeV_madgraphMLM_J2; 
+TH1D *QCD_HT1000to1500_J2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_J2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_J2; TH1D *TTWJets_J2; TH1D *TTZ_J2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J2; 
+TH1D *background_J2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J2;
 
-TH1F *data_J3; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J3; TH1F *TTGJets_J3; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_J3; TH1F *ttWJets_13TeV_madgraphMLM_J3; 
-TH1F *QCD_HT1000to1500_J3; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J3; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_J3; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_J3; TH1F *TTWJets_J3; TH1F *TTZ_J3; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J3; 
-TH1F *background_J3;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J3;
+TH1D *data_J3; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J3; TH1D *TTGJets_J3; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_J3; TH1D *ttWJets_13TeV_madgraphMLM_J3; 
+TH1D *QCD_HT1000to1500_J3; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J3; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_J3; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_J3; TH1D *TTWJets_J3; TH1D *TTZ_J3; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J3; 
+TH1D *background_J3;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J3;
 
-TH1F *data_J4; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J4; TH1F *TTGJets_J4; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_J4; TH1F *ttWJets_13TeV_madgraphMLM_J4; 
-TH1F *QCD_HT1000to1500_J4; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J4; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_J4; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_J4; TH1F *TTWJets_J4; TH1F *TTZ_J4; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J4; 
-TH1F *background_J4;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J4;
+TH1D *data_J4; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_J4; TH1D *TTGJets_J4; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_J4; TH1D *ttWJets_13TeV_madgraphMLM_J4; 
+TH1D *QCD_HT1000to1500_J4; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_J4; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_J4; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_J4; TH1D *TTWJets_J4; TH1D *TTZ_J4; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8J4; 
+TH1D *background_J4;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_J4;
 
-TH1F *data_qcd1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_qcd1; TH1F *TTGJets_qcd1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_qcd1; TH1F *ttWJets_13TeV_madgraphMLM_qcd1;
-TH1F *QCD_HT1000to1500_qcd1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_qcd1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_qcd1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_qcd1; TH1F *TTWJets_qcd1; TH1F *TTZ_qcd1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8qcd1;
-TH1F *background_qcd1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_qcd1;
+TH1D *data_qcd1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_qcd1; TH1D *TTGJets_qcd1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_qcd1; TH1D *ttWJets_13TeV_madgraphMLM_qcd1;
+TH1D *QCD_HT1000to1500_qcd1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_qcd1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_qcd1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_qcd1; TH1D *TTWJets_qcd1; TH1D *TTZ_qcd1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8qcd1;
+TH1D *background_qcd1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_qcd1;
 
-TH1F *data_qcd2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_qcd2; TH1F *TTGJets_qcd2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_qcd2; TH1F *ttWJets_13TeV_madgraphMLM_qcd2;
-TH1F *QCD_HT1000to1500_qcd2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_qcd2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_qcd2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_qcd2; TH1F *TTWJets_qcd2; TH1F *TTZ_qcd2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8qcd2;
-TH1F *background_qcd2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_qcd2;
+TH1D *data_qcd2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_qcd2; TH1D *TTGJets_qcd2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_qcd2; TH1D *ttWJets_13TeV_madgraphMLM_qcd2;
+TH1D *QCD_HT1000to1500_qcd2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_qcd2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_qcd2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_qcd2; TH1D *TTWJets_qcd2; TH1D *TTZ_qcd2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8qcd2;
+TH1D *background_qcd2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_qcd2;
 
-TH1F *data_pdf1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_pdf1; TH1F *TTGJets_pdf1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_pdf1; TH1F *ttWJets_13TeV_madgraphMLM_pdf1;
-TH1F *QCD_HT1000to1500_pdf1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_pdf1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_pdf1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_pdf1; TH1F *TTWJets_pdf1; TH1F *TTZ_pdf1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8pdf1;
-TH1F *background_pdf1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_pdf1;
+TH1D *data_pdf1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_pdf1; TH1D *TTGJets_pdf1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_pdf1; TH1D *ttWJets_13TeV_madgraphMLM_pdf1;
+TH1D *QCD_HT1000to1500_pdf1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_pdf1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_pdf1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_pdf1; TH1D *TTWJets_pdf1; TH1D *TTZ_pdf1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8pdf1;
+TH1D *background_pdf1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_pdf1;
 
-TH1F *data_pdf2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_pdf2; TH1F *TTGJets_pdf2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_pdf2; TH1F *ttWJets_13TeV_madgraphMLM_pdf2;
-TH1F *QCD_HT1000to1500_pdf2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_pdf2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_pdf2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_pdf2; TH1F *TTWJets_pdf2; TH1F *TTZ_pdf2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8pdf2;
-TH1F *background_pdf2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_pdf2;
-
-
-TH1F *data_TR1; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_TR1; TH1F *TTGJets_TR1; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_TR1; TH1F *ttWJets_13TeV_madgraphMLM_TR1;
-TH1F *QCD_HT1000to1500_TR1; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_TR1; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_TR1; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_TR1; TH1F *TTWJets_TR1; TH1F *TTZ_TR1; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8TR1;
-TH1F *background_TR1;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_TR1;
+TH1D *data_pdf2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_pdf2; TH1D *TTGJets_pdf2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_pdf2; TH1D *ttWJets_13TeV_madgraphMLM_pdf2;
+TH1D *QCD_HT1000to1500_pdf2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_pdf2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_pdf2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_pdf2; TH1D *TTWJets_pdf2; TH1D *TTZ_pdf2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8pdf2;
+TH1D *background_pdf2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_pdf2;
 
 
-TH1F *data_TR2; TH1F *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_TR2; TH1F *TTGJets_TR2; TH1F *ttZJets_13TeV_madgraphMLM-pythia8.root_TR2; TH1F *ttWJets_13TeV_madgraphMLM_TR2;
-TH1F *QCD_HT1000to1500_TR2; TH1F *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_TR2; TH1F *WZ_TuneCUETP8M1_13TeV-pythia8_TR2; TH1F *WW_TuneCUETP8M1_13TeV-pythia8_TR2; TH1F *TTWJets_TR2; TH1F *TTZ_TR2; TH1F *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8TR2;
-TH1F *background_TR2;
-TH1F *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_TR2;
+TH1D *data_TR1; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_TR1; TH1D *TTGJets_TR1; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_TR1; TH1D *ttWJets_13TeV_madgraphMLM_TR1;
+TH1D *QCD_HT1000to1500_TR1; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_TR1; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_TR1; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_TR1; TH1D *TTWJets_TR1; TH1D *TTZ_TR1; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8TR1;
+TH1D *background_TR1;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_TR1;
+
+
+TH1D *data_TR2; TH1D *TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8_TR2; TH1D *TTGJets_TR2; TH1D *ttZJets_13TeV_madgraphMLM-pythia8.root_TR2; TH1D *ttWJets_13TeV_madgraphMLM_TR2;
+TH1D *QCD_HT1000to1500_TR2; TH1D *ttbb_4FS_ckm_amcatnlo_madspin_pythia8_TR2; TH1D *WZ_TuneCUETP8M1_13TeV-pythia8_TR2; TH1D *WW_TuneCUETP8M1_13TeV-pythia8_TR2; TH1D *TTWJets_TR2; TH1D *TTZ_TR2; TH1D *TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8TR2;
+TH1D *background_TR2;
+TH1D *WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph_TR2;
 */
 #include "TH1.h"
