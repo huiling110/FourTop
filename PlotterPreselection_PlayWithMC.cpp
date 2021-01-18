@@ -509,32 +509,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
 }
 }
 
-//from Tree, get tree plot, apply CUT and name the new histogram histo.
-void GetHisto(char CUT[1000], TTree *Tree, TH1D* & histo, const char *plot, int BIN, float MIN, float MAX){/*{{{*/
-  char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,BIN,MIN,MAX);
-	//h is histogram name.
-  TH1D *temp = new TH1D("", "", BIN,MIN,MAX);
-	//Draw() Returns	-1 in case of error or number of selected events in case of success.
-	//? not a booleun, type conversion I guess.
-	//?guess once we read into the tree, we can get the information in all branches. and for draw we examine every entry.
-  if(Tree->Draw(input,CUT)){ Tree->Draw(input,CUT); TH1D* h=(TH1D*)gDirectory->Get("h"); histo = (TH1D*)h->Clone(); delete h; }
-	else { histo = (TH1D*)temp->Clone(); }
-  histo->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory.
-  histo->SetName("histo");
-  delete temp;
- }/*}}}*/
-
-
-void GetHisto_noBoundry(char CUT[1000], TTree *Tree, TH1D* & histo, const char *plot, int BIN, float MIN, float MAX){
-  char input[50];
-  sprintf(input,"%s>>h(%i)",plot,BIN);
-  TH1D *temp = new TH1D("", "", BIN,MIN,MAX);
-  if(Tree->Draw(input,CUT)){ Tree->Draw(input,CUT); TH1D* h=(TH1D*)gDirectory->Get("h"); histo = (TH1D*)h->Clone(); delete h; }
-    else { histo = (TH1D*)temp->Clone(); }
-  histo->SetDirectory(0);//dir can be 0 in which case the histogram does not belong to any directory.
-  histo->SetName("histo");
-  delete temp;
- }
 
 float separationPower(TH1D* h1, TH1D* h2){
     float norm = 1;
