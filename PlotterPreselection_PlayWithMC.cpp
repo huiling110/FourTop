@@ -267,14 +267,14 @@ const TCut ES2tau2ss_step3 = "tausT_number==2 && leptonsMVAT_number==2 && lepton
 //step4
       //
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
+const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jetsL_number>=6 && bjetsM_num>=2";
 const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jetsL_number>=4 && bjetsM_num>=2";
+const TCut ES2tau1m = "tausT_number==2 && muonsT_number==0 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight";
