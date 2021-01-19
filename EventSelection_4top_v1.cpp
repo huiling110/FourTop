@@ -771,7 +771,7 @@ void EventSelection_4top_v1(
 }
 
 void QCDWeight(int imin, int imax, double &w_QCDUp, double &w_QCDDown) { /*{{{*/
-  TH1F *RMS = new TH1F("", "", 100, -0.5, 0.5);
+  TH1D *RMS = new TH1D("", "", 100, -0.5, 0.5);
   for (int i = imin; i < imax; i++) {
     if (i == 5)
       continue;
@@ -788,7 +788,7 @@ void QCDWeight(int imin, int imax, double &w_QCDUp, double &w_QCDDown) { /*{{{*/
 } /*}}}*/
 
 void PDFWeight(int imin, int imax, double &w_PDFUp, double &w_PDFDown) { /*{{{*/
-  TH1F *RMS = new TH1F("", "", 100, -0.5, 0.5);
+  TH1D *RMS = new TH1D("", "", 100, -0.5, 0.5);
   for (int i = imin; i < imax; i++) {
     int I = 0;
     if (i == 10)
