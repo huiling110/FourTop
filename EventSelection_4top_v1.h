@@ -4,6 +4,7 @@
 #include "TTree.h"
 #include "TFile.h"
 #include "TStyle.h"
+#include "TH1D.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TMath.h"
@@ -148,7 +149,7 @@ TH2F   *histoSF3         = (TH2F*) fileHT_SF->Get("SF3_h");
 TH2F   *histoTrig        = (TH2F*) fileTrig ->Get("h_METvsMHT_EFF");/*}}}*/
 
 
-TH1F  *h_genWeight = new TH1F( "h_genweight", "h_genweight", 1,-0.5, 0.5);
+TH1D  *h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 TTree *Tree;
 
 //RECO INFO
