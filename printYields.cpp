@@ -1,8 +1,8 @@
-#include "printYields_v2.h"
+#include "printYields.h"
 
-void printYields_v2(string cat) {
+void printYields(string cat) {
 
-  TFile *inputfile  = new TFile( "Histograms_4bjets.root", "READ" );
+  TFile *inputfile  = new TFile( "Histograms.root", "READ" );
   
   //scale the histograms for all the processes to the 2016 luminosity
   map<string, float>::iterator xsec_it = xsec.begin();
@@ -94,6 +94,7 @@ void printYields_v2(string cat) {
   cout << setw(12) << left << "ST =" << setw(12) << left << ST.Integral() << endl;
   cout << setw(12) << left << "H =" << setw(12) << left << H.Integral() << endl;
   cout << setw(12) << left << "total bkg =" << setw(12) << left << total_bkg.Integral() << endl;
+  cout << setw(12) << left << "S/(S+B) =" << setw(12) << left << tttt.Integral()/(tttt.Integral()+total_bkg.Integral()) << endl;
   cout << " " << endl;
 
   cout << " " << endl << " ~~~ 2016 expected statistics for category " + cat +" ~~~" << endl << " " << endl;
