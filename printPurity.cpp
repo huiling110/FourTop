@@ -106,10 +106,11 @@ void printPurity(string cat) {
   cout << " " << endl;
   cout << "~~~ Evolution of purity with number of b jets for category " << cat << " ~~~" << endl;
   cout << " " << endl;
-  cout << setw(12) << left << "" << setw(12) << left << "2 b tagged" << setw(12) << left << "2 3 tagged" << setw(12) << left << "4 b tagged" << endl;
-  cout << setw(12) << left << "S" << setw(12) << left << S[0] << setw(12) << left << S[1] << setw(12) << left << S[2] << endl;
-  cout << setw(12) << left << "B" << setw(12) << left << B[0] << setw(12) << left << B[1] << setw(12) << left << B[2] << endl;
-  cout << setw(12) << left << "S/(S+B)" << setw(12) << left << P[0] << setw(12) << left << P[1] << setw(12) << left << P[2] << endl;
-
+  cout << setw(16) << left << "" << setw(16) << left << "2 b tagged" << setw(16) << left << "2 3 tagged" << setw(16) << left << "4 b tagged" << endl;
+  cout << setw(16) << left << "S" << setw(16) << left << S[0] << setw(16) << left << S[1] << setw(16) << left << S[2] << endl;
+  cout << setw(16) << left << "B" << setw(16) << left << B[0] << setw(16) << left << B[1] << setw(16) << left << B[2] << endl;
+  cout << scientific;
+  cout << setw(16) << left << "S/(S+B)" << setw(16) << left << P[0] << setw(16) << left << P[1] << setw(16) << left << P[2] << endl;
+  cout << " " << endl;
 
 }
