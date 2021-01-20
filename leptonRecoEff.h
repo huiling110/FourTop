@@ -8,11 +8,11 @@ string dir = "/publicfs/cms/user/fabioiemmi/v20_checkforv19/NoJEC/";
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
-{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
+//{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
 
 //ttbar background    
 {"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
-    
+/*    
 //tt+X background
 {"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
 {"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
@@ -65,7 +65,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"VBFHTo2L2Nu", dir + "VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root"},
 {"VBFHToMuMu", dir + "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root"},
 {"VBFHToGG", dir + "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root"},
-
+*/
 };
 
 double recoEff_1tau1e;
