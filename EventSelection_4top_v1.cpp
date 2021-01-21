@@ -8,7 +8,7 @@ void EventSelection_4top_v1(
     // const string input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     // const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"
-       const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests") {
+       const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/") {
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
   gStyle->SetOptStat("rme");
@@ -1114,12 +1114,12 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
 
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
-    // if(!(Muon_dz_pv_->at(j)<0.1)) continue;
+    if(!(Muon_dz_bt_->at(j)<0.1)) continue;
     //?throwing an instance of 'std::out_of_range'
-    //        if(!(patElectron_d0_->at(j)<0.05)) continue;
-    // if(type == 1 or type == 2) {
-        // if(!(Muon_IP3D_sig_->at(j)<4)) continue;
-    // }
+    if(!(Muon_dxy_bt_->at(j)<0.05)) continue;
+    if(type == 1 or type == 2) {
+      if(!(Muon_IP3D_sig_->at(j)<4)) continue;
+    }
 
     //charge
 
@@ -2757,8 +2757,10 @@ void branch(bool data, int selection, TTree *NewTree,
   Tree->SetBranchAddress("Muon_isMatchedToTrigger", &Muon_isMatchedToTrigger_,
                          &b_Muon_isMatchedToTrigger);
   Tree->SetBranchAddress("Muon_dz_pv", &Muon_dz_pv_, &b_Muon_dz_pv);
+  Tree->SetBranchAddress("Muon_dz_bt", &Muon_dz_bt_, &b_Muon_dz_bt);
   Tree->SetBranchAddress("Muon_IP3D_sig", &Muon_IP3D_sig_, &b_Muon_IP3D_sig);
   Tree->SetBranchAddress("Muon_dxy_pv", &Muon_dxy_pv_, &b_Muon_dxy_pv);
+  Tree->SetBranchAddress("Muon_dxy_bt", &Muon_dxy_bt_, &b_Muon_dxy_bt);
 
   Tree->SetBranchAddress("TopTagger_type", &TopTagger_type_, &b_TopTagger_type);
   Tree->SetBranchAddress("TopTagger_discriminator", &TopTagger_discriminator_,
@@ -4258,8 +4260,12 @@ void branchGetEntry(bool data, Long64_t tentry) {
   b_Muon_ptrel->GetEntry(tentry);
   b_Muon_jetptratio->GetEntry(tentry);
   b_Muon_jetptratioV2->GetEntry(tentry);
-
+  
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
+
+  b_Muon_dxy_bt->GetEntry(tentry);
+  b_Muon_dz_bt->GetEntry(tentry);
+  b_Muon_IP3D_sig->GetEntry(tentry);
 
   b_TopTagger_type->GetEntry(tentry);
   b_TopTagger_discriminator->GetEntry(tentry);

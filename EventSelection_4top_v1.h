@@ -272,6 +272,8 @@ vector <int> * Muon_isHighPt_; TBranch *b_Muon_isHighPt;
 vector <int> * Muon_pf_; TBranch *b_Muon_pf;
 vector <double> * Muon_dxy_pv_; TBranch *b_Muon_dxy_pv;
 vector <double> * Muon_dz_pv_; TBranch *b_Muon_dz_pv;
+vector <double> * Muon_dxy_bt_; TBranch *b_Muon_dxy_bt;
+vector <double> * Muon_dz_bt_; TBranch *b_Muon_dz_bt;
 vector <int> * Muon_isGlobal_; TBranch *b_Muon_isGlobal;
 vector <double> * Muon_isoCharged_; TBranch *b_Muon_isoCharged;
 vector <double> * Muon_isoSum_; TBranch *b_Muon_isoSum;
