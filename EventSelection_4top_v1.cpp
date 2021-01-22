@@ -277,14 +277,207 @@ void EventSelection_4top_v1(
         vector<int> SelectedMuonsFIndex;
         vector<TLorentzVector> SelectedMuonsT;
         vector<int> SelectedMuonsTIndex;
-        SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0);
-        SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1);
-        SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2);//this T is actually the medium in SS
+        SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0, 4);
+        SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1, 4);
+        SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2, 4);//this T is actually the medium in SS
         muonsL_number = SelectedMuonsL.size();
         muonsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
 
-        vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
+	for (int i = 0; i < muonsL_number; i++) {
+
+	      muonL_pt.push_back(SelectedMuonsL.at(i).Pt());
+	      muonL_eta.push_back(SelectedMuonsL.at(i).Eta());
+	      muonL_phi.push_back(SelectedMuonsL.at(i).Phi());
+	      muonL_E.push_back(SelectedMuonsL.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < muonsF_number; i++) {
+
+	      muonF_pt.push_back(SelectedMuonsF.at(i).Pt());
+	      muonF_eta.push_back(SelectedMuonsF.at(i).Eta());
+	      muonF_phi.push_back(SelectedMuonsF.at(i).Phi());
+	      muonF_E.push_back(SelectedMuonsF.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < muonsT_number; i++) {
+
+	      muonT_pt.push_back(SelectedMuonsT.at(i).Pt());
+	      muonT_eta.push_back(SelectedMuonsT.at(i).Eta());
+	      muonT_phi.push_back(SelectedMuonsT.at(i).Phi());
+	      muonT_E.push_back(SelectedMuonsT.at(i).E());
+	      
+	    }
+
+	//store here information about muons at each stage
+	// stage 0
+	vector<TLorentzVector> SelectedMuonsL_s0;
+        vector<int> SelectedMuonsLIndex_s0;
+        vector<TLorentzVector> SelectedMuonsF_s0;
+        vector<int> SelectedMuonsFIndex_s0;
+        vector<TLorentzVector> SelectedMuonsT_s0;
+        vector<int> SelectedMuonsTIndex_s0;
+        SelectMuons(SelectedMuonsL_s0, SelectedMuonsLIndex_s0, 0, 0);
+        SelectMuons(SelectedMuonsF_s0, SelectedMuonsFIndex_s0, 1, 0);
+        SelectMuons(SelectedMuonsT_s0, SelectedMuonsTIndex_s0, 2, 0);//this T is actually the medium in SS
+        muonsL_number_s0 = SelectedMuonsL_s0.size();
+        muonsF_number_s0 = SelectedMuonsF_s0.size();
+        muonsT_number_s0 = SelectedMuonsT_s0.size();
+
+	for (int i = 0; i < muonsL_number_s0; i++) {
+ 
+	      muonL_pt_s0.push_back(SelectedMuonsL_s0.at(i).Pt());
+	      muonL_eta_s0.push_back(SelectedMuonsL_s0.at(i).Eta());
+	      muonL_phi_s0.push_back(SelectedMuonsL_s0.at(i).Phi());
+	      muonL_E_s0.push_back(SelectedMuonsL_s0.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < muonsF_number_s0; i++) {
+
+	      muonF_pt_s0.push_back(SelectedMuonsF_s0.at(i).Pt());
+	      muonF_eta_s0.push_back(SelectedMuonsF_s0.at(i).Eta());
+	      muonF_phi_s0.push_back(SelectedMuonsF_s0.at(i).Phi());
+	      muonF_E_s0.push_back(SelectedMuonsF_s0.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < muonsT_number_s0; i++) {
+
+	      muonT_pt_s0.push_back(SelectedMuonsT_s0.at(i).Pt());
+	      muonT_eta_s0.push_back(SelectedMuonsT_s0.at(i).Eta());
+	      muonT_phi_s0.push_back(SelectedMuonsT_s0.at(i).Phi());
+	      muonT_E_s0.push_back(SelectedMuonsT_s0.at(i).E());
+	      
+	    }
+
+	// stage 1                                                                                                                                                                            
+        vector<TLorentzVector> SelectedMuonsL_s1;
+        vector<int> SelectedMuonsLIndex_s1;
+        vector<TLorentzVector> SelectedMuonsF_s1;
+        vector<int> SelectedMuonsFIndex_s1;
+        vector<TLorentzVector> SelectedMuonsT_s1;
+        vector<int> SelectedMuonsTIndex_s1;
+        SelectMuons(SelectedMuonsL_s1, SelectedMuonsLIndex_s1, 0, 1);
+        SelectMuons(SelectedMuonsF_s1, SelectedMuonsFIndex_s1, 1, 1);
+        SelectMuons(SelectedMuonsT_s1, SelectedMuonsTIndex_s1, 2, 1);//this T is actually the medium in 
+        muonsL_number_s1 = SelectedMuonsL_s1.size();
+        muonsF_number_s1 = SelectedMuonsF_s1.size();
+        muonsT_number_s1 = SelectedMuonsT_s1.size();
+	
+	for (int i = 0; i < muonsL_number_s1; i++) {
+
+	  muonL_pt_s1.push_back(SelectedMuonsL_s1.at(i).Pt());
+	  muonL_eta_s1.push_back(SelectedMuonsL_s1.at(i).Eta());
+	  muonL_phi_s1.push_back(SelectedMuonsL_s1.at(i).Phi());
+	  muonL_E_s1.push_back(SelectedMuonsL_s1.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsF_number_s1; i++) {
+
+	  muonF_pt_s1.push_back(SelectedMuonsF_s1.at(i).Pt());
+	  muonF_eta_s1.push_back(SelectedMuonsF_s1.at(i).Eta());
+	  muonF_phi_s1.push_back(SelectedMuonsF_s1.at(i).Phi());
+	  muonF_E_s1.push_back(SelectedMuonsF_s1.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsT_number_s1; i++) {
+
+	  muonT_pt_s1.push_back(SelectedMuonsT_s1.at(i).Pt());
+	  muonT_eta_s1.push_back(SelectedMuonsT_s1.at(i).Eta());
+	  muonT_phi_s1.push_back(SelectedMuonsT_s1.at(i).Phi());
+	  muonT_E_s1.push_back(SelectedMuonsT_s1.at(i).E());
+    
+        }
+
+	// stage 2                                                                                                                                                                             
+        vector<TLorentzVector> SelectedMuonsL_s2;
+        vector<int> SelectedMuonsLIndex_s2;
+        vector<TLorentzVector> SelectedMuonsF_s2;
+        vector<int> SelectedMuonsFIndex_s2;
+        vector<TLorentzVector> SelectedMuonsT_s2;
+        vector<int> SelectedMuonsTIndex_s2;
+        SelectMuons(SelectedMuonsL_s2, SelectedMuonsLIndex_s2, 0, 2);
+        SelectMuons(SelectedMuonsF_s2, SelectedMuonsFIndex_s2, 1, 2);
+        SelectMuons(SelectedMuonsT_s2, SelectedMuonsTIndex_s2, 2, 2);//this T is actually the medium in SS                                                                                      
+        muonsL_number_s2 = SelectedMuonsL_s2.size();
+        muonsF_number_s2 = SelectedMuonsF_s2.size();
+        muonsT_number_s2 = SelectedMuonsT_s2.size();
+        
+	for (int i = 0; i < muonsL_number_s2; i++) {
+
+	  muonL_pt_s2.push_back(SelectedMuonsL_s2.at(i).Pt());
+	  muonL_eta_s2.push_back(SelectedMuonsL_s2.at(i).Eta());
+	  muonL_phi_s2.push_back(SelectedMuonsL_s2.at(i).Phi());
+	  muonL_E_s2.push_back(SelectedMuonsL_s2.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsF_number_s2; i++) {
+
+	  muonF_pt_s2.push_back(SelectedMuonsF_s2.at(i).Pt());
+	  muonF_eta_s2.push_back(SelectedMuonsF_s2.at(i).Eta());
+	  muonF_phi_s2.push_back(SelectedMuonsF_s2.at(i).Phi());
+	  muonF_E_s2.push_back(SelectedMuonsF_s2.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsT_number_s2; i++) {
+
+	  muonT_pt_s2.push_back(SelectedMuonsT_s2.at(i).Pt());
+	  muonT_eta_s2.push_back(SelectedMuonsT_s2.at(i).Eta());
+	  muonT_phi_s2.push_back(SelectedMuonsT_s2.at(i).Phi());
+	  muonT_E_s2.push_back(SelectedMuonsT_s2.at(i).E());
+    
+        }
+
+	// stage 3
+        vector<TLorentzVector> SelectedMuonsL_s3;
+        vector<int> SelectedMuonsLIndex_s3;
+        vector<TLorentzVector> SelectedMuonsF_s3;
+        vector<int> SelectedMuonsFIndex_s3;
+        vector<TLorentzVector> SelectedMuonsT_s3;
+        vector<int> SelectedMuonsTIndex_s3;
+        SelectMuons(SelectedMuonsL_s3, SelectedMuonsLIndex_s3, 0, 3);
+        SelectMuons(SelectedMuonsF_s3, SelectedMuonsFIndex_s3, 1, 3);
+        SelectMuons(SelectedMuonsT_s3, SelectedMuonsTIndex_s3, 2, 3);//this T is actually the medium in SS                                                                                      
+        muonsL_number_s3 = SelectedMuonsL_s3.size();
+        muonsF_number_s3 = SelectedMuonsF_s3.size();
+        muonsT_number_s3 = SelectedMuonsT_s3.size();
+
+	for (int i = 0; i < muonsL_number_s3; i++) {
+
+	  muonL_pt_s3.push_back(SelectedMuonsL_s3.at(i).Pt());
+	  muonL_eta_s3.push_back(SelectedMuonsL_s3.at(i).Eta());
+	  muonL_phi_s3.push_back(SelectedMuonsL_s3.at(i).Phi());
+	  muonL_E_s3.push_back(SelectedMuonsL_s3.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsF_number_s3; i++) {
+
+	  muonF_pt_s3.push_back(SelectedMuonsF_s3.at(i).Pt());
+	  muonF_eta_s3.push_back(SelectedMuonsF_s3.at(i).Eta());
+	  muonF_phi_s3.push_back(SelectedMuonsF_s3.at(i).Phi());
+	  muonF_E_s3.push_back(SelectedMuonsF_s3.at(i).E());
+
+	}
+
+        for (int i = 0; i < muonsT_number_s3; i++) {
+
+	  muonT_pt_s3.push_back(SelectedMuonsT_s3.at(i).Pt());
+	  muonT_eta_s3.push_back(SelectedMuonsT_s3.at(i).Eta());
+	  muonT_phi_s3.push_back(SelectedMuonsT_s3.at(i).Phi());
+	  muonT_E_s3.push_back(SelectedMuonsT_s3.at(i).E());
+    
+        }
+	
+
+	vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
                                         SelectedMuonsT.end());
         LeptonsT.insert(LeptonsT.end(), SelectedElectronsT.begin(),
                         SelectedElectronsT.end());
@@ -1351,14 +1544,20 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
 }
 
 void SelectMuons(vector<TLorentzVector> &SelectedMuons,
-                 vector<int> &SelectedMuonsIndex, int type) { /*{{{*/
+                 vector<int> &SelectedMuonsIndex, int type, int stage) { /*{{{*/
   // changed ISO to ss of TTTT
   // 0 for Loose; 2 for medium 
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j) {
-    //    if(!(Muon_pt_->at(j)>20))                     continue;
+
+    if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
+
+      //    if(!(Muon_pt_->at(j)>20))                     continue;
     if (!(fabs(Muon_eta_->at(j)) < 2.4))
       continue;
-    if (type == 0) {
+    
+    if (stage == 2 || stage == 3 || stage == 4) {
+
+      if (type == 0) {
       if (!(Muon_loose_->at(j) == 1))
         continue;
     }
@@ -1366,7 +1565,10 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
       if (!(Muon_medium_->at(j) == 1))
         continue;
     }
-    //    if(type==2){ if(!(Muon_tight_->at(j)==1))     continue; }
+    
+    if (stage == 3 || stage == 4) {
+
+      //    if(type==2){ if(!(Muon_tight_->at(j)==1))     continue; }
     //    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;  //loose
     // iso->change to 0.15(tight) from 0.25
     // Muon_relIsoDeltaBetaR04?_
@@ -1378,6 +1580,9 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
     // continue;
     if (!((Muon_miniIsoRel_->at(j) < I1) && ((Muon_jetptratio_->at(j) > I2) || (Muon_ptrel_->at(j) > I3))))      continue;
 
+    if (stage == 4) {
+      
+      
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
     if(!(Muon_dz_bt_->at(j)<0.1)) continue;
@@ -1389,13 +1594,23 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
 
     //charge
 
+    }// end stage 4
+
+
+    }// end stage 3
+      
+    }// end stage 2 
+
+      
+    }// end stage 1
+    
     //?Muon_jetptratioV2?
     TLorentzVector muon;
     muon.SetPtEtaPhiE(Muon_pt_->at(j), Muon_eta_->at(j), Muon_phi_->at(j),
                       Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
-    SelectedMuonsIndex.push_back(j);
-  }
+    SelectedMuonsIndex.push_back(j);}
+  
 } /*}}}*/
 
 

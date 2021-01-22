@@ -21,7 +21,7 @@ void selectGenEles( vector<TLorentzVector> &genEles );
 void selectGenMuons( vector<TLorentzVector> &genMuons );
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
 void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type, int stage);
-void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
+void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type, int stage);
 void SelectTaus(vector<TLorentzVector>& SelectedTaus,vector<int> & SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);
 //void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<double> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons,
@@ -633,6 +633,93 @@ int   leptonsMVAT_2OS = 0;
 int muonsT_number=-99;
 int   muonsL_number=-99;
 int  muonsF_number = -99;
+vector <double>  muonL_pt;
+vector <double>  muonL_eta;
+vector <double>  muonL_phi;
+vector <double>  muonL_E;
+
+vector <double>  muonF_pt;
+vector <double>  muonF_eta;
+vector <double>  muonF_phi;
+vector <double>  muonF_E;
+
+vector <double>  muonT_pt;
+vector <double>  muonT_eta;
+vector <double>  muonT_phi;
+vector <double>  muonT_E;
+
+int muonsT_number_s0=-99;
+int   muonsL_number_s0=-99;
+int  muonsF_number_s0 = -99;
+vector <double>  muonL_pt_s0;
+vector <double>  muonL_eta_s0;
+vector <double>  muonL_phi_s0;
+vector <double>  muonL_E_s0;
+
+vector <double>  muonF_pt_s0;
+vector <double>  muonF_eta_s0;
+vector <double>  muonF_phi_s0;
+vector <double>  muonF_E_s0;
+
+vector <double>  muonT_pt_s0;
+vector <double>  muonT_eta_s0;
+vector <double>  muonT_phi_s0;
+vector <double>  muonT_E_s0; 
+
+int muonsT_number_s1=-99;
+int   muonsL_number_s1=-99;
+int  muonsF_number_s1 = -99;
+vector <double>  muonL_pt_s1;
+vector <double>  muonL_eta_s1;
+vector <double>  muonL_phi_s1;
+vector <double>  muonL_E_s1;
+
+vector <double>  muonF_pt_s1;
+vector <double>  muonF_eta_s1;
+vector <double>  muonF_phi_s1;
+vector <double>  muonF_E_s1;
+
+vector <double>  muonT_pt_s1;
+vector <double>  muonT_eta_s1;
+vector <double>  muonT_phi_s1;
+vector <double>  muonT_E_s1;
+
+int muonsT_number_s2=-99;
+int   muonsL_number_s2=-99;
+int  muonsF_number_s2 = -99;
+vector <double>  muonL_pt_s2;
+vector <double>  muonL_eta_s2;
+vector <double>  muonL_phi_s2;
+vector <double>  muonL_E_s2;
+
+vector <double>  muonF_pt_s2;
+vector <double>  muonF_eta_s2;
+vector <double>  muonF_phi_s2;
+vector <double>  muonF_E_s2;
+
+vector <double>  muonT_pt_s2;
+vector <double>  muonT_eta_s2;
+vector <double>  muonT_phi_s2;
+vector <double>  muonT_E_s2;
+
+int muonsT_number_s3=-99;
+int   muonsL_number_s3=-99;
+int  muonsF_number_s3 = -99;
+vector <double>  muonL_pt_s3;
+vector <double>  muonL_eta_s3;
+vector <double>  muonL_phi_s3;
+vector <double>  muonL_E_s3;
+
+vector <double>  muonF_pt_s3;
+vector <double>  muonF_eta_s3;
+vector <double>  muonF_phi_s3;
+vector <double>  muonF_E_s3;
+
+vector <double>  muonT_pt_s3;
+vector <double>  muonT_eta_s3;
+vector <double>  muonT_phi_s3;
+vector <double>  muonT_E_s3;
+
 double muonsT_1pt = -99;
 double muonsT_1eta = -99;
 double muonsT_1phi = -99;
