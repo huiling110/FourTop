@@ -311,7 +311,7 @@ void EventSelection_4top_v1(
         elesMVAF_number = SelectedElectronsMVAF.size();
         elesMVAT_number = SelectedElectronsMVAT.size();
 
-	for (int i = 0; i < ElesMVAL_number; i++) {
+	for (int i = 0; i < elesMVAL_number; i++) {
 
 	      eleMVAL_pt.push_back(SelectedElectronsMVAL.at(i).Pt());
 	      eleMVAL_eta.push_back(SelectedElectronsMVAL.at(i).Eta());
@@ -320,7 +320,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAF_number; i++) {
+	for (int i = 0; i < elesMVAF_number; i++) {
 
 	      eleMVAF_pt.push_back(SelectedElectronsMVAF.at(i).Pt());
 	      eleMVAF_eta.push_back(SelectedElectronsMVAF.at(i).Eta());
@@ -329,7 +329,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAT_number; i++) {
+	for (int i = 0; i < elesMVAT_number; i++) {
 
 	      eleMVAT_pt.push_back(SelectedElectronsMVAT.at(i).Pt());
 	      eleMVAT_eta.push_back(SelectedElectronsMVAT.at(i).Eta());
@@ -357,7 +357,7 @@ void EventSelection_4top_v1(
         elesMVAF_number_s0 = SelectedElectronsMVAF_s0.size();
         elesMVAT_number_s0 = SelectedElectronsMVAT_s0.size();
 
-	for (int i = 0; i < ElesMVAL_number_s0; i++) {
+	for (int i = 0; i < elesMVAL_number_s0; i++) {
 
 	      eleMVAL_pt_s0.push_back(SelectedElectronsMVAL_s0.at(i).Pt());
 	      eleMVAL_eta_s0.push_back(SelectedElectronsMVAL_s0.at(i).Eta());
@@ -366,7 +366,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAF_number_s0; i++) {
+	for (int i = 0; i < elesMVAF_number_s0; i++) {
 
 	      eleMVAF_pt_s0.push_back(SelectedElectronsMVAF_s0.at(i).Pt());
 	      eleMVAF_eta_s0.push_back(SelectedElectronsMVAF_s0.at(i).Eta());
@@ -375,7 +375,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAT_number_s0; i++) {
+	for (int i = 0; i < elesMVAT_number_s0; i++) {
 
 	      eleMVAT_pt_s0.push_back(SelectedElectronsMVAT_s0.at(i).Pt());
 	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s0.at(i).Eta());
@@ -403,7 +403,7 @@ void EventSelection_4top_v1(
         elesMVAF_number_s1 = SelectedElectronsMVAF_s1.size();
         elesMVAT_number_s1 = SelectedElectronsMVAT_s1.size();
 
-	for (int i = 0; i < ElesMVAL_number_s1; i++) {
+	for (int i = 0; i < elesMVAL_number_s1; i++) {
 
 	      eleMVAL_pt_s1.push_back(SelectedElectronsMVAL_s1.at(i).Pt());
 	      eleMVAL_eta_s1.push_back(SelectedElectronsMVAL_s1.at(i).Eta());
@@ -412,7 +412,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAF_number_s1; i++) {
+	for (int i = 0; i < elesMVAF_number_s1; i++) {
 
 	      eleMVAF_pt_s1.push_back(SelectedElectronsMVAF_s1.at(i).Pt());
 	      eleMVAF_eta_s1.push_back(SelectedElectronsMVAF_s1.at(i).Eta());
@@ -421,7 +421,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAT_number_s1; i++) {
+	for (int i = 0; i < elesMVAT_number_s1; i++) {
 
 	      eleMVAT_pt_s1.push_back(SelectedElectronsMVAT_s1.at(i).Pt());
 	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
@@ -448,7 +448,7 @@ void EventSelection_4top_v1(
         elesMVAF_number_s2 = SelectedElectronsMVAF_s2.size();
         elesMVAT_number_s2 = SelectedElectronsMVAT_s2.size();
 
-	for (int i = 0; i < ElesMVAL_number_s2; i++) {
+	for (int i = 0; i < elesMVAL_number_s2; i++) {
 
 	      eleMVAL_pt_s2.push_back(SelectedElectronsMVAL_s2.at(i).Pt());
 	      eleMVAL_eta_s2.push_back(SelectedElectronsMVAL_s2.at(i).Eta());
@@ -457,7 +457,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAF_number_s2; i++) {
+	for (int i = 0; i < elesMVAF_number_s2; i++) {
 
 	      eleMVAF_pt_s2.push_back(SelectedElectronsMVAF_s2.at(i).Pt());
 	      eleMVAF_eta_s2.push_back(SelectedElectronsMVAF_s2.at(i).Eta());
@@ -466,7 +466,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAT_number_s2; i++) {
+	for (int i = 0; i < elesMVAT_number_s2; i++) {
 
 	      eleMVAT_pt_s2.push_back(SelectedElectronsMVAT_s2.at(i).Pt());
 	      eleMVAT_eta_s2.push_back(SelectedElectronsMVAT_s2.at(i).Eta());
@@ -493,7 +493,7 @@ void EventSelection_4top_v1(
         elesMVAF_number_s3 = SelectedElectronsMVAF_s3.size();
         elesMVAT_number_s3 = SelectedElectronsMVAT_s3.size();
 
-	for (int i = 0; i < ElesMVAL_number_s3; i++) {
+	for (int i = 0; i < elesMVAL_number_s3; i++) {
 
 	      eleMVAL_pt_s3.push_back(SelectedElectronsMVAL_s3.at(i).Pt());
 	      eleMVAL_eta_s3.push_back(SelectedElectronsMVAL_s3.at(i).Eta());
@@ -502,7 +502,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAF_number_s3; i++) {
+	for (int i = 0; i < elesMVAF_number_s3; i++) {
 
 	      eleMVAF_pt_s3.push_back(SelectedElectronsMVAF_s3.at(i).Pt());
 	      eleMVAF_eta_s3.push_back(SelectedElectronsMVAF_s3.at(i).Eta());
@@ -511,7 +511,7 @@ void EventSelection_4top_v1(
 	      
 	    }
 
-	for (int i = 0; i < ElesMVAT_number_s3; i++) {
+	for (int i = 0; i < elesMVAT_number_s3; i++) {
 
 	      eleMVAT_pt_s3.push_back(SelectedElectronsMVAT_s3.at(i).Pt());
 	      eleMVAT_eta_s3.push_back(SelectedElectronsMVAT_s3.at(i).Eta());

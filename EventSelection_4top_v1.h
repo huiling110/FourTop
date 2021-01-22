@@ -661,77 +661,77 @@ vector <double>  eleMVAT_eta;
 vector <double>  eleMVAT_phi;
 vector <double>  eleMVAT_E;
 
-int elesMVAL_number_0s=-99;
-int elesMVAF_number_0s=-99;
-int elesMVAT_number_0s=-99;
-vector <double>  eleMVAL_pt_0s;
-vector <double>  eleMVAL_eta_0s;
-vector <double>  eleMVAL_phi_0s;
-vector <double>  eleMVAL_E_0s;
+int elesMVAL_number_s0=-99;
+int elesMVAF_number_s0=-99;
+int elesMVAT_number_s0=-99;
+vector <double>  eleMVAL_pt_s0;
+vector <double>  eleMVAL_eta_s0;
+vector <double>  eleMVAL_phi_s0;
+vector <double>  eleMVAL_E_s0;
 
-vector <double>  eleMVAF_pt_0s;
-vector <double>  eleMVAF_eta_0s;
-vector <double>  eleMVAF_phi_0s;
-vector <double>  eleMVAF_E_0s;
+vector <double>  eleMVAF_pt_s0;
+vector <double>  eleMVAF_eta_s0;
+vector <double>  eleMVAF_phi_s0;
+vector <double>  eleMVAF_E_s0;
 
-vector <double>  eleMVAT_pt_0s;
-vector <double>  eleMVAT_eta_0s;
-vector <double>  eleMVAT_phi_0s;
-vector <double>  eleMVAT_E_0s;
+vector <double>  eleMVAT_pt_s0;
+vector <double>  eleMVAT_eta_s0;
+vector <double>  eleMVAT_phi_s0;
+vector <double>  eleMVAT_E_s0;
 
-int elesMVAL_number_1s=-99;
-int elesMVAF_number_1s=-99;
-int elesMVAT_number_1s=-99;
-vector <double>  eleMVAL_pt_1s;
-vector <double>  eleMVAL_eta_1s;
-vector <double>  eleMVAL_phi_1s;
-vector <double>  eleMVAL_E_1s;
+int elesMVAL_number_s1=-99;
+int elesMVAF_number_s1=-99;
+int elesMVAT_number_s1=-99;
+vector <double>  eleMVAL_pt_s1;
+vector <double>  eleMVAL_eta_s1;
+vector <double>  eleMVAL_phi_s1;
+vector <double>  eleMVAL_E_s1;
 
-vector <double>  eleMVAF_pt_1s;
-vector <double>  eleMVAF_eta_1s;
-vector <double>  eleMVAF_phi_1s;
-vector <double>  eleMVAF_E_1s;
+vector <double>  eleMVAF_pt_s1;
+vector <double>  eleMVAF_eta_s1;
+vector <double>  eleMVAF_phi_s1;
+vector <double>  eleMVAF_E_s1;
 
-vector <double>  eleMVAT_pt_1s;
-vector <double>  eleMVAT_eta_1s;
-vector <double>  eleMVAT_phi_1s;
-vector <double>  eleMVAT_E_1s;
+vector <double>  eleMVAT_pt_s1;
+vector <double>  eleMVAT_eta_s1;
+vector <double>  eleMVAT_phi_s1;
+vector <double>  eleMVAT_E_s1;
 
-int elesMVAL_number_2s=-99;
-int elesMVAF_number_2s=-99;
-int elesMVAT_number_2s=-99;
-vector <double>  eleMVAL_pt_2s;
-vector <double>  eleMVAL_eta_2s;
-vector <double>  eleMVAL_phi_2s;
-vector <double>  eleMVAL_E_2s;
+int elesMVAL_number_s2=-99;
+int elesMVAF_number_s2=-99;
+int elesMVAT_number_s2=-99;
+vector <double>  eleMVAL_pt_s2;
+vector <double>  eleMVAL_eta_s2;
+vector <double>  eleMVAL_phi_s2;
+vector <double>  eleMVAL_E_s2;
 
-vector <double>  eleMVAF_pt_2s;
-vector <double>  eleMVAF_eta_2s;
-vector <double>  eleMVAF_phi_2s;
-vector <double>  eleMVAF_E_2s;
+vector <double>  eleMVAF_pt_s2;
+vector <double>  eleMVAF_eta_s2;
+vector <double>  eleMVAF_phi_s2;
+vector <double>  eleMVAF_E_s2;
 
-vector <double>  eleMVAT_pt_2s;
-vector <double>  eleMVAT_eta_2s;
-vector <double>  eleMVAT_phi_2s;
-vector <double>  eleMVAT_E_2s;
+vector <double>  eleMVAT_pt_s2;
+vector <double>  eleMVAT_eta_s2;
+vector <double>  eleMVAT_phi_s2;
+vector <double>  eleMVAT_E_s2;
 
-int elesMVAL_number_3s=-99;
-int elesMVAF_number_3s=-99;
-int elesMVAT_number_3s=-99;
-vector <double>  eleMVAL_pt_3s;
-vector <double>  eleMVAL_eta_3s;
-vector <double>  eleMVAL_phi_3s;
-vector <double>  eleMVAL_E_3s;
+int elesMVAL_number_s3=-99;
+int elesMVAF_number_s3=-99;
+int elesMVAT_number_s3=-99;
+vector <double>  eleMVAL_pt_s3;
+vector <double>  eleMVAL_eta_s3;
+vector <double>  eleMVAL_phi_s3;
+vector <double>  eleMVAL_E_s3;
 
-vector <double>  eleMVAF_pt_3s;
-vector <double>  eleMVAF_eta_3s;
-vector <double>  eleMVAF_phi_3s;
-vector <double>  eleMVAF_E_3s;
+vector <double>  eleMVAF_pt_s3;
+vector <double>  eleMVAF_eta_s3;
+vector <double>  eleMVAF_phi_s3;
+vector <double>  eleMVAF_E_s3;
 
-vector <double>  eleMVAT_pt_3s;
-vector <double>  eleMVAT_eta_3s;
-vector <double>  eleMVAT_phi_3s;
-vector <double>  eleMVAT_E_3s;
+vector <double>  eleMVAT_pt_s3;
+vector <double>  eleMVAT_eta_s3;
+vector <double>  eleMVAT_phi_s3;
+vector <double>  eleMVAT_E_s3;
 
 //
 //
