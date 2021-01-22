@@ -301,11 +301,11 @@ void EventSelection_4top_v1(
         vector<TLorentzVector> SelectedElectronsMVAT;
         vector<int> SelectedElectronsMVATIndex;
         SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex,
-                           0);
+                           0, 4);
         SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex,
-                           1);
+                           1, 4);
         SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex,
-                           2);
+                           2, 4);
 
         elesMVAL_number = SelectedElectronsMVAL.size();
         elesMVAF_number = SelectedElectronsMVAF.size();
