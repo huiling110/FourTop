@@ -211,6 +211,7 @@ void EventSelection_4top_v1(
             genTaus_number = genTaus.size();
             genEles_number = genEles.size();
             genMuons_number = genMuons.size();
+
         }
 
 
@@ -3081,7 +3082,15 @@ void branch(bool data, int selection, TTree *NewTree,
 
   NewTree->Branch("genTaus_number", &genTaus_number, "genTaus_number/I");
   NewTree->Branch("genEles_number", &genEles_number, "genEles_number/I");
+  NewTree->Branch("genEle_pt", &genEle_pt);
+  NewTree->Branch("genEle_eta", &genEle_eta);
+  NewTree->Branch("genEle_phi", &genEle_phi);
+  NewTree->Branch("genEle_E", &genEle_E);
   NewTree->Branch("genMuons_number", &genMuons_number, "genMuons_number/I");
+  NewTree->Branch("genMuon_pt", &genMuon_pt);
+  NewTree->Branch("genMuon_eta", &genMuon_eta);
+  NewTree->Branch("genMuon_phi", &genMuon_phi);
+  NewTree->Branch("genMuon_E", &genMuon_E);
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");

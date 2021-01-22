@@ -526,7 +526,16 @@ int HLT_IsoMu27 = -99;
 
 int    genTaus_number = -99;
 int genEles_number = -99;
+vector <double> genEle_pt;
+vector <double> genEle_eta;
+vector <double> genEle_phi;
+vector <double> genEle_E;
 int genMuons_number = -99;
+vector <double> genMuon_pt;
+vector <double> genMuon_eta;
+vector <double> genMuon_phi;
+vector <double> genMuon_E;
+
 
 double TopMass=-99;
 double TopMassMerged=-99;
