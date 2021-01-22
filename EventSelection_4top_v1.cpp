@@ -311,6 +311,64 @@ void EventSelection_4top_v1(
         elesMVAF_number = SelectedElectronsMVAF.size();
         elesMVAT_number = SelectedElectronsMVAT.size();
 
+	// store here information for electrons at each stage
+	// stage 0
+	vector<TLorentzVector> SelectedElectronsMVAL_s0;
+        vector<int> SelectedElectronsMVALIndex_s0;
+        vector<TLorentzVector> SelectedElectronsMVAF_s0;
+        vector<int> SelectedElectronsMVAFIndex_s0; // F for fakeble
+        vector<TLorentzVector> SelectedElectronsMVAT_s0;
+        vector<int> SelectedElectronsMVATIndex_s0;
+        SelectElectronsMVA(SelectedElectronsMVAL_s0, SelectedElectronsMVALIndex_s0,
+                           0, 0);
+        SelectElectronsMVA(SelectedElectronsMVAF_s0, SelectedElectronsMVAFIndex_s0,
+                           1, 0);
+        SelectElectronsMVA(SelectedElectronsMVAT_s0, SelectedElectronsMVATIndex_s0,
+                           2, 0);
+
+	// stage 1
+	vector<TLorentzVector> SelectedElectronsMVAL_s1;
+        vector<int> SelectedElectronsMVALIndex_s1;
+        vector<TLorentzVector> SelectedElectronsMVAF_s1;
+        vector<int> SelectedElectronsMVAFIndex_s1; // F for fakeble
+        vector<TLorentzVector> SelectedElectronsMVAT_s1;
+        vector<int> SelectedElectronsMVATIndex_s1;
+        SelectElectronsMVA(SelectedElectronsMVAL_s1, SelectedElectronsMVALIndex_s1,
+                           0, 1);
+        SelectElectronsMVA(SelectedElectronsMVAF_s1, SelectedElectronsMVAFIndex_s1,
+                           1, 1);
+        SelectElectronsMVA(SelectedElectronsMVAT_s1, SelectedElectronsMVATIndex_s1,
+                           2, 1);
+
+	// stage 2
+	vector<TLorentzVector> SelectedElectronsMVAL_s2;
+        vector<int> SelectedElectronsMVALIndex_s2;
+        vector<TLorentzVector> SelectedElectronsMVAF_s2;
+        vector<int> SelectedElectronsMVAFIndex_s2; // F for fakeble
+        vector<TLorentzVector> SelectedElectronsMVAT_s2;
+        vector<int> SelectedElectronsMVATIndex_s2;
+        SelectElectronsMVA(SelectedElectronsMVAL_s2, SelectedElectronsMVALIndex_s2,
+                           0, 2);
+        SelectElectronsMVA(SelectedElectronsMVAF_s2, SelectedElectronsMVAFIndex_s2,
+                           1, 2);
+        SelectElectronsMVA(SelectedElectronsMVAT_s2, SelectedElectronsMVATIndex_s2,
+                           2, 2);
+
+	// stage 3
+	vector<TLorentzVector> SelectedElectronsMVAL_s3;
+        vector<int> SelectedElectronsMVALIndex_s3;
+        vector<TLorentzVector> SelectedElectronsMVAF_s3;
+        vector<int> SelectedElectronsMVAFIndex_s3; // F for fakeble
+        vector<TLorentzVector> SelectedElectronsMVAT_s3;
+        vector<int> SelectedElectronsMVATIndex_s3;
+        SelectElectronsMVA(SelectedElectronsMVAL_s3, SelectedElectronsMVALIndex_s3,
+                           0, 3);
+        SelectElectronsMVA(SelectedElectronsMVAF_s3, SelectedElectronsMVAFIndex_s3,
+                           1, 3);
+        SelectElectronsMVA(SelectedElectronsMVAT_s3, SelectedElectronsMVATIndex_s3,
+                           2, 3);
+
+
         vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(), SelectedMuonsF.end());
         LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end());
         vector<TLorentzVector> LeptonsMVAT(SelectedMuonsT.begin(),  SelectedMuonsT.end());
