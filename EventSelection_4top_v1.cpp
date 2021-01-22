@@ -208,9 +208,12 @@ void EventSelection_4top_v1(
             selectGenTaus(genTaus);
             selectGenEles(genEles);
             selectGenMuons(genMuons);
+	    sort(genEles.begin(), genEles.end(), compEle);
+	    sort(genMuons.begin(), genMuons.end(), compEle);
             genTaus_number = genTaus.size();
             genEles_number = genEles.size();
             genMuons_number = genMuons.size();
+	    
 	    for (int i = 0; i < genEles_number; i++) {
 
 	      genEle_pt.push_back(genEles.at(i).Pt());
@@ -229,8 +232,6 @@ void EventSelection_4top_v1(
 	      
 	    }
         }
-
-
 
 
         if (!data)
