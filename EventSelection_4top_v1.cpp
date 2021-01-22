@@ -98,7 +98,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 100000;
+        NumOfEvents = 1000;
       } else {
         NumOfEvents = nentries;
       }
