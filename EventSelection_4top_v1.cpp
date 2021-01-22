@@ -211,7 +211,23 @@ void EventSelection_4top_v1(
             genTaus_number = genTaus.size();
             genEles_number = genEles.size();
             genMuons_number = genMuons.size();
+	    for (int i = 0; i < genEles_number; i++) {
 
+	      genEle_pt.push_back(genEles.at(i).pt());
+	      genEle_eta.push_back(genEles.at(i).eta());
+	      genEle_phi.push_back(genEles.at(i).phi());
+	      genEle_E.push_back(genEles.at(i).E());
+	      
+	    }
+
+	    for (int i = 0; i < genMuons_number; i++) {
+
+	      genMuon_pt.push_back(genMuons.at(i).pt());
+	      genMuon_eta.push_back(genMuons.at(i).eta());
+	      genMuon_phi.push_back(genMuons.at(i).phi());
+	      genMuon_E.push_back(genMuons.at(i).E());
+	      
+	    }
         }
 
 
@@ -3758,7 +3774,15 @@ void initializeVar() { /*{{{*/
 
     genTaus_number = -99;
  genEles_number = -99;
+ genEle_pt.clear();
+ genEle_eta.clear();
+ genEle_phi.clear();
+ genEle_E.clear();
  genMuons_number = -99;
+ genMuon_pt.clear();
+ genMuon_eta.clear();
+ genMuon_phi.clear();
+ genMuon_E.clear();
 
  TopMass=-99;
  TopMassMerged=-99;
