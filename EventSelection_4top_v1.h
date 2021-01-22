@@ -646,6 +646,92 @@ double muonsT_3phi = -99;
 int elesMVAL_number=-99;
 int elesMVAF_number=-99;
 int elesMVAT_number=-99;
+vector <double>  eleMVAL_pt;
+vector <double>  eleMVAL_eta;
+vector <double>  eleMVAL_phi;
+vector <double>  eleMVAL_E;
+
+vector <double>  eleMVAF_pt;
+vector <double>  eleMVAF_eta;
+vector <double>  eleMVAF_phi;
+vector <double>  eleMVAF_E;
+
+vector <double>  eleMVAT_pt;
+vector <double>  eleMVAT_eta;
+vector <double>  eleMVAT_phi;
+vector <double>  eleMVAT_E;
+
+int elesMVAL_number_0s=-99;
+int elesMVAF_number_0s=-99;
+int elesMVAT_number_0s=-99;
+vector <double>  eleMVAL_pt_0s;
+vector <double>  eleMVAL_eta_0s;
+vector <double>  eleMVAL_phi_0s;
+vector <double>  eleMVAL_E_0s;
+
+vector <double>  eleMVAF_pt_0s;
+vector <double>  eleMVAF_eta_0s;
+vector <double>  eleMVAF_phi_0s;
+vector <double>  eleMVAF_E_0s;
+
+vector <double>  eleMVAT_pt_0s;
+vector <double>  eleMVAT_eta_0s;
+vector <double>  eleMVAT_phi_0s;
+vector <double>  eleMVAT_E_0s;
+
+int elesMVAL_number_1s=-99;
+int elesMVAF_number_1s=-99;
+int elesMVAT_number_1s=-99;
+vector <double>  eleMVAL_pt_1s;
+vector <double>  eleMVAL_eta_1s;
+vector <double>  eleMVAL_phi_1s;
+vector <double>  eleMVAL_E_1s;
+
+vector <double>  eleMVAF_pt_1s;
+vector <double>  eleMVAF_eta_1s;
+vector <double>  eleMVAF_phi_1s;
+vector <double>  eleMVAF_E_1s;
+
+vector <double>  eleMVAT_pt_1s;
+vector <double>  eleMVAT_eta_1s;
+vector <double>  eleMVAT_phi_1s;
+vector <double>  eleMVAT_E_1s;
+
+int elesMVAL_number_2s=-99;
+int elesMVAF_number_2s=-99;
+int elesMVAT_number_2s=-99;
+vector <double>  eleMVAL_pt_2s;
+vector <double>  eleMVAL_eta_2s;
+vector <double>  eleMVAL_phi_2s;
+vector <double>  eleMVAL_E_2s;
+
+vector <double>  eleMVAF_pt_2s;
+vector <double>  eleMVAF_eta_2s;
+vector <double>  eleMVAF_phi_2s;
+vector <double>  eleMVAF_E_2s;
+
+vector <double>  eleMVAT_pt_2s;
+vector <double>  eleMVAT_eta_2s;
+vector <double>  eleMVAT_phi_2s;
+vector <double>  eleMVAT_E_2s;
+
+int elesMVAL_number_3s=-99;
+int elesMVAF_number_3s=-99;
+int elesMVAT_number_3s=-99;
+vector <double>  eleMVAL_pt_3s;
+vector <double>  eleMVAL_eta_3s;
+vector <double>  eleMVAL_phi_3s;
+vector <double>  eleMVAL_E_3s;
+
+vector <double>  eleMVAF_pt_3s;
+vector <double>  eleMVAF_eta_3s;
+vector <double>  eleMVAF_phi_3s;
+vector <double>  eleMVAF_E_3s;
+
+vector <double>  eleMVAT_pt_3s;
+vector <double>  eleMVAT_eta_3s;
+vector <double>  eleMVAT_phi_3s;
+vector <double>  eleMVAT_E_3s;
 
 //
 //

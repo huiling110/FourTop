@@ -311,6 +311,33 @@ void EventSelection_4top_v1(
         elesMVAF_number = SelectedElectronsMVAF.size();
         elesMVAT_number = SelectedElectronsMVAT.size();
 
+	for (int i = 0; i < ElesMVAL_number; i++) {
+
+	      eleMVAL_pt.push_back(SelectedElectronsMVAL.at(i).Pt());
+	      eleMVAL_eta.push_back(SelectedElectronsMVAL.at(i).Eta());
+	      eleMVAL_phi.push_back(SelectedElectronsMVAL.at(i).Phi());
+	      eleMVAL_E.push_back(SelectedElectronsMVAL.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAF_number; i++) {
+
+	      eleMVAF_pt.push_back(SelectedElectronsMVAF.at(i).Pt());
+	      eleMVAF_eta.push_back(SelectedElectronsMVAF.at(i).Eta());
+	      eleMVAF_phi.push_back(SelectedElectronsMVAF.at(i).Phi());
+	      eleMVAF_E.push_back(SelectedElectronsMVAF.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAT_number; i++) {
+
+	      eleMVAT_pt.push_back(SelectedElectronsMVAT.at(i).Pt());
+	      eleMVAT_eta.push_back(SelectedElectronsMVAT.at(i).Eta());
+	      eleMVAT_phi.push_back(SelectedElectronsMVAT.at(i).Phi());
+	      eleMVAT_E.push_back(SelectedElectronsMVAT.at(i).E());
+	      
+	    }
+
 	// store here information for electrons at each stage
 	// stage 0
 	vector<TLorentzVector> SelectedElectronsMVAL_s0;
@@ -326,6 +353,38 @@ void EventSelection_4top_v1(
         SelectElectronsMVA(SelectedElectronsMVAT_s0, SelectedElectronsMVATIndex_s0,
                            2, 0);
 
+	elesMVAL_number_s0 = SelectedElectronsMVAL_s0.size();
+        elesMVAF_number_s0 = SelectedElectronsMVAF_s0.size();
+        elesMVAT_number_s0 = SelectedElectronsMVAT_s0.size();
+
+	for (int i = 0; i < ElesMVAL_number_s0; i++) {
+
+	      eleMVAL_pt_s0.push_back(SelectedElectronsMVAL_s0.at(i).Pt());
+	      eleMVAL_eta_s0.push_back(SelectedElectronsMVAL_s0.at(i).Eta());
+	      eleMVAL_phi_s0.push_back(SelectedElectronsMVAL_s0.at(i).Phi());
+	      eleMVAL_E_s0.push_back(SelectedElectronsMVAL_s0.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAF_number_s0; i++) {
+
+	      eleMVAF_pt_s0.push_back(SelectedElectronsMVAF_s0.at(i).Pt());
+	      eleMVAF_eta_s0.push_back(SelectedElectronsMVAF_s0.at(i).Eta());
+	      eleMVAF_phi_s0.push_back(SelectedElectronsMVAF_s0.at(i).Phi());
+	      eleMVAF_E_s0.push_back(SelectedElectronsMVAF_s0.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAT_number_s0; i++) {
+
+	      eleMVAT_pt_s0.push_back(SelectedElectronsMVAT_s0.at(i).Pt());
+	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s0.at(i).Eta());
+	      eleMVAT_phi_s0.push_back(SelectedElectronsMVAT_s0.at(i).Phi());
+	      eleMVAT_E_s0.push_back(SelectedElectronsMVAT_s0.at(i).E());
+	      
+	    }
+	
+
 	// stage 1
 	vector<TLorentzVector> SelectedElectronsMVAL_s1;
         vector<int> SelectedElectronsMVALIndex_s1;
@@ -339,6 +398,37 @@ void EventSelection_4top_v1(
                            1, 1);
         SelectElectronsMVA(SelectedElectronsMVAT_s1, SelectedElectronsMVATIndex_s1,
                            2, 1);
+
+	elesMVAL_number_s1 = SelectedElectronsMVAL_s1.size();
+        elesMVAF_number_s1 = SelectedElectronsMVAF_s1.size();
+        elesMVAT_number_s1 = SelectedElectronsMVAT_s1.size();
+
+	for (int i = 0; i < ElesMVAL_number_s1; i++) {
+
+	      eleMVAL_pt_s1.push_back(SelectedElectronsMVAL_s1.at(i).Pt());
+	      eleMVAL_eta_s1.push_back(SelectedElectronsMVAL_s1.at(i).Eta());
+	      eleMVAL_phi_s1.push_back(SelectedElectronsMVAL_s1.at(i).Phi());
+	      eleMVAL_E_s1.push_back(SelectedElectronsMVAL_s1.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAF_number_s1; i++) {
+
+	      eleMVAF_pt_s1.push_back(SelectedElectronsMVAF_s1.at(i).Pt());
+	      eleMVAF_eta_s1.push_back(SelectedElectronsMVAF_s1.at(i).Eta());
+	      eleMVAF_phi_s1.push_back(SelectedElectronsMVAF_s1.at(i).Phi());
+	      eleMVAF_E_s1.push_back(SelectedElectronsMVAF_s1.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAT_number_s1; i++) {
+
+	      eleMVAT_pt_s1.push_back(SelectedElectronsMVAT_s1.at(i).Pt());
+	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
+	      eleMVAT_phi_s0.push_back(SelectedElectronsMVAT_s1.at(i).Phi());
+	      eleMVAT_E_s1.push_back(SelectedElectronsMVAT_s1.at(i).E());
+	      
+	    }
 
 	// stage 2
 	vector<TLorentzVector> SelectedElectronsMVAL_s2;
@@ -354,6 +444,37 @@ void EventSelection_4top_v1(
         SelectElectronsMVA(SelectedElectronsMVAT_s2, SelectedElectronsMVATIndex_s2,
                            2, 2);
 
+	elesMVAL_number_s2 = SelectedElectronsMVAL_s2.size();
+        elesMVAF_number_s2 = SelectedElectronsMVAF_s2.size();
+        elesMVAT_number_s2 = SelectedElectronsMVAT_s2.size();
+
+	for (int i = 0; i < ElesMVAL_number_s2; i++) {
+
+	      eleMVAL_pt_s2.push_back(SelectedElectronsMVAL_s2.at(i).Pt());
+	      eleMVAL_eta_s2.push_back(SelectedElectronsMVAL_s2.at(i).Eta());
+	      eleMVAL_phi_s2.push_back(SelectedElectronsMVAL_s2.at(i).Phi());
+	      eleMVAL_E_s2.push_back(SelectedElectronsMVAL_s2.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAF_number_s2; i++) {
+
+	      eleMVAF_pt_s2.push_back(SelectedElectronsMVAF_s2.at(i).Pt());
+	      eleMVAF_eta_s2.push_back(SelectedElectronsMVAF_s2.at(i).Eta());
+	      eleMVAF_phi_s2.push_back(SelectedElectronsMVAF_s2.at(i).Phi());
+	      eleMVAF_E_s2.push_back(SelectedElectronsMVAF_s2.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAT_number_s2; i++) {
+
+	      eleMVAT_pt_s2.push_back(SelectedElectronsMVAT_s2.at(i).Pt());
+	      eleMVAT_eta_s2.push_back(SelectedElectronsMVAT_s2.at(i).Eta());
+	      eleMVAT_phi_s2.push_back(SelectedElectronsMVAT_s2.at(i).Phi());
+	      eleMVAT_E_s2.push_back(SelectedElectronsMVAT_s2.at(i).E());
+	      
+	    }
+
 	// stage 3
 	vector<TLorentzVector> SelectedElectronsMVAL_s3;
         vector<int> SelectedElectronsMVALIndex_s3;
@@ -368,6 +489,36 @@ void EventSelection_4top_v1(
         SelectElectronsMVA(SelectedElectronsMVAT_s3, SelectedElectronsMVATIndex_s3,
                            2, 3);
 
+	elesMVAL_number_s3 = SelectedElectronsMVAL_s3.size();
+        elesMVAF_number_s3 = SelectedElectronsMVAF_s3.size();
+        elesMVAT_number_s3 = SelectedElectronsMVAT_s3.size();
+
+	for (int i = 0; i < ElesMVAL_number_s3; i++) {
+
+	      eleMVAL_pt_s3.push_back(SelectedElectronsMVAL_s3.at(i).Pt());
+	      eleMVAL_eta_s3.push_back(SelectedElectronsMVAL_s3.at(i).Eta());
+	      eleMVAL_phi_s3.push_back(SelectedElectronsMVAL_s3.at(i).Phi());
+	      eleMVAL_E_s3.push_back(SelectedElectronsMVAL_s3.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAF_number_s3; i++) {
+
+	      eleMVAF_pt_s3.push_back(SelectedElectronsMVAF_s3.at(i).Pt());
+	      eleMVAF_eta_s3.push_back(SelectedElectronsMVAF_s3.at(i).Eta());
+	      eleMVAF_phi_s3.push_back(SelectedElectronsMVAF_s3.at(i).Phi());
+	      eleMVAF_E_s3.push_back(SelectedElectronsMVAF_s3.at(i).E());
+	      
+	    }
+
+	for (int i = 0; i < ElesMVAT_number_s3; i++) {
+
+	      eleMVAT_pt_s3.push_back(SelectedElectronsMVAT_s3.at(i).Pt());
+	      eleMVAT_eta_s3.push_back(SelectedElectronsMVAT_s3.at(i).Eta());
+	      eleMVAT_phi_s3.push_back(SelectedElectronsMVAT_s3.at(i).Phi());
+	      eleMVAT_E_s3.push_back(SelectedElectronsMVAT_s3.at(i).E());
+	      
+	    }
 
         vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(), SelectedMuonsF.end());
         LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end());
