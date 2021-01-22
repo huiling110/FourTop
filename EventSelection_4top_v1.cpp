@@ -306,8 +306,11 @@ void EventSelection_4top_v1(
                            1, 4);
         SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex,
                            2, 4);
-
-        elesMVAL_number = SelectedElectronsMVAL.size();
+	sort(SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end(), compEle);
+	sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(), compEle);
+	sort(SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end(), compEle);
+        
+	elesMVAL_number = SelectedElectronsMVAL.size();
         elesMVAF_number = SelectedElectronsMVAF.size();
         elesMVAT_number = SelectedElectronsMVAT.size();
 
@@ -352,6 +355,10 @@ void EventSelection_4top_v1(
                            1, 0);
         SelectElectronsMVA(SelectedElectronsMVAT_s0, SelectedElectronsMVATIndex_s0,
                            2, 0);
+
+	sort(SelectedElectronsMVAL_s0.begin(), SelectedElectronsMVAL_s0.end(), compEle);
+        sort(SelectedElectronsMVAF_s0.begin(), SelectedElectronsMVAF_s0.end(), compEle);
+        sort(SelectedElectronsMVAT_s0.begin(), SelectedElectronsMVAT_s0.end(), compEle);
 
 	elesMVAL_number_s0 = SelectedElectronsMVAL_s0.size();
         elesMVAF_number_s0 = SelectedElectronsMVAF_s0.size();
@@ -399,6 +406,10 @@ void EventSelection_4top_v1(
         SelectElectronsMVA(SelectedElectronsMVAT_s1, SelectedElectronsMVATIndex_s1,
                            2, 1);
 
+	sort(SelectedElectronsMVAL_s1.begin(), SelectedElectronsMVAL_s1.end(), compEle);
+        sort(SelectedElectronsMVAF_s1.begin(), SelectedElectronsMVAF_s1.end(), compEle);
+        sort(SelectedElectronsMVAT_s1.begin(), SelectedElectronsMVAT_s1.end(), compEle);
+
 	elesMVAL_number_s1 = SelectedElectronsMVAL_s1.size();
         elesMVAF_number_s1 = SelectedElectronsMVAF_s1.size();
         elesMVAT_number_s1 = SelectedElectronsMVAT_s1.size();
@@ -444,6 +455,10 @@ void EventSelection_4top_v1(
         SelectElectronsMVA(SelectedElectronsMVAT_s2, SelectedElectronsMVATIndex_s2,
                            2, 2);
 
+	sort(SelectedElectronsMVAL_s2.begin(), SelectedElectronsMVAL_s2.end(), compEle);
+        sort(SelectedElectronsMVAF_s2.begin(), SelectedElectronsMVAF_s2.end(), compEle);
+        sort(SelectedElectronsMVAT_s2.begin(), SelectedElectronsMVAT_s2.end(), compEle);
+
 	elesMVAL_number_s2 = SelectedElectronsMVAL_s2.size();
         elesMVAF_number_s2 = SelectedElectronsMVAF_s2.size();
         elesMVAT_number_s2 = SelectedElectronsMVAT_s2.size();
@@ -488,6 +503,10 @@ void EventSelection_4top_v1(
                            1, 3);
         SelectElectronsMVA(SelectedElectronsMVAT_s3, SelectedElectronsMVATIndex_s3,
                            2, 3);
+
+	sort(SelectedElectronsMVAL_s3.begin(), SelectedElectronsMVAL_s3.end(), compEle);
+        sort(SelectedElectronsMVAF_s3.begin(), SelectedElectronsMVAF_s3.end(), compEle);
+        sort(SelectedElectronsMVAT_s3.begin(), SelectedElectronsMVAT_s3.end(), compEle);
 
 	elesMVAL_number_s3 = SelectedElectronsMVAL_s3.size();
         elesMVAF_number_s3 = SelectedElectronsMVAF_s3.size();
