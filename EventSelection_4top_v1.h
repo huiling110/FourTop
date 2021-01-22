@@ -20,7 +20,7 @@ void selectGenTaus( vector<TLorentzVector> &genTaus );
 void selectGenEles( vector<TLorentzVector> &genEles );
 void selectGenMuons( vector<TLorentzVector> &genMuons );
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type);
-void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type );
+void SelectElectronsMVA(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, int type, int stage);
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex, int type);
 void SelectTaus(vector<TLorentzVector>& SelectedTaus,vector<int> & SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,double dRLep1Lep2,double Zpt,double leadLepPt);

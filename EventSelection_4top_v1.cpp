@@ -932,18 +932,22 @@ void SelectElectrons(vector<TLorentzVector> &SelectedElectrons,
 } /*}}}*/
 
 void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
-                        vector<int> &SelectedElectronsIndex, int type) {
+                        vector<int> &SelectedElectronsIndex, int type, int stage) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j) { // banch in tree
                                                          // line945
-    double pt = patElectron_pt_->at(j);
-    double eta = patElectron_eta_->at(j);
-    double MVA_value =
-        patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
-    if (!(fabs(eta) < 2.5))
+    if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
+
+      double pt = patElectron_pt_->at(j);
+      double eta = patElectron_eta_->at(j);
+      double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
+      if (!(fabs(eta) < 2.5))
       continue;
-    //id
+    
+      if (stage == 2 || stage == 3 || stage  == 4) {
+
+	//id
     if (fabs(eta) < 0.8) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
@@ -1064,7 +1068,10 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
         }
       }
     }
-    // ISO
+    
+         if (stage == 3 || stage == 4) {
+	   
+	   // ISO
     double I1 = 0.4, I2 = 0, I3 = 0;
     if (type == 0 || type == 1) {
       I1 = 0.4;
@@ -1076,6 +1083,9 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     if (!((patElectron_miniIsoRel_->at(j) < I1) && ((patElectron_jetptratio_->at(j) > I2) ||   (patElectron_ptrel_->at(j) > I3))))      continue;
     //?if we apply this for tight , the number would be very low.
 
+    if (stage == 4) {
+
+      
     // emulation selection
 
     // IP
@@ -1093,6 +1103,16 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     // charge
     // patElectron_inCrack
     //?missing inner hits;conversion veto;tight charge not avalible on ntuple
+
+
+    }// end stage 4
+    
+
+         }// end stage 3
+      
+      }// end stage 2
+
+    }// end stage 1
 
     TLorentzVector electron;
     electron.SetPtEtaPhiE(patElectron_pt_->at(j), patElectron_eta_->at(j),
