@@ -280,6 +280,11 @@ void EventSelection_4top_v1(
         SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0, 4);
         SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1, 4);
         SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2, 4);//this T is actually the medium in SS
+
+	sort(SelectedMuonsL.begin(), SelectedMuonsL.end(), compEle);
+        sort(SelectedMuonsF.begin(), SelectedMuonsF.end(), compEle);
+        sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
+
         muonsL_number = SelectedMuonsL.size();
         muonsF_number = SelectedMuonsF.size();
         muonsT_number = SelectedMuonsT.size();
@@ -322,7 +327,12 @@ void EventSelection_4top_v1(
         SelectMuons(SelectedMuonsL_s0, SelectedMuonsLIndex_s0, 0, 0);
         SelectMuons(SelectedMuonsF_s0, SelectedMuonsFIndex_s0, 1, 0);
         SelectMuons(SelectedMuonsT_s0, SelectedMuonsTIndex_s0, 2, 0);//this T is actually the medium in SS
-        muonsL_number_s0 = SelectedMuonsL_s0.size();
+       
+	sort(SelectedMuonsL_s0.begin(), SelectedMuonsL_s0.end(), compEle);
+        sort(SelectedMuonsF_s0.begin(), SelectedMuonsF_s0.end(), compEle);
+        sort(SelectedMuonsT_s0.begin(), SelectedMuonsT_s0.end(), compEle);
+
+	muonsL_number_s0 = SelectedMuonsL_s0.size();
         muonsF_number_s0 = SelectedMuonsF_s0.size();
         muonsT_number_s0 = SelectedMuonsT_s0.size();
 
@@ -362,7 +372,12 @@ void EventSelection_4top_v1(
         vector<int> SelectedMuonsTIndex_s1;
         SelectMuons(SelectedMuonsL_s1, SelectedMuonsLIndex_s1, 0, 1);
         SelectMuons(SelectedMuonsF_s1, SelectedMuonsFIndex_s1, 1, 1);
-        SelectMuons(SelectedMuonsT_s1, SelectedMuonsTIndex_s1, 2, 1);//this T is actually the medium in 
+        SelectMuons(SelectedMuonsT_s1, SelectedMuonsTIndex_s1, 2, 1);//this T is actually the medium in
+
+	sort(SelectedMuonsL_s1.begin(), SelectedMuonsL_s1.end(), compEle);
+        sort(SelectedMuonsF_s1.begin(), SelectedMuonsF_s1.end(), compEle);
+        sort(SelectedMuonsT_s1.begin(), SelectedMuonsT_s1.end(), compEle);
+	
         muonsL_number_s1 = SelectedMuonsL_s1.size();
         muonsF_number_s1 = SelectedMuonsF_s1.size();
         muonsT_number_s1 = SelectedMuonsT_s1.size();
@@ -403,7 +418,12 @@ void EventSelection_4top_v1(
         vector<int> SelectedMuonsTIndex_s2;
         SelectMuons(SelectedMuonsL_s2, SelectedMuonsLIndex_s2, 0, 2);
         SelectMuons(SelectedMuonsF_s2, SelectedMuonsFIndex_s2, 1, 2);
-        SelectMuons(SelectedMuonsT_s2, SelectedMuonsTIndex_s2, 2, 2);//this T is actually the medium in SS                                                                                      
+        SelectMuons(SelectedMuonsT_s2, SelectedMuonsTIndex_s2, 2, 2);//this T is actually the medium in SS 
+
+	sort(SelectedMuonsL_s2.begin(), SelectedMuonsL_s2.end(), compEle);
+        sort(SelectedMuonsF_s2.begin(), SelectedMuonsF_s2.end(), compEle);
+        sort(SelectedMuonsT_s2.begin(), SelectedMuonsT_s2.end(), compEle);
+                                                                                     
         muonsL_number_s2 = SelectedMuonsL_s2.size();
         muonsF_number_s2 = SelectedMuonsF_s2.size();
         muonsT_number_s2 = SelectedMuonsT_s2.size();
@@ -445,6 +465,10 @@ void EventSelection_4top_v1(
         SelectMuons(SelectedMuonsL_s3, SelectedMuonsLIndex_s3, 0, 3);
         SelectMuons(SelectedMuonsF_s3, SelectedMuonsFIndex_s3, 1, 3);
         SelectMuons(SelectedMuonsT_s3, SelectedMuonsTIndex_s3, 2, 3);//this T is actually the medium in SS                                                                                      
+	sort(SelectedMuonsL_s3.begin(), SelectedMuonsL_s3.end(), compEle);
+        sort(SelectedMuonsF_s3.begin(), SelectedMuonsF_s3.end(), compEle);
+        sort(SelectedMuonsT_s3.begin(), SelectedMuonsT_s3.end(), compEle);
+
         muonsL_number_s3 = SelectedMuonsL_s3.size();
         muonsF_number_s3 = SelectedMuonsF_s3.size();
         muonsT_number_s3 = SelectedMuonsT_s3.size();
@@ -4489,6 +4513,79 @@ void initializeVar() { /*{{{*/
  muonsT_number=-99;
    muonsL_number=-99;
   muonsF_number = -99;
+  muonsL_number_s0=-99;
+  muonsF_number_s0=-99;
+  muonsT_number_s0=-99;
+  muonsL_number_s1=-99;
+  muonsF_number_s1=-99;
+  muonsT_number_s1=-99;
+  muonsL_number_s2=-99;
+  muonsF_number_s2=-99;
+  muonsT_number_s2=-99;
+  muonsL_number_s3=-99;
+  muonsF_number_s3=-99;
+  muonsT_number_s3=-99;
+  muonL_pt.clear();
+  muonL_eta.clear();
+  muonL_phi.clear();
+  muonL_E.clear();
+  muonF_pt.clear();
+  muonF_eta.clear();
+  muonF_phi.clear();
+  muonF_E.clear();
+  muonT_pt.clear();
+  muonT_eta.clear();
+  muonT_phi.clear();
+  muonT_E.clear();
+  muonL_pt_s0.clear();
+  muonL_eta_s0.clear();
+  muonL_phi_s0.clear();
+  muonL_E_s0.clear();
+  muonF_pt_s0.clear();
+  muonF_eta_s0.clear();
+  muonF_phi_s0.clear();
+  muonF_E_s0.clear();
+  muonT_pt_s0.clear();
+  muonT_eta_s0.clear();
+  muonT_phi_s0.clear();
+  muonT_E_s0.clear();
+  muonL_pt_s1.clear();
+  muonL_eta_s1.clear();
+  muonL_phi_s1.clear();
+  muonL_E_s1.clear();
+  muonF_pt_s1.clear();
+  muonF_eta_s1.clear();
+  muonF_phi_s1.clear();
+  muonF_E_s1.clear();
+  muonT_pt_s1.clear();
+  muonT_eta_s1.clear();
+  muonT_phi_s1.clear();
+  muonT_E_s1.clear();
+  muonL_pt_s2.clear();
+  muonL_eta_s2.clear();
+  muonL_phi_s2.clear();
+  muonL_E_s2.clear();
+  muonF_pt_s2.clear();
+  muonF_eta_s2.clear();
+  muonF_phi_s2.clear();
+  muonF_E_s2.clear();
+  muonT_pt_s2.clear();
+  muonT_eta_s2.clear();
+  muonT_phi_s2.clear();
+  muonT_E_s2.clear();
+  muonL_pt_s3.clear();
+  muonL_eta_s3.clear();
+  muonL_phi_s3.clear();
+  muonL_E_s3.clear();
+  muonF_pt_s3.clear();
+  muonF_eta_s3.clear();
+  muonF_phi_s3.clear();
+  muonF_E_s3.clear();
+  muonT_pt_s3.clear();
+  muonT_eta_s3.clear();
+  muonT_phi_s3.clear();
+  muonT_E_s3.clear();
+
  muonsT_1pt = -99;
  muonsT_1eta = -99;
  muonsT_1phi = -99;
