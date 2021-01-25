@@ -3,15 +3,15 @@
 
 using namespace std;
 
-string dir = "/publicfs/cms/user/fabioiemmi/v20_checkforv19/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
-//{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
+{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
 
 //ttbar background    
-{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
+//{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
 /*    
 //tt+X background
 {"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
@@ -67,6 +67,9 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"VBFHToGG", dir + "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root"},
 */
 };
+
+void recoEff(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* recoVar);
+void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
 
 double recoEff_1tau1e;
 double recoEff_1tau1mu;
