@@ -3692,8 +3692,8 @@ void branch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
   NewTree->Branch("leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
   NewTree->Branch("elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
-  NewTree->Branch("elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
   NewTree->Branch("elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
+  NewTree->Branch("elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
   NewTree->Branch("elesMVAL_number_s0", &elesMVAL_number_s0, "elesMVAL_number_s0/I");
   NewTree->Branch("elesMVAT_number_s0", &elesMVAT_number_s0, "elesMVAT_number_s0/I");
   NewTree->Branch("elesMVAF_number_s0", &elesMVAF_number_s0, "elesMVAF_number_s0/I");
