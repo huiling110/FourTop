@@ -652,8 +652,8 @@ void EventSelection_4top_v1(
 	for (int i = 0; i < elesMVAT_number_s1; i++) {
 
 	      eleMVAT_pt_s1.push_back(SelectedElectronsMVAT_s1.at(i).Pt());
-	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
-	      eleMVAT_phi_s0.push_back(SelectedElectronsMVAT_s1.at(i).Phi());
+	      eleMVAT_eta_s1.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
+	      eleMVAT_phi_s1.push_back(SelectedElectronsMVAT_s1.at(i).Phi());
 	      eleMVAT_E_s1.push_back(SelectedElectronsMVAT_s1.at(i).E());
 	      
 	    }
