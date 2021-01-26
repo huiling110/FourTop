@@ -98,7 +98,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 1000;
+        NumOfEvents = 100000;
       } else {
         NumOfEvents = nentries;
       }
@@ -1387,6 +1387,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
       double pt = patElectron_pt_->at(j);
       double eta = patElectron_eta_->at(j);
       double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_->at(j);
+      double raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
       if (!(fabs(eta) < 2.5))
       continue;
     
@@ -1396,39 +1397,39 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     if (fabs(eta) < 0.8) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > (3.447 + 0.063 * (pt - 25))))
+          if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
-          if (!(MVA_value > 4.392))
+          if (!(raw_MVA_value > 4.392))
             continue;
         }
       }
       if (type == 0) {
         if (5 < pt && pt < 10) {
-          if (!(MVA_value > 1.309))
+          if (!(raw_MVA_value > 1.309))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > ( 0.887 + 0.088 * (pt - 25))))
+          if (!(raw_MVA_value > ( 0.887 + 0.088 * (pt - 25))))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > 0.887))
+          if (!(raw_MVA_value > 0.887))
             continue;
         }
       }
       if (type == 1) {
         if (5 < pt && pt < 10) {
-          if (!(MVA_value > (-0.259)))
+          if (!(raw_MVA_value > (-0.259)))
             continue;
         }
         if (10 < pt && pt <= 25) {
-          if (!(MVA_value >( (-0.388) + 0.109 * (pt - 25))))
+          if (!(raw_MVA_value >( (-0.388) + 0.109 * (pt - 25))))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > (-0.388)))
+          if (!(raw_MVA_value > (-0.388)))
             continue;
         }
       }
@@ -1436,39 +1437,39 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > (2.522 + 0.058 * (pt - 25))))
+          if (!(raw_MVA_value > (2.522 + 0.058 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
-          if (!(MVA_value > 3.392))
+          if (!(raw_MVA_value > 3.392))
             continue;
         }
       }
       if (type == 0) {
         if (5 < pt && pt <= 10) {
-          if (!(MVA_value > 0.373))
+          if (!(raw_MVA_value > 0.373))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > (0.112 + 0.099 * (pt - 25))))
+          if (!(raw_MVA_value > (0.112 + 0.099 * (pt - 25))))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > 0.112))
+          if (!(raw_MVA_value > 0.112))
             continue;
         }
       }
       if (type == 1) {
         if (5 < pt && pt <= 10) {
-          if (!(MVA_value > (-0.256)))
+          if (!(raw_MVA_value > (-0.256)))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > (-0.696) + 0.106 * (pt - 25)))
+          if (!(raw_MVA_value > (-0.696) + 0.106 * (pt - 25)))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > (-0.696)))
+          if (!(raw_MVA_value > (-0.696)))
             continue;
         }
       }
@@ -1476,39 +1477,39 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
       if (type == 2) {
         if (10 < pt && pt < 40) {
-          if (!(MVA_value > (1.555 + 0.075 * (pt - 25))))
+          if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))
             continue;
         }
         if (pt >= 40) {
-          if (!(MVA_value > 2.680))
+          if (!(raw_MVA_value > 2.680))
             continue;
         }
       }
       if (type == 0) {
         if (5 < pt && pt <= 10) {
-          if (!(MVA_value > 0.071))
+          if (!(raw_MVA_value > 0.071))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > ((-0.017) + 0.137 * (pt - 25))))
+          if (!(raw_MVA_value > ((-0.017) + 0.137 * (pt - 25))))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > (-0.017)))
+          if (!(raw_MVA_value > (-0.017)))
             continue;
         }
       }
       if (type == 1) {
         if (5 < pt && pt <= 10) {
-          if (!(MVA_value > (-1.630)))
+          if (!(raw_MVA_value > (-1.630)))
             continue;
         }
         if (10 < pt && pt < 25) {
-          if (!(MVA_value > ((-1.219) + 0.148 * (pt - 25))))
+          if (!(raw_MVA_value > ((-1.219) + 0.148 * (pt - 25))))
             continue;
         }
         if (pt >= 25) {
-          if (!(MVA_value > (-1.219)))
+          if (!(raw_MVA_value > (-1.219)))
             continue;
         }
       }
