@@ -1,4 +1,4 @@
-B0;115;0c#include <TH1F.h>
+#include <TH1F.h>
 #include <TFile.h>
 #include <TTree.h>
 #include <TBenchmark.h>
@@ -285,7 +285,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
 
  }// end loop over events
 
- TFile *outputfile = new TFile( ("leptonRecoEff_output_" + file_it->first + ".root").c_str(), "RECREATE" );
+ TFile *outputfile = new TFile( ("leptonRecoEff_output_" + file_it->first + "_bugfix.root").c_str(), "RECREATE" );
 
  writeTEfficiency(eleMVAT_pt_bef, eleMVAT_pt_aft, "eleMVAT_recoEff");
  writeTEfficiency(eleMVAT_pt_s0_bef, eleMVAT_pt_s0_aft, "eleMVAT_s0_recoEff");

@@ -1,10 +1,11 @@
+#include <iostream>
 #include <map>
 #include <TEfficiency.h>
 
 using namespace std;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages/NoJEC/";
-
+//string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_bugfix/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/NoJEC/";
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
@@ -12,13 +13,13 @@ map<string, string> file = { //MAP OF INPUT FILES
 
 //ttbar background    
 //{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
-/*    
+    
 //tt+X background
-{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
-{"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
-{"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
-{"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
-
+//{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
+//{"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
+//{"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
+//{"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
+/*
 //diboson background
 {"WZ", dir + "WZ_TuneCUETP8M1_13TeV-pythia8.root"},
 {"WWTo2L2Nu", dir + "WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root"},
