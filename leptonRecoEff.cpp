@@ -16,38 +16,61 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  cout << "Opening file " << file_it->second << "..." << endl;
  TFile *inputfile  = new TFile( file_it->second.c_str(), "READ" );
 
- TH1F * eleMVAT_pt_bef = new TH1F("eleMVAT_pt_bef", "eleMVAT_pt_bef", 60, 0, 60);
- TH1F * eleMVAT_pt_aft = new TH1F("eleMVAT_pt_aft", "eleMVAT_pt_aft", 60, 0, 60);
- TH1F * eleMVAT_pt_s0_bef = new TH1F("eleMVAT_pt_s0_bef", "eleMVAT_pt_s0_bef", 60, 0, 60);
- TH1F * eleMVAT_pt_s0_aft = new TH1F("eleMVAT_pt_s0_aft", "eleMVAT_pt_s0_aft", 60, 0, 60);
- TH1F * eleMVAT_pt_s1_bef = new TH1F("eleMVAT_pt_s1_bef", "eleMVAT_pt_s1_bef", 60, 0, 60);
- TH1F * eleMVAT_pt_s1_aft = new TH1F("eleMVAT_pt_s1_aft", "eleMVAT_pt_s1_aft", 60, 0, 60);
- TH1F * eleMVAT_pt_s2_bef = new TH1F("eleMVAT_pt_s2_bef", "eleMVAT_pt_s2_bef", 60, 0, 60);
- TH1F * eleMVAT_pt_s2_aft = new TH1F("eleMVAT_pt_s2_aft", "eleMVAT_pt_s2_aft", 60, 0, 60);
- TH1F * eleMVAT_pt_s3_bef = new TH1F("eleMVAT_pt_s3_bef", "eleMVAT_pt_s3_bef", 60, 0, 60);
- TH1F * eleMVAT_pt_s3_aft = new TH1F("eleMVAT_pt_s3_aft", "eleMVAT_pt_s3_aft", 60, 0, 60);
+ TH1F * genEle_pt_bef = new TH1F("genEle_pt_bef", "genEle_pt_bef", 100, 0, 100);
+ TH1F * genEle_pt_aft = new TH1F("genEle_pt_aft", "genEle_pt_aft", 100, 0, 100);
+ TH1F * genEle_pt_s0_bef = new TH1F("genEle_pt_s0_bef", "genEle_pt_s0_bef", 100, 0, 100);
+ TH1F * genEle_pt_s0_aft = new TH1F("genEle_pt_s0_aft", "genEle_pt_s0_aft", 100, 0, 100);
+ TH1F * genEle_pt_s1_bef = new TH1F("genEle_pt_s1_bef", "genEle_pt_s1_bef", 100, 0, 100);
+ TH1F * genEle_pt_s1_aft = new TH1F("genEle_pt_s1_aft", "genEle_pt_s1_aft", 100, 0, 100);
+ TH1F * genEle_pt_s2_bef = new TH1F("genEle_pt_s2_bef", "genEle_pt_s2_bef", 100, 0, 100);
+ TH1F * genEle_pt_s2_aft = new TH1F("genEle_pt_s2_aft", "genEle_pt_s2_aft", 100, 0, 100);
+ TH1F * genEle_pt_s3_bef = new TH1F("genEle_pt_s3_bef", "genEle_pt_s3_bef", 100, 0, 100);
+ TH1F * genEle_pt_s3_aft = new TH1F("genEle_pt_s3_aft", "genEle_pt_s3_aft", 100, 0, 100);
+
+ TH1F * eleMVAT_pt_bef = new TH1F("eleMVAT_pt_bef", "eleMVAT_pt_bef", 100, 0, 100);
+ TH1F * eleMVAT_pt_aft = new TH1F("eleMVAT_pt_aft", "eleMVAT_pt_aft", 100, 0, 100);
+ TH1F * eleMVAT_pt_s0_bef = new TH1F("eleMVAT_pt_s0_bef", "eleMVAT_pt_s0_bef", 100, 0, 100);
+ TH1F * eleMVAT_pt_s0_aft = new TH1F("eleMVAT_pt_s0_aft", "eleMVAT_pt_s0_aft", 100, 0, 100);
+ TH1F * eleMVAT_pt_s1_bef = new TH1F("eleMVAT_pt_s1_bef", "eleMVAT_pt_s1_bef", 100, 0, 100);
+ TH1F * eleMVAT_pt_s1_aft = new TH1F("eleMVAT_pt_s1_aft", "eleMVAT_pt_s1_aft", 100, 0, 100);
+ TH1F * eleMVAT_pt_s2_bef = new TH1F("eleMVAT_pt_s2_bef", "eleMVAT_pt_s2_bef", 100, 0, 100);
+ TH1F * eleMVAT_pt_s2_aft = new TH1F("eleMVAT_pt_s2_aft", "eleMVAT_pt_s2_aft", 100, 0, 100);
+ TH1F * eleMVAT_pt_s3_bef = new TH1F("eleMVAT_pt_s3_bef", "eleMVAT_pt_s3_bef", 100, 0, 100);
+ TH1F * eleMVAT_pt_s3_aft = new TH1F("eleMVAT_pt_s3_aft", "eleMVAT_pt_s3_aft", 100, 0, 100);
  /*
- TH1F * eleMVAL_pt_bef = new TH1F("eleMVAL_pt_bef", "eleMVAL_pt_bef", 60, 0, 60);
- TH1F * eleMVAL_pt_aft = new TH1F("eleMVAL_pt_aft", "eleMVAL_pt_aft", 60, 0, 60);
- TH1F * eleMVAL_pt_s0_bef = new TH1F("eleMVAL_pt_s0_bef", "eleMVAL_pt_s0_bef", 60, 0, 60);
- TH1F * eleMVAL_pt_s0_aft = new TH1F("eleMVAL_pt_s0_aft", "eleMVAL_pt_s0_aft", 60, 0, 60);
- TH1F * eleMVAL_pt_s1_bef = new TH1F("eleMVAL_pt_s1_bef", "eleMVAL_pt_s1_bef", 60, 0, 60);
- TH1F * eleMVAL_pt_s1_aft = new TH1F("eleMVAL_pt_s1_aft", "eleMVAL_pt_s1_aft", 60, 0, 60);
- TH1F * eleMVAL_pt_s2_bef = new TH1F("eleMVAL_pt_s2_bef", "eleMVAL_pt_s2_bef", 60, 0, 60);
- TH1F * eleMVAL_pt_s2_aft = new TH1F("eleMVAL_pt_s2_aft", "eleMVAL_pt_s2_aft", 60, 0, 60);
- TH1F * eleMVAL_pt_s3_bef = new TH1F("eleMVAL_pt_s3_bef", "eleMVAL_pt_s3_bef", 60, 0, 60);
- TH1F * eleMVAL_pt_s3_aft = new TH1F("eleMVAL_pt_s3_aft", "eleMVAL_pt_s3_aft", 60, 0, 60);
+ TH1F * eleMVAL_pt_bef = new TH1F("eleMVAL_pt_bef", "eleMVAL_pt_bef", 100, 0, 100);
+ TH1F * eleMVAL_pt_aft = new TH1F("eleMVAL_pt_aft", "eleMVAL_pt_aft", 100, 0, 100);
+ TH1F * eleMVAL_pt_s0_bef = new TH1F("eleMVAL_pt_s0_bef", "eleMVAL_pt_s0_bef", 100, 0, 100);
+ TH1F * eleMVAL_pt_s0_aft = new TH1F("eleMVAL_pt_s0_aft", "eleMVAL_pt_s0_aft", 100, 0, 100);
+ TH1F * eleMVAL_pt_s1_bef = new TH1F("eleMVAL_pt_s1_bef", "eleMVAL_pt_s1_bef", 100, 0, 100);
+ TH1F * eleMVAL_pt_s1_aft = new TH1F("eleMVAL_pt_s1_aft", "eleMVAL_pt_s1_aft", 100, 0, 100);
+ TH1F * eleMVAL_pt_s2_bef = new TH1F("eleMVAL_pt_s2_bef", "eleMVAL_pt_s2_bef", 100, 0, 100);
+ TH1F * eleMVAL_pt_s2_aft = new TH1F("eleMVAL_pt_s2_aft", "eleMVAL_pt_s2_aft", 100, 0, 100);
+ TH1F * eleMVAL_pt_s3_bef = new TH1F("eleMVAL_pt_s3_bef", "eleMVAL_pt_s3_bef", 100, 0, 100);
+ TH1F * eleMVAL_pt_s3_aft = new TH1F("eleMVAL_pt_s3_aft", "eleMVAL_pt_s3_aft", 100, 0, 100);
  */
- TH1F * muonT_pt_bef = new TH1F("muonT_pt_bef", "muonT_pt_bef", 60, 0, 60);
- TH1F * muonT_pt_aft = new TH1F("muonT_pt_aft", "muonT_pt_aft", 60, 0, 60);
- TH1F * muonT_pt_s0_bef = new TH1F("muonT_pt_s0_bef", "muonT_pt_s0_bef", 60, 0, 60);
- TH1F * muonT_pt_s0_aft = new TH1F("muonT_pt_s0_aft", "muonT_pt_s0_aft", 60, 0, 60);
- TH1F * muonT_pt_s1_bef = new TH1F("muonT_pt_s1_bef", "muonT_pt_s1_bef", 60, 0, 60);
- TH1F * muonT_pt_s1_aft = new TH1F("muonT_pt_s1_aft", "muonT_pt_s1_aft", 60, 0, 60);
- TH1F * muonT_pt_s2_bef = new TH1F("muonT_pt_s2_bef", "muonT_pt_s2_bef", 60, 0, 60);
- TH1F * muonT_pt_s2_aft = new TH1F("muonT_pt_s2_aft", "muonT_pt_s2_aft", 60, 0, 60);
- TH1F * muonT_pt_s3_bef = new TH1F("muonT_pt_s3_bef", "muonT_pt_s3_bef", 60, 0, 60);
- TH1F * muonT_pt_s3_aft = new TH1F("muonT_pt_s3_aft", "muonT_pt_s3_aft", 60, 0, 60);
+
+ TH1F * genMuon_pt_bef = new TH1F("genMuon_pt_bef", "genMuon_pt_bef", 100, 0, 100);
+ TH1F * genMuon_pt_aft = new TH1F("genMuon_pt_aft", "genMuon_pt_aft", 100, 0, 100);
+ TH1F * genMuon_pt_s0_bef = new TH1F("genMuon_pt_s0_bef", "genMuon_pt_s0_bef", 100, 0, 100);
+ TH1F * genMuon_pt_s0_aft = new TH1F("genMuon_pt_s0_aft", "genMuon_pt_s0_aft", 100, 0, 100);
+ TH1F * genMuon_pt_s1_bef = new TH1F("genMuon_pt_s1_bef", "genMuon_pt_s1_bef", 100, 0, 100);
+ TH1F * genMuon_pt_s1_aft = new TH1F("genMuon_pt_s1_aft", "genMuon_pt_s1_aft", 100, 0, 100);
+ TH1F * genMuon_pt_s2_bef = new TH1F("genMuon_pt_s2_bef", "genMuon_pt_s2_bef", 100, 0, 100);
+ TH1F * genMuon_pt_s2_aft = new TH1F("genMuon_pt_s2_aft", "genMuon_pt_s2_aft", 100, 0, 100);
+ TH1F * genMuon_pt_s3_bef = new TH1F("genMuon_pt_s3_bef", "genMuon_pt_s3_bef", 100, 0, 100);
+ TH1F * genMuon_pt_s3_aft = new TH1F("genMuon_pt_s3_aft", "genMuon_pt_s3_aft", 100, 0, 100);
+
+ TH1F * muonT_pt_bef = new TH1F("muonT_pt_bef", "muonT_pt_bef", 100, 0, 100);
+ TH1F * muonT_pt_aft = new TH1F("muonT_pt_aft", "muonT_pt_aft", 100, 0, 100);
+ TH1F * muonT_pt_s0_bef = new TH1F("muonT_pt_s0_bef", "muonT_pt_s0_bef", 100, 0, 100);
+ TH1F * muonT_pt_s0_aft = new TH1F("muonT_pt_s0_aft", "muonT_pt_s0_aft", 100, 0, 100);
+ TH1F * muonT_pt_s1_bef = new TH1F("muonT_pt_s1_bef", "muonT_pt_s1_bef", 100, 0, 100);
+ TH1F * muonT_pt_s1_aft = new TH1F("muonT_pt_s1_aft", "muonT_pt_s1_aft", 100, 0, 100);
+ TH1F * muonT_pt_s2_bef = new TH1F("muonT_pt_s2_bef", "muonT_pt_s2_bef", 100, 0, 100);
+ TH1F * muonT_pt_s2_aft = new TH1F("muonT_pt_s2_aft", "muonT_pt_s2_aft", 100, 0, 100);
+ TH1F * muonT_pt_s3_bef = new TH1F("muonT_pt_s3_bef", "muonT_pt_s3_bef", 100, 0, 100);
+ TH1F * muonT_pt_s3_aft = new TH1F("muonT_pt_s3_aft", "muonT_pt_s3_aft", 100, 0, 100);
 
 //addressing branches
  TTree *evt = (TTree*)inputfile->Get( "tree" );
@@ -55,6 +78,9 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  int mygenEles_number = 0;
  evt->SetBranchAddress( "genEles_number", &mygenEles_number );
  
+ vector<double> * mygenEle_pt = 0;
+ evt->SetBranchAddress( "genEle_pt", &mygenEle_pt );
+
  vector<double> * mygenEle_eta = 0;
  evt->SetBranchAddress( "genEle_eta", &mygenEle_eta );
 
@@ -64,6 +90,9 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  int mygenMuons_number = 0;
  evt->SetBranchAddress( "genMuons_number", &mygenMuons_number );
  
+ vector<double> * mygenMuon_pt = 0;
+ evt->SetBranchAddress( "genMuon_pt", &mygenMuon_pt );
+
  vector<double> * mygenMuon_eta = 0;
  evt->SetBranchAddress( "genMuon_eta", &mygenMuon_eta );
 
@@ -264,46 +293,101 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
   //get i-th entry in tree
   evt->GetEntry( ievent );
 
-  recoEff(0.4, mygenEles_number, myelesMVAT_number, mygenEle_eta, mygenEle_phi, myeleMVAT_eta,myeleMVAT_phi, eleMVAT_pt_bef, eleMVAT_pt_aft, myeleMVAT_pt);
-  recoEff(0.4, mygenEles_number, myelesMVAT_number_s0, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s0, myeleMVAT_phi_s0, eleMVAT_pt_s0_bef, eleMVAT_pt_s0_aft, myeleMVAT_pt_s0);
-  recoEff(0.4, mygenEles_number, myelesMVAT_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s1, myeleMVAT_phi_s1, eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, myeleMVAT_pt_s1);
-  recoEff(0.4, mygenEles_number, myelesMVAT_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s2, myeleMVAT_phi_s2, eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, myeleMVAT_pt_s2);
-  recoEff(0.4, mygenEles_number, myelesMVAT_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s3, myeleMVAT_phi_s3, eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, myeleMVAT_pt_s3);
-  /*
+  if (mygenEles_number > 0) {
+    if (myelesMVAT_number_s0 > 0)
+      recoEff(0.4, mygenEles_number, myelesMVAT_number_s0, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s0, myeleMVAT_phi_s0, genEle_pt_s0_bef, genEle_pt_s0_aft, mygenEle_pt);
+    if (myelesMVAT_number_s1 > 0)
+      recoEff(0.4, mygenEles_number, myelesMVAT_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s1, myeleMVAT_phi_s1, genEle_pt_s1_bef, genEle_pt_s1_aft, mygenEle_pt);
+    if (myelesMVAT_number_s2 > 0)
+      recoEff(0.4, mygenEles_number, myelesMVAT_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s2, myeleMVAT_phi_s2, genEle_pt_s2_bef, genEle_pt_s2_aft, mygenEle_pt);
+    if (myelesMVAT_number_s3 > 0)
+      recoEff(0.4, mygenEles_number, myelesMVAT_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s3, myeleMVAT_phi_s3, genEle_pt_s3_bef, genEle_pt_s3_aft, mygenEle_pt);
+    if (myelesMVAT_number > 0)
+      recoEff(0.4, mygenEles_number, myelesMVAT_number, mygenEle_eta, mygenEle_phi, myeleMVAT_eta,myeleMVAT_phi, genEle_pt_bef, genEle_pt_aft, mygenEle_pt);
+}
+
+  if (mygenEles_number > 0) {
+    if (myelesMVAT_number_s0 > 0)
+      recoPurity(0.4, mygenEles_number, myelesMVAT_number_s0, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s0, myeleMVAT_phi_s0, eleMVAT_pt_s0_bef, eleMVAT_pt_s0_aft, myeleMVAT_pt_s0);
+    if (myelesMVAT_number_s1 > 0)
+      recoPurity(0.4, mygenEles_number, myelesMVAT_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s1, myeleMVAT_phi_s1, eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, myeleMVAT_pt_s1);
+    if (myelesMVAT_number_s2 > 0)
+      recoPurity(0.4, mygenEles_number, myelesMVAT_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s2, myeleMVAT_phi_s2, eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, myeleMVAT_pt_s2);
+    if (myelesMVAT_number_s3 > 0)
+      recoPurity(0.4, mygenEles_number, myelesMVAT_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s3, myeleMVAT_phi_s3, eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, myeleMVAT_pt_s3);
+    if (myelesMVAT_number > 0)
+      recoPurity(0.4, mygenEles_number, myelesMVAT_number, mygenEle_eta, mygenEle_phi, myeleMVAT_eta,myeleMVAT_phi, eleMVAT_pt_bef, eleMVAT_pt_aft, myeleMVAT_pt);
+  }
+
+/*
   recoEff(0.4, mygenEles_number, myelesMVAL_number, mygenEle_eta, mygenEle_phi, myeleMVAL_eta,myeleMVAL_phi, eleMVAL_pt_bef, eleMVAL_pt_aft, myeleMVAL_pt);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s0, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s0, myeleMVAL_phi_s0, eleMVAL_pt_s0_bef, eleMVAL_pt_s0_aft, myeleMVAL_pt_s0);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s1, myeleMVAL_phi_s1, eleMVAL_pt_s1_bef, eleMVAL_pt_s1_aft, myeleMVAL_pt_s1);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s2, myeleMVAL_phi_s2, eleMVAL_pt_s2_bef, eleMVAL_pt_s2_aft, myeleMVAL_pt_s2);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s3, myeleMVAL_phi_s3, eleMVAL_pt_s3_bef, eleMVAL_pt_s3_aft, myeleMVAL_pt_s3);
   */
-  recoEff(0.4, mygenMuons_number, mymuonsT_number, mygenMuon_eta, mygenMuon_phi, mymuonT_eta,mymuonT_phi, muonT_pt_bef, muonT_pt_aft, mymuonT_pt);
-  recoEff(0.4, mygenMuons_number, mymuonsT_number_s0, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s0, mymuonT_phi_s0, muonT_pt_s0_bef, muonT_pt_s0_aft, mymuonT_pt_s0);
-  recoEff(0.4, mygenMuons_number, mymuonsT_number_s1, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s1, mymuonT_phi_s1, muonT_pt_s1_bef, muonT_pt_s1_aft, mymuonT_pt_s1);
-  recoEff(0.4, mygenMuons_number, mymuonsT_number_s2, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s2, mymuonT_phi_s2, muonT_pt_s2_bef, muonT_pt_s2_aft, mymuonT_pt_s2);
-  recoEff(0.4, mygenMuons_number, mymuonsT_number_s3, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s3, mymuonT_phi_s3, muonT_pt_s3_bef, muonT_pt_s3_aft, mymuonT_pt_s3);
+  
+  if (mygenMuons_number > 0) {
+    if (mymuonsT_number_s0 > 0)
+      recoEff(0.4, mygenMuons_number, mymuonsT_number_s0, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s0, mymuonT_phi_s0, genMuon_pt_s0_bef, genMuon_pt_s0_aft, mygenMuon_pt);
+    if (mymuonsT_number_s1 > 0)
+      recoEff(0.4, mygenMuons_number, mymuonsT_number_s1, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s1, mymuonT_phi_s1, genMuon_pt_s1_bef, genMuon_pt_s1_aft, mygenMuon_pt);
+    if (mymuonsT_number_s2 > 0)
+      recoEff(0.4, mygenMuons_number, mymuonsT_number_s2, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s2, mymuonT_phi_s2, genMuon_pt_s2_bef, genMuon_pt_s2_aft, mygenMuon_pt);
+    if (mymuonsT_number_s3 > 0)
+      recoEff(0.4, mygenMuons_number, mymuonsT_number_s3, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s3, mymuonT_phi_s3, genMuon_pt_s3_bef, genMuon_pt_s3_aft, mygenMuon_pt);
+    if (mymuonsT_number > 0)
+      recoEff(0.4, mygenMuons_number, mymuonsT_number, mygenMuon_eta, mygenMuon_phi, mymuonT_eta,mymuonT_phi, genMuon_pt_bef, genMuon_pt_aft, mygenMuon_pt);
+}
+  if (mygenMuons_number > 0) {
+    if (mymuonsT_number_s0 > 0)
+      recoPurity(0.4, mygenMuons_number, mymuonsT_number_s0, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s0, mymuonT_phi_s0, muonT_pt_s0_bef, muonT_pt_s0_aft, mymuonT_pt_s0);
+    if (mymuonsT_number_s1 > 0)
+      recoPurity(0.4, mygenMuons_number, mymuonsT_number_s1, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s1, mymuonT_phi_s1, muonT_pt_s1_bef, muonT_pt_s1_aft, mymuonT_pt_s1);
+    if (mymuonsT_number_s2 > 0)
+      recoPurity(0.4, mygenMuons_number, mymuonsT_number_s2, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s2, mymuonT_phi_s2, muonT_pt_s2_bef, muonT_pt_s2_aft, mymuonT_pt_s2);
+    if (mymuonsT_number_s3 > 0)
+      recoPurity(0.4, mygenMuons_number, mymuonsT_number_s3, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s3, mymuonT_phi_s3, muonT_pt_s3_bef, muonT_pt_s3_aft, mymuonT_pt_s3);
+    if (mymuonsT_number > 0)
+      recoPurity(0.4, mygenMuons_number, mymuonsT_number, mygenMuon_eta, mygenMuon_phi, mymuonT_eta,mymuonT_phi, muonT_pt_bef, muonT_pt_aft, mymuonT_pt);
+  }
 
  }// end loop over events
 
- TFile *outputfile = new TFile( ("leptonRecoEff_output_" + file_it->first + "_eleIDbugfix.root").c_str(), "RECREATE" );
+ TFile *outputfile = new TFile( ("leptonRecoEff_output_" + file_it->first + "_eleIDbugfix_new.root").c_str(), "RECREATE" );
 
- writeTEfficiency(eleMVAT_pt_bef, eleMVAT_pt_aft, "eleMVAT_recoEff");
- writeTEfficiency(eleMVAT_pt_s0_bef, eleMVAT_pt_s0_aft, "eleMVAT_s0_recoEff");
- writeTEfficiency(eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, "eleMVAT_s1_recoEff");
- writeTEfficiency(eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, "eleMVAT_s2_recoEff");
- writeTEfficiency(eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, "eleMVAT_s3_recoEff");
- /*
+ writeTEfficiency(genEle_pt_s0_bef, genEle_pt_s0_aft, "eleMVAT_s0_recoEff");
+ writeTEfficiency(genEle_pt_s1_bef, genEle_pt_s1_aft, "eleMVAT_s1_recoEff");
+ writeTEfficiency(genEle_pt_s2_bef, genEle_pt_s2_aft, "eleMVAT_s2_recoEff");
+ writeTEfficiency(genEle_pt_s3_bef, genEle_pt_s3_aft, "eleMVAT_s3_recoEff");
+ writeTEfficiency(genEle_pt_bef, genEle_pt_aft, "eleMVAT_recoEff");
+
+ writeTEfficiency(eleMVAT_pt_s0_bef, eleMVAT_pt_s0_aft, "eleMVAT_s0_recoPurity");
+ writeTEfficiency(eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, "eleMVAT_s1_recoPurity");
+ writeTEfficiency(eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, "eleMVAT_s2_recoPurity");
+ writeTEfficiency(eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, "eleMVAT_s3_recoPurity");
+ writeTEfficiency(eleMVAT_pt_bef, eleMVAT_pt_aft, "eleMVAT_recoPurity");
+
+/*
  writeTEfficiency(eleMVAL_pt_bef, eleMVAL_pt_aft, "eleMVAL_recoEff");
  writeTEfficiency(eleMVAL_pt_s0_bef, eleMVAL_pt_s0_aft, "eleMVAL_s0_recoEff");
  writeTEfficiency(eleMVAL_pt_s1_bef, eleMVAL_pt_s1_aft, "eleMVAL_s1_recoEff");
  writeTEfficiency(eleMVAL_pt_s2_bef, eleMVAL_pt_s2_aft, "eleMVAL_s2_recoEff");
  writeTEfficiency(eleMVAL_pt_s3_bef, eleMVAL_pt_s3_aft, "eleMVAL_s3_recoEff");
  */
- writeTEfficiency(muonT_pt_bef, muonT_pt_aft, "muonT_recoEff");
- writeTEfficiency(muonT_pt_s0_bef, muonT_pt_s0_aft, "muonT_s0_recoEff");
- writeTEfficiency(muonT_pt_s1_bef, muonT_pt_s1_aft, "muonT_s1_recoEff");
- writeTEfficiency(muonT_pt_s2_bef, muonT_pt_s2_aft, "muonT_s2_recoEff");
- writeTEfficiency(muonT_pt_s3_bef, muonT_pt_s3_aft, "muonT_s3_recoEff");
+ 
+ writeTEfficiency(genMuon_pt_s0_bef, genMuon_pt_s0_aft, "muonT_s0_recoEff");
+ writeTEfficiency(genMuon_pt_s1_bef, genMuon_pt_s1_aft, "muonT_s1_recoEff");
+ writeTEfficiency(genMuon_pt_s2_bef, genMuon_pt_s2_aft, "muonT_s2_recoEff");
+ writeTEfficiency(genMuon_pt_s3_bef, genMuon_pt_s3_aft, "muonT_s3_recoEff");
+ writeTEfficiency(genMuon_pt_bef, genMuon_pt_aft, "muonT_recoEff");
 
+ writeTEfficiency(muonT_pt_s0_bef, muonT_pt_s0_aft, "muonT_s0_recoPurity");
+ writeTEfficiency(muonT_pt_s1_bef, muonT_pt_s1_aft, "muonT_s1_recoPurity");
+ writeTEfficiency(muonT_pt_s2_bef, muonT_pt_s2_aft, "muonT_s2_recoPurity");
+ writeTEfficiency(muonT_pt_s3_bef, muonT_pt_s3_aft, "muonT_s3_recoPurity");
+ writeTEfficiency(muonT_pt_bef, muonT_pt_aft, "muonT_recoPurity");
+ 
  outputfile->Close();
  delete outputfile;
 
@@ -322,16 +406,16 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
 
 
 
-void recoEff(double dRmatch, int nGen, int nReco, vector<double> * genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector<double>* recoVar) {
+void recoEff(double dRmatch, int nGen, int nReco, vector<double> * genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector<double>* genVar) {//see how many gen-level leptons are matched in DR to reconstructed leptons
 
   double dRmin = 10.0;
-  int whichlepton = -1;
-
+  
   for (int i = 0; i < nGen; i++) {
+    
+    hBef->Fill(genVar->at(i));
 
     for (int j = 0; j < nReco; j++) {
       
-      hBef->Fill(recoVar->at(j));
       Float_t dEta = fabs( genEta->at(i) - recoEta->at(j) );
       Float_t dPhi = fabs( genPhi->at(i) -recoPhi->at(j) );
       if(dPhi > 3.14159265358979323846) dPhi  = 2*3.14159265358979323846 - dPhi;
@@ -340,12 +424,42 @@ void recoEff(double dRmatch, int nGen, int nReco, vector<double> * genEta, vecto
       if ( dR < dRmin ) {
                             
 	dRmin = dR;
-	whichlepton = j;
+	
       }
 
     }
    
-    if (dRmin < dRmatch) hAft->Fill(recoVar->at(whichlepton));
+    if (dRmin < dRmatch) hAft->Fill(genVar->at(i));
+ 
+  }
+
+}
+
+
+void recoPurity(double dRmatch, int nGen, int nReco, vector<double> * genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector<double>* recoVar) { //see how many reco-level leptons are matched in DR to gen leptons
+
+  double dRmin = 10.0;
+
+  for (int i = 0; i < nReco; i++) {
+
+    hBef->Fill(recoVar->at(i));
+
+    for (int j = 0; j < nGen; j++) {
+      
+      Float_t dEta = fabs( genEta->at(j) - recoEta->at(i) );
+      Float_t dPhi = fabs( genPhi->at(j) -recoPhi->at(i) );
+      if(dPhi > 3.14159265358979323846) dPhi  = 2*3.14159265358979323846 - dPhi;
+      Float_t dR = sqrt( pow(dEta, 2) + pow(dPhi, 2) );
+                        
+      if ( dR < dRmin ) {
+                            
+	dRmin = dR;
+
+      }
+
+    }
+   
+    if (dRmin < dRmatch) hAft->Fill(recoVar->at(i));
  
   }
 
