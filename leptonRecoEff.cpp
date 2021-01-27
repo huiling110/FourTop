@@ -26,7 +26,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  TH1F * eleMVAT_pt_s2_aft = new TH1F("eleMVAT_pt_s2_aft", "eleMVAT_pt_s2_aft", 60, 0, 60);
  TH1F * eleMVAT_pt_s3_bef = new TH1F("eleMVAT_pt_s3_bef", "eleMVAT_pt_s3_bef", 60, 0, 60);
  TH1F * eleMVAT_pt_s3_aft = new TH1F("eleMVAT_pt_s3_aft", "eleMVAT_pt_s3_aft", 60, 0, 60);
-
+ /*
  TH1F * eleMVAL_pt_bef = new TH1F("eleMVAL_pt_bef", "eleMVAL_pt_bef", 60, 0, 60);
  TH1F * eleMVAL_pt_aft = new TH1F("eleMVAL_pt_aft", "eleMVAL_pt_aft", 60, 0, 60);
  TH1F * eleMVAL_pt_s0_bef = new TH1F("eleMVAL_pt_s0_bef", "eleMVAL_pt_s0_bef", 60, 0, 60);
@@ -37,8 +37,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  TH1F * eleMVAL_pt_s2_aft = new TH1F("eleMVAL_pt_s2_aft", "eleMVAL_pt_s2_aft", 60, 0, 60);
  TH1F * eleMVAL_pt_s3_bef = new TH1F("eleMVAL_pt_s3_bef", "eleMVAL_pt_s3_bef", 60, 0, 60);
  TH1F * eleMVAL_pt_s3_aft = new TH1F("eleMVAL_pt_s3_aft", "eleMVAL_pt_s3_aft", 60, 0, 60);
-
-
+ */
  TH1F * muonT_pt_bef = new TH1F("muonT_pt_bef", "muonT_pt_bef", 60, 0, 60);
  TH1F * muonT_pt_aft = new TH1F("muonT_pt_aft", "muonT_pt_aft", 60, 0, 60);
  TH1F * muonT_pt_s0_bef = new TH1F("muonT_pt_s0_bef", "muonT_pt_s0_bef", 60, 0, 60);
@@ -132,7 +131,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
  vector<double> * myeleMVAT_phi_s3 = 0;
  evt->SetBranchAddress( "eleMVAT_phi_s3", &myeleMVAT_phi_s3 );
 
- 
+ /* 
 // our usual electrons (i.e., stage 4)
  int myelesMVAL_number = 0;
  evt->SetBranchAddress( "elesMVAL_number", &myelesMVAL_number );
@@ -193,7 +192,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
  vector<double> * myeleMVAL_phi_s3 = 0;
  evt->SetBranchAddress( "eleMVAL_phi_s3", &myeleMVAL_phi_s3 );
-
+ */
 // our usual muons (i.e., stage 4)
  int mymuonsT_number = 0;
  evt->SetBranchAddress( "muonsT_number", &mymuonsT_number );
@@ -270,13 +269,13 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
   recoEff(0.4, mygenEles_number, myelesMVAT_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s1, myeleMVAT_phi_s1, eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, myeleMVAT_pt_s1);
   recoEff(0.4, mygenEles_number, myelesMVAT_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s2, myeleMVAT_phi_s2, eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, myeleMVAT_pt_s2);
   recoEff(0.4, mygenEles_number, myelesMVAT_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAT_eta_s3, myeleMVAT_phi_s3, eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, myeleMVAT_pt_s3);
-
+  /*
   recoEff(0.4, mygenEles_number, myelesMVAL_number, mygenEle_eta, mygenEle_phi, myeleMVAL_eta,myeleMVAL_phi, eleMVAL_pt_bef, eleMVAL_pt_aft, myeleMVAL_pt);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s0, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s0, myeleMVAL_phi_s0, eleMVAL_pt_s0_bef, eleMVAL_pt_s0_aft, myeleMVAL_pt_s0);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s1, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s1, myeleMVAL_phi_s1, eleMVAL_pt_s1_bef, eleMVAL_pt_s1_aft, myeleMVAL_pt_s1);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s2, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s2, myeleMVAL_phi_s2, eleMVAL_pt_s2_bef, eleMVAL_pt_s2_aft, myeleMVAL_pt_s2);
   recoEff(0.4, mygenEles_number, myelesMVAL_number_s3, mygenEle_eta, mygenEle_phi, myeleMVAL_eta_s3, myeleMVAL_phi_s3, eleMVAL_pt_s3_bef, eleMVAL_pt_s3_aft, myeleMVAL_pt_s3);
-
+  */
   recoEff(0.4, mygenMuons_number, mymuonsT_number, mygenMuon_eta, mygenMuon_phi, mymuonT_eta,mymuonT_phi, muonT_pt_bef, muonT_pt_aft, mymuonT_pt);
   recoEff(0.4, mygenMuons_number, mymuonsT_number_s0, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s0, mymuonT_phi_s0, muonT_pt_s0_bef, muonT_pt_s0_aft, mymuonT_pt_s0);
   recoEff(0.4, mygenMuons_number, mymuonsT_number_s1, mygenMuon_eta, mygenMuon_phi, mymuonT_eta_s1, mymuonT_phi_s1, muonT_pt_s1_bef, muonT_pt_s1_aft, mymuonT_pt_s1);
@@ -292,13 +291,13 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  writeTEfficiency(eleMVAT_pt_s1_bef, eleMVAT_pt_s1_aft, "eleMVAT_s1_recoEff");
  writeTEfficiency(eleMVAT_pt_s2_bef, eleMVAT_pt_s2_aft, "eleMVAT_s2_recoEff");
  writeTEfficiency(eleMVAT_pt_s3_bef, eleMVAT_pt_s3_aft, "eleMVAT_s3_recoEff");
-
+ /*
  writeTEfficiency(eleMVAL_pt_bef, eleMVAL_pt_aft, "eleMVAL_recoEff");
  writeTEfficiency(eleMVAL_pt_s0_bef, eleMVAL_pt_s0_aft, "eleMVAL_s0_recoEff");
  writeTEfficiency(eleMVAL_pt_s1_bef, eleMVAL_pt_s1_aft, "eleMVAL_s1_recoEff");
  writeTEfficiency(eleMVAL_pt_s2_bef, eleMVAL_pt_s2_aft, "eleMVAL_s2_recoEff");
  writeTEfficiency(eleMVAL_pt_s3_bef, eleMVAL_pt_s3_aft, "eleMVAL_s3_recoEff");
-
+ */
  writeTEfficiency(muonT_pt_bef, muonT_pt_aft, "muonT_recoEff");
  writeTEfficiency(muonT_pt_s0_bef, muonT_pt_s0_aft, "muonT_s0_recoEff");
  writeTEfficiency(muonT_pt_s1_bef, muonT_pt_s1_aft, "muonT_s1_recoEff");
