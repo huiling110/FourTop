@@ -98,7 +98,7 @@ void EventSelection_4top_v1(
       // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
       Long64_t NumOfEvents;
       if (istest) {
-        NumOfEvents = 100000;
+        NumOfEvents = 1000;
       } else {
         NumOfEvents = nentries;
       }
@@ -1610,7 +1610,10 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
       
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
+<<<<<<< HEAD
     if(!(Muon_dz_bt_->at(j)<0.1)) continue;
+=======
+>>>>>>> TauOfTTTT_SimplifyPlotter
     //?throwing an instance of 'std::out_of_range'
     if(!(Muon_dxy_bt_->at(j)<0.05)) continue;
     if(type == 1 or type == 2) {
@@ -5076,6 +5079,7 @@ void branchGetEntry(bool data, Long64_t tentry) {
   b_Muon_jetptratioV2->GetEntry(tentry);
   
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
+  b_Muon_dz_pv->GetEntry(tentry);
 
   b_Muon_dxy_bt->GetEntry(tentry);
   b_Muon_dz_bt->GetEntry(tentry);
