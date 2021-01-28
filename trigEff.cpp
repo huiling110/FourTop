@@ -60,8 +60,24 @@ evt->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &myHLT_PFHT450_SixJet
 int myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = 0;
 evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
 
+ int myHLT_Ele25_eta2p1_WPTight_Gsf = 0;
+ evt->SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &myHLT_Ele25_eta2p1_WPTight_Gsf);
+
+ int myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = 0;
+ evt->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", &myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20);
+
+ int myHLT_IsoMu22_eta2p1 = 0;
+ evt->SetBranchAddress("HLT_IsoMu22_eta2p1", &myHLT_IsoMu22_eta2p1);
+
+ int myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = 0;
+ evt->SetBranchAddress("HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", &myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1);
+
+ 
+
  double num_1tau0L = 0;
  double den_1tau0L = 0;
+ double num_1tau1L = 0;
+ double den_1tau1L = 0;
 
 Long64_t nevents = evt->GetEntries();
 
@@ -93,18 +109,30 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
 
  bool is1tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ bool is1tau1etrig = (myHLT_Ele25_eta2p1_WPTight_Gsf == 1 || myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 == 1);
+ bool is1tau1mutrig = (myHLT_IsoMu22_eta2p1 == 1 || myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 == 1);
 
  if (is1tau0L) {
 
-   den += mygenEvtWeight;
+   den_1tau0L += mygenEvtWeight;
    
-   if (is1tau0Ltrig) num += mygenEvtWeight;
+   if (is1tau0Ltrig) num_1tau0L += mygenEvtWeight;
 
  }
 
+ if ((is1tau1e && myeleMVAT_pt->at(0) > 30) || (is1tau1mu && mymuonT_pt->at(0) > 30)) {
+
+   den_1tau1L += mygenEvtWeight;
+
+   if (is1tau1etrig || is1tau1mutrig) num_1tau1L += mygenEvtWeight;
+
+}
+
  }//end loop over events
  
- cout << "trigger efficiency = " << num/den << endl;
+ cout << "trigger efficiency for 1tau0L cat = " << num_1tau0L/den_1tau0L << endl;
+ cout << "trigger efficiency for 1tau1L cat = " << num_1tau1L/den_1tau1L << endl;
+ 
  inputfile->Close();
  delete inputfile;
  file_it++;

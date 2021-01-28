@@ -4,7 +4,7 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_eleIDbugfix/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
