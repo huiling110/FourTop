@@ -48,6 +48,12 @@ evt->SetBranchAddress( "leptonsMVAT_2SS", &myleptonsMVAT_2SS );
 double mygenEvtWeight = 0;
 evt->SetBranchAddress( "EVENT_genWeight", &mygenEvtWeight );
 
+vector<double> * myeleMVAT_pt = 0;
+ evt->SetBranchAddress( "eleMVAT_pt", &myeleMVAT_pt );
+
+ vector<double> * mymuonT_pt = 0;
+ evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
+
 //initializing yield containers
 TH1F * h_1tau0L = new TH1F("1tau0L", "", 30, 0, 30);
 TH1F * h_1tau1e = new TH1F("1tau1e", "", 30, 0, 30);
@@ -81,8 +87,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
    /////////////////////////////////////////////////////////////////////
 
  bool is1tau0L = (mytausT_number==1 && myleptonsMVAT_number==0 &&  myjetsL_number>=8 && mybjetsM_number>=2);
- bool is1tau1e = (mytausT_number==1 && myleptonsMVAT_number == 1 && myelesMVAT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2);
- bool is1tau1mu = (mytausT_number==1 && myleptonsMVAT_number == 1 && mymuonsT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2);
+ bool is1tau1e = (mytausT_number==1 && myleptonsMVAT_number == 1 && myelesMVAT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2 && myeleMVAT_pt->at(0)>10);
+ bool is1tau1mu = (mytausT_number==1 && myleptonsMVAT_number == 1 && mymuonsT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2 && mymuonT_pt->at(0)>10);
  bool is1tau2OSL = (mytausT_number==1 && myleptonsMVAT_number==2 && myleptonsMVAT_2OS==1  &&  myjetsL_number>=4 && mybjetsM_number>=2);
  bool is1tau2SSL = (mytausT_number==1 && myleptonsMVAT_number==2 && myleptonsMVAT_2SS==1 && myjetsL_number>=4 && mybjetsM_number>=2);
  bool is1tau3L = (mytausT_number==1 && myleptonsMVAT_number==3 &&  myjetsL_number>=2 && mybjetsM_number>=2);
@@ -143,7 +149,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
 
  } // end loop over files
  
- TFile *outputfile = new TFile( "Histograms.root", "RECREATE" );
+ TFile *outputfile = new TFile( "Histograms_eleIDbugfix_pt10.root", "RECREATE" );
  
  // loop through each category map and save the corresponding histograms
 map<string, TH1F>::iterator y_1tau0L_it = y_1tau0L.begin();
