@@ -1396,6 +1396,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
 	//id
     if (fabs(eta) < 0.8) {
       if (type == 2) {
+	if(!(pt > 10)) continue;
         if (10 < pt && pt < 40) {
           if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))
             continue;
@@ -1436,6 +1437,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     }
     if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
       if (type == 2) {
+	if(!(pt > 10)) continue;
         if (10 < pt && pt < 40) {
           if (!(raw_MVA_value > (2.522 + 0.058 * (pt - 25))))
             continue;
@@ -1476,6 +1478,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
     }
     if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
       if (type == 2) {
+	if(!(pt > 10)) continue;
         if (10 < pt && pt < 40) {
           if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))
             continue;
@@ -1581,12 +1584,13 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
       continue;
     
     if (stage == 2 || stage == 3 || stage == 4) {
-
+      double pt = Muon_pt_->at(j);
       if (type == 0) {
       if (!(Muon_loose_->at(j) == 1))
         continue;
     }
     if (type == 1 or type == 2) {
+      if(!(pt > 10)) continue;
       if (!(Muon_medium_->at(j) == 1))
         continue;
     }
@@ -1610,10 +1614,8 @@ void SelectMuons(vector<TLorentzVector> &SelectedMuons,
       
     // IP
     // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
-<<<<<<< HEAD
     if(!(Muon_dz_bt_->at(j)<0.1)) continue;
-=======
->>>>>>> TauOfTTTT_SimplifyPlotter
+
     //?throwing an instance of 'std::out_of_range'
     if(!(Muon_dxy_bt_->at(j)<0.05)) continue;
     if(type == 1 or type == 2) {
