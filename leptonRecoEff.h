@@ -4,8 +4,8 @@
 
 using namespace std;
 
-//string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_bugfix/NoJEC/";
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_eleIDbugfix/NoJEC/";
+//string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/NoJEC/";
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
@@ -69,11 +69,6 @@ map<string, string> file = { //MAP OF INPUT FILES
 */
 };
 
-void recoEff(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* recoVar);
+void recoEff(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* genVar);
+void recoPurity(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* recoVar);
 void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
-
-double recoEff_1tau1e;
-double recoEff_1tau1mu;
-
-map<string, TEfficiency> eff_pt_1tau1e;
-map<string, TEfficiency> eff_pt_1tau1mu;
