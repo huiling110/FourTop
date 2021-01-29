@@ -54,20 +54,47 @@ evt->SetBranchAddress( "eleMVAT_pt", &myeleMVAT_pt );
 vector<double> * mymuonT_pt = 0;
 evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
 
-int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
+ int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
 evt->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &myHLT_PFHT450_SixJet40_BTagCSV_p056);
 
-int myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = 0;
+ int myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = 0;
 evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
 
  int myHLT_Ele25_eta2p1_WPTight_Gsf = 0;
  evt->SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &myHLT_Ele25_eta2p1_WPTight_Gsf);
 
+ int myHLT_Ele27_WPTight_Gsf = 0;
+ evt->SetBranchAddress("HLT_Ele27_WPTight_Gsf", &myHLT_Ele27_WPTight_Gsf);
+
+ int myHLT_Ele27_eta2p1_WPLoose_Gsf = 0;
+ evt->SetBranchAddress("HLT_Ele27_eta2p1_WPLoose_Gsf", &myHLT_Ele27_eta2p1_WPLoose_Gsf);
+
  int myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = 0;
  evt->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", &myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20);
 
+ int myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = 0;
+ evt->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1", &myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1);
+
+ int myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = 0;
+ evt->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", &myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30);
+
+ int myHLT_IsoMu22 = 0;
+ evt->SetBranchAddress("HLT_IsoMu22", &myHLT_IsoMu22);
+
+ int myHLT_IsoTkMu22 = 0;
+ evt->SetBranchAddress("HLT_IsoTkMu22", &myHLT_IsoTkMu22);
+
  int myHLT_IsoMu22_eta2p1 = 0;
  evt->SetBranchAddress("HLT_IsoMu22_eta2p1", &myHLT_IsoMu22_eta2p1);
+
+ int myHLT_IsoTkMu22_eta2p1 = 0;
+ evt->SetBranchAddress("HLT_IsoTkMu22_eta2p1", &myHLT_IsoTkMu22_eta2p1);
+
+ int myHLT_IsoMu24 = 0;
+ evt->SetBranchAddress("HLT_IsoMu24", &myHLT_IsoMu24);
+
+ int myHLT_IsoTkMu24 = 0;
+ evt->SetBranchAddress("HLT_IsoTkMu24", &myHLT_IsoTkMu24);
 
  int myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = 0;
  evt->SetBranchAddress("HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", &myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1);
@@ -109,8 +136,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
 
  bool is1tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
- bool is1tau1etrig = (myHLT_Ele25_eta2p1_WPTight_Gsf == 1 || myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 == 1);
- bool is1tau1mutrig = (myHLT_IsoMu22_eta2p1 == 1 || myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 == 1);
+ bool is1tau1etrig = ( (myHLT_Ele25_eta2p1_WPTight_Gsf == 1 || myHLT_Ele27_WPTight_Gsf == 1 || myHLT_Ele27_eta2p1_WPLoose_Gsf == 1) || (myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 == 1 || myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 == 1 || myHLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 == 1) );
+ bool is1tau1mutrig = ( (myHLT_IsoMu22 == 1 || myHLT_IsoTkMu22 == 1 || myHLT_IsoMu22_eta2p1 == 1 || myHLT_IsoTkMu22_eta2p1 == 1 || myHLT_IsoMu24 == 1 ||  myHLT_IsoTkMu24 == 1)  || (myHLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 == 1) );
 
  if (is1tau0L) {
 
