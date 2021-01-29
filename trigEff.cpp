@@ -7,7 +7,7 @@
 
 //using namespace std;
 
-void trigEff() {
+void trigEff(TString setup) {
 
 gBenchmark->Start("running time");
 
@@ -209,9 +209,10 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool is2tau2OSL = (mytausT_number==2 && myleptonsMVAT_number==2 && myleptonsMVAT_2OS==1  && myjetsL_number>=2 && mybjetsM_number>=2);
  bool is2tau2SSL = (mytausT_number==2 && myleptonsMVAT_number==2 && myleptonsMVAT_2SS==1 && myjetsL_number>=2 && mybjetsM_number>=2);
 
-   /////////////////////////////////////////////////////////////////////
-   ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
-   /////////////////////////////////////////////////////////////////////
+ // use trigger setup of ttH multilepton
+ /////////////////////////////////////////////////////////////////////
+ ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
+ /////////////////////////////////////////////////////////////////////
 
  bool singleEle = (myHLT_Ele25_eta2p1_WPTight_Gsf == 1 || myHLT_Ele27_WPTight_Gsf == 1 || myHLT_Ele27_eta2p1_WPLoose_Gsf == 1);
  bool singleMu = (myHLT_IsoMu22 == 1 || myHLT_IsoTkMu22 == 1 || myHLT_IsoMu22_eta2p1 == 1 || myHLT_IsoTkMu22_eta2p1 == 1 || myHLT_IsoMu24 == 1 ||  myHLT_IsoTkMu24 == 1);
@@ -232,6 +233,20 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool is2tau1etrig = (singleEle || elePlusTau);
  bool is2tau1mutrig = (singleMu || muPlusTau);
  bool is2tau2Ltrig = is1tau2Ltrig;
+
+ if (setup == "ZhangYu") {
+   
+ is1tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is1tau1etrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is1tau1mutrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is1tau2Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is1tau3Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is2tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is2tau1etrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is2tau1mutrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ is2tau2Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+
+}
 
  if (is1tau0L) {
 
