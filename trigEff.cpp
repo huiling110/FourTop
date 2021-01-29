@@ -162,6 +162,14 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  int myHLT_DiMu9_Ele9_CaloIdL_TrackIdL = 0;
  evt->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &myHLT_DiMu9_Ele9_CaloIdL_TrackIdL);
 
+ // double tau triggers
+
+ int myHLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = 0;
+ evt->SetBranchAddress("HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg", &myHLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg);
+
+ int myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = 0;
+ evt->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
+
  double num_1tau0L = 0;
  double den_1tau0L = 0;
  double num_1tau1L = 0;
@@ -170,6 +178,8 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  double den_1tau2L = 0;
  double num_1tau3L = 0;
  double den_1tau3L = 0;
+ double num_2tau0L = 0;
+ double den_2tau0L = 0;
 
 Long64_t nevents = evt->GetEntries();
 
@@ -207,13 +217,15 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool doubleMu = (myHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL == 1 || myHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == 1 || myHLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL == 1 || myHLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ == 1);
  bool elePlusMu (myHLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL == 1 || myHLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL == 1 || myHLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL == 1);
  bool triLepton = (myHLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL == 1 || myHLT_TripleMu_12_10_5 == 1 || myHLT_Mu8_DiEle12_CaloIdL_TrackIdL == 1 || myHLT_DiMu9_Ele9_CaloIdL_TrackIdL == 1);
+ bool doubleTau = (myHLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg == 1 || myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg == 1);
 
  bool is1tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
  bool is1tau1etrig = (singleEle || elePlusTau);
  bool is1tau1mutrig = (singleMu || muPlusTau);
  bool is1tau2Ltrig = ( singleEle || singleMu || doubleEle || doubleMu || elePlusMu  );
  bool is1tau3Ltrig = ( is1tau2Ltrig || triLepton );
- 
+ bool is2tau0Ltrig = doubleTau;
+
  if (is1tau0L) {
 
    den_1tau0L += mygenEvtWeight;
@@ -310,12 +322,21 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 1tau3L
 
+ if (is2tau0L) {
+
+   den_2tau0L += mygenEvtWeight;
+   
+   if (is2tau0Ltrig) num_2tau0L += mygenEvtWeight;
+
+ }// end 2tau0L
+
  }//end loop over events
  
  cout << "trigger efficiency for 1tau0L cat = " << num_1tau0L/den_1tau0L << endl;
  cout << "trigger efficiency for 1tau1L cat = " << num_1tau1L/den_1tau1L << endl;
  cout << "trigger efficiency for 1tau2L cat = " << num_1tau2L/den_1tau2L << endl;
  cout << "trigger efficiency for 1tau3L cat = " << num_1tau3L/den_1tau3L << endl;
+ cout << "trigger efficiency for 2tau0L cat = " << num_2tau0L/den_2tau0L << endl;
  
  inputfile->Close();
  delete inputfile;
