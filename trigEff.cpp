@@ -54,6 +54,9 @@ evt->SetBranchAddress( "eleMVAT_pt", &myeleMVAT_pt );
 vector<double> * mymuonT_pt = 0;
 evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
 
+double myjetsL_1pt = 0;
+evt->SetBranchAddress("jetsL_1pt", &myjetsL_1pt);
+
  // multijet triggers
 
  int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
@@ -248,7 +251,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
 }
 
- if (is1tau0L) {
+ if (setup == "ttH_ML"){
+
+   if (is1tau0L) {
 
    den_1tau0L += mygenEvtWeight;
    
@@ -399,6 +404,84 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    }
 
  }// end 2tau2L
+
+ }// end setup ttH_ML
+
+ if (setup == "ZhangYu"){
+
+   if (is1tau0L /*&& myjetsL_1pt > 40*/) {
+
+   den_1tau0L += mygenEvtWeight;
+   
+   if (is1tau0Ltrig) num_1tau0L += mygenEvtWeight;
+
+ }// end 1tau0L
+
+   if ((is1tau1e /*&& myjetsL_1pt > 40*/) || (is1tau1mu /*&& myjetsL_1pt > 40*/)) {
+
+   den_1tau1L += mygenEvtWeight;
+
+   if (is1tau1etrig || is1tau1mutrig) num_1tau1L += mygenEvtWeight;
+
+ }// end 1tau1L
+
+ if (is1tau2OSL || is1tau2SSL) {
+ 
+   if (true /*myjetsL_1pt > 40*/) {
+
+       den_1tau2L += mygenEvtWeight;
+       
+       if (is1tau2Ltrig) num_1tau2L += mygenEvtWeight;
+
+   }
+
+ }// end 1tau2L
+
+ if (is1tau3L) {
+
+   if (true /*myjetsL_1pt > 40*/) {
+
+       den_1tau3L += mygenEvtWeight;
+       
+       if (is1tau3Ltrig) num_1tau3L += mygenEvtWeight;
+
+   }
+
+ }// end 1tau3L
+
+ if (is2tau0L) {
+
+   if (true /*myjetsL_1pt > 40*/) {
+
+     den_2tau0L += mygenEvtWeight;
+   
+   if (is2tau0Ltrig) num_2tau0L += mygenEvtWeight;
+
+   }
+
+ }// end 2tau0L
+
+ if ((is2tau1e /*&& myjetsL_1pt > 40*/) || (is2tau1mu /*&& myjetsL_1pt > 40*/)) {
+
+   den_2tau1L += mygenEvtWeight;
+
+   if (is2tau1etrig || is2tau1mutrig) num_2tau1L += mygenEvtWeight;
+
+ }// end 2tau1L
+
+ if (is2tau2OSL || is2tau2SSL) {
+
+   if (true /*myjetsL_1pt > 40*/) {
+     
+       den_2tau2L += mygenEvtWeight;
+       
+       if (is2tau2Ltrig) num_2tau2L += mygenEvtWeight;
+
+   }
+
+ }// end 2tau2L
+
+ }// end setup ZhangYu
 
  }//end loop over events
 
