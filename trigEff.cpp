@@ -386,7 +386,43 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  }// end 2tau2L
 
  }//end loop over events
- 
+
+ cout << "~~~ 1tau0L category ~~~" << endl;
+ cout << "num = " << num_1tau0L << endl;
+ cout << "den = " << den_1tau0L << endl;
+ cout << "trigger efficiency = " << num_1tau0L/den_1tau0L << endl;
+ cout << " " << endl;
+ cout << "~~~ 1tau1L category ~~~" << endl;
+ cout << "num = " << num_1tau1L << endl;
+ cout << "den = " << den_1tau1L << endl;
+ cout << "trigger efficiency = " << num_1tau1L/den_1tau1L << endl;
+ cout << " " << endl;
+ cout << "~~~ 1tau2L category ~~~" << endl;
+ cout << "num = " << num_1tau2L << endl;
+ cout << "den = " << den_1tau2L << endl;
+ cout << "trigger efficiency = " << num_1tau2L/den_1tau2L << endl;
+ cout << " " << endl;
+ cout << "~~~ 1tau3L category ~~~" << endl;
+ cout << "num = " << num_1tau3L << endl;
+ cout << "den = " << den_1tau3L << endl;
+ cout << "trigger efficiency = " << num_1tau3L/den_1tau3L << endl;
+ cout << " " << endl;
+ cout << "~~~ 2tau0L category ~~~" << endl;
+ cout << "num = " << num_2tau0L << endl;
+ cout << "den = " << den_2tau0L << endl;
+ cout << "trigger efficiency = " << num_2tau0L/den_2tau0L << endl;
+ cout << " " << endl;
+ cout << "~~~ 2tau1L category ~~~" << endl;
+ cout << "num = " << num_2tau1L << endl;
+ cout << "den = " << den_2tau1L << endl;
+ cout << "trigger efficiency = " << num_2tau1L/den_2tau1L << endl;
+ cout << " " << endl;
+ cout << "~~~ 2tau2L category ~~~" << endl;
+ cout << "num = " << num_2tau2L << endl;
+ cout << "den = " << den_2tau2L << endl;
+ cout << "trigger efficiency = " << num_2tau2L/den_2tau2L << endl;
+ cout << " " << endl;
+ /*
  cout << "trigger efficiency for 1tau0L cat = " << num_1tau0L/den_1tau0L << endl;
  cout << "trigger efficiency for 1tau1L cat = " << num_1tau1L/den_1tau1L << endl;
  cout << "trigger efficiency for 1tau2L cat = " << num_1tau2L/den_1tau2L << endl;
@@ -394,7 +430,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << "trigger efficiency for 2tau0L cat = " << num_2tau0L/den_2tau0L << endl;
  cout << "trigger efficiency for 2tau1L cat = " << num_2tau1L/den_2tau1L << endl;
  cout << "trigger efficiency for 2tau2L cat = " << num_2tau2L/den_2tau2L << endl;
- 
+ */
  inputfile->Close();
  delete inputfile;
  file_it++;
