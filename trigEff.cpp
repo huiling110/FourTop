@@ -180,6 +180,10 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  double den_1tau3L = 0;
  double num_2tau0L = 0;
  double den_2tau0L = 0;
+ double num_2tau1L = 0;
+ double den_2tau1L = 0;
+ double num_2tau2L = 0;
+ double den_2tau2L = 0;
 
 Long64_t nevents = evt->GetEntries();
 
@@ -225,6 +229,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool is1tau2Ltrig = ( singleEle || singleMu || doubleEle || doubleMu || elePlusMu  );
  bool is1tau3Ltrig = ( is1tau2Ltrig || triLepton );
  bool is2tau0Ltrig = doubleTau;
+ bool is2tau1etrig = (singleEle || elePlusTau);
+ bool is2tau1mutrig = (singleMu || muPlusTau);
+ bool is2tau2Ltrig = is1tau2Ltrig;
 
  if (is1tau0L) {
 
@@ -330,6 +337,54 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 2tau0L
 
+ if ((is2tau1e && myeleMVAT_pt->at(0) > 30) || (is2tau1mu && mymuonT_pt->at(0) > 30)) {
+
+   den_2tau1L += mygenEvtWeight;
+
+   if (is2tau1etrig || is2tau1mutrig) num_2tau1L += mygenEvtWeight;
+
+ }// end 1tau1L
+
+ if (is2tau2OSL || is2tau2SSL) {
+
+   if (myeleMVAT_pt->size() > 0 && mymuonT_pt->size() == 0) {
+     
+     if (myeleMVAT_pt->at(0) > 30) {
+
+       den_2tau2L += mygenEvtWeight;
+       
+       if (is2tau2Ltrig) num_2tau2L += mygenEvtWeight;
+
+     }
+
+   }
+
+   if (myeleMVAT_pt->size() == 0 && mymuonT_pt->size() > 0) {
+     
+     if (mymuonT_pt->at(0) > 30) {
+
+       den_2tau2L += mygenEvtWeight;
+       
+       if (is2tau2Ltrig) num_2tau2L += mygenEvtWeight;
+
+     }
+
+   }
+
+   if (myeleMVAT_pt->size() > 0 && mymuonT_pt->size() > 0) {
+     
+     if (myeleMVAT_pt->at(0) > 30 && mymuonT_pt->at(0) > 30) {
+
+       den_2tau2L += mygenEvtWeight;
+       
+       if (is2tau2Ltrig) num_2tau2L += mygenEvtWeight;
+
+     }
+
+   }
+
+ }// end 2tau2L
+
  }//end loop over events
  
  cout << "trigger efficiency for 1tau0L cat = " << num_1tau0L/den_1tau0L << endl;
@@ -337,6 +392,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << "trigger efficiency for 1tau2L cat = " << num_1tau2L/den_1tau2L << endl;
  cout << "trigger efficiency for 1tau3L cat = " << num_1tau3L/den_1tau3L << endl;
  cout << "trigger efficiency for 2tau0L cat = " << num_2tau0L/den_2tau0L << endl;
+ cout << "trigger efficiency for 2tau1L cat = " << num_2tau1L/den_2tau1L << endl;
+ cout << "trigger efficiency for 2tau2L cat = " << num_2tau2L/den_2tau2L << endl;
  
  inputfile->Close();
  delete inputfile;
