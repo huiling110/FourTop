@@ -148,12 +148,28 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  int myHLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = 0;
  evt->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", &myHLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL);
 
+ // triple lepton triggers
+
+ int myHLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL = 0;
+ evt->SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &myHLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
+
+ int myHLT_TripleMu_12_10_5 = 0;
+ evt->SetBranchAddress("HLT_TripleMu_12_10_5", &myHLT_TripleMu_12_10_5);
+
+ int myHLT_Mu8_DiEle12_CaloIdL_TrackIdL = 0;
+ evt->SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL", &myHLT_Mu8_DiEle12_CaloIdL_TrackIdL);
+
+ int myHLT_DiMu9_Ele9_CaloIdL_TrackIdL = 0;
+ evt->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &myHLT_DiMu9_Ele9_CaloIdL_TrackIdL);
+
  double num_1tau0L = 0;
  double den_1tau0L = 0;
  double num_1tau1L = 0;
  double den_1tau1L = 0;
  double num_1tau2L = 0;
  double den_1tau2L = 0;
+ double num_1tau3L = 0;
+ double den_1tau3L = 0;
 
 Long64_t nevents = evt->GetEntries();
 
@@ -190,11 +206,13 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool doubleEle = (myHLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ == 1);
  bool doubleMu = (myHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL == 1 || myHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ == 1 || myHLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL == 1 || myHLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ == 1);
  bool elePlusMu (myHLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL == 1 || myHLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL == 1 || myHLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ == 1 || myHLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL == 1);
+ bool triLepton = (myHLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL == 1 || myHLT_TripleMu_12_10_5 == 1 || myHLT_Mu8_DiEle12_CaloIdL_TrackIdL == 1 || myHLT_DiMu9_Ele9_CaloIdL_TrackIdL == 1);
 
  bool is1tau0Ltrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
  bool is1tau1etrig = (singleEle || elePlusTau);
  bool is1tau1mutrig = (singleMu || muPlusTau);
  bool is1tau2Ltrig = ( singleEle || singleMu || doubleEle || doubleMu || elePlusMu  );
+ bool is1tau3Ltrig = ( is1tau2Ltrig || triLepton );
  
  if (is1tau0L) {
 
@@ -202,7 +220,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    
    if (is1tau0Ltrig) num_1tau0L += mygenEvtWeight;
 
- }
+ }// end 1tau0L
 
  if ((is1tau1e && myeleMVAT_pt->at(0) > 30) || (is1tau1mu && mymuonT_pt->at(0) > 30)) {
 
@@ -210,7 +228,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    if (is1tau1etrig || is1tau1mutrig) num_1tau1L += mygenEvtWeight;
 
- }
+ }// end 1tau1L
 
  if (is1tau2OSL || is1tau2SSL) {
 
@@ -250,13 +268,54 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    }
 
- }
+ }// end 1tau2L
+
+ if (is1tau3L) {
+
+   if (myeleMVAT_pt->size() > 0 && mymuonT_pt->size() == 0) {
+     
+     if (myeleMVAT_pt->at(0) > 30) {
+
+       den_1tau3L += mygenEvtWeight;
+       
+       if (is1tau3Ltrig) num_1tau3L += mygenEvtWeight;
+
+     }
+
+   }
+
+   if (myeleMVAT_pt->size() == 0 && mymuonT_pt->size() > 0) {
+     
+     if (mymuonT_pt->at(0) > 30) {
+
+       den_1tau3L += mygenEvtWeight;
+       
+       if (is1tau3Ltrig) num_1tau3L += mygenEvtWeight;
+
+     }
+
+   }
+
+   if (myeleMVAT_pt->size() > 0 && mymuonT_pt->size() > 0) {
+     
+     if (myeleMVAT_pt->at(0) > 30 && mymuonT_pt->at(0) > 30) {
+
+       den_1tau3L += mygenEvtWeight;
+       
+       if (is1tau3Ltrig) num_1tau3L += mygenEvtWeight;
+
+     }
+
+   }
+
+ }// end 1tau3L
 
  }//end loop over events
  
  cout << "trigger efficiency for 1tau0L cat = " << num_1tau0L/den_1tau0L << endl;
  cout << "trigger efficiency for 1tau1L cat = " << num_1tau1L/den_1tau1L << endl;
  cout << "trigger efficiency for 1tau2L cat = " << num_1tau2L/den_1tau2L << endl;
+ cout << "trigger efficiency for 1tau3L cat = " << num_1tau3L/den_1tau3L << endl;
  
  inputfile->Close();
  delete inputfile;
