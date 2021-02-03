@@ -57,6 +57,39 @@ evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
 double myjetsL_1pt = 0;
 evt->SetBranchAddress("jetsL_1pt", &myjetsL_1pt);
 
+double myjetsL_2pt = 0;
+evt->SetBranchAddress("jetsL_2pt", &myjetsL_2pt);
+
+double myjetsL_3pt = 0;
+evt->SetBranchAddress("jetsL_3pt", &myjetsL_3pt);
+
+double myjetsL_4pt = 0;
+evt->SetBranchAddress("jetsL_4pt", &myjetsL_4pt);
+
+double myjetsL_5pt = 0;
+evt->SetBranchAddress("jetsL_5pt", &myjetsL_5pt);
+
+double myjetsL_6pt = 0;
+evt->SetBranchAddress("jetsL_6pt", &myjetsL_6pt);
+
+double myjetsL_7pt = 0;
+evt->SetBranchAddress("jetsL_7pt", &myjetsL_7pt);
+
+double myjetsL_8pt = 0;
+evt->SetBranchAddress("jetsL_8pt", &myjetsL_8pt);
+
+double myjetsL_9pt = 0;
+evt->SetBranchAddress("jetsL_9pt", &myjetsL_9pt);
+
+double myjetsL_10pt = 0;
+evt->SetBranchAddress("jetsL_10pt", &myjetsL_10pt);
+
+double myjetsL_11pt = 0;
+evt->SetBranchAddress("jetsL_11pt", &myjetsL_11pt);
+
+double myjetsL_HT = 0;
+evt->SetBranchAddress("jetsL_HT", &myjetsL_HT);
+
  // multijet triggers
 
  int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
@@ -173,6 +206,39 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  int myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = 0;
  evt->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
 
+ //histograms
+TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "", 250, 0, 1000);
+TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "", 250, 0, 1000);
+TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "", 250, 0, 1000);
+TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "", 250, 0, 1000);
+TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "", 250, 0, 1000);
+TH1F * h_HT_2tau1L = new TH1F("h_HT_1tau1L", "", 250, 0, 1000);
+TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "", 250, 0, 1000);
+
+TH1F *h_njets_ptg40_1tau0L  = new TH1F("h_njets_ptg40_1tau0L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_1tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_1tau2L  = new TH1F("h_njets_ptg40_1tau2L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_1tau3L  = new TH1F("h_njets_ptg40_1tau3L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_2tau0L  = new TH1F("h_njets_ptg40_2tau0L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_2tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_2tau2L  = new TH1F("h_njets_ptg40_2tau2L", "", 250, 0, 1000);
+
+TH1F * h_njets_ptg30_1tau0L = new TH1F("h_njets_ptg30_1tau0L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_1tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_1tau2L = new TH1F("h_njets_ptg30_1tau2L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_1tau3L = new TH1F("h_njets_ptg30_1tau3L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_2tau0L = new TH1F("h_njets_ptg30_2tau0L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_2tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_2tau2L = new TH1F("h_njets_ptg30_2tau2L", "", 250, 0, 1000);
+
+TH1F * h_nbjets_1tau0L = new TH1F("h_nbjets_1tau0L", "", 250, 0, 1000);
+TH1F * h_nbjets_1tau1L = new TH1F("h_nbjets_1tau1L", "", 250, 0, 1000);
+TH1F * h_nbjets_1tau2L = new TH1F("h_nbjets_1tau2L", "", 250, 0, 1000);
+TH1F * h_nbjets_1tau3L = new TH1F("h_nbjets_1tau3L", "", 250, 0, 1000);
+TH1F * h_nbjets_2tau0L = new TH1F("h_nbjets_2tau0L", "", 250, 0, 1000);
+TH1F * h_nbjets_2tau1L = new TH1F("h_nbjets_1tau1L", "", 250, 0, 1000);
+TH1F * h_nbjets_2tau2L = new TH1F("h_nbjets_2tau2L", "", 250, 0, 1000);
+
  double num_1tau0L = 0;
  double den_1tau0L = 0;
  double num_1tau1L = 0;
@@ -195,6 +261,23 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    evt->GetEntry( ievent );
+
+   int njets_ptg40_1tau0L = 0; 
+   int njets_ptg40_1tau1L = 0; 
+   int njets_ptg40_1tau2L = 0; 
+   int njets_ptg40_1tau3L = 0; 
+   int njets_ptg40_2tau0L = 0; 
+   int njets_ptg40_2tau1L = 0; 
+   int njets_ptg40_2tau2L = 0; 
+                   
+   int njets_ptg30_1tau0L = 0; 
+   int njets_ptg30_1tau1L = 0; 
+   int njets_ptg30_1tau2L = 0; 
+   int njets_ptg30_1tau3L = 0; 
+   int njets_ptg30_2tau0L = 0; 
+   int njets_ptg30_2tau1L = 0; 
+   int njets_ptg30_2tau2L = 0; 
+
 
    /////////////////////////////////////////////////////////////////////
    ///////////////////// DEFINE CATEGORY CUTS //////////////////////////
@@ -363,7 +446,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    if (is2tau1etrig || is2tau1mutrig) num_2tau1L += mygenEvtWeight;
 
- }// end 1tau1L
+ }// end 2tau1L
 
  if (is2tau2OSL || is2tau2SSL) {
 
@@ -412,7 +495,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (is1tau0L /*&& myjetsL_1pt > 40*/) {
 
    den_1tau0L += mygenEvtWeight;
+   HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight);
+   nbjetsL_1tau0L->Fill(mybjetsL_number, mygenEvtWeight);
    
+   
+   }
+
    if (is1tau0Ltrig) num_1tau0L += mygenEvtWeight;
 
  }// end 1tau0L
@@ -484,43 +572,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  }// end setup ZhangYu
 
  }//end loop over events
-/*
- cout << "~~~ 1tau0L category ~~~" << endl;
- cout << "num = " << num_1tau0L << endl;
- cout << "den = " << den_1tau0L << endl;
- cout << "trigger efficiency = " << num_1tau0L/den_1tau0L << endl;
- cout << " " << endl;
- cout << "~~~ 1tau1L category ~~~" << endl;
- cout << "num = " << num_1tau1L << endl;
- cout << "den = " << den_1tau1L << endl;
- cout << "trigger efficiency = " << num_1tau1L/den_1tau1L << endl;
- cout << " " << endl;
- cout << "~~~ 1tau2L category ~~~" << endl;
- cout << "num = " << num_1tau2L << endl;
- cout << "den = " << den_1tau2L << endl;
- cout << "trigger efficiency = " << num_1tau2L/den_1tau2L << endl;
- cout << " " << endl;
- cout << "~~~ 1tau3L category ~~~" << endl;
- cout << "num = " << num_1tau3L << endl;
- cout << "den = " << den_1tau3L << endl;
- cout << "trigger efficiency = " << num_1tau3L/den_1tau3L << endl;
- cout << " " << endl;
- cout << "~~~ 2tau0L category ~~~" << endl;
- cout << "num = " << num_2tau0L << endl;
- cout << "den = " << den_2tau0L << endl;
- cout << "trigger efficiency = " << num_2tau0L/den_2tau0L << endl;
- cout << " " << endl;
- cout << "~~~ 2tau1L category ~~~" << endl;
- cout << "num = " << num_2tau1L << endl;
- cout << "den = " << den_2tau1L << endl;
- cout << "trigger efficiency = " << num_2tau1L/den_2tau1L << endl;
- cout << " " << endl;
- cout << "~~~ 2tau2L category ~~~" << endl;
- cout << "num = " << num_2tau2L << endl;
- cout << "den = " << den_2tau2L << endl;
- cout << "trigger efficiency = " << num_2tau2L/den_2tau2L << endl;
- cout << " " << endl;
-*/
+
  cout << setw(10) << left << "" << setw(10) << left << "1tau0L" << setw(10) << left << "1tau1L" << setw(10) << left << "1tau2L" << setw(10) << left << "1tau3L" << setw(10) << left << "2tau0L" << setw(10) << left << "2tau1L" << setw(10) << left << "2tau2L" << endl;
  cout << setw(10) << left << "num" << setw(10) << left << num_1tau0L << setw(10) << left << num_1tau1L << setw(10) << left << num_1tau2L << setw(10) << left << num_1tau3L<< setw(10) << left << num_2tau0L << setw(10) << left << num_2tau1L << setw(10) << left << num_2tau2L << endl;
  cout << setw(10) << left << "den" << setw(10) << left << den_1tau0L << setw(10) << left << den_1tau1L << setw(10) << left << den_1tau2L << setw(10) << left << den_1tau3L<< setw(10) << left << den_2tau0L << setw(10) << left << den_2tau1L << setw(10) << left << den_2tau2L << endl;
@@ -531,6 +583,40 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  file_it++;
 
  }//end loop over files
+
+ TFile *outputfile = new TFile( "trigEff_output.root", "RECREATE" );
+
+ Ht_1tau0L->Write();
+ HT_1tau1L->Write();
+ HT_1tau2L->Write();
+ HT_1tau3L->Write();
+ HT_2tau0L->Write();
+ HT_2tau1L->Write();
+ HT_2tau2L->Write();
+
+ njets_ptg40_1tau0L->Write(); 
+ njets_ptg40_1tau1L->Write(); 
+ njets_ptg40_1tau2L->Write(); 
+ njets_ptg40_1tau3L->Write(); 
+ njets_ptg40_2tau0L->Write(); 
+ njets_ptg40_2tau1L->Write(); 
+ njets_ptg40_2tau2L->Write(); 
+                    
+ njets_ptg30_1tau0L->Write(); 
+ njets_ptg30_1tau1L->Write(); 
+ njets_ptg30_1tau2L->Write(); 
+ njets_ptg30_1tau3L->Write(); 
+ njets_ptg30_2tau0L->Write(); 
+ njets_ptg30_2tau1L->Write(); 
+ njets_ptg30_2tau2L->Write(); 
+             
+ nbjets_1tau0L->Write();
+ nbjets_1tau1L->Write();
+ nbjets_1tau2L->Write();
+ nbjets_1tau3L->Write();
+ nbjets_2tau0L->Write();
+ nbjets_2tau1L->Write();
+ nbjets_2tau2L->Write();
 
  gBenchmark->Show("running time");
 
