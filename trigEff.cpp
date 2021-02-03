@@ -207,37 +207,37 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  evt->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
 
  //histograms
-TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "", 250, 0, 1000);
-TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "", 250, 0, 1000);
-TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "", 250, 0, 1000);
-TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "", 250, 0, 1000);
-TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "", 250, 0, 1000);
-TH1F * h_HT_2tau1L = new TH1F("h_HT_1tau1L", "", 250, 0, 1000);
-TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "", 250, 0, 1000);
+TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "", 100, 0, 1500);
+TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "", 100, 0, 1500);
+TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "", 100, 0, 1500);
+TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "", 100, 0, 1500);
+TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "", 100, 0, 1500);
+TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "", 100, 0, 1500);
+TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "", 100, 0, 1500);
 
-TH1F *h_njets_ptg40_1tau0L  = new TH1F("h_njets_ptg40_1tau0L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_1tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_1tau2L  = new TH1F("h_njets_ptg40_1tau2L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_1tau3L  = new TH1F("h_njets_ptg40_1tau3L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_2tau0L  = new TH1F("h_njets_ptg40_2tau0L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_2tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 250, 0, 1000);
-TH1F *h_njets_ptg40_2tau2L  = new TH1F("h_njets_ptg40_2tau2L", "", 250, 0, 1000);
+TH1F *h_njets_ptg40_1tau0L  = new TH1F("h_njets_ptg40_1tau0L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau2L  = new TH1F("h_njets_ptg40_1tau2L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau3L  = new TH1F("h_njets_ptg40_1tau3L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau0L  = new TH1F("h_njets_ptg40_2tau0L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau1L  = new TH1F("h_njets_ptg40_2tau1L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau2L  = new TH1F("h_njets_ptg40_2tau2L", "", 15, 0, 15);
 
-TH1F * h_njets_ptg30_1tau0L = new TH1F("h_njets_ptg30_1tau0L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_1tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_1tau2L = new TH1F("h_njets_ptg30_1tau2L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_1tau3L = new TH1F("h_njets_ptg30_1tau3L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_2tau0L = new TH1F("h_njets_ptg30_2tau0L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_2tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 250, 0, 1000);
-TH1F * h_njets_ptg30_2tau2L = new TH1F("h_njets_ptg30_2tau2L", "", 250, 0, 1000);
+TH1F * h_njets_ptg30_1tau0L = new TH1F("h_njets_ptg30_1tau0L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau2L = new TH1F("h_njets_ptg30_1tau2L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau3L = new TH1F("h_njets_ptg30_1tau3L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau0L = new TH1F("h_njets_ptg30_2tau0L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau1L = new TH1F("h_njets_ptg30_2tau1L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau2L = new TH1F("h_njets_ptg30_2tau2L", "", 15, 0, 15);
 
-TH1F * h_nbjets_1tau0L = new TH1F("h_nbjets_1tau0L", "", 250, 0, 1000);
-TH1F * h_nbjets_1tau1L = new TH1F("h_nbjets_1tau1L", "", 250, 0, 1000);
-TH1F * h_nbjets_1tau2L = new TH1F("h_nbjets_1tau2L", "", 250, 0, 1000);
-TH1F * h_nbjets_1tau3L = new TH1F("h_nbjets_1tau3L", "", 250, 0, 1000);
-TH1F * h_nbjets_2tau0L = new TH1F("h_nbjets_2tau0L", "", 250, 0, 1000);
-TH1F * h_nbjets_2tau1L = new TH1F("h_nbjets_1tau1L", "", 250, 0, 1000);
-TH1F * h_nbjets_2tau2L = new TH1F("h_nbjets_2tau2L", "", 250, 0, 1000);
+TH1F * h_nbjetsM_1tau0L = new TH1F("h_nbjetsM_1tau0L", "", 15, 0, 15);
+TH1F * h_nbjetsM_1tau1L = new TH1F("h_nbjetsM_1tau1L", "", 15, 0, 15);
+TH1F * h_nbjetsM_1tau2L = new TH1F("h_nbjetsM_1tau2L", "", 15, 0, 15);
+TH1F * h_nbjetsM_1tau3L = new TH1F("h_nbjetsM_1tau3L", "", 15, 0, 15);
+TH1F * h_nbjetsM_2tau0L = new TH1F("h_nbjetsM_2tau0L", "", 15, 0, 15);
+TH1F * h_nbjetsM_2tau1L = new TH1F("h_nbjetsM_2tau1L", "", 15, 0, 15);
+TH1F * h_nbjetsM_2tau2L = new TH1F("h_nbjetsM_2tau2L", "", 15, 0, 15);
 
  double num_1tau0L = 0;
  double den_1tau0L = 0;
@@ -495,19 +495,25 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (is1tau0L /*&& myjetsL_1pt > 40*/) {
 
    den_1tau0L += mygenEvtWeight;
-   HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight);
-   nbjetsL_1tau0L->Fill(mybjetsL_number, mygenEvtWeight);
-   
-   
-   }
-
+   h_HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_nbjetsM_1tau0L->Fill(mybjetsM_number, mygenEvtWeight);
+   countJets(njets_ptg40_1tau0L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   countJets(njets_ptg30_1tau0L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   h_njets_ptg40_1tau0L->Fill(njets_ptg40_1tau0L, mygenEvtWeight);
+   h_njets_ptg30_1tau0L->Fill(njets_ptg30_1tau0L, mygenEvtWeight);
    if (is1tau0Ltrig) num_1tau0L += mygenEvtWeight;
-
- }// end 1tau0L
+   }// end 1tau0L
+ 
 
    if ((is1tau1e /*&& myjetsL_1pt > 40*/) || (is1tau1mu /*&& myjetsL_1pt > 40*/)) {
 
    den_1tau1L += mygenEvtWeight;
+   h_HT_1tau1L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_nbjetsM_1tau1L->Fill(mybjetsM_number, mygenEvtWeight);
+   countJets(njets_ptg40_1tau1L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   countJets(njets_ptg30_1tau1L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   h_njets_ptg40_1tau1L->Fill(njets_ptg40_1tau1L, mygenEvtWeight);
+   h_njets_ptg30_1tau1L->Fill(njets_ptg30_1tau1L, mygenEvtWeight);
 
    if (is1tau1etrig || is1tau1mutrig) num_1tau1L += mygenEvtWeight;
 
@@ -517,8 +523,13 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  
    if (true /*myjetsL_1pt > 40*/) {
 
-       den_1tau2L += mygenEvtWeight;
-       
+     den_1tau2L += mygenEvtWeight;
+     h_HT_1tau2L->Fill(myjetsL_HT, mygenEvtWeight);
+     h_nbjetsM_1tau2L->Fill(mybjetsM_number, mygenEvtWeight);
+     countJets(njets_ptg40_1tau2L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+     countJets(njets_ptg30_1tau2L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+     h_njets_ptg40_1tau2L->Fill(njets_ptg40_1tau2L, mygenEvtWeight);
+     h_njets_ptg30_1tau2L->Fill(njets_ptg30_1tau2L, mygenEvtWeight);
        if (is1tau2Ltrig) num_1tau2L += mygenEvtWeight;
 
    }
@@ -529,8 +540,13 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    if (true /*myjetsL_1pt > 40*/) {
 
-       den_1tau3L += mygenEvtWeight;
-       
+     den_1tau3L += mygenEvtWeight;
+     h_HT_1tau3L->Fill(myjetsL_HT, mygenEvtWeight);
+     h_nbjetsM_1tau3L->Fill(mybjetsM_number, mygenEvtWeight);
+     countJets(njets_ptg40_1tau3L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+     countJets(njets_ptg30_1tau3L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+     h_njets_ptg40_1tau3L->Fill(njets_ptg40_1tau3L, mygenEvtWeight);
+     h_njets_ptg30_1tau3L->Fill(njets_ptg30_1tau3L, mygenEvtWeight);
        if (is1tau3Ltrig) num_1tau3L += mygenEvtWeight;
 
    }
@@ -542,7 +558,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
 
      den_2tau0L += mygenEvtWeight;
-   
+     h_HT_2tau0L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_nbjetsM_2tau0L->Fill(mybjetsM_number, mygenEvtWeight);
+   countJets(njets_ptg40_2tau0L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   countJets(njets_ptg30_2tau0L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   h_njets_ptg40_2tau0L->Fill(njets_ptg40_2tau0L, mygenEvtWeight);
+   h_njets_ptg30_2tau0L->Fill(njets_ptg30_2tau0L, mygenEvtWeight);
    if (is2tau0Ltrig) num_2tau0L += mygenEvtWeight;
 
    }
@@ -552,7 +573,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  if ((is2tau1e /*&& myjetsL_1pt > 40*/) || (is2tau1mu /*&& myjetsL_1pt > 40*/)) {
 
    den_2tau1L += mygenEvtWeight;
-
+   h_HT_2tau1L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_nbjetsM_2tau1L->Fill(mybjetsM_number, mygenEvtWeight);
+   countJets(njets_ptg40_2tau1L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   countJets(njets_ptg30_2tau1L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   h_njets_ptg40_2tau1L->Fill(njets_ptg40_2tau1L, mygenEvtWeight);
+   h_njets_ptg30_2tau1L->Fill(njets_ptg30_2tau1L, mygenEvtWeight);
    if (is2tau1etrig || is2tau1mutrig) num_2tau1L += mygenEvtWeight;
 
  }// end 2tau1L
@@ -562,7 +588,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
      
        den_2tau2L += mygenEvtWeight;
-       
+       h_HT_2tau2L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_nbjetsM_2tau2L->Fill(mybjetsM_number, mygenEvtWeight);
+   countJets(njets_ptg40_2tau2L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   countJets(njets_ptg30_2tau2L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
+   h_njets_ptg40_2tau2L->Fill(njets_ptg40_2tau2L, mygenEvtWeight);
+   h_njets_ptg30_2tau2L->Fill(njets_ptg30_2tau2L, mygenEvtWeight);
        if (is2tau2Ltrig) num_2tau2L += mygenEvtWeight;
 
    }
@@ -578,46 +609,95 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << setw(10) << left << "den" << setw(10) << left << den_1tau0L << setw(10) << left << den_1tau1L << setw(10) << left << den_1tau2L << setw(10) << left << den_1tau3L<< setw(10) << left << den_2tau0L << setw(10) << left << den_2tau1L << setw(10) << left << den_2tau2L << endl;
  cout << setw(10) << left << "trigEff" << setw(10) << left << num_1tau0L/den_1tau0L << setw(10) << left << num_1tau1L/den_1tau1L << setw(10) << left << num_1tau2L/den_1tau2L << setw(10) << left << num_1tau3L/den_1tau3L << setw(10) << left << num_2tau0L/den_2tau0L << setw(10) << left << num_2tau1L/den_2tau1L << setw(10) << left << num_2tau2L/den_2tau2L << endl;
 
+ TFile *outputfile = new TFile( ("trigEff_output_" + file_it->first + ".root").c_str(), "RECREATE" );
+
+ h_HT_1tau0L->Write();
+ h_HT_1tau1L->Write();
+ h_HT_1tau2L->Write();
+ h_HT_1tau3L->Write();
+ h_HT_2tau0L->Write();
+ h_HT_2tau1L->Write();
+ h_HT_2tau2L->Write();
+
+ h_njets_ptg40_1tau0L->Write(); 
+ h_njets_ptg40_1tau1L->Write(); 
+ h_njets_ptg40_1tau2L->Write(); 
+ h_njets_ptg40_1tau3L->Write(); 
+ h_njets_ptg40_2tau0L->Write(); 
+ h_njets_ptg40_2tau1L->Write(); 
+ h_njets_ptg40_2tau2L->Write(); 
+                    
+ h_njets_ptg30_1tau0L->Write(); 
+ h_njets_ptg30_1tau1L->Write(); 
+ h_njets_ptg30_1tau2L->Write(); 
+ h_njets_ptg30_1tau3L->Write(); 
+ h_njets_ptg30_2tau0L->Write(); 
+ h_njets_ptg30_2tau1L->Write(); 
+ h_njets_ptg30_2tau2L->Write(); 
+             
+ h_nbjetsM_1tau0L->Write();
+ h_nbjetsM_1tau1L->Write();
+ h_nbjetsM_1tau2L->Write();
+ h_nbjetsM_1tau3L->Write();
+ h_nbjetsM_2tau0L->Write();
+ h_nbjetsM_2tau1L->Write();
+ h_nbjetsM_2tau2L->Write();
+
+ outputfile->Close();
+ delete outputfile;
+
  inputfile->Close();
  delete inputfile;
+ 
  file_it++;
 
  }//end loop over files
 
- TFile *outputfile = new TFile( "trigEff_output.root", "RECREATE" );
-
- Ht_1tau0L->Write();
- HT_1tau1L->Write();
- HT_1tau2L->Write();
- HT_1tau3L->Write();
- HT_2tau0L->Write();
- HT_2tau1L->Write();
- HT_2tau2L->Write();
-
- njets_ptg40_1tau0L->Write(); 
- njets_ptg40_1tau1L->Write(); 
- njets_ptg40_1tau2L->Write(); 
- njets_ptg40_1tau3L->Write(); 
- njets_ptg40_2tau0L->Write(); 
- njets_ptg40_2tau1L->Write(); 
- njets_ptg40_2tau2L->Write(); 
-                    
- njets_ptg30_1tau0L->Write(); 
- njets_ptg30_1tau1L->Write(); 
- njets_ptg30_1tau2L->Write(); 
- njets_ptg30_1tau3L->Write(); 
- njets_ptg30_2tau0L->Write(); 
- njets_ptg30_2tau1L->Write(); 
- njets_ptg30_2tau2L->Write(); 
-             
- nbjets_1tau0L->Write();
- nbjets_1tau1L->Write();
- nbjets_1tau2L->Write();
- nbjets_1tau3L->Write();
- nbjets_2tau0L->Write();
- nbjets_2tau1L->Write();
- nbjets_2tau2L->Write();
+ 
 
  gBenchmark->Show("running time");
 
 }//end
+
+
+
+void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt) {
+
+if (jet_1pt > pt_threshold) {
+  counter++;
+  if (jet_2pt > pt_threshold) {
+    counter++;
+    if (jet_2pt > pt_threshold) {
+      counter++;
+      if (jet_3pt > pt_threshold) {
+	counter++;
+	if (jet_4pt > pt_threshold) {
+	  counter++;
+	  if (jet_5pt > pt_threshold) {
+	    counter++;
+	    if (jet_6pt > pt_threshold) {
+	      counter++;
+	      if (jet_7pt > pt_threshold) {
+		counter++;
+		if (jet_8pt > pt_threshold) {
+		  counter++;
+		  if (jet_9pt > pt_threshold) {
+		    counter++;
+		    if (jet_10pt > pt_threshold) {
+		      counter++;
+		      if (jet_11pt > pt_threshold) {
+			counter++;
+		      }
+		    }
+		  }
+		}
+	      }
+	    }
+	  }
+	}
+      }
+    }
+  }
+}
+
+}

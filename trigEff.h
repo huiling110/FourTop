@@ -72,3 +72,5 @@ map<string, string> file = { //MAP OF INPUT FILES
 //store trigger efficiency in the format (category, eff). Each map corresponds to different choices in the triggers for each category, i.e., different setups: ttH setup is the one used in ttH multilpeton AN, ZhangYu's setup is the one proposed by Yu, etc.
 map<string, double> ttH_setup_sig;
 map<string, double> ZhangYu_setup_sig;
+
+void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt);
