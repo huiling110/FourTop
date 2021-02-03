@@ -7,8 +7,9 @@ void EventSelection_4top_v1(
     const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
     // const string input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
-    // const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/"
-       const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/") {
+    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
+       // const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
+{
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0); //?
   gStyle->SetOptStat("rme");
