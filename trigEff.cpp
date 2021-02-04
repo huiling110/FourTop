@@ -207,37 +207,37 @@ evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_
  evt->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &myHLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
 
  //histograms
-TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "", 100, 0, 1500);
-TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "", 100, 0, 1500);
-TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "", 100, 0, 1500);
-TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "", 100, 0, 1500);
-TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "", 100, 0, 1500);
-TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "", 100, 0, 1500);
-TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "", 100, 0, 1500);
+TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "h_HT_1tau0L; H_{T} [GeV];", 50, 0, 1500);
+TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "h_HT_1tau1L; H_{T} [GeV];", 50, 0, 1500);
+TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "h_HT_1tau2L; H_{T} [GeV];", 50, 0, 1500);
+TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "h_HT_1tau3L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "h_HT_2tau0L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "h_HT_2tau1L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "h_HT_2tau2L; H_{T} [GeV];", 25, 0, 1500);
 
-TH1F *h_njets_ptg40_1tau0L  = new TH1F("h_njets_ptg40_1tau0L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_1tau1L  = new TH1F("h_njets_ptg40_1tau1L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_1tau2L  = new TH1F("h_njets_ptg40_1tau2L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_1tau3L  = new TH1F("h_njets_ptg40_1tau3L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_2tau0L  = new TH1F("h_njets_ptg40_2tau0L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_2tau1L  = new TH1F("h_njets_ptg40_2tau1L", "", 15, 0, 15);
-TH1F *h_njets_ptg40_2tau2L  = new TH1F("h_njets_ptg40_2tau2L", "", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau0L  = new TH1F("h_njets_ptg40_1tau0L", "h_njets_ptg40_1tau0L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau1L  = new TH1F("h_njets_ptg40_1tau1L", "h_njets_ptg40_1tau1L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau2L  = new TH1F("h_njets_ptg40_1tau2L", "h_njets_ptg40_1tau2L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_1tau3L  = new TH1F("h_njets_ptg40_1tau3L", "h_njets_ptg40_1tau3L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau0L  = new TH1F("h_njets_ptg40_2tau0L", "h_njets_ptg40_2tau0L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau1L  = new TH1F("h_njets_ptg40_2tau1L", "h_njets_ptg40_2tau1L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
+TH1F *h_njets_ptg40_2tau2L  = new TH1F("h_njets_ptg40_2tau2L", "h_njets_ptg40_2tau2L; Jet multiplicity (p_{T} > 40 GeV);", 15, 0, 15);
 
-TH1F * h_njets_ptg30_1tau0L = new TH1F("h_njets_ptg30_1tau0L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_1tau1L = new TH1F("h_njets_ptg30_1tau1L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_1tau2L = new TH1F("h_njets_ptg30_1tau2L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_1tau3L = new TH1F("h_njets_ptg30_1tau3L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_2tau0L = new TH1F("h_njets_ptg30_2tau0L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_2tau1L = new TH1F("h_njets_ptg30_2tau1L", "", 15, 0, 15);
-TH1F * h_njets_ptg30_2tau2L = new TH1F("h_njets_ptg30_2tau2L", "", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau0L = new TH1F("h_njets_ptg30_1tau0L", "h_njets_ptg30_1tau0L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau1L = new TH1F("h_njets_ptg30_1tau1L", "h_njets_ptg30_1tau1L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau2L = new TH1F("h_njets_ptg30_1tau2L", "h_njets_ptg30_1tau2L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_1tau3L = new TH1F("h_njets_ptg30_1tau3L", "h_njets_ptg30_1tau3L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau0L = new TH1F("h_njets_ptg30_2tau0L", "h_njets_ptg30_2tau0L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau1L = new TH1F("h_njets_ptg30_2tau1L", "h_njets_ptg30_2tau1L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
+TH1F * h_njets_ptg30_2tau2L = new TH1F("h_njets_ptg30_2tau2L", "h_njets_ptg30_2tau2L; Jet multiplicity (p_{T} > 30 GeV);", 15, 0, 15);
 
-TH1F * h_nbjetsM_1tau0L = new TH1F("h_nbjetsM_1tau0L", "", 15, 0, 15);
-TH1F * h_nbjetsM_1tau1L = new TH1F("h_nbjetsM_1tau1L", "", 15, 0, 15);
-TH1F * h_nbjetsM_1tau2L = new TH1F("h_nbjetsM_1tau2L", "", 15, 0, 15);
-TH1F * h_nbjetsM_1tau3L = new TH1F("h_nbjetsM_1tau3L", "", 15, 0, 15);
-TH1F * h_nbjetsM_2tau0L = new TH1F("h_nbjetsM_2tau0L", "", 15, 0, 15);
-TH1F * h_nbjetsM_2tau1L = new TH1F("h_nbjetsM_2tau1L", "", 15, 0, 15);
-TH1F * h_nbjetsM_2tau2L = new TH1F("h_nbjetsM_2tau2L", "", 15, 0, 15);
+TH1F * h_nbjetsM_1tau0L = new TH1F("h_nbjetsM_1tau0L", "h_nbjetsM_1tau0L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_1tau1L = new TH1F("h_nbjetsM_1tau1L", "h_nbjetsM_1tau1L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_1tau2L = new TH1F("h_nbjetsM_1tau2L", "h_nbjetsM_1tau2L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_1tau3L = new TH1F("h_nbjetsM_1tau3L", "h_nbjetsM_1tau3L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_2tau0L = new TH1F("h_nbjetsM_2tau0L", "h_nbjetsM_2tau0L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_2tau1L = new TH1F("h_nbjetsM_2tau1L", "h_nbjetsM_2tau1L; b jet multiplicity;", 15, 0, 15);
+TH1F * h_nbjetsM_2tau2L = new TH1F("h_nbjetsM_2tau2L", "h_nbjetsM_2tau2L; b jet multiplicity;", 15, 0, 15);
 
  double num_1tau0L = 0;
  double den_1tau0L = 0;
