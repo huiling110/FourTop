@@ -4,9 +4,10 @@
 
 void EventSelection_4top_v1(
     const bool istest = true,
-    const TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
     // const TString input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const TString input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
+    const TString inputDir = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/Legacy16V2_TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8addGenWeight/210201_023242/0000/",
     const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
        // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
@@ -30,43 +31,38 @@ void EventSelection_4top_v1(
   
     using namespace std;
   
-      TString NewFileprov; // file already exist, new file is what we want build.
+      TString newFile; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
-      //?is it nessesary to put different SF in different files?
-      if ((SysJes == 0) && (SysJer == 0)) NewFileprov = outputDir + "NoJEC/" + input;
-      if ((SysJes == 1) && (SysJer == 0))  NewFileprov = outputDir + "JESup/" + input;
-      if ((SysJes == 2) && (SysJer == 0))  NewFileprov = outputDir + "JESdo/" + input;
-      if ((SysJes == 0) && (SysJer == 1))  NewFileprov = outputDir + "JERdo/" + input;
-      if ((SysJes == 0) && (SysJer == 2))  NewFileprov = outputDir + "JERup/" + input;
-      // const char *NewFileName = input.c_str();
+      // TString input = inputDir.ReplaceAll( "/Legacy16V2*0000/", "")  ;
+      TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8";
+      cout<<input<<endl;
+      if ((SysJes == 0) && (SysJer == 0)) newFile = outputDir + "NoJEC/" + input;
+      if ((SysJes == 1) && (SysJer == 0))  newFile = outputDir + "JESup/" + input;
+      if ((SysJes == 2) && (SysJer == 0))  newFile = outputDir + "JESdo/" + input;
+      if ((SysJes == 0) && (SysJer == 1))  newFile = outputDir + "JERdo/" + input;
+      if ((SysJes == 0) && (SysJer == 2))  newFile = outputDir + "JERup/" + input;
       bool data = true;
       cout << "data" << data << endl;
       //    if(fileName.size()==0) break;
-      // if (!(input.find("TauBlock") != TString::npos))
       if ( !(input.Contains( "TauBlock")))   data = false; // find():The position of the first character of the first // match.
-      //if filename is data, data=true. data and MC files have different    // tree .
       cout << "data" << data << endl;
-  
-      // const char *NewFileName =  NewFileprov.c_str(); // c_str()Returns a pointer to an array thatcontains a null-terminated sequence ofcharacters (i.e., a C-string) representingcurent value of the string object.
-      cout<<"New file here : "<<NewFileprov<<endl;
-      //    TFile f(NewFileprov,"new");//Create a new file and open it for
-      // writing, if the file already exists the file is not opened.
-      TFile f(NewFileprov, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
+      cout<<"New file here : "<<newFile<<endl;
+      //    TFile f(newFile,"new");//Create a new file and open it for // writing, if the file already exists the file is not opened.
+      TFile f(newFile, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
       TTree *NewTree = new TTree("tree", "tree");
       TTree *NewTreeSB = new TTree("treeSB", "treeSB");
       //why 2 trees? what's the different?		//treeSB has something todo with sideband
-      TString FILEprov;
-      if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + input;
-      else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + input;
-      // const char *FILE = FILEprov.c_str();
-      TFile *file = TFile::Open(FILEprov);
-      char openTree[500];
-      sprintf(openTree, "TNT/BOOM");       // 117
-      Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
-      Long64_t nentries =
-          (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
-                                     // all branches of entry and return total
-                                     // // number of bytes read.
+      TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
+      if (data)    inputFile = inputBase + inputDir;
+      else inputFile = inputBase + inputDir;
+      TChain chain("TNT/evtree");
+      chain.Add(inputFile+"v3*.root");
+      // const char *FILE = inputFile.c_str();
+      // TFile *file = TFile::Open(inputFile);
+      // char openTree[500];
+      // sprintf(openTree, "TNT/BOOM");       // 117
+      // Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
+      Long64_t nentries =    (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
       for (int selection = 0; selection < 3; selection++) {
         //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
         // loop.signal=false
@@ -94,7 +90,6 @@ void EventSelection_4top_v1(
           branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
   
           h_genWeight->Fill( 0.0 , genWeight_ );
-  
   
   
           initializeVar(); // initialize for new tree.
@@ -2206,7 +2201,7 @@ void get_weight_btag(int selection, double &w_Btag, double &w_BtagUp, double
 &w_BtagDown, double &w_Btag1Up, double &w_Btag1Down, double &w_Btag2Up, double
 &w_Btag2Down, double &w_BtagLoose, double &w_BtagLooseUp, double
 &w_BtagLooseDown, string fileName){
-  string FILEprov =
+  string inputFile =
 "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/BtagEfficiency_new_v3/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
