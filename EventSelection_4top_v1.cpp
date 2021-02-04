@@ -10,1229 +10,1229 @@ void EventSelection_4top_v1(
     const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
        // const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
-  gStyle->SetCanvasColor(0);
-  gStyle->SetFrameBorderMode(0); //?
-  gStyle->SetOptStat("rme");
-  gStyle->SetPalette(1, 0);
-  gStyle->SetTitleX(0.50);
-  gStyle->SetTitleY(0.96);
-  gStyle->SetPaintTextFormat(".2f");
-
-  const bool isHLTstudy = false;
-  const bool preselection = true; // associate with selection
-  const bool sideband = false;    // associate with selection
-  //?what's sideband and signal ?
-  const bool signal = false;
-  //?signal occur nowhere else	//what does these mean?
-  // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
-  const int SysJes = 0; // jet enenrgy scale
-  const int SysJer = 0; // jet  energy resolution
-
-  using namespace std;
-
-  vector<string> fileName;
-  fileName.push_back(input);
-  for (UInt_t Nfiles = 0; Nfiles < fileName.size(); Nfiles++) {
-    //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
-    string NewFileprov; // file already exist, new file is what we want build.
-    //?it seems Jes and Jer can not aplly together?
-    //?is it nessesary to put different SF in different files?
-    if ((SysJes == 0) && (SysJer == 0))
-      NewFileprov = outputDir + "NoJEC/" + fileName[Nfiles];
-    if ((SysJes == 1) && (SysJer == 0))
-      NewFileprov = outputDir + "JESup/" + fileName[Nfiles];
-    if ((SysJes == 2) && (SysJer == 0))
-      NewFileprov = outputDir + "JESdo/" + fileName[Nfiles];
-    if ((SysJes == 0) && (SysJer == 1))
-      NewFileprov = outputDir + "JERdo/" + fileName[Nfiles];
-    if ((SysJes == 0) && (SysJer == 2))
-      NewFileprov = outputDir + "JERup/" + fileName[Nfiles];
-    // const char *NewFileName = fileName[Nfiles].c_str();
-    bool data = true;
-    cout << "data" << data << endl;
-    //    if(fileName.size()==0) break;
-    if (!(fileName[Nfiles].find("TauBlock") != string::npos))
-      data = false; // find():The position of the first character of the first // match.
-    // If no matches were found, the function returns string::npos.//what is
-	//if filename is data, data=true. data and MC files have different    // tree .
-    cout << "data" << data << endl;
-
-    const char *NewFileName =
-        NewFileprov.c_str(); // c_str()Returns a pointer to an array that
-                             // contains a null-terminated sequence of
-                             // characters (i.e., a C-string) representing
-                             // current value of the string object.
-    cout<<"New file here : "<<NewFileName<<endl;
-    //    TFile f(NewFileName,"new");//Create a new file and open it for
-    // writing, if the file already exists the file is not opened.
-    TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
-    TTree *NewTree = new TTree("tree", "tree");
-    TTree *NewTreeSB = new TTree("treeSB", "treeSB");
-    //why 2 trees? what's the different?		//treeSB has something todo with sideband
-    string FILEprov;
-    if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + fileName[Nfiles];
-    else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + fileName[Nfiles];
-    const char *FILE = FILEprov.c_str();
-    TFile *file = TFile::Open(FILE);
-    char openTree[500];
-    sprintf(openTree, "TNT/BOOM");       // 117
-    Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
-    Long64_t nentries =
-        (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
-                                   // all branches of entry and return total
-                                   // // number of bytes read.
-    for (int selection = 0; selection < 3; selection++) {
-      //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
-      // loop.signal=false
-      // selection = 0 -> preselection=true; line 19, true
-      // selection = 1 -> signal selection; preselection=false and, not continue
-      // , that means go to the next line of the loop.
-      // selection = 2 -> sideband=true and pre=false; line 14 sideband=false
-      if (!((preselection && selection == 0) ||
-            (!preselection && sideband && (selection == 1 || selection == 2)) ||
-            (!preselection && !sideband && selection == 1)))
-        continue;
-      // preselection=true ,sideband=false,in this case selection=0
-      //what does sideband and signal do?
-      //        branch(data,selection,NewTree,NewTreeSB,fileName[Nfiles]);Tree->SetBranchAddress;NewTree and SB->Branch
-      branch(data, selection, NewTree,  NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
-      // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
-      Long64_t NumOfEvents;
-      if (istest) {
-        NumOfEvents = 1000;
-      } else {
-        NumOfEvents = nentries;
-      }
-      for (Long64_t i = 0; i < NumOfEvents; i++) {
-        Long64_t tentry = Tree->LoadTree(i); // Set current entry.
-        branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
-
-        h_genWeight->Fill( 0.0 , genWeight_ );
-
-
-
-        initializeVar(); // initialize for new tree.
-        if ( !isHLTstudy ){
-             //			if(!(HLT_PFHT900_==1 ||
-            // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1))  continue;//a branch in tree, trigger we choose
-            if (!(Flag_goodVertices_ == 1))
-              continue; // a branch in tree.
-            if (!(Flag_globalSuperTightHalo2016Filter_ == 1))
-              continue;
-            if (!(Flag_HBHENoiseFilter_ == 1))
-              continue;
-            if (!(Flag_HBHENoiseIsoFilter_ == 1))
-              continue;
-            if (!(Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
-              continue; // a branch in Tree
-            if (!(Flag_BadPFMuonFilter_ == 1))
-              continue;
-            //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
-            // continue;
-            //			why this filter not work?//applied only in 2017 and 2018
-            if (data) {
-              if (!(Flag_eeBadScFilter_ == 1)) continue;
-            }
-        }
-        
-        
-        //HLT branches
-		 HLT_PFHT900  = HLT_PFHT900_;
-		 HLT_PFHT450_SixJet40_BTagCSV_p056  = HLT_PFHT450_SixJet40_BTagCSV_p056_;
-		 HLT_PFHT400_SixJet30_DoubleBTagCSV_p056  = HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
-		 HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_;
-		 HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_;
-		 HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_;
-		 HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg  = HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_;
-		 HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_;
-		 HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg  = HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_;
-		 HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_;//this HLT doesn't exist in ntuple
-
-		 HLT_Ele27_eta2p1_WPTight_Gsf  = HLT_Ele27_eta2p1_WPTight_Gsf_;
-         HLT_Ele27_eta2p1_WPLoose_Gsf  = HLT_Ele27_eta2p1_WPLoose_Gsf_;
-		 HLT_Ele27_WPTight_Gsf  = HLT_Ele27_WPTight_Gsf_;
-		 HLT_IsoMu22  = HLT_IsoMu22_;
-		 HLT_Ele25_eta2p1_WPTight_Gsf  = HLT_Ele25_eta2p1_WPTight_Gsf_;
-		 HLT_IsoTkMu22  = HLT_IsoTkMu22_;
-		 HLT_IsoMu24  = HLT_IsoMu24_;
-		 HLT_IsoTkMu24  = HLT_IsoTkMu24_;
-		 HLT_IsoMu22_eta2p1  = HLT_IsoMu22_eta2p1_;
-		 HLT_IsoTkMu22_eta2p1  = HLT_IsoTkMu22_eta2p1_;
-		 HLT_Mu50  = HLT_Mu50_;
-		 HLT_TkMu50  = HLT_TkMu50_;
-		 HLT_Ele32_WPTight_Gsf  = HLT_Ele32_WPTight_Gsf_;
-		 HLT_Ele35_WPTight_Gsf  = HLT_Ele35_WPTight_Gsf_;
-		 HLT_IsoMu27  = HLT_IsoMu27_;
-
-	    HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_;
-	    HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_;
-	    HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_;
-	    HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1  = HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_;
-	    HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1  = HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_;
-	    HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1  = HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_;
-	    HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1  = HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_;
-	    HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1  = HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_;
-
-	    HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf  = HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_;
-	    HLT_DoubleEle33_CaloIdL_MW  = HLT_DoubleEle33_CaloIdL_MW_;
-	    HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW  = HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_;
-	    HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_;
-	    HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL  = HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_;
-	    HLT_DoubleMu33NoFiltersNoVtx  = HLT_DoubleMu33NoFiltersNoVtx_;
-	    HLT_DoubleMu23NoFiltersNoVtxDisplaced  = HLT_DoubleMu23NoFiltersNoVtxDisplaced_;
-	    HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_;
-	    HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_;
-        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_;
-        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_;
-	    HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL  = HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_;
-	    HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_;
-        HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL = HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_;
-        HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ = HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_;
-	    HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL  = HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_;
-	    HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_;
-	    HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_;
-	    HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_;
-
-	    HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL  = HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_;
-	    HLT_Mu8_DiEle12_CaloIdL_TrackIdL  = HLT_Mu8_DiEle12_CaloIdL_TrackIdL_;
-	    HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ  = HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_;
-	    HLT_TripleMu_12_10_5  = HLT_TripleMu_12_10_5_;
-	    HLT_DiMu9_Ele9_CaloIdL_TrackIdL  = HLT_DiMu9_Ele9_CaloIdL_TrackIdL_;
-
-
-
-        //gen tau and lepton
-        if ( !data ){
-            vector<TLorentzVector> genTaus; 
-            vector<TLorentzVector> genEles;
-            vector<TLorentzVector> genMuons;
-            selectGenTaus(genTaus);
-            selectGenEles(genEles);
-            selectGenMuons(genMuons);
-	    sort(genEles.begin(), genEles.end(), compEle);
-	    sort(genMuons.begin(), genMuons.end(), compEle);
-            genTaus_number = genTaus.size();
-            genEles_number = genEles.size();
-            genMuons_number = genMuons.size();
-	    
-	    for (int i = 0; i < genEles_number; i++) {
-
-	      genEle_pt.push_back(genEles.at(i).Pt());
-	      genEle_eta.push_back(genEles.at(i).Eta());
-	      genEle_phi.push_back(genEles.at(i).Phi());
-	      genEle_E.push_back(genEles.at(i).E());
-	      
-	    }
-
-	    for (int i = 0; i < genMuons_number; i++) {
-
-	      genMuon_pt.push_back(genMuons.at(i).Pt());
-	      genMuon_eta.push_back(genMuons.at(i).Eta());
-	      genMuon_phi.push_back(genMuons.at(i).Phi());
-	      genMuon_E.push_back(genMuons.at(i).E());
-	      
-	    }
-        }
-
-
-        if (!data)
-          GenClassifier(GenZPt, GenWPt); // according to pdg ID generate the
-                                         // number of  usdc quark and GenZPt
-                                         // GenWPt.
-        // not sure what our analysis can do with it
-
-        // met
-        //?need to check met
-        //			bool SelectedMet = false;
-        //?how does SysJes impact Met_pt ?//?do we still have to correct Met?
-        MetCorrection(SysJes, SysJer, Met_pt); // Met_pt in newtree branch.
-        // why have to do this MetCorrection//take jet SF into
-        // consideration.correct met_pt
-        //            if( Met_pt > 200)  SelectedMet = true;//228;parameter in
-        // Fillbranches
-        // we don't care about Met so much
-        // Met_pt            = Met_type1PF_pt_;
-        Met_phi = Met_type1PF_phi_; // Met_phi branch in newtree and SB
-
-        // lepton selection
-        vector<TLorentzVector> SelectedElectronsL;
-        vector<int> SelectedElectronsLIndex;
-        vector<TLorentzVector> SelectedElectronsM;
-        vector<int> SelectedElectronsMIndex;
-        vector<TLorentzVector> SelectedElectronsT;
-        vector<int> SelectedElectronsTIndex;
-        vector<TLorentzVector> SelectedElectronsVeto;
-        vector<int> SelectedElectronsVetoIndex;
-        SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//cut based ID
-        SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
-        SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
-        SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3); 
-
-        eleL_number = SelectedElectronsL.size();
-        eleM_number = SelectedElectronsM.size();
-        eleT_number = SelectedElectronsT.size();
-
-        vector<TLorentzVector> SelectedMuonsL;
-        vector<int> SelectedMuonsLIndex;
-        vector<TLorentzVector> SelectedMuonsF;
-        vector<int> SelectedMuonsFIndex;
-        vector<TLorentzVector> SelectedMuonsT;
-        vector<int> SelectedMuonsTIndex;
-        SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0, 4);
-        SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1, 4);
-        SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2, 4);//this T is actually the medium in SS
-
-	sort(SelectedMuonsL.begin(), SelectedMuonsL.end(), compEle);
-        sort(SelectedMuonsF.begin(), SelectedMuonsF.end(), compEle);
-        sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
-
-        muonsL_number = SelectedMuonsL.size();
-        muonsF_number = SelectedMuonsF.size();
-        muonsT_number = SelectedMuonsT.size();
-
-	for (int i = 0; i < muonsL_number; i++) {
-
-	      muonL_pt.push_back(SelectedMuonsL.at(i).Pt());
-	      muonL_eta.push_back(SelectedMuonsL.at(i).Eta());
-	      muonL_phi.push_back(SelectedMuonsL.at(i).Phi());
-	      muonL_E.push_back(SelectedMuonsL.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < muonsF_number; i++) {
-
-	      muonF_pt.push_back(SelectedMuonsF.at(i).Pt());
-	      muonF_eta.push_back(SelectedMuonsF.at(i).Eta());
-	      muonF_phi.push_back(SelectedMuonsF.at(i).Phi());
-	      muonF_E.push_back(SelectedMuonsF.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < muonsT_number; i++) {
-
-	      muonT_pt.push_back(SelectedMuonsT.at(i).Pt());
-	      muonT_eta.push_back(SelectedMuonsT.at(i).Eta());
-	      muonT_phi.push_back(SelectedMuonsT.at(i).Phi());
-	      muonT_E.push_back(SelectedMuonsT.at(i).E());
-	      
-	    }
-
-	//store here information about muons at each stage
-	// stage 0
-	vector<TLorentzVector> SelectedMuonsL_s0;
-        vector<int> SelectedMuonsLIndex_s0;
-        vector<TLorentzVector> SelectedMuonsF_s0;
-        vector<int> SelectedMuonsFIndex_s0;
-        vector<TLorentzVector> SelectedMuonsT_s0;
-        vector<int> SelectedMuonsTIndex_s0;
-        SelectMuons(SelectedMuonsL_s0, SelectedMuonsLIndex_s0, 0, 0);
-        SelectMuons(SelectedMuonsF_s0, SelectedMuonsFIndex_s0, 1, 0);
-        SelectMuons(SelectedMuonsT_s0, SelectedMuonsTIndex_s0, 2, 0);//this T is actually the medium in SS
-       
-	sort(SelectedMuonsL_s0.begin(), SelectedMuonsL_s0.end(), compEle);
-        sort(SelectedMuonsF_s0.begin(), SelectedMuonsF_s0.end(), compEle);
-        sort(SelectedMuonsT_s0.begin(), SelectedMuonsT_s0.end(), compEle);
-
-	muonsL_number_s0 = SelectedMuonsL_s0.size();
-        muonsF_number_s0 = SelectedMuonsF_s0.size();
-        muonsT_number_s0 = SelectedMuonsT_s0.size();
-
-	for (int i = 0; i < muonsL_number_s0; i++) {
- 
-	      muonL_pt_s0.push_back(SelectedMuonsL_s0.at(i).Pt());
-	      muonL_eta_s0.push_back(SelectedMuonsL_s0.at(i).Eta());
-	      muonL_phi_s0.push_back(SelectedMuonsL_s0.at(i).Phi());
-	      muonL_E_s0.push_back(SelectedMuonsL_s0.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < muonsF_number_s0; i++) {
-
-	      muonF_pt_s0.push_back(SelectedMuonsF_s0.at(i).Pt());
-	      muonF_eta_s0.push_back(SelectedMuonsF_s0.at(i).Eta());
-	      muonF_phi_s0.push_back(SelectedMuonsF_s0.at(i).Phi());
-	      muonF_E_s0.push_back(SelectedMuonsF_s0.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < muonsT_number_s0; i++) {
-
-	      muonT_pt_s0.push_back(SelectedMuonsT_s0.at(i).Pt());
-	      muonT_eta_s0.push_back(SelectedMuonsT_s0.at(i).Eta());
-	      muonT_phi_s0.push_back(SelectedMuonsT_s0.at(i).Phi());
-	      muonT_E_s0.push_back(SelectedMuonsT_s0.at(i).E());
-	      
-	    }
-
-	// stage 1                                                                                                                                                                            
-        vector<TLorentzVector> SelectedMuonsL_s1;
-        vector<int> SelectedMuonsLIndex_s1;
-        vector<TLorentzVector> SelectedMuonsF_s1;
-        vector<int> SelectedMuonsFIndex_s1;
-        vector<TLorentzVector> SelectedMuonsT_s1;
-        vector<int> SelectedMuonsTIndex_s1;
-        SelectMuons(SelectedMuonsL_s1, SelectedMuonsLIndex_s1, 0, 1);
-        SelectMuons(SelectedMuonsF_s1, SelectedMuonsFIndex_s1, 1, 1);
-        SelectMuons(SelectedMuonsT_s1, SelectedMuonsTIndex_s1, 2, 1);//this T is actually the medium in
-
-	sort(SelectedMuonsL_s1.begin(), SelectedMuonsL_s1.end(), compEle);
-        sort(SelectedMuonsF_s1.begin(), SelectedMuonsF_s1.end(), compEle);
-        sort(SelectedMuonsT_s1.begin(), SelectedMuonsT_s1.end(), compEle);
-	
-        muonsL_number_s1 = SelectedMuonsL_s1.size();
-        muonsF_number_s1 = SelectedMuonsF_s1.size();
-        muonsT_number_s1 = SelectedMuonsT_s1.size();
-	
-	for (int i = 0; i < muonsL_number_s1; i++) {
-
-	  muonL_pt_s1.push_back(SelectedMuonsL_s1.at(i).Pt());
-	  muonL_eta_s1.push_back(SelectedMuonsL_s1.at(i).Eta());
-	  muonL_phi_s1.push_back(SelectedMuonsL_s1.at(i).Phi());
-	  muonL_E_s1.push_back(SelectedMuonsL_s1.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsF_number_s1; i++) {
-
-	  muonF_pt_s1.push_back(SelectedMuonsF_s1.at(i).Pt());
-	  muonF_eta_s1.push_back(SelectedMuonsF_s1.at(i).Eta());
-	  muonF_phi_s1.push_back(SelectedMuonsF_s1.at(i).Phi());
-	  muonF_E_s1.push_back(SelectedMuonsF_s1.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsT_number_s1; i++) {
-
-	  muonT_pt_s1.push_back(SelectedMuonsT_s1.at(i).Pt());
-	  muonT_eta_s1.push_back(SelectedMuonsT_s1.at(i).Eta());
-	  muonT_phi_s1.push_back(SelectedMuonsT_s1.at(i).Phi());
-	  muonT_E_s1.push_back(SelectedMuonsT_s1.at(i).E());
-    
-        }
-
-	// stage 2                                                                                                                                                                             
-        vector<TLorentzVector> SelectedMuonsL_s2;
-        vector<int> SelectedMuonsLIndex_s2;
-        vector<TLorentzVector> SelectedMuonsF_s2;
-        vector<int> SelectedMuonsFIndex_s2;
-        vector<TLorentzVector> SelectedMuonsT_s2;
-        vector<int> SelectedMuonsTIndex_s2;
-        SelectMuons(SelectedMuonsL_s2, SelectedMuonsLIndex_s2, 0, 2);
-        SelectMuons(SelectedMuonsF_s2, SelectedMuonsFIndex_s2, 1, 2);
-        SelectMuons(SelectedMuonsT_s2, SelectedMuonsTIndex_s2, 2, 2);//this T is actually the medium in SS 
-
-	sort(SelectedMuonsL_s2.begin(), SelectedMuonsL_s2.end(), compEle);
-        sort(SelectedMuonsF_s2.begin(), SelectedMuonsF_s2.end(), compEle);
-        sort(SelectedMuonsT_s2.begin(), SelectedMuonsT_s2.end(), compEle);
-                                                                                     
-        muonsL_number_s2 = SelectedMuonsL_s2.size();
-        muonsF_number_s2 = SelectedMuonsF_s2.size();
-        muonsT_number_s2 = SelectedMuonsT_s2.size();
-        
-	for (int i = 0; i < muonsL_number_s2; i++) {
-
-	  muonL_pt_s2.push_back(SelectedMuonsL_s2.at(i).Pt());
-	  muonL_eta_s2.push_back(SelectedMuonsL_s2.at(i).Eta());
-	  muonL_phi_s2.push_back(SelectedMuonsL_s2.at(i).Phi());
-	  muonL_E_s2.push_back(SelectedMuonsL_s2.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsF_number_s2; i++) {
-
-	  muonF_pt_s2.push_back(SelectedMuonsF_s2.at(i).Pt());
-	  muonF_eta_s2.push_back(SelectedMuonsF_s2.at(i).Eta());
-	  muonF_phi_s2.push_back(SelectedMuonsF_s2.at(i).Phi());
-	  muonF_E_s2.push_back(SelectedMuonsF_s2.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsT_number_s2; i++) {
-
-	  muonT_pt_s2.push_back(SelectedMuonsT_s2.at(i).Pt());
-	  muonT_eta_s2.push_back(SelectedMuonsT_s2.at(i).Eta());
-	  muonT_phi_s2.push_back(SelectedMuonsT_s2.at(i).Phi());
-	  muonT_E_s2.push_back(SelectedMuonsT_s2.at(i).E());
-    
-        }
-
-	// stage 3
-        vector<TLorentzVector> SelectedMuonsL_s3;
-        vector<int> SelectedMuonsLIndex_s3;
-        vector<TLorentzVector> SelectedMuonsF_s3;
-        vector<int> SelectedMuonsFIndex_s3;
-        vector<TLorentzVector> SelectedMuonsT_s3;
-        vector<int> SelectedMuonsTIndex_s3;
-        SelectMuons(SelectedMuonsL_s3, SelectedMuonsLIndex_s3, 0, 3);
-        SelectMuons(SelectedMuonsF_s3, SelectedMuonsFIndex_s3, 1, 3);
-        SelectMuons(SelectedMuonsT_s3, SelectedMuonsTIndex_s3, 2, 3);//this T is actually the medium in SS                                                                                      
-	sort(SelectedMuonsL_s3.begin(), SelectedMuonsL_s3.end(), compEle);
-        sort(SelectedMuonsF_s3.begin(), SelectedMuonsF_s3.end(), compEle);
-        sort(SelectedMuonsT_s3.begin(), SelectedMuonsT_s3.end(), compEle);
-
-        muonsL_number_s3 = SelectedMuonsL_s3.size();
-        muonsF_number_s3 = SelectedMuonsF_s3.size();
-        muonsT_number_s3 = SelectedMuonsT_s3.size();
-
-	for (int i = 0; i < muonsL_number_s3; i++) {
-
-	  muonL_pt_s3.push_back(SelectedMuonsL_s3.at(i).Pt());
-	  muonL_eta_s3.push_back(SelectedMuonsL_s3.at(i).Eta());
-	  muonL_phi_s3.push_back(SelectedMuonsL_s3.at(i).Phi());
-	  muonL_E_s3.push_back(SelectedMuonsL_s3.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsF_number_s3; i++) {
-
-	  muonF_pt_s3.push_back(SelectedMuonsF_s3.at(i).Pt());
-	  muonF_eta_s3.push_back(SelectedMuonsF_s3.at(i).Eta());
-	  muonF_phi_s3.push_back(SelectedMuonsF_s3.at(i).Phi());
-	  muonF_E_s3.push_back(SelectedMuonsF_s3.at(i).E());
-
-	}
-
-        for (int i = 0; i < muonsT_number_s3; i++) {
-
-	  muonT_pt_s3.push_back(SelectedMuonsT_s3.at(i).Pt());
-	  muonT_eta_s3.push_back(SelectedMuonsT_s3.at(i).Eta());
-	  muonT_phi_s3.push_back(SelectedMuonsT_s3.at(i).Phi());
-	  muonT_E_s3.push_back(SelectedMuonsT_s3.at(i).E());
-    
-        }
-	
-
-	vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
-                                        SelectedMuonsT.end());
-        LeptonsT.insert(LeptonsT.end(), SelectedElectronsT.begin(),
-                        SelectedElectronsT.end());
-        leptonsL_number = SelectedElectronsL.size() +
-                          SelectedMuonsL.size(); // branch in newtree and SB
-        leptonsT_number = SelectedElectronsT.size() + SelectedMuonsT.size();
-        leptonsT_number_v2 = LeptonsT.size();
-
-        // lepton MVA
-        vector<TLorentzVector> SelectedElectronsMVAL;
-        vector<int> SelectedElectronsMVALIndex;
-        vector<TLorentzVector> SelectedElectronsMVAF;
-        vector<int> SelectedElectronsMVAFIndex; // F for fakeble
-        vector<TLorentzVector> SelectedElectronsMVAT;
-        vector<int> SelectedElectronsMVATIndex;
-        SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex,
-                           0, 4);
-        SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex,
-                           1, 4);
-        SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex,
-                           2, 4);
-	sort(SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end(), compEle);
-	sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(), compEle);
-	sort(SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end(), compEle);
-        
-	elesMVAL_number = SelectedElectronsMVAL.size();
-        elesMVAF_number = SelectedElectronsMVAF.size();
-        elesMVAT_number = SelectedElectronsMVAT.size();
-
-	for (int i = 0; i < elesMVAL_number; i++) {
-
-	      eleMVAL_pt.push_back(SelectedElectronsMVAL.at(i).Pt());
-	      eleMVAL_eta.push_back(SelectedElectronsMVAL.at(i).Eta());
-	      eleMVAL_phi.push_back(SelectedElectronsMVAL.at(i).Phi());
-	      eleMVAL_E.push_back(SelectedElectronsMVAL.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAF_number; i++) {
-
-	      eleMVAF_pt.push_back(SelectedElectronsMVAF.at(i).Pt());
-	      eleMVAF_eta.push_back(SelectedElectronsMVAF.at(i).Eta());
-	      eleMVAF_phi.push_back(SelectedElectronsMVAF.at(i).Phi());
-	      eleMVAF_E.push_back(SelectedElectronsMVAF.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAT_number; i++) {
-
-	      eleMVAT_pt.push_back(SelectedElectronsMVAT.at(i).Pt());
-	      eleMVAT_eta.push_back(SelectedElectronsMVAT.at(i).Eta());
-	      eleMVAT_phi.push_back(SelectedElectronsMVAT.at(i).Phi());
-	      eleMVAT_E.push_back(SelectedElectronsMVAT.at(i).E());
-	      
-	    }
-
-	// store here information for electrons at each stage
-	// stage 0
-	vector<TLorentzVector> SelectedElectronsMVAL_s0;
-        vector<int> SelectedElectronsMVALIndex_s0;
-        vector<TLorentzVector> SelectedElectronsMVAF_s0;
-        vector<int> SelectedElectronsMVAFIndex_s0; // F for fakeble
-        vector<TLorentzVector> SelectedElectronsMVAT_s0;
-        vector<int> SelectedElectronsMVATIndex_s0;
-        SelectElectronsMVA(SelectedElectronsMVAL_s0, SelectedElectronsMVALIndex_s0,
-                           0, 0);
-        SelectElectronsMVA(SelectedElectronsMVAF_s0, SelectedElectronsMVAFIndex_s0,
-                           1, 0);
-        SelectElectronsMVA(SelectedElectronsMVAT_s0, SelectedElectronsMVATIndex_s0,
-                           2, 0);
-
-	sort(SelectedElectronsMVAL_s0.begin(), SelectedElectronsMVAL_s0.end(), compEle);
-        sort(SelectedElectronsMVAF_s0.begin(), SelectedElectronsMVAF_s0.end(), compEle);
-        sort(SelectedElectronsMVAT_s0.begin(), SelectedElectronsMVAT_s0.end(), compEle);
-
-	elesMVAL_number_s0 = SelectedElectronsMVAL_s0.size();
-        elesMVAF_number_s0 = SelectedElectronsMVAF_s0.size();
-        elesMVAT_number_s0 = SelectedElectronsMVAT_s0.size();
-
-	for (int i = 0; i < elesMVAL_number_s0; i++) {
-
-	      eleMVAL_pt_s0.push_back(SelectedElectronsMVAL_s0.at(i).Pt());
-	      eleMVAL_eta_s0.push_back(SelectedElectronsMVAL_s0.at(i).Eta());
-	      eleMVAL_phi_s0.push_back(SelectedElectronsMVAL_s0.at(i).Phi());
-	      eleMVAL_E_s0.push_back(SelectedElectronsMVAL_s0.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAF_number_s0; i++) {
-
-	      eleMVAF_pt_s0.push_back(SelectedElectronsMVAF_s0.at(i).Pt());
-	      eleMVAF_eta_s0.push_back(SelectedElectronsMVAF_s0.at(i).Eta());
-	      eleMVAF_phi_s0.push_back(SelectedElectronsMVAF_s0.at(i).Phi());
-	      eleMVAF_E_s0.push_back(SelectedElectronsMVAF_s0.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAT_number_s0; i++) {
-
-	      eleMVAT_pt_s0.push_back(SelectedElectronsMVAT_s0.at(i).Pt());
-	      eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s0.at(i).Eta());
-	      eleMVAT_phi_s0.push_back(SelectedElectronsMVAT_s0.at(i).Phi());
-	      eleMVAT_E_s0.push_back(SelectedElectronsMVAT_s0.at(i).E());
-	      
-	    }
-	
-
-	// stage 1
-	vector<TLorentzVector> SelectedElectronsMVAL_s1;
-        vector<int> SelectedElectronsMVALIndex_s1;
-        vector<TLorentzVector> SelectedElectronsMVAF_s1;
-        vector<int> SelectedElectronsMVAFIndex_s1; // F for fakeble
-        vector<TLorentzVector> SelectedElectronsMVAT_s1;
-        vector<int> SelectedElectronsMVATIndex_s1;
-        SelectElectronsMVA(SelectedElectronsMVAL_s1, SelectedElectronsMVALIndex_s1,
-                           0, 1);
-        SelectElectronsMVA(SelectedElectronsMVAF_s1, SelectedElectronsMVAFIndex_s1,
-                           1, 1);
-        SelectElectronsMVA(SelectedElectronsMVAT_s1, SelectedElectronsMVATIndex_s1,
-                           2, 1);
-
-	sort(SelectedElectronsMVAL_s1.begin(), SelectedElectronsMVAL_s1.end(), compEle);
-        sort(SelectedElectronsMVAF_s1.begin(), SelectedElectronsMVAF_s1.end(), compEle);
-        sort(SelectedElectronsMVAT_s1.begin(), SelectedElectronsMVAT_s1.end(), compEle);
-
-	elesMVAL_number_s1 = SelectedElectronsMVAL_s1.size();
-        elesMVAF_number_s1 = SelectedElectronsMVAF_s1.size();
-        elesMVAT_number_s1 = SelectedElectronsMVAT_s1.size();
-
-	for (int i = 0; i < elesMVAL_number_s1; i++) {
-
-	      eleMVAL_pt_s1.push_back(SelectedElectronsMVAL_s1.at(i).Pt());
-	      eleMVAL_eta_s1.push_back(SelectedElectronsMVAL_s1.at(i).Eta());
-	      eleMVAL_phi_s1.push_back(SelectedElectronsMVAL_s1.at(i).Phi());
-	      eleMVAL_E_s1.push_back(SelectedElectronsMVAL_s1.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAF_number_s1; i++) {
-
-	      eleMVAF_pt_s1.push_back(SelectedElectronsMVAF_s1.at(i).Pt());
-	      eleMVAF_eta_s1.push_back(SelectedElectronsMVAF_s1.at(i).Eta());
-	      eleMVAF_phi_s1.push_back(SelectedElectronsMVAF_s1.at(i).Phi());
-	      eleMVAF_E_s1.push_back(SelectedElectronsMVAF_s1.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAT_number_s1; i++) {
-
-	      eleMVAT_pt_s1.push_back(SelectedElectronsMVAT_s1.at(i).Pt());
-	      eleMVAT_eta_s1.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
-	      eleMVAT_phi_s1.push_back(SelectedElectronsMVAT_s1.at(i).Phi());
-	      eleMVAT_E_s1.push_back(SelectedElectronsMVAT_s1.at(i).E());
-	      
-	    }
-
-	// stage 2
-	vector<TLorentzVector> SelectedElectronsMVAL_s2;
-        vector<int> SelectedElectronsMVALIndex_s2;
-        vector<TLorentzVector> SelectedElectronsMVAF_s2;
-        vector<int> SelectedElectronsMVAFIndex_s2; // F for fakeble
-        vector<TLorentzVector> SelectedElectronsMVAT_s2;
-        vector<int> SelectedElectronsMVATIndex_s2;
-        SelectElectronsMVA(SelectedElectronsMVAL_s2, SelectedElectronsMVALIndex_s2,
-                           0, 2);
-        SelectElectronsMVA(SelectedElectronsMVAF_s2, SelectedElectronsMVAFIndex_s2,
-                           1, 2);
-        SelectElectronsMVA(SelectedElectronsMVAT_s2, SelectedElectronsMVATIndex_s2,
-                           2, 2);
-
-	sort(SelectedElectronsMVAL_s2.begin(), SelectedElectronsMVAL_s2.end(), compEle);
-        sort(SelectedElectronsMVAF_s2.begin(), SelectedElectronsMVAF_s2.end(), compEle);
-        sort(SelectedElectronsMVAT_s2.begin(), SelectedElectronsMVAT_s2.end(), compEle);
-
-	elesMVAL_number_s2 = SelectedElectronsMVAL_s2.size();
-        elesMVAF_number_s2 = SelectedElectronsMVAF_s2.size();
-        elesMVAT_number_s2 = SelectedElectronsMVAT_s2.size();
-
-	for (int i = 0; i < elesMVAL_number_s2; i++) {
-
-	      eleMVAL_pt_s2.push_back(SelectedElectronsMVAL_s2.at(i).Pt());
-	      eleMVAL_eta_s2.push_back(SelectedElectronsMVAL_s2.at(i).Eta());
-	      eleMVAL_phi_s2.push_back(SelectedElectronsMVAL_s2.at(i).Phi());
-	      eleMVAL_E_s2.push_back(SelectedElectronsMVAL_s2.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAF_number_s2; i++) {
-
-	      eleMVAF_pt_s2.push_back(SelectedElectronsMVAF_s2.at(i).Pt());
-	      eleMVAF_eta_s2.push_back(SelectedElectronsMVAF_s2.at(i).Eta());
-	      eleMVAF_phi_s2.push_back(SelectedElectronsMVAF_s2.at(i).Phi());
-	      eleMVAF_E_s2.push_back(SelectedElectronsMVAF_s2.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAT_number_s2; i++) {
-
-	      eleMVAT_pt_s2.push_back(SelectedElectronsMVAT_s2.at(i).Pt());
-	      eleMVAT_eta_s2.push_back(SelectedElectronsMVAT_s2.at(i).Eta());
-	      eleMVAT_phi_s2.push_back(SelectedElectronsMVAT_s2.at(i).Phi());
-	      eleMVAT_E_s2.push_back(SelectedElectronsMVAT_s2.at(i).E());
-	      
-	    }
-
-	// stage 3
-	vector<TLorentzVector> SelectedElectronsMVAL_s3;
-        vector<int> SelectedElectronsMVALIndex_s3;
-        vector<TLorentzVector> SelectedElectronsMVAF_s3;
-        vector<int> SelectedElectronsMVAFIndex_s3; // F for fakeble
-        vector<TLorentzVector> SelectedElectronsMVAT_s3;
-        vector<int> SelectedElectronsMVATIndex_s3;
-        SelectElectronsMVA(SelectedElectronsMVAL_s3, SelectedElectronsMVALIndex_s3,
-                           0, 3);
-        SelectElectronsMVA(SelectedElectronsMVAF_s3, SelectedElectronsMVAFIndex_s3,
-                           1, 3);
-        SelectElectronsMVA(SelectedElectronsMVAT_s3, SelectedElectronsMVATIndex_s3,
-                           2, 3);
-
-	sort(SelectedElectronsMVAL_s3.begin(), SelectedElectronsMVAL_s3.end(), compEle);
-        sort(SelectedElectronsMVAF_s3.begin(), SelectedElectronsMVAF_s3.end(), compEle);
-        sort(SelectedElectronsMVAT_s3.begin(), SelectedElectronsMVAT_s3.end(), compEle);
-
-	elesMVAL_number_s3 = SelectedElectronsMVAL_s3.size();
-        elesMVAF_number_s3 = SelectedElectronsMVAF_s3.size();
-        elesMVAT_number_s3 = SelectedElectronsMVAT_s3.size();
-
-	for (int i = 0; i < elesMVAL_number_s3; i++) {
-
-	      eleMVAL_pt_s3.push_back(SelectedElectronsMVAL_s3.at(i).Pt());
-	      eleMVAL_eta_s3.push_back(SelectedElectronsMVAL_s3.at(i).Eta());
-	      eleMVAL_phi_s3.push_back(SelectedElectronsMVAL_s3.at(i).Phi());
-	      eleMVAL_E_s3.push_back(SelectedElectronsMVAL_s3.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAF_number_s3; i++) {
-
-	      eleMVAF_pt_s3.push_back(SelectedElectronsMVAF_s3.at(i).Pt());
-	      eleMVAF_eta_s3.push_back(SelectedElectronsMVAF_s3.at(i).Eta());
-	      eleMVAF_phi_s3.push_back(SelectedElectronsMVAF_s3.at(i).Phi());
-	      eleMVAF_E_s3.push_back(SelectedElectronsMVAF_s3.at(i).E());
-	      
-	    }
-
-	for (int i = 0; i < elesMVAT_number_s3; i++) {
-
-	      eleMVAT_pt_s3.push_back(SelectedElectronsMVAT_s3.at(i).Pt());
-	      eleMVAT_eta_s3.push_back(SelectedElectronsMVAT_s3.at(i).Eta());
-	      eleMVAT_phi_s3.push_back(SelectedElectronsMVAT_s3.at(i).Phi());
-	      eleMVAT_E_s3.push_back(SelectedElectronsMVAT_s3.at(i).E());
-	      
-	    }
-
-        vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(), SelectedMuonsF.end());
-        LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end());
-        vector<TLorentzVector> LeptonsMVAT(SelectedMuonsT.begin(),  SelectedMuonsT.end());
-        LeptonsMVAT.insert(LeptonsMVAT.end(), SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end());
-        vector<TLorentzVector> LeptonsMVAL(SelectedMuonsL.begin(),  SelectedMuonsL.end());
-        LeptonsMVAL.insert(LeptonsMVAL.end(), SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end());
-
-        vector<int> LeptonsMVATIndex(SelectedMuonsTIndex.begin(),  SelectedMuonsTIndex.end());
-        LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), SelectedElectronsMVATIndex.begin(), SelectedElectronsMVATIndex.end());
-
-        leptonsMVAT_number = LeptonsMVAT.size();
-        leptonsMVAF_number = LeptonsMVAF.size();
-        leptonsMVAL_number = LeptonsMVAL.size();
-        leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
-        leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
-        leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
-        // leptonsMVAT_chargeSum = ChargeSum()
-        if ( leptonsMVAT_number==2 ) {
-            if ( elesMVAT_number==2 ){
-                if (patElectron_charge_->at(SelectedElectronsMVATIndex[0])*patElectron_charge_->at(SelectedElectronsMVATIndex[1])==1) leptonsMVAT_2SS = 1;
-                else leptonsMVAT_2OS = 1 ;
-            }
-            if ( elesMVAT_number==1 ){
-                if (patElectron_charge_->at(SelectedElectronsMVATIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0])==1) leptonsMVAT_2SS = 1;
-                else leptonsMVAT_2OS = 1 ;
-            }
-            if ( elesMVAT_number==0){
-                if ( Muon_charge_->at(SelectedMuonsTIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[1])==1)  leptonsMVAT_2SS = 1;
-                else leptonsMVAT_2OS = 1 ;
-            }
-        }
-        //            leptonsTMVA_maxDeltaEta =
-
-        sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
-             compEle);
-        if (elesMVAF_number > 0) {
-          elesMVAF_1pt = SelectedElectronsMVAF[0].Pt();
-        }
-
-        sort(LeptonsMVAT.begin(), LeptonsMVAT.end(), compEle);
-        if (leptonsMVAT_number > 0) {
-          leptonsMVAT_1pt = LeptonsMVAT[0].Pt();
-          leptonsMVAT_1eta = LeptonsMVAT[0].Eta();
-          leptonsMVAT_1phi = LeptonsMVAT[0].Phi();
-        
-        }
-        if (leptonsMVAT_number > 1) {
-          leptonsMVAT_2pt = LeptonsMVAT[1].Pt();
-          leptonsMVAT_2eta = LeptonsMVAT[1].Eta();
-          leptonsMVAT_2phi = LeptonsMVAT[1].Phi();
-          
-        }
-        if (leptonsMVAT_number > 2) {
-          leptonsMVAT_3pt = LeptonsMVAT[2].Pt();
-          leptonsMVAT_3eta = LeptonsMVAT[2].Eta();
-          leptonsMVAT_3phi = LeptonsMVAT[2].Phi();
-        }
-
-        sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
-        if (muonsT_number > 0) {
-          muonsT_1pt = SelectedMuonsT[0].Pt();
-          muonsT_1eta = SelectedMuonsT[0].Eta();
-          muonsT_1phi = SelectedMuonsT[0].Phi();
-        }
-        if (muonsT_number > 1) {
-          muonsT_2pt = SelectedMuonsT[1].Pt();
-          muonsT_2eta = SelectedMuonsT[1].Eta();
-          muonsT_2phi = SelectedMuonsT[1].Phi();
-        }
-        if (muonsT_number > 2) {
-          muonsT_3pt = SelectedMuonsT[2].Pt();
-          muonsT_3eta = SelectedMuonsT[2].Eta();
-          muonsT_3phi = SelectedMuonsT[2].Phi();
-        }
-
-        // Cone-pT of selected leptons
-
-        // hadronic tau selection
-        vector<TLorentzVector> SelectedTausL;
-        vector<int> SelectedTausLIndex;
-        vector<TLorentzVector> SelectedTausF;
-        vector<int> SelectedTausFIndex;
-        vector<TLorentzVector> SelectedTausT;
-        vector<int> SelectedTausTIndex;
-        SelectTaus(SelectedTausL, SelectedTausLIndex, 1, LeptonsMVAL);
-        SelectTaus(SelectedTausF, SelectedTausFIndex, 2, LeptonsMVAL);
-        SelectTaus(SelectedTausT, SelectedTausTIndex, 3, LeptonsMVAL); // tight
-        tausL_number = SelectedTausL.size();
-        tausF_number = SelectedTausF.size();
-        tausT_number = SelectedTausT.size();
-        tausL_MHT = MHTcalculator(SelectedTausL);
-        tausF_MHT = MHTcalculator(
-            SelectedTausF); // 900;return the pt sum of,vetctor sum
-        tausT_MHT = MHTcalculator(
-            SelectedTausT); // 900;return the pt sum of,vetctor sum
-        tausL_HT = HTcalculator(SelectedTausL);
-        tausF_HT = HTcalculator(SelectedTausF);
-        tausT_HT = HTcalculator(SelectedTausT);
-        tausL_invariantMass = InvariantMassCalculator(SelectedTausL);
-        tausF_invariantMass = InvariantMassCalculator(SelectedTausF);
-        tausT_invariantMass = InvariantMassCalculator(SelectedTausT);
-        tausL_minDeltaR = MinDeltaRSingleCal(SelectedTausL);
-        tausF_minDeltaR = MinDeltaRSingleCal(SelectedTausF);
-        tausT_minDeltaR = MinDeltaRSingleCal(SelectedTausT);
-
-        tausF_leptonsT_transMass = TransMassSysCal(SelectedTausF, LeptonsMVAT);
-        tausL_leptonsT_transMass = TransMassSysCal(SelectedTausL, LeptonsMVAT);
-        tausT_leptonsT_transMass = TransMassSysCal(SelectedTausT, LeptonsMVAT);
-        tausF_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausF, LeptonsMVAT);
-        tausL_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausL, LeptonsMVAT);
-        tausT_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausT, LeptonsMVAT);
-        tausF_leptonsT_chargeSum = ChargeSum(SelectedTausFIndex, 1) +
-                                   ChargeSum(SelectedElectronsMVATIndex, 0) +
-                                   ChargeSum(SelectedMuonsTIndex, 2);
-        tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausF);
-        tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausL);
-        tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausT);
-
-        sort(SelectedTausL.begin(), SelectedTausL.end(), compEle);
-        if (tausL_number > 0) {
-          tauL_1pt = SelectedTausL[0].Pt();
-          tauL_1eta = SelectedTausL[0].Eta();
-          tauL_1phi = SelectedTausL[0].Phi();
-        }
-        if (tausL_number > 1) {
-          tauL_2pt = SelectedTausL[1].Pt();
-          tauL_2eta = SelectedTausL[1].Eta();
-          tauL_2phi = SelectedTausL[1].Phi();
-        }
-        if (tausL_number > 0) {
-          tauL_3pt = SelectedTausL[0].Pt();
-          tauL_3eta = SelectedTausL[0].Eta();
-          tauL_3phi = SelectedTausL[0].Phi();
-        }
-
-
-
-
-        // jet and B jet selection
-        vector<double> SelectedJetsBTags;
-        vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags,
-            SelectedBJetsTBTags, SelectedForwardJetsBTags; 
-        int CA8Index = -1;
-        //?what does CA8Index do?
-        //?not used in the macro
-        // bool deltaPhiJetMet = true; // used in SelectedJets
-        // vector<TLorentzVector> SelectedWJets;
-        // SelectCA8Jets(0,SelectedWJets,
-        // SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data,
-        // deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
-        // vector<TLorentzVector> SelectedTopJets;
-        // SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices,
-        // SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)
-        bool deepJet = true;
-        vector<TLorentzVector> SelectedJets; vector<int> SelectedJetsIndex;
-        SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags,SelectedJetsIndex, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
-        vector<TLorentzVector> SelectedBJetsL; vector<int> SelectedBJetsLIndex;
-        SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SelectedBJetsLIndex, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedBJetsM; vector<int> SelectedBJetsMIndex;
-        SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SelectedBJetsMIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedBJetsT; vector<int> SelectedBJetsTIndex;
-        SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SelectedBJetsTIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
-        vector<TLorentzVector> SelectedForwardJets; vector<int> SelectedForwardJetsIndex;
-        SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SelectedForwardJetsIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
-
-        jetsL_number = SelectedJets.size();
-        jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
-        jetsL_HT = HTcalculator(SelectedJets);
-        jetsL_invariantMass = InvariantMassCalculator(SelectedJets);
-        jetsL_transMass = TransMassCal(SelectedJets);
-        jetL_minDeltaR = MinDeltaRSingleCal(SelectedJets);
-        jetsL_centrality = jetsL_HT / jetsL_invariantMass;
-        jetsL_bScore = BScoreAllJetsCal(SelectedJetsBTags);
-        jetsL_average_deltaR = AverageDeltaRCal(SelectedJets);
-        jetsL_4largestBscoreSum = bscoreSumOf4largestCal(SelectedJetsBTags);
-        if (Met_pt == 0) {
-          jetsL_HTDividedByMet = 0;
+    gStyle->SetCanvasColor(0);
+    gStyle->SetFrameBorderMode(0); //?
+    gStyle->SetOptStat("rme");
+    gStyle->SetPalette(1, 0);
+    gStyle->SetTitleX(0.50);
+    gStyle->SetTitleY(0.96);
+    gStyle->SetPaintTextFormat(".2f");
+  
+    const bool isHLTstudy = false;
+    const bool preselection = true; // associate with selection
+    const bool sideband = false;    // associate with selection
+    //?what's sideband and signal ?
+    const bool signal = false;
+    //?signal occur nowhere else	//what does these mean?
+    // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
+    const int SysJes = 0; // jet enenrgy scale
+    const int SysJer = 0; // jet  energy resolution
+  
+    using namespace std;
+  
+    // vector<string> fileName;
+    // fileName.push_back(input);
+    // for (UInt_t Nfiles = 0; Nfiles < fileName.size(); Nfiles++) {
+      //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
+      string NewFileprov; // file already exist, new file is what we want build.
+      //?it seems Jes and Jer can not aplly together?
+      //?is it nessesary to put different SF in different files?
+      if ((SysJes == 0) && (SysJer == 0))
+        NewFileprov = outputDir + "NoJEC/" + input;
+      if ((SysJes == 1) && (SysJer == 0))
+        NewFileprov = outputDir + "JESup/" + input;
+      if ((SysJes == 2) && (SysJer == 0))
+        NewFileprov = outputDir + "JESdo/" + input;
+      if ((SysJes == 0) && (SysJer == 1))
+        NewFileprov = outputDir + "JERdo/" + input;
+      if ((SysJes == 0) && (SysJer == 2))
+        NewFileprov = outputDir + "JERup/" + input;
+      // const char *NewFileName = input.c_str();
+      bool data = true;
+      cout << "data" << data << endl;
+      //    if(fileName.size()==0) break;
+      if (!(input.find("TauBlock") != string::npos))
+        data = false; // find():The position of the first character of the first // match.
+      // If no matches were found, the function returns string::npos.//what is
+      //if filename is data, data=true. data and MC files have different    // tree .
+      cout << "data" << data << endl;
+  
+      const char *NewFileName =
+          NewFileprov.c_str(); // c_str()Returns a pointer to an array that
+                               // contains a null-terminated sequence of
+                               // characters (i.e., a C-string) representing
+                               // current value of the string object.
+      cout<<"New file here : "<<NewFileName<<endl;
+      //    TFile f(NewFileName,"new");//Create a new file and open it for
+      // writing, if the file already exists the file is not opened.
+      TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
+      TTree *NewTree = new TTree("tree", "tree");
+      TTree *NewTreeSB = new TTree("treeSB", "treeSB");
+      //why 2 trees? what's the different?		//treeSB has something todo with sideband
+      string FILEprov;
+      if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + input;
+      else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + input;
+      const char *FILE = FILEprov.c_str();
+      TFile *file = TFile::Open(FILE);
+      char openTree[500];
+      sprintf(openTree, "TNT/BOOM");       // 117
+      Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
+      Long64_t nentries =
+          (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
+                                     // all branches of entry and return total
+                                     // // number of bytes read.
+      for (int selection = 0; selection < 3; selection++) {
+        //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
+        // loop.signal=false
+        // selection = 0 -> preselection=true; line 19, true
+        // selection = 1 -> signal selection; preselection=false and, not continue
+        // , that means go to the next line of the loop.
+        // selection = 2 -> sideband=true and pre=false; line 14 sideband=false
+        if (!((preselection && selection == 0) ||
+              (!preselection && sideband && (selection == 1 || selection == 2)) ||
+              (!preselection && !sideband && selection == 1)))
+          continue;
+        // preselection=true ,sideband=false,in this case selection=0
+        //what does sideband and signal do?
+        //        branch(data,selection,NewTree,NewTreeSB,input);Tree->SetBranchAddress;NewTree and SB->Branch
+        branch(data, selection, NewTree,  NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
+        // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
+        Long64_t NumOfEvents;
+        if (istest) {
+          NumOfEvents = 1000;
         } else {
-          jetsL_HTDividedByMet = jetsL_HT / Met_pt;
+          NumOfEvents = nentries;
         }
-        MetDividedByHT = Met_pt / jetsL_HT;
-        jetsL_MHTDividedByMet = jetsL_MHT / Met_pt;
-        jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets, LeptonsMVAT);
-        jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets, SelectedTausF);
-
-        bjetsL_num = SelectedBJetsL.size();
-        bjetsM_num = SelectedBJetsM.size(); //
-        bjetsT_num = SelectedBJetsT.size();
-        bjetsL_HT = HTcalculator(SelectedBJetsL);
-        bjetsM_HT = HTcalculator(SelectedBJetsM);
-        bjetsT_HT = HTcalculator(SelectedBJetsT);
-        bjetsL_MHT =  MHTcalculator(SelectedBJetsL); // 900;return the pt sum of,vetctor sum
-        bjetsM_MHT =  MHTcalculator(SelectedBJetsM); // 900;return the pt sum of,vetctor sum
-        bjetsT_MHT =  MHTcalculator(SelectedBJetsT); // 900;return the pt sum of,vetctor sum
-        bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
-        bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
-        bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
-        bjetsL_transMass = TransMassCal(SelectedBJetsL);
-        bjetsM_transMass = TransMassCal(SelectedBJetsM);
-        bjetsT_transMass = TransMassCal(SelectedBJetsT);
-        bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
-        bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
-        bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
-        bjetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsL, LeptonsMVAT);
-        bjetsM_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsM, LeptonsMVAT);
-        bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsT, LeptonsMVAT);
-        bjetsL_tausF_minDeltaR = MinDeltaRCal(SelectedBJetsL, SelectedTausF);
-
-
-        forwardJets_num = SelectedForwardJets.size(); // 185
-
-        vector<double> MinMaxDeltaPhiJets;
-        MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
-        MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
-
-        sort(SelectedBJetsL.begin(), SelectedBJetsL.end(), compEle);
-        if (bjetsL_num > 0) {/*{{{*/
-          bjetsL_1pt = SelectedBJetsL[0].Pt();
-          bjetsL_1eta = SelectedBJetsL[0].Eta();
-          bjetsL_1phi = SelectedBJetsL[0].Phi();
-        }
-        if (bjetsL_num > 1) {
-          bjetsL_2pt = SelectedBJetsL[1].Pt();
-          bjetsL_2eta = SelectedBJetsL[1].Eta();
-          bjetsL_2phi = SelectedBJetsL[1].Phi();
-        }
-        if (bjetsL_num > 2) {
-          bjetsL_3pt = SelectedBJetsL[2].Pt();
-          bjetsL_3eta = SelectedBJetsL[2].Eta();
-          bjetsL_3phi = SelectedBJetsL[2].Phi();
-        }
-        if (bjetsL_num > 3) {
-          bjetsL_4pt = SelectedBJetsL[3].Pt();
-          bjetsL_4eta = SelectedBJetsL[3].Eta();
-          bjetsL_4phi = SelectedBJetsL[3].Phi();
-        }
-
-        sort(SelectedBJetsM.begin(), SelectedBJetsM.end(), compEle);
-        if (bjetsM_num > 0) {
-          bjetsM_1pt = SelectedBJetsM[0].Pt();
-          bjetsM_1eta = SelectedBJetsM[0].Eta();
-          bjetsM_1phi = SelectedBJetsM[0].Phi();
-        }
-        if (bjetsM_num > 1) {
-          bjetsM_2pt = SelectedBJetsM[1].Pt();
-          bjetsM_2eta = SelectedBJetsM[1].Eta();
-          bjetsM_2phi = SelectedBJetsM[1].Phi();
-        }
-        if (bjetsM_num > 2) {
-          bjetsM_3pt = SelectedBJetsM[2].Pt();
-          bjetsM_3eta = SelectedBJetsM[2].Eta();
-          bjetsM_3phi = SelectedBJetsM[2].Phi();
-        }
-        if (bjetsM_num > 3) {
-          bjetsM_4pt = SelectedBJetsM[3].Pt();
-          bjetsM_4eta = SelectedBJetsM[3].Eta();
-          bjetsM_4phi = SelectedBJetsM[3].Phi();
-        }
-
-        sort(SelectedBJetsT.begin(), SelectedBJetsT.end(), compEle);
-        if (bjetsT_num > 0) {
-          bjetsT_1pt = SelectedBJetsT[0].Pt();
-          bjetsT_1eta = SelectedBJetsT[0].Eta();
-          bjetsT_1phi = SelectedBJetsT[0].Phi();
-        }
-        if (bjetsT_num > 1) {
-          bjetsT_2pt = SelectedBJetsT[1].Pt();
-          bjetsT_2eta = SelectedBJetsT[1].Eta();
-          bjetsT_2phi = SelectedBJetsT[1].Phi();
-        }
-        if (bjetsT_num > 2) {
-          bjetsT_3pt = SelectedBJetsT[2].Pt();
-          bjetsT_3eta = SelectedBJetsT[2].Eta();
-          bjetsT_3phi = SelectedBJetsT[2].Phi();
-        }
-        if (bjetsT_num > 3) {
-          bjetsT_4pt = SelectedBJetsT[3].Pt();
-          bjetsT_4eta = SelectedBJetsT[3].Eta();
-          bjetsT_4phi = SelectedBJetsT[3].Phi();
-        }/*}}}*/
-
-
-        sort(SelectedForwardJets.begin(), SelectedForwardJets.end(), compEle);
-        if (forwardJets_num > 0) {
-          forwardjet_1pt = SelectedForwardJets[0].Pt();
-          forwardjet_1eta = fabs(SelectedForwardJets[0].Eta());
-          forwardjet_1phi = SelectedForwardJets[0].Phi();
-          forwardjet1_jetsL_minDeltaEta =
-              MinDeltaEtaCal(SelectedForwardJets[0], SelectedJets);
-        }
-
-        sort(SelectedJets.begin(), SelectedJets.end(), compEle);
-        if (jetsL_number > 0) {/*{{{*/
-          jetsL_1pt = SelectedJets[0].Pt();
-          jetsL_1eta = SelectedJets[0].Eta();
-          jetsL_1phi = SelectedJets[0].Phi();
-        }
-        if (jetsL_number > 1) {
-          jetsL_2pt = SelectedJets[1].Pt();
-          jetsL_2eta = SelectedJets[1].Eta();
-          jetsL_2phi = SelectedJets[1].Phi();
-          jetsL_leading2invariantMass = (SelectedJets[0]+SelectedJets[1]).M();
-        }
-        if (jetsL_number > 2) {
-          jetsL_3pt = SelectedJets[2].Pt();
-          jetsL_3eta = SelectedJets[2].Eta();
-          jetsL_3phi = SelectedJets[2].Phi();
-        }
-        if (jetsL_number > 3) {
-          jetsL_4pt = SelectedJets[3].Pt();
-          jetsL_4eta = SelectedJets[3].Eta();
-          jetsL_4phi = SelectedJets[3].Phi();
-        }
-        if (jetsL_number > 4) {
-          jetsL_5pt = SelectedJets[4].Pt();
-          jetsL_5eta = SelectedJets[4].Eta();
-          jetsL_5phi = SelectedJets[4].Phi();
-          jetsL_rationHT_4toRest = rationHT_4toRestCal(SelectedJets);
-        }
-        if (jetsL_number > 5) {
-          jetsL_6pt = SelectedJets[5].Pt();
-          jetsL_6eta = SelectedJets[5].Eta();
-          jetsL_6phi = SelectedJets[5].Phi();
-        }
-        if (jetsL_number > 6) {
-          jetsL_7pt = SelectedJets[6].Pt();
-          jetsL_7eta = SelectedJets[6].Eta();
-          jetL_7phi = SelectedJets[6].Phi();
-        }
-        if (jetsL_number > 7) {
-          jetsL_8pt = SelectedJets[7].Pt();
-          jetsL_8eta = SelectedJets[7].Eta();
-          jetsL_8phi = SelectedJets[7].Phi();
-        }
-        if (jetsL_number > 8) {
-          jetsL_9pt = SelectedJets[8].Pt();
-          jetsL_9eta = SelectedJets[8].Eta();
-          jetsL_9phi = SelectedJets[8].Phi();
-        }
-        if (jetsL_number > 9) {
-          jetsL_10pt = SelectedJets[9].Pt();
-          jetsL_10eta = SelectedJets[9].Eta();
-          jetsL_10phi = SelectedJets[9].Phi();
-        }
-        if (jetsL_number > 10) {
-          jetsL_11pt = SelectedJets[10].Pt();
-          jetsL_11eta = SelectedJets[10].Eta();
-          jetsL_11phi = SelectedJets[10].Phi();
-        }/*}}}*/
-
-        //event preselection
-        if ( !isHLTstudy){
-            if (!(tausL_number > 0))      continue;
-            if (!(jetsL_number > 3))      continue;
-            if (!(bjetsL_num > 1))        continue;
-        }
-        //channel selection for MVA
-        // if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
-        
-        //
-        //
-        //
-        //
-        // Hadronic Top selection
-        // using resuts of SUSY toptagger here
-        vector<TLorentzVector> SelectedTops;
-        SelectTops(SelectedTops);
-        toptagger_num = SelectedTops.size();
-        toptagger_MHT =  MHTcalculator(SelectedTops); // 900;return the pt sum of,vetctor sum
-        toptagger_HT = HTcalculator(SelectedTops);
-        toptagger_invariantMass = InvariantMassCalculator(SelectedTops);
-        toptagger_transMass = TransMassCal(SelectedTops);
-        toptagger_minDeltaR_v1 = MinDeltaRSingleCal(SelectedTops);
-        toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
-        toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedTops, LeptonsMVAT);
-        sort(SelectedTops.begin(), SelectedTops.end(), compEle);
-        if (toptagger_num > 0) {
-          toptagger_1pt = SelectedTops[0].Pt();
-          toptagger_1eta = SelectedTops[0].Eta();
-          toptagger_1phi = SelectedTops[0].Phi();
-        }
-        if (toptagger_num > 1) {
-          toptagger_2pt = SelectedTops[1].Pt();
-          toptagger_2eta = SelectedTops[1].Eta();
-          toptagger_2phi = SelectedTops[1].Phi();
-          vector<double> MinMaxDeltaRTops;
-          MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
-          toptagger_minDeltaR = MinMaxDeltaRTops[0];
-          toptagger_maxDeltaR = MinMaxDeltaRTops[1];
-        }
-        if (toptagger_num > 2) {
-          toptagger_3pt = SelectedTops[2].Pt();
-          toptagger_3eta = SelectedTops[2].Eta();
-          toptagger_3phi = SelectedTops[2].Phi();
-        }
-
-        // only top that decay into 3 jets
-        /*			TLorentzVector Jet1Resolved;
-        Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-                                TLorentzVector Jet2Resolved;
-        Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-                                TLorentzVector Jet3Resolved;
-        Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
-                                TLorentzVector HadronicTopQuark;
-        HadronicTopQuark.SetPtEtaPhiE(0, 0, 0, 0);
-                                TLorentzVector HadronicTopQuarkResolved;
-        HadronicTopQuarkResolved.SetPtEtaPhiE(0, 0, 0, 0);
-                                bool ResolvedEvent   = false;//parameter in
-        function FillBranch
-                                        //466; give Jet1,2,3,Toppt etc
-        //last 2 parameter are TopMassCut and btag
-                        //ResolvedRegionSelection need modification because it
-        only have 1 top
-        //			if(selection==0)
-        ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
-        HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
-        false, false);
-                                if(selection==0)
-        ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
-        HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
-        true, true);
-                                if(selection==1)
-        ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
-        HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
-        false, true );
-                                if(selection==2)
-        ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
-        HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
-        false, false);
-                                if(ResolvedEvent)   HadronicTopQuark =
-        HadronicTopQuarkResolved;//parameter in Fillbranch
-                    //HadronicTopQuark and HadronicTopQuarkResolved are
-        identical
-        //			if(!ResolvedEvent) continue;
-        //			//?use funtion to give value, wouldn't it be
-        useless?
-                            WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
-        */
-        NVertices = nBestVtx_;
-        EVENT_run = EVENT_run_;
-        EVENT_event = EVENT_event_;
-        EVENT_lumiBlock = EVENT_lumiBlock_;
-        EVENT_genHT = EVENT_genHT_;
-        prefiringweight = EVENT_prefireWeight_;
-        prefiringweightup = EVENT_prefireWeightUp_;
-        prefiringweightdown = EVENT_prefireWeightDown_;
-        puWeight = PUWeight_ ;
-        EVENT_genWeight = genWeight_;
-
-
-        // WEIGHT
-        //if(!data){
-        //		get_weight_btag(selection,w_Btag,
-        //      w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
-        //      w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,fileName[Nfiles]);//606 w_Btagall in NewTree
-        //		newPUWeight(PUWeight, PUWeightUP,PUWeightDOWN);//PUWeigh is a branch in Tree and newTree,PU and UP and DOWN are in New
-        //		GenWeight(fileName[Nfiles],GenZPt,GenWPt);2681
-                // HTSF(fileName[Nfiles],HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
-                // TriggerSF(Met_pt, jetsL_MHT, w_Trig, w_TrigUp, w_TrigDown );
-               // QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
-                // PDFWeight(10,111,w_PDFUp,w_PDFDown);
-        //			}
-
-        if (selection == 0 || selection == 1)
-          NewTree->Fill();
-        else if (selection == 2)
-          HistoFill(PUWeight, NewTreeSB);
+        for (Long64_t i = 0; i < NumOfEvents; i++) {
+          Long64_t tentry = Tree->LoadTree(i); // Set current entry.
+          branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+  
+          h_genWeight->Fill( 0.0 , genWeight_ );
+  
+  
+  
+          initializeVar(); // initialize for new tree.
+          if ( !isHLTstudy ){
+               //			if(!(HLT_PFHT900_==1 ||
+              // HLT_PFHT450_SixJet40_BTagCSV_p056_==1||HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1))  continue;//a branch in tree, trigger we choose
+              if (!(Flag_goodVertices_ == 1))
+                continue; // a branch in tree.
+              if (!(Flag_globalSuperTightHalo2016Filter_ == 1))
+                continue;
+              if (!(Flag_HBHENoiseFilter_ == 1))
+                continue;
+              if (!(Flag_HBHENoiseIsoFilter_ == 1))
+                continue;
+              if (!(Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
+                continue; // a branch in Tree
+              if (!(Flag_BadPFMuonFilter_ == 1))
+                continue;
+              //			if(!(Flag_ecalBadCalibReducedMINIAODFilter_==1))
+              // continue;
+              //			why this filter not work?//applied only in 2017 and 2018
+              if (data) {
+                if (!(Flag_eeBadScFilter_ == 1)) continue;
+              }
+          }
+          
+          
+          //HLT branches
+           HLT_PFHT900  = HLT_PFHT900_;
+           HLT_PFHT450_SixJet40_BTagCSV_p056  = HLT_PFHT450_SixJet40_BTagCSV_p056_;
+           HLT_PFHT400_SixJet30_DoubleBTagCSV_p056  = HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+           HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_;
+           HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_;
+           HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_;
+           HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg  = HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_;
+           HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_;
+           HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg  = HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_;
+           HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg  = HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_;//this HLT doesn't exist in ntuple
+  
+           HLT_Ele27_eta2p1_WPTight_Gsf  = HLT_Ele27_eta2p1_WPTight_Gsf_;
+           HLT_Ele27_eta2p1_WPLoose_Gsf  = HLT_Ele27_eta2p1_WPLoose_Gsf_;
+           HLT_Ele27_WPTight_Gsf  = HLT_Ele27_WPTight_Gsf_;
+           HLT_IsoMu22  = HLT_IsoMu22_;
+           HLT_Ele25_eta2p1_WPTight_Gsf  = HLT_Ele25_eta2p1_WPTight_Gsf_;
+           HLT_IsoTkMu22  = HLT_IsoTkMu22_;
+           HLT_IsoMu24  = HLT_IsoMu24_;
+           HLT_IsoTkMu24  = HLT_IsoTkMu24_;
+           HLT_IsoMu22_eta2p1  = HLT_IsoMu22_eta2p1_;
+           HLT_IsoTkMu22_eta2p1  = HLT_IsoTkMu22_eta2p1_;
+           HLT_Mu50  = HLT_Mu50_;
+           HLT_TkMu50  = HLT_TkMu50_;
+           HLT_Ele32_WPTight_Gsf  = HLT_Ele32_WPTight_Gsf_;
+           HLT_Ele35_WPTight_Gsf  = HLT_Ele35_WPTight_Gsf_;
+           HLT_IsoMu27  = HLT_IsoMu27_;
+  
+          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_;
+          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_;
+          HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_;
+          HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1  = HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_;
+          HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1  = HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_;
+          HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1  = HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_;
+          HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1  = HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_;
+          HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1  = HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_;
+  
+          HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf  = HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_;
+          HLT_DoubleEle33_CaloIdL_MW  = HLT_DoubleEle33_CaloIdL_MW_;
+          HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW  = HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_;
+          HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_;
+          HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL  = HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_;
+          HLT_DoubleMu33NoFiltersNoVtx  = HLT_DoubleMu33NoFiltersNoVtx_;
+          HLT_DoubleMu23NoFiltersNoVtxDisplaced  = HLT_DoubleMu23NoFiltersNoVtxDisplaced_;
+          HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_;
+          HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_;
+          HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_;
+          HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_;
+          HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL  = HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_;
+          HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_;
+          HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL = HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_;
+          HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ = HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_;
+          HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL  = HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_;
+          HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_;
+          HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL  = HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_;
+          HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ  = HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_;
+  
+          HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL  = HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_;
+          HLT_Mu8_DiEle12_CaloIdL_TrackIdL  = HLT_Mu8_DiEle12_CaloIdL_TrackIdL_;
+          HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ  = HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_;
+          HLT_TripleMu_12_10_5  = HLT_TripleMu_12_10_5_;
+          HLT_DiMu9_Ele9_CaloIdL_TrackIdL  = HLT_DiMu9_Ele9_CaloIdL_TrackIdL_;
+  
+  
+  
+          //gen tau and lepton
+          if ( !data ){
+              vector<TLorentzVector> genTaus; 
+              vector<TLorentzVector> genEles;
+              vector<TLorentzVector> genMuons;
+              selectGenTaus(genTaus);
+              selectGenEles(genEles);
+              selectGenMuons(genMuons);
+          sort(genEles.begin(), genEles.end(), compEle);
+          sort(genMuons.begin(), genMuons.end(), compEle);
+              genTaus_number = genTaus.size();
+              genEles_number = genEles.size();
+              genMuons_number = genMuons.size();
+          
+          for (int i = 0; i < genEles_number; i++) {
+  
+            genEle_pt.push_back(genEles.at(i).Pt());
+            genEle_eta.push_back(genEles.at(i).Eta());
+            genEle_phi.push_back(genEles.at(i).Phi());
+            genEle_E.push_back(genEles.at(i).E());
+            
+          }
+  
+          for (int i = 0; i < genMuons_number; i++) {
+  
+            genMuon_pt.push_back(genMuons.at(i).Pt());
+            genMuon_eta.push_back(genMuons.at(i).Eta());
+            genMuon_phi.push_back(genMuons.at(i).Phi());
+            genMuon_E.push_back(genMuons.at(i).E());
+            
+          }
+          }
+  
+  
+          if (!data)
+            GenClassifier(GenZPt, GenWPt); // according to pdg ID generate the
+                                           // number of  usdc quark and GenZPt
+                                           // GenWPt.
+          // not sure what our analysis can do with it
+  
+          // met
+          //?need to check met
+          //			bool SelectedMet = false;
+          //?how does SysJes impact Met_pt ?//?do we still have to correct Met?
+          MetCorrection(SysJes, SysJer, Met_pt); // Met_pt in newtree branch.
+          // why have to do this MetCorrection//take jet SF into
+          // consideration.correct met_pt
+          //            if( Met_pt > 200)  SelectedMet = true;//228;parameter in
+          // Fillbranches
+          // we don't care about Met so much
+          // Met_pt            = Met_type1PF_pt_;
+          Met_phi = Met_type1PF_phi_; // Met_phi branch in newtree and SB
+  
+          // lepton selection
+          vector<TLorentzVector> SelectedElectronsL;
+          vector<int> SelectedElectronsLIndex;
+          vector<TLorentzVector> SelectedElectronsM;
+          vector<int> SelectedElectronsMIndex;
+          vector<TLorentzVector> SelectedElectronsT;
+          vector<int> SelectedElectronsTIndex;
+          vector<TLorentzVector> SelectedElectronsVeto;
+          vector<int> SelectedElectronsVetoIndex;
+          SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//cut based ID
+          SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
+          SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
+          SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3); 
+  
+          eleL_number = SelectedElectronsL.size();
+          eleM_number = SelectedElectronsM.size();
+          eleT_number = SelectedElectronsT.size();
+  
+          vector<TLorentzVector> SelectedMuonsL;
+          vector<int> SelectedMuonsLIndex;
+          vector<TLorentzVector> SelectedMuonsF;
+          vector<int> SelectedMuonsFIndex;
+          vector<TLorentzVector> SelectedMuonsT;
+          vector<int> SelectedMuonsTIndex;
+          SelectMuons(SelectedMuonsL, SelectedMuonsLIndex, 0, 4);
+          SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1, 4);
+          SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2, 4);//this T is actually the medium in SS
+  
+      sort(SelectedMuonsL.begin(), SelectedMuonsL.end(), compEle);
+          sort(SelectedMuonsF.begin(), SelectedMuonsF.end(), compEle);
+          sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
+  
+          muonsL_number = SelectedMuonsL.size();
+          muonsF_number = SelectedMuonsF.size();
+          muonsT_number = SelectedMuonsT.size();
+  
+      for (int i = 0; i < muonsL_number; i++) {
+  
+            muonL_pt.push_back(SelectedMuonsL.at(i).Pt());
+            muonL_eta.push_back(SelectedMuonsL.at(i).Eta());
+            muonL_phi.push_back(SelectedMuonsL.at(i).Phi());
+            muonL_E.push_back(SelectedMuonsL.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < muonsF_number; i++) {
+  
+            muonF_pt.push_back(SelectedMuonsF.at(i).Pt());
+            muonF_eta.push_back(SelectedMuonsF.at(i).Eta());
+            muonF_phi.push_back(SelectedMuonsF.at(i).Phi());
+            muonF_E.push_back(SelectedMuonsF.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < muonsT_number; i++) {
+  
+            muonT_pt.push_back(SelectedMuonsT.at(i).Pt());
+            muonT_eta.push_back(SelectedMuonsT.at(i).Eta());
+            muonT_phi.push_back(SelectedMuonsT.at(i).Phi());
+            muonT_E.push_back(SelectedMuonsT.at(i).E());
+            
+          }
+  
+      //store here information about muons at each stage
+      // stage 0
+      vector<TLorentzVector> SelectedMuonsL_s0;
+          vector<int> SelectedMuonsLIndex_s0;
+          vector<TLorentzVector> SelectedMuonsF_s0;
+          vector<int> SelectedMuonsFIndex_s0;
+          vector<TLorentzVector> SelectedMuonsT_s0;
+          vector<int> SelectedMuonsTIndex_s0;
+          SelectMuons(SelectedMuonsL_s0, SelectedMuonsLIndex_s0, 0, 0);
+          SelectMuons(SelectedMuonsF_s0, SelectedMuonsFIndex_s0, 1, 0);
+          SelectMuons(SelectedMuonsT_s0, SelectedMuonsTIndex_s0, 2, 0);//this T is actually the medium in SS
+         
+      sort(SelectedMuonsL_s0.begin(), SelectedMuonsL_s0.end(), compEle);
+          sort(SelectedMuonsF_s0.begin(), SelectedMuonsF_s0.end(), compEle);
+          sort(SelectedMuonsT_s0.begin(), SelectedMuonsT_s0.end(), compEle);
+  
+      muonsL_number_s0 = SelectedMuonsL_s0.size();
+          muonsF_number_s0 = SelectedMuonsF_s0.size();
+          muonsT_number_s0 = SelectedMuonsT_s0.size();
+  
+      for (int i = 0; i < muonsL_number_s0; i++) {
+   
+            muonL_pt_s0.push_back(SelectedMuonsL_s0.at(i).Pt());
+            muonL_eta_s0.push_back(SelectedMuonsL_s0.at(i).Eta());
+            muonL_phi_s0.push_back(SelectedMuonsL_s0.at(i).Phi());
+            muonL_E_s0.push_back(SelectedMuonsL_s0.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < muonsF_number_s0; i++) {
+  
+            muonF_pt_s0.push_back(SelectedMuonsF_s0.at(i).Pt());
+            muonF_eta_s0.push_back(SelectedMuonsF_s0.at(i).Eta());
+            muonF_phi_s0.push_back(SelectedMuonsF_s0.at(i).Phi());
+            muonF_E_s0.push_back(SelectedMuonsF_s0.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < muonsT_number_s0; i++) {
+  
+            muonT_pt_s0.push_back(SelectedMuonsT_s0.at(i).Pt());
+            muonT_eta_s0.push_back(SelectedMuonsT_s0.at(i).Eta());
+            muonT_phi_s0.push_back(SelectedMuonsT_s0.at(i).Phi());
+            muonT_E_s0.push_back(SelectedMuonsT_s0.at(i).E());
+            
+          }
+  
+      // stage 1                                                                                                                                                                            
+          vector<TLorentzVector> SelectedMuonsL_s1;
+          vector<int> SelectedMuonsLIndex_s1;
+          vector<TLorentzVector> SelectedMuonsF_s1;
+          vector<int> SelectedMuonsFIndex_s1;
+          vector<TLorentzVector> SelectedMuonsT_s1;
+          vector<int> SelectedMuonsTIndex_s1;
+          SelectMuons(SelectedMuonsL_s1, SelectedMuonsLIndex_s1, 0, 1);
+          SelectMuons(SelectedMuonsF_s1, SelectedMuonsFIndex_s1, 1, 1);
+          SelectMuons(SelectedMuonsT_s1, SelectedMuonsTIndex_s1, 2, 1);//this T is actually the medium in
+  
+      sort(SelectedMuonsL_s1.begin(), SelectedMuonsL_s1.end(), compEle);
+          sort(SelectedMuonsF_s1.begin(), SelectedMuonsF_s1.end(), compEle);
+          sort(SelectedMuonsT_s1.begin(), SelectedMuonsT_s1.end(), compEle);
+      
+          muonsL_number_s1 = SelectedMuonsL_s1.size();
+          muonsF_number_s1 = SelectedMuonsF_s1.size();
+          muonsT_number_s1 = SelectedMuonsT_s1.size();
+      
+      for (int i = 0; i < muonsL_number_s1; i++) {
+  
+        muonL_pt_s1.push_back(SelectedMuonsL_s1.at(i).Pt());
+        muonL_eta_s1.push_back(SelectedMuonsL_s1.at(i).Eta());
+        muonL_phi_s1.push_back(SelectedMuonsL_s1.at(i).Phi());
+        muonL_E_s1.push_back(SelectedMuonsL_s1.at(i).E());
+  
       }
-    }
-
-    f.cd();
-    NewTree->Write();
-    h_genWeight->Write();
-    f.Close();
-    cout << "File " << fileName[Nfiles] << " ready!" << endl;
-  }
+  
+          for (int i = 0; i < muonsF_number_s1; i++) {
+  
+        muonF_pt_s1.push_back(SelectedMuonsF_s1.at(i).Pt());
+        muonF_eta_s1.push_back(SelectedMuonsF_s1.at(i).Eta());
+        muonF_phi_s1.push_back(SelectedMuonsF_s1.at(i).Phi());
+        muonF_E_s1.push_back(SelectedMuonsF_s1.at(i).E());
+  
+      }
+  
+          for (int i = 0; i < muonsT_number_s1; i++) {
+  
+        muonT_pt_s1.push_back(SelectedMuonsT_s1.at(i).Pt());
+        muonT_eta_s1.push_back(SelectedMuonsT_s1.at(i).Eta());
+        muonT_phi_s1.push_back(SelectedMuonsT_s1.at(i).Phi());
+        muonT_E_s1.push_back(SelectedMuonsT_s1.at(i).E());
+      
+          }
+  
+      // stage 2                                                                                                                                                                             
+          vector<TLorentzVector> SelectedMuonsL_s2;
+          vector<int> SelectedMuonsLIndex_s2;
+          vector<TLorentzVector> SelectedMuonsF_s2;
+          vector<int> SelectedMuonsFIndex_s2;
+          vector<TLorentzVector> SelectedMuonsT_s2;
+          vector<int> SelectedMuonsTIndex_s2;
+          SelectMuons(SelectedMuonsL_s2, SelectedMuonsLIndex_s2, 0, 2);
+          SelectMuons(SelectedMuonsF_s2, SelectedMuonsFIndex_s2, 1, 2);
+          SelectMuons(SelectedMuonsT_s2, SelectedMuonsTIndex_s2, 2, 2);//this T is actually the medium in SS 
+  
+      sort(SelectedMuonsL_s2.begin(), SelectedMuonsL_s2.end(), compEle);
+          sort(SelectedMuonsF_s2.begin(), SelectedMuonsF_s2.end(), compEle);
+          sort(SelectedMuonsT_s2.begin(), SelectedMuonsT_s2.end(), compEle);
+                                                                                       
+          muonsL_number_s2 = SelectedMuonsL_s2.size();
+          muonsF_number_s2 = SelectedMuonsF_s2.size();
+          muonsT_number_s2 = SelectedMuonsT_s2.size();
+          
+      for (int i = 0; i < muonsL_number_s2; i++) {
+  
+        muonL_pt_s2.push_back(SelectedMuonsL_s2.at(i).Pt());
+        muonL_eta_s2.push_back(SelectedMuonsL_s2.at(i).Eta());
+        muonL_phi_s2.push_back(SelectedMuonsL_s2.at(i).Phi());
+        muonL_E_s2.push_back(SelectedMuonsL_s2.at(i).E());
+  
+      }
+  
+          for (int i = 0; i < muonsF_number_s2; i++) {
+  
+        muonF_pt_s2.push_back(SelectedMuonsF_s2.at(i).Pt());
+        muonF_eta_s2.push_back(SelectedMuonsF_s2.at(i).Eta());
+        muonF_phi_s2.push_back(SelectedMuonsF_s2.at(i).Phi());
+        muonF_E_s2.push_back(SelectedMuonsF_s2.at(i).E());
+  
+      }
+  
+          for (int i = 0; i < muonsT_number_s2; i++) {
+  
+        muonT_pt_s2.push_back(SelectedMuonsT_s2.at(i).Pt());
+        muonT_eta_s2.push_back(SelectedMuonsT_s2.at(i).Eta());
+        muonT_phi_s2.push_back(SelectedMuonsT_s2.at(i).Phi());
+        muonT_E_s2.push_back(SelectedMuonsT_s2.at(i).E());
+      
+          }
+  
+      // stage 3
+          vector<TLorentzVector> SelectedMuonsL_s3;
+          vector<int> SelectedMuonsLIndex_s3;
+          vector<TLorentzVector> SelectedMuonsF_s3;
+          vector<int> SelectedMuonsFIndex_s3;
+          vector<TLorentzVector> SelectedMuonsT_s3;
+          vector<int> SelectedMuonsTIndex_s3;
+          SelectMuons(SelectedMuonsL_s3, SelectedMuonsLIndex_s3, 0, 3);
+          SelectMuons(SelectedMuonsF_s3, SelectedMuonsFIndex_s3, 1, 3);
+          SelectMuons(SelectedMuonsT_s3, SelectedMuonsTIndex_s3, 2, 3);//this T is actually the medium in SS                                                                                      
+      sort(SelectedMuonsL_s3.begin(), SelectedMuonsL_s3.end(), compEle);
+          sort(SelectedMuonsF_s3.begin(), SelectedMuonsF_s3.end(), compEle);
+          sort(SelectedMuonsT_s3.begin(), SelectedMuonsT_s3.end(), compEle);
+  
+          muonsL_number_s3 = SelectedMuonsL_s3.size();
+          muonsF_number_s3 = SelectedMuonsF_s3.size();
+          muonsT_number_s3 = SelectedMuonsT_s3.size();
+  
+      for (int i = 0; i < muonsL_number_s3; i++) {
+  
+        muonL_pt_s3.push_back(SelectedMuonsL_s3.at(i).Pt());
+        muonL_eta_s3.push_back(SelectedMuonsL_s3.at(i).Eta());
+        muonL_phi_s3.push_back(SelectedMuonsL_s3.at(i).Phi());
+        muonL_E_s3.push_back(SelectedMuonsL_s3.at(i).E());
+  
+      }
+  
+          for (int i = 0; i < muonsF_number_s3; i++) {
+  
+        muonF_pt_s3.push_back(SelectedMuonsF_s3.at(i).Pt());
+        muonF_eta_s3.push_back(SelectedMuonsF_s3.at(i).Eta());
+        muonF_phi_s3.push_back(SelectedMuonsF_s3.at(i).Phi());
+        muonF_E_s3.push_back(SelectedMuonsF_s3.at(i).E());
+  
+      }
+  
+          for (int i = 0; i < muonsT_number_s3; i++) {
+  
+        muonT_pt_s3.push_back(SelectedMuonsT_s3.at(i).Pt());
+        muonT_eta_s3.push_back(SelectedMuonsT_s3.at(i).Eta());
+        muonT_phi_s3.push_back(SelectedMuonsT_s3.at(i).Phi());
+        muonT_E_s3.push_back(SelectedMuonsT_s3.at(i).E());
+      
+          }
+      
+  
+      vector<TLorentzVector> LeptonsT(SelectedMuonsT.begin(),
+                                          SelectedMuonsT.end());
+          LeptonsT.insert(LeptonsT.end(), SelectedElectronsT.begin(),
+                          SelectedElectronsT.end());
+          leptonsL_number = SelectedElectronsL.size() +
+                            SelectedMuonsL.size(); // branch in newtree and SB
+          leptonsT_number = SelectedElectronsT.size() + SelectedMuonsT.size();
+          leptonsT_number_v2 = LeptonsT.size();
+  
+          // lepton MVA
+          vector<TLorentzVector> SelectedElectronsMVAL;
+          vector<int> SelectedElectronsMVALIndex;
+          vector<TLorentzVector> SelectedElectronsMVAF;
+          vector<int> SelectedElectronsMVAFIndex; // F for fakeble
+          vector<TLorentzVector> SelectedElectronsMVAT;
+          vector<int> SelectedElectronsMVATIndex;
+          SelectElectronsMVA(SelectedElectronsMVAL, SelectedElectronsMVALIndex,
+                             0, 4);
+          SelectElectronsMVA(SelectedElectronsMVAF, SelectedElectronsMVAFIndex,
+                             1, 4);
+          SelectElectronsMVA(SelectedElectronsMVAT, SelectedElectronsMVATIndex,
+                             2, 4);
+      sort(SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end(), compEle);
+      sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(), compEle);
+      sort(SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end(), compEle);
+          
+      elesMVAL_number = SelectedElectronsMVAL.size();
+          elesMVAF_number = SelectedElectronsMVAF.size();
+          elesMVAT_number = SelectedElectronsMVAT.size();
+  
+      for (int i = 0; i < elesMVAL_number; i++) {
+  
+            eleMVAL_pt.push_back(SelectedElectronsMVAL.at(i).Pt());
+            eleMVAL_eta.push_back(SelectedElectronsMVAL.at(i).Eta());
+            eleMVAL_phi.push_back(SelectedElectronsMVAL.at(i).Phi());
+            eleMVAL_E.push_back(SelectedElectronsMVAL.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAF_number; i++) {
+  
+            eleMVAF_pt.push_back(SelectedElectronsMVAF.at(i).Pt());
+            eleMVAF_eta.push_back(SelectedElectronsMVAF.at(i).Eta());
+            eleMVAF_phi.push_back(SelectedElectronsMVAF.at(i).Phi());
+            eleMVAF_E.push_back(SelectedElectronsMVAF.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAT_number; i++) {
+  
+            eleMVAT_pt.push_back(SelectedElectronsMVAT.at(i).Pt());
+            eleMVAT_eta.push_back(SelectedElectronsMVAT.at(i).Eta());
+            eleMVAT_phi.push_back(SelectedElectronsMVAT.at(i).Phi());
+            eleMVAT_E.push_back(SelectedElectronsMVAT.at(i).E());
+            
+          }
+  
+      // store here information for electrons at each stage
+      // stage 0
+      vector<TLorentzVector> SelectedElectronsMVAL_s0;
+          vector<int> SelectedElectronsMVALIndex_s0;
+          vector<TLorentzVector> SelectedElectronsMVAF_s0;
+          vector<int> SelectedElectronsMVAFIndex_s0; // F for fakeble
+          vector<TLorentzVector> SelectedElectronsMVAT_s0;
+          vector<int> SelectedElectronsMVATIndex_s0;
+          SelectElectronsMVA(SelectedElectronsMVAL_s0, SelectedElectronsMVALIndex_s0,
+                             0, 0);
+          SelectElectronsMVA(SelectedElectronsMVAF_s0, SelectedElectronsMVAFIndex_s0,
+                             1, 0);
+          SelectElectronsMVA(SelectedElectronsMVAT_s0, SelectedElectronsMVATIndex_s0,
+                             2, 0);
+  
+      sort(SelectedElectronsMVAL_s0.begin(), SelectedElectronsMVAL_s0.end(), compEle);
+          sort(SelectedElectronsMVAF_s0.begin(), SelectedElectronsMVAF_s0.end(), compEle);
+          sort(SelectedElectronsMVAT_s0.begin(), SelectedElectronsMVAT_s0.end(), compEle);
+  
+      elesMVAL_number_s0 = SelectedElectronsMVAL_s0.size();
+          elesMVAF_number_s0 = SelectedElectronsMVAF_s0.size();
+          elesMVAT_number_s0 = SelectedElectronsMVAT_s0.size();
+  
+      for (int i = 0; i < elesMVAL_number_s0; i++) {
+  
+            eleMVAL_pt_s0.push_back(SelectedElectronsMVAL_s0.at(i).Pt());
+            eleMVAL_eta_s0.push_back(SelectedElectronsMVAL_s0.at(i).Eta());
+            eleMVAL_phi_s0.push_back(SelectedElectronsMVAL_s0.at(i).Phi());
+            eleMVAL_E_s0.push_back(SelectedElectronsMVAL_s0.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAF_number_s0; i++) {
+  
+            eleMVAF_pt_s0.push_back(SelectedElectronsMVAF_s0.at(i).Pt());
+            eleMVAF_eta_s0.push_back(SelectedElectronsMVAF_s0.at(i).Eta());
+            eleMVAF_phi_s0.push_back(SelectedElectronsMVAF_s0.at(i).Phi());
+            eleMVAF_E_s0.push_back(SelectedElectronsMVAF_s0.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAT_number_s0; i++) {
+  
+            eleMVAT_pt_s0.push_back(SelectedElectronsMVAT_s0.at(i).Pt());
+            eleMVAT_eta_s0.push_back(SelectedElectronsMVAT_s0.at(i).Eta());
+            eleMVAT_phi_s0.push_back(SelectedElectronsMVAT_s0.at(i).Phi());
+            eleMVAT_E_s0.push_back(SelectedElectronsMVAT_s0.at(i).E());
+            
+          }
+      
+  
+      // stage 1
+      vector<TLorentzVector> SelectedElectronsMVAL_s1;
+          vector<int> SelectedElectronsMVALIndex_s1;
+          vector<TLorentzVector> SelectedElectronsMVAF_s1;
+          vector<int> SelectedElectronsMVAFIndex_s1; // F for fakeble
+          vector<TLorentzVector> SelectedElectronsMVAT_s1;
+          vector<int> SelectedElectronsMVATIndex_s1;
+          SelectElectronsMVA(SelectedElectronsMVAL_s1, SelectedElectronsMVALIndex_s1,
+                             0, 1);
+          SelectElectronsMVA(SelectedElectronsMVAF_s1, SelectedElectronsMVAFIndex_s1,
+                             1, 1);
+          SelectElectronsMVA(SelectedElectronsMVAT_s1, SelectedElectronsMVATIndex_s1,
+                             2, 1);
+  
+      sort(SelectedElectronsMVAL_s1.begin(), SelectedElectronsMVAL_s1.end(), compEle);
+          sort(SelectedElectronsMVAF_s1.begin(), SelectedElectronsMVAF_s1.end(), compEle);
+          sort(SelectedElectronsMVAT_s1.begin(), SelectedElectronsMVAT_s1.end(), compEle);
+  
+      elesMVAL_number_s1 = SelectedElectronsMVAL_s1.size();
+          elesMVAF_number_s1 = SelectedElectronsMVAF_s1.size();
+          elesMVAT_number_s1 = SelectedElectronsMVAT_s1.size();
+  
+      for (int i = 0; i < elesMVAL_number_s1; i++) {
+  
+            eleMVAL_pt_s1.push_back(SelectedElectronsMVAL_s1.at(i).Pt());
+            eleMVAL_eta_s1.push_back(SelectedElectronsMVAL_s1.at(i).Eta());
+            eleMVAL_phi_s1.push_back(SelectedElectronsMVAL_s1.at(i).Phi());
+            eleMVAL_E_s1.push_back(SelectedElectronsMVAL_s1.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAF_number_s1; i++) {
+  
+            eleMVAF_pt_s1.push_back(SelectedElectronsMVAF_s1.at(i).Pt());
+            eleMVAF_eta_s1.push_back(SelectedElectronsMVAF_s1.at(i).Eta());
+            eleMVAF_phi_s1.push_back(SelectedElectronsMVAF_s1.at(i).Phi());
+            eleMVAF_E_s1.push_back(SelectedElectronsMVAF_s1.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAT_number_s1; i++) {
+  
+            eleMVAT_pt_s1.push_back(SelectedElectronsMVAT_s1.at(i).Pt());
+            eleMVAT_eta_s1.push_back(SelectedElectronsMVAT_s1.at(i).Eta());
+            eleMVAT_phi_s1.push_back(SelectedElectronsMVAT_s1.at(i).Phi());
+            eleMVAT_E_s1.push_back(SelectedElectronsMVAT_s1.at(i).E());
+            
+          }
+  
+      // stage 2
+      vector<TLorentzVector> SelectedElectronsMVAL_s2;
+          vector<int> SelectedElectronsMVALIndex_s2;
+          vector<TLorentzVector> SelectedElectronsMVAF_s2;
+          vector<int> SelectedElectronsMVAFIndex_s2; // F for fakeble
+          vector<TLorentzVector> SelectedElectronsMVAT_s2;
+          vector<int> SelectedElectronsMVATIndex_s2;
+          SelectElectronsMVA(SelectedElectronsMVAL_s2, SelectedElectronsMVALIndex_s2,
+                             0, 2);
+          SelectElectronsMVA(SelectedElectronsMVAF_s2, SelectedElectronsMVAFIndex_s2,
+                             1, 2);
+          SelectElectronsMVA(SelectedElectronsMVAT_s2, SelectedElectronsMVATIndex_s2,
+                             2, 2);
+  
+      sort(SelectedElectronsMVAL_s2.begin(), SelectedElectronsMVAL_s2.end(), compEle);
+          sort(SelectedElectronsMVAF_s2.begin(), SelectedElectronsMVAF_s2.end(), compEle);
+          sort(SelectedElectronsMVAT_s2.begin(), SelectedElectronsMVAT_s2.end(), compEle);
+  
+      elesMVAL_number_s2 = SelectedElectronsMVAL_s2.size();
+          elesMVAF_number_s2 = SelectedElectronsMVAF_s2.size();
+          elesMVAT_number_s2 = SelectedElectronsMVAT_s2.size();
+  
+      for (int i = 0; i < elesMVAL_number_s2; i++) {
+  
+            eleMVAL_pt_s2.push_back(SelectedElectronsMVAL_s2.at(i).Pt());
+            eleMVAL_eta_s2.push_back(SelectedElectronsMVAL_s2.at(i).Eta());
+            eleMVAL_phi_s2.push_back(SelectedElectronsMVAL_s2.at(i).Phi());
+            eleMVAL_E_s2.push_back(SelectedElectronsMVAL_s2.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAF_number_s2; i++) {
+  
+            eleMVAF_pt_s2.push_back(SelectedElectronsMVAF_s2.at(i).Pt());
+            eleMVAF_eta_s2.push_back(SelectedElectronsMVAF_s2.at(i).Eta());
+            eleMVAF_phi_s2.push_back(SelectedElectronsMVAF_s2.at(i).Phi());
+            eleMVAF_E_s2.push_back(SelectedElectronsMVAF_s2.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAT_number_s2; i++) {
+  
+            eleMVAT_pt_s2.push_back(SelectedElectronsMVAT_s2.at(i).Pt());
+            eleMVAT_eta_s2.push_back(SelectedElectronsMVAT_s2.at(i).Eta());
+            eleMVAT_phi_s2.push_back(SelectedElectronsMVAT_s2.at(i).Phi());
+            eleMVAT_E_s2.push_back(SelectedElectronsMVAT_s2.at(i).E());
+            
+          }
+  
+      // stage 3
+      vector<TLorentzVector> SelectedElectronsMVAL_s3;
+          vector<int> SelectedElectronsMVALIndex_s3;
+          vector<TLorentzVector> SelectedElectronsMVAF_s3;
+          vector<int> SelectedElectronsMVAFIndex_s3; // F for fakeble
+          vector<TLorentzVector> SelectedElectronsMVAT_s3;
+          vector<int> SelectedElectronsMVATIndex_s3;
+          SelectElectronsMVA(SelectedElectronsMVAL_s3, SelectedElectronsMVALIndex_s3,
+                             0, 3);
+          SelectElectronsMVA(SelectedElectronsMVAF_s3, SelectedElectronsMVAFIndex_s3,
+                             1, 3);
+          SelectElectronsMVA(SelectedElectronsMVAT_s3, SelectedElectronsMVATIndex_s3,
+                             2, 3);
+  
+      sort(SelectedElectronsMVAL_s3.begin(), SelectedElectronsMVAL_s3.end(), compEle);
+          sort(SelectedElectronsMVAF_s3.begin(), SelectedElectronsMVAF_s3.end(), compEle);
+          sort(SelectedElectronsMVAT_s3.begin(), SelectedElectronsMVAT_s3.end(), compEle);
+  
+      elesMVAL_number_s3 = SelectedElectronsMVAL_s3.size();
+          elesMVAF_number_s3 = SelectedElectronsMVAF_s3.size();
+          elesMVAT_number_s3 = SelectedElectronsMVAT_s3.size();
+  
+      for (int i = 0; i < elesMVAL_number_s3; i++) {
+  
+            eleMVAL_pt_s3.push_back(SelectedElectronsMVAL_s3.at(i).Pt());
+            eleMVAL_eta_s3.push_back(SelectedElectronsMVAL_s3.at(i).Eta());
+            eleMVAL_phi_s3.push_back(SelectedElectronsMVAL_s3.at(i).Phi());
+            eleMVAL_E_s3.push_back(SelectedElectronsMVAL_s3.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAF_number_s3; i++) {
+  
+            eleMVAF_pt_s3.push_back(SelectedElectronsMVAF_s3.at(i).Pt());
+            eleMVAF_eta_s3.push_back(SelectedElectronsMVAF_s3.at(i).Eta());
+            eleMVAF_phi_s3.push_back(SelectedElectronsMVAF_s3.at(i).Phi());
+            eleMVAF_E_s3.push_back(SelectedElectronsMVAF_s3.at(i).E());
+            
+          }
+  
+      for (int i = 0; i < elesMVAT_number_s3; i++) {
+  
+            eleMVAT_pt_s3.push_back(SelectedElectronsMVAT_s3.at(i).Pt());
+            eleMVAT_eta_s3.push_back(SelectedElectronsMVAT_s3.at(i).Eta());
+            eleMVAT_phi_s3.push_back(SelectedElectronsMVAT_s3.at(i).Phi());
+            eleMVAT_E_s3.push_back(SelectedElectronsMVAT_s3.at(i).E());
+            
+          }
+  
+          vector<TLorentzVector> LeptonsMVAF(SelectedMuonsF.begin(), SelectedMuonsF.end());
+          LeptonsMVAF.insert(LeptonsMVAF.end(), SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end());
+          vector<TLorentzVector> LeptonsMVAT(SelectedMuonsT.begin(),  SelectedMuonsT.end());
+          LeptonsMVAT.insert(LeptonsMVAT.end(), SelectedElectronsMVAT.begin(), SelectedElectronsMVAT.end());
+          vector<TLorentzVector> LeptonsMVAL(SelectedMuonsL.begin(),  SelectedMuonsL.end());
+          LeptonsMVAL.insert(LeptonsMVAL.end(), SelectedElectronsMVAL.begin(), SelectedElectronsMVAL.end());
+  
+          vector<int> LeptonsMVATIndex(SelectedMuonsTIndex.begin(),  SelectedMuonsTIndex.end());
+          LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), SelectedElectronsMVATIndex.begin(), SelectedElectronsMVATIndex.end());
+  
+          leptonsMVAT_number = LeptonsMVAT.size();
+          leptonsMVAF_number = LeptonsMVAF.size();
+          leptonsMVAL_number = LeptonsMVAL.size();
+          leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
+          leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
+          leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
+          // leptonsMVAT_chargeSum = ChargeSum()
+          if ( leptonsMVAT_number==2 ) {
+              if ( elesMVAT_number==2 ){
+                  if (patElectron_charge_->at(SelectedElectronsMVATIndex[0])*patElectron_charge_->at(SelectedElectronsMVATIndex[1])==1) leptonsMVAT_2SS = 1;
+                  else leptonsMVAT_2OS = 1 ;
+              }
+              if ( elesMVAT_number==1 ){
+                  if (patElectron_charge_->at(SelectedElectronsMVATIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[0])==1) leptonsMVAT_2SS = 1;
+                  else leptonsMVAT_2OS = 1 ;
+              }
+              if ( elesMVAT_number==0){
+                  if ( Muon_charge_->at(SelectedMuonsTIndex[0])*Muon_charge_->at(SelectedMuonsTIndex[1])==1)  leptonsMVAT_2SS = 1;
+                  else leptonsMVAT_2OS = 1 ;
+              }
+          }
+          //            leptonsTMVA_maxDeltaEta =
+  
+          sort(SelectedElectronsMVAF.begin(), SelectedElectronsMVAF.end(),
+               compEle);
+          if (elesMVAF_number > 0) {
+            elesMVAF_1pt = SelectedElectronsMVAF[0].Pt();
+          }
+  
+          sort(LeptonsMVAT.begin(), LeptonsMVAT.end(), compEle);
+          if (leptonsMVAT_number > 0) {
+            leptonsMVAT_1pt = LeptonsMVAT[0].Pt();
+            leptonsMVAT_1eta = LeptonsMVAT[0].Eta();
+            leptonsMVAT_1phi = LeptonsMVAT[0].Phi();
+          
+          }
+          if (leptonsMVAT_number > 1) {
+            leptonsMVAT_2pt = LeptonsMVAT[1].Pt();
+            leptonsMVAT_2eta = LeptonsMVAT[1].Eta();
+            leptonsMVAT_2phi = LeptonsMVAT[1].Phi();
+            
+          }
+          if (leptonsMVAT_number > 2) {
+            leptonsMVAT_3pt = LeptonsMVAT[2].Pt();
+            leptonsMVAT_3eta = LeptonsMVAT[2].Eta();
+            leptonsMVAT_3phi = LeptonsMVAT[2].Phi();
+          }
+  
+          sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
+          if (muonsT_number > 0) {
+            muonsT_1pt = SelectedMuonsT[0].Pt();
+            muonsT_1eta = SelectedMuonsT[0].Eta();
+            muonsT_1phi = SelectedMuonsT[0].Phi();
+          }
+          if (muonsT_number > 1) {
+            muonsT_2pt = SelectedMuonsT[1].Pt();
+            muonsT_2eta = SelectedMuonsT[1].Eta();
+            muonsT_2phi = SelectedMuonsT[1].Phi();
+          }
+          if (muonsT_number > 2) {
+            muonsT_3pt = SelectedMuonsT[2].Pt();
+            muonsT_3eta = SelectedMuonsT[2].Eta();
+            muonsT_3phi = SelectedMuonsT[2].Phi();
+          }
+  
+          // Cone-pT of selected leptons
+  
+          // hadronic tau selection
+          vector<TLorentzVector> SelectedTausL;
+          vector<int> SelectedTausLIndex;
+          vector<TLorentzVector> SelectedTausF;
+          vector<int> SelectedTausFIndex;
+          vector<TLorentzVector> SelectedTausT;
+          vector<int> SelectedTausTIndex;
+          SelectTaus(SelectedTausL, SelectedTausLIndex, 1, LeptonsMVAL);
+          SelectTaus(SelectedTausF, SelectedTausFIndex, 2, LeptonsMVAL);
+          SelectTaus(SelectedTausT, SelectedTausTIndex, 3, LeptonsMVAL); // tight
+          tausL_number = SelectedTausL.size();
+          tausF_number = SelectedTausF.size();
+          tausT_number = SelectedTausT.size();
+          tausL_MHT = MHTcalculator(SelectedTausL);
+          tausF_MHT = MHTcalculator(
+              SelectedTausF); // 900;return the pt sum of,vetctor sum
+          tausT_MHT = MHTcalculator(
+              SelectedTausT); // 900;return the pt sum of,vetctor sum
+          tausL_HT = HTcalculator(SelectedTausL);
+          tausF_HT = HTcalculator(SelectedTausF);
+          tausT_HT = HTcalculator(SelectedTausT);
+          tausL_invariantMass = InvariantMassCalculator(SelectedTausL);
+          tausF_invariantMass = InvariantMassCalculator(SelectedTausF);
+          tausT_invariantMass = InvariantMassCalculator(SelectedTausT);
+          tausL_minDeltaR = MinDeltaRSingleCal(SelectedTausL);
+          tausF_minDeltaR = MinDeltaRSingleCal(SelectedTausF);
+          tausT_minDeltaR = MinDeltaRSingleCal(SelectedTausT);
+  
+          tausF_leptonsT_transMass = TransMassSysCal(SelectedTausF, LeptonsMVAT);
+          tausL_leptonsT_transMass = TransMassSysCal(SelectedTausL, LeptonsMVAT);
+          tausT_leptonsT_transMass = TransMassSysCal(SelectedTausT, LeptonsMVAT);
+          tausF_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausF, LeptonsMVAT);
+          tausL_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausL, LeptonsMVAT);
+          tausT_leptonsT_invariantMass = InvariantMass2SysCal(SelectedTausT, LeptonsMVAT);
+          tausF_leptonsT_chargeSum = ChargeSum(SelectedTausFIndex, 1) +
+                                     ChargeSum(SelectedElectronsMVATIndex, 0) +
+                                     ChargeSum(SelectedMuonsTIndex, 2);
+          tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausF);
+          tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausL);
+          tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, SelectedTausT);
+  
+          sort(SelectedTausL.begin(), SelectedTausL.end(), compEle);
+          if (tausL_number > 0) {
+            tauL_1pt = SelectedTausL[0].Pt();
+            tauL_1eta = SelectedTausL[0].Eta();
+            tauL_1phi = SelectedTausL[0].Phi();
+          }
+          if (tausL_number > 1) {
+            tauL_2pt = SelectedTausL[1].Pt();
+            tauL_2eta = SelectedTausL[1].Eta();
+            tauL_2phi = SelectedTausL[1].Phi();
+          }
+          if (tausL_number > 0) {
+            tauL_3pt = SelectedTausL[0].Pt();
+            tauL_3eta = SelectedTausL[0].Eta();
+            tauL_3phi = SelectedTausL[0].Phi();
+          }
+  
+  
+  
+  
+          // jet and B jet selection
+          vector<double> SelectedJetsBTags;
+          vector<double> SelectedBJetsMBTtags, SelectedBJetsLBTags,
+              SelectedBJetsTBTags, SelectedForwardJetsBTags; 
+          int CA8Index = -1;
+          //?what does CA8Index do?
+          //?not used in the macro
+          // bool deltaPhiJetMet = true; // used in SelectedJets
+          // vector<TLorentzVector> SelectedWJets;
+          // SelectCA8Jets(0,SelectedWJets,
+          // SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data,
+          // deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+          // vector<TLorentzVector> SelectedTopJets;
+          // SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices,
+          // SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)
+          bool deepJet = true;
+          vector<TLorentzVector> SelectedJets; vector<int> SelectedJetsIndex;
+          SelectJets(0, deepJet, SelectedJets, SelectedJetsBTags,SelectedJetsIndex, SysJes, SysJer,  LeptonsMVAF, SelectedTausL); 
+          vector<TLorentzVector> SelectedBJetsL; vector<int> SelectedBJetsLIndex;
+          SelectJets(11, deepJet, SelectedBJetsL, SelectedBJetsLBTags, SelectedBJetsLIndex, SysJes,  SysJer, LeptonsMVAF, SelectedTausL ); 
+          vector<TLorentzVector> SelectedBJetsM; vector<int> SelectedBJetsMIndex;
+          SelectJets(12, deepJet, SelectedBJetsM, SelectedBJetsMBTtags, SelectedBJetsMIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
+          vector<TLorentzVector> SelectedBJetsT; vector<int> SelectedBJetsTIndex;
+          SelectJets(13, deepJet, SelectedBJetsT, SelectedBJetsTBTags, SelectedBJetsTIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL ); 
+          vector<TLorentzVector> SelectedForwardJets; vector<int> SelectedForwardJetsIndex;
+          SelectJets(2, deepJet, SelectedForwardJets, SelectedForwardJetsBTags, SelectedForwardJetsIndex, SysJes, SysJer, LeptonsMVAF, SelectedTausL);
+  
+          jetsL_number = SelectedJets.size();
+          jetsL_MHT =  MHTcalculator(SelectedJets); // 900;return the pt sum of,vetctor sum
+          jetsL_HT = HTcalculator(SelectedJets);
+          jetsL_invariantMass = InvariantMassCalculator(SelectedJets);
+          jetsL_transMass = TransMassCal(SelectedJets);
+          jetL_minDeltaR = MinDeltaRSingleCal(SelectedJets);
+          jetsL_centrality = jetsL_HT / jetsL_invariantMass;
+          jetsL_bScore = BScoreAllJetsCal(SelectedJetsBTags);
+          jetsL_average_deltaR = AverageDeltaRCal(SelectedJets);
+          jetsL_4largestBscoreSum = bscoreSumOf4largestCal(SelectedJetsBTags);
+          if (Met_pt == 0) {
+            jetsL_HTDividedByMet = 0;
+          } else {
+            jetsL_HTDividedByMet = jetsL_HT / Met_pt;
+          }
+          MetDividedByHT = Met_pt / jetsL_HT;
+          jetsL_MHTDividedByMet = jetsL_MHT / Met_pt;
+          jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedJets, LeptonsMVAT);
+          jetsL_tausF_minDeltaR = MinDeltaRCal(SelectedJets, SelectedTausF);
+  
+          bjetsL_num = SelectedBJetsL.size();
+          bjetsM_num = SelectedBJetsM.size(); //
+          bjetsT_num = SelectedBJetsT.size();
+          bjetsL_HT = HTcalculator(SelectedBJetsL);
+          bjetsM_HT = HTcalculator(SelectedBJetsM);
+          bjetsT_HT = HTcalculator(SelectedBJetsT);
+          bjetsL_MHT =  MHTcalculator(SelectedBJetsL); // 900;return the pt sum of,vetctor sum
+          bjetsM_MHT =  MHTcalculator(SelectedBJetsM); // 900;return the pt sum of,vetctor sum
+          bjetsT_MHT =  MHTcalculator(SelectedBJetsT); // 900;return the pt sum of,vetctor sum
+          bjetsL_invariantMass = InvariantMassCalculator(SelectedBJetsL);
+          bjetsM_invariantMass = InvariantMassCalculator(SelectedBJetsM);
+          bjetsT_invariantMass = InvariantMassCalculator(SelectedBJetsT);
+          bjetsL_transMass = TransMassCal(SelectedBJetsL);
+          bjetsM_transMass = TransMassCal(SelectedBJetsM);
+          bjetsT_transMass = TransMassCal(SelectedBJetsT);
+          bjetsL_minDeltaR = MinDeltaRSingleCal(SelectedBJetsL);
+          bjetsM_minDeltaR = MinDeltaRSingleCal(SelectedBJetsM);
+          bjetsT_minDeltaR = MinDeltaRSingleCal(SelectedBJetsT);
+          bjetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsL, LeptonsMVAT);
+          bjetsM_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsM, LeptonsMVAT);
+          bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedBJetsT, LeptonsMVAT);
+          bjetsL_tausF_minDeltaR = MinDeltaRCal(SelectedBJetsL, SelectedTausF);
+  
+  
+          forwardJets_num = SelectedForwardJets.size(); // 185
+  
+          vector<double> MinMaxDeltaPhiJets;
+          MinMaxDeltaPhiCal(SelectedJets, MinMaxDeltaPhiJets);
+          MinDeltaPhiJets = MinMaxDeltaPhiJets[0];
+  
+          sort(SelectedBJetsL.begin(), SelectedBJetsL.end(), compEle);
+          if (bjetsL_num > 0) {/*{{{*/
+            bjetsL_1pt = SelectedBJetsL[0].Pt();
+            bjetsL_1eta = SelectedBJetsL[0].Eta();
+            bjetsL_1phi = SelectedBJetsL[0].Phi();
+          }
+          if (bjetsL_num > 1) {
+            bjetsL_2pt = SelectedBJetsL[1].Pt();
+            bjetsL_2eta = SelectedBJetsL[1].Eta();
+            bjetsL_2phi = SelectedBJetsL[1].Phi();
+          }
+          if (bjetsL_num > 2) {
+            bjetsL_3pt = SelectedBJetsL[2].Pt();
+            bjetsL_3eta = SelectedBJetsL[2].Eta();
+            bjetsL_3phi = SelectedBJetsL[2].Phi();
+          }
+          if (bjetsL_num > 3) {
+            bjetsL_4pt = SelectedBJetsL[3].Pt();
+            bjetsL_4eta = SelectedBJetsL[3].Eta();
+            bjetsL_4phi = SelectedBJetsL[3].Phi();
+          }
+  
+          sort(SelectedBJetsM.begin(), SelectedBJetsM.end(), compEle);
+          if (bjetsM_num > 0) {
+            bjetsM_1pt = SelectedBJetsM[0].Pt();
+            bjetsM_1eta = SelectedBJetsM[0].Eta();
+            bjetsM_1phi = SelectedBJetsM[0].Phi();
+          }
+          if (bjetsM_num > 1) {
+            bjetsM_2pt = SelectedBJetsM[1].Pt();
+            bjetsM_2eta = SelectedBJetsM[1].Eta();
+            bjetsM_2phi = SelectedBJetsM[1].Phi();
+          }
+          if (bjetsM_num > 2) {
+            bjetsM_3pt = SelectedBJetsM[2].Pt();
+            bjetsM_3eta = SelectedBJetsM[2].Eta();
+            bjetsM_3phi = SelectedBJetsM[2].Phi();
+          }
+          if (bjetsM_num > 3) {
+            bjetsM_4pt = SelectedBJetsM[3].Pt();
+            bjetsM_4eta = SelectedBJetsM[3].Eta();
+            bjetsM_4phi = SelectedBJetsM[3].Phi();
+          }
+  
+          sort(SelectedBJetsT.begin(), SelectedBJetsT.end(), compEle);
+          if (bjetsT_num > 0) {
+            bjetsT_1pt = SelectedBJetsT[0].Pt();
+            bjetsT_1eta = SelectedBJetsT[0].Eta();
+            bjetsT_1phi = SelectedBJetsT[0].Phi();
+          }
+          if (bjetsT_num > 1) {
+            bjetsT_2pt = SelectedBJetsT[1].Pt();
+            bjetsT_2eta = SelectedBJetsT[1].Eta();
+            bjetsT_2phi = SelectedBJetsT[1].Phi();
+          }
+          if (bjetsT_num > 2) {
+            bjetsT_3pt = SelectedBJetsT[2].Pt();
+            bjetsT_3eta = SelectedBJetsT[2].Eta();
+            bjetsT_3phi = SelectedBJetsT[2].Phi();
+          }
+          if (bjetsT_num > 3) {
+            bjetsT_4pt = SelectedBJetsT[3].Pt();
+            bjetsT_4eta = SelectedBJetsT[3].Eta();
+            bjetsT_4phi = SelectedBJetsT[3].Phi();
+          }/*}}}*/
+  
+  
+          sort(SelectedForwardJets.begin(), SelectedForwardJets.end(), compEle);
+          if (forwardJets_num > 0) {
+            forwardjet_1pt = SelectedForwardJets[0].Pt();
+            forwardjet_1eta = fabs(SelectedForwardJets[0].Eta());
+            forwardjet_1phi = SelectedForwardJets[0].Phi();
+            forwardjet1_jetsL_minDeltaEta =
+                MinDeltaEtaCal(SelectedForwardJets[0], SelectedJets);
+          }
+  
+          sort(SelectedJets.begin(), SelectedJets.end(), compEle);
+          if (jetsL_number > 0) {/*{{{*/
+            jetsL_1pt = SelectedJets[0].Pt();
+            jetsL_1eta = SelectedJets[0].Eta();
+            jetsL_1phi = SelectedJets[0].Phi();
+          }
+          if (jetsL_number > 1) {
+            jetsL_2pt = SelectedJets[1].Pt();
+            jetsL_2eta = SelectedJets[1].Eta();
+            jetsL_2phi = SelectedJets[1].Phi();
+            jetsL_leading2invariantMass = (SelectedJets[0]+SelectedJets[1]).M();
+          }
+          if (jetsL_number > 2) {
+            jetsL_3pt = SelectedJets[2].Pt();
+            jetsL_3eta = SelectedJets[2].Eta();
+            jetsL_3phi = SelectedJets[2].Phi();
+          }
+          if (jetsL_number > 3) {
+            jetsL_4pt = SelectedJets[3].Pt();
+            jetsL_4eta = SelectedJets[3].Eta();
+            jetsL_4phi = SelectedJets[3].Phi();
+          }
+          if (jetsL_number > 4) {
+            jetsL_5pt = SelectedJets[4].Pt();
+            jetsL_5eta = SelectedJets[4].Eta();
+            jetsL_5phi = SelectedJets[4].Phi();
+            jetsL_rationHT_4toRest = rationHT_4toRestCal(SelectedJets);
+          }
+          if (jetsL_number > 5) {
+            jetsL_6pt = SelectedJets[5].Pt();
+            jetsL_6eta = SelectedJets[5].Eta();
+            jetsL_6phi = SelectedJets[5].Phi();
+          }
+          if (jetsL_number > 6) {
+            jetsL_7pt = SelectedJets[6].Pt();
+            jetsL_7eta = SelectedJets[6].Eta();
+            jetL_7phi = SelectedJets[6].Phi();
+          }
+          if (jetsL_number > 7) {
+            jetsL_8pt = SelectedJets[7].Pt();
+            jetsL_8eta = SelectedJets[7].Eta();
+            jetsL_8phi = SelectedJets[7].Phi();
+          }
+          if (jetsL_number > 8) {
+            jetsL_9pt = SelectedJets[8].Pt();
+            jetsL_9eta = SelectedJets[8].Eta();
+            jetsL_9phi = SelectedJets[8].Phi();
+          }
+          if (jetsL_number > 9) {
+            jetsL_10pt = SelectedJets[9].Pt();
+            jetsL_10eta = SelectedJets[9].Eta();
+            jetsL_10phi = SelectedJets[9].Phi();
+          }
+          if (jetsL_number > 10) {
+            jetsL_11pt = SelectedJets[10].Pt();
+            jetsL_11eta = SelectedJets[10].Eta();
+            jetsL_11phi = SelectedJets[10].Phi();
+          }/*}}}*/
+  
+          //event preselection
+          if ( !isHLTstudy){
+              if (!(tausL_number > 0))      continue;
+              if (!(jetsL_number > 3))      continue;
+              if (!(bjetsL_num > 1))        continue;
+          }
+          //channel selection for MVA
+          // if (!((channel_1Tau0L_v2 == 1) &&(tausT_number == 1)&& (jetsL_number >= 8) && (bjetsM_num >=2))) continue;//for 1Tau0L
+          
+          //
+          //
+          //
+          //
+          // Hadronic Top selection
+          // using resuts of SUSY toptagger here
+          vector<TLorentzVector> SelectedTops;
+          SelectTops(SelectedTops);
+          toptagger_num = SelectedTops.size();
+          toptagger_MHT =  MHTcalculator(SelectedTops); // 900;return the pt sum of,vetctor sum
+          toptagger_HT = HTcalculator(SelectedTops);
+          toptagger_invariantMass = InvariantMassCalculator(SelectedTops);
+          toptagger_transMass = TransMassCal(SelectedTops);
+          toptagger_minDeltaR_v1 = MinDeltaRSingleCal(SelectedTops);
+          toptagger_scoreAllTops = TopScoreAllTopsCal(SelectedTops);
+          toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(SelectedTops, LeptonsMVAT);
+          sort(SelectedTops.begin(), SelectedTops.end(), compEle);
+          if (toptagger_num > 0) {
+            toptagger_1pt = SelectedTops[0].Pt();
+            toptagger_1eta = SelectedTops[0].Eta();
+            toptagger_1phi = SelectedTops[0].Phi();
+          }
+          if (toptagger_num > 1) {
+            toptagger_2pt = SelectedTops[1].Pt();
+            toptagger_2eta = SelectedTops[1].Eta();
+            toptagger_2phi = SelectedTops[1].Phi();
+            vector<double> MinMaxDeltaRTops;
+            MinMaxdeltaRJetsCal(SelectedTops, MinMaxDeltaRTops);
+            toptagger_minDeltaR = MinMaxDeltaRTops[0];
+            toptagger_maxDeltaR = MinMaxDeltaRTops[1];
+          }
+          if (toptagger_num > 2) {
+            toptagger_3pt = SelectedTops[2].Pt();
+            toptagger_3eta = SelectedTops[2].Eta();
+            toptagger_3phi = SelectedTops[2].Phi();
+          }
+  
+          // only top that decay into 3 jets
+          /*			TLorentzVector Jet1Resolved;
+          Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+                                  TLorentzVector Jet2Resolved;
+          Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+                                  TLorentzVector Jet3Resolved;
+          Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
+                                  TLorentzVector HadronicTopQuark;
+          HadronicTopQuark.SetPtEtaPhiE(0, 0, 0, 0);
+                                  TLorentzVector HadronicTopQuarkResolved;
+          HadronicTopQuarkResolved.SetPtEtaPhiE(0, 0, 0, 0);
+                                  bool ResolvedEvent   = false;//parameter in
+          function FillBranch
+                                          //466; give Jet1,2,3,Toppt etc
+          //last 2 parameter are TopMassCut and btag
+                          //ResolvedRegionSelection need modification because it
+          only have 1 top
+          //			if(selection==0)
+          ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
+          HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
+          false, false);
+                                  if(selection==0)
+          ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
+          HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
+          true, true);
+                                  if(selection==1)
+          ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
+          HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
+          false, true );
+                                  if(selection==2)
+          ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsBTags,
+          HadronicTopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved,
+          false, false);
+                                  if(ResolvedEvent)   HadronicTopQuark =
+          HadronicTopQuarkResolved;//parameter in Fillbranch
+                      //HadronicTopQuark and HadronicTopQuarkResolved are
+          identical
+          //			if(!ResolvedEvent) continue;
+          //			//?use funtion to give value, wouldn't it be
+          useless?
+                              WriteTopRelatedBranches(ResolvedEvent,HadronicTopQuark,SelectedMet,HadronicTopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,SelectedForwardJets,SelectedBJetsM);
+          */
+          NVertices = nBestVtx_;
+          EVENT_run = EVENT_run_;
+          EVENT_event = EVENT_event_;
+          EVENT_lumiBlock = EVENT_lumiBlock_;
+          EVENT_genHT = EVENT_genHT_;
+          prefiringweight = EVENT_prefireWeight_;
+          prefiringweightup = EVENT_prefireWeightUp_;
+          prefiringweightdown = EVENT_prefireWeightDown_;
+          puWeight = PUWeight_ ;
+          EVENT_genWeight = genWeight_;
+  
+  
+          // WEIGHT
+          //if(!data){
+          //		get_weight_btag(selection,w_Btag,
+          //      w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up,
+          //      w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown,input);//606 w_Btagall in NewTree
+          //		newPUWeight(PUWeight, PUWeightUP,PUWeightDOWN);//PUWeigh is a branch in Tree and newTree,PU and UP and DOWN are in New
+          //		GenWeight(input,GenZPt,GenWPt);2681
+                  // HTSF(input,HT,Met_pt,w_ZToNuNu,w_ZToNuNuUp,w_ZToNuNuDown,w_WToLNu,w_WToLNuUp,w_WToLNuDown,w_ttbar,w_ttbarUp,w_ttbarDown);//778
+                  // TriggerSF(Met_pt, jetsL_MHT, w_Trig, w_TrigUp, w_TrigDown );
+                 // QCDWeight(0,8,w_QCDUp,w_QCDDown);//240
+                  // PDFWeight(10,111,w_PDFUp,w_PDFDown);
+          //			}
+  
+          if (selection == 0 || selection == 1)
+            NewTree->Fill();
+          else if (selection == 2)
+            HistoFill(PUWeight, NewTreeSB);
+        }
+      }
+  
+      f.cd();
+      NewTree->Write();
+      h_genWeight->Write();
+      f.Close();
+      cout << "File " << input << " ready!" << endl;
+    // }
 }
 
 void QCDWeight(int imin, int imax, double &w_QCDUp, double &w_QCDDown) { /*{{{*/
