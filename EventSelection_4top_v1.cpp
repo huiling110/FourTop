@@ -55,14 +55,15 @@ void EventSelection_4top_v1(
       TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
       if (data)    inputFile = inputBase + inputDir;
       else inputFile = inputBase + inputDir;
-      TChain chain("TNT/evtree");
+      static TChain chain("TNT/BOOM");
       chain.Add(inputFile+"v3*.root");
+      // chain.Print();
       // const char *FILE = inputFile.c_str();
       // TFile *file = TFile::Open(inputFile);
       // char openTree[500];
       // sprintf(openTree, "TNT/BOOM");       // 117
       // Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
-      Long64_t nentries =    (Int_t)Tree->GetEntries(); // how do we know the entries of Tree?//Read
+      Long64_t nentries =    (Int_t)chain.GetEntries(); // how do we know the entries of Tree?//Read
       for (int selection = 0; selection < 3; selection++) {
         //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
         // loop.signal=false
@@ -77,8 +78,9 @@ void EventSelection_4top_v1(
         // preselection=true ,sideband=false,in this case selection=0
         //what does sideband and signal do?
         //        branch(data,selection,NewTree,NewTreeSB,input);Tree->SetBranchAddress;NewTree and SB->Branch
-        branch(data, selection, NewTree,  NewTreeSB); // Tree->SetBranchAddress;NewTree and SB->Branch
-        // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
+        chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
+        branch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
+        //???chain is in local scope, cannot be seen in branch?
         Long64_t NumOfEvents;
         if (istest) {
           NumOfEvents = 1000;
@@ -86,7 +88,7 @@ void EventSelection_4top_v1(
           NumOfEvents = nentries;
         }
         for (Long64_t i = 0; i < NumOfEvents; i++) {
-          Long64_t tentry = Tree->LoadTree(i); // Set current entry.
+          Long64_t tentry = chain.LoadTree(i); // Set current entry.
           branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
   
           h_genWeight->Fill( 0.0 , genWeight_ );
@@ -144,7 +146,7 @@ void EventSelection_4top_v1(
            HLT_Ele32_WPTight_Gsf  = HLT_Ele32_WPTight_Gsf_;
            HLT_Ele35_WPTight_Gsf  = HLT_Ele35_WPTight_Gsf_;
            HLT_IsoMu27  = HLT_IsoMu27_;
-  
+ 
           HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_;
           HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_;
           HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30  = HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_;
@@ -3007,506 +3009,504 @@ double bscoreSumOf4largestCal(const vector<double> SelectedJetsBTags) {
     return sum;
 }
 // it seems that fileName doesn't occur in the function .
-// void branch(bool data,int selection, TTree *NewTree,TTree *NewTreeSB, string
-// fileName){
 void branch(bool data, int selection, TTree *NewTree,
-            TTree *NewTreeSB) { /*{{{*/
+            TTree *NewTreeSB, TChain& chain) { /*{{{*/
   // Change branch address, dealing with clone trees properly.	//copy the
   // branch Jet_pt to b_Jet_pt
-  Tree->SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
-  Tree->SetBranchAddress("Jet_eta", &Jet_eta_, &b_Jet_eta);
-  Tree->SetBranchAddress("Jet_phi", &Jet_phi_, &b_Jet_phi);
-  Tree->SetBranchAddress("Jet_mass", &Jet_mass_, &b_Jet_mass);
-  Tree->SetBranchAddress("Jet_JesSF", &Jet_JesSF_, &b_Jet_JesSF);
-  Tree->SetBranchAddress("Jet_JesSFup", &Jet_JesSFup_, &b_Jet_JesSFup);
-  Tree->SetBranchAddress("Jet_JesSFdown", &Jet_JesSFdown_, &b_Jet_JesSFdown);
-  Tree->SetBranchAddress("Jet_JerSF", &Jet_JerSF_, &b_Jet_JerSF);
-  Tree->SetBranchAddress("Jet_JerSFup", &Jet_JerSFup_, &b_Jet_JerSFup);
-  Tree->SetBranchAddress("Jet_JerSFdown", &Jet_JerSFdown_, &b_Jet_JerSFdown);
-  Tree->SetBranchAddress("Jet_Uncorr_pt", &Jet_Uncorr_pt_, &b_Jet_Uncorr_pt);
-  Tree->SetBranchAddress("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags",
+  chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
+  chain.SetBranchAddress("Jet_eta", &Jet_eta_, &b_Jet_eta);
+  chain.SetBranchAddress("Jet_phi", &Jet_phi_, &b_Jet_phi);
+  chain.SetBranchAddress("Jet_mass", &Jet_mass_, &b_Jet_mass);
+  chain.SetBranchAddress("Jet_JesSF", &Jet_JesSF_, &b_Jet_JesSF);
+  chain.SetBranchAddress("Jet_JesSFup", &Jet_JesSFup_, &b_Jet_JesSFup);
+  chain.SetBranchAddress("Jet_JesSFdown", &Jet_JesSFdown_, &b_Jet_JesSFdown);
+  chain.SetBranchAddress("Jet_JerSF", &Jet_JerSF_, &b_Jet_JerSF);
+  chain.SetBranchAddress("Jet_JerSFup", &Jet_JerSFup_, &b_Jet_JerSFup);
+  chain.SetBranchAddress("Jet_JerSFdown", &Jet_JerSFdown_, &b_Jet_JerSFdown);
+  chain.SetBranchAddress("Jet_Uncorr_pt", &Jet_Uncorr_pt_, &b_Jet_Uncorr_pt);
+  chain.SetBranchAddress("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags",
                          &Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_,
                          &b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags);
-  Tree->SetBranchAddress("Jet_pfDeepCSVBJetTags", &Jet_pfDeepCSVBJetTags_,
+  chain.SetBranchAddress("Jet_pfDeepCSVBJetTags", &Jet_pfDeepCSVBJetTags_,
                          &b_Jet_pfDeepCSVBJetTags);
-  Tree->SetBranchAddress("Jet_pfDeepFlavourBJetTags",
+  chain.SetBranchAddress("Jet_pfDeepFlavourBJetTags",
                          &Jet_pfDeepFlavourBJetTags_,
                          &b_Jet_pfDeepFlavourBJetTags);
-  Tree->SetBranchAddress("Jet_neutralHadEnergyFraction",
+  chain.SetBranchAddress("Jet_neutralHadEnergyFraction",
                          &Jet_neutralHadEnergyFraction_,
                          &b_Jet_neutralHadEnergyFraction);
-  Tree->SetBranchAddress("Jet_chargedEmEnergyFraction",
+  chain.SetBranchAddress("Jet_chargedEmEnergyFraction",
                          &Jet_chargedEmEnergyFraction_,
                          &b_Jet_chargedEmEnergyFraction);
-  Tree->SetBranchAddress("Jet_neutralEmEnergyFraction",
+  chain.SetBranchAddress("Jet_neutralEmEnergyFraction",
                          &Jet_neutralEmEnergyFraction_,
                          &b_Jet_neutralEmEnergyFraction);
-  Tree->SetBranchAddress("Jet_numberOfConstituents", &Jet_numberOfConstituents_,
+  chain.SetBranchAddress("Jet_numberOfConstituents", &Jet_numberOfConstituents_,
                          &b_Jet_numberOfConstituents);
-  Tree->SetBranchAddress("Jet_chargedHadronEnergyFraction",
+  chain.SetBranchAddress("Jet_chargedHadronEnergyFraction",
                          &Jet_chargedHadronEnergyFraction_,
                          &b_Jet_chargedHadronEnergyFraction);
-  Tree->SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_,
+  chain.SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_,
                          &b_Jet_chargedMultiplicity);
   if (!data)
-    Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_,
+    chain.SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_,
                            &b_Jet_hadronFlavour);
-  Tree->SetBranchAddress("Jet_muonEnergyFraction", &Jet_muonEnergyFraction_,
+  chain.SetBranchAddress("Jet_muonEnergyFraction", &Jet_muonEnergyFraction_,
                          &b_Jet_muonEnergyFraction);
   /*
-    Tree->SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,
+    chain.SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,
     &b_BoostedJet_pt);
-    Tree->SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,
+    chain.SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,
     &b_BoostedJet_Uncorr_pt);
-    Tree->SetBranchAddress("BoostedJet_softdrop_mass",
+    chain.SetBranchAddress("BoostedJet_softdrop_mass",
     &BoostedJet_softdrop_mass_,   &b_BoostedJet_softdrop_mass);
-    Tree->SetBranchAddress("BoostedJet_puppi_softdrop_mass",
+    chain.SetBranchAddress("BoostedJet_puppi_softdrop_mass",
     &BoostedJet_puppi_softdrop_mass_,   &b_BoostedJet_puppi_softdrop_mass);
-    Tree->SetBranchAddress("BoostedJet_JesSF",&BoostedJet_JesSF_,&b_BoostedJet_JesSF);
-    Tree->SetBranchAddress("BoostedJet_JesSFup",&BoostedJet_JesSFup_,&b_BoostedJet_JesSFup);
-    Tree->SetBranchAddress("BoostedJet_JesSFdown",&BoostedJet_JesSFdown_,&b_BoostedJet_JesSFdown);
-    Tree->SetBranchAddress("BoostedJet_JerSF",&BoostedJet_JerSF_,&b_BoostedJet_JerSF);
-    Tree->SetBranchAddress("BoostedJet_JerSFup",&BoostedJet_JerSFup_,&b_BoostedJet_JerSFup);
-    Tree->SetBranchAddress("BoostedJet_JerSFdown",&BoostedJet_JerSFdown_,&b_BoostedJet_JerSFdown);
-    Tree->SetBranchAddress("BoostedJet_eta",  &BoostedJet_eta_,
+    chain.SetBranchAddress("BoostedJet_JesSF",&BoostedJet_JesSF_,&b_BoostedJet_JesSF);
+    chain.SetBranchAddress("BoostedJet_JesSFup",&BoostedJet_JesSFup_,&b_BoostedJet_JesSFup);
+    chain.SetBranchAddress("BoostedJet_JesSFdown",&BoostedJet_JesSFdown_,&b_BoostedJet_JesSFdown);
+    chain.SetBranchAddress("BoostedJet_JerSF",&BoostedJet_JerSF_,&b_BoostedJet_JerSF);
+    chain.SetBranchAddress("BoostedJet_JerSFup",&BoostedJet_JerSFup_,&b_BoostedJet_JerSFup);
+    chain.SetBranchAddress("BoostedJet_JerSFdown",&BoostedJet_JerSFdown_,&b_BoostedJet_JerSFdown);
+    chain.SetBranchAddress("BoostedJet_eta",  &BoostedJet_eta_,
     &b_BoostedJet_eta);
-    Tree->SetBranchAddress("BoostedJet_phi",  &BoostedJet_phi_,
+    chain.SetBranchAddress("BoostedJet_phi",  &BoostedJet_phi_,
     &b_BoostedJet_phi);
-    Tree->SetBranchAddress("BoostedJet_mass", &BoostedJet_mass_,
+    chain.SetBranchAddress("BoostedJet_mass", &BoostedJet_mass_,
     &b_BoostedJet_mass);
-    Tree->SetBranchAddress("BoostedJet_neutralHadEnergyFraction",
+    chain.SetBranchAddress("BoostedJet_neutralHadEnergyFraction",
     &BoostedJet_neutralHadEnergyFraction_,
     &b_BoostedJet_neutralHadEnergyFraction);
-    Tree->SetBranchAddress("BoostedJet_neutralEmEnergyFraction",
+    chain.SetBranchAddress("BoostedJet_neutralEmEnergyFraction",
     &BoostedJet_neutralEmEnergyFraction_,
     &b_BoostedJet_neutralEmEnergyFraction);
-    Tree->SetBranchAddress("BoostedJet_chargedEmEnergyFraction",
+    chain.SetBranchAddress("BoostedJet_chargedEmEnergyFraction",
     &BoostedJet_chargedEmEnergyFraction_,
     &b_BoostedJet_chargedEmEnergyFraction);
-    Tree->SetBranchAddress("BoostedJet_numberOfConstituents",
+    chain.SetBranchAddress("BoostedJet_numberOfConstituents",
     &BoostedJet_numberOfConstituents_, &b_BoostedJet_numberOfConstituents);
-    Tree->SetBranchAddress("BoostedJet_chargedHadronEnergyFraction",
+    chain.SetBranchAddress("BoostedJet_chargedHadronEnergyFraction",
     &BoostedJet_chargedHadronEnergyFraction_,
     &b_BoostedJet_chargedHadronEnergyFraction);
-    Tree->SetBranchAddress("BoostedJet_chargedMultiplicity",
+    chain.SetBranchAddress("BoostedJet_chargedMultiplicity",
     &BoostedJet_chargedMultiplicity_, &b_BoostedJet_chargedMultiplicity);
-    Tree->SetBranchAddress("BoostedJet_puppi_tau1",
+    chain.SetBranchAddress("BoostedJet_puppi_tau1",
     &BoostedJet_puppi_tau1_,         &b_BoostedJet_puppi_tau1);
-    Tree->SetBranchAddress("BoostedJet_puppi_tau2",
+    chain.SetBranchAddress("BoostedJet_puppi_tau2",
     &BoostedJet_puppi_tau2_,         &b_BoostedJet_puppi_tau2);
-    Tree->SetBranchAddress("BoostedJet_puppi_tau3",
+    chain.SetBranchAddress("BoostedJet_puppi_tau3",
     &BoostedJet_puppi_tau3_,         &b_BoostedJet_puppi_tau3);
-    Tree->SetBranchAddress("BoostedJet_tau1",         &BoostedJet_tau1_,
+    chain.SetBranchAddress("BoostedJet_tau1",         &BoostedJet_tau1_,
     &b_BoostedJet_tau1);
-    Tree->SetBranchAddress("BoostedJet_tau2",         &BoostedJet_tau2_,
+    chain.SetBranchAddress("BoostedJet_tau2",         &BoostedJet_tau2_,
     &b_BoostedJet_tau2);
-    Tree->SetBranchAddress("BoostedJet_tau3",         &BoostedJet_tau3_,
+    chain.SetBranchAddress("BoostedJet_tau3",         &BoostedJet_tau3_,
     &b_BoostedJet_tau3);
-    Tree->SetBranchAddress("BoostedJet_pruned_mass",  &BoostedJet_pruned_mass_,
+    chain.SetBranchAddress("BoostedJet_pruned_mass",  &BoostedJet_pruned_mass_,
     &b_BoostedJet_pruned_mass);
     */
-  Tree->SetBranchAddress("patElectron_pt", &patElectron_pt_, &b_patElectron_pt);
-  Tree->SetBranchAddress("patElectron_eta", &patElectron_eta_,
+  chain.SetBranchAddress("patElectron_pt", &patElectron_pt_, &b_patElectron_pt);
+  chain.SetBranchAddress("patElectron_eta", &patElectron_eta_,
                          &b_patElectron_eta);
-  Tree->SetBranchAddress("patElectron_phi", &patElectron_phi_,
+  chain.SetBranchAddress("patElectron_phi", &patElectron_phi_,
                          &b_patElectron_phi);
-  Tree->SetBranchAddress("patElectron_energy", &patElectron_energy_,
+  chain.SetBranchAddress("patElectron_energy", &patElectron_energy_,
                          &b_patElectron_energy);
-  Tree->SetBranchAddress("patElectron_SCeta", &patElectron_SCeta_,
+  chain.SetBranchAddress("patElectron_SCeta", &patElectron_SCeta_,
                          &b_patElectron_SCeta);
-  Tree->SetBranchAddress("patElectron_charge", &patElectron_charge_,
+  chain.SetBranchAddress("patElectron_charge", &patElectron_charge_,
                          &b_patElectron_charge);
-  Tree->SetBranchAddress("patElectron_Et", &patElectron_Et_, &b_patElectron_Et);
-  Tree->SetBranchAddress("patElectron_pdgId", &patElectron_pdgId_,
+  chain.SetBranchAddress("patElectron_Et", &patElectron_Et_, &b_patElectron_Et);
+  chain.SetBranchAddress("patElectron_pdgId", &patElectron_pdgId_,
                          &b_patElectron_pdgId);
-  Tree->SetBranchAddress("patElectron_relIsoDeltaBeta",
+  chain.SetBranchAddress("patElectron_relIsoDeltaBeta",
                          &patElectron_relIsoDeltaBeta_,
                          &b_patElectron_relIsoDeltaBeta);
-  Tree->SetBranchAddress("patElectron_relIsoRhoEA_Update",
+  chain.SetBranchAddress("patElectron_relIsoRhoEA_Update",
                          &patElectron_relIsoRhoEA_Update_,
                          &b_patElectron_relIsoRhoEA_Update);
   if (!data)
-    Tree->SetBranchAddress("patElectron_gen_pdgId", &patElectron_gen_pdgId_,
+    chain.SetBranchAddress("patElectron_gen_pdgId", &patElectron_gen_pdgId_,
                            &b_patElectron_gen_pdgId);
   if (!data)
-    Tree->SetBranchAddress(
+    chain.SetBranchAddress(
         "patElectron_gen_isDirectPromptTauDecayProductFinalState",
         &patElectron_gen_isDirectPromptTauDecayProductFinalState_,
         &b_patElectron_gen_isDirectPromptTauDecayProductFinalState);
-  //  Tree->SetBranchAddress("",&_,&b_);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp80",
+  //  chain.SetBranchAddress("",&_,&b_);
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp80",
                          &patElectron_mvaEleID_Fall17_noIso_V2_wp80_,
                          &b_patElectron_mvaEleID_Fall17_noIso_V2_wp80);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp80",
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp80",
                          &patElectron_mvaEleID_Fall17_iso_V2_wp80_,
                          &b_patElectron_mvaEleID_Fall17_iso_V2_wp80);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp90",
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wp90",
                          &patElectron_mvaEleID_Fall17_iso_V2_wp90_,
                          &b_patElectron_mvaEleID_Fall17_iso_V2_wp90);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp90",
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wp90",
                          &patElectron_mvaEleID_Fall17_noIso_V2_wp90_,
                          &b_patElectron_mvaEleID_Fall17_noIso_V2_wp90);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wpLoose",
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_iso_V2_wpLoose",
                          &patElectron_mvaEleID_Fall17_iso_V2_wpLoose_,
                          &b_patElectron_mvaEleID_Fall17_iso_V2_wpLoose);
-  Tree->SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wpLoose",
+  chain.SetBranchAddress("patElectron_mvaEleID_Fall17_noIso_V2_wpLoose",
                          &patElectron_mvaEleID_Fall17_noIso_V2_wpLoose_,
                          &b_patElectron_mvaEleID_Fall17_noIso_V2_wpLoose);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values",
       &patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values_,
       &b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories",
       &patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories_,
       &b_patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Categories);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values",
       &patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values_,
       &b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Values);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories",
       &patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories_,
       &b_patElectron_ElectronMVAEstimatorRun2Fall17IsoV2Categories);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80",
       &patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80_,
       &b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp80);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90",
       &patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90_,
       &b_patElectron_mvaEleID_Spring16_GeneralPurpose_V1_wp90);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1",
       &patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1_,
       &b_patElectron_MVAValue_ElectronMVAEstimatorRun2Spring16GeneralPurposeV1);
-  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_loose",
+  chain.SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_loose",
                          &patElectron_cutBasedElectronID_Fall17_94X_V2_loose_,
                          &b_patElectron_cutBasedElectronID_Fall17_94X_V2_loose);
-  Tree->SetBranchAddress(
+  chain.SetBranchAddress(
       "patElectron_cutBasedElectronID_Fall17_94X_V2_medium",
       &patElectron_cutBasedElectronID_Fall17_94X_V2_medium_,
       &b_patElectron_cutBasedElectronID_Fall17_94X_V2_medium);
-  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_tight",
+  chain.SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_tight",
                          &patElectron_cutBasedElectronID_Fall17_94X_V2_tight_,
                          &b_patElectron_cutBasedElectronID_Fall17_94X_V2_tight);
-  Tree->SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_veto",
+  chain.SetBranchAddress("patElectron_cutBasedElectronID_Fall17_94X_V2_veto",
                          &patElectron_cutBasedElectronID_Fall17_94X_V2_veto_,
                          &b_patElectron_cutBasedElectronID_Fall17_94X_V2_veto);
-  Tree->SetBranchAddress("patElectron_heepElectronID_HEEPV70",
+  chain.SetBranchAddress("patElectron_heepElectronID_HEEPV70",
                          &patElectron_heepElectronID_HEEPV70_,
                          &b_patElectron_heepElectronID_HEEPV70);
-  // Tree->SetBranchAddress("",&_,&b_);
-  /* Tree->SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);
-   Tree->SetBranchAddress("patElectron_isPassLoose",&patElectron_isPassLoose_,&b_patElectron_isPassLoose);
-   Tree->SetBranchAddress("patElectron_isPassMedium",&patElectron_isPassMedium_,&b_patElectron_isPassMedium);
-   Tree->SetBranchAddress("patElectron_isPassTight",&patElectron_isPassTight_,&b_patElectron_isPassTight);
-   Tree->SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);*/
-  Tree->SetBranchAddress("patElectron_passConversionVeto",
+  // chain.SetBranchAddress("",&_,&b_);
+  /* chain.SetBranchAddress("patElectron_isPassVeto",&patElectron_isPassVeto_,&b_patElectron_isPassVeto);
+   chain.SetBranchAddress("patElectron_isPassLoose",&patElectron_isPassLoose_,&b_patElectron_isPassLoose);
+   chain.SetBranchAddress("patElectron_isPassMedium",&patElectron_isPassMedium_,&b_patElectron_isPassMedium);
+   chain.SetBranchAddress("patElectron_isPassTight",&patElectron_isPassTight_,&b_patElectron_isPassTight);
+   chain.SetBranchAddress("patElectron_isPassHEEPId",&patElectron_isPassHEEPId_,&b_patElectron_isPassHEEPId);*/
+  chain.SetBranchAddress("patElectron_passConversionVeto",
                          &patElectron_passConversionVeto_,
                          &b_patElectron_passConversionVeto);
-  Tree->SetBranchAddress("patElectron_inCrack", &patElectron_inCrack_,
+  chain.SetBranchAddress("patElectron_inCrack", &patElectron_inCrack_,
                          &b_patElectron_inCrack);
-  Tree->SetBranchAddress("patElectron_isMatchedToTrigger",
+  chain.SetBranchAddress("patElectron_isMatchedToTrigger",
                          &patElectron_isMatchedToTrigger_,
                          &b_patElectron_isMatchedToTrigger);
 
-  Tree->SetBranchAddress("patElectron_miniIsoRel", &patElectron_miniIsoRel_,
+  chain.SetBranchAddress("patElectron_miniIsoRel", &patElectron_miniIsoRel_,
                          &b_patElectron_miniIsoRel);
-  Tree->SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio_,
+  chain.SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio_,
                          &b_patElectron_jetptratio);
-  Tree->SetBranchAddress("patElectron_ptrel", &patElectron_ptrel_,
+  chain.SetBranchAddress("patElectron_ptrel", &patElectron_ptrel_,
                          &b_patElectron_ptrel);
-  Tree->SetBranchAddress("patElectron_d0", &patElectron_d0_, &b_patElectron_d0);
-  Tree->SetBranchAddress("patElectron_gsfTrack_dz_pv",
+  chain.SetBranchAddress("patElectron_d0", &patElectron_d0_, &b_patElectron_d0);
+  chain.SetBranchAddress("patElectron_gsfTrack_dz_pv",
                          &patElectron_gsfTrack_dz_pv_,
                          &b_patElectron_gsfTrack_dz_pv);
-  Tree->SetBranchAddress("patElectron_IP3D_sig", &patElectron_IP3D_sig_,
+  chain.SetBranchAddress("patElectron_IP3D_sig", &patElectron_IP3D_sig_,
                          &b_patElectron_IP3D_sig);
-  //  Tree->SetBranchAddress("",&_,&b_);
+  //  chain.SetBranchAddress("",&_,&b_);
 
-  Tree->SetBranchAddress("Muon_pt", &Muon_pt_, &b_Muon_pt);
-  Tree->SetBranchAddress("Muon_eta", &Muon_eta_, &b_Muon_eta);
-  Tree->SetBranchAddress("Muon_phi", &Muon_phi_, &b_Muon_phi);
-  Tree->SetBranchAddress("Muon_energy", &Muon_energy_, &b_Muon_energy);
-  Tree->SetBranchAddress("Muon_charge", &Muon_charge_, &b_Muon_charge);
-  Tree->SetBranchAddress("Muon_tight", &Muon_tight_, &b_Muon_tight);
-  Tree->SetBranchAddress("Muon_medium", &Muon_medium_, &b_Muon_medium);
-  Tree->SetBranchAddress("Muon_loose", &Muon_loose_, &b_Muon_loose);
-  Tree->SetBranchAddress("Met_type1PF_pt", &Met_type1PF_pt_, &b_Met_type1PF_pt);
-  Tree->SetBranchAddress("Met_type1PF_phi", &Met_type1PF_phi_,
+  chain.SetBranchAddress("Muon_pt", &Muon_pt_, &b_Muon_pt);
+  chain.SetBranchAddress("Muon_eta", &Muon_eta_, &b_Muon_eta);
+  chain.SetBranchAddress("Muon_phi", &Muon_phi_, &b_Muon_phi);
+  chain.SetBranchAddress("Muon_energy", &Muon_energy_, &b_Muon_energy);
+  chain.SetBranchAddress("Muon_charge", &Muon_charge_, &b_Muon_charge);
+  chain.SetBranchAddress("Muon_tight", &Muon_tight_, &b_Muon_tight);
+  chain.SetBranchAddress("Muon_medium", &Muon_medium_, &b_Muon_medium);
+  chain.SetBranchAddress("Muon_loose", &Muon_loose_, &b_Muon_loose);
+  chain.SetBranchAddress("Met_type1PF_pt", &Met_type1PF_pt_, &b_Met_type1PF_pt);
+  chain.SetBranchAddress("Met_type1PF_phi", &Met_type1PF_phi_,
                          &b_Met_type1PF_phi);
-  Tree->SetBranchAddress("Met_type1PF_sumEt", &Met_type1PF_sumEt_,
+  chain.SetBranchAddress("Met_type1PF_sumEt", &Met_type1PF_sumEt_,
                          &b_Met_type1PF_sumEt);
-  Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04", &Muon_relIsoDeltaBetaR04_,
+  chain.SetBranchAddress("Muon_relIsoDeltaBetaR04", &Muon_relIsoDeltaBetaR04_,
                          &b_Muon_relIsoDeltaBetaR04);
-  Tree->SetBranchAddress("Muon_miniIsoRel", &Muon_miniIsoRel_,
+  chain.SetBranchAddress("Muon_miniIsoRel", &Muon_miniIsoRel_,
                          &b_Muon_miniIsoRel);
-  Tree->SetBranchAddress("Muon_ptrel", &Muon_ptrel_, &b_Muon_ptrel);
-  Tree->SetBranchAddress("Muon_jetptratio", &Muon_jetptratio_,
+  chain.SetBranchAddress("Muon_ptrel", &Muon_ptrel_, &b_Muon_ptrel);
+  chain.SetBranchAddress("Muon_jetptratio", &Muon_jetptratio_,
                          &b_Muon_jetptratio);
-  Tree->SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2_,
+  chain.SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2_,
                          &b_Muon_jetptratioV2);
-  Tree->SetBranchAddress("Muon_isMatchedToTrigger", &Muon_isMatchedToTrigger_,
+  chain.SetBranchAddress("Muon_isMatchedToTrigger", &Muon_isMatchedToTrigger_,
                          &b_Muon_isMatchedToTrigger);
-  Tree->SetBranchAddress("Muon_dz_pv", &Muon_dz_pv_, &b_Muon_dz_pv);
-  Tree->SetBranchAddress("Muon_dz_bt", &Muon_dz_bt_, &b_Muon_dz_bt);
-  Tree->SetBranchAddress("Muon_IP3D_sig", &Muon_IP3D_sig_, &b_Muon_IP3D_sig);
-  Tree->SetBranchAddress("Muon_dxy_pv", &Muon_dxy_pv_, &b_Muon_dxy_pv);
-  Tree->SetBranchAddress("Muon_dxy_bt", &Muon_dxy_bt_, &b_Muon_dxy_bt);
+  chain.SetBranchAddress("Muon_dz_pv", &Muon_dz_pv_, &b_Muon_dz_pv);
+  chain.SetBranchAddress("Muon_dz_bt", &Muon_dz_bt_, &b_Muon_dz_bt);
+  chain.SetBranchAddress("Muon_IP3D_sig", &Muon_IP3D_sig_, &b_Muon_IP3D_sig);
+  chain.SetBranchAddress("Muon_dxy_pv", &Muon_dxy_pv_, &b_Muon_dxy_pv);
+  chain.SetBranchAddress("Muon_dxy_bt", &Muon_dxy_bt_, &b_Muon_dxy_bt);
 
-  Tree->SetBranchAddress("TopTagger_type", &TopTagger_type_, &b_TopTagger_type);
-  Tree->SetBranchAddress("TopTagger_discriminator", &TopTagger_discriminator_,
+  chain.SetBranchAddress("TopTagger_type", &TopTagger_type_, &b_TopTagger_type);
+  chain.SetBranchAddress("TopTagger_discriminator", &TopTagger_discriminator_,
                          &b_TopTagger_discriminator);
-  Tree->SetBranchAddress("TopTagger_jet1Idx", &TopTagger_jet1Idx_,
+  chain.SetBranchAddress("TopTagger_jet1Idx", &TopTagger_jet1Idx_,
                          &b_TopTagger_jet1Idx);
-  Tree->SetBranchAddress("TopTagger_jet2Idx", &TopTagger_jet2Idx_,
+  chain.SetBranchAddress("TopTagger_jet2Idx", &TopTagger_jet2Idx_,
                          &b_TopTagger_jet2Idx);
-  Tree->SetBranchAddress("TopTagger_jet3Idx", &TopTagger_jet3Idx_,
+  chain.SetBranchAddress("TopTagger_jet3Idx", &TopTagger_jet3Idx_,
                          &b_TopTagger_jet3Idx);
 
-  Tree->SetBranchAddress("Tau_pt", &Tau_pt_, &b_Tau_pt);
-  Tree->SetBranchAddress("Tau_eta", &Tau_eta_, &b_Tau_eta);
-  Tree->SetBranchAddress("Tau_leadChargedCandDz_pv", &Tau_leadChargedCandDz_pv_,
+  chain.SetBranchAddress("Tau_pt", &Tau_pt_, &b_Tau_pt);
+  chain.SetBranchAddress("Tau_eta", &Tau_eta_, &b_Tau_eta);
+  chain.SetBranchAddress("Tau_leadChargedCandDz_pv", &Tau_leadChargedCandDz_pv_,
                          &b_Tau_leadChargedCandDz_pv);
-  Tree->SetBranchAddress("Tau_packedLeadTauCand_dz", &Tau_packedLeadTauCand_dz_,
+  chain.SetBranchAddress("Tau_packedLeadTauCand_dz", &Tau_packedLeadTauCand_dz_,
                          &b_Tau_packedLeadTauCand_dz);
-  Tree->SetBranchAddress("Tau_phi", &Tau_phi_, &b_Tau_phi);
-  Tree->SetBranchAddress("Tau_energy", &Tau_energy_, &b_Tau_energy);
-  Tree->SetBranchAddress("Tau_px", &Tau_px_, &b_Tau_px);
-  Tree->SetBranchAddress("Tau_py", &Tau_py_, &b_Tau_py);
-  Tree->SetBranchAddress("Tau_pz", &Tau_pz_, &b_Tau_pz);
-  Tree->SetBranchAddress("Tau_p", &Tau_p_, &b_Tau_p);
-  /*  Tree->SetBranchAddress("Tau_leadChargedCandPt",&Tau_leadChargedCandPt_,&b_Tau_leadChargedCandPt);
-    Tree->SetBranchAddress("Tau_leadChargedCandEta",&Tau_leadChargedCandEta_,&b_Tau_leadChargedCandEta);
-    Tree->SetBranchAddress("Tau_leadChargedCandPhi",&Tau_leadChargedCandPhi_,&b_Tau_leadChargedCandPhi);
-    Tree->SetBranchAddress("Tau_leadChargedCandE",&Tau_leadChargedCandE_,&b_Tau_leadChargedCandE);*/
-  Tree->SetBranchAddress("Tau_charge", &Tau_charge_, &b_Tau_charge);
-  Tree->SetBranchAddress("Tau_decayModeFinding", &Tau_decayModeFinding_,
+  chain.SetBranchAddress("Tau_phi", &Tau_phi_, &b_Tau_phi);
+  chain.SetBranchAddress("Tau_energy", &Tau_energy_, &b_Tau_energy);
+  chain.SetBranchAddress("Tau_px", &Tau_px_, &b_Tau_px);
+  chain.SetBranchAddress("Tau_py", &Tau_py_, &b_Tau_py);
+  chain.SetBranchAddress("Tau_pz", &Tau_pz_, &b_Tau_pz);
+  chain.SetBranchAddress("Tau_p", &Tau_p_, &b_Tau_p);
+  /*  chain.SetBranchAddress("Tau_leadChargedCandPt",&Tau_leadChargedCandPt_,&b_Tau_leadChargedCandPt);
+    chain.SetBranchAddress("Tau_leadChargedCandEta",&Tau_leadChargedCandEta_,&b_Tau_leadChargedCandEta);
+    chain.SetBranchAddress("Tau_leadChargedCandPhi",&Tau_leadChargedCandPhi_,&b_Tau_leadChargedCandPhi);
+    chain.SetBranchAddress("Tau_leadChargedCandE",&Tau_leadChargedCandE_,&b_Tau_leadChargedCandE);*/
+  chain.SetBranchAddress("Tau_charge", &Tau_charge_, &b_Tau_charge);
+  chain.SetBranchAddress("Tau_decayModeFinding", &Tau_decayModeFinding_,
                          &b_Tau_decayModeFinding);
-  Tree->SetBranchAddress("Tau_decayModeFindingNewDMs",
+  chain.SetBranchAddress("Tau_decayModeFindingNewDMs",
                          &Tau_decayModeFindingNewDMs_,
                          &b_Tau_decayModeFindingNewDMs);
-  Tree->SetBranchAddress("Tau_decayMode", &Tau_decayMode_, &b_Tau_decayMode);
-  Tree->SetBranchAddress("Tau_againstMuonLoose3", &Tau_againstMuonLoose3_,
+  chain.SetBranchAddress("Tau_decayMode", &Tau_decayMode_, &b_Tau_decayMode);
+  chain.SetBranchAddress("Tau_againstMuonLoose3", &Tau_againstMuonLoose3_,
                          &b_Tau_againstMuonLoose3);
-  Tree->SetBranchAddress("Tau_againstMuonTight3", &Tau_againstMuonTight3_,
+  chain.SetBranchAddress("Tau_againstMuonTight3", &Tau_againstMuonTight3_,
                          &b_Tau_againstMuonTight3);
-  /*  Tree->SetBranchAddress("Tau_againstElectronVLooseMVA6",&Tau_againstElectronVLooseMVA6_,&b_Tau_againstElectronVLooseMVA6);
-    Tree->SetBranchAddress("Tau_againstElectronLooseMVA6",&Tau_againstElectronLooseMVA6_,&b_Tau_againstElectronLooseMVA6);
-    Tree->SetBranchAddress("Tau_againstElectronMediumMVA6",&Tau_againstElectronMediumMVA6_,&b_Tau_againstElectronMediumMVA6);
-    Tree->SetBranchAddress("Tau_againstElectronTightMVA6",&Tau_againstElectronTightMVA6_,&b_Tau_againstElectronTightMVA6);
-    Tree->SetBranchAddress("Tau_chargedIsoPtSum",&Tau_chargedIsoPtSum_,&b_Tau_chargedIsoPtSum);
-    Tree->SetBranchAddress("Tau_neutralIsoPtSum",&Tau_neutralIsoPtSum_,&b_Tau_neutralIsoPtSum);
-    Tree->SetBranchAddress("Tau_puCorrPtSum",&Tau_puCorrPtSum_,&b_Tau_puCorrPtSum);*/
-  /*  Tree->SetBranchAddress("Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT);
-    Tree->SetBranchAddress("Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT);
-    Tree->SetBranchAddress("Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017",&Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017_,&b_Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017);
-    Tree->SetBranchAddress("Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
-    Tree->SetBranchAddress("Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);*/
-  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSjetraw",
+  /*  chain.SetBranchAddress("Tau_againstElectronVLooseMVA6",&Tau_againstElectronVLooseMVA6_,&b_Tau_againstElectronVLooseMVA6);
+    chain.SetBranchAddress("Tau_againstElectronLooseMVA6",&Tau_againstElectronLooseMVA6_,&b_Tau_againstElectronLooseMVA6);
+    chain.SetBranchAddress("Tau_againstElectronMediumMVA6",&Tau_againstElectronMediumMVA6_,&b_Tau_againstElectronMediumMVA6);
+    chain.SetBranchAddress("Tau_againstElectronTightMVA6",&Tau_againstElectronTightMVA6_,&b_Tau_againstElectronTightMVA6);
+    chain.SetBranchAddress("Tau_chargedIsoPtSum",&Tau_chargedIsoPtSum_,&b_Tau_chargedIsoPtSum);
+    chain.SetBranchAddress("Tau_neutralIsoPtSum",&Tau_neutralIsoPtSum_,&b_Tau_neutralIsoPtSum);
+    chain.SetBranchAddress("Tau_puCorrPtSum",&Tau_puCorrPtSum_,&b_Tau_puCorrPtSum);*/
+  /*  chain.SetBranchAddress("Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT);
+    chain.SetBranchAddress("Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT",&Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT_,&b_Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT);
+    chain.SetBranchAddress("Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017",&Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017_,&b_Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017);
+    chain.SetBranchAddress("Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+    chain.SetBranchAddress("Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017",&Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017_,&b_Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);*/
+  chain.SetBranchAddress("Tau_byDeepTau2017v2p1VSjetraw",
                          &Tau_byDeepTau2017v2p1VSjetraw_,
                          &b_Tau_byDeepTau2017v2p1VSjetraw);
-  Tree->SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSjet",
                          &Tau_byVVVLooseDeepTau2017v2p1VSjet_,
                          &b_Tau_byVVVLooseDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSjet",
                          &Tau_byVVLooseDeepTau2017v2p1VSjet_,
                          &b_Tau_byVVLooseDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSjet",
                          &Tau_byVLooseDeepTau2017v2p1VSjet_,
                          &b_Tau_byVLooseDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSjet",
                          &Tau_byLooseDeepTau2017v2p1VSjet_,
                          &b_Tau_byLooseDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSjet",
                          &Tau_byMediumDeepTau2017v2p1VSjet_,
                          &b_Tau_byMediumDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byTightDeepTau2017v2p1VSjet",
                          &Tau_byTightDeepTau2017v2p1VSjet_,
                          &b_Tau_byTightDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSjet",
                          &Tau_byVTightDeepTau2017v2p1VSjet_,
                          &b_Tau_byVTightDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSjet",
+  chain.SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSjet",
                          &Tau_byVVTightDeepTau2017v2p1VSjet_,
                          &b_Tau_byVVTightDeepTau2017v2p1VSjet);
-  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSmuraw",
+  chain.SetBranchAddress("Tau_byDeepTau2017v2p1VSmuraw",
                          &Tau_byDeepTau2017v2p1VSmuraw_,
                          &b_Tau_byDeepTau2017v2p1VSmuraw);
-  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSmu",
+  chain.SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSmu",
                          &Tau_byVLooseDeepTau2017v2p1VSmu_,
                          &b_Tau_byVLooseDeepTau2017v2p1VSmu);
-  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSmu",
+  chain.SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSmu",
                          &Tau_byLooseDeepTau2017v2p1VSmu_,
                          &b_Tau_byLooseDeepTau2017v2p1VSmu);
-  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSmu",
+  chain.SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSmu",
                          &Tau_byMediumDeepTau2017v2p1VSmu_,
                          &b_Tau_byMediumDeepTau2017v2p1VSmu);
-  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSmu",
+  chain.SetBranchAddress("Tau_byTightDeepTau2017v2p1VSmu",
                          &Tau_byTightDeepTau2017v2p1VSmu_,
                          &b_Tau_byTightDeepTau2017v2p1VSmu);
-  Tree->SetBranchAddress("Tau_byDeepTau2017v2p1VSeraw",
+  chain.SetBranchAddress("Tau_byDeepTau2017v2p1VSeraw",
                          &Tau_byDeepTau2017v2p1VSeraw_,
                          &b_Tau_byDeepTau2017v2p1VSeraw);
-  Tree->SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byVVVLooseDeepTau2017v2p1VSe",
                          &Tau_byVVVLooseDeepTau2017v2p1VSe_,
                          &b_Tau_byVVVLooseDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byVVLooseDeepTau2017v2p1VSe",
                          &Tau_byVVLooseDeepTau2017v2p1VSe_,
                          &b_Tau_byVVLooseDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byVLooseDeepTau2017v2p1VSe",
                          &Tau_byVLooseDeepTau2017v2p1VSe_,
                          &b_Tau_byVLooseDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byLooseDeepTau2017v2p1VSe",
                          &Tau_byLooseDeepTau2017v2p1VSe_,
                          &b_Tau_byLooseDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byMediumDeepTau2017v2p1VSe",
                          &Tau_byMediumDeepTau2017v2p1VSe_,
                          &b_Tau_byMediumDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byTightDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byTightDeepTau2017v2p1VSe",
                          &Tau_byTightDeepTau2017v2p1VSe_,
                          &b_Tau_byTightDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byVTightDeepTau2017v2p1VSe",
                          &Tau_byVTightDeepTau2017v2p1VSe_,
                          &b_Tau_byVTightDeepTau2017v2p1VSe);
-  Tree->SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSe",
+  chain.SetBranchAddress("Tau_byVVTightDeepTau2017v2p1VSe",
                          &Tau_byVVTightDeepTau2017v2p1VSe_,
                          &b_Tau_byVVTightDeepTau2017v2p1VSe);
-  //  Tree->SetBranchAddress("",&_,&b_);
+  //  chain.SetBranchAddress("",&_,&b_);
 
-  Tree->SetBranchAddress("Flag_goodVertices", &Flag_goodVertices_,
+  chain.SetBranchAddress("Flag_goodVertices", &Flag_goodVertices_,
                          &b_Flag_goodVertices);
-  Tree->SetBranchAddress("Flag_globalSuperTightHalo2016Filter",
+  chain.SetBranchAddress("Flag_globalSuperTightHalo2016Filter",
                          &Flag_globalSuperTightHalo2016Filter_,
                          &b_Flag_globalSuperTightHalo2016Filter);
-  // Tree->SetBranchAddress("Flag_CSCTightHalo2015Filter",&Flag_CSCTightHalo2015Filter_,&b_Flag_CSCTightHalo2015Filter);
-  Tree->SetBranchAddress("Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter_,
+  // chain.SetBranchAddress("Flag_CSCTightHalo2015Filter",&Flag_CSCTightHalo2015Filter_,&b_Flag_CSCTightHalo2015Filter);
+  chain.SetBranchAddress("Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter_,
                          &b_Flag_HBHENoiseFilter);
-  Tree->SetBranchAddress("Flag_HBHENoiseIsoFilter", &Flag_HBHENoiseIsoFilter_,
+  chain.SetBranchAddress("Flag_HBHENoiseIsoFilter", &Flag_HBHENoiseIsoFilter_,
                          &b_Flag_HBHENoiseIsoFilter);
-  Tree->SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",
+  chain.SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",
                          &Flag_EcalDeadCellTriggerPrimitiveFilter_,
                          &b_Flag_EcalDeadCellTriggerPrimitiveFilter);
-  Tree->SetBranchAddress("Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter_,
+  chain.SetBranchAddress("Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter_,
                          &b_Flag_BadPFMuonFilter);
-  Tree->SetBranchAddress("Flag_BadChargedCandidateFilter",
+  chain.SetBranchAddress("Flag_BadChargedCandidateFilter",
                          &Flag_BadChargedCandidateFilter_,
                          &b_Flag_BadChargedCandidateFilter);
-  //  Tree->SetBranchAddress("Flag_ecalBadCalibReducedMINIAODFilter",&Flag_ecalBadCalibReducedMINIAODFilter_,&b_Flag_ecalBadCalibReducedMINIAODFilter);
-  Tree->SetBranchAddress("Flag_eeBadScFilter", &Flag_eeBadScFilter_,
+  //  chain.SetBranchAddress("Flag_ecalBadCalibReducedMINIAODFilter",&Flag_ecalBadCalibReducedMINIAODFilter_,&b_Flag_ecalBadCalibReducedMINIAODFilter);
+  chain.SetBranchAddress("Flag_eeBadScFilter", &Flag_eeBadScFilter_,
                          &b_Flag_eeBadScFilter);
-  Tree->SetBranchAddress("Flag_METFilters", &Flag_METFilters_,
+  chain.SetBranchAddress("Flag_METFilters", &Flag_METFilters_,
                          &b_Flag_METFilters);
 
-  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW",
+  chain.SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW",
                          &HLT_DoubleEle33_CaloIdL_MW_,
                          &b_HLT_DoubleEle33_CaloIdL_MW);
-  Tree->SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
+  chain.SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
   //
   //                                 add.
-  Tree->SetBranchAddress("HLT_PFHT900", &HLT_PFHT900_, &b_HLT_PFHT900);
-  Tree->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056_, &b_HLT_PFHT450_SixJet40_BTagCSV_p056);
-  Tree->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_,&b_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
-  Tree->SetBranchAddress("HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg);
-  Tree->SetBranchAddress("HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_PFHT900", &HLT_PFHT900_, &b_HLT_PFHT900);
+  chain.SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056_, &b_HLT_PFHT450_SixJet40_BTagCSV_p056);
+  chain.SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_,&b_HLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
+  chain.SetBranchAddress("HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg", &HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_, &b_HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg);
+  chain.SetBranchAddress("HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg", &HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_, &b_HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg);
 
-  Tree->SetBranchAddress("HLT_Ele27_eta2p1_WPTight_Gsf", &HLT_Ele27_eta2p1_WPTight_Gsf_, &b_HLT_Ele27_eta2p1_WPTight_Gsf);
-  Tree->SetBranchAddress("HLT_Ele27_eta2p1_WPLoose_Gsf", &HLT_Ele27_eta2p1_WPLoose_Gsf_, &b_HLT_Ele27_eta2p1_WPLoose_Gsf);
-  Tree->SetBranchAddress("HLT_Ele27_WPTight_Gsf", &HLT_Ele27_WPTight_Gsf_, &b_HLT_Ele27_WPTight_Gsf);
-  Tree->SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &HLT_Ele25_eta2p1_WPTight_Gsf_, &b_HLT_Ele25_eta2p1_WPTight_Gsf);
-  Tree->SetBranchAddress("HLT_IsoMu22", &HLT_IsoMu22_, &b_HLT_IsoMu22);
-  Tree->SetBranchAddress("HLT_IsoTkMu22", &HLT_IsoTkMu22_, &b_HLT_IsoTkMu22);
-  Tree->SetBranchAddress("HLT_IsoMu24", &HLT_IsoMu24_, &b_HLT_IsoMu24);
-  Tree->SetBranchAddress("HLT_IsoTkMu24", &HLT_IsoTkMu24_, &b_HLT_IsoTkMu24);
-  Tree->SetBranchAddress("HLT_IsoMu22_eta2p1", &HLT_IsoMu22_eta2p1_, &b_HLT_IsoMu22_eta2p1);
-  Tree->SetBranchAddress("HLT_IsoTkMu22_eta2p1", &HLT_IsoTkMu22_eta2p1_, &b_HLT_IsoTkMu22_eta2p1);
-  Tree->SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
-  Tree->SetBranchAddress("HLT_TkMu50", &HLT_TkMu50_, &b_HLT_TkMu50);
-  Tree->SetBranchAddress("HLT_Ele32_WPTight_Gsf", &HLT_Ele32_WPTight_Gsf_, &b_HLT_Ele32_WPTight_Gsf);
-  Tree->SetBranchAddress("HLT_Ele35_WPTight_Gsf", &HLT_Ele35_WPTight_Gsf_, &b_HLT_Ele35_WPTight_Gsf);
-  Tree->SetBranchAddress("HLT_IsoMu27", &HLT_IsoMu27_, &b_HLT_IsoMu27);
+  chain.SetBranchAddress("HLT_Ele27_eta2p1_WPTight_Gsf", &HLT_Ele27_eta2p1_WPTight_Gsf_, &b_HLT_Ele27_eta2p1_WPTight_Gsf);
+  chain.SetBranchAddress("HLT_Ele27_eta2p1_WPLoose_Gsf", &HLT_Ele27_eta2p1_WPLoose_Gsf_, &b_HLT_Ele27_eta2p1_WPLoose_Gsf);
+  chain.SetBranchAddress("HLT_Ele27_WPTight_Gsf", &HLT_Ele27_WPTight_Gsf_, &b_HLT_Ele27_WPTight_Gsf);
+  chain.SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &HLT_Ele25_eta2p1_WPTight_Gsf_, &b_HLT_Ele25_eta2p1_WPTight_Gsf);
+  chain.SetBranchAddress("HLT_IsoMu22", &HLT_IsoMu22_, &b_HLT_IsoMu22);
+  chain.SetBranchAddress("HLT_IsoTkMu22", &HLT_IsoTkMu22_, &b_HLT_IsoTkMu22);
+  chain.SetBranchAddress("HLT_IsoMu24", &HLT_IsoMu24_, &b_HLT_IsoMu24);
+  chain.SetBranchAddress("HLT_IsoTkMu24", &HLT_IsoTkMu24_, &b_HLT_IsoTkMu24);
+  chain.SetBranchAddress("HLT_IsoMu22_eta2p1", &HLT_IsoMu22_eta2p1_, &b_HLT_IsoMu22_eta2p1);
+  chain.SetBranchAddress("HLT_IsoTkMu22_eta2p1", &HLT_IsoTkMu22_eta2p1_, &b_HLT_IsoTkMu22_eta2p1);
+  chain.SetBranchAddress("HLT_Mu50", &HLT_Mu50_, &b_HLT_Mu50);
+  chain.SetBranchAddress("HLT_TkMu50", &HLT_TkMu50_, &b_HLT_TkMu50);
+  chain.SetBranchAddress("HLT_Ele32_WPTight_Gsf", &HLT_Ele32_WPTight_Gsf_, &b_HLT_Ele32_WPTight_Gsf);
+  chain.SetBranchAddress("HLT_Ele35_WPTight_Gsf", &HLT_Ele35_WPTight_Gsf_, &b_HLT_Ele35_WPTight_Gsf);
+  chain.SetBranchAddress("HLT_IsoMu27", &HLT_IsoMu27_, &b_HLT_IsoMu27);
 
-  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20);
-  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1);
-  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30);
-  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1);
-  Tree->SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1);
-  Tree->SetBranchAddress("HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", &HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_, &b_HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1);
-  Tree->SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1);
-  Tree->SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1);
+  chain.SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20);
+  chain.SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1);
+  chain.SetBranchAddress("HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", &HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_, &b_HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30);
+  chain.SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1);
+  chain.SetBranchAddress("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_, &b_HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1);
+  chain.SetBranchAddress("HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1", &HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_, &b_HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1);
+  chain.SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1);
+  chain.SetBranchAddress("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_, &b_HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1);
 
-  Tree->SetBranchAddress("HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf", &HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_, &b_HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf);
-  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW", &HLT_DoubleEle33_CaloIdL_MW_, &b_HLT_DoubleEle33_CaloIdL_MW);
-  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW", &HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_, &b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW);
-  Tree->SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
-  Tree->SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL);
-  Tree->SetBranchAddress("HLT_DoubleMu33NoFiltersNoVtx", &HLT_DoubleMu33NoFiltersNoVtx_, &b_HLT_DoubleMu33NoFiltersNoVtx);
-  Tree->SetBranchAddress("HLT_DoubleMu23NoFiltersNoVtxDisplaced", &HLT_DoubleMu23NoFiltersNoVtxDisplaced_, &b_HLT_DoubleMu23NoFiltersNoVtxDisplaced);
-  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ);
-  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8);
-  // Tree->SetBranchAddress("", &_, &b_);
-  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_, &b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL);
-  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ", &HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_, &b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ);
-  Tree->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL);
-  Tree->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
-  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL);
-  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ);
-  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL);
-  Tree->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
-  Tree->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL);
-  Tree->SetBranchAddress("HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
+  chain.SetBranchAddress("HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf", &HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_, &b_HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf);
+  chain.SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW", &HLT_DoubleEle33_CaloIdL_MW_, &b_HLT_DoubleEle33_CaloIdL_MW);
+  chain.SetBranchAddress("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW", &HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_, &b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW);
+  chain.SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
+  chain.SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL);
+  chain.SetBranchAddress("HLT_DoubleMu33NoFiltersNoVtx", &HLT_DoubleMu33NoFiltersNoVtx_, &b_HLT_DoubleMu33NoFiltersNoVtx);
+  chain.SetBranchAddress("HLT_DoubleMu23NoFiltersNoVtxDisplaced", &HLT_DoubleMu23NoFiltersNoVtxDisplaced_, &b_HLT_DoubleMu23NoFiltersNoVtxDisplaced);
+  chain.SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ);
+  chain.SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8);
+  // chain.SetBranchAddress("", &_, &b_);
+  chain.SetBranchAddress("HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_, &b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL);
+  chain.SetBranchAddress("HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ", &HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_, &b_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ);
+  chain.SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL);
+  chain.SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
+  chain.SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL);
+  chain.SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ);
+  chain.SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL);
+  chain.SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
+  chain.SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL);
+  chain.SetBranchAddress("HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_, &b_HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
 
-  Tree->SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_, &b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
-  Tree->SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_, &b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL);
-  Tree->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ);
-  Tree->SetBranchAddress("HLT_TripleMu_12_10_5", &HLT_TripleMu_12_10_5_, &b_HLT_TripleMu_12_10_5);
-  Tree->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL);
-  // Tree->SetBranchAddress("", &_, &b_);
+  chain.SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_, &b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
+  chain.SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_, &b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL);
+  chain.SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ);
+  chain.SetBranchAddress("HLT_TripleMu_12_10_5", &HLT_TripleMu_12_10_5_, &b_HLT_TripleMu_12_10_5);
+  chain.SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL);
+  // chain.SetBranchAddress("", &_, &b_);
   //
   //
-  Tree->SetBranchAddress("nBestVtx", &nBestVtx_, &b_nBestVtx);
-  Tree->SetBranchAddress("PUWeight", &PUWeight_, &b_PUWeight);
-  // Tree->SetBranchAddress("PUWeightUP",&PUWeightUP_,&b_PUWeightUP);
-  // Tree->SetBranchAddress("PUWeightDOWN",&PUWeightDOWN_,&b_PUWeightDOWN);
-  Tree->SetBranchAddress("EVENT_event", &EVENT_event_, &b_EVENT_event);
-  Tree->SetBranchAddress("EVENT_run", &EVENT_run_, &b_EVENT_run);
-  Tree->SetBranchAddress("EVENT_lumiBlock", &EVENT_lumiBlock_,
+  chain.SetBranchAddress("nBestVtx", &nBestVtx_, &b_nBestVtx);
+  chain.SetBranchAddress("PUWeight", &PUWeight_, &b_PUWeight);
+  // chain.SetBranchAddress("PUWeightUP",&PUWeightUP_,&b_PUWeightUP);
+  // chain.SetBranchAddress("PUWeightDOWN",&PUWeightDOWN_,&b_PUWeightDOWN);
+  chain.SetBranchAddress("EVENT_event", &EVENT_event_, &b_EVENT_event);
+  chain.SetBranchAddress("EVENT_run", &EVENT_run_, &b_EVENT_run);
+  chain.SetBranchAddress("EVENT_lumiBlock", &EVENT_lumiBlock_,
                          &b_EVENT_lumiBlock);
-  Tree->SetBranchAddress("EVENT_genHT", &EVENT_genHT_, &b_EVENT_genHT);
+  chain.SetBranchAddress("EVENT_genHT", &EVENT_genHT_, &b_EVENT_genHT);
   // what is Gen? what does data do?
   if (!data)
-    Tree->SetBranchAddress("Gen_pt", &Gen_pt_, &b_Gen_pt);
+    chain.SetBranchAddress("Gen_pt", &Gen_pt_, &b_Gen_pt);
   if (!data)
-    Tree->SetBranchAddress("Gen_energy", &Gen_energy_, &b_Gen_energy);
+    chain.SetBranchAddress("Gen_energy", &Gen_energy_, &b_Gen_energy);
   if (!data)
-    Tree->SetBranchAddress("Gen_charge", &Gen_charge_, &b_Gen_charge);
+    chain.SetBranchAddress("Gen_charge", &Gen_charge_, &b_Gen_charge);
   if (!data)
-    Tree->SetBranchAddress("Gen_eta", &Gen_eta_, &b_Gen_eta);
+    chain.SetBranchAddress("Gen_eta", &Gen_eta_, &b_Gen_eta);
   if (!data)
-    Tree->SetBranchAddress("Gen_phi", &Gen_phi_, &b_Gen_phi);
+    chain.SetBranchAddress("Gen_phi", &Gen_phi_, &b_Gen_phi);
   if (!data)
-    Tree->SetBranchAddress("Gen_pdg_id", &Gen_pdg_id_, &b_Gen_pdg_id);
+    chain.SetBranchAddress("Gen_pdg_id", &Gen_pdg_id_, &b_Gen_pdg_id);
   if (!data)
-    Tree->SetBranchAddress("Gen_motherpdg_id", &Gen_motherpdg_id_,
+    chain.SetBranchAddress("Gen_motherpdg_id", &Gen_motherpdg_id_,
                            &b_Gen_motherpdg_id);
-  //  if(!data) Tree->SetBranchAddress("Gen_charge",&Gen_charge_,&b_Gen_charge);
-  //  if(!data) Tree->SetBranchAddress("",&,&);
-  //  if(!data) Tree->SetBranchAddress("",&,&);
+  //  if(!data) chain.SetBranchAddress("Gen_charge",&Gen_charge_,&b_Gen_charge);
+  //  if(!data) chain.SetBranchAddress("",&,&);
+  //  if(!data) chain.SetBranchAddress("",&,&);
   //?what is these?
-  Tree->SetBranchAddress("EVENT_genWeight", &genWeight_, &b_genWeight);
-  Tree->SetBranchAddress("EVENT_genWeights", &genWeights_, &b_genWeights);
-  Tree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight_,
+  chain.SetBranchAddress("EVENT_genWeight", &genWeight_, &b_genWeight);
+  chain.SetBranchAddress("EVENT_genWeights", &genWeights_, &b_genWeights);
+  chain.SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight_,
                          &b_EVENT_prefireWeight);
-  Tree->SetBranchAddress("EVENT_prefireWeightUp", &EVENT_prefireWeightUp_,
+  chain.SetBranchAddress("EVENT_prefireWeightUp", &EVENT_prefireWeightUp_,
                          &b_EVENT_prefireWeightUp);
-  Tree->SetBranchAddress("EVENT_prefireWeightDown", &EVENT_prefireWeightDown_,   &b_EVENT_prefireWeightDown);
-  Tree->SetBranchAddress("PUWeight", &PUWeight_,   &b_PUWeight);
+  chain.SetBranchAddress("EVENT_prefireWeightDown", &EVENT_prefireWeightDown_,   &b_EVENT_prefireWeightDown);
+  chain.SetBranchAddress("PUWeight", &PUWeight_,   &b_PUWeight);
 
 
 
