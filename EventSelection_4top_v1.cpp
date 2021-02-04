@@ -4,11 +4,11 @@
 
 void EventSelection_4top_v1(
     const bool istest = true,
-    const string input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-    // const string input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
-    // const string input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
-    const string outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
-       // const string outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
+    const TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
+    // const TString input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
+    // const TString input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
+    const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
+       // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
     gStyle->SetCanvasColor(0);
     gStyle->SetFrameBorderMode(0); //?
@@ -30,50 +30,36 @@ void EventSelection_4top_v1(
   
     using namespace std;
   
-    // vector<string> fileName;
-    // fileName.push_back(input);
-    // for (UInt_t Nfiles = 0; Nfiles < fileName.size(); Nfiles++) {
-      //  for(unsigned int Nfiles=0; Nfiles<1; Nfiles++){
-      string NewFileprov; // file already exist, new file is what we want build.
+      TString NewFileprov; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
       //?is it nessesary to put different SF in different files?
-      if ((SysJes == 0) && (SysJer == 0))
-        NewFileprov = outputDir + "NoJEC/" + input;
-      if ((SysJes == 1) && (SysJer == 0))
-        NewFileprov = outputDir + "JESup/" + input;
-      if ((SysJes == 2) && (SysJer == 0))
-        NewFileprov = outputDir + "JESdo/" + input;
-      if ((SysJes == 0) && (SysJer == 1))
-        NewFileprov = outputDir + "JERdo/" + input;
-      if ((SysJes == 0) && (SysJer == 2))
-        NewFileprov = outputDir + "JERup/" + input;
+      if ((SysJes == 0) && (SysJer == 0)) NewFileprov = outputDir + "NoJEC/" + input;
+      if ((SysJes == 1) && (SysJer == 0))  NewFileprov = outputDir + "JESup/" + input;
+      if ((SysJes == 2) && (SysJer == 0))  NewFileprov = outputDir + "JESdo/" + input;
+      if ((SysJes == 0) && (SysJer == 1))  NewFileprov = outputDir + "JERdo/" + input;
+      if ((SysJes == 0) && (SysJer == 2))  NewFileprov = outputDir + "JERup/" + input;
       // const char *NewFileName = input.c_str();
       bool data = true;
       cout << "data" << data << endl;
       //    if(fileName.size()==0) break;
-      if (!(input.find("TauBlock") != string::npos))
-        data = false; // find():The position of the first character of the first // match.
-      // If no matches were found, the function returns string::npos.//what is
+      // if (!(input.find("TauBlock") != TString::npos))
+      if ( !(input.Contains( "TauBlock")))   data = false; // find():The position of the first character of the first // match.
       //if filename is data, data=true. data and MC files have different    // tree .
       cout << "data" << data << endl;
   
-      const char *NewFileName =
-          NewFileprov.c_str(); // c_str()Returns a pointer to an array that
-                               // contains a null-terminated sequence of
-                               // characters (i.e., a C-string) representing
-                               // current value of the string object.
-      cout<<"New file here : "<<NewFileName<<endl;
-      //    TFile f(NewFileName,"new");//Create a new file and open it for
+      // const char *NewFileName =  NewFileprov.c_str(); // c_str()Returns a pointer to an array thatcontains a null-terminated sequence ofcharacters (i.e., a C-string) representingcurent value of the string object.
+      cout<<"New file here : "<<NewFileprov<<endl;
+      //    TFile f(NewFileprov,"new");//Create a new file and open it for
       // writing, if the file already exists the file is not opened.
-      TFile f(NewFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
+      TFile f(NewFileprov, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
       TTree *NewTree = new TTree("tree", "tree");
       TTree *NewTreeSB = new TTree("treeSB", "treeSB");
       //why 2 trees? what's the different?		//treeSB has something todo with sideband
-      string FILEprov;
+      TString FILEprov;
       if (data)    FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/data/2016/" + input;
       else FILEprov = "/publicfs/cms/data/TopQuark/FourTop/v002/mc/2016/" + input;
-      const char *FILE = FILEprov.c_str();
-      TFile *file = TFile::Open(FILE);
+      // const char *FILE = FILEprov.c_str();
+      TFile *file = TFile::Open(FILEprov);
       char openTree[500];
       sprintf(openTree, "TNT/BOOM");       // 117
       Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
@@ -2456,7 +2442,7 @@ void WSF(TLorentzVector WJet, bool PartiallyMerged, double &w_WJet_,
 
 //?what's the purpose of thisi?
 /*
-void HTSF(string fileName, double HT, double Met_pt, double &w_SF1, double
+void HTSF(TString fileName, double HT, double Met_pt, double &w_SF1, double
 &w_SF1Up, double &w_SF1Down, double &w_SF2, double &w_SF2Up, double &w_SF2Down,
 double &w_SF3, double &w_SF3Up, double &w_SF3Down){
   if(fileName.find("ZToNuNu")!=string::npos ){
