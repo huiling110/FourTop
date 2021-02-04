@@ -8,7 +8,7 @@ void EventSelection_4top_v1(
     // const TString input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const TString input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
     const TString inputDir = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/Legacy16V2_TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8addGenWeight/210201_023242/0000/",
-    const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")
+    const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/v3/")
        // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
     gStyle->SetCanvasColor(0);
@@ -34,7 +34,7 @@ void EventSelection_4top_v1(
       TString newFile; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
       // TString input = inputDir.ReplaceAll( "/Legacy16V2*0000/", "")  ;
-      TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8";
+      TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root";
       cout<<input<<endl;
       if ((SysJes == 0) && (SysJer == 0)) newFile = outputDir + "NoJEC/" + input;
       if ((SysJes == 1) && (SysJer == 0))  newFile = outputDir + "JESup/" + input;
@@ -60,8 +60,6 @@ void EventSelection_4top_v1(
       // chain.Print();
       // const char *FILE = inputFile.c_str();
       // TFile *file = TFile::Open(inputFile);
-      // char openTree[500];
-      // sprintf(openTree, "TNT/BOOM");       // 117
       // Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
       Long64_t nentries =    (Int_t)chain.GetEntries(); // how do we know the entries of Tree?//Read
       for (int selection = 0; selection < 3; selection++) {
