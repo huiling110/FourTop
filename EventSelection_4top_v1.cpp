@@ -2,17 +2,19 @@
 #include "math.h"
 #include <algorithm>
 
+#include "TStopwatch.h"
+
 void EventSelection_4top_v1(
     const bool istest = true,
-    // const TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-    // const TString input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
-    // const TString input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
-    // const TString inputDir = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/Legacy16V2_TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8addGenWeight/210201_023242/0000/",
     const TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
     const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/v3/")
        // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
+    TStopwatch t;
+    t.Start();
+
     const bool isHLTstudy = false;
+
     const bool preselection = true; // associate with selection
     const bool sideband = false;    // associate with selection
     //?what's sideband and signal ?
@@ -50,9 +52,8 @@ void EventSelection_4top_v1(
       else inputFile = inputBase + inputDir;
       TChain chain("TNT/BOOM");
       chain.Add(inputFile+"v3*.root");
-      //Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
       Long64_t nentries =    (Int_t)chain.GetEntries(); // how do we know the entries of Tree?//Read
-      cout<<nentries<<endl;
+      cout<<"total enties:" << nentries<<endl;
       for (int selection = 0; selection < 3; selection++) {
         //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
         // loop.signal=false
@@ -1200,6 +1201,9 @@ void EventSelection_4top_v1(
       h_genWeight->Write();
       newFile.Close();
       cout << "File " << outputFileName << " ready!" << endl;
+
+      t.Stop();
+      t.Print();
     // }
 }
 
