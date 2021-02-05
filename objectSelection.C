@@ -5,6 +5,7 @@
 
 #include "TStopwatch.h"
 #include "TROOT.h"
+#include "Riostream.h"
 
 void objectSelection(
     const bool istest = true,
@@ -14,7 +15,7 @@ void objectSelection(
 {
     TStopwatch t;
     t.Start();
-    gROOT->ProcessLine(".L" "loader.C+");
+    gROOT->ProcessLine(".L" "Loader.C+");
 
     const bool isHLTstudy = false;
     const bool preselection = true; // associate with selection
@@ -222,9 +223,9 @@ void objectSelection(
   
           // lepton selection
           // vector<TLorentzVector> SelectedElectronsL;       vector<int> SelectedElectronsLIndex;
-          vector<TLorentzVector> SelectedElectronsM;       vector<int> SelectedElectronsMIndex;
-          vector<TLorentzVector> SelectedElectronsT;       vector<int> SelectedElectronsTIndex;
-          vector<TLorentzVector> SelectedElectronsVeto;    vector<int> SelectedElectronsVetoIndex;
+          // vector<TLorentzVector> SelectedElectronsM;       vector<int> SelectedElectronsMIndex;
+          // vector<TLorentzVector> SelectedElectronsT;       vector<int> SelectedElectronsTIndex;
+          // vector<TLorentzVector> SelectedElectronsVeto;    vector<int> SelectedElectronsVetoIndex;
           SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//cut based ID
           SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
           SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
@@ -3564,8 +3565,17 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("genMuon_eta", &genMuon_eta);
   NewTree->Branch("genMuon_phi", &genMuon_phi);
   NewTree->Branch("genMuon_E", &genMuon_E);
+
+
   NewTree->Branch("SelectedElectronsL", &SelectedElectronsL);
   NewTree->Branch("SelectedElectronsLIndex", &SelectedElectronsLIndex);
+  NewTree->Branch("SelectedElectronsM", &SelectedElectronsM);
+  NewTree->Branch("SelectedElectronsT", &SelectedElectronsT);
+  NewTree->Branch("SelectedElectronsVeto", &SelectedElectronsVeto);
+  NewTree->Branch("SelectedElectronsMIndex", &SelectedElectronsMIndex);
+  NewTree->Branch("SelectedElectronsTIndex", &SelectedElectronsTIndex);
+  NewTree->Branch("SelectedElectronsVetoIndex", &SelectedElectronsVetoIndex);
+  // NewTree->Branch("", &);
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");
@@ -4385,8 +4395,17 @@ void initializeVar() { /*{{{*/
  genMuon_eta.clear();
  genMuon_phi.clear();
  genMuon_E.clear();
+
+
     SelectedElectronsL.clear();
     SelectedElectronsLIndex.clear();
+    SelectedElectronsM.clear();
+    SelectedElectronsMIndex.clear();
+    SelectedElectronsT.clear();
+    SelectedElectronsTIndex.clear();
+    SelectedElectronsVeto.clear();
+    SelectedElectronsVetoIndex.clear();
+
 
  TopMass=-99;
  TopMassMerged=-99;

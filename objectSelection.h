@@ -488,8 +488,13 @@ vector <double> genMuon_pt;
 vector <double> genMuon_eta;
 vector <double> genMuon_phi;
 vector <double> genMuon_E;
+
 vector<TLorentzVector> SelectedElectronsL;
 vector<int> SelectedElectronsLIndex;
+vector<TLorentzVector> SelectedElectronsM;       vector<int> SelectedElectronsMIndex;
+vector<TLorentzVector> SelectedElectronsT;       vector<int> SelectedElectronsTIndex;
+vector<TLorentzVector> SelectedElectronsVeto;    vector<int> SelectedElectronsVetoIndex;
+
 
 
 double TopMass=-99;
