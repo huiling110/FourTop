@@ -11,6 +11,7 @@
 #include "TLorentzVector.h"
 #include "TChain.h"
 #include <iostream>
+#include <vector>
 
 
 //BTagCalibration not working in 102
@@ -95,30 +96,6 @@ void TriggerSF(double HT, double jetsL_MHT, double &w_Trig, double &w_TrigUp, do
 void QCDWeight(int imin,int imax,double &w_QCDUp ,double &w_QCDDown);
 void PDFWeight(int imin,int imax,double &w_PDFUp ,double &w_PDFDown);
 void MetCorrection(int SysJes, int SysJer, double &MET);/*}}}*/
-//BTAG SF
-//???what does this do?
-/*
-BTagCalibration calib("CSVv2", "SF_dineutrino/DeepCSV_94XSF_V2_B_F.csv");
-  //BTagCalibration calib("DeepCSV", "SF_dineutrino/DeepCSV_94XSF_V2_B_F.csv");
-BTagCalibrationReader readerTIncl(&calib,      BTagEntry::OP_TIGHT, "incl",   "central");
-BTagCalibrationReader readerTIncl_up(&calib,   BTagEntry::OP_TIGHT, "incl",   "up");
-BTagCalibrationReader readerTIncl_do(&calib,   BTagEntry::OP_TIGHT, "incl",   "down");
-BTagCalibrationReader readerTComb(&calib,    BTagEntry::OP_TIGHT, "comb", "central");
-BTagCalibrationReader readerTComb_up(&calib, BTagEntry::OP_TIGHT, "comb", "up");
-BTagCalibrationReader readerTComb_do(&calib, BTagEntry::OP_TIGHT, "comb", "down");
-BTagCalibrationReader readerMIncl(&calib,      BTagEntry::OP_MEDIUM, "incl",   "central");
-BTagCalibrationReader readerMIncl_up(&calib,   BTagEntry::OP_MEDIUM, "incl",   "up");
-BTagCalibrationReader readerMIncl_do(&calib,   BTagEntry::OP_MEDIUM, "incl",   "down");
-BTagCalibrationReader readerMComb(&calib,    BTagEntry::OP_MEDIUM, "comb", "central");
-BTagCalibrationReader readerMComb_up(&calib, BTagEntry::OP_MEDIUM, "comb", "up");
-BTagCalibrationReader readerMComb_do(&calib, BTagEntry::OP_MEDIUM, "comb", "down");
-BTagCalibrationReader readerLIncl(&calib,      BTagEntry::OP_LOOSE,  "incl",   "central");
-BTagCalibrationReader readerLIncl_up(&calib,   BTagEntry::OP_LOOSE,  "incl",   "up");
-BTagCalibrationReader readerLIncl_do(&calib,   BTagEntry::OP_LOOSE,  "incl",   "down");
-BTagCalibrationReader readerLComb(&calib,    BTagEntry::OP_LOOSE,  "comb", "central");
-BTagCalibrationReader readerLComb_up(&calib, BTagEntry::OP_LOOSE,  "comb", "up");
-BTagCalibrationReader readerLComb_do(&calib, BTagEntry::OP_LOOSE,  "comb", "down");
-*/
 //Lepton SF
 //???
 TFile *fileForwardJet    = new TFile("SF_dineutrino/ForwardJetSFFinal.root");/*{{{*/
@@ -178,33 +155,6 @@ vector <double> * Jet_chargedHadronEnergyFraction_; TBranch *b_Jet_chargedHadron
 vector <double> * Jet_chargedMultiplicity_;         TBranch *b_Jet_chargedMultiplicity;
 vector <double> * Jet_hadronFlavour_; TBranch *b_Jet_hadronFlavour;
 vector <double>* Jet_muonEnergyFraction_; TBranch* b_Jet_muonEnergyFraction;
-/*vector <double> * BoostedJet_pt_;        TBranch *b_BoostedJet_pt;
-vector <double> * BoostedJet_Uncorr_pt_; TBranch *b_BoostedJet_Uncorr_pt;
-vector <double> * BoostedJet_softdrop_mass_; TBranch *b_BoostedJet_softdrop_mass;
-vector <double> * BoostedJet_puppi_softdrop_mass_; TBranch *b_BoostedJet_puppi_softdrop_mass;
-vector <double> * BoostedJet_JesSF_;TBranch *b_BoostedJet_JesSF;
-vector <double> * BoostedJet_JesSFup_;TBranch *b_BoostedJet_JesSFup;
-vector <double> * BoostedJet_JesSFdown_;TBranch *b_BoostedJet_JesSFdown;
-vector <double> * BoostedJet_JerSF_;TBranch *b_BoostedJet_JerSF;
-vector <double> * BoostedJet_JerSFup_;TBranch *b_BoostedJet_JerSFup;
-vector <double> * BoostedJet_JerSFdown_;TBranch *b_BoostedJet_JerSFdown;
-vector <double> * BoostedJet_eta_;  TBranch *b_BoostedJet_eta;
-vector <double> * BoostedJet_phi_;  TBranch *b_BoostedJet_phi;
-vector <double> * BoostedJet_mass_; TBranch *b_BoostedJet_mass;
-vector <double> * BoostedJet_tau1_; TBranch *b_BoostedJet_tau1;
-vector <double> * BoostedJet_tau2_; TBranch *b_BoostedJet_tau2;
-vector <double> * BoostedJet_tau3_; TBranch *b_BoostedJet_tau3;
-vector <double> * BoostedJet_puppi_tau1_; TBranch *b_BoostedJet_puppi_tau1;
-vector <double> * BoostedJet_puppi_tau2_; TBranch *b_BoostedJet_puppi_tau2;
-vector <double> * BoostedJet_puppi_tau3_; TBranch *b_BoostedJet_puppi_tau3;
-vector <double> * BoostedJet_pruned_mass_;  TBranch *b_BoostedJet_pruned_mass;
-vector <double> * BoostedJet_neutralHadEnergyFraction_;    TBranch *b_BoostedJet_neutralHadEnergyFraction;
-vector <double> * BoostedJet_neutralEmEnergyFraction_;    TBranch *b_BoostedJet_neutralEmEnergyFraction;
-vector <double> * BoostedJet_chargedEmEnergyFraction_;     TBranch *b_BoostedJet_chargedEmEnergyFraction;
-vector <double> * BoostedJet_neutralEmEmEnergyFraction_;     TBranch *b_BoostedJet_neutralEmEmEnergyFraction;
-vector <double> * BoostedJet_numberOfConstituents_;        TBranch *b_BoostedJet_numberOfConstituents;
-vector <double> * BoostedJet_chargedHadronEnergyFraction_; TBranch *b_BoostedJet_chargedHadronEnergyFraction;
-vector <double> * BoostedJet_chargedMultiplicity_;         TBranch *b_BoostedJet_chargedMultiplicity;*/
 vector <double> * TopTagging_topMass_;  TBranch *b_TopTagging_topMass;
 vector <double> * TopTagging_minMass_;  TBranch *b_TopTagging_minMass;
 vector <double> * TopTagging_wMass_; TBranch *b_TopTagging_wMass;
@@ -538,6 +488,8 @@ vector <double> genMuon_pt;
 vector <double> genMuon_eta;
 vector <double> genMuon_phi;
 vector <double> genMuon_E;
+vector<TLorentzVector> SelectedElectronsL;
+vector<int> SelectedElectronsLIndex;
 
 
 double TopMass=-99;

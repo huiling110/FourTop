@@ -1,10 +1,12 @@
-#include "EventSelection_4top_v1.h"
+#include "objectSelection.h"
+#include "Loader.C"
 #include "math.h"
 #include <algorithm>
 
 #include "TStopwatch.h"
+#include "TROOT.h"
 
-void EventSelection_4top_v1(
+void objectSelection(
     const bool istest = true,
     const TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
     const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/v3/")
@@ -12,9 +14,9 @@ void EventSelection_4top_v1(
 {
     TStopwatch t;
     t.Start();
+    gROOT->ProcessLine(".L" "loader.C+");
 
     const bool isHLTstudy = false;
-
     const bool preselection = true; // associate with selection
     const bool sideband = false;    // associate with selection
     //?what's sideband and signal ?
@@ -29,7 +31,6 @@ void EventSelection_4top_v1(
   
       TString newFileName; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
-      // TString outputFileName = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
       TString outputFileName(inputDir( 0, inputDir.First("/") ));
       outputFileName = outputFileName + ".root";
       cout<<outputFileName<<endl;
@@ -215,29 +216,20 @@ void EventSelection_4top_v1(
           MetCorrection(SysJes, SysJer, Met_pt); // Met_pt in newtree branch.
           // why have to do this MetCorrection//take jet SF into
           // consideration.correct met_pt
-          //            if( Met_pt > 200)  SelectedMet = true;//228;parameter in
-          // Fillbranches
           // we don't care about Met so much
           // Met_pt            = Met_type1PF_pt_;
           Met_phi = Met_type1PF_phi_; // Met_phi branch in newtree and SB
   
           // lepton selection
-          vector<TLorentzVector> SelectedElectronsL;
-          vector<int> SelectedElectronsLIndex;
-          vector<TLorentzVector> SelectedElectronsM;
-          vector<int> SelectedElectronsMIndex;
-          vector<TLorentzVector> SelectedElectronsT;
-          vector<int> SelectedElectronsTIndex;
-          vector<TLorentzVector> SelectedElectronsVeto;
-          vector<int> SelectedElectronsVetoIndex;
+          // vector<TLorentzVector> SelectedElectronsL;       vector<int> SelectedElectronsLIndex;
+          vector<TLorentzVector> SelectedElectronsM;       vector<int> SelectedElectronsMIndex;
+          vector<TLorentzVector> SelectedElectronsT;       vector<int> SelectedElectronsTIndex;
+          vector<TLorentzVector> SelectedElectronsVeto;    vector<int> SelectedElectronsVetoIndex;
           SelectElectrons(SelectedElectronsL, SelectedElectronsLIndex, 0);//cut based ID
           SelectElectrons(SelectedElectronsM, SelectedElectronsMIndex, 1);
           SelectElectrons(SelectedElectronsT, SelectedElectronsTIndex, 2);
           SelectElectrons(SelectedElectronsVeto, SelectedElectronsVetoIndex, 3); 
   
-          eleL_number = SelectedElectronsL.size();
-          eleM_number = SelectedElectronsM.size();
-          eleT_number = SelectedElectronsT.size();
   
           vector<TLorentzVector> SelectedMuonsL;
           vector<int> SelectedMuonsLIndex;
@@ -249,7 +241,7 @@ void EventSelection_4top_v1(
           SelectMuons(SelectedMuonsF, SelectedMuonsFIndex, 1, 4);
           SelectMuons(SelectedMuonsT, SelectedMuonsTIndex, 2, 4);//this T is actually the medium in SS
   
-      sort(SelectedMuonsL.begin(), SelectedMuonsL.end(), compEle);
+          sort(SelectedMuonsL.begin(), SelectedMuonsL.end(), compEle);
           sort(SelectedMuonsF.begin(), SelectedMuonsF.end(), compEle);
           sort(SelectedMuonsT.begin(), SelectedMuonsT.end(), compEle);
   
@@ -3572,6 +3564,8 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("genMuon_eta", &genMuon_eta);
   NewTree->Branch("genMuon_phi", &genMuon_phi);
   NewTree->Branch("genMuon_E", &genMuon_E);
+  NewTree->Branch("SelectedElectronsL", &SelectedElectronsL);
+  NewTree->Branch("SelectedElectronsLIndex", &SelectedElectronsLIndex);
 
   NewTree->Branch("TopMass", &TopMass, "TopMass/D");
   NewTree->Branch("TopMassMerged", &TopMassMerged, "TopMassMerged/D");
@@ -3744,9 +3738,6 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("eleMVAT_phi_s3", &eleMVAT_phi_s3);
   NewTree->Branch("eleMVAT_E_s3", &eleMVAT_E_s3);
 
-  NewTree->Branch("eleL_number", &eleL_number, "eleL_number/I");
-  NewTree->Branch("eleM_number", &eleM_number, "eleM_number/I");
-  NewTree->Branch("eleT_number", &eleT_number, "eleT_number/I");
   NewTree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
                   "elesMVAF_1pt/D");
   NewTree->Branch("muonsL_number", &muonsL_number, "muonsL_number/I");
@@ -4201,7 +4192,6 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
     NewTreeSB->Branch("leptonsL_number", &leptonsL_number, "leptonsL_number/I");
     //
     //
-    NewTreeSB->Branch("eleL_number", &eleL_number, "eleL_number");
     NewTreeSB->Branch("muonsL_number", &muonsL_number, "muonsL_number");
     NewTreeSB->Branch("jetsL_invariantMass", &jetsL_invariantMass,
                       "jetsL_invariantMass/D");
@@ -4321,6 +4311,7 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
 
 void initializeVar() { /*{{{*/
 
+
  HLT_PFHT900 = -99; 
  HLT_PFHT450_SixJet40_BTagCSV_p056 = -99; 
  HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99; 
@@ -4394,6 +4385,8 @@ void initializeVar() { /*{{{*/
  genMuon_eta.clear();
  genMuon_phi.clear();
  genMuon_E.clear();
+    SelectedElectronsL.clear();
+    SelectedElectronsLIndex.clear();
 
  TopMass=-99;
  TopMassMerged=-99;
@@ -4653,9 +4646,6 @@ void initializeVar() { /*{{{*/
 
 //
 //
-   eleL_number=-99;
-   eleM_number=-99;
-   eleT_number=-99;
    jetsL_invariantMass=-99;
  bjetsL_invariantMass= -99;
  bjetsM_invariantMass= -99;
