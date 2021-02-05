@@ -74,7 +74,7 @@ void EventSelection_4top_v1(
         
         for (Long64_t i = 0; i < NumOfEvents; i++) {
           branchGetEntry(data, i);        // every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
-  
+          if (i==NumOfEvents-1) cout<<"entires run: "<<NumOfEvents<<endl;  
           h_genWeight->Fill( 0.0 , genWeight_ );
   
   
