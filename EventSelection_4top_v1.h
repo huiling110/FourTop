@@ -15,7 +15,7 @@
 
 //BTagCalibration not working in 102
 //void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, string fileName);
-void branch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, TChain &chain );
+void setBranchAddressAndBranch(bool data,int selecton, TTree *NewTree, TTree *NewTreeSB, TChain &chain );
 /*{{{*/
 void SelectMet(bool &SelectedMet);
 void selectGenTaus( vector<TLorentzVector> &genTaus );

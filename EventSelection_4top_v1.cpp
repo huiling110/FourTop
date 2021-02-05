@@ -7,17 +7,18 @@ void EventSelection_4top_v1(
     // const TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
     // const TString input = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root",
     // const TString input = "Legacy16V2_TauBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_0000.root",
-    const TString inputDir = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/Legacy16V2_TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8addGenWeight/210201_023242/0000/",
+    // const TString inputDir = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/Legacy16V2_TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8addGenWeight/210201_023242/0000/",
+    const TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
     const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/v3/")
        // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
-    gStyle->SetCanvasColor(0);
-    gStyle->SetFrameBorderMode(0); //?
-    gStyle->SetOptStat("rme");
-    gStyle->SetPalette(1, 0);
-    gStyle->SetTitleX(0.50);
-    gStyle->SetTitleY(0.96);
-    gStyle->SetPaintTextFormat(".2f");
+    // gStyle->SetCanvasColor(0);
+    // gStyle->SetFrameBorderMode(0); //?
+    // gStyle->SetOptStat("rme");
+    // gStyle->SetPalette(1, 0);
+    // gStyle->SetTitleX(0.50);
+    // gStyle->SetTitleY(0.96);
+    // gStyle->SetPaintTextFormat(".2f");
   
     const bool isHLTstudy = false;
     const bool preselection = true; // associate with selection
@@ -28,13 +29,14 @@ void EventSelection_4top_v1(
     // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
     const int SysJes = 0; // jet enenrgy scale
     const int SysJer = 0; // jet  energy resolution
+    Long64_t NumOfEvents = 1000;
   
     using namespace std;
   
       TString newFile; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
       // TString input = inputDir.ReplaceAll( "/Legacy16V2*0000/", "")  ;
-      TString input = "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root";
+      TString input = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
       cout<<input<<endl;
       if ((SysJes == 0) && (SysJer == 0)) newFile = outputDir + "NoJEC/" + input;
       if ((SysJes == 1) && (SysJer == 0))  newFile = outputDir + "JESup/" + input;
@@ -55,13 +57,14 @@ void EventSelection_4top_v1(
       TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
       if (data)    inputFile = inputBase + inputDir;
       else inputFile = inputBase + inputDir;
-      static TChain chain("TNT/BOOM");
+      TChain chain("TNT/BOOM");
       chain.Add(inputFile+"v3*.root");
       // chain.Print();
       // const char *FILE = inputFile.c_str();
       // TFile *file = TFile::Open(inputFile);
       // Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
       Long64_t nentries =    (Int_t)chain.GetEntries(); // how do we know the entries of Tree?//Read
+      cout<<nentries<<endl;
       for (int selection = 0; selection < 3; selection++) {
         //? it seems when pre = false, sideband=true,both 1 and 2 will go in the
         // loop.signal=false
@@ -77,17 +80,12 @@ void EventSelection_4top_v1(
         //what does sideband and signal do?
         //        branch(data,selection,NewTree,NewTreeSB,input);Tree->SetBranchAddress;NewTree and SB->Branch
         chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
-        branch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
+        setBranchAddressAndBranch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         //???chain is in local scope, cannot be seen in branch?
-        Long64_t NumOfEvents;
-        if (istest) {
-          NumOfEvents = 1000;
-        } else {
-          NumOfEvents = nentries;
-        }
+        if (istest)   NumOfEvents = 1000; else   NumOfEvents = nentries;
+        
         for (Long64_t i = 0; i < NumOfEvents; i++) {
-          Long64_t tentry = chain.LoadTree(i); // Set current entry.
-          branchGetEntry(data, tentry);        // every branch in Tree, Getentry.        // b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
+          branchGetEntry(data, i);        // every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
   
           h_genWeight->Fill( 0.0 , genWeight_ );
   
@@ -3007,7 +3005,7 @@ double bscoreSumOf4largestCal(const vector<double> SelectedJetsBTags) {
     return sum;
 }
 // it seems that fileName doesn't occur in the function .
-void branch(bool data, int selection, TTree *NewTree,
+void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
             TTree *NewTreeSB, TChain& chain) { /*{{{*/
   // Change branch address, dealing with clone trees properly.	//copy the
   // branch Jet_pt to b_Jet_pt
@@ -4939,7 +4937,6 @@ void initializeVar() { /*{{{*/
 } /*}}}*/
   //?filename not occur
   //
-// void branchGetEntry(bool data, Long64_t tentry, string fileName){
 void branchGetEntry(bool data, Long64_t tentry) { 
     /*{{{*/
   b_Jet_pt->GetEntry(tentry); // is a branch in tree, setadress.
