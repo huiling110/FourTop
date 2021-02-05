@@ -152,6 +152,7 @@ TH2F   *histoTrig        = (TH2F*) fileTrig ->Get("h_METvsMHT_EFF");/*}}}*/
 
 
 TH1D  *h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
+TH1D  *h_genWeight_fromNtuple = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 TTree *Tree;
 
 //RECO INFO

@@ -12,14 +12,6 @@ void EventSelection_4top_v1(
     const TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/v3/")
        // const TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/")
 {
-    // gStyle->SetCanvasColor(0);
-    // gStyle->SetFrameBorderMode(0); //?
-    // gStyle->SetOptStat("rme");
-    // gStyle->SetPalette(1, 0);
-    // gStyle->SetTitleX(0.50);
-    // gStyle->SetTitleY(0.96);
-    // gStyle->SetPaintTextFormat(".2f");
-  
     const bool isHLTstudy = false;
     const bool preselection = true; // associate with selection
     const bool sideband = false;    // associate with selection
@@ -33,24 +25,22 @@ void EventSelection_4top_v1(
   
     using namespace std;
   
-      TString newFile; // file already exist, new file is what we want build.
+      TString newFileName; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
       // TString input = inputDir.ReplaceAll( "/Legacy16V2*0000/", "")  ;
       TString input = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
       cout<<input<<endl;
-      if ((SysJes == 0) && (SysJer == 0)) newFile = outputDir + "NoJEC/" + input;
-      if ((SysJes == 1) && (SysJer == 0))  newFile = outputDir + "JESup/" + input;
-      if ((SysJes == 2) && (SysJer == 0))  newFile = outputDir + "JESdo/" + input;
-      if ((SysJes == 0) && (SysJer == 1))  newFile = outputDir + "JERdo/" + input;
-      if ((SysJes == 0) && (SysJer == 2))  newFile = outputDir + "JERup/" + input;
+      if ((SysJes == 0) && (SysJer == 0)) newFileName = outputDir + "NoJEC/" + input;
+      if ((SysJes == 1) && (SysJer == 0))  newFileName = outputDir + "JESup/" + input;
+      if ((SysJes == 2) && (SysJer == 0))  newFileName = outputDir + "JESdo/" + input;
+      if ((SysJes == 0) && (SysJer == 1))  newFileName = outputDir + "JERdo/" + input;
+      if ((SysJes == 0) && (SysJer == 2))  newFileName = outputDir + "JERup/" + input;
       bool data = true;
       cout << "data" << data << endl;
-      //    if(fileName.size()==0) break;
       if ( !(input.Contains( "TauBlock")))   data = false; // find():The position of the first character of the first // match.
       cout << "data" << data << endl;
-      cout<<"New file here : "<<newFile<<endl;
-      //    TFile f(newFile,"new");//Create a new file and open it for // writing, if the file already exists the file is not opened.
-      TFile f(newFile, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
+      cout<<"New file here : "<<newFileName<<endl;
+      TFile newFile(newFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
       TTree *NewTree = new TTree("tree", "tree");
       TTree *NewTreeSB = new TTree("treeSB", "treeSB");
       //why 2 trees? what's the different?		//treeSB has something todo with sideband
@@ -59,10 +49,7 @@ void EventSelection_4top_v1(
       else inputFile = inputBase + inputDir;
       TChain chain("TNT/BOOM");
       chain.Add(inputFile+"v3*.root");
-      // chain.Print();
-      // const char *FILE = inputFile.c_str();
-      // TFile *file = TFile::Open(inputFile);
-      // Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
+      //Tree = (TTree *)file->Get(openTree); // sprintf(openTree, "TNT/BOOM")
       Long64_t nentries =    (Int_t)chain.GetEntries(); // how do we know the entries of Tree?//Read
       cout<<nentries<<endl;
       for (int selection = 0; selection < 3; selection++) {
@@ -78,7 +65,6 @@ void EventSelection_4top_v1(
           continue;
         // preselection=true ,sideband=false,in this case selection=0
         //what does sideband and signal do?
-        //        branch(data,selection,NewTree,NewTreeSB,input);Tree->SetBranchAddress;NewTree and SB->Branch
         chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
         setBranchAddressAndBranch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         //???chain is in local scope, cannot be seen in branch?
@@ -1205,11 +1191,13 @@ void EventSelection_4top_v1(
             HistoFill(PUWeight, NewTreeSB);
         }
       }
-  
-      f.cd();
+        
+      // TChain chainHisto( "TNT/GenEventWeight");
+      // chainHisto.Add()
+      newFile.cd();
       NewTree->Write();
       h_genWeight->Write();
-      f.Close();
+      newFile.Close();
       cout << "File " << input << " ready!" << endl;
     // }
 }
