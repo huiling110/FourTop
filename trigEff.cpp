@@ -727,66 +727,38 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << setw(10) << left << "trigEff" << setw(10) << left << num_1tau0L/den_1tau0L << setw(10) << left << num_1tau1L/den_1tau1L << setw(10) << left << num_1tau2L/den_1tau2L << setw(10) << left << num_1tau3L/den_1tau3L << setw(10) << left << num_2tau0L/den_2tau0L << setw(10) << left << num_2tau1L/den_2tau1L << setw(10) << left << num_2tau2L/den_2tau2L << endl;
 
  TFile *outputfile = new TFile( ("trigEff_output_" + file_it->first + ".root").c_str(), "RECREATE" );
+ 
+ writeTEfficiency(h_HT_1tau0L, h_HT_1tau0L_aft, "e_HT_1tau0L");
+ writeTEfficiency(h_HT_1tau1L, h_HT_1tau1L_aft, "e_HT_1tau1L");
+ writeTEfficiency(h_HT_1tau2L, h_HT_1tau2L_aft, "e_HT_1tau2L");
+ writeTEfficiency(h_HT_1tau3L, h_HT_1tau3L_aft, "e_HT_1tau3L");
+ writeTEfficiency(h_HT_2tau0L, h_HT_2tau0L_aft, "e_HT_2tau0L");
+ writeTEfficiency(h_HT_2tau1L, h_HT_2tau1L_aft, "e_HT_2tau1L");
+ writeTEfficiency(h_HT_2tau2L, h_HT_2tau2L_aft, "e_HT_2tau2L");
 
- h_HT_1tau0L->Write();
- h_HT_1tau1L->Write();
- h_HT_1tau2L->Write();
- h_HT_1tau3L->Write();
- h_HT_2tau0L->Write();
- h_HT_2tau1L->Write();
- h_HT_2tau2L->Write();
- h_HT_1tau0L_aft->Write();
- h_HT_1tau1L_aft->Write();
- h_HT_1tau2L_aft->Write();
- h_HT_1tau3L_aft->Write();
- h_HT_2tau0L_aft->Write();
- h_HT_2tau1L_aft->Write();
- h_HT_2tau2L_aft->Write();
+ writeTEfficiency(h_njets_ptg30_1tau0L, h_njets_ptg30_1tau0L_aft, "e_njets_ptg30_1tau0L");
+ writeTEfficiency(h_njets_ptg30_1tau1L, h_njets_ptg30_1tau1L_aft, "e_njets_ptg30_1tau1L");
+ writeTEfficiency(h_njets_ptg30_1tau2L, h_njets_ptg30_1tau2L_aft, "e_njets_ptg30_1tau2L");
+ writeTEfficiency(h_njets_ptg30_1tau3L, h_njets_ptg30_1tau3L_aft, "e_njets_ptg30_1tau3L");
+ writeTEfficiency(h_njets_ptg30_2tau0L, h_njets_ptg30_2tau0L_aft, "e_njets_ptg30_2tau0L");
+ writeTEfficiency(h_njets_ptg30_2tau1L, h_njets_ptg30_2tau1L_aft, "e_njets_ptg30_2tau1L");
+ writeTEfficiency(h_njets_ptg30_2tau2L, h_njets_ptg30_2tau2L_aft, "e_njets_ptg30_2tau2L");
 
- h_njets_ptg40_1tau0L->Write(); 
- h_njets_ptg40_1tau1L->Write(); 
- h_njets_ptg40_1tau2L->Write(); 
- h_njets_ptg40_1tau3L->Write(); 
- h_njets_ptg40_2tau0L->Write(); 
- h_njets_ptg40_2tau1L->Write(); 
- h_njets_ptg40_2tau2L->Write();
- h_njets_ptg40_1tau0L_aft->Write(); 
- h_njets_ptg40_1tau1L_aft->Write(); 
- h_njets_ptg40_1tau2L_aft->Write(); 
- h_njets_ptg40_1tau3L_aft->Write(); 
- h_njets_ptg40_2tau0L_aft->Write(); 
- h_njets_ptg40_2tau1L_aft->Write(); 
- h_njets_ptg40_2tau2L_aft->Write();
-                    
- h_njets_ptg30_1tau0L->Write(); 
- h_njets_ptg30_1tau1L->Write(); 
- h_njets_ptg30_1tau2L->Write(); 
- h_njets_ptg30_1tau3L->Write(); 
- h_njets_ptg30_2tau0L->Write(); 
- h_njets_ptg30_2tau1L->Write(); 
- h_njets_ptg30_2tau2L->Write();
- h_njets_ptg30_1tau0L_aft->Write(); 
- h_njets_ptg30_1tau1L_aft->Write(); 
- h_njets_ptg30_1tau2L_aft->Write(); 
- h_njets_ptg30_1tau3L_aft->Write(); 
- h_njets_ptg30_2tau0L_aft->Write(); 
- h_njets_ptg30_2tau1L_aft->Write(); 
- h_njets_ptg30_2tau2L_aft->Write();
+ writeTEfficiency(h_njets_ptg40_1tau0L, h_njets_ptg40_1tau0L_aft, "e_njets_ptg40_1tau0L");
+ writeTEfficiency(h_njets_ptg40_1tau1L, h_njets_ptg40_1tau1L_aft, "e_njets_ptg40_1tau1L");
+ writeTEfficiency(h_njets_ptg40_1tau2L, h_njets_ptg40_1tau2L_aft, "e_njets_ptg40_1tau2L");
+ writeTEfficiency(h_njets_ptg40_1tau3L, h_njets_ptg40_1tau3L_aft, "e_njets_ptg40_1tau3L");
+ writeTEfficiency(h_njets_ptg40_2tau0L, h_njets_ptg40_2tau0L_aft, "e_njets_ptg40_2tau0L");
+ writeTEfficiency(h_njets_ptg40_2tau1L, h_njets_ptg40_2tau1L_aft, "e_njets_ptg40_2tau1L");
+ writeTEfficiency(h_njets_ptg40_2tau2L, h_njets_ptg40_2tau2L_aft, "e_njets_ptg40_2tau2L");
              
- h_nbjetsM_1tau0L->Write();
- h_nbjetsM_1tau1L->Write();
- h_nbjetsM_1tau2L->Write();
- h_nbjetsM_1tau3L->Write();
- h_nbjetsM_2tau0L->Write();
- h_nbjetsM_2tau1L->Write();
- h_nbjetsM_2tau2L->Write();
- h_nbjetsM_1tau0L_aft->Write();
- h_nbjetsM_1tau1L_aft->Write();
- h_nbjetsM_1tau2L_aft->Write();
- h_nbjetsM_1tau3L_aft->Write();
- h_nbjetsM_2tau0L_aft->Write();
- h_nbjetsM_2tau1L_aft->Write();
- h_nbjetsM_2tau2L_aft->Write();
+ writeTEfficiency(h_nbjetsM_1tau0L, h_nbjetsM_1tau0L_aft, "e_nbjetsM_1tau0L");
+ writeTEfficiency(h_nbjetsM_1tau1L, h_nbjetsM_1tau1L_aft, "e_nbjetsM_1tau1L");
+ writeTEfficiency(h_nbjetsM_1tau2L, h_nbjetsM_1tau2L_aft, "e_nbjetsM_1tau2L");
+ writeTEfficiency(h_nbjetsM_1tau3L, h_nbjetsM_1tau3L_aft, "e_nbjetsM_1tau3L");
+ writeTEfficiency(h_nbjetsM_2tau0L, h_nbjetsM_2tau0L_aft, "e_nbjetsM_2tau0L");
+ writeTEfficiency(h_nbjetsM_2tau1L, h_nbjetsM_2tau1L_aft, "e_nbjetsM_2tau1L");
+ writeTEfficiency(h_nbjetsM_2tau2L, h_nbjetsM_2tau2L_aft, "e_nbjetsM_2tau2L");
 
  outputfile->Close();
  delete outputfile;
@@ -844,5 +816,19 @@ if (jet_1pt > pt_threshold) {
     }
   }
 }
+
+}
+
+void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
+
+  hBef->Write();
+  hAft->Write();
+  TEfficiency *TEff = 0;
+  if(TEfficiency::CheckConsistency(*hAft, *hBef)){
+            
+    TEff = new TEfficiency(*hAft, *hBef);
+    TEff->Write(name);
+    delete TEff;
+  }
 
 }

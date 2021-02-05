@@ -74,3 +74,5 @@ map<string, double> ttH_setup_sig;
 map<string, double> ZhangYu_setup_sig;
 
 void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt);
+
+void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
