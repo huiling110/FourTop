@@ -27,17 +27,18 @@ void EventSelection_4top_v1(
   
       TString newFileName; // file already exist, new file is what we want build.
       //?it seems Jes and Jer can not aplly together?
-      // TString input = inputDir.ReplaceAll( "/Legacy16V2*0000/", "")  ;
-      TString input = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
-      cout<<input<<endl;
-      if ((SysJes == 0) && (SysJer == 0)) newFileName = outputDir + "NoJEC/" + input;
-      if ((SysJes == 1) && (SysJer == 0))  newFileName = outputDir + "JESup/" + input;
-      if ((SysJes == 2) && (SysJer == 0))  newFileName = outputDir + "JESdo/" + input;
-      if ((SysJes == 0) && (SysJer == 1))  newFileName = outputDir + "JERdo/" + input;
-      if ((SysJes == 0) && (SysJer == 2))  newFileName = outputDir + "JERup/" + input;
+      // TString outputFileName = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
+      TString outputFileName(inputDir( 0, inputDir.First("/") ));
+      outputFileName = outputFileName + ".root";
+      cout<<outputFileName<<endl;
+      if ((SysJes == 0) && (SysJer == 0)) newFileName = outputDir + "NoJEC/" + outputFileName;
+      if ((SysJes == 1) && (SysJer == 0))  newFileName = outputDir + "JESup/" + outputFileName;
+      if ((SysJes == 2) && (SysJer == 0))  newFileName = outputDir + "JESdo/" + outputFileName;
+      if ((SysJes == 0) && (SysJer == 1))  newFileName = outputDir + "JERdo/" + outputFileName;
+      if ((SysJes == 0) && (SysJer == 2))  newFileName = outputDir + "JERup/" + outputFileName;
       bool data = true;
       cout << "data" << data << endl;
-      if ( !(input.Contains( "TauBlock")))   data = false; // find():The position of the first character of the first // match.
+      if ( !(outputFileName.Contains( "TauBlock")))   data = false; // find():The position of the first character of the first // match.
       cout << "data" << data << endl;
       cout<<"New file here : "<<newFileName<<endl;
       TFile newFile(newFileName, "RECREATE"); // Create a new file, if the file already// exists it will be overwritten.
@@ -1198,7 +1199,7 @@ void EventSelection_4top_v1(
       NewTree->Write();
       h_genWeight->Write();
       newFile.Close();
-      cout << "File " << input << " ready!" << endl;
+      cout << "File " << outputFileName << " ready!" << endl;
     // }
 }
 
