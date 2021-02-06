@@ -34,6 +34,8 @@ void makeVariblesTree::Begin(TTree * /*tree*/)
    // The Begin() function is called at the start of the query.
    // When running with PROOF Begin() is only called on the client.
    // The tree argument is deprecated (on PROOF 0 is passed).
+   // Mostly for backward compatibility; use SlaveBegin() instead. Both methods are called before looping on the entries in the Tree. When using PROOF, Begin() is called on the client only.
+   // ???don't know how to use PROOF yet
 
    TString option = GetOption();
 }
@@ -45,6 +47,18 @@ void makeVariblesTree::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+
+
+
+   TString outputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
+   output = new TFile( outputBase + "TTTT.root");
+   tree = new TTree( "tree", "tree");
+
+   // Double_t eleCB_number;
+   tree->Branch( "eleCB_number", &eleCB_number, "eleCB_number/D");
+
+   
+
 
 }
 
@@ -68,7 +82,11 @@ Bool_t makeVariblesTree::Process(Long64_t entry)
 
    fReader.SetEntry(entry);
 
+   eleCB_number = muonsT_1pt;
+
    return kTRUE;
+
+   tree->Fill();
 }
 
 void makeVariblesTree::SlaveTerminate()
@@ -84,5 +102,8 @@ void makeVariblesTree::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
+   output->Write();
+   output->Close();
+
 
 }

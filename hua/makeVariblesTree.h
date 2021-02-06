@@ -18,6 +18,7 @@
 
 // Headers needed by this particular selector
 #include <vector>
+#include "TLorentzVector.h"
 
 
 
@@ -25,6 +26,9 @@ class makeVariblesTree : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
+   TFile *output;
+   TTree *tree ;
+   Double_t eleCB_number;
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
@@ -350,7 +354,9 @@ public :
    TTreeReaderValue<Double_t> SecondJetpfDeepFlavourBJetTags = {fReader, "SecondJetpfDeepFlavourBJetTags"};
    TTreeReaderValue<Double_t> ThirdJetpfDeepFlavourBJetTags = {fReader, "ThirdJetpfDeepFlavourBJetTags"};
    TTreeReaderValue<Double_t> jetsL_bScore = {fReader, "jetsL_bScore"};
-   TTreeReaderValue<Double_t> &jetsL_average_deltaR = {fReader, "jetsL_average_deltaR"};
+   // TTreeReaderValue<Double_t> &jetsL_average_deltaR = {fReader, "jetsL_average_deltaR"};
+   //???error: non-const lvalue reference to type 'TTreeReaderValue<Double_t>' (aka 'TTreeReaderValue<double>') cannot bind to an initializer list temporary
+
    TTreeReaderValue<Double_t> jetsL_4largestBscoreSum = {fReader, "jetsL_4largestBscoreSum"};
    TTreeReaderValue<Double_t> jetsL_leading2invariantMass = {fReader, "jetsL_leading2invariantMass"};
    TTreeReaderValue<Double_t> jetsL_rationHT_4toRest = {fReader, "jetsL_rationHT_4toRest"};
