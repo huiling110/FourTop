@@ -15,7 +15,7 @@ void objectSelection(
 {
     TStopwatch t;
     t.Start();
-    gROOT->ProcessLine(".L" "Loader.C+");
+    gROOT->ProcessLine(".L Loader.C+");
 
     const bool isHLTstudy = false;
     const bool preselection = true; // associate with selection
