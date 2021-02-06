@@ -45,9 +45,10 @@ void makeVariblesTree::SlaveBegin(TTree * /*tree*/)
    // The SlaveBegin() function is called after the Begin() function.
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
+   // ???why the tree argument is deprecated?
 
    TString option = GetOption();
-
+   // Init(myTree);
 
 
    TString outputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
@@ -61,6 +62,24 @@ void makeVariblesTree::SlaveBegin(TTree * /*tree*/)
 
 
 }
+Bool_t h1analysisTreeReader::Notify() {
+//   called when loading a new file
+//   get branch pointers
+//his method is called at the first entry of a new file in a chain
+   Info("Notify","processing file: %s",myTreeReader.GetTree()->GetCurrentFile()->GetName());
+
+   // if (elist && myTreeReader.GetTree()) {
+    // ┊ if (fillList) {
+       // ┊elist->SetTree(myTreeReader.GetTree());
+    // ┊ } else if (useList) {
+    // ┊   ┊myTreeReader.GetTree()->SetEntryList(elist);
+    // ┊ }
+   // }
+   return kTRUE;
+}
+
+
+
 
 Bool_t makeVariblesTree::Process(Long64_t entry)
 {

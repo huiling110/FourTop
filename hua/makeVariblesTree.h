@@ -90,6 +90,7 @@ public :
    TTreeReaderValue<Int_t> genTaus_number = {fReader, "genTaus_number"};
    TTreeReaderValue<Int_t> genEles_number = {fReader, "genEles_number"};
    TTreeReaderArray<double> genEle_pt = {fReader, "genEle_pt"};
+   //it seems vector to TTreeReaderArray 
    TTreeReaderArray<double> genEle_eta = {fReader, "genEle_eta"};
    TTreeReaderArray<double> genEle_phi = {fReader, "genEle_phi"};
    TTreeReaderArray<double> genEle_E = {fReader, "genEle_E"};
@@ -622,6 +623,8 @@ public :
    virtual TList  *GetOutputList() const { return fOutput; }
    virtual void    SlaveTerminate();
    virtual void    Terminate();
+
+   // void    Init(TTree *myTree) { myTreeReader.SetTree(myTree); }
 
    ClassDef(makeVariblesTree,0);
 
