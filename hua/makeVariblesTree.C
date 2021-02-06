@@ -51,7 +51,7 @@ void makeVariblesTree::SlaveBegin(TTree * /*tree*/)
 
 
    TString outputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
-   output = new TFile( outputBase + "TTTT.root");
+   output = new TFile( outputBase + "TTTT.root", "RECREATE");
    tree = new TTree( "tree", "tree");
 
    // Double_t eleCB_number;
@@ -82,7 +82,7 @@ Bool_t makeVariblesTree::Process(Long64_t entry)
 
    fReader.SetEntry(entry);
 
-   eleCB_number = muonsT_1pt;
+   eleCB_number = *muonsT_1pt;
 
    return kTRUE;
 
