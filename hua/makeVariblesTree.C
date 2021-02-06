@@ -84,9 +84,9 @@ Bool_t makeVariblesTree::Process(Long64_t entry)
 
    eleCB_number = *muonsT_1pt;
 
+   tree->Fill();
    return kTRUE;
 
-   tree->Fill();
 }
 
 void makeVariblesTree::SlaveTerminate()
