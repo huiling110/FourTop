@@ -25,6 +25,13 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
+   Long64_t   fProcessed;
+    
+    TFile *outputfile;
+    TTree *tree;
+
+    Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_;
+
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
    TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};

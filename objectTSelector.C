@@ -45,6 +45,13 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+    
+   TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+   TString outFileName = "TTTT.root";
+   outputfile = new TFile( outputDir+outFileName, "RECREATE");
+   tree = new TTree( "tree", "tree after object selection");
+   
+   tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
 
 }
 
@@ -67,6 +74,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
    // The return value is currently not used.
 
    fReader.SetLocalEntry(entry);
+   fProcessed++;
+
+   HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
+
+   tree->Fill();
 
    return kTRUE;
 }
@@ -84,5 +96,10 @@ void objectTSelector::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
+
+    outputfile->Write();
+    outputfile->Close();
+    
+    Info("Terminate", "processed %lld events", fProcessed);
 
 }
