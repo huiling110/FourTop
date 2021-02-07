@@ -17,6 +17,7 @@
 
 // Headers needed by this particular selector
 #include <vector>
+#include "TLorentzVector.h"
 
 
 
@@ -30,7 +31,11 @@ public :
     TFile *outputfile;
     TTree *tree;
 
+    vector<TLorentzVector> muonsL; vector<Int_t> muonsL_index;
+
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    //functions I added
+     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
