@@ -53,6 +53,7 @@ void makeVariblesTree_v2::SlaveBegin(TTree * /*tree*/)
    tree = new TTree( "tree", "tree for MVA");
    tree->Branch( "eleCB_number", &eleCB_number, "eleCB_number/I" );
    tree->Branch( "genMuon_E_" , &genMuon_E_, "genMuon_E_/I");
+   tree->Branch( "eleCB_1pt", &eleCB_1pt, "eleCB_1pt/D");
 
 
 
@@ -81,6 +82,8 @@ Bool_t makeVariblesTree_v2::Process(Long64_t entry)
     
     genMuon_E_ = genMuon_E.GetSize();
     eleCB_number = SelectedElectronsL.GetSize();
+    if (eleCB_number > 0)    eleCB_1pt =  SelectedElectronsL[0].Pt();
+    else eleCB_1pt = -99;
     // std::cout<<eleCB_number<<" ";
 
     tree->Fill();

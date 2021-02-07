@@ -35,6 +35,7 @@ public :
 
    Int_t eleCB_number;
    Int_t genMuon_E_;
+   Double_t eleCB_1pt;
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
