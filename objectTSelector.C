@@ -92,6 +92,25 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "tausL_index", &tausL_index );
    tree->Branch( "tausF_index", &tausF_index );
    tree->Branch( "tausT_index", &tausT_index );
+   tree->Branch( "jets", &jets );
+   tree->Branch( "jets_index", &jets_index );
+   tree->Branch( "jets_btags", &jets_btags );
+   tree->Branch( "bjetsL", &bjetsL );
+   tree->Branch( "bjetsL_index", &bjetsL_index );
+   tree->Branch( "bjetsL_btags", &bjetsL_btags );
+   tree->Branch( "bjetsM", &bjetsM );
+   tree->Branch( "bjetsM_index", &bjetsM_index );
+   tree->Branch( "bjetsM_btags", &bjetsM_btags );
+   tree->Branch( "bjetsT", &bjetsT );
+   tree->Branch( "bjetsT_index", &bjetsT_index );
+   tree->Branch( "bjetsT_btags", &bjetsT_btags );
+   tree->Branch( "forwardJets", &forwardJets );
+   tree->Branch( "forwardJets_index", &forwardJets_index );
+   tree->Branch( "forwardJets_btags", &forwardJets_btags );
+   // tree->Branch( "", & );
+   // tree->Branch( "", & );
+   // tree->Branch( "", & );
+   // tree->Branch( "", & );
    // tree->Branch( "", & );
    // tree->Branch( "", & );
    // tree->Branch( "", & );
@@ -130,6 +149,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
     tausL.clear(); tausL_index.clear();
     tausF.clear(); tausF_index.clear();
     tausT.clear(); tausT_index.clear();
+    jets.clear(); jets_index.clear(); jets_btags.clear();
+    bjetsL.clear(); bjetsL_index.clear(); bjetsL_btags.clear();
+    bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
+    bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
+    forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
     // .clear(); _index.clear();
     // .clear(); _index.clear();
 
@@ -144,6 +168,14 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectTaus( tausL, tausL_index, 1, eleMVAL);
     SelectTaus( tausF, tausF_index, 2, eleMVAL);
     SelectTaus( tausT, tausT_index, 3 , eleMVAL);
+    
+    bool deepJet = true;
+    bool SysJes = 0; bool SysJer=0;
+    SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  eleMVAF, tausL);
+    SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL);
 
    HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
 

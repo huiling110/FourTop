@@ -40,10 +40,11 @@ public :
     vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
     vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
     vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
-    // vector<TLorentzVector> ; vector<Int_t> ;
-    // vector<TLorentzVector> ; vector<Int_t> ;
-    // vector<TLorentzVector> ; vector<Int_t> ;
-    // vector<TLorentzVector> ; vector<Int_t> ;
+    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Double_t> jets_btags; 
+    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Double_t> bjetsL_btags;
+    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Double_t> bjetsM_btags;
+    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Double_t> bjetsT_btags;
+    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Double_t> forwardJets_btags;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
