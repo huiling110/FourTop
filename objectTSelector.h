@@ -32,10 +32,19 @@ public :
     TTree *tree;
 
     vector<TLorentzVector> muonsL; vector<Int_t> muonsL_index;
+    vector<TLorentzVector> muonsF; vector<Int_t> muonsF_index;
+    vector<TLorentzVector> muonsT; vector<Int_t> muonsT_index;
+    vector<TLorentzVector> eleMVAL; vector<Int_t> eleMVAL_index;
+    vector<TLorentzVector> eleMVAF; vector<Int_t> eleMVAF_index;
+    vector<TLorentzVector> eleMVAT; vector<Int_t> eleMVAT_index;
+    // vector<TLorentzVector> ; vector<Int_t> ;
+    // vector<TLorentzVector> ; vector<Int_t> ;
 
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_;
+
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
+     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<int> &SelectedElectronsIndex, int type, int stage);
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
