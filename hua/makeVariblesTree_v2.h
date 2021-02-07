@@ -28,6 +28,14 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
+   TFile *output;
+   TTree *tree ;
+
+   Long64_t  fProcessed;
+
+   Int_t eleCB_number;
+   Int_t genMuon_E_;
+
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
    TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
@@ -357,7 +365,7 @@ public :
    TTreeReaderValue<Double_t> SecondJetpfDeepFlavourBJetTags = {fReader, "SecondJetpfDeepFlavourBJetTags"};
    TTreeReaderValue<Double_t> ThirdJetpfDeepFlavourBJetTags = {fReader, "ThirdJetpfDeepFlavourBJetTags"};
    TTreeReaderValue<Double_t> jetsL_bScore = {fReader, "jetsL_bScore"};
-   TTreeReaderValue<Double_t> &jetsL_average_deltaR = {fReader, "jetsL_average_deltaR"};
+   // TTreeReaderValue<Double_t> &jetsL_average_deltaR = {fReader, "jetsL_average_deltaR"};
    TTreeReaderValue<Double_t> jetsL_4largestBscoreSum = {fReader, "jetsL_4largestBscoreSum"};
    TTreeReaderValue<Double_t> jetsL_leading2invariantMass = {fReader, "jetsL_leading2invariantMass"};
    TTreeReaderValue<Double_t> jetsL_rationHT_4toRest = {fReader, "jetsL_rationHT_4toRest"};

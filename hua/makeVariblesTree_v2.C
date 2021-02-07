@@ -29,6 +29,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
+#include <iostream>
+
 void makeVariblesTree_v2::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
@@ -45,6 +47,14 @@ void makeVariblesTree_v2::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+
+   TString outputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
+   output = new TFile( outputBase + "TTTT.root", "RECREATE");
+   tree = new TTree( "tree", "tree for MVA");
+   tree->Branch( "eleCB_number", &eleCB_number, "eleCB_number/I" );
+   tree->Branch( "genMuon_E_" , &genMuon_E_, "genMuon_E_/I");
+
+
 
 }
 
@@ -67,6 +77,14 @@ Bool_t makeVariblesTree_v2::Process(Long64_t entry)
    // The return value is currently not used.
 
    fReader.SetLocalEntry(entry);
+   fProcessed++;
+    
+    genMuon_E_ = genMuon_E.GetSize();
+    eleCB_number = SelectedElectronsL.GetSize();
+    // std::cout<<eleCB_number<<" ";
+
+    tree->Fill();
+    
 
    return kTRUE;
 }
@@ -84,5 +102,8 @@ void makeVariblesTree_v2::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
+   output->Write();
+   output->Close();
+
 
 }

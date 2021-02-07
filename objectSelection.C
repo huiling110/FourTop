@@ -72,7 +72,7 @@ void objectSelection(
         chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
         setBranchAddressAndBranch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         //???chain is in local scope, cannot be seen in branch?
-        if (istest)   NumOfEvents = 1000; else   NumOfEvents = nentries;
+        if (istest)   NumOfEvents = 10000; else   NumOfEvents = nentries;
         
         for (Long64_t i = 0; i < NumOfEvents; i++) {
           branchGetEntry(data, i);        // every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
