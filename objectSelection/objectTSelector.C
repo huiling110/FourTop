@@ -53,6 +53,12 @@ bool compEle(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
+void copy_TTreeReaderArray_toVector( const TTreeReaderArray<double> &array, vector<double> & vec){
+    for( UInt_t i=0; i< array.GetSize(); i++){
+        vec.push_back( array.At(i));
+    }
+}
+
 
 
 
@@ -73,8 +79,8 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
     
-   // TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
-   TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v26_objectSelection/";
+   TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+   // TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v26_objectSelection/";
    // TString inName = fChain->GetName();
    // cout<<inName<<endl;
    // TString outFileName = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
@@ -119,9 +125,9 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    // tree->Branch( "", & );
    // tree->Branch( "", & );
    // tree->Branch( "", & );
-   // tree->Branch( "", & );
-   // tree->Branch( "", & );
-   // tree->Branch( "", & );
+   tree->Branch( "patElectron_charge_", &patElectron_charge_  );
+   tree->Branch( "Tau_charge_", &Tau_charge_ );
+   tree->Branch( "Muon_charge_", &Muon_charge_ );
 
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
     tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
@@ -294,7 +300,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
-    // .clear(); _index.clear();
+    patElectron_charge_.clear();
     // .clear(); _index.clear();
 
 	SelectMuons( muonsL, muonsL_index, 0 ,4); sort( muonsL.begin(), muonsL.end(), compEle);
@@ -322,10 +328,14 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL); 
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
+    // patElectron_charge_ = patElectron_charge; //= not working
+    // cout<<patElectron_charge.GetSize();
+    if ( patElectron_charge.GetSize() > 0 ){
+        copy_TTreeReaderArray_toVector( patElectron_charge, patElectron_charge_);}
 
-   tree->Fill();
+    tree->Fill();
 
-   return kTRUE;
+    return kTRUE;
 }
 
 void objectTSelector::SlaveTerminate()
