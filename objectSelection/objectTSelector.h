@@ -113,6 +113,9 @@ public :
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
+    Double_t patElectron_charge_;
+    Double_t Tau_charge_;
+    Double_t Muon_charge_;
 
 
     //functions I added
