@@ -1,5 +1,5 @@
 
-void run_objectTSelector(){
+void run_objectTSelector(Bool_t istest = true){
 
     gROOT->ProcessLine(".L Loader.C+");
 
@@ -13,7 +13,8 @@ void run_objectTSelector(){
     outputFileName = outputFileName + ".root";
     TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectTSelector.C";
     // chain.Process( selection + "+", "", 1000);
-    chain.Process( selection + "+", outputFileName, 1000);
+    if ( istest )chain.Process( selection + "+", outputFileName, 1000);
+    else chain.Process( selection + "+", outputFileName);
 
 
 
