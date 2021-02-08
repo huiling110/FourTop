@@ -140,6 +140,20 @@ Bool_t objectTSelector::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
    fProcessed++;
 
+   //MET filters
+    if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
+    if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
+    if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
+    if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
+    if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
+    if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
+      //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))
+      // return kFALSE;
+      //			why this filter not work?//applied only in 2017 and 2018
+      if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+    
+
+
     muonsL.clear(); muonsL_index.clear();
     muonsF.clear(); muonsF_index.clear();
     muonsT.clear(); muonsT_index.clear();

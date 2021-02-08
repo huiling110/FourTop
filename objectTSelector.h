@@ -26,6 +26,7 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
+   const Bool_t isdata = false;
    Long64_t   fProcessed;
     
     TFile *outputfile;
