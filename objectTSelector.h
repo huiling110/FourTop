@@ -27,7 +27,7 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    const Bool_t isdata = false;
-   Long64_t   fProcessed;
+   Long64_t   fProcessed = 0;
     
     TFile *outputfile;
     TTree *tree;

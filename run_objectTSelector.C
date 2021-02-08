@@ -9,8 +9,11 @@ void run_objectTSelector(){
     TChain chain("TNT/BOOM");
     chain.Add(inputFile+"v3*.root");
     
+    TString outputFileName(inputDir( 0, inputDir.First("/") ));
+    outputFileName = outputFileName + ".root";
     TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectTSelector.C";
-    chain.Process( selection + "+", "", 1000);
+    // chain.Process( selection + "+", "", 1000);
+    chain.Process( selection + "+", outputFileName, 1000);
 
 
 
