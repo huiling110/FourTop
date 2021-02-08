@@ -117,11 +117,16 @@ public :
     // vector<double> patElectron_charge_;
     vector<Double_t> Tau_charge_;
     vector<Double_t> Muon_charge_;
+    Double_t Met_pt;
+    Double_t Met_phi;
 
     vector<TLorentzVector> genTaus; 
     vector<TLorentzVector> genEles;
     vector<TLorentzVector> genMuons;
 
+    //weight
+    Double_t EVENT_prefireWeight_;
+    Double_t EVENT_genWeight_;
 
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
@@ -129,6 +134,7 @@ public :
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
      void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<double> &SelectedJetsBTags, vector<int>  &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void MetCorrection(int SysJes, int SysJer, double &MET);
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
      void selectGenMuons( vector<TLorentzVector> &genMuons );

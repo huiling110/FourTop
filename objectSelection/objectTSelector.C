@@ -124,10 +124,20 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    // tree->Branch( "", & );
    // tree->Branch( "", & );
    // tree->Branch( "", & );
-   // tree->Branch( "", & );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
+   tree->Branch( "genTaus", &genTaus );
+   tree->Branch( "genEles", &genEles );
+   tree->Branch( "genMuons", &genMuons );
+   tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
+   tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
+
+   tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
+   tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
+
+
+
 
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
     tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
@@ -335,6 +345,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     copy_TTreeReaderArray_toVector( Tau_charge, Tau_charge_);
     copy_TTreeReaderArray_toVector( Muon_charge, Muon_charge_);
 
+    MetCorrection(SysJes, SysJer, Met_pt);
+    Met_phi = *Met_type1PF_phi; 
+
     //gen information
     genTaus.clear();
     genEles.clear();
@@ -342,6 +355,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     selectGenTaus(genTaus);
     selectGenEles(genEles);
     selectGenMuons(genMuons);
+
+    EVENT_prefireWeight_ = *EVENT_prefireWeight;
+    EVENT_genWeight_ = *EVENT_genWeight;
 
     tree->Fill();
 
@@ -900,6 +916,40 @@ void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   }
 }
 
+void objectTSelector::MetCorrection(int SysJes, int SysJer, double &MET) { /*{{{*/
+  double METx =
+      (*Met_type1PF_pt) * TMath::Cos(*Met_type1PF_phi); // in tree branch.
+  double METy = (*Met_type1PF_pt) * TMath::Sin(*Met_type1PF_phi);
+  for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
+    if (!(Jet_Uncorr_pt.At(j) > 15))
+      continue;
+    double jetpt = 0.;
+    //?the difference of Jet_pt and Jet_Uncorr_pt?
+    if (SysJes == 0 && SysJer == 0) {
+      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
+    }
+    if (SysJes == 1 && SysJer == 0) {
+      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFup.At(j) * Jet_JerSF.At(j);
+    }
+    if (SysJes == 2 && SysJer == 0) {
+      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFdown.At(j) * Jet_JerSF.At(j);
+    }
+    if (SysJes == 0 && SysJer == 1) {
+      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFup.At(j);
+    }
+    if (SysJes == 0 && SysJer == 2) {
+      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFdown.At(j);
+    }
+    METx = METx + Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) *
+                      TMath::Cos(Jet_phi.At(j)) -
+           jetpt * TMath::Cos(Jet_phi.At(j));
+    METy = METy + Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) *
+                      TMath::Sin(Jet_phi.At(j)) -
+           jetpt * TMath::Sin(Jet_phi.At(j));
+    //??
+  }
+  MET = sqrt(METx * METx + METy * METy);
+} /*}}}*/
 
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
