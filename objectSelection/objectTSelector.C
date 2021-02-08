@@ -335,6 +335,14 @@ Bool_t objectTSelector::Process(Long64_t entry)
     copy_TTreeReaderArray_toVector( Tau_charge, Tau_charge_);
     copy_TTreeReaderArray_toVector( Muon_charge, Muon_charge_);
 
+    //gen information
+    genTaus.clear();
+    genEles.clear();
+    genMuons.clear();
+    selectGenTaus(genTaus);
+    selectGenEles(genEles);
+    selectGenMuons(genMuons);
+
     tree->Fill();
 
     return kTRUE;
@@ -893,5 +901,29 @@ void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
 }
 
 
+void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
+    for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
+        if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
+        TLorentzVector gentau;
+        gentau.SetPtEtaPhiE(Gen_pt.At(j), Gen_eta.At(j), Gen_phi.At(j), Gen_energy.At(j));
+        genTaus.push_back(gentau);
+    }
+}
+void objectTSelector::selectGenEles( vector<TLorentzVector> &genEles ){
+    for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
+        if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==11)) continue;//tau:15; ele:11;
+        TLorentzVector genele;
+        genele.SetPtEtaPhiE(Gen_pt.At(j), Gen_eta.At(j), Gen_phi.At(j), Gen_energy.At(j));
+        genEles.push_back(genele);
+    }
+}
+void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
+    for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
+        if(!(abs(Gen_motherpdg_id.At(j))==24  && abs(Gen_pdg_id.At(j))==13)) continue;//tau:15; top:6;W:;muon:13
+        TLorentzVector genmuon;
+        genmuon.SetPtEtaPhiE(Gen_pt.At(j), Gen_eta.At(j), Gen_phi.At(j), Gen_energy.At(j));
+        genMuons.push_back(genmuon);
+    }
+}
 
 

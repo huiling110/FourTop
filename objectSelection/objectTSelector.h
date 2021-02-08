@@ -118,6 +118,10 @@ public :
     vector<Double_t> Tau_charge_;
     vector<Double_t> Muon_charge_;
 
+    vector<TLorentzVector> genTaus; 
+    vector<TLorentzVector> genEles;
+    vector<TLorentzVector> genMuons;
+
 
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
@@ -125,6 +129,9 @@ public :
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
      void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<double> &SelectedJetsBTags, vector<int>  &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void selectGenTaus( vector<TLorentzVector> &genTaus );
+     void selectGenEles( vector<TLorentzVector> &genEles );
+     void selectGenMuons( vector<TLorentzVector> &genMuons );
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
