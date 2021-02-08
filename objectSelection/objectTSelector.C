@@ -332,6 +332,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // cout<<patElectron_charge.GetSize();
     if ( patElectron_charge.GetSize() > 0 ){
         copy_TTreeReaderArray_toVector( patElectron_charge, patElectron_charge_);}
+    copy_TTreeReaderArray_toVector( Tau_charge, Tau_charge_);
+    copy_TTreeReaderArray_toVector( Muon_charge, Muon_charge_);
 
     tree->Fill();
 
