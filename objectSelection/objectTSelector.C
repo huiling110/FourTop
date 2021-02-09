@@ -86,6 +86,9 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    // TString outFileName = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
    TString outFileName = option;
    outputfile = new TFile( outputDir+outFileName, "RECREATE");
+   
+   h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
+
    tree = new TTree( "tree", "tree after object selection");
 
    tree->Branch( "muonsL", &muonsL); 
@@ -222,6 +225,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    fReader.SetLocalEntry(entry);
    fProcessed++;
+
+   //
+   h_genWeight->Fill( 0.0 , *EVENT_genWeight );
 
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.

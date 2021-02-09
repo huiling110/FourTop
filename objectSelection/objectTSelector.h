@@ -18,6 +18,7 @@
 // Headers needed by this particular selector
 #include <vector>
 #include "TLorentzVector.h"
+#include "TH1D.h"
 
 
 
@@ -31,6 +32,7 @@ public :
     
     TFile *outputfile;
     TTree *tree;
+    TH1D  *h_genWeight ;
 
     //HLT
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
