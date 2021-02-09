@@ -132,6 +132,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "genMuons", &genMuons );
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
+   tree->Branch( "tops_toptagger", &tops_toptagger);
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
@@ -347,6 +348,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     MetCorrection(SysJes, SysJer, Met_pt);
     Met_phi = *Met_type1PF_phi; 
+    
+    SelectTops( tops_toptagger);
 
     //gen information
     genTaus.clear();

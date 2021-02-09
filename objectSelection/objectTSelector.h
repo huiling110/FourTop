@@ -119,6 +119,7 @@ public :
     vector<Double_t> Muon_charge_;
     Double_t Met_pt;
     Double_t Met_phi;
+    vector<TLorentzVector> tops_toptagger;
 
     vector<TLorentzVector> genTaus; 
     vector<TLorentzVector> genEles;
