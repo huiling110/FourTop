@@ -54,6 +54,12 @@ evt->SetBranchAddress( "eleMVAT_pt", &myeleMVAT_pt );
 vector<double> * mymuonT_pt = 0;
 evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
 
+double mytauT_1pt = 0;
+evt->SetBranchAddress("tauT_1pt", &mytauT_1pt);
+
+double mytauT_2pt = 0;
+evt->SetBranchAddress("tauT_2pt", &mytauT_2pt);
+
 double myjetsL_1pt = 0;
 evt->SetBranchAddress("jetsL_1pt", &myjetsL_1pt);
 
@@ -290,7 +296,7 @@ Long64_t nevents = evt->GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   //if (ievent > 100) break;
-  if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
+  if ( !(ievent % 10000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    evt->GetEntry( ievent );
 
@@ -392,7 +398,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 1tau0L
 
- if ((is1tau1e && myeleMVAT_pt->at(0) > 30) || (is1tau1mu && mymuonT_pt->at(0) > 30)) {
+   if (((is1tau1e && myeleMVAT_pt->at(0) > 30) || (is1tau1mu && mymuonT_pt->at(0) > 30)) && mytauT_1pt > 30) {
 
    den_1tau1L += mygenEvtWeight;
 
@@ -480,7 +486,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 1tau3L
 
- if (is2tau0L) {
+ if (is2tau0L && mytauT_1pt > 30 && mytauT_2pt > 30) {
 
    den_2tau0L += mygenEvtWeight;
    
@@ -488,7 +494,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 2tau0L
 
- if ((is2tau1e && myeleMVAT_pt->at(0) > 30) || (is2tau1mu && mymuonT_pt->at(0) > 30)) {
+ if (((is2tau1e && myeleMVAT_pt->at(0) > 30) || (is2tau1mu && mymuonT_pt->at(0) > 30)) && mytauT_1pt > 30) {
 
    den_2tau1L += mygenEvtWeight;
 
@@ -539,6 +545,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  }// end setup ttH_ML
 
  if (setup == "ZhangYu"){
+   
+   //if (myjetsL_HT > 500) {
 
    if (is1tau0L /*&& myjetsL_1pt > 40*/) {
 
@@ -717,6 +725,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 2tau2L
 
+ //}//end if HT cut
+
  }// end setup ZhangYu
 
  }//end loop over events
@@ -726,7 +736,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << setw(10) << left << "den" << setw(10) << left << den_1tau0L << setw(10) << left << den_1tau1L << setw(10) << left << den_1tau2L << setw(10) << left << den_1tau3L<< setw(10) << left << den_2tau0L << setw(10) << left << den_2tau1L << setw(10) << left << den_2tau2L << endl;
  cout << setw(10) << left << "trigEff" << setw(10) << left << num_1tau0L/den_1tau0L << setw(10) << left << num_1tau1L/den_1tau1L << setw(10) << left << num_1tau2L/den_1tau2L << setw(10) << left << num_1tau3L/den_1tau3L << setw(10) << left << num_2tau0L/den_2tau0L << setw(10) << left << num_2tau1L/den_2tau1L << setw(10) << left << num_2tau2L/den_2tau2L << endl;
 
- TFile *outputfile = new TFile( ("trigEff_output_" + file_it->first + ".root").c_str(), "RECREATE" );
+ TFile *outputfile = new TFile( "trigEff_output_" + file_it->first + "_" + setup + "_HT500cut.root", "RECREATE" );
  
  writeTEfficiency(h_HT_1tau0L, h_HT_1tau0L_aft, "e_HT_1tau0L");
  writeTEfficiency(h_HT_1tau1L, h_HT_1tau1L_aft, "e_HT_1tau1L");
@@ -759,7 +769,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  writeTEfficiency(h_nbjetsM_2tau0L, h_nbjetsM_2tau0L_aft, "e_nbjetsM_2tau0L");
  writeTEfficiency(h_nbjetsM_2tau1L, h_nbjetsM_2tau1L_aft, "e_nbjetsM_2tau1L");
  writeTEfficiency(h_nbjetsM_2tau2L, h_nbjetsM_2tau2L_aft, "e_nbjetsM_2tau2L");
-
+ 
  outputfile->Close();
  delete outputfile;
 
@@ -823,12 +833,15 @@ void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
 
   hBef->Write();
   hAft->Write();
-  TEfficiency *TEff = 0;
+  TH1F * hRatio = (TH1F*)hAft->Clone();
+  hRatio->Divide(hBef);
+  hRatio->Write(name);
+  /*TEfficiency *TEff = 0;
   if(TEfficiency::CheckConsistency(*hAft, *hBef)){
             
     TEff = new TEfficiency(*hAft, *hBef);
     TEff->Write(name);
     delete TEff;
-  }
-
+    }*/
+  
 }
