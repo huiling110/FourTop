@@ -79,13 +79,13 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
     
-   TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+   // TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    // TString  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v26_objectSelection/";
    // TString inName = fChain->GetName();
    // cout<<inName<<endl;
-   // TString outFileName = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root";
    TString outFileName = option;
-   outputfile = new TFile( outputDir+outFileName, "RECREATE");
+   // outputfile = new TFile( outputDir+outFileName, "RECREATE");
+   outputfile = new TFile( outFileName, "RECREATE");
    
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 
