@@ -315,6 +315,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
     patElectron_charge_.clear();
+    tops_toptagger.clear();
     // .clear(); _index.clear();
 
 	SelectMuons( muonsL, muonsL_index, 0 ,4); sort( muonsL.begin(), muonsL.end(), compEle);
@@ -364,6 +365,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     EVENT_genWeight_ = *EVENT_genWeight;
+
+    //preselection
+    if ( !( tausL.size()>0)) return kFALSE;
+    if ( !( jets.size()>3))  return kFALSE;
+    if ( !( bjetsL.size()>1)) return kFALSE;
 
     tree->Fill();
 
