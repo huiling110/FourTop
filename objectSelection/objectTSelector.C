@@ -420,17 +420,15 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
   for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
       //in objectSelection.h Muon_pt_ is global variable
       if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
-          //    if(!(Muon_pt.At(j)>20))                     continue;
-          if (!(fabs(Muon_eta.At(j)) < 2.4))
-            continue;
+          if(!(Muon_pt.At(j)>10))                     continue;
+          if (!(fabs(Muon_eta.At(j)) < 2.4))        continue;
           if (stage == 2 || stage == 3 || stage == 4) {
-                Double_t pt = Muon_pt.At(j);
-                if (type == 0) {
-                if (!(Muon_loose.At(j) == 1))
-                  continue;
+              // Double_t pt = Muon_pt.At(j);
+              if (type == 0) {
+              if (!(Muon_loose.At(j) == 1))              continue;
               }
               if (type == 1 or type == 2) {
-                if(!(pt > 10)) continue;
+                // if(!(pt > 10)) continue;
                 if (!(Muon_medium.At(j) == 1))
                   continue;
               }
@@ -483,14 +481,13 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
             Double_t eta = patElectron_eta.At(j);
             Double_t MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
             Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
-            if (!(fabs(eta) < 2.5))
-            continue;
-          
+            if (!(fabs(eta) < 2.5))  continue;
+            if (!(pt > 10))         continue;
             if (stage == 2 || stage == 3 || stage  == 4) {
               //id
                 if (fabs(eta) < 0.8) {
                   if (type == 2) {
-                if(!(pt > 10)) continue;
+                    // if(!(pt > 10)) continue;
                     if (10 < pt && pt < 40) {
                       if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))
                         continue;
@@ -572,7 +569,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                 }
                 if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
                   if (type == 2) {
-                if(!(pt > 10)) continue;
+                    if(!(pt > 10)) continue;
                     if (10 < pt && pt < 40) {
                       if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))
                         continue;
