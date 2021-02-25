@@ -414,7 +414,7 @@ void objectTSelector::Terminate()
 
 
 void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
-                 vector<int> &SelectedMuonsIndex, int type, int stage) { /*{{{*/
+                 vector<Int_t> &SelectedMuonsIndex, Int_t type, Int_t stage) { /*{{{*/
   // changed ISO to ss of TTTT
   // 0 for Loose; 2 for medium 
   // for (UInt_t j = 0; j < Muon_pt->size(); ++j) {
@@ -473,7 +473,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
 
 
 
-void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<int> &SelectedElectronsIndex, const int type, const int stage, const bool isTightIso ) {
+void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
@@ -658,7 +658,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
     }
 }
 
-void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
@@ -706,8 +706,8 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<i
   }
 }/*}}}*/
 
-void objectTSelector::SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<double> &SelectedJetsBTags, vector<int> &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
+                vector<double> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
   // jetType=0  -> usual jets; we use loose ID
   // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
@@ -936,7 +936,7 @@ void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   }
 }
 
-void objectTSelector::MetCorrection(int SysJes, int SysJer, double &MET) { /*{{{*/
+void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, double &MET) { /*{{{*/
   double METx =
       (*Met_type1PF_pt) * TMath::Cos(*Met_type1PF_phi); // in tree branch.
   double METy = (*Met_type1PF_pt) * TMath::Sin(*Met_type1PF_phi);

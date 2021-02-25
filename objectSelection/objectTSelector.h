@@ -135,12 +135,12 @@ public :
     Double_t EVENT_genWeight_;
 
     //functions I added
-     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
-     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<int> &SelectedElectronsIndex, const int type, const int stage, const bool isTightIso );
-     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
+     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, Int_t type, Int_t stage);
+     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso );
+     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<double> &SelectedJetsBTags, vector<int>  &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
-     void MetCorrection(int SysJes, int SysJer, double &MET);
+     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<double> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void MetCorrection(Int_t SysJes, Int_t SysJer, double &MET);
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
      void selectGenMuons( vector<TLorentzVector> &genMuons );
