@@ -99,6 +99,13 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "eleMVAL_index", &eleMVAL_index );
    tree->Branch( "eleMVAF_index", &eleMVAF_index );
    tree->Branch( "eleMVAT_index", &eleMVAT_index );
+   tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
+   tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index ); 
+   tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
+   tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
+   tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
+   tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
+
    tree->Branch( "tausL", &tausL );
    tree->Branch( "tausF", &tausF );
    tree->Branch( "tausT", &tausT );
@@ -306,6 +313,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
     eleMVAL.clear(); eleMVAL_index.clear();
     eleMVAF.clear(); eleMVAF_index.clear();
     eleMVAT.clear(); eleMVAT_index.clear();
+    eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
+    eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
+    eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
+    // .clear(); _index.clear();
     tausL.clear(); tausL_index.clear();
     tausF.clear(); tausF_index.clear();
     tausT.clear(); tausT_index.clear();
@@ -322,9 +333,12 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
-    SelectElectronsMVA(eleMVAL, eleMVAL_index, 0, 4 );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
-    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4);// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
+    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true ); 
+    SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
+    SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
 
     SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
     SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
@@ -459,7 +473,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
 
 
 
-void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<int> &SelectedElectronsIndex, int type, int stage) {
+void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<int> &SelectedElectronsIndex, const int type, const int stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
@@ -605,7 +619,9 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                       I2 = 0;
                       I3 = 0;
                     } // looseWP from ss of TTTT}
-                    // if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+                    if(type == 2) {
+                        if ( isTightIso ) I1 = 0.12; I2 = 0.80; I3 = 7.2;
+                    }//TightWP of SS
                     //    ??patElectron_jetptratioV2?
                     if (!((patElectron_miniIsoRel.At(j) < I1) && ((patElectron_jetptratio.At(j) > I2) ||   (patElectron_ptrel.At(j) > I3))))      continue;
                     //?if we apply this for tight , the number would be very low.

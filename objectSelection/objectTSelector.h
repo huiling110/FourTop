@@ -103,6 +103,9 @@ public :
     vector<TLorentzVector> eleMVAL; vector<Int_t> eleMVAL_index;
     vector<TLorentzVector> eleMVAF; vector<Int_t> eleMVAF_index;
     vector<TLorentzVector> eleMVAT; vector<Int_t> eleMVAT_index;
+    vector<TLorentzVector> eleMVAL_IsoT; vector<Int_t> eleMVAL_IsoT_index;
+    vector<TLorentzVector> eleMVAF_IsoT; vector<Int_t> eleMVAF_IsoT_index;
+    vector<TLorentzVector> eleMVAT_IsoT; vector<Int_t> eleMVAT_IsoT_index;
     vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
     vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
     vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
@@ -133,7 +136,7 @@ public :
 
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<int> &SelectedMuonsIndex, int type, int stage);
-     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<int> &SelectedElectronsIndex, int type, int stage);
+     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<int> &SelectedElectronsIndex, const int type, const int stage, const bool isTightIso );
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<int> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
      void SelectJets(const int jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<double> &SelectedJetsBTags, vector<int>  &SelectedJetsIndex , const int SysJes, const int SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
