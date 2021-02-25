@@ -318,30 +318,30 @@ Bool_t objectTSelector::Process(Long64_t entry)
     tops_toptagger.clear();
     // .clear(); _index.clear();
 
-	SelectMuons( muonsL, muonsL_index, 0 ,4); sort( muonsL.begin(), muonsL.end(), compEle);
-    SelectMuons( muonsF, muonsF_index, 1, 4); sort( muonsF.begin(), muonsF.end(), compEle);
-    SelectMuons( muonsT, muonsT_index, 2, 4); sort( muonsT.begin(), muonsT.end(), compEle);
+	SelectMuons( muonsL, muonsL_index, 0 ,4);// sort( muonsL.begin(), muonsL.end(), compEle);
+    SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
+    SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
-    SelectElectronsMVA(eleMVAL, eleMVAL_index, 0, 4 ); sort( eleMVAL.begin(), eleMVAL.end(), compEle);
-    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4); sort( eleMVAF.begin(), eleMVAF.end(), compEle);
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4); sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    SelectElectronsMVA(eleMVAL, eleMVAL_index, 0, 4 );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
+    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4);// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
 
-    SelectTaus( tausL, tausL_index, 1, eleMVAL); sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tausF_index, 2, eleMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , eleMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
     
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
     SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, eleMVAF, tausL); 
-    sort( jets.begin(), jets.end(), compEle);
+    // sort( jets.begin(), jets.end(), compEle);
     SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  eleMVAF, tausL); 
-    sort( bjetsL.begin(), bjetsL.end(), compEle);
+    // sort( bjetsL.begin(), bjetsL.end(), compEle);
     SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, eleMVAF, tausL); 
-    sort( bjetsM.begin(), bjetsM.end(), compEle);
+    // sort( bjetsM.begin(), bjetsM.end(), compEle);
     SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, eleMVAF, tausL);  
-    sort( bjetsT.begin(), bjetsT.end(), compEle);
+    // sort( bjetsT.begin(), bjetsT.end(), compEle);
     SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL); 
-    sort( forwardJets.begin(), forwardJets.end(), compEle);
+    // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     // patElectron_charge_ = patElectron_charge; //= not working
     // cout<<patElectron_charge.GetSize();
