@@ -30,18 +30,18 @@
 #include <TStyle.h>
 
 
-double DeltaR(double eta1, double eta2, double phi1, double phi2) {
-  double deltaPhi = TMath::Abs(phi1 - phi2);
-  double deltaEta = eta1 - eta2;
+Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) {
+  Double_t deltaPhi = TMath::Abs(phi1 - phi2);
+  Double_t deltaEta = eta1 - eta2;
   if (deltaPhi > TMath::Pi())
     deltaPhi = TMath::TwoPi() - deltaPhi;
   return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
 }
 
 
-double deltRmin(const double eta1, const double phi1, const vector<TLorentzVector> LeptonsMVAF){
-    double deltaR = 0;
-    double minDeltaR = 100;
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const vector<TLorentzVector> LeptonsMVAF){
+    Double_t deltaR = 0;
+    Double_t minDeltaR = 100;
     for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
         deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
@@ -53,7 +53,7 @@ bool compEle(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
-void copy_TTreeReaderArray_toVector( const TTreeReaderArray<double> &array, vector<double> & vec){
+void copy_TTreeReaderArray_toVector( const TTreeReaderArray<double> &array, vector<Double_t> & vec){
     for( UInt_t i=0; i< array.GetSize(); i++){
         vec.push_back( array.At(i));
     }
@@ -425,7 +425,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
     if (!(fabs(Muon_eta.At(j)) < 2.4))
       continue;
     if (stage == 2 || stage == 3 || stage == 4) {
-      double pt = Muon_pt.At(j);
+      Double_t pt = Muon_pt.At(j);
       if (type == 0) {
       if (!(Muon_loose.At(j) == 1))
         continue;
@@ -440,7 +440,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
     //    if(!(Muon_relIsoDeltaBetaR04.At(j)<0.15))   continue;  //loose
     // iso.change to 0.15(tight) from 0.25
     // Muon_relIsoDeltaBetaR04?_
-    double I1 = 0.4, I2 = 0, I3 = 0; // looseWP from ss of TTTT
+    Double_t I1 = 0.4, I2 = 0, I3 = 0; // looseWP from ss of TTTT
     if(type == 2){
         I1 = 0.16; I2 = 0.76, I3 = 7.2;
     }
@@ -476,12 +476,12 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
-    for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
+    for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree{{{
         if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
-            double pt = patElectron_pt.At(j);
-            double eta = patElectron_eta.At(j);
-            double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
-            double raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
+            Double_t pt = patElectron_pt.At(j);
+            Double_t eta = patElectron_eta.At(j);
+            Double_t MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
+            Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
             if (!(fabs(eta) < 2.5))
             continue;
           
@@ -613,7 +613,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                 
                 if (stage == 3 || stage == 4) {
                      // ISO
-                    double I1 = 0.4, I2 = 0, I3 = 0;
+                    Double_t I1 = 0.4, I2 = 0, I3 = 0;
                     if (type == 0 || type == 1) {
                       I1 = 0.4;
                       I2 = 0;
@@ -656,7 +656,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
     }
-}
+}/*}}}*/
 
 void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
@@ -693,7 +693,7 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
         continue;
     }
     //overlap removal
-    double minDeltaR_lep;
+    Double_t minDeltaR_lep;
     minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
     if( !(minDeltaR_lep >= 0.3 )) continue;
 
@@ -707,7 +707,7 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
 }/*}}}*/
 
 void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<double> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+                vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
   // this is for 2016data
   // jetType=0  -> usual jets; we use loose ID
   // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
@@ -716,11 +716,11 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
   // jetType=13 -> b-jets T
   // jetType=2  -> forward jets
   // MinDeltaPhiJetMet = 99.0;
-  double MostForwardJetEta =-99;
-  double MostForwardJetPt = -99;
-  double MaxMostForwardJetEta = -99; /*{{{*/
+  Double_t MostForwardJetEta =-99;
+  Double_t MostForwardJetPt = -99;
+  Double_t MaxMostForwardJetEta = -99; /*{{{*/
   for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-    double jetpt = 0.;
+    Double_t jetpt = 0.;
     if (SysJes == 0 && SysJer == 0) {
       jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
     }
@@ -741,15 +741,15 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
     //    ?what does this do?
     if (!(jetpt > 25))
       continue;
-    double NHF = Jet_neutralHadEnergyFraction.At(j);
-    double NEMF = Jet_neutralEmEnergyFraction.At(j);
-    double CHF = Jet_chargedHadronEnergyFraction.At(j);
-    double MUF = Jet_muonEnergyFraction.At(j);
-    double CEMF = Jet_chargedEmEnergyFraction.At(j);
-    double NumConst = Jet_numberOfConstituents.At(j);
-    double NumNeutralParticles =
+    Double_t NHF = Jet_neutralHadEnergyFraction.At(j);
+    Double_t NEMF = Jet_neutralEmEnergyFraction.At(j);
+    Double_t CHF = Jet_chargedHadronEnergyFraction.At(j);
+    Double_t MUF = Jet_muonEnergyFraction.At(j);
+    Double_t CEMF = Jet_chargedEmEnergyFraction.At(j);
+    Double_t NumConst = Jet_numberOfConstituents.At(j);
+    Double_t NumNeutralParticles =
         Jet_numberOfConstituents.At(j) - Jet_chargedMultiplicity.At(j);
-    double CHM = Jet_chargedMultiplicity.At(j);
+    Double_t CHM = Jet_chargedMultiplicity.At(j);
     if (!(fabs(Jet_eta.At(j)) < 5.0))
       continue;
     // it seems that b jet also have to meet below requirements?
@@ -841,15 +841,15 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
       // MinDeltaPhiJetMet = DeltaPhi( Jet_phi.At(j),   Met_type1PF_phi_); // MinDeltaPhiJetMe a branch in newtree and SB
       //
       // overlap removal
-    double deltaR = 0;
-    double minDeltaR = 100;
+    Double_t deltaR = 0;
+    Double_t minDeltaR = 100;
     for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
         deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
     if ( !( minDeltaR >= 0.4 ) ) continue;
-    double deltaR_tau =0;
-    double minDeltaR_tau = 100;
+    Double_t deltaR_tau =0;
+    Double_t minDeltaR_tau = 100;
     for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
         deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
         if ( deltaR < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
@@ -857,15 +857,15 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
     if ( !(minDeltaR_tau >= 0.4)) continue;
 
     //jet jet removal
-    // double deltaR_jet = 0;
-    // double minDeltaR_jet = 100;
+    // Double_t deltaR_jet = 0;
+    // Double_t minDeltaR_jet = 100;
     // for (UInt_t k = j+1; k < Jet_pt_->size(); ++k) {
         // deltaR_jet = DeltaR( Jet_eta.At(k), Jet_eta.At(j), Jet_phi.At(k), Jet_phi.At(j));
         // if ( deltaR_jet < minDeltaR_jet  ) minDeltaR_jet = deltaR_jet;
     // }
     // if ( !(minDeltaR_jet >= 0.4 )) continue;
 
-    double SF = jetpt / Jet_pt.At(j);
+    Double_t SF = jetpt / Jet_pt.At(j);
     TLorentzVector jet_prov;
     jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                           Jet_mass.At(j));
@@ -883,7 +883,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
     }
   }
   //jetjet overlap removal
-    // double deltaR_jet = 0;
+    // Double_t deltaR_jet = 0;
     // for ( UInt_t jet = 0; jet < SelectedJets.size(); jet++){
         // deltaR_jet = 10;
         // for (UInt_t k = jet+1; k < SelectedJets.size(); ++k) {
@@ -916,17 +916,17 @@ void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
                       Jet_eta.At(TopTagger_jet3Idx.At(j)), Jet_phi.At(j),
                       Jet_mass.At(TopTagger_jet3Idx.At(j)));
 
-    /*        double top_pt =
+    /*        Double_t top_pt =
     Jet_pt.At(TopTagger_jet1Idx.At(j))+Jet_pt.At(TopTagger_jet2Idx.At(j))+Jet_pt.At(TopTagger_jet3Idx.At(j));//this
     top_pt calculation is wrong
     //         TopPtMin =
     (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt();//refresh in the loop
            // top_eta and phi need modification
-            double top_eta =
+            Double_t top_eta =
     Jet_eta.At(TopTagger_jet1Idx.At(j))+Jet_eta.At(TopTagger_jet2Idx.At(j))+Jet_eta.At(TopTagger_jet3Idx.At(j));
-            double top_phi =
+            Double_t top_phi =
     Jet_phi.At(TopTagger_jet1Idx.At(j))+Jet_phi.At(TopTagger_jet2Idx.At(j))+Jet_phi.At(TopTagger_jet3Idx.At(j));
-            double top_m =
+            Double_t top_m =
     Jet_mass.At(TopTagger_jet1Idx.At(j))+Jet_mass.At(TopTagger_jet2Idx.At(j))+Jet_mass.At(TopTagger_jet3Idx.At(j));*/
     //        TLorentzVector top;
     // top.SetPtEtaPhiM(top_pt,top_eta,top_phi,top_m);
@@ -936,14 +936,14 @@ void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   }
 }
 
-void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, double &MET) { /*{{{*/
-  double METx =
+void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) { /*{{{*/
+  Double_t METx =
       (*Met_type1PF_pt) * TMath::Cos(*Met_type1PF_phi); // in tree branch.
-  double METy = (*Met_type1PF_pt) * TMath::Sin(*Met_type1PF_phi);
+  Double_t METy = (*Met_type1PF_pt) * TMath::Sin(*Met_type1PF_phi);
   for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
     if (!(Jet_Uncorr_pt.At(j) > 15))
       continue;
-    double jetpt = 0.;
+    Double_t jetpt = 0.;
     //?the difference of Jet_pt and Jet_Uncorr_pt?
     if (SysJes == 0 && SysJer == 0) {
       jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
