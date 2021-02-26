@@ -19,6 +19,9 @@ sample = {
   "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
+    "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
+    "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
+    "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
  #  "TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8":"1",
  #  "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8" :"1_2",
 #  "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8":"1",
@@ -87,10 +90,10 @@ def prepareCshJob(inputFile,shFile):
     subFile  = file(shFile,"w")
     print >> subFile, "#!/bin/bash"
     print >> subFile, "/bin/hostname"
-    print >> subFile, "gcc -v"
-    print >> subFile, "pwd"
+    #  print >> subFile, "gcc -v"
+    #  print >> subFile, "pwd"
     print >> subFile, "cd "+Jobsubmitpath
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"+(false,\""+inputFile+"\","+"\""+outputDir+"\")"+"\'"
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputFile+"\","+"\""+outputDir+"\")"+"\'"
 
 
 for k in sample:
