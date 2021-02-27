@@ -17,14 +17,12 @@ if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
 os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_seperate")
 
 sample = {
-  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
+  #  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
-    #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
-    #  "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
-    #  "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
- #  "TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8":"1",
- #  "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8" :"1_2",
+    "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
+    "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
+    "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
 #  "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8":"1",
  #  "ttZJets_13TeV_madgraphMLM-pythia8":"2",
 #  "ttWJets_13TeV_madgraphMLM":"3",
@@ -137,13 +135,8 @@ for k in sample:
 
     os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_seperate/" + sampleName + "/*sh")
     os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_seperate/*sh")
-    #  prepareCshJob( sample_k ,shFileName)
-    #  logFileName = outputDir+sampleName+".log"
-    #  errorFileName = outputDir+sampleName+".err"
-    #  print >> allJobFile, "hep_sub "+ shFile + " -o "+logFileName+ " -e "+errorFileName
 
 
-#  os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_seperate/*sh")
 os.popen('chmod 777 '+Jobsubmitpath+"/hepsub_seperate.sh")
 
 
