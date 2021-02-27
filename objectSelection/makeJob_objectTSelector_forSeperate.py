@@ -4,7 +4,7 @@ import glob
 import string
 import subprocess
 
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v29_ptForAllLeptons/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v29_ptForAllLeptons_v2/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 
 Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
@@ -105,7 +105,12 @@ for k in sample:
     sampleName = sample_k.split("/")[0]
     print sampleName
    
-    #  os.popen('mkdir -p ' +outputDir + sampleName +"/"
+    if os.path.exists(outputDir +sampleName):
+        os.popen('rm -fr '  +outputDir +sampleName)
+    os.popen('mkdir -p ' +outputDir + sampleName +"/")
+    if os.path.exists(outputDir +sampleName +"/log/" ):
+        os.popen('rm -fr '  +outputDir +sampleName +"/log/")
+    os.popen('mkdir -p ' +outputDir + sampleName +"/log/")
 
     if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/"):
        os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
@@ -125,8 +130,8 @@ for k in sample:
             prepareCshJob( sample_k, smallFilejob, entry)
             
             #  print >> allJobFile, "cd " + sampleName
-            logFile = outputDir +  sampleName + "/" + smallFile + ".log"
-            errFile = outputDir +  sampleName + "/" + smallFile + ".err"
+            logFile = outputDir +  sampleName + "/log/" + smallFile + ".log"
+            errFile = outputDir +  sampleName + "/log/" + smallFile + ".err"
             print >> sub_oneProcess, "hep_sub "+  smallFile + ".sh" + " -o " + logFile + " -e " + errFile
 
 
