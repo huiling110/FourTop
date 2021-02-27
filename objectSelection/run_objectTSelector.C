@@ -14,8 +14,8 @@ void run_objectTSelector(Bool_t istest = true,
     
     TString outputFileName(inputDir( 0, inputDir.First("/") ));
     // outputFileName = outputFileName + ".root";
-    // outputFileName = outputFileName + "/"+ singleFileName;
-    outputFileName = outputFileName + singleFileName;
+    outputFileName = outputFileName + "/"+ singleFileName;
+    // outputFileName = outputFileName + singleFileName;
     TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
