@@ -4,25 +4,27 @@ import glob
 import string
 import subprocess
 
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v29_ptForAllLeptons_v2/"
+#  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v29_ptForAllLeptons_v2/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 
 Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelector.C"
 subAllFile = Jobsubmitpath+"/hepsub_seperate.sh"
-if os.path.exists(subAllFile):
-    os.popen('rm -fr '+subAllFile)
-if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
-   os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_seperate")
-os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_seperate")
+#  if os.path.exists(subAllFile):
+    #  os.popen('rm -fr '+subAllFile)
+if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
+    os.mkdir('Jobsubmit_seperate/')
+
+
 
 sample = {
-  #  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
+  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
-    "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
-    "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
-    "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
+    #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
+    #  "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
+    #  "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
 #  "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8":"1",
  #  "ttZJets_13TeV_madgraphMLM-pythia8":"2",
 #  "ttWJets_13TeV_madgraphMLM":"3",
@@ -91,6 +93,7 @@ def prepareCshJob(inputFile,shFile, singleFile):
     #  print >> subFile, "pwd"
     print >> subFile, "cd "+Jobsubmitpath
     print >> subFile, "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputFile+"\","+"\""+outputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'"
+    print shFile
 
 
 allJobFile = file(subAllFile,"w")
@@ -103,19 +106,24 @@ for k in sample:
     sampleName = sample_k.split("/")[0]
     print sampleName
    
-    if os.path.exists(outputDir +sampleName):
-        os.popen('rm -fr '  +outputDir +sampleName)
-    os.popen('mkdir -p ' +outputDir + sampleName +"/")
-    if os.path.exists(outputDir +sampleName +"/log/" ):
-        os.popen('rm -fr '  +outputDir +sampleName +"/log/")
-    os.popen('mkdir -p ' +outputDir + sampleName +"/log/")
-
-    if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/"):
-       os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
-    os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
+    #  if os.path.exists(outputDir +sampleName):
+        #  os.popen('rm -fr '  +outputDir +sampleName)
+    #  os.popen('mkdir -p ' +outputDir + sampleName +"/")
+    #  if os.path.exists(outputDir +sampleName +"/log/" ):
+        #  os.popen('rm -fr '  +outputDir +sampleName +"/log/")
+    #  os.popen('mkdir -p ' +outputDir + sampleName +"/log/")
+    if not os.path.exists(outputDir +sampleName):
+        os.mkdir(outputDir + sampleName)
+    if not os.path.exists(outputDir +sampleName +"/log/" ):
+        os.mkdir( outputDir + sampleName +"/log/")
 
 
     oneProcess =  Jobsubmitpath + "/Jobsubmit_seperate/"+  sampleName + ".sh"
+    if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/"):
+       os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
+    os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
+    if os.path.exists(oneProcess):
+        os.popen('rm -fr '+ oneProcess)
     sub_oneProcess = file( oneProcess, "w")
     print >> sub_oneProcess , "cd "+Jobsubmitpath+"Jobsubmit_seperate/" + sampleName + "/"
 
