@@ -233,10 +233,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
    fProcessed++;
 
    //
-   if ( !isdata ){
-       EVENT_genWeight = {fReader, "EVENT_genWeight"};
-       h_genWeight->Fill( 0.0 , *EVENT_genWeight );
-   }
+   // if ( !isdata ){
+       // EVENT_genWeight = {fReader, "EVENT_genWeight"};
+       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+   // }
 
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.

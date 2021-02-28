@@ -172,6 +172,8 @@ public :
    TTreeReaderValue<Int_t> EVENT_run = {fReader, "EVENT_run"};
    TTreeReaderValue<Int_t> EVENT_lumiBlock = {fReader, "EVENT_lumiBlock"};
    // TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
+   // TTreeReaderValue<Double_t> EVENT_genWeight;
+
    // TTreeReaderArray<double> EVENT_genWeights = {fReader, "EVENT_genWeights"};
    TTreeReaderArray<double> EVENT_psWeights = {fReader, "EVENT_psWeights"};
    TTreeReaderArray<double> EVENT_rWeights = {fReader, "EVENT_rWeights"};
