@@ -78,6 +78,9 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+
+   if ( option.Contains( "JetHT") ) isdata = true;
+   cout<<"is data? "<<isdata<<endl;
     
    // TString inName = fChain->GetName();
    // cout<<inName<<endl;
@@ -130,15 +133,14 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
    // tree->Branch( "", & );
-   // tree->Branch( "", & );
-   // tree->Branch( "", & );
-   // tree->Branch( "", & );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
-   tree->Branch( "genTaus", &genTaus );
-   tree->Branch( "genEles", &genEles );
-   tree->Branch( "genMuons", &genMuons );
+   if ( !isdata ){
+       tree->Branch( "genTaus", &genTaus );
+       tree->Branch( "genEles", &genEles );
+       tree->Branch( "genMuons", &genMuons );
+   }
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
    tree->Branch( "tops_toptagger", &tops_toptagger);
@@ -231,7 +233,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
    fProcessed++;
 
    //
-   h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+   // if ( !isdata ){
+       // EVENT_genWeight = {fReader, "EVENT_genWeight"};
+       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+   // }
 
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
@@ -370,15 +375,19 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectTops( tops_toptagger);
 
     //gen information
-    genTaus.clear();
-    genEles.clear();
-    genMuons.clear();
-    selectGenTaus(genTaus);
-    selectGenEles(genEles);
-    selectGenMuons(genMuons);
+    if ( !isdata ){
+        genTaus.clear();
+        genEles.clear();
+        genMuons.clear();
+        selectGenTaus(genTaus);
+        selectGenEles(genEles);
+        selectGenMuons(genMuons);
+    }
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
-    EVENT_genWeight_ = *EVENT_genWeight;
+    // if ( !isdata ){
+        // EVENT_genWeight_ = *EVENT_genWeight;
+    // }
 
     //preselection
     if ( !( tausL.size()>0)) return kFALSE;
@@ -969,6 +978,7 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
+/*
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
         if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
@@ -994,4 +1004,4 @@ void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
     }
 }
 
-
+*/
