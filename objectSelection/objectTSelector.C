@@ -145,7 +145,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
    tree->Branch( "tops_toptagger", &tops_toptagger);
 
-       tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
+   tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    if ( !isdata ){
        tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
@@ -236,7 +236,6 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    //
    if ( !isdata ){
-       EVENT_genWeight = {fReader, "EVENT_genWeight"};
        h_genWeight->Fill( 0.0 , *EVENT_genWeight );
    }
 
