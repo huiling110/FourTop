@@ -1,17 +1,20 @@
 
 void run_objectTSelector(Bool_t istest = true,
-                        // TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
-                        TString inputDir = "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/",
+                        TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
+                        // TString inputDir = "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/",
                         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/",
-                        // TString singleFileName = "v3_1-100.root")
-                        TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
+                        TString singleFileName = "v3_1-100.root")
+                        // TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
 {
     gROOT->ProcessLine(".L Loader.C+");
 
-    Bool_t data = true;
+    Bool_t data = false;
+    if ( inputDir.Contains( "Block")) data = true;
 
-    // TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
-    TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
+    TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
+    if ( data ){
+        inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
+    }
     inputFile = inputBase + inputDir;
     TChain chain("TNT/BOOM");
     chain.Add(inputFile+singleFileName);
