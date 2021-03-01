@@ -80,7 +80,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    TString option = GetOption();
 
    if ( option.Contains( "JetHT") ) isdata = true;
-   cout<<"is data? "<<isdata<<endl;
+   cout<<"is data?: "<<isdata<<endl;
     
    // TString inName = fChain->GetName();
    // cout<<inName<<endl;
@@ -145,8 +145,10 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
    tree->Branch( "tops_toptagger", &tops_toptagger);
 
-   tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
-   tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
+       tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
+   if ( !isdata ){
+       tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
+   }
 
 
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
@@ -233,10 +235,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
    fProcessed++;
 
    //
-   // if ( !isdata ){
-       // EVENT_genWeight = {fReader, "EVENT_genWeight"};
-       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
-   // }
+   if ( !isdata ){
+       EVENT_genWeight = {fReader, "EVENT_genWeight"};
+       h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+   }
 
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
@@ -385,9 +387,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     }
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
-    // if ( !isdata ){
-        // EVENT_genWeight_ = *EVENT_genWeight;
-    // }
+    if ( !isdata ){
+        EVENT_genWeight_ = *EVENT_genWeight;
+    }
 
     //preselection
     if ( !( tausL.size()>0)) return kFALSE;
@@ -978,7 +980,6 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
-/*
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
         if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
@@ -1004,4 +1005,3 @@ void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
     }
 }
 
-*/
