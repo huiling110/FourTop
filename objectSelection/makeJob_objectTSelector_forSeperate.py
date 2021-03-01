@@ -19,12 +19,11 @@ if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
     os.mkdir('Jobsubmit_seperate/')
 
 
-
 sample = {
-        "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/": "C",
-        "JetHT/Legacy16V2_JetHTBlockDHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060636/0000": "D",
-        "JetHT/Legacy16V2_JetHTBlockEHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060843/0000/": "E",
-        "JetHT/Legacy16V2_JetHTBlockFHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061048/0000/": "F",
+        "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/": "C_0",
+        "JetHT/Legacy16V2_JetHTBlockDHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060636/0000/": "D_0",
+        "JetHT/Legacy16V2_JetHTBlockEHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060843/0000/": "E_0",
+        "JetHT/Legacy16V2_JetHTBlockFHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061048/0000/": "F_0",
         "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0000/": "G_0",
         "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0001/": "G_1",
         "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0000/": "H_0",

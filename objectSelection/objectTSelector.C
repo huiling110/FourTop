@@ -87,7 +87,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    TString outFileName = option;
    outputfile = new TFile( outFileName, "RECREATE");
    cout<<outputfile->GetName()<<endl;
-   cout<<outputfile->IsZombie()<<endl;
+   // cout<<outputfile->IsZombie()<<endl;
    
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 

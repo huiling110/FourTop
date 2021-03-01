@@ -8,6 +8,8 @@ void run_objectTSelector(Bool_t istest = true,
 {
     gROOT->ProcessLine(".L Loader.C+");
 
+    Bool_t data = true;
+
     // TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
     TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
     inputFile = inputBase + inputDir;
@@ -15,11 +17,29 @@ void run_objectTSelector(Bool_t istest = true,
     chain.Add(inputFile+singleFileName);
     
     TString outputFileName(inputDir( 0, inputDir.First("/") ));
+    if ( data ){
+       // TString dataEar(inputDir( inputDir.First("/"), inputDir.Sizeof())) ;
+       // dataEar.Remove(0,1 );
+       // TString dataEra( dataEar(0, dataEar.First("/")));
+       // cout<<dataEar;
+       TString dataEra;
+       if ( inputDir.Contains( "BlockB")) dataEra = "B";
+       if ( inputDir.Contains( "BlockC")) dataEra = "C";
+       if ( inputDir.Contains( "BlockD")) dataEra = "D";
+       if ( inputDir.Contains( "BlockE")) dataEra = "E";
+       if ( inputDir.Contains( "BlockF")) dataEra = "F";
+       if ( inputDir.Contains( "BlockG")) dataEra = "G";
+       if ( inputDir.Contains( "BlockH")) dataEra = "H";
+       outputFileName = outputFileName + dataEra;
+       if (inputDir.Contains( "0000")) outputFileName = outputFileName + "_0";
+       if (inputDir.Contains( "0001")) outputFileName = outputFileName + "_1";
+    }
     outputFileName = outputFileName + "/"+ singleFileName;
+
     TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
-        chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 
