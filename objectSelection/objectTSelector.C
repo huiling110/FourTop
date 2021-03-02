@@ -93,57 +93,58 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    tree = new TTree( "tree", "tree after object selection");
 
-   tree->Branch( "muonsL", &muonsL); 
-   tree->Branch( "muonsL_index", &muonsL_index);
-   tree->Branch( "muonsF", &muonsF );
-   tree->Branch( "muonsF_index", &muonsF_index );
-   tree->Branch( "muonsT", &muonsT );
-   tree->Branch( "eleMVAL", &eleMVAL );
-   tree->Branch( "eleMVAF", &eleMVAF );
-   tree->Branch( "eleMVAT", &eleMVAT );
-   tree->Branch( "eleMVAL_index", &eleMVAL_index );
-   tree->Branch( "eleMVAF_index", &eleMVAF_index );
-   tree->Branch( "eleMVAT_index", &eleMVAT_index );
-   tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
-   tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index ); 
-   tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
-   tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
-   tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
-   tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
+   // tree->Branch( "muonsL", &muonsL);
+   // tree->Branch( "muonsL_index", &muonsL_index);
+   // tree->Branch( "muonsF", &muonsF );
+   // tree->Branch( "muonsF_index", &muonsF_index );
+   // tree->Branch( "muonsT", &muonsT );
+   // tree->Branch( "muonsT_index", &muonsT_index );
+   // tree->Branch( "eleMVAL", &eleMVAL );
+   // tree->Branch( "eleMVAF", &eleMVAF );
+   // tree->Branch( "eleMVAT", &eleMVAT );
+   // tree->Branch( "eleMVAL_index", &eleMVAL_index );
+   // tree->Branch( "eleMVAF_index", &eleMVAF_index );
+   // tree->Branch( "eleMVAT_index", &eleMVAT_index );
+   // tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
+   // tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index );
+   // tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
+   // tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
+   // tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
+   // tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
 
-   tree->Branch( "tausL", &tausL );
-   tree->Branch( "tausF", &tausF );
-   tree->Branch( "tausT", &tausT );
-   tree->Branch( "tausL_index", &tausL_index );
-   tree->Branch( "tausF_index", &tausF_index );
-   tree->Branch( "tausT_index", &tausT_index );
-   tree->Branch( "jets", &jets );
-   tree->Branch( "jets_index", &jets_index );
-   tree->Branch( "jets_btags", &jets_btags );
-   tree->Branch( "bjetsL", &bjetsL );
-   tree->Branch( "bjetsL_index", &bjetsL_index );
-   tree->Branch( "bjetsL_btags", &bjetsL_btags );
-   tree->Branch( "bjetsM", &bjetsM );
-   tree->Branch( "bjetsM_index", &bjetsM_index );
-   tree->Branch( "bjetsM_btags", &bjetsM_btags );
-   tree->Branch( "bjetsT", &bjetsT );
-   tree->Branch( "bjetsT_index", &bjetsT_index );
-   tree->Branch( "bjetsT_btags", &bjetsT_btags );
-   tree->Branch( "forwardJets", &forwardJets );
-   tree->Branch( "forwardJets_index", &forwardJets_index );
-   tree->Branch( "forwardJets_btags", &forwardJets_btags );
+   // tree->Branch( "tausL", &tausL );
+   // tree->Branch( "tausF", &tausF );
+   // tree->Branch( "tausT", &tausT );
+   // tree->Branch( "tausL_index", &tausL_index );
+   // tree->Branch( "tausF_index", &tausF_index );
+   // tree->Branch( "tausT_index", &tausT_index );
+   // tree->Branch( "jets", &jets );
+   // tree->Branch( "jets_index", &jets_index );
+   // tree->Branch( "jets_btags", &jets_btags );
+   // tree->Branch( "bjetsL", &bjetsL );
+   // tree->Branch( "bjetsL_index", &bjetsL_index );
+   // tree->Branch( "bjetsL_btags", &bjetsL_btags );
+   // tree->Branch( "bjetsM", &bjetsM );
+   // tree->Branch( "bjetsM_index", &bjetsM_index );
+   // tree->Branch( "bjetsM_btags", &bjetsM_btags );
+   // tree->Branch( "bjetsT", &bjetsT );
+   // tree->Branch( "bjetsT_index", &bjetsT_index );
+   // tree->Branch( "bjetsT_btags", &bjetsT_btags );
+   // tree->Branch( "forwardJets", &forwardJets );
+   // tree->Branch( "forwardJets_index", &forwardJets_index );
+   // tree->Branch( "forwardJets_btags", &forwardJets_btags );
    // tree->Branch( "", & );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
-   if ( !isdata ){
-       tree->Branch( "genTaus", &genTaus );
-       tree->Branch( "genEles", &genEles );
-       tree->Branch( "genMuons", &genMuons );
-   }
+   // if ( !isdata ){
+       // tree->Branch( "genTaus", &genTaus );
+       // tree->Branch( "genEles", &genEles );
+       // tree->Branch( "genMuons", &genMuons );
+   // }
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
-   tree->Branch( "tops_toptagger", &tops_toptagger);
+   // tree->Branch( "tops_toptagger", &tops_toptagger);
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    if ( !isdata ){
@@ -313,54 +314,54 @@ Bool_t objectTSelector::Process(Long64_t entry)
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
     HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
 
-    muonsL.clear(); muonsL_index.clear();
-    muonsF.clear(); muonsF_index.clear();
-    muonsT.clear(); muonsT_index.clear();
-    eleMVAL.clear(); eleMVAL_index.clear();
-    eleMVAF.clear(); eleMVAF_index.clear();
-    eleMVAT.clear(); eleMVAT_index.clear();
-    eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
-    eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
-    eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
+    // muonsL.clear(); muonsL_index.clear();
+    // muonsF.clear(); muonsF_index.clear();
+    // muonsT.clear(); muonsT_index.clear();
+    // eleMVAL.clear(); eleMVAL_index.clear();
+    // eleMVAF.clear(); eleMVAF_index.clear();
+    // eleMVAT.clear(); eleMVAT_index.clear();
+    // eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
+    // eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
+    // eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
     // .clear(); _index.clear();
-    tausL.clear(); tausL_index.clear();
-    tausF.clear(); tausF_index.clear();
-    tausT.clear(); tausT_index.clear();
-    jets.clear(); jets_index.clear(); jets_btags.clear();
-    bjetsL.clear(); bjetsL_index.clear(); bjetsL_btags.clear();
-    bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
-    bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
+    // tausL.clear(); tausL_index.clear();
+    // tausF.clear(); tausF_index.clear();
+    // tausT.clear(); tausT_index.clear();
+    // jets.clear(); jets_index.clear(); jets_btags.clear();
+    // bjetsL.clear(); bjetsL_index.clear(); bjetsL_btags.clear();
+    // bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
+    // bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
     patElectron_charge_.clear();
-    tops_toptagger.clear();
+    // tops_toptagger.clear();
     // .clear(); _index.clear();
 
-	SelectMuons( muonsL, muonsL_index, 0 ,4);// sort( muonsL.begin(), muonsL.end(), compEle);
-    SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
-    SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
+    // SelectMuons( muonsL, muonsL_index, 0 ,4);// sort( muonsL.begin(), muonsL.end(), compEle);
+    // SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
+    // SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
-    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
-    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
-    SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true ); 
-    SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
-    SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
+    // SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
+    // SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
+    // SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    // SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true );
+    // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
+    // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
 
-    SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
+    // SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
+    // SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
+    // SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
     
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
-    SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, eleMVAF, tausL); 
+    // SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, eleMVAF, tausL);
     // sort( jets.begin(), jets.end(), compEle);
-    SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  eleMVAF, tausL); 
+    // SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  eleMVAF, tausL);
     // sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, eleMVAF, tausL); 
+    // SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, eleMVAF, tausL);
     // sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, eleMVAF, tausL);  
+    // SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, eleMVAF, tausL);
     // sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL); 
+    // SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     // patElectron_charge_ = patElectron_charge; //= not working
@@ -373,17 +374,17 @@ Bool_t objectTSelector::Process(Long64_t entry)
     MetCorrection(SysJes, SysJer, Met_pt);
     Met_phi = *Met_type1PF_phi; 
     
-    SelectTops( tops_toptagger);
+    // SelectTops( tops_toptagger);
 
     //gen information
-    if ( !isdata ){
-        genTaus.clear();
-        genEles.clear();
-        genMuons.clear();
-        selectGenTaus(genTaus);
-        selectGenEles(genEles);
-        selectGenMuons(genMuons);
-    }
+    // if ( !isdata ){
+        // genTaus.clear();
+        // genEles.clear();
+        // genMuons.clear();
+        // selectGenTaus(genTaus);
+        // selectGenEles(genEles);
+        // selectGenMuons(genMuons);
+    // }
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     if ( !isdata ){
@@ -391,9 +392,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     }
 
     //preselection
-    if ( !( tausL.size()>0)) return kFALSE;
-    if ( !( jets.size()>3))  return kFALSE;
-    if ( !( bjetsL.size()>1)) return kFALSE;
+    // if ( !( tausL.size()>0)) return kFALSE;
+    // if ( !( jets.size()>3))  return kFALSE;
+    // if ( !( bjetsL.size()>1)) return kFALSE;
 
     tree->Fill();
 

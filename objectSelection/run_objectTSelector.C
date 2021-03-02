@@ -44,7 +44,7 @@ void run_objectTSelector(
     TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
-        chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        chain.Process( selection + "+", outputDir + outputFileName, 10000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 
