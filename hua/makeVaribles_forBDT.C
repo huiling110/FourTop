@@ -50,11 +50,17 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    outputfile = new TFile( outFileName, "RECREATE");
    cout<<outputfile->GetName()<<endl;
 
-   h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
    newtree = new TTree( "newtree", "tree for BDT");
 
    newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
    newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
+
+   newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
+   newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
+   newtree->Branch( "muonsL_number", &muonsL_number, "muonsL_number/I");
+   // newtree->Branch( "", &, "/");
+   // newtree->Branch( "", &, "/");
+   // newtree->Branch( "", &, "/");
 
 }
 
@@ -83,9 +89,19 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //initialize
     HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
+    Met_pt_ = -99;
+    Met_phi_ = -99;
+    muonsL_number=-99;
+
 
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+
+    Met_pt_ = *Met_pt;
+    Met_phi_ = *Met_phi;
+
+    muonsL_number = muonsL.GetSize();
+
 
 
 

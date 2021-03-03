@@ -32,10 +32,14 @@ public :
    Long64_t   fProcessed = 0;
    TFile *outputfile;
    TTree *newtree;
-   TH1D  *h_genWeight ;
-  
+   // TH1D  *h_genWeight ;
+
+   //branches in the newtree
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
+    Double_t Met_pt_;
+    Double_t Met_phi_ ;
+    Int_t muonsL_number;
 
 
    // Readers to access the data (delete the ones you do not need).
