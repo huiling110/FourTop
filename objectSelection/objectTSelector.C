@@ -148,7 +148,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    if ( !isdata ){
-       tree->Branch( "EVENT_genWeight__", &EVENT_genWeight_, "EVENT_genWeight_/D" );
+       tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
 
 
