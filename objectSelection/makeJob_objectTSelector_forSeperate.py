@@ -4,11 +4,12 @@ import glob
 import string
 import subprocess
 
-isdata = True
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v29_ptForAllLeptons_v2/"
+#  isdata = True
+isdata = False
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v30_fixedChargeBranchBug/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
-#  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
-inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
+inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
+#  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
 
 Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelector.C"
@@ -20,24 +21,24 @@ if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
 
 
 sample = {
-        "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/": "C_0",
-        "JetHT/Legacy16V2_JetHTBlockDHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060636/0000/": "D_0",
-        "JetHT/Legacy16V2_JetHTBlockEHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060843/0000/": "E_0",
-        "JetHT/Legacy16V2_JetHTBlockFHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061048/0000/": "F_0",
-        "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0000/": "G_0",
-        "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0001/": "G_1",
-        "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0000/": "H_0",
-        "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0001/": "H_1",
-        "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0000/": "B_0",
-        "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0001/": "B_1",
+        #  "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/": "C_0",
+        #  "JetHT/Legacy16V2_JetHTBlockDHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060636/0000/": "D_0",
+        #  "JetHT/Legacy16V2_JetHTBlockEHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060843/0000/": "E_0",
+        #  "JetHT/Legacy16V2_JetHTBlockFHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061048/0000/": "F_0",
+        #  "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0000/": "G_0",
+        #  "JetHT/Legacy16V2_JetHTBlockGHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061254/0001/": "G_1",
+        #  "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0000/": "H_0",
+        #  "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0001/": "H_1",
+        #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0000/": "B_0",
+        #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0001/": "B_1",
 
-  #  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
+   "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
-    #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
-    #  "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
-    #  "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
-
+    "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
+    "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
+    "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
+#
     #  "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000":"3",
     #  "ttWJets_13TeV_madgraphMLM/Legacy16V2_ttWJets_13TeV_madgraphMLMaddGenWeight/210201_030246/0000/":"4",
     #  "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8/Legacy16V2_ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8addGenWeight/210201_050201/0000/":"5",
@@ -105,7 +106,7 @@ for k in sample:
     if not os.path.exists(outputDir +sampleName +"/log/" ):
         os.mkdir( outputDir + sampleName +"/log/")
 
-    oneProcess =  Jobsubmitpath + "/Jobsubmit_seperate/"+  sampleName + ".sh"
+    oneProcess =  Jobsubmitpath + "Jobsubmit_seperate/"+  sampleName + ".sh"
     if os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/"):
        os.popen('rm -fr '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
     os.popen('mkdir -p '+Jobsubmitpath+"/Jobsubmit_seperate/"+sampleName+"/")
