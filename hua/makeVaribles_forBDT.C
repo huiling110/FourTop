@@ -29,8 +29,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-bool compEle(const TLorentzVector a, const TLorentzVector b) {
-    return a.Pt() > b.Pt()
+bool comparePt(const TLorentzVector a, const TLorentzVector b) {
+    return a.Pt() > b.Pt();
 }
 
 
@@ -64,8 +64,17 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
    newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
    newtree->Branch( "muonsL_number", &muonsL_number, "muonsL_number/I");
-   // newtree->Branch( "", &, "/");
-   // newtree->Branch( "", &, "/");
+   newtree->Branch( "muonsF_number", &muonsF_number, "muonsF_number/I");
+   newtree->Branch( "muonsT_number", &muonsT_number, "muonsT_number/I");
+  newtree->Branch("muonsT_1pt", &muonsT_1pt, "muonsT_1pt/D");
+  newtree->Branch("muonsT_1eta", &muonsT_1eta, "muonsT_1eta/D");
+  newtree->Branch("muonsT_1phi", &muonsT_1phi, "muonsT_1phi/D");
+  newtree->Branch("muonsT_2pt", &muonsT_2pt, "muonsT_2pt/D");
+  newtree->Branch("muonsT_2eta", &muonsT_2eta, "muonsT_2eta/D");
+  newtree->Branch("muonsT_2phi", &muonsT_2phi, "muonsT_2phi/D");
+  newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/I");
+  newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/I");
+  newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/I");
    // newtree->Branch( "", &, "/");
 
 }
@@ -88,8 +97,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    //
    // The return value is currently not used.
 
-   fReader.SetEntry(entry);
-   // fReader.SetLocalEntry(entry);
+   // fReader.SetEntry(entry);
+   fReader.SetLocalEntry(entry);
     fProcessed++;
 
     //initialize
@@ -98,6 +107,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     Met_pt_ = -99;
     Met_phi_ = -99;
     muonsL_number=-99;
+    muonsF_number=-99;
+   muonsT_number=-99;
+     muonsT_1pt = -99;
+     muonsT_1eta = -99;
+     muonsT_1phi = -99;
+     muonsT_2pt = -99;
+     muonsT_2eta = -99;
+     muonsT_2phi = -99;
+     muonsT_3pt = -99;
+     muonsT_3eta = -99;
+     muonsT_3phi = -99;
 
 
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
@@ -106,9 +126,27 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
 
-    sort( muonsL.Begin(), muonsL.End(), compEle);
+    sort( muonsL.begin(), muonsL.end(), comparePt);
+    sort( muonsF.begin(), muonsF.end(), comparePt);
+    sort( muonsT.begin(), muonsT.end(), comparePt);
     muonsL_number = muonsL.GetSize();
-
+    muonsF_number = muonsF.GetSize();
+    muonsT_number = muonsT.GetSize();
+    if (muonsT_number > 0) {
+        muonsT_1pt = muonsT[0].Pt();
+        muonsT_1eta = muonsT[0].Eta();
+        muonsT_1phi = muonsT[0].Phi();
+    }
+    if (muonsT_number > 1) {
+        muonsT_2pt = muonsT[1].Pt();
+        muonsT_2eta = muonsT[1].Eta();
+        muonsT_2phi = muonsT[1].Phi();
+    }
+    if (muonsT_number > 2) {
+        muonsT_3pt = muonsT[2].Pt();
+        muonsT_3eta = muonsT[2].Eta();
+        muonsT_3phi = muonsT[2].Phi();
+    }
 
 
 

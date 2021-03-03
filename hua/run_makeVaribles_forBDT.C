@@ -2,8 +2,9 @@ void run_makeVaribles_forBDT(
                         Bool_t istest = true,
                         // Bool_t istest = false,
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/",
-                        TString singleFileName = "v3_1-100.root")
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
+                        // TString singleFileName = "v3_1-100.root"
+                        )
 {
     
     gROOT->ProcessLine(".L Loader.C+");
@@ -12,7 +13,8 @@ void run_makeVaribles_forBDT(
     TString inputFile = inputBase + inputDir + "/";
 
     TChain chain( "tree");
-    chain.Add(inputFile+singleFileName);
+    // chain.Add(inputFile+singleFileName);
+    chain.Add(inputFile + "v3*.root" );
 
     TString outputFileName = inputDir + ".root";
 

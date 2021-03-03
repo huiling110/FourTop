@@ -40,6 +40,18 @@ public :
     Double_t Met_pt_;
     Double_t Met_phi_ ;
     Int_t muonsL_number;
+    Int_t muonsF_number;
+    Int_t muonsT_number;
+    Double_t muonsT_1pt;
+    Double_t muonsT_1eta;
+    Double_t muonsT_1phi;
+    Double_t muonsT_2pt;
+    Double_t muonsT_2eta;
+    Double_t muonsT_2phi;
+    Double_t muonsT_3pt;
+    Double_t muonsT_3eta;
+    Double_t muonsT_3phi;
+
 
 
    // Readers to access the data (delete the ones you do not need).
