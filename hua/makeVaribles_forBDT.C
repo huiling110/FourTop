@@ -29,6 +29,12 @@
 #include <TH2.h>
 #include <TStyle.h>
 
+bool compEle(const TLorentzVector a, const TLorentzVector b) {
+    return a.Pt() > b.Pt()
+}
+
+
+
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
@@ -100,6 +106,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
 
+    sort( muonsL.Begin(), muonsL.End(), compEle);
     muonsL_number = muonsL.GetSize();
 
 
