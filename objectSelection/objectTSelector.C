@@ -333,6 +333,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
     patElectron_charge_.clear();
+    Tau_charge_.clear();
+    Muon_charge_.clear();
+
     // tops_toptagger.clear();
     // .clear(); _index.clear();
 
@@ -368,8 +371,12 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // cout<<patElectron_charge.GetSize();
     if ( patElectron_charge.GetSize() > 0 ){
         copy_TTreeReaderArray_toVector( patElectron_charge, patElectron_charge_);}
-    // copy_TTreeReaderArray_toVector( Tau_charge, Tau_charge_);
-    // copy_TTreeReaderArray_toVector( Muon_charge, Muon_charge_);
+    if ( Tau_charge.GetSize()>0 ){
+        copy_TTreeReaderArray_toVector( Tau_charge, Tau_charge_);
+    }
+    if ( Muon_charge.GetSize()>0 ){
+        copy_TTreeReaderArray_toVector( Muon_charge, Muon_charge_);
+    }
 
     MetCorrection(SysJes, SysJer, Met_pt);
     Met_phi = *Met_type1PF_phi; 
