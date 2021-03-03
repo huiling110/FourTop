@@ -93,12 +93,12 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    tree = new TTree( "tree", "tree after object selection");
 
-   // tree->Branch( "muonsL", &muonsL);
-   // tree->Branch( "muonsL_index", &muonsL_index);
-   // tree->Branch( "muonsF", &muonsF );
-   // tree->Branch( "muonsF_index", &muonsF_index );
-   // tree->Branch( "muonsT", &muonsT );
-   // tree->Branch( "muonsT_index", &muonsT_index );
+   tree->Branch( "muonsL", &muonsL);
+   tree->Branch( "muonsL_index", &muonsL_index);
+   tree->Branch( "muonsF", &muonsF );
+   tree->Branch( "muonsF_index", &muonsF_index );
+   tree->Branch( "muonsT", &muonsT );
+   tree->Branch( "muonsT_index", &muonsT_index );
    // tree->Branch( "eleMVAL", &eleMVAL );
    // tree->Branch( "eleMVAF", &eleMVAF );
    // tree->Branch( "eleMVAT", &eleMVAT );
@@ -314,9 +314,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
     HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
 
-    // muonsL.clear(); muonsL_index.clear();
-    // muonsF.clear(); muonsF_index.clear();
-    // muonsT.clear(); muonsT_index.clear();
+    muonsL.clear(); muonsL_index.clear();
+    muonsF.clear(); muonsF_index.clear();
+    muonsT.clear(); muonsT_index.clear();
     // eleMVAL.clear(); eleMVAL_index.clear();
     // eleMVAF.clear(); eleMVAF_index.clear();
     // eleMVAT.clear(); eleMVAT_index.clear();
@@ -339,9 +339,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // tops_toptagger.clear();
     // .clear(); _index.clear();
 
-    // SelectMuons( muonsL, muonsL_index, 0 ,4);// sort( muonsL.begin(), muonsL.end(), compEle);
-    // SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
-    // SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
+    SelectMuons( muonsL, muonsL_index, 0 ,4);// sort( muonsL.begin(), muonsL.end(), compEle);
+    SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
+    SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
     // SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
     // SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
