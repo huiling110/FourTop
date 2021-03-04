@@ -32,6 +32,59 @@
 bool comparePt(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
+double MHTcalculator(vector<TLorentzVector> SelectedJets) { /*{{{*/
+  TLorentzVector SumJets;
+  SumJets.SetPtEtaPhiE(0, 0, 0, 0);
+  double MHTprov = 0;
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    SumJets = SumJets + SelectedJets[j];
+  }
+  MHTprov = SumJets.Pt();
+  return MHTprov;
+} /*}}}*/
+
+double TransEnergyCal(const TLorentzVector SelectedJets) {
+  //    TVector3 p =  SelectedJets.Vect();
+  double pt = SelectedJets.Pt();
+  double trans_energy = sqrt(SelectedJets.M() * SelectedJets.M() + pt * pt);
+  return trans_energy;
+}
+double TransEnergySysCal(const vector<TLorentzVector> SelectedJets) {
+  double transE = 0;
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    transE += TransEnergyCal(SelectedJets[j]);
+  }
+  return transE;
+}
+double TransMassCal(const vector<TLorentzVector> SelectedJets) {
+  double MHT = MHTcalculator(SelectedJets);
+  double transE = 0;
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    transE += TransEnergyCal(SelectedJets[j]);
+  }
+  double trans_mass = sqrt(MHT * MHT + transE * transE);
+  return trans_mass;
+}
+
+double TransMassSysCal(const vector<TLorentzVector> Jets,
+                       const vector<TLorentzVector> Leptons) {
+  double transE1 = TransEnergySysCal(Jets);
+  double transE2 = TransEnergySysCal(Leptons);
+  TLorentzVector SumJets;
+  SumJets.SetPtEtaPhiE(0, 0, 0, 0);
+  TLorentzVector SumLeptons;
+  SumLeptons.SetPtEtaPhiE(0, 0, 0, 0);
+  for (UInt_t j = 0; j < Jets.size(); ++j) {
+    SumJets = SumJets + Jets[j];
+  }
+  for (UInt_t k = 0; k < Leptons.size(); ++k) {
+    SumLeptons = SumLeptons + Leptons[k];
+  }
+  TVector3 MHTsum = (SumJets + SumLeptons).Vect();
+  double transMass =
+      sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
+  return transMass;
+}
 
 
 
@@ -75,6 +128,18 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/I");
   newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/I");
   newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/I");
+   newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
+   newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
+   newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
+   newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
+   newtree->Branch( "leptonsMVAF_number", &leptonsMVAF_number, "leptonsMVAF_number/I");
+   newtree->Branch( "leptonsMVAL_number", &leptonsMVAL_number, "leptonsMVAL_number/I");
+   newtree->Branch( "leptonsMVAT_transMass", &leptonsMVAT_transMass, "leptonsMVAT_transMass/D");
+   newtree->Branch( "leptonsMVAF_transMass", &leptonsMVAF_transMass, "leptonsMVAF_transMass/D");
+   newtree->Branch( "leptonsMVAL_transMass", &leptonsMVAL_transMass, "leptonsMVAL_transMass/D");
+   newtree->Branch( "leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
+   newtree->Branch( "leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
+   // newtree->Branch( "", &, "/");
    // newtree->Branch( "", &, "/");
 
 }
@@ -118,6 +183,20 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      muonsT_3pt = -99;
      muonsT_3eta = -99;
      muonsT_3phi = -99;
+     elesMVAL_number = -99;
+     elesMVAF_number = -99;
+     elesMVAT_number = -99;
+     leptonsMVAT_number = -99;
+     leptonsMVAF_number = -99;
+     leptonsMVAL_number = -99;
+     leptonsMVAT_transMass = -99;
+     leptonsMVAF_transMass = -99;
+     leptonsMVAL_transMass = -99;
+     leptonsMVAT_2SS = -99;
+     leptonsMVAT_2OS = -99;
+      // = -99;
+      // = -99;
+      // = -99;
 
 
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
@@ -126,12 +205,14 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
 
-    sort( muonsL.begin(), muonsL.end(), comparePt);
-    sort( muonsF.begin(), muonsF.end(), comparePt);
-    sort( muonsT.begin(), muonsT.end(), comparePt);
+              
+
     muonsL_number = muonsL.GetSize();
     muonsF_number = muonsF.GetSize();
     muonsT_number = muonsT.GetSize();
+    // sort( muonsL.begin(), muonsL.end(), comparePt);
+    // sort( muonsF.begin(), muonsF.end(), comparePt);
+    sort( muonsT.begin(), muonsT.end(), comparePt);
     if (muonsT_number > 0) {
         muonsT_1pt = muonsT[0].Pt();
         muonsT_1eta = muonsT[0].Eta();
@@ -147,6 +228,46 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         muonsT_3eta = muonsT[2].Eta();
         muonsT_3phi = muonsT[2].Phi();
     }
+
+
+      elesMVAL_number = eleMVAL.GetSize();
+      elesMVAF_number = eleMVAF.GetSize();
+      elesMVAT_number = eleMVAT.GetSize();
+
+      vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
+      LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
+      vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
+      LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
+      vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
+      LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+
+      // vector<int> LeptonsMVATIndex(muonsTIndex.begin(),  muonsTIndex.end());
+      // LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), eleMVATIndex.begin(), eleMVATIndex.end());
+
+      leptonsMVAT_number = LeptonsMVAT.size();
+      leptonsMVAF_number = LeptonsMVAF.size();
+      leptonsMVAL_number = LeptonsMVAL.size();
+      //???=0
+      leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
+      leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
+      leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
+      // leptonsMVAT_chargeSum = ChargeSum()
+      if ( leptonsMVAT_number==2 ) {
+          if ( elesMVAT_number==2 ){
+              if (patElectron_charge_.At(eleMVAT_index[0])*patElectron_charge_.At(eleMVAT_index[1])==1) leptonsMVAT_2SS = 1;
+              else leptonsMVAT_2OS = 1 ;
+          }
+          if ( elesMVAT_number==1 ){
+              if (patElectron_charge_.At(eleMVAT_index[0])*Muon_charge_.At(muonsT_index[0])==1) leptonsMVAT_2SS = 1;
+              else leptonsMVAT_2OS = 1 ;
+          }
+          if ( elesMVAT_number==0){
+              if ( Muon_charge_.At(muonsT_index[0])*Muon_charge_.At(muonsT_index[1])==1)  leptonsMVAT_2SS = 1;
+              else leptonsMVAT_2OS = 1 ;
+          }
+      }
+
+
 
 
 

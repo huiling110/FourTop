@@ -51,6 +51,18 @@ public :
     Double_t muonsT_3pt;
     Double_t muonsT_3eta;
     Double_t muonsT_3phi;
+	Int_t elesMVAL_number;
+	Int_t elesMVAF_number;
+	Int_t elesMVAT_number;
+	Double_t leptonsMVAT_number;
+	Double_t leptonsMVAF_number;
+	Double_t leptonsMVAL_number;
+	Double_t leptonsMVAT_transMass;
+	Double_t leptonsMVAF_transMass;
+    Double_t leptonsMVAL_transMass;
+    Int_t leptonsMVAT_2SS;
+    Int_t leptonsMVAT_2OS;
+    // Double_t ;
 
 
 
