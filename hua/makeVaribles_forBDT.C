@@ -34,7 +34,7 @@ bool comparePt(const TLorentzVector a, const TLorentzVector b) {
 }
 
 // double HTcalculator(vector<TLorentzVector> SelectedJets) {
-double HTcalculator(TTreeReaderArray<TLorentzVector> SelectedJets) {
+double HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
   double HTprov = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
@@ -44,7 +44,7 @@ double HTcalculator(TTreeReaderArray<TLorentzVector> SelectedJets) {
   return HTprov;
 } /*}}}*/
 
-double MHTcalculator(vector<TLorentzVector> SelectedJets) {
+double MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
     /*{{{*/
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
@@ -55,7 +55,9 @@ double MHTcalculator(vector<TLorentzVector> SelectedJets) {
   MHTprov = SumJets.Pt();
   return MHTprov;
 } /*}}}*/
-double MHTcalculator( TTreeReaderArray<TLorentzVector> SelectedJets) {
+///it seems we cant not use TTreeReaderArray as input parameter
+//yes we can , just have to pass by address
+double MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
@@ -69,7 +71,7 @@ double MHTcalculator( TTreeReaderArray<TLorentzVector> SelectedJets) {
 
 
 // double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
-double InvariantMassCalculator( TTreeReaderArray<TLorentzVector> SelectedJets) {
+double InvariantMassCalculator(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
   TLorentzVector jet_sum = { 0, 0, 0, 0 };
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     jet_sum = jet_sum + SelectedJets[j];
@@ -123,13 +125,22 @@ double TransEnergyCal(const TLorentzVector SelectedJets) {
   double trans_energy = sqrt(SelectedJets.M() * SelectedJets.M() + pt * pt);
   return trans_energy;
 }
-double TransEnergySysCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
+
+double TransEnergySysCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
   double transE = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
   return transE;
 }
+double TransEnergySysCal(const vector<TLorentzVector>& SelectedJets) {
+  double transE = 0;
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    transE += TransEnergyCal(SelectedJets[j]);
+  }
+  return transE;
+}
+
 double TransMassCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
   double MHT = MHTcalculator(SelectedJets);
   double transE = 0;
@@ -140,8 +151,10 @@ double TransMassCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
   return trans_mass;
 }
 
-double TransMassSysCal(const TTreeReaderArray<TLorentzVector> Jets,
-                       const TTreeReaderArray<TLorentzVector> Leptons) {
+double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
+                       const vector<TLorentzVector>& Leptons) {
+// double TransMassSysCal(const vector<TLorentzVector>& Jets,
+                       // const vector<TLorentzVector>& Leptons) {
   double transE1 = TransEnergySysCal(Jets);
   double transE2 = TransEnergySysCal(Leptons);
   TLorentzVector SumJets;
@@ -149,9 +162,11 @@ double TransMassSysCal(const TTreeReaderArray<TLorentzVector> Jets,
   TLorentzVector SumLeptons;
   SumLeptons.SetPtEtaPhiE(0, 0, 0, 0);
   for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
+  // for (UInt_t j = 0; j < Jets.size(); ++j) {
     SumJets = SumJets + Jets[j];
   }
-  for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
+  // for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
+  for (UInt_t k = 0; k < Leptons.size(); ++k) {
     SumLeptons = SumLeptons + Leptons[k];
   }
   TVector3 MHTsum = (SumJets + SumLeptons).Vect();
@@ -176,7 +191,7 @@ double MinDeltaRCal(const TTreeReaderArray<TLorentzVector> Jets,
   }
   return min_deltaR;
 }
-double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector> Jets) {
+double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
   double min = 10;
   double min_2 = 10;
   double min_3 = 10;
@@ -458,6 +473,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
       vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
       LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+      // TTreeReaderArray<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());//not working
 
       // vector<int> LeptonsMVATIndex(muonsTIndex.begin(),  muonsTIndex.end());
       // LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), eleMVATIndex.begin(), eleMVATIndex.end());
@@ -466,9 +482,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       leptonsMVAF_number = LeptonsMVAF.size();
       leptonsMVAL_number = LeptonsMVAL.size();
       //???=0
-      leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
-      leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
-      leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
+      // leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
+      // leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
+      // leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
       // leptonsMVAT_chargeSum = ChargeSum()
       if ( leptonsMVAT_number==2 ) {
           if ( elesMVAT_number==2 ){
@@ -526,17 +542,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       tausF_leptonsT_transMass = TransMassSysCal(tausF, LeptonsMVAT);
       tausL_leptonsT_transMass = TransMassSysCal(tausL, LeptonsMVAT);
       tausT_leptonsT_transMass = TransMassSysCal(tausT, LeptonsMVAT);
-      tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, LeptonsMVAT);
-      tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, LeptonsMVAT);
-      tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, LeptonsMVAT);
+      // tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, LeptonsMVAT);
+      // tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, LeptonsMVAT);
+      // tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, LeptonsMVAT);
       // tausF_leptonsT_chargeSum = ChargeSum(tausF_index, 1) +
                                  // ChargeSum(eleMVAT_index, 0) +
                                  // ChargeSum(muonsT_index, 2);
-      tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausF);
-      tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausL);
-      tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausT);
+      // tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausF);
+      // tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausL);
+      // tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausT);
 
-      sort(tausL.begin(), tausL.end(), compEle);
+      sort(tausL.begin(), tausL.end(), comparePt);
       if (tausL_number > 0) {
         tauL_1pt = tausL[0].Pt();
         tauL_1eta = tausL[0].Eta();
@@ -547,10 +563,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         tauL_2eta = tausL[1].Eta();
         tauL_2phi = tausL[1].Phi();
       }
-      if (tausL_number > 0) {
-        tauL_3pt = tausL[0].Pt();
-        tauL_3eta = tausL[0].Eta();
-        tauL_3phi = tausL[0].Phi();
+      if (tausL_number > 2) {
+        tauL_3pt = tausL[2].Pt();
+        tauL_3eta = tausL[2].Eta();
+        tauL_3phi = tausL[2].Phi();
       }
  
 
