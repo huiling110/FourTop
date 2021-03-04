@@ -35,6 +35,7 @@ public :
    // TH1D  *h_genWeight ;
 
    //branches in the newtree
+   //same order as initialize
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
     Double_t Met_pt_;
@@ -54,6 +55,7 @@ public :
 	Int_t elesMVAL_number;
 	Int_t elesMVAF_number;
 	Int_t elesMVAT_number;
+    Double_t elesMVAF_1pt;
 	Double_t leptonsMVAT_number;
 	Double_t leptonsMVAF_number;
 	Double_t leptonsMVAL_number;
@@ -62,6 +64,50 @@ public :
     Double_t leptonsMVAL_transMass;
     Int_t leptonsMVAT_2SS;
     Int_t leptonsMVAT_2OS;
+    Double_t     leptonsMVAT_1pt = -99;
+    Double_t     leptonsMVAT_1eta = -99;
+    Double_t     leptonsMVAT_1phi = -99;
+    Double_t     leptonsMVAT_2pt= -99;
+    Double_t     leptonsMVAT_2eta = -99;
+    Double_t     leptonsMVAT_2phi= -99;
+    Double_t     leptonsMVAT_3pt = -99;
+    Double_t     leptonsMVAT_3eta = -99;
+    Double_t     leptonsMVAT_3phi = -99;
+
+    Int_t     tausL_number=-99;
+    Int_t     tausF_number=-99;
+    Int_t     tausT_number=-99;
+    Double_t     tausL_MHT=-99;
+    Double_t     tausF_MHT=-99;
+    Double_t     tausT_MHT=-99;
+    Double_t     tausL_HT=-99;
+    Double_t     tausF_HT=-99;
+    Double_t     tausT_HT=-99;
+    Double_t     tausL_invariantMass=-99;
+    Double_t     tausF_invariantMass=-99;
+    Double_t     tausT_invariantMass=-99;
+    Double_t     tausF_minDeltaR = -99;
+    Double_t     tausL_minDeltaR = -99;
+    Double_t     tausT_minDeltaR = -99;
+    Double_t     tausF_leptonsT_transMass = -99;
+    Double_t     tausL_leptonsT_transMass = -99;
+    Double_t     tausT_leptonsT_transMass = -99;
+    Double_t     tausF_leptonsT_invariantMass = -99;
+    Double_t     tausL_leptonsT_invariantMass = -99;
+    Double_t     tausT_leptonsT_invariantMass = -99;
+    Int_t     tausF_leptonsT_chargeSum = -99;
+    Double_t     tausF_leptonsTMVA_minDeltaR = -99;
+    Double_t     tausT_leptonsTMVA_minDeltaR = -99;
+    Double_t     tausL_leptonsTMVA_minDeltaR = -99;
+    Double_t     tauL_1pt = -99;
+    Double_t     tauL_1eta = -99;
+    Double_t     tauL_1phi = -99;
+    Double_t     tauL_2pt = -99;
+    Double_t     tauL_2eta = -99;
+    Double_t     tauL_2phi = -99;
+    Double_t     tauL_3pt = -99;
+    Double_t     tauL_3eta = -99;
+    Double_t     tauL_3phi = -99;
     // Double_t ;
 
 

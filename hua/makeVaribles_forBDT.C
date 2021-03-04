@@ -32,7 +32,20 @@
 bool comparePt(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
-double MHTcalculator(vector<TLorentzVector> SelectedJets) { /*{{{*/
+
+// double HTcalculator(vector<TLorentzVector> SelectedJets) {
+double HTcalculator(TTreeReaderArray<TLorentzVector> SelectedJets) {
+    /*{{{*/
+  double HTprov = 0;
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+    HTprov =
+        HTprov + SelectedJets[j].Pt(); //.Pt: the 3 vertor component, scalar
+  }
+  return HTprov;
+} /*}}}*/
+
+double MHTcalculator(vector<TLorentzVector> SelectedJets) {
+    /*{{{*/
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
   double MHTprov = 0;
@@ -42,6 +55,67 @@ double MHTcalculator(vector<TLorentzVector> SelectedJets) { /*{{{*/
   MHTprov = SumJets.Pt();
   return MHTprov;
 } /*}}}*/
+double MHTcalculator( TTreeReaderArray<TLorentzVector> SelectedJets) {
+    /*{{{*/
+  TLorentzVector SumJets;
+  SumJets.SetPtEtaPhiE(0, 0, 0, 0);
+  double MHTprov = 0;
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+    SumJets = SumJets + SelectedJets[j];
+  }
+  MHTprov = SumJets.Pt();
+  return MHTprov;
+} /*}}}*/
+
+
+// double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
+double InvariantMassCalculator( TTreeReaderArray<TLorentzVector> SelectedJets) {
+  TLorentzVector jet_sum = { 0, 0, 0, 0 };
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+    jet_sum = jet_sum + SelectedJets[j];
+  }
+  double InMass = jet_sum.M();
+  return InMass;
+}
+double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
+  TLorentzVector jet_sum = { 0, 0, 0, 0 };
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    jet_sum = jet_sum + SelectedJets[j];
+  }
+  double InMass = jet_sum.M();
+  return InMass;
+}
+
+
+double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector> a,
+                            const TTreeReaderArray<TLorentzVector> b) {
+  vector<TLorentzVector> vector_sum(a.begin(), a.end());
+  vector_sum.insert(vector_sum.end(), b.begin(), b.end());
+  /*    TLorentzVector jet_sum = {0,0,0,0};
+      for (UInt_t j = 0; j < a.GetSize(); ++j){
+          jet_sum = jet_sum + a[j];
+      }
+      TLorentzVector b_sum = {0,0,0,0};
+      for (UInt_t k = 0; k < b.GetSize(); ++k){
+          b_sum = b_sum + b[k];
+      }*/
+  double invariantMass = InvariantMassCalculator(vector_sum);
+  return invariantMass;
+}
+
+// int ChargeSum(const vector<int> SelectedElectronsMVATIndex, int type) {
+  // int charge_sum = 0;
+  // for (UInt_t j = 0; j < SelectedElectronsMVATIndex.size(); ++j) {
+    // if (type == 0)
+      // charge_sum += patElectron_charge_->at(j);
+      // charge_sum += patElectron_charge_->at(SelectedElectronsMVATIndex[j]);
+    // if (type == 1)
+      // charge_sum += Tau_charge_->at(SelectedElectronsMVATIndex[j]);
+    // if (type == 2)
+      // charge_sum += Muon_charge_->at(SelectedElectronsMVATIndex[j]);
+  // }
+  // return charge_sum;
+// }
 
 double TransEnergyCal(const TLorentzVector SelectedJets) {
   //    TVector3 p =  SelectedJets.Vect();
@@ -49,35 +123,35 @@ double TransEnergyCal(const TLorentzVector SelectedJets) {
   double trans_energy = sqrt(SelectedJets.M() * SelectedJets.M() + pt * pt);
   return trans_energy;
 }
-double TransEnergySysCal(const vector<TLorentzVector> SelectedJets) {
+double TransEnergySysCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
   double transE = 0;
-  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
   return transE;
 }
-double TransMassCal(const vector<TLorentzVector> SelectedJets) {
+double TransMassCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
   double MHT = MHTcalculator(SelectedJets);
   double transE = 0;
-  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
   double trans_mass = sqrt(MHT * MHT + transE * transE);
   return trans_mass;
 }
 
-double TransMassSysCal(const vector<TLorentzVector> Jets,
-                       const vector<TLorentzVector> Leptons) {
+double TransMassSysCal(const TTreeReaderArray<TLorentzVector> Jets,
+                       const TTreeReaderArray<TLorentzVector> Leptons) {
   double transE1 = TransEnergySysCal(Jets);
   double transE2 = TransEnergySysCal(Leptons);
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
   TLorentzVector SumLeptons;
   SumLeptons.SetPtEtaPhiE(0, 0, 0, 0);
-  for (UInt_t j = 0; j < Jets.size(); ++j) {
+  for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
     SumJets = SumJets + Jets[j];
   }
-  for (UInt_t k = 0; k < Leptons.size(); ++k) {
+  for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
     SumLeptons = SumLeptons + Leptons[k];
   }
   TVector3 MHTsum = (SumJets + SumLeptons).Vect();
@@ -85,6 +159,42 @@ double TransMassSysCal(const vector<TLorentzVector> Jets,
       sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
   return transMass;
 }
+
+double MinDeltaRCal(const TTreeReaderArray<TLorentzVector> Jets,
+                    const TTreeReaderArray<TLorentzVector> Leptons) {
+  double deltaR_init = 10;
+  double min_deltar = 10;
+  double min_deltaR = 10;
+  for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
+    for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
+      deltaR_init = Jets[j].DeltaR(Leptons[k]);
+      if (min_deltar > deltaR_init)
+        min_deltar = deltaR_init;
+    }
+    if (min_deltar < min_deltaR)
+      min_deltaR = min_deltar;
+  }
+  return min_deltaR;
+}
+double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector> Jets) {
+  double min = 10;
+  double min_2 = 10;
+  double min_3 = 10;
+  double min_1 = 10;
+  for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
+    for (UInt_t k = j + 1; k < Jets.GetSize(); ++k) {
+      min_1 = Jets[j].DeltaR(Jets[k]);
+      if (min_1 < min)
+        min = min_1;
+    }
+    min_2 = min;
+    if (min_2 < min_3)
+      min_3 = min_2;
+  }
+  return min_3;
+}
+
+
 
 
 
@@ -131,6 +241,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
    newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
    newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
+  newtree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
+                  "elesMVAF_1pt/D");
    newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
    newtree->Branch( "leptonsMVAF_number", &leptonsMVAF_number, "leptonsMVAF_number/I");
    newtree->Branch( "leptonsMVAL_number", &leptonsMVAL_number, "leptonsMVAL_number/I");
@@ -140,6 +252,62 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
    newtree->Branch( "leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
    // newtree->Branch( "", &, "/");
+  newtree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
+                  "leptonsMVAT_1pt/D");
+  newtree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
+                  "leptonsMVAT_1eta/D");
+  newtree->Branch("leptonsMVAT_1phi", &leptonsMVAT_1phi,
+                  "leptonsMVAT_1phi/D");
+  newtree->Branch("leptonsMVAT_2pt", &leptonsMVAT_2pt,
+                  "leptonsMVAT_2pt/D");
+  newtree->Branch("leptonsMVAT_2eta", &leptonsMVAT_2eta,
+                  "leptonsMVAT_2eta/D");
+  newtree->Branch("leptonsMVAT_2phi", &leptonsMVAT_2phi,
+                  "leptonsMVAT_2phi/D");
+  newtree->Branch("leptonsMVAT_3pt", &leptonsMVAT_3pt,
+                  "leptonsMVAT_3pt/D");
+  newtree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
+                  "leptonsMVAT_3eta/D");
+  newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
+
+  newtree->Branch("tausL_number", &tausL_number, "tausL_number/I");
+  newtree->Branch("tausF_number", &tausF_number, "tausF_number/I");
+  newtree->Branch("tausT_number", &tausT_number, "tausT_number/I");
+  newtree->Branch("tausL_MHT", &tausL_MHT, "tausL_MHT/D");
+  newtree->Branch("tausF_MHT", &tausF_MHT, "tausF_MHT/D");
+  newtree->Branch("tausT_MHT", &tausT_MHT, "tausT_MHT/D");
+  newtree->Branch("tausL_HT", &tausL_HT, "tausL_HT/D");
+  newtree->Branch("tausF_HT", &tausF_HT, "tausF_HT/D");
+  newtree->Branch("tausT_HT", &tausT_HT, "tausT_HT/D");
+  newtree->Branch("tausL_invariantMass", &tausL_invariantMass,
+                  "tausL_invariantMass/D");
+  newtree->Branch("tausF_invariantMass", &tausF_invariantMass,   "tausF_invariantMass/D");
+  newtree->Branch("tausT_invariantMass", &tausT_invariantMass,   "tausT_invariantMass/D");
+  newtree->Branch("tausL_minDeltaR", &tausL_minDeltaR, "tausL_minDeltaR/D");
+  newtree->Branch("tausF_minDeltaR", &tausF_minDeltaR, "tausF_minDeltaR/D");
+  newtree->Branch("tausT_minDeltaR", &tausT_minDeltaR, "tausT_minDeltaR/D");
+  newtree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
+  newtree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
+  newtree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
+  newtree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
+  newtree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
+  newtree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
+  newtree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
+  newtree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
+  newtree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
+  newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
+  newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
+  newtree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
+                  "tausT_leptonsT_transMass/D");
+  newtree->Branch("tausF_leptonsT_invariantMass", &tausF_leptonsT_invariantMass, "tausF_leptonsT_invariantMass/D");
+  newtree->Branch("tausL_leptonsT_invariantMass", &tausL_leptonsT_invariantMass, "tausL_leptonsT_invariantMass/D");
+  newtree->Branch("tausT_leptonsT_invariantMass", &tausT_leptonsT_invariantMass, "tausT_leptonsT_invariantMass/D");
+  newtree->Branch("tausF_leptonsT_chargeSum", &tausF_leptonsT_chargeSum,
+                  "tausF_leptonsT_chargeSum/D");
+  newtree->Branch("tausF_leptonsTMVA_minDeltaR", &tausF_leptonsTMVA_minDeltaR, "tausF_leptonsTMVA_minDeltaR/D");
+  newtree->Branch("tausL_leptonsTMVA_minDeltaR", &tausL_leptonsTMVA_minDeltaR, "tausL_leptonsTMVA_minDeltaR/D");
+  newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
+
    // newtree->Branch( "", &, "/");
 
 }
@@ -186,6 +354,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      elesMVAL_number = -99;
      elesMVAF_number = -99;
      elesMVAT_number = -99;
+     elesMVAF_1pt = -99;
      leptonsMVAT_number = -99;
      leptonsMVAF_number = -99;
      leptonsMVAL_number = -99;
@@ -194,6 +363,51 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      leptonsMVAL_transMass = -99;
      leptonsMVAT_2SS = -99;
      leptonsMVAT_2OS = -99;
+     leptonsMVAT_1pt = -99;
+     leptonsMVAT_1eta = -99;
+     leptonsMVAT_1phi = -99;
+     leptonsMVAT_2pt= -99;
+     leptonsMVAT_2eta = -99;
+     leptonsMVAT_2phi= -99;
+     leptonsMVAT_3pt = -99;
+     leptonsMVAT_3eta = -99;
+     leptonsMVAT_3phi = -99;
+
+     tausL_number=-99;
+     tausF_number=-99;
+     tausT_number=-99;
+     tausL_MHT=-99;
+     tausF_MHT=-99;
+     tausT_MHT=-99;
+     tausL_HT=-99;
+     tausF_HT=-99;
+     tausT_HT=-99;
+     tausL_invariantMass=-99;
+     tausF_invariantMass=-99;
+     tausT_invariantMass=-99;
+     tausF_minDeltaR = -99;
+     tausL_minDeltaR = -99;
+     tausT_minDeltaR = -99;
+     tausF_leptonsT_transMass = -99;
+     tausL_leptonsT_transMass = -99;
+     tausT_leptonsT_transMass = -99;
+     tausF_leptonsT_invariantMass = -99;
+     tausL_leptonsT_invariantMass = -99;
+     tausT_leptonsT_invariantMass = -99;
+     tausF_leptonsT_chargeSum = -99;
+     tausF_leptonsTMVA_minDeltaR = -99;
+     tausT_leptonsTMVA_minDeltaR = -99;
+     tausL_leptonsTMVA_minDeltaR = -99;
+     tauL_1pt = -99;
+     tauL_1eta = -99;
+     tauL_1phi = -99;
+     tauL_2pt = -99;
+     tauL_2eta = -99;
+     tauL_2phi = -99;
+     tauL_3pt = -99;
+     tauL_3eta = -99;
+     tauL_3phi = -99;
+
       // = -99;
       // = -99;
       // = -99;
@@ -233,6 +447,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAL_number = eleMVAL.GetSize();
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
+      sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
+      if (elesMVAF_number > 0) {
+        elesMVAF_1pt = eleMVAF[0].Pt();
+      }
 
       vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
       LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
@@ -267,6 +485,74 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
           }
       }
 
+
+      sort(LeptonsMVAT.begin(), LeptonsMVAT.end(), comparePt);
+      if (leptonsMVAT_number > 0) {
+        leptonsMVAT_1pt = LeptonsMVAT[0].Pt();
+        leptonsMVAT_1eta = LeptonsMVAT[0].Eta();
+        leptonsMVAT_1phi = LeptonsMVAT[0].Phi();
+      
+      }
+      if (leptonsMVAT_number > 1) {
+        leptonsMVAT_2pt = LeptonsMVAT[1].Pt();
+        leptonsMVAT_2eta = LeptonsMVAT[1].Eta();
+        leptonsMVAT_2phi = LeptonsMVAT[1].Phi();
+        
+      }
+      if (leptonsMVAT_number > 2) {
+        leptonsMVAT_3pt = LeptonsMVAT[2].Pt();
+        leptonsMVAT_3eta = LeptonsMVAT[2].Eta();
+        leptonsMVAT_3phi = LeptonsMVAT[2].Phi();
+      }
+
+
+      // hadronic tau selection
+      tausL_number = tausL.GetSize();
+      tausF_number = tausF.GetSize();
+      tausT_number = tausT.GetSize();
+      tausL_MHT = MHTcalculator(tausL);
+      tausF_MHT = MHTcalculator(tausF); 
+      tausT_MHT = MHTcalculator( tausT); // 900;return the pt sum of,vetctor sum
+      tausL_HT = HTcalculator(tausL);
+      tausF_HT = HTcalculator(tausF);
+      tausT_HT = HTcalculator(tausT);
+      tausL_invariantMass = InvariantMassCalculator(tausL);
+      tausF_invariantMass = InvariantMassCalculator(tausF);
+      tausT_invariantMass = InvariantMassCalculator(tausT);
+      tausL_minDeltaR = MinDeltaRSingleCal(tausL);
+      tausF_minDeltaR = MinDeltaRSingleCal(tausF);
+      tausT_minDeltaR = MinDeltaRSingleCal(tausT);
+
+      tausF_leptonsT_transMass = TransMassSysCal(tausF, LeptonsMVAT);
+      tausL_leptonsT_transMass = TransMassSysCal(tausL, LeptonsMVAT);
+      tausT_leptonsT_transMass = TransMassSysCal(tausT, LeptonsMVAT);
+      tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, LeptonsMVAT);
+      tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, LeptonsMVAT);
+      tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, LeptonsMVAT);
+      // tausF_leptonsT_chargeSum = ChargeSum(tausF_index, 1) +
+                                 // ChargeSum(eleMVAT_index, 0) +
+                                 // ChargeSum(muonsT_index, 2);
+      tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausF);
+      tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausL);
+      tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausT);
+
+      sort(tausL.begin(), tausL.end(), compEle);
+      if (tausL_number > 0) {
+        tauL_1pt = tausL[0].Pt();
+        tauL_1eta = tausL[0].Eta();
+        tauL_1phi = tausL[0].Phi();
+      }
+      if (tausL_number > 1) {
+        tauL_2pt = tausL[1].Pt();
+        tauL_2eta = tausL[1].Eta();
+        tauL_2phi = tausL[1].Phi();
+      }
+      if (tausL_number > 0) {
+        tauL_3pt = tausL[0].Pt();
+        tauL_3eta = tausL[0].Eta();
+        tauL_3phi = tausL[0].Phi();
+      }
+ 
 
 
 
