@@ -296,7 +296,7 @@ Long64_t nevents = evt->GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   //if (ievent > 100) break;
-  if ( !(ievent % 10000 ) ) cout << "ievent  =  " << ievent << endl;
+  if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    evt->GetEntry( ievent );
 
@@ -373,6 +373,23 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  bool is2tau1etrig = (singleEle || elePlusTau);
  bool is2tau1mutrig = (singleMu || muPlusTau);
  bool is2tau2Ltrig = is1tau2Ltrig;
+
+ //compute HT(jet+lepton)
+
+ float HT_jl = myjetsL_HT;
+
+ for (int i = 0; i < myeleMVAT_pt->size(); i++) {
+
+   HT_jl += myeleMVAT_pt->at(i);
+   
+ }
+
+ for (int i = 0; i < mymuonT_pt->size(); i++) {
+
+   HT_jl += mymuonT_pt->at(i);
+   
+}
+ 
 
  if (setup == "ZhangYu") {
    
@@ -546,12 +563,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  if (setup == "ZhangYu"){
    
-   //if (myjetsL_HT > 500) {
+   if (HT_jl > 400) {
 
    if (is1tau0L /*&& myjetsL_1pt > 40*/) {
 
    den_1tau0L += mygenEvtWeight;
-   h_HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_HT_1tau0L->Fill(HT_jl, mygenEvtWeight);
    h_nbjetsM_1tau0L->Fill(mybjetsM_number, mygenEvtWeight);
    countJets(njets_ptg40_1tau0L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
    countJets(njets_ptg30_1tau0L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -559,7 +576,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    h_njets_ptg30_1tau0L->Fill(njets_ptg30_1tau0L, mygenEvtWeight);
    if (is1tau0Ltrig) {
    
-     h_HT_1tau0L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+     h_HT_1tau0L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau0L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau0L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau0L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -573,7 +590,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if ((is1tau1e /*&& myjetsL_1pt > 40*/) || (is1tau1mu /*&& myjetsL_1pt > 40*/)) {
 
    den_1tau1L += mygenEvtWeight;
-   h_HT_1tau1L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_HT_1tau1L->Fill(HT_jl, mygenEvtWeight);
    h_nbjetsM_1tau1L->Fill(mybjetsM_number, mygenEvtWeight);
    countJets(njets_ptg40_1tau1L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
    countJets(njets_ptg30_1tau1L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -582,7 +599,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    if (is1tau1etrig || is1tau1mutrig) {
 
-      h_HT_1tau1L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+      h_HT_1tau1L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau1L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau1L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau1L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -599,7 +616,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
 
      den_1tau2L += mygenEvtWeight;
-     h_HT_1tau2L->Fill(myjetsL_HT, mygenEvtWeight);
+     h_HT_1tau2L->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau2L->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau2L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau2L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -607,7 +624,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
      h_njets_ptg30_1tau2L->Fill(njets_ptg30_1tau2L, mygenEvtWeight);
      if (is1tau2Ltrig) {
        
-        h_HT_1tau2L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+        h_HT_1tau2L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau2L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau2L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau2L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -626,7 +643,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
 
      den_1tau3L += mygenEvtWeight;
-     h_HT_1tau3L->Fill(myjetsL_HT, mygenEvtWeight);
+     h_HT_1tau3L->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau3L->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau3L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau3L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -634,7 +651,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
      h_njets_ptg30_1tau3L->Fill(njets_ptg30_1tau3L, mygenEvtWeight);
      if (is1tau3Ltrig) {
 
-        h_HT_1tau3L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+        h_HT_1tau3L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_1tau3L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_1tau3L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_1tau3L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -653,7 +670,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
 
      den_2tau0L += mygenEvtWeight;
-     h_HT_2tau0L->Fill(myjetsL_HT, mygenEvtWeight);
+     h_HT_2tau0L->Fill(HT_jl, mygenEvtWeight);
    h_nbjetsM_2tau0L->Fill(mybjetsM_number, mygenEvtWeight);
    countJets(njets_ptg40_2tau0L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
    countJets(njets_ptg30_2tau0L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -661,7 +678,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    h_njets_ptg30_2tau0L->Fill(njets_ptg30_2tau0L, mygenEvtWeight);
    if (is2tau0Ltrig) {
      
-      h_HT_2tau0L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+      h_HT_2tau0L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_2tau0L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_2tau0L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_2tau0L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -678,7 +695,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  if ((is2tau1e /*&& myjetsL_1pt > 40*/) || (is2tau1mu /*&& myjetsL_1pt > 40*/)) {
 
    den_2tau1L += mygenEvtWeight;
-   h_HT_2tau1L->Fill(myjetsL_HT, mygenEvtWeight);
+   h_HT_2tau1L->Fill(HT_jl, mygenEvtWeight);
    h_nbjetsM_2tau1L->Fill(mybjetsM_number, mygenEvtWeight);
    countJets(njets_ptg40_2tau1L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
    countJets(njets_ptg30_2tau1L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -686,7 +703,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    h_njets_ptg30_2tau1L->Fill(njets_ptg30_2tau1L, mygenEvtWeight);
    if (is2tau1etrig || is2tau1mutrig) {
 
-      h_HT_2tau1L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+      h_HT_2tau1L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_2tau1L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_2tau1L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_2tau1L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -703,7 +720,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (true /*myjetsL_1pt > 40*/) {
      
        den_2tau2L += mygenEvtWeight;
-       h_HT_2tau2L->Fill(myjetsL_HT, mygenEvtWeight);
+       h_HT_2tau2L->Fill(HT_jl, mygenEvtWeight);
    h_nbjetsM_2tau2L->Fill(mybjetsM_number, mygenEvtWeight);
    countJets(njets_ptg40_2tau2L, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
    countJets(njets_ptg30_2tau2L, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -711,7 +728,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    h_njets_ptg30_2tau2L->Fill(njets_ptg30_2tau2L, mygenEvtWeight);
    if (is2tau2Ltrig) {
      
-      h_HT_2tau2L_aft->Fill(myjetsL_HT, mygenEvtWeight);
+      h_HT_2tau2L_aft->Fill(HT_jl, mygenEvtWeight);
      h_nbjetsM_2tau2L_aft->Fill(mybjetsM_number, mygenEvtWeight);
      countJets(njets_ptg40_2tau2L_aft, 40.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
      countJets(njets_ptg30_2tau2L_aft, 30.0, myjetsL_1pt, myjetsL_2pt, myjetsL_3pt, myjetsL_4pt, myjetsL_5pt, myjetsL_6pt, myjetsL_7pt, myjetsL_8pt, myjetsL_9pt, myjetsL_10pt, myjetsL_11pt);
@@ -725,7 +742,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }// end 2tau2L
 
- //}//end if HT cut
+ }//end if HT cut
 
  }// end setup ZhangYu
 
@@ -736,7 +753,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  cout << setw(10) << left << "den" << setw(10) << left << den_1tau0L << setw(10) << left << den_1tau1L << setw(10) << left << den_1tau2L << setw(10) << left << den_1tau3L<< setw(10) << left << den_2tau0L << setw(10) << left << den_2tau1L << setw(10) << left << den_2tau2L << endl;
  cout << setw(10) << left << "trigEff" << setw(10) << left << num_1tau0L/den_1tau0L << setw(10) << left << num_1tau1L/den_1tau1L << setw(10) << left << num_1tau2L/den_1tau2L << setw(10) << left << num_1tau3L/den_1tau3L << setw(10) << left << num_2tau0L/den_2tau0L << setw(10) << left << num_2tau1L/den_2tau1L << setw(10) << left << num_2tau2L/den_2tau2L << endl;
 
- TFile *outputfile = new TFile( "trigEff_output_" + file_it->first + "_" + setup + "_HT500cut.root", "RECREATE" );
+ TFile *outputfile = new TFile( "trigEff_output_" + file_it->first + "_" + setup + "_HT_jl400cut.root", "RECREATE" );
  
  writeTEfficiency(h_HT_1tau0L, h_HT_1tau0L_aft, "e_HT_1tau0L");
  writeTEfficiency(h_HT_1tau1L, h_HT_1tau1L_aft, "e_HT_1tau1L");
