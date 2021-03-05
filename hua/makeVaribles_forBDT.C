@@ -141,7 +141,7 @@ double TransEnergySysCal(const vector<TLorentzVector>& SelectedJets) {
   return transE;
 }
 
-double TransMassCal(const TTreeReaderArray<TLorentzVector> SelectedJets) {
+double TransMassCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
   double MHT = MHTcalculator(SelectedJets);
   double transE = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
