@@ -853,10 +853,10 @@ void EventSelection_4top_v1(
             tauL_2eta = SelectedTausL[1].Eta();
             tauL_2phi = SelectedTausL[1].Phi();
           }
-          if (tausL_number > 0) {
-            tauL_3pt = SelectedTausL[0].Pt();
-            tauL_3eta = SelectedTausL[0].Eta();
-            tauL_3phi = SelectedTausL[0].Phi();
+          if (tausL_number >  2) {
+            tauL_3pt = SelectedTausL[2].Pt();
+            tauL_3eta = SelectedTausL[2].Eta();
+            tauL_3phi = SelectedTausL[2].Phi();
           }
   
   
