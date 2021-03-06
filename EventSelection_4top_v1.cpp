@@ -859,6 +859,22 @@ void EventSelection_4top_v1(
             tauL_3phi = SelectedTausL[2].Phi();
           }
   
+          sort(SelectedTausT.begin(), SelectedTausT.end(), compEle);
+          if (tausT_number > 0) {
+            tauT_1pt = SelectedTausT[0].Pt();
+            tauT_1eta = SelectedTausT[0].Eta();
+            tauT_1phi = SelectedTausT[0].Phi();
+          }
+          if (tausT_number > 1) {
+            tauT_2pt = SelectedTausT[1].Pt();
+            tauT_2eta = SelectedTausT[1].Eta();
+            tauT_2phi = SelectedTausT[1].Phi();
+          }
+          if (tausT_number >  2) {
+            tauT_3pt = SelectedTausT[2].Pt();
+            tauT_3eta = SelectedTausT[2].Eta();
+            tauT_3phi = SelectedTausT[2].Phi();
+          }
   
   
   
@@ -3999,6 +4015,17 @@ void setBranchAddressAndBranch(bool data, int selection, TTree *NewTree,
   NewTree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
   NewTree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
   NewTree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
+  NewTree->Branch("tauT_1pt", &tauT_1pt, "tauT_1pt/D");
+  NewTree->Branch("tauT_1eta", &tauT_1eta, "tauT_1eta/D");
+  NewTree->Branch("tauT_1phi", &tauT_1phi, "tauT_1phi/D");
+  NewTree->Branch("tauT_2pt", &tauT_2pt, "tauT_2pt/D");
+  NewTree->Branch("tauT_2eta", &tauT_2eta, "tauT_2eta/D");
+  NewTree->Branch("tauT_2phi", &tauT_2phi, "tauT_2phi/D");
+  NewTree->Branch("tauT_3pt", &tauT_3pt, "tauT_3pt/D");
+  NewTree->Branch("tauT_3eta", &tauT_3eta, "tauT_3eta/D");
+  NewTree->Branch("tauT_3phi", &tauT_3phi, "tauT_3phi/D");
+
+
   NewTree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
   NewTree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
   NewTree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
@@ -4801,6 +4828,15 @@ void initializeVar() { /*{{{*/
  tauL_3pt = -99;
  tauL_3eta = -99;
  tauL_3phi = -99;
+ tauT_1pt = -99;
+ tauT_1eta = -99;
+ tauT_1phi = -99;
+ tauT_2pt = -99;
+ tauT_2eta = -99;
+ tauT_2phi = -99;
+ tauT_3pt = -99;
+ tauT_3eta = -99;
+ tauT_3phi = -99;
 
  toptagger_num=-99;
  toptagger_MHT = -99;

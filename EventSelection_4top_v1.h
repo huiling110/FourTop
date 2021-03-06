@@ -975,6 +975,15 @@ double tauL_2phi = -99;
 double tauL_3pt = -99;
 double tauL_3eta = -99;
 double tauL_3phi = -99;
+double tauT_1pt = -99;
+double tauT_1eta = -99;
+double tauT_1phi = -99;
+double tauT_2pt = -99;
+double tauT_2eta = -99;
+double tauT_2phi = -99;
+double tauT_3pt = -99;
+double tauT_3eta = -99;
+double tauT_3phi = -99;
 
 int toptagger_num=-99;
 double toptagger_MHT = -99;
