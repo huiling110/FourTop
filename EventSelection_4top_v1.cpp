@@ -1369,6 +1369,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
                         vector<int> &SelectedElectronsIndex, int type, int stage) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
+
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j) { // banch in tree
                                                          // line945
     if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
