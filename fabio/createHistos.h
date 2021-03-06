@@ -4,13 +4,13 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_eleIDbugfix/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
 {"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
-/*
+
 //ttbar background    
 {"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
     
@@ -66,13 +66,20 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"VBFHTo2L2Nu", dir + "VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root"},
 {"VBFHToMuMu", dir + "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root"},
 {"VBFHToGG", dir + "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root"},
-*/
+
 };
 
-//store trigger efficiency in the format (category, eff). Each map corresponds to different choices in the triggers for each category, i.e., different setups: ttH setup is the one used in ttH multilpeton AN, ZhangYu's setup is the one proposed by Yu, etc.
-map<string, double> ttH_setup_sig;
-map<string, double> ZhangYu_setup_sig;
 
-void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt);
+map<string, TH1F> y_1tau0L; // store histos here
+map<string, TH1F> y_1tau1e;
+map<string, TH1F> y_1tau1mu;
+map<string, TH1F> y_1tau2OSL;
+map<string, TH1F> y_1tau2SSL;
+map<string, TH1F> y_1tau3L;
+map<string, TH1F> y_2tau0L;
+map<string, TH1F> y_2tau1e;
+map<string, TH1F> y_2tau1mu;
+map<string, TH1F> y_2tau2OSL;
+map<string, TH1F> y_2tau2SSL;
 
-void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
+map<string, TH1F> total_weight;

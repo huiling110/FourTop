@@ -4,18 +4,27 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_refTriggers/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
-{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
-/*
+//{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
+
 //ttbar background    
-{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
-    
+//{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
+  
+//QCD background
+//{"QCD_HT200to300", dir + "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT300to500", dir + "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT500to700", dir + "QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT700to1000", dir + "QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT1000to1500", dir + "QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT1500to2000", dir + "QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT2000toInf", dir + "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+/*  
 //tt+X background
-{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
+//{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
 {"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
 {"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
 {"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
@@ -69,10 +78,77 @@ map<string, string> file = { //MAP OF INPUT FILES
 */
 };
 
-//store trigger efficiency in the format (category, eff). Each map corresponds to different choices in the triggers for each category, i.e., different setups: ttH setup is the one used in ttH multilpeton AN, ZhangYu's setup is the one proposed by Yu, etc.
-map<string, double> ttH_setup_sig;
-map<string, double> ZhangYu_setup_sig;
+map<string, float> xsec = { //MAP OF CROSS SECTIONS. TAKE HUILING'S, BUT WHERE DO THEY COME FROM?
+    
+//signal
+{"tttt", 0.01197},
 
-void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt);
+//ttbar background    
+{"tt", 746.7},
+
+//QCD background
+{"QCD_HT200to300", 1751000.0},
+{"QCD_HT300to500", 347700.0},
+{"QCD_HT500to700", 32100.0},
+{"QCD_HT700to1000", 6831.0},
+{"QCD_HT1000to1500", 1207.0},
+{"QCD_HT1500to2000", 119.9},
+{"QCD_HT2000toInf", 25.24},
+
+    
+//tt+X background
+{"ttG+jets", 3.773},
+{"ttW+jets", 0.2014},
+{"ttZ+jets", 0.6559},
+{"ttH", 0.3372},
+
+//diboson background
+{"WZ", 2.343},
+{"WWTo2L2Nu", 0.1697},
+{"WpWpJJ", 0.05390}, //WHAT'S THIS PROCESS?
+{"ZZ", 1.016},
+{"WG+jets", 1.269},
+{"ZG+jets", 0.1319},
+
+//triboson background
+{"WWW", 0.2086},
+{"WWZ", 0.1651},
+{"WWG", 0.2147},
+{"ZZZ", 0.01398},
+{"WZZ", 0.05565},
+{"WZG", 0.04123},
+{"WGG", 1.819},
+{"ZGG+jets", 0.3717},
+
+//W+jets background
+{"W+jets", 50300.0},
+
+//DY background
+{"DY", 1983.0},
+
+//single-top backgroun
+{"tZq", 0.07358},
+{"tW_antitop", 38.06},
+{"tW_top", 38.09},
+{"tG+jets", 2.967},
+{"tHW", 0.1467},
+{"THq", 0.8816},
+
+//Higgs background
+{"VHToNonbb", 2.137},
+{"ZHToTauTau", 0.7524},
+{"ZHTobb", 0.07523},
+{"GluGluHTo4L", 2.999},
+{"GluGluHTobb", 32.10},
+{"GluGluHToGG", 31.98}, // cross section for ggH(bb) and ggH(gammgamma) comparable, how is this possible?
+{"GluGluHToMuMu", 29.99}, // same holds for ggH(mumu)
+{"GluGluHToTauTau", 30.52}, // same holds for ggH(tautau)
+{"GluGluHTo2L2Nu", 30.52}, // same
+{"GluGluHToLNuqq", 29.99},
+{"VBFHTo2L2Nu", 3.769},
+{"VBFHToMuMu", 0.000823}, //there's no such a big difference in xsec between ggH(mumu) and VBF(mumu) production mechanisms 
+{"VBFHToGG", 3.992},
+
+};
 
 void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);

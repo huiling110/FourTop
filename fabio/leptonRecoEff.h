@@ -1,25 +1,25 @@
+#include <iostream>
 #include <map>
+#include <TEfficiency.h>
 
 using namespace std;
 
-double LUMI2016 = 35900.0;
-
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
-
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v22_leptonStages_eleIDbugfix/NoJEC/";
+//string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/2016v1/tests/NoJEC/";
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
 {"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
-/*
+
 //ttbar background    
-{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
+//{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
     
 //tt+X background
-{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
-{"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
-{"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
-{"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
-
+//{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
+//{"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
+//{"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
+//{"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
+/*
 //diboson background
 {"WZ", dir + "WZ_TuneCUETP8M1_13TeV-pythia8.root"},
 {"WWTo2L2Nu", dir + "WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root"},
@@ -69,10 +69,6 @@ map<string, string> file = { //MAP OF INPUT FILES
 */
 };
 
-//store trigger efficiency in the format (category, eff). Each map corresponds to different choices in the triggers for each category, i.e., different setups: ttH setup is the one used in ttH multilpeton AN, ZhangYu's setup is the one proposed by Yu, etc.
-map<string, double> ttH_setup_sig;
-map<string, double> ZhangYu_setup_sig;
-
-void countJets (int & counter, double pt_threshold, double jet_1pt, double jet_2pt, double jet_3pt, double jet_4pt, double jet_5pt, double jet_6pt, double jet_7pt, double jet_8pt, double jet_9pt, double jet_10pt, double jet_11pt);
-
+void recoEff(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* genVar);
+void recoPurity(double dRmatch, int nGen, int nReco, vector<double> *genEta, vector<double> *genPhi, vector<double> *recoEta, vector<double> *recoPhi, TH1F *hBef, TH1F *hAft, vector <double>* recoVar);
 void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
