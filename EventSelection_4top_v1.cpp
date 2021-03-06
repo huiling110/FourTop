@@ -1516,7 +1516,7 @@ void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
       I2 = 0;
       I3 = 0;
     } // looseWP from ss of TTTT}
-    // if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+    if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
     //    ??patElectron_jetptratioV2?
     if (!((patElectron_miniIsoRel_->at(j) < I1) && ((patElectron_jetptratio_->at(j) > I2) ||   (patElectron_ptrel_->at(j) > I3))))      continue;
     //?if we apply this for tight , the number would be very low.
