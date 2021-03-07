@@ -443,32 +443,26 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
           if (stage == 2 || stage == 3 || stage == 4) {
               // Double_t pt = Muon_pt.At(j);
               if (type == 0) {
-              if (!(Muon_loose.At(j) == 1))              continue;
+                  if (!(Muon_loose.At(j) == 1))              continue;
               }
               if (type == 1 or type == 2) {
-                // if(!(pt > 10)) continue;
-                if (!(Muon_medium.At(j) == 1))
-                  continue;
+                  if (!(Muon_medium.At(j) == 1))     continue;
               }
               if (stage == 3 || stage == 4) {
                     //    if(type==2){ if(!(Muon_tight.At(j)==1))     continue; }
                   //    if(!(Muon_relIsoDeltaBetaR04.At(j)<0.15))   continue;  //loose
-                  // iso.change to 0.15(tight) from 0.25
                   // Muon_relIsoDeltaBetaR04?_
                   Double_t I1 = 0.4, I2 = 0, I3 = 0; // looseWP from ss of TTTT
                   if(type == 2){
                       I1 = 0.16; I2 = 0.76, I3 = 7.2;
                   }
-                  //    if(!((Muon_miniIsoRel.At(j)<I1)|((Muon_jetptratio.At(j)>I2)&&(Muon_ptrel.At(j)>I3))))
                   // continue;
                   if (!((Muon_miniIsoRel.At(j) < I1) && ((Muon_jetptratio.At(j) > I2) || (Muon_ptrel.At(j) > I3))))      continue;
-
                   if (stage == 4) {
                       // IP
                       // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
                       if(!(Muon_dz_bt.At(j)<0.1)) continue;
-
-                      //?throwing an instance of 'std::out_of_range'
+                      //throwing an instance of 'std::out_of_range'
                       if(!(Muon_dxy_bt.At(j)<0.05)) continue;
                       if(type == 1 or type == 2) {
                         if(!(Muon_IP3D_sig.At(j)<4)) continue;

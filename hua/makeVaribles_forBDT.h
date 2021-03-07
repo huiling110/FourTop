@@ -55,6 +55,7 @@ public :
 	Int_t elesMVAL_number;
 	Int_t elesMVAF_number;
 	Int_t elesMVAT_number;
+	Int_t elesMVAT_number_IsoT;
     Double_t elesMVAF_1pt;
 	Double_t leptonsMVAT_number;
 	Double_t leptonsMVAF_number;

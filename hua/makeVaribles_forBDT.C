@@ -256,6 +256,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
    newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
    newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
+   newtree->Branch( "elesMVAT_number_IsoT", &elesMVAT_number_IsoT, "elesMVAT_number_IsoT/I");
   newtree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
                   "elesMVAF_1pt/D");
    newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
@@ -369,6 +370,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      elesMVAL_number = -99;
      elesMVAF_number = -99;
      elesMVAT_number = -99;
+     elesMVAT_number_IsoT = -99;
      elesMVAF_1pt = -99;
      leptonsMVAT_number = -99;
      leptonsMVAF_number = -99;
@@ -462,6 +464,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAL_number = eleMVAL.GetSize();
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
+      elesMVAT_number_IsoT = eleMVAT_IsoT.GetSize();
       sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
       if (elesMVAF_number > 0) {
         elesMVAF_1pt = eleMVAF[0].Pt();
