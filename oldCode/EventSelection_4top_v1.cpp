@@ -23,7 +23,7 @@ void EventSelection_4top_v1(
     // SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
     const int SysJes = 0; // jet enenrgy scale
     const int SysJer = 0; // jet  energy resolution
-    Long64_t NumOfEvents = 1000;
+    Long64_t NumOfEvents = 10000;
   
     using namespace std;
   
@@ -70,7 +70,7 @@ void EventSelection_4top_v1(
         chain.SetBranchAddress("Jet_pt", &Jet_pt_, &b_Jet_pt);
         setBranchAddressAndBranch(data, selection, NewTree,  NewTreeSB , chain); // Tree->SetBranchAddress("Jet_pt",   &Jet_pt_,   &b_Jet_pt);
         //???chain is in local scope, cannot be seen in branch?
-        if (istest)   NumOfEvents = 1000; else   NumOfEvents = nentries;
+        if (!istest)      NumOfEvents = nentries;
         
         for (Long64_t i = 0; i < NumOfEvents; i++) {
           branchGetEntry(data, i);        // every branch in Tree, Getentry.  b_Jet_pt->GetEntry(tentry);//is a branch in tree, setadress.
