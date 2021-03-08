@@ -430,9 +430,9 @@ void objectTSelector::Terminate()
 
 }
 
-
+/*
 void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
-                 vector<Int_t> &SelectedMuonsIndex,const Int_t type, const Int_t stage) { /*{{{*/
+                 vector<Int_t> &SelectedMuonsIndex,const Int_t type, const Int_t stage) { 
   // changed ISO to ss of TTTT
   // 0 for Loose; 2 for medium 
   for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
@@ -479,14 +479,84 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
       SelectedMuons.push_back(muon);
       SelectedMuonsIndex.push_back(j);
   }
+} 
+*/
+
+void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
+                 vector<int> &SelectedMuonsIndex, int type, int stage) { /*{{{*/
+  // changed ISO to ss of TTTT
+  // 0 for Loose; 2 for medium 
+  for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
+
+    if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
+
+      //    if(!(Muon_pt.At(j)>20))                     continue;
+    if (!(fabs(Muon_eta.At(j)) < 2.4))
+      continue;
+    
+    if (stage == 2 || stage == 3 || stage == 4) {
+      double pt = Muon_pt.At(j);
+      if (type == 0) {
+      if (!(Muon_loose.At(j) == 1))
+        continue;
+    }
+    if (type == 1 or type == 2) {
+      if(!(pt > 10)) continue;
+      if (!(Muon_medium.At(j) == 1))
+        continue;
+    }
+    
+    if (stage == 3 || stage == 4) {
+
+      //    if(type==2){ if(!(Muon_tight.At(j)==1))     continue; }
+    //    if(!(Muon_relIsoDeltaBetaR04.At(j)<0.15))   continue;  //loose
+    // iso->change to 0.15(tight) from 0.25
+    // Muon_relIsoDeltaBetaR04?_
+    double I1 = 0.4, I2 = 0, I3 = 0; // looseWP from ss of TTTT
+    if(type == 2){
+        I1 = 0.16; I2 = 0.76, I3 = 7.2;
+    }
+    //    if(!((Muon_miniIsoRel.At(j)<I1)|((Muon_jetptratio.At(j)>I2)&&(Muon_ptrel.At(j)>I3))))
+    // continue;
+    if (!((Muon_miniIsoRel.At(j) < I1) && ((Muon_jetptratio.At(j) > I2) || (Muon_ptrel.At(j) > I3))))      continue;
+
+    if (stage == 4) {
+      
+      
+    // IP
+    // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
+    if(!(Muon_dz_bt.At(j)<0.1)) continue;
+
+    //?throwing an instance of 'std::out_of_range'
+    if(!(Muon_dxy_bt.At(j)<0.05)) continue;
+    if(type == 1 or type == 2) {
+      if(!(Muon_IP3D_sig.At(j)<4)) continue;
+    }
+
+    //charge
+
+    }// end stage 4
+
+
+    }// end stage 3
+      
+    }// end stage 2 
+
+      
+    }// end stage 1
+    
+    //?Muon_jetptratioV2?
+    TLorentzVector muon;
+    muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
+                      Muon_energy.At(j));
+    SelectedMuons.push_back(muon);
+    SelectedMuonsIndex.push_back(j);}
+  
 } /*}}}*/
-
-
 
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
-  /*{{{*/
     for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
         if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
             Double_t pt = patElectron_pt.At(j);
@@ -666,7 +736,8 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
     }
-}/*}}}*/
+}
+
 
 void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH

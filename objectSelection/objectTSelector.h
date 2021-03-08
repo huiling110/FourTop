@@ -135,7 +135,8 @@ public :
     Double_t EVENT_genWeight_;
 
     //functions I added
-     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type, const  Int_t stage);
+     // void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type, const  Int_t stage);
+     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex,  int type,   int stage);
      void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso );
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);

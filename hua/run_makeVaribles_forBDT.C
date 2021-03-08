@@ -9,7 +9,8 @@ void run_makeVaribles_forBDT(
     
     gROOT->ProcessLine(".L Loader.C+");
 
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v30_fixedChargeBranchBug/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v30_fixedChargeBranchBug/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
     TString inputFile = inputBase + inputDir + "/";
 
     TChain chain( "tree");
