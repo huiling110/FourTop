@@ -431,7 +431,6 @@ void objectTSelector::Terminate()
 
 }
 
-/*
 void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
                  vector<Int_t> &SelectedMuonsIndex,const Int_t type, const Int_t stage) { 
   // changed ISO to ss of TTTT
@@ -481,10 +480,10 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
       SelectedMuonsIndex.push_back(j);
   }
 } 
-*/
-
+//the one used in Eventselection code
+/*
 void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
-                 vector<int> &SelectedMuonsIndex, int type, int stage) { /*{{{*/
+                 vector<int> &SelectedMuonsIndex, int type, int stage) { 
   // changed ISO to ss of TTTT
   // 0 for Loose; 2 for medium 
   for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
@@ -553,8 +552,8 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
     SelectedMuons.push_back(muon);
     SelectedMuonsIndex.push_back(j);}
   
-} /*}}}*/
-
+} 
+*/
 /*
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
@@ -740,7 +739,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
     }
 }
 */
-
+//the one used in Eventselection code
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
                         vector<int> &SelectedElectronsIndex, int type, int stage) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
