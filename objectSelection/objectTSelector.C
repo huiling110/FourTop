@@ -343,12 +343,13 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
-    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
-    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
-    SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true );
-    SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
-    SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
+    // SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
+    // SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
+    // SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4 ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    // SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true );
+    // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
+    // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
 
     SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
     SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
@@ -554,6 +555,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
   
 } /*}}}*/
 
+/*
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,vector<Int_t> &SelectedElectronsIndex, const Int_t type, const Int_t stage, const bool isTightIso ) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
@@ -737,6 +739,206 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         SelectedElectronsIndex.push_back(j);
     }
 }
+*/
+
+void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
+                        vector<int> &SelectedElectronsIndex, int type, int stage) {
+  // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
+  // 2016 - MVANoIso94XV2, from SUSY
+
+  for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
+                                                         // line945
+    if (stage == 1 || stage == 2 || stage == 3 || stage == 4) {
+
+      double pt = patElectron_pt.At(j);
+      double eta = patElectron_eta.At(j);
+      double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
+      double raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
+      if (!(fabs(eta) < 2.5))
+      continue;
+    
+      if (stage == 2 || stage == 3 || stage  == 4) {
+
+	//id
+    if (fabs(eta) < 0.8) {
+      if (type == 2) {
+	if(!(pt > 10)) continue;
+        if (10 < pt && pt < 40) {
+          if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 40) {
+          if (!(raw_MVA_value > 4.392))
+            continue;
+        }
+      }
+      if (type == 0) {
+        if (5 < pt && pt < 10) {
+          if (!(raw_MVA_value > 1.309))
+            continue;
+        }
+        if (10 < pt && pt < 25) {
+          if (!(raw_MVA_value > ( 0.887 + 0.088 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > 0.887))
+            continue;
+        }
+      }
+      if (type == 1) {
+        if (5 < pt && pt < 10) {
+          if (!(raw_MVA_value > (-0.259)))
+            continue;
+        }
+        if (10 < pt && pt <= 25) {
+          if (!(raw_MVA_value >( (-0.388) + 0.109 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > (-0.388)))
+            continue;
+        }
+      }
+    }
+    if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
+      if (type == 2) {
+	if(!(pt > 10)) continue;
+        if (10 < pt && pt < 40) {
+          if (!(raw_MVA_value > (2.522 + 0.058 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 40) {
+          if (!(raw_MVA_value > 3.392))
+            continue;
+        }
+      }
+      if (type == 0) {
+        if (5 < pt && pt <= 10) {
+          if (!(raw_MVA_value > 0.373))
+            continue;
+        }
+        if (10 < pt && pt < 25) {
+          if (!(raw_MVA_value > (0.112 + 0.099 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > 0.112))
+            continue;
+        }
+      }
+      if (type == 1) {
+        if (5 < pt && pt <= 10) {
+          if (!(raw_MVA_value > (-0.256)))
+            continue;
+        }
+        if (10 < pt && pt < 25) {
+          if (!(raw_MVA_value > (-0.696) + 0.106 * (pt - 25)))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > (-0.696)))
+            continue;
+        }
+      }
+    }
+    if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
+      if (type == 2) {
+	if(!(pt > 10)) continue;
+        if (10 < pt && pt < 40) {
+          if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 40) {
+          if (!(raw_MVA_value > 2.680))
+            continue;
+        }
+      }
+      if (type == 0) {
+        if (5 < pt && pt <= 10) {
+          if (!(raw_MVA_value > 0.071))
+            continue;
+        }
+        if (10 < pt && pt < 25) {
+          if (!(raw_MVA_value > ((-0.017) + 0.137 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > (-0.017)))
+            continue;
+        }
+      }
+      if (type == 1) {
+        if (5 < pt && pt <= 10) {
+          if (!(raw_MVA_value > (-1.630)))
+            continue;
+        }
+        if (10 < pt && pt < 25) {
+          if (!(raw_MVA_value > ((-1.219) + 0.148 * (pt - 25))))
+            continue;
+        }
+        if (pt >= 25) {
+          if (!(raw_MVA_value > (-1.219)))
+            continue;
+        }
+      }
+    }
+    
+         if (stage == 3 || stage == 4) {
+	   
+	   // ISO
+    double I1 = 0.4, I2 = 0, I3 = 0;
+    if (type == 0 || type == 1) {
+      I1 = 0.4;
+      I2 = 0;
+      I3 = 0;
+    } // looseWP from ss of TTTT}
+    if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+    //    ??patElectron_jetptratioV2?
+    if (!((patElectron_miniIsoRel.At(j) < I1) && ((patElectron_jetptratio.At(j) > I2) ||   (patElectron_ptrel.At(j) > I3))))      continue;
+    //?if we apply this for tight , the number would be very low.
+
+    if (stage == 4) {
+
+      
+    // emulation selection
+
+    // IP
+    //?
+    // patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
+    if (!(patElectron_d0.At(j) < 0.05))
+      continue;
+    if (!(patElectron_gsfTrack_dz_pv.At(j) < 0.1))
+      continue;
+    if (type == 1 or type == 2) {
+      if (!(patElectron_IP3D_sig.At(j) < 4))
+        continue;
+    }
+
+    // charge
+    // patElectron_inCrack
+    //?missing inner hits;conversion veto;tight charge not avalible on ntuple
+
+
+    }// end stage 4
+    
+
+         }// end stage 3
+      
+      }// end stage 2
+
+    }// end stage 1
+
+    TLorentzVector electron;
+    electron.SetPtEtaPhiE(patElectron_pt.At(j), patElectron_eta.At(j),
+                          patElectron_phi.At(j), patElectron_energy.At(j));
+    SelectedElectrons.push_back(electron);
+    SelectedElectronsIndex.push_back(j);
+  }
+}
+
+
+
 
 
 void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
