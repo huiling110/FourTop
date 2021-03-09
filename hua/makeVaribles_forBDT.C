@@ -481,9 +481,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       leptonsMVAF_number = leptonsMVAF.GetSize();
       leptonsMVAL_number = leptonsMVAL.GetSize();
       //???=0
-      // leptonsMVAT_transMass = TransMassCal(leptonsMVAT);
-      // leptonsMVAF_transMass = TransMassCal(leptonsMVAF);
-      // leptonsMVAL_transMass = TransMassCal(leptonsMVAL);
+      leptonsMVAT_transMass = TransMassCal(leptonsMVAT);
+      leptonsMVAF_transMass = TransMassCal(leptonsMVAF);
+      leptonsMVAL_transMass = TransMassCal(leptonsMVAL);
       // leptonsMVAT_chargeSum = ChargeSum()
       if ( leptonsMVAT_number==2 ) {
           if ( elesMVAT_number==2 ){
@@ -501,24 +501,25 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
 
-      sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
-      if (leptonsMVAT_number > 0) {
-        leptonsMVAT_1pt = leptonsMVAT[0].Pt();
-        leptonsMVAT_1eta = leptonsMVAT[0].Eta();
-        leptonsMVAT_1phi = leptonsMVAT[0].Phi();
-      
-      }
-      if (leptonsMVAT_number > 1) {
-        leptonsMVAT_2pt = leptonsMVAT[1].Pt();
-        leptonsMVAT_2eta = leptonsMVAT[1].Eta();
-        leptonsMVAT_2phi = leptonsMVAT[1].Phi();
-        
-      }
-      if (leptonsMVAT_number > 2) {
-        leptonsMVAT_3pt = leptonsMVAT[2].Pt();
-        leptonsMVAT_3eta = leptonsMVAT[2].Eta();
-        leptonsMVAT_3phi = leptonsMVAT[2].Phi();
-      }
+      // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
+      //???sort not working here 
+      // if (leptonsMVAT_number > 0) {
+        // leptonsMVAT_1pt = leptonsMVAT[0].Pt();
+        // leptonsMVAT_1eta = leptonsMVAT[0].Eta();
+        // leptonsMVAT_1phi = leptonsMVAT[0].Phi();
+      // 
+      // }
+      // if (leptonsMVAT_number > 1) {
+        // leptonsMVAT_2pt = leptonsMVAT[1].Pt();
+        // leptonsMVAT_2eta = leptonsMVAT[1].Eta();
+        // leptonsMVAT_2phi = leptonsMVAT[1].Phi();
+        // 
+      // }
+      // if (leptonsMVAT_number > 2) {
+        // leptonsMVAT_3pt = leptonsMVAT[2].Pt();
+        // leptonsMVAT_3eta = leptonsMVAT[2].Eta();
+        // leptonsMVAT_3phi = leptonsMVAT[2].Phi();
+      // }
 
 
       // hadronic tau selection
@@ -538,18 +539,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       tausF_minDeltaR = MinDeltaRSingleCal(tausF);
       tausT_minDeltaR = MinDeltaRSingleCal(tausT);
 
-      tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
-      tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
-      tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
-      tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, leptonsMVAT);
-      tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, leptonsMVAT);
-      tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, leptonsMVAT);
+      // tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
+      // tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
+      // tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
+      // tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, leptonsMVAT);
+      // tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, leptonsMVAT);
+      // tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, leptonsMVAT);
       // tausF_leptonsT_chargeSum = ChargeSum(tausF_index, 1) +
                                  // ChargeSum(eleMVAT_index, 0) +
                                  // ChargeSum(muonsT_index, 2);
-      tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausF);
-      tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
-      tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
+      // tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausF);
+      // tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
+      // tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
 
       sort(tausL.begin(), tausL.end(), comparePt);
       if (tausL_number > 0) {
