@@ -89,8 +89,8 @@ double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
 }
 
 
-double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector> a,
-                            const TTreeReaderArray<TLorentzVector> b) {
+double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
+                            const TTreeReaderArray<TLorentzVector>& b) {
   vector<TLorentzVector> vector_sum(a.begin(), a.end());
   vector_sum.insert(vector_sum.end(), b.begin(), b.end());
   /*    TLorentzVector jet_sum = {0,0,0,0};
@@ -151,10 +151,9 @@ double TransMassCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
   return trans_mass;
 }
 
-double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
-                       const vector<TLorentzVector>& Leptons) {
-// double TransMassSysCal(const vector<TLorentzVector>& Jets,
+// double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
                        // const vector<TLorentzVector>& Leptons) {
+double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,   const TTreeReaderArray<TLorentzVector>& Leptons) {
   double transE1 = TransEnergySysCal(Jets);
   double transE2 = TransEnergySysCal(Leptons);
   TLorentzVector SumJets;
@@ -162,11 +161,9 @@ double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
   TLorentzVector SumLeptons;
   SumLeptons.SetPtEtaPhiE(0, 0, 0, 0);
   for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
-  // for (UInt_t j = 0; j < Jets.size(); ++j) {
     SumJets = SumJets + Jets[j];
   }
-  // for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
-  for (UInt_t k = 0; k < Leptons.size(); ++k) {
+  for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
     SumLeptons = SumLeptons + Leptons[k];
   }
   TVector3 MHTsum = (SumJets + SumLeptons).Vect();
@@ -175,8 +172,8 @@ double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
   return transMass;
 }
 
-double MinDeltaRCal(const TTreeReaderArray<TLorentzVector> Jets,
-                    const TTreeReaderArray<TLorentzVector> Leptons) {
+double MinDeltaRCal(const TTreeReaderArray<TLorentzVector>& Jets,
+                    const TTreeReaderArray<TLorentzVector>& Leptons) {
   double deltaR_init = 10;
   double min_deltar = 10;
   double min_deltaR = 10;
@@ -464,30 +461,29 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAL_number = eleMVAL.GetSize();
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
-      // elesMVAT_number_IsoT = eleMVAT_IsoT.GetSize();
       sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
       if (elesMVAF_number > 0) {
         elesMVAF_1pt = eleMVAF[0].Pt();
       }
 
-      vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
-      LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
-      vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
-      LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
-      vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
-      LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+      // vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
+      // LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
+      // vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
+      // LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
+      // vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
+      // LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
       // TTreeReaderArray<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());//not working
 
       // vector<int> LeptonsMVATIndex(muonsTIndex.begin(),  muonsTIndex.end());
       // LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), eleMVATIndex.begin(), eleMVATIndex.end());
 
-      leptonsMVAT_number = LeptonsMVAT.size();
-      leptonsMVAF_number = LeptonsMVAF.size();
-      leptonsMVAL_number = LeptonsMVAL.size();
+      leptonsMVAT_number = leptonsMVAT.GetSize();
+      leptonsMVAF_number = leptonsMVAF.GetSize();
+      leptonsMVAL_number = leptonsMVAL.GetSize();
       //???=0
-      // leptonsMVAT_transMass = TransMassCal(LeptonsMVAT);
-      // leptonsMVAF_transMass = TransMassCal(LeptonsMVAF);
-      // leptonsMVAL_transMass = TransMassCal(LeptonsMVAL);
+      // leptonsMVAT_transMass = TransMassCal(leptonsMVAT);
+      // leptonsMVAF_transMass = TransMassCal(leptonsMVAF);
+      // leptonsMVAL_transMass = TransMassCal(leptonsMVAL);
       // leptonsMVAT_chargeSum = ChargeSum()
       if ( leptonsMVAT_number==2 ) {
           if ( elesMVAT_number==2 ){
@@ -505,23 +501,23 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
 
-      sort(LeptonsMVAT.begin(), LeptonsMVAT.end(), comparePt);
+      sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
       if (leptonsMVAT_number > 0) {
-        leptonsMVAT_1pt = LeptonsMVAT[0].Pt();
-        leptonsMVAT_1eta = LeptonsMVAT[0].Eta();
-        leptonsMVAT_1phi = LeptonsMVAT[0].Phi();
+        leptonsMVAT_1pt = leptonsMVAT[0].Pt();
+        leptonsMVAT_1eta = leptonsMVAT[0].Eta();
+        leptonsMVAT_1phi = leptonsMVAT[0].Phi();
       
       }
       if (leptonsMVAT_number > 1) {
-        leptonsMVAT_2pt = LeptonsMVAT[1].Pt();
-        leptonsMVAT_2eta = LeptonsMVAT[1].Eta();
-        leptonsMVAT_2phi = LeptonsMVAT[1].Phi();
+        leptonsMVAT_2pt = leptonsMVAT[1].Pt();
+        leptonsMVAT_2eta = leptonsMVAT[1].Eta();
+        leptonsMVAT_2phi = leptonsMVAT[1].Phi();
         
       }
       if (leptonsMVAT_number > 2) {
-        leptonsMVAT_3pt = LeptonsMVAT[2].Pt();
-        leptonsMVAT_3eta = LeptonsMVAT[2].Eta();
-        leptonsMVAT_3phi = LeptonsMVAT[2].Phi();
+        leptonsMVAT_3pt = leptonsMVAT[2].Pt();
+        leptonsMVAT_3eta = leptonsMVAT[2].Eta();
+        leptonsMVAT_3phi = leptonsMVAT[2].Phi();
       }
 
 
@@ -542,18 +538,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       tausF_minDeltaR = MinDeltaRSingleCal(tausF);
       tausT_minDeltaR = MinDeltaRSingleCal(tausT);
 
-      tausF_leptonsT_transMass = TransMassSysCal(tausF, LeptonsMVAT);
-      tausL_leptonsT_transMass = TransMassSysCal(tausL, LeptonsMVAT);
-      tausT_leptonsT_transMass = TransMassSysCal(tausT, LeptonsMVAT);
-      // tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, LeptonsMVAT);
-      // tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, LeptonsMVAT);
-      // tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, LeptonsMVAT);
+      tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
+      tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
+      tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
+      tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, leptonsMVAT);
+      tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, leptonsMVAT);
+      tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, leptonsMVAT);
       // tausF_leptonsT_chargeSum = ChargeSum(tausF_index, 1) +
                                  // ChargeSum(eleMVAT_index, 0) +
                                  // ChargeSum(muonsT_index, 2);
-      // tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausF);
-      // tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausL);
-      // tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(LeptonsMVAT, tausT);
+      tausF_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausF);
+      tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
+      tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
 
       sort(tausL.begin(), tausL.end(), comparePt);
       if (tausL_number > 0) {

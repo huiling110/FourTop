@@ -126,6 +126,9 @@ public :
    TTreeReaderArray<int> eleMVAL_index = {fReader, "eleMVAL_index"};
    TTreeReaderArray<int> eleMVAF_index = {fReader, "eleMVAF_index"};
    TTreeReaderArray<int> eleMVAT_index = {fReader, "eleMVAT_index"};
+   TTreeReaderArray<TLorentzVector> leptonsMVAF = {fReader, "leptonsMVAF"};
+   TTreeReaderArray<TLorentzVector> leptonsMVAT = {fReader, "leptonsMVAT"};
+   TTreeReaderArray<TLorentzVector> leptonsMVAL = {fReader, "leptonsMVAL"};
    // TTreeReaderArray<TLorentzVector> eleMVAL_IsoT = {fReader, "eleMVAL_IsoT"};
    // TTreeReaderArray<int> eleMVAL_IsoT_index = {fReader, "eleMVAL_IsoT_index"};
    // TTreeReaderArray<TLorentzVector> eleMVAF_IsoT = {fReader, "eleMVAF_IsoT"};
