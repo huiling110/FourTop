@@ -343,10 +343,12 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectMuons( muonsF, muonsF_index, 1, 4);// sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2, 4); //sort( muonsT.begin(), muonsT.end(), compEle);
 
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4 ); 
+    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4 ); 
+    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4 ); 
     // SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
     // SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
     // SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4 ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
     // SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true );
     // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
     // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
