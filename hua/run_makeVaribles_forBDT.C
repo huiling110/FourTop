@@ -12,6 +12,7 @@ void run_makeVaribles_forBDT(
     TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v31_fixedLeptonBug/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
     TString inputFile = inputBase + inputDir + "/";
+    cout<<"input file:"<<inputFile<<endl;
 
     TChain chain( "tree");
     // chain.Add(inputFile+singleFileName);
