@@ -464,7 +464,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAL_number = eleMVAL.GetSize();
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
-      elesMVAT_number_IsoT = eleMVAT_IsoT.GetSize();
+      // elesMVAT_number_IsoT = eleMVAT_IsoT.GetSize();
       sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
       if (elesMVAF_number > 0) {
         elesMVAF_1pt = eleMVAF[0].Pt();
