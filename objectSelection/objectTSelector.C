@@ -353,9 +353,20 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
     // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
 
-    SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
+      vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
+      LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
+      vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
+      LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
+      vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
+      LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+
+
+
+    // SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
+    // SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
+    // SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausT, tausT_index, 3 , LeptonsMVAL);// sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, 1, LeptonsMVAL); //sort( tausL.begin(), tausL.end(), compEle);
     
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
