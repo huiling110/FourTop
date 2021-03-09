@@ -105,12 +105,15 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "eleMVAL_index", &eleMVAL_index );
    tree->Branch( "eleMVAF_index", &eleMVAF_index );
    tree->Branch( "eleMVAT_index", &eleMVAT_index );
-   tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
-   tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index );
-   tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
-   tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
-   tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
-   tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
+   // tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
+   // tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index );
+   // tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
+   // tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
+   // tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
+   // tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
+   tree->Branch( "leptonsMVAF", &leptonsMVAF );
+   tree->Branch( "leptonsMVAT", &leptonsMVAT );
+   tree->Branch( "leptonsMVAL", &leptonsMVAL );
 
    tree->Branch( "tausL", &tausL );
    tree->Branch( "tausF", &tausF );
@@ -254,7 +257,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
-    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;/*{{{*/
     HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
     HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
     HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg;
@@ -312,7 +315,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = *HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
     HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
-    HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+    HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;/*}}}*/
 
     muonsL.clear(); muonsL_index.clear();
     muonsF.clear(); muonsF_index.clear();
@@ -320,9 +323,12 @@ Bool_t objectTSelector::Process(Long64_t entry)
     eleMVAL.clear(); eleMVAL_index.clear();
     eleMVAF.clear(); eleMVAF_index.clear();
     eleMVAT.clear(); eleMVAT_index.clear();
-    eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
-    eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
-    eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
+    leptonsMVAF.clear();
+    leptonsMVAT.clear();
+    leptonsMVAL.clear();
+    // eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
+    // eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
+    // eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
     // .clear(); _index.clear();
     tausL.clear(); tausL_index.clear();
     tausF.clear(); tausF_index.clear();
@@ -353,20 +359,18 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
     // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
 
-      vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
-      LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
-      vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
-      LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
-      vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
-      LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+    leptonsMVAF = muonsF;
+    leptonsMVAF.insert(leptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
+    leptonsMVAT = muonsT;
+    leptonsMVAT.insert(leptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
+    leptonsMVAL = muonsL;
+    leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
 
 
-
-    // SelectTaus( tausL, tausL_index, 1, eleMVAL); //sort( tausL.begin(), tausL.end(), compEle);
-    // SelectTaus( tausF, tausF_index, 2, eleMVAL); //sort( tausF.begin(), tausF.end(), compEle);
-    // SelectTaus( tausT, tausT_index, 3 , eleMVAL);// sort( tausT.begin(), tausT.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , LeptonsMVAL);// sort( tausT.begin(), tausT.end(), compEle);
-    SelectTaus( tausL, tausL_index, 1, LeptonsMVAL); //sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tausF_index, 2, leptonsMVAL); //sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_index, 3 , leptonsMVAL);// sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, 1, leptonsMVAL); //sort( tausL.begin(), tausL.end(), compEle);
+    //???does here imply we need at least 1 leptons
     
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
