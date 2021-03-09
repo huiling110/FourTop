@@ -374,15 +374,15 @@ Bool_t objectTSelector::Process(Long64_t entry)
     
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
-    SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, leptonsMVAL, tausL);
     // sort( jets.begin(), jets.end(), compEle);
-    SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  eleMVAF, tausL);
+    SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  leptonsMVAL, tausL);
     // sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, leptonsMVAL, tausL);
     // sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, eleMVAF, tausL);
+    SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, leptonsMVAL, tausL);
     // sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  eleMVAF, tausL);
+    SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  leptonsMVAL, tausL);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     // patElectron_charge_ = patElectron_charge; //= not working
