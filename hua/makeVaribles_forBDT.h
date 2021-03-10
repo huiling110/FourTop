@@ -147,7 +147,45 @@ public :
     Double_t bjetsM_leptonsMVAT_minDeltaR= -99;
     Double_t bjetsT_leptonsMVAT_minDeltaR= -99;
     Double_t bjetsL_tausF_minDeltaR= -99;
+    Double_t    bjetsL_1pt = -99;
+    Double_t    bjetsL_1eta = -99;
+    Double_t    bjetsL_1phi = -99;
+    Double_t    bjetsL_2pt = -99;
+    Double_t    bjetsL_2eta = -99;
+    Double_t    bjetsL_2phi = -99;
+    Double_t    bjetsL_4pt = -99;
+    Double_t    bjetsL_4eta = -99;
+    Double_t    bjetsL_4phi = -99;
+    Double_t    bjetsL_3pt = -99;
+    Double_t    bjetsL_3eta = -99;
+    Double_t    bjetsL_3phi = -99;
+    Double_t    bjetsM_1pt = -99;
+    Double_t    bjetsM_1eta = -99;
+    Double_t    bjetsM_1phi = -99;
+    Double_t    bjetsM_2pt = -99;
+    Double_t    bjetsM_2eta = -99;
+    Double_t    bjetsM_2phi = -99;
+    Double_t    bjetsM_4pt = -99;
+    Double_t    bjetsM_4eta = -99;
+    Double_t    bjetsM_4phi = -99;
+    Double_t    bjetsM_3pt = -99;
+    Double_t    bjetsM_3eta = -99;
+    Double_t    bjetsM_3phi = -99;
+    Double_t    bjetsT_1pt = -99;
+    Double_t    bjetsT_1eta = -99;
+    Double_t    bjetsT_1phi = -99;
+    Double_t    bjetsT_2pt = -99;
+    Double_t    bjetsT_2eta = -99;
+    Double_t    bjetsT_2phi = -99;
+    Double_t    bjetsT_3pt = -99;
+    Double_t    bjetsT_3eta = -99;
+    Double_t    bjetsT_3phi = -99;
+    Double_t    bjetsT_4pt = -99;
+    Double_t    bjetsT_4eta = -99;
+    Double_t    bjetsT_4phi = -99;
 
+
+    Int_t forwardJets_num = -99;
 
 
    // Readers to access the data (delete the ones you do not need).

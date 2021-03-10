@@ -467,43 +467,44 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("bjetsT_leptonsMVAT_minDeltaR", &bjetsT_leptonsMVAT_minDeltaR, "bjetsT_leptonsMVAT_minDeltaR/D");
   newtree->Branch("bjetsL_tausF_minDeltaR", &bjetsL_tausF_minDeltaR, "bjetsL_tausF_minDeltaR/D");
   // newtree->Branch("", &, "/D");
-  // newtree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
-  // newtree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
-  // newtree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
-  // newtree->Branch("bjetsL_2pt", &bjetsL_2pt, "bjetsL_2pt/D");
-  // newtree->Branch("bjetsL_2eta", &bjetsL_2eta, "bjetsL_2eta/D");
-  // newtree->Branch("bjetsL_2phi", &bjetsL_2phi, "bjetsL_2phi/D");
-  // newtree->Branch("bjetsL_3pt", &bjetsL_3pt, "bjetsL_3pt/D");
-  // newtree->Branch("bjetsL_3eta", &bjetsL_3eta, "bjetsL_3eta/D");
-  // newtree->Branch("bjetsL_3phi", &bjetsL_3phi, "bjetsL_3phi/D");
-  // newtree->Branch("bjetsL_4pt", &bjetsL_4pt, "bjetsL_4pt/D");
-  // newtree->Branch("bjetsL_4eta", &bjetsL_4eta, "bjetsL_4eta/D");
-  // newtree->Branch("bjetsL_4phi", &bjetsL_4phi, "bjetsL_4phi/D");
-  // newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
-  // newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
-  // newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
-  // newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
-  // newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
-  // newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
-  // newtree->Branch("bjetsM_3pt", &bjetsM_3pt, "bjetsM_3pt/D");
-  // newtree->Branch("bjetsM_3eta", &bjetsM_3eta, "bjetsM_3eta/D");
-  // newtree->Branch("bjetsM_3phi", &bjetsM_3phi, "bjetsM_3phi/D");
-  // newtree->Branch("bjetsM_4pt", &bjetsM_4pt, "bjetsM_4pt/D");
-  // newtree->Branch("bjetsM_4eta", &bjetsM_4eta, "bjetsM_4eta/D");
-  // newtree->Branch("bjetsM_4phi", &bjetsM_4phi, "bjetsM_4phi/D");
-  // newtree->Branch("bjetsT_1pt", &bjetsT_1pt, "bjetsT_1pt/D");
-  // newtree->Branch("bjetsT_1eta", &bjetsT_1eta, "bjetsT_1eta/D");
-  // newtree->Branch("bjetsT_1phi", &bjetsT_1phi, "bjetsT_1phi/D");
-  // newtree->Branch("bjetsT_2pt", &bjetsT_2pt, "bjetsT_2pt/D");
-  // newtree->Branch("bjetsT_2eta", &bjetsT_2eta, "bjetsT_2eta/D");
-  // newtree->Branch("bjetsT_2phi", &bjetsT_2phi, "bjetsT_2phi/D");
-  // newtree->Branch("bjetsT_3pt", &bjetsT_3pt, "bjetsT_3pt/D");
-  // newtree->Branch("bjetsT_3eta", &bjetsT_3eta, "bjetsT_3eta/D");
-  // newtree->Branch("bjetsT_3phi", &bjetsT_3phi, "bjetsT_3phi/D");
-  // newtree->Branch("bjetsT_4pt", &bjetsT_4pt, "bjetsT_4pt/D");
-  // newtree->Branch("bjetsT_4eta", &bjetsT_4eta, "bjetsT_4eta/D");
-  // newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
+  newtree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
+  newtree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
+  newtree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
+  newtree->Branch("bjetsL_2pt", &bjetsL_2pt, "bjetsL_2pt/D");
+  newtree->Branch("bjetsL_2eta", &bjetsL_2eta, "bjetsL_2eta/D");
+  newtree->Branch("bjetsL_2phi", &bjetsL_2phi, "bjetsL_2phi/D");
+  newtree->Branch("bjetsL_3pt", &bjetsL_3pt, "bjetsL_3pt/D");
+  newtree->Branch("bjetsL_3eta", &bjetsL_3eta, "bjetsL_3eta/D");
+  newtree->Branch("bjetsL_3phi", &bjetsL_3phi, "bjetsL_3phi/D");
+  newtree->Branch("bjetsL_4pt", &bjetsL_4pt, "bjetsL_4pt/D");
+  newtree->Branch("bjetsL_4eta", &bjetsL_4eta, "bjetsL_4eta/D");
+  newtree->Branch("bjetsL_4phi", &bjetsL_4phi, "bjetsL_4phi/D");
+  newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
+  newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
+  newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
+  newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
+  newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
+  newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
+  newtree->Branch("bjetsM_3pt", &bjetsM_3pt, "bjetsM_3pt/D");
+  newtree->Branch("bjetsM_3eta", &bjetsM_3eta, "bjetsM_3eta/D");
+  newtree->Branch("bjetsM_3phi", &bjetsM_3phi, "bjetsM_3phi/D");
+  newtree->Branch("bjetsM_4pt", &bjetsM_4pt, "bjetsM_4pt/D");
+  newtree->Branch("bjetsM_4eta", &bjetsM_4eta, "bjetsM_4eta/D");
+  newtree->Branch("bjetsM_4phi", &bjetsM_4phi, "bjetsM_4phi/D");
+  newtree->Branch("bjetsT_1pt", &bjetsT_1pt, "bjetsT_1pt/D");
+  newtree->Branch("bjetsT_1eta", &bjetsT_1eta, "bjetsT_1eta/D");
+  newtree->Branch("bjetsT_1phi", &bjetsT_1phi, "bjetsT_1phi/D");
+  newtree->Branch("bjetsT_2pt", &bjetsT_2pt, "bjetsT_2pt/D");
+  newtree->Branch("bjetsT_2eta", &bjetsT_2eta, "bjetsT_2eta/D");
+  newtree->Branch("bjetsT_2phi", &bjetsT_2phi, "bjetsT_2phi/D");
+  newtree->Branch("bjetsT_3pt", &bjetsT_3pt, "bjetsT_3pt/D");
+  newtree->Branch("bjetsT_3eta", &bjetsT_3eta, "bjetsT_3eta/D");
+  newtree->Branch("bjetsT_3phi", &bjetsT_3phi, "bjetsT_3phi/D");
+  newtree->Branch("bjetsT_4pt", &bjetsT_4pt, "bjetsT_4pt/D");
+  newtree->Branch("bjetsT_4eta", &bjetsT_4eta, "bjetsT_4eta/D");
+  newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
 
+  newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -641,8 +642,45 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      bjetsM_leptonsMVAT_minDeltaR= -99;
      bjetsT_leptonsMVAT_minDeltaR= -99;
      bjetsL_tausF_minDeltaR= -99;
+     bjetsL_1pt = -99;
+     bjetsL_1eta = -99;
+     bjetsL_1phi = -99;
+     bjetsL_2pt = -99;
+     bjetsL_2eta = -99;
+     bjetsL_2phi = -99;
+     bjetsL_4pt = -99;
+     bjetsL_4eta = -99;
+     bjetsL_4phi = -99;
+     bjetsL_3pt = -99;
+     bjetsL_3eta = -99;
+     bjetsL_3phi = -99;
+     bjetsM_1pt = -99;
+     bjetsM_1eta = -99;
+     bjetsM_1phi = -99;
+     bjetsM_2pt = -99;
+     bjetsM_2eta = -99;
+     bjetsM_2phi = -99;
+     bjetsM_4pt = -99;
+     bjetsM_4eta = -99;
+     bjetsM_4phi = -99;
+     bjetsM_3pt = -99;
+     bjetsM_3eta = -99;
+     bjetsM_3phi = -99;
+     bjetsT_1pt = -99;
+     bjetsT_1eta = -99;
+     bjetsT_1phi = -99;
+     bjetsT_2pt = -99;
+     bjetsT_2eta = -99;
+     bjetsT_2phi = -99;
+     bjetsT_3pt = -99;
+     bjetsT_3eta = -99;
+     bjetsT_3phi = -99;
+     bjetsT_4pt = -99;
+     bjetsT_4eta = -99;
+     bjetsT_4phi = -99;
 
-      // = -99;
+
+     forwardJets_num = -99;
       // = -99;
       // = -99;
 
@@ -839,7 +877,74 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(bjetsT, leptonsMVAT);
       bjetsL_tausF_minDeltaR = MinDeltaRCal(bjetsL, tausF);
 
+      // sort(bjetsL.begin(), bjetsL.end(), comparePt);
+      if (bjetsL_num > 0) {/*{{{*/
+        bjetsL_1pt = bjetsL[0].Pt();
+        bjetsL_1eta = bjetsL[0].Eta();
+        bjetsL_1phi = bjetsL[0].Phi();
+      }
+      if (bjetsL_num > 1) {
+        bjetsL_2pt = bjetsL[1].Pt();
+        bjetsL_2eta = bjetsL[1].Eta();
+        bjetsL_2phi = bjetsL[1].Phi();
+      }
+      if (bjetsL_num > 2) {
+        bjetsL_3pt = bjetsL[2].Pt();
+        bjetsL_3eta = bjetsL[2].Eta();
+        bjetsL_3phi = bjetsL[2].Phi();
+      }
+      if (bjetsL_num > 3) {
+        bjetsL_4pt = bjetsL[3].Pt();
+        bjetsL_4eta = bjetsL[3].Eta();
+        bjetsL_4phi = bjetsL[3].Phi();
+      }
 
+      // sort(bjetsM.begin(), bjetsM.end(), comparePt);
+      if (bjetsM_num > 0) {
+        bjetsM_1pt = bjetsM[0].Pt();
+        bjetsM_1eta = bjetsM[0].Eta();
+        bjetsM_1phi = bjetsM[0].Phi();
+      }
+      if (bjetsM_num > 1) {
+        bjetsM_2pt = bjetsM[1].Pt();
+        bjetsM_2eta = bjetsM[1].Eta();
+        bjetsM_2phi = bjetsM[1].Phi();
+      }
+      if (bjetsM_num > 2) {
+        bjetsM_3pt = bjetsM[2].Pt();
+        bjetsM_3eta = bjetsM[2].Eta();
+        bjetsM_3phi = bjetsM[2].Phi();
+      }
+      if (bjetsM_num > 3) {
+        bjetsM_4pt = bjetsM[3].Pt();
+        bjetsM_4eta = bjetsM[3].Eta();
+        bjetsM_4phi = bjetsM[3].Phi();
+      }
+
+      // sort(bjetsT.begin(), bjetsT.end(), comparePt);
+      if (bjetsT_num > 0) {
+        bjetsT_1pt = bjetsT[0].Pt();
+        bjetsT_1eta = bjetsT[0].Eta();
+        bjetsT_1phi = bjetsT[0].Phi();
+      }
+      if (bjetsT_num > 1) {
+        bjetsT_2pt = bjetsT[1].Pt();
+        bjetsT_2eta = bjetsT[1].Eta();
+        bjetsT_2phi = bjetsT[1].Phi();
+      }
+      if (bjetsT_num > 2) {
+        bjetsT_3pt = bjetsT[2].Pt();
+        bjetsT_3eta = bjetsT[2].Eta();
+        bjetsT_3phi = bjetsT[2].Phi();
+      }
+      if (bjetsT_num > 3) {
+        bjetsT_4pt = bjetsT[3].Pt();
+        bjetsT_4eta = bjetsT[3].Eta();
+        bjetsT_4phi = bjetsT[3].Phi();
+      }/*}}}*/
+
+
+      forwardJets_num = forwardJets.GetSize(); // 185
 
 
 
