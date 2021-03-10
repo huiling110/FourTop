@@ -32,7 +32,12 @@ public :
     
     TFile *outputfile;
     TTree *tree;
+    TTree *allEvents;
     TH1D  *h_genWeight ;
+
+    //
+    Double_t genWeight_allEvents;
+
 
     //HLT
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;

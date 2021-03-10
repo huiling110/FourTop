@@ -92,6 +92,9 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 
    tree = new TTree( "tree", "tree after object selection");
+   allEvents = new TTree( "allevents", "events before any selection");
+
+   allEvents->Branch( "genWeight_allEvents", &genWeight_allEvents, "genWeight_allEvents/D");
 
    tree->Branch( "muonsL", &muonsL);
    tree->Branch( "muonsL_index", &muonsL_index);
@@ -241,7 +244,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
    //
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+       genWeight_allEvents = *EVENT_genWeight;
    }
+   allEvents->Fill();
 
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
