@@ -110,6 +110,12 @@ evt->SetBranchAddress("jetsL_HT", &myjetsL_HT);
  int myHLT_PFJet450 = 0;
  evt->SetBranchAddress("HLT_PFJet450", &myHLT_PFJet450);
 
+ int myHLT_IsoMu24 = 0;
+ evt->SetBranchAddress("HLT_IsoMu24", &myHLT_IsoMu24);
+
+ int myHLT_IsoMu27 = 0;
+ evt->SetBranchAddress("HLT_IsoMu27", &myHLT_IsoMu27);
+
  // initializing sum of weights                                                                                                                                                                
  TH1F * GenEventWeight;
  GenEventWeight = (TH1F*)inputfile->Get("h_genweight");
@@ -164,7 +170,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 //   if (HT_jl > 400) {
 
 
- if (myHLT_PFJet450 == 1) {
+ if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
    h_HT_nocat->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
 
@@ -179,7 +185,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if (is1tau0L) {
 
-     if (myHLT_PFJet450 == 1) {
+     if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -193,7 +199,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if ((is1tau1e) || (is1tau1mu)) {
 
-     if (myHLT_PFJet450 == 1) {
+     if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_1tau1L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -205,7 +211,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is1tau2OSL || is1tau2SSL) {
  
-   if (myHLT_PFJet450 == 1) {
+   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_1tau2L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -217,7 +223,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is1tau3L) {
 
-   if (myHLT_PFJet450 == 1) {
+   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_1tau3L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -229,7 +235,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is2tau0L) {
 
-  if (myHLT_PFJet450 == 1) {
+  if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_2tau0L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -241,7 +247,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if ((is2tau1e) || (is2tau1mu)) {
 
-   if (myHLT_PFJet450 == 1) {
+   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_2tau1L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        
@@ -253,7 +259,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is2tau2OSL || is2tau2SSL) {
 
-   if (myHLT_PFJet450 == 1) {
+   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
        h_HT_2tau2L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
        

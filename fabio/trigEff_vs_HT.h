@@ -4,7 +4,7 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_refTriggers/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
@@ -12,7 +12,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 //{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
 
 //ttbar background    
-//{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
+{"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
   
 //QCD background
 //{"QCD_HT200to300", dir + "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
@@ -24,7 +24,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"QCD_HT2000toInf", dir + "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
 /*  
 //tt+X background
-//{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
+{"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
 {"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
 {"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8.root"},
 {"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root"},
