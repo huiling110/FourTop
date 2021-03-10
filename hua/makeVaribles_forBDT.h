@@ -124,18 +124,29 @@ public :
     Double_t  jetsL_MHTDividedByMet= -99;
     Double_t jetsL_leptonsMVAT_minDeltaR= -99;
     Double_t jetsL_tausF_minDeltaR= -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
-    // Double_t = -99;
+
+    Int_t bjetsL_num = -99;
+    Int_t bjetsM_num= -99;
+    Int_t bjetsT_num= -99;
+    Double_t bjetsL_HT= -99;
+    Double_t bjetsM_HT= -99;
+    Double_t bjetsT_HT= -99;
+    Double_t bjetsL_MHT= -99;
+    Double_t bjetsM_MHT= -99;
+    Double_t bjetsT_MHT= -99;
+    Double_t bjetsL_invariantMass= -99;
+    Double_t bjetsM_invariantMass= -99;
+    Double_t bjetsT_invariantMass= -99;
+    Double_t bjetsL_transMass= -99;
+    Double_t bjetsM_transMass= -99;
+    Double_t bjetsT_transMass= -99;
+    Double_t bjetsL_minDeltaR= -99;
+    Double_t bjetsM_minDeltaR= -99;
+    Double_t bjetsT_minDeltaR= -99;
+    Double_t bjetsL_leptonsMVAT_minDeltaR= -99;
+    Double_t bjetsM_leptonsMVAT_minDeltaR= -99;
+    Double_t bjetsT_leptonsMVAT_minDeltaR= -99;
+    Double_t bjetsL_tausF_minDeltaR= -99;
 
 
 

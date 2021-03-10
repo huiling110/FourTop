@@ -441,6 +441,69 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
   newtree->Branch("jetsL_MHTDividedByMet", &jetsL_MHTDividedByMet, "jetsL_MHTDividedByMet/D");
 
+  newtree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
+  newtree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
+  newtree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
+  newtree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
+  newtree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
+  newtree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
+  newtree->Branch("bjetsL_MHT", &bjetsL_MHT, "bjetsL_MHT/D");
+  newtree->Branch("bjetsM_MHT", &bjetsM_MHT, "bjetsM_MHT/D");
+  newtree->Branch("bjetsT_MHT", &bjetsT_MHT, "bjetsT_MHT/D");
+  newtree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
+                  "bjetsL_invariantMass/D");
+  newtree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
+                  "bjetsM_invariantMass/D");
+  newtree->Branch("bjetsT_invariantMass", &bjetsT_invariantMass,
+                  "bjetsT_invariantMass/D");
+  newtree->Branch("bjetsL_transMass", &bjetsL_transMass, "bjetsL_transMass/D");
+  newtree->Branch("bjetsM_transMass", &bjetsM_transMass, "bjetsM_transMass/D");
+  newtree->Branch("bjetsT_transMass", &bjetsT_transMass, "bjetsT_transMass/D");
+  newtree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
+  newtree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
+  newtree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
+  newtree->Branch("bjetsL_leptonsMVAT_minDeltaR", &bjetsL_leptonsMVAT_minDeltaR, "bjetsL_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsM_leptonsMVAT_minDeltaR", &bjetsM_leptonsMVAT_minDeltaR, "bjetsM_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsT_leptonsMVAT_minDeltaR", &bjetsT_leptonsMVAT_minDeltaR, "bjetsT_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsL_tausF_minDeltaR", &bjetsL_tausF_minDeltaR, "bjetsL_tausF_minDeltaR/D");
+  // newtree->Branch("", &, "/D");
+  // newtree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
+  // newtree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
+  // newtree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
+  // newtree->Branch("bjetsL_2pt", &bjetsL_2pt, "bjetsL_2pt/D");
+  // newtree->Branch("bjetsL_2eta", &bjetsL_2eta, "bjetsL_2eta/D");
+  // newtree->Branch("bjetsL_2phi", &bjetsL_2phi, "bjetsL_2phi/D");
+  // newtree->Branch("bjetsL_3pt", &bjetsL_3pt, "bjetsL_3pt/D");
+  // newtree->Branch("bjetsL_3eta", &bjetsL_3eta, "bjetsL_3eta/D");
+  // newtree->Branch("bjetsL_3phi", &bjetsL_3phi, "bjetsL_3phi/D");
+  // newtree->Branch("bjetsL_4pt", &bjetsL_4pt, "bjetsL_4pt/D");
+  // newtree->Branch("bjetsL_4eta", &bjetsL_4eta, "bjetsL_4eta/D");
+  // newtree->Branch("bjetsL_4phi", &bjetsL_4phi, "bjetsL_4phi/D");
+  // newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
+  // newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
+  // newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
+  // newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
+  // newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
+  // newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
+  // newtree->Branch("bjetsM_3pt", &bjetsM_3pt, "bjetsM_3pt/D");
+  // newtree->Branch("bjetsM_3eta", &bjetsM_3eta, "bjetsM_3eta/D");
+  // newtree->Branch("bjetsM_3phi", &bjetsM_3phi, "bjetsM_3phi/D");
+  // newtree->Branch("bjetsM_4pt", &bjetsM_4pt, "bjetsM_4pt/D");
+  // newtree->Branch("bjetsM_4eta", &bjetsM_4eta, "bjetsM_4eta/D");
+  // newtree->Branch("bjetsM_4phi", &bjetsM_4phi, "bjetsM_4phi/D");
+  // newtree->Branch("bjetsT_1pt", &bjetsT_1pt, "bjetsT_1pt/D");
+  // newtree->Branch("bjetsT_1eta", &bjetsT_1eta, "bjetsT_1eta/D");
+  // newtree->Branch("bjetsT_1phi", &bjetsT_1phi, "bjetsT_1phi/D");
+  // newtree->Branch("bjetsT_2pt", &bjetsT_2pt, "bjetsT_2pt/D");
+  // newtree->Branch("bjetsT_2eta", &bjetsT_2eta, "bjetsT_2eta/D");
+  // newtree->Branch("bjetsT_2phi", &bjetsT_2phi, "bjetsT_2phi/D");
+  // newtree->Branch("bjetsT_3pt", &bjetsT_3pt, "bjetsT_3pt/D");
+  // newtree->Branch("bjetsT_3eta", &bjetsT_3eta, "bjetsT_3eta/D");
+  // newtree->Branch("bjetsT_3phi", &bjetsT_3phi, "bjetsT_3phi/D");
+  // newtree->Branch("bjetsT_4pt", &bjetsT_4pt, "bjetsT_4pt/D");
+  // newtree->Branch("bjetsT_4eta", &bjetsT_4eta, "bjetsT_4eta/D");
+  // newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
+
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -556,6 +619,28 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      jetsL_leptonsMVAT_minDeltaR= -99;
      jetsL_tausF_minDeltaR= -99;
 
+     bjetsL_num = -99;
+     bjetsM_num= -99;
+     bjetsT_num= -99;
+     bjetsL_HT= -99;
+     bjetsM_HT= -99;
+     bjetsT_HT= -99;
+     bjetsL_MHT= -99;
+     bjetsM_MHT= -99;
+     bjetsT_MHT= -99;
+     bjetsL_invariantMass= -99;
+     bjetsM_invariantMass= -99;
+     bjetsT_invariantMass= -99;
+     bjetsL_transMass= -99;
+     bjetsM_transMass= -99;
+     bjetsT_transMass= -99;
+     bjetsL_minDeltaR= -99;
+     bjetsM_minDeltaR= -99;
+     bjetsT_minDeltaR= -99;
+     bjetsL_leptonsMVAT_minDeltaR= -99;
+     bjetsM_leptonsMVAT_minDeltaR= -99;
+     bjetsT_leptonsMVAT_minDeltaR= -99;
+     bjetsL_tausF_minDeltaR= -99;
 
       // = -99;
       // = -99;
@@ -731,6 +816,28 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jetsL_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
  
 
+      bjetsL_num = bjetsL.GetSize();
+      bjetsM_num = bjetsM.GetSize(); //
+      bjetsT_num = bjetsT.GetSize();
+      bjetsL_HT = HTcalculator(bjetsL);
+      bjetsM_HT = HTcalculator(bjetsM);
+      bjetsT_HT = HTcalculator(bjetsT);
+      bjetsL_MHT =  MHTcalculator(bjetsL); // 900;return the pt sum of,vetctor sum
+      bjetsM_MHT =  MHTcalculator(bjetsM); // 900;return the pt sum of,vetctor sum
+      bjetsT_MHT =  MHTcalculator(bjetsT); // 900;return the pt sum of,vetctor sum
+      bjetsL_invariantMass = InvariantMassCalculator(bjetsL);
+      bjetsM_invariantMass = InvariantMassCalculator(bjetsM);
+      bjetsT_invariantMass = InvariantMassCalculator(bjetsT);
+      bjetsL_transMass = TransMassCal(bjetsL);
+      bjetsM_transMass = TransMassCal(bjetsM);
+      bjetsT_transMass = TransMassCal(bjetsT);
+      bjetsL_minDeltaR = MinDeltaRSingleCal(bjetsL);
+      bjetsM_minDeltaR = MinDeltaRSingleCal(bjetsM);
+      bjetsT_minDeltaR = MinDeltaRSingleCal(bjetsT);
+      bjetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(bjetsL, leptonsMVAT);
+      bjetsM_leptonsMVAT_minDeltaR = MinDeltaRCal(bjetsM, leptonsMVAT);
+      bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(bjetsT, leptonsMVAT);
+      bjetsL_tausF_minDeltaR = MinDeltaRCal(bjetsL, tausF);
 
 
 
