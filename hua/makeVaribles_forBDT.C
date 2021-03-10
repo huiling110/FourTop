@@ -33,6 +33,23 @@ bool comparePt(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
+double DeltaR(double eta1, double eta2, double phi1, double phi2) {
+  double deltaPhi = TMath::Abs(phi1 - phi2);
+  double deltaEta = eta1 - eta2;
+  if (deltaPhi > TMath::Pi())
+    deltaPhi = TMath::TwoPi() - deltaPhi;
+  return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
+}
+
+double deltRmin(const double eta1, const double phi1, const TTreeReaderArray<TLorentzVector>& LeptonsMVAF){
+    double deltaR = 0;
+    double minDeltaR = 100;
+    for (UInt_t lep = 0; lep < LeptonsMVAF.GetSize(); lep++){
+        deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
+        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+    }
+    return minDeltaR; 
+}
 // double HTcalculator(vector<TLorentzVector> SelectedJets) {
 double HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
@@ -206,6 +223,50 @@ double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
   return min_3;
 }
 
+double AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
+  double eta_1;
+  double phi_1;
+  double eta_2;
+  double phi_2;
+  double sum_delta_R = 0.0;
+  const Int_t num = SelectedJets.GetSize();
+  for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+    eta_1 = SelectedJets[j].Eta();
+    phi_1 = SelectedJets[j].Phi();
+    for (UInt_t k = 0; k < SelectedJets.GetSize(); ++k) {
+      if (k != j) {
+        eta_2 = SelectedJets[k].Eta();
+        phi_2 = SelectedJets[k].Phi();
+        sum_delta_R = sum_delta_R + DeltaR(eta_1, eta_2, phi_1, phi_2);
+      }
+    }
+  }
+  sum_delta_R = sum_delta_R / ((num - 1) * num);
+  return sum_delta_R;
+}
+// double bscoreSumOf4largestCal(const TTreeReaderArray<double>& SelectedJetsBTags) {
+    // vector<double> jetsBtags = SelectedJetsBTags;
+    // sort(jetsBtags.begin(),jetsBtags.end());
+    // reverse(jetsBtags.begin(),jetsBtags.end());
+    // double sum = -99;
+    // if(SelectedJetsBTags.GetSize()>3) {
+        // sum = jetsBtags[0]+jetsBtags[1]+jetsBtags[2]+jetsBtags[3];
+    // }
+    // else{
+        // sum =  -99;
+    // }
+    // return sum;
+// }
+double BScoreAllJetsCal(const TTreeReaderArray<double>& SelectedJetsBTags) {
+  double initB = 0;
+  for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j) {
+    initB = initB + SelectedJetsBTags[j];
+  }
+  return initB;
+}
+
+
+
 
 
 
@@ -253,7 +314,6 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
    newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
    newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
-   // newtree->Branch( "elesMVAT_number_IsoT", &elesMVAT_number_IsoT, "elesMVAT_number_IsoT/I");
   newtree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
                   "elesMVAF_1pt/D");
    newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
@@ -322,6 +382,64 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
 
    // newtree->Branch( "", &, "/");
+   //
+   //
+   //
+   
+  newtree->Branch("jetsL_number", &jetsL_number, "jetsL_number/I");
+  newtree->Branch("jetsL_HT", &jetsL_HT, "jetsL_HT/D");
+  newtree->Branch("jetsL_MHT", &jetsL_MHT, "jetsL_MHT/D");
+  newtree->Branch("jetsL_invariantMass", &jetsL_invariantMass,
+                  "jetsL_invariantMass/D");
+  newtree->Branch("jetsL_transMass", &jetsL_transMass, "jetsL_transMass/D");
+  newtree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
+  newtree->Branch("jetsL_centrality", &jetsL_centrality, "jetsL_centrality/D");
+  newtree->Branch("jetsL_bScore", &jetsL_bScore, "jetsL_bScore/D");
+  newtree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
+  newtree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
+  // newtree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
+  // newtree->Branch("jetsL_rationHT_4toRest", &jetsL_rationHT_4toRest,"jetsL_rationHT_4toRest/D");
+
+  newtree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
+                  "jetsL_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("jetsL_tausF_minDeltaR", &jetsL_tausF_minDeltaR,
+                  "jetsL_tausF_minDeltaR/D");
+  // newtree->Branch("jetsL_1pt", &jetsL_1pt, "jetsL_1pt/D");
+  // newtree->Branch("jetsL_1eta", &jetsL_1eta, "jetsL_1eta/D");
+  // newtree->Branch("jetsL_1phi", &jetsL_1phi, "jetsL_1phi/D");
+  // newtree->Branch("jetsL_2pt", &jetsL_2pt, "jetsL_2pt/D");
+  // newtree->Branch("jetsL_2eta", &jetsL_2eta, "jetsL_2eta/D");
+  // newtree->Branch("jetsL_2phi", &jetsL_2phi, "jetsL_2phi/D");
+  // newtree->Branch("jetsL_3pt", &jetsL_3pt, "jetsL_3pt/D");
+  // newtree->Branch("jetsL_3eta", &jetsL_3eta, "jetsL_3eta/D");
+  // newtree->Branch("jetsL_3phi", &jetsL_3phi, "jetsL_3phi/D");
+  // newtree->Branch("jetsL_4pt", &jetsL_4pt, "jetsL_4pt/D");
+  // newtree->Branch("jetsL_4eta", &jetsL_4eta, "jetsL_4eta/D");
+  // newtree->Branch("jetsL_4phi", &jetsL_4phi, "jetsL_4phi/D");
+  // newtree->Branch("jetsL_5pt", &jetsL_5pt, "jetsL_5pt/D");
+  // newtree->Branch("jetsL_5eta", &jetsL_5eta, "jetsL_5eta/D");
+  // newtree->Branch("jetsL_5phi", &jetsL_5phi, "jetsL_5phi/D");
+  // newtree->Branch("jetsL_6pt", &jetsL_6pt, "jetsL_6pt/D");
+  // newtree->Branch("jetsL_6eta", &jetsL_6eta, "jetsL_6eta/D");
+  // newtree->Branch("jetsL_6phi", &jetsL_6phi, "jetsL_6phi/D");
+  // newtree->Branch("jetsL_7pt", &jetsL_7pt, "jetsL_7pt/D");
+  // newtree->Branch("jetsL_7eta", &jetsL_7eta, "jetsL_7eta/D");
+  // newtree->Branch("jetL_7phi", &jetL_7phi, "jetL_7phi/D");
+  // newtree->Branch("jetsL_8pt", &jetsL_8pt, "jetsL_8pt/D");
+  // newtree->Branch("jetsL_8eta", &jetsL_8eta, "jetsL_8eta/D");
+  // newtree->Branch("jetsL_8phi", &jetsL_8phi, "jetsL_8phi/D");
+  // newtree->Branch("jetsL_9pt", &jetsL_9pt, "jetsL_9pt/D");
+  // newtree->Branch("jetsL_9eta", &jetsL_9eta, "jetsL_9eta/D");
+  // newtree->Branch("jetsL_9phi", &jetsL_9phi, "jetsL_9phi/D");
+  // newtree->Branch("jetsL_10pt", &jetsL_10pt, "jetsL_10pt/D");
+  // newtree->Branch("jetsL_10eta", &jetsL_10eta, "jetsL_10eta/D");
+  // newtree->Branch("jetsL_10phi", &jetsL_10phi, "jetsL_10phi/D");
+  // newtree->Branch("jetsL_11pt", &jetsL_11pt, "jetsL_11pt/D");
+  // newtree->Branch("jetsL_11eta", &jetsL_11eta, "jetsL_11eta/D");
+  // newtree->Branch("jetsL_11phi", &jetsL_11phi, "jetsL_11phi/D");
+  newtree->Branch("jetsL_HTDividedByMet", &jetsL_HTDividedByMet, "jetsL_HTDividedByMet/D");
+  newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
+  newtree->Branch("jetsL_MHTDividedByMet", &jetsL_MHTDividedByMet, "jetsL_MHTDividedByMet/D");
 
 }
 
@@ -367,7 +485,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      elesMVAL_number = -99;
      elesMVAF_number = -99;
      elesMVAT_number = -99;
-     // elesMVAT_number_IsoT = -99;
      elesMVAF_1pt = -99;
      leptonsMVAT_number = -99;
      leptonsMVAF_number = -99;
@@ -421,6 +538,24 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      tauL_3pt = -99;
      tauL_3eta = -99;
      tauL_3phi = -99;
+
+
+      jetsL_number= -99;
+      jetsL_MHT= -99;
+      jetsL_HT= -99;
+      jetsL_invariantMass= -99;
+      jetsL_transMass= -99;
+      jetL_minDeltaR= -99;
+      jetsL_centrality= -99;
+      jetsL_bScore= -99;
+      jetsL_average_deltaR= -99;
+      jetsL_4largestBscoreSum= -99;
+      jetsL_HTDividedByMet= -99;
+      MetDividedByHT= -99;
+      jetsL_MHTDividedByMet= -99;
+     jetsL_leptonsMVAT_minDeltaR= -99;
+     jetsL_tausF_minDeltaR= -99;
+
 
       // = -99;
       // = -99;
@@ -503,23 +638,23 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
       // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
       //???sort not working here 
-      // if (leptonsMVAT_number > 0) {
-        // leptonsMVAT_1pt = leptonsMVAT[0].Pt();
-        // leptonsMVAT_1eta = leptonsMVAT[0].Eta();
-        // leptonsMVAT_1phi = leptonsMVAT[0].Phi();
-      // 
-      // }
-      // if (leptonsMVAT_number > 1) {
-        // leptonsMVAT_2pt = leptonsMVAT[1].Pt();
-        // leptonsMVAT_2eta = leptonsMVAT[1].Eta();
-        // leptonsMVAT_2phi = leptonsMVAT[1].Phi();
-        // 
-      // }
-      // if (leptonsMVAT_number > 2) {
-        // leptonsMVAT_3pt = leptonsMVAT[2].Pt();
-        // leptonsMVAT_3eta = leptonsMVAT[2].Eta();
-        // leptonsMVAT_3phi = leptonsMVAT[2].Phi();
-      // }
+      if (leptonsMVAT_number > 0) {
+        leptonsMVAT_1pt = leptonsMVAT[0].Pt();
+        leptonsMVAT_1eta = leptonsMVAT[0].Eta();
+        leptonsMVAT_1phi = leptonsMVAT[0].Phi();
+      
+      }
+      if (leptonsMVAT_number > 1) {
+        leptonsMVAT_2pt = leptonsMVAT[1].Pt();
+        leptonsMVAT_2eta = leptonsMVAT[1].Eta();
+        leptonsMVAT_2phi = leptonsMVAT[1].Phi();
+        
+      }
+      if (leptonsMVAT_number > 2) {
+        leptonsMVAT_3pt = leptonsMVAT[2].Pt();
+        leptonsMVAT_3eta = leptonsMVAT[2].Eta();
+        leptonsMVAT_3phi = leptonsMVAT[2].Phi();
+      }
 
 
       // hadronic tau selection
@@ -568,6 +703,32 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         tauL_3eta = tausL[2].Eta();
         tauL_3phi = tausL[2].Phi();
       }
+
+
+
+
+      //jets
+      
+      jetsL_number = jets.GetSize();
+      jetsL_MHT =  MHTcalculator(jets); // 900;return the pt sum of,vetctor sum
+      jetsL_HT = HTcalculator(jets);
+      jetsL_invariantMass = InvariantMassCalculator(jets);
+      jetsL_transMass = TransMassCal(jets);
+      jetL_minDeltaR = MinDeltaRSingleCal(jets);
+      jetsL_centrality = jetsL_HT / jetsL_invariantMass;
+      jetsL_bScore = BScoreAllJetsCal( jets_btags );
+      jetsL_average_deltaR = AverageDeltaRCal(jets);
+      // jetsL_4largestBscoreSum = bscoreSumOf4largestCal( jets_btags);
+      // ???bscoreSumOf4largestCal function having bit of problem
+      if (Met_pt_ == 0) {
+        jetsL_HTDividedByMet = 0;
+      } else {
+        jetsL_HTDividedByMet = jetsL_HT / Met_pt_;
+      }
+      MetDividedByHT = Met_pt_ / jetsL_HT;
+      jetsL_MHTDividedByMet = jetsL_MHT / Met_pt_;
+      jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
+      jetsL_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
  
 
 

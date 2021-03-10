@@ -109,6 +109,33 @@ public :
     Double_t     tauL_3eta = -99;
     Double_t     tauL_3phi = -99;
     // Double_t ;
+    Int_t  jetsL_number= -99;
+    Double_t  jetsL_MHT= -99;
+    Double_t  jetsL_HT= -99;
+    Double_t  jetsL_invariantMass= -99;
+    Double_t  jetsL_transMass= -99;
+    Double_t  jetL_minDeltaR= -99;
+    Double_t  jetsL_centrality= -99;
+    Double_t  jetsL_bScore= -99;
+    Double_t  jetsL_average_deltaR= -99;
+    Double_t  jetsL_4largestBscoreSum= -99;
+    Double_t  jetsL_HTDividedByMet= -99;
+    Double_t  MetDividedByHT= -99;
+    Double_t  jetsL_MHTDividedByMet= -99;
+    Double_t jetsL_leptonsMVAT_minDeltaR= -99;
+    Double_t jetsL_tausF_minDeltaR= -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
+    // Double_t = -99;
 
 
 
