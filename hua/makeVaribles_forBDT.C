@@ -294,6 +294,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree = new TTree( "newtree", "tree for BDT");
 
+   newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
+   newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
    newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
 
@@ -529,7 +531,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
     fProcessed++;
 
-    //initialize
+    //initialize{{{
+     EVENT_prefireWeight  = -99;
+     EVENT_genWeight = -99;
     HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
     Met_pt_ = -99;
@@ -679,10 +683,16 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      bjetsT_4eta = -99;
      bjetsT_4phi = -99;
 
-
      forwardJets_num = -99;
-      // = -99;
-      // = -99;
+      // = -99;}}}
+
+
+
+     //weights
+     EVENT_prefireWeight = *EVENT_prefireWeight_;
+     EVENT_genWeight = *EVENT_genWeight_;
+
+
 
 
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
@@ -690,7 +700,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
-
               
 
     muonsL_number = muonsL.GetSize();
@@ -827,11 +836,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         tauL_3phi = tausL[2].Phi();
       }
 
-
-
-
       //jets
-      
       jetsL_number = jets.GetSize();
       jetsL_MHT =  MHTcalculator(jets); // 900;return the pt sum of,vetctor sum
       jetsL_HT = HTcalculator(jets);
