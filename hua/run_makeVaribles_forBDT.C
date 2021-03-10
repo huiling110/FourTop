@@ -9,8 +9,8 @@ void run_makeVaribles_forBDT(
     
     gROOT->ProcessLine(".L Loader.C+");
 
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v31_fixedLeptonBug/";
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v31_fixedLeptonBug/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
     TString inputFile = inputBase + inputDir + "/";
     cout<<"input file:"<<inputFile<<endl;
 
@@ -25,9 +25,27 @@ void run_makeVaribles_forBDT(
 
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
-        chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
+
+
+    cout<<"--------"<<endl;
+    cout<<"---------"<<endl;
+    cout<<"now comes to add allevents stage"<<endl;
+    TFile* file = TFile::Open(  outputDir + outputFileName , "UPDATE");
+    cout<<"file opened :"<<file->GetName();
+    TChain chain2( "allevents");
+    chain2.Add(inputFile + "v3*.root" );
+    chain2.ls();
+    // chain2.Merge( file, 1000, "C" );
+    chain2.Merge( file, 2000 );
+    // chain2.Merge( file, "C" );
+    // chain2.Merge( file );
+    // chain2.Merge();
+    file->Write();
+    file->Close();
 
 
 

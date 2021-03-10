@@ -241,6 +241,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
    fProcessed++;
 
+   genWeight_allEvents = -99;
    //
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *EVENT_genWeight );
