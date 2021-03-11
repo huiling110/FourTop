@@ -21,14 +21,22 @@ if os.path.exists(subAllFile):
 if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
     os.mkdir('Jobsubmit_seperate/')
 
-sample = {
-}
 #better not change code after this line
 
+def prepareCshJob(inputFile,shFile ):
+    subFile  = file(shFile,"w")
+    print >> subFile, "#!/bin/bash"
+    print >> subFile, "/bin/hostname"
+    #  print >> subFile, "gcc -v"
+    #  print >> subFile, "pwd"
+    print >> subFile, "cd "+Jobsubmitpath
+    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputFile+"\","+"\""+outputDir+ "\""  + ")"+ "\'"
+    print shFile
 
 subAllProcessName = file(subAllFile,"w")
 print >> subAllProcessName, "#!/bin/bash"
-print >> subAllProcessName, "cd "+Jobsubmitpath+"Jobsubmit_seperate"
+#  print >> subAllProcessName, "cd "+Jobsubmitpath+"Jobsubmit_seperate"
+print >> subAllProcessName, "cd "+Jobsubmitpath
 
 for entry in os.listdir(inputDir ):
     #  if entry
@@ -37,8 +45,8 @@ for entry in os.listdir(inputDir ):
 
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
-    logFile = outputDir +   "/log/" + entry + ".log"
-    errFile = outputDir +  "/log/" + entry +".err"
+    logFile = outputDir +   "log/" + entry + ".log"
+    errFile = outputDir +  "log/" + entry +".err"
     print >> subAllProcessName, "hep_sub "+  processJob  + " -o " + logFile + " -e " + errFile
 
 
@@ -50,15 +58,6 @@ os.popen('chmod 777 '+Jobsubmitpath+"/subAllProcess.sh")
 
 
 
-def prepareCshJob(inputFile,shFile ):
-    subFile  = file(shFile,"w")
-    print >> subFile, "#!/bin/bash"
-    print >> subFile, "/bin/hostname"
-    #  print >> subFile, "gcc -v"
-    #  print >> subFile, "pwd"
-    print >> subFile, "cd "+Jobsubmitpath
-    print >> subFile, "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputFile+"\","+"\""+outputDir+ "\""  + ")"+ "\'"
-    print shFile
 
 
 #  subAllProcessName = file(subAllFile,"w")
