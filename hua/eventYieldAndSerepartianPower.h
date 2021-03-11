@@ -218,9 +218,6 @@ TTree *Tree44 =   (TTree*)file44->Get("tree");
 TTree *Tree45 =   (TTree*)file45->Get("tree");
 */
 
-// vector<TTree*> allTree = {
-    // Tree02,Tree03,Tree04,Tree05,Tree06,Tree07,[>Tree08,*/Tree09,Tree10_1,Tree11,Tree12,Tree13,Tree14,Tree15,Tree16,Tree17,Tree18,Tree19,Tree20,Tree21,Tree22,Tree23,Tree24,Tree25,/*Tree26,*/Tree27,Tree28,Tree29,Tree30,Tree31,Tree32,Tree33,Tree34,Tree35,Tree36,Tree37,Tree38,Tree39,Tree40,Tree41,Tree42,/*Tree43,<]Tree44,Tree45
-// };
 
                                                    
 
