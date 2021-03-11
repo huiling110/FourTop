@@ -297,7 +297,7 @@ for (UInt_t  cha=0; cha<1; cha++){
   	    const char *plot = variablelist[i];
 
         TH1D* TTTT = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
-        TH1D* TTTo2L2Nu = new TH1D( "TT",plot,bin[i],Min[i],Max[i]); TH1D* TTToHadronic = new TH1D( "TT",plot,bin[i],Min[i],Max[i]); 
+        TH1D* TTTo2L2Nu = new TH1D( "TTTo2L2Nu", plot,bin[i],Min[i],Max[i]); TH1D* TTToHadronic = new TH1D( "TTToHadronic",plot,bin[i],Min[i],Max[i]); TH1D* TTToSemiLeptonic = new TH1D( "TTToSemiLeptonic",plot,bin[i],Min[i],Max[i]);
         TH1D* TTGJets = new TH1D( "TTGJets",plot,bin[i],Min[i],Max[i]);TH1D* ttZJets = new TH1D( "ttZJets",plot,bin[i],Min[i],Max[i]); TH1D* ttWJets = new TH1D( "ttWJets",plot,bin[i],Min[i],Max[i]);TH1D* ttH = new TH1D( "ttH",plot,bin[i],Min[i],Max[i]); /*TH1D* ttbb = new TH1D( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
         TH1D* WZ = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]); TH1D* WWTo2L2Nu = new TH1D( "WWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* WpWpJJ = new TH1D( "WpWpJJ",plot,bin[i],Min[i],Max[i]);TH1D* ZZ = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]);TH1D* WGJets = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]);TH1D* ZGJetsToLLG = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
         TH1D* WWW = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]); TH1D* WWZ = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]); TH1D* WWG = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]); TH1D* ZZZ = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZZ = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZG = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]); TH1D* WGG = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]); TH1D* ZGGJets = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
@@ -306,7 +306,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         TH1D* VHToNonbb = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1D* ZHToTauTau = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* ZH_HToBB_ZToLL = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToZZTo4L = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToBB = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToGG = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToMuMu = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToTauTau = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWTo2L2Nu = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWToLNuQQ = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToWWTo2L2Nu = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);/* TH1D* VBFHToTauTau = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); */TH1D* VBFHToMuMu = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToGG = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
         vector<TH1D*> allHistos  {
             TTTT,//0
-            TTTo2L2Nu, TTToHadronic,
+            TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,
             // TTGJets,ttZJets,ttWJets,ttH, //5
             // WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//11
              // WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//19
@@ -328,16 +328,15 @@ for (UInt_t  cha=0; cha<1; cha++){
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
-            h_genWeight->Print();
+            // h_genWeight->Print();
             allTree_gen[j]->Project( "genWeight", "genWeight_allEvents");
             h_genWeight->Print();
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             cout<<"sumGenWeights = "<<sumGenWeights<<endl;
 
             // allTree[j]->Project( hname, plot, weight*channelCut[cha] );//step4
-            allTree[j]->Project(hname,plot, weight);//step0
-            // allTree[j]->Project( hname, "jetsL_number", weight);//step0
-            // allTree[j]->Project(hname,plot, weight*channelCut_step1[cha]);//step1
+            // allTree[j]->Project(hname,plot, weight);//step0
+            allTree[j]->Project( hname, plot, weight*channelCut_step1[cha]);//step1
             // allTree[j]->Project(hname,plot, weight*channelCut_step2[cha]);//step2
             // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
            allHistos[j]->Print();
@@ -355,8 +354,10 @@ for (UInt_t  cha=0; cha<1; cha++){
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
-            cout<<"TTTT   = "<<(allHistos[0])->Integral()<<endl;
-            cout<<"TT     = "<<allHistos[1]->Integral()<<endl;
+            cout<<"TTTT            = "<<(allHistos[0])->Integral()<<endl;
+            cout<<"TTTo2L2Nu       = "<<allHistos[1]->Integral()<<endl;
+            cout<<"TTToHadronic    = "<<allHistos[2]->Integral()<<endl;
+            cout<<"TTToSemiLeptonic= "<<allHistos[3]->Integral()<<endl;
             // cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
             // cout<<"VV     = "<<allHistos[6]->Integral()+allHistos[7]->Integral()+allHistos[8]->Integral()+allHistos[9]->Integral()+allHistos[10]->Integral()+allHistos[11]->Integral()<<endl;
             // cout<<"VVV    = "<<allHistos[12]->Integral()+allHistos[13]->Integral()+allHistos[14]->Integral()+allHistos[15]->Integral()+allHistos[16]->Integral()+allHistos[17]->Integral()+allHistos[18]->Integral()+allHistos[19]->Integral()<<endl;
@@ -364,13 +365,13 @@ for (UInt_t  cha=0; cha<1; cha++){
             // cout<<"DY     = "<<allHistos[21]->Integral()<<endl;
             // cout<<"ST     = "<<allHistos[22]->Integral()+allHistos[23]->Integral()+allHistos[24]->Integral()+allHistos[25]->Integral()+allHistos[26]->Integral()+allHistos[27]->Integral()<<endl;
             // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
-            cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+            cout<<"Total BKG       = "<<background_SR->Integral()<<endl;
             // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
             cout<<endl;
             
             cout<<"Statistics"<<endl;
-            cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
-            cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
+            // cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
+            // cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
             // cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
             // cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
             // cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales_v2[12]) + (allHistos[13]->Integral()/allScales_v2[13]) + (allHistos[14]->Integral()/allScales_v2[14]) + (allHistos[15]->Integral()/allScales_v2[15]) + (allHistos[16]->Integral()/allScales_v2[16]) + (allHistos[17]->Integral()/allScales_v2[17]) + (allHistos[18]->Integral()/allScales_v2[18]) + (allHistos[19]->Integral()/allScales_v2[19]) <<endl;
@@ -478,7 +479,6 @@ for (UInt_t  cha=0; cha<1; cha++){
  
         TString NAME = variablelist[i];
        //c1->SaveAs(NAME+".pdf");
-       // c1->SaveAs("/publicfs/cms/user/huahuil/FourTop/2016v1/SelectionNew_PlayWithMC_v1/reslult1/"+NAME+".pdf");
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;

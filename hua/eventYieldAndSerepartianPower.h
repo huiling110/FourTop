@@ -4,6 +4,32 @@
 #include "TH1D.h"
 
 
+//sequence matter very much here
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
+
+//TFile *file01 =   TFile::Open("data.root");
+TFile *file02 =   TFile::Open(baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root");
+TTree *Tree02 =   (TTree*)file02->Get("newtree");
+TTree *Tree02all =   (TTree*)file02->Get("allevents");
+//5
+TFile *file03 =   TFile::Open(baseDir+"TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root");
+TTree *Tree03 =   (TTree*)file03->Get("newtree");
+TTree *Tree03all =   (TTree*)file03->Get("allevents");
+TFile *file03_1 =   TFile::Open(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root");
+TTree *Tree03_1 =   (TTree*)file03->Get("newtree");
+TTree *Tree03_1all =   (TTree*)file03->Get("allevents");
+TFile *file03_2 =   TFile::Open(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root");
+TTree *Tree03_2 =   (TTree*)file03->Get("newtree");
+TTree *Tree03_2all =   (TTree*)file03->Get("allevents");
+vector<TTree*> allTree = {
+    Tree02,Tree03, Tree03_1, Tree03_2
+};
+vector<TTree*> allTree_gen = {
+    Tree02all, Tree03all, Tree03_1all, Tree03_2all
+};
+
+
+
 float separationPower(TH1D* h1, TH1D* h2);
 
 int SigSF = 1;
@@ -11,87 +37,6 @@ int SigSF = 1;
 float LUMI = 35900; //fb
 //?where to get the more precise LUMI?
 //SIGNAL
-//double wTTTT = (SigSF*LUMI*0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
-double wTTTT_v2 = (SigSF*LUMI*0.01197)/(21942.3);//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root : 21942.3
-//tt
-double wTTJets_v2 = (LUMI*746.7)/(9.68684e+10);//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root : 9.68684e+10
-double wTT_v2     = (LUMI*746.7)/(7.69155e+07)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root : 7.69155e+07
-//1.67772e+07
-
-double wTTGJets_v2 = (LUMI*3.773)/(3.33781e+07);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root: 3.33781e+07
-double wttZJets_v2 = (LUMI*0.6559)/(9.88336e+06) ;      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-) //ttZJets_13TeV_madgraphMLM-pythia8.root : 9.88336e+06
-double wttWJets_v2 = (LUMI*0.2014)/(6.70044e+06);  ; //  ttWJets_13TeV_madgraphMLM.root : 6.70044e+06
-double wttH_v2= (LUMI*0.3372)/(9.5664e+06);  ; //ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root : 9.5664e+06
-
-// double wttbb_v2= (LUMI*1.393)/(2556073-1427835);// ttbb_4FS_ckm_amcatnlo_madspin_pythia8.root:  Positive:2556073  Negtive:1427835  ;
-//diboson and triboson an w_v2/z+jets
-double wWZ_v2= (LUMI*2.343)/(2.99757e+06);  ;//WZ_TuneCUETP8M1_13TeV-pythia8.root : 2.99757e+06
-//double wWW_v2= (LUMI*6.430)/(-);//?something wrong with ntuple
-double wWWTo2L2Nu_v2 = (LUMI*0.1697)/(999367);   ;//r WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root : 999367
-double wWpWpJJ_v2= (LUMI*0.05390)/(149681);  ;//WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root : 149681
-double wZZ_v2  = (LUMI*1.016)/(998034);  ;//ZZ_TuneCUETP8M1_13TeV-pythia8.root : 998034
-double wWGJets_v2 = (LUMI*1.269)/(5.07768e+06);  ;//WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root : 5.07768e+06
-double wZGJetsToLLG_v2 = (LUMI*0.1319)/(1.91648e+08);  ;// ZGJetsToLLG_EW_LO_13TeV-sherpa.root : 1.91648e+08
-//
-double wWWW_v2= (LUMI*0.2086)/(50012.9);  ;// WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 50012.9
-double wWWZ_v2= (LUMI*0.1651)/(41171.8);  ;//WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 41171.8
-double wWWG_v2 = (LUMI*0.2147)/(214524);  ; //WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 214524
-double wZZZ_v2= (LUMI*0.01398)/(3499.45);  ;//ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 3499.45
-double wWZZ_v2= (LUMI*0.05565)/(13736.4);  ; //WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 13736.4
-double wWZG_v2= (LUMI*0.04123)/(41207.1);  ;// WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 41207.1
-//double wWGGJets_v2 = (LUMI*1.711)/(-);//
-double wWGG_v2 =(LUMI*1.819)/(1.82543e+06);   ;// WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root : 1.82543e+06
-double wZGGJets_v2= (LUMI*0.3717)/(291922);  ;//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root : 291922
-
-
-double wWJetsToLNu_v2= (LUMI*50300)/(2.9514e+07) ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root : 2.9514e+07
-//?missing ZJets?= (LUMI*)/(-)
-//Drell-Yan
-double wDYJetsToTauTau_v2= (LUMI*1983)/(1.48305e+11);  ;//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root : 1.48305e+11
-//
-//single top
-double wtZq_ll_v2= (LUMI*0.07358)/(1.03784e+06);  ;//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root : 1.03784e+06
-//double wtZq_nunu_v2= (LUMI*)/(630623-368977);// tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root:  Positive:630623  Negtive:368977  ;//
-
-//?
-double wST_tW_antitop_v2= (LUMI*38.06)/(418378);  ;//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root : 418378
-double wST_tW_top_v2= (LUMI*38.09)/(992024);  ;//ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root : 992024
-double wTGJets_v2= (LUMI*2.967)/(4.66341e+06);  ;//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root : 4.66341e+06
-double wTHW_v2= (LUMI*0.1467)/(4.98913e+06);  ;//THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root : 4.98913e+06
-double wTHQ_v2= (LUMI*0.8816)/(9.82991e+06);  ;//THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root : 9.82991e+06
-//H 
-double wVHToNonbb_v2= (LUMI*2.137)/(5.76495e+06);  ;//VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root : 5.76495e+06
-double wZHToTauTau_v2= (LUMI*0.7524)/(451665);  ;// ZHToTauTau_M125_13TeV_powheg_pythia8.root : 451665
-double wZH_HToBB_ZToLL_v2= (LUMI*0.07523)/(149117);  ;//ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root : 149117
-double wGluGluHToZZTo4L_v2= (LUMI*2.999)/(999800);  ;//GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root : 999800
-double wGluGluHToBB_v2= (LUMI*32.10)/(4.17422e+08);  ;//GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root : 4.17422e+08
-double wGluGluHToGG_v2= (LUMI*31.98)/(4.76338e+07);  ;//GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root : 4.76338e+07
-double wGluGluHToMuMu_v2= (LUMI*29.99)/(1.99089e+06);  ;//GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root : 1.99089e+06
-
-double wGluGluHToTauTau_v2= (LUMI*30.52)/(1.4978e+06);  ;//GluGluHToTauTau_M125_13TeV_powheg_pythia8.root : 1.4978e+06
-double wGluGluHToWWTo2L2Nu_v2= (LUMI*30.52)/(492200);  ;//GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root : 492200
-double wGluGluHToWWToLNuQQ_v2= (LUMI*29.99)/(198000);  ;//GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root : 198000
-//double wVBFHToWWToLNuQQ_v2= (LUMI*3.769)/(-)//
-double wVBFHToWWTo2L2Nu_v2= (LUMI*3.769)/(376906);  ;//VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root : 376906
-//??very different from ttH
-//double wVBFHToWWTo2L2Nu_v2= (LUMI*)/(99931-69);
-//double wVBFHToTauTau_v2= (LUMI*0.237)/(996835-765);// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root:  Positive:996835  Negtive:765  ;
-double wVBFHToMuMu_v2= (LUMI*0.000823)/(3.72902e+06);  ;//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root : 3.72902e+06
-double wVBFHToGG_v2= (LUMI*3.992)/(3.90874e+06);  ;//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root : 3.90874e+06
-// double wVBFHToBB= (LUMI*)/(-)//
-//double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
-//HH count as minor
-//minor
-vector<double> allScales_v2 {
-    wTTTT_v2, //0
-    wTT_v2, //changed wTTJets to wTT
-    wTTGJets_v2, wttZJets_v2, wttWJets_v2, wttH_v2, //5
-    wWZ_v2, wWWTo2L2Nu_v2, wWpWpJJ_v2, wZZ_v2, wWGJets_v2, wZGJetsToLLG_v2, 
-    wWWW_v2, wWWZ_v2, wWWG_v2, wZZZ_v2, wWZZ_v2, wWZG_v2, wWGG_v2, wZGGJets_v2, 
-    wWJetsToLNu_v2, wDYJetsToTauTau_v2, 
-    wtZq_ll_v2, wST_tW_antitop_v2, wST_tW_top_v2, wTGJets_v2, wTHW_v2, wTHQ_v2, 
-    wVHToNonbb_v2, wZHToTauTau_v2, wZH_HToBB_ZToLL_v2, wGluGluHToZZTo4L_v2, wGluGluHToBB_v2, wGluGluHToGG_v2, wGluGluHToMuMu_v2, wGluGluHToTauTau_v2, wGluGluHToWWTo2L2Nu_v2, wGluGluHToWWToLNuQQ_v2, wVBFHToWWTo2L2Nu_v2, /*wVBFHToTauTau_v2, */wVBFHToMuMu_v2, wVBFHToGG_v2
-};
 
 //double wTTTT = (SigSF*LUMI*0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
 double wTTTT_sigma = (SigSF*LUMI*0.01197);//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root 
@@ -171,40 +116,6 @@ vector<double> allSigmas {
     wtZq_ll_sigma, wST_tW_antitop_sigma, wST_tW_top_sigma, wTGJets_sigma, wTHW_sigma, wTHQ_sigma, 
     wVHToNonbb_sigma, wZHToTauTau_sigma, wZH_HToBB_ZToLL_sigma, wGluGluHToZZTo4L_sigma, wGluGluHToBB_sigma, wGluGluHToGG_sigma, wGluGluHToMuMu_sigma, wGluGluHToTauTau_sigma, wGluGluHToWWTo2L2Nu_sigma, wGluGluHToWWToLNuQQ_sigma, wVBFHToWWTo2L2Nu_sigma, /*wVBFHToTauTau_sigma, */wVBFHToMuMu_sigma, wVBFHToGG_sigma
 };
-
-//sequence matter very much here
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
-// vector<TString> files = {
-    // "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root",
-// }
-// for ( UInt_t f=0; f<files.size(); f++){
-    // TString filename = baseDir+file[f];
-    // sprintf(ifile, "file%d", f);
-    // sprintf(itree, "tree%d", f);
-    // TFile *ifile =
-// }
-
-//TFile *file01 =   TFile::Open("data.root");
-TFile *file02 =   TFile::Open(baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root");
-TTree *Tree02 =   (TTree*)file02->Get("newtree");
-TTree *Tree02all =   (TTree*)file02->Get("allevents");
-//5
-TFile *file03 =   TFile::Open(baseDir+"TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root");
-TTree *Tree03 =   (TTree*)file03->Get("newtree");
-TTree *Tree03all =   (TTree*)file03->Get("allevents");
-TFile *file03_1 =   TFile::Open(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root");
-TTree *Tree03_1 =   (TTree*)file03->Get("newtree");
-TTree *Tree03_1all =   (TTree*)file03->Get("allevents");
-vector<TTree*> allTree = {
-    Tree02,Tree03, Tree03_1
-};
-vector<TTree*> allTree_gen = {
-    Tree02all, Tree03all, Tree03_1all
-};
-
-// Double_t sumgenWeights( const TFile *file  ){
-//
-// }
 
 
 
