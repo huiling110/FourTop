@@ -3,11 +3,11 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TBenchmark.h>
-#include "createHistos_v31.h"
+#include "createHistos_chain.h"
 
 //using namespace std;
 
-void createHistos_v31() {
+void createHistos_chain() {
 
 gBenchmark->Start("running time");
 
@@ -17,6 +17,8 @@ gROOT->ProcessLine(".L Loader.C+");
 map<string, string>::iterator file_it = file.begin();
 
 while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
+
+cout << "Reading process " << file_it->second << "..." << endl;
 
 TString input_base_dir = file_it->second + "/";
 
@@ -31,12 +33,6 @@ TH1F * genEvtWeights = new TH1F("genEvtWeights", "genEvtWeights", 1000000, -10, 
 mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
 Double_t gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
  cout << gen_sum_of_weights << endl;
-
-cout << "Reading process " << file_it->second << "..." << endl;
-//TFile *inputfile  = new TFile( file_it->second.c_str(), "READ" );
-
-//addressing branches
-//TTree *evt = (TTree*)inputfile->Get( "tree" );
 
 double mygenEvtWeight = 0;
 mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
