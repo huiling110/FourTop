@@ -21,7 +21,6 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 cout << "Reading process " << file_it->second << "..." << endl;
 
 TString input_base_dir = file_it->second + "/";
-
 TChain mychain("tree");
 mychain.Add(input_base_dir + "v3*.root");
 TChain mychain2("allevents");
@@ -32,7 +31,7 @@ cout << "Computing the sum of gen event weights..." << endl;
 TH1F * genEvtWeights = new TH1F("genEvtWeights", "genEvtWeights", 1000000, -10, 10 );
 mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
 Double_t gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
- cout << gen_sum_of_weights << endl;
+cout << gen_sum_of_weights << endl;
 
 double mygenEvtWeight = 0;
 mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
@@ -66,9 +65,6 @@ TH1F * h_2tau1e = new TH1F("2tau1e", "", 30, 0, 30);
 TH1F * h_2tau1mu = new TH1F("2tau1mu", "", 30, 0, 30);
 TH1F * h_2tau2L = new TH1F("2tau2OSL", "", 30, 0, 30);
 
-// initializing sum of weights 
-//TH1F * GenEventWeight;
-//GenEventWeight = (TH1F*)inputfile->Get("h_genweight");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// LOOP OVER EVENTS ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,9 +114,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  y_2tau2L.insert( {file_it->first, *h_2tau2L} );
   
  //total_weight.insert({file_it->first, *GenEventWeight});
- 
-//cout << "y_1tau0L.size(): " << y_1tau0L.size() << endl; 
- 
+  
  
  delete h_1tau0L;
  delete h_1tau1e;
