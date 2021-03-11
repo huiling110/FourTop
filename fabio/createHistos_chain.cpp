@@ -3,6 +3,9 @@
 #include <TFile.h>
 #include <TTree.h>
 #include <TBenchmark.h>
+#include <TChain.h>
+#include <TLorentzVector.h>
+#include <TROOT.h> //for gROOT
 #include "createHistos_chain.h"
 
 //using namespace std;
@@ -33,6 +36,19 @@ mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
 Double_t gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
 cout << gen_sum_of_weights << endl;
 
+ cout << "CREATE" << endl;
+//initializing yield containers
+TH1F * h_1tau0L = new TH1F("h_1tau0L", "1h_tau0L", 30, 0, 30);
+TH1F * h_1tau1e = new TH1F("h_1tau1e", "h_1tau1e", 30, 0, 30);
+TH1F * h_1tau1mu = new TH1F("h_1tau1mu", "h_1tau1mu", 30, 0, 30);
+TH1F * h_1tau2L = new TH1F("h_1tau2L", "h_1tau2L", 30, 0, 30);
+TH1F * h_1tau3L = new TH1F("h_1tau3L", "h_1tau3L", 30, 0, 30);
+TH1F * h_2tau0L = new TH1F("h_2tau0L", "h_2tau0L", 30, 0, 30);
+TH1F * h_2tau1e = new TH1F("h_2tau1e", "h_2tau1e", 30, 0, 30);
+TH1F * h_2tau1mu = new TH1F("h_2tau1mu", "h_2tau1mu", 30, 0, 30);
+TH1F * h_2tau2L = new TH1F("h_2tau2L", "h_2tau2L", 30, 0, 30);
+
+
 double mygenEvtWeight = 0;
 mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
 
@@ -54,17 +70,6 @@ mychain.SetBranchAddress("tausT", &mytausT);
 vector<TLorentzVector> *myleptonsMVAT = {}; 
 mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 
-//initializing yield containers
-TH1F * h_1tau0L = new TH1F("1tau0L", "", 30, 0, 30);
-TH1F * h_1tau1e = new TH1F("1tau1e", "", 30, 0, 30);
-TH1F * h_1tau1mu = new TH1F("1tau1mu", "", 30, 0, 30);
-TH1F * h_1tau2L = new TH1F("1tau2OSL", "", 30, 0, 30);
-TH1F * h_1tau3L = new TH1F("1tau3L", "", 30, 0, 30);
-TH1F * h_2tau0L = new TH1F("2tau0L", "", 30, 0, 30);
-TH1F * h_2tau1e = new TH1F("2tau1e", "", 30, 0, 30);
-TH1F * h_2tau1mu = new TH1F("2tau1mu", "", 30, 0, 30);
-TH1F * h_2tau2L = new TH1F("2tau2OSL", "", 30, 0, 30);
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// LOOP OVER EVENTS ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +77,7 @@ TH1F * h_2tau2L = new TH1F("2tau2OSL", "", 30, 0, 30);
 Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
-  if (ievent > 100) break;
+  //if (ievent > 100) break;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
@@ -114,8 +119,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  y_2tau2L.insert( {file_it->first, *h_2tau2L} );
   
  //total_weight.insert({file_it->first, *GenEventWeight});
-  
- 
+ cout << "DELETE" << endl;
  delete h_1tau0L;
  delete h_1tau1e;
  delete h_1tau1mu;
@@ -125,11 +129,11 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  delete h_2tau1e;
  delete h_2tau1mu;
  delete h_2tau2L;
- //delete GenEventWeight;
+ delete genEvtWeights;
 
+ mychain.Reset();
+ mychain2.Reset();
 
- //inputfile->Close();
- //delete inputfile;
  file_it++;
  } // end loop over files
  
