@@ -38,7 +38,7 @@ void run_makeVaribles_forBDT(
     cout<<"file opened :"<<file->GetName();
     TChain chain2( "allevents");
     chain2.Add(inputFile + "v3*.root" );
-    chain2.ls();
+    // chain2.ls();
     // chain2.Merge( file, 1000, "C" );
     chain2.Merge( file, 2000 );
     // chain2.Merge( file, "C" );

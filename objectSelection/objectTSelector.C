@@ -97,7 +97,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    allEvents->Branch( "genWeight_allEvents", &genWeight_allEvents, "genWeight_allEvents/D");
 
    tree->Branch( "muonsL", &muonsL);
-   tree->Branch( "muonsL_index", &muonsL_index);
+   tree->Branch( "muonsL_index", &muonsL_index);/*{{{*/
    tree->Branch( "muonsF", &muonsF );
    tree->Branch( "muonsF_index", &muonsF_index );
    tree->Branch( "muonsT", &muonsT );
@@ -156,7 +156,6 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
-
 
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
     tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
@@ -217,7 +216,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
     tree->Branch( "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_/I");
     tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_/I");
     tree->Branch( "HLT_TripleMu_12_10_5_", &HLT_TripleMu_12_10_5_, "HLT_TripleMu_12_10_5_/I");
-    tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_/I");
+    tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_/I");/*}}}*/
 }
 
 Bool_t objectTSelector::Process(Long64_t entry)
@@ -259,7 +258,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
       //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))
       // return kFALSE;
       //			why this filter not work?//applied only in 2017 and 2018
-      if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+     if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+
+    if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
+    if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
     
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
