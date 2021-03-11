@@ -14,41 +14,41 @@ gBenchmark->Start("running time");
 
 
  //histograms: MC wrt reference
-TH1F * h_HT_nocat = new TH1F("h_HT_nocat", "h_HT_nocat; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "h_HT_1tau0L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "h_HT_1tau1L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "h_HT_1tau2L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "h_HT_1tau3L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "h_HT_2tau0L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "h_HT_2tau1L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "h_HT_2tau2L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_nocat = new TH1F("h_HT_nocat", "h_HT_nocat; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "h_HT_1tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "h_HT_1tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "h_HT_1tau2L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau3L = new TH1F("h_HT_1tau3L", "h_HT_1tau3L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau0L = new TH1F("h_HT_2tau0L", "h_HT_2tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "h_HT_2tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "h_HT_2tau2L; H_{T} [GeV];", 15, 0, 1500);
 
-TH1F * h_HT_nocat_aft = new TH1F("h_HT_nocat_aft", "h_HT_nocat; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau0L_aft = new TH1F("h_HT_1tau0L_aft", "h_HT_1tau0L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau1L_aft = new TH1F("h_HT_1tau1L_aft", "h_HT_1tau1L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau2L_aft = new TH1F("h_HT_1tau2L_aft", "h_HT_1tau2L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau3L_aft = new TH1F("h_HT_1tau3L_aft", "h_HT_1tau3L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau0L_aft = new TH1F("h_HT_2tau0L_aft", "h_HT_2tau0L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau1L_aft = new TH1F("h_HT_2tau1L_aft", "h_HT_2tau1L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau2L_aft = new TH1F("h_HT_2tau2L_aft", "h_HT_2tau2L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_nocat_aft = new TH1F("h_HT_nocat_aft", "h_HT_nocat; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau0L_aft = new TH1F("h_HT_1tau0L_aft", "h_HT_1tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau1L_aft = new TH1F("h_HT_1tau1L_aft", "h_HT_1tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau2L_aft = new TH1F("h_HT_1tau2L_aft", "h_HT_1tau2L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau3L_aft = new TH1F("h_HT_1tau3L_aft", "h_HT_1tau3L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau0L_aft = new TH1F("h_HT_2tau0L_aft", "h_HT_2tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau1L_aft = new TH1F("h_HT_2tau1L_aft", "h_HT_2tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau2L_aft = new TH1F("h_HT_2tau2L_aft", "h_HT_2tau2L; H_{T} [GeV];", 15, 0, 1500);
 //histograms: MC truth
-TH1F * h_HT_nocat_truth = new TH1F("h_HT_nocat_truth", "h_HT_nocat; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau0L_truth = new TH1F("h_HT_1tau0L_truth", "h_HT_1tau0L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau1L_truth = new TH1F("h_HT_1tau1L_truth", "h_HT_1tau1L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau2L_truth = new TH1F("h_HT_1tau2L_truth", "h_HT_1tau2L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau3L_truth = new TH1F("h_HT_1tau3L_truth", "h_HT_1tau3L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau0L_truth = new TH1F("h_HT_2tau0L_truth", "h_HT_2tau0L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau1L_truth = new TH1F("h_HT_2tau1L_truth", "h_HT_2tau1L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau2L_truth = new TH1F("h_HT_2tau2L_truth", "h_HT_2tau2L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_nocat_truth = new TH1F("h_HT_nocat_truth", "h_HT_nocat; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau0L_truth = new TH1F("h_HT_1tau0L_truth", "h_HT_1tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau1L_truth = new TH1F("h_HT_1tau1L_truth", "h_HT_1tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau2L_truth = new TH1F("h_HT_1tau2L_truth", "h_HT_1tau2L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau3L_truth = new TH1F("h_HT_1tau3L_truth", "h_HT_1tau3L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau0L_truth = new TH1F("h_HT_2tau0L_truth", "h_HT_2tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau1L_truth = new TH1F("h_HT_2tau1L_truth", "h_HT_2tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau2L_truth = new TH1F("h_HT_2tau2L_truth", "h_HT_2tau2L; H_{T} [GeV];", 15, 0, 1500);
 
-TH1F * h_HT_nocat_truth_aft = new TH1F("h_HT_nocat_truth_aft", "h_HT_nocat; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau0L_truth_aft = new TH1F("h_HT_1tau0L_truth_aft", "h_HT_1tau0L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau1L_truth_aft = new TH1F("h_HT_1tau1L_truth_aft", "h_HT_1tau1L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau2L_truth_aft = new TH1F("h_HT_1tau2L_truth_aft", "h_HT_1tau2L; H_{T} [GeV];", 50, 0, 1500);
-TH1F * h_HT_1tau3L_truth_aft = new TH1F("h_HT_1tau3L_truth_aft", "h_HT_1tau3L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau0L_truth_aft = new TH1F("h_HT_2tau0L_truth_aft", "h_HT_2tau0L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau1L_truth_aft = new TH1F("h_HT_2tau1L_truth_aft", "h_HT_2tau1L; H_{T} [GeV];", 25, 0, 1500);
-TH1F * h_HT_2tau2L_truth_aft = new TH1F("h_HT_2tau2L_truth_aft", "h_HT_2tau2L; H_{T} [GeV];", 25, 0, 1500);
+TH1F * h_HT_nocat_truth_aft = new TH1F("h_HT_nocat_truth_aft", "h_HT_nocat; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau0L_truth_aft = new TH1F("h_HT_1tau0L_truth_aft", "h_HT_1tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau1L_truth_aft = new TH1F("h_HT_1tau1L_truth_aft", "h_HT_1tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau2L_truth_aft = new TH1F("h_HT_1tau2L_truth_aft", "h_HT_1tau2L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_1tau3L_truth_aft = new TH1F("h_HT_1tau3L_truth_aft", "h_HT_1tau3L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau0L_truth_aft = new TH1F("h_HT_2tau0L_truth_aft", "h_HT_2tau0L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau1L_truth_aft = new TH1F("h_HT_2tau1L_truth_aft", "h_HT_2tau1L; H_{T} [GeV];", 15, 0, 1500);
+TH1F * h_HT_2tau2L_truth_aft = new TH1F("h_HT_2tau2L_truth_aft", "h_HT_2tau2L; H_{T} [GeV];", 15, 0, 1500);
 
 map<string, string>::iterator file_it = file.begin();
 
@@ -395,6 +395,10 @@ void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
 
   hBef->Write();
   hAft->Write();
+  TH1F *hRatio = (TH1F*)hAft->Clone("");
+  hRatio->Divide(hBef);
+  hRatio->Write(name);
+  /*
   TEfficiency *TEff = 0;
   if(TEfficiency::CheckConsistency(*hAft, *hBef)){
             
@@ -402,5 +406,5 @@ void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
     TEff->Write(name);
     delete TEff;
     }
-  
+  */
 }

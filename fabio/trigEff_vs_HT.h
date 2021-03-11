@@ -4,12 +4,12 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v24_leppt_lowerbound/NoJEC/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_refTriggers/NoJEC/";
 
 map<string, string> file = { //MAP OF INPUT FILES
     
 //signal
-//{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
+{"tttt", dir + "TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root"},
 
 //ttbar background    
 {"tt", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root"},
@@ -22,7 +22,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"QCD_HT1000to1500", dir + "QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
 {"QCD_HT1500to2000", dir + "QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
 {"QCD_HT2000toInf", dir + "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
-/*  
+  
 //tt+X background
 {"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root"},
 {"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM.root"},
@@ -75,7 +75,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"VBFHTo2L2Nu", dir + "VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root"},
 {"VBFHToMuMu", dir + "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root"},
 {"VBFHToGG", dir + "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root"},
-*/
+
 };
 
 map<string, float> xsec = { //MAP OF CROSS SECTIONS. TAKE HUILING'S, BUT WHERE DO THEY COME FROM?
