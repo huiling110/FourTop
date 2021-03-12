@@ -39,14 +39,14 @@ TFile *file14 =   TFile::Open(baseDir+"ZGJetsToLLG_EW_LO_13TeV-sherpa.root");//
 //8
 TFile *file15 =   TFile::Open(baseDir+"WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file16 =   TFile::Open(baseDir+"WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
-TFile *file17 =   TFile::Open(baseDir+"WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+// TFile *file17 =   TFile::Open(baseDir+"WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file18 =   TFile::Open(baseDir+"ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file19 =   TFile::Open(baseDir+"WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file20 =   TFile::Open(baseDir+"WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
 TFile *file21 =   TFile::Open(baseDir+"WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");
 TFile *file22 =   TFile::Open(baseDir+"ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root");
 //
-TFile *file23 =   TFile::Open(baseDir+"WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");//WJets
+// TFile *file23 =   TFile::Open(baseDir+"WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");//WJets
 TFile *file24 =   TFile::Open(baseDir+"DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root");
 //7-1
 TFile *file25 =   TFile::Open(baseDir+"tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root");
@@ -58,9 +58,9 @@ TFile *file30 =   TFile::Open(baseDir+"THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgr
 TFile *file31 =   TFile::Open(baseDir+"THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root");
 //12
 TFile *file32 =   TFile::Open(baseDir+"VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root");
-TFile *file33 =   TFile::Open(baseDir+"ZHToTauTau_M125_13TeV_powheg_pythia8.root");
+// TFile *file33 =   TFile::Open(baseDir+"ZHToTauTau_M125_13TeV_powheg_pythia8.root");
 TFile *file34 =   TFile::Open(baseDir+"ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root");
-TFile *file35 =   TFile::Open(baseDir+"GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root");
+// TFile *file35 =   TFile::Open(baseDir+"GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root");
 TFile *file36 =   TFile::Open(baseDir+"GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root");
 TFile *file37 =   TFile::Open(baseDir+"GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root");
 TFile *file38 =   TFile::Open(baseDir+"GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root");
@@ -86,13 +86,13 @@ TTree *Tree13 =   (TTree*)file13->Get("tree");
 TTree *Tree14 =   (TTree*)file14->Get("tree");
 TTree *Tree15 =   (TTree*)file15->Get("tree");
 TTree *Tree16 =   (TTree*)file16->Get("tree");
-TTree *Tree17 =   (TTree*)file17->Get("tree");
+// TTree *Tree17 =   (TTree*)file17->Get("tree");
 TTree *Tree18 =   (TTree*)file18->Get("tree");
 TTree *Tree19 =   (TTree*)file19->Get("tree");
 TTree *Tree20 =   (TTree*)file20->Get("tree");
 TTree *Tree21 =   (TTree*)file21->Get("tree");
 TTree *Tree22 =   (TTree*)file22->Get("tree");
-TTree *Tree23 =   (TTree*)file23->Get("tree");
+// TTree *Tree23 =   (TTree*)file23->Get("tree");
 TTree *Tree24 =   (TTree*)file24->Get("tree");
 TTree *Tree25 =   (TTree*)file25->Get("tree");
 TTree *Tree26 =   (TTree*)file26->Get("tree");
@@ -102,9 +102,9 @@ TTree *Tree29 =   (TTree*)file29->Get("tree");
 TTree *Tree30 =   (TTree*)file30->Get("tree");
 TTree *Tree31 =   (TTree*)file31->Get("tree");
 TTree *Tree32 =   (TTree*)file32->Get("tree");
-TTree *Tree33 =   (TTree*)file33->Get("tree");
+// TTree *Tree33 =   (TTree*)file33->Get("tree");
 TTree *Tree34 =   (TTree*)file34->Get("tree");
-TTree *Tree35 =   (TTree*)file35->Get("tree");
+// TTree *Tree35 =   (TTree*)file35->Get("tree");
 TTree *Tree36 =   (TTree*)file36->Get("tree");
 TTree *Tree37 =   (TTree*)file37->Get("tree");
 TTree *Tree38 =   (TTree*)file38->Get("tree");
@@ -130,13 +130,13 @@ TTree *Tree13all =   (TTree*)file13->Get("allvents");
 TTree *Tree14all =   (TTree*)file14->Get("allvents");
 TTree *Tree15all =   (TTree*)file15->Get("allvents");
 TTree *Tree16all =   (TTree*)file16->Get("allvents");
-TTree *Tree17all =   (TTree*)file17->Get("allvents");
+// TTree *Tree17all =   (TTree*)file17->Get("allvents");
 TTree *Tree18all =   (TTree*)file18->Get("allvents");
 TTree *Tree19all =   (TTree*)file19->Get("allvents");
 TTree *Tree20all =   (TTree*)file20->Get("allvents");
 TTree *Tree21all =   (TTree*)file21->Get("allvents");
 TTree *Tree22all =   (TTree*)file22->Get("allvents");
-TTree *Tree23all =   (TTree*)file23->Get("allvents");
+// TTree *Tree23all =   (TTree*)file23->Get("allvents");
 TTree *Tree24all =   (TTree*)file24->Get("allvents");
 TTree *Tree25all =   (TTree*)file25->Get("allvents");
 TTree *Tree26all =   (TTree*)file26->Get("allvents");
@@ -146,9 +146,9 @@ TTree *Tree29all =   (TTree*)file29->Get("allvents");
 TTree *Tree30all =   (TTree*)file30->Get("allvents");
 TTree *Tree31all =   (TTree*)file31->Get("allvents");
 TTree *Tree32all =   (TTree*)file32->Get("allvents");
-TTree *Tree33all =   (TTree*)file33->Get("allvents");
+// TTree *Tree33all =   (TTree*)file33->Get("allvents");
 TTree *Tree34all =   (TTree*)file34->Get("allvents");
-TTree *Tree35all =   (TTree*)file35->Get("allvents");
+// TTree *Tree35all =   (TTree*)file35->Get("allvents");
 TTree *Tree36all =   (TTree*)file36->Get("allvents");
 TTree *Tree37all =   (TTree*)file37->Get("allvents");
 TTree *Tree38all =   (TTree*)file38->Get("allvents");
@@ -161,10 +161,10 @@ TTree *Tree44all =   (TTree*)file44->Get("allvents");
 TTree *Tree45all =   (TTree*)file45->Get("allvents");
 
 vector<TTree*> allTree = {
-    Tree02,Tree03, Tree03_1, Tree03_2,/* Tree04,*/ Tree05, Tree06, Tree07, Tree09, /*Tree10_1, Tree11,*/ Tree12, Tree13, Tree14, Tree15, Tree16, Tree17, Tree18, Tree19, Tree20, Tree21, Tree22, Tree23, Tree24, Tree25, Tree26, Tree27, Tree28, Tree29, Tree30, Tree31, Tree32, Tree33, Tree34, Tree35, Tree36, Tree37, Tree38, Tree39, Tree40, Tree41, Tree42,  Tree43, Tree44, Tree45
+    Tree02,Tree03, Tree03_1, Tree03_2,/* Tree04,*/ Tree05, Tree06, Tree07, Tree09, /*Tree10_1, Tree11,*/ Tree12, Tree13, Tree14, Tree15, Tree16,/* Tree17,*/ Tree18, Tree19, Tree20, Tree21, Tree22,/* Tree23,*/ Tree24, Tree25, Tree26, Tree27, Tree28, Tree29, Tree30, Tree31, Tree32,/* Tree33,*/ Tree34, /*Tree35, */Tree36, Tree37, Tree38, Tree39, Tree40, Tree41, Tree42,  Tree43, Tree44, Tree45
 };
 vector<TTree*> allTreeall = {
-    Tree02all,Tree03all, Tree03_1all, Tree03_2all, /*Tree04al,*/ Tree05all, Tree06all, Tree07all,  Tree09all,/* Tree10_1all, Tree11all, */Tree12all, Tree13all, Tree14all, Tree15all, Tree16all, Tree17all, Tree18all, Tree19all, Tree20all, Tree21all, Tree22all, Tree23all, Tree24all, Tree25all, Tree26all, Tree27all, Tree28all, Tree29all, Tree30all, Tree31all, Tree32all, Tree33all, Tree34all, Tree35all, Tree36all, Tree37all, Tree38all, Tree39all, Tree40all, Tree41all, Tree42all,  Tree43all, Tree44all, Tree45all
+    Tree02all,Tree03all, Tree03_1all, Tree03_2all, /*Tree04al,*/ Tree05all, Tree06all, Tree07all,  Tree09all,/* Tree10_1all, Tree11all, */Tree12all, Tree13all, Tree14all, Tree15all, Tree16all, /*Tree17all,*/ Tree18all, Tree19all, Tree20all, Tree21all, Tree22all,/* Tree23all, */Tree24all, Tree25all, Tree26all, Tree27all, Tree28all, Tree29all, Tree30all, Tree31all, Tree32all,/* Tree33all, */Tree34all, /*Tree35all,*/ Tree36all, Tree37all, Tree38all, Tree39all, Tree40all, Tree41all, Tree42all,  Tree43all, Tree44all, Tree45all
 };
 
 
@@ -211,7 +211,7 @@ double wWGG_sigma =1.819;   ;// WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root
 double wZGGJets_sigma= 0.3717;  ;//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root 
 
 
-double wWJetsToLNu_sigma= 50300 ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root 
+double wWJetsToLNu_sigma= 50300 ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root
 //?missing ZJets?= 
 //Drell-Yan
 double wDYJetsToTauTau_sigma= 1983;  ;//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root 
