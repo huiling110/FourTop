@@ -1,6 +1,6 @@
 void run_makeVaribles_forBDT(
-                        // Bool_t istest = true,
-                        Bool_t istest = false,
+                        Bool_t istest = true,
+                        // Bool_t istest = false,
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
                         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
                         // TString singleFileName = "v3_1-100.root"
