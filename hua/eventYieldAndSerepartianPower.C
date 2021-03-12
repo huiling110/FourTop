@@ -329,7 +329,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             
             h_genWeight->Reset( "ICES");
             // h_genWeight->Print();
-            allTree_gen[j]->Project( "genWeight", "genWeight_allEvents");
+            allTreeall[j]->Project( "genWeight", "genWeight_allEvents");
             h_genWeight->Print();
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             cout<<"sumGenWeights = "<<sumGenWeights<<endl;
