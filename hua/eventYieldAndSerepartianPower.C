@@ -343,7 +343,7 @@ for (UInt_t  cha=0; cha<1; cha++){
 
 
             // scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights();
-            scale = allSigmas[j]/sumGenWeights;
+            scale = LUMI* allSigmas[j]/sumGenWeights;
             allHistos[j]->Scale(scale);
             // if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
             if(j > 0) background_SR->Add((allHistos[j]),1);

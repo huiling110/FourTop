@@ -161,10 +161,10 @@ TTree *Tree44all =   (TTree*)file44->Get("allvents");
 TTree *Tree45all =   (TTree*)file45->Get("allvents");
 
 vector<TTree*> allTree = {
-    Tree02,Tree03, Tree03_1, Tree03_2,/* Tree04,*/ Tree05, Tree06, Tree07, Tree09, Tree10_1, Tree11, Tree12, Tree13, Tree14, Tree15, Tree16, Tree17, Tree18, Tree19, Tree20, Tree21, Tree22, Tree23, Tree24, Tree25, Tree26, Tree27, Tree28, Tree29, Tree30, Tree31, Tree32, Tree33, Tree34, Tree35, Tree36, Tree37, Tree38, Tree39, Tree40, Tree41, Tree42,  Tree43, Tree44, Tree45
+    Tree02,Tree03, Tree03_1, Tree03_2,/* Tree04,*/ Tree05, Tree06, Tree07, Tree09, /*Tree10_1, Tree11,*/ Tree12, Tree13, Tree14, Tree15, Tree16, Tree17, Tree18, Tree19, Tree20, Tree21, Tree22, Tree23, Tree24, Tree25, Tree26, Tree27, Tree28, Tree29, Tree30, Tree31, Tree32, Tree33, Tree34, Tree35, Tree36, Tree37, Tree38, Tree39, Tree40, Tree41, Tree42,  Tree43, Tree44, Tree45
 };
 vector<TTree*> allTreeall = {
-    Tree02all,Tree03all, Tree03_1all, Tree03_2all, /*Tree04al,*/ Tree05all, Tree06all, Tree07all,  Tree09all, Tree10_1all, Tree11all, Tree12all, Tree13all, Tree14all, Tree15all, Tree16all, Tree17all, Tree18all, Tree19all, Tree20all, Tree21all, Tree22all, Tree23all, Tree24all, Tree25all, Tree26all, Tree27all, Tree28all, Tree29all, Tree30all, Tree31all, Tree32all, Tree33all, Tree34all, Tree35all, Tree36all, Tree37all, Tree38all, Tree39all, Tree40all, Tree41all, Tree42all,  Tree43all, Tree44all, Tree45all
+    Tree02all,Tree03all, Tree03_1all, Tree03_2all, /*Tree04al,*/ Tree05all, Tree06all, Tree07all,  Tree09all,/* Tree10_1all, Tree11all, */Tree12all, Tree13all, Tree14all, Tree15all, Tree16all, Tree17all, Tree18all, Tree19all, Tree20all, Tree21all, Tree22all, Tree23all, Tree24all, Tree25all, Tree26all, Tree27all, Tree28all, Tree29all, Tree30all, Tree31all, Tree32all, Tree33all, Tree34all, Tree35all, Tree36all, Tree37all, Tree38all, Tree39all, Tree40all, Tree41all, Tree42all,  Tree43all, Tree44all, Tree45all
 };
 
 
@@ -177,80 +177,83 @@ float LUMI = 35900; //fb
 //?where to get the more precise LUMI?
 //SIGNAL
 
-//double wTTTT = (SigSF*LUMI*0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
-double wTTTT_sigma = (SigSF*LUMI*0.01197);//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root 
+//double wTTTT = (SigSF**0.009103);///TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root:  Positive:1709406  Negtive:704054
+double wTTTT_sigma = SigSF*0.01197;//TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8.root 
 //tt
-// double wTTJets_sigma = (LUMI*746.7);//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root
-double wTT_sigma     = (LUMI*746.7)  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root 
-// double
+// double wTTJets_sigma = 746.7;//746.7 //TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root
+double wTT_sigma     = 746.7  ; //TT_TuneCUETP8M2T4_13TeV-powheg-pythia8.root 
+double wTTTo2L2Nu    = 373.;
+double wTTToHadronic = 367.;
+double wTTToSemiLeptonic      = 90.6;
 
-double wTTGJets_sigma = (LUMI*3.773);  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root
-double wttZJets_sigma = (LUMI*0.6559) ;      //Special care is taken when scaling the ttZ background to the cross-section= (LUMI*)/(-) //ttZJets_13TeV_madgraphMLM-pythia8.root 
-double wttWJets_sigma = (LUMI*0.2014);  ; //  ttWJets_13TeV_madgraphMLM.root 
-double wttH_sigma= (LUMI*0.3372);  ; //ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root 
+double wTTGJets_sigma = 3.773;  ; //TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root
+double wttZJets_sigma = 0.6559 ;      //Special care is taken when scaling the ttZ background to the cross-section= /(-) //ttZJets_13TeV_madgraphMLM-pythia8.root 
+double wttWJets_sigma = 0.2014;  ; //  ttWJets_13TeV_madgraphMLM.root 
+double wttH_sigma= 0.3372;  ; //ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root 
 
 //diboson and triboson an w_sigma/z+jets
-double wWZ_sigma= (LUMI*2.343);  ;//WZ_TuneCUETP8M1_13TeV-pythia8.root 
-double wWW_sigma= (LUMI*6.430);//?something wrong with ntuple
-double wWWTo2L2Nu_sigma = (LUMI*0.1697);   ;//r WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root 
-double wWpWpJJ_sigma= (LUMI*0.05390);  ;//WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root 
-double wZZ_sigma  = (LUMI*1.016);  ;//ZZ_TuneCUETP8M1_13TeV-pythia8.root 
-double wWGJets_sigma = (LUMI*1.269);  ;//WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root 
-double wZGJetsToLLG_sigma = (LUMI*0.1319);  ;// ZGJetsToLLG_EW_LO_13TeV-sherpa.root 
+double wWZ_sigma= 2.343;  ;//WZ_TuneCUETP8M1_13TeV-pythia8.root 
+double wWW_sigma= 6.430;//?something wrong with ntuple
+double wWWTo2L2Nu_sigma = 0.1697;   ;//r WWTo2L2Nu_DoubleScattering_13TeV-pythia8.root 
+double wWpWpJJ_sigma= 0.05390;  ;//WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8.root 
+double wZZ_sigma  = 1.016;  ;//ZZ_TuneCUETP8M1_13TeV-pythia8.root 
+double wWGJets_sigma = 1.269;  ;//WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph.root 
+double wZGJetsToLLG_sigma = 0.1319;  ;// ZGJetsToLLG_EW_LO_13TeV-sherpa.root 
 //
-double wWWW_sigma= (LUMI*0.2086);  ;// WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wWWZ_sigma= (LUMI*0.1651);  ;//WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wWWG_sigma = (LUMI*0.2147);  ; //WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wZZZ_sigma= (LUMI*0.01398);  ;//ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wWZZ_sigma= (LUMI*0.05565);  ; //WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wWZG_sigma= (LUMI*0.04123);  ;// WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-//double wWGGJets_sigma = (LUMI*1.711);//
-double wWGG_sigma =(LUMI*1.819);   ;// WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
-double wZGGJets_sigma= (LUMI*0.3717);  ;//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root 
+double wWWW_sigma= 0.2086;  ;// WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWWZ_sigma= 0.1651;  ;//WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWWG_sigma = 0.2147;  ; //WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wZZZ_sigma= 0.01398;  ;//ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWZZ_sigma= 0.05565;  ; //WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wWZG_sigma= 0.04123;  ;// WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+//double wWGGJets_sigma = 1.711;//
+double wWGG_sigma =1.819;   ;// WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root 
+double wZGGJets_sigma= 0.3717;  ;//ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8.root 
 
 
-double wWJetsToLNu_sigma= (LUMI*50300) ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root 
-//?missing ZJets?= (LUMI*)
+double wWJetsToLNu_sigma= 50300 ;  ;//WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root 
+//?missing ZJets?= 
 //Drell-Yan
-double wDYJetsToTauTau_sigma= (LUMI*1983);  ;//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root 
+double wDYJetsToTauTau_sigma= 1983;  ;//DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root 
 //
 //single top
-double wtZq_ll_sigma= (LUMI*0.07358);  ;//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root 
-//double wtZq_nunu_sigma= (LUMI*);// tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root Positive:630623  Negtive:368977  ;//
+double wtZq_ll_sigma= 0.07358;  ;//tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root 
+//double wtZq_nunu_sigma= ;// tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root Positive:630623  Negtive:368977  ;//
 //?
-double wST_tW_antitop_sigma= (LUMI*38.06);  ;//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
-double wST_tW_top_sigma= (LUMI*38.09);  ;//ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
-double wTGJets_sigma= (LUMI*2.967);  ;//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root 
-double wTHW_sigma= (LUMI*0.1467);  ;//THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root 
-double wTHQ_sigma= (LUMI*0.8816);  ;//THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root 
+double wST_tW_antitop_sigma= 38.06;  ;//ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
+double wST_tW_top_sigma= 38.09;  ;//ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root 
+double wTGJets_sigma= 2.967;  ;//TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root 
+double wTHW_sigma= 0.1467;  ;//THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root 
+double wTHQ_sigma= 0.8816;  ;//THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root 
 //H 
-double wVHToNonbb_sigma= (LUMI*2.137);  ;//VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root 
-double wZHToTauTau_sigma= (LUMI*0.7524);  ;// ZHToTauTau_M125_13TeV_powheg_pythia8.root 
-double wZH_HToBB_ZToLL_sigma= (LUMI*0.07523);  ;//ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root 
-double wGluGluHToZZTo4L_sigma= (LUMI*2.999);  ;//GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root 
-double wGluGluHToBB_sigma= (LUMI*32.10);  ;//GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root 
-double wGluGluHToGG_sigma= (LUMI*31.98);  ;//GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root 
-double wGluGluHToMuMu_sigma= (LUMI*29.99);  ;//GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
+double wVHToNonbb_sigma= 2.137;  ;//VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root 
+double wZHToTauTau_sigma= 0.7524;  ;// ZHToTauTau_M125_13TeV_powheg_pythia8.root 
+double wZH_HToBB_ZToLL_sigma= 0.07523;  ;//ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root 
+double wGluGluHToZZTo4L_sigma= 2.999;  ;//GluGluHToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8.root 
+double wGluGluHToBB_sigma= 32.10;  ;//GluGluHToBB_M125_13TeV_amcatnloFXFX_pythia8.root 
+double wGluGluHToGG_sigma= 31.98;  ;//GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root 
+double wGluGluHToMuMu_sigma= 29.99;  ;//GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
 
-double wGluGluHToTauTau_sigma= (LUMI*30.52);  ;//GluGluHToTauTau_M125_13TeV_powheg_pythia8.root 
-double wGluGluHToWWTo2L2Nu_sigma= (LUMI*30.52);  ;//GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root 
-double wGluGluHToWWToLNuQQ_sigma= (LUMI*29.99);  ;//GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root 
-//double wVBFHToWWToLNuQQ_sigma= (LUMI*3.769)//
-double wVBFHToWWTo2L2Nu_sigma= (LUMI*3.769);  ;//VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root 
+double wGluGluHToTauTau_sigma= 30.52;  ;//GluGluHToTauTau_M125_13TeV_powheg_pythia8.root 
+double wGluGluHToWWTo2L2Nu_sigma= 30.52;  ;//GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root 
+double wGluGluHToWWToLNuQQ_sigma= 29.99;  ;//GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root 
+//double wVBFHToWWToLNuQQ_sigma= 3.769//
+double wVBFHToWWTo2L2Nu_sigma= 3.769;  ;//VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root 
 //??very different from ttH
-//double wVBFHToWWTo2L2Nu_sigma= (LUMI*);
-//double wVBFHToTauTau_sigma= (LUMI*0.237);// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root Positive:996835  Negtive:765  ;
-double wVBFHToMuMu_sigma= (LUMI*0.000823);  ;//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
-double wVBFHToGG_sigma= (LUMI*3.992);  ;//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root 
+//double wVBFHToWWTo2L2Nu_sigma= ;
+//double wVBFHToTauTau_sigma= 0.237;// VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root Positive:996835  Negtive:765  ;
+double wVBFHToMuMu_sigma= 0.000823;  ;//VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root 
+double wVBFHToGG_sigma= 3.992;  ;//VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root 
 // double wVBFHToBB= (LUMI*)/(-)//
 //double wVBF_HToZZTo4L= (LUMI*3.769)/(-)
 //HH count as minor
 //minor
 vector<double> allSigmas {
     wTTTT_sigma, //0
-    wTT_sigma, 
+    // wTT_sigma,
+    wTTTo2L2Nu, wTTToHadronic, wTTToSemiLeptonic,
     wTTGJets_sigma, wttZJets_sigma, wttWJets_sigma, wttH_sigma, //5
-    wWZ_sigma, wWWTo2L2Nu_sigma, wWpWpJJ_sigma, wZZ_sigma, wWGJets_sigma, wZGJetsToLLG_sigma, 
+    wWZ_sigma, wWW_sigma, /*wWWTo2L2Nu_sigma, wWpWpJJ_sigma,*/ wZZ_sigma, wWGJets_sigma, wZGJetsToLLG_sigma, 
     wWWW_sigma, wWWZ_sigma, wWWG_sigma, wZZZ_sigma, wWZZ_sigma, wWZG_sigma, wWGG_sigma, wZGGJets_sigma, 
     wWJetsToLNu_sigma, wDYJetsToTauTau_sigma, 
     wtZq_ll_sigma, wST_tW_antitop_sigma, wST_tW_top_sigma, wTGJets_sigma, wTHW_sigma, wTHQ_sigma, 
