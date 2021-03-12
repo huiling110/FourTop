@@ -6,6 +6,7 @@
 #include <TChain.h>
 #include <TLorentzVector.h>
 #include <TROOT.h> //for gROOT
+#include <TSystem.h>
 #include "createHistos_chain.h"
 
 //using namespace std;
@@ -15,28 +16,39 @@ void createHistos_chain() {
 gBenchmark->Start("running time");
 
 gROOT->ProcessLine(".L Loader.C+");
-// gROOT->SetBatch(kTRUE);
+
+//TH1::AddDirectory(kFALSE);
 
 map<string, string>::iterator file_it = file.begin();
 
 while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
 
 cout << "Reading process " << file_it->second << "..." << endl;
-
 TString input_base_dir = file_it->second + "/";
+gSystem->RedirectOutput("/dev/null");
+TFile * checkinput = new TFile(input_base_dir + "v3_1-1.root");
+TFile * checkinput2 = new TFile(input_base_dir + "v3_1.root");
+gSystem->RedirectOutput(0,0);
+if (checkinput->IsZombie() && checkinput2->IsZombie()){
+cout << "+++ INPUT FILES NOT FOUND! SKIPPING +++" << endl;
+ file_it++;
+continue;
+} 
+
 TChain mychain("tree");
 mychain.Add(input_base_dir + "v3*.root");
 TChain mychain2("allevents");
 mychain2.Add(input_base_dir + "v3*.root");
 
 cout << "Computing the sum of gen event weights..." << endl;
-
-TH1F * genEvtWeights = new TH1F("genEvtWeights", "genEvtWeights", 1000000, -10, 10 );
+TH1::StatOverflows(kTRUE); // set this in order to consider underflow/overflow bins in the computation of the mean. Important! If you don't do this, you rely on the range of the histogram genEvtWeights: if the weights are outside the range -10,10 the mean will be 0 (this is the case for processes such as DY)
+TH1F * genEvtWeights = new TH1F("genEvtWeights", "genEvtWeights", 10, -10, 10 );
 mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
-Double_t gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
+cout << "genEvtWeights->GetMean(): " << genEvtWeights->GetMean() << endl;
+cout << "genEvtWeights->GetEntries(): " << genEvtWeights->GetEntries() << endl; 
+double gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
 cout << gen_sum_of_weights << endl;
-
- cout << "CREATE" << endl;
+TH1::StatOverflows(kFALSE);
 //initializing yield containers
 TH1F * h_1tau0L = new TH1F("h_1tau0L", "1h_tau0L", 30, 0, 30);
 TH1F * h_1tau1e = new TH1F("h_1tau1e", "h_1tau1e", 30, 0, 30);
@@ -77,7 +89,7 @@ mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
-  //if (ievent > 100) break;
+  if (ievent > 100) break;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
@@ -118,8 +130,11 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  y_2tau1mu.insert( {file_it->first, *h_2tau1mu} );
  y_2tau2L.insert( {file_it->first, *h_2tau2L} );
   
- //total_weight.insert({file_it->first, *GenEventWeight});
- cout << "DELETE" << endl;
+ TH1D * totalWeight = new TH1D("totalWeight", "totalWeight", 1, -0.5, 0.5);
+ totalWeight->Fill(0.0, gen_sum_of_weights);
+
+ total_weight.insert({file_it->first, *totalWeight});
+
  delete h_1tau0L;
  delete h_1tau1e;
  delete h_1tau1mu;
@@ -130,14 +145,16 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  delete h_2tau1mu;
  delete h_2tau2L;
  delete genEvtWeights;
+ delete totalWeight;
 
  mychain.Reset();
  mychain2.Reset();
 
  file_it++;
- } // end loop over files
+
+  } // end loop over files
  
- TFile *outputfile = new TFile( "Histograms_v31.root", "RECREATE" );
+ TFile *outputfile = new TFile( "Histograms_chain.root", "RECREATE" );
  
  // loop through each category map and save the corresponding histograms
 map<string, TH1F>::iterator y_1tau0L_it = y_1tau0L.begin();
@@ -194,7 +211,7 @@ map<string, TH1F>::iterator y_1tau1e_it = y_1tau1e.begin();
    y_2tau2L_it++;
  }
 
- map<string, TH1F>::iterator total_weight_it = total_weight.begin();
+ map<string, TH1D>::iterator total_weight_it = total_weight.begin();
  while (total_weight_it != total_weight.end()) {
    total_weight_it->second.Write( (total_weight_it->first + "_GenEventWeight").c_str() );
    total_weight_it++;
