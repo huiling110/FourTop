@@ -345,9 +345,8 @@ for (UInt_t  cha=0; cha<1; cha++){
             allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
            allHistos[j]->Print();
 
-
-            // scale = allSigmas[j]/allgenWeights[j]->GetSumOfWeights();
-            scale = LUMI* allSigmas[j]/sumGenWeights;
+            // scale = LUMI* allSigmas[j]/sumGenWeights;
+            scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             // if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
             if(j > 0) background_SR->Add((allHistos[j]),1);
