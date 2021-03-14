@@ -40,16 +40,16 @@ void EYandSP_usingClass(){
 
   variablelist.push_back("jetsL_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
   /*{{{*/
-// variablelist.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("HT pt[GeV]");
-// variablelist.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("MHT pt[GeV]");
-  // variablelist.push_back("jetsL_invariantMass");  bin.push_back(100);     Min.push_back(10);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
- // variablelist.push_back("jetsL_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("jetsL_transMass");
- // variablelist.push_back("jetL_minDeltaR");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6);    axis.push_back("min delta R of loose jets");
- // variablelist.push_back("jetsL_centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(8);    axis.push_back("jetsL_centrality");
- // variablelist.push_back("jetsL_HTDividedByMet");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("HT / MET");
- // variablelist.push_back("jetsL_MHTDividedByMet");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("MHT / MET");
- // variablelist.push_back("MetDividedByHT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("MetDividedByHT");
- // variablelist.push_back("jetsL_bScore");      bin.push_back(50);     Min.push_back(0);    Max.push_back(20);    axis.push_back("jetsL_bScore");
+variablelist.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("HT pt[GeV]");
+variablelist.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("MHT pt[GeV]");
+  variablelist.push_back("jetsL_invariantMass");  bin.push_back(100);     Min.push_back(10);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
+ variablelist.push_back("jetsL_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("jetsL_transMass");
+ variablelist.push_back("jetL_minDeltaR");      bin.push_back(100);     Min.push_back(0);    Max.push_back(6);    axis.push_back("min delta R of loose jets");
+ variablelist.push_back("jetsL_centrality");      bin.push_back(100);     Min.push_back(0);    Max.push_back(8);    axis.push_back("jetsL_centrality");
+ variablelist.push_back("jetsL_HTDividedByMet");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("HT / MET");
+ variablelist.push_back("jetsL_MHTDividedByMet");      bin.push_back(100);     Min.push_back(0);    Max.push_back(200);    axis.push_back("MHT / MET");
+ variablelist.push_back("MetDividedByHT");      bin.push_back(100);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("MetDividedByHT");
+ variablelist.push_back("jetsL_bScore");      bin.push_back(50);     Min.push_back(0);    Max.push_back(20);    axis.push_back("jetsL_bScore");
  // variablelist.push_back("jetsL_average_deltaR");      bin.push_back(20);     Min.push_back(0);    Max.push_back(10);    axis.push_back("average delta R of loose jets");
  // variablelist.push_back("jetsL_4largestBscoreSum");      bin.push_back(50);     Min.push_back(0);    Max.push_back(10);    axis.push_back("jetsL_4largestBscoreSum");
  // variablelist.push_back("jetsL_leading2invariantMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(8000);    axis.push_back("jetsL_leading2invariantMass");
@@ -299,14 +299,14 @@ TH1D* WWW_h ; TH1D* WWZ_h ; TH1D* WWG_h ; TH1D* ZZZ_h ; TH1D* WZZ_h ; TH1D* WZG_
 TH1D* WJetsToLNu_h ; TH1D* DYJetsToTauTau_h ;//2
 TH1D* tZq_ll_h ; TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
 TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHToZZTo4L_h ; TH1D* GluGluHToBB_h ; TH1D* GluGluHToGG_h ; TH1D* GluGluHToMuMu_h ; TH1D* GluGluHToTauTau_h ; TH1D* GluGluHToWWTo2L2Nu_h ; TH1D* GluGluHToWWToLNuQQ_h ; TH1D* VBFHToWWTo2L2Nu_h ; TH1D* VBFHToTauTau_h ; TH1D* VBFHToMuMu_h ; TH1D* VBFHToGG_h ; 
-
-
-for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=0; cha<1; cha++){
+ TH1D* background_SR;
+vector<TH1D*> allHistos;
+// for (UInt_t  cha=0; cha<channelName.size(); cha++){
+for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
     std::map<Double_t, TString> mymap;
-    for(UInt_t i=0; i<1; i++){
-  // for(UInt_t i=0; i<variablelist.size(); i++){
+    // for(UInt_t i=0; i<1; i++){
+    for(UInt_t i=0; i<variablelist.size(); i++){
   	    const char *plot = variablelist[i];
 
          TTTT_h = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
@@ -317,7 +317,8 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
          WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]);  DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
          tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]);  ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]);  ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]);  TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]); THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]);  THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
          VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]);  ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]);  ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]);  GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]);  GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]);  GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]);  GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]);  GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]);  GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]);  VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]);  VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]);  VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
-        vector<TH1D*> allHistos  {
+        allHistos.clear();
+        allHistos = {
             TTTT_h,//0
             TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
             /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //7
@@ -329,7 +330,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
-        TH1D* background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
+        background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
 
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
@@ -345,7 +346,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // h_genWeight->Print();
             // allTreeall[j]->Project( "genWeight", "genWeight_allEvents");
             allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
-            h_genWeight->Print();
+            // h_genWeight->Print();
             // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
                 // cout<<"h_genWeight is not wide enough"<<endl;
                 // h_genWeight->SetMaximum( 1000.);
@@ -354,16 +355,14 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // }///???not sure why not working
             h_genWeight->StatOverflows(kTRUE);
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
-            cout<<"sumGenWeights = "<<sumGenWeights<<endl;
+            // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
 
             // allTree[j]->Project( hname, plot, weight*channelCut[cha] );//step4
-            // allTree[j]->Project(hname,plot, weight);//step0
-            // allTree[j]->Project( hname, plot, weight*channelCut_step1[cha]);//step1
-            // allTree[j]->Project(hname,plot, weight*channelCut_step2[cha]);//step2
             // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
 
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
-            allHistos[j]->Print();
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
+            // allHistos[j]->Print();
 
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
