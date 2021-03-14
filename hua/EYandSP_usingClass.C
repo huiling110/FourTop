@@ -299,7 +299,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         TH1D* TTTT_h = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
         TH1D* TTTo2L2Nu_h = new TH1D( "TTTo2L2Nu", plot,bin[i],Min[i],Max[i]); TH1D* TTToHadronic_h = new TH1D( "TTToHadronic",plot,bin[i],Min[i],Max[i]); TH1D* TTToSemiLeptonic_h = new TH1D( "TTToSemiLeptonic",plot,bin[i],Min[i],Max[i]);
         TH1D* TTGJets_h = new TH1D( "TTGJets",plot,bin[i],Min[i],Max[i]);TH1D* ttZJets_h = new TH1D( "ttZJets",plot,bin[i],Min[i],Max[i]); TH1D* ttWJets_h = new TH1D( "ttWJets",plot,bin[i],Min[i],Max[i]);TH1D* ttH_h = new TH1D( "ttH",plot,bin[i],Min[i],Max[i]); /*TH1D* ttbb_h = new TH1D( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
-        TH1D* WZ_h = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]); TH1D* WWTo2L2Nu_h = new TH1D( "WWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* WpWpJJ_h = new TH1D( "WpWpJJ",plot,bin[i],Min[i],Max[i]);TH1D* ZZ_h = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]);TH1D* WGJets_h = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]);TH1D* ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
+        TH1D* WZ_h = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]); TH1D* WW_h = new TH1D( "WW",plot,bin[i],Min[i],Max[i]); TH1D* ZZ_h = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]);TH1D* WGJets_h = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]);TH1D* ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
         TH1D* WWW_h = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]); TH1D* WWZ_h = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]); TH1D* WWG_h = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]); TH1D* ZZZ_h = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZZ_h = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZG_h = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]); TH1D* WGG_h = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]); TH1D* ZGGJets_h = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
         TH1D* WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]); TH1D* DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
         TH1D* tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]); TH1D* TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]);TH1D* THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]); TH1D* THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
@@ -307,8 +307,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         vector<TH1D*> allHistos  {
             TTTT_h,//0
             TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
-            /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //6
-            // WZ_h,  WWTo2L2Nu_h,  WpWpJJ_h, ZZ_h, WGJets_h, ZGJetsToLLG_h,//11
+            /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //7
+            WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
              // WWW_h,  WWZ_h,  WWG_h,  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//19
              // WJetsToLNu_h,  DYJetsToTauTau_h,//21
              // tZq_ll_h,  ST_tW_antitop_h,  ST_tW_top_h,  TGJets_h, THW_h,  THQ_h,//27
@@ -325,7 +325,6 @@ for (UInt_t  cha=0; cha<1; cha++){
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
         for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 2; j++){
-            // char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
@@ -333,6 +332,13 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allTreeall[j]->Project( "genWeight", "genWeight_allEvents");
             allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             h_genWeight->Print();
+            if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
+                cout<<"h_genWeight is not wide enough"<<endl;
+                h_genWeight->SetMaximum( 1000.);
+                h_genWeight->SetMinimum( -1000.);
+                cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
+            }
+            h_genWeight->StatOverflows(kTRUE);
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             cout<<"sumGenWeights = "<<sumGenWeights<<endl;
 
@@ -343,9 +349,8 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
 
             allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
-           allHistos[j]->Print();
+            allHistos[j]->Print();
 
-            // scale = LUMI* allSigmas[j]/sumGenWeights;
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             // if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
@@ -361,7 +366,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             cout<<"TTTo2L2Nu       = "<<allHistos[1]->Integral()<<endl;
             cout<<"TTToHadronic    = "<<allHistos[2]->Integral()<<endl;
             cout<<"TTToSemiLeptonic= "<<allHistos[3]->Integral()<<endl;
-            // cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
+            cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
             // cout<<"VV     = "<<allHistos[6]->Integral()+allHistos[7]->Integral()+allHistos[8]->Integral()+allHistos[9]->Integral()+allHistos[10]->Integral()+allHistos[11]->Integral()<<endl;
             // cout<<"VVV    = "<<allHistos[12]->Integral()+allHistos[13]->Integral()+allHistos[14]->Integral()+allHistos[15]->Integral()+allHistos[16]->Integral()+allHistos[17]->Integral()+allHistos[18]->Integral()+allHistos[19]->Integral()<<endl;
             // cout<<"WJets  = "<<allHistos[20]->Integral()<<endl;

@@ -4,12 +4,14 @@
 #include "TH1D.h"
 
 
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
 Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb
 Double_t LUMI = 35900; //fb
 //?where to get the more precise LUMI?
 Double_t separationPower(TH1D* h1, TH1D* h2);
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
+
+
 class Process
 {
     private:
@@ -34,7 +36,6 @@ class Process
         Double_t getSigma(){
             return m_sigma;
         }
-
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
@@ -92,8 +93,8 @@ Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 )
 vector<Process> allProcesses = {
     TTTT, //0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
-   /* ttZJets,*/ ttWJets, ttH, //6
-    WZ, WW, ZZ, WGJets, ZGJetsToLLG, 
+   /*TTGJets, ttZJets,*/ ttWJets, ttH, //7
+    WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
     WWW, WWZ, ZZZ, WZZ, WZG, WGG, ZGGJets,
     /*WJetsToLNu,*/ DYJetsToTauTau,
     tZq_ll,/* tZq_nunu,*/ ST_tW_antitop, ST_tW_top,
