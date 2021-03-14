@@ -18,20 +18,24 @@ class Process
         TString m_fileName;
         Double_t m_sigma;
         TFile* m_file;
-        // TTree *eventTree;
-        // TTree *alleventTree;
+        TTree *eventTree;
+        TTree *alleventTree;
     public:
         Process( TString fileName, Double_t sigma)
             :m_fileName{ fileName}, m_sigma{ sigma}
         {
             m_file = TFile::Open( m_fileName);
+            eventTree = (TTree*)m_file->Get( "newtree");
+            alleventTree = (TTree*)m_file->Get("allevents");
         }
 
         TTree* getEventTree(){
-            return (TTree*)m_file->Get( "newtree");
+            // return (TTree*)m_file->Get( "newtree");
+            return eventTree;
         }
         TTree* getAllEventTree(){
-            return (TTree*)m_file->Get("allevents");
+            // return (TTree*)m_file->Get("allevents");
+            return alleventTree;
         }
         Double_t getSigma(){
             return m_sigma;
