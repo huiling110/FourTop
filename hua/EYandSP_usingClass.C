@@ -29,7 +29,7 @@ void EYandSP_usingClass(){
 
 //  bool SYST = false;
 
-  vector<TString> variablelist;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
+  vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
 //variablelist is plots we want to show   
 //?is there a more clever way to push_back all in a loop?
 
@@ -291,7 +291,7 @@ vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
-    std::map<float, TString> mymap;
+    std::map<Double_t, TString> mymap;
     for(UInt_t i=0; i<1; i++){
   // for(UInt_t i=0; i<variablelist.size(); i++){
   	    const char *plot = variablelist[i];
@@ -416,38 +416,38 @@ for (UInt_t  cha=0; cha<1; cha++){
         TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
         gPad->RedrawAxis();
         TString channelText = "";
-        float channelTextFont   = 42;
-        float channelTextSize   = 0.06;
+        Double_t channelTextFont   = 42;
+        Double_t channelTextSize   = 0.06;
         TString cmsText     = "CMS";
-        float cmsTextFont   = 61;  // default is helvetic-bold
+        Double_t cmsTextFont   = 61;  // default is helvetic-bold
         bool writeExtraText = true;
         TString extraText   = "MC";
         //TString extraText   = "";
-        float extraTextFont = 52;  // default is helvetica-italics
+        Double_t extraTextFont = 52;  // default is helvetica-italics
         // text sizes and text offsets with respect to the top frame in unit of the top margin size
-        float lumiTextSize     = 0.6;
-        float lumiTextOffset   = 0.2;
-        float cmsTextSize      = 0.75;
-        float cmsTextOffset    = 0.1;  // only used in outOfFrame version
-        float relPosX    = 0.045;
-        float relPosY    = 0.035;
-        float relExtraDY = 1.2;
+        Double_t lumiTextSize     = 0.6;
+        Double_t lumiTextOffset   = 0.2;
+        Double_t cmsTextSize      = 0.75;
+        Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
+        Double_t relPosX    = 0.045;
+        Double_t relPosY    = 0.035;
+        Double_t relExtraDY = 1.2;
         // ratio of "CMS" and extra text size
-        float extraOverCmsTextSize  = 0.76;
+        Double_t extraOverCmsTextSize  = 0.76;
         TString lumi_13TeV;
         lumi_13TeV = "35.9fb^{-1}";
         TString lumiText;
         lumiText += lumi_13TeV;
         lumiText += " (2016, 13 TeV)";
-        float t = pad->GetTopMargin();
-        float b = pad->GetBottomMargin();
-        float r = pad->GetRightMargin();
-        float l = pad->GetLeftMargin();
+        Double_t t = pad->GetTopMargin();
+        Double_t b = pad->GetBottomMargin();
+        Double_t r = pad->GetRightMargin();
+        Double_t l = pad->GetLeftMargin();
         TLatex latex;
         latex.SetNDC();
         latex.SetTextAngle(0);
         latex.SetTextColor(kBlack);    
-        float extraTextSize = extraOverCmsTextSize*cmsTextSize;
+        Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
         latex.SetTextFont(42);
         latex.SetTextAlign(31); 
         latex.SetTextSize(lumiTextSize*t);    
@@ -487,11 +487,11 @@ for (UInt_t  cha=0; cha<1; cha++){
         c1->Draw();
 
         //?for different range we have different sp, how to deal with this?
-        float sp = separationPower(allHistos[0], background_SR);
+        Double_t sp = separationPower(allHistos[0], background_SR);
         cout<<NAME<<" separation power"<<sp<<endl;
         std::cout << '\n';
         if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
-       // std::map<float, TString> mymap;
+       // std::map<Double_t, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
 
         for(UInt_t j = 0; j < allHistos.size(); j++){
@@ -519,18 +519,18 @@ for (UInt_t  cha=0; cha<1; cha++){
 }
 
 
-float separationPower(TH1D* h1, TH1D* h2){
-    float norm = 1;
+Double_t separationPower(TH1D* h1, TH1D* h2){
+    Double_t norm = 1;
     // h1->Print();
     // h2->Print();
     h1->Scale(norm/h1->Integral());
     h2->Scale(norm/h2->Integral());
-  int nbins=h1->GetXaxis()->GetNbins();
+  Int_t nbins=h1->GetXaxis()->GetNbins();
 //  cout<<nbins<<endl;
-  float s=0;
-//  float width=h1->GetBinWidth(1);
-  for(int i=1;i<nbins+1;i++){
-//  for(int i=0;i<nbins;i++){
+  Double_t s=0;
+//  Double_t width=h1->GetBinWidth(1);
+  for(Int_t i=1;i<nbins+1;i++){
+//  for(Int_t i=0;i<nbins;i++){
       if(h1->GetBinContent(i)+h2->GetBinContent(i)!=0)
 //      s+=0.5*TMath::Power((h1->GetBinContent(i)-h2->GetBinContent(i))/width,2)/(h1->GetBinContent(i)+h2->GetBinContent(i))*width*width;
       s+=0.5*TMath::Power((h1->GetBinContent(i)-h2->GetBinContent(i)),2)/(h1->GetBinContent(i)+h2->GetBinContent(i));

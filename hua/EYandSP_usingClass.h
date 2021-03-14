@@ -4,11 +4,11 @@
 #include "TH1D.h"
 
 
-int SigSF = 1;
-//float LUMI  = 41500.0; //float LUMI = 36733; //36.773 /fb
-float LUMI = 35900; //fb
+Int_t SigSF = 1;
+//Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb
+Double_t LUMI = 35900; //fb
 //?where to get the more precise LUMI?
-float separationPower(TH1D* h1, TH1D* h2);
+Double_t separationPower(TH1D* h1, TH1D* h2);
 TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
 class Process
 {
