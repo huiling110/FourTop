@@ -95,7 +95,7 @@ vector<Process> allProcesses = {
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
    /*TTGJets, ttZJets,*/ ttWJets, ttH, //7
     WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
-    WWW, WWZ, ZZZ, WZZ, WZG, WGG, ZGGJets,
+    WWW, WWZ, /*WWG*/ ZZZ, WZZ, WZG, WGG, ZGGJets,//19
     /*WJetsToLNu,*/ DYJetsToTauTau,
     tZq_ll,/* tZq_nunu,*/ ST_tW_antitop, ST_tW_top,
     TGJets, THW, THQ,

@@ -309,7 +309,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
             /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
-             // WWW_h,  WWZ_h,  WWG_h,  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//19
+            WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
              // WJetsToLNu_h,  DYJetsToTauTau_h,//21
              // tZq_ll_h,  ST_tW_antitop_h,  ST_tW_top_h,  TGJets_h, THW_h,  THQ_h,//27
              // VHToNonbb_h,  ZHToTauTau_h,  ZH_HToBB_ZToLL_h,  GluGluHToZZTo4L_h,  GluGluHToBB_h,  GluGluHToGG_h,  GluGluHToMuMu_h,  GluGluHToTauTau_h,  GluGluHToWWTo2L2Nu_h,  GluGluHToWWToLNuQQ_h,  VBFHToWWTo2L2Nu_h, [> VBFHToTauTau_h, <] VBFHToMuMu_h,  VBFHToGG// 40
@@ -337,7 +337,7 @@ for (UInt_t  cha=0; cha<1; cha++){
                 h_genWeight->SetMaximum( 1000.);
                 h_genWeight->SetMinimum( -1000.);
                 cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
-            }
+            }///???not sure why not working
             h_genWeight->StatOverflows(kTRUE);
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             cout<<"sumGenWeights = "<<sumGenWeights<<endl;
