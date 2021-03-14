@@ -296,23 +296,23 @@ for (UInt_t  cha=0; cha<1; cha++){
   // for(UInt_t i=0; i<variablelist.size(); i++){
   	    const char *plot = variablelist[i];
 
-        TH1D* TTTT = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
-        TH1D* TTTo2L2Nu = new TH1D( "TTTo2L2Nu", plot,bin[i],Min[i],Max[i]); TH1D* TTToHadronic = new TH1D( "TTToHadronic",plot,bin[i],Min[i],Max[i]); TH1D* TTToSemiLeptonic = new TH1D( "TTToSemiLeptonic",plot,bin[i],Min[i],Max[i]);
-        TH1D* TTGJets = new TH1D( "TTGJets",plot,bin[i],Min[i],Max[i]);TH1D* ttZJets = new TH1D( "ttZJets",plot,bin[i],Min[i],Max[i]); TH1D* ttWJets = new TH1D( "ttWJets",plot,bin[i],Min[i],Max[i]);TH1D* ttH = new TH1D( "ttH",plot,bin[i],Min[i],Max[i]); /*TH1D* ttbb = new TH1D( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
-        TH1D* WZ = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]); TH1D* WWTo2L2Nu = new TH1D( "WWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* WpWpJJ = new TH1D( "WpWpJJ",plot,bin[i],Min[i],Max[i]);TH1D* ZZ = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]);TH1D* WGJets = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]);TH1D* ZGJetsToLLG = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
-        TH1D* WWW = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]); TH1D* WWZ = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]); TH1D* WWG = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]); TH1D* ZZZ = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZZ = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZG = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]); TH1D* WGG = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]); TH1D* ZGGJets = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
-        TH1D* WJetsToLNu = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]); TH1D* DYJetsToTauTau = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
-        TH1D* tZq_ll = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_antitop = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_top = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]); TH1D* TGJets = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]);TH1D* THW = new TH1D( "THW",plot,bin[i],Min[i],Max[i]); TH1D* THQ = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
-        TH1D* VHToNonbb = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1D* ZHToTauTau = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* ZH_HToBB_ZToLL = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToZZTo4L = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToBB = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToGG = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToMuMu = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToTauTau = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWTo2L2Nu = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWToLNuQQ = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToWWTo2L2Nu = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);/* TH1D* VBFHToTauTau = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); */TH1D* VBFHToMuMu = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToGG = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
+        TH1D* TTTT_h = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
+        TH1D* TTTo2L2Nu_h = new TH1D( "TTTo2L2Nu", plot,bin[i],Min[i],Max[i]); TH1D* TTToHadronic_h = new TH1D( "TTToHadronic",plot,bin[i],Min[i],Max[i]); TH1D* TTToSemiLeptonic_h = new TH1D( "TTToSemiLeptonic",plot,bin[i],Min[i],Max[i]);
+        TH1D* TTGJets_h = new TH1D( "TTGJets",plot,bin[i],Min[i],Max[i]);TH1D* ttZJets_h = new TH1D( "ttZJets",plot,bin[i],Min[i],Max[i]); TH1D* ttWJets_h = new TH1D( "ttWJets",plot,bin[i],Min[i],Max[i]);TH1D* ttH_h = new TH1D( "ttH",plot,bin[i],Min[i],Max[i]); /*TH1D* ttbb_h = new TH1D( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
+        TH1D* WZ_h = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]); TH1D* WWTo2L2Nu_h = new TH1D( "WWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* WpWpJJ_h = new TH1D( "WpWpJJ",plot,bin[i],Min[i],Max[i]);TH1D* ZZ_h = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]);TH1D* WGJets_h = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]);TH1D* ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
+        TH1D* WWW_h = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]); TH1D* WWZ_h = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]); TH1D* WWG_h = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]); TH1D* ZZZ_h = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZZ_h = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZG_h = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]); TH1D* WGG_h = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]); TH1D* ZGGJets_h = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
+        TH1D* WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]); TH1D* DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
+        TH1D* tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]); TH1D* TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]);TH1D* THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]); TH1D* THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
+        TH1D* VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1D* ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);/* TH1D* VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); */TH1D* VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
         vector<TH1D*> allHistos  {
-            TTTT,//0
-            TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,
-            // TTGJets,ttZJets,ttWJets,ttH, //5
-            // WZ,  WWTo2L2Nu,  WpWpJJ, ZZ, WGJets, ZGJetsToLLG,//11
-             // WWW,  WWZ,  WWG,  ZZZ,  WZZ,  WZG,  WGG,  ZGGJets,//19
-             // WJetsToLNu,  DYJetsToTauTau,//21
-             // tZq_ll,  ST_tW_antitop,  ST_tW_top,  TGJets, THW,  THQ,//27
-             // VHToNonbb,  ZHToTauTau,  ZH_HToBB_ZToLL,  GluGluHToZZTo4L,  GluGluHToBB,  GluGluHToGG,  GluGluHToMuMu,  GluGluHToTauTau,  GluGluHToWWTo2L2Nu,  GluGluHToWWToLNuQQ,  VBFHToWWTo2L2Nu, [> VBFHToTauTau, <] VBFHToMuMu,  VBFHToGG// 40
+            TTTT_h,//0
+            TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
+            /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //6
+            // WZ_h,  WWTo2L2Nu_h,  WpWpJJ_h, ZZ_h, WGJets_h, ZGJetsToLLG_h,//11
+             // WWW_h,  WWZ_h,  WWG_h,  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//19
+             // WJetsToLNu_h,  DYJetsToTauTau_h,//21
+             // tZq_ll_h,  ST_tW_antitop_h,  ST_tW_top_h,  TGJets_h, THW_h,  THQ_h,//27
+             // VHToNonbb_h,  ZHToTauTau_h,  ZH_HToBB_ZToLL_h,  GluGluHToZZTo4L_h,  GluGluHToBB_h,  GluGluHToGG_h,  GluGluHToMuMu_h,  GluGluHToTauTau_h,  GluGluHToWWTo2L2Nu_h,  GluGluHToWWToLNuQQ_h,  VBFHToWWTo2L2Nu_h, [> VBFHToTauTau_h, <] VBFHToMuMu_h,  VBFHToGG// 40
         };
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1D* background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
@@ -323,8 +323,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         double scale;
         Double_t sumGenWeights = -99;
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
-        // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 2; j++){
+        for(UInt_t j = 0; j < allHistos.size(); j++){
+        // for(UInt_t j = 0; j < 2; j++){
             // char input[50]; sprintf(input,"%s>>h(%i,%f,%f)",plot,bin[i],Min[i],Max[i]);
             hname = allHistos[j]->GetName();
             
@@ -482,7 +482,6 @@ for (UInt_t  cha=0; cha<1; cha++){
 
  
         TString NAME = variablelist[i];
-       //c1->SaveAs(NAME+".pdf");
         c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
         
         cout<<"Finished "<<NAME+postfix<<endl;
