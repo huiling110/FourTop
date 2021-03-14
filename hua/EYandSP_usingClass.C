@@ -303,16 +303,17 @@ for (UInt_t  cha=0; cha<1; cha++){
         TH1D* WWW_h = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]); TH1D* WWZ_h = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]); TH1D* WWG_h = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]); TH1D* ZZZ_h = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZZ_h = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]); TH1D* WZG_h = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]); TH1D* WGG_h = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]); TH1D* ZGGJets_h = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
         TH1D* WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]); TH1D* DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
         TH1D* tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]); TH1D* ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]); TH1D* TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]);TH1D* THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]); TH1D* THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
-        TH1D* VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1D* ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);/* TH1D* VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); */TH1D* VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
+        TH1D* VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]); TH1D* ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]); TH1D* VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
         vector<TH1D*> allHistos  {
             TTTT_h,//0
             TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
             /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
             WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
-             // WJetsToLNu_h,  DYJetsToTauTau_h,//21
-             // tZq_ll_h,  ST_tW_antitop_h,  ST_tW_top_h,  TGJets_h, THW_h,  THQ_h,//27
-             // VHToNonbb_h,  ZHToTauTau_h,  ZH_HToBB_ZToLL_h,  GluGluHToZZTo4L_h,  GluGluHToBB_h,  GluGluHToGG_h,  GluGluHToMuMu_h,  GluGluHToTauTau_h,  GluGluHToWWTo2L2Nu_h,  GluGluHToWWToLNuQQ_h,  VBFHToWWTo2L2Nu_h, [> VBFHToTauTau_h, <] VBFHToMuMu_h,  VBFHToGG// 40
+             /*WJetsToLNu_h,*/  DYJetsToTauTau_h,//22
+             tZq_ll_h, /* tZq_nunu,*/  ST_tW_antitop_h,  ST_tW_top_h,//26
+             TGJets_h, THW_h,  THQ_h,//29
+            VHToNonbb_h, /*ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,*/ VBFHToMuMu_h, VBFHToGG_h,
         };
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         TH1D* background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
@@ -332,12 +333,12 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allTreeall[j]->Project( "genWeight", "genWeight_allEvents");
             allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             h_genWeight->Print();
-            if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
-                cout<<"h_genWeight is not wide enough"<<endl;
-                h_genWeight->SetMaximum( 1000.);
-                h_genWeight->SetMinimum( -1000.);
-                cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
-            }///???not sure why not working
+            // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
+                // cout<<"h_genWeight is not wide enough"<<endl;
+                // h_genWeight->SetMaximum( 1000.);
+                // h_genWeight->SetMinimum( -1000.);
+                // cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
+            // }///???not sure why not working
             h_genWeight->StatOverflows(kTRUE);
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             cout<<"sumGenWeights = "<<sumGenWeights<<endl;
@@ -353,7 +354,6 @@ for (UInt_t  cha=0; cha<1; cha++){
 
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
-            // if( j==1 ) cout<<allgenWeights[j]->GetSumOfWeights()<<endl;
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
 

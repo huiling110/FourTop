@@ -85,7 +85,7 @@ Process GluGluHToMuMu(baseDir+"GluGluHToMuMu_M-125_TuneCP5_PSweights_13TeV_powhe
 Process GluGluHToTauTau(baseDir+"GluGluHToTauTau_M125_13TeV_powheg_pythia8.root", 30.52 );
 Process GluGluHToWWTo2L2Nu(baseDir+"GluGluHToWWTo2L2Nu_M125_13TeV_powheg_JHUgen_pythia8.root", 30.52 );
 Process GluGluHToWWToLNuQQ(baseDir+"GluGluHToWWToLNuQQ_M125_13TeV_powheg_JHUGenV628_pythia8.root", 29.99 );
-Process VBFHToWWTo2L2Nu(baseDir+"VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root", 3.769  );//??very different from ttH
+Process VBFHToWWTo2L2Nu(baseDir+"VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8.root", 3.769  );//??very different from ttH//no newtree
 Process VBFHToTauTau(baseDir+"VBFHToTauTau_M125_13TeV_powheg_pythia8.root", 0.237 );
 Process VBFHToMuMu(baseDir+"VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root", 0.000823 );
 Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 );
@@ -95,11 +95,11 @@ vector<Process> allProcesses = {
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
    /*TTGJets, ttZJets,*/ ttWJets, ttH, //7
     WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
-    WWW, WWZ, /*WWG*/ ZZZ, WZZ, WZG, WGG, ZGGJets,//19
-    /*WJetsToLNu,*/ DYJetsToTauTau,
-    tZq_ll,/* tZq_nunu,*/ ST_tW_antitop, ST_tW_top,
-    TGJets, THW, THQ,
-    VHToNonbb, /*ZHToTauTau,*/ ZH_HToBB_ZToLL,/* GluGluHToZZTo4L,*/ /*GluGluHToBB.*/ GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ, VBFHToWWTo2L2Nu, VBFHToTauTau, VBFHToMuMu, VBFHToGG,
+    WWW, WWZ, /*WWG*/ ZZZ, WZZ, WZG, WGG, ZGGJets,//20
+    /*WJetsToLNu,*/ DYJetsToTauTau,//22
+    tZq_ll,/* tZq_nunu,*/ ST_tW_antitop, ST_tW_top,//26
+    TGJets, THW, THQ, //29
+    VHToNonbb, /*ZHToTauTau,*/ ZH_HToBB_ZToLL,/* GluGluHToZZTo4L,*/ /*GluGluHToBB.*/ GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, */VBFHToMuMu, VBFHToGG,
 };
 
 
