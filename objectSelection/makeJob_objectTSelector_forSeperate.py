@@ -15,7 +15,8 @@ outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
 
-Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+#  Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelector.C"
 subAllFile = Jobsubmitpath+"/subAllProcess_seperate.sh"
 if os.path.exists(subAllFile):
@@ -42,7 +43,7 @@ sample = {
     #  "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
     #  "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
 #
-    #  "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000":"3",
+    "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000/":"3",
     #  "ttWJets_13TeV_madgraphMLM/Legacy16V2_ttWJets_13TeV_madgraphMLMaddGenWeight/210201_030246/0000/":"4",
     #  "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8/Legacy16V2_ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8addGenWeight/210201_050201/0000/":"5",
     #  "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp/Legacy16V2_TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigppaddGenWeight/210201_025047/0000/": "5.5",
@@ -51,16 +52,16 @@ sample = {
     #  "WZ_TuneCUETP8M1_13TeV-pythia8/Legacy16V2_WZ_TuneCUETP8M1_13TeV-pythia8addGenWeight/210201_031735/0000/":"6",
     #  "WW_TuneCUETP8M1_13TeV-pythia8/Legacy16V2_WW_TuneCUETP8M1_13TeV-pythia8addGenWeight/210201_032142/0000/":"7",
     #  "ZZ_TuneCUETP8M1_13TeV-pythia8/Legacy16V2_ZZ_TuneCUETP8M1_13TeV-pythia8addGenWeight/210201_032809/0000/": "8",
-  "WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph/Legacy16V2_WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraphaddGenWeight/210201_034456/0000/":"9",
-  "ZGJetsToLLG_EW_LO_13TeV-sherpa/Legacy16V2_ZGJetsToLLG_EW_LO_13TeV-sherpaaddGenWeight/210201_034901/0000/":"10",
-  "WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035100/0000/":"11",
-  "WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035302/0000/":"12",
+  #  "WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraph/Legacy16V2_WGJets_MonoPhoton_PtG-40to130_TuneCUETP8M1_13TeV-madgraphaddGenWeight/210201_034456/0000/":"9",
+  #  "ZGJetsToLLG_EW_LO_13TeV-sherpa/Legacy16V2_ZGJetsToLLG_EW_LO_13TeV-sherpaaddGenWeight/210201_034901/0000/":"10",
+  #  "WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035100/0000/":"11",
+  #  "WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035302/0000/":"12",
   #  "WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/":"13",
-  "ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035702/0000/":"14",
-  "WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035901/0000/":"15",
-  "WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_040102/0000/":"16",
-  "WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_040302/0000/":"17_1",
-  "ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8/Legacy16V2_ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8addGenWeight/210201_040904/0000/":"18",
+  #  "ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035702/0000/":"14",
+  #  "WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035901/0000/":"15",
+  #  "WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_040102/0000/":"16",
+  #  "WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WGG_5f_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_040302/0000/":"17_1",
+  #  "ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8/Legacy16V2_ZGGJets_ZToHadOrNu_5f_LO_madgraph_pythia8addGenWeight/210201_040904/0000/":"18",
 
 
 #
