@@ -6,7 +6,7 @@
 #include <TChain.h>
 #include <TLorentzVector.h>
 #include <TROOT.h> //for gROOT
-#include <TSystem.h>
+#include <TSystem.h> // for gSystem
 #include "createHistos_chain.h"
 
 //using namespace std;
@@ -25,10 +25,10 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
 cout << "Reading process " << file_it->second << "..." << endl;
 TString input_base_dir = file_it->second + "/";
-gSystem->RedirectOutput("/dev/null");
+ gSystem->RedirectOutput("/dev/null"); // do not show errors when not finding the following files: will print a custom error a few lines below
 TFile * checkinput = new TFile(input_base_dir + "v3_1-1.root");
 TFile * checkinput2 = new TFile(input_base_dir + "v3_1.root");
-gSystem->RedirectOutput(0,0);
+ gSystem->RedirectOutput(0,0); // restore the printing to normal behavior
 if (checkinput->IsZombie() && checkinput2->IsZombie()){
 cout << "+++ INPUT FILES NOT FOUND! SKIPPING +++" << endl;
  file_it++;
@@ -89,7 +89,7 @@ mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
-  if (ievent > 100) break;
+  //  if (ievent > 100) break;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
