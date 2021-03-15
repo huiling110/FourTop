@@ -78,7 +78,17 @@ Process ST_tW_top(baseDir+"ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_Tun
 Process TGJets(baseDir+"TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root", 2.967 );
 Process THW(baseDir+"THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root", 0.1467 );
 Process THQ(baseDir+"THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root", 0.8816 );
-//12
+
+//QCD
+//100to200
+// Process (baseDir+"QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+// Process (baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  );
+
 Process VHToNonbb(baseDir+"VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root", 2.137 );
 // Process ZHToTauTau(baseDir+"ZHToTauTau_M125_13TeV_powheg_pythia8.root", 0.7524 );
 Process ZH_HToBB_ZToLL(baseDir+"ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root", 0.07523 );
@@ -97,12 +107,13 @@ Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 )
 vector<Process> allProcesses = {
     TTTT, //0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
-   /*TTGJets, ttZJets,*/ ttWJets, ttH, //7
+   /*TTGJets,*/ ttZJets,ttWJets, ttH, //7
     WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
     WWW, WWZ, /*WWG*/ ZZZ, WZZ, WZG, WGG, ZGGJets,//20
     /*WJetsToLNu,*/ DYJetsToTauTau,//22
     tZq_ll,/* tZq_nunu,*/ ST_tW_antitop, ST_tW_top,//26
     TGJets, THW, THQ, //29
+    // QCD
     // VHToNonbb, [>ZHToTauTau,*/ ZH_HToBB_ZToLL,/* GluGluHToZZTo4L,*/ /*GluGluHToBB.*/ GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, <]VBFHToMuMu, VBFHToGG,
 };
 

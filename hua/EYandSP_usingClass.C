@@ -299,14 +299,14 @@ TH1D* WWW_h ; TH1D* WWZ_h ; TH1D* WWG_h ; TH1D* ZZZ_h ; TH1D* WZZ_h ; TH1D* WZG_
 TH1D* WJetsToLNu_h ; TH1D* DYJetsToTauTau_h ;//2
 TH1D* tZq_ll_h ; TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
 TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHToZZTo4L_h ; TH1D* GluGluHToBB_h ; TH1D* GluGluHToGG_h ; TH1D* GluGluHToMuMu_h ; TH1D* GluGluHToTauTau_h ; TH1D* GluGluHToWWTo2L2Nu_h ; TH1D* GluGluHToWWToLNuQQ_h ; TH1D* VBFHToWWTo2L2Nu_h ; TH1D* VBFHToTauTau_h ; TH1D* VBFHToMuMu_h ; TH1D* VBFHToGG_h ; 
- TH1D* background_SR;
+TH1D* background_SR;
 vector<TH1D*> allHistos;
-// for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=0; cha<1; cha++){
+for (UInt_t  cha=0; cha<channelName.size(); cha++){
+// for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
     std::map<Double_t, TString> mymap;
-    // for(UInt_t i=0; i<1; i++){
-    for(UInt_t i=0; i<variablelist.size(); i++){
+    for(UInt_t i=0; i<1; i++){
+    // for(UInt_t i=0; i<variablelist.size(); i++){
   	    const char *plot = variablelist[i];
 
          TTTT_h = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
@@ -321,7 +321,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         allHistos = {
             TTTT_h,//0
             TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
-            /*TTGJets_h,*//* ttZJets_h,*/ ttWJets_h,ttH_h, //7
+            /*TTGJets_h,*/ ttZJets_h, ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
             WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
              /*WJetsToLNu_h,*/  DYJetsToTauTau_h,//22
@@ -374,16 +374,33 @@ for (UInt_t  cha=0; cha<1; cha++){
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
-            cout<<"TTTT            = "<<(allHistos[0])->Integral()<<endl;
-            cout<<"TTTo2L2Nu       = "<<allHistos[1]->Integral()<<endl;
-            cout<<"TTToHadronic    = "<<allHistos[2]->Integral()<<endl;
-            cout<<"TTToSemiLeptonic= "<<allHistos[3]->Integral()<<endl;
-            cout<<"TTX    = "<<allHistos[2]->Integral()+allHistos[3]->Integral()+allHistos[4]->Integral()+allHistos[5]->Integral()<<endl;
-            // cout<<"VV     = "<<allHistos[6]->Integral()+allHistos[7]->Integral()+allHistos[8]->Integral()+allHistos[9]->Integral()+allHistos[10]->Integral()+allHistos[11]->Integral()<<endl;
-            // cout<<"VVV    = "<<allHistos[12]->Integral()+allHistos[13]->Integral()+allHistos[14]->Integral()+allHistos[15]->Integral()+allHistos[16]->Integral()+allHistos[17]->Integral()+allHistos[18]->Integral()+allHistos[19]->Integral()<<endl;
+            cout<<" TTTT            = "<<(allHistos[0])->Integral()<<endl;
+            cout<<" TTTT            = "<<TTTT_h->Integral()<<endl;
+            cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
+            cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
+            cout<<" TTToSemiLeptonic= "<<TTToSemiLeptonic_h->Integral()<<endl;
+            cout<<" TTX             = "<<ttZJets_h->Integral()
+                                    + ttWJets_h->Integral()
+                                    + ttH_h->Integral()<<endl;
+            cout<<" VV              = "<<WZ_h->Integral()
+                                    + WW_h->Integral()
+                                    + ZZ_h->Integral()
+                                    + WGJets_h->Integral()
+                                    + ZGJetsToLLG_h->Integral()<<endl;
+            cout<<" VVV             = "<<WWW_h->Integral()
+                                    + WWZ_h->Integral()
+                                    + ZZZ_h->Integral()
+                                    + WZZ_h->Integral()
+                                    + WZG_h->Integral()
+                                    + WGG_h->Integral()
+                                    + ZGGJets_h->Integral()<<endl;
             // cout<<"WJets  = "<<allHistos[20]->Integral()<<endl;
-            // cout<<"DY     = "<<allHistos[21]->Integral()<<endl;
-            // cout<<"ST     = "<<allHistos[22]->Integral()+allHistos[23]->Integral()+allHistos[24]->Integral()+allHistos[25]->Integral()+allHistos[26]->Integral()+allHistos[27]->Integral()<<endl;
+            cout<<" DY              = "<<DYJetsToTauTau_h->Integral()<<endl;
+            cout<<" ST              = "<<tZq_ll_h->Integral()
+                                    + ST_tW_antitop_h->Integral() + ST_tW_top_h->Integral()<<endl;
+            cout<<" TX              = "<<TGJets_h->Integral()
+                                    + THW_h->Integral()
+                                    + THQ_h->Integral()<<endl;
             // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
             cout<<"Total BKG       = "<<background_SR->Integral()<<endl;
             // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));

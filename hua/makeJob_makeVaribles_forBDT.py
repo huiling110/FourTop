@@ -13,7 +13,7 @@ isdata = False
 inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/"
 outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
 
-Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/hua/"
+Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
 subAllFile = Jobsubmitpath+"/subAllProcess.sh"
 if os.path.exists(subAllFile):

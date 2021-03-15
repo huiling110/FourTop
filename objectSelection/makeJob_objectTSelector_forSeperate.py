@@ -15,7 +15,6 @@ outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
 
-#  Jobsubmitpath = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelector.C"
 subAllFile = Jobsubmitpath+"/subAllProcess_seperate.sh"
@@ -42,8 +41,9 @@ sample = {
     #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
     #  "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/":"1_1",
     #  "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024040/0000/":"1_2",
+    "TTJets_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8/Legacy16V2_TTJets_TuneCP5_PSweights_13TeV-amcatnloFXFX-pythia8addGenWeight/210201_024646/0000/":"1_3",
 #
-    "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000/":"3",
+    #  "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000/":"3",
     #  "ttWJets_13TeV_madgraphMLM/Legacy16V2_ttWJets_13TeV_madgraphMLMaddGenWeight/210201_030246/0000/":"4",
     #  "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8/Legacy16V2_ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8addGenWeight/210201_050201/0000/":"5",
     #  "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp/Legacy16V2_TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigppaddGenWeight/210201_025047/0000/": "5.5",
