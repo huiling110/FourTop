@@ -33,27 +33,27 @@ bool comparePt(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
-double DeltaR(double eta1, double eta2, double phi1, double phi2) {
-  double deltaPhi = TMath::Abs(phi1 - phi2);
-  double deltaEta = eta1 - eta2;
+Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) {
+  Double_t deltaPhi = TMath::Abs(phi1 - phi2);
+  Double_t deltaEta = eta1 - eta2;
   if (deltaPhi > TMath::Pi())
     deltaPhi = TMath::TwoPi() - deltaPhi;
   return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
 }
 
-double deltRmin(const double eta1, const double phi1, const TTreeReaderArray<TLorentzVector>& LeptonsMVAF){
-    double deltaR = 0;
-    double minDeltaR = 100;
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const TTreeReaderArray<TLorentzVector>& LeptonsMVAF){
+    Double_t deltaR = 0;
+    Double_t minDeltaR = 100;
     for (UInt_t lep = 0; lep < LeptonsMVAF.GetSize(); lep++){
         deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
     return minDeltaR; 
 }
-// double HTcalculator(vector<TLorentzVector> SelectedJets) {
-double HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
+// Double_t HTcalculator(vector<TLorentzVector> SelectedJets) {
+Double_t HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
-  double HTprov = 0;
+  Double_t HTprov = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     HTprov =
         HTprov + SelectedJets[j].Pt(); //.Pt: the 3 vertor component, scalar
@@ -61,11 +61,11 @@ double HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
   return HTprov;
 } /*}}}*/
 
-double MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
+Double_t MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
     /*{{{*/
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
-  double MHTprov = 0;
+  Double_t MHTprov = 0;
   for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
     SumJets = SumJets + SelectedJets[j];
   }
@@ -74,11 +74,11 @@ double MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
 } /*}}}*/
 ///it seems we cant not use TTreeReaderArray as input parameter
 //yes we can , just have to pass by address
-double MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
+Double_t MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
-  double MHTprov = 0;
+  Double_t MHTprov = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     SumJets = SumJets + SelectedJets[j];
   }
@@ -87,26 +87,26 @@ double MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
 } /*}}}*/
 
 
-// double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
-double InvariantMassCalculator(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
+// Double_t InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
+Double_t InvariantMassCalculator(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
   TLorentzVector jet_sum = { 0, 0, 0, 0 };
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     jet_sum = jet_sum + SelectedJets[j];
   }
-  double InMass = jet_sum.M();
+  Double_t InMass = jet_sum.M();
   return InMass;
 }
-double InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
+Double_t InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
   TLorentzVector jet_sum = { 0, 0, 0, 0 };
   for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
     jet_sum = jet_sum + SelectedJets[j];
   }
-  double InMass = jet_sum.M();
+  Double_t InMass = jet_sum.M();
   return InMass;
 }
 
 
-double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
+Double_t InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
                             const TTreeReaderArray<TLorentzVector>& b) {
   vector<TLorentzVector> vector_sum(a.begin(), a.end());
   vector_sum.insert(vector_sum.end(), b.begin(), b.end());
@@ -118,7 +118,7 @@ double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
       for (UInt_t k = 0; k < b.GetSize(); ++k){
           b_sum = b_sum + b[k];
       }*/
-  double invariantMass = InvariantMassCalculator(vector_sum);
+  Double_t invariantMass = InvariantMassCalculator(vector_sum);
   return invariantMass;
 }
 
@@ -136,43 +136,43 @@ double InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
   // return charge_sum;
 // }
 
-double TransEnergyCal(const TLorentzVector SelectedJets) {
+Double_t TransEnergyCal(const TLorentzVector SelectedJets) {
   //    TVector3 p =  SelectedJets.Vect();
-  double pt = SelectedJets.Pt();
-  double trans_energy = sqrt(SelectedJets.M() * SelectedJets.M() + pt * pt);
+  Double_t pt = SelectedJets.Pt();
+  Double_t trans_energy = sqrt(SelectedJets.M() * SelectedJets.M() + pt * pt);
   return trans_energy;
 }
 
-double TransEnergySysCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
-  double transE = 0;
+Double_t TransEnergySysCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
+  Double_t transE = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
   return transE;
 }
-double TransEnergySysCal(const vector<TLorentzVector>& SelectedJets) {
-  double transE = 0;
+Double_t TransEnergySysCal(const vector<TLorentzVector>& SelectedJets) {
+  Double_t transE = 0;
   for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
   return transE;
 }
 
-double TransMassCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
-  double MHT = MHTcalculator(SelectedJets);
-  double transE = 0;
+Double_t TransMassCal(const TTreeReaderArray<TLorentzVector>& SelectedJets) {
+  Double_t MHT = MHTcalculator(SelectedJets);
+  Double_t transE = 0;
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     transE += TransEnergyCal(SelectedJets[j]);
   }
-  double trans_mass = sqrt(MHT * MHT + transE * transE);
+  Double_t trans_mass = sqrt(MHT * MHT + transE * transE);
   return trans_mass;
 }
 
-// double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
+// Double_t TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,
                        // const vector<TLorentzVector>& Leptons) {
-double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,   const TTreeReaderArray<TLorentzVector>& Leptons) {
-  double transE1 = TransEnergySysCal(Jets);
-  double transE2 = TransEnergySysCal(Leptons);
+Double_t TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,   const TTreeReaderArray<TLorentzVector>& Leptons) {
+  Double_t transE1 = TransEnergySysCal(Jets);
+  Double_t transE2 = TransEnergySysCal(Leptons);
   TLorentzVector SumJets;
   SumJets.SetPtEtaPhiE(0, 0, 0, 0);
   TLorentzVector SumLeptons;
@@ -184,16 +184,16 @@ double TransMassSysCal(const TTreeReaderArray<TLorentzVector>& Jets,   const TTr
     SumLeptons = SumLeptons + Leptons[k];
   }
   TVector3 MHTsum = (SumJets + SumLeptons).Vect();
-  double transMass =
+  Double_t transMass =
       sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
   return transMass;
 }
 
-double MinDeltaRCal(const TTreeReaderArray<TLorentzVector>& Jets,
+Double_t MinDeltaRCal(const TTreeReaderArray<TLorentzVector>& Jets,
                     const TTreeReaderArray<TLorentzVector>& Leptons) {
-  double deltaR_init = 10;
-  double min_deltar = 10;
-  double min_deltaR = 10;
+  Double_t deltaR_init = 10;
+  Double_t min_deltar = 10;
+  Double_t min_deltaR = 10;
   for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
     for (UInt_t k = 0; k < Leptons.GetSize(); ++k) {
       deltaR_init = Jets[j].DeltaR(Leptons[k]);
@@ -205,11 +205,11 @@ double MinDeltaRCal(const TTreeReaderArray<TLorentzVector>& Jets,
   }
   return min_deltaR;
 }
-double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
-  double min = 10;
-  double min_2 = 10;
-  double min_3 = 10;
-  double min_1 = 10;
+Double_t MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
+  Double_t min = 10;
+  Double_t min_2 = 10;
+  Double_t min_3 = 10;
+  Double_t min_1 = 10;
   for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
     for (UInt_t k = j + 1; k < Jets.GetSize(); ++k) {
       min_1 = Jets[j].DeltaR(Jets[k]);
@@ -223,12 +223,12 @@ double MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
   return min_3;
 }
 
-double AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
-  double eta_1;
-  double phi_1;
-  double eta_2;
-  double phi_2;
-  double sum_delta_R = 0.0;
+Double_t AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
+  Double_t eta_1;
+  Double_t phi_1;
+  Double_t eta_2;
+  Double_t phi_2;
+  Double_t sum_delta_R = 0.0;
   const Int_t num = SelectedJets.GetSize();
   for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
     eta_1 = SelectedJets[j].Eta();
@@ -244,11 +244,11 @@ double AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
   sum_delta_R = sum_delta_R / ((num - 1) * num);
   return sum_delta_R;
 }
-// double bscoreSumOf4largestCal(const TTreeReaderArray<double>& SelectedJetsBTags) {
-    // vector<double> jetsBtags = SelectedJetsBTags;
+// Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
+    // vector<Double_t> jetsBtags = SelectedJetsBTags;
     // sort(jetsBtags.begin(),jetsBtags.end());
     // reverse(jetsBtags.begin(),jetsBtags.end());
-    // double sum = -99;
+    // Double_t sum = -99;
     // if(SelectedJetsBTags.GetSize()>3) {
         // sum = jetsBtags[0]+jetsBtags[1]+jetsBtags[2]+jetsBtags[3];
     // }
@@ -257,8 +257,8 @@ double AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {
     // }
     // return sum;
 // }
-double BScoreAllJetsCal(const TTreeReaderArray<double>& SelectedJetsBTags) {
-  double initB = 0;
+Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
+  Double_t initB = 0;
   for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j) {
     initB = initB + SelectedJetsBTags[j];
   }

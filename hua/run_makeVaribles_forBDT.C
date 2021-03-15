@@ -22,7 +22,8 @@ void run_makeVaribles_forBDT(
 
     TString outputFileName = inputDir + ".root";
 
-    TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/hua/makeVaribles_forBDT.C";
+    // TString selection = "/publicfs/cms/user/huahuil/code/FourTopTau/CMSSW_10_2_20_UL/src/FourTop/hua/makeVaribles_forBDT.C";
+    TString selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/makeVaribles_forBDT.C";
 
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
@@ -36,7 +37,7 @@ void run_makeVaribles_forBDT(
     cout<<"---------"<<endl;
     cout<<"now comes to add allevents stage"<<endl;
     TFile* file = TFile::Open(  outputDir + outputFileName , "UPDATE");
-    cout<<"file opened :"<<file->GetName();
+    // cout<<"file opened :"<<file->GetName();
     TChain chain2( "allevents");
     chain2.Add(inputFile + "v3*.root" );
     // chain2.ls();
