@@ -29,7 +29,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-bool comparePt(const TLorentzVector a, const TLorentzVector b) {
+// Bool_t comparePt(const TLorentzVector a, const TLorentzVector b) {
+Bool_t comparePt(const TLorentzVector& a, const TLorentzVector& b) {
     return a.Pt() > b.Pt();
 }
 
@@ -122,8 +123,8 @@ Double_t InvariantMass2SysCal(const TTreeReaderArray<TLorentzVector>& a,
   return invariantMass;
 }
 
-// int ChargeSum(const vector<int> SelectedElectronsMVATIndex, int type) {
-  // int charge_sum = 0;
+// Int_t ChargeSum(const vector<Int_t> SelectedElectronsMVATIndex, Int_t type) {
+  // Int_t charge_sum = 0;
   // for (UInt_t j = 0; j < SelectedElectronsMVATIndex.size(); ++j) {
     // if (type == 0)
       // charge_sum += patElectron_charge_->at(j);
@@ -296,8 +297,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
-   newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
-   newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
+   // newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
+   // newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
    newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
@@ -534,8 +535,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //initialize{{{
      EVENT_prefireWeight  = -99;
      EVENT_genWeight = -99;
-    HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
-    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
+    // HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
+    // HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
     Met_pt_ = -99;
     Met_phi_ = -99;
     muonsL_number=-99;
@@ -695,8 +696,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 
 
-    HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
-    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+    // HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    // HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
 
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
@@ -729,25 +730,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
       sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
+      // cout<<eleMVAF.begin()<<"";
       if (elesMVAF_number > 0) {
         elesMVAF_1pt = eleMVAF[0].Pt();
       }
 
-      // vector<TLorentzVector> LeptonsMVAF(muonsF.begin(), muonsF.end());
-      // LeptonsMVAF.insert(LeptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
-      // vector<TLorentzVector> LeptonsMVAT(muonsT.begin(),  muonsT.end());
-      // LeptonsMVAT.insert(LeptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
-      // vector<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());
-      // LeptonsMVAL.insert(LeptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
-      // TTreeReaderArray<TLorentzVector> LeptonsMVAL(muonsL.begin(),  muonsL.end());//not working
-
-      // vector<int> LeptonsMVATIndex(muonsTIndex.begin(),  muonsTIndex.end());
-      // LeptonsMVATIndex.insert(LeptonsMVATIndex.end(), eleMVATIndex.begin(), eleMVATIndex.end());
 
       leptonsMVAT_number = leptonsMVAT.GetSize();
       leptonsMVAF_number = leptonsMVAF.GetSize();
       leptonsMVAL_number = leptonsMVAL.GetSize();
       //???=0
+      // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
       leptonsMVAT_transMass = TransMassCal(leptonsMVAT);
       leptonsMVAF_transMass = TransMassCal(leptonsMVAF);
       leptonsMVAL_transMass = TransMassCal(leptonsMVAL);
@@ -769,6 +762,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 
       // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
+      // cout<<leptonsMVAT.begin()<<"";
       //???sort not working here 
       if (leptonsMVAT_number > 0) {
         leptonsMVAT_1pt = leptonsMVAT[0].Pt();
@@ -883,6 +877,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       bjetsL_tausF_minDeltaR = MinDeltaRCal(bjetsL, tausF);
 
       // sort(bjetsL.begin(), bjetsL.end(), comparePt);
+      // ???cant use sort 
       if (bjetsL_num > 0) {/*{{{*/
         bjetsL_1pt = bjetsL[0].Pt();
         bjetsL_1eta = bjetsL[0].Eta();
