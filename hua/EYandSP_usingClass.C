@@ -374,7 +374,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
-            cout<<" TTTT            = "<<(allHistos[0])->Integral()<<endl;
+            // cout<<" TTTT            = "<<(allHistos[0])->Integral()<<endl;
             cout<<" TTTT            = "<<TTTT_h->Integral()<<endl;
             cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
             cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
