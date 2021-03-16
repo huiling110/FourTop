@@ -7,6 +7,11 @@ void checkEntriesT2T3(){
     chainT3.Add( T3dir + "v3*root");
     cout<<chainT3.GetEntries()<<endl;
 
+    TString T2dir = "root://ccsrm.ihep.ac.cn/dpm/ihep.ac.cn/home/cms/store/user/h/hua/v3/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/Legacy16V2_TT_TuneCUETP8M2T4_13TeV-powheg-pythia8addGenWeight/210201_023840/0000/";
+    TChain chainT2("TNT/BOOM");
+    chainT2.Add( T2dir + "v3*root");
+    cout<<chainT2.GetEntries();
+
 
 
 }
