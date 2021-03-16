@@ -121,6 +121,8 @@ public :
     Double_t  jetsL_bScore= -99;
     Double_t  jetsL_average_deltaR= -99;
     Double_t  jetsL_4largestBscoreSum= -99;
+    Double_t jetsL_leading2invariantMass = -99;
+    Double_t jetsL_rationHT_4toRest = -99;
     Double_t  jetsL_HTDividedByMet= -99;
     Double_t  MetDividedByHT= -99;
     Double_t  jetsL_MHTDividedByMet= -99;

@@ -55,7 +55,6 @@ void copy_TTreeReaderArray_toVector( const TTreeReaderArray<double> &array, vect
         vec.push_back( array.At(i));
     }
 }
-// Double_t HTcalculator(vector<TLorentzVector> SelectedJets) {
 Double_t HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
     /*{{{*/
   Double_t HTprov = 0;
@@ -66,6 +65,15 @@ Double_t HTcalculator( const TTreeReaderArray<TLorentzVector> &SelectedJets) {
   return HTprov;
 } /*}}}*/
 
+Double_t HTcalculator( const vector<TLorentzVector> &SelectedJets) {
+    /*{{{*/
+  Double_t HTprov = 0;
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j) {
+    HTprov =
+        HTprov + SelectedJets[j].Pt(); //.Pt: the 3 vertor component, scalar
+  }
+  return HTprov;
+} /*}}}*/
 Double_t MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
     /*{{{*/
   TLorentzVector SumJets;
@@ -90,6 +98,18 @@ Double_t MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
   MHTprov = SumJets.Pt();
   return MHTprov;
 } /*}}}*/
+Double_t rationHT_4toRestCal(const TTreeReaderArray<TLorentzVector>& SelectedJets){
+    vector<TLorentzVector> leading4 ;
+    vector<TLorentzVector> rest;
+    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+        if ( j < 4 ) leading4.push_back(SelectedJets[j]);
+        if ( j >= 4) rest.push_back(SelectedJets[j]);
+    }
+    if ( SelectedJets.GetSize() > 4){
+        return HTcalculator(leading4)/HTcalculator(rest);
+    }
+    else return -99;
+}
 
 
 // Double_t InvariantMassCalculator(vector<TLorentzVector> SelectedJets) {
@@ -403,8 +423,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("jetsL_bScore", &jetsL_bScore, "jetsL_bScore/D");
   newtree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
   newtree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
-  // newtree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
-  // newtree->Branch("jetsL_rationHT_4toRest", &jetsL_rationHT_4toRest,"jetsL_rationHT_4toRest/D");
+  newtree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
+  newtree->Branch("jetsL_rationHT_4toRest", &jetsL_rationHT_4toRest,"jetsL_rationHT_4toRest/D");
 
   newtree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
                   "jetsL_leptonsMVAT_minDeltaR/D");
@@ -622,11 +642,46 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jetsL_bScore= -99;
       jetsL_average_deltaR= -99;
       jetsL_4largestBscoreSum= -99;
+      jetsL_leading2invariantMass = -99;
+      jetsL_rationHT_4toRest = -99;
       jetsL_HTDividedByMet= -99;
       MetDividedByHT= -99;
       jetsL_MHTDividedByMet= -99;
      jetsL_leptonsMVAT_minDeltaR= -99;
      jetsL_tausF_minDeltaR= -99;
+    jetsL_1pt = -99;
+     jetsL_1phi = -99;
+     jetsL_1eta = -99;
+     jetsL_2pt = -99;
+     jetsL_2eta = -99;
+     jetsL_2phi = -99;
+     jetsL_3pt = -99;
+     jetsL_3eta = -99;
+     jetsL_3phi = -99;
+     jetsL_4pt = -99;
+     jetsL_4eta = -99;
+     jetsL_4phi = -99;
+     jetsL_5pt = -99;
+     jetsL_5eta = -99;
+     jetsL_5phi = -99;
+     jetsL_6pt = -99;
+     jetsL_6eta = -99;
+     jetsL_6phi = -99;
+     jetsL_7pt = -99;
+     jetsL_7eta = -99;
+     jetL_7phi = -99;
+     jetsL_8pt = -99;
+     jetsL_8eta = -99;
+     jetsL_8phi = -99;
+     jetsL_9pt = -99;
+     jetsL_9eta = -99;
+     jetsL_9phi = -99;
+     jetsL_10pt = -99;
+     jetsL_10eta = -99;
+     jetsL_10phi = -99;
+     jetsL_11pt = -99;
+     jetsL_11eta = -99;
+     jetsL_11phi = -99;
 
      bjetsL_num = -99;
      bjetsM_num= -99;
@@ -841,6 +896,63 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jetsL_MHTDividedByMet = jetsL_MHT / Met_pt_;
       jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
       jetsL_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+      if (jetsL_number > 0) {/*{{{*/
+        jetsL_1pt = jets[0].Pt();
+        jetsL_1eta = jets[0].Eta();
+        jetsL_1phi = jets[0].Phi();
+      }
+      if (jetsL_number > 1) {
+        jetsL_2pt = jets[1].Pt();
+        jetsL_2eta = jets[1].Eta();
+        jetsL_2phi = jets[1].Phi();
+        jetsL_leading2invariantMass = (jets[0]+jets[1]).M();
+      }
+      if (jetsL_number > 2) {
+        jetsL_3pt = jets[2].Pt();
+        jetsL_3eta = jets[2].Eta();
+        jetsL_3phi = jets[2].Phi();
+      }
+      if (jetsL_number > 3) {
+        jetsL_4pt = jets[3].Pt();
+        jetsL_4eta = jets[3].Eta();
+        jetsL_4phi = jets[3].Phi();
+      }
+      if (jetsL_number > 4) {
+        jetsL_5pt = jets[4].Pt();
+        jetsL_5eta = jets[4].Eta();
+        jetsL_5phi = jets[4].Phi();
+        jetsL_rationHT_4toRest = rationHT_4toRestCal(jets);
+      }
+      if (jetsL_number > 5) {
+        jetsL_6pt = jets[5].Pt();
+        jetsL_6eta = jets[5].Eta();
+        jetsL_6phi = jets[5].Phi();
+      }
+      if (jetsL_number > 6) {
+        jetsL_7pt = jets[6].Pt();
+        jetsL_7eta = jets[6].Eta();
+        jetL_7phi = jets[6].Phi();
+      }
+      if (jetsL_number > 7) {
+        jetsL_8pt = jets[7].Pt();
+        jetsL_8eta = jets[7].Eta();
+        jetsL_8phi = jets[7].Phi();
+      }
+      if (jetsL_number > 8) {
+        jetsL_9pt = jets[8].Pt();
+        jetsL_9eta = jets[8].Eta();
+        jetsL_9phi = jets[8].Phi();
+      }
+      if (jetsL_number > 9) {
+        jetsL_10pt = jets[9].Pt();
+        jetsL_10eta = jets[9].Eta();
+        jetsL_10phi = jets[9].Phi();
+      }
+      if (jetsL_number > 10) {
+        jetsL_11pt = jets[10].Pt();
+        jetsL_11eta = jets[10].Eta();
+        jetsL_11phi = jets[10].Phi();
+      }/*}}}*/
  
 
       bjetsL_num = bjetsL.GetSize();
