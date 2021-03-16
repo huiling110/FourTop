@@ -30,6 +30,7 @@
 #include <TStyle.h>
 
 // Bool_t comparePt(const TLorentzVector a, const TLorentzVector b) {
+
 Bool_t comparePt(const TLorentzVector& a, const TLorentzVector& b) {
     return a.Pt() > b.Pt();
 }
@@ -708,6 +709,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     muonsT_number = muonsT.GetSize();
     // sort( muonsL.begin(), muonsL.end(), comparePt);
     // sort( muonsF.begin(), muonsF.end(), comparePt);
+    if( muonsT_number >1){
+        cout<<muonsT[0].Pt()<<","<<muonsT[1].Pt()<<endl;
+    }
     sort( muonsT.begin(), muonsT.end(), comparePt);
     if (muonsT_number > 0) {
         muonsT_1pt = muonsT[0].Pt();
@@ -730,7 +734,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       elesMVAF_number = eleMVAF.GetSize();
       elesMVAT_number = eleMVAT.GetSize();
       sort(eleMVAF.begin(), eleMVAF.end(),  comparePt);
-      // cout<<eleMVAF.begin()<<"";
       if (elesMVAF_number > 0) {
         elesMVAF_1pt = eleMVAF[0].Pt();
       }
@@ -740,6 +743,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       leptonsMVAF_number = leptonsMVAF.GetSize();
       leptonsMVAL_number = leptonsMVAL.GetSize();
       //???=0
+    std::cout<<leptonsMVAT_number<<" ";
+// if (leptonsMVAT_number == 2 ){
+    // std::cout << leptonsMVAT[0].Pt() << ", " << leptonsMVAT[1].Pt() << std::endl;
+// }
       // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
       leptonsMVAT_transMass = TransMassCal(leptonsMVAT);
       leptonsMVAF_transMass = TransMassCal(leptonsMVAF);
@@ -759,10 +766,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
               else leptonsMVAT_2OS = 1 ;
           }
       }
+      // std::cout << "0002" << std::endl;
 
 
       // sort(leptonsMVAT.begin(), leptonsMVAT.end(), comparePt);
-      // cout<<leptonsMVAT.begin()<<"";
       //???sort not working here 
       if (leptonsMVAT_number > 0) {
         leptonsMVAT_1pt = leptonsMVAT[0].Pt();
