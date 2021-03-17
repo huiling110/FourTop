@@ -314,8 +314,8 @@ vector<TH1D*> allHistos;
 // Double_t QCD_HT200to300_entries; Double_t  QCD_HT300to500_entries; Double_t  QCD_HT500to700_entries; Double_t  QCD_HT700to1000_entries; Double_t  QCD_HT1000to1500_entries; Double_t  QCD_HT1500to2000_entries; Double_t  QCD_HT2000toInf_entries;
 // VHToNonbb_entries; Double_t  [>ZHToTauTau_entries; Double_t */ ZH_HToBB_ZToLL_entries; Double_t /* GluGluHToZZTo4L_entries; Double_t */ /*GluGluHToBB.*/ GluGluHToGG_entries; Double_t  GluGluHToMuMu_entries; Double_t  GluGluHToTauTau_entries; Double_t  GluGluHToWWTo2L2Nu_entries; Double_t  GluGluHToWWToLNuQQ_entries; Double_t /* VBFHToWWTo2L2Nu_entries; Double_t  VBFHToTauTau_entries; Double_t  <]VBFHToMuMu_entries; Double_t  VBFHToGG_entries;
 // vector<Double_t> rawEntries;
-for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=0; cha<1; cha++){
+// for (UInt_t  cha=0; cha<channelName.size(); cha++){
+for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
     std::map<Double_t, TString> mymap;
     for(UInt_t i=0; i<1; i++){
@@ -374,15 +374,17 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
 
             // allTree[j]->Project( hname, plot, weight*channelCut[cha] );//step4
             // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
-
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
             allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
             // allHistos[j]->Print();
-            cout<<allHistos[j]->GetName()<<"    "<<allHistos[j]->Integral()<<endl;
+            cout<<allHistos[j]->GetName()<<":"<<endl;
+            cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
             // rawEntries[j] = allHistos[j]->Integral();
 
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
+            cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
+
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
 
