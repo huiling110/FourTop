@@ -282,7 +282,7 @@ const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_numb
 const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
-const TCut weight = "EVENT_genWeight";
+const TCut weight = "EVENT_genWeight*EVENT_prefireWeight";
 
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
@@ -298,9 +298,22 @@ TH1D* WZ_h ; TH1D* WW_h ; TH1D* ZZ_h ;TH1D* WGJets_h ;TH1D* ZGJetsToLLG_h ;//6
 TH1D* WWW_h ; TH1D* WWZ_h ; TH1D* WWG_h ; TH1D* ZZZ_h ; TH1D* WZZ_h ; TH1D* WZG_h ; TH1D* WGG_h ; TH1D* ZGGJets_h ;//8
 TH1D* WJetsToLNu_h ; TH1D* DYJetsToTauTau_h ;//2
 TH1D* tZq_ll_h ; TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
+TH1D* QCD_HT200to300_h; TH1D* QCD_HT300to500_h; TH1D* QCD_HT500to700_h; TH1D* QCD_HT700to1000_h;  TH1D* QCD_HT1000to1500_h; TH1D* QCD_HT1500to2000_h; TH1D* QCD_HT2000toInf_h;
 TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHToZZTo4L_h ; TH1D* GluGluHToBB_h ; TH1D* GluGluHToGG_h ; TH1D* GluGluHToMuMu_h ; TH1D* GluGluHToTauTau_h ; TH1D* GluGluHToWWTo2L2Nu_h ; TH1D* GluGluHToWWToLNuQQ_h ; TH1D* VBFHToWWTo2L2Nu_h ; TH1D* VBFHToTauTau_h ; TH1D* VBFHToMuMu_h ; TH1D* VBFHToGG_h ; 
 TH1D* background_SR;
 vector<TH1D*> allHistos;
+
+// Double_t TTTT_entries; //0
+// Double_t TTTo2L2Nu_entries; Double_t  TTToHadronic_entries; Double_t  TTToSemiLeptonic_entries; //3
+// Double_t TTGJets_entries; Double_t  ttZJets_entries; Double_t ttWJets_entries; Double_t  ttH_entries; //7
+// Double_t WZ_entries; Double_t  WW_entries; Double_t  ZZ_entries; Double_t  WGJets_entries; Double_t  ZGJetsToLLG_entries; //12
+// Double_t WWW_entries; Double_t  WWZ_entries; Double_t  [>WWG<] ZZZ_entries; Double_t  WZZ_entries; Double_t  WZG_entries; Double_t  WGG_entries; Double_t  ZGGJets_entries;//20
+// WJetsToLNu_entries; Double_t  DYJetsToTauTau_entries;//22
+// Double_t tZq_ll_entries; [> tZq_nunu_entries; Double_t <] Double_t ST_tW_antitop_entries; Double_t  ST_tW_top_entries;  //26
+// Double_t TGJets_entries; Double_t  THW_entries; Double_t  THQ_entries; //29
+// Double_t QCD_HT200to300_entries; Double_t  QCD_HT300to500_entries; Double_t  QCD_HT500to700_entries; Double_t  QCD_HT700to1000_entries; Double_t  QCD_HT1000to1500_entries; Double_t  QCD_HT1500to2000_entries; Double_t  QCD_HT2000toInf_entries;
+// VHToNonbb_entries; Double_t  [>ZHToTauTau_entries; Double_t */ ZH_HToBB_ZToLL_entries; Double_t /* GluGluHToZZTo4L_entries; Double_t */ /*GluGluHToBB.*/ GluGluHToGG_entries; Double_t  GluGluHToMuMu_entries; Double_t  GluGluHToTauTau_entries; Double_t  GluGluHToWWTo2L2Nu_entries; Double_t  GluGluHToWWToLNuQQ_entries; Double_t /* VBFHToWWTo2L2Nu_entries; Double_t  VBFHToTauTau_entries; Double_t  <]VBFHToMuMu_entries; Double_t  VBFHToGG_entries;
+// vector<Double_t> rawEntries;
 for (UInt_t  cha=0; cha<channelName.size(); cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
@@ -317,6 +330,7 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
          WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]);  DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
          tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]);  ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]);  ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]);  TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]); THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]);  THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
          VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]);  ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]);  ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]);  GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]);  GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]);  GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]);  GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]);  GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]);  GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]);  VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]);  VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]);  VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
+         QCD_HT200to300_h = new TH1D( "QCD_HT200to300_h",plot,bin[i],Min[i],Max[i]); QCD_HT300to500_h = new TH1D( "QCD_HT300to500_h",plot,bin[i],Min[i],Max[i]); QCD_HT500to700_h = new TH1D( "QCD_HT500to700_h",plot,bin[i],Min[i],Max[i]); QCD_HT700to1000_h = new TH1D( "QCD_HT700to1000_h",plot,bin[i],Min[i],Max[i]); QCD_HT1000to1500_h = new TH1D( "QCD_HT1000to1500_h",plot,bin[i],Min[i],Max[i]); QCD_HT1500to2000_h = new TH1D( "QCD_HT1500to2000_h",plot,bin[i],Min[i],Max[i]); QCD_HT2000toInf_h = new TH1D( "QCD_HT2000toInf_h",plot,bin[i],Min[i],Max[i]);
         allHistos.clear();
         allHistos = {
             TTTT_h,//0
@@ -324,9 +338,10 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             /*TTGJets_h,*/ ttZJets_h, ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
             WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
-             /*WJetsToLNu_h,*/  DYJetsToTauTau_h,//22
-             tZq_ll_h, /* tZq_nunu,*/  ST_tW_antitop_h,  ST_tW_top_h,//26
-             TGJets_h, THW_h,  THQ_h,//29
+            /*WJetsToLNu_h,*/  DYJetsToTauTau_h,//22
+            tZq_ll_h, /* tZq_nunu,*/  ST_tW_antitop_h,  ST_tW_top_h,//26
+            TGJets_h, THW_h,  THQ_h,//29
+            QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
@@ -363,6 +378,8 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
             allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
             // allHistos[j]->Print();
+            cout<<allHistos[j]->GetName()<<"    "<<allHistos[j]->Integral()<<endl;
+            // rawEntries[j] = allHistos[j]->Integral();
 
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
@@ -401,13 +418,14 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
             cout<<" TX              = "<<TGJets_h->Integral()
                                     + THW_h->Integral()
                                     + THQ_h->Integral()<<endl;
+            cout<<" QCD             = "<< QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
             // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
-            cout<<"Total BKG       = "<<background_SR->Integral()<<endl;
+            cout<<" Total BKG       = "<<background_SR->Integral()<<endl;
             // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
             cout<<endl;
             
-            cout<<"Statistics"<<endl;
-            // cout<<"TTTT   = "<<(allHistos[0])->Integral()/allScales_v2[0]<<endl;
+            // cout<<"Statistics"<<endl;
+            // cout<<"TTTT   = "<<TTTT_entries<<endl;
             // cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
             // cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
             // cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
