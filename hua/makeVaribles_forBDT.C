@@ -318,6 +318,17 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree = new TTree( "newtree", "tree for BDT");
 
+   newtree->Branch( "Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
+   newtree->Branch( "Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
+   newtree->Branch( "Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter, "Flag_HBHENoiseFilter/I");
+   newtree->Branch( "Flag_HBHENoiseIsoFilter", &Flag_HBHENoiseIsoFilter, "Flag_HBHENoiseIsoFilter/I");
+   newtree->Branch( "Flag_EcalDeadCellTriggerPrimitiveFilter", &Flag_EcalDeadCellTriggerPrimitiveFilter, "Flag_EcalDeadCellTriggerPrimitiveFilter/I");
+   newtree->Branch( "Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter, "Flag_BadPFMuonFilter/I");
+   newtree->Branch( "Flag_eeBadScFilter", &Flag_eeBadScFilter, "Flag_eeBadScFilter/I");
+
+    newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
+    newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
+
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
@@ -748,6 +759,16 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       // = -99;}}}
 
 
+    Flag_goodVertices = *Flag_goodVertices_;
+    Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
+    Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;
+    Flag_HBHENoiseIsoFilter = *Flag_HBHENoiseIsoFilter_;
+    Flag_EcalDeadCellTriggerPrimitiveFilter = *Flag_EcalDeadCellTriggerPrimitiveFilter_;
+    Flag_BadPFMuonFilter = *Flag_BadPFMuonFilter_;
+    Flag_eeBadScFilter = *Flag_eeBadScFilter_;
+    //HLT
+    HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
 
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;
