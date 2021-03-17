@@ -282,13 +282,17 @@ const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_numb
 const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
-const TCut weight = "EVENT_genWeight*EVENT_prefireWeight";
+const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
 vector<TCut>   channelCut_step1   = { ES1tau0l_step1, ES1tau1e_step1,  ES1tau1m_step1, ES1tau2os_step1, ES1tau2ss_step1, ES1tau3l_step1, ES2tau0l_step1, ES2tau1e_step1, ES2tau1m_step1, ES2tau2os_step1, ES2tau2ss_step1};
 vector<TCut>   channelCut_step2   = { ES1tau0l_step2, ES1tau1e_step2,  ES1tau1m_step2, ES1tau2os_step2, ES1tau2ss_step2, ES1tau3l_step2, ES2tau0l_step2, ES2tau1e_step2, ES2tau1m_step2, ES2tau2os_step2, ES2tau2ss_step2 };
 vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_step3, ES1tau2os_step3, ES1tau2ss_step3, ES1tau3l_step3, ES2tau0l_step3, ES2tau1e_step3, ES2tau1m_step3, ES2tau2os_step3, ES2tau2ss_step3 };
+
+TCut MetFilters = "Flag_goodVertices_==1 && Flag_globalSuperTightHalo2016Filter_==1 && Flag_HBHENoiseFilter_==1 && Flag_HBHENoiseIsoFilter_==1 && Flag_EcalDeadCellTriggerPrimitiveFilter_==1 && Flag_BadPFMuonFilter_==1";
+
+
 
 
 TH1D* TTTT_h ;//1
@@ -353,13 +357,13 @@ for (UInt_t  cha=0; cha<1; cha++){
         double scale;
         Double_t sumGenWeights = -99;
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
-        for(UInt_t j = 0; j < allHistos.size(); j++){
-        // for(UInt_t j = 0; j < 2; j++){
+        // for(UInt_t j = 0; j < allHistos.size(); j++){
+        for(UInt_t j = 0; j < 1; j++){
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
             // h_genWeight->Print();
-            allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
+            // allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             // h_genWeight->Print();
             // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
                 // cout<<"h_genWeight is not wide enough"<<endl;
@@ -367,14 +371,15 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // h_genWeight->SetMinimum( -1000.);
                 // cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
             // }///???not sure why not working
-            h_genWeight->StatOverflows(kTRUE);
-            sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
+            // h_genWeight->StatOverflows(kTRUE);
+            // sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
 
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step2[cha]);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step3[cha]);
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allHistos[j]->Print();
             if ( j ==0){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
@@ -382,11 +387,11 @@ for (UInt_t  cha=0; cha<1; cha++){
                 cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
             }
 
-            scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
-            allHistos[j]->Scale(scale);
-            if ( j ==0){
-                cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
-            }
+            // scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
+            // allHistos[j]->Scale(scale);
+            // if ( j ==0){
+                // cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
+            // }
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
 

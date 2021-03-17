@@ -320,6 +320,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
+   newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
    // newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
    // newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
 
@@ -558,6 +559,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //initialize{{{
      EVENT_prefireWeight  = -99;
      EVENT_genWeight = -99;
+     PUWeight = -99;
     // HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
     // HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
     Met_pt_ = -99;
@@ -750,6 +752,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;
      EVENT_genWeight = *EVENT_genWeight_;
+     PUWeight = *PUWeight_;
 
 
 
