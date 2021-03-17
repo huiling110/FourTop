@@ -249,6 +249,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
    }
    allEvents->Fill();
 
+   /*
    //MET filters
     if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
     if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
@@ -263,7 +264,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
     if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
-    
+*/    
+
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;/*{{{*/
@@ -354,6 +356,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // .clear(); _index.clear();
     EVENT_prefireWeight_ = -99;
     PUWeight_ = -99;
+    EVENT_genWeight_ = -99;
 
     SelectMuons( muonsL, muonsL_index, 0 ,4); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1, 4); sort( muonsF.begin(), muonsF.end(), compEle);
@@ -431,11 +434,12 @@ Bool_t objectTSelector::Process(Long64_t entry)
         EVENT_genWeight_ = *EVENT_genWeight;
     }
 
+    /*
     //preselection
     if ( !( tausL.size()>0)) return kFALSE;
     if ( !( jets.size()>3))  return kFALSE;
     if ( !( bjetsL.size()>1)) return kFALSE;
-
+*/
     tree->Fill();
 
     return kTRUE;

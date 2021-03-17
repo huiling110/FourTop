@@ -359,7 +359,6 @@ for (UInt_t  cha=0; cha<1; cha++){
             
             h_genWeight->Reset( "ICES");
             // h_genWeight->Print();
-            // allTreeall[j]->Project( "genWeight", "genWeight_allEvents");
             allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             // h_genWeight->Print();
             // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
@@ -372,24 +371,28 @@ for (UInt_t  cha=0; cha<1; cha++){
             sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
 
-            // allTree[j]->Project( hname, plot, weight*channelCut[cha] );//step4
-            // allTree[j]->Project(hname,plot, weight*channelCut_step3[cha]);//step3
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step2[cha]);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step3[cha]);
             allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
             // allHistos[j]->Print();
-            cout<<allHistos[j]->GetName()<<":"<<endl;
-            cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
-            // rawEntries[j] = allHistos[j]->Integral();
+            if ( j ==0){
+                cout<<allHistos[j]->GetName()<<":"<<endl;
+                cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
+                cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
+            }
 
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
-            cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
-
+            if ( j ==0){
+                cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
+            }
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
 
         }
 
+/*
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
@@ -436,8 +439,9 @@ for (UInt_t  cha=0; cha<1; cha++){
             // cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;
             // cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
             // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
-        }/*}}}*/
+        }
 
+*/        
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
         TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
         c1_2->Draw();
