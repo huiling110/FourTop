@@ -290,7 +290,9 @@ vector<TCut>   channelCut_step1   = { ES1tau0l_step1, ES1tau1e_step1,  ES1tau1m_
 vector<TCut>   channelCut_step2   = { ES1tau0l_step2, ES1tau1e_step2,  ES1tau1m_step2, ES1tau2os_step2, ES1tau2ss_step2, ES1tau3l_step2, ES2tau0l_step2, ES2tau1e_step2, ES2tau1m_step2, ES2tau2os_step2, ES2tau2ss_step2 };
 vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_step3, ES1tau2os_step3, ES1tau2ss_step3, ES1tau3l_step3, ES2tau0l_step3, ES2tau1e_step3, ES2tau1m_step3, ES2tau2os_step3, ES2tau2ss_step3 };
 
-TCut MetFilters = "Flag_goodVertices_==1 && Flag_globalSuperTightHalo2016Filter_==1 && Flag_HBHENoiseFilter_==1 && Flag_HBHENoiseIsoFilter_==1 && Flag_EcalDeadCellTriggerPrimitiveFilter_==1 && Flag_BadPFMuonFilter_==1";
+TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
+TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
+
 
 
 
@@ -338,7 +340,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         allHistos.clear();
         allHistos = {
             TTTT_h,//0
-            TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
+            TTToHadronic_h,
+            // TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
             /*TTGJets_h,*/ ttZJets_h, ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
             WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
@@ -358,7 +361,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         Double_t sumGenWeights = -99;
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
         // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 1; j++){
+        // for(UInt_t j = 0; j < 1; j++){
+        for(UInt_t j = 1; j < 2; j++){
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
@@ -374,14 +378,16 @@ for (UInt_t  cha=0; cha<1; cha++){
             // h_genWeight->StatOverflows(kTRUE);
             // sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
-
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step1[cha]);
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step2[cha]);
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut_step3[cha]);
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*channelCut[cha]);
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
+            
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
             // allHistos[j]->Print();
-            if ( j ==0){
+            if ( j ==0 || j==1){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
                 cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
                 cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
@@ -446,7 +452,9 @@ for (UInt_t  cha=0; cha<1; cha++){
             // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
         }
 
-*/        
+*/      
+
+/*        
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
         TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
         c1_2->Draw();
@@ -556,7 +564,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
        // std::map<Double_t, TString> mymap;
         mymap.insert(std::make_pair(sp, NAME));
-
+*/
         for(UInt_t j = 0; j < allHistos.size(); j++){
              delete (allHistos[j]);
         }
