@@ -4,8 +4,7 @@
 #include "TH1D.h"
 
 
-//sequence matter very much here
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/";
+const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v2/";
 
 //TFile *file01 =   TFile::Open("data.root");
 TFile *file02 =   TFile::Open(baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root");

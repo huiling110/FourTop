@@ -11,6 +11,9 @@ void run_makeVaribles_forBDT(
     gROOT->ProcessLine(".L Loader.C+");
     
     Bool_t ifMergeAllevent = false;
+    if ( !istest){
+        ifMergeAllevent = true;
+    }
     TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
