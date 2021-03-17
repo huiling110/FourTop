@@ -334,9 +334,9 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("muonsT_2pt", &muonsT_2pt, "muonsT_2pt/D");
   newtree->Branch("muonsT_2eta", &muonsT_2eta, "muonsT_2eta/D");
   newtree->Branch("muonsT_2phi", &muonsT_2phi, "muonsT_2phi/D");
-  newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/I");
-  newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/I");
-  newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/I");
+  newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/D");
+  newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/D");
+  newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/D");
    newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
    newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
    newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
