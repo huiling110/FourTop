@@ -140,6 +140,7 @@ public :
 
     //weight
     Double_t EVENT_prefireWeight_;
+    Double_t PUWeight_;
     Double_t EVENT_genWeight_;
 
     //functions I added

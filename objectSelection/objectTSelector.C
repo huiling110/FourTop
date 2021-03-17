@@ -153,6 +153,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "tops_toptagger", &tops_toptagger);
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
+   tree->Branch( "PUWeight_", &PUWeight_, "PUWeight_/D");
    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
@@ -349,9 +350,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
     patElectron_charge_.clear();
     Tau_charge_.clear();
     Muon_charge_.clear();
-
     tops_toptagger.clear();
     // .clear(); _index.clear();
+    EVENT_prefireWeight_ = -99;
+    PUWeight_ = -99;
 
     SelectMuons( muonsL, muonsL_index, 0 ,4); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1, 4); sort( muonsF.begin(), muonsF.end(), compEle);
@@ -424,6 +426,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     }
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
+    PUWeight_ = *PUWeight;
     if ( !isdata ){
         EVENT_genWeight_ = *EVENT_genWeight;
     }
