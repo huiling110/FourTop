@@ -39,6 +39,13 @@ public :
     Double_t genWeight_allEvents;
 
 
+Int_t    Flag_goodVertices_ ;
+Int_t    Flag_globalSuperTightHalo2016Filter_ ;
+Int_t    Flag_HBHENoiseFilter_ ;
+Int_t    Flag_HBHENoiseIsoFilter_ ;
+Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter_ ;
+Int_t    Flag_BadPFMuonFilter_ ;
+Int_t    Flag_eeBadScFilter_ ;
     //HLT
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;

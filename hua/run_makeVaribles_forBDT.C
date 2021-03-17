@@ -3,7 +3,8 @@ void run_makeVaribles_forBDT(
                         // Bool_t istest = false,
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
+                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/"
                         // TString singleFileName = "v3_1-100.root"
                         )
 {
@@ -14,7 +15,8 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 
@@ -32,8 +34,8 @@ void run_makeVaribles_forBDT(
 
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
-        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        // chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 

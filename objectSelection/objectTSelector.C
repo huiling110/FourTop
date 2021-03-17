@@ -158,6 +158,17 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
 
+   tree->Branch( "Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
+   tree->Branch( "Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
+   tree->Branch( "Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
+   tree->Branch( "Flag_HBHENoiseIsoFilter_", &Flag_HBHENoiseIsoFilter_, "Flag_HBHENoiseIsoFilter_/I");
+   tree->Branch( "Flag_EcalDeadCellTriggerPrimitiveFilter_", &Flag_EcalDeadCellTriggerPrimitiveFilter_, "Flag_EcalDeadCellTriggerPrimitiveFilter_/I");
+   tree->Branch( "Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
+   tree->Branch( "Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
+
+
+
+
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
     tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
     tree->Branch( "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_", &HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_/I");
@@ -265,6 +276,16 @@ Bool_t objectTSelector::Process(Long64_t entry)
     if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
     if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
 */    
+    Flag_goodVertices_ = *Flag_goodVertices;
+    Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
+    Flag_HBHENoiseFilter_ = *Flag_HBHENoiseFilter;
+    Flag_HBHENoiseIsoFilter_ = *Flag_HBHENoiseIsoFilter;
+    Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
+    Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
+    Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+
+
+
 
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
