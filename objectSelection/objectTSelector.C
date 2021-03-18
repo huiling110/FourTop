@@ -620,8 +620,8 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
       double eta = patElectron_eta.At(j);
       double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
       double raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
-      if (!(fabs(eta) < 2.5))
-      continue;
+      if (!(fabs(eta) < 2.5))      continue;
+      if (!(pt > 10))         continue;
 	//id
     if (fabs(eta) < 0.8) {
       if (type == 2) {
