@@ -380,9 +380,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectMuons( muonsF, muonsF_index, 1, 4); sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2, 4);sort( muonsT.begin(), muonsT.end(), compEle);
 
-    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4 ); 
-    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4 ); 
-    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4 ); 
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2 ); 
+    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1 ); 
+    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0 ); 
     sort( eleMVAL.begin(), eleMVAL.end(), compEle);
     sort( eleMVAF.begin(), eleMVAF.end(), compEle);
     sort( eleMVAT.begin(), eleMVAT.end(), compEle);
@@ -610,7 +610,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,
 */
 //the one used in Eventselection code
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,
-                        vector<int> &SelectedElectronsIndex, int type, int stage) {
+                        vector<int> &SelectedElectronsIndex, int type) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
   for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
