@@ -151,8 +151,7 @@ Int_t    Flag_eeBadScFilter_ ;
     Double_t EVENT_genWeight_;
 
     //functions I added
-     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type, const  Int_t stage);
-     // void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex,  int type,   int stage);
+     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
      void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
@@ -160,7 +159,7 @@ Int_t    Flag_eeBadScFilter_ ;
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
      void selectGenMuons( vector<TLorentzVector> &genMuons );
-     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<int> &SelectedElectronsIndex, int type);
+     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex,const Int_t type);
    // Readers to access the data (delete the ones you do not need).
    // if  ( !isdata ){
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
