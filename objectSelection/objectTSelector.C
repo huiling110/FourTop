@@ -514,8 +514,11 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vecto
         if(type == 1 or type == 2) {
           if(!(Muon_IP3D_sig.At(j)<4)) continue;
         }
-            //charge
-        //?Muon_jetptratioV2?
+        //charge,The quality of the charge reconstruction 
+        if ( type==1 || type==2 ){
+            if ( !(Muon_pTErrOVpT_bt.At(j)<2) ) continue;
+        }
+        
         TLorentzVector muon;
         muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
                           Muon_energy.At(j));
@@ -642,7 +645,6 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
       //    ??patElectron_jetptratioV2?
         if (!((patElectron_miniIsoRel.At(j) < I1) && ((patElectron_jetptratio.At(j) > I2) ||   (patElectron_ptrel.At(j) > I3))))      continue;
-  
   
         
       // emulation selection
