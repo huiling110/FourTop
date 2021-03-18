@@ -5,7 +5,8 @@ void run_makeVaribles_forBDT(
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8",
                         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/"
+                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/"
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/trees/"
                         // TString singleFileName = "v3_1-100.root"
                         )
 {
@@ -17,7 +18,7 @@ void run_makeVaribles_forBDT(
         ifMergeAllevent = true;
     }
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/";
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 

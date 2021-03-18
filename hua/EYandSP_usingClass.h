@@ -5,7 +5,8 @@
 
 
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v2/";
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/";
+// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/trees/";
 Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb
 Double_t LUMI = 35900; //fb
@@ -45,7 +46,7 @@ class Process
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
 // Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 373. };
-Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367. );
+// Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367. );
 /*
 Process TTToSemiLeptonic(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 90.6);
 // Process TTGJets(baseDir+"TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root", 3.773 );//TTGJets
@@ -110,7 +111,7 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 */
 vector<Process> allProcesses = {
     TTTT, //0
-    TTToHadronic,
+    // TTToHadronic,
     // TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
    // TTGJets, ttZJets,ttWJets, ttH, //7
     // WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12

@@ -361,8 +361,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         Double_t sumGenWeights = -99;
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
         // for(UInt_t j = 0; j < allHistos.size(); j++){
-        // for(UInt_t j = 0; j < 1; j++){
-        for(UInt_t j = 1; j < 2; j++){
+        for(UInt_t j = 0; j < 1; j++){
+        // for(UInt_t j = 1; j < 2; j++){
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
@@ -383,9 +383,9 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
             // allHistos[j]->Print();
             if ( j ==0 || j==1){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
