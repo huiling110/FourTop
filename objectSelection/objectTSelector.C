@@ -53,7 +53,7 @@ bool compEle(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
-void copy_TTreeReaderArray_toVector( const TTreeReaderArray<double> &array, vector<Double_t> & vec){
+void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Double_t> &array, vector<Double_t> & vec){
     for( UInt_t i=0; i< array.GetSize(); i++){
         vec.push_back( array.At(i));
     }
@@ -613,13 +613,11 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                         vector<int> &SelectedElectronsIndex, int type) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
-  for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { // banch in tree
-                                                         // line945
-
-      double pt = patElectron_pt.At(j);
-      double eta = patElectron_eta.At(j);
-      double MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
-      double raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
+  for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { 
+      Double_t pt = patElectron_pt.At(j);
+      Double_t eta = patElectron_eta.At(j);
+      Double_t MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
+      Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
       if (!(fabs(eta) < 2.5))      continue;
       if (!(pt > 10))         continue;
 	//id
@@ -749,7 +747,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
     
 	   
 	   // ISO
-    double I1 = 0.4, I2 = 0, I3 = 0;
+    Double_t I1 = 0.4, I2 = 0, I3 = 0;
     if (type == 0 || type == 1) {
       I1 = 0.4;
       I2 = 0;
@@ -779,8 +777,6 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
     // charge
     // patElectron_inCrack
     //?missing inner hits;conversion veto;tight charge not avalible on ntuple
-
-
     
     TLorentzVector electron;
     electron.SetPtEtaPhiE(patElectron_pt.At(j), patElectron_eta.At(j),
