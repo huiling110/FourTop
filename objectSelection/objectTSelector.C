@@ -515,9 +515,9 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vecto
           if(!(Muon_IP3D_sig.At(j)<4)) continue;
         }
         //charge,The quality of the charge reconstruction 
-        if ( type==1 || type==2 ){
-            if ( !(Muon_pTErrOVpT_bt.At(j)<2) ) continue;
-        }
+        // if ( type==1 || type==2 ){
+            // if ( !(Muon_pTErrOVpT_bt.At(j)<2) ) continue;
+        // }
         
         TLorentzVector muon;
         muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
@@ -662,13 +662,13 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         // patElectron_inCrack
         //?missing inner hits;conversion veto;tight charge not avalible on ntuple
         //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-        if ( type==0 ) {
-            if ( !(patElectron_expectedMissingInnerHits.At(j)<=1) )  continue;
-        } 
-        if ( type==1 || type==2 ){
-            if ( !(patElectron_expectedMissingInnerHits.At(j)==0))  continue;
-        }
-        if ( !(patElectron_passConversionVeto.At(j)==1)) continue;
+        // if ( type==0 ) {
+            // if ( !(patElectron_expectedMissingInnerHits.At(j)<=1) )  continue;
+        // }
+        // if ( type==1 || type==2 ){
+            // if ( !(patElectron_expectedMissingInnerHits.At(j)==0))  continue;
+        // }
+        // if ( !(patElectron_passConversionVeto.At(j)==1)) continue;
 
       
         TLorentzVector electron;
