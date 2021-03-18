@@ -713,7 +713,7 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
     //overlap removal
     Double_t minDeltaR_lep;
     minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
-    if( !(minDeltaR_lep >= 0.3 )) continue;
+    if( !(minDeltaR_lep >= 0.4 )) continue;
 
     //?need err handling
     TLorentzVector tau;
