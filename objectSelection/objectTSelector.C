@@ -728,7 +728,6 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
       //    ??patElectron_jetptratioV2?
         if (!((patElectron_miniIsoRel.At(j) < I1) && ((patElectron_jetptratio.At(j) > I2) ||   (patElectron_ptrel.At(j) > I3))))      continue;
-      //?if we apply this for tight , the number would be very low.
   
   
         
@@ -743,9 +742,18 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
             if (!(patElectron_IP3D_sig.At(j) < 4))          continue;
         }
     
-        // charge
+        // charge quality
         // patElectron_inCrack
         //?missing inner hits;conversion veto;tight charge not avalible on ntuple
+        //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
+        if ( type==0 ) {
+            if ( !(patElectron_expectedMissingInnerHits.At(j)<=1) )  continue;
+        } 
+        if ( type==1 || type==2 ){
+            if ( !(patElectron_expectedMissingInnerHits.At(j)==0))  continue;
+        }
+        if ( !(patElectron_passConversionVeto.At(j)==1)) continue;
+
       
         TLorentzVector electron;
         electron.SetPtEtaPhiE(patElectron_pt.At(j), patElectron_eta.At(j),         patElectron_phi.At(j), patElectron_energy.At(j));
