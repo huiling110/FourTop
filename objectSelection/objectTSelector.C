@@ -874,7 +874,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         Double_t minDeltaR_tau = 100;
         for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
             deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
-            if ( deltaR < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+            if ( deltaR_tau < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
         }
         if ( !(minDeltaR_tau >= 0.4)) continue;
     }
