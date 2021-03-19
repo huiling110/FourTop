@@ -45,10 +45,10 @@ void run_objectTSelector(
 
     TString selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
-        // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+        outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/";
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/v0/";
-        outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/v1_safeRemoval/";
+        // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/v1_safeRemoval/";
         chain.Process( selection + "+", outputDir + outputFileName, 10000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);

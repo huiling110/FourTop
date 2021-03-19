@@ -405,7 +405,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectTaus( tausT, tausT_index, 3 , leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
     SelectTaus( tausL, tausL_index, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     //???does here imply we need at least 1 leptons
-    
+    tausT_total = tausT_total + tausT.size();
+
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
     SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, leptonsMVAL, tausL);
@@ -482,6 +483,7 @@ void objectTSelector::Terminate()
     
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
+    Info("Terminate", "tausT_total: %lld", tausT_total);
 
 }
 
@@ -685,37 +687,34 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
 void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
+  
   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
+
     if (!(Tau_pt.At(j) > 20))     continue;
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
-    //       if(!(Tau_leadChargedCandDz_pv.At(j)<0.2)) continue;
-    if (!(Tau_packedLeadTauCand_dz.At(j) < 0.2))      continue; // missing dz
-    //???use which dz still need more thinking
-    //???what about dxy?
-    if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
-    //???not sure why all taus is 1? if so no point in this requirement. //?not
-    // sure, is seem all are 1;
-    if (TauWP == 2 || TauWP == 3) {
-       if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
-    if (TauWP == 1) {
-      if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-    }
-    if (TauWP == 2) {
-      if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5 &&
-            Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
-            Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5))        continue;
-    }
-    if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
-      if (!(Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
-            Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5 &&
-            Tau_byMediumDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-    }
+    if (!( TMath::Abs(Tau_packedLeadTauCand_dz.At(j)) < 0.2) )      continue; // missing dz
+    // if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
+    // if (TauWP == 2 || TauWP == 3) {
+       // if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
+    // if (TauWP == 1) {
+      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
+    // }
+    // if (TauWP == 2) {
+      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5 &&
+            // Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
+            // Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5))        continue;
+    // }
+    // if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
+      // if (!(Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
+            // Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5 &&
+            // Tau_byMediumDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
+    // }
     //overlap removal
-    Double_t minDeltaR_lep;
-    if ( LeptonsMVAL.size() > 0){
-        minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
-        if( !(minDeltaR_lep >= 0.4 )) continue;
-    }
+    // Double_t minDeltaR_lep;
+    // if ( LeptonsMVAL.size() > 0){
+        // minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
+        // if( !(minDeltaR_lep >= 0.4 )) continue;
+    // }
     //?need err handling
     TLorentzVector tau;
     tau.SetPtEtaPhiE(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
