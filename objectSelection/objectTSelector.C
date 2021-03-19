@@ -712,9 +712,10 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
     }
     //overlap removal
     Double_t minDeltaR_lep;
-    minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
-    if( !(minDeltaR_lep >= 0.4 )) continue;
-
+    if ( LeptonsMVAL.size() > 0){
+        minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
+        if( !(minDeltaR_lep >= 0.4 )) continue;
+    }
     //?need err handling
     TLorentzVector tau;
     tau.SetPtEtaPhiE(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
@@ -859,21 +860,24 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
       // MinDeltaPhiJetMet = DeltaPhi( Jet_phi.At(j),   Met_type1PF_phi_); // MinDeltaPhiJetMe a branch in newtree and SB
       //
       // overlap removal
-    Double_t deltaR = 0;
-    Double_t minDeltaR = 100;
-    for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
-        deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
-        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+    if ( LeptonsMVAF.size()>0 ){
+        Double_t deltaR = 0;
+        Double_t minDeltaR = 100;
+        for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
+            deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
+            if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+        }
+        if ( !( minDeltaR >= 0.4 ) ) continue;
     }
-    if ( !( minDeltaR >= 0.4 ) ) continue;
-    Double_t deltaR_tau =0;
-    Double_t minDeltaR_tau = 100;
-    for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
-        deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
-        if ( deltaR < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+    if ( SelectedTausL.size()>0 ){
+        Double_t deltaR_tau =0;
+        Double_t minDeltaR_tau = 100;
+        for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
+            deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
+            if ( deltaR < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+        }
+        if ( !(minDeltaR_tau >= 0.4)) continue;
     }
-    if ( !(minDeltaR_tau >= 0.4)) continue;
-
     //jet jet removal
     // Double_t deltaR_jet = 0;
     // Double_t minDeltaR_jet = 100;
