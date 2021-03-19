@@ -407,6 +407,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectTaus( tausL, tausL_index, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
+    tausF_total = tausF_total + tausF.size();
+    tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
@@ -485,6 +487,8 @@ void objectTSelector::Terminate()
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
     Info("Terminate", "tausT_total: %lld", tausT_total);
+    Info("Terminate", "tausF_total: %lld", tausF_total);
+    Info("Terminate", "tausL_total: %lld", tausL_total);
     Info("Terminate", "elesT_total: %lld", elesT_total);
     Info("Terminate", "elesF_total: %lld", elesF_total);
     Info("Terminate", "elesL_total: %lld", elesL_total);
@@ -518,10 +522,10 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vecto
         if (!((Muon_miniIsoRel.At(j) < I1) && ((Muon_jetptratio.At(j) > I2) || (Muon_ptrel.At(j) > I3))))      continue;
         // IP
         // Muon_IP3Dsig_it;Muon_dz_pv;Muon_dz_bt;Muon_IP3D_sig;Muon_dxy_pv;
-        if(!(Muon_dz_bt.At(j)<0.1)) continue;
-        if(!(Muon_dxy_bt.At(j)<0.05)) continue;
+        if(!(fabs(Muon_dz_bt.At(j))<0.1)) continue;
+        if(!(fabs(Muon_dxy_bt.At(j))<0.05)) continue;
         if(type == 1 or type == 2) {
-          if(!(Muon_IP3D_sig.At(j)<4)) continue;
+          if(!(fabs(Muon_IP3D_sig.At(j))<4)) continue;
         }
         //charge,The quality of the charge reconstruction 
         // if ( type==1 || type==2 ){

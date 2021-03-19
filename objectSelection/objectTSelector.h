@@ -30,6 +30,8 @@ public :
    Bool_t isdata = false;
    Long64_t   fProcessed = 0;
    Long64_t tausT_total = 0;
+   Long64_t tausL_total = 0;
+   Long64_t tausF_total = 0;
    Long64_t elesT_total =0;
    Long64_t elesL_total =0;
    Long64_t elesF_total =0;
