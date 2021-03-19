@@ -693,22 +693,22 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
     if (!(Tau_pt.At(j) > 20))     continue;
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
     if (!( TMath::Abs(Tau_packedLeadTauCand_dz.At(j)) < 0.2) )      continue; // missing dz
-    // if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
-    // if (TauWP == 2 || TauWP == 3) {
-       // if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
-    // if (TauWP == 1) {
-      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-    // }
-    // if (TauWP == 2) {
-      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5 &&
-            // Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
-            // Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5))        continue;
-    // }
-    // if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
-      // if (!(Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
-            // Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5 &&
-            // Tau_byMediumDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-    // }
+    if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
+    if (TauWP == 2 || TauWP == 3) {
+       if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
+    if (TauWP == 1) {
+      if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
+    }
+    if (TauWP == 2) {
+      if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5 &&
+            Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
+            Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5))        continue;
+    }
+    if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
+      if (!(Tau_byVLooseDeepTau2017v2p1VSmu.At(j) > 0.5 &&
+            Tau_byVVVLooseDeepTau2017v2p1VSe.At(j) > 0.5 &&
+            Tau_byMediumDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
+    }
     //overlap removal
     // Double_t minDeltaR_lep;
     // if ( LeptonsMVAL.size() > 0){
