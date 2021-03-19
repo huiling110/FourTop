@@ -30,6 +30,9 @@ public :
    Bool_t isdata = false;
    Long64_t   fProcessed = 0;
    Long64_t tausT_total = 0;
+   Long64_t elesT_total =0;
+   Long64_t elesL_total =0;
+
     
     TFile *outputfile;
     TTree *tree;

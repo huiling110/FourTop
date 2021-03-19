@@ -386,13 +386,15 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( eleMVAL.begin(), eleMVAL.end(), compEle);
     sort( eleMVAF.begin(), eleMVAF.end(), compEle);
     sort( eleMVAT.begin(), eleMVAT.end(), compEle);
-    // SelectElectronsMVA( eleMVAL, eleMVAL_index, 0, 4, false );// sort( eleMVAL.begin(), eleMVAL.end(), compEle);
-    // SelectElectronsMVA( eleMVAF, eleMVAF_index, 1, 4, false );// sort( eleMVAF.begin(), eleMVAF.end(), compEle);
-    // SelectElectronsMVA( eleMVAT, eleMVAT_index, 2, 4, false ); //sort( eleMVAT.begin(), eleMVAT.end(), compEle);
-    // SelectElectronsMVA( eleMVAL_IsoT, eleMVAL_IsoT_index, 0, 4, true );
-    // SelectElectronsMVA( eleMVAF_IsoT, eleMVAF_IsoT_index, 1, 4, true );
-    // SelectElectronsMVA( eleMVAT_IsoT, eleMVAT_IsoT_index, 2, 4, true );
-
+    elesT_total = elesT_total + eleMVAT.size();
+    // Double_t MVA=-99;
+    // for (UInt_t e=0;  e<eleMVAT.size(); ++e){
+        // MVA = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At( eleMVAT_index[e]);
+        // cout<<fProcessed-1<<"  "<<eleMVAT_index[e]<<"  "<<eleMVAT[e].Pt()<<"  "<<eleMVAT[e].Eta()<<"  "<<(0.5 * log ( (1 + MVA)/(1 - MVA) ))<<endl;
+        // cout<< (3.447 + 0.063 * (eleMVAT[e].Pt() - 25))<<endl;
+//
+    // }
+    
     leptonsMVAF = muonsF;    leptonsMVAF.insert(leptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
     sort( leptonsMVAF.begin(), leptonsMVAF.end(), compEle);
     leptonsMVAT = muonsT;  leptonsMVAT.insert(leptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
@@ -484,6 +486,7 @@ void objectTSelector::Terminate()
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
     Info("Terminate", "tausT_total: %lld", tausT_total);
+    Info("Terminate", "elesT_total: %lld", elesT_total);
 
 }
 
@@ -539,8 +542,8 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
         if (!(fabs(eta) < 2.5))      continue;
         if (!(pt > 10))         continue;
-
-      //id
+//
+      // id
         if (fabs(eta) < 0.8) {
             if (type == 2) {
                 if (10 < pt && pt < 40) {
@@ -645,19 +648,15 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
             I1 = 0.4;         I2 = 0;      I3 = 0;
         } // looseWP from ss of TTTT}
         if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
-      //    ??patElectron_jetptratioV2?
         if (!((patElectron_miniIsoRel.At(j) < I1) && ((patElectron_jetptratio.At(j) > I2) ||   (patElectron_ptrel.At(j) > I3))))      continue;
   
-        
-      // emulation selection
-  
+        // 
+  // 
       // IP
-      //?
-      // patElectron_IP3Dsig;patElectron_IP3D_sig;patElectron_sIP3D_sig;patElectron_d0;patElectron_gsfTrack_dz_pv;
-        if (!(patElectron_d0.At(j) < 0.05))    continue;
-        if (!(patElectron_gsfTrack_dz_pv.At(j) < 0.1))        continue;
+        if (!(fabs(patElectron_d0.At(j)) < 0.05))    continue;
+        if (!(fabs(patElectron_gsfTrack_dz_pv.At(j)) < 0.1))        continue;
         if (type == 1 or type == 2) {
-            if (!(patElectron_IP3D_sig.At(j) < 4))          continue;
+            if (!((patElectron_IP3D_sig.At(j)) < 4))          continue;
         }
     
         // charge quality
@@ -710,11 +709,11 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
             Tau_byMediumDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
     }
     //overlap removal
-    // Double_t minDeltaR_lep;
-    // if ( LeptonsMVAL.size() > 0){
-        // minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
-        // if( !(minDeltaR_lep >= 0.4 )) continue;
-    // }
+    Double_t minDeltaR_lep;
+    if ( LeptonsMVAL.size() > 0){
+        minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
+        if( !(minDeltaR_lep >= 0.4 )) continue;
+    }
     //?need err handling
     TLorentzVector tau;
     tau.SetPtEtaPhiE(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
