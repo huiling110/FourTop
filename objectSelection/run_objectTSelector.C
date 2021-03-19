@@ -49,8 +49,8 @@ void run_objectTSelector(
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/";
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/v0/";
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/v1_safeRemoval/";
-        chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        // chain.Process( selection + "+", outputDir + outputFileName, 100);
+        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        chain.Process( selection + "+", outputDir + outputFileName, 100);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 

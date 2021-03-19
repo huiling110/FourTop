@@ -390,14 +390,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     elesF_total = elesF_total + eleMVAF.size();
     elesL_total = elesL_total + eleMVAL.size();
 
-    // Double_t MVA=-99;
-    // for (UInt_t e=0;  e<eleMVAT.size(); ++e){
-        // MVA = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At( eleMVAT_index[e]);
-        // cout<<fProcessed-1<<"  "<<eleMVAT_index[e]<<"  "<<eleMVAT[e].Pt()<<"  "<<eleMVAT[e].Eta()<<"  "<<(0.5 * log ( (1 + MVA)/(1 - MVA) ))<<endl;
-        // cout<< (3.447 + 0.063 * (eleMVAT[e].Pt() - 25))<<endl;
-//
-    // }
-    
+   
     leptonsMVAF = muonsF;    leptonsMVAF.insert(leptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
     sort( leptonsMVAF.begin(), leptonsMVAF.end(), compEle);
     leptonsMVAT = muonsT;  leptonsMVAT.insert(leptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
@@ -611,7 +604,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                 // if (pt >= 25) {
                   // if (!(raw_MVA_value > (-0.696)))  continue;
                 // }
-            }
+            // }
         }
         if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
             if (type == 2) {
