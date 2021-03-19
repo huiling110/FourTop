@@ -379,6 +379,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2);sort( muonsT.begin(), muonsT.end(), compEle);
+    mounsT_total = mounsT_total + muonsT.size();
+    mounsF_total = mounsF_total + muonsF.size();
+    mounsL_total = mounsL_total + muonsL.size();
 
     SelectElectronsMVA( eleMVAT, eleMVAT_index, 2 ); 
     SelectElectronsMVA( eleMVAF, eleMVAF_index, 1 ); 
@@ -485,6 +488,9 @@ void objectTSelector::Terminate()
     Info("Terminate", "elesT_total: %lld", elesT_total);
     Info("Terminate", "elesF_total: %lld", elesF_total);
     Info("Terminate", "elesL_total: %lld", elesL_total);
+    Info("Terminate", "mounsT_total: %lld", mounsT_total);
+    Info("Terminate", "mounsF_total: %lld", mounsF_total);
+    Info("Terminate", "mounsL_total: %lld", mounsL_total);
 
 }
 
