@@ -387,6 +387,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( eleMVAF.begin(), eleMVAF.end(), compEle);
     sort( eleMVAT.begin(), eleMVAT.end(), compEle);
     elesT_total = elesT_total + eleMVAT.size();
+    elesF_total = elesF_total + eleMVAF.size();
+    elesL_total = elesL_total + eleMVAL.size();
+
     // Double_t MVA=-99;
     // for (UInt_t e=0;  e<eleMVAT.size(); ++e){
         // MVA = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At( eleMVAT_index[e]);
@@ -487,6 +490,8 @@ void objectTSelector::Terminate()
     Info("Terminate", "output file here: %s", outputfile->GetName());
     Info("Terminate", "tausT_total: %lld", tausT_total);
     Info("Terminate", "elesT_total: %lld", elesT_total);
+    Info("Terminate", "elesF_total: %lld", elesF_total);
+    Info("Terminate", "elesL_total: %lld", elesL_total);
 
 }
 
@@ -553,7 +558,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                   if (!(raw_MVA_value > 4.392))   continue;
                 }
             }
-            if (type == 0) {
+            if (type == 0 || type==1) {
                 if (5 < pt && pt < 10) {
                   if (!(raw_MVA_value > 1.309))  continue;
                 }
@@ -564,17 +569,17 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                   if (!(raw_MVA_value > 0.887))  continue;
                 }
             }
-            if (type == 1) {
-                if (5 < pt && pt < 10) {
-                  if (!(raw_MVA_value > (-0.259)))  continue;
-                }
-                if (10 < pt && pt <= 25) {
-                  if (!(raw_MVA_value >( (-0.388) + 0.109 * (pt - 25))))    continue;
-                }
-                if (pt >= 25) {
-                   if (!(raw_MVA_value > (-0.388)))     continue;
-                }
-            }
+            // if (type == 1) {
+                // if (5 < pt && pt < 10) {
+                  // if (!(raw_MVA_value > (-0.259)))  continue;
+                // }
+                // if (10 < pt && pt <= 25) {
+                  // if (!(raw_MVA_value >( (-0.388) + 0.109 * (pt - 25))))    continue;
+                // }
+                // if (pt >= 25) {
+                   // if (!(raw_MVA_value > (-0.388)))     continue;
+                // }
+            // }
         }
         if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
             if (type == 2) {
@@ -585,7 +590,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                     if (!(raw_MVA_value > 3.392))      continue;
                 }
             }
-            if (type == 0) {
+            if (type == 0 || type==1 ) {
                 if (5 < pt && pt <= 10) {
                   if (!(raw_MVA_value > 0.373))           continue;
                 }
@@ -596,16 +601,16 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                   if (!(raw_MVA_value > 0.112))     continue;
                 }
             }
-            if (type == 1) {
-                if (5 < pt && pt <= 10) {
-                  if (!(raw_MVA_value > (-0.256)))  continue;
-                }
-                if (10 < pt && pt < 25) {
-                  if (!(raw_MVA_value > (-0.696) + 0.106 * (pt - 25)))  continue;
-                }
-                if (pt >= 25) {
-                  if (!(raw_MVA_value > (-0.696)))  continue;
-                }
+            // if (type == 1) {
+                // if (5 < pt && pt <= 10) {
+                  // if (!(raw_MVA_value > (-0.256)))  continue;
+                // }
+                // if (10 < pt && pt < 25) {
+                  // if (!(raw_MVA_value > (-0.696) + 0.106 * (pt - 25)))  continue;
+                // }
+                // if (pt >= 25) {
+                  // if (!(raw_MVA_value > (-0.696)))  continue;
+                // }
             }
         }
         if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
@@ -617,7 +622,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                   if (!(raw_MVA_value > 2.680))                continue;
                 }
             }
-            if (type == 0) {
+            if (type == 0 || type==1) {
                 if (5 < pt && pt <= 10) {
                   if (!(raw_MVA_value > 0.071))   continue;
                 }
@@ -628,17 +633,17 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
                   if (!(raw_MVA_value > (-0.017)))              continue;
                 }
             }
-            if (type == 1) {
-                if (5 < pt && pt <= 10) {
-                  if (!(raw_MVA_value > (-1.630)))              continue;
-                }
-                if (10 < pt && pt < 25) {
-                  if (!(raw_MVA_value > ((-1.219) + 0.148 * (pt - 25)))) continue;
-                }
-                if (pt >= 25) {
-                  if (!(raw_MVA_value > (-1.219)))  continue;
-                }
-            }
+            // if (type == 1) {
+                // if (5 < pt && pt <= 10) {
+                  // if (!(raw_MVA_value > (-1.630)))              continue;
+                // }
+                // if (10 < pt && pt < 25) {
+                  // if (!(raw_MVA_value > ((-1.219) + 0.148 * (pt - 25)))) continue;
+                // }
+                // if (pt >= 25) {
+                  // if (!(raw_MVA_value > (-1.219)))  continue;
+                // }
+            // }
         }
       
          
@@ -663,13 +668,13 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         // patElectron_inCrack
         //?missing inner hits;conversion veto;tight charge not avalible on ntuple
         //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-        // if ( type==0 ) {
-            // if ( !(patElectron_expectedMissingInnerHits.At(j)<=1) )  continue;
-        // }
-        // if ( type==1 || type==2 ){
-            // if ( !(patElectron_expectedMissingInnerHits.At(j)==0))  continue;
-        // }
-        // if ( !(patElectron_passConversionVeto.At(j)==1)) continue;
+        if ( type==0 ) {
+            if ( !(patElectron_expectedMissingInnerHits.At(j)<=1) )  continue;
+        }
+        if ( type==1 || type==2 ){
+            if ( !(patElectron_expectedMissingInnerHits.At(j)==0))  continue;
+        }
+        if ( !(patElectron_passConversionVeto.At(j)==1)) continue;
 
       
         TLorentzVector electron;
