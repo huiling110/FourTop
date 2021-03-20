@@ -424,6 +424,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jets_total = jets_total + jets.size();
+    bjetsM_total = bjetsM_total + bjetsM.size();
+    // bjetsL_total = bjetsL_total + bjetsL.size();
+    // bjetsT_total = bjetsT_total + bjetsT.size();
 
     // patElectron_charge_ = patElectron_charge; //= not working
     // cout<<patElectron_charge.GetSize();
@@ -498,6 +501,7 @@ void objectTSelector::Terminate()
     Info("Terminate", "mounsF_total: %lld", mounsF_total);
     Info("Terminate", "mounsL_total: %lld", mounsL_total);
     Info("Terminate", "jets_total: %lld", jets_total);
+    Info("Terminate", "bjetsM_total: %lld", bjetsM_total);
 
 }
 
@@ -838,7 +842,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
           continue;
       }
     }
-    find mostforwardjeteta
+    // find mostforwardjeteta
     if (jetType == 0) { // normal jet
       if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
         MaxMostForwardJetEta = fabs(Jet_eta.At(j));
@@ -858,7 +862,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
           continue;
       }
     }
-      overlap removal
+      // overlap removal
     if ( LeptonsMVAF.size()>0 ){
         Double_t deltaR = 0;
         Double_t minDeltaR = 100;
@@ -877,7 +881,8 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         }
         if ( !(minDeltaR_tau >= 0.4)) continue;
     }
-        Double_t SF = jetpt / Jet_pt.At(j);
+        // Double_t SF = jetpt / Jet_pt.At(j);
+      Double_t SF =1;
     TLorentzVector jet_prov;
     jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                           Jet_mass.At(j));

@@ -40,6 +40,7 @@ public :
     Long64_t mounsL_total = 0;
 
     Long64_t jets_total = 0;
+    Long64_t bjetsM_total =0;
     
     TFile *outputfile;
     TTree *tree;
