@@ -740,9 +740,7 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
 
 void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
                 vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
-    // this is for 2016data
-    // jetType=0  -> usual jets; we use loose ID
-    // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
+    // jetType=0  -> usual jets; we use loose ID{{{
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;
     Double_t MostForwardJetPt = -99;
@@ -879,7 +877,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         }
     }
 
-} 
+} /*}}}*/
 
 void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   for (UInt_t j = 0; j < TopTagger_type.GetSize(); ++j) {
