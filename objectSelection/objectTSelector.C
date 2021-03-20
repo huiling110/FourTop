@@ -740,170 +740,146 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
 
 void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
                 vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
-  // this is for 2016data
-  // jetType=0  -> usual jets; we use loose ID
-  // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
-  // jetType=11 -> b-jets L
-  // jetType=12 -> b-jets M
-  // jetType=13 -> b-jets T
-  // jetType=2  -> forward jets
-  // MinDeltaPhiJetMet = 99.0;
-  Double_t MostForwardJetEta =-99;
-  Double_t MostForwardJetPt = -99;
-  Double_t MaxMostForwardJetEta = -99; /*{{{*/
-  for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-    Double_t jetpt = Jet_pt[j];
-    // if (SysJes == 0 && SysJer == 0) {
-      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
-    // }
-    // if (SysJes == 1 && SysJer == 0) {
-      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFup.At(j) * Jet_JerSF.At(j);
-    // }
-    // if (SysJes == 2 && SysJer == 0) {
-      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFdown.At(j) * Jet_JerSF.At(j);
-    // }
-    // if (SysJes == 0 && SysJer == 1) {
-      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFup.At(j);
-    // }
-    // if (SysJes == 0 && SysJer == 2) {
-      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFdown.At(j);
-    // }
-    if (!(jetpt > 25))
-      continue;
-    Double_t NHF = Jet_neutralHadEnergyFraction.At(j);
-    Double_t NEMF = Jet_neutralEmEnergyFraction.At(j);
-    Double_t CHF = Jet_chargedHadronEnergyFraction.At(j);
-    Double_t MUF = Jet_muonEnergyFraction.At(j);
-    Double_t CEMF = Jet_chargedEmEnergyFraction.At(j);
-    Double_t NumConst = Jet_numberOfConstituents.At(j);
-    Double_t NumNeutralParticles =
-        Jet_numberOfConstituents.At(j) - Jet_chargedMultiplicity.At(j);
-    Double_t CHM = Jet_chargedMultiplicity.At(j);
-    if (!(fabs(Jet_eta.At(j)) < 5.0))
-      continue;
-    if (fabs(Jet_eta.At(j)) < 2.4) {
-      if (!(NHF < 0.99))
-        continue;
-      if (!(NEMF < 0.99))
-        continue;
-      if (!(NumConst > 1))
-        continue;
-      if (!(CHF > 0))
-        continue;
-      if (!(CHM > 0))
-        continue;
-      if (!(CEMF < 0.99))
-        continue;
-    } else if (fabs(Jet_eta.At(j)) > 2.4 && fabs(Jet_eta.At(j)) < 2.7) {
-      if (!(NHF < 0.99))
-        continue;
-      if (!(NEMF < 0.99))
-        continue;
-      if (!(NumConst > 1))
-        continue;
-    } else if (fabs(Jet_eta.At(j)) > 2.7 && fabs(Jet_eta.At(j)) < 3.0) {
-      if (!(NEMF > 0.01))
-        continue;
-      if (!(NHF < 0.98))
-        continue;
-      if (!(NumNeutralParticles > 2))
-        continue;
-    } else if (fabs(Jet_eta.At(j)) > 3.0) {
-      if (!(NEMF < 0.90))
-        continue;
-      if (!(NumNeutralParticles > 10))
-        continue;
-    }
+    // this is for 2016data
+    // jetType=0  -> usual jets; we use loose ID
+    // here.https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2016
+    // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
+    Double_t MostForwardJetEta =-99;
+    Double_t MostForwardJetPt = -99;
+    Double_t MaxMostForwardJetEta = -99; 
+    for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
+            // if (SysJes == 0 && SysJer == 0) {
+            // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
+            // }
+            // if (SysJes == 1 && SysJer == 0) {
+            // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFup.At(j) * Jet_JerSF.At(j);
+            // }
+            // if (SysJes == 2 && SysJer == 0) {
+            // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFdown.At(j) * Jet_JerSF.At(j);
+            // }
+            // if (SysJes == 0 && SysJer == 1) {
+            // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFup.At(j);
+            // }
+            // if (SysJes == 0 && SysJer == 2) {
+            // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFdown.At(j);
+            // }
+        Double_t jetpt = Jet_pt[j];
+        if (!(jetpt > 25))       continue;
+        Double_t NHF = Jet_neutralHadEnergyFraction.At(j);
+        Double_t NEMF = Jet_neutralEmEnergyFraction.At(j);
+        Double_t CHF = Jet_chargedHadronEnergyFraction.At(j);
+        Double_t MUF = Jet_muonEnergyFraction.At(j);
+        Double_t CEMF = Jet_chargedEmEnergyFraction.At(j);
+        Double_t NumConst = Jet_numberOfConstituents.At(j);
+        Double_t NumNeutralParticles =  Jet_numberOfConstituents.At(j) - Jet_chargedMultiplicity.At(j);
+        Double_t CHM = Jet_chargedMultiplicity.At(j);
+        if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
+        if (fabs(Jet_eta.At(j)) < 2.4) {
+            if (!(NHF < 0.99))      continue;
+            if (!(NEMF < 0.99))            continue;
+            if (!(NumConst > 1))  continue;
+            if (!(CHF > 0))                continue;
+            if (!(CHM > 0))               continue;
+            if (!(CEMF < 0.99))        continue;
+        } else if (fabs(Jet_eta.At(j)) > 2.4 && fabs(Jet_eta.At(j)) < 2.7) {
+            if (!(NHF < 0.99))                       continue;
+            if (!(NEMF < 0.99))                     continue;
+            if (!(NumConst > 1))             continue;
+        } else if (fabs(Jet_eta.At(j)) > 2.7 && fabs(Jet_eta.At(j)) < 3.0) {
+            if (!(NEMF > 0.01))                       continue;
+            if (!(NHF < 0.98))                continue;
+            if (!(NumNeutralParticles > 2))                         continue;
+        } else if (fabs(Jet_eta.At(j)) > 3.0) {
+            if (!(NEMF < 0.90))                                 continue;
+            if (!(NumNeutralParticles > 10))                    continue;
+        }
 
-    if ( jetType == 11 || jetType == 12 || jetType == 13 ) {
-      if( !( fabs(Jet_eta.At(j))<2.4) ) continue;
-    }
-    if (deepJet) {//https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
-      if (jetType == 11) {
-        if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.0614))
-          continue;
-      }
-      if (jetType == 12) {
-        if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.3093))
-          continue;
-      }
-      if (jetType == 13) {
-        if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.7221))
-          continue;
-      }
-    } else {
-      if (jetType == 11) {
-        if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.2217))
-          continue;
-      }
-      if (jetType == 12) {
-        if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.6321))
-          continue;
-      }
-      if (jetType == 13) {
-        if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.8953))
-          continue;
-      }
-    }
-    // find mostforwardjeteta
-    if (jetType == 0) { // normal jet
-      if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
-        MaxMostForwardJetEta = fabs(Jet_eta.At(j));
-        MostForwardJetEta = Jet_eta.At(j);
-        MostForwardJetPt = jetpt;//a branch in new tree
-      } // MostForwardJetEta branch in new tree and SB.
-      if (!(fabs(Jet_eta.At(j)) < 2.4))
-        continue;
-    }
-    if (jetType == 2) { // forwardjet
-      if (!(fabs(Jet_eta.At(j)) >= 2.4 && fabs(Jet_eta.At(j)) <= 5))
-        continue;
-      if (!(jetpt > 25))
-        continue;
-      if (fabs(Jet_eta.At(j)) >= 2.7 && fabs(Jet_eta.At(j)) <= 3.0) {
-        if (!(jetpt > 60.0))
-          continue;
-      }
-    }
-      // overlap removal
-    if ( LeptonsMVAF.size()>0 ){
-        Double_t deltaR = 0;
-        Double_t minDeltaR = 100;
-        for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
-            deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
-            if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+        if ( jetType == 11 || jetType == 12 || jetType == 13 ) {
+            if( !( fabs(Jet_eta.At(j))<2.4) ) continue;
         }
-        if ( !( minDeltaR >= 0.4 ) ) continue;
-    }
-    if ( SelectedTausL.size()>0 ){
-        Double_t deltaR_tau =0;
-        Double_t minDeltaR_tau = 100;
-        for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
-            deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
-            if ( deltaR_tau < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+        if (deepJet) {//https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
+            if (jetType == 11) {
+                if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.0614))
+                    continue;
+            }
+            if (jetType == 12) {
+                if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.3093))
+                    continue;
+            }
+            if (jetType == 13) {
+                if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.7221))
+                    continue;
+            }
+        } else {
+            if (jetType == 11) {
+                if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.2217))
+                    continue;
+            }
+            if (jetType == 12) {
+                if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.6321))
+                    continue;
+            }
+            if (jetType == 13) {
+                if (!(Jet_pfDeepCSVBJetTags.At(j) > 0.8953))
+                    continue;
+            }
         }
-        if ( !(minDeltaR_tau >= 0.4)) continue;
-    }
+        // find mostforwardjeteta
+        if (jetType == 0) { // normal jet
+            if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
+                MaxMostForwardJetEta = fabs(Jet_eta.At(j));
+                    MostForwardJetEta = Jet_eta.At(j);
+                    MostForwardJetPt = jetpt;//a branch in new tree
+            } // MostForwardJetEta branch in new tree and SB.
+            if (!(fabs(Jet_eta.At(j)) < 2.4))
+                continue;
+        }
+        if (jetType == 2) { // forwardjet
+            if (!(fabs(Jet_eta.At(j)) >= 2.4 && fabs(Jet_eta.At(j)) <= 5))       continue;
+            if (!(jetpt > 25))             continue;
+            if (fabs(Jet_eta.At(j)) >= 2.7 && fabs(Jet_eta.At(j)) <= 3.0) {
+                if (!(jetpt > 60.0))      continue;
+            }
+        }
+        // overlap removal
+        if ( LeptonsMVAF.size()>0 ){
+            Double_t deltaR = 0;
+                Double_t minDeltaR = 100;
+                for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
+                    deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
+                        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+                }
+            if ( !( minDeltaR >= 0.4 ) ) continue;
+        }
+        if ( SelectedTausL.size()>0 ){
+            Double_t deltaR_tau =0;
+                Double_t minDeltaR_tau = 100;
+                for ( UInt_t tau = 0; tau < SelectedTausL.size(); tau++){
+                    deltaR_tau =  DeltaR( SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
+                        if ( deltaR_tau < minDeltaR_tau ) minDeltaR_tau = deltaR_tau;
+                }
+            if ( !(minDeltaR_tau >= 0.4)) continue;
+        }
         // Double_t SF = jetpt / Jet_pt.At(j);
-      Double_t SF =1;
-    TLorentzVector jet_prov;
-    jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
-                          Jet_mass.At(j));
-    TLorentzVector jet;
-    jet.SetPxPyPzE(SF * jet_prov.Px(), SF * jet_prov.Py(), SF * jet_prov.Pz(),
-                   SF * jet_prov.E());
-    //?is this  step necessary?
-    //???why do this?
-    SelectedJets.push_back(jet);
-    SelectedJetsIndex.push_back(j);
-    if (deepJet) {
-      SelectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags.At(j));
-    } else {
-      SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags.At(j));
+        Double_t SF =1;
+        TLorentzVector jet_prov;
+        jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
+                Jet_mass.At(j));
+        TLorentzVector jet;
+        jet.SetPxPyPzE(SF * jet_prov.Px(), SF * jet_prov.Py(), SF * jet_prov.Pz(),
+                SF * jet_prov.E());
+        //?is this  step necessary?
+        //???why do this?
+        SelectedJets.push_back(jet);
+        SelectedJetsIndex.push_back(j);
+        if (deepJet) {
+            SelectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags.At(j));
+        } else {
+            SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags.At(j));
+        }
     }
-  }
 
-} /*}}}*/
+} 
 
 void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   for (UInt_t j = 0; j < TopTagger_type.GetSize(); ++j) {
