@@ -423,6 +423,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
+    jets_total = jets_total + jets.size();
+
     // patElectron_charge_ = patElectron_charge; //= not working
     // cout<<patElectron_charge.GetSize();
     if ( patElectron_charge.GetSize() > 0 ){
@@ -495,6 +497,7 @@ void objectTSelector::Terminate()
     Info("Terminate", "mounsT_total: %lld", mounsT_total);
     Info("Terminate", "mounsF_total: %lld", mounsF_total);
     Info("Terminate", "mounsL_total: %lld", mounsL_total);
+    Info("Terminate", "jets_total: %lld", jets_total);
 
 }
 
@@ -745,25 +748,22 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
   Double_t MostForwardJetPt = -99;
   Double_t MaxMostForwardJetEta = -99; /*{{{*/
   for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-    Double_t jetpt = 0.;
-    if (SysJes == 0 && SysJer == 0) {
-      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
-    }
-    if (SysJes == 1 && SysJer == 0) {
-      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFup.At(j) * Jet_JerSF.At(j);
-    }
-    if (SysJes == 2 && SysJer == 0) {
-      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFdown.At(j) * Jet_JerSF.At(j);
-    }
-    if (SysJes == 0 && SysJer == 1) {
-      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFup.At(j);
-    }
-    if (SysJes == 0 && SysJer == 2) {
-      jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFdown.At(j);
-    }
-    //    if(fabs(Jet_eta.At(j))>2.65&&fabs(Jet_eta.At(j))<3.139&&jetpt>50)
-    // continue;
-    //    ?what does this do?
+    Double_t jetpt = Jet_pt[j];
+    // if (SysJes == 0 && SysJer == 0) {
+      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSF.At(j);
+    // }
+    // if (SysJes == 1 && SysJer == 0) {
+      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFup.At(j) * Jet_JerSF.At(j);
+    // }
+    // if (SysJes == 2 && SysJer == 0) {
+      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSFdown.At(j) * Jet_JerSF.At(j);
+    // }
+    // if (SysJes == 0 && SysJer == 1) {
+      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFup.At(j);
+    // }
+    // if (SysJes == 0 && SysJer == 2) {
+      // jetpt = Jet_Uncorr_pt.At(j) * Jet_JesSF.At(j) * Jet_JerSFdown.At(j);
+    // }
     if (!(jetpt > 25))
       continue;
     Double_t NHF = Jet_neutralHadEnergyFraction.At(j);
@@ -777,8 +777,6 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
     Double_t CHM = Jet_chargedMultiplicity.At(j);
     if (!(fabs(Jet_eta.At(j)) < 5.0))
       continue;
-    // it seems that b jet also have to meet below requirements?
-    // yes
     if (fabs(Jet_eta.At(j)) < 2.4) {
       if (!(NHF < 0.99))
         continue;
@@ -786,7 +784,6 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         continue;
       if (!(NumConst > 1))
         continue;
-      //        if(!(MUF<0.8)) continue;
       if (!(CHF > 0))
         continue;
       if (!(CHM > 0))
@@ -800,7 +797,6 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         continue;
       if (!(NumConst > 1))
         continue;
-      //   if(!(MUF<0.8)) continue;
     } else if (fabs(Jet_eta.At(j)) > 2.7 && fabs(Jet_eta.At(j)) < 3.0) {
       if (!(NEMF > 0.01))
         continue;
@@ -842,7 +838,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
           continue;
       }
     }
-    // find mostforwardjeteta
+    find mostforwardjeteta
     if (jetType == 0) { // normal jet
       if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
         MaxMostForwardJetEta = fabs(Jet_eta.At(j));
@@ -862,10 +858,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
           continue;
       }
     }
-    // if (DeltaPhi(Jet_phi.At(j), Met_type1PF_phi_) < MinDeltaPhiJetMet)
-      // MinDeltaPhiJetMet = DeltaPhi( Jet_phi.At(j),   Met_type1PF_phi_); // MinDeltaPhiJetMe a branch in newtree and SB
-      //
-      // overlap removal
+      overlap removal
     if ( LeptonsMVAF.size()>0 ){
         Double_t deltaR = 0;
         Double_t minDeltaR = 100;
@@ -884,16 +877,7 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         }
         if ( !(minDeltaR_tau >= 0.4)) continue;
     }
-    //jet jet removal
-    // Double_t deltaR_jet = 0;
-    // Double_t minDeltaR_jet = 100;
-    // for (UInt_t k = j+1; k < Jet_pt_->size(); ++k) {
-        // deltaR_jet = DeltaR( Jet_eta.At(k), Jet_eta.At(j), Jet_phi.At(k), Jet_phi.At(j));
-        // if ( deltaR_jet < minDeltaR_jet  ) minDeltaR_jet = deltaR_jet;
-    // }
-    // if ( !(minDeltaR_jet >= 0.4 )) continue;
-
-    Double_t SF = jetpt / Jet_pt.At(j);
+        Double_t SF = jetpt / Jet_pt.At(j);
     TLorentzVector jet_prov;
     jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                           Jet_mass.At(j));
@@ -910,18 +894,6 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
       SelectedJetsBTags.push_back(Jet_pfDeepCSVBJetTags.At(j));
     }
   }
-  //jetjet overlap removal
-    // Double_t deltaR_jet = 0;
-    // for ( UInt_t jet = 0; jet < SelectedJets.size(); jet++){
-        // deltaR_jet = 10;
-        // for (UInt_t k = jet+1; k < SelectedJets.size(); ++k) {
-            // deltaR_jet = DeltaR( SelectedJets[k].Eta(), SelectedJets[jet].Eta(), SelectedJets[k].Phi(), SelectedJets[jet].Phi() );
-            // if ( deltaR_jet < 0.4){
-                // if ( SelectedJets[jet].Pt() > SelectedJets[k].Pt()) SelectedJets.erase( SelectedJets.begin()+k);
-                // else  SelectedJets.erase( SelectedJets.begin()+jet);
-            // }
-        // }
-    // }
 
 } /*}}}*/
 
