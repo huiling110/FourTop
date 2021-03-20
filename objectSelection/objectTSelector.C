@@ -550,7 +550,7 @@ void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vecto
 void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,   vector<Int_t> &SelectedElectronsIndex, const Int_t type) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
-    for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { 
+    for (UInt_t j = 0; j < patElectron_pt.GetSize(); ++j) { /*{{{*/
         Double_t pt = patElectron_pt.At(j);
         Double_t eta = patElectron_eta.At(j);
         Double_t MVA_value = patElectron_ElectronMVAEstimatorRun2Fall17NoIsoV2Values.At(j);
@@ -692,7 +692,7 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
     }
-}
+}/*}}}*/
 
 
 
@@ -740,9 +740,9 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
 
 void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
                 vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
-    // jetType=0  -> usual jets; we use loose ID{{{
+    // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
-    Double_t MostForwardJetEta =-99;
+    Double_t MostForwardJetEta =-99;/*{{{*/
     Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
