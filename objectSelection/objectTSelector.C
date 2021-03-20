@@ -815,6 +815,9 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         continue;
     }
 
+    if ( jetType == 11 || jetType == 12 || jetType == 13 ) {
+      if( !( fabs(Jet_eta.At(j))<2.4) ) continue;
+    }
     if (deepJet) {//https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
       if (jetType == 11) {
         if (!(Jet_pfDeepFlavourBJetTags.At(j) > 0.0614))
