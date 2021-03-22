@@ -110,8 +110,7 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 */
 vector<Process> allProcesses = {
     TTTT, //0
-    // TTToHadronic,
-    // TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
+    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
    // TTGJets, ttZJets,ttWJets, ttH, //7
     // WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
     // WWW, WWZ, [>WWG<] ZZZ, WZZ, WZG, WGG, ZGGJets,//20

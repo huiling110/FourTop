@@ -20,6 +20,8 @@ void EYandSP_usingClass(){
     TStopwatch t;
     t.Start();
 
+    // Bool_t ifSP = false;
+    Bool_t ifSP = true;
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -323,7 +325,9 @@ vector<TH1D*> allHistos;
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
+
     std::map<Double_t, TString> mymap;
+
     for(UInt_t i=0; i<1; i++){
     // for(UInt_t i=0; i<variablelist.size(); i++){
   	    const char *plot = variablelist[i];
@@ -340,8 +344,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         allHistos.clear();
         allHistos = {
             TTTT_h,//0
-            TTToHadronic_h,
-            // TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
+            TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
             /*TTGJets_h,*/ ttZJets_h, ttWJets_h,ttH_h, //7
             WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
             WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
@@ -361,13 +364,13 @@ for (UInt_t  cha=0; cha<1; cha++){
         Double_t sumGenWeights = -99;
         TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
         // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 1; j++){
-        // for(UInt_t j = 1; j < 2; j++){
+        // for(UInt_t j = 0; j < 1; j++){
+        for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
             h_genWeight->Reset( "ICES");
             // h_genWeight->Print();
-            // allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
+            allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             // h_genWeight->Print();
             // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
                 // cout<<"h_genWeight is not wide enough"<<endl;
@@ -375,8 +378,8 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // h_genWeight->SetMinimum( -1000.);
                 // cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
             // }///???not sure why not working
-            // h_genWeight->StatOverflows(kTRUE);
-            // sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
+            h_genWeight->StatOverflows(kTRUE);
+            sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
             
             // allProcesses[j].getEventTree()->Project( hname, plot, weight);
@@ -385,16 +388,17 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
-            if ( j ==0 || j==1){
-                cout<<allHistos[j]->GetName()<<":"<<endl;
-                cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
-                cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
-            }
+            // if ( j ==0 || j==1){
+                // cout<<allHistos[j]->GetName()<<":"<<endl;
+                // cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
+                // cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
+            // }
 
-            // scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
-            // allHistos[j]->Scale(scale);
+            scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
+            allHistos[j]->Scale(scale);
             // if ( j ==0){
                 // cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
             // }
@@ -403,7 +407,6 @@ for (UInt_t  cha=0; cha<1; cha++){
 
         }
 
-/*
         if(i==0){
             cout<<endl;
             cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
@@ -412,29 +415,29 @@ for (UInt_t  cha=0; cha<1; cha++){
             cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
             cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
             cout<<" TTToSemiLeptonic= "<<TTToSemiLeptonic_h->Integral()<<endl;
-            cout<<" TTX             = "<<ttZJets_h->Integral()
-                                    + ttWJets_h->Integral()
-                                    + ttH_h->Integral()<<endl;
-            cout<<" VV              = "<<WZ_h->Integral()
-                                    + WW_h->Integral()
-                                    + ZZ_h->Integral()
-                                    + WGJets_h->Integral()
-                                    + ZGJetsToLLG_h->Integral()<<endl;
-            cout<<" VVV             = "<<WWW_h->Integral()
-                                    + WWZ_h->Integral()
-                                    + ZZZ_h->Integral()
-                                    + WZZ_h->Integral()
-                                    + WZG_h->Integral()
-                                    + WGG_h->Integral()
-                                    + ZGGJets_h->Integral()<<endl;
+            // cout<<" TTX             = "<<ttZJets_h->Integral()
+                                    // + ttWJets_h->Integral()
+                                    // + ttH_h->Integral()<<endl;
+            // cout<<" VV              = "<<WZ_h->Integral()
+                                    // + WW_h->Integral()
+                                    // + ZZ_h->Integral()
+                                    // + WGJets_h->Integral()
+                                    // + ZGJetsToLLG_h->Integral()<<endl;
+            // cout<<" VVV             = "<<WWW_h->Integral()
+                                    // + WWZ_h->Integral()
+                                    // + ZZZ_h->Integral()
+                                    // + WZZ_h->Integral()
+                                    // + WZG_h->Integral()
+                                    // + WGG_h->Integral()
+                                    // + ZGGJets_h->Integral()<<endl;
             // cout<<"WJets  = "<<allHistos[20]->Integral()<<endl;
-            cout<<" DY              = "<<DYJetsToTauTau_h->Integral()<<endl;
-            cout<<" ST              = "<<tZq_ll_h->Integral()
-                                    + ST_tW_antitop_h->Integral() + ST_tW_top_h->Integral()<<endl;
-            cout<<" TX              = "<<TGJets_h->Integral()
-                                    + THW_h->Integral()
-                                    + THQ_h->Integral()<<endl;
-            cout<<" QCD             = "<< QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
+            // cout<<" DY              = "<<DYJetsToTauTau_h->Integral()<<endl;
+            // cout<<" ST              = "<<tZq_ll_h->Integral()
+                                    // + ST_tW_antitop_h->Integral() + ST_tW_top_h->Integral()<<endl;
+            // cout<<" TX              = "<<TGJets_h->Integral()
+                                    // + THW_h->Integral()
+                                    // + THQ_h->Integral()<<endl;
+            // cout<<" QCD             = "<< QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
             // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
             cout<<" Total BKG       = "<<background_SR->Integral()<<endl;
             // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
@@ -452,9 +455,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
         }
 
-*/      
 
-/*        
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
         TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
         c1_2->Draw();
@@ -558,13 +559,15 @@ for (UInt_t  cha=0; cha<1; cha++){
         c1->Draw();
 
         //?for different range we have different sp, how to deal with this?
-        Double_t sp = separationPower(allHistos[0], background_SR);
-        cout<<NAME<<" separation power"<<sp<<endl;
-        std::cout << '\n';
-        if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
-       // std::map<Double_t, TString> mymap;
-        mymap.insert(std::make_pair(sp, NAME));
-*/
+        if ( ifSP ){
+            Double_t sp = separationPower(allHistos[0], background_SR);
+            cout<<NAME<<" separation power"<<sp<<endl;
+            std::cout << '\n';
+            if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
+            mymap.insert(std::make_pair(sp, NAME));
+        }
+
+
         for(UInt_t j = 0; j < allHistos.size(); j++){
              delete (allHistos[j]);
         }
@@ -578,9 +581,11 @@ for (UInt_t  cha=0; cha<1; cha++){
         // std::cout <<it->second << " = " << it->first  << " "<<endl; // print the value of the element it points to
         // ++it; // and iterate to the next element
     // }
-    for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
-        std::cout <<  rit->second << " = "<< rit->first << endl;
-        // std::cout << '\n';
+    if ( ifSP ){
+        for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
+            std::cout <<  rit->second << " = "<< rit->first << endl;
+            // std::cout << '\n';
+        }
     }
 
 //what is SYST and why we do it this way?   
