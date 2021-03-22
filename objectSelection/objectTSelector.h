@@ -29,7 +29,8 @@ public :
 
    Bool_t isdata = false;
     Bool_t MetFilters = true;
-    Bool_t HLTSelection = true;
+    // Bool_t HLTSelection = true;
+    Bool_t HLTSelection = false;
     Bool_t preselection = true;
 
 
