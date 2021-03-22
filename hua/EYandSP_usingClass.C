@@ -360,27 +360,13 @@ for (UInt_t  cha=0; cha<1; cha++){
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
         TString hname ;
-        double scale;
+        Double_t scale;
         Double_t sumGenWeights = -99;
-        TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
         // for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 1; j++){
         for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
-            // h_genWeight->Reset( "ICES");
-            // h_genWeight->Print();
-            // allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
-            // h_genWeight->Print();
-            // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
-                // cout<<"h_genWeight is not wide enough"<<endl;
-                // h_genWeight->SetMaximum( 1000.);
-                // h_genWeight->SetMinimum( -1000.);
-                // cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
-            // }///???not sure why not working
-            // h_genWeight->StatOverflows(kTRUE);
-            // sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
-            // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
             
             // allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);

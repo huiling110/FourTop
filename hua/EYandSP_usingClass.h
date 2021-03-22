@@ -34,10 +34,9 @@ class Process
             // return (TTree*)m_file->Get( "newtree");
             return eventTree;
         }
-        TTree* getAllEventTree(){
-            // return (TTree*)m_file->Get("allevents");
-            return alleventTree;
-        }
+        // TTree* getAllEventTree(){
+            // return alleventTree;
+        // }
         Double_t getSigma(){
             return m_sigma;
         }
