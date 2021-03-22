@@ -180,6 +180,7 @@ Int_t    Flag_eeBadScFilter_ ;
      void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex,const Int_t type);
    // Readers to access the data (delete the ones you do not need).
    // if  ( !isdata ){
+   // ???why if not working here?
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
@@ -199,7 +200,7 @@ Int_t    Flag_eeBadScFilter_ ;
        // TTreeReaderArray<int> Gen_BdaughtIndices = {fReader, "Gen_BdaughtIndices"};
        // TTreeReaderArray<int> Gen_isPromptFinalState = {fReader, "Gen_isPromptFinalState"};
        // TTreeReaderArray<int> Gen_isDirectPromptTauDecayProductFinalState = {fReader, "Gen_isDirectPromptTauDecayProductFinalState"};
-   // }
+   // };
    // TTreeReaderValue<Int_t> HiggsDecay = {fReader, "HiggsDecay"};
    TTreeReaderValue<ULong64_t> EVENT_event = {fReader, "EVENT_event"};
    TTreeReaderValue<Int_t> EVENT_run = {fReader, "EVENT_run"};

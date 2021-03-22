@@ -89,6 +89,8 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    cout<<outputfile->GetName()<<endl;
    // cout<<outputfile->IsZombie()<<endl;
    
+
+   
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 
    tree = new TTree( "tree", "tree after object selection");
@@ -258,7 +260,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
    allEvents->Fill();
 
    //MET filters
-    if ( MetFilters == 1){
+    if ( MetFilters ){
         if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
         if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
         if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
@@ -277,7 +279,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 
-    if ( HLTSelection == 1){
+    if ( HLTSelection){
         if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
         if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
     }
@@ -453,7 +455,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     }
 
     //preselection
-    if (preselection==1) {
+    if (preselection) {
         if ( !( tausL.size()>0)) return kFALSE;
         if ( !( jets.size()>3))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
