@@ -30,9 +30,11 @@ public :
    Bool_t isdata = false;
     Bool_t MetFilters = true;
     Bool_t HLTSelection = true;
+    Bool_t preselection = true;
 
 
    Long64_t   fProcessed = 0;
+   Long64_t eventsPassed = 0;
    Long64_t tausT_total = 0;
    Long64_t tausL_total = 0;
    Long64_t tausF_total = 0;

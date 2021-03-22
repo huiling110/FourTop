@@ -421,8 +421,6 @@ Bool_t objectTSelector::Process(Long64_t entry)
     // bjetsL_total = bjetsL_total + bjetsL.size();
     // bjetsT_total = bjetsT_total + bjetsT.size();
 
-    // patElectron_charge_ = patElectron_charge; //= not working
-    // cout<<patElectron_charge.GetSize();
     if ( patElectron_charge.GetSize() > 0 ){
         copy_TTreeReaderArray_toVector( patElectron_charge, patElectron_charge_);}
     if ( Tau_charge.GetSize()>0 ){
@@ -454,12 +452,15 @@ Bool_t objectTSelector::Process(Long64_t entry)
         EVENT_genWeight_ = *EVENT_genWeight;
     }
 
-    /*
     //preselection
-    if ( !( tausL.size()>0)) return kFALSE;
-    if ( !( jets.size()>3))  return kFALSE;
-    if ( !( bjetsL.size()>1)) return kFALSE;
-*/
+    if (preselection==1) {
+        if ( !( tausL.size()>0)) return kFALSE;
+        if ( !( jets.size()>3))  return kFALSE;
+        if ( !( bjetsL.size()>1)) return kFALSE;
+    }
+
+    eventsPassed++;
+
     tree->Fill();
 
     return kTRUE;
@@ -483,6 +484,7 @@ void objectTSelector::Terminate()
     outputfile->Close();
     
     Info("Terminate", "processed %lld events", fProcessed);
+    Info("Terminate", "passed %lld events", eventsPassed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
     Info("Terminate", "tausT_total: %lld", tausT_total);
     Info("Terminate", "tausF_total: %lld", tausF_total);
