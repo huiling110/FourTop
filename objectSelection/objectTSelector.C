@@ -89,7 +89,6 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    cout<<outputfile->GetName()<<endl;
    // cout<<outputfile->IsZombie()<<endl;
    
-
    
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
 
@@ -439,6 +438,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( tops_toptagger.begin(), tops_toptagger.end(), compEle);
 
     //gen information
+
     if ( !isdata ){
         genTaus.clear();
         genEles.clear();
