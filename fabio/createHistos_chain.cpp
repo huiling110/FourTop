@@ -35,6 +35,29 @@ cout << "+++ INPUT FILES NOT FOUND! SKIPPING +++" << endl;
 continue;
 } 
 
+//initializing yield containers
+ cout << "~~~~ creating histograms ~~~~" << endl;
+ TH1::AddDirectory(kFALSE); 
+TH1F * h_1tau0L = new TH1F("h_1tau0L", "1h_tau0L", 30, 0, 30);
+// cout << "0" << endl;
+ TH1F * h_1tau1e = new TH1F("h_1tau1e", "h_1tau1e", 30, 0, 30);
+ //cout << "1" << endl;
+TH1F * h_1tau1mu = new TH1F("h_1tau1mu", "h_1tau1mu", 30, 0, 30);
+//cout << "2" << endl;
+TH1F * h_1tau2L = new TH1F("h_1tau2L", "h_1tau2L", 30, 0, 30);
+//cout << "3" << endl;
+TH1F * h_1tau3L = new TH1F("h_1tau3L", "h_1tau3L", 30, 0, 30);
+//cout << "4" << endl;
+TH1F * h_2tau0L = new TH1F("h_2tau0L", "h_2tau0L", 30, 0, 30);
+//cout << "5" << endl;
+TH1F * h_2tau1e = new TH1F("h_2tau1e", "h_2tau1e", 30, 0, 30);
+//cout << "6" << endl;
+TH1F * h_2tau1mu = new TH1F("h_2tau1mu", "h_2tau1mu", 30, 0, 30);
+//cout << "7" << endl;
+TH1F * h_2tau2L = new TH1F("h_2tau2L", "h_2tau2L", 30, 0, 30);
+//cout << "8" << endl;
+ TH1::AddDirectory(kTRUE); 
+
 TChain mychain("tree");
 mychain.Add(input_base_dir + "v3*.root");
 TChain mychain2("allevents");
@@ -42,24 +65,13 @@ mychain2.Add(input_base_dir + "v3*.root");
 
 cout << "Computing the sum of gen event weights..." << endl;
 TH1::StatOverflows(kTRUE); // set this in order to consider underflow/overflow bins in the computation of the mean. Important! If you don't do this, you rely on the range of the histogram genEvtWeights: if the weights are outside the range -10,10 the mean will be 0 (this is the case for processes such as DY)
-TH1F * genEvtWeights = new TH1F("genEvtWeights", "genEvtWeights", 10, -10, 10 );
+TH1D * genEvtWeights = new TH1D("genEvtWeights", "genEvtWeights", 10, -10, 10 );
 mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
 cout << "genEvtWeights->GetMean(): " << genEvtWeights->GetMean() << endl;
 cout << "genEvtWeights->GetEntries(): " << genEvtWeights->GetEntries() << endl; 
 double gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
 cout << gen_sum_of_weights << endl;
 TH1::StatOverflows(kFALSE);
-//initializing yield containers
-TH1F * h_1tau0L = new TH1F("h_1tau0L", "1h_tau0L", 30, 0, 30);
-TH1F * h_1tau1e = new TH1F("h_1tau1e", "h_1tau1e", 30, 0, 30);
-TH1F * h_1tau1mu = new TH1F("h_1tau1mu", "h_1tau1mu", 30, 0, 30);
-TH1F * h_1tau2L = new TH1F("h_1tau2L", "h_1tau2L", 30, 0, 30);
-TH1F * h_1tau3L = new TH1F("h_1tau3L", "h_1tau3L", 30, 0, 30);
-TH1F * h_2tau0L = new TH1F("h_2tau0L", "h_2tau0L", 30, 0, 30);
-TH1F * h_2tau1e = new TH1F("h_2tau1e", "h_2tau1e", 30, 0, 30);
-TH1F * h_2tau1mu = new TH1F("h_2tau1mu", "h_2tau1mu", 30, 0, 30);
-TH1F * h_2tau2L = new TH1F("h_2tau2L", "h_2tau2L", 30, 0, 30);
-
 
 double mygenEvtWeight = 0;
 mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
@@ -129,12 +141,12 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  y_2tau1e.insert( {file_it->first, *h_2tau1e} );
  y_2tau1mu.insert( {file_it->first, *h_2tau1mu} );
  y_2tau2L.insert( {file_it->first, *h_2tau2L} );
-  
+ TH1::AddDirectory(kFALSE);  
  TH1D * totalWeight = new TH1D("totalWeight", "totalWeight", 1, -0.5, 0.5);
  totalWeight->Fill(0.0, gen_sum_of_weights);
-
+  TH1::AddDirectory(kTRUE);
  total_weight.insert({file_it->first, *totalWeight});
-
+ 
  delete h_1tau0L;
  delete h_1tau1e;
  delete h_1tau1mu;
@@ -146,7 +158,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  delete h_2tau2L;
  delete genEvtWeights;
  delete totalWeight;
-
+ 
  mychain.Reset();
  mychain2.Reset();
 

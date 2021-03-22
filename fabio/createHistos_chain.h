@@ -8,7 +8,7 @@ double LUMI2016 = 35900.0;
 string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/";
 
 map<string, string> file = { //MAP OF INPUT FILES
-    
+
 //signal
 {"tttt", dir + "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn"},
 
@@ -16,6 +16,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"ttbar-FH", dir + "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 {"ttbar-SL", dir + "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 {"ttbar-DL", dir + "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
+{"ttbar-incl", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
 
 //tt+X background
 {"ttG-SL", dir + "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
