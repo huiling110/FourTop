@@ -368,9 +368,9 @@ for (UInt_t  cha=0; cha<1; cha++){
         for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
-            h_genWeight->Reset( "ICES");
+            // h_genWeight->Reset( "ICES");
             // h_genWeight->Print();
-            allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
+            // allProcesses[j].getAllEventTree()->Project( "genWeight", "genWeight_allEvents");
             // h_genWeight->Print();
             // if ( h_genWeight->IsBinOverflow(100) || h_genWeight->IsBinUnderflow(1)) {
                 // cout<<"h_genWeight is not wide enough"<<endl;
@@ -378,8 +378,8 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // h_genWeight->SetMinimum( -1000.);
                 // cout<<"after resetting, is IsBinOverflow: "<< h_genWeight->IsBinOverflow(100)<< "; IsBinUnderflow: "<<h_genWeight->IsBinUnderflow(1)<<endl;
             // }///???not sure why not working
-            h_genWeight->StatOverflows(kTRUE);
-            sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
+            // h_genWeight->StatOverflows(kTRUE);
+            // sumGenWeights = h_genWeight->GetMean() * h_genWeight->GetEntries();
             // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
             
             // allProcesses[j].getEventTree()->Project( hname, plot, weight);
@@ -396,7 +396,7 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
                 // cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
             // }
-
+            sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             // if ( j ==0){
