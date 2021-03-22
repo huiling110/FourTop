@@ -5,6 +5,10 @@
 #include <TBenchmark.h>
 #include <TEfficiency.h>
 #include "trigEff_vs_HT.h"
+#include <TChain.h>
+#include <TLorentzVector.h>
+#include <TROOT.h> //for gROOT
+#include <TSystem.h> // for gSystem
 
 //using namespace std;
 
@@ -12,6 +16,7 @@ void trigEff_vs_HT() {
 
 gBenchmark->Start("running time");
 
+gROOT->ProcessLine(".L Loader.C+");
 
  //histograms: MC wrt reference
 TH1F * h_HT_nocat = new TH1F("h_HT_nocat", "h_HT_nocat; H_{T} [GeV];", 15, 0, 1500);
@@ -54,116 +59,110 @@ map<string, string>::iterator file_it = file.begin();
 
 while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
 
-cout << "Opening file " << file_it->second << "..." << endl;
-TFile *inputfile  = new TFile( file_it->second.c_str(), "READ" );
+cout << "Reading process " << file_it->second << "..." << endl;
+TString input_base_dir = file_it->second + "/";
+gSystem->RedirectOutput("/dev/null"); // do not show errors when not finding the following files: will print a custom error a few lines below
+TFile * checkinput = new TFile(input_base_dir + "v3_1-1.root");
+TFile * checkinput2 = new TFile(input_base_dir + "v3_1.root");
+gSystem->RedirectOutput(0,0); // restore the printing to normal behavior
+if (checkinput->IsZombie() && checkinput2->IsZombie()){
+cout << "+++ INPUT FILES NOT FOUND! SKIPPING +++" << endl;
+ file_it++;
+continue;
+} 
 
-//addressing branches
-TTree *evt = (TTree*)inputfile->Get( "tree" );
+TChain mychain("tree");
+mychain.Add(input_base_dir + "v3*.root");
+TChain mychain2("allevents");
+mychain2.Add(input_base_dir + "v3*.root");
 
-int  mytausT_number = 0;
-evt->SetBranchAddress( "tausT_number", &mytausT_number );
-
-int  myleptonsMVAT_number = 0;
-evt->SetBranchAddress( "leptonsMVAT_number", &myleptonsMVAT_number );
-
-int  myjetsL_number = 0;
-evt->SetBranchAddress( "jetsL_number", &myjetsL_number );
-
-int  mybjetsM_number = 0;
-evt->SetBranchAddress( "bjetsM_num", &mybjetsM_number );
-
-int  myelesMVAT_number = 0;
-evt->SetBranchAddress( "elesMVAT_number", &myelesMVAT_number );
-
-int  mymuonsT_number = 0;
-evt->SetBranchAddress( "muonsT_number", &mymuonsT_number );
-
-int  myleptonsMVAT_2OS = 0;
-evt->SetBranchAddress( "leptonsMVAT_2OS", &myleptonsMVAT_2OS );
-
-int  myleptonsMVAT_2SS = 0;
-evt->SetBranchAddress( "leptonsMVAT_2SS", &myleptonsMVAT_2SS );
+cout << "Computing the sum of gen event weights..." << endl;
+TH1::StatOverflows(kTRUE);
+TH1D * genEvtWeights = new TH1D("genEvtWeights", "genEvtWeights", 10, -10, 10 );
+mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
+cout << "genEvtWeights->GetMean(): " << genEvtWeights->GetMean() << endl;
+cout << "genEvtWeights->GetEntries(): " << genEvtWeights->GetEntries() << endl; 
+double gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
+cout << gen_sum_of_weights << endl;
+TH1::StatOverflows(kFALSE);
 
 double mygenEvtWeight = 0;
-evt->SetBranchAddress( "EVENT_genWeight", &mygenEvtWeight );
+mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
 
-vector<double> * myeleMVAT_pt = 0;
-evt->SetBranchAddress( "eleMVAT_pt", &myeleMVAT_pt );
+vector<TLorentzVector> *myjetsL = {}; 
+mychain.SetBranchAddress("jets", &myjetsL);
 
-vector<double> * mymuonT_pt = 0;
-evt->SetBranchAddress( "muonT_pt", &mymuonT_pt );
+vector<TLorentzVector> *mybjetsM = {}; 
+mychain.SetBranchAddress("bjetsM", &mybjetsM);
 
-double myjetsL_HT = 0;
-evt->SetBranchAddress("jetsL_HT", &myjetsL_HT);
+vector<TLorentzVector> *myelesMVAT = {}; 
+mychain.SetBranchAddress("eleMVAT", &myelesMVAT);
+
+vector<TLorentzVector> *mymuonsT = {}; 
+mychain.SetBranchAddress("muonsT", &mymuonsT);
+
+vector<TLorentzVector> *mytausT = {}; 
+mychain.SetBranchAddress("tausT", &mytausT);
+
+vector<TLorentzVector> *myleptonsMVAT = {}; 
+mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 
  // multijet triggers
  int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
- evt->SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056", &myHLT_PFHT450_SixJet40_BTagCSV_p056);
+ mychain.SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056_", &myHLT_PFHT450_SixJet40_BTagCSV_p056);
 
  int myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = 0;
- evt->SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
+ mychain.SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
 
  //reference triggers
- int myHLT_AK8PFJet360_TrimMass30 = 0;
- evt->SetBranchAddress("HLT_AK8PFJet360_TrimMass30", &myHLT_AK8PFJet360_TrimMass30);
-
- int myHLT_PFJet450 = 0;
- evt->SetBranchAddress("HLT_PFJet450", &myHLT_PFJet450);
-
  int myHLT_IsoMu24 = 0;
- evt->SetBranchAddress("HLT_IsoMu24", &myHLT_IsoMu24);
+ mychain.SetBranchAddress("HLT_IsoMu24_", &myHLT_IsoMu24);
 
  int myHLT_IsoMu27 = 0;
- evt->SetBranchAddress("HLT_IsoMu27", &myHLT_IsoMu27);
+ mychain.SetBranchAddress("HLT_IsoMu27_", &myHLT_IsoMu27);
 
- // initializing sum of weights                                                                                                                                                                
- TH1F * GenEventWeight;
- GenEventWeight = (TH1F*)inputfile->Get("h_genweight");
-
-Long64_t nevents = evt->GetEntries();
+Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   //if (ievent > 100000) break;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
-   evt->GetEntry( ievent );
+   mychain.GetEntry( ievent );
 
    /////////////////////////////////////////////////////////////////////
    ///////////////////// DEFINE CATEGORY CUTS //////////////////////////
    /////////////////////////////////////////////////////////////////////
 
- bool is1tau0L = (mytausT_number==1 && myleptonsMVAT_number==0 &&  myjetsL_number>=8 && mybjetsM_number>=2);
- bool is1tau1e = (mytausT_number==1 && myleptonsMVAT_number == 1 && myelesMVAT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2 && myeleMVAT_pt->at(0)>10);
- bool is1tau1mu = (mytausT_number==1 && myleptonsMVAT_number == 1 && mymuonsT_number==1 && myjetsL_number>=6 && mybjetsM_number>=2 && mymuonT_pt->at(0)>10);
- bool is1tau2OSL = (mytausT_number==1 && myleptonsMVAT_number==2 && myleptonsMVAT_2OS==1  &&  myjetsL_number>=4 && mybjetsM_number>=2);
- bool is1tau2SSL = (mytausT_number==1 && myleptonsMVAT_number==2 && myleptonsMVAT_2SS==1 && myjetsL_number>=4 && mybjetsM_number>=2);
- bool is1tau3L = (mytausT_number==1 && myleptonsMVAT_number==3 &&  myjetsL_number>=2 && mybjetsM_number>=2);
- bool is2tau0L = (mytausT_number==2 && myleptonsMVAT_number==0 &&  myjetsL_number>=6 && mybjetsM_number>=2);
- bool is2tau1e = (mytausT_number==2 && myleptonsMVAT_number == 1 && myelesMVAT_number==1 &&  myjetsL_number>=4 && mybjetsM_number>=2);
- bool is2tau1mu = (mytausT_number==2 && myleptonsMVAT_number == 1 && mymuonsT_number==1 &&  myjetsL_number>=4 && mybjetsM_number>=2);
- bool is2tau2OSL = (mytausT_number==2 && myleptonsMVAT_number==2 && myleptonsMVAT_2OS==1  && myjetsL_number>=2 && mybjetsM_number>=2);
- bool is2tau2SSL = (mytausT_number==2 && myleptonsMVAT_number==2 && myleptonsMVAT_2SS==1 && myjetsL_number>=2 && mybjetsM_number>=2);
+ bool is1tau0L = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
+ bool is1tau1e = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2);
+ bool is1tau1mu = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=6 && mybjetsM->size()>=2);
+ bool is1tau2L = (mytausT->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2);
+ bool is1tau3L = (mytausT->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2);
+ bool is2tau0L = (mytausT->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2);
+ bool is2tau1e = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
+ bool is2tau1mu = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
+ bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
 
  /////////////////////////////////////////////////////////////////////
  ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
  /////////////////////////////////////////////////////////////////////
 
-
- //compute HT(jet+lepton)
-
- float HT_jl = myjetsL_HT;
-
- for (unsigned int i = 0; i < myeleMVAT_pt->size(); i++) {
-
-   HT_jl += myeleMVAT_pt->at(i);
+ //compute HT
+ float HT = 0.0;
+ for (unsigned int i = 0; i < myjetsL->size(); i ++)  {
    
+   HT += myjetsL->at(i).Pt();
+
  }
 
- for (unsigned int i = 0; i < mymuonT_pt->size(); i++) {
+ //compute HT(jet+lepton)
+ float HT_jl = HT;
 
-   HT_jl += mymuonT_pt->at(i);
+ for (unsigned int i = 0; i < myleptonsMVAT->size(); i++) {
+
+   HT_jl += myleptonsMVAT->at(i).Pt();
    
-}
+ }
  
 bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
   
@@ -172,11 +171,11 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-   h_HT_nocat->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+   h_HT_nocat->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
    if(isSignalTrig) {
 
-     h_HT_nocat_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+     h_HT_nocat_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
      
    }
 
@@ -187,9 +186,9 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
      if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_1tau0L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau0L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
      
@@ -201,21 +200,21 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
      if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_1tau1L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau1L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
  }// end 1tau1L
 
- if (is1tau2OSL || is1tau2SSL) {
+ if (is1tau2L) {
  
    if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_1tau2L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau2L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
@@ -225,9 +224,9 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_1tau3L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau3L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau3L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau3L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
@@ -237,9 +236,9 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_2tau0L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau0L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
@@ -249,21 +248,21 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_2tau1L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau1L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
  }// end 2tau1L
 
- if (is2tau2OSL || is2tau2SSL) {
+ if (is2tau2L) {
 
    if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
 
-       h_HT_2tau2L->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau2L_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
      }
 
@@ -274,20 +273,20 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
  ///////////////////////
   
 
-   h_HT_nocat_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+   h_HT_nocat_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
    if(isSignalTrig) {
 
-     h_HT_nocat_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+     h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
      
    }
 
 
    if (is1tau0L) {
 
-       h_HT_1tau0L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau0L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau0L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
     
      
    }// end 1tau0L
@@ -295,51 +294,51 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if ((is1tau1e) || (is1tau1mu)) {
 
-       h_HT_1tau1L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau1L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau1L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
  }// end 1tau1L
 
- if (is1tau2OSL || is1tau2SSL) {   
+ if (is1tau2L) {   
 
-       h_HT_1tau2L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau2L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau2L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
  }// end 1tau2L
 
  if (is1tau3L) {
 
-       h_HT_1tau3L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_1tau3L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau3L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_1tau3L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
 
  }// end 1tau3L
 
  if (is2tau0L) {
 
-       h_HT_2tau0L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau0L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau0L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
 
  }// end 2tau0L
 
  if ((is2tau1e) || (is2tau1mu)) {
   
-       h_HT_2tau1L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau1L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau1L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
  }// end 2tau1L
 
- if (is2tau2OSL || is2tau2SSL) {   
+ if (is2tau2L) {   
 
-       h_HT_2tau2L_truth->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       h_HT_2tau2L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau2L_truth_aft->Fill(myjetsL_HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/GenEventWeight->Integral());
+       if (isSignalTrig)  h_HT_2tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
 
  }// end 2tau2L
@@ -349,15 +348,17 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  }//end loop over events
 
- inputfile->Close();
- delete inputfile;
- 
+ delete genEvtWeights;
+
+ mychain.Reset();
+ mychain2.Reset();
+
  file_it++;
 
  }//end loop over files
 
- TFile *outputfile = new TFile( "trigEff_vs_HT_output.root", "RECREATE" );
- 
+//TFile *outputfile = new TFile( "trigEff_vs_HT_output.root", "RECREATE" ); 
+ TFile *outputfile = new TFile( "asdasd.root", "RECREATE" );
  writeTEfficiency(h_HT_nocat, h_HT_nocat_aft, "e_HT_nocat");
  writeTEfficiency(h_HT_nocat_truth, h_HT_nocat_truth_aft, "e_HT_nocat_truth");
 
