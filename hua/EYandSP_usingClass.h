@@ -5,8 +5,7 @@
 
 
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v2/";
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/";
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/trees/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
 Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb
 Double_t LUMI = 35900; //fb

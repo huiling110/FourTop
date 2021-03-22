@@ -22,6 +22,12 @@
     * HLTstudy_v1.cpp: calculate the efficiency of HLT, take root file produced by HLTstudy_v1.cpp as input
     * PlotterPreselection_PlayWithMC.cpp : look at the root files produced by PlotterPreselection_PlayWithMC.cpp, calculate separation power and make some plots of variables
     * makeIHEPjob.py: make IHEP job script and submission shell script .
+
+ * submit jobs in IHEP cluster
+    * cd FourTop/objectSelection
+    * open makeJob_objectTSelector_forSeperate.py, change the parameters to your setting in the file in the first few lines.
+    * python makeJob_objectTSelector_forSeperate.py
+    * . subAllProcess_seperate.sh
       
   
       

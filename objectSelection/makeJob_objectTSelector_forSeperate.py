@@ -10,7 +10,7 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v34_allObjectsConsitent/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
@@ -22,6 +22,8 @@ if os.path.exists(subAllFile):
     os.popen('rm -fr '+subAllFile)
 if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
     os.mkdir('Jobsubmit_seperate/')
+if not os.path.exists( outputDir):
+    os.mkdir(outputDir)
 
 sample = {
         #  "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/": "C_0",
