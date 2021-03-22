@@ -124,7 +124,7 @@ mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-  //if (ievent > 100000) break;
+  //if (ievent > 100) break;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
@@ -147,6 +147,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
  /////////////////////////////////////////////////////////////////////
 
+ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
+ bool isReferenceTrig = (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1);
+ 
  //compute HT
  float HT = 0.0;
  for (unsigned int i = 0; i < myjetsL->size(); i ++)  {
@@ -163,13 +166,11 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    HT_jl += myleptonsMVAT->at(i).Pt();
    
  }
- 
-bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1);
-  
+   
 //   if (HT_jl > 400) {
 
 
- if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+ if (isReferenceTrig) {
 
    h_HT_nocat->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
@@ -184,7 +185,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if (is1tau0L) {
 
-     if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+     if (isReferenceTrig) {
 
        h_HT_1tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -198,7 +199,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
    if ((is1tau1e) || (is1tau1mu)) {
 
-     if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+     if (isReferenceTrig) {
 
        h_HT_1tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -210,7 +211,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is1tau2L) {
  
-   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+   if (isReferenceTrig) {
 
        h_HT_1tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -222,7 +223,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is1tau3L) {
 
-   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+   if (isReferenceTrig) {
 
        h_HT_1tau3L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -234,7 +235,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is2tau0L) {
 
-  if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+  if (isReferenceTrig) {
 
        h_HT_2tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -246,7 +247,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if ((is2tau1e) || (is2tau1mu)) {
 
-   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+   if (isReferenceTrig) {
 
        h_HT_2tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -258,7 +259,7 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
 
  if (is2tau2L) {
 
-   if (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1) {
+   if (isReferenceTrig) {
 
        h_HT_2tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
@@ -383,6 +384,32 @@ bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_S
  writeTEfficiency(h_HT_2tau2L, h_HT_2tau2L_aft, "e_HT_2tau2L");
  writeTEfficiency(h_HT_2tau2L_truth, h_HT_2tau2L_truth_aft, "e_HT_2tau2L_truth");
  
+ TH1F * h_HT_1tauML = (TH1F*)h_HT_1tau2L->Clone();
+ TH1F * h_HT_1tauML_aft = (TH1F*)h_HT_1tau2L_aft->Clone();
+ TH1F * h_HT_1tauML_truth = (TH1F*)h_HT_1tau2L_truth->Clone();
+ TH1F * h_HT_1tauML_truth_aft = (TH1F*)h_HT_1tau2L_truth_aft->Clone();
+
+ h_HT_1tauML->Add(h_HT_1tau3L);
+ h_HT_1tauML_aft->Add(h_HT_1tau3L_aft);
+ h_HT_1tauML_truth->Add(h_HT_1tau3L_truth);
+ h_HT_1tauML_truth_aft->Add(h_HT_1tau3L_truth_aft);
+ 
+ TH1F * h_HT_2tauML = (TH1F*)h_HT_2tau1L->Clone();
+ TH1F * h_HT_2tauML_aft = (TH1F*)h_HT_2tau1L_aft->Clone();
+ TH1F * h_HT_2tauML_truth = (TH1F*)h_HT_2tau1L_truth->Clone();
+ TH1F * h_HT_2tauML_truth_aft = (TH1F*)h_HT_2tau1L_truth_aft->Clone();
+ 
+ h_HT_2tauML->Add(h_HT_2tau2L);
+ h_HT_2tauML_aft->Add(h_HT_2tau2L_aft);
+ h_HT_2tauML_truth->Add(h_HT_2tau2L_truth);
+ h_HT_2tauML_truth_aft->Add(h_HT_2tau2L_truth_aft);
+
+ writeTEfficiency(h_HT_1tauML, h_HT_1tauML_aft, "e_HT_1tauML");
+ writeTEfficiency(h_HT_1tauML_truth, h_HT_1tauML_truth_aft, "e_HT_1tauML_truth");
+
+ writeTEfficiency(h_HT_2tauML, h_HT_2tauML_aft, "e_HT_2tauML");
+ writeTEfficiency(h_HT_2tauML_truth, h_HT_2tauML_truth_aft, "e_HT_2tauML_truth");
+
  outputfile->Close();
  delete outputfile;
 

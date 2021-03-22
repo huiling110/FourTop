@@ -4,7 +4,7 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/";
+string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v35_preselection/";
 
 map<string, string> file = { //MAP OF INPUT FILES
 
@@ -15,7 +15,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"ttbar-FH", dir + "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 {"ttbar-SL", dir + "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 {"ttbar-DL", dir + "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
-{"ttbar-incl", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
+//{"ttbar-incl", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
 
 //tt+X background
 {"ttG-SL", dir + "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
@@ -81,13 +81,13 @@ map<string, float> xsec = {
 {"ttbar-FH", 373.0},
 {"ttbar-SL", 367.0},
 {"ttbar-DL", 90.6},
-{"ttbar-incl", 830.7},
+//{"ttbar-incl", 830.7},
     
 //tt+X background
 {"ttG-SL", 5.058},
 {"ttG-DL", 1.506},
 {"ttW+jets", 0.2014},
-//{"ttZ+jets", 0.6559},
+{"ttZ+jets", 0.6559},
 {"ttH", 0.3372},
 
 //diboson background
