@@ -384,20 +384,20 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  writeTEfficiency(h_HT_2tau2L, h_HT_2tau2L_aft, "e_HT_2tau2L");
  writeTEfficiency(h_HT_2tau2L_truth, h_HT_2tau2L_truth_aft, "e_HT_2tau2L_truth");
  
- TH1F * h_HT_1tauML = (TH1F*)h_HT_1tau2L->Clone();
- TH1F * h_HT_1tauML_aft = (TH1F*)h_HT_1tau2L_aft->Clone();
- TH1F * h_HT_1tauML_truth = (TH1F*)h_HT_1tau2L_truth->Clone();
- TH1F * h_HT_1tauML_truth_aft = (TH1F*)h_HT_1tau2L_truth_aft->Clone();
+ TH1F * h_HT_1tauML = (TH1F*)h_HT_1tau2L->Clone("h_HT_1tauML");
+ TH1F * h_HT_1tauML_aft = (TH1F*)h_HT_1tau2L_aft->Clone("h_HT_1tauML_aft");
+ TH1F * h_HT_1tauML_truth = (TH1F*)h_HT_1tau2L_truth->Clone("h_HT_1tauML_truth");
+ TH1F * h_HT_1tauML_truth_aft = (TH1F*)h_HT_1tau2L_truth_aft->Clone("h_HT_1tauML_truth_aft");
 
  h_HT_1tauML->Add(h_HT_1tau3L);
  h_HT_1tauML_aft->Add(h_HT_1tau3L_aft);
  h_HT_1tauML_truth->Add(h_HT_1tau3L_truth);
  h_HT_1tauML_truth_aft->Add(h_HT_1tau3L_truth_aft);
  
- TH1F * h_HT_2tauML = (TH1F*)h_HT_2tau1L->Clone();
- TH1F * h_HT_2tauML_aft = (TH1F*)h_HT_2tau1L_aft->Clone();
- TH1F * h_HT_2tauML_truth = (TH1F*)h_HT_2tau1L_truth->Clone();
- TH1F * h_HT_2tauML_truth_aft = (TH1F*)h_HT_2tau1L_truth_aft->Clone();
+ TH1F * h_HT_2tauML = (TH1F*)h_HT_2tau1L->Clone("h_HT_2tauML");
+ TH1F * h_HT_2tauML_aft = (TH1F*)h_HT_2tau1L_aft->Clone("h_HT_2tauML_aft");
+ TH1F * h_HT_2tauML_truth = (TH1F*)h_HT_2tau1L_truth->Clone("h_HT_2tauML_truth");
+ TH1F * h_HT_2tauML_truth_aft = (TH1F*)h_HT_2tau1L_truth_aft->Clone("h_HT_2tauML_truth_aft");
  
  h_HT_2tauML->Add(h_HT_2tau2L);
  h_HT_2tauML_aft->Add(h_HT_2tau2L_aft);
