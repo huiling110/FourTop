@@ -17,6 +17,16 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"ttbar-DL", dir + "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 //{"ttbar-incl", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
 
+//QCD background
+//{"QCD_HT200to300", dir + "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT300to500", dir + "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT500to700", dir + "QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT700to1000", dir + "QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT1000to1500", dir + "QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT1500to2000", dir + "QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+{"QCD_HT2000toInf", dir + "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root"},
+
+
 //tt+X background
 {"ttG-SL", dir + "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
 {"ttG-DL", dir + "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp"},
@@ -82,6 +92,13 @@ map<string, float> xsec = {
 {"ttbar-SL", 367.0},
 {"ttbar-DL", 90.6},
 //{"ttbar-incl", 830.7},
+
+{"QCD_HT300to500", 347700.0},
+{"QCD_HT500to700", 32100.0},
+{"QCD_HT700to1000", 6831.0},
+{"QCD_HT1000to1500", 1207.0},
+{"QCD_HT1500to2000", 119.9},
+{"QCD_HT2000toInf", 25.24},
     
 //tt+X background
 {"ttG-SL", 5.058},
