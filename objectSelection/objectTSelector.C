@@ -257,22 +257,18 @@ Bool_t objectTSelector::Process(Long64_t entry)
    }
    allEvents->Fill();
 
-   /*
    //MET filters
-    if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
-    if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
-    if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
-    if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
-    if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
-    if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
-      //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))
-      // return kFALSE;
-      //			why this filter not work?//applied only in 2017 and 2018
-     if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
-
-    if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
-    if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
-*/    
+    if ( MetFilters == 1){
+        if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
+        if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
+        if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
+        if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
+        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
+        if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
+          //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;
+          //			why this filter not work?//applied only in 2017 and 2018
+         if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+    }
     Flag_goodVertices_ = *Flag_goodVertices;
     Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
     Flag_HBHENoiseFilter_ = *Flag_HBHENoiseFilter;
@@ -281,9 +277,10 @@ Bool_t objectTSelector::Process(Long64_t entry)
     Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 
-
-
-
+    if ( HLTSelection == 1){
+        if ( *HLT_PFHT450_SixJet40_BTagCSV_p056 == 0 ) return kFALSE;
+        if ( *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 0 ) return kFALSE;
+    }
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;/*{{{*/
@@ -355,10 +352,6 @@ Bool_t objectTSelector::Process(Long64_t entry)
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
-    // eleMVAL_IsoT.clear(); eleMVAL_IsoT_index.clear();
-    // eleMVAF_IsoT.clear(); eleMVAF_IsoT_index.clear();
-    // eleMVAT_IsoT.clear(); eleMVAT_IsoT_index.clear();
-    // .clear(); _index.clear();
     tausL.clear(); tausL_index.clear();
     tausF.clear(); tausF_index.clear();
     tausT.clear(); tausT_index.clear();
