@@ -4,9 +4,7 @@ void run_makeVaribles_forBDT(
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8",
-                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1/"
-                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/checkforEY/"
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/trees/"
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/"
                         // TString singleFileName = "v3_1-100.root"
                         )
 {
@@ -17,9 +15,8 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/";
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/checkForEY_jets/";
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v35_preselection/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 
     TString inputFile = inputBase + inputDir + "/";
@@ -44,7 +41,6 @@ void run_makeVaribles_forBDT(
 
     if ( ifMergeAllevent){
         cout<<"--------"<<endl;
-        cout<<"---------"<<endl;
         cout<<"now comes to add allevents stage"<<endl;
         TFile* file = TFile::Open(  outputDir + outputFileName , "UPDATE");
         // cout<<"file opened :"<<file->GetName();

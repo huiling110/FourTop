@@ -10,8 +10,8 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v33_sortedObjectPt/"
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v2/"
+inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v35_preselection/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v3_fromv35/"
 
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
