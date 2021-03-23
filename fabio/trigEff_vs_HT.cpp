@@ -169,7 +169,10 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    
 //   if (HT_jl > 400) {
 
+//compute trigger efficiency in preselection asking for exactly 1 muon (a la ttH(bb))
 
+ if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) {
+ 
  if (isReferenceTrig) {
 
    h_HT_nocat->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
@@ -182,6 +185,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }
 
+ }
 
    if (is1tau0L) {
 
@@ -196,7 +200,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
      
    }// end 1tau0L
  
-
+ 
    if ((is1tau1e) || (is1tau1mu)) {
 
      if (isReferenceTrig) {
@@ -358,8 +362,8 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  }//end loop over files
 
-//TFile *outputfile = new TFile( "trigEff_vs_HT_output.root", "RECREATE" ); 
- TFile *outputfile = new TFile( "asdasd.root", "RECREATE" );
+ TFile *outputfile = new TFile( "trigEff_vs_HTj_output.root", "RECREATE" ); 
+ //TFile *outputfile = new TFile( "asdasd.root", "RECREATE" );
  writeTEfficiency(h_HT_nocat, h_HT_nocat_aft, "e_HT_nocat");
  writeTEfficiency(h_HT_nocat_truth, h_HT_nocat_truth_aft, "e_HT_nocat_truth");
 
