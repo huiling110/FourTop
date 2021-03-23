@@ -28,7 +28,16 @@
     * open makeJob_objectTSelector_forSeperate.py, change the parameters to your setting in the file in the first few lines.
     * python makeJob_objectTSelector_forSeperate.py
     * . subAllProcess_seperate.sh
-      
+
+ * tips for Fabio to uptade his branch with master
+    * suppose remote master branch now has Huiling's most recent commits, and suppose only Huiling has changed shared codes and Fabio hasn't. 
+    * this is what Fabio can do on his local repositary:
+        * git checkout master 
+        * git pull origin master
+        * git checkout to Fabio's branch
+        * git merge master ( this should be a smooth staight forward merge since only Huiling changed shared code)
+    * if you want to change the shared code and expriment you'd better make another branch out of it and do it in the expriment branch.
+    * if you want to submit jobs and git tag of the job version you should definitely do it in Fabio's branch and later merge Fabio branch to master.
   
       
      
