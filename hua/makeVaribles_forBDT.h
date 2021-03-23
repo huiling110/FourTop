@@ -255,8 +255,6 @@ public :
     Double_t toptagger_3pt = -99;
     Double_t toptagger_3eta = -99;
     Double_t toptagger_3phi = -99;
-    Double_t toptagger_minDeltaR=-99;
-    Double_t toptagger_maxDeltaR=-99;
     Double_t toptagger_scoreAllTops=-99;
     Double_t toptagger_leptonsMVAT_minDeltaR=-99;
 

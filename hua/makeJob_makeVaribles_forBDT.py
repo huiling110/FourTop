@@ -11,7 +11,7 @@ import subprocess
 #  isdata = True
 isdata = False
 inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v35_preselection/"
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v3_fromv35/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v4addToptagger_fromv35/"
 
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
@@ -21,7 +21,7 @@ if os.path.exists(subAllFile):
 if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
     os.mkdir('Jobsubmit_seperate/')
 if not os.path.exists( outputDir):
-    os.mkdir( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v2/")
+    os.mkdir( outputDir )
 
 #better not change code after this line
 

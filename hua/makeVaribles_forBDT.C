@@ -566,8 +566,6 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
   newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
   newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
-  newtree->Branch("toptagger_minDeltaR", &toptagger_minDeltaR, "toptagger_minDeltaR/D");
-  newtree->Branch("toptagger_maxDeltaR", &toptagger_maxDeltaR, "toptagger_maxDeltaR/D");
   newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
   newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 }
@@ -799,8 +797,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      toptagger_3pt = -99;
      toptagger_3eta = -99;
      toptagger_3phi = -99;
-     toptagger_minDeltaR=-99;
-     toptagger_maxDeltaR=-99;
      toptagger_scoreAllTops=-99;
      toptagger_leptonsMVAT_minDeltaR=-99;
 
@@ -1122,7 +1118,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       toptagger_HT = HTcalculator(tops_toptagger);
       toptagger_invariantMass = InvariantMassCalculator(tops_toptagger);
       toptagger_transMass = TransMassCal(tops_toptagger);
-      // toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
+      toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
       // toptagger_scoreAllTops = TopScoreAllTopsCal(tops_toptagger);
       toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
       if (toptagger_num > 0) {
@@ -1135,9 +1131,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         toptagger_2eta = tops_toptagger[1].Eta();
         toptagger_2phi = tops_toptagger[1].Phi();
         vector<Double_t> MinMaxDeltaRTops;
-        // MinMaxdeltaRJetsCal(tops_toptagger, MinMaxDeltaRTops);
-        // toptagger_minDeltaR = MinMaxDeltaRTops[0];
-        // toptagger_maxDeltaR = MinMaxDeltaRTops[1];
       }
       if (toptagger_num > 2) {
         toptagger_3pt = tops_toptagger[2].Pt();
