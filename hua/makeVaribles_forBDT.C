@@ -289,6 +289,13 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
   return initB;
 }
 
+// Double_t TopScoreAllTopsCal(const TTreeReaderArray<TLorentzVector>& SelectedTops) {
+  // Double_t init = 0;
+  // for (UInt_t j = 0; j < SelectedTops.GetSize(); ++j) {
+    // init = init + TopTagger_discriminator_->at(j);
+  // }
+  // return init;
+// }
 
 
 
@@ -543,6 +550,26 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
 
   newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
+
+  newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
+  newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
+  newtree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
+  newtree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
+  newtree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
+  newtree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
+  newtree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
+  newtree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
+  newtree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
+  newtree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
+  newtree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
+  newtree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
+  newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
+  newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
+  newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
+  newtree->Branch("toptagger_minDeltaR", &toptagger_minDeltaR, "toptagger_minDeltaR/D");
+  newtree->Branch("toptagger_maxDeltaR", &toptagger_maxDeltaR, "toptagger_maxDeltaR/D");
+  newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
+  newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -756,6 +783,27 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      bjetsT_4phi = -99;
 
      forwardJets_num = -99;
+     toptagger_num=-99;
+     toptagger_MHT = -99;
+     toptagger_HT = -99;
+     toptagger_invariantMass = -99;
+     toptagger_transMass = -99;
+     toptagger_minDeltaR_v1 = -99;
+    
+     toptagger_1pt=-99;
+     toptagger_1eta = -99;
+     toptagger_1phi = -99;
+     toptagger_2pt=-99;
+     toptagger_2eta=-99;
+     toptagger_2phi=-99;
+     toptagger_3pt = -99;
+     toptagger_3eta = -99;
+     toptagger_3phi = -99;
+     toptagger_minDeltaR=-99;
+     toptagger_maxDeltaR=-99;
+     toptagger_scoreAllTops=-99;
+     toptagger_leptonsMVAT_minDeltaR=-99;
+
       // = -99;}}}
 
 
@@ -1066,10 +1114,36 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         bjetsT_4phi = bjetsT[3].Phi();
       }/*}}}*/
 
+      forwardJets_num = forwardJets.GetSize();
 
-      forwardJets_num = forwardJets.GetSize(); // 185
 
-
+      toptagger_num = tops_toptagger.GetSize();
+      toptagger_MHT =  MHTcalculator(tops_toptagger); // 900;return the pt sum of,vetctor sum
+      toptagger_HT = HTcalculator(tops_toptagger);
+      toptagger_invariantMass = InvariantMassCalculator(tops_toptagger);
+      toptagger_transMass = TransMassCal(tops_toptagger);
+      // toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
+      // toptagger_scoreAllTops = TopScoreAllTopsCal(tops_toptagger);
+      toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
+      if (toptagger_num > 0) {
+        toptagger_1pt = tops_toptagger[0].Pt();
+        toptagger_1eta = tops_toptagger[0].Eta();
+        toptagger_1phi = tops_toptagger[0].Phi();
+      }
+      if (toptagger_num > 1) {
+        toptagger_2pt = tops_toptagger[1].Pt();
+        toptagger_2eta = tops_toptagger[1].Eta();
+        toptagger_2phi = tops_toptagger[1].Phi();
+        vector<Double_t> MinMaxDeltaRTops;
+        // MinMaxdeltaRJetsCal(tops_toptagger, MinMaxDeltaRTops);
+        // toptagger_minDeltaR = MinMaxDeltaRTops[0];
+        // toptagger_maxDeltaR = MinMaxDeltaRTops[1];
+      }
+      if (toptagger_num > 2) {
+        toptagger_3pt = tops_toptagger[2].Pt();
+        toptagger_3eta = tops_toptagger[2].Eta();
+        toptagger_3phi = tops_toptagger[2].Phi();
+      }
 
     newtree->Fill();
 

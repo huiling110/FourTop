@@ -239,6 +239,27 @@ public :
 
     Int_t forwardJets_num = -99;
 
+    Int_t toptagger_num=-99;
+    Double_t toptagger_MHT = -99;
+    Double_t toptagger_HT = -99;
+    Double_t toptagger_invariantMass = -99;
+    Double_t toptagger_transMass = -99;
+    Double_t toptagger_minDeltaR_v1 = -99;
+
+    Double_t toptagger_1pt=-99;
+    Double_t toptagger_1eta = -99;
+    Double_t toptagger_1phi = -99;
+    Double_t toptagger_2pt=-99;
+    Double_t toptagger_2eta=-99;
+    Double_t toptagger_2phi=-99;
+    Double_t toptagger_3pt = -99;
+    Double_t toptagger_3eta = -99;
+    Double_t toptagger_3phi = -99;
+    Double_t toptagger_minDeltaR=-99;
+    Double_t toptagger_maxDeltaR=-99;
+    Double_t toptagger_scoreAllTops=-99;
+    Double_t toptagger_leptonsMVAT_minDeltaR=-99;
+
 
 // TTreeReaderValue<Int_t>       Flag_goodVertices_  = {fReader, "Flag_goodVertices_"};
 // TTreeReaderValue<Int_t>    Flag_globalSuperTightHalo2016Filter_  = {fReader, "Flag_globalSuperTightHalo2016Filter_"};
