@@ -230,11 +230,16 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  if (isReferenceTrig) {
 
    h_HT_nocat->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (myjetsL->size() >= 6) h_HT_nocat_njets->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (HT > 500) h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
    if(isSignalTrig) {
 
      h_HT_nocat_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     
+     h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (myjetsL->size() >= 6) h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (HT > 500) h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
    }
 
  }
@@ -246,8 +251,14 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
      if (isReferenceTrig) {
 
        h_HT_1tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau0L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau0L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
      
@@ -260,8 +271,14 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
      if (isReferenceTrig) {
 
        h_HT_1tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau1L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau1L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
 
@@ -272,8 +289,14 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (isReferenceTrig) {
 
        h_HT_1tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau2L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau2L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
 
@@ -284,8 +307,14 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (isReferenceTrig) {
 
        h_HT_1tau3L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau3L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau3L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau3L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau3L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
 
@@ -293,11 +322,17 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  if (is2tau0L) {
 
-  if (isReferenceTrig) {
+   if (isReferenceTrig) {
 
        h_HT_2tau0L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau0L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau0L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau0L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
 
@@ -308,11 +343,17 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (isReferenceTrig) {
 
        h_HT_2tau1L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau1L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau1L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau1L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
-
+   
  }// end 2tau1L
 
  if (is2tau2L) {
@@ -320,8 +361,14 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if (isReferenceTrig) {
 
        h_HT_2tau2L->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau2L->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau2L_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau2L_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
      }
 
@@ -330,23 +377,31 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  /////////////////////////
  ///////// MC TRUTH /////
  ///////////////////////
-  
 
    h_HT_nocat_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (myjetsL->size() >= 6) h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (HT > 500) h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
 
    if(isSignalTrig) {
 
      h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     
+     h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (myjetsL->size() >= 6) h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (HT > 500) h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
    }
-
-
+  
    if (is1tau0L) {
 
        h_HT_1tau0L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau0L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-    
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau0L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
      
    }// end 1tau0L
  
@@ -354,24 +409,44 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    if ((is1tau1e) || (is1tau1mu)) {
 
        h_HT_1tau1L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau1L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau1L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
+
 
  }// end 1tau1L
 
  if (is1tau2L) {   
 
        h_HT_1tau2L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau2L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau2L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
+
 
  }// end 1tau2L
 
  if (is1tau3L) {
 
        h_HT_1tau3L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_1tau3L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_1tau3L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_1tau3L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_1tau3L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
 
  }// end 1tau3L
@@ -379,25 +454,44 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  if (is2tau0L) {
 
        h_HT_2tau0L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau0L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau0L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau0L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
 
  }// end 2tau0L
 
  if ((is2tau1e) || (is2tau1mu)) {
   
-       h_HT_2tau1L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+          h_HT_2tau1L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau1L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau1L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau1L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
+
 
  }// end 2tau1L
 
  if (is2tau2L) {   
 
-       h_HT_2tau2L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+          h_HT_2tau2L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       h_njets_2tau2L_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
        
-       if (isSignalTrig)  h_HT_2tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (isSignalTrig)  {
+	 
+	 h_HT_2tau2L_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+	 h_njets_2tau2L_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+ 
+       }
 
 
  }// end 2tau2L
@@ -420,6 +514,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  //TFile *outputfile = new TFile( "asdasd.root", "RECREATE" );
  writeTEfficiency(h_HT_nocat, h_HT_nocat_aft, "e_HT_nocat");
  writeTEfficiency(h_HT_nocat_truth, h_HT_nocat_truth_aft, "e_HT_nocat_truth");
+
+ writeTEfficiency(h_HT_nocat_njets, h_HT_nocat_njets_aft, "e_HT_nocat_njets");
+ writeTEfficiency(h_HT_nocat_njets_truth, h_HT_nocat_njets_truth_aft, "e_HT_nocat_njets_truth");
 
  writeTEfficiency(h_HT_1tau0L, h_HT_1tau0L_aft, "e_HT_1tau0L");
  writeTEfficiency(h_HT_1tau0L_truth, h_HT_1tau0L_truth_aft, "e_HT_1tau0L_truth");
@@ -467,6 +564,62 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  writeTEfficiency(h_HT_2tauML, h_HT_2tauML_aft, "e_HT_2tauML");
  writeTEfficiency(h_HT_2tauML_truth, h_HT_2tauML_truth_aft, "e_HT_2tauML_truth");
+
+
+
+
+ writeTEfficiency(h_njets_nocat, h_njets_nocat_aft, "e_njets_nocat");
+ writeTEfficiency(h_njets_nocat_truth, h_njets_nocat_truth_aft, "e_njets_nocat_truth");
+
+ writeTEfficiency(h_njets_nocat_HT, h_njets_nocat_HT_aft, "e_njets_nocat_HT");
+ writeTEfficiency(h_njets_nocat_HT_truth, h_njets_nocat_HT_truth_aft, "e_njets_nocat_HT_truth");
+
+ writeTEfficiency(h_njets_1tau0L, h_njets_1tau0L_aft, "e_njets_1tau0L");
+ writeTEfficiency(h_njets_1tau0L_truth, h_njets_1tau0L_truth_aft, "e_njets_1tau0L_truth");
+
+ writeTEfficiency(h_njets_1tau1L, h_njets_1tau1L_aft, "e_njets_1tau1L");
+ writeTEfficiency(h_njets_1tau1L_truth, h_njets_1tau1L_truth_aft, "e_njets_1tau1L_truth");
+
+ writeTEfficiency(h_njets_1tau2L, h_njets_1tau2L_aft, "e_njets_1tau2L");
+ writeTEfficiency(h_njets_1tau2L_truth, h_njets_1tau2L_truth_aft, "e_njets_1tau2L_truth");
+
+ writeTEfficiency(h_njets_1tau3L, h_njets_1tau3L_aft, "e_njets_1tau3L");
+ writeTEfficiency(h_njets_1tau3L_truth, h_njets_1tau3L_truth_aft, "e_njets_1tau3L_truth");
+
+ writeTEfficiency(h_njets_2tau0L, h_njets_2tau0L_aft, "e_njets_2tau0L");
+ writeTEfficiency(h_njets_2tau0L_truth, h_njets_2tau0L_truth_aft, "e_njets_2tau0L_truth");
+
+ writeTEfficiency(h_njets_2tau1L, h_njets_2tau1L_aft, "e_njets_2tau1L");
+ writeTEfficiency(h_njets_2tau1L_truth, h_njets_2tau1L_truth_aft, "e_njets_2tau1L_truth");
+
+ writeTEfficiency(h_njets_2tau2L, h_njets_2tau2L_aft, "e_njets_2tau2L");
+ writeTEfficiency(h_njets_2tau2L_truth, h_njets_2tau2L_truth_aft, "e_njets_2tau2L_truth");
+ 
+ TH1F * h_njets_1tauML = (TH1F*)h_njets_1tau2L->Clone("h_njets_1tauML");
+ TH1F * h_njets_1tauML_aft = (TH1F*)h_njets_1tau2L_aft->Clone("h_njets_1tauML_aft");
+ TH1F * h_njets_1tauML_truth = (TH1F*)h_njets_1tau2L_truth->Clone("h_njets_1tauML_truth");
+ TH1F * h_njets_1tauML_truth_aft = (TH1F*)h_njets_1tau2L_truth_aft->Clone("h_njets_1tauML_truth_aft");
+
+ h_njets_1tauML->Add(h_njets_1tau3L);
+ h_njets_1tauML_aft->Add(h_njets_1tau3L_aft);
+ h_njets_1tauML_truth->Add(h_njets_1tau3L_truth);
+ h_njets_1tauML_truth_aft->Add(h_njets_1tau3L_truth_aft);
+ 
+ TH1F * h_njets_2tauML = (TH1F*)h_njets_2tau1L->Clone("h_njets_2tauML");
+ TH1F * h_njets_2tauML_aft = (TH1F*)h_njets_2tau1L_aft->Clone("h_njets_2tauML_aft");
+ TH1F * h_njets_2tauML_truth = (TH1F*)h_njets_2tau1L_truth->Clone("h_njets_2tauML_truth");
+ TH1F * h_njets_2tauML_truth_aft = (TH1F*)h_njets_2tau1L_truth_aft->Clone("h_njets_2tauML_truth_aft");
+ 
+ h_njets_2tauML->Add(h_njets_2tau2L);
+ h_njets_2tauML_aft->Add(h_njets_2tau2L_aft);
+ h_njets_2tauML_truth->Add(h_njets_2tau2L_truth);
+ h_njets_2tauML_truth_aft->Add(h_njets_2tau2L_truth_aft);
+
+ writeTEfficiency(h_njets_1tauML, h_njets_1tauML_aft, "e_njets_1tauML");
+ writeTEfficiency(h_njets_1tauML_truth, h_njets_1tauML_truth_aft, "e_njets_1tauML_truth");
+
+ writeTEfficiency(h_njets_2tauML, h_njets_2tauML_aft, "e_njets_2tauML");
+ writeTEfficiency(h_njets_2tauML_truth, h_njets_2tauML_truth_aft, "e_njets_2tauML_truth");
 
  outputfile->Close();
  delete outputfile;
