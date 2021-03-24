@@ -28,10 +28,12 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    Bool_t isdata = false;
-    Bool_t MetFilters = true;
-    Bool_t HLTSelection = true;
-    // Bool_t HLTSelection = false;
-    Bool_t preselection = true;
+    // Bool_t MetFilters = true;
+    Bool_t MetFilters = false;
+    // Bool_t HLTSelection = true;
+    Bool_t HLTSelection = false;
+    // Bool_t preselection = true;
+    Bool_t preselection = false;
 
 
    Long64_t   fProcessed = 0;
