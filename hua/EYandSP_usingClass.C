@@ -370,18 +370,20 @@ for (UInt_t  cha=0; cha<1; cha++){
             hname = allHistos[j]->GetName();
             
             
-            allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
-                cout<<allHistos[j]->GetName()<<":"<<endl;
-                cout<<"raw entries   =  "<<allHistos[j]->GetEntries()<<endl;
+                // cout<<allHistos[j]->GetName()<<":"<<endl;
+                cout<<allHistos[j]->GetName()<<":"<<"  ";
+                // cout<<"raw entries   =  "<<allHistos[j]->GetEntries()<<endl;
+                cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted      =  "<<allHistos[j]->Integral()<<endl;
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
@@ -389,7 +391,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             allHistos[j]->Scale(scale);
             if ( i ==0){
                 // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
-                cout<<"event yield   = "<<allHistos[j]->Integral()<<endl;
+                cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 cout<<"\n";
             }
             if(j > 0) background_SR->Add((allHistos[j]),1);
