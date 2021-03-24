@@ -305,7 +305,7 @@ TH1D* TTGJets_h ;TH1D* ttZJets_h ; TH1D* ttWJets_h ;TH1D* ttH_h ; /*TH1D* ttbb_h
 TH1D* WZ_h ; TH1D* WW_h ; TH1D* ZZ_h ;TH1D* WGJets_h ;TH1D* ZGJetsToLLG_h ;//6
 TH1D* WWW_h ; TH1D* WWZ_h ; TH1D* WWG_h ; TH1D* ZZZ_h ; TH1D* WZZ_h ; TH1D* WZG_h ; TH1D* WGG_h ; TH1D* ZGGJets_h ;//8
 TH1D* WJetsToLNu_h ; TH1D* DYJetsToTauTau_h ;//2
-TH1D* tZq_ll_h ; TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
+TH1D* tZq_ll_h ;TH1D* tZq_nunu_h;  TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
 TH1D* QCD_HT200to300_h; TH1D* QCD_HT300to500_h; TH1D* QCD_HT500to700_h; TH1D* QCD_HT700to1000_h;  TH1D* QCD_HT1000to1500_h; TH1D* QCD_HT1500to2000_h; TH1D* QCD_HT2000toInf_h;
 TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHToZZTo4L_h ; TH1D* GluGluHToBB_h ; TH1D* GluGluHToGG_h ; TH1D* GluGluHToMuMu_h ; TH1D* GluGluHToTauTau_h ; TH1D* GluGluHToWWTo2L2Nu_h ; TH1D* GluGluHToWWToLNuQQ_h ; TH1D* VBFHToWWTo2L2Nu_h ; TH1D* VBFHToTauTau_h ; TH1D* VBFHToMuMu_h ; TH1D* VBFHToGG_h ; 
 TH1D* background_SR;
@@ -325,7 +325,7 @@ vector<TH1D*> allHistos;
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
-
+    cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
     for(UInt_t i=0; i<1; i++){
@@ -338,19 +338,19 @@ for (UInt_t  cha=0; cha<1; cha++){
          WZ_h = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]);  WW_h = new TH1D( "WW",plot,bin[i],Min[i],Max[i]);  ZZ_h = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]); WGJets_h = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]); ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
          WWW_h = new TH1D( "WWW",plot,bin[i],Min[i],Max[i]);  WWZ_h = new TH1D( "WWZ",plot,bin[i],Min[i],Max[i]);  WWG_h = new TH1D( "WWG",plot,bin[i],Min[i],Max[i]);  ZZZ_h = new TH1D( "ZZZ",plot,bin[i],Min[i],Max[i]);  WZZ_h = new TH1D( "WZZ",plot,bin[i],Min[i],Max[i]);  WZG_h = new TH1D( "WZG",plot,bin[i],Min[i],Max[i]);  WGG_h = new TH1D( "WGG",plot,bin[i],Min[i],Max[i]);  ZGGJets_h = new TH1D( "ZGGJets",plot,bin[i],Min[i],Max[i]);//8
          WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]);  DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
-         tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]);  ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]);  ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]);  TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]); THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]);  THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
+         tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]);  tZq_nunu_h =  new TH1D( "tZq_nunu", plot,bin[i],Min[i],Max[i]); ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]);  ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]);  TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]); THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]);  THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
          VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]);  ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]);  ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]);  GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]);  GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]);  GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]);  GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]);  GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]);  GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]);  VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]);  VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]);  VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
          QCD_HT200to300_h = new TH1D( "QCD_HT200to300_h",plot,bin[i],Min[i],Max[i]); QCD_HT300to500_h = new TH1D( "QCD_HT300to500_h",plot,bin[i],Min[i],Max[i]); QCD_HT500to700_h = new TH1D( "QCD_HT500to700_h",plot,bin[i],Min[i],Max[i]); QCD_HT700to1000_h = new TH1D( "QCD_HT700to1000_h",plot,bin[i],Min[i],Max[i]); QCD_HT1000to1500_h = new TH1D( "QCD_HT1000to1500_h",plot,bin[i],Min[i],Max[i]); QCD_HT1500to2000_h = new TH1D( "QCD_HT1500to2000_h",plot,bin[i],Min[i],Max[i]); QCD_HT2000toInf_h = new TH1D( "QCD_HT2000toInf_h",plot,bin[i],Min[i],Max[i]);
         allHistos.clear();
         allHistos = {
-            TTTT_h,//0
-            TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h,//3
-            /*TTGJets_h,*/ ttZJets_h, ttWJets_h,ttH_h, //7
-            WZ_h,  WW_h , ZZ_h, WGJets_h, ZGJetsToLLG_h,//12
-            WWW_h,  WWZ_h,  /*WWG_h,*/  ZZZ_h,  WZZ_h,  WZG_h,  WGG_h,  ZGGJets_h,//20
-            /*WJetsToLNu_h,*/  DYJetsToTauTau_h,//22
-            tZq_ll_h, /* tZq_nunu,*/  ST_tW_antitop_h,  ST_tW_top_h,//26
-            TGJets_h, THW_h,  THQ_h,//29
+            TTTT_h, //0
+            TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h, //3
+            TTGJets_h, ttZJets_h,ttWJets_h, ttH_h, //7
+            WZ_h, WW_h, ZZ_h, WGJets_h, ZGJetsToLLG_h, //12
+            WWW_h, WWZ_h, WWG_h, ZZZ_h, WZZ_h, WZG_h, WGG_h, ZGGJets_h,//20
+            WJetsToLNu_h, DYJetsToTauTau_h,//22
+            tZq_ll_h, tZq_nunu_h, ST_tW_antitop_h, ST_tW_top_h,//26
+            TGJets_h, THW_h, THQ_h, //29
             QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
@@ -362,45 +362,49 @@ for (UInt_t  cha=0; cha<1; cha++){
         TString hname ;
         Double_t scale;
         Double_t sumGenWeights = -99;
-        // for(UInt_t j = 0; j < allHistos.size(); j++){
+        for(UInt_t j = 0; j < allHistos.size(); j++){
         // for(UInt_t j = 0; j < 1; j++){
-        for(UInt_t j = 0; j < 4; j++){
+        // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
             
-            allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
-                cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
-                cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
+                cout<<"raw entries =  "<<allHistos[j]->GetEntries()<<endl;
+                cout<<"weighted    =  "<<allHistos[j]->Integral()<<endl;
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
-            // if ( j ==0){
-                // cout<<"event yield: "<<allHistos[j]->Integral()<<endl;
-            // }
+            if ( i ==0){
+                cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
+                cout<<"\n";
+            }
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
-
+        }
+        if ( i ==0){
+            cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+            cout<<"\n";
         }
 
-        if(i==0){
-            cout<<endl;
-            cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
+        // if(i==0){
+            // cout<<endl;
+            // cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
             // cout<<" TTTT            = "<<(allHistos[0])->Integral()<<endl;
-            cout<<" TTTT            = "<<TTTT_h->Integral()<<endl;
-            cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
-            cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
-            cout<<" TTToSemiLeptonic= "<<TTToSemiLeptonic_h->Integral()<<endl;
+            // cout<<" TTTT            = "<<TTTT_h->Integral()<<endl;
+            // cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
+            // cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
+            // cout<<" TTToSemiLeptonic= "<<TTToSemiLeptonic_h->Integral()<<endl;
             // cout<<" TTX             = "<<ttZJets_h->Integral()
                                     // + ttWJets_h->Integral()
                                     // + ttH_h->Integral()<<endl;
@@ -425,9 +429,9 @@ for (UInt_t  cha=0; cha<1; cha++){
                                     // + THQ_h->Integral()<<endl;
             // cout<<" QCD             = "<< QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
             // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
-            cout<<" Total BKG       = "<<background_SR->Integral()<<endl;
+            // cout<<" Total BKG       = "<<background_SR->Integral()<<endl;
             // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
-            cout<<endl;
+            // cout<<endl;
             
             // cout<<"Statistics"<<endl;
             // cout<<"TTTT   = "<<TTTT_entries<<endl;
@@ -439,7 +443,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             // cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;
             // cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
             // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
-        }
+        // }
 
 
         TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);

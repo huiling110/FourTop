@@ -4,7 +4,7 @@
 #include "TH1D.h"
 
 
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v3_fromv35/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v4addToptagger_fromv35/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
 Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb
@@ -66,7 +66,7 @@ Process ZGJetsToLLG(baseDir+"ZGJetsToLLG_EW_LO_13TeV-sherpa.root", 0.1319 );//
 //VVV
 Process WWW(baseDir+"WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.2086 );//
 Process WWZ(baseDir+"WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.1651 );//
-Process WWG(baseDir+"WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root");//
+Process WWG(baseDir+"WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.0435  );//from TTH
 Process ZZZ(baseDir+"ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.01398 );//
 Process WZZ(baseDir+"WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.05565 );//
 Process WZG(baseDir+"WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8.root", 0.04123 );//
@@ -77,7 +77,7 @@ Process WJetsToLNu(baseDir+"WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.ro
 Process DYJetsToTauTau(baseDir+"DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1.root", 1983 );
 //Single Top
 Process tZq_ll(baseDir+"tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root", 0.07358 );
-Process tZq_nunu(baseDir+"tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root", );//???
+Process tZq_nunu(baseDir+"tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root", 0.1379 );//pb
 Process ST_tW_antitop(baseDir+"ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 38.06 );
 Process ST_tW_top(baseDir+"ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 38.09 );
 //TX
@@ -113,14 +113,14 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 vector<Process> allProcesses = {
     TTTT, //0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
-   // TTGJets, ttZJets,ttWJets, ttH, //7
-    // WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
-    // WWW, WWZ, [>WWG<] ZZZ, WZZ, WZG, WGG, ZGGJets,//20
-    // WJetsToLNu, DYJetsToTauTau,//22
-    // tZq_ll,[> tZq_nunu,<] ST_tW_antitop, ST_tW_top,//26
-    // TGJets, THW, THQ, //29
-    // QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,
-    // VHToNonbb, [>ZHToTauTau,*/ ZH_HToBB_ZToLL,/* GluGluHToZZTo4L,*/ /*GluGluHToBB.*/ GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, <]VBFHToMuMu, VBFHToGG,
+    TTGJets, ttZJets,ttWJets, ttH, //7
+    WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
+    WWW, WWZ, WWG, ZZZ, WZZ, WZG, WGG, ZGGJets,//20
+    WJetsToLNu, DYJetsToTauTau,//22
+    tZq_ll, tZq_nunu, ST_tW_antitop, ST_tW_top,//26
+    TGJets, THW, THQ, //29
+    QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,
+    // VHToNonbb, [>ZHToTauTau,*/ ZH_HToBB_ZToLL,[> GluGluHToZZTo4L,*/ /*GluGluHToBB.<] GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, <]VBFHToMuMu, VBFHToGG,
 };
 
 
