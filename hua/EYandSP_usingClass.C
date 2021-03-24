@@ -20,8 +20,8 @@ void EYandSP_usingClass(){
     TStopwatch t;
     t.Start();
 
-    // Bool_t ifSP = false;
-    Bool_t ifSP = true;
+    Bool_t ifSP = false;
+    // Bool_t ifSP = true;
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -368,20 +368,20 @@ for (UInt_t  cha=0; cha<1; cha++){
             hname = allHistos[j]->GetName();
             
             
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
-            // if ( j ==0 || j==1){
-                // cout<<allHistos[j]->GetName()<<":"<<endl;
-                // cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
-                // cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
-            // }
+            if ( i==0 ){
+                cout<<allHistos[j]->GetName()<<":"<<endl;
+                cout<<"raw entries:  "<<allHistos[j]->GetEntries()<<endl;
+                cout<<"weighted:     "<<allHistos[j]->Integral()<<endl;
+            }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
