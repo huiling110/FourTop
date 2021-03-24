@@ -362,8 +362,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         TString hname ;
         Double_t scale;
         Double_t sumGenWeights = -99;
-        for(UInt_t j = 0; j < allHistos.size(); j++){
-        // for(UInt_t j = 0; j < 1; j++){
+        // for(UInt_t j = 0; j < allHistos.size(); j++){
+        for(UInt_t j = 0; j < 1; j++){
         // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             

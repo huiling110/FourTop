@@ -29,6 +29,7 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //add
+   Bool_t wantFilterHLTBranches = true;
    Long64_t   fProcessed = 0;
    TFile *outputfile;
    TTree *newtree;
@@ -37,15 +38,15 @@ public :
    //branches in the newtree
    //same order as initialize
    
-   // Int_t    Flag_goodVertices ;
-// Int_t    Flag_globalSuperTightHalo2016Filter ;
-// Int_t    Flag_HBHENoiseFilter ;
-// Int_t    Flag_HBHENoiseIsoFilter ;
-// Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter ;
-// Int_t    Flag_BadPFMuonFilter ;
-// Int_t    Flag_eeBadScFilter ;
-    // Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
-    // Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
+   Int_t    Flag_goodVertices ;
+    Int_t    Flag_globalSuperTightHalo2016Filter ;
+    Int_t    Flag_HBHENoiseFilter ;
+    Int_t    Flag_HBHENoiseIsoFilter ;
+    Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter ;
+    Int_t    Flag_BadPFMuonFilter ;
+    Int_t    Flag_eeBadScFilter ;
+    Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
+    Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
 
    
    
@@ -259,15 +260,15 @@ public :
     Double_t toptagger_leptonsMVAT_minDeltaR=-99;
 
 
-// TTreeReaderValue<Int_t>       Flag_goodVertices_  = {fReader, "Flag_goodVertices_"};
-// TTreeReaderValue<Int_t>    Flag_globalSuperTightHalo2016Filter_  = {fReader, "Flag_globalSuperTightHalo2016Filter_"};
-// TTreeReaderValue<Int_t>    Flag_HBHENoiseFilter_  = {fReader, "Flag_HBHENoiseFilter_"};
-// TTreeReaderValue<Int_t>    Flag_HBHENoiseIsoFilter_  = {fReader, "Flag_HBHENoiseIsoFilter_"};
-// TTreeReaderValue<Int_t>    Flag_EcalDeadCellTriggerPrimitiveFilter_  = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter_"};
-// TTreeReaderValue<Int_t>    Flag_BadPFMuonFilter_  = {fReader, "Flag_BadPFMuonFilter_"};
-// TTreeReaderValue<Int_t>    Flag_eeBadScFilter_  = {fReader, "Flag_eeBadScFilter_"};
-// TTreeReaderValue<Int_t>     HLT_PFHT450_SixJet40_BTagCSV_p056_  = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
-// TTreeReaderValue<Int_t>     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_  = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
+TTreeReaderValue<Int_t>       Flag_goodVertices_  = {fReader, "Flag_goodVertices_"};
+TTreeReaderValue<Int_t>    Flag_globalSuperTightHalo2016Filter_  = {fReader, "Flag_globalSuperTightHalo2016Filter_"};
+TTreeReaderValue<Int_t>    Flag_HBHENoiseFilter_  = {fReader, "Flag_HBHENoiseFilter_"};
+TTreeReaderValue<Int_t>    Flag_HBHENoiseIsoFilter_  = {fReader, "Flag_HBHENoiseIsoFilter_"};
+TTreeReaderValue<Int_t>    Flag_EcalDeadCellTriggerPrimitiveFilter_  = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter_"};
+TTreeReaderValue<Int_t>    Flag_BadPFMuonFilter_  = {fReader, "Flag_BadPFMuonFilter_"};
+TTreeReaderValue<Int_t>    Flag_eeBadScFilter_  = {fReader, "Flag_eeBadScFilter_"};
+TTreeReaderValue<Int_t>     HLT_PFHT450_SixJet40_BTagCSV_p056_  = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
+TTreeReaderValue<Int_t>     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_  = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<TLorentzVector> muonsL = {fReader, "muonsL"};
    TTreeReaderArray<Int_t> muonsL_index = {fReader, "muonsL_index"};
