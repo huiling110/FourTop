@@ -401,7 +401,6 @@ for (UInt_t  cha=0; cha<1; cha++){
         }
 
         if ( ifDraw ){
-
             TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
             TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
             c1_2->Draw();
@@ -526,7 +525,6 @@ for (UInt_t  cha=0; cha<1; cha++){
         }
     }
 
-//what is SYST and why we do it this way?   
 	//how do we exactly include SYST in our histograms?
 
 }
