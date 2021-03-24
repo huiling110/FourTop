@@ -21,6 +21,8 @@ Float_t binsX[NBINS+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
 
  //histograms: MC wrt reference
 TH1F * h_HT_nocat = new TH1F("h_HT_nocat", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for njets requirement
+TH1F * h_HT_nocat_njets = new TH1F("h_HT_nocat_njets", "h_HT_nocat_njets; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -30,6 +32,8 @@ TH1F * h_HT_2tau1L = new TH1F("h_HT_2tau1L", "h_HT_2tau1L; H_{T} [GeV];", NBINS,
 TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "h_HT_2tau2L; H_{T} [GeV];", NBINS, binsX);
 
 TH1F * h_HT_nocat_aft = new TH1F("h_HT_nocat_aft", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for njets requirement
+TH1F * h_HT_nocat_njets_aft = new TH1F("h_HT_nocat_njets_aft", "h_HT_nocat_njets_aft; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_aft = new TH1F("h_HT_1tau0L_aft", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_aft = new TH1F("h_HT_1tau1L_aft", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_aft = new TH1F("h_HT_1tau2L_aft", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -37,8 +41,33 @@ TH1F * h_HT_1tau3L_aft = new TH1F("h_HT_1tau3L_aft", "h_HT_1tau3L; H_{T} [GeV];"
 TH1F * h_HT_2tau0L_aft = new TH1F("h_HT_2tau0L_aft", "h_HT_2tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_2tau1L_aft = new TH1F("h_HT_2tau1L_aft", "h_HT_2tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_2tau2L_aft = new TH1F("h_HT_2tau2L_aft", "h_HT_2tau2L; H_{T} [GeV];", NBINS, binsX);
+
+TH1F * h_njets_nocat = new TH1F("h_njets_nocat", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for HT requirement
+TH1F * h_njets_nocat_HT = new TH1F("h_njets_nocat_HT", "h_njets_nocat_HT; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau0L = new TH1F("h_njets_1tau0L", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau1L = new TH1F("h_njets_1tau1L", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau2L = new TH1F("h_njets_1tau2L", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau3L = new TH1F("h_njets_1tau3L", "h_njets_1tau3L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau0L = new TH1F("h_njets_2tau0L", "h_njets_2tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau1L = new TH1F("h_njets_2tau1L", "h_njets_2tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau2L = new TH1F("h_njets_2tau2L", "h_njets_2tau2L; Jet multiplicity;", 15, 0, 15);
+
+TH1F * h_njets_nocat_aft = new TH1F("h_njets_nocat_aft", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for HT requirement
+TH1F * h_njets_nocat_HT_aft = new TH1F("h_njets_nocat_HT_aft", "h_njets_nocat_HT_aft; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau0L_aft = new TH1F("h_njets_1tau0L_aft", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau1L_aft = new TH1F("h_njets_1tau1L_aft", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau2L_aft = new TH1F("h_njets_1tau2L_aft", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau3L_aft = new TH1F("h_njets_1tau3L_aft", "h_njets_1tau3L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau0L_aft = new TH1F("h_njets_2tau0L_aft", "h_njets_2tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau1L_aft = new TH1F("h_njets_2tau1L_aft", "h_njets_2tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau2L_aft = new TH1F("h_njets_2tau2L_aft", "h_njets_2tau2L; Jet multiplicity;", 15, 0, 15);
+
 //histograms: MC truth
 TH1F * h_HT_nocat_truth = new TH1F("h_HT_nocat_truth", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for njets requirement
+TH1F * h_HT_nocat_njets_truth = new TH1F("h_HT_nocat_njets_truth", "h_HT_nocat_njets_truth; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_truth = new TH1F("h_HT_1tau0L_truth", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_truth = new TH1F("h_HT_1tau1L_truth", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_truth = new TH1F("h_HT_1tau2L_truth", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -48,6 +77,8 @@ TH1F * h_HT_2tau1L_truth = new TH1F("h_HT_2tau1L_truth", "h_HT_2tau1L; H_{T} [Ge
 TH1F * h_HT_2tau2L_truth = new TH1F("h_HT_2tau2L_truth", "h_HT_2tau2L; H_{T} [GeV];", NBINS, binsX);
 
 TH1F * h_HT_nocat_truth_aft = new TH1F("h_HT_nocat_truth_aft", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for njets requirement
+TH1F * h_HT_nocat_njets_truth_aft = new TH1F("h_HT_nocat_njets_truth_aft", "h_HT_nocat_njets_truth_aft; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_truth_aft = new TH1F("h_HT_1tau0L_truth_aft", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_truth_aft = new TH1F("h_HT_1tau1L_truth_aft", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_truth_aft = new TH1F("h_HT_1tau2L_truth_aft", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -55,6 +86,28 @@ TH1F * h_HT_1tau3L_truth_aft = new TH1F("h_HT_1tau3L_truth_aft", "h_HT_1tau3L; H
 TH1F * h_HT_2tau0L_truth_aft = new TH1F("h_HT_2tau0L_truth_aft", "h_HT_2tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_2tau1L_truth_aft = new TH1F("h_HT_2tau1L_truth_aft", "h_HT_2tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_2tau2L_truth_aft = new TH1F("h_HT_2tau2L_truth_aft", "h_HT_2tau2L; H_{T} [GeV];", NBINS, binsX);
+
+TH1F * h_njets_nocat_truth = new TH1F("h_njets_nocat_truth", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for HT requirement
+TH1F * h_njets_nocat_HT_truth = new TH1F("h_njets_nocat_HT_truth", "h_njets_nocat_HT_truth; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau0L_truth = new TH1F("h_njets_1tau0L_truth", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau1L_truth = new TH1F("h_njets_1tau1L_truth", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau2L_truth = new TH1F("h_njets_1tau2L_truth", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau3L_truth = new TH1F("h_njets_1tau3L_truth", "h_njets_1tau3L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau0L_truth = new TH1F("h_njets_2tau0L_truth", "h_njets_2tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau1L_truth = new TH1F("h_njets_2tau1L_truth", "h_njets_2tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau2L_truth = new TH1F("h_njets_2tau2L_truth", "h_njets_2tau2L; Jet multiplicity;", 15, 0, 15);
+
+TH1F * h_njets_nocat_truth_aft = new TH1F("h_njets_nocat_truth_aft", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for HT requirement
+TH1F * h_njets_nocat_HT_truth_aft = new TH1F("h_njets_nocat_HT_truth_aft", "h_njets_nocat_HT_truth_aft; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau0L_truth_aft = new TH1F("h_njets_1tau0L_truth_aft", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau1L_truth_aft = new TH1F("h_njets_1tau1L_truth_aft", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau2L_truth_aft = new TH1F("h_njets_1tau2L_truth_aft", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_1tau3L_truth_aft = new TH1F("h_njets_1tau3L_truth_aft", "h_njets_1tau3L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau0L_truth_aft = new TH1F("h_njets_2tau0L_truth_aft", "h_njets_2tau0L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau1L_truth_aft = new TH1F("h_njets_2tau1L_truth_aft", "h_njets_2tau1L; Jet multiplicity;", 15, 0, 15);
+TH1F * h_njets_2tau2L_truth_aft = new TH1F("h_njets_2tau2L_truth_aft", "h_njets_2tau2L; Jet multiplicity;", 15, 0, 15);
 
 map<string, string>::iterator file_it = file.begin();
 
