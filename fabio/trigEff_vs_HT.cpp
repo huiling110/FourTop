@@ -126,11 +126,10 @@ Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   //if (ievent > 100) break;
-  if (!(mygenEvtWeight > 0)) continue;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
-
+   if (!(mygenEvtWeight > 0)) continue;
    /////////////////////////////////////////////////////////////////////
    ///////////////////// DEFINE CATEGORY CUTS //////////////////////////
    /////////////////////////////////////////////////////////////////////
