@@ -126,6 +126,7 @@ Long64_t nevents = mychain.GetEntries();
 
 for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
   //if (ievent > 100) break;
+  if (!(mygenEvtWeight > 0)) continue;
   if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
    //get i-th entry in tree
    mychain.GetEntry( ievent );
@@ -428,10 +429,10 @@ void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
 
   hBef->Write();
   hAft->Write();
-  TH1F *hRatio = (TH1F*)hAft->Clone("");
-  hRatio->Divide(hBef);
-  hRatio->Write(name);
-  /*
+  //TH1F *hRatio = (TH1F*)hAft->Clone("");
+  //hRatio->Divide(hBef);
+  //hRatio->Write(name);
+  
   TEfficiency *TEff = 0;
   if(TEfficiency::CheckConsistency(*hAft, *hBef)){
             
@@ -439,5 +440,5 @@ void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
     TEff->Write(name);
     delete TEff;
     }
-  */
+  
 }
