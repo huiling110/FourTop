@@ -182,10 +182,16 @@ int TMVAClassification( TString myMethodList = "" )
    // std::cout << "--- TMVAClassification       : Using input file: " << input->GetName() << std::endl;
    // std::cout << "--- TMVAClassification       : Using input file: " << input_signal->GetName() << std::endl;
 
+   Bool_t istest = false;
    // Register the training and test trees
 
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
-   TString outfileName( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root" );
+   TString outfileName;
+   if ( istest ){
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
+   }else{
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v4addToptagger_fromv35/TMVA_1Tau0L_v1.root";
+   }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
    // Create the factory object. Later you can choose the methods
@@ -235,7 +241,7 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddVariable( "bjetsL_num",                "bjetsL_num", "units", 'F' );
     dataloader->AddVariable( "bjetsL_2pt",                "bjetsL_2pt", "units", 'F' );
     dataloader->AddVariable( "bjetsL_4pt",                "bjetsL_4pt", "units", 'F' ); // missing jetsL_2pt
-    // dataloader->AddVariable( "toptagger_transMass",                "toptagger_transMass", "units", 'F' );//Bad numerical expression
+    dataloader->AddVariable( "toptagger_transMass",                "toptagger_transMass", "units", 'F' );//Bad numerical expression
     // dataloader->AddVariable( "toptagger_HT",                "toptagger_HT", "units", 'F' );
     dataloader->AddVariable( "jetsL_10pt",                "jetsL_10pt", "units", 'F' );
     dataloader->AddVariable( "bjetsL_1pt",                "bjetsL_1pt", "units", 'F' );
@@ -323,10 +329,13 @@ int TMVAClassification( TString myMethodList = "" )
    //
    //    dataloader->PrepareTrainingAndTestTree( mycut,
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
-   dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
+   if ( istest ){
+       dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
                                         "nTrain_Signal=1000:nTrain_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
-   // dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
-                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+   }else{
+       dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
+                                        "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+   }
 
    // ### Book MVA methods
    //
