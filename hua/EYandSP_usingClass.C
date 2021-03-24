@@ -365,8 +365,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         Double_t scale;
         Double_t sumGenWeights = -99;
         // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 1; j++){
-        // for(UInt_t j = 0; j < 4; j++){
+        // for(UInt_t j = 0; j < 1; j++){
+        for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
             
@@ -382,13 +382,13 @@ for (UInt_t  cha=0; cha<1; cha++){
             if ( i==0 ){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
                 cout<<"raw entries   =  "<<allHistos[j]->GetEntries()<<endl;
-                cout<<"weighted      =  "<<allHistos[j]->Integral()<<endl;
+                // cout<<"weighted      =  "<<allHistos[j]->Integral()<<endl;
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             if ( i ==0){
-                cout<<"sumGenWeights = "<<sumGenWeights<<endl;
+                // cout<<"sumGenWeights = "<<sumGenWeights<<endl;
                 cout<<"event yield   = "<<allHistos[j]->Integral()<<endl;
                 cout<<"\n";
             }
