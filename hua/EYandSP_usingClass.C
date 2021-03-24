@@ -22,6 +22,8 @@ void EYandSP_usingClass(){
 
     Bool_t ifSP = false;
     // Bool_t ifSP = true;
+    Bool_t ifDraw = false;
+    // Bool_t ifDraw = true;
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -368,25 +370,26 @@ for (UInt_t  cha=0; cha<1; cha++){
             hname = allHistos[j]->GetName();
             
             
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
-                cout<<"raw entries =  "<<allHistos[j]->GetEntries()<<endl;
-                cout<<"weighted    =  "<<allHistos[j]->Integral()<<endl;
+                cout<<"raw entries   =  "<<allHistos[j]->GetEntries()<<endl;
+                cout<<"weighted      =  "<<allHistos[j]->Integral()<<endl;
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             if ( i ==0){
-                cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
+                cout<<"sumGenWeights = "<<sumGenWeights<<endl;
+                cout<<"event yield   = "<<allHistos[j]->Integral()<<endl;
                 cout<<"\n";
             }
             if(j > 0) background_SR->Add((allHistos[j]),1);
@@ -397,164 +400,109 @@ for (UInt_t  cha=0; cha<1; cha++){
             cout<<"\n";
         }
 
-        // if(i==0){
-            // cout<<endl;
-            // cout<<"Plotting "<<variablelist[i]<<postfix<<endl;
-            // cout<<" TTTT            = "<<(allHistos[0])->Integral()<<endl;
-            // cout<<" TTTT            = "<<TTTT_h->Integral()<<endl;
-            // cout<<" TTTo2L2Nu       = "<<TTTo2L2Nu_h->Integral()<<endl;
-            // cout<<" TTToHadronic    = "<<TTToHadronic_h->Integral()<<endl;
-            // cout<<" TTToSemiLeptonic= "<<TTToSemiLeptonic_h->Integral()<<endl;
-            // cout<<" TTX             = "<<ttZJets_h->Integral()
-                                    // + ttWJets_h->Integral()
-                                    // + ttH_h->Integral()<<endl;
-            // cout<<" VV              = "<<WZ_h->Integral()
-                                    // + WW_h->Integral()
-                                    // + ZZ_h->Integral()
-                                    // + WGJets_h->Integral()
-                                    // + ZGJetsToLLG_h->Integral()<<endl;
-            // cout<<" VVV             = "<<WWW_h->Integral()
-                                    // + WWZ_h->Integral()
-                                    // + ZZZ_h->Integral()
-                                    // + WZZ_h->Integral()
-                                    // + WZG_h->Integral()
-                                    // + WGG_h->Integral()
-                                    // + ZGGJets_h->Integral()<<endl;
-            // cout<<"WJets  = "<<allHistos[20]->Integral()<<endl;
-            // cout<<" DY              = "<<DYJetsToTauTau_h->Integral()<<endl;
-            // cout<<" ST              = "<<tZq_ll_h->Integral()
-                                    // + ST_tW_antitop_h->Integral() + ST_tW_top_h->Integral()<<endl;
-            // cout<<" TX              = "<<TGJets_h->Integral()
-                                    // + THW_h->Integral()
-                                    // + THQ_h->Integral()<<endl;
-            // cout<<" QCD             = "<< QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
-            // cout<<"H      = "<<allHistos[28]->Integral()+allHistos[29]->Integral()+allHistos[30]->Integral()+allHistos[31]->Integral()+allHistos[32]->Integral()+allHistos[33]->Integral()+allHistos[34]->Integral()+allHistos[35]->Integral()+allHistos[36]->Integral()+allHistos[37]->Integral()+allHistos[38]->Integral()+allHistos[39]->Integral()+allHistos[40]->Integral()<<endl;
-            // cout<<" Total BKG       = "<<background_SR->Integral()<<endl;
-            // cout<<"significance = "<<allHistos[0]->Integral()/(sqrt((allHistos[0])->Integral()+background_SR->Integral()));
-            // cout<<endl;
+        if ( ifDraw ){
+
+            TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+            TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
+            c1_2->Draw();
+            c1_2->cd();
+
+            background_SR->SetLineWidth(2);
+            background_SR->SetLineColor(kBlue); 
+            background_SR->SetMinimum(0);
+            background_SR->SetMaximum(1.5 * background_SR->GetMaximum());
+            background_SR->GetYaxis()->SetTitleSize(0.050);
+            background_SR->GetXaxis()->SetTitleSize(0.050);
+            background_SR->GetYaxis()->SetLabelSize(0.040);
+            background_SR->GetXaxis()->SetLabelSize(0.040); 
+            background_SR->SetTitle("");
+            background_SR->GetYaxis()->SetTitle("Events");
+            background_SR->GetXaxis()->SetTitle(axis[i]);
+            background_SR->GetYaxis()->SetTitleOffset(1.00);
+            background_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+            background_SR->DrawNormalized("hist", 1);
+            // background_SR->Draw("hist");
+            allHistos[0]->SetLineWidth(2);
+            allHistos[0]->SetLineColor(2);
+    //        allHistos[0]->SetLineColor(kViolet-2); 
+           // allHistos[0]->Draw("samehisto");
+            allHistos[0]->DrawNormalized("samehist", 1);
+            // allHistos[0]->Draw("samehist");
+
+
+            TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
+            gPad->RedrawAxis();
+            TString channelText = "";
+            Double_t channelTextFont   = 42;
+            Double_t channelTextSize   = 0.06;
+            TString cmsText     = "CMS";
+            Double_t cmsTextFont   = 61;  // default is helvetic-bold
+            bool writeExtraText = true;
+            TString extraText   = "MC";
+            //TString extraText   = "";
+            Double_t extraTextFont = 52;  // default is helvetica-italics
+            // text sizes and text offsets with respect to the top frame in unit of the top margin size
+            Double_t lumiTextSize     = 0.6;
+            Double_t lumiTextOffset   = 0.2;
+            Double_t cmsTextSize      = 0.75;
+            Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
+            Double_t relPosX    = 0.045;
+            Double_t relPosY    = 0.035;
+            Double_t relExtraDY = 1.2;
+            // ratio of "CMS" and extra text size
+            Double_t extraOverCmsTextSize  = 0.76;
+            TString lumi_13TeV;
+            lumi_13TeV = "35.9fb^{-1}";
+            TString lumiText;
+            lumiText += lumi_13TeV;
+            lumiText += " (2016, 13 TeV)";
+            Double_t t = pad->GetTopMargin();
+            Double_t b = pad->GetBottomMargin();
+            Double_t r = pad->GetRightMargin();
+            Double_t l = pad->GetLeftMargin();
+            TLatex latex;
+            latex.SetNDC();
+            latex.SetTextAngle(0);
+            latex.SetTextColor(kBlack);    
+            Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
+            latex.SetTextFont(42);
+            latex.SetTextAlign(31); 
+            latex.SetTextSize(lumiTextSize*t);    
+            latex.DrawLatex(1-r+0.06,0.94,lumiText);
+            latex.SetTextFont(cmsTextFont);
+            latex.SetTextAlign(11); 
+            latex.SetTextSize(cmsTextSize*t);    
+            latex.DrawLatex(l+0.01, 0.94,cmsText);
+            latex.SetTextFont(extraTextFont);
+            latex.SetTextSize(extraTextSize*t);
+            latex.DrawLatex(l+0.12, 0.94, extraText); 
+            latex.SetTextFont(channelTextFont);
+            latex.SetTextSize(channelTextSize);
+
+
+            //定义图中各个线和直方图的颜色
+            TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
+            pl2->SetTextSize(0.045); 
+            pl2->SetFillColor(0);
+          //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
+            TLegendEntry *ple2 = pl2->AddEntry(allHistos[0], "TTTT",  "L"); 
+            pl2->Draw();
+           
+     
+            TString NAME = variablelist[i];
+            c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
             
-            // cout<<"Statistics"<<endl;
-            // cout<<"TTTT   = "<<TTTT_entries<<endl;
-            // cout<<"TT     = "<<(allHistos[1]->Integral()/ allScales_v2[1])<<endl;
-            // cout<<"TTX    = "<<(allHistos[2]->Integral()/ allScales_v2[2]) + (allHistos[3]->Integral()/allScales_v2[3]) + (allHistos[4]->Integral()/allScales_v2[4]) + ( allHistos[5]->Integral()/allScales_v2[5]) <<endl;
-            // cout<<"VV     = "<<(allHistos[6]->Integral()/allScales_v2[6]) +(allHistos[7]->Integral()/allScales_v2[7]) +(allHistos[8]->Integral()/allScales_v2[8]) + (allHistos[9]->Integral()/allScales_v2[9]) + (allHistos[10]->Integral()/allScales_v2[10]) + (allHistos[11]->Integral()/allScales_v2[11]) <<endl;
-            // cout<<"VVV    = "<<(allHistos[12]->Integral()/allScales_v2[12]) + (allHistos[13]->Integral()/allScales_v2[13]) + (allHistos[14]->Integral()/allScales_v2[14]) + (allHistos[15]->Integral()/allScales_v2[15]) + (allHistos[16]->Integral()/allScales_v2[16]) + (allHistos[17]->Integral()/allScales_v2[17]) + (allHistos[18]->Integral()/allScales_v2[18]) + (allHistos[19]->Integral()/allScales_v2[19]) <<endl;
-            // cout<<"WJets  = "<<(allHistos[20]->Integral()*allScales_v2[20])<<endl;
-            // cout<<"DY     = "<<(allHistos[21]->Integral()*allScales_v2[21])<<endl;
-            // cout<<"ST     = "<<(allHistos[22]->Integral()/allScales_v2[22])+(allHistos[23]->Integral()/allScales_v2[23]) + (allHistos[24]->Integral()/allScales_v2[24]) + (allHistos[25]->Integral()/allScales_v2[25]) + (allHistos[26]->Integral()/allScales_v2[26]) + (allHistos[27]->Integral()/allScales_v2[27]) <<endl;
-            // cout<<"H      = "<<(allHistos[28]->Integral()/allScales_v2[28])+(allHistos[29]->Integral()/allScales_v2[29]) + (allHistos[30]->Integral()/allScales_v2[30]) + (allHistos[31]->Integral()/allScales_v2[31]) + (allHistos[32]->Integral()/allScales_v2[32]) + (allHistos[33]->Integral()/allScales_v2[33]) + (allHistos[34]->Integral()/allScales_v2[34]) + (allHistos[35]->Integral()/allScales_v2[35]) + (allHistos[36]->Integral()/allScales_v2[36]) + (allHistos[37]->Integral()/allScales_v2[37]) + (allHistos[38]->Integral()/allScales_v2[38]) + (allHistos[39]->Integral()/allScales_v2[39]) + (allHistos[40]->Integral()/allScales_v2[40]) <<endl;
-        // }
+            cout<<"Finished "<<NAME+postfix<<endl;
+            c1->Draw();
 
-
-        TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
-        TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
-        c1_2->Draw();
-        c1_2->cd();
-
-        background_SR->SetLineWidth(2);
-        background_SR->SetLineColor(kBlue); 
-        background_SR->SetMinimum(0);
-    //    hs->SetMaximum(1);
-        background_SR->SetMaximum(1.5 * background_SR->GetMaximum());
-        background_SR->GetYaxis()->SetTitleSize(0.050);
-        background_SR->GetXaxis()->SetTitleSize(0.050);
-        background_SR->GetYaxis()->SetLabelSize(0.040);
-        background_SR->GetXaxis()->SetLabelSize(0.040); 
-        background_SR->SetTitle("");
-        background_SR->GetYaxis()->SetTitle("Events");
-        background_SR->GetXaxis()->SetTitle(axis[i]);
-        background_SR->GetYaxis()->SetTitleOffset(1.00);
-        background_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-        background_SR->DrawNormalized("hist", 1);
-        // background_SR->Draw("hist");
-        allHistos[0]->SetLineWidth(2);
-        allHistos[0]->SetLineColor(2);
-//        allHistos[0]->SetLineColor(kViolet-2); 
-       // allHistos[0]->Draw("samehisto");
-        allHistos[0]->DrawNormalized("samehist", 1);
-        // allHistos[0]->Draw("samehist");
-
-
-        TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
-        gPad->RedrawAxis();
-        TString channelText = "";
-        Double_t channelTextFont   = 42;
-        Double_t channelTextSize   = 0.06;
-        TString cmsText     = "CMS";
-        Double_t cmsTextFont   = 61;  // default is helvetic-bold
-        bool writeExtraText = true;
-        TString extraText   = "MC";
-        //TString extraText   = "";
-        Double_t extraTextFont = 52;  // default is helvetica-italics
-        // text sizes and text offsets with respect to the top frame in unit of the top margin size
-        Double_t lumiTextSize     = 0.6;
-        Double_t lumiTextOffset   = 0.2;
-        Double_t cmsTextSize      = 0.75;
-        Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
-        Double_t relPosX    = 0.045;
-        Double_t relPosY    = 0.035;
-        Double_t relExtraDY = 1.2;
-        // ratio of "CMS" and extra text size
-        Double_t extraOverCmsTextSize  = 0.76;
-        TString lumi_13TeV;
-        lumi_13TeV = "35.9fb^{-1}";
-        TString lumiText;
-        lumiText += lumi_13TeV;
-        lumiText += " (2016, 13 TeV)";
-        Double_t t = pad->GetTopMargin();
-        Double_t b = pad->GetBottomMargin();
-        Double_t r = pad->GetRightMargin();
-        Double_t l = pad->GetLeftMargin();
-        TLatex latex;
-        latex.SetNDC();
-        latex.SetTextAngle(0);
-        latex.SetTextColor(kBlack);    
-        Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
-        latex.SetTextFont(42);
-        latex.SetTextAlign(31); 
-        latex.SetTextSize(lumiTextSize*t);    
-        latex.DrawLatex(1-r+0.06,0.94,lumiText);
-        latex.SetTextFont(cmsTextFont);
-        latex.SetTextAlign(11); 
-        latex.SetTextSize(cmsTextSize*t);    
-        latex.DrawLatex(l+0.01, 0.94,cmsText);
-        latex.SetTextFont(extraTextFont);
-        latex.SetTextSize(extraTextSize*t);
-        latex.DrawLatex(l+0.12, 0.94, extraText); 
-        latex.SetTextFont(channelTextFont);
-        latex.SetTextSize(channelTextSize);
-
-
-        //定义图中各个线和直方图的颜色
-        TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
-        pl2->SetTextSize(0.045); 
-        pl2->SetFillColor(0);
-      //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
-        TLegendEntry *ple2 = pl2->AddEntry(allHistos[0], "TTTT",  "L"); 
-    //    ple2 = pl2->AddEntry(hs, "TTX",  "L");
-       // ple2 = pl2->AddEntry(TTJets_SR, "TTJets",  "L");
-       // ple2 = pl2->AddEntry(WpWpJJ_SR, "WpWpJJ",  "L");
-       // ple2 = pl2->AddEntry(ZZ_SR, "ZZ",  "L");
-    //    ple2 = pl2->AddEntry(TTX, "TTX",  "L");
-    //    ple2 = pl2->AddEntry(TT_SR, "TT",  "L");
-        ple2 = pl2->AddEntry(background_SR, "background",  "L");
-        pl2->Draw();
-       
-
- 
-        TString NAME = variablelist[i];
-        c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
-        
-        cout<<"Finished "<<NAME+postfix<<endl;
-        c1->Draw();
-
+        } 
         //?for different range we have different sp, how to deal with this?
         if ( ifSP ){
             Double_t sp = separationPower(allHistos[0], background_SR);
-            cout<<NAME<<" separation power"<<sp<<endl;
+            cout<<variablelist[i]<<" separation power"<<sp<<endl;
             std::cout << '\n';
             if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
-            mymap.insert(std::make_pair(sp, NAME));
+            mymap.insert(std::make_pair(sp, variablelist[i]));
         }
 
 
