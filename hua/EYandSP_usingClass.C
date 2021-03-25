@@ -380,8 +380,8 @@ for (UInt_t  cha=0; cha<1; cha++){
             allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
-                // cout<<allHistos[j]->GetName()<<":"<<endl;
-                cout<<allHistos[j]->GetName()<<":"<<"  ";
+                cout<<allHistos[j]->GetName()<<":"<<endl;
+                // cout<<allHistos[j]->GetName()<<":"<<"  ";
                 cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
             }
