@@ -23,6 +23,8 @@ Float_t binsX[NBINS+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
 TH1F * h_HT_nocat = new TH1F("h_HT_nocat", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
 //same as line before, but asking for njets requirement
 TH1F * h_HT_nocat_njets = new TH1F("h_HT_nocat_njets", "h_HT_nocat_njets; H_{T} [GeV];", NBINS, binsX);
+//same line as before, but asking for mu pt requirement
+TH1F * h_HT_nocat_njets_mupt25 = new TH1F("h_HT_nocat_njets_mupt25", "h_HT_nocat_njets_mupt25; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L = new TH1F("h_HT_1tau0L", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L = new TH1F("h_HT_1tau1L", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L = new TH1F("h_HT_1tau2L", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -34,6 +36,8 @@ TH1F * h_HT_2tau2L = new TH1F("h_HT_2tau2L", "h_HT_2tau2L; H_{T} [GeV];", NBINS,
 TH1F * h_HT_nocat_aft = new TH1F("h_HT_nocat_aft", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
 //same as line before, but asking for njets requirement
 TH1F * h_HT_nocat_njets_aft = new TH1F("h_HT_nocat_njets_aft", "h_HT_nocat_njets_aft; H_{T} [GeV];", NBINS, binsX);
+//same line as before, but asking for mu pt requirement
+TH1F * h_HT_nocat_njets_mupt25_aft = new TH1F("h_HT_nocat_njets_mupt25_aft", "h_HT_nocat_njets_mupt25_aft; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_aft = new TH1F("h_HT_1tau0L_aft", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_aft = new TH1F("h_HT_1tau1L_aft", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_aft = new TH1F("h_HT_1tau2L_aft", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -45,6 +49,8 @@ TH1F * h_HT_2tau2L_aft = new TH1F("h_HT_2tau2L_aft", "h_HT_2tau2L; H_{T} [GeV];"
 TH1F * h_njets_nocat = new TH1F("h_njets_nocat", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
 //same as line before, but asking for HT requirement
 TH1F * h_njets_nocat_HT = new TH1F("h_njets_nocat_HT", "h_njets_nocat_HT; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for mu pt requirement
+TH1F * h_njets_nocat_HT_mupt25 = new TH1F("h_njets_nocat_HT_mupt25", "h_njets_nocat_HT_mupt25; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau0L = new TH1F("h_njets_1tau0L", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau1L = new TH1F("h_njets_1tau1L", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau2L = new TH1F("h_njets_1tau2L", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
@@ -56,6 +62,8 @@ TH1F * h_njets_2tau2L = new TH1F("h_njets_2tau2L", "h_njets_2tau2L; Jet multipli
 TH1F * h_njets_nocat_aft = new TH1F("h_njets_nocat_aft", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
 //same as line before, but asking for HT requirement
 TH1F * h_njets_nocat_HT_aft = new TH1F("h_njets_nocat_HT_aft", "h_njets_nocat_HT_aft; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for mu pt requirement
+TH1F * h_njets_nocat_HT_mupt25_aft = new TH1F("h_njets_nocat_HT_mupt25_aft", "h_njets_nocat_HT_mupt25_aft; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau0L_aft = new TH1F("h_njets_1tau0L_aft", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau1L_aft = new TH1F("h_njets_1tau1L_aft", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau2L_aft = new TH1F("h_njets_1tau2L_aft", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
@@ -68,6 +76,8 @@ TH1F * h_njets_2tau2L_aft = new TH1F("h_njets_2tau2L_aft", "h_njets_2tau2L; Jet 
 TH1F * h_HT_nocat_truth = new TH1F("h_HT_nocat_truth", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
 //same as line before, but asking for njets requirement
 TH1F * h_HT_nocat_njets_truth = new TH1F("h_HT_nocat_njets_truth", "h_HT_nocat_njets_truth; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for mu pt requirement
+TH1F * h_HT_nocat_njets_mupt25_truth = new TH1F("h_HT_nocat_njets_mupt25_truth", "h_HT_nocat_njets_mupt25_truth; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_truth = new TH1F("h_HT_1tau0L_truth", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_truth = new TH1F("h_HT_1tau1L_truth", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_truth = new TH1F("h_HT_1tau2L_truth", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -79,6 +89,8 @@ TH1F * h_HT_2tau2L_truth = new TH1F("h_HT_2tau2L_truth", "h_HT_2tau2L; H_{T} [Ge
 TH1F * h_HT_nocat_truth_aft = new TH1F("h_HT_nocat_truth_aft", "h_HT_nocat; H_{T} [GeV];", NBINS, binsX);
 //same as line before, but asking for njets requirement
 TH1F * h_HT_nocat_njets_truth_aft = new TH1F("h_HT_nocat_njets_truth_aft", "h_HT_nocat_njets_truth_aft; H_{T} [GeV];", NBINS, binsX);
+//same as line before, but asking for mu pt requirement
+TH1F * h_HT_nocat_njets_mupt25_truth_aft = new TH1F("h_HT_nocat_njets_mupt25_truth_aft", "h_HT_nocat_njets_mupt25_truth_aft; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau0L_truth_aft = new TH1F("h_HT_1tau0L_truth_aft", "h_HT_1tau0L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau1L_truth_aft = new TH1F("h_HT_1tau1L_truth_aft", "h_HT_1tau1L; H_{T} [GeV];", NBINS, binsX);
 TH1F * h_HT_1tau2L_truth_aft = new TH1F("h_HT_1tau2L_truth_aft", "h_HT_1tau2L; H_{T} [GeV];", NBINS, binsX);
@@ -90,6 +102,8 @@ TH1F * h_HT_2tau2L_truth_aft = new TH1F("h_HT_2tau2L_truth_aft", "h_HT_2tau2L; H
 TH1F * h_njets_nocat_truth = new TH1F("h_njets_nocat_truth", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
 //same as line before, but asking for HT requirement
 TH1F * h_njets_nocat_HT_truth = new TH1F("h_njets_nocat_HT_truth", "h_njets_nocat_HT_truth; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for mu pt requirement
+TH1F * h_njets_nocat_HT_mupt25_truth = new TH1F("h_njets_nocat_HT_mupt25_truth", "h_njets_nocat_HT_mupt25_truth; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau0L_truth = new TH1F("h_njets_1tau0L_truth", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau1L_truth = new TH1F("h_njets_1tau1L_truth", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau2L_truth = new TH1F("h_njets_1tau2L_truth", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
@@ -101,6 +115,8 @@ TH1F * h_njets_2tau2L_truth = new TH1F("h_njets_2tau2L_truth", "h_njets_2tau2L; 
 TH1F * h_njets_nocat_truth_aft = new TH1F("h_njets_nocat_truth_aft", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
 //same as line before, but asking for HT requirement
 TH1F * h_njets_nocat_HT_truth_aft = new TH1F("h_njets_nocat_HT_truth_aft", "h_njets_nocat_HT_truth_aft; Jet multiplicity;", 15, 0, 15);
+//same as line before, but asking for mu pt requirement
+TH1F * h_njets_nocat_HT_mupt25_truth_aft = new TH1F("h_njets_nocat_HT_mupt25_truth_aft", "h_njets_nocat_HT_mupt25_truth_aft; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau0L_truth_aft = new TH1F("h_njets_1tau0L_truth_aft", "h_njets_1tau0L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau1L_truth_aft = new TH1F("h_njets_1tau1L_truth_aft", "h_njets_1tau1L; Jet multiplicity;", 15, 0, 15);
 TH1F * h_njets_1tau2L_truth_aft = new TH1F("h_njets_1tau2L_truth_aft", "h_njets_1tau2L; Jet multiplicity;", 15, 0, 15);
@@ -231,15 +247,37 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
    h_HT_nocat->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
    h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-   if (myjetsL->size() >= 6) h_HT_nocat_njets->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-   if (HT > 500) h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (myjetsL->size() >= 6) {
+   
+     h_HT_nocat_njets->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if(mymuonsT->at(0).Pt() > 25) h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+   }
+   if (HT > 500) {
+
+     h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if(mymuonsT->at(0).Pt() > 25) h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+   }
 
    if(isSignalTrig) {
 
      h_HT_nocat_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
      h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     if (myjetsL->size() >= 6) h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     if (HT > 500) h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (myjetsL->size() >= 6) {
+
+       h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (mymuonsT->at(0).Pt() > 25) h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+     }
+     
+     if (HT > 500) {
+
+       h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (mymuonsT->at(0).Pt() > 25) h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+     }
+
    }
 
  }
@@ -377,20 +415,48 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  /////////////////////////
  ///////// MC TRUTH /////
  ///////////////////////
+  if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) {
 
    h_HT_nocat_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
    h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-   if (myjetsL->size() >= 6) h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-   if (HT > 500) h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   if (myjetsL->size() >= 6) {
+
+     h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (mymuonsT->at(0).Pt() > 25) h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+   
+   }
+
+   if (HT > 500) {
+
+     h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (mymuonsT->at(0).Pt() > 25) h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+   }
+
+  
 
    if(isSignalTrig) {
 
      h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
      h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     if (myjetsL->size() >= 6) h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
-     if (HT > 500) h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+     if (myjetsL->size() >= 6){
+
+       h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (mymuonsT->at(0).Pt() > 25) h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+     }
+     
+     if (HT > 500) {
+
+       h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+       if (mymuonsT->at(0).Pt() > 25) h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
+
+     }
+
    }
   
+  }
+
    if (is1tau0L) {
 
        h_HT_1tau0L_truth->Fill(HT, mygenEvtWeight*LUMI2016*xsec.at(file_it->first)/gen_sum_of_weights);
@@ -518,6 +584,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
  writeTEfficiency(h_HT_nocat_njets, h_HT_nocat_njets_aft, "e_HT_nocat_njets");
  writeTEfficiency(h_HT_nocat_njets_truth, h_HT_nocat_njets_truth_aft, "e_HT_nocat_njets_truth");
 
+ writeTEfficiency(h_HT_nocat_njets_mupt25, h_HT_nocat_njets_mupt25_aft, "e_HT_nocat_njets_mupt25");
+ writeTEfficiency(h_HT_nocat_njets_mupt25_truth, h_HT_nocat_njets_mupt25_truth_aft, "e_HT_nocat_njets_mupt25_truth");
+
  writeTEfficiency(h_HT_1tau0L, h_HT_1tau0L_aft, "e_HT_1tau0L");
  writeTEfficiency(h_HT_1tau0L_truth, h_HT_1tau0L_truth_aft, "e_HT_1tau0L_truth");
 
@@ -573,6 +642,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  writeTEfficiency(h_njets_nocat_HT, h_njets_nocat_HT_aft, "e_njets_nocat_HT");
  writeTEfficiency(h_njets_nocat_HT_truth, h_njets_nocat_HT_truth_aft, "e_njets_nocat_HT_truth");
+
+ writeTEfficiency(h_njets_nocat_HT_mupt25, h_njets_nocat_HT_mupt25_aft, "e_njets_nocat_HT_mupt25");
+ writeTEfficiency(h_njets_nocat_HT_mupt25_truth, h_njets_nocat_HT_mupt25_truth_aft, "e_njets_nocat_HT_mupt25_truth");
 
  writeTEfficiency(h_njets_1tau0L, h_njets_1tau0L_aft, "e_njets_1tau0L");
  writeTEfficiency(h_njets_1tau0L_truth, h_njets_1tau0L_truth_aft, "e_njets_1tau0L_truth");
