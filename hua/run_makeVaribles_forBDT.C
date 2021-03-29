@@ -16,8 +16,8 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v40_fixedHLTBugWithPreselection/";
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v41_fixedHLTBugWithPreselection/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v40_fixedHLTBugWithPreselection/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v41_fixedHLTBugWithPreselection/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 
@@ -33,9 +33,9 @@ void run_makeVaribles_forBDT(
 
     TString selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/makeVaribles_forBDT.C";
 
+    
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
-        // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/noSelection/";
         chain.Process( selection + "+", outputDir + outputFileName, 10000);
         // chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
