@@ -5,7 +5,8 @@ void run_makeVaribles_forBDT(
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8",
                         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/"
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v6_fromv37_nopSelection/"
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/onlyHLT/"
+                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v7_v38_onlyMetFilters/"
                         // TString singleFileName = "v3_1-100.root"
                         )
 {
@@ -16,8 +17,9 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v37_nopSelection/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v38_onlyMetFilters/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/onlyHLT/";
    
 
     TString inputFile = inputBase + inputDir + "/";
@@ -34,6 +36,7 @@ void run_makeVaribles_forBDT(
 
     if ( istest ){
         outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
+        // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/noSelection/";
         chain.Process( selection + "+", outputDir + outputFileName, 10000);
         // chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
