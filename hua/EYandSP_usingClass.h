@@ -4,7 +4,8 @@
 #include "TH1D.h"
 
 
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v9_v40_fixedHLTBugWithPreselection/";
+// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v9_v40_fixedHLTBugWithPreselection/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v9_/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v6_fromv37_nopSelection/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v3_fromv35/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/noSelection/";

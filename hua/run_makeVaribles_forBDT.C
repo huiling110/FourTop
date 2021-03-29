@@ -1,11 +1,11 @@
 void run_makeVaribles_forBDT(
-                        Bool_t istest = true,
-                        // Bool_t istest = false,
+                        // Bool_t istest = true,
+                        Bool_t istest = false,
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8",
-                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/"
-                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v7_v38_onlyMetFilters/"
+                        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/"
+                        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v10_v41/"
                         // TString singleFileName = "v3_1-100.root"
                         )
 {
@@ -16,9 +16,9 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v38_onlyMetFilters/";
+    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v40_fixedHLTBugWithPreselection/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v41_fixedHLTBugWithPreselection/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/onlyHLT/";
    
 
     TString inputFile = inputBase + inputDir + "/";
@@ -27,7 +27,7 @@ void run_makeVaribles_forBDT(
     TChain chain( "tree");
 
     chain.Add(inputFile + "v3*.root" );
-    // cout<<"entries in tree: "<<chain.GetEntries()<<endl;
+    cout<<"entries in tree: "<<chain.GetEntries()<<endl;
 
     TString outputFileName = inputDir + ".root";
 
@@ -49,7 +49,7 @@ void run_makeVaribles_forBDT(
         // cout<<"file opened :"<<file->GetName();
         TChain chain2( "allevents");
         chain2.Add(inputFile + "v3*.root" );
-        // cout<<"entries in allevent tree: "<<chain2.GetEntries()<<endl;
+        cout<<"entries in allevent tree: "<<chain2.GetEntries()<<endl;
         // chain2.ls();
         // chain2.Merge( file, 1000, "C" );
         chain2.Merge( file, 2000 );
