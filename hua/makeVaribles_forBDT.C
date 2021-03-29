@@ -341,8 +341,6 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
-   // newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
-   // newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
    newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");

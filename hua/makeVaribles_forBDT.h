@@ -55,10 +55,6 @@ public :
     Double_t   EVENT_prefireWeight;
     Double_t   EVENT_genWeight;
     Double_t   PUWeight;
-    // Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
-    // Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
-    Double_t Met_pt_;
-    Double_t Met_phi_ ;
     Int_t muonsL_number;
     Int_t muonsF_number;
     Int_t muonsT_number;

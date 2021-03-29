@@ -10,7 +10,7 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v35_preselection/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v36_nopreselection/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
@@ -37,7 +37,7 @@ sample = {
         #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0000/": "B_0",
         #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0001/": "B_1",
 
-   #  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
+   "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
     #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
@@ -48,7 +48,7 @@ sample = {
     #  "ttZJets_13TeV_madgraphMLM-pythia8/Legacy16V2_ttZJets_13TeV_madgraphMLM-pythia8addGenWeight/210201_025644/0000/":"3",
     #  "ttWJets_13TeV_madgraphMLM/Legacy16V2_ttWJets_13TeV_madgraphMLMaddGenWeight/210201_030246/0000/":"4",
     #  "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8/Legacy16V2_ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8addGenWeight/210201_050201/0000/":"5",
-    "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/Legacy16V2_TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8addGenWeight/210201_025445/0000/": "5_1",
+    #  "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/Legacy16V2_TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8addGenWeight/210201_025445/0000/": "5_1",
     #  "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp/Legacy16V2_TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigppaddGenWeight/210201_025047/0000/": "5.5",
     #  "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp/Legacy16V2_TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigppaddGenWeight/210201_024847/0000/": "5.5_1",
 
@@ -59,7 +59,7 @@ sample = {
     #  "ZGJetsToLLG_EW_LO_13TeV-sherpa/Legacy16V2_ZGJetsToLLG_EW_LO_13TeV-sherpaaddGenWeight/210201_034901/0000/":"10",
     #  "WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035100/0000/":"11",
     #  "WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035302/0000/":"12",
-    "WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210315_060121/0000/":"13",
+    #  "WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WWG_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210315_060121/0000/":"13",
     #  "ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_ZZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035702/0000/":"14",
     #  "WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_035901/0000/":"15",
     #  "WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8/Legacy16V2_WZG_TuneCUETP8M1_13TeV-amcatnlo-pythia8addGenWeight/210201_040102/0000/":"16",
@@ -69,7 +69,7 @@ sample = {
 
 #
 #  WJets "20,
-"WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210315_060319/0000/":"19",
+#  "WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210315_060319/0000/":"19",
     #  "DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1/Legacy16V2_DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1addGenWeight/210201_041715/0000/": "21",
 
     #single top
@@ -101,7 +101,7 @@ sample = {
     #  "VBF_HToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8/Legacy16V2_VBF_HToZZTo4L_M125_13TeV_powheg2_JHUgenV6_pythia8addGenWeight/210201_053754/0000/":"27_6",
 
     #QCD
-    "QCD_HT50to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT50to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_054415/0000/": "11",
+    #  "QCD_HT50to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT50to100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_054415/0000/": "11",
     #  "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_054840/0000/": "12",
     #  "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_055050/0000/": "13",
     #  "QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_055306/0000/": "14",

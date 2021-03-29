@@ -50,6 +50,7 @@ class Process
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
+/*
 Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 90.6 };
 Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367. );
 Process TTToSemiLeptonic(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367.);
@@ -96,6 +97,7 @@ Process QCD_HT700to1000(baseDir+"QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-
 Process QCD_HT1000to1500(baseDir+"QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  1.207e+03); // 1.207e+03 +- 1.167e+00 pb
 Process QCD_HT1500to2000(baseDir+"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  1.201e+02); // 1.201e+02 +- 1.160e-01 pb
 Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  2.524e+01 ); // 2.524e+01 +- 2.436e-02 pb
+*/
 //H
 // Process VHToNonbb(baseDir+"VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root", 2.137 );
 // Process ZHToTauTau(baseDir+"ZHToTauTau_M125_13TeV_powheg_pythia8.root", 0.7524 );
@@ -113,14 +115,14 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 // Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 );
 vector<Process> allProcesses = {
     TTTT, //0
-    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
-    TTGJets, ttZJets,ttWJets, ttH, //7
-    WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
-    WWW, WWZ, WWG, ZZZ, WZZ, WZG, WGG, ZGGJets,//20
-    WJetsToLNu, DYJetsToTauTau,//22
-    tZq_ll, tZq_nunu, ST_tW_antitop, ST_tW_top,//26
-    TGJets, THW, THQ, //29
-    QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,
+    // TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
+    // TTGJets, ttZJets,ttWJets, ttH, //7
+    // WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
+    // WWW, WWZ, WWG, ZZZ, WZZ, WZG, WGG, ZGGJets,//20
+    // WJetsToLNu, DYJetsToTauTau,//22
+    // tZq_ll, tZq_nunu, ST_tW_antitop, ST_tW_top,//26
+    // TGJets, THW, THQ, //29
+    // QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,
     // VHToNonbb, [>ZHToTauTau,*/ ZH_HToBB_ZToLL,[> GluGluHToZZTo4L,*/ /*GluGluHToBB.<] GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, <]VBFHToMuMu, VBFHToGG,
 };
 
