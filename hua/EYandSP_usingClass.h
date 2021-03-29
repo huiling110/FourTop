@@ -4,12 +4,11 @@
 #include "TH1D.h"
 
 
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v4addToptagger_fromv35/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v9_v40_fixedHLTBugWithPreselection/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v6_fromv37_nopSelection/";
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/check_fromv34/";
+// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v3_fromv35/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/noSelection/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/onlyMet/";
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/onlyHLT/";
 // Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 Double_t LUMI = 35900; //pb-1
@@ -53,11 +52,11 @@ class Process
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
-/*
 Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 90.6 };
 Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367. );
 Process TTToSemiLeptonic(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367.);
 
+/*
 Process TTGJets(baseDir+"TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root", 3.773 );//TTGJets
 Process ttZJets(baseDir+"ttZJets_13TeV_madgraphMLM-pythia8.root", 0.6559);//???something with the files
 Process ttWJets(baseDir+"ttWJets_13TeV_madgraphMLM.root", 0.2014 );
@@ -118,7 +117,7 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 // Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 );
 vector<Process> allProcesses = {
     TTTT, //0
-    // TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
+    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
     // TTGJets, ttZJets,ttWJets, ttH, //7
     // WZ, WW, ZZ, WGJets, ZGJetsToLLG, //12
     // WWW, WWZ, WWG, ZZZ, WZZ, WZG, WGG, ZGGJets,//20
