@@ -24,6 +24,7 @@ void EYandSP_usingClass(){
     // Bool_t ifSP = true;
     Bool_t ifDraw = false;
     // Bool_t ifDraw = true;
+    TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -313,17 +314,10 @@ TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHT
 TH1D* background_SR;
 vector<TH1D*> allHistos;
 
-// Double_t TTTT_entries; //0
-// Double_t TTTo2L2Nu_entries; Double_t  TTToHadronic_entries; Double_t  TTToSemiLeptonic_entries; //3
-// Double_t TTGJets_entries; Double_t  ttZJets_entries; Double_t ttWJets_entries; Double_t  ttH_entries; //7
-// Double_t WZ_entries; Double_t  WW_entries; Double_t  ZZ_entries; Double_t  WGJets_entries; Double_t  ZGJetsToLLG_entries; //12
-// Double_t WWW_entries; Double_t  WWZ_entries; Double_t  [>WWG<] ZZZ_entries; Double_t  WZZ_entries; Double_t  WZG_entries; Double_t  WGG_entries; Double_t  ZGGJets_entries;//20
-// WJetsToLNu_entries; Double_t  DYJetsToTauTau_entries;//22
-// Double_t tZq_ll_entries; [> tZq_nunu_entries; Double_t <] Double_t ST_tW_antitop_entries; Double_t  ST_tW_top_entries;  //26
-// Double_t TGJets_entries; Double_t  THW_entries; Double_t  THQ_entries; //29
-// Double_t QCD_HT200to300_entries; Double_t  QCD_HT300to500_entries; Double_t  QCD_HT500to700_entries; Double_t  QCD_HT700to1000_entries; Double_t  QCD_HT1000to1500_entries; Double_t  QCD_HT1500to2000_entries; Double_t  QCD_HT2000toInf_entries;
-// VHToNonbb_entries; Double_t  [>ZHToTauTau_entries; Double_t */ ZH_HToBB_ZToLL_entries; Double_t /* GluGluHToZZTo4L_entries; Double_t */ /*GluGluHToBB.*/ GluGluHToGG_entries; Double_t  GluGluHToMuMu_entries; Double_t  GluGluHToTauTau_entries; Double_t  GluGluHToWWTo2L2Nu_entries; Double_t  GluGluHToWWToLNuQQ_entries; Double_t /* VBFHToWWTo2L2Nu_entries; Double_t  VBFHToTauTau_entries; Double_t  <]VBFHToMuMu_entries; Double_t  VBFHToGG_entries;
-// vector<Double_t> rawEntries;
+TFile* resultsFile = new TFile( outputFile, "RECREATE");
+TH1D* TTTT_results ;
+vector<TH1D*> allResults;
+
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
@@ -356,6 +350,12 @@ for (UInt_t  cha=0; cha<1; cha++){
             QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
+        TTTT_results = new TH1D( "TTTT_EY", plot, 4, 0, 4);
+        allResults.clear();
+        allResults = {
+            TTTT_results,
+        };
+
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
 
@@ -364,26 +364,27 @@ for (UInt_t  cha=0; cha<1; cha++){
         TString hname ;
         Double_t scale;
         Double_t sumGenWeights = -99;
-        for(UInt_t j = 0; j < allHistos.size(); j++){
-        // for(UInt_t j = 0; j < 1; j++){
+        // for(UInt_t j = 0; j < allHistos.size(); j++){
+        for(UInt_t j = 0; j < 1; j++){
         // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
-            
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
                 // cout<<allHistos[j]->GetName()<<":"<<"  ";
                 cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
+                allResults[j]->SetBinContent( 1, allHistos[j]->GetEntries() );
+
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
@@ -392,6 +393,7 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
                 cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 // cout<<"\n";
+                allResults[j]->Write();
             }
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
@@ -399,7 +401,13 @@ for (UInt_t  cha=0; cha<1; cha++){
         if ( i ==0){
             cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
             cout<<"\n";
+            cout<<"outputFile here: "<<resultsFile->GetName()<<endl;
         }
+        
+        for(UInt_t j = 0; j < allResults.size(); j++){
+             delete (allResults[j]);
+        }
+
 
         if ( ifDraw ){
             TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
@@ -513,12 +521,9 @@ for (UInt_t  cha=0; cha<1; cha++){
         delete background_SR;//put delete in the last
   }
 
-    // auto it{ mymap.cbegin() }; // declare a const iterator and assign to start of vector
-    // while (it != mymap.cend()) // while it hasn't reach the end
-    // {
-        // std::cout <<it->second << " = " << it->first  << " "<<endl; // print the value of the element it points to
-        // ++it; // and iterate to the next element
-    // }
+    resultsFile->Close();
+
+
     if ( ifSP ){
         for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
             std::cout <<  rit->second << " = "<< rit->first << endl;
