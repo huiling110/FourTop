@@ -342,7 +342,7 @@ for (UInt_t  cha=0; cha<1; cha++){
          WJetsToLNu_h = new TH1D( "WJetsToLNu",plot,bin[i],Min[i],Max[i]);  DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",plot,bin[i],Min[i],Max[i]);//2
          tZq_ll_h = new TH1D( "tZq_ll",plot,bin[i],Min[i],Max[i]);  tZq_nunu_h =  new TH1D( "tZq_nunu", plot,bin[i],Min[i],Max[i]); ST_tW_antitop_h = new TH1D( "ST_tW_antitop",plot,bin[i],Min[i],Max[i]);  ST_tW_top_h = new TH1D( "ST_tW_top",plot,bin[i],Min[i],Max[i]);  TGJets_h = new TH1D( "TGJets",plot,bin[i],Min[i],Max[i]); THW_h = new TH1D( "THW",plot,bin[i],Min[i],Max[i]);  THQ_h = new TH1D( "THQ",plot,bin[i],Min[i],Max[i]);//6
          VHToNonbb_h = new TH1D( "VHToNonbb",plot,bin[i],Min[i],Max[i]);  ZHToTauTau_h = new TH1D( "ZHToTauTau",plot,bin[i],Min[i],Max[i]);  ZH_HToBB_ZToLL_h = new TH1D( "ZH_HToBB_ZToLL",plot,bin[i],Min[i],Max[i]);  GluGluHToZZTo4L_h = new TH1D( "GluGluHToZZTo4L",plot,bin[i],Min[i],Max[i]);  GluGluHToBB_h = new TH1D( "GluGluHToBB",plot,bin[i],Min[i],Max[i]);  GluGluHToGG_h = new TH1D( "GluGluHToGG",plot,bin[i],Min[i],Max[i]);  GluGluHToMuMu_h = new TH1D( "GluGluHToMuMu",plot,bin[i],Min[i],Max[i]);  GluGluHToTauTau_h = new TH1D( "GluGluHToTauTau",plot,bin[i],Min[i],Max[i]);  GluGluHToWWTo2L2Nu_h = new TH1D( "GluGluHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  GluGluHToWWToLNuQQ_h = new TH1D( "GluGluHToWWToLNuQQ",plot,bin[i],Min[i],Max[i]);  VBFHToWWTo2L2Nu_h = new TH1D( "VBFHToWWTo2L2Nu",plot,bin[i],Min[i],Max[i]);  VBFHToTauTau_h = new TH1D( "VBFHToTauTau",plot,bin[i],Min[i],Max[i]);  VBFHToMuMu_h = new TH1D( "VBFHToMuMu",plot,bin[i],Min[i],Max[i]);  VBFHToGG_h = new TH1D( "VBFHToGG",plot,bin[i],Min[i],Max[i]); 
-         QCD_HT200to300_h = new TH1D( "QCD_HT200to300_h",plot,bin[i],Min[i],Max[i]); QCD_HT300to500_h = new TH1D( "QCD_HT300to500_h",plot,bin[i],Min[i],Max[i]); QCD_HT500to700_h = new TH1D( "QCD_HT500to700_h",plot,bin[i],Min[i],Max[i]); QCD_HT700to1000_h = new TH1D( "QCD_HT700to1000_h",plot,bin[i],Min[i],Max[i]); QCD_HT1000to1500_h = new TH1D( "QCD_HT1000to1500_h",plot,bin[i],Min[i],Max[i]); QCD_HT1500to2000_h = new TH1D( "QCD_HT1500to2000_h",plot,bin[i],Min[i],Max[i]); QCD_HT2000toInf_h = new TH1D( "QCD_HT2000toInf_h",plot,bin[i],Min[i],Max[i]);
+         QCD_HT200to300_h = new TH1D( "QCD_HT200to300",plot,bin[i],Min[i],Max[i]); QCD_HT300to500_h = new TH1D( "QCD_HT300to500",plot,bin[i],Min[i],Max[i]); QCD_HT500to700_h = new TH1D( "QCD_HT500to700",plot,bin[i],Min[i],Max[i]); QCD_HT700to1000_h = new TH1D( "QCD_HT700to1000",plot,bin[i],Min[i],Max[i]); QCD_HT1000to1500_h = new TH1D( "QCD_HT1000to1500",plot,bin[i],Min[i],Max[i]); QCD_HT1500to2000_h = new TH1D( "QCD_HT1500to2000",plot,bin[i],Min[i],Max[i]); QCD_HT2000toInf_h = new TH1D( "QCD_HT2000toInf",plot,bin[i],Min[i],Max[i]);
         allHistos.clear();
         allHistos = {
             TTTT_h, //0
@@ -364,8 +364,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         TString hname ;
         Double_t scale;
         Double_t sumGenWeights = -99;
-        // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 1; j++){
+        for(UInt_t j = 0; j < allHistos.size(); j++){
+        // for(UInt_t j = 0; j < 1; j++){
         // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
@@ -383,13 +383,13 @@ for (UInt_t  cha=0; cha<1; cha++){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
                 // cout<<allHistos[j]->GetName()<<":"<<"  ";
                 cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
-                cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
+                // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
             allHistos[j]->Scale(scale);
             if ( i ==0){
-                cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
+                // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
                 cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 // cout<<"\n";
             }
