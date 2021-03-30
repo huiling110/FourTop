@@ -24,7 +24,7 @@ void EYandSP_usingClass(){
     // Bool_t ifSP = true;
     Bool_t ifDraw = false;
     // Bool_t ifDraw = true;
-    TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
+    // TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -314,9 +314,9 @@ TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHT
 TH1D* background_SR;
 vector<TH1D*> allHistos;
 
-TFile* resultsFile = new TFile( outputFile, "RECREATE");
-TH1D* TTTT_results ;
-vector<TH1D*> allResults;
+// TFile* resultsFile = new TFile( outputFile, "RECREATE");
+// TH1D* TTTT_results ;
+// vector<TH1D*> allResults;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
@@ -350,11 +350,11 @@ for (UInt_t  cha=0; cha<1; cha++){
             QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
-        TTTT_results = new TH1D( "TTTT_EY", plot, 4, 0, 4);
-        allResults.clear();
-        allResults = {
-            TTTT_results,
-        };
+        // TTTT_results = new TH1D( "TTTT_EY", plot, 4, 0, 4);
+        // allResults.clear();
+        // allResults = {
+            // TTTT_results,
+        // };
 
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
@@ -364,26 +364,26 @@ for (UInt_t  cha=0; cha<1; cha++){
         TString hname ;
         Double_t scale;
         Double_t sumGenWeights = -99;
-        // for(UInt_t j = 0; j < allHistos.size(); j++){
-        for(UInt_t j = 0; j < 1; j++){
+        for(UInt_t j = 0; j < allHistos.size(); j++){
+        // for(UInt_t j = 0; j < 1; j++){
         // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
-            allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step2[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step3[cha]+MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
+            allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
                 cout<<allHistos[j]->GetName()<<":"<<endl;
                 // cout<<allHistos[j]->GetName()<<":"<<"  ";
                 cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
-                allResults[j]->SetBinContent( 1, allHistos[j]->GetEntries() );
+                // allResults[j]->SetBinContent( 1, allHistos[j]->GetEntries() );
 
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
@@ -393,20 +393,30 @@ for (UInt_t  cha=0; cha<1; cha++){
                 // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
                 cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 // cout<<"\n";
-                allResults[j]->Write();
+                // allResults[j]->Write();
             }
             if(j > 0) background_SR->Add((allHistos[j]),1);
 //            background_SR->Print();
         }
         if ( i ==0){
+            cout<<"TTTT         = "<<TTTT_h->Integral()<<endl;
+            cout<<"TT           = "<<TTTo2L2Nu_h->Integral()+TTToHadronic_h->Integral()+TTToSemiLeptonic_h->Integral()<<endl;
+            cout<<"TTX          = "<<TTGJets_h->Integral()+ ttZJets_h->Integral()+ ttWJets_h->Integral()<<endl;
+            cout<<"single top   = "<<tZq_ll_h->Integral()+ tZq_nunu_h->Integral()+ ST_tW_antitop_h->Integral()+ ST_tW_top_h->Integral()<<endl;
+            cout<<"TX           = "<<TGJets_h->Integral()+ THW_h->Integral()+ THQ_h->Integral()<<endl;
+            cout<<"DYJets       = "<<DYJetsToTauTau_h->Integral()<<endl;
+            cout<<"VV           = "<<WZ_h->Integral()+ WW_h->Integral()+ ZZ_h->Integral()+ WGJets_h->Integral()+ ZGJetsToLLG_h->Integral()<<endl;
+            cout<<"VVV          = "<<WWW_h->Integral()+ WWZ_h->Integral()+ WWG_h->Integral()+ ZZZ_h->Integral()+ WZZ_h->Integral()+ WZG_h->Integral()+ WGG_h->Integral()+ ZGGJets_h->Integral()<<endl;
+            cout<<"QCD          = "<<QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
+
             cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
             cout<<"\n";
-            cout<<"outputFile here: "<<resultsFile->GetName()<<endl;
+            // cout<<"outputFile here: "<<resultsFile->GetName()<<endl;
         }
         
-        for(UInt_t j = 0; j < allResults.size(); j++){
-             delete (allResults[j]);
-        }
+        // for(UInt_t j = 0; j < allResults.size(); j++){
+             // delete (allResults[j]);
+        // }
 
 
         if ( ifDraw ){
@@ -521,7 +531,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         delete background_SR;//put delete in the last
   }
 
-    resultsFile->Close();
+    // resultsFile->Close();
 
 
     if ( ifSP ){

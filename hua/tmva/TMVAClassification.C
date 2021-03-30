@@ -190,7 +190,7 @@ int TMVAClassification( TString myMethodList = "" )
    if ( istest ){
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v4addToptagger_fromv35/TMVA_1Tau0L_v1.root";
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_v1.root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -260,8 +260,6 @@ int TMVAClassification( TString myMethodList = "" )
    // global event weights per tree (see below for setting event-wise weights)
 
    // You can add an arbitrary number of signal or background trees
-   // dataloader->AddSignalTree    ( signalTTTT,     signalWeight );
-   // dataloader->AddBackgroundTree( bg_TT, wTT );
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
     dataloader->AddBackgroundTree  ( TTTo2L2Nu.getEventTree(), LUMI*TTTo2L2Nu.getSigma()/TTTo2L2Nu.getGenWeightSum() );
     dataloader->AddBackgroundTree  ( TTToHadronic.getEventTree(), LUMI*TTToHadronic.getSigma()/TTToHadronic.getGenWeightSum() );
