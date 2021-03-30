@@ -20,11 +20,11 @@ void EYandSP_usingClass(){
     TStopwatch t;
     t.Start();
 
-    // Bool_t ifSP = false;
-    Bool_t ifSP = true;
+    Bool_t ifSP = false;
+    // Bool_t ifSP = true;
     Bool_t ifDraw = false;
     // Bool_t ifDraw = true;
-    // TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
+    TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
@@ -44,8 +44,7 @@ void EYandSP_usingClass(){
 //?is there a more clever way to push_back all in a loop?
 
   variablelist.push_back("jetsL_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
-  /*{{{*/
-variablelist.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("HT pt[GeV]");
+variablelist.push_back("jetsL_HT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("HT pt[GeV]");/*{{{*/
 variablelist.push_back("jetsL_MHT"); bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("MHT pt[GeV]");
   variablelist.push_back("jetsL_invariantMass");  bin.push_back(100);     Min.push_back(10);    Max.push_back(10000);    axis.push_back("Invariant mass of jets");
  variablelist.push_back("jetsL_transMass");      bin.push_back(100);     Min.push_back(0);    Max.push_back(10000);    axis.push_back("jetsL_transMass");
@@ -230,7 +229,7 @@ variablelist.push_back("Met_phi"); bin.push_back(8);     Min.push_back(-4);   Ma
  variablelist.push_back("toptagger_3eta");      bin.push_back(20);     Min.push_back(-6);    Max.push_back(6);    axis.push_back("toptagger_3eta");
  variablelist.push_back("toptagger_3phi");      bin.push_back(20);     Min.push_back(-6);    Max.push_back(6);    axis.push_back("toptagger_3phi");
  variablelist.push_back("toptagger_minDeltaR");      bin.push_back(20);     Min.push_back(0);    Max.push_back(5);    axis.push_back("min delta R of tops");
- variablelist.push_back("toptagger_scoreAllTops");      bin.push_back(20);     Min.push_back(0);    Max.push_back(5);    axis.push_back("top tagger score of all tops");
+ variablelist.push_back("toptagger_scoreAllTops");      bin.push_back(20);     Min.push_back(0);    Max.push_back(5);    axis.push_back("top tagger score of all tops");/*}}}*/
  
 
 
@@ -297,7 +296,7 @@ TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_Dou
 
 
 
-
+TFile* variableHistoFile = new TFile( outputFile, "RECREATE");
 
 TH1D* TTTT_h ;//1
 TH1D* TTTo2L2Nu_h ; TH1D* TTToHadronic_h ; TH1D* TTToSemiLeptonic_h ;
@@ -323,9 +322,10 @@ for (UInt_t  cha=0; cha<1; cha++){
 
     // for(UInt_t i=0; i<1; i++){
     for(UInt_t i=0; i<variablelist.size(); i++){
-  	    const char *plot = variablelist[i];
+          // const char *plot = variablelist[i];
+  	    TString plot = variablelist[i];
 
-         TTTT_h = new TH1D("TTTT",plot,bin[i],Min[i],Max[i]);//1
+         TTTT_h = new TH1D("TTTT"+plot, plot,bin[i],Min[i],Max[i]);//1
          TTTo2L2Nu_h = new TH1D( "TTTo2L2Nu", plot,bin[i],Min[i],Max[i]);  TTToHadronic_h = new TH1D( "TTToHadronic",plot,bin[i],Min[i],Max[i]);  TTToSemiLeptonic_h = new TH1D( "TTToSemiLeptonic",plot,bin[i],Min[i],Max[i]);
          TTGJets_h = new TH1D( "TTGJets",plot,bin[i],Min[i],Max[i]); ttZJets_h = new TH1D( "ttZJets",plot,bin[i],Min[i],Max[i]);  ttWJets_h = new TH1D( "ttWJets",plot,bin[i],Min[i],Max[i]); ttH_h = new TH1D( "ttH",plot,bin[i],Min[i],Max[i]); /* ttbb_h = new TH1D( "ttbb",plot,bin[i],Min[i],Max[i]);*/ //6
          WZ_h = new TH1D( "WZ",plot,bin[i],Min[i],Max[i]);  WW_h = new TH1D( "WW",plot,bin[i],Min[i],Max[i]);  ZZ_h = new TH1D( "ZZ",plot,bin[i],Min[i],Max[i]); WGJets_h = new TH1D( "WGJets",plot,bin[i],Min[i],Max[i]); ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",plot,bin[i],Min[i],Max[i]);//6
@@ -354,7 +354,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         // };
 
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
-        background_SR = new TH1D("BG","BG",bin[i],Min[i],Max[i]);
+        background_SR = new TH1D("BG"+plot, "BG",bin[i],Min[i],Max[i]);
 
         // cout<<"signal and bg files ="<< allHistos.size()<<endl;
         // cout<<"number of trees = "<<allTree.size()<<endl;
@@ -381,7 +381,6 @@ for (UInt_t  cha=0; cha<1; cha++){
                 cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
                 // allResults[j]->SetBinContent( 1, allHistos[j]->GetEntries() );
-
             }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
@@ -410,6 +409,11 @@ for (UInt_t  cha=0; cha<1; cha++){
             cout<<"\n";
             // cout<<"outputFile here: "<<resultsFile->GetName()<<endl;
         }
+
+        //
+        TTTT_h->Write();
+        background_SR->Write();
+        cout<<"done writing "<<TTTT_h->GetName()<<endl;
         
         // for(UInt_t j = 0; j < allResults.size(); j++){
              // delete (allResults[j]);
@@ -526,7 +530,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         }
 
         delete background_SR;//put delete in the last
-  }
+  }//end of loop of all variables
 
     // resultsFile->Close();
 
@@ -540,7 +544,11 @@ for (UInt_t  cha=0; cha<1; cha++){
 
 	//how do we exactly include SYST in our histograms?
 
-}
+}//end of loop of all channels
+    
+    variableHistoFile->Close();
+    cout<<"file containing the variable histo: "<<variableHistoFile->GetName()<<endl;
+
     t.Stop();
     t.Print();
 }
