@@ -84,6 +84,7 @@ int TMVAClassification( TString myMethodList = "" )
    Use["CutsPCA"]         = 0;
    Use["CutsGA"]          = 0;
    Use["CutsSA"]          = 1;
+   // Use["CutsSA"]          = 0;
    //
    // 1-dimensional likelihood ("naive Bayes estimator")
    Use["Likelihood"]      = 0;
@@ -128,8 +129,10 @@ int TMVAClassification( TString myMethodList = "" )
    Use["SVM"]             = 0;
    //
    // Boosted Decision Trees
-   Use["BDT"]             = 1; // uses Adaptive Boost
-   Use["BDTG"]            = 1; // uses Gradient Boost
+   // Use["BDT"]             = 1; // uses Adaptive Boost
+   Use["BDT"]             = 0; // uses Adaptive Boost
+   // Use["BDTG"]            = 1; // uses Gradient Boost
+   Use["BDTG"]            = 0; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
    Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
@@ -190,7 +193,8 @@ int TMVAClassification( TString myMethodList = "" )
    if ( istest ){
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_v1.root";
+       // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_v1.root";
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_variables.root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -213,6 +217,7 @@ int TMVAClassification( TString myMethodList = "" )
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
+   //???not sure of weightdir?
 
    // Define the input variables that shall be used for the MVA training
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
@@ -261,9 +266,14 @@ int TMVAClassification( TString myMethodList = "" )
 
    // You can add an arbitrary number of signal or background trees
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
-    dataloader->AddBackgroundTree  ( TTTo2L2Nu.getEventTree(), LUMI*TTTo2L2Nu.getSigma()/TTTo2L2Nu.getGenWeightSum() );
-    dataloader->AddBackgroundTree  ( TTToHadronic.getEventTree(), LUMI*TTToHadronic.getSigma()/TTToHadronic.getGenWeightSum() );
-    dataloader->AddBackgroundTree  ( TTToSemiLeptonic.getEventTree(), LUMI*TTToSemiLeptonic.getSigma()/TTToSemiLeptonic.getGenWeightSum() );
+    // for ( UInt_t p=1; p<allProcesses.size(), p++){
+    for ( UInt_t p=1; p<4; p++){
+        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
+    } 
+    // dataloader->AddBackgroundTree  ( TTTo2L2Nu.getEventTree(), LUMI*TTTo2L2Nu.getSigma()/TTTo2L2Nu.getGenWeightSum() );
+    // dataloader->AddBackgroundTree  ( TTToHadronic.getEventTree(), LUMI*TTToHadronic.getSigma()/TTToHadronic.getGenWeightSum() );
+    // dataloader->AddBackgroundTree  ( TTToSemiLeptonic.getEventTree(), LUMI*TTToSemiLeptonic.getSigma()/TTToSemiLeptonic.getGenWeightSum() );
+
    // To give different trees for training and testing, do as follows:
    //
    //     dataloader->AddSignalTree( signalTrainingTree, signalTrainWeight, "Training" );

@@ -26,15 +26,15 @@ void EYandSP_usingClass(){
     // Bool_t ifDraw = true;
     TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
 
-  gROOT->Reset();
-  gStyle->SetCanvasColor(0);
-  gStyle->SetFrameBorderMode(0);
-  gStyle->SetOptStat(0);
-  gStyle->SetPalette(1,0);
-  gStyle->SetTitleX(0.5); //title X location 
-  gStyle->SetTitleY(0.96); //title Y location 
-  gStyle->SetPaintTextFormat(".2f");
-  gErrorIgnoreLevel = kError;//?
+  // gROOT->Reset();
+  // gStyle->SetCanvasColor(0);
+  // gStyle->SetFrameBorderMode(0);
+  // gStyle->SetOptStat(0);
+  // gStyle->SetPalette(1,0);
+  // gStyle->SetTitleX(0.5); //title X location
+  // gStyle->SetTitleY(0.96); //title Y location
+  // gStyle->SetPaintTextFormat(".2f");
+  // gErrorIgnoreLevel = kError;//?
   using namespace std; 
 
 //  bool SYST = false;
@@ -320,8 +320,8 @@ for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
-    // for(UInt_t i=0; i<1; i++){
-    for(UInt_t i=0; i<variablelist.size(); i++){
+    for(UInt_t i=0; i<1; i++){
+    // for(UInt_t i=0; i<variablelist.size(); i++){
           // const char *plot = variablelist[i];
   	    TString plot = variablelist[i];
 
@@ -376,9 +376,9 @@ for (UInt_t  cha=0; cha<1; cha++){
             allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
             if ( i==0 ){
-                cout<<allHistos[j]->GetName()<<":"<<endl;
+                // cout<<allHistos[j]->GetName()<<":"<<endl;
                 // cout<<allHistos[j]->GetName()<<":"<<"  ";
-                cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
+                // cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
                 // allResults[j]->SetBinContent( 1, allHistos[j]->GetEntries() );
             }
@@ -387,7 +387,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             allHistos[j]->Scale(scale);
             if ( i ==0){
                 // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
-                cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
+                // cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 // cout<<"\n";
                 // allResults[j]->Write();
             }
