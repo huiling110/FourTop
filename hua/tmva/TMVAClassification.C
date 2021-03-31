@@ -185,7 +185,8 @@ int TMVAClassification( TString myMethodList = "" )
    // std::cout << "--- TMVAClassification       : Using input file: " << input->GetName() << std::endl;
    // std::cout << "--- TMVAClassification       : Using input file: " << input_signal->GetName() << std::endl;
 
-   Bool_t istest = false;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    // Register the training and test trees
 
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
@@ -223,6 +224,7 @@ int TMVAClassification( TString myMethodList = "" )
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );
+   /*
      dataloader->AddVariable( "jetsL_number",                "jetsL_number", "units", 'F' );
     dataloader->AddVariable( "jetsL_transMass",         "jetsL_transMass"   , "units", 'F');
     // dataloader->AddVariable( "jetsL_HT",         "jetsL_HT"   , "units", 'F');
@@ -252,6 +254,38 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddVariable( "bjetsL_1pt",                "bjetsL_1pt", "units", 'F' );
     dataloader->AddVariable( "jetsL_1pt",                "jetsL_1pt", "units", 'F' );//bjetsM_2pt
     dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
+*/
+
+    // TObjArray *mycopy = TTTT.getEventTree()->GetListOfBranches()->Clone();
+    // std::vector<TString> branchNames = TTTT.getEventTree()->GetListOfBranches();
+    // mycopy->SetOwner(kFALSE);
+    // cout<<"number of variables = "<<mycopy.GetEntries();
+    // std::vector<TString> branchNames;
+    // for ( UInt_t i=0; i<mycopy.GetEntries(); i++){
+        // cout<<mycopy->At(j)->GetName();
+        // branchNames.push_back( mycopy->At(j)->GetName() );
+    // }
+    std::vector<TString> branchNames;
+    TString branchName;
+    Int_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+    cout<<"number of branches: "<<nbr<<endl;
+    // for ( UInt_t i=0; i<nbr; i++){
+    // for ( UInt_t i=0; i<20; i++){
+    for ( UInt_t i=0; i<17; i++){
+        branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
+        if ( branchName.Contains( "Flag") )  continue;
+        if ( branchName.Contains( "HLT"))    continue;
+        if ( branchName.Contains( "Weight"))  continue;
+        if ( branchName.Contains( "muonsT_number")) continue; 
+        //???not sure what is wrong with this branch. //Variable muonsT_number is constant.
+        cout<<branchName<<endl;
+        branchNames.push_back( branchName );
+        dataloader->AddVariable( branchName, branchName, "units", 'F' );
+    }
+
+
+
+
 
 
    // You can add so-called "Spectator variables", which are not used in the MVA training,
@@ -266,8 +300,8 @@ int TMVAClassification( TString myMethodList = "" )
 
    // You can add an arbitrary number of signal or background trees
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
-    // for ( UInt_t p=1; p<allProcesses.size(), p++){
-    for ( UInt_t p=1; p<4; p++){
+    for ( UInt_t p=1; p<allProcesses.size(); p++){
+    // for ( UInt_t p=1; p<4; p++){
         dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
     } 
     // dataloader->AddBackgroundTree  ( TTTo2L2Nu.getEventTree(), LUMI*TTTo2L2Nu.getSigma()/TTTo2L2Nu.getGenWeightSum() );
@@ -339,7 +373,7 @@ int TMVAClassification( TString myMethodList = "" )
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
-                                        "nTrain_Signal=1000:nTrain_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
                                         "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
