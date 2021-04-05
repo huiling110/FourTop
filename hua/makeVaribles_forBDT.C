@@ -313,8 +313,6 @@ void SpheriltyAplanarityCal( const TTreeReaderArray<TLorentzVector>&  SelectedJe
     //AK8 jets
     TVector3 Bst; 
     TLorentzVector momAK8J;
-    // momAK8J = copy_TTreeReaderArray_toVector( SelectedJets, momAK8J );
-    //here we copy AK4jets to AK8jets
     UInt_t mynJets = SelectedJets.GetSize();
     float  momAK8JB[mynJets][4];//matrix?
    
@@ -738,8 +736,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      EVENT_prefireWeight  = -99;
      EVENT_genWeight = -99;
      PUWeight = -99;
-    // HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
-    // HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
     Met_pt_ = -99;
     Met_phi_ = -99;
     muonsL_number=-99;
@@ -965,9 +961,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 
 
-
-    // HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
-    // HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
 
     Met_pt_ = *Met_pt;
     Met_phi_ = *Met_phi;
