@@ -1,6 +1,6 @@
 void run_makeVaribles_forBDT(
-                        // Bool_t istest = true,
-                        Bool_t istest = false,
+                        Bool_t istest = true,
+                        // Bool_t istest = false,
                         TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn",
                         // TString inputDir = "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8",

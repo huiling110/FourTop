@@ -28,6 +28,9 @@
 #include "makeVaribles_forBDT.h"
 #include <TH2.h>
 #include <TStyle.h>
+#include <TMatrixDSym.h>
+#include <TVectorD.h>
+#include <TMatrixDSymEigen.h>
 
 
 
@@ -85,6 +88,22 @@ Double_t MHTcalculator(const vector<TLorentzVector> & SelectedJets) {
   MHTprov = SumJets.Pt();
   return MHTprov;
 } /*}}}*/
+Double_t energyCal( const TTreeReaderArray<TLorentzVector> &SelectedJets ) {
+    Double_t sumE = 0;
+    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+        sumE = sumE + SelectedJets[j].E();
+    }
+    return sumE;
+}
+Double_t pzCal( const TTreeReaderArray<TLorentzVector> &SelectedJets ) {
+    Double_t sumE = 0;
+    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j) {
+        sumE = sumE + SelectedJets[j].Pz();
+    }
+    return sumE;
+}
+
+
 ///it seems we cant not use TTreeReaderArray as input parameter
 //yes we can , just have to pass by address
 Double_t MHTcalculator(const TTreeReaderArray<TLorentzVector> &SelectedJets) {
@@ -289,6 +308,127 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
   return initB;
 }
 
+void SpheriltyAplanarityCal( const TTreeReaderArray<TLorentzVector>&  SelectedJets, Double_t& Spher, Double_t& Apla ){
+    
+    //AK8 jets
+    TVector3 Bst; 
+    TLorentzVector momAK8J;
+    // momAK8J = copy_TTreeReaderArray_toVector( SelectedJets, momAK8J );
+    //here we copy AK4jets to AK8jets
+    UInt_t mynJets = SelectedJets.GetSize();
+    float  momAK8JB[mynJets][4];//matrix?
+   
+    Double_t sume = energyCal( SelectedJets );
+    Double_t sumpz = pzCal( SelectedJets );
+    if(sume !=0.){ //sume = sum of jet energy
+        Bst.SetZ(-sumpz/sume);
+        for(UInt_t idx=0; idx < mynJets; idx++){
+            // momAK8J.SetPx(ak8Jet[idx].Px());
+            // momAK8J.SetPy(ak8Jet[idx].Py());
+            // momAK8J.SetPz(ak8Jet[idx].Pz());
+            // momAK8J.SetE(ak8Jet[idx].E());
+            momAK8J = SelectedJets[idx];
+            // now do the boost
+            momAK8J.Boost(Bst); 
+
+            momAK8JB[idx][0] = momAK8J.Px(); 
+            momAK8JB[idx][1] = momAK8J.Py(); 
+            momAK8JB[idx][2] = momAK8J.Pz(); 
+            momAK8JB[idx][3] = momAK8J.E(); 
+        }
+    }
+    
+    //AK4 jets
+    // TLorentzVector momAK4J;
+    // float  momAK4JB[myak4jet_nJets][4];
+//
+    // if(sume !=0.){
+        // for(int idx=0; idx < myak4jet_nJets; idx++){
+            // momAK4J.SetPx(ak4Jet[idx].Px());
+            // momAK4J.SetPy(ak4Jet[idx].Py());
+            // momAK4J.SetPz(ak4Jet[idx].Pz());
+            // momAK4J.SetE(ak4Jet[idx].E());
+            // momAK4J.Boost(Bst);
+//
+            // momAK4JB[idx][0] = momAK4J.Px();
+            // momAK4JB[idx][1] = momAK4J.Py();
+            // momAK4JB[idx][2] = momAK4J.Pz();
+            // momAK4JB[idx][3] = momAK4J.E();
+        // }
+    // }
+    
+    // prepare the momentum tensor
+
+    TMatrixDSym momten2(3); //Instantation of TMatrixTSym<Double_t>     
+    momten2(0,0)=0; 
+    momten2(1,1)=0;  
+    momten2(2,2)=0;  
+    momten2(0,1)=0; 
+    momten2(0,2)=0; 
+    momten2(1,2)=0;  
+
+    Float_t sump2=0.;
+    
+    //AK8 jets
+    for(UInt_t idx = 0; idx < mynJets; idx++){
+        momten2(0,0) += momAK8JB[idx][0] * momAK8JB[idx][0];
+        momten2(1,1) += momAK8JB[idx][1] * momAK8JB[idx][1];
+        momten2(2,2) += momAK8JB[idx][2] * momAK8JB[idx][2];
+        momten2(0,1) += momAK8JB[idx][0] * momAK8JB[idx][1];
+        momten2(0,2) += momAK8JB[idx][0] * momAK8JB[idx][2];
+        momten2(1,2) += momAK8JB[idx][1] * momAK8JB[idx][2];
+        
+        sump2 +=   momAK8JB[idx][3] * momAK8JB[idx][3];
+    }
+    
+    //AK4 jets
+    //???why does it feel like double counting AK8 and AK4 JETS
+    // for(int idx = 0; idx < myak4jet_nJets; idx++){
+        // momten2(0,0) += momAK4JB[idx][0] * momAK4JB[idx][0];
+        // momten2(1,1) += momAK4JB[idx][1] * momAK4JB[idx][1];
+        // momten2(2,2) += momAK4JB[idx][2] * momAK4JB[idx][2];
+        // momten2(0,1) += momAK4JB[idx][0] * momAK4JB[idx][1];
+        // momten2(0,2) += momAK4JB[idx][0] * momAK4JB[idx][2];
+        // momten2(1,2) += momAK4JB[idx][1] * momAK4JB[idx][2];
+//
+        // sump2 +=   momAK4JB[idx][3] * momAK4JB[idx][3];
+    // }
+    
+    if( sump2 != 0) {
+        momten2(0,0) = momten2(0,0)/sump2;
+        momten2(1,1) = momten2(1,1)/sump2;
+        momten2(2,2) = momten2(2,2)/sump2;
+        momten2(0,1) = momten2(0,1)/sump2;
+        momten2(0,2) = momten2(0,2)/sump2;
+        momten2(1,2) = momten2(1,2)/sump2;
+        momten2(1,0) = momten2(0,1);
+        momten2(2,0) = momten2(0,2);
+        momten2(2,1) = momten2(1,2);
+    }
+    else {
+        momten2(0,0) = 0;
+        momten2(1,1) = 0;
+        momten2(2,2) = 0;
+        momten2(0,1) = momten2(1,0) = 0;
+        momten2(0,2) = momten2(2,0) = 0;
+        momten2(1,2) = momten2(2,1) = 0;
+    }
+    
+    // find the eigenvalues
+
+    TVectorD eigval(3);
+    
+    TMatrixDSymEigen eigen(momten2);
+    eigval  = eigen.GetEigenValues();
+    
+    Spher = 3./2.*(eigval(2)+eigval(1));
+    Apla = 3./2.*eigval(2);
+}
+
+
+
+
+
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<TLorentzVector>& SelectedTops) {
   // Double_t init = 0;
   // for (UInt_t j = 0; j < SelectedTops.GetSize(); ++j) {
@@ -452,6 +592,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
   newtree->Branch("jetsL_HTDividedByMet", &jetsL_HTDividedByMet, "jetsL_HTDividedByMet/D");
   newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
   newtree->Branch("jetsL_MHTDividedByMet", &jetsL_MHTDividedByMet, "jetsL_MHTDividedByMet/D");
+  newtree->Branch("jetsL_spherilty", &jetsL_spherilty, "jetsL_spherilty/D");
+  newtree->Branch("jetsL_aplanarity", &jetsL_aplanarity, "jetsL_aplanarity/D");
   newtree->Branch("jetsL_1pt", &jetsL_1pt, "jetsL_1pt/D");
   newtree->Branch("jetsL_1eta", &jetsL_1eta, "jetsL_1eta/D");
   newtree->Branch("jetsL_1phi", &jetsL_1phi, "jetsL_1phi/D");
@@ -592,7 +734,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    fReader.SetLocalEntry(entry);
     fProcessed++;
 
-    //initialize{{{
+    //initialize
      EVENT_prefireWeight  = -99;
      EVENT_genWeight = -99;
      PUWeight = -99;
@@ -687,6 +829,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jetsL_MHTDividedByMet= -99;
      jetsL_leptonsMVAT_minDeltaR= -99;
      jetsL_tausF_minDeltaR= -99;
+     jetsL_spherilty = -99;
+     jetsL_aplanarity = -99;
     jetsL_1pt = -99;
      jetsL_1phi = -99;
      jetsL_1eta = -99;
@@ -964,6 +1108,13 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jetsL_MHTDividedByMet = jetsL_MHT / Met_pt_;
       jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
       jetsL_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+
+      //
+    //aplanarity and sphericity
+      SpheriltyAplanarityCal( jets, jetsL_spherilty, jetsL_aplanarity ); 
+
+
+
       if (jetsL_number > 0) {/*{{{*/
         jetsL_1pt = jets[0].Pt();
         jetsL_1eta = jets[0].Eta();

@@ -143,6 +143,8 @@ public :
     Double_t  jetsL_MHTDividedByMet= -99;
     Double_t jetsL_leptonsMVAT_minDeltaR= -99;
     Double_t jetsL_tausF_minDeltaR= -99;
+    Double_t jetsL_spherilty = -99;
+    Double_t jetsL_aplanarity = -99;
     Double_t    jetsL_1pt = -99;
     Double_t     jetsL_1phi = -99;
     Double_t     jetsL_1eta = -99;
