@@ -27,7 +27,8 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-   Bool_t isdata = false;
+   // Bool_t isdata = false;
+   Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
     Bool_t HLTSelection = true;
@@ -185,10 +186,11 @@ Int_t    Flag_eeBadScFilter_ ;
    // Readers to access the data (delete the ones you do not need).
    // if  ( !isdata ){
    // ???why if not working here?
+   /*
+    // all the branches only in MC
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
-       // TTreeReaderArray<double> Gen_p = {fReader, "Gen_p"};
        TTreeReaderArray<double> Gen_energy = {fReader, "Gen_energy"};
        TTreeReaderArray<double> Gen_charge = {fReader, "Gen_charge"};
        // TTreeReaderArray<double> Gen_vx = {fReader, "Gen_vx"};
@@ -204,12 +206,32 @@ Int_t    Flag_eeBadScFilter_ ;
        // TTreeReaderArray<int> Gen_BdaughtIndices = {fReader, "Gen_BdaughtIndices"};
        // TTreeReaderArray<int> Gen_isPromptFinalState = {fReader, "Gen_isPromptFinalState"};
        // TTreeReaderArray<int> Gen_isDirectPromptTauDecayProductFinalState = {fReader, "Gen_isDirectPromptTauDecayProductFinalState"};
+   TTreeReaderArray<double> Muon_gen_pt = {fReader, "Muon_gen_pt"};
+   TTreeReaderArray<double> Muon_gen_eta = {fReader, "Muon_gen_eta"};
+   TTreeReaderArray<double> Muon_gen_phi = {fReader, "Muon_gen_phi"};
+   TTreeReaderArray<double> Muon_gen_en = {fReader, "Muon_gen_en"};
+   TTreeReaderArray<int> Muon_gen_pdgId = {fReader, "Muon_gen_pdgId"};
+   TTreeReaderArray<int> Muon_gen_isPromptFinalState = {fReader, "Muon_gen_isPromptFinalState"};
+   TTreeReaderArray<int> Muon_gen_isDirectPromptTauDecayProductFinalState = {fReader, "Muon_gen_isDirectPromptTauDecayProductFinalState"};
+
+   TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
+   TTreeReaderArray<double> patElectron_gen_pt = {fReader, "patElectron_gen_pt"};
+   TTreeReaderArray<double> patElectron_gen_eta = {fReader, "patElectron_gen_eta"};
+   TTreeReaderArray<double> patElectron_gen_phi = {fReader, "patElectron_gen_phi"};
+   TTreeReaderArray<double> patElectron_gen_en = {fReader, "patElectron_gen_en"};
+   TTreeReaderArray<int> patElectron_gen_pdgId = {fReader, "patElectron_gen_pdgId"};
+   TTreeReaderArray<double> Jet_gen_pt = {fReader, "Jet_gen_pt"};
+   TTreeReaderArray<double> Jet_gen_eta = {fReader, "Jet_gen_eta"};
+   TTreeReaderArray<double> Jet_gen_phi = {fReader, "Jet_gen_phi"};
+   TTreeReaderArray<double> Jet_gen_en = {fReader, "Jet_gen_en"};
+   TTreeReaderArray<double> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
+   TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
+    */
    // };
    // TTreeReaderValue<Int_t> HiggsDecay = {fReader, "HiggsDecay"};
    TTreeReaderValue<ULong64_t> EVENT_event = {fReader, "EVENT_event"};
    TTreeReaderValue<Int_t> EVENT_run = {fReader, "EVENT_run"};
    TTreeReaderValue<Int_t> EVENT_lumiBlock = {fReader, "EVENT_lumiBlock"};
-   TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
 
    // TTreeReaderArray<double> EVENT_genWeights = {fReader, "EVENT_genWeights"};
    TTreeReaderArray<double> EVENT_psWeights = {fReader, "EVENT_psWeights"};
@@ -551,13 +573,6 @@ Int_t    Flag_eeBadScFilter_ ;
    // TTreeReaderArray<double> Muon_lepjetndaus = {fReader, "Muon_lepjetndaus"};
    // TTreeReaderArray<double> Muon_lepjetpvchi2 = {fReader, "Muon_lepjetpvchi2"};
    // TTreeReaderArray<double> Muon_lepjetnumno2trk = {fReader, "Muon_lepjetnumno2trk"};
-   TTreeReaderArray<double> Muon_gen_pt = {fReader, "Muon_gen_pt"};
-   TTreeReaderArray<double> Muon_gen_eta = {fReader, "Muon_gen_eta"};
-   TTreeReaderArray<double> Muon_gen_phi = {fReader, "Muon_gen_phi"};
-   TTreeReaderArray<double> Muon_gen_en = {fReader, "Muon_gen_en"};
-   TTreeReaderArray<int> Muon_gen_pdgId = {fReader, "Muon_gen_pdgId"};
-   TTreeReaderArray<int> Muon_gen_isPromptFinalState = {fReader, "Muon_gen_isPromptFinalState"};
-   TTreeReaderArray<int> Muon_gen_isDirectPromptTauDecayProductFinalState = {fReader, "Muon_gen_isDirectPromptTauDecayProductFinalState"};
    TTreeReaderArray<int> Muon_isMatchedToTrigger = {fReader, "Muon_isMatchedToTrigger"};
    TTreeReaderArray<double> patElectron_pt = {fReader, "patElectron_pt"};
    TTreeReaderArray<double> patElectron_eta = {fReader, "patElectron_eta"};
@@ -760,11 +775,6 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> patElectron_lepjetndaus = {fReader, "patElectron_lepjetndaus"};
    TTreeReaderArray<double> patElectron_lepjetpvchi2 = {fReader, "patElectron_lepjetpvchi2"};
    TTreeReaderArray<double> patElectron_lepjetnumno2trk = {fReader, "patElectron_lepjetnumno2trk"};
-   TTreeReaderArray<double> patElectron_gen_pt = {fReader, "patElectron_gen_pt"};
-   TTreeReaderArray<double> patElectron_gen_eta = {fReader, "patElectron_gen_eta"};
-   TTreeReaderArray<double> patElectron_gen_phi = {fReader, "patElectron_gen_phi"};
-   TTreeReaderArray<double> patElectron_gen_en = {fReader, "patElectron_gen_en"};
-   TTreeReaderArray<int> patElectron_gen_pdgId = {fReader, "patElectron_gen_pdgId"};
    // TTreeReaderArray<int> patElectron_gen_isPromptFinalState = {fReader, "patElectron_gen_isPromptFinalState"};
    // TTreeReaderArray<int> patElectron_gen_isDirectPromptTauDecayProductFinalState = {fReader, "patElectron_gen_isDirectPromptTauDecayProductFinalState"};
    TTreeReaderArray<int> patElectron_isMatchedToTrigger = {fReader, "patElectron_isMatchedToTrigger"};
@@ -1024,12 +1034,6 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_JesSF_FlavorPureCharm_down = {fReader, "Jet_JesSF_FlavorPureCharm_down"};
    TTreeReaderArray<double> Jet_JesSF_FlavorPureBottom_up = {fReader, "Jet_JesSF_FlavorPureBottom_up"};
    TTreeReaderArray<double> Jet_JesSF_FlavorPureBottom_down = {fReader, "Jet_JesSF_FlavorPureBottom_down"};
-   TTreeReaderArray<double> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
-   TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
-   TTreeReaderArray<double> Jet_gen_pt = {fReader, "Jet_gen_pt"};
-   TTreeReaderArray<double> Jet_gen_eta = {fReader, "Jet_gen_eta"};
-   TTreeReaderArray<double> Jet_gen_phi = {fReader, "Jet_gen_phi"};
-   TTreeReaderArray<double> Jet_gen_en = {fReader, "Jet_gen_en"};
    TTreeReaderValue<Double_t> PUWeight = {fReader, "PUWeight"};
    TTreeReaderValue<Double_t> MinBiasUpWeight = {fReader, "MinBiasUpWeight"};
    TTreeReaderValue<Double_t> MinBiasDownWeight = {fReader, "MinBiasDownWeight"};

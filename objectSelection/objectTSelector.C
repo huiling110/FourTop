@@ -109,12 +109,6 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "eleMVAL_index", &eleMVAL_index );
    tree->Branch( "eleMVAF_index", &eleMVAF_index );
    tree->Branch( "eleMVAT_index", &eleMVAT_index );
-   // tree->Branch( "eleMVAL_IsoT",  &eleMVAL_IsoT );
-   // tree->Branch( "eleMVAL_IsoT_index", &eleMVAL_IsoT_index );
-   // tree->Branch( "eleMVAF_IsoT", &eleMVAF_IsoT );
-   // tree->Branch( "eleMVAF_IsoT_index", &eleMVAF_IsoT_index );
-   // tree->Branch( "eleMVAT_IsoT", &eleMVAT_IsoT );
-   // tree->Branch( "eleMVAT_IsoT_index", &eleMVAT_IsoT_index );
    tree->Branch( "leptonsMVAF", &leptonsMVAF );
    tree->Branch( "leptonsMVAT", &leptonsMVAT );
    tree->Branch( "leptonsMVAL", &leptonsMVAL );
@@ -140,7 +134,6 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
    tree->Branch( "forwardJets", &forwardJets );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
-   // tree->Branch( "", & );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
@@ -252,11 +245,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    genWeight_allEvents = -99;
    //
-   if ( !isdata ){
-       h_genWeight->Fill( 0.0 , *EVENT_genWeight );
-       genWeight_allEvents = *EVENT_genWeight;
-   }
-   allEvents->Fill();
+   // if ( !isdata ){
+       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+       // genWeight_allEvents = *EVENT_genWeight;
+   // }
+   // allEvents->Fill();
 
    //MET filters
     if ( MetFilters ){
@@ -449,9 +442,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     PUWeight_ = *PUWeight;
-    if ( !isdata ){
-        EVENT_genWeight_ = *EVENT_genWeight;
-    }
+    // if ( !isdata ){
+        // EVENT_genWeight_ = *EVENT_genWeight;
+    // }
 
     //preselection
     if (preselection) {
@@ -949,6 +942,7 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
+/*
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
         if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
@@ -973,4 +967,4 @@ void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
         genMuons.push_back(genmuon);
     }
 }
-
+*/
