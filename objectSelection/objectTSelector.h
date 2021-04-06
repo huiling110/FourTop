@@ -31,12 +31,12 @@ public :
    Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
-    Bool_t HLTSelection = true;
-    // Bool_t HLTSelection = false;
+    // Bool_t HLTSelection = true;
+    Bool_t HLTSelection = false;
     // Bool_t preselection = true;
-    Bool_t preselection = false;
-    // Bool_t preselection = true;
-
+    // Bool_t preselection = false;
+    Bool_t preselection = true;
+//
 
    Long64_t   fProcessed = 0;
    Long64_t eventsPassed = 0;

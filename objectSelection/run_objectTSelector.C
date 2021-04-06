@@ -4,7 +4,8 @@ void run_objectTSelector(
                         // Bool_t istest = false,
                         // TString inputDir = "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/",
                         // TString inputDir = "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024239/0000/",
-                        TString inputDir = "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/",
+                        // TString inputDir = "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/",
+                        TString inputDir = "SingleMuon/Legacy16V2_SMuBlockBv3/210304_135358/0000/",
                         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/",
                         // TString singleFileName = "v3_1-1.root")
                         TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
@@ -15,9 +16,9 @@ void run_objectTSelector(
     if ( inputDir.Contains( "Block")) data = true;
 
     TString inputFile; TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
-    if ( data ){
-        inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
-    }
+    // if ( data ){//only for JETHT
+        // inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
+    // }
     inputFile = inputBase + inputDir;
     TChain chain("TNT/BOOM");
     chain.Add(inputFile+singleFileName);

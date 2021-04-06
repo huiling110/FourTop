@@ -8,9 +8,9 @@ import subprocess
 
 
 #all the parameters you need to change is in this part , better not change the rest of the code.
-#  isdata = True
-isdata = False
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_noPreselection/"
+isdata = True
+#  isdata = False
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v41_noHLTSelection/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
@@ -36,8 +36,18 @@ sample = {
         #  "JetHT/Legacy16V2_JetHTBlockHHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_061458/0001/": "H_1",
         #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0000/": "B_0",
         #  "JetHT/Legacy16V2_v2_JetHTBlockBHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060219/0001/": "B_1",
+        "SingleMuon/Legacy16V2_SMuBlockBv3/210304_135358/0000/" : "B_0",
+        "SingleMuon/Legacy16V2_SMuBlockBv3/210304_135358/0001/" : "B_1",
+        "SingleMuon/Legacy16V2_SMuBlockCv3/210304_135557/0000/" : "C_0",
+        "SingleMuon/Legacy16V2_SMuBlockDv3/210304_135757/0000/" : "D_0",
+        "SingleMuon/Legacy16V2_SMuBlockEv3/210304_135959/0000/" : "E_0",
+        "SingleMuon/Legacy16V2_SMuBlockFv3/210304_140206/0000/" : "F_0",
+        "SingleMuon/Legacy16V2_SMuBlockGv3/210304_140410/0000/" : "G_0",
+        "SingleMuon/Legacy16V2_SMuBlockGv3/210304_140410/0001/" : "G_0",
+        "SingleMuon/Legacy16V2_SMuBlockHv3/210304_140612/0000/" : "H_0",
+        "SingleMuon/Legacy16V2_SMuBlockHv3/210304_140612/0001/" : "H_1",
 
-   "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
+   #  "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn/Legacy16V2_TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8addGenWeight/210201_023641/0000/":"0",
   # {{{
 ##tt
     #  "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/Legacy16V2_TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8addGenWeight/210201_024446/0000/":"1_0",
