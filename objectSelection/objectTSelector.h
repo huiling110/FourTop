@@ -27,8 +27,8 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-   // Bool_t isdata = false;
-   Bool_t isdata = true;
+   Bool_t isdata = false;
+   // Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
     // Bool_t HLTSelection = true;
@@ -183,10 +183,11 @@ Int_t    Flag_eeBadScFilter_ ;
      void selectGenEles( vector<TLorentzVector> &genEles );
      void selectGenMuons( vector<TLorentzVector> &genMuons );
      void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex,const Int_t type);
+
+     void makeBranch( TTree*  tree, Bool_t isdata);
    // Readers to access the data (delete the ones you do not need).
    // if  ( !isdata ){
    // ???why if not working here?
-   /*
     // all the branches only in MC
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
@@ -226,7 +227,6 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_gen_en = {fReader, "Jet_gen_en"};
    TTreeReaderArray<double> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
    TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
-    */
    // };
    // TTreeReaderValue<Int_t> HiggsDecay = {fReader, "HiggsDecay"};
    TTreeReaderValue<ULong64_t> EVENT_event = {fReader, "EVENT_event"};
