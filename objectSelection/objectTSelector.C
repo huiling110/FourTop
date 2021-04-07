@@ -79,7 +79,7 @@ void objectTSelector::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
-   if ( option.Contains( "JetHT") ) isdata = true;
+   if ( option.Contains( "JetHT")|| option.Contains( "SingleMuon") ) isdata = true;
    cout<<"is data?: "<<isdata<<endl;
     
    // TString inName = fChain->GetName();
@@ -123,11 +123,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    genWeight_allEvents = -99;
    //
-   if ( !isdata ){
-       h_genWeight->Fill( 0.0 , *EVENT_genWeight );
-       genWeight_allEvents = *EVENT_genWeight;
-   }
-   allEvents->Fill();
+   // if ( !isdata ){
+       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+       // genWeight_allEvents = *EVENT_genWeight;
+   // }
+   // allEvents->Fill();
 
    //MET filters
     if ( MetFilters ){
@@ -154,7 +154,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     }
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
-    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;/*{{{*/
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
     HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
     HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
     HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg;
@@ -212,7 +212,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = *HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
     HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
-    HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;/*}}}*/
+    HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
 
     muonsL.clear(); muonsL_index.clear();
     muonsF.clear(); muonsF_index.clear();
@@ -320,9 +320,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     PUWeight_ = *PUWeight;
-    if ( !isdata ){
-        EVENT_genWeight_ = *EVENT_genWeight;
-    }
+    // if ( !isdata ){
+        // EVENT_genWeight_ = *EVENT_genWeight;
+    // }
 
     //preselection
     if (preselection) {
@@ -945,6 +945,7 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
+/*
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
         if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
@@ -969,3 +970,5 @@ void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
         genMuons.push_back(genmuon);
     }
 }
+*/
+

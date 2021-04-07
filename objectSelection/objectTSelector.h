@@ -189,6 +189,9 @@ Int_t    Flag_eeBadScFilter_ ;
    // if  ( !isdata ){
    // ???why if not working here?
     // all the branches only in MC
+   // Double_t *EVENT_genWeight;
+     // TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_event"};
+   /*
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
@@ -214,8 +217,11 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<int> Muon_gen_pdgId = {fReader, "Muon_gen_pdgId"};
    TTreeReaderArray<int> Muon_gen_isPromptFinalState = {fReader, "Muon_gen_isPromptFinalState"};
    TTreeReaderArray<int> Muon_gen_isDirectPromptTauDecayProductFinalState = {fReader, "Muon_gen_isDirectPromptTauDecayProductFinalState"};
-
+   
+   // Double_t EVENT_genWeight;
    TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
+
+
    TTreeReaderArray<double> patElectron_gen_pt = {fReader, "patElectron_gen_pt"};
    TTreeReaderArray<double> patElectron_gen_eta = {fReader, "patElectron_gen_eta"};
    TTreeReaderArray<double> patElectron_gen_phi = {fReader, "patElectron_gen_phi"};
@@ -228,6 +234,13 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
    TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
    // };
+   */
+   //
+   //
+   //
+   //
+   //
+   //
    // TTreeReaderValue<Int_t> HiggsDecay = {fReader, "HiggsDecay"};
    TTreeReaderValue<ULong64_t> EVENT_event = {fReader, "EVENT_event"};
    TTreeReaderValue<Int_t> EVENT_run = {fReader, "EVENT_run"};
