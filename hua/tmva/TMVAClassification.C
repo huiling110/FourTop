@@ -272,6 +272,7 @@ int TMVAClassification( TString myMethodList = "" )
         if ( branchName.Contains( "leptonsMVAT")) continue; 
         if ( branchName.Contains( "elesMVAT")) continue;
         if ( branchName.Contains( "leptonsT")) continue;
+        if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
         //not sure what is wrong with this branch. //Variable muonsT_number is constant.
         //because after the cut the branch is 0
         cout<<branchName<<endl;

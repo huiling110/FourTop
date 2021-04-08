@@ -569,62 +569,62 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    //
    //
    
-  newtree->Branch("jetsL_number", &jetsL_number, "jetsL_number/I");
-  newtree->Branch("jetsL_HT", &jetsL_HT, "jetsL_HT/D");
-  newtree->Branch("jetsL_MHT", &jetsL_MHT, "jetsL_MHT/D");
-  newtree->Branch("jetsL_invariantMass", &jetsL_invariantMass,
-                  "jetsL_invariantMass/D");
-  newtree->Branch("jetsL_transMass", &jetsL_transMass, "jetsL_transMass/D");
+  newtree->Branch("jets_number", &jets_number, "jets_number/I");
+  newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
+  newtree->Branch("jets_MHT", &jets_MHT, "jets_MHT/D");
+  newtree->Branch("jets_invariantMass", &jets_invariantMass,
+                  "jets_invariantMass/D");
+  newtree->Branch("jets_transMass", &jets_transMass, "jets_transMass/D");
   newtree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
-  newtree->Branch("jetsL_centrality", &jetsL_centrality, "jetsL_centrality/D");
-  newtree->Branch("jetsL_bScore", &jetsL_bScore, "jetsL_bScore/D");
-  newtree->Branch("jetsL_average_deltaR", &jetsL_average_deltaR, "&jetsL_average_deltaR/D");
-  newtree->Branch("jetsL_4largestBscoreSum", &jetsL_4largestBscoreSum,"jetsL_4largestBscoreSum/D");
-  newtree->Branch("jetsL_leading2invariantMass", &jetsL_leading2invariantMass,"jetsL_leading2invariantMass/D");
-  newtree->Branch("jetsL_rationHT_4toRest", &jetsL_rationHT_4toRest,"jetsL_rationHT_4toRest/D");
+  newtree->Branch("jets_centrality", &jets_centrality, "jets_centrality/D");
+  newtree->Branch("jets_bScore", &jets_bScore, "jets_bScore/D");
+  newtree->Branch("jets_average_deltaR", &jets_average_deltaR, "&jets_average_deltaR/D");
+  newtree->Branch("jets_4largestBscoreSum", &jets_4largestBscoreSum,"jets_4largestBscoreSum/D");
+  newtree->Branch("jets_leading2invariantMass", &jets_leading2invariantMass,"jets_leading2invariantMass/D");
+  newtree->Branch("jets_rationHT_4toRest", &jets_rationHT_4toRest,"jets_rationHT_4toRest/D");
 
-  newtree->Branch("jetsL_leptonsMVAT_minDeltaR", &jetsL_leptonsMVAT_minDeltaR,
-                  "jetsL_leptonsMVAT_minDeltaR/D");
-  newtree->Branch("jetsL_tausF_minDeltaR", &jetsL_tausF_minDeltaR,
-                  "jetsL_tausF_minDeltaR/D");
-  newtree->Branch("jetsL_HTDividedByMet", &jetsL_HTDividedByMet, "jetsL_HTDividedByMet/D");
+  newtree->Branch("jets_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR,
+                  "jets_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR,
+                  "jets_tausF_minDeltaR/D");
+  newtree->Branch("jets_HTDividedByMet", &jets_HTDividedByMet, "jets_HTDividedByMet/D");
   newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
-  newtree->Branch("jetsL_MHTDividedByMet", &jetsL_MHTDividedByMet, "jetsL_MHTDividedByMet/D");
-  newtree->Branch("jetsL_spherilty", &jetsL_spherilty, "jetsL_spherilty/D");
-  newtree->Branch("jetsL_aplanarity", &jetsL_aplanarity, "jetsL_aplanarity/D");
-  newtree->Branch("jetsL_1pt", &jetsL_1pt, "jetsL_1pt/D");
-  newtree->Branch("jetsL_1eta", &jetsL_1eta, "jetsL_1eta/D");
-  newtree->Branch("jetsL_1phi", &jetsL_1phi, "jetsL_1phi/D");
-  newtree->Branch("jetsL_2pt", &jetsL_2pt, "jetsL_2pt/D");
-  newtree->Branch("jetsL_2eta", &jetsL_2eta, "jetsL_2eta/D");
-  newtree->Branch("jetsL_2phi", &jetsL_2phi, "jetsL_2phi/D");
-  newtree->Branch("jetsL_3pt", &jetsL_3pt, "jetsL_3pt/D");
-  newtree->Branch("jetsL_3eta", &jetsL_3eta, "jetsL_3eta/D");
-  newtree->Branch("jetsL_3phi", &jetsL_3phi, "jetsL_3phi/D");
-  newtree->Branch("jetsL_4pt", &jetsL_4pt, "jetsL_4pt/D");
-  newtree->Branch("jetsL_4eta", &jetsL_4eta, "jetsL_4eta/D");
-  newtree->Branch("jetsL_4phi", &jetsL_4phi, "jetsL_4phi/D");
-  newtree->Branch("jetsL_5pt", &jetsL_5pt, "jetsL_5pt/D");
-  newtree->Branch("jetsL_5eta", &jetsL_5eta, "jetsL_5eta/D");
-  newtree->Branch("jetsL_5phi", &jetsL_5phi, "jetsL_5phi/D");
-  newtree->Branch("jetsL_6pt", &jetsL_6pt, "jetsL_6pt/D");
-  newtree->Branch("jetsL_6eta", &jetsL_6eta, "jetsL_6eta/D");
-  newtree->Branch("jetsL_6phi", &jetsL_6phi, "jetsL_6phi/D");
-  newtree->Branch("jetsL_7pt", &jetsL_7pt, "jetsL_7pt/D");
-  newtree->Branch("jetsL_7eta", &jetsL_7eta, "jetsL_7eta/D");
+  newtree->Branch("jets_MHTDividedByMet", &jets_MHTDividedByMet, "jets_MHTDividedByMet/D");
+  newtree->Branch("jets_spherilty", &jets_spherilty, "jets_spherilty/D");
+  newtree->Branch("jets_aplanarity", &jets_aplanarity, "jets_aplanarity/D");
+  newtree->Branch("jets_1pt", &jets_1pt, "jets_1pt/D");
+  newtree->Branch("jets_1eta", &jets_1eta, "jets_1eta/D");
+  newtree->Branch("jets_1phi", &jets_1phi, "jets_1phi/D");
+  newtree->Branch("jets_2pt", &jets_2pt, "jets_2pt/D");
+  newtree->Branch("jets_2eta", &jets_2eta, "jets_2eta/D");
+  newtree->Branch("jets_2phi", &jets_2phi, "jets_2phi/D");
+  newtree->Branch("jets_3pt", &jets_3pt, "jets_3pt/D");
+  newtree->Branch("jets_3eta", &jets_3eta, "jets_3eta/D");
+  newtree->Branch("jets_3phi", &jets_3phi, "jets_3phi/D");
+  newtree->Branch("jets_4pt", &jets_4pt, "jets_4pt/D");
+  newtree->Branch("jets_4eta", &jets_4eta, "jets_4eta/D");
+  newtree->Branch("jets_4phi", &jets_4phi, "jets_4phi/D");
+  newtree->Branch("jets_5pt", &jets_5pt, "jets_5pt/D");
+  newtree->Branch("jets_5eta", &jets_5eta, "jets_5eta/D");
+  newtree->Branch("jets_5phi", &jets_5phi, "jets_5phi/D");
+  newtree->Branch("jets_6pt", &jets_6pt, "jets_6pt/D");
+  newtree->Branch("jets_6eta", &jets_6eta, "jets_6eta/D");
+  newtree->Branch("jets_6phi", &jets_6phi, "jets_6phi/D");
+  newtree->Branch("jets_7pt", &jets_7pt, "jets_7pt/D");
+  newtree->Branch("jets_7eta", &jets_7eta, "jets_7eta/D");
   newtree->Branch("jetL_7phi", &jetL_7phi, "jetL_7phi/D");
-  newtree->Branch("jetsL_8pt", &jetsL_8pt, "jetsL_8pt/D");
-  newtree->Branch("jetsL_8eta", &jetsL_8eta, "jetsL_8eta/D");
-  newtree->Branch("jetsL_8phi", &jetsL_8phi, "jetsL_8phi/D");
-  newtree->Branch("jetsL_9pt", &jetsL_9pt, "jetsL_9pt/D");
-  newtree->Branch("jetsL_9eta", &jetsL_9eta, "jetsL_9eta/D");
-  newtree->Branch("jetsL_9phi", &jetsL_9phi, "jetsL_9phi/D");
-  newtree->Branch("jetsL_10pt", &jetsL_10pt, "jetsL_10pt/D");
-  newtree->Branch("jetsL_10eta", &jetsL_10eta, "jetsL_10eta/D");
-  newtree->Branch("jetsL_10phi", &jetsL_10phi, "jetsL_10phi/D");
-  newtree->Branch("jetsL_11pt", &jetsL_11pt, "jetsL_11pt/D");
-  newtree->Branch("jetsL_11eta", &jetsL_11eta, "jetsL_11eta/D");
-  newtree->Branch("jetsL_11phi", &jetsL_11phi, "jetsL_11phi/D");
+  newtree->Branch("jets_8pt", &jets_8pt, "jets_8pt/D");
+  newtree->Branch("jets_8eta", &jets_8eta, "jets_8eta/D");
+  newtree->Branch("jets_8phi", &jets_8phi, "jets_8phi/D");
+  newtree->Branch("jets_9pt", &jets_9pt, "jets_9pt/D");
+  newtree->Branch("jets_9eta", &jets_9eta, "jets_9eta/D");
+  newtree->Branch("jets_9phi", &jets_9phi, "jets_9phi/D");
+  newtree->Branch("jets_10pt", &jets_10pt, "jets_10pt/D");
+  newtree->Branch("jets_10eta", &jets_10eta, "jets_10eta/D");
+  newtree->Branch("jets_10phi", &jets_10phi, "jets_10phi/D");
+  newtree->Branch("jets_11pt", &jets_11pt, "jets_11pt/D");
+  newtree->Branch("jets_11eta", &jets_11eta, "jets_11eta/D");
+  newtree->Branch("jets_11phi", &jets_11phi, "jets_11phi/D");
 
   newtree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
   newtree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
@@ -808,58 +808,58 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      tauL_3phi = -99;
 
 
-      jetsL_number= -99;
-      jetsL_MHT= -99;
-      jetsL_HT= -99;
-      jetsL_invariantMass= -99;
-      jetsL_transMass= -99;
+      jets_number= -99;
+      jets_MHT= -99;
+      jets_HT= -99;
+      jets_invariantMass= -99;
+      jets_transMass= -99;
       jetL_minDeltaR= -99;
-      jetsL_centrality= -99;
-      jetsL_bScore= -99;
-      jetsL_average_deltaR= -99;
-      jetsL_4largestBscoreSum= -99;
-      jetsL_leading2invariantMass = -99;
-      jetsL_rationHT_4toRest = -99;
-      jetsL_HTDividedByMet= -99;
+      jets_centrality= -99;
+      jets_bScore= -99;
+      jets_average_deltaR= -99;
+      jets_4largestBscoreSum= -99;
+      jets_leading2invariantMass = -99;
+      jets_rationHT_4toRest = -99;
+      jets_HTDividedByMet= -99;
       MetDividedByHT= -99;
-      jetsL_MHTDividedByMet= -99;
-     jetsL_leptonsMVAT_minDeltaR= -99;
-     jetsL_tausF_minDeltaR= -99;
-     jetsL_spherilty = -99;
-     jetsL_aplanarity = -99;
-    jetsL_1pt = -99;
-     jetsL_1phi = -99;
-     jetsL_1eta = -99;
-     jetsL_2pt = -99;
-     jetsL_2eta = -99;
-     jetsL_2phi = -99;
-     jetsL_3pt = -99;
-     jetsL_3eta = -99;
-     jetsL_3phi = -99;
-     jetsL_4pt = -99;
-     jetsL_4eta = -99;
-     jetsL_4phi = -99;
-     jetsL_5pt = -99;
-     jetsL_5eta = -99;
-     jetsL_5phi = -99;
-     jetsL_6pt = -99;
-     jetsL_6eta = -99;
-     jetsL_6phi = -99;
-     jetsL_7pt = -99;
-     jetsL_7eta = -99;
+      jets_MHTDividedByMet= -99;
+     jets_leptonsMVAT_minDeltaR= -99;
+     jets_tausF_minDeltaR= -99;
+     jets_spherilty = -99;
+     jets_aplanarity = -99;
+    jets_1pt = -99;
+     jets_1phi = -99;
+     jets_1eta = -99;
+     jets_2pt = -99;
+     jets_2eta = -99;
+     jets_2phi = -99;
+     jets_3pt = -99;
+     jets_3eta = -99;
+     jets_3phi = -99;
+     jets_4pt = -99;
+     jets_4eta = -99;
+     jets_4phi = -99;
+     jets_5pt = -99;
+     jets_5eta = -99;
+     jets_5phi = -99;
+     jets_6pt = -99;
+     jets_6eta = -99;
+     jets_6phi = -99;
+     jets_7pt = -99;
+     jets_7eta = -99;
      jetL_7phi = -99;
-     jetsL_8pt = -99;
-     jetsL_8eta = -99;
-     jetsL_8phi = -99;
-     jetsL_9pt = -99;
-     jetsL_9eta = -99;
-     jetsL_9phi = -99;
-     jetsL_10pt = -99;
-     jetsL_10eta = -99;
-     jetsL_10phi = -99;
-     jetsL_11pt = -99;
-     jetsL_11eta = -99;
-     jetsL_11phi = -99;
+     jets_8pt = -99;
+     jets_8eta = -99;
+     jets_8phi = -99;
+     jets_9pt = -99;
+     jets_9eta = -99;
+     jets_9phi = -99;
+     jets_10pt = -99;
+     jets_10eta = -99;
+     jets_10phi = -99;
+     jets_11pt = -99;
+     jets_11eta = -99;
+     jets_11phi = -99;
 
      bjetsL_num = -99;
      bjetsM_num= -99;
@@ -1082,88 +1082,88 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
       //jets
-      jetsL_number = jets.GetSize();
-      jetsL_MHT =  MHTcalculator(jets); // 900;return the pt sum of,vetctor sum
-      jetsL_HT = HTcalculator(jets);
-      jetsL_invariantMass = InvariantMassCalculator(jets);
-      jetsL_transMass = TransMassCal(jets);
+      jets_number = jets.GetSize();
+      jets_MHT =  MHTcalculator(jets); // 900;return the pt sum of,vetctor sum
+      jets_HT = HTcalculator(jets);
+      jets_invariantMass = InvariantMassCalculator(jets);
+      jets_transMass = TransMassCal(jets);
       jetL_minDeltaR = MinDeltaRSingleCal(jets);
-      jetsL_centrality = jetsL_HT / jetsL_invariantMass;
-      jetsL_bScore = BScoreAllJetsCal( jets_btags );
-      jetsL_average_deltaR = AverageDeltaRCal(jets);
-      jetsL_4largestBscoreSum = bscoreSumOf4largestCal( jets_btags);
+      jets_centrality = jets_HT / jets_invariantMass;
+      jets_bScore = BScoreAllJetsCal( jets_btags );
+      jets_average_deltaR = AverageDeltaRCal(jets);
+      jets_4largestBscoreSum = bscoreSumOf4largestCal( jets_btags);
       if (Met_pt_ == 0) {
-        jetsL_HTDividedByMet = 0;
+        jets_HTDividedByMet = 0;
       } else {
-        jetsL_HTDividedByMet = jetsL_HT / Met_pt_;
+        jets_HTDividedByMet = jets_HT / Met_pt_;
       }
-      MetDividedByHT = Met_pt_ / jetsL_HT;
-      jetsL_MHTDividedByMet = jetsL_MHT / Met_pt_;
-      jetsL_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
-      jetsL_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+      MetDividedByHT = Met_pt_ / jets_HT;
+      jets_MHTDividedByMet = jets_MHT / Met_pt_;
+      jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
+      jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
 
       //
     //aplanarity and sphericity
-      SpheriltyAplanarityCal( jets, jetsL_spherilty, jetsL_aplanarity ); 
+      SpheriltyAplanarityCal( jets, jets_spherilty, jets_aplanarity ); 
 
 
 
-      if (jetsL_number > 0) {/*{{{*/
-        jetsL_1pt = jets[0].Pt();
-        jetsL_1eta = jets[0].Eta();
-        jetsL_1phi = jets[0].Phi();
+      if (jets_number > 0) {/*{{{*/
+        jets_1pt = jets[0].Pt();
+        jets_1eta = jets[0].Eta();
+        jets_1phi = jets[0].Phi();
       }
-      if (jetsL_number > 1) {
-        jetsL_2pt = jets[1].Pt();
-        jetsL_2eta = jets[1].Eta();
-        jetsL_2phi = jets[1].Phi();
-        jetsL_leading2invariantMass = (jets[0]+jets[1]).M();
+      if (jets_number > 1) {
+        jets_2pt = jets[1].Pt();
+        jets_2eta = jets[1].Eta();
+        jets_2phi = jets[1].Phi();
+        jets_leading2invariantMass = (jets[0]+jets[1]).M();
       }
-      if (jetsL_number > 2) {
-        jetsL_3pt = jets[2].Pt();
-        jetsL_3eta = jets[2].Eta();
-        jetsL_3phi = jets[2].Phi();
+      if (jets_number > 2) {
+        jets_3pt = jets[2].Pt();
+        jets_3eta = jets[2].Eta();
+        jets_3phi = jets[2].Phi();
       }
-      if (jetsL_number > 3) {
-        jetsL_4pt = jets[3].Pt();
-        jetsL_4eta = jets[3].Eta();
-        jetsL_4phi = jets[3].Phi();
+      if (jets_number > 3) {
+        jets_4pt = jets[3].Pt();
+        jets_4eta = jets[3].Eta();
+        jets_4phi = jets[3].Phi();
       }
-      if (jetsL_number > 4) {
-        jetsL_5pt = jets[4].Pt();
-        jetsL_5eta = jets[4].Eta();
-        jetsL_5phi = jets[4].Phi();
-        jetsL_rationHT_4toRest = rationHT_4toRestCal(jets);
+      if (jets_number > 4) {
+        jets_5pt = jets[4].Pt();
+        jets_5eta = jets[4].Eta();
+        jets_5phi = jets[4].Phi();
+        jets_rationHT_4toRest = rationHT_4toRestCal(jets);
       }
-      if (jetsL_number > 5) {
-        jetsL_6pt = jets[5].Pt();
-        jetsL_6eta = jets[5].Eta();
-        jetsL_6phi = jets[5].Phi();
+      if (jets_number > 5) {
+        jets_6pt = jets[5].Pt();
+        jets_6eta = jets[5].Eta();
+        jets_6phi = jets[5].Phi();
       }
-      if (jetsL_number > 6) {
-        jetsL_7pt = jets[6].Pt();
-        jetsL_7eta = jets[6].Eta();
+      if (jets_number > 6) {
+        jets_7pt = jets[6].Pt();
+        jets_7eta = jets[6].Eta();
         jetL_7phi = jets[6].Phi();
       }
-      if (jetsL_number > 7) {
-        jetsL_8pt = jets[7].Pt();
-        jetsL_8eta = jets[7].Eta();
-        jetsL_8phi = jets[7].Phi();
+      if (jets_number > 7) {
+        jets_8pt = jets[7].Pt();
+        jets_8eta = jets[7].Eta();
+        jets_8phi = jets[7].Phi();
       }
-      if (jetsL_number > 8) {
-        jetsL_9pt = jets[8].Pt();
-        jetsL_9eta = jets[8].Eta();
-        jetsL_9phi = jets[8].Phi();
+      if (jets_number > 8) {
+        jets_9pt = jets[8].Pt();
+        jets_9eta = jets[8].Eta();
+        jets_9phi = jets[8].Phi();
       }
-      if (jetsL_number > 9) {
-        jetsL_10pt = jets[9].Pt();
-        jetsL_10eta = jets[9].Eta();
-        jetsL_10phi = jets[9].Phi();
+      if (jets_number > 9) {
+        jets_10pt = jets[9].Pt();
+        jets_10eta = jets[9].Eta();
+        jets_10phi = jets[9].Phi();
       }
-      if (jetsL_number > 10) {
-        jetsL_11pt = jets[10].Pt();
-        jetsL_11eta = jets[10].Eta();
-        jetsL_11phi = jets[10].Phi();
+      if (jets_number > 10) {
+        jets_11pt = jets[10].Pt();
+        jets_11eta = jets[10].Eta();
+        jets_11phi = jets[10].Phi();
       }/*}}}*/
  
 
