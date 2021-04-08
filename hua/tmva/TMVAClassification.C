@@ -79,11 +79,12 @@ int TMVAClassification( TString myMethodList = "" )
    std::map<std::string,int> Use;
 
    // Cut optimisation
-   Use["Cuts"]            = 0;
+   // Use["Cuts"]            = 0;
+   Use["Cuts"]            = 1;
    Use["CutsD"]           = 0;
    Use["CutsPCA"]         = 0;
    Use["CutsGA"]          = 0;
-   Use["CutsSA"]          = 1;
+   // Use["CutsSA"]          = 1;
    // Use["CutsSA"]          = 0;
    //
    // 1-dimensional likelihood ("naive Bayes estimator")
@@ -104,6 +105,7 @@ int TMVAClassification( TString myMethodList = "" )
    // Linear Discriminant Analysis
    Use["LD"]              = 0; // Linear Discriminant identical to Fisher
    Use["Fisher"]          = 0;
+   // Use["Fisher"]          = 1;
    Use["FisherG"]         = 0;
    Use["BoostedFisher"]   = 0; // uses generalised MVA method boosting
    Use["HMatrix"]         = 0;
@@ -185,8 +187,8 @@ int TMVAClassification( TString myMethodList = "" )
    // std::cout << "--- TMVAClassification       : Using input file: " << input->GetName() << std::endl;
    // std::cout << "--- TMVAClassification       : Using input file: " << input_signal->GetName() << std::endl;
 
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    // Register the training and test trees
 
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
@@ -195,7 +197,7 @@ int TMVAClassification( TString myMethodList = "" )
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
        // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_v1.root";
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_variables.root";
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v11moreVaribles_v40fixedHLTBugWithPreselection/TMVA_1Tau0L_variables.root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -211,6 +213,7 @@ int TMVAClassification( TString myMethodList = "" )
    // front of the "Silent" argument in the option string
    // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
+   // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Multiclass" );
 
    TMVA::DataLoader *dataloader=new TMVA::DataLoader("dataset");
    // If you wish to modify default settings
@@ -273,6 +276,7 @@ int TMVAClassification( TString myMethodList = "" )
         if ( branchName.Contains( "elesMVAT")) continue;
         if ( branchName.Contains( "leptonsT")) continue;
         if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
+        if ( branchName.Contains( "leptonsMVAL_transMass")) continue;//???RMS=NAN
         //not sure what is wrong with this branch. //Variable muonsT_number is constant.
         //because after the cut the branch is 0
         cout<<branchName<<endl;

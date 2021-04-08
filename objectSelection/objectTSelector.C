@@ -311,9 +311,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
-    // jetsSubstructBjets( nonbjetsM, bjetsM_btags,jets_btags, jets );
-    // jetsSubstructBjets( nonbjetsT, bjetsT_btags,jets_btags, jets );
-    cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
+    jetsSubstructBjets( nonbjetsM, jets, bjetsM );
+    jetsSubstructBjets( nonbjetsT, jets, bjetsT );
+    // cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
 
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();

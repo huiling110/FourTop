@@ -1190,6 +1190,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       bjetsT_leptonsMVAT_minDeltaR = MinDeltaRCal(bjetsT, leptonsMVAT);
       bjetsL_tausF_minDeltaR = MinDeltaRCal(bjetsL, tausF);
 
+      nonbjetsL_num = nonbjetsL.GetSize();
+
       // cant use sort //because it is of type TTreeReaderArray
       if (bjetsL_num > 0) {/*{{{*/
         bjetsL_1pt = bjetsL[0].Pt();
