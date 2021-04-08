@@ -153,6 +153,8 @@ Int_t    Flag_eeBadScFilter_ ;
     vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Double_t> bjetsT_btags;
     vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Double_t> forwardJets_btags;
     vector<TLorentzVector>  nonbjetsL;
+    vector<TLorentzVector>  nonbjetsM;
+    vector<TLorentzVector>  nonbjetsT;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;

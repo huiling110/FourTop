@@ -240,6 +240,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
     nonbjetsL.clear();
+    nonbjetsM.clear();
+    nonbjetsT.clear();
     patElectron_charge_.clear();
     Tau_charge_.clear();
     Muon_charge_.clear();
@@ -297,7 +299,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL, bjetsL_btags,jets_btags, jets );
-    // cout<<nonbjetsL.size()+bjetsL.size()==jets.size();
+    jetsSubstructBjets( nonbjetsM, bjetsM_btags,jets_btags, jets );
+    jetsSubstructBjets( nonbjetsT, bjetsT_btags,jets_btags, jets );
+    cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
 
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
@@ -422,6 +426,8 @@ void objectTSelector::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
    tree->Branch( "nonbjetsL", &nonbjetsL );
+   tree->Branch( "nonbjetsM", &nonbjetsM );
+   tree->Branch( "nonbjetsT", &nonbjetsT );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );

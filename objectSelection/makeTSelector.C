@@ -6,7 +6,8 @@ void makeTSelector(){
     TChain chain("TNT/BOOM");
     chain.Add(inputFile+"v3*.root");
 
-    chain.MakeSelector("objectTSelector");
+    // chain.MakeSelector("objectTSelector");
+    chain.MakeClass("objectTSelector_Mclass");
 
 
 
