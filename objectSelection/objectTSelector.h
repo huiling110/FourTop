@@ -27,8 +27,8 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-   // Bool_t isdata = false;
-   Bool_t isdata = true;
+   Bool_t isdata = false;
+   // Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
     // Bool_t HLTSelection = true;
@@ -194,7 +194,7 @@ Int_t    Flag_eeBadScFilter_ ;
     // all the branches only in MC
    // Double_t *EVENT_genWeight;
      // TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_event"};
-   /*
+   
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
@@ -237,7 +237,7 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
    TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
    // };
-   */
+   
    //
    //
    //

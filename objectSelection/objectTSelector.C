@@ -60,13 +60,25 @@ void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Double_t> &array, ve
 }
 
 
-void jetsSubstructBjets(vector<TLorentzVector>& nonbjets, const vector<Double_t> &bjets_btags,const vector<Double_t> &jets_btags,  const vector<TLorentzVector>& jets ){
-    for( UInt_t jet =0; jet<jets_btags.size(); jet++){
-        if ( jets_btags[jet]== bjets_btags[jet]){
-            nonbjets.push_back( jets[jet]);
+// void jetsSubstructBjets(vector<TLorentzVector>& nonbjets, const vector<Double_t> &bjets_btags,const vector<Double_t> &jets_btags,  const vector<TLorentzVector>& jets ){
+void jetsSubstructBjets(vector<TLorentzVector>& nonbjets,   const vector<TLorentzVector>& jets, const vector<TLorentzVector>& bjets ){
+    // for( UInt_t jet =0; jet<jets_btags.size(); jet++){
+        // if ( jets_btags[jet]== bjets_btags[jet]){
+            // nonbjets.push_back( jets[jet]);
+        // }
+    // }
+    Bool_t findMatchingB = false;
+    for( UInt_t j=0; j<jets.size(); j++){
+        for ( UInt_t i=0; i<bjets.size(); i++){
+            if ( bjets[i] == jets[j] )  {
+                // nonbjets.push_back( jets[j]);
+                findMatchingB = true;
+                break;
+            }
         }
+        if ( !findMatchingB ) nonbjets.push_back( jets[j]);
+        findMatchingB = false;
     }
-    // return;
 }
 
 
@@ -131,11 +143,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    genWeight_allEvents = -99;
    //
-   // if ( !isdata ){
-       // h_genWeight->Fill( 0.0 , *EVENT_genWeight );
-       // genWeight_allEvents = *EVENT_genWeight;
-   // }
-   // allEvents->Fill();
+   if ( !isdata ){
+       h_genWeight->Fill( 0.0 , *EVENT_genWeight );
+       genWeight_allEvents = *EVENT_genWeight;
+   }
+   allEvents->Fill();
 
    //MET filters
     if ( MetFilters ){
@@ -298,9 +310,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
-    jetsSubstructBjets( nonbjetsL, bjetsL_btags,jets_btags, jets );
-    jetsSubstructBjets( nonbjetsM, bjetsM_btags,jets_btags, jets );
-    jetsSubstructBjets( nonbjetsT, bjetsT_btags,jets_btags, jets );
+    jetsSubstructBjets( nonbjetsL,jets, bjetsL );
+    // jetsSubstructBjets( nonbjetsM, bjetsM_btags,jets_btags, jets );
+    // jetsSubstructBjets( nonbjetsT, bjetsT_btags,jets_btags, jets );
     cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
 
     jets_total = jets_total + jets.size();
@@ -336,9 +348,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     PUWeight_ = *PUWeight;
-    // if ( !isdata ){
-        // EVENT_genWeight_ = *EVENT_genWeight;
-    // }
+    if ( !isdata ){
+        EVENT_genWeight_ = *EVENT_genWeight;
+    }
 
     //preselection
     if (preselection) {
@@ -964,7 +976,7 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
-/*
+
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
         if(!(abs(Gen_motherpdg_id.At(j))==24 && abs(Gen_pdg_id.At(j))==15)) continue;//tau:15; top:6;W:
@@ -989,5 +1001,5 @@ void objectTSelector::selectGenMuons( vector<TLorentzVector> &genMuons ){
         genMuons.push_back(genmuon);
     }
 }
-*/
+
 
