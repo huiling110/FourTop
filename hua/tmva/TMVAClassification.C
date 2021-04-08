@@ -255,16 +255,19 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddVariable( "jetsL_1pt",                "jetsL_1pt", "units", 'F' );//bjetsM_2pt
     dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
 */
-
-    // TObjArray *mycopy = TTTT.getEventTree()->GetListOfBranches()->Clone();
-    // std::vector<TString> branchNames = TTTT.getEventTree()->GetListOfBranches();
-    // mycopy->SetOwner(kFALSE);
-    // cout<<"number of variables = "<<mycopy.GetEntries();
-    // std::vector<TString> branchNames;
-    // for ( UInt_t i=0; i<mycopy.GetEntries(); i++){
-        // cout<<mycopy->At(j)->GetName();
-        // branchNames.push_back( mycopy->At(j)->GetName() );
-    // }
+    // dataloader->AddVariable( "muonsL_number",  "muonsL_number", "units", 'F');
+    // dataloader->AddVariable( "muonsF_number",  "muonsF_number", "units", 'F');
+    // dataloader->AddVariable( "muonsT_number",  "muonsT_number", "units", 'F');
+    // dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
+    // dataloader->AddVariable( "jetsL_8pt",                "jetsL_8pt", "units", 'F' );
+    // dataloader->AddVariable( "jetsL_6pt",                "jetsL_6pt", "units", 'F' );
+    // dataloader->AddVariable( "jetsL_7pt",                "jetsL_7pt", "units", 'F' );
+    // dataloader->AddVariable( "jetsL_5pt",                "jetsL_5pt", "units", 'F' );
+    // dataloader->AddVariable( "bjetsL_HT",         "bjetsL_HT"   , "units", 'F');
+    // dataloader->AddVariable( "",  "", "units", 'F');
+    // dataloader->AddVariable( "",  "", "units", 'F');
+        //
+    
     std::vector<TString> branchNames;
     TString branchName;
     Int_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
@@ -282,7 +285,7 @@ int TMVAClassification( TString myMethodList = "" )
         branchNames.push_back( branchName );
         dataloader->AddVariable( branchName, branchName, "units", 'F' );
     }
-
+    
 
 
 
