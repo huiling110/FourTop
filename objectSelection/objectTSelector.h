@@ -27,8 +27,8 @@ public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-   Bool_t isdata = false;
-   // Bool_t isdata = true;
+   // Bool_t isdata = false;
+   Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
     // Bool_t HLTSelection = true;
@@ -152,6 +152,7 @@ Int_t    Flag_eeBadScFilter_ ;
     vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Double_t> bjetsM_btags;
     vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Double_t> bjetsT_btags;
     vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Double_t> forwardJets_btags;
+    vector<TLorentzVector>  nonbjetsL;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;
     // vector<TLorentzVector> ; vector<Int_t> ;

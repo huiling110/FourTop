@@ -60,6 +60,14 @@ void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Double_t> &array, ve
 }
 
 
+void jetsSubstructBjets(vector<TLorentzVector>& nonbjets, const vector<Double_t> &bjets_btags,const vector<Double_t> &jets_btags,  const vector<TLorentzVector>& jets ){
+    for( UInt_t jet =0; jet<jets_btags.size(); jet++){
+        if ( jets_btags[jet]== bjets_btags[jet]){
+            nonbjets.push_back( jets[jet]);
+        }
+    }
+    // return;
+}
 
 
 void objectTSelector::Begin(TTree * /*tree*/)
@@ -231,6 +239,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
+    nonbjetsL.clear();
     patElectron_charge_.clear();
     Tau_charge_.clear();
     Muon_charge_.clear();
@@ -286,6 +295,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( bjetsT.begin(), bjetsT.end(), compEle);
     SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
+
+    jetsSubstructBjets( nonbjetsL, bjetsL_btags,jets_btags, jets );
+    // cout<<nonbjetsL.size()+bjetsL.size()==jets.size();
 
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
@@ -409,6 +421,7 @@ void objectTSelector::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "forwardJets", &forwardJets );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
+   tree->Branch( "nonbjetsL", &nonbjetsL );
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
