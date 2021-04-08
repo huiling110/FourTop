@@ -255,32 +255,25 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddVariable( "jetsL_1pt",                "jetsL_1pt", "units", 'F' );//bjetsM_2pt
     dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
 */
-    // dataloader->AddVariable( "muonsL_number",  "muonsL_number", "units", 'F');
-    // dataloader->AddVariable( "muonsF_number",  "muonsF_number", "units", 'F');
-    // dataloader->AddVariable( "muonsT_number",  "muonsT_number", "units", 'F');
-    // dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
-    // dataloader->AddVariable( "jetsL_8pt",                "jetsL_8pt", "units", 'F' );
-    // dataloader->AddVariable( "jetsL_6pt",                "jetsL_6pt", "units", 'F' );
-    // dataloader->AddVariable( "jetsL_7pt",                "jetsL_7pt", "units", 'F' );
-    // dataloader->AddVariable( "jetsL_5pt",                "jetsL_5pt", "units", 'F' );
-    // dataloader->AddVariable( "bjetsL_HT",         "bjetsL_HT"   , "units", 'F');
-    // dataloader->AddVariable( "",  "", "units", 'F');
-    // dataloader->AddVariable( "",  "", "units", 'F');
         //
     
     std::vector<TString> branchNames;
     TString branchName;
-    Int_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+    UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
     cout<<"number of branches: "<<nbr<<endl;
-    // for ( UInt_t i=0; i<nbr; i++){
-    for ( UInt_t i=0; i<20; i++){
-    // for ( UInt_t i=0; i<17; i++){
+    for ( UInt_t i=0; i<nbr; i++){
         branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
         if ( branchName.Contains( "Flag") )  continue;
         if ( branchName.Contains( "HLT"))    continue;
         if ( branchName.Contains( "Weight"))  continue;
-        if ( branchName.Contains( "muonsT_number")) continue; 
-        //???not sure what is wrong with this branch. //Variable muonsT_number is constant.
+        if ( branchName.Contains( "muonsT")) continue; 
+        if ( branchName.Contains( "tausT_number")) continue; 
+        if ( branchName.Contains( "tausT_minDeltaR")) continue; 
+        if ( branchName.Contains( "leptonsMVAT")) continue; 
+        if ( branchName.Contains( "elesMVAT")) continue;
+        if ( branchName.Contains( "leptonsT")) continue;
+        //not sure what is wrong with this branch. //Variable muonsT_number is constant.
+        //because after the cut the branch is 0
         cout<<branchName<<endl;
         branchNames.push_back( branchName );
         dataloader->AddVariable( branchName, branchName, "units", 'F' );
