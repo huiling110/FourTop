@@ -74,8 +74,9 @@ int TMVAClassification( TString myMethodList = "" )
    //---------------------------------------------------------------
    // Bool_t forVariables = false;
    Bool_t forVariables = true;
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
+   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/";
    // This loads the library
    
 
@@ -213,8 +214,10 @@ int TMVAClassification( TString myMethodList = "" )
    if ( istest ){
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
-       // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v10_v40_fixedHLTBugWithPreselection/TMVA_1Tau0L_v1.root";
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v11moreVaribles_v40fixedHLTBugWithPreselection/TMVA_1Tau0L_variables.root";
+       // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/TMVA_1Tau0L_variables.root";
+       // if ( forVariables)       outfileName = outDir + "TMVA_1Tau0L_variables.root";
+       if ( forVariables)       outfileName = outDir + "TMVA_1Tau0L_variables_changeAddVariable.root";
+       else outfileName = outDir + "TMVA_1Tau0L_v1.root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -238,43 +241,13 @@ int TMVAClassification( TString myMethodList = "" )
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
-   //???not sure of weightdir?
+   // (TMVA::gConfig().GetIONames()).fWeightFileDir = outDir + "1tau0lmyWeightDir";
+   //???not sure of weightdir?can not run if I added it
 
    // Define the input variables that shall be used for the MVA training
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
-   // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );
-   /*
-     dataloader->AddVariable( "jetsL_number",                "jetsL_number", "units", 'F' );
-    dataloader->AddVariable( "jetsL_transMass",         "jetsL_transMass"   , "units", 'F');
-    // dataloader->AddVariable( "jetsL_HT",         "jetsL_HT"   , "units", 'F');
-    dataloader->AddVariable( "jetsL_8pt",                "jetsL_8pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_6pt",                "jetsL_6pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_7pt",                "jetsL_7pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_5pt",                "jetsL_5pt", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_HT",         "bjetsL_HT"   , "units", 'F');
-    // dataloader->AddVariable( "bjetsL_transMass",         "bjetsL_transMass"   , "units", 'F');
-    dataloader->AddVariable( "jetsL_4pt",                "jetsL_4pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_bScore",         "jetsL_bScore"   , "units", 'F');
-    dataloader->AddVariable( "bjetsL_invariantMass",                "bjetsL_invariantMass", "units", 'F' );
-    dataloader->AddVariable( "jetsL_9pt",                "jetsL_9pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_3pt",                "jetsL_3pt", "units", 'F' );
-    // dataloader->AddVariable( "jetsL_4largestBscoreSum",                "jetsL_4largestBscoreSum", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_3pt",                "bjetsL_3pt", "units", 'F' );
-    dataloader->AddVariable( "bjetsM_HT",                "bjetsM_HT", "units", 'F' );
-    dataloader->AddVariable( "bjetsM_invariantMass",                "bjetsM_invariantMass", "units", 'F' );
-    // dataloader->AddVariable( "bjetsM_transMass",                "bjetsM_transMass", "units", 'F' );
-    dataloader->AddVariable( "bjetsM_num",                "bjetsM_num", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_num",                "bjetsL_num", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_2pt",                "bjetsL_2pt", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_4pt",                "bjetsL_4pt", "units", 'F' ); // missing jetsL_2pt
-    dataloader->AddVariable( "toptagger_transMass",                "toptagger_transMass", "units", 'F' );//Bad numerical expression
-    // dataloader->AddVariable( "toptagger_HT",                "toptagger_HT", "units", 'F' );
-    dataloader->AddVariable( "jetsL_10pt",                "jetsL_10pt", "units", 'F' );
-    dataloader->AddVariable( "bjetsL_1pt",                "bjetsL_1pt", "units", 'F' );
-    dataloader->AddVariable( "jetsL_1pt",                "jetsL_1pt", "units", 'F' );//bjetsM_2pt
-    dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
-*/
+   // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );//’F’ indicates any floating point type, i.e., float and double
         //
     if ( forVariables ){
         std::vector<TString> branchNames;
@@ -298,8 +271,14 @@ int TMVAClassification( TString myMethodList = "" )
             //because after the cut the branch is 0
             cout<<branchName<<endl;
             branchNames.push_back( branchName );
-            dataloader->AddVariable( branchName, branchName, "units", 'F' );
+            // dataloader->AddVariable( branchName, branchName, "units", 'F' );
+            // dataloader->AddVariable( branchName );
+            if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
+            else dataloader->AddVariable( branchName, 'F' );
         }
+    }
+    else{
+         dataloader->AddVariable( "jets_bscore", 'F' );
     } 
     
 
@@ -377,7 +356,7 @@ int TMVAClassification( TString myMethodList = "" )
    // Apply additional cuts on the signal and background samples (can be different)
    // TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
    // TCut mycutb = ""; // for example: TCut mycutb = "abs(var1)<0.5";
-    TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
+    TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";
 
    // Tell the dataloader how to use the training and testing events
    //
