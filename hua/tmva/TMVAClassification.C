@@ -72,7 +72,13 @@ int TMVAClassification( TString myMethodList = "" )
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    // This loads the library
+   
+
    TMVA::Tools::Instance();
 
    // Default MVA methods to be trained + tested
@@ -80,7 +86,13 @@ int TMVAClassification( TString myMethodList = "" )
 
    // Cut optimisation
    // Use["Cuts"]            = 0;
-   Use["Cuts"]            = 1;
+   if ( forVariables )  {
+       Use["Cuts"]  = 1;
+       Use["CutsSA"]  = 0;
+   }else{
+       Use["Cuts"]            = 0;
+       Use["CutsSA"]          = 1;
+   }
    Use["CutsD"]           = 0;
    Use["CutsPCA"]         = 0;
    Use["CutsGA"]          = 0;
@@ -131,10 +143,17 @@ int TMVAClassification( TString myMethodList = "" )
    Use["SVM"]             = 0;
    //
    // Boosted Decision Trees
+   if ( forVariables ) {
+        Use["BDT"]             = 0;
+        Use["BDTG"]            = 0;
+   }else{
+        Use["BDT"]             = 1;
+        Use["BDTG"]            = 1;
+   }
    // Use["BDT"]             = 1; // uses Adaptive Boost
-   Use["BDT"]             = 0; // uses Adaptive Boost
+   // Use["BDT"]             = 0; // uses Adaptive Boost
    // Use["BDTG"]            = 1; // uses Gradient Boost
-   Use["BDTG"]            = 0; // uses Gradient Boost
+   // Use["BDTG"]            = 0; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
    Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
@@ -187,8 +206,6 @@ int TMVAClassification( TString myMethodList = "" )
    // std::cout << "--- TMVAClassification       : Using input file: " << input->GetName() << std::endl;
    // std::cout << "--- TMVAClassification       : Using input file: " << input_signal->GetName() << std::endl;
 
-   Bool_t istest = false;
-   // Bool_t istest = true;
    // Register the training and test trees
 
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
@@ -213,7 +230,7 @@ int TMVAClassification( TString myMethodList = "" )
    // front of the "Silent" argument in the option string
    // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
-   // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Multiclass" );
+   // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=D:AnalysisType=Classification" );
 
    TMVA::DataLoader *dataloader=new TMVA::DataLoader("dataset");
    // If you wish to modify default settings
@@ -259,30 +276,31 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddVariable( "bjetsT_HT",                "bjetsT_HT", "units", 'F' );//bjetsT_transMass
 */
         //
-    
-    std::vector<TString> branchNames;
-    TString branchName;
-    UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
-    cout<<"number of branches: "<<nbr<<endl;
-    for ( UInt_t i=0; i<nbr; i++){
-        branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
-        if ( branchName.Contains( "Flag") )  continue;
-        if ( branchName.Contains( "HLT"))    continue;
-        if ( branchName.Contains( "Weight"))  continue;
-        if ( branchName.Contains( "muonsT")) continue; 
-        if ( branchName.Contains( "tausT_number")) continue; 
-        if ( branchName.Contains( "tausT_minDeltaR")) continue; 
-        if ( branchName.Contains( "leptonsMVAT")) continue; 
-        if ( branchName.Contains( "elesMVAT")) continue;
-        if ( branchName.Contains( "leptonsT")) continue;
-        if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
-        if ( branchName.Contains( "leptonsMVAL_transMass")) continue;//???RMS=NAN
-        //not sure what is wrong with this branch. //Variable muonsT_number is constant.
-        //because after the cut the branch is 0
-        cout<<branchName<<endl;
-        branchNames.push_back( branchName );
-        dataloader->AddVariable( branchName, branchName, "units", 'F' );
-    }
+    if ( forVariables ){
+        std::vector<TString> branchNames;
+        TString branchName;
+        UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+        cout<<"number of branches: "<<nbr<<endl;
+        for ( UInt_t i=0; i<nbr; i++){
+            branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
+            if ( branchName.Contains( "Flag") )  continue;
+            if ( branchName.Contains( "HLT"))    continue;
+            if ( branchName.Contains( "Weight"))  continue;
+            if ( branchName.Contains( "muonsT")) continue; 
+            if ( branchName.Contains( "tausT_number")) continue; 
+            if ( branchName.Contains( "tausT_minDeltaR")) continue; 
+            if ( branchName.Contains( "leptonsMVAT")) continue; 
+            if ( branchName.Contains( "elesMVAT")) continue;
+            if ( branchName.Contains( "leptonsT")) continue;
+            if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
+            if ( branchName.Contains( "leptonsMVAL_transMass")) continue;//???RMS=NAN
+            //not sure what is wrong with this branch. //Variable muonsT_number is constant.
+            //because after the cut the branch is 0
+            cout<<branchName<<endl;
+            branchNames.push_back( branchName );
+            dataloader->AddVariable( branchName, branchName, "units", 'F' );
+        }
+    } 
     
 
 
