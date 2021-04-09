@@ -1051,18 +1051,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     muonsT_number = muonsT.GetSize();
     if (muonsT_number > 0) {
         muonsT_1pt = muonsT[0].Pt();
-        muonsT_1eta = muonsT[0].Eta();
-        muonsT_1phi = muonsT[0].Phi();
+        muonsT_1eta = fabs(muonsT[0].Eta());
+        muonsT_1phi = fabs(muonsT[0].Phi());
     }
     if (muonsT_number > 1) {
         muonsT_2pt = muonsT[1].Pt();
-        muonsT_2eta = muonsT[1].Eta();
-        muonsT_2phi = muonsT[1].Phi();
+        muonsT_2eta = fabs(muonsT[1].Eta());
+        muonsT_2phi = fabs(muonsT[1].Phi());
     }
     if (muonsT_number > 2) {
         muonsT_3pt = muonsT[2].Pt();
-        muonsT_3eta = muonsT[2].Eta();
-        muonsT_3phi = muonsT[2].Phi();
+        muonsT_3eta = fabs(muonsT[2].Eta());
+        muonsT_3phi = fabs(muonsT[2].Phi());
     }
 
 
@@ -1099,20 +1099,20 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
       if (leptonsMVAT_number > 0) {
         leptonsMVAT_1pt = leptonsMVAT[0].Pt();
-        leptonsMVAT_1eta = leptonsMVAT[0].Eta();
-        leptonsMVAT_1phi = leptonsMVAT[0].Phi();
+        leptonsMVAT_1eta = fabs(leptonsMVAT[0].Eta());
+        leptonsMVAT_1phi = fabs(leptonsMVAT[0].Phi());
       
       }
       if (leptonsMVAT_number > 1) {
         leptonsMVAT_2pt = leptonsMVAT[1].Pt();
-        leptonsMVAT_2eta = leptonsMVAT[1].Eta();
-        leptonsMVAT_2phi = leptonsMVAT[1].Phi();
+        leptonsMVAT_2eta = fabs(leptonsMVAT[1].Eta());
+        leptonsMVAT_2phi = fabs(leptonsMVAT[1].Phi());
         
       }
       if (leptonsMVAT_number > 2) {
         leptonsMVAT_3pt = leptonsMVAT[2].Pt();
-        leptonsMVAT_3eta = leptonsMVAT[2].Eta();
-        leptonsMVAT_3phi = leptonsMVAT[2].Phi();
+        leptonsMVAT_3eta = fabs(leptonsMVAT[2].Eta());
+        leptonsMVAT_3phi = fabs(leptonsMVAT[2].Phi());
       }
 
 
@@ -1147,18 +1147,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       // sort(tausL.begin(), tausL.end(), comparePt);
       if (tausL_number > 0) {
         tauL_1pt = tausL[0].Pt();
-        tauL_1eta = tausL[0].Eta();
-        tauL_1phi = tausL[0].Phi();
+        tauL_1eta = fabs(tausL[0].Eta());
+        tauL_1phi = fabs(tausL[0].Phi());
       }
       if (tausL_number > 1) {
         tauL_2pt = tausL[1].Pt();
-        tauL_2eta = tausL[1].Eta();
-        tauL_2phi = tausL[1].Phi();
+        tauL_2eta = fabs(tausL[1].Eta());
+        tauL_2phi = fabs(tausL[1].Phi());
       }
       if (tausL_number > 2) {
         tauL_3pt = tausL[2].Pt();
-        tauL_3eta = tausL[2].Eta();
-        tauL_3phi = tausL[2].Phi();
+        tauL_3eta = fabs(tausL[2].Eta());
+        tauL_3phi = fabs(tausL[2].Phi());
       }
 
       //jets
@@ -1190,60 +1190,60 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
       if (jets_number > 0) {/*{{{*/
         jets_1pt = jets[0].Pt();
-        jets_1eta = jets[0].Eta();
-        jets_1phi = jets[0].Phi();
+        jets_1eta = fabs(jets[0].Eta());
+        jets_1phi = fabs(jets[0].Phi());
       }
       if (jets_number > 1) {
         jets_2pt = jets[1].Pt();
-        jets_2eta = jets[1].Eta();
-        jets_2phi = jets[1].Phi();
+        jets_2eta = fabs(jets[1].Eta());
+        jets_2phi = fabs(jets[1].Phi());
         jets_leading2invariantMass = (jets[0]+jets[1]).M();
       }
       if (jets_number > 2) {
         jets_3pt = jets[2].Pt();
-        jets_3eta = jets[2].Eta();
-        jets_3phi = jets[2].Phi();
+        jets_3eta = fabs(jets[2].Eta());
+        jets_3phi = fabs(jets[2].Phi());
       }
       if (jets_number > 3) {
         jets_4pt = jets[3].Pt();
-        jets_4eta = jets[3].Eta();
-        jets_4phi = jets[3].Phi();
+        jets_4eta = fabs(jets[3].Eta());
+        jets_4phi = fabs(jets[3].Phi());
       }
       if (jets_number > 4) {
         jets_5pt = jets[4].Pt();
-        jets_5eta = jets[4].Eta();
-        jets_5phi = jets[4].Phi();
+        jets_5eta = fabs(jets[4].Eta());
+        jets_5phi = fabs(jets[4].Phi());
         jets_rationHT_4toRest = rationHT_4toRestCal(jets);
       }
       if (jets_number > 5) {
         jets_6pt = jets[5].Pt();
-        jets_6eta = jets[5].Eta();
-        jets_6phi = jets[5].Phi();
+        jets_6eta = fabs(jets[5].Eta());
+        jets_6phi = fabs(jets[5].Phi());
       }
       if (jets_number > 6) {
         jets_7pt = jets[6].Pt();
-        jets_7eta = jets[6].Eta();
-        jetL_7phi = jets[6].Phi();
+        jets_7eta = fabs(jets[6].Eta());
+        jetL_7phi = fabs(jets[6].Phi());
       }
       if (jets_number > 7) {
         jets_8pt = jets[7].Pt();
-        jets_8eta = jets[7].Eta();
-        jets_8phi = jets[7].Phi();
+        jets_8eta = fabs(jets[7].Eta());
+        jets_8phi = fabs(jets[7].Phi());
       }
       if (jets_number > 8) {
         jets_9pt = jets[8].Pt();
-        jets_9eta = jets[8].Eta();
-        jets_9phi = jets[8].Phi();
+        jets_9eta = fabs(jets[8].Eta());
+        jets_9phi = fabs(jets[8].Phi());
       }
       if (jets_number > 9) {
         jets_10pt = jets[9].Pt();
-        jets_10eta = jets[9].Eta();
-        jets_10phi = jets[9].Phi();
+        jets_10eta = fabs(jets[9].Eta());
+        jets_10phi = fabs(jets[9].Phi());
       }
       if (jets_number > 10) {
         jets_11pt = jets[10].Pt();
-        jets_11eta = jets[10].Eta();
-        jets_11phi = jets[10].Phi();
+        jets_11eta = fabs(jets[10].Eta());
+        jets_11phi = fabs(jets[10].Phi());
       }/*}}}*/
  
 
@@ -1274,65 +1274,65 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       // cant use sort //because it is of type TTreeReaderArray
       if (bjetsL_num > 0) {/*{{{*/
         bjetsL_1pt = bjetsL[0].Pt();
-        bjetsL_1eta = bjetsL[0].Eta();
-        bjetsL_1phi = bjetsL[0].Phi();
+        bjetsL_1eta = fabs(bjetsL[0].Eta());
+        bjetsL_1phi = fabs(bjetsL[0].Phi());
       }
       if (bjetsL_num > 1) {
         bjetsL_2pt = bjetsL[1].Pt();
-        bjetsL_2eta = bjetsL[1].Eta();
-        bjetsL_2phi = bjetsL[1].Phi();
+        bjetsL_2eta = fabs(bjetsL[1].Eta());
+        bjetsL_2phi = fabs(bjetsL[1].Phi());
       }
       if (bjetsL_num > 2) {
         bjetsL_3pt = bjetsL[2].Pt();
-        bjetsL_3eta = bjetsL[2].Eta();
-        bjetsL_3phi = bjetsL[2].Phi();
+        bjetsL_3eta = fabs(bjetsL[2].Eta());
+        bjetsL_3phi = fabs(bjetsL[2].Phi());
       }
       if (bjetsL_num > 3) {
         bjetsL_4pt = bjetsL[3].Pt();
-        bjetsL_4eta = bjetsL[3].Eta();
-        bjetsL_4phi = bjetsL[3].Phi();
+        bjetsL_4eta = fabs(bjetsL[3].Eta());
+        bjetsL_4phi = fabs(bjetsL[3].Phi());
       }
 
       if (bjetsM_num > 0) {
         bjetsM_1pt = bjetsM[0].Pt();
-        bjetsM_1eta = bjetsM[0].Eta();
-        bjetsM_1phi = bjetsM[0].Phi();
+        bjetsM_1eta = fabs(bjetsM[0].Eta());
+        bjetsM_1phi = fabs(bjetsM[0].Phi());
       }
       if (bjetsM_num > 1) {
         bjetsM_2pt = bjetsM[1].Pt();
-        bjetsM_2eta = bjetsM[1].Eta();
-        bjetsM_2phi = bjetsM[1].Phi();
+        bjetsM_2eta = fabs(bjetsM[1].Eta());
+        bjetsM_2phi = fabs(bjetsM[1].Phi());
       }
       if (bjetsM_num > 2) {
         bjetsM_3pt = bjetsM[2].Pt();
-        bjetsM_3eta = bjetsM[2].Eta();
-        bjetsM_3phi = bjetsM[2].Phi();
+        bjetsM_3eta = fabs(bjetsM[2].Eta());
+        bjetsM_3phi = fabs(bjetsM[2].Phi());
       }
       if (bjetsM_num > 3) {
         bjetsM_4pt = bjetsM[3].Pt();
-        bjetsM_4eta = bjetsM[3].Eta();
-        bjetsM_4phi = bjetsM[3].Phi();
+        bjetsM_4eta = fabs(bjetsM[3].Eta());
+        bjetsM_4phi = fabs(bjetsM[3].Phi());
       }
 
       if (bjetsT_num > 0) {
         bjetsT_1pt = bjetsT[0].Pt();
-        bjetsT_1eta = bjetsT[0].Eta();
-        bjetsT_1phi = bjetsT[0].Phi();
+        bjetsT_1eta = fabs(bjetsT[0].Eta());
+        bjetsT_1phi = fabs(bjetsT[0].Phi());
       }
       if (bjetsT_num > 1) {
         bjetsT_2pt = bjetsT[1].Pt();
-        bjetsT_2eta = bjetsT[1].Eta();
-        bjetsT_2phi = bjetsT[1].Phi();
+        bjetsT_2eta = fabs(bjetsT[1].Eta());
+        bjetsT_2phi = fabs(bjetsT[1].Phi());
       }
       if (bjetsT_num > 2) {
         bjetsT_3pt = bjetsT[2].Pt();
-        bjetsT_3eta = bjetsT[2].Eta();
-        bjetsT_3phi = bjetsT[2].Phi();
+        bjetsT_3eta = fabs(bjetsT[2].Eta());
+        bjetsT_3phi = fabs(bjetsT[2].Phi());
       }
       if (bjetsT_num > 3) {
         bjetsT_4pt = bjetsT[3].Pt();
-        bjetsT_4eta = bjetsT[3].Eta();
-        bjetsT_4phi = bjetsT[3].Phi();
+        bjetsT_4eta = fabs(bjetsT[3].Eta());
+        bjetsT_4phi = fabs(bjetsT[3].Phi());
       }/*}}}*/
 
       nonbjetsL_num = nonbjetsL.GetSize();
@@ -1340,65 +1340,65 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       nonbjetsT_num = nonbjetsT.GetSize();
       if (nonbjetsL_num > 0) {/*{{{*/
         nonbjetsL_1pt = nonbjetsL[0].Pt();
-        nonbjetsL_1eta = nonbjetsL[0].Eta();
-        nonbjetsL_1phi = nonbjetsL[0].Phi();
+        nonbjetsL_1eta = fabs(nonbjetsL[0].Eta());
+        nonbjetsL_1phi = fabs(nonbjetsL[0].Phi());
       }
       if (nonbjetsL_num > 1) {
         nonbjetsL_2pt = nonbjetsL[1].Pt();
-        nonbjetsL_2eta = nonbjetsL[1].Eta();
-        nonbjetsL_2phi = nonbjetsL[1].Phi();
+        nonbjetsL_2eta = fabs(nonbjetsL[1].Eta());
+        nonbjetsL_2phi = fabs(nonbjetsL[1].Phi());
       }
       if (nonbjetsL_num > 2) {
         nonbjetsL_3pt = nonbjetsL[2].Pt();
-        nonbjetsL_3eta = nonbjetsL[2].Eta();
-        nonbjetsL_3phi = nonbjetsL[2].Phi();
+        nonbjetsL_3eta = fabs(nonbjetsL[2].Eta());
+        nonbjetsL_3phi = fabs(nonbjetsL[2].Phi());
       }
       if (nonbjetsL_num > 3) {
         nonbjetsL_4pt = nonbjetsL[3].Pt();
-        nonbjetsL_4eta = nonbjetsL[3].Eta();
-        nonbjetsL_4phi = nonbjetsL[3].Phi();
+        nonbjetsL_4eta = fabs(nonbjetsL[3].Eta());
+        nonbjetsL_4phi = fabs(nonbjetsL[3].Phi());
       }
 
       if (nonbjetsM_num > 0) {
         nonbjetsM_1pt = nonbjetsM[0].Pt();
-        nonbjetsM_1eta = nonbjetsM[0].Eta();
-        nonbjetsM_1phi = nonbjetsM[0].Phi();
+        nonbjetsM_1eta = fabs(nonbjetsM[0].Eta());
+        nonbjetsM_1phi = fabs(nonbjetsM[0].Phi());
       }
       if (nonbjetsM_num > 1) {
         nonbjetsM_2pt = nonbjetsM[1].Pt();
-        nonbjetsM_2eta = nonbjetsM[1].Eta();
-        nonbjetsM_2phi = nonbjetsM[1].Phi();
+        nonbjetsM_2eta = fabs(nonbjetsM[1].Eta());
+        nonbjetsM_2phi = fabs(nonbjetsM[1].Phi());
       }
       if (nonbjetsM_num > 2) {
         nonbjetsM_3pt = nonbjetsM[2].Pt();
-        nonbjetsM_3eta = nonbjetsM[2].Eta();
-        nonbjetsM_3phi = nonbjetsM[2].Phi();
+        nonbjetsM_3eta = fabs(nonbjetsM[2].Eta());
+        nonbjetsM_3phi = fabs(nonbjetsM[2].Phi());
       }
       if (nonbjetsM_num > 3) {
         nonbjetsM_4pt = nonbjetsM[3].Pt();
-        nonbjetsM_4eta = nonbjetsM[3].Eta();
-        nonbjetsM_4phi = nonbjetsM[3].Phi();
+        nonbjetsM_4eta = fabs(nonbjetsM[3].Eta());
+        nonbjetsM_4phi = fabs(nonbjetsM[3].Phi());
       }
 
       if (nonbjetsT_num > 0) {
         nonbjetsT_1pt = nonbjetsT[0].Pt();
-        nonbjetsT_1eta = nonbjetsT[0].Eta();
-        nonbjetsT_1phi = nonbjetsT[0].Phi();
+        nonbjetsT_1eta = fabs(nonbjetsT[0].Eta());
+        nonbjetsT_1phi = fabs(nonbjetsT[0].Phi());
       }
       if (nonbjetsT_num > 1) {
         nonbjetsT_2pt = nonbjetsT[1].Pt();
-        nonbjetsT_2eta = nonbjetsT[1].Eta();
-        nonbjetsT_2phi = nonbjetsT[1].Phi();
+        nonbjetsT_2eta = fabs(nonbjetsT[1].Eta());
+        nonbjetsT_2phi = fabs(nonbjetsT[1].Phi());
       }
       if (nonbjetsT_num > 2) {
         nonbjetsT_3pt = nonbjetsT[2].Pt();
-        nonbjetsT_3eta = nonbjetsT[2].Eta();
-        nonbjetsT_3phi = nonbjetsT[2].Phi();
+        nonbjetsT_3eta = fabs(nonbjetsT[2].Eta());
+        nonbjetsT_3phi = fabs(nonbjetsT[2].Phi());
       }
       if (nonbjetsT_num > 3) {
         nonbjetsT_4pt = nonbjetsT[3].Pt();
-        nonbjetsT_4eta = nonbjetsT[3].Eta();
-        nonbjetsT_4phi = nonbjetsT[3].Phi();
+        nonbjetsT_4eta = fabs(nonbjetsT[3].Eta());
+        nonbjetsT_4phi = fabs(nonbjetsT[3].Phi());
       }/*}}}*/
 
       forwardJets_num = forwardJets.GetSize();
@@ -1413,19 +1413,19 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
       if (toptagger_num > 0) {
         toptagger_1pt = tops_toptagger[0].Pt();
-        toptagger_1eta = tops_toptagger[0].Eta();
-        toptagger_1phi = tops_toptagger[0].Phi();
+        toptagger_1eta = fabs(tops_toptagger[0].Eta());
+        toptagger_1phi = fabs(tops_toptagger[0].Phi());
       }
       if (toptagger_num > 1) {
         toptagger_2pt = tops_toptagger[1].Pt();
-        toptagger_2eta = tops_toptagger[1].Eta();
-        toptagger_2phi = tops_toptagger[1].Phi();
+        toptagger_2eta = fabs(tops_toptagger[1].Eta());
+        toptagger_2phi = fabs(tops_toptagger[1].Phi());
         vector<Double_t> MinMaxDeltaRTops;
       }
       if (toptagger_num > 2) {
         toptagger_3pt = tops_toptagger[2].Pt();
-        toptagger_3eta = tops_toptagger[2].Eta();
-        toptagger_3phi = tops_toptagger[2].Phi();
+        toptagger_3eta = fabs(tops_toptagger[2].Eta());
+        toptagger_3phi = fabs(tops_toptagger[2].Phi());
       }
 
     newtree->Fill();
