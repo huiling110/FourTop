@@ -72,11 +72,11 @@ int TMVAClassification( TString myMethodList = "" )
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t forVariables = false;
-   // Bool_t forVariables = true;
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
-   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/";
+   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
    // This loads the library
    
 
@@ -215,9 +215,8 @@ int TMVAClassification( TString myMethodList = "" )
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
        // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/TMVA_1Tau0L_variables.root";
-       // if ( forVariables)       outfileName = outDir + "TMVA_1Tau0L_variables.root";
-       if ( forVariables)       outfileName = outDir + "TMVA_1Tau0L_variables_changeAddVariable.root";
-       else outfileName = outDir + "1Tau0L_v1_40inputs.root";
+       if ( forVariables)       outfileName = outDir + "1Tau0L_variables.root";
+       else outfileName = outDir + "1Tau0L_v1_20inputs.root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -271,8 +270,6 @@ int TMVAClassification( TString myMethodList = "" )
             //because after the cut the branch is 0
             cout<<branchName<<endl;
             branchNames.push_back( branchName );
-            // dataloader->AddVariable( branchName, branchName, "units", 'F' );
-            // dataloader->AddVariable( branchName );
             if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
             else dataloader->AddVariable( branchName, 'F' );
         }
@@ -321,7 +318,6 @@ int TMVAClassification( TString myMethodList = "" )
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
    // input variables, the response values of all trained MVAs, and the spectator variables
-
    // dataloader->AddSpectator( "spec1 := var1*2",  "Spectator 1", "units", 'F' );
    // dataloader->AddSpectator( "spec2 := var1*3",  "Spectator 2", "units", 'F' );
 
@@ -653,7 +649,7 @@ int TMVAClassification( TString myMethodList = "" )
 
    // Save the output
    outputFile->Close();
-
+   std::cout<<"input dir: "<<baseDir<<endl;
    std::cout << "==> Wrote root file: " << outputFile->GetName() << std::endl;
    std::cout << "==> TMVAClassification is done!" << std::endl;
 

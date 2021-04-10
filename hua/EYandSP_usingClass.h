@@ -4,7 +4,7 @@
 #include "TH1D.h"
 
 
-TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v12nonbjetsVariables_v42_addNonBjets/";
+TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v13etaPhiAbs_v42_addNonBjets/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
 // Int_t SigSF = 1;
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
@@ -52,13 +52,13 @@ class Process
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
-Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 90.6 };
-Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367. );
-Process TTToSemiLeptonic(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 367.);
+Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 88.29 };//90.6->
+Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 377.96 );//367.
+Process TTToSemiLeptonic(baseDir+"TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 365.34);//367.
 
-Process TTGJets(baseDir+"TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root", 3.773 );//TTGJets
-Process ttZJets(baseDir+"ttZJets_13TeV_madgraphMLM-pythia8.root", 0.6559);//???something with the files
-Process ttWJets(baseDir+"ttWJets_13TeV_madgraphMLM.root", 0.2014 );
+Process TTGJets(baseDir+"TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8.root", 4.62 );//3.773
+Process ttZJets(baseDir+"ttZJets_13TeV_madgraphMLM-pythia8.root",  0.783);//0.6559
+Process ttWJets(baseDir+"ttWJets_13TeV_madgraphMLM.root", 0.611 );//0.2014 changed to 611
 Process ttH(baseDir+"ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8.root", 0.3372 );//ttH
 //VV
 Process WZ(baseDir+"WZ_TuneCUETP8M1_13TeV-pythia8.root", 2.343 );
@@ -81,8 +81,8 @@ Process DYJetsToTauTau(baseDir+"DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M
 //Single Top
 Process tZq_ll(baseDir+"tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8.root", 0.07358 );
 Process tZq_nunu(baseDir+"tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root", 0.1379 );//pb
-Process ST_tW_antitop(baseDir+"ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 38.06 );
-Process ST_tW_top(baseDir+"ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 38.09 );
+Process ST_tW_antitop(baseDir+"ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 35.85 );//38.06
+Process ST_tW_top(baseDir+"ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4.root", 35.85 );//38.09
 //TX
 Process TGJets(baseDir+"TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8.root", 2.967 );
 Process THW(baseDir+"THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8.root", 0.1467 );
@@ -91,13 +91,13 @@ Process THQ(baseDir+"THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1.root",
 //QCD
 //50-100  //2.466e+08 +- 2.190e+05 pb
 //100to200  //2.801e+07 +- 2.608e+04 pb
-Process QCD_HT200to300(baseDir+"QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root", 1.710e+6 ); // 1.710e+06 +- 1.626e+03 pb
-Process QCD_HT300to500(baseDir+"QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  3.473e+05); // 3.473e+05 +- 3.327e+02 pb
-Process QCD_HT500to700(baseDir+"QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  3.220e+04); // 3.220e+04 +- 3.100e+01 pb
-Process QCD_HT700to1000(baseDir+"QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  6.839e+03);  // 6.839e+03 +- 6.602e+00 pb
+Process QCD_HT200to300(baseDir+"QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root", 1.721e+6 ); // 1.710e+06 +- 1.626e+03 pb
+Process QCD_HT300to500(baseDir+"QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  3.479e+05); // 3.473e+05 +- 3.327e+02 pb
+Process QCD_HT500to700(baseDir+"QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  3.206e+04); // 3.220e+04 +- 3.100e+01 pb
+Process QCD_HT700to1000(baseDir+"QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  6.827e+03);  // 6.839e+03 +- 6.602e+00 pb
 Process QCD_HT1000to1500(baseDir+"QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  1.207e+03); // 1.207e+03 +- 1.167e+00 pb
-Process QCD_HT1500to2000(baseDir+"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  1.201e+02); // 1.201e+02 +- 1.160e-01 pb
-Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  2.524e+01 ); // 2.524e+01 +- 2.436e-02 pb
+Process QCD_HT1500to2000(baseDir+"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  1.20e+02); // 1.201e+02 +- 1.160e-01 pb
+Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root",  2.525e+01 ); // 2.524e+01 +- 2.436e-02 pb
 //H
 // Process VHToNonbb(baseDir+"VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8.root", 2.137 );
 // Process ZHToTauTau(baseDir+"ZHToTauTau_M125_13TeV_powheg_pythia8.root", 0.7524 );
