@@ -24,8 +24,8 @@ void EYandSP_usingClass(){
     // Bool_t ifSP = true;
     Bool_t ifDraw = false;
     // Bool_t ifDraw = true;
-    Bool_t ifEY = false;
-    // TString outputFile = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/results/EYresults.root";
+    // Bool_t ifEY = false;
+    Bool_t ifEY = true;
 
   using namespace std; 
 
@@ -65,30 +65,30 @@ const TCut ES2tau1m_step2 = "tausT_number==2 && muonsT_number==0 ";
 const TCut ES2tau2os_step2 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  ";
 const TCut ES2tau2ss_step2 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 ";
 //step3
-const TCut ES1tau0l_step3 = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 ";
-const TCut ES1tau1e_step3 = "tausT_number==1 && elesMVAT_number==1 &&  jetsL_number>=6 ";
-const TCut ES1tau1m_step3 = "tausT_number==1 && muonsT_number==1 &&  jetsL_number>=6 ";
-const TCut ES1tau2os_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jetsL_number>=4 ";
-const TCut ES1tau2ss_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=4 ";
-const TCut ES1tau3l_step3 = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 ";
-const TCut ES2tau0l_step3 = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 ";
-const TCut ES2tau1e_step3 = "tausT_number==2 && elesMVAT_number==1 &&  jetsL_number>=4 ";
-const TCut ES2tau1m_step3 = "tausT_number==2 && muonsT_number==0 &&  jetsL_number>=4 ";
-const TCut ES2tau2os_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 ";
-const TCut ES2tau2ss_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 ";
+const TCut ES1tau0l_step3 = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 ";
+const TCut ES1tau1e_step3 = "tausT_number==1 && elesMVAT_number==1 &&  jets_number>=6 ";
+const TCut ES1tau1m_step3 = "tausT_number==1 && muonsT_number==1 &&  jets_number>=6 ";
+const TCut ES1tau2os_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 ";
+const TCut ES1tau2ss_step3 = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=4 ";
+const TCut ES1tau3l_step3 = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 ";
+const TCut ES2tau0l_step3 = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=6 ";
+const TCut ES2tau1e_step3 = "tausT_number==2 && elesMVAT_number==1 &&  jets_number>=4 ";
+const TCut ES2tau1m_step3 = "tausT_number==2 && muonsT_number==0 &&  jets_number>=4 ";
+const TCut ES2tau2os_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 ";
+const TCut ES2tau2ss_step3 = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 ";
 //step4
       //
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jetsL_number>=8 && bjetsM_num>=2";
-const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jetsL_number>=2 && bjetsM_num>=2";
-const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jetsL_number>=6 && bjetsM_num>=2";
-const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jetsL_number>=4 && bjetsM_num>=2";
-const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jetsL_number>=2 && bjetsM_num>=2";
-const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jetsL_number>=2 && bjetsM_num>=2";
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";
+const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2";
+const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2";
+const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2";
+const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=4 && bjetsM_num>=2";
+const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2";
+const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=6 && bjetsM_num>=2";
+const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2";
+const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=4 && bjetsM_num>=2";
+const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2";
+const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
@@ -116,8 +116,6 @@ TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHT
 TH1D* background_SR;
 vector<TH1D*> allHistos;
 
-// TFile* resultsFile = new TFile( outputFile, "RECREATE");
-// TH1D* TTTT_results ;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
@@ -125,8 +123,7 @@ for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
-    // for(UInt_t i=0; i<1; i++){
-    for(UInt_t i=0; i<10; i++){
+    for(UInt_t i=0; i<1; i++){
     // for(UInt_t i=0; i<variablelist.size(); i++){
           // const char *plot = variablelist[i];
   	    TString plot = variablelist[i];
@@ -153,11 +150,6 @@ for (UInt_t  cha=0; cha<1; cha++){
             QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
             // VHToNonbb_h, [>ZHToTauTau_h,*/ ZH_HToBB_ZToLL_h,/* GluGluHToZZTo4L_h,*/ /*GluGluHToBB.*/ GluGluHToGG_h, GluGluHToMuMu_h, GluGluHToTauTau_h, GluGluHToWWTo2L2Nu_h, GluGluHToWWToLNuQQ_h,/* VBFHToWWTo2L2Nu_h, VBFHToTauTau_h,<] VBFHToMuMu_h, VBFHToGG_h,
         };
-        // TTTT_results = new TH1D( "TTTT_EY", plot, 4, 0, 4);
-        // allResults.clear();
-        // allResults = {
-            // TTTT_results,
-        // };
 
         // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
         background_SR = new TH1D("BG"+plot, "BG",bin[i],Min[i],Max[i]);
@@ -172,7 +164,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         // for(UInt_t j = 0; j < 4; j++){
             hname = allHistos[j]->GetName();
             
-            // allProcesses[j].getEventTree()->Project( hname, plot, weight);
+            // allProcesses[j].getEventTree()->Project hname, plot, weight);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*MetFilters);
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(MetFilters+trigger));
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut_step1[cha]+MetFilters+trigger));
@@ -181,24 +173,43 @@ for (UInt_t  cha=0; cha<1; cha++){
             // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
             allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]));
             // allHistos[j]->Print();
-            if ( i==0 ){
+            // if ( i==0 ){
                 // cout<<allHistos[j]->GetName()<<":"<<endl;
                 // cout<<allHistos[j]->GetName()<<":"<<"  ";
                 // cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
                 // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
-            }
+            // }
             sumGenWeights = allProcesses[j].getGenWeightSum();
             scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
-            allHistos[j]->Scale(scale);
+            // allHistos[j]->Scale(scale);
             if ( i ==0){
                 // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
                 // cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
                 // cout<<"\n";
             }
-            if(j > 0) background_SR->Add((allHistos[j]),1);
-//            background_SR->Print();
+            // if(j > 0) background_SR->Add((allHistos[j]),1);
+            if(j > 0) background_SR->Add((allHistos[j]),scale);
         }
+
         if ( i ==0 && ifEY ){
+            cout<<"Raw entries:"<<endl;
+            cout<<"TTTT         = "<<TTTT_h->GetEntries()  <<endl;
+            cout<<"TT           = "<<TTTo2L2Nu_h->GetEntries()+TTToHadronic_h->GetEntries()+TTToSemiLeptonic_h->GetEntries()<<endl;
+            cout<<"TTX          = "<<TTGJets_h->GetEntries()+ ttZJets_h->GetEntries()+ ttWJets_h->GetEntries()<<endl;
+            cout<<"single top   = "<<tZq_ll_h->GetEntries()+ tZq_nunu_h->GetEntries()+ ST_tW_antitop_h->GetEntries()+ ST_tW_top_h->GetEntries()<<endl;
+            cout<<"TX           = "<<TGJets_h->GetEntries()+ THW_h->GetEntries()+ THQ_h->GetEntries()<<endl;
+            cout<<"DYJets       = "<<DYJetsToTauTau_h->GetEntries()<<endl;
+            cout<<"VV           = "<<WZ_h->GetEntries()+ WW_h->GetEntries()+ ZZ_h->GetEntries()+ WGJets_h->GetEntries()+ ZGJetsToLLG_h->GetEntries()<<endl;
+            cout<<"VVV          = "<<WWW_h->GetEntries()+ WWZ_h->GetEntries()+ WWG_h->GetEntries()+ ZZZ_h->GetEntries()+ WZZ_h->GetEntries()+ WZG_h->GetEntries()+ WGG_h->GetEntries()+ ZGGJets_h->GetEntries()<<endl;
+            cout<<"QCD          = "<<QCD_HT200to300_h->GetEntries()+ QCD_HT300to500_h->GetEntries()+ QCD_HT500to700_h->GetEntries()+ QCD_HT700to1000_h->GetEntries()+ QCD_HT1000to1500_h->GetEntries()+ QCD_HT1500to2000_h->GetEntries()+ QCD_HT2000toInf_h->GetEntries()<<endl;
+
+            cout<<"Total BKG    = "<<background_SR->GetEntries()<<endl;
+            cout<<"\n";
+        }
+
+        if ( i ==0 && ifEY ){
+            //does Integral include weight?//I think they do
+            cout<<"Weighted:"<<endl;
             cout<<"TTTT         = "<<TTTT_h->Integral()<<endl;
             cout<<"TT           = "<<TTTo2L2Nu_h->Integral()+TTToHadronic_h->Integral()+TTToSemiLeptonic_h->Integral()<<endl;
             cout<<"TTX          = "<<TTGJets_h->Integral()+ ttZJets_h->Integral()+ ttWJets_h->Integral()<<endl;
@@ -211,9 +222,24 @@ for (UInt_t  cha=0; cha<1; cha++){
 
             cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
             cout<<"\n";
-            // cout<<"outputFile here: "<<resultsFile->GetName()<<endl;
         }
 
+        if ( i ==0 && ifEY ){
+            cout<<"Event yield:"<<endl;
+            // cout<<"TTTT         = "<<TTTT_h->Integral()*LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() <<endl;
+            cout<<"TTTT         = "<<TTTT_h->Integral()*LUMI* TTTT.getScale()<<endl;
+            cout<<"TT           = "<<TTTo2L2Nu_h->Integral()+TTToHadronic_h->Integral()+TTToSemiLeptonic_h->Integral()<<endl;
+            cout<<"TTX          = "<<TTGJets_h->Integral()+ ttZJets_h->Integral()+ ttWJets_h->Integral()<<endl;
+            cout<<"single top   = "<<tZq_ll_h->Integral()+ tZq_nunu_h->Integral()+ ST_tW_antitop_h->Integral()+ ST_tW_top_h->Integral()<<endl;
+            cout<<"TX           = "<<TGJets_h->Integral()+ THW_h->Integral()+ THQ_h->Integral()<<endl;
+            cout<<"DYJets       = "<<DYJetsToTauTau_h->Integral()<<endl;
+            cout<<"VV           = "<<WZ_h->Integral()+ WW_h->Integral()+ ZZ_h->Integral()+ WGJets_h->Integral()+ ZGJetsToLLG_h->Integral()<<endl;
+            cout<<"VVV          = "<<WWW_h->Integral()+ WWZ_h->Integral()+ WWG_h->Integral()+ ZZZ_h->Integral()+ WZZ_h->Integral()+ WZG_h->Integral()+ WGG_h->Integral()+ ZGGJets_h->Integral()<<endl;
+            cout<<"QCD          = "<<QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
+
+            cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+            cout<<"\n";
+        }
         //
         
 

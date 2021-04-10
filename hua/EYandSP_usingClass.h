@@ -49,6 +49,9 @@ class Process
             return sum;
            // return h_genWeight->GetMean() * h_genWeight->GetEntries();
         }
+        Double_t getScale(){
+            return m_sigma/getGenWeightSum();
+        }
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
