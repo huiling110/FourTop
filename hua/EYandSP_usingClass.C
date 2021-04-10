@@ -228,14 +228,14 @@ for (UInt_t  cha=0; cha<1; cha++){
             cout<<"Event yield:"<<endl;
             // cout<<"TTTT         = "<<TTTT_h->Integral()*LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() <<endl;
             cout<<"TTTT         = "<<TTTT_h->Integral()*LUMI* TTTT.getScale()<<endl;
-            cout<<"TT           = "<<TTTo2L2Nu_h->Integral()+TTToHadronic_h->Integral()+TTToSemiLeptonic_h->Integral()<<endl;
-            cout<<"TTX          = "<<TTGJets_h->Integral()+ ttZJets_h->Integral()+ ttWJets_h->Integral()<<endl;
-            cout<<"single top   = "<<tZq_ll_h->Integral()+ tZq_nunu_h->Integral()+ ST_tW_antitop_h->Integral()+ ST_tW_top_h->Integral()<<endl;
-            cout<<"TX           = "<<TGJets_h->Integral()+ THW_h->Integral()+ THQ_h->Integral()<<endl;
-            cout<<"DYJets       = "<<DYJetsToTauTau_h->Integral()<<endl;
-            cout<<"VV           = "<<WZ_h->Integral()+ WW_h->Integral()+ ZZ_h->Integral()+ WGJets_h->Integral()+ ZGJetsToLLG_h->Integral()<<endl;
-            cout<<"VVV          = "<<WWW_h->Integral()+ WWZ_h->Integral()+ WWG_h->Integral()+ ZZZ_h->Integral()+ WZZ_h->Integral()+ WZG_h->Integral()+ WGG_h->Integral()+ ZGGJets_h->Integral()<<endl;
-            cout<<"QCD          = "<<QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
+            cout<<"TT           = "<<TTTo2L2Nu_h->Integral()*LUMI*TTTo2L2Nu.getScale()+ TTToHadronic_h->Integral()*LUMI*TTToHadronic.getScale()+ TTToSemiLeptonic_h->Integral()*LUMI*TTToSemiLeptonic.getScale()<<endl;
+            cout<<"TTX          = "<<TTGJets_h->Integral()*LUMI*TTGJets.getScale()+ ttZJets_h->Integral()*LUMI*ttZJets.getScale()+ ttWJets_h->Integral()*LUMI*ttWJets.getScale()<<endl;
+            cout<<"single top   = "<<tZq_ll_h->Integral()*LUMI*tZq_ll.getScale()+ tZq_nunu_h->Integral()*LUMI*tZq_nunu.getScale()+ ST_tW_antitop_h->Integral()*LUMI*ST_tW_antitop.getScale()+ ST_tW_top_h->Integral()*LUMI*ST_tW_top.getScale()<<endl;
+            cout<<"TX           = "<<TGJets_h->Integral()*LUMI*TGJets.getScale()+ THW_h->Integral()*LUMI*THW.getScale()+ THQ_h->Integral()*LUMI*THQ.getScale()<<endl;
+            cout<<"DYJets       = "<<DYJetsToTauTau_h->Integral()*LUMI*DYJetsToTauTau.getScale()<<endl;
+            cout<<"VV           = "<<WZ_h->Integral()*LUMI*WZ.getScale()+ WW_h->Integral()*LUMI*WW.getScale()+ ZZ_h->Integral()*LUMI*ZZ.getScale()+ WGJets_h->Integral()*LUMI*WGJets.getScale()+ ZGJetsToLLG_h->Integral()*LUMI*ZGJetsToLLG.getScale()<<endl;
+            cout<<"VVV          = "<<WWW_h->Integral()*LUMI*WWW.getScale()+ WWZ_h->Integral()*LUMI*WWZ.getScale()+ WWG_h->Integral()*LUMI*WWG.getScale()+ ZZZ_h->Integral()*LUMI*ZZZ.getScale()+ WZZ_h->Integral()*LUMI*WZZ.getScale()+ WZG_h->Integral()*LUMI*WZG.getScale()+ WGG_h->Integral()*LUMI*WGG.getScale()+ ZGGJets_h->Integral()*LUMI*ZGGJets.getScale()<<endl;
+            cout<<"QCD          = "<<QCD_HT200to300_h->Integral()*LUMI*QCD_HT200to300.getScale()+ QCD_HT300to500_h->Integral()*LUMI*QCD_HT300to500.getScale()+ QCD_HT500to700_h->Integral()*LUMI*QCD_HT500to700.getScale()+ QCD_HT700to1000_h->Integral()*LUMI*QCD_HT700to1000.getScale()+ QCD_HT1000to1500_h->Integral()*LUMI*QCD_HT1000to1500.getScale()+ QCD_HT1500to2000_h->Integral()*LUMI*QCD_HT1500to2000.getScale()+ QCD_HT2000toInf_h->Integral()*LUMI*QCD_HT2000toInf.getScale()<<endl;
 
             cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
             cout<<"\n";
