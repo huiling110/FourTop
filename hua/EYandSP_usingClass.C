@@ -93,6 +93,7 @@ const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
+vector<TCut>   channelCutCombined = { ES1tau1e ||ES1tau1m, }
 vector<TCut>   channelCut_step1   = { ES1tau0l_step1, ES1tau1e_step1,  ES1tau1m_step1, ES1tau2os_step1, ES1tau2ss_step1, ES1tau3l_step1, ES2tau0l_step1, ES2tau1e_step1, ES2tau1m_step1, ES2tau2os_step1, ES2tau2ss_step1};
 vector<TCut>   channelCut_step2   = { ES1tau0l_step2, ES1tau1e_step2,  ES1tau1m_step2, ES1tau2os_step2, ES1tau2ss_step2, ES1tau3l_step2, ES2tau0l_step2, ES2tau1e_step2, ES2tau1m_step2, ES2tau2os_step2, ES2tau2ss_step2 };
 vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_step3, ES1tau2os_step3, ES1tau2ss_step3, ES1tau3l_step3, ES2tau0l_step3, ES2tau1e_step3, ES2tau1m_step3, ES2tau2os_step3, ES2tau2ss_step3 };
@@ -117,8 +118,8 @@ TH1D* background_SR;
 vector<TH1D*> allHistos;
 
 
-// for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=0; cha<1; cha++){
+for (UInt_t  cha=0; cha<channelName.size(); cha++){
+// for (UInt_t  cha=0; cha<1; cha++){
     TString postfix = channelName[cha] + ".png";
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;

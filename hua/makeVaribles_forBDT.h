@@ -51,7 +51,6 @@ public :
    
    
    
-   
     Double_t   EVENT_prefireWeight;
     Double_t   EVENT_genWeight;
     Double_t   PUWeight;
@@ -440,7 +439,7 @@ TTreeReaderValue<Int_t>     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_  = {fReader
    virtual TList  *GetOutputList() const { return fOutput; }
    virtual void    SlaveTerminate();
    virtual void    Terminate();
-
+    void InitializeBranches();
    ClassDef(makeVaribles_forBDT,0);
 
 };

@@ -773,6 +773,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     fProcessed++;
 
     //initialize
+    InitializeBranches();
+    /*
      EVENT_prefireWeight  = -99;
      EVENT_genWeight = -99;
      PUWeight = -99;
@@ -1019,8 +1021,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      toptagger_3phi = -99;
      toptagger_scoreAllTops=-99;
      toptagger_leptonsMVAT_minDeltaR=-99;
-
-      // = -99;}}}
+*/
 
     if ( wantFilterHLTBranches ){
         Flag_goodVertices = *Flag_goodVertices_;
@@ -1453,3 +1454,256 @@ void makeVaribles_forBDT::Terminate()
    Info("Terminate", "output file here: %s", outputfile->GetName());
 
 }
+
+void makeVaribles_forBDT::InitializeBranches()
+{
+    EVENT_prefireWeight  = -99;
+    EVENT_genWeight = -99;
+    PUWeight = -99;
+
+    Met_pt_ = -99;
+    Met_phi_ = -99;
+    muonsL_number=-99;
+    muonsF_number=-99;
+   muonsT_number=-99;
+     muonsT_1pt = -99;
+     muonsT_1eta = -99;
+     muonsT_1phi = -99;
+     muonsT_2pt = -99;
+     muonsT_2eta = -99;
+     muonsT_2phi = -99;
+     muonsT_3pt = -99;
+     muonsT_3eta = -99;
+     muonsT_3phi = -99;
+     elesMVAL_number = -99;
+     elesMVAF_number = -99;
+     elesMVAT_number = -99;
+     elesMVAF_1pt = -99;
+     leptonsMVAT_number = -99;
+     leptonsMVAF_number = -99;
+     leptonsMVAL_number = -99;
+     leptonsMVAT_transMass = -99;
+     leptonsMVAF_transMass = -99;
+     leptonsMVAL_transMass = -99;
+     leptonsMVAT_2SS = -99;
+     leptonsMVAT_2OS = -99;
+     leptonsMVAT_1pt = -99;
+     leptonsMVAT_1eta = -99;
+     leptonsMVAT_1phi = -99;
+     leptonsMVAT_2pt= -99;
+     leptonsMVAT_2eta = -99;
+     leptonsMVAT_2phi= -99;
+     leptonsMVAT_3pt = -99;
+     leptonsMVAT_3eta = -99;
+     leptonsMVAT_3phi = -99;
+
+     tausL_number=-99;
+     tausF_number=-99;
+     tausT_number=-99;
+     tausL_MHT=-99;
+     tausF_MHT=-99;
+     tausT_MHT=-99;
+     tausL_HT=-99;
+     tausF_HT=-99;
+     tausT_HT=-99;
+     tausL_invariantMass=-99;
+     tausF_invariantMass=-99;
+     tausT_invariantMass=-99;
+     tausF_minDeltaR = -99;
+     tausL_minDeltaR = -99;
+     tausT_minDeltaR = -99;
+     tausF_leptonsT_transMass = -99;
+     tausL_leptonsT_transMass = -99;
+     tausT_leptonsT_transMass = -99;
+     tausF_leptonsT_invariantMass = -99;
+     tausL_leptonsT_invariantMass = -99;
+     tausT_leptonsT_invariantMass = -99;
+     tausF_leptonsT_chargeSum = -99;
+     tausF_leptonsTMVA_minDeltaR = -99;
+     tausT_leptonsTMVA_minDeltaR = -99;
+     tausL_leptonsTMVA_minDeltaR = -99;
+     tauL_1pt = -99;
+     tauL_1eta = -99;
+     tauL_1phi = -99;
+     tauL_2pt = -99;
+     tauL_2eta = -99;
+     tauL_2phi = -99;
+     tauL_3pt = -99;
+     tauL_3eta = -99;
+     tauL_3phi = -99;
+
+
+      jets_number= -99;
+      jets_MHT= -99;
+      jets_HT= -99;
+      jets_invariantMass= -99;
+      jets_transMass= -99;
+      jetL_minDeltaR= -99;
+      jets_centrality= -99;
+      jets_bScore= -99;
+      jets_average_deltaR= -99;
+      jets_4largestBscoreSum= -99;
+      jets_leading2invariantMass = -99;
+      jets_rationHT_4toRest = -99;
+      jets_HTDividedByMet= -99;
+      MetDividedByHT= -99;
+      jets_MHTDividedByMet= -99;
+     jets_leptonsMVAT_minDeltaR= -99;
+     jets_tausF_minDeltaR= -99;
+     jets_spherilty = -99;
+     jets_aplanarity = -99;
+    jets_1pt = -99;
+     jets_1phi = -99;
+     jets_1eta = -99;
+     jets_2pt = -99;
+     jets_2eta = -99;
+     jets_2phi = -99;
+     jets_3pt = -99;
+     jets_3eta = -99;
+     jets_3phi = -99;
+     jets_4pt = -99;
+     jets_4eta = -99;
+     jets_4phi = -99;
+     jets_5pt = -99;
+     jets_5eta = -99;
+     jets_5phi = -99;
+     jets_6pt = -99;
+     jets_6eta = -99;
+     jets_6phi = -99;
+     jets_7pt = -99;
+     jets_7eta = -99;
+     jetL_7phi = -99;
+     jets_8pt = -99;
+     jets_8eta = -99;
+     jets_8phi = -99;
+     jets_9pt = -99;
+     jets_9eta = -99;
+     jets_9phi = -99;
+     jets_10pt = -99;
+     jets_10eta = -99;
+     jets_10phi = -99;
+     jets_11pt = -99;
+     jets_11eta = -99;
+     jets_11phi = -99;
+
+     bjetsL_num = -99;
+     bjetsM_num= -99;
+     bjetsT_num= -99;
+     bjetsL_HT= -99;
+     bjetsM_HT= -99;
+     bjetsT_HT= -99;
+     bjetsL_MHT= -99;
+     bjetsM_MHT= -99;
+     bjetsT_MHT= -99;
+     bjetsL_invariantMass= -99;
+     bjetsM_invariantMass= -99;
+     bjetsT_invariantMass= -99;
+     bjetsL_transMass= -99;
+     bjetsM_transMass= -99;
+     bjetsT_transMass= -99;
+     bjetsL_minDeltaR= -99;
+     bjetsM_minDeltaR= -99;
+     bjetsT_minDeltaR= -99;
+     bjetsL_leptonsMVAT_minDeltaR= -99;
+     bjetsM_leptonsMVAT_minDeltaR= -99;
+     bjetsT_leptonsMVAT_minDeltaR= -99;
+     bjetsL_tausF_minDeltaR= -99;
+     bjetsL_1pt = -99;
+     bjetsL_1eta = -99;
+     bjetsL_1phi = -99;
+     bjetsL_2pt = -99;
+     bjetsL_2eta = -99;
+     bjetsL_2phi = -99;
+     bjetsL_4pt = -99;
+     bjetsL_4eta = -99;
+     bjetsL_4phi = -99;
+     bjetsL_3pt = -99;
+     bjetsL_3eta = -99;
+     bjetsL_3phi = -99;
+     bjetsM_1pt = -99;
+     bjetsM_1eta = -99;
+     bjetsM_1phi = -99;
+     bjetsM_2pt = -99;
+     bjetsM_2eta = -99;
+     bjetsM_2phi = -99;
+     bjetsM_4pt = -99;
+     bjetsM_4eta = -99;
+     bjetsM_4phi = -99;
+     bjetsM_3pt = -99;
+     bjetsM_3eta = -99;
+     bjetsM_3phi = -99;
+     bjetsT_1pt = -99;
+     bjetsT_1eta = -99;
+     bjetsT_1phi = -99;
+     bjetsT_2pt = -99;
+     bjetsT_2eta = -99;
+     bjetsT_2phi = -99;
+     bjetsT_3pt = -99;
+     bjetsT_3eta = -99;
+     bjetsT_3phi = -99;
+     bjetsT_4pt = -99;
+     bjetsT_4eta = -99;
+     bjetsT_4phi = -99;
+
+     nonbjetsL_num = -99;
+     nonbjetsM_num= -99;
+     nonbjetsT_num= -99;
+     nonbjetsL_1pt = -99;
+     nonbjetsL_1eta = -99;
+     nonbjetsL_1phi = -99;
+     nonbjetsL_2pt = -99;
+     nonbjetsL_2eta = -99;
+     nonbjetsL_2phi = -99;
+     nonbjetsL_4pt = -99;
+     nonbjetsL_4eta = -99;
+     nonbjetsL_4phi = -99;
+     nonbjetsL_3pt = -99;
+     nonbjetsL_3eta = -99;
+     nonbjetsL_3phi = -99;
+     nonbjetsM_1pt = -99;
+     nonbjetsM_1eta = -99;
+     nonbjetsM_1phi = -99;
+     nonbjetsM_2pt = -99;
+     nonbjetsM_2eta = -99;
+     nonbjetsM_2phi = -99;
+     nonbjetsM_4pt = -99;
+     nonbjetsM_4eta = -99;
+     nonbjetsM_4phi = -99;
+     nonbjetsM_3pt = -99;
+     nonbjetsM_3eta = -99;
+     nonbjetsM_3phi = -99;
+     nonbjetsT_1pt = -99;
+     nonbjetsT_1eta = -99;
+     nonbjetsT_1phi = -99;
+     nonbjetsT_2pt = -99;
+     nonbjetsT_2eta = -99;
+     nonbjetsT_2phi = -99;
+     nonbjetsT_3pt = -99;
+     nonbjetsT_3eta = -99;
+     nonbjetsT_3phi = -99;
+     nonbjetsT_4pt = -99;
+     nonbjetsT_4eta = -99;
+     nonbjetsT_4phi = -99;
+
+     forwardJets_num = -99;
+     toptagger_num=-99;
+     toptagger_MHT = -99;
+     toptagger_HT = -99;
+     toptagger_invariantMass = -99;
+     toptagger_transMass = -99;
+     toptagger_minDeltaR_v1 = -99;
+    
+     toptagger_1pt=-99;
+     toptagger_1eta = -99;
+     toptagger_1phi = -99;
+     toptagger_2pt=-99;
+     toptagger_2eta=-99;
+     toptagger_2phi=-99;
+     toptagger_3pt = -99;
+     toptagger_3eta = -99;
+     toptagger_3phi = -99;
+     toptagger_scoreAllTops=-99;
+     toptagger_leptonsMVAT_minDeltaR=-99;
+
+}
+
