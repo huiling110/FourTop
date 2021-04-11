@@ -462,292 +462,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    cout<<outputfile->GetName()<<endl;
 
    newtree = new TTree( "newtree", "tree for BDT");
-   
-   if ( wantFilterHLTBranches ){
-       newtree->Branch( "Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
-       newtree->Branch( "Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
-       newtree->Branch( "Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter, "Flag_HBHENoiseFilter/I");
-       newtree->Branch( "Flag_HBHENoiseIsoFilter", &Flag_HBHENoiseIsoFilter, "Flag_HBHENoiseIsoFilter/I");
-       newtree->Branch( "Flag_EcalDeadCellTriggerPrimitiveFilter", &Flag_EcalDeadCellTriggerPrimitiveFilter, "Flag_EcalDeadCellTriggerPrimitiveFilter/I");
-       newtree->Branch( "Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter, "Flag_BadPFMuonFilter/I");
-       newtree->Branch( "Flag_eeBadScFilter", &Flag_eeBadScFilter, "Flag_eeBadScFilter/I");
 
-        newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
-        newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
-   }
-   
-   newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
-   newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
-   newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
-
-   newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
-   newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
-   newtree->Branch( "muonsL_number", &muonsL_number, "muonsL_number/I");
-   newtree->Branch( "muonsF_number", &muonsF_number, "muonsF_number/I");
-   newtree->Branch( "muonsT_number", &muonsT_number, "muonsT_number/I");
-  newtree->Branch("muonsT_1pt", &muonsT_1pt, "muonsT_1pt/D");
-  newtree->Branch("muonsT_1eta", &muonsT_1eta, "muonsT_1eta/D");
-  newtree->Branch("muonsT_1phi", &muonsT_1phi, "muonsT_1phi/D");
-  newtree->Branch("muonsT_2pt", &muonsT_2pt, "muonsT_2pt/D");
-  newtree->Branch("muonsT_2eta", &muonsT_2eta, "muonsT_2eta/D");
-  newtree->Branch("muonsT_2phi", &muonsT_2phi, "muonsT_2phi/D");
-  newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/D");
-  newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/D");
-  newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/D");
-   newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
-   newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
-   newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
-  newtree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
-                  "elesMVAF_1pt/D");
-   newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
-   newtree->Branch( "leptonsMVAF_number", &leptonsMVAF_number, "leptonsMVAF_number/I");
-   newtree->Branch( "leptonsMVAL_number", &leptonsMVAL_number, "leptonsMVAL_number/I");
-   newtree->Branch( "leptonsMVAT_transMass", &leptonsMVAT_transMass, "leptonsMVAT_transMass/D");
-   newtree->Branch( "leptonsMVAF_transMass", &leptonsMVAF_transMass, "leptonsMVAF_transMass/D");
-   newtree->Branch( "leptonsMVAL_transMass", &leptonsMVAL_transMass, "leptonsMVAL_transMass/D");
-   newtree->Branch( "leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
-   newtree->Branch( "leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
-   // newtree->Branch( "", &, "/");
-  newtree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
-                  "leptonsMVAT_1pt/D");
-  newtree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
-                  "leptonsMVAT_1eta/D");
-  newtree->Branch("leptonsMVAT_1phi", &leptonsMVAT_1phi,
-                  "leptonsMVAT_1phi/D");
-  newtree->Branch("leptonsMVAT_2pt", &leptonsMVAT_2pt,
-                  "leptonsMVAT_2pt/D");
-  newtree->Branch("leptonsMVAT_2eta", &leptonsMVAT_2eta,
-                  "leptonsMVAT_2eta/D");
-  newtree->Branch("leptonsMVAT_2phi", &leptonsMVAT_2phi,
-                  "leptonsMVAT_2phi/D");
-  newtree->Branch("leptonsMVAT_3pt", &leptonsMVAT_3pt,
-                  "leptonsMVAT_3pt/D");
-  newtree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
-                  "leptonsMVAT_3eta/D");
-  newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
-
-  newtree->Branch("tausL_number", &tausL_number, "tausL_number/I");
-  newtree->Branch("tausF_number", &tausF_number, "tausF_number/I");
-  newtree->Branch("tausT_number", &tausT_number, "tausT_number/I");
-  newtree->Branch("tausL_MHT", &tausL_MHT, "tausL_MHT/D");
-  newtree->Branch("tausF_MHT", &tausF_MHT, "tausF_MHT/D");
-  newtree->Branch("tausT_MHT", &tausT_MHT, "tausT_MHT/D");
-  newtree->Branch("tausL_HT", &tausL_HT, "tausL_HT/D");
-  newtree->Branch("tausF_HT", &tausF_HT, "tausF_HT/D");
-  newtree->Branch("tausT_HT", &tausT_HT, "tausT_HT/D");
-  newtree->Branch("tausL_invariantMass", &tausL_invariantMass,
-                  "tausL_invariantMass/D");
-  newtree->Branch("tausF_invariantMass", &tausF_invariantMass,   "tausF_invariantMass/D");
-  newtree->Branch("tausT_invariantMass", &tausT_invariantMass,   "tausT_invariantMass/D");
-  newtree->Branch("tausL_minDeltaR", &tausL_minDeltaR, "tausL_minDeltaR/D");
-  newtree->Branch("tausF_minDeltaR", &tausF_minDeltaR, "tausF_minDeltaR/D");
-  newtree->Branch("tausT_minDeltaR", &tausT_minDeltaR, "tausT_minDeltaR/D");
-  newtree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
-  newtree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
-  newtree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
-  newtree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
-  newtree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
-  newtree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
-  newtree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
-  newtree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
-  newtree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
-  newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
-  newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
-  newtree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
-                  "tausT_leptonsT_transMass/D");
-  newtree->Branch("tausF_leptonsT_invariantMass", &tausF_leptonsT_invariantMass, "tausF_leptonsT_invariantMass/D");
-  newtree->Branch("tausL_leptonsT_invariantMass", &tausL_leptonsT_invariantMass, "tausL_leptonsT_invariantMass/D");
-  newtree->Branch("tausT_leptonsT_invariantMass", &tausT_leptonsT_invariantMass, "tausT_leptonsT_invariantMass/D");
-  newtree->Branch("tausF_leptonsT_chargeSum", &tausF_leptonsT_chargeSum,
-                  "tausF_leptonsT_chargeSum/D");
-  newtree->Branch("tausF_leptonsTMVA_minDeltaR", &tausF_leptonsTMVA_minDeltaR, "tausF_leptonsTMVA_minDeltaR/D");
-  newtree->Branch("tausL_leptonsTMVA_minDeltaR", &tausL_leptonsTMVA_minDeltaR, "tausL_leptonsTMVA_minDeltaR/D");
-  newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
-
-   // newtree->Branch( "", &, "/");
-   //
-   //
-   //
-   
-  newtree->Branch("jets_number", &jets_number, "jets_number/I");
-  newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
-  newtree->Branch("jets_MHT", &jets_MHT, "jets_MHT/D");
-  newtree->Branch("jets_invariantMass", &jets_invariantMass,
-                  "jets_invariantMass/D");
-  newtree->Branch("jets_transMass", &jets_transMass, "jets_transMass/D");
-  newtree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
-  newtree->Branch("jets_centrality", &jets_centrality, "jets_centrality/D");
-  newtree->Branch("jets_bScore", &jets_bScore, "jets_bScore/D");
-  newtree->Branch("jets_average_deltaR", &jets_average_deltaR, "&jets_average_deltaR/D");
-  newtree->Branch("jets_4largestBscoreSum", &jets_4largestBscoreSum,"jets_4largestBscoreSum/D");
-  newtree->Branch("jets_leading2invariantMass", &jets_leading2invariantMass,"jets_leading2invariantMass/D");
-  newtree->Branch("jets_rationHT_4toRest", &jets_rationHT_4toRest,"jets_rationHT_4toRest/D");
-
-  newtree->Branch("jets_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR,
-                  "jets_leptonsMVAT_minDeltaR/D");
-  newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR,
-                  "jets_tausF_minDeltaR/D");
-  newtree->Branch("jets_HTDividedByMet", &jets_HTDividedByMet, "jets_HTDividedByMet/D");
-  newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
-  newtree->Branch("jets_MHTDividedByMet", &jets_MHTDividedByMet, "jets_MHTDividedByMet/D");
-  newtree->Branch("jets_spherilty", &jets_spherilty, "jets_spherilty/D");
-  newtree->Branch("jets_aplanarity", &jets_aplanarity, "jets_aplanarity/D");
-  newtree->Branch("jets_1pt", &jets_1pt, "jets_1pt/D");
-  newtree->Branch("jets_1eta", &jets_1eta, "jets_1eta/D");
-  newtree->Branch("jets_1phi", &jets_1phi, "jets_1phi/D");
-  newtree->Branch("jets_2pt", &jets_2pt, "jets_2pt/D");
-  newtree->Branch("jets_2eta", &jets_2eta, "jets_2eta/D");
-  newtree->Branch("jets_2phi", &jets_2phi, "jets_2phi/D");
-  newtree->Branch("jets_3pt", &jets_3pt, "jets_3pt/D");
-  newtree->Branch("jets_3eta", &jets_3eta, "jets_3eta/D");
-  newtree->Branch("jets_3phi", &jets_3phi, "jets_3phi/D");
-  newtree->Branch("jets_4pt", &jets_4pt, "jets_4pt/D");
-  newtree->Branch("jets_4eta", &jets_4eta, "jets_4eta/D");
-  newtree->Branch("jets_4phi", &jets_4phi, "jets_4phi/D");
-  newtree->Branch("jets_5pt", &jets_5pt, "jets_5pt/D");
-  newtree->Branch("jets_5eta", &jets_5eta, "jets_5eta/D");
-  newtree->Branch("jets_5phi", &jets_5phi, "jets_5phi/D");
-  newtree->Branch("jets_6pt", &jets_6pt, "jets_6pt/D");
-  newtree->Branch("jets_6eta", &jets_6eta, "jets_6eta/D");
-  newtree->Branch("jets_6phi", &jets_6phi, "jets_6phi/D");
-  newtree->Branch("jets_7pt", &jets_7pt, "jets_7pt/D");
-  newtree->Branch("jets_7eta", &jets_7eta, "jets_7eta/D");
-  newtree->Branch("jetL_7phi", &jetL_7phi, "jetL_7phi/D");
-  newtree->Branch("jets_8pt", &jets_8pt, "jets_8pt/D");
-  newtree->Branch("jets_8eta", &jets_8eta, "jets_8eta/D");
-  newtree->Branch("jets_8phi", &jets_8phi, "jets_8phi/D");
-  newtree->Branch("jets_9pt", &jets_9pt, "jets_9pt/D");
-  newtree->Branch("jets_9eta", &jets_9eta, "jets_9eta/D");
-  newtree->Branch("jets_9phi", &jets_9phi, "jets_9phi/D");
-  newtree->Branch("jets_10pt", &jets_10pt, "jets_10pt/D");
-  newtree->Branch("jets_10eta", &jets_10eta, "jets_10eta/D");
-  newtree->Branch("jets_10phi", &jets_10phi, "jets_10phi/D");
-  newtree->Branch("jets_11pt", &jets_11pt, "jets_11pt/D");
-  newtree->Branch("jets_11eta", &jets_11eta, "jets_11eta/D");
-  newtree->Branch("jets_11phi", &jets_11phi, "jets_11phi/D");
-
-  newtree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
-  newtree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
-  newtree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
-  newtree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
-  newtree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
-  newtree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
-  newtree->Branch("bjetsL_MHT", &bjetsL_MHT, "bjetsL_MHT/D");
-  newtree->Branch("bjetsM_MHT", &bjetsM_MHT, "bjetsM_MHT/D");
-  newtree->Branch("bjetsT_MHT", &bjetsT_MHT, "bjetsT_MHT/D");
-  newtree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
-                  "bjetsL_invariantMass/D");
-  newtree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
-                  "bjetsM_invariantMass/D");
-  newtree->Branch("bjetsT_invariantMass", &bjetsT_invariantMass,
-                  "bjetsT_invariantMass/D");
-  newtree->Branch("bjetsL_transMass", &bjetsL_transMass, "bjetsL_transMass/D");
-  newtree->Branch("bjetsM_transMass", &bjetsM_transMass, "bjetsM_transMass/D");
-  newtree->Branch("bjetsT_transMass", &bjetsT_transMass, "bjetsT_transMass/D");
-  newtree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
-  newtree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
-  newtree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
-  newtree->Branch("bjetsL_leptonsMVAT_minDeltaR", &bjetsL_leptonsMVAT_minDeltaR, "bjetsL_leptonsMVAT_minDeltaR/D");
-  newtree->Branch("bjetsM_leptonsMVAT_minDeltaR", &bjetsM_leptonsMVAT_minDeltaR, "bjetsM_leptonsMVAT_minDeltaR/D");
-  newtree->Branch("bjetsT_leptonsMVAT_minDeltaR", &bjetsT_leptonsMVAT_minDeltaR, "bjetsT_leptonsMVAT_minDeltaR/D");
-  newtree->Branch("bjetsL_tausF_minDeltaR", &bjetsL_tausF_minDeltaR, "bjetsL_tausF_minDeltaR/D");
-  // newtree->Branch("", &, "/D");
-  newtree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
-  newtree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
-  newtree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
-  newtree->Branch("bjetsL_2pt", &bjetsL_2pt, "bjetsL_2pt/D");
-  newtree->Branch("bjetsL_2eta", &bjetsL_2eta, "bjetsL_2eta/D");
-  newtree->Branch("bjetsL_2phi", &bjetsL_2phi, "bjetsL_2phi/D");
-  newtree->Branch("bjetsL_3pt", &bjetsL_3pt, "bjetsL_3pt/D");
-  newtree->Branch("bjetsL_3eta", &bjetsL_3eta, "bjetsL_3eta/D");
-  newtree->Branch("bjetsL_3phi", &bjetsL_3phi, "bjetsL_3phi/D");
-  newtree->Branch("bjetsL_4pt", &bjetsL_4pt, "bjetsL_4pt/D");
-  newtree->Branch("bjetsL_4eta", &bjetsL_4eta, "bjetsL_4eta/D");
-  newtree->Branch("bjetsL_4phi", &bjetsL_4phi, "bjetsL_4phi/D");
-  newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
-  newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
-  newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
-  newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
-  newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
-  newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
-  newtree->Branch("bjetsM_3pt", &bjetsM_3pt, "bjetsM_3pt/D");
-  newtree->Branch("bjetsM_3eta", &bjetsM_3eta, "bjetsM_3eta/D");
-  newtree->Branch("bjetsM_3phi", &bjetsM_3phi, "bjetsM_3phi/D");
-  newtree->Branch("bjetsM_4pt", &bjetsM_4pt, "bjetsM_4pt/D");
-  newtree->Branch("bjetsM_4eta", &bjetsM_4eta, "bjetsM_4eta/D");
-  newtree->Branch("bjetsM_4phi", &bjetsM_4phi, "bjetsM_4phi/D");
-  newtree->Branch("bjetsT_1pt", &bjetsT_1pt, "bjetsT_1pt/D");
-  newtree->Branch("bjetsT_1eta", &bjetsT_1eta, "bjetsT_1eta/D");
-  newtree->Branch("bjetsT_1phi", &bjetsT_1phi, "bjetsT_1phi/D");
-  newtree->Branch("bjetsT_2pt", &bjetsT_2pt, "bjetsT_2pt/D");
-  newtree->Branch("bjetsT_2eta", &bjetsT_2eta, "bjetsT_2eta/D");
-  newtree->Branch("bjetsT_2phi", &bjetsT_2phi, "bjetsT_2phi/D");
-  newtree->Branch("bjetsT_3pt", &bjetsT_3pt, "bjetsT_3pt/D");
-  newtree->Branch("bjetsT_3eta", &bjetsT_3eta, "bjetsT_3eta/D");
-  newtree->Branch("bjetsT_3phi", &bjetsT_3phi, "bjetsT_3phi/D");
-  newtree->Branch("bjetsT_4pt", &bjetsT_4pt, "bjetsT_4pt/D");
-  newtree->Branch("bjetsT_4eta", &bjetsT_4eta, "bjetsT_4eta/D");
-  newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
-
-  newtree->Branch("nonbjetsL_num", &nonbjetsL_num, "nonbjetsL_num/I");
-  newtree->Branch("nonbjetsM_num", &nonbjetsM_num, "nonbjetsM_num/I");
-  newtree->Branch("nonbjetsT_num", &nonbjetsT_num, "nonbjetsT_num/I");
-  newtree->Branch("nonbjetsL_1pt", &nonbjetsL_1pt, "nonbjetsL_1pt/D");
-  newtree->Branch("nonbjetsL_1eta", &nonbjetsL_1eta, "nonbjetsL_1eta/D");
-  newtree->Branch("nonbjetsL_1phi", &nonbjetsL_1phi, "nonbjetsL_1phi/D");
-  newtree->Branch("nonbjetsL_2pt", &nonbjetsL_2pt, "nonbjetsL_2pt/D");
-  newtree->Branch("nonbjetsL_2eta", &nonbjetsL_2eta, "nonbjetsL_2eta/D");
-  newtree->Branch("nonbjetsL_2phi", &nonbjetsL_2phi, "nonbjetsL_2phi/D");
-  newtree->Branch("nonbjetsL_3pt", &nonbjetsL_3pt, "nonbjetsL_3pt/D");
-  newtree->Branch("nonbjetsL_3eta", &nonbjetsL_3eta, "nonbjetsL_3eta/D");
-  newtree->Branch("nonbjetsL_3phi", &nonbjetsL_3phi, "nonbjetsL_3phi/D");
-  newtree->Branch("nonbjetsL_4pt", &nonbjetsL_4pt, "nonbjetsL_4pt/D");
-  newtree->Branch("nonbjetsL_4eta", &nonbjetsL_4eta, "nonbjetsL_4eta/D");
-  newtree->Branch("nonbjetsL_4phi", &nonbjetsL_4phi, "nonbjetsL_4phi/D");
-  newtree->Branch("nonbjetsM_1pt", &nonbjetsM_1pt, "nonbjetsM_1pt/D");
-  newtree->Branch("nonbjetsM_1eta", &nonbjetsM_1eta, "nonbjetsM_1eta/D");
-  newtree->Branch("nonbjetsM_1phi", &nonbjetsM_1phi, "nonbjetsM_1phi/D");
-  newtree->Branch("nonbjetsM_2pt", &nonbjetsM_2pt, "nonbjetsM_2pt/D");
-  newtree->Branch("nonbjetsM_2eta", &nonbjetsM_2eta, "nonbjetsM_2eta/D");
-  newtree->Branch("nonbjetsM_2phi", &nonbjetsM_2phi, "nonbjetsM_2phi/D");
-  newtree->Branch("nonbjetsM_3pt", &nonbjetsM_3pt, "nonbjetsM_3pt/D");
-  newtree->Branch("nonbjetsM_3eta", &nonbjetsM_3eta, "nonbjetsM_3eta/D");
-  newtree->Branch("nonbjetsM_3phi", &nonbjetsM_3phi, "nonbjetsM_3phi/D");
-  newtree->Branch("nonbjetsM_4pt", &nonbjetsM_4pt, "nonbjetsM_4pt/D");
-  newtree->Branch("nonbjetsM_4eta", &nonbjetsM_4eta, "nonbjetsM_4eta/D");
-  newtree->Branch("nonbjetsM_4phi", &nonbjetsM_4phi, "nonbjetsM_4phi/D");
-  newtree->Branch("nonbjetsT_1pt", &nonbjetsT_1pt, "nonbjetsT_1pt/D");
-  newtree->Branch("nonbjetsT_1eta", &nonbjetsT_1eta, "nonbjetsT_1eta/D");
-  newtree->Branch("nonbjetsT_1phi", &nonbjetsT_1phi, "nonbjetsT_1phi/D");
-  newtree->Branch("nonbjetsT_2pt", &nonbjetsT_2pt, "nonbjetsT_2pt/D");
-  newtree->Branch("nonbjetsT_2eta", &nonbjetsT_2eta, "nonbjetsT_2eta/D");
-  newtree->Branch("nonbjetsT_2phi", &nonbjetsT_2phi, "nonbjetsT_2phi/D");
-  newtree->Branch("nonbjetsT_3pt", &nonbjetsT_3pt, "nonbjetsT_3pt/D");
-  newtree->Branch("nonbjetsT_3eta", &nonbjetsT_3eta, "nonbjetsT_3eta/D");
-  newtree->Branch("nonbjetsT_3phi", &nonbjetsT_3phi, "nonbjetsT_3phi/D");
-  newtree->Branch("nonbjetsT_4pt", &nonbjetsT_4pt, "nonbjetsT_4pt/D");
-  newtree->Branch("nonbjetsT_4eta", &nonbjetsT_4eta, "nonbjetsT_4eta/D");
-  newtree->Branch("nonbjetsT_4phi", &nonbjetsT_4phi, "nonbjetsT_4phi/D");
-
-  newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
-
-  newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
-  newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
-  newtree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
-  newtree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
-  newtree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
-  newtree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
-  newtree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
-  newtree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
-  newtree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
-  newtree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
-  newtree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
-  newtree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
-  newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
-  newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
-  newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
-  newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
-  newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
+   makeBranchForTree( newtree, wantFilterHLTBranches);
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -774,254 +490,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
     //initialize
     InitializeBranches();
-    /*
-     EVENT_prefireWeight  = -99;
-     EVENT_genWeight = -99;
-     PUWeight = -99;
-    Met_pt_ = -99;
-    Met_phi_ = -99;
-    muonsL_number=-99;
-    muonsF_number=-99;
-   muonsT_number=-99;
-     muonsT_1pt = -99;
-     muonsT_1eta = -99;
-     muonsT_1phi = -99;
-     muonsT_2pt = -99;
-     muonsT_2eta = -99;
-     muonsT_2phi = -99;
-     muonsT_3pt = -99;
-     muonsT_3eta = -99;
-     muonsT_3phi = -99;
-     elesMVAL_number = -99;
-     elesMVAF_number = -99;
-     elesMVAT_number = -99;
-     elesMVAF_1pt = -99;
-     leptonsMVAT_number = -99;
-     leptonsMVAF_number = -99;
-     leptonsMVAL_number = -99;
-     leptonsMVAT_transMass = -99;
-     leptonsMVAF_transMass = -99;
-     leptonsMVAL_transMass = -99;
-     leptonsMVAT_2SS = -99;
-     leptonsMVAT_2OS = -99;
-     leptonsMVAT_1pt = -99;
-     leptonsMVAT_1eta = -99;
-     leptonsMVAT_1phi = -99;
-     leptonsMVAT_2pt= -99;
-     leptonsMVAT_2eta = -99;
-     leptonsMVAT_2phi= -99;
-     leptonsMVAT_3pt = -99;
-     leptonsMVAT_3eta = -99;
-     leptonsMVAT_3phi = -99;
-
-     tausL_number=-99;
-     tausF_number=-99;
-     tausT_number=-99;
-     tausL_MHT=-99;
-     tausF_MHT=-99;
-     tausT_MHT=-99;
-     tausL_HT=-99;
-     tausF_HT=-99;
-     tausT_HT=-99;
-     tausL_invariantMass=-99;
-     tausF_invariantMass=-99;
-     tausT_invariantMass=-99;
-     tausF_minDeltaR = -99;
-     tausL_minDeltaR = -99;
-     tausT_minDeltaR = -99;
-     tausF_leptonsT_transMass = -99;
-     tausL_leptonsT_transMass = -99;
-     tausT_leptonsT_transMass = -99;
-     tausF_leptonsT_invariantMass = -99;
-     tausL_leptonsT_invariantMass = -99;
-     tausT_leptonsT_invariantMass = -99;
-     tausF_leptonsT_chargeSum = -99;
-     tausF_leptonsTMVA_minDeltaR = -99;
-     tausT_leptonsTMVA_minDeltaR = -99;
-     tausL_leptonsTMVA_minDeltaR = -99;
-     tauL_1pt = -99;
-     tauL_1eta = -99;
-     tauL_1phi = -99;
-     tauL_2pt = -99;
-     tauL_2eta = -99;
-     tauL_2phi = -99;
-     tauL_3pt = -99;
-     tauL_3eta = -99;
-     tauL_3phi = -99;
-
-
-      jets_number= -99;
-      jets_MHT= -99;
-      jets_HT= -99;
-      jets_invariantMass= -99;
-      jets_transMass= -99;
-      jetL_minDeltaR= -99;
-      jets_centrality= -99;
-      jets_bScore= -99;
-      jets_average_deltaR= -99;
-      jets_4largestBscoreSum= -99;
-      jets_leading2invariantMass = -99;
-      jets_rationHT_4toRest = -99;
-      jets_HTDividedByMet= -99;
-      MetDividedByHT= -99;
-      jets_MHTDividedByMet= -99;
-     jets_leptonsMVAT_minDeltaR= -99;
-     jets_tausF_minDeltaR= -99;
-     jets_spherilty = -99;
-     jets_aplanarity = -99;
-    jets_1pt = -99;
-     jets_1phi = -99;
-     jets_1eta = -99;
-     jets_2pt = -99;
-     jets_2eta = -99;
-     jets_2phi = -99;
-     jets_3pt = -99;
-     jets_3eta = -99;
-     jets_3phi = -99;
-     jets_4pt = -99;
-     jets_4eta = -99;
-     jets_4phi = -99;
-     jets_5pt = -99;
-     jets_5eta = -99;
-     jets_5phi = -99;
-     jets_6pt = -99;
-     jets_6eta = -99;
-     jets_6phi = -99;
-     jets_7pt = -99;
-     jets_7eta = -99;
-     jetL_7phi = -99;
-     jets_8pt = -99;
-     jets_8eta = -99;
-     jets_8phi = -99;
-     jets_9pt = -99;
-     jets_9eta = -99;
-     jets_9phi = -99;
-     jets_10pt = -99;
-     jets_10eta = -99;
-     jets_10phi = -99;
-     jets_11pt = -99;
-     jets_11eta = -99;
-     jets_11phi = -99;
-
-     bjetsL_num = -99;
-     bjetsM_num= -99;
-     bjetsT_num= -99;
-     bjetsL_HT= -99;
-     bjetsM_HT= -99;
-     bjetsT_HT= -99;
-     bjetsL_MHT= -99;
-     bjetsM_MHT= -99;
-     bjetsT_MHT= -99;
-     bjetsL_invariantMass= -99;
-     bjetsM_invariantMass= -99;
-     bjetsT_invariantMass= -99;
-     bjetsL_transMass= -99;
-     bjetsM_transMass= -99;
-     bjetsT_transMass= -99;
-     bjetsL_minDeltaR= -99;
-     bjetsM_minDeltaR= -99;
-     bjetsT_minDeltaR= -99;
-     bjetsL_leptonsMVAT_minDeltaR= -99;
-     bjetsM_leptonsMVAT_minDeltaR= -99;
-     bjetsT_leptonsMVAT_minDeltaR= -99;
-     bjetsL_tausF_minDeltaR= -99;
-     bjetsL_1pt = -99;
-     bjetsL_1eta = -99;
-     bjetsL_1phi = -99;
-     bjetsL_2pt = -99;
-     bjetsL_2eta = -99;
-     bjetsL_2phi = -99;
-     bjetsL_4pt = -99;
-     bjetsL_4eta = -99;
-     bjetsL_4phi = -99;
-     bjetsL_3pt = -99;
-     bjetsL_3eta = -99;
-     bjetsL_3phi = -99;
-     bjetsM_1pt = -99;
-     bjetsM_1eta = -99;
-     bjetsM_1phi = -99;
-     bjetsM_2pt = -99;
-     bjetsM_2eta = -99;
-     bjetsM_2phi = -99;
-     bjetsM_4pt = -99;
-     bjetsM_4eta = -99;
-     bjetsM_4phi = -99;
-     bjetsM_3pt = -99;
-     bjetsM_3eta = -99;
-     bjetsM_3phi = -99;
-     bjetsT_1pt = -99;
-     bjetsT_1eta = -99;
-     bjetsT_1phi = -99;
-     bjetsT_2pt = -99;
-     bjetsT_2eta = -99;
-     bjetsT_2phi = -99;
-     bjetsT_3pt = -99;
-     bjetsT_3eta = -99;
-     bjetsT_3phi = -99;
-     bjetsT_4pt = -99;
-     bjetsT_4eta = -99;
-     bjetsT_4phi = -99;
-
-     nonbjetsL_num = -99;
-     nonbjetsM_num= -99;
-     nonbjetsT_num= -99;
-     nonbjetsL_1pt = -99;
-     nonbjetsL_1eta = -99;
-     nonbjetsL_1phi = -99;
-     nonbjetsL_2pt = -99;
-     nonbjetsL_2eta = -99;
-     nonbjetsL_2phi = -99;
-     nonbjetsL_4pt = -99;
-     nonbjetsL_4eta = -99;
-     nonbjetsL_4phi = -99;
-     nonbjetsL_3pt = -99;
-     nonbjetsL_3eta = -99;
-     nonbjetsL_3phi = -99;
-     nonbjetsM_1pt = -99;
-     nonbjetsM_1eta = -99;
-     nonbjetsM_1phi = -99;
-     nonbjetsM_2pt = -99;
-     nonbjetsM_2eta = -99;
-     nonbjetsM_2phi = -99;
-     nonbjetsM_4pt = -99;
-     nonbjetsM_4eta = -99;
-     nonbjetsM_4phi = -99;
-     nonbjetsM_3pt = -99;
-     nonbjetsM_3eta = -99;
-     nonbjetsM_3phi = -99;
-     nonbjetsT_1pt = -99;
-     nonbjetsT_1eta = -99;
-     nonbjetsT_1phi = -99;
-     nonbjetsT_2pt = -99;
-     nonbjetsT_2eta = -99;
-     nonbjetsT_2phi = -99;
-     nonbjetsT_3pt = -99;
-     nonbjetsT_3eta = -99;
-     nonbjetsT_3phi = -99;
-     nonbjetsT_4pt = -99;
-     nonbjetsT_4eta = -99;
-     nonbjetsT_4phi = -99;
-
-     forwardJets_num = -99;
-     toptagger_num=-99;
-     toptagger_MHT = -99;
-     toptagger_HT = -99;
-     toptagger_invariantMass = -99;
-     toptagger_transMass = -99;
-     toptagger_minDeltaR_v1 = -99;
-    
-     toptagger_1pt=-99;
-     toptagger_1eta = -99;
-     toptagger_1phi = -99;
-     toptagger_2pt=-99;
-     toptagger_2eta=-99;
-     toptagger_2phi=-99;
-     toptagger_3pt = -99;
-     toptagger_3eta = -99;
-     toptagger_3phi = -99;
-     toptagger_scoreAllTops=-99;
-     toptagger_leptonsMVAT_minDeltaR=-99;
-*/
 
     if ( wantFilterHLTBranches ){
         Flag_goodVertices = *Flag_goodVertices_;
@@ -1452,6 +920,295 @@ void makeVaribles_forBDT::Terminate()
 
    Info("Terminate", "processed %lld events", fProcessed);
    Info("Terminate", "output file here: %s", outputfile->GetName());
+
+}
+
+void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches ){
+   if ( wantFilterHLTBranches ){
+       newtree->Branch( "Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
+       newtree->Branch( "Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
+       newtree->Branch( "Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter, "Flag_HBHENoiseFilter/I");
+       newtree->Branch( "Flag_HBHENoiseIsoFilter", &Flag_HBHENoiseIsoFilter, "Flag_HBHENoiseIsoFilter/I");
+       newtree->Branch( "Flag_EcalDeadCellTriggerPrimitiveFilter", &Flag_EcalDeadCellTriggerPrimitiveFilter, "Flag_EcalDeadCellTriggerPrimitiveFilter/I");
+       newtree->Branch( "Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter, "Flag_BadPFMuonFilter/I");
+       newtree->Branch( "Flag_eeBadScFilter", &Flag_eeBadScFilter, "Flag_eeBadScFilter/I");
+
+        newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
+        newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
+   }
+   
+   newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
+   newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
+   newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
+
+   newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
+   newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
+   newtree->Branch( "muonsL_number", &muonsL_number, "muonsL_number/I");
+   newtree->Branch( "muonsF_number", &muonsF_number, "muonsF_number/I");
+   newtree->Branch( "muonsT_number", &muonsT_number, "muonsT_number/I");
+  newtree->Branch("muonsT_1pt", &muonsT_1pt, "muonsT_1pt/D");
+  newtree->Branch("muonsT_1eta", &muonsT_1eta, "muonsT_1eta/D");
+  newtree->Branch("muonsT_1phi", &muonsT_1phi, "muonsT_1phi/D");
+  newtree->Branch("muonsT_2pt", &muonsT_2pt, "muonsT_2pt/D");
+  newtree->Branch("muonsT_2eta", &muonsT_2eta, "muonsT_2eta/D");
+  newtree->Branch("muonsT_2phi", &muonsT_2phi, "muonsT_2phi/D");
+  newtree->Branch("muonsT_3pt", &muonsT_3pt, "muonsT_3pt/D");
+  newtree->Branch("muonsT_3eta", &muonsT_3eta, "muonsT_3eta/D");
+  newtree->Branch("muonsT_3phi", &muonsT_3phi, "muonsT_3phi/D");
+   newtree->Branch( "elesMVAL_number", &elesMVAL_number, "elesMVAL_number/I");
+   newtree->Branch( "elesMVAF_number", &elesMVAF_number, "elesMVAF_number/I");
+   newtree->Branch( "elesMVAT_number", &elesMVAT_number, "elesMVAT_number/I");
+  newtree->Branch("elesMVAF_1pt", &elesMVAF_1pt,
+                  "elesMVAF_1pt/D");
+   newtree->Branch( "leptonsMVAT_number", &leptonsMVAT_number, "leptonsMVAT_number/I");
+   newtree->Branch( "leptonsMVAF_number", &leptonsMVAF_number, "leptonsMVAF_number/I");
+   newtree->Branch( "leptonsMVAL_number", &leptonsMVAL_number, "leptonsMVAL_number/I");
+   newtree->Branch( "leptonsMVAT_transMass", &leptonsMVAT_transMass, "leptonsMVAT_transMass/D");
+   newtree->Branch( "leptonsMVAF_transMass", &leptonsMVAF_transMass, "leptonsMVAF_transMass/D");
+   newtree->Branch( "leptonsMVAL_transMass", &leptonsMVAL_transMass, "leptonsMVAL_transMass/D");
+   newtree->Branch( "leptonsMVAT_2SS", &leptonsMVAT_2SS, "leptonsMVAT_2SS/I");
+   newtree->Branch( "leptonsMVAT_2OS", &leptonsMVAT_2OS, "leptonsMVAT_2OS/I");
+   // newtree->Branch( "", &, "/");
+  newtree->Branch("leptonsMVAT_1pt", &leptonsMVAT_1pt,
+                  "leptonsMVAT_1pt/D");
+  newtree->Branch("leptonsMVAT_1eta", &leptonsMVAT_1eta,
+                  "leptonsMVAT_1eta/D");
+  newtree->Branch("leptonsMVAT_1phi", &leptonsMVAT_1phi,
+                  "leptonsMVAT_1phi/D");
+  newtree->Branch("leptonsMVAT_2pt", &leptonsMVAT_2pt,
+                  "leptonsMVAT_2pt/D");
+  newtree->Branch("leptonsMVAT_2eta", &leptonsMVAT_2eta,
+                  "leptonsMVAT_2eta/D");
+  newtree->Branch("leptonsMVAT_2phi", &leptonsMVAT_2phi,
+                  "leptonsMVAT_2phi/D");
+  newtree->Branch("leptonsMVAT_3pt", &leptonsMVAT_3pt,
+                  "leptonsMVAT_3pt/D");
+  newtree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
+                  "leptonsMVAT_3eta/D");
+  newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
+
+  newtree->Branch("tausL_number", &tausL_number, "tausL_number/I");
+  newtree->Branch("tausF_number", &tausF_number, "tausF_number/I");
+  newtree->Branch("tausT_number", &tausT_number, "tausT_number/I");
+  newtree->Branch("tausL_MHT", &tausL_MHT, "tausL_MHT/D");
+  newtree->Branch("tausF_MHT", &tausF_MHT, "tausF_MHT/D");
+  newtree->Branch("tausT_MHT", &tausT_MHT, "tausT_MHT/D");
+  newtree->Branch("tausL_HT", &tausL_HT, "tausL_HT/D");
+  newtree->Branch("tausF_HT", &tausF_HT, "tausF_HT/D");
+  newtree->Branch("tausT_HT", &tausT_HT, "tausT_HT/D");
+  newtree->Branch("tausL_invariantMass", &tausL_invariantMass,
+                  "tausL_invariantMass/D");
+  newtree->Branch("tausF_invariantMass", &tausF_invariantMass,   "tausF_invariantMass/D");
+  newtree->Branch("tausT_invariantMass", &tausT_invariantMass,   "tausT_invariantMass/D");
+  newtree->Branch("tausL_minDeltaR", &tausL_minDeltaR, "tausL_minDeltaR/D");
+  newtree->Branch("tausF_minDeltaR", &tausF_minDeltaR, "tausF_minDeltaR/D");
+  newtree->Branch("tausT_minDeltaR", &tausT_minDeltaR, "tausT_minDeltaR/D");
+  newtree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
+  newtree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
+  newtree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
+  newtree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
+  newtree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
+  newtree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
+  newtree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
+  newtree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
+  newtree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
+  newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
+  newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
+  newtree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
+                  "tausT_leptonsT_transMass/D");
+  newtree->Branch("tausF_leptonsT_invariantMass", &tausF_leptonsT_invariantMass, "tausF_leptonsT_invariantMass/D");
+  newtree->Branch("tausL_leptonsT_invariantMass", &tausL_leptonsT_invariantMass, "tausL_leptonsT_invariantMass/D");
+  newtree->Branch("tausT_leptonsT_invariantMass", &tausT_leptonsT_invariantMass, "tausT_leptonsT_invariantMass/D");
+  newtree->Branch("tausF_leptonsT_chargeSum", &tausF_leptonsT_chargeSum,
+                  "tausF_leptonsT_chargeSum/D");
+  newtree->Branch("tausF_leptonsTMVA_minDeltaR", &tausF_leptonsTMVA_minDeltaR, "tausF_leptonsTMVA_minDeltaR/D");
+  newtree->Branch("tausL_leptonsTMVA_minDeltaR", &tausL_leptonsTMVA_minDeltaR, "tausL_leptonsTMVA_minDeltaR/D");
+  newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
+
+   // newtree->Branch( "", &, "/");
+   //
+   //
+   //
+   
+  newtree->Branch("jets_number", &jets_number, "jets_number/I");
+  newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
+  newtree->Branch("jets_MHT", &jets_MHT, "jets_MHT/D");
+  newtree->Branch("jets_invariantMass", &jets_invariantMass,
+                  "jets_invariantMass/D");
+  newtree->Branch("jets_transMass", &jets_transMass, "jets_transMass/D");
+  newtree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
+  newtree->Branch("jets_centrality", &jets_centrality, "jets_centrality/D");
+  newtree->Branch("jets_bScore", &jets_bScore, "jets_bScore/D");
+  newtree->Branch("jets_average_deltaR", &jets_average_deltaR, "&jets_average_deltaR/D");
+  newtree->Branch("jets_4largestBscoreSum", &jets_4largestBscoreSum,"jets_4largestBscoreSum/D");
+  newtree->Branch("jets_leading2invariantMass", &jets_leading2invariantMass,"jets_leading2invariantMass/D");
+  newtree->Branch("jets_rationHT_4toRest", &jets_rationHT_4toRest,"jets_rationHT_4toRest/D");
+
+  newtree->Branch("jets_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR,
+                  "jets_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR,
+                  "jets_tausF_minDeltaR/D");
+  newtree->Branch("jets_HTDividedByMet", &jets_HTDividedByMet, "jets_HTDividedByMet/D");
+  newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
+  newtree->Branch("jets_MHTDividedByMet", &jets_MHTDividedByMet, "jets_MHTDividedByMet/D");
+  newtree->Branch("jets_spherilty", &jets_spherilty, "jets_spherilty/D");
+  newtree->Branch("jets_aplanarity", &jets_aplanarity, "jets_aplanarity/D");
+  newtree->Branch("jets_1pt", &jets_1pt, "jets_1pt/D");
+  newtree->Branch("jets_1eta", &jets_1eta, "jets_1eta/D");
+  newtree->Branch("jets_1phi", &jets_1phi, "jets_1phi/D");
+  newtree->Branch("jets_2pt", &jets_2pt, "jets_2pt/D");
+  newtree->Branch("jets_2eta", &jets_2eta, "jets_2eta/D");
+  newtree->Branch("jets_2phi", &jets_2phi, "jets_2phi/D");
+  newtree->Branch("jets_3pt", &jets_3pt, "jets_3pt/D");
+  newtree->Branch("jets_3eta", &jets_3eta, "jets_3eta/D");
+  newtree->Branch("jets_3phi", &jets_3phi, "jets_3phi/D");
+  newtree->Branch("jets_4pt", &jets_4pt, "jets_4pt/D");
+  newtree->Branch("jets_4eta", &jets_4eta, "jets_4eta/D");
+  newtree->Branch("jets_4phi", &jets_4phi, "jets_4phi/D");
+  newtree->Branch("jets_5pt", &jets_5pt, "jets_5pt/D");
+  newtree->Branch("jets_5eta", &jets_5eta, "jets_5eta/D");
+  newtree->Branch("jets_5phi", &jets_5phi, "jets_5phi/D");
+  newtree->Branch("jets_6pt", &jets_6pt, "jets_6pt/D");
+  newtree->Branch("jets_6eta", &jets_6eta, "jets_6eta/D");
+  newtree->Branch("jets_6phi", &jets_6phi, "jets_6phi/D");
+  newtree->Branch("jets_7pt", &jets_7pt, "jets_7pt/D");
+  newtree->Branch("jets_7eta", &jets_7eta, "jets_7eta/D");
+  newtree->Branch("jetL_7phi", &jetL_7phi, "jetL_7phi/D");
+  newtree->Branch("jets_8pt", &jets_8pt, "jets_8pt/D");
+  newtree->Branch("jets_8eta", &jets_8eta, "jets_8eta/D");
+  newtree->Branch("jets_8phi", &jets_8phi, "jets_8phi/D");
+  newtree->Branch("jets_9pt", &jets_9pt, "jets_9pt/D");
+  newtree->Branch("jets_9eta", &jets_9eta, "jets_9eta/D");
+  newtree->Branch("jets_9phi", &jets_9phi, "jets_9phi/D");
+  newtree->Branch("jets_10pt", &jets_10pt, "jets_10pt/D");
+  newtree->Branch("jets_10eta", &jets_10eta, "jets_10eta/D");
+  newtree->Branch("jets_10phi", &jets_10phi, "jets_10phi/D");
+  newtree->Branch("jets_11pt", &jets_11pt, "jets_11pt/D");
+  newtree->Branch("jets_11eta", &jets_11eta, "jets_11eta/D");
+  newtree->Branch("jets_11phi", &jets_11phi, "jets_11phi/D");
+
+  newtree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
+  newtree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
+  newtree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
+  newtree->Branch("bjetsL_HT", &bjetsL_HT, "bjetsL_HT/D");
+  newtree->Branch("bjetsM_HT", &bjetsM_HT, "bjetsM_HT/D");
+  newtree->Branch("bjetsT_HT", &bjetsT_HT, "bjetsT_HT/D");
+  newtree->Branch("bjetsL_MHT", &bjetsL_MHT, "bjetsL_MHT/D");
+  newtree->Branch("bjetsM_MHT", &bjetsM_MHT, "bjetsM_MHT/D");
+  newtree->Branch("bjetsT_MHT", &bjetsT_MHT, "bjetsT_MHT/D");
+  newtree->Branch("bjetsL_invariantMass", &bjetsL_invariantMass,
+                  "bjetsL_invariantMass/D");
+  newtree->Branch("bjetsM_invariantMass", &bjetsM_invariantMass,
+                  "bjetsM_invariantMass/D");
+  newtree->Branch("bjetsT_invariantMass", &bjetsT_invariantMass,
+                  "bjetsT_invariantMass/D");
+  newtree->Branch("bjetsL_transMass", &bjetsL_transMass, "bjetsL_transMass/D");
+  newtree->Branch("bjetsM_transMass", &bjetsM_transMass, "bjetsM_transMass/D");
+  newtree->Branch("bjetsT_transMass", &bjetsT_transMass, "bjetsT_transMass/D");
+  newtree->Branch("bjetsL_minDeltaR", &bjetsL_minDeltaR, "bjetsL_minDeltaR/D");
+  newtree->Branch("bjetsM_minDeltaR", &bjetsM_minDeltaR, "bjetsM_minDeltaR/D");
+  newtree->Branch("bjetsT_minDeltaR", &bjetsT_minDeltaR, "bjetsT_minDeltaR/D");
+  newtree->Branch("bjetsL_leptonsMVAT_minDeltaR", &bjetsL_leptonsMVAT_minDeltaR, "bjetsL_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsM_leptonsMVAT_minDeltaR", &bjetsM_leptonsMVAT_minDeltaR, "bjetsM_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsT_leptonsMVAT_minDeltaR", &bjetsT_leptonsMVAT_minDeltaR, "bjetsT_leptonsMVAT_minDeltaR/D");
+  newtree->Branch("bjetsL_tausF_minDeltaR", &bjetsL_tausF_minDeltaR, "bjetsL_tausF_minDeltaR/D");
+  // newtree->Branch("", &, "/D");
+  newtree->Branch("bjetsL_1pt", &bjetsL_1pt, "bjetsL_1pt/D");
+  newtree->Branch("bjetsL_1eta", &bjetsL_1eta, "bjetsL_1eta/D");
+  newtree->Branch("bjetsL_1phi", &bjetsL_1phi, "bjetsL_1phi/D");
+  newtree->Branch("bjetsL_2pt", &bjetsL_2pt, "bjetsL_2pt/D");
+  newtree->Branch("bjetsL_2eta", &bjetsL_2eta, "bjetsL_2eta/D");
+  newtree->Branch("bjetsL_2phi", &bjetsL_2phi, "bjetsL_2phi/D");
+  newtree->Branch("bjetsL_3pt", &bjetsL_3pt, "bjetsL_3pt/D");
+  newtree->Branch("bjetsL_3eta", &bjetsL_3eta, "bjetsL_3eta/D");
+  newtree->Branch("bjetsL_3phi", &bjetsL_3phi, "bjetsL_3phi/D");
+  newtree->Branch("bjetsL_4pt", &bjetsL_4pt, "bjetsL_4pt/D");
+  newtree->Branch("bjetsL_4eta", &bjetsL_4eta, "bjetsL_4eta/D");
+  newtree->Branch("bjetsL_4phi", &bjetsL_4phi, "bjetsL_4phi/D");
+  newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
+  newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
+  newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
+  newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
+  newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
+  newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
+  newtree->Branch("bjetsM_3pt", &bjetsM_3pt, "bjetsM_3pt/D");
+  newtree->Branch("bjetsM_3eta", &bjetsM_3eta, "bjetsM_3eta/D");
+  newtree->Branch("bjetsM_3phi", &bjetsM_3phi, "bjetsM_3phi/D");
+  newtree->Branch("bjetsM_4pt", &bjetsM_4pt, "bjetsM_4pt/D");
+  newtree->Branch("bjetsM_4eta", &bjetsM_4eta, "bjetsM_4eta/D");
+  newtree->Branch("bjetsM_4phi", &bjetsM_4phi, "bjetsM_4phi/D");
+  newtree->Branch("bjetsT_1pt", &bjetsT_1pt, "bjetsT_1pt/D");
+  newtree->Branch("bjetsT_1eta", &bjetsT_1eta, "bjetsT_1eta/D");
+  newtree->Branch("bjetsT_1phi", &bjetsT_1phi, "bjetsT_1phi/D");
+  newtree->Branch("bjetsT_2pt", &bjetsT_2pt, "bjetsT_2pt/D");
+  newtree->Branch("bjetsT_2eta", &bjetsT_2eta, "bjetsT_2eta/D");
+  newtree->Branch("bjetsT_2phi", &bjetsT_2phi, "bjetsT_2phi/D");
+  newtree->Branch("bjetsT_3pt", &bjetsT_3pt, "bjetsT_3pt/D");
+  newtree->Branch("bjetsT_3eta", &bjetsT_3eta, "bjetsT_3eta/D");
+  newtree->Branch("bjetsT_3phi", &bjetsT_3phi, "bjetsT_3phi/D");
+  newtree->Branch("bjetsT_4pt", &bjetsT_4pt, "bjetsT_4pt/D");
+  newtree->Branch("bjetsT_4eta", &bjetsT_4eta, "bjetsT_4eta/D");
+  newtree->Branch("bjetsT_4phi", &bjetsT_4phi, "bjetsT_4phi/D");
+
+  newtree->Branch("nonbjetsL_num", &nonbjetsL_num, "nonbjetsL_num/I");
+  newtree->Branch("nonbjetsM_num", &nonbjetsM_num, "nonbjetsM_num/I");
+  newtree->Branch("nonbjetsT_num", &nonbjetsT_num, "nonbjetsT_num/I");
+  newtree->Branch("nonbjetsL_1pt", &nonbjetsL_1pt, "nonbjetsL_1pt/D");
+  newtree->Branch("nonbjetsL_1eta", &nonbjetsL_1eta, "nonbjetsL_1eta/D");
+  newtree->Branch("nonbjetsL_1phi", &nonbjetsL_1phi, "nonbjetsL_1phi/D");
+  newtree->Branch("nonbjetsL_2pt", &nonbjetsL_2pt, "nonbjetsL_2pt/D");
+  newtree->Branch("nonbjetsL_2eta", &nonbjetsL_2eta, "nonbjetsL_2eta/D");
+  newtree->Branch("nonbjetsL_2phi", &nonbjetsL_2phi, "nonbjetsL_2phi/D");
+  newtree->Branch("nonbjetsL_3pt", &nonbjetsL_3pt, "nonbjetsL_3pt/D");
+  newtree->Branch("nonbjetsL_3eta", &nonbjetsL_3eta, "nonbjetsL_3eta/D");
+  newtree->Branch("nonbjetsL_3phi", &nonbjetsL_3phi, "nonbjetsL_3phi/D");
+  newtree->Branch("nonbjetsL_4pt", &nonbjetsL_4pt, "nonbjetsL_4pt/D");
+  newtree->Branch("nonbjetsL_4eta", &nonbjetsL_4eta, "nonbjetsL_4eta/D");
+  newtree->Branch("nonbjetsL_4phi", &nonbjetsL_4phi, "nonbjetsL_4phi/D");
+  newtree->Branch("nonbjetsM_1pt", &nonbjetsM_1pt, "nonbjetsM_1pt/D");
+  newtree->Branch("nonbjetsM_1eta", &nonbjetsM_1eta, "nonbjetsM_1eta/D");
+  newtree->Branch("nonbjetsM_1phi", &nonbjetsM_1phi, "nonbjetsM_1phi/D");
+  newtree->Branch("nonbjetsM_2pt", &nonbjetsM_2pt, "nonbjetsM_2pt/D");
+  newtree->Branch("nonbjetsM_2eta", &nonbjetsM_2eta, "nonbjetsM_2eta/D");
+  newtree->Branch("nonbjetsM_2phi", &nonbjetsM_2phi, "nonbjetsM_2phi/D");
+  newtree->Branch("nonbjetsM_3pt", &nonbjetsM_3pt, "nonbjetsM_3pt/D");
+  newtree->Branch("nonbjetsM_3eta", &nonbjetsM_3eta, "nonbjetsM_3eta/D");
+  newtree->Branch("nonbjetsM_3phi", &nonbjetsM_3phi, "nonbjetsM_3phi/D");
+  newtree->Branch("nonbjetsM_4pt", &nonbjetsM_4pt, "nonbjetsM_4pt/D");
+  newtree->Branch("nonbjetsM_4eta", &nonbjetsM_4eta, "nonbjetsM_4eta/D");
+  newtree->Branch("nonbjetsM_4phi", &nonbjetsM_4phi, "nonbjetsM_4phi/D");
+  newtree->Branch("nonbjetsT_1pt", &nonbjetsT_1pt, "nonbjetsT_1pt/D");
+  newtree->Branch("nonbjetsT_1eta", &nonbjetsT_1eta, "nonbjetsT_1eta/D");
+  newtree->Branch("nonbjetsT_1phi", &nonbjetsT_1phi, "nonbjetsT_1phi/D");
+  newtree->Branch("nonbjetsT_2pt", &nonbjetsT_2pt, "nonbjetsT_2pt/D");
+  newtree->Branch("nonbjetsT_2eta", &nonbjetsT_2eta, "nonbjetsT_2eta/D");
+  newtree->Branch("nonbjetsT_2phi", &nonbjetsT_2phi, "nonbjetsT_2phi/D");
+  newtree->Branch("nonbjetsT_3pt", &nonbjetsT_3pt, "nonbjetsT_3pt/D");
+  newtree->Branch("nonbjetsT_3eta", &nonbjetsT_3eta, "nonbjetsT_3eta/D");
+  newtree->Branch("nonbjetsT_3phi", &nonbjetsT_3phi, "nonbjetsT_3phi/D");
+  newtree->Branch("nonbjetsT_4pt", &nonbjetsT_4pt, "nonbjetsT_4pt/D");
+  newtree->Branch("nonbjetsT_4eta", &nonbjetsT_4eta, "nonbjetsT_4eta/D");
+  newtree->Branch("nonbjetsT_4phi", &nonbjetsT_4phi, "nonbjetsT_4phi/D");
+
+  newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
+
+  newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
+  newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
+  newtree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
+  newtree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
+  newtree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
+  newtree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
+  newtree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
+  newtree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
+  newtree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
+  newtree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
+  newtree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
+  newtree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
+  newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
+  newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
+  newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
+  newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
+  newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 
 }
 

@@ -440,6 +440,7 @@ TTreeReaderValue<Int_t>     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_  = {fReader
    virtual void    SlaveTerminate();
    virtual void    Terminate();
     void InitializeBranches();
+    void makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches);
    ClassDef(makeVaribles_forBDT,0);
 
 };
