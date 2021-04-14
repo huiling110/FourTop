@@ -7,7 +7,8 @@ void run_objectTSelector(
                         // TString inputDir = "JetHT/Legacy16V2_JetHTBlockCHLTToptaggerAdded_EJetMetUpdated_oldEIDBack_v2/210107_060426/0000/",
                         // TString inputDir = "SingleMuon/Legacy16V2_SMuBlockBv3/210304_135358/0000/",
                         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/",
-                        TString singleFileName = "v3_1-1.root")
+                        TString singleFileName = "v3_1-1.root",
+			Bool_t ishuiling = false)
                         // TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
 {
     gROOT->ProcessLine(".L Loader.C+");
@@ -43,9 +44,12 @@ void run_objectTSelector(
     }
     outputFileName = outputFileName + "/"+ singleFileName;
 
-    TString selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
+    TString selection;
+    if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
+    else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
-        outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+        if (ishuiling) outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+        else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         // chain.Process( selection + "+", outputDir + outputFileName, 10000);
         chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
