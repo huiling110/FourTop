@@ -156,3 +156,4 @@ map<string, float> xsec = {
 };
 
 void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
+void writeTEfficiency2D(TH2F* hBef, TH2F* hAFt, TString name);
