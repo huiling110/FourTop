@@ -5,7 +5,7 @@ using namespace std;
 double LUMI2016 = 35900.0;
 
 //string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v31_fixedLeptonBug/";
-string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v32_addedalleventsTree/";
+string dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v40_fixedHLTBugWithPreselection/";
 
 map<string, string> file = { //MAP OF INPUT FILES
 
@@ -19,12 +19,20 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"ttbar-incl", dir + "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
 
 //tt+X background
-{"ttG-SL", dir + "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
-{"ttG-DL", dir + "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp"},
+{"ttG+jets", dir + "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp"},
 {"ttW+jets", dir + "ttWJets_13TeV_madgraphMLM"},
 {"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8"},
 {"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8"},
 
+//QCD background                                                        
+{"QCD_HT200to300", dir + "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},   
+{"QCD_HT300to500", dir + "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+{"QCD_HT500to700", dir + "QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+{"QCD_HT700to1000", dir + "QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+{"QCD_HT1000to1500", dir + "QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+{"QCD_HT1500to2000", dir + "QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+{"QCD_HT2000toInf", dir + "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
+/*
 //diboson background
 {"WZ", dir + "WZ_TuneCUETP8M1_13TeV-pythia8"},
 {"WW", dir + "WW_TuneCUETP8M1_13TeV-pythia8"},
@@ -70,7 +78,7 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"VBFHTo2L2Nu", dir + "VBFHToWWTo2L2Nu_M125_13TeV_powheg_JHUgenv628_pythia8"},
 {"VBFHToMuMu", dir + "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8"},
 {"VBFHToGG", dir + "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2"},
-
+*/
 };
 
 

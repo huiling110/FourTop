@@ -76,6 +76,12 @@ TH1::StatOverflows(kFALSE);
 double mygenEvtWeight = 0;
 mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
 
+double myPUWeight = 0;
+mychain.SetBranchAddress( "PUWeight_", &myPUWeight );
+
+double myPrefireWeight = 0;
+mychain.SetBranchAddress( "EVENT_prefireWeight_", &myPrefireWeight );
+
 vector<TLorentzVector> *myjetsL = {}; 
 mychain.SetBranchAddress("jets", &myjetsL);
 
@@ -120,15 +126,15 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
  bool is2tau1mu = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
  bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
 
- if (is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight);
- if (is1tau1e) h_1tau1e->Fill(myjetsL->size(), mygenEvtWeight);
- if (is1tau1mu) h_1tau1mu->Fill(myjetsL->size(), mygenEvtWeight);
- if (is1tau2L) h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight);
- if (is1tau3L) h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight);
- if (is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight);
- if (is2tau1e) h_2tau1e->Fill(myjetsL->size(), mygenEvtWeight);
- if (is2tau1mu) h_2tau1mu->Fill(myjetsL->size(), mygenEvtWeight);
- if (is2tau2L) h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight);
+ if (is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is1tau1e) h_1tau1e->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is1tau1mu) h_1tau1mu->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is1tau2L) h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is1tau3L) h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is2tau1e) h_2tau1e->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is2tau1mu) h_2tau1mu->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
+ if (is2tau2L) h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myPrefireWeight);
  
  } // end loop over events
 
@@ -166,7 +172,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ){
 
   } // end loop over files
  
- TFile *outputfile = new TFile( "Histograms_chain.root", "RECREATE" );
+ TFile *outputfile = new TFile( "Histograms_chain_v40.root", "RECREATE" );
  
  // loop through each category map and save the corresponding histograms
 map<string, TH1F>::iterator y_1tau0L_it = y_1tau0L.begin();
