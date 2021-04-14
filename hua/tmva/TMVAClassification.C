@@ -72,11 +72,12 @@ int TMVAClassification( TString myMethodList = "" )
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t forVariables = false;
-   Bool_t forVariables = true;
+   Bool_t forVariables = false;
+   // Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
+   TString outfile = "1tauol_inputLeading20";
    // This loads the library
    
 
@@ -215,8 +216,9 @@ int TMVAClassification( TString myMethodList = "" )
        outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
    }else{
        // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/TMVA_1Tau0L_variables.root";
-       if ( forVariables)       outfileName = outDir + "1Tau0L_variables.root";
-       else outfileName = outDir + "1Tau0L_v1_20inputs.root";
+       // if ( forVariables)       outfileName = outDir + "1Tau0L_variables.root";
+       if ( forVariables)       outfileName = outDir + outfile + "_variables.root";
+       else outfileName = outDir + outfile + ".root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
 
@@ -275,7 +277,7 @@ int TMVAClassification( TString myMethodList = "" )
         }
     }
     else{
-        dataloader->AddVariable( "jets_bscore", 'F' );
+        dataloader->AddVariable( "jets_bScore", 'F' );
         dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
         dataloader->AddVariable( "bjetsL_3pt", 'F' );
         dataloader->AddVariable( "bjetsL_num", 'I' );
@@ -284,30 +286,26 @@ int TMVAClassification( TString myMethodList = "" )
         dataloader->AddVariable( "bjetsL_4pt", 'F' );
         dataloader->AddVariable( "bjetsL_invariantMass", 'F' );
         dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
-        dataloader->AddVariable( "bjetsM_3phi", 'F' );
         dataloader->AddVariable( "bjetsL_HT", 'F' );
-        dataloader->AddVariable( "bjetsM_3eta", 'F' );
         dataloader->AddVariable( "bjetsL_transMass", 'F' );
-        dataloader->AddVariable( "bjetsL_4phi", 'F' );
         dataloader->AddVariable( "toptagger_transMass", 'F' );
         dataloader->AddVariable( "toptagger_HT", 'F' );
-        dataloader->AddVariable( "bjetsL_4eta", 'F' );
         dataloader->AddVariable( "jets_7pt", 'F' );
         dataloader->AddVariable( "bjetsM_HT", 'F' );
         dataloader->AddVariable( "jets_6pt", 'F' );
         dataloader->AddVariable( "toptagger_invariantMass", 'F' );
         dataloader->AddVariable( "bjetsM_transMass", 'F' );
         dataloader->AddVariable( "bjetsL_2pt", 'F' );
-        dataloader->AddVariable( "jets_8pt", 'F' );
-        dataloader->AddVariable( "jets_transMass", 'F' );
-        dataloader->AddVariable( "bjetsT_invariantMass", 'F' );
-        dataloader->AddVariable( "jets_number", 'F' );
-        dataloader->AddVariable( "jets_9pt", 'F' );
-        dataloader->AddVariable( "bjetsT_num", 'F' );
-        dataloader->AddVariable( "jets_HT", 'F' );
-        dataloader->AddVariable( "jets_5pt", 'F' );
-        dataloader->AddVariable( "bjetsM_2pt", 'F' );
-        dataloader->AddVariable( "bjetsT_HT", 'F' );
+        dataloader->AddVariable( "jets_8pt", 'F' );//20
+        // dataloader->AddVariable( "jets_transMass", 'F' );
+        // dataloader->AddVariable( "bjetsT_invariantMass", 'F' );
+        // dataloader->AddVariable( "jets_number", 'F' );
+        // dataloader->AddVariable( "jets_9pt", 'F' );
+        // dataloader->AddVariable( "bjetsT_num", 'F' );
+        // dataloader->AddVariable( "jets_HT", 'F' );
+        // dataloader->AddVariable( "jets_5pt", 'F' );
+        // dataloader->AddVariable( "bjetsM_2pt", 'F' );
+        // dataloader->AddVariable( "bjetsT_HT", 'F' );
     } 
     
 
@@ -330,9 +328,6 @@ int TMVAClassification( TString myMethodList = "" )
     // for ( UInt_t p=1; p<4; p++){
         dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
     } 
-    // dataloader->AddBackgroundTree  ( TTTo2L2Nu.getEventTree(), LUMI*TTTo2L2Nu.getSigma()/TTTo2L2Nu.getGenWeightSum() );
-    // dataloader->AddBackgroundTree  ( TTToHadronic.getEventTree(), LUMI*TTToHadronic.getSigma()/TTToHadronic.getGenWeightSum() );
-    // dataloader->AddBackgroundTree  ( TTToSemiLeptonic.getEventTree(), LUMI*TTToSemiLeptonic.getSigma()/TTToSemiLeptonic.getGenWeightSum() );
 
    // To give different trees for training and testing, do as follows:
    //
