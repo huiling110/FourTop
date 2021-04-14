@@ -74,10 +74,10 @@ int TMVAClassification( TString myMethodList = "" )
    //---------------------------------------------------------------
    Bool_t forVariables = false;
    // Bool_t forVariables = true;
-   Bool_t istest = false;
-   // Bool_t istest = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tauol_inputLeading20";
+   TString outfile = "1tau0l_inputLeading20_v2";
    // This loads the library
    
 
@@ -241,8 +241,12 @@ int TMVAClassification( TString myMethodList = "" )
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
+      (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
-   // (TMVA::gConfig().GetIONames()).fWeightFileDir = outDir + "1tau0lmyWeightDir";
+   if ( !istest ){
+       (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
+       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile+"_weight";
+   }
    //???not sure of weightdir?can not run if I added it
 
    // Define the input variables that shall be used for the MVA training
@@ -394,7 +398,8 @@ int TMVAClassification( TString myMethodList = "" )
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
-                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        // "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        "nTrain_Signal=5000:nTrain_Background=5000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
                                         "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
@@ -426,7 +431,8 @@ int TMVAClassification( TString myMethodList = "" )
 
    if (Use["CutsSA"])
       factory->BookMethod( dataloader, TMVA::Types::kCuts, "CutsSA",
-                           "!H:!V:FitMethod=SA:EffSel:MaxCalls=150000:KernelTemp=IncAdaptive:InitialTemp=1e+6:MinTemp=1e-6:Eps=1e-10:UseDefaultScale" );
+                           // "!H:!V:FitMethod=SA:EffSel:MaxCalls=150000:KernelTemp=IncAdaptive:InitialTemp=1e+6:MinTemp=1e-6:Eps=1e-10:UseDefaultScale" );
+                           "!H:!V:FitMethod=SA:EffSel:MaxCalls=150000:KernelTemp=IncAdaptive:InitialTemp=1e+6:MinTemp=1e-6:Eps=1e-10:UseDefaultScale:IgnoreNegWeightsInTraining" );
 
    // Likelihood ("naive Bayes estimator")
    if (Use["Likelihood"])
