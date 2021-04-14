@@ -16,12 +16,20 @@ map<string, float> xsec = {
 {"ttbar-incl", 830.7},
     
 //tt+X background
-{"ttG-SL", 5.058},
-{"ttG-DL", 1.506},
+{"ttG+jets", 3.773},
 {"ttW+jets", 0.2014},
 //{"ttZ+jets", 0.6559},
 {"ttH", 0.3372},
 
+//QCD background
+{"QCD_HT200to300", 1710000.0},
+{"QCD_HT300to500", 347700.0},
+{"QCD_HT500to700", 32100.0},
+{"QCD_HT700to1000", 6831.0},
+{"QCD_HT1000to1500", 1207.0},
+{"QCD_HT1500to2000", 119.9},
+{"QCD_HT2000toInf", 25.24},
+/*
 //diboson background
 {"WZ", 2.343},
 {"WW", 63.21},
@@ -67,9 +75,9 @@ map<string, float> xsec = {
 {"VBFHTo2L2Nu", 3.769},
 {"VBFHToMuMu", 0.000823}, //there's no such a big difference in xsec between ggH(mumu) and VBF(mumu) production mechanisms 
 {"VBFHToGG", 3.992},
-
+*/
 };
 
 map <string, TH1F> scaledYield;
 
-TH1F tttt, ttbar, ttbar_FH, ttbar_SL, ttbar_DL, ttbar_incl, ttX, VV, VVV, WJets, DY, ST, H, total_bkg;
+TH1F tttt, ttbar, ttbar_FH, ttbar_SL, ttbar_DL, ttbar_incl, ttGjets, ttWjets, ttZjets, ttH, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, ttX, VV, VVV, WJets, DY, ST, H, total_bkg;
