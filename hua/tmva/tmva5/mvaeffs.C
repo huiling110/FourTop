@@ -53,7 +53,7 @@ public:
       bgdE(0),
       purS(0),
       sSig(0),
-      effpurS(0),
+      // effpurS(0),
       canvas(0),
       line1(0),
       line2(0),
