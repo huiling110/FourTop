@@ -41,6 +41,7 @@ enum PlotType { EffPurity = 0 };
 
 //?what is the use of MethodInfo class?
 class MethodInfo : public TNamed {
+    //A TNamed contains the essential elements (name, title) to identify a derived object in containers, directories and files. Most member functions defined in this base class are in general overridden by the derived classes.
 public:
    MethodInfo() :
       methodName(""),
@@ -121,6 +122,7 @@ public:
    }
 
    ClassDef(MethodInfo,0)
+//???what is this line doing?       
 };
 
 MethodInfo::~MethodInfo() 
@@ -161,7 +163,7 @@ private:
    Float_t fNSignal;
    Float_t fNBackground;  
    TString fFormula;
-   TList * fInfoList;
+   TList * fInfoList;//All classes inheriting from TObject can be inserted in a TList
 
    TGNumberEntry* fSigInput;
    TGNumberEntry* fBkgInput;
@@ -390,11 +392,13 @@ void StatDialogMVAEffs::ReadHistograms(TFile* file)
    // search for the right histograms in full list of keys
    // TIter next(file->GetListOfKeys());//
    TIter next(file->GetDirectory(dataset.Data())->GetListOfKeys());
+   //TFile keeps a list of TKeys, which is essentially an index to the objects in the file.TFile keeps a list of TKeys, which is essentially an index to the objects in the file.
    TKey *key(0);   
    while( (key = (TKey*)next()) ) {
 
       if (!TString(key->GetName()).BeginsWith("Method_")) continue;
       if( ! gROOT->GetClass(key->GetClassName())->InheritsFrom("TDirectory") ) continue;
+      //loop over Method_* dir
 
       cout << "--- Found directory: " << ((TDirectory*)key->ReadObj())->GetName() << endl;
 
@@ -403,12 +407,12 @@ void StatDialogMVAEffs::ReadHistograms(TFile* file)
       TIter keyIt(mDir->GetListOfKeys());
       TKey *titkey;
       while((titkey = (TKey*)keyIt())) {
-         if( ! gROOT->GetClass(titkey->GetClassName())->InheritsFrom("TDirectory") ) continue;
+         if( ! gROOT->GetClass(titkey->GetClassName())->InheritsFrom("TDirectory") ) continue;//like BDT dir under Method_BDT dir
         
          MethodInfo* info = new MethodInfo();
          TDirectory* titDir = (TDirectory *)titkey->ReadObj();
 
-         TMVAGlob::GetMethodName(info->methodName,key);
+         TMVAGlob::GetMethodName(info->methodName,key); //from Method_BDT to BDT
          TMVAGlob::GetMethodTitle(info->methodTitle,titDir);        
          if (info->methodTitle.Length() > maxLenTitle) maxLenTitle = info->methodTitle.Length();
          TString hname = "MVA_" + info->methodTitle;
