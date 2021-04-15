@@ -123,6 +123,8 @@ public:
 
    ClassDef(MethodInfo,0)
 //???what is this line doing?       
+//If you want to integrate and use your classes with ROOT, to enjoy features like, extensive RTTI (Run Time Type Information) and ROOT object I/O and inspection, you have to add the following line to your class header files
+//ClassDef(ClassName,ClassVersionID);
 };
 
 MethodInfo::~MethodInfo() 
@@ -343,11 +345,14 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
    TString str = Form( "%*s   (  #signal, #backgr.)  Optimal-cut  %s      NSig      NBkg   EffSig   EffBkg", 
                        maxLenTitle, cname.Data(), GetFormulaString().Data() );
    cout << "--- " << setfill('=') << setw(str.Length()) << "" << setfill(' ') << endl;
+   //setfill:Sets c as the stream's fill character.
+   //setw:Sets the field width to be used on output operations
    cout << "--- " << str << endl;
    cout << "--- " << setfill('-') << setw(str.Length()) << "" << setfill(' ') << endl;
    Double_t maxSig    = -1;
    Double_t maxSigErr = -1;
    while ((info = (MethodInfo*)next())) {
+       //syntax strange, next();
       for (Int_t i=1; i<=info->origSigE->GetNbinsX(); i++) {
          Float_t eS = info->origSigE->GetBinContent( i );
          Float_t S = eS * fNSignal;
@@ -366,8 +371,10 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
+      cout<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
-      info->sSig->Scale(1/info->maxSignificance);
+      // info->sSig->Scale(1/info->maxSignificance);
+      cout<<info->sSig<<endl;
 
       // update the text in the lower left corner
       PrintResults( info );
