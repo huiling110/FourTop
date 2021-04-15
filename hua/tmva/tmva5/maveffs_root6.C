@@ -617,7 +617,7 @@ void StatDialogMVAEffs::PrintResults( const MethodInfo* info )
    }
 }
 
-void mvaeffs(TString dataset = "dataset",
+void maveffs_root6(TString dataset = "dataset",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/1tau0lTausT/TMVA_1Tau0L_v1.root",
              TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tauol_inputLeading20.root", 
               Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(S+B)" )
