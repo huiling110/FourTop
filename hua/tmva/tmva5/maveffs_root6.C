@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 using std::cout;
 using std::endl;
 
@@ -353,6 +354,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
    Double_t maxSigErr = -1;
    while ((info = (MethodInfo*)next())) {
        //syntax strange, next();
+       cout<<info->methodName<<endl;
+       cout<<"bin number: "<<info->origSigE->GetNbinsX()<<endl;
       for (Int_t i=1; i<=info->origSigE->GetNbinsX(); i++) {
          Float_t eS = info->origSigE->GetBinContent( i );
          Float_t S = eS * fNSignal;
@@ -366,15 +369,17 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
                maxSigErr = sig * sqrt( 1./S + 1./(2.*B));
             }
          }
-         info->sSig->SetBinContent( i, sig );
+         if (!isnan(sig))  info->sSig->SetBinContent( i, sig );
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
+         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
+         // cout<<"purity:"<<effpurS<<"  ";
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
-      cout<<info->maxSignificance<<endl;
+      cout<<"maxS="<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
-      // info->sSig->Scale(1/info->maxSignificance);
-      cout<<info->sSig<<endl;
+      info->sSig->Scale(1/info->maxSignificance);
+      // cout<<info->sSig<<endl;
 
       // update the text in the lower left corner
       PrintResults( info );
@@ -646,5 +651,6 @@ void maveffs_root6(TString dataset = "dataset",
    gGui->SetFormula(formula);
    gGui->UpdateSignificanceHists();
    gGui->DrawHistograms();
+   // gGui->PrintResults( gGui.fInfoList[0]);
    gGui->RaiseDialog();   
 }
