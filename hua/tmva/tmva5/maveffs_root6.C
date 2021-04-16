@@ -354,8 +354,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
    Double_t maxSigErr = -1;
    while ((info = (MethodInfo*)next())) {
        //syntax strange, next();
-       cout<<info->methodName<<endl;
-       cout<<"bin number: "<<info->origSigE->GetNbinsX()<<endl;
+       // cout<<info->methodName<<endl;
+       // cout<<"bin number: "<<info->origSigE->GetNbinsX()<<endl;
       for (Int_t i=1; i<=info->origSigE->GetNbinsX(); i++) {
          Float_t eS = info->origSigE->GetBinContent( i );
          Float_t S = eS * fNSignal;
@@ -371,12 +371,12 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
          }
          if (!isnan(sig))  info->sSig->SetBinContent( i, sig );
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
-         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
+         // cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
          // cout<<"purity:"<<effpurS<<"  ";
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
-      cout<<"maxS="<<info->maxSignificance<<endl;
+      // cout<<"maxS="<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
       info->sSig->Scale(1/info->maxSignificance);
       // cout<<info->sSig<<endl;
