@@ -74,10 +74,10 @@ int TMVAClassification( TString myMethodList = "" )
    //---------------------------------------------------------------
    Bool_t forVariables = false;
    // Bool_t forVariables = true;
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau0l_inputLeading20_v2";
+   TString outfile = "1tau0l_inputLeading20_v2AddBDTMethod";
    // This loads the library
    
 
@@ -148,17 +148,17 @@ int TMVAClassification( TString myMethodList = "" )
    if ( forVariables ) {
         Use["BDT"]             = 0;
         Use["BDTG"]            = 0;
+       Use["BDTB"]            = 0; // uses Bagging
+       Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
+       Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    }else{
         Use["BDT"]             = 1;
         Use["BDTG"]            = 1;
+       Use["BDTB"]            = 1; // uses Bagging
+       Use["BDTD"]            = 1; // decorrelation + Adaptive Boost
+       // Use["BDTF"]            = 1; // allow usage of fisher discriminant for node splitting
+       Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    }
-   // Use["BDT"]             = 1; // uses Adaptive Boost
-   // Use["BDT"]             = 0; // uses Adaptive Boost
-   // Use["BDTG"]            = 1; // uses Gradient Boost
-   // Use["BDTG"]            = 0; // uses Gradient Boost
-   Use["BDTB"]            = 0; // uses Bagging
-   Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
-   Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    //
    // Friedman's RuleFit method, ie, an optimised series of cuts ("rules")
    Use["RuleFit"]         = 0;
@@ -327,11 +327,13 @@ int TMVAClassification( TString myMethodList = "" )
    // global event weights per tree (see below for setting event-wise weights)
 
    // You can add an arbitrary number of signal or background trees
-    dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
-    for ( UInt_t p=1; p<allProcesses.size(); p++){
+    // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
+    dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
+    // for ( UInt_t p=1; p<allProcesses.size(); p++){
     // for ( UInt_t p=1; p<4; p++){
-        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
-    } 
+        // dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
+    // }
+    dataloader->AddBackgroundTree( .getEventTree(), LUMI* .getScale() );
 
    // To give different trees for training and testing, do as follows:
    //
@@ -398,9 +400,7 @@ int TMVAClassification( TString myMethodList = "" )
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
-                                        // "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        // "nTrain_Signal=10000:nTrain_Background=10000:nTest_Signal=10000:nTest_Background=10000:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        "nTrain_Signal=10000:nTrain_Background=10000:nTest_Signal=10000:nTest_Background=10000:SplitMode=Random:NormMode=EqualNumEvents:!V" );
+                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
                                         "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
