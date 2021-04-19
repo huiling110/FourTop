@@ -333,7 +333,21 @@ int TMVAClassification( TString myMethodList = "" )
     // for ( UInt_t p=1; p<4; p++){
         // dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
     // }
-    dataloader->AddBackgroundTree( .getEventTree(), LUMI* .getScale() );
+    dataloader->AddBackgroundTree( TTTo2L2Nu.getEventTree(), LUMI* TTTo2L2Nu.getScale() );
+    dataloader->AddBackgroundTree( TTToHadronic.getEventTree(), LUMI* TTToHadronic.getScale() );
+    dataloader->AddBackgroundTree( TTToSemiLeptonic.getEventTree(), LUMI* TTToSemiLeptonic.getScale() );
+    dataloader->AddBackgroundTree( TTGJets.getEventTree(), LUMI* TTGJets.getScale() );
+    dataloader->AddBackgroundTree( ttZJets.getEventTree(), LUMI* ttZJets.getScale() );
+    dataloader->AddBackgroundTree( ttWJets.getEventTree(), LUMI* ttWJets.getScale() );
+    dataloader->AddBackgroundTree( ttH.getEventTree(), LUMI* ttH.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT200to300.getEventTree(), LUMI* QCD_HT200to300.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT300to500.getEventTree(), LUMI* QCD_HT300to500.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT500to700.getEventTree(), LUMI* QCD_HT500to700.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT700to1000.getEventTree(), LUMI* QCD_HT700to1000.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT1000to1500.getEventTree(), LUMI* QCD_HT1000to1500.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT1500to2000.getEventTree(), LUMI* QCD_HT1500to2000.getScale() );
+    dataloader->AddBackgroundTree( QCD_HT2000toInf.getEventTree(), LUMI* QCD_HT2000toInf.getScale() );
+    // dataloader->AddBackgroundTree( .getEventTree(), LUMI* .getScale() );
 
    // To give different trees for training and testing, do as follows:
    //
