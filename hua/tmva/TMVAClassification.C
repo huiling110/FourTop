@@ -77,7 +77,7 @@ int TMVAClassification( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau0l_inputLeading20_v2AddBDTMethod";
+   TString outfile = "1tau0l_inputLeading20_v3OnlyMajorBG";
    // This loads the library
    
 
@@ -417,7 +417,8 @@ int TMVAClassification( TString myMethodList = "" )
                                         "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
-                                        "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        "nTrain_Signal=166172:nTrain_Background=:83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training
    }
 
    // ### Book MVA methods
