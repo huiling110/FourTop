@@ -418,7 +418,7 @@ int TMVAClassification( TString myMethodList = "" )
    }else{
        dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        "nTrain_Signal=166172:nTrain_Background=:83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training
+                                        "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training
    }
 
    // ### Book MVA methods
