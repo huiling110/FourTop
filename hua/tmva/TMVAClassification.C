@@ -77,7 +77,7 @@ int TMVAClassification( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau0l_inputLeading20_v4Remove2QCD";
+   TString outfile = "1tau0l_inputLeading20_v4Remove3QCD";
    // This loads the library
    
 
@@ -342,7 +342,7 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddBackgroundTree( ttH.getEventTree(), LUMI* ttH.getScale() );
     // dataloader->AddBackgroundTree( QCD_HT200to300.getEventTree(), LUMI* QCD_HT200to300.getScale() );
     // dataloader->AddBackgroundTree( QCD_HT300to500.getEventTree(), LUMI* QCD_HT300to500.getScale() );
-    dataloader->AddBackgroundTree( QCD_HT500to700.getEventTree(), LUMI* QCD_HT500to700.getScale() );
+    // dataloader->AddBackgroundTree( QCD_HT500to700.getEventTree(), LUMI* QCD_HT500to700.getScale() );
     dataloader->AddBackgroundTree( QCD_HT700to1000.getEventTree(), LUMI* QCD_HT700to1000.getScale() );
     dataloader->AddBackgroundTree( QCD_HT1000to1500.getEventTree(), LUMI* QCD_HT1000to1500.getScale() );
     dataloader->AddBackgroundTree( QCD_HT1500to2000.getEventTree(), LUMI* QCD_HT1500to2000.getScale() );
