@@ -213,7 +213,7 @@ int TMVAClassification( TString myMethodList = "" )
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
    TString outfileName;
    if ( istest ){
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_1Tau0L_v1.root";
+       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_test.root";
    }else{
        // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/TMVA_1Tau0L_variables.root";
        if ( forVariables)       outfileName = outDir + outfile + "_variables.root";
@@ -388,8 +388,9 @@ int TMVAClassification( TString myMethodList = "" )
 
    // Apply additional cuts on the signal and background samples (can be different)
    // TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
-   // TCut mycutb = ""; // for example: TCut mycutb = "abs(var1)<0.5";
-    TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";
+    // TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";//1tau0l
+    TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2";
+    // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2";
 
    // Tell the dataloader how to use the training and testing events
    //
@@ -403,10 +404,14 @@ int TMVAClassification( TString myMethodList = "" )
    //    dataloader->PrepareTrainingAndTestTree( mycut,
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
-       dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
+       dataloader->PrepareTrainingAndTestTree( 
+               // mycuts, mycuts,
+               ES1tau1e, ES1tau1e,
                                         "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
-       dataloader->PrepareTrainingAndTestTree( mycuts, mycuts,
+       dataloader->PrepareTrainingAndTestTree( 
+               // mycuts, mycuts,
+               ES1tau1e, ES1tau1e,
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
                                         "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training
    }
