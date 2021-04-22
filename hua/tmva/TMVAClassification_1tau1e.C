@@ -286,21 +286,25 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         dataloader->AddVariable( "bjetsM_3pt", 'F' );
         dataloader->AddVariable( "bjetsM_num", 'I' );
         dataloader->AddVariable( "bjetsL_num", 'I' );
-        dataloader->AddVariable( "bjetsL_4pt", 'F' );
         dataloader->AddVariable( "bjetsL_3pt", 'F' );
-        dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
+        dataloader->AddVariable( "bjetsL_4pt", 'F' );
+        dataloader->AddVariable( "jets_number", 'F' );
+        dataloader->AddVariable( "bjetsL_HT", 'F' );
+        dataloader->AddVariable( "jets_7pt", 'F' );
         dataloader->AddVariable( "bjetsL_invariantMass", 'F' );
+        dataloader->AddVariable( "bjetsL_transMass", 'F' );
         dataloader->AddVariable( "toptagger_HT", 'F' );
         dataloader->AddVariable( "toptagger_transMass", 'F' );
-        dataloader->AddVariable( "bjetsL_HT", 'F' );
-        dataloader->AddVariable( "bjetsT_num", 'I' );
-        dataloader->AddVariable( "jets_7pt", 'F' );
-        dataloader->AddVariable( "jets_8pt", 'F' );//20
-        dataloader->AddVariable( "bjetsT_3pt", 'F' );
-        dataloader->AddVariable( "bjetsL_transMass", 'F' );
+        dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
+        dataloader->AddVariable( "jets_6pt", 'F' );//20
         dataloader->AddVariable( "bjetsM_HT", 'F' );
-        dataloader->AddVariable( "toptagger_invariantMass", 'F' );
-        dataloader->AddVariable( "jets_9pt", 'F' );
+        dataloader->AddVariable( "jets_8pt", 'F' );//20
+        dataloader->AddVariable( "jets_5pt", 'F' );//20
+        dataloader->AddVariable( "jets_transMass", 'F' );//20
+        // dataloader->AddVariable( "bjetsT_num", 'I' );
+        // dataloader->AddVariable( "bjetsT_3pt", 'F' );
+        // dataloader->AddVariable( "toptagger_invariantMass", 'F' );
+        // dataloader->AddVariable( "jets_9pt", 'F' );
     }
 
 
