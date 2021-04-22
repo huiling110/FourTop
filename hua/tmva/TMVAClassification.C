@@ -72,14 +72,14 @@ int TMVAClassification( TString myMethodList = "" )
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t forVariables = false;
-   // Bool_t forVariables = true;
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau0l_v2leading20varibles";
+   TString outfile = "1tau1e";
    // This loads the library
-   
+
 
    TMVA::Tools::Instance();
 
@@ -263,10 +263,10 @@ int TMVAClassification( TString myMethodList = "" )
             if ( branchName.Contains( "Flag") )  continue;
             if ( branchName.Contains( "HLT"))    continue;
             if ( branchName.Contains( "Weight"))  continue;
-            if ( branchName.Contains( "muonsT")) continue; 
-            if ( branchName.Contains( "tausT_number")) continue; 
-            if ( branchName.Contains( "tausT_minDeltaR")) continue; 
-            if ( branchName.Contains( "leptonsMVAT")) continue; 
+            if ( branchName.Contains( "muonsT")) continue;
+            if ( branchName.Contains( "tausT_number")) continue;
+            if ( branchName.Contains( "tausT_minDeltaR")) continue;
+            if ( branchName.Contains( "leptonsMVAT")) continue;
             if ( branchName.Contains( "elesMVAT")) continue;
             if ( branchName.Contains( "leptonsT")) continue;
             if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
@@ -300,8 +300,8 @@ int TMVAClassification( TString myMethodList = "" )
         dataloader->AddVariable( "bjetsM_HT", 'F' );
         dataloader->AddVariable( "toptagger_invariantMass", 'F' );
         dataloader->AddVariable( "jets_9pt", 'F' );
-    } 
-    
+    }
+
 
 
 
@@ -404,16 +404,18 @@ int TMVAClassification( TString myMethodList = "" )
    //    dataloader->PrepareTrainingAndTestTree( mycut,
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
-       dataloader->PrepareTrainingAndTestTree( 
+       dataloader->PrepareTrainingAndTestTree(
                // mycuts, mycuts,
                ES1tau1e, ES1tau1e,
-                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        // "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
-       dataloader->PrepareTrainingAndTestTree( 
+       dataloader->PrepareTrainingAndTestTree(
                // mycuts, mycuts,
                ES1tau1e, ES1tau1e,
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training
+                                        // "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau0l
+                                        "nTrain_Signal=56241:nTrain_Background=23927:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau1e
    }
 
    // ### Book MVA methods
