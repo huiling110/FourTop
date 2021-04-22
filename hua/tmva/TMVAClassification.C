@@ -244,7 +244,7 @@ int TMVAClassification( TString myMethodList = "" )
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
    if ( !istest ){
        (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
-       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile+"_weight";
+       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
    }
    //???not sure of weightdir?can not run if I added it
 
