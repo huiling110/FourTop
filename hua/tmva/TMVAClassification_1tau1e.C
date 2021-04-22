@@ -74,8 +74,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    //---------------------------------------------------------------
    // Bool_t forVariables = false;
    Bool_t forVariables = true;
-   Bool_t istest = false;
-   // Bool_t istest = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
    TString outfile = "1tau1e";
    // This loads the library
@@ -246,6 +246,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
        (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
        (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
    }
+   
+
    //???not sure of weightdir?can not run if I added it
 
    // Define the input variables that shall be used for the MVA training
@@ -406,8 +408,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
        dataloader->PrepareTrainingAndTestTree(
                // mycuts, mycuts,
                ES1tau1e, ES1tau1e,
-                                        // "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree(
                // mycuts, mycuts,
@@ -684,5 +686,5 @@ int main( int argc, char** argv )
       if (!methodList.IsNull()) methodList += TString(",");
       methodList += regMethod;
    }
-   return TMVAClassification(methodList);
+   return TMVAClassification_1tau1e(methodList);
 }
