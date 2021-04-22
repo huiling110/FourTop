@@ -319,10 +319,10 @@ int TMVAClassification( TString myMethodList = "" )
    // You can add an arbitrary number of signal or background trees
     // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
-    // for ( UInt_t p=1; p<allProcesses.size(); p++){
-    // for ( UInt_t p=1; p<4; p++){
-        // dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
-    // }
+    for ( UInt_t p=1; p<allProcesses.size(); p++){
+        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
+    }
+    /*
     dataloader->AddBackgroundTree( TTTo2L2Nu.getEventTree(), LUMI* TTTo2L2Nu.getScale() );
     dataloader->AddBackgroundTree( TTToHadronic.getEventTree(), LUMI* TTToHadronic.getScale() );
     dataloader->AddBackgroundTree( TTToSemiLeptonic.getEventTree(), LUMI* TTToSemiLeptonic.getScale() );
@@ -337,6 +337,7 @@ int TMVAClassification( TString myMethodList = "" )
     dataloader->AddBackgroundTree( QCD_HT1000to1500.getEventTree(), LUMI* QCD_HT1000to1500.getScale() );
     dataloader->AddBackgroundTree( QCD_HT1500to2000.getEventTree(), LUMI* QCD_HT1500to2000.getScale() );
     dataloader->AddBackgroundTree( QCD_HT2000toInf.getEventTree(), LUMI* QCD_HT2000toInf.getScale() );
+    */
     // dataloader->AddBackgroundTree( .getEventTree(), LUMI* .getScale() );
 
    // To give different trees for training and testing, do as follows:
