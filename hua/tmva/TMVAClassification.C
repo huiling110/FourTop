@@ -240,8 +240,7 @@ int TMVAClassification( TString myMethodList = "" )
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-      (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
-   //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
+      // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
    if ( !istest ){
        (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
        (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";

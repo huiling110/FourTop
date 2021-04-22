@@ -74,8 +74,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    //---------------------------------------------------------------
    // Bool_t forVariables = false;
    Bool_t forVariables = true;
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
    TString outfile = "1tau1e";
    // This loads the library
@@ -244,7 +244,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
    if ( !istest ){
        (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
-       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
+       // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
+       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile+"_weight";
    }
    
 
@@ -270,11 +271,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
             if ( branchName.Contains( "tausT_minDeltaR")) continue;
             if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
             //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
-            // if ( branchName.Contains( "leptonsMVAT")) continue;
-            // if ( branchName.Contains( "elesMVAT")) continue;
-            // if ( branchName.Contains( "leptonsT")) continue;
             if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
-            // if ( branchName.Contains( "leptonsMVAL_transMass")) continue;//???RMS=NAN
             //not sure what is wrong with this branch. //Variable muonsT_number is constant.
             //because after the cut the branch is 0
             cout<<branchName<<endl;
