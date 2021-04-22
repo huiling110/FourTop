@@ -77,7 +77,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau1e_Remove4correlation90_Allbg";
+   TString outfile = "1tau1e_Remove4correlation80_Allbg";
    // This loads the library
 
 
@@ -287,7 +287,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         // dataloader->AddVariable( "bjetsM_num", 'I' );
         dataloader->AddVariable( "bjetsL_num", 'I' );
         dataloader->AddVariable( "bjetsL_3pt", 'F' );
-        dataloader->AddVariable( "bjetsL_4pt", 'F' );
+        // dataloader->AddVariable( "bjetsL_4pt", 'F' );
         dataloader->AddVariable( "jets_number", 'F' );
         dataloader->AddVariable( "bjetsL_HT", 'F' );
         dataloader->AddVariable( "jets_7pt", 'F' );
@@ -295,10 +295,10 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         // dataloader->AddVariable( "bjetsL_transMass", 'F' );
         // dataloader->AddVariable( "toptagger_HT", 'F' );
         dataloader->AddVariable( "toptagger_transMass", 'F' );
-        dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
+        // dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
         dataloader->AddVariable( "jets_6pt", 'F' );//20
-        dataloader->AddVariable( "bjetsM_HT", 'F' );
-        dataloader->AddVariable( "jets_8pt", 'F' );//20
+        // dataloader->AddVariable( "bjetsM_HT", 'F' );
+        // dataloader->AddVariable( "jets_8pt", 'F' );//20
         dataloader->AddVariable( "jets_5pt", 'F' );//20
         dataloader->AddVariable( "jets_transMass", 'F' );//20
     }
