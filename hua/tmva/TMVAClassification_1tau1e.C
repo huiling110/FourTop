@@ -265,13 +265,15 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
             if ( branchName.Contains( "Flag") )  continue;
             if ( branchName.Contains( "HLT"))    continue;
             if ( branchName.Contains( "Weight"))  continue;
-            // if ( branchName.Contains( "muonsT")) continue;
-            // if ( branchName.Contains( "tausT_number")) continue;
-            // if ( branchName.Contains( "tausT_minDeltaR")) continue;
+            if ( branchName.Contains( "tausT_number") || branchName.Contains( "muonsT_number") || branchName.Contains( "elesMVAT_number")  ) continue;
+            if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
+            if ( branchName.Contains( "tausT_minDeltaR")) continue;
+            if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
+            //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
             // if ( branchName.Contains( "leptonsMVAT")) continue;
             // if ( branchName.Contains( "elesMVAT")) continue;
             // if ( branchName.Contains( "leptonsT")) continue;
-            // if ( branchName.Contains( "toptagger_scoreAllTops")) continue;
+            if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
             // if ( branchName.Contains( "leptonsMVAL_transMass")) continue;//???RMS=NAN
             //not sure what is wrong with this branch. //Variable muonsT_number is constant.
             //because after the cut the branch is 0
