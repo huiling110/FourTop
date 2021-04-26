@@ -32,7 +32,6 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"ttZ+jets", dir + "ttZJets_13TeV_madgraphMLM-pythia8"},
 {"ttG+jets", dir + "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8"},
 {"ttH", dir + "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8"},
-
 };
 
 map<string, float> xsec = {
@@ -61,6 +60,6 @@ map<string, float> xsec = {
 
 };
 
-void recoEff (vector<TLorentzVector> genTaus, vector<TLorentzVector> recoTaus, TH1F* hBef, TH1F* hAft)
+void recoEff (vector<TLorentzVector> *GenTaus, vector<TLorentzVector> *recoTaus, TH1F* hBef, TH1F* hAft, double genW);
 
-void writeTEfficiency(TH1F* hBef, TH1F* hAft, map<string, string>::iterator file_it, TString name)
+void writeTEfficiency(TH1F* hBef, TH1F* hAft, map<string, string>::iterator file_it, TString name);

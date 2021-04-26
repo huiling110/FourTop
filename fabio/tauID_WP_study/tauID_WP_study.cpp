@@ -331,6 +331,9 @@ void tauID_WP_study() {
 		double mygenEvtWeight = 0;
 		mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
 
+		vector<TLorentzVector> * mygenTaus = {};
+		mychain.SetBranchAddress("genTaus", &mygenTaus);
+
 		vector<TLorentzVector> *myjetsL = {}; 
 		mychain.SetBranchAddress("jets", &myjetsL);
 
@@ -407,8 +410,13 @@ void tauID_WP_study() {
 			/////////////////////////////////////////////////////////////////////
 
 			bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
+
+			recoEff(mygenTaus, mytausT_VVVLooseVsJet, h_recoeff_1tau0L_bef[7], h_recoeff_1tau0L_aft[7], mygenEvtWeight);
 		
 		}//end loop over events
+
+		outputfile->cd();
+		writeTEfficiency(h_recoeff_1tau0L_bef[7], h_recoeff_1tau0L_aft[7], file_it, "e_HT_nocat_");
 
 		for (int i = 0; i < 7; i++) {
 
@@ -449,16 +457,21 @@ void tauID_WP_study() {
 
 	}//end loop over files
 
+	outputfile->Close();
+	delete outputfile;
+	
+	gBenchmark->Show("running time");
+
 }//end
 
-void recoEff (vector<TLorentzVector> genTaus, vector<TLorentzVector> recoTaus, TH1F* hBef, TH1F* hAft) {
+void recoEff (vector<TLorentzVector> *genTaus, vector<TLorentzVector> *recoTaus, TH1F* hBef, TH1F* hAft, double genW) {
 
 	float dRmin = 10.0;
-	for (int gTau = 0; gTau > genTaus.size(); gTau++) {
+	for (int gTau = 0; gTau > genTaus->size(); gTau++) {
 
-		hBef->Fill(genTaus->at(i).Pt(), mygenEvtWeight);
+		hBef->Fill(genTaus->at(gTau).Pt(), genW);
 
-		for (int rTau = 0; rTau < recoTaus.size(); rTau++) {
+		for (int rTau = 0; rTau < recoTaus->size(); rTau++) {
 
 			float dEta = fabs( genTaus->at(gTau).Eta() - recoTaus->at(rTau).Eta() );
 			float dPhi = fabs( genTaus->at(gTau).Phi() - recoTaus->at(rTau).Phi() );
@@ -472,7 +485,7 @@ void recoEff (vector<TLorentzVector> genTaus, vector<TLorentzVector> recoTaus, T
 
 		}
 	
-		if (dRmin < 0.4) hAft->Fill(genTaus->at(i).Pt(), mygenEvtWeight);
+		if (dRmin < 0.4) hAft->Fill(genTaus->at(gTau).Pt(), genW);
 
 	}
 
