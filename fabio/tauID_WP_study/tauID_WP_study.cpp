@@ -18,6 +18,8 @@ void tauID_WP_study() {
 
 	map<string, string>::iterator file_it = file.begin();
 
+	TFile *outputfile = new TFile( "tauID_WP_study_output.root", "RECREATE" );
+
 	while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
 
 		cout << "Reading process " << file_it->second << "..." << endl;
@@ -37,8 +39,8 @@ void tauID_WP_study() {
 		//use array of TH1Fs; 0-th histo corresponds to tighter WP in VsJet; 6-th histo corresponds to looser QP in VsJet
 		// 1tau0L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_1tau0L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_1tau0L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_1tau0L_bef_%d", i);
@@ -46,9 +48,18 @@ void tauID_WP_study() {
 			h_recoeff_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_1tau0L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau0L_aft_%d", i);
+			sprintf(title, "h_recoeff_1tau0L_aft_%d", i);
+			h_recoeff_1tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_1tau0L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_1tau0L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_1tau0L_bef_%d", i);
@@ -56,10 +67,19 @@ void tauID_WP_study() {
 			h_recopurity_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_1tau0L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau0L_aft_%d", i);
+			sprintf(title, "h_recopurity_1tau0L_aft_%d", i);
+			h_recopurity_1tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau1L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_1tau1L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_1tau1L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_1tau1L_bef_%d", i);
@@ -67,9 +87,18 @@ void tauID_WP_study() {
 			h_recoeff_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_1tau1L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau1L_aft_%d", i);
+			sprintf(title, "h_recoeff_1tau1L_aft_%d", i);
+			h_recoeff_1tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_1tau1L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_1tau1L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_1tau1L_bef_%d", i);
@@ -77,10 +106,19 @@ void tauID_WP_study() {
 			h_recopurity_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_1tau1L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau1L_aft_%d", i);
+			sprintf(title, "h_recopurity_1tau1L_aft_%d", i);
+			h_recopurity_1tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau2L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_1tau2L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_1tau2L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_1tau2L_bef_%d", i);
@@ -88,9 +126,18 @@ void tauID_WP_study() {
 			h_recoeff_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_1tau2L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau2L_aft_%d", i);
+			sprintf(title, "h_recoeff_1tau2L_aft_%d", i);
+			h_recoeff_1tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_1tau2L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_1tau2L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_1tau2L_bef_%d", i);
@@ -98,10 +145,19 @@ void tauID_WP_study() {
 			h_recopurity_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_1tau2L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau2L_aft_%d", i);
+			sprintf(title, "h_recopurity_1tau2L_aft_%d", i);
+			h_recopurity_1tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau3L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_1tau3L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_1tau3L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_1tau3L_bef_%d", i);
@@ -109,9 +165,18 @@ void tauID_WP_study() {
 			h_recoeff_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_1tau3L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau3L_aft_%d", i);
+			sprintf(title, "h_recoeff_1tau3L_aft_%d", i);
+			h_recoeff_1tau3L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_1tau3L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_1tau3L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_1tau3L_bef_%d", i);
@@ -119,10 +184,19 @@ void tauID_WP_study() {
 			h_recopurity_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_1tau3L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau3L_aft_%d", i);
+			sprintf(title, "h_recopurity_1tau3L_aft_%d", i);
+			h_recopurity_1tau3L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau0L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_2tau0L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_2tau0L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_2tau0L_bef_%d", i);
@@ -130,9 +204,18 @@ void tauID_WP_study() {
 			h_recoeff_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_2tau0L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau0L_aft_%d", i);
+			sprintf(title, "h_recoeff_2tau0L_aft_%d", i);
+			h_recoeff_2tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_2tau0L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_2tau0L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_2tau0L_bef_%d", i);
@@ -140,10 +223,19 @@ void tauID_WP_study() {
 			h_recopurity_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_2tau0L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau0L_aft_%d", i);
+			sprintf(title, "h_recopurity_2tau0L_aft_%d", i);
+			h_recopurity_2tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau1L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_2tau1L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_2tau1L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_2tau1L_bef_%d", i);
@@ -151,9 +243,18 @@ void tauID_WP_study() {
 			h_recoeff_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_2tau1L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau1L_aft_%d", i);
+			sprintf(title, "h_recoeff_2tau1L_aft_%d", i);
+			h_recoeff_2tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_2tau1L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_2tau1L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_2tau1L_bef_%d", i);
@@ -161,10 +262,19 @@ void tauID_WP_study() {
 			h_recopurity_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recopurity_2tau1L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau1L_aft_%d", i);
+			sprintf(title, "h_recopurity_2tau1L_aft_%d", i);
+			h_recopurity_2tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau2L category
 		//histos for reconstruction efficiency
-		TH1F* h_recoeff_2tau2L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recoeff_2tau2L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recoeff_2tau2L_bef_%d", i);
@@ -172,14 +282,32 @@ void tauID_WP_study() {
 			h_recoeff_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
+		TH1F* h_recoeff_2tau2L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau2L_aft_%d", i);
+			sprintf(title, "h_recoeff_2tau2L_aft_%d", i);
+			h_recoeff_2tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F* h_recopurity_2tau2L_bef[7];
-		for (int i = 0; i < 7; i++) {
+		TH1F* h_recopurity_2tau2L_bef[8];
+		for (int i = 0; i < 8; i++) {
 			char name[200];
 			char title[200];
 			sprintf(name, "h_recopurity_2tau2L_bef_%d", i);
 			sprintf(title, "h_recopurity_2tau2L_bef_%d", i);
 			h_recopurity_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
+		TH1F* h_recopurity_2tau2L_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau2L_aft_%d", i);
+			sprintf(title, "h_recopurity_2tau2L_aft_%d", i);
+			h_recopurity_2tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
 		
 		}
 		TH1::AddDirectory(kTRUE);
@@ -282,7 +410,42 @@ void tauID_WP_study() {
 			bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
 		
 		}//end loop over events
-		
+
+		for (int i = 0; i < 7; i++) {
+
+			delete h_recoeff_1tau0L_bef[i];
+			delete h_recoeff_1tau0L_aft[i];
+			delete h_recopurity_1tau0L_bef[i];
+			delete h_recopurity_1tau0L_aft[i];
+			delete h_recoeff_1tau1L_bef[i];
+			delete h_recoeff_1tau1L_aft[i];
+			delete h_recopurity_1tau1L_bef[i];
+			delete h_recopurity_1tau1L_aft[i];
+			delete h_recoeff_1tau2L_bef[i];
+			delete h_recoeff_1tau2L_aft[i];
+			delete h_recopurity_1tau2L_bef[i];
+			delete h_recopurity_1tau2L_aft[i];
+			delete h_recoeff_1tau3L_bef[i];
+			delete h_recoeff_1tau3L_aft[i];
+			delete h_recopurity_1tau3L_bef[i];
+			delete h_recopurity_1tau3L_aft[i];
+			delete h_recoeff_2tau0L_bef[i];
+			delete h_recoeff_2tau0L_aft[i];
+			delete h_recopurity_2tau0L_bef[i];
+			delete h_recopurity_2tau0L_aft[i];
+			delete h_recoeff_2tau1L_bef[i];
+			delete h_recoeff_2tau1L_aft[i];
+			delete h_recopurity_2tau1L_bef[i];
+			delete h_recopurity_2tau1L_aft[i];
+			delete h_recoeff_2tau2L_bef[i];
+			delete h_recoeff_2tau2L_aft[i];
+			delete h_recopurity_2tau2L_bef[i];
+			delete h_recopurity_2tau2L_aft[i];
+
+		}
+
+		mychain.Reset();
+		mychain2.Reset();
 		file_it++;
 
 	}//end loop over files
