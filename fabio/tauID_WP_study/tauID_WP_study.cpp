@@ -479,19 +479,99 @@ void tauID_WP_study() {
 			/////////////////////////////////////////////////////////////////////
 			///////////////////// DEFINE CATEGORY CUTS //////////////////////////
 			/////////////////////////////////////////////////////////////////////
-			/*
-			bool is1tau0L = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
-			bool is1tau1e = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2);
-			bool is1tau1mu = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=6 && mybjetsM->size()>=2);
-			bool is1tau2L = (mytausT->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2);
-			bool is1tau3L = (mytausT->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2);
-			bool is2tau0L = (mytausT->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2);
-			bool is2tau1e = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
-			bool is2tau1mu = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
-			bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
-			*/
+			
+			bool is1tau0L[8] = {
+				(mytausT_VVTightVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2)
+			};
+			bool is1tau1L[8] = {
+				(mytausT_VVTightVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==1 && myleptonsMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2)
+			}; 
+			bool is1tau2L[8] = {
+				(mytausT_VVTightVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+			};
+			bool is1tau3L[8] = {
+				(mytausT_VVTightVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+			};
+			bool is2tau0L[8] = {
+				(mytausT_VVTightVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2)
+			};
+			bool is2tau1L[8] = {
+				(mytausT_VVTightVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==2 && myleptonsMVAT->size()==1 && myjetsL->size()>=4 && mybjetsM->size()>=2)
+			};
+			bool is2tau2L[8] = {
+				(mytausT_VVTightVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VTightVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_TightVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_MediumVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_LooseVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VLooseVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VVLooseVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2),
+				(mytausT_VVVLooseVsJet->size()==2 && myleptonsMVAT->size()==2 && myjetsL->size()>=2 && mybjetsM->size()>=2)
+			};
 
-			recoEff(mygenTaus, mytausT_VVVLooseVsJet, h_recoeff_1tau0L_bef[7], h_recoeff_1tau0L_aft[7], mygenEvtWeight, h_correct_recoEff);
+			vector<TLorentzVector>* mytausT[8] = {
+				mytausT_VVTightVsJet,
+				mytausT_VTightVsJet,
+				mytausT_TightVsJet,
+				mytausT_MediumVsJet,
+				mytausT_LooseVsJet,
+				mytausT_VLooseVsJet,
+				mytausT_VVLooseVsJet,
+				mytausT_VVVLooseVsJet
+			};
+			
+			for (int i = 0; i < 8; i++){
+
+				if (is1tau0L[i]) {
+
+					recoEff(mygenTaus, mytausT_VVVLooseVsJet, h_recoeff_1tau0L_bef[i], h_recoeff_1tau0L_aft[i], mygenEvtWeight, h_correct_recoeff[i]);
+
+				}
+			
+			}
+			
 		
 		}//end loop over events
 
