@@ -405,11 +405,6 @@ void tauID_WP_study() {
 			bool is2tau1mu = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
 			bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
 			*/
-			/////////////////////////////////////////////////////////////////////
-			///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
-			/////////////////////////////////////////////////////////////////////
-
-			bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
 
 			recoEff(mygenTaus, mytausT_VVVLooseVsJet, h_recoeff_1tau0L_bef[7], h_recoeff_1tau0L_aft[7], mygenEvtWeight);
 		
@@ -452,6 +447,7 @@ void tauID_WP_study() {
 		}
 
 		delete genEvtWeights;
+		
 		mychain.Reset();
 		mychain2.Reset();
 		file_it++;
@@ -468,7 +464,7 @@ void tauID_WP_study() {
 void recoEff (vector<TLorentzVector> *genTaus, vector<TLorentzVector> *recoTaus, TH1F* hBef, TH1F* hAft, double genW) {
 
 	float dRmin = 10.0;
-	for (int gTau = 0; gTau > genTaus->size(); gTau++) {
+	for (int gTau = 0; gTau < genTaus->size(); gTau++) {
 
 		hBef->Fill(genTaus->at(gTau).Pt(), genW);
 
