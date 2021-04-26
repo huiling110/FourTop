@@ -34,55 +34,154 @@ void tauID_WP_study() {
 		} 
 
 		TH1::AddDirectory(kFALSE); 
+		//use array of TH1Fs; 0-th histo corresponds to tighter WP in VsJet; 6-th histo corresponds to looser QP in VsJet
 		// 1tau0L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_1tau0L_bef = new TH1F("h_recoeff_1tau0L_bef", "h_recoeff_1tau0L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_1tau0L_aft = new TH1F("h_recoeff_1tau0L_aft", "h_recoeff_1tau0L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_1tau0L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau0L_bef_%d", i);
+			sprintf(title, "h_recoeff_1tau0L_bef_%d", i);
+			h_recoeff_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_1tau0L_bef = new TH1F("h_recopurity_1tau0L_bef", "h_recopurity_1tau0L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_1tau0L_aft = new TH1F("h_recopurity_1tau0L_aft", "h_recopurity_1tau0L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_1tau0L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau0L_bef_%d", i);
+			sprintf(title, "h_recopurity_1tau0L_bef_%d", i);
+			h_recopurity_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau1L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_1tau1L_bef = new TH1F("h_recoeff_1tau1L_bef", "h_recoeff_1tau1L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_1tau1L_aft = new TH1F("h_recoeff_1tau1L_aft", "h_recoeff_1tau1L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_1tau1L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau1L_bef_%d", i);
+			sprintf(title, "h_recoeff_1tau1L_bef_%d", i);
+			h_recoeff_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_1tau1L_bef = new TH1F("h_recopurity_1tau1L_bef", "h_recopurity_1tau1L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_1tau1L_aft = new TH1F("h_recopurity_1tau1L_aft", "h_recopurity_1tau1L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_1tau1L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau1L_bef_%d", i);
+			sprintf(title, "h_recopurity_1tau1L_bef_%d", i);
+			h_recopurity_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau2L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_1tau2L_bef = new TH1F("h_recoeff_1tau2L_bef", "h_recoeff_1tau2L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_1tau2L_aft = new TH1F("h_recoeff_1tau2L_aft", "h_recoeff_1tau2L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_1tau2L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau2L_bef_%d", i);
+			sprintf(title, "h_recoeff_1tau2L_bef_%d", i);
+			h_recoeff_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_1tau2L_bef = new TH1F("h_recopurity_1tau2L_bef", "h_recopurity_1tau2L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_1tau2L_aft = new TH1F("h_recopurity_1tau2L_aft", "h_recopurity_1tau2L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_1tau2L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau2L_bef_%d", i);
+			sprintf(title, "h_recopurity_1tau2L_bef_%d", i);
+			h_recopurity_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 1tau3L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_1tau3L_bef = new TH1F("h_recoeff_1tau3L_bef", "h_recoeff_1tau3L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_1tau3L_aft = new TH1F("h_recoeff_1tau3L_aft", "h_recoeff_1tau3L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_1tau3L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_1tau3L_bef_%d", i);
+			sprintf(title, "h_recoeff_1tau3L_bef_%d", i);
+			h_recoeff_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_1tau3L_bef = new TH1F("h_recopurity_1tau3L_bef", "h_recopurity_1tau3L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_1tau3L_aft = new TH1F("h_recopurity_1tau3L_aft", "h_recopurity_1tau3L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_1tau3L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_1tau3L_bef_%d", i);
+			sprintf(title, "h_recopurity_1tau3L_bef_%d", i);
+			h_recopurity_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau0L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_2tau0L_bef = new TH1F("h_recoeff_2tau0L_bef", "h_recoeff_2tau0L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_2tau0L_aft = new TH1F("h_recoeff_2tau0L_aft", "h_recoeff_2tau0L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_2tau0L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau0L_bef_%d", i);
+			sprintf(title, "h_recoeff_2tau0L_bef_%d", i);
+			h_recoeff_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_2tau0L_bef = new TH1F("h_recopurity_2tau0L_bef", "h_recopurity_2tau0L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_2tau0L_aft = new TH1F("h_recopurity_2tau0L_aft", "h_recopurity_2tau0L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_2tau0L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau0L_bef_%d", i);
+			sprintf(title, "h_recopurity_2tau0L_bef_%d", i);
+			h_recopurity_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau1L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_2tau1L_bef = new TH1F("h_recoeff_2tau1L_bef", "h_recoeff_2tau1L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_2tau1L_aft = new TH1F("h_recoeff_2tau1L_aft", "h_recoeff_2tau1L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_2tau1L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau1L_bef_%d", i);
+			sprintf(title, "h_recoeff_2tau1L_bef_%d", i);
+			h_recoeff_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_2tau1L_bef = new TH1F("h_recopurity_2tau1L_bef", "h_recopurity_2tau1L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_2tau1L_aft = new TH1F("h_recopurity_2tau1L_aft", "h_recopurity_2tau1L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_2tau1L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau1L_bef_%d", i);
+			sprintf(title, "h_recopurity_2tau1L_bef_%d", i);
+			h_recopurity_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		// 2tau2L category
 		//histos for reconstruction efficiency
-		TH1F * h_recoeff_2tau2L_bef = new TH1F("h_recoeff_2tau2L_bef", "h_recoeff_2tau2L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recoeff_2tau2L_aft = new TH1F("h_recoeff_2tau2L_aft", "h_recoeff_2tau2L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recoeff_2tau2L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_2tau2L_bef_%d", i);
+			sprintf(title, "h_recoeff_2tau2L_bef_%d", i);
+			h_recoeff_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		//histos for reconstruction purity
-		TH1F * h_recopurity_2tau2L_bef = new TH1F("h_recopurity_2tau2L_bef", "h_recopurity_2tau2L_bef; Jet multiplicity [GeV]", 30, 0, 30);
-		TH1F * h_recopurity_2tau2L_aft = new TH1F("h_recopurity_2tau2L_aft", "h_recopurity_2tau2L_aft; Jet multiplicity [GeV]", 30, 0, 30);
+		TH1F* h_recopurity_2tau2L_bef[7];
+		for (int i = 0; i < 7; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_2tau2L_bef_%d", i);
+			sprintf(title, "h_recopurity_2tau2L_bef_%d", i);
+			h_recopurity_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+		
+		}
 		TH1::AddDirectory(kTRUE);
 
 		TChain mychain("tree");
