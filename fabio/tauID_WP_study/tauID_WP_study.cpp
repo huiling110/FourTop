@@ -45,7 +45,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau0L_bef_%d", i);
 			sprintf(title, "h_recoeff_1tau0L_bef_%d", i);
-			h_recoeff_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau0L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_1tau0L_aft[8];
@@ -54,7 +54,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau0L_aft_%d", i);
 			sprintf(title, "h_recoeff_1tau0L_aft_%d", i);
-			h_recoeff_1tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau0L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -64,7 +64,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau0L_bef_%d", i);
 			sprintf(title, "h_recopurity_1tau0L_bef_%d", i);
-			h_recopurity_1tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau0L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_1tau0L_aft[8];
@@ -73,7 +73,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau0L_aft_%d", i);
 			sprintf(title, "h_recopurity_1tau0L_aft_%d", i);
-			h_recopurity_1tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau0L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 1tau1L category
@@ -84,7 +84,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau1L_bef_%d", i);
 			sprintf(title, "h_recoeff_1tau1L_bef_%d", i);
-			h_recoeff_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau1L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_1tau1L_aft[8];
@@ -93,7 +93,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau1L_aft_%d", i);
 			sprintf(title, "h_recoeff_1tau1L_aft_%d", i);
-			h_recoeff_1tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau1L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -103,7 +103,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau1L_bef_%d", i);
 			sprintf(title, "h_recopurity_1tau1L_bef_%d", i);
-			h_recopurity_1tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau1L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_1tau1L_aft[8];
@@ -112,7 +112,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau1L_aft_%d", i);
 			sprintf(title, "h_recopurity_1tau1L_aft_%d", i);
-			h_recopurity_1tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau1L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 1tau2L category
@@ -123,7 +123,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau2L_bef_%d", i);
 			sprintf(title, "h_recoeff_1tau2L_bef_%d", i);
-			h_recoeff_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau2L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_1tau2L_aft[8];
@@ -132,7 +132,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau2L_aft_%d", i);
 			sprintf(title, "h_recoeff_1tau2L_aft_%d", i);
-			h_recoeff_1tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau2L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -142,7 +142,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau2L_bef_%d", i);
 			sprintf(title, "h_recopurity_1tau2L_bef_%d", i);
-			h_recopurity_1tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau2L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_1tau2L_aft[8];
@@ -151,7 +151,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau2L_aft_%d", i);
 			sprintf(title, "h_recopurity_1tau2L_aft_%d", i);
-			h_recopurity_1tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau2L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 1tau3L category
@@ -162,7 +162,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau3L_bef_%d", i);
 			sprintf(title, "h_recoeff_1tau3L_bef_%d", i);
-			h_recoeff_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau3L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_1tau3L_aft[8];
@@ -171,7 +171,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_1tau3L_aft_%d", i);
 			sprintf(title, "h_recoeff_1tau3L_aft_%d", i);
-			h_recoeff_1tau3L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_1tau3L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -181,7 +181,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau3L_bef_%d", i);
 			sprintf(title, "h_recopurity_1tau3L_bef_%d", i);
-			h_recopurity_1tau3L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau3L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_1tau3L_aft[8];
@@ -190,7 +190,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_1tau3L_aft_%d", i);
 			sprintf(title, "h_recopurity_1tau3L_aft_%d", i);
-			h_recopurity_1tau3L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_1tau3L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 2tau0L category
@@ -201,7 +201,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau0L_bef_%d", i);
 			sprintf(title, "h_recoeff_2tau0L_bef_%d", i);
-			h_recoeff_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau0L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_2tau0L_aft[8];
@@ -210,7 +210,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau0L_aft_%d", i);
 			sprintf(title, "h_recoeff_2tau0L_aft_%d", i);
-			h_recoeff_2tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau0L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -220,7 +220,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau0L_bef_%d", i);
 			sprintf(title, "h_recopurity_2tau0L_bef_%d", i);
-			h_recopurity_2tau0L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau0L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_2tau0L_aft[8];
@@ -229,7 +229,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau0L_aft_%d", i);
 			sprintf(title, "h_recopurity_2tau0L_aft_%d", i);
-			h_recopurity_2tau0L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau0L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 2tau1L category
@@ -240,7 +240,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau1L_bef_%d", i);
 			sprintf(title, "h_recoeff_2tau1L_bef_%d", i);
-			h_recoeff_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau1L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_2tau1L_aft[8];
@@ -249,7 +249,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau1L_aft_%d", i);
 			sprintf(title, "h_recoeff_2tau1L_aft_%d", i);
-			h_recoeff_2tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau1L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -259,7 +259,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau1L_bef_%d", i);
 			sprintf(title, "h_recopurity_2tau1L_bef_%d", i);
-			h_recopurity_2tau1L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau1L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_2tau1L_aft[8];
@@ -268,7 +268,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau1L_aft_%d", i);
 			sprintf(title, "h_recopurity_2tau1L_aft_%d", i);
-			h_recopurity_2tau1L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau1L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		// 2tau2L category
@@ -279,7 +279,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau2L_bef_%d", i);
 			sprintf(title, "h_recoeff_2tau2L_bef_%d", i);
-			h_recoeff_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau2L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recoeff_2tau2L_aft[8];
@@ -288,7 +288,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recoeff_2tau2L_aft_%d", i);
 			sprintf(title, "h_recoeff_2tau2L_aft_%d", i);
-			h_recoeff_2tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recoeff_2tau2L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		//histos for reconstruction purity
@@ -298,7 +298,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau2L_bef_%d", i);
 			sprintf(title, "h_recopurity_2tau2L_bef_%d", i);
-			h_recopurity_2tau2L_bef[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau2L_bef[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1F* h_recopurity_2tau2L_aft[8];
@@ -307,7 +307,7 @@ void tauID_WP_study() {
 			char title[200];
 			sprintf(name, "h_recopurity_2tau2L_aft_%d", i);
 			sprintf(title, "h_recopurity_2tau2L_aft_%d", i);
-			h_recopurity_2tau2L_aft[i] = new TH1F(name, title, 30, 0, 30);
+			h_recopurity_2tau2L_aft[i] = new TH1F(name, title, 100, 0 ,100);
 		
 		}
 		TH1::AddDirectory(kTRUE);
@@ -387,7 +387,7 @@ void tauID_WP_study() {
 		Long64_t nevents = mychain.GetEntries();
 
 		for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-			if (ievent > 100) break;
+			//if (ievent > 100) break;
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
@@ -451,6 +451,7 @@ void tauID_WP_study() {
 
 		}
 
+		delete genEvtWeights;
 		mychain.Reset();
 		mychain2.Reset();
 		file_it++;
