@@ -60,3 +60,7 @@ map<string, float> xsec = {
 {"ttH", 0.3372},
 
 };
+
+void recoEff (vector<TLorentzVector> genTaus, vector<TLorentzVector> recoTaus, TH1F* hBef, TH1F* hAft)
+
+void writeTEfficiency(TH1F* hBef, TH1F* hAft, map<string, string>::iterator file_it, TString name)

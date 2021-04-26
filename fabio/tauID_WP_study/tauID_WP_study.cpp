@@ -388,7 +388,6 @@ void tauID_WP_study() {
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
-			if (!(mygenEvtWeight > 0)) continue;
 			/////////////////////////////////////////////////////////////////////
 			///////////////////// DEFINE CATEGORY CUTS //////////////////////////
 			/////////////////////////////////////////////////////////////////////
@@ -451,3 +450,53 @@ void tauID_WP_study() {
 	}//end loop over files
 
 }//end
+
+void recoEff (vector<TLorentzVector> genTaus, vector<TLorentzVector> recoTaus, TH1F* hBef, TH1F* hAft) {
+
+	float dRmin = 10.0;
+	for (int gTau = 0; gTau > genTaus.size(); gTau++) {
+
+		hBef->Fill(genTaus->at(i).Pt(), mygenEvtWeight);
+
+		for (int rTau = 0; rTau < recoTaus.size(); rTau++) {
+
+			float dEta = fabs( genTaus->at(gTau).Eta() - recoTaus->at(rTau).Eta() );
+			float dPhi = fabs( genTaus->at(gTau).Phi() - recoTaus->at(rTau).Phi() );
+			if(dPhi > 3.14159265358979323846) dPhi  = 2*3.14159265358979323846 - dPhi;
+			Float_t dR = sqrt( pow(dEta, 2) + pow(dPhi, 2) );
+			if ( dR < dRmin ) {
+                            
+				dRmin = dR;
+		                            
+			}
+
+		}
+	
+		if (dRmin < 0.4) hAft->Fill(genTaus->at(i).Pt(), mygenEvtWeight);
+
+	}
+
+}
+
+
+void writeTEfficiency(TH1F* hBef, TH1F* hAft, map<string, string>::iterator file_it, TString name) {
+
+	std::string hBefName(hBef->GetName());
+	hBefName.append("_");
+	hBefName.append(file_it->first);
+	std::string hAftName(hAft->GetName());
+	hAftName.append("_");
+	hAftName.append(file_it->first);
+	hBef->Write(hBefName.c_str());
+	hAft->Write(hAftName.c_str());
+
+	TEfficiency *TEff = 0;
+	if(TEfficiency::CheckConsistency(*hAft, *hBef)){
+		
+		TEff = new TEfficiency(*hAft, *hBef);
+		TEff->Write(name+file_it->first);
+		delete TEff;
+
+    }
+
+}
