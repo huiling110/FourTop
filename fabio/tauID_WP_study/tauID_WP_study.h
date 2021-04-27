@@ -65,4 +65,6 @@ void recoEff (vector<TLorentzVector> *GenTaus, vector<TLorentzVector> *recoTaus,
 
 void recoPurity (vector<TLorentzVector> *genTaus, vector<TLorentzVector> *recoTaus, TH1F* hBef, TH1F* hAft, double genW, TH1F* correction_histo);
 
+void writeHisto(TH1F* histo, map<string, string>::iterator file_it, TString name);
+
 void writeTEfficiency(TH1F* hBef, TH1F* hAft, TH1F* correction_histo,  map<string, string>::iterator file_it, TString name);

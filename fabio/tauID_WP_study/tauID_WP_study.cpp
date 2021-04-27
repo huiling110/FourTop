@@ -37,7 +37,16 @@ void tauID_WP_study() {
 
 		TH1::AddDirectory(kFALSE); 
 		//use array of TH1Fs; 0-th histo corresponds to tighter WP in VsJet; 7-th histo corresponds to looser WP in VsJet
-		// 1tau0L category
+		//1tau0L category
+		//histos for significance
+		TH1F* h_significance_1tau0L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_1tau0L_%d", i);
+			sprintf(title, "h_significance_1tau0L_%d", i);
+			h_significance_1tau0L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_1tau0L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -88,7 +97,16 @@ void tauID_WP_study() {
 			sprintf(title, "h_correct_recopurity_1tau0L_%d", i);
 			h_correct_recopurity_1tau0L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
-		// 1tau1L category
+		//1tau1L category
+		//histos for significance
+		TH1F* h_significance_1tau1L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_1tau1L_%d", i);
+			sprintf(title, "h_significance_1tau1L_%d", i);
+			h_significance_1tau1L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_1tau1L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -139,7 +157,16 @@ void tauID_WP_study() {
 			sprintf(title, "h_correct_recopurity_1tau1L_%d", i);
 			h_correct_recopurity_1tau1L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
-		// 1tau2L category
+		//1tau2L category
+		//histos for significance
+		TH1F* h_significance_1tau2L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_1tau2L_%d", i);
+			sprintf(title, "h_significance_1tau2L_%d", i);
+			h_significance_1tau2L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_1tau2L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -191,6 +218,15 @@ void tauID_WP_study() {
 			h_correct_recopurity_1tau2L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
 		// 1tau3L category
+		//histos for significance
+		TH1F* h_significance_1tau3L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_1tau3L_%d", i);
+			sprintf(title, "h_significance_1tau3L_%d", i);
+			h_significance_1tau3L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_1tau3L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -242,6 +278,15 @@ void tauID_WP_study() {
 			h_correct_recopurity_1tau3L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
 		// 2tau0L category
+		//histos for significance
+		TH1F* h_significance_2tau0L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_2tau0L_%d", i);
+			sprintf(title, "h_significance_2tau0L_%d", i);
+			h_significance_2tau0L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_2tau0L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -293,6 +338,15 @@ void tauID_WP_study() {
 			h_correct_recopurity_2tau0L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
 		// 2tau1L category
+		//histos for significance
+		TH1F* h_significance_2tau1L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_2tau1L_%d", i);
+			sprintf(title, "h_significance_2tau1L_%d", i);
+			h_significance_2tau1L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_2tau1L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -344,6 +398,15 @@ void tauID_WP_study() {
 			h_correct_recopurity_2tau1L[i] = new TH1F(name, title, 50, 0, 200);		
 		}
 		// 2tau2L category
+		//histos for significance
+		TH1F* h_significance_2tau2L[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_2tau2L_%d", i);
+			sprintf(title, "h_significance_2tau2L_%d", i);
+			h_significance_2tau2L[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//histos for reconstruction efficiency
 		TH1F* h_recoeff_2tau2L_bef[8];
 		for (int i = 0; i < 8; i++) {
@@ -403,7 +466,7 @@ void tauID_WP_study() {
 		
 		cout << "Computing the sum of gen event weights..." << endl;
 		TH1::StatOverflows(kTRUE);
-		TH1D * genEvtWeights = new TH1D("genEvtWeights", "genEvtWeights", 10, -10, 10 );
+		TH1D * genEvtWeights = new TH1D( "genEvtWeights", "genEvtWeights", 10, -10, 10 );
 		double gen_sum_of_weights = 0.0;
 		mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
 		cout << "genEvtWeights->GetMean(): " << genEvtWeights->GetMean() << endl;
@@ -471,7 +534,7 @@ void tauID_WP_study() {
 		Long64_t nevents = mychain.GetEntries();
 
 		for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-			//if (ievent > 10000) break;
+			//if (ievent > 100) break;
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
@@ -565,43 +628,43 @@ void tauID_WP_study() {
 			for (int i = 0; i < 8; i++){
 
 				if (is1tau0L[i]) {
-
+					h_significance_1tau0L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_1tau0L_bef[i], h_recoeff_1tau0L_aft[i], mygenEvtWeight, h_correct_recoeff_1tau0L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_1tau0L_bef[i], h_recopurity_1tau0L_aft[i], mygenEvtWeight, h_correct_recopurity_1tau0L[i]);
 				}
 
 				if (is1tau1L[i]) {
-
+					h_significance_1tau1L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_1tau1L_bef[i], h_recoeff_1tau1L_aft[i], mygenEvtWeight, h_correct_recoeff_1tau1L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_1tau1L_bef[i], h_recopurity_1tau1L_aft[i], mygenEvtWeight, h_correct_recopurity_1tau1L[i]);
 				}
 
 				if (is1tau2L[i]) {
-
+					h_significance_1tau2L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_1tau2L_bef[i], h_recoeff_1tau2L_aft[i], mygenEvtWeight, h_correct_recoeff_1tau2L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_1tau2L_bef[i], h_recopurity_1tau2L_aft[i], mygenEvtWeight, h_correct_recopurity_1tau2L[i]);
 				}
 
 				if (is1tau3L[i]) {
-
+					h_significance_1tau3L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_1tau3L_bef[i], h_recoeff_1tau3L_aft[i], mygenEvtWeight, h_correct_recoeff_1tau3L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_1tau3L_bef[i], h_recopurity_1tau3L_aft[i], mygenEvtWeight, h_correct_recopurity_1tau3L[i]);
 				}
 
 				if (is2tau0L[i]) {
-
+					h_significance_2tau0L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_2tau0L_bef[i], h_recoeff_2tau0L_aft[i], mygenEvtWeight, h_correct_recoeff_2tau0L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_2tau0L_bef[i], h_recopurity_2tau0L_aft[i], mygenEvtWeight, h_correct_recopurity_2tau0L[i]);
 				}
 			
 				if (is2tau1L[i]) {
-
+					h_significance_2tau1L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_2tau1L_bef[i], h_recoeff_2tau1L_aft[i], mygenEvtWeight, h_correct_recoeff_2tau1L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_2tau1L_bef[i], h_recopurity_2tau1L_aft[i], mygenEvtWeight, h_correct_recopurity_2tau1L[i]);
 				}
 				
 				if (is2tau2L[i]) {
-
+					h_significance_2tau2L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_2tau2L_bef[i], h_recoeff_2tau2L_aft[i], mygenEvtWeight, h_correct_recoeff_2tau2L[i]);
 					recoPurity(mygenTaus, mytausT[i], h_recopurity_2tau2L_bef[i], h_recopurity_2tau2L_aft[i], mygenEvtWeight, h_correct_recopurity_2tau2L[i]);
 				}
@@ -624,6 +687,9 @@ void tauID_WP_study() {
 		
 		for (int i = 0; i < 8; i++) {
 
+			char significancename[200];
+			sprintf(significancename, "h_significance_1tau0L_%d_", i);
+			writeHisto(h_significance_1tau0L[i], file_it, significancename);
 			char recoEffname[200];
 			char recoPurityname[200];
 			sprintf(recoEffname, "recoEff_1tau0L_%d_", i);
@@ -631,31 +697,43 @@ void tauID_WP_study() {
 			writeTEfficiency(h_recoeff_1tau0L_bef[i], h_recoeff_1tau0L_aft[i], h_correct_recoeff_1tau0L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_1tau0L_bef[i], h_recopurity_1tau0L_aft[i], h_correct_recopurity_1tau0L[i], file_it, recoPurityname);
 
+			sprintf(significancename, "h_significance_1tau1L_%d_", i);
+			writeHisto(h_significance_1tau1L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_1tau1L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_1tau1L_%d_", i);
 			writeTEfficiency(h_recoeff_1tau1L_bef[i], h_recoeff_1tau1L_aft[i], h_correct_recoeff_1tau1L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_1tau1L_bef[i], h_recopurity_1tau1L_aft[i], h_correct_recopurity_1tau1L[i], file_it, recoPurityname);
 
+			sprintf(significancename, "h_significance_1tau2L_%d_", i);
+			writeHisto(h_significance_1tau2L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_1tau2L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_1tau2L_%d_", i);
 			writeTEfficiency(h_recoeff_1tau2L_bef[i], h_recoeff_1tau2L_aft[i], h_correct_recoeff_1tau2L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_1tau2L_bef[i], h_recopurity_1tau2L_aft[i], h_correct_recopurity_1tau2L[i], file_it, recoPurityname);
 
+			sprintf(significancename, "h_significance_1tau3L_%d_", i);
+			writeHisto(h_significance_1tau3L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_1tau3L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_1tau3L_%d_", i);
 			writeTEfficiency(h_recoeff_1tau3L_bef[i], h_recoeff_1tau3L_aft[i], h_correct_recoeff_1tau3L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_1tau3L_bef[i], h_recopurity_1tau3L_aft[i], h_correct_recopurity_1tau3L[i], file_it, recoPurityname);
 
+			sprintf(significancename, "h_significance_2tau0L_%d_", i);
+			writeHisto(h_significance_2tau0L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_2tau0L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_2tau0L_%d_", i);
 			writeTEfficiency(h_recoeff_2tau0L_bef[i], h_recoeff_2tau0L_aft[i], h_correct_recoeff_2tau0L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_2tau0L_bef[i], h_recopurity_2tau0L_aft[i], h_correct_recopurity_2tau0L[i], file_it, recoPurityname);
 
+			sprintf(significancename, "h_significance_2tau1L_%d_", i);
+			writeHisto(h_significance_2tau1L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_2tau1L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_2tau1L_%d_", i);
 			writeTEfficiency(h_recoeff_2tau1L_bef[i], h_recoeff_2tau1L_aft[i], h_correct_recoeff_2tau1L[i], file_it, recoEffname);
 			writeTEfficiency(h_recopurity_2tau1L_bef[i], h_recopurity_2tau1L_aft[i], h_correct_recopurity_2tau1L[i], file_it, recoPurityname);
 			
+			sprintf(significancename, "h_significance_2tau2L_%d_", i);
+			writeHisto(h_significance_2tau2L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_2tau2L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_2tau2L_%d_", i);
 			writeTEfficiency(h_recoeff_2tau2L_bef[i], h_recoeff_2tau2L_aft[i], h_correct_recoeff_2tau2L[i], file_it, recoEffname);
@@ -666,42 +744,49 @@ void tauID_WP_study() {
 
 		for (int i = 0; i < 8; i++) {
 
+			delete h_significance_1tau0L[i];
 			delete h_recoeff_1tau0L_bef[i];
 			delete h_recoeff_1tau0L_aft[i];
 			delete h_recopurity_1tau0L_bef[i];
 			delete h_recopurity_1tau0L_aft[i];
 			delete h_correct_recoeff_1tau0L[i];
 			delete h_correct_recopurity_1tau0L[i];
+			delete h_significance_1tau1L[i];
 			delete h_recoeff_1tau1L_bef[i];
 			delete h_recoeff_1tau1L_aft[i];
 			delete h_recopurity_1tau1L_bef[i];
 			delete h_recopurity_1tau1L_aft[i];
 			delete h_correct_recoeff_1tau1L[i];
 			delete h_correct_recopurity_1tau1L[i];
+			delete h_significance_1tau2L[i];
 			delete h_recoeff_1tau2L_bef[i];
 			delete h_recoeff_1tau2L_aft[i];
 			delete h_recopurity_1tau2L_bef[i];
 			delete h_recopurity_1tau2L_aft[i];
 			delete h_correct_recoeff_1tau2L[i];
 			delete h_correct_recopurity_1tau2L[i];
+			delete h_significance_1tau3L[i];
 			delete h_recoeff_1tau3L_bef[i];
 			delete h_recoeff_1tau3L_aft[i];
 			delete h_recopurity_1tau3L_bef[i];
 			delete h_recopurity_1tau3L_aft[i];
 			delete h_correct_recoeff_1tau3L[i];
 			delete h_correct_recopurity_1tau3L[i];
+			delete h_significance_2tau0L[i];
 			delete h_recoeff_2tau0L_bef[i];
 			delete h_recoeff_2tau0L_aft[i];
 			delete h_recopurity_2tau0L_bef[i];
 			delete h_recopurity_2tau0L_aft[i];
 			delete h_correct_recoeff_2tau0L[i];
 			delete h_correct_recopurity_2tau0L[i];
+			delete h_significance_2tau1L[i];
 			delete h_recoeff_2tau1L_bef[i];
 			delete h_recoeff_2tau1L_aft[i];
 			delete h_recopurity_2tau1L_bef[i];
 			delete h_recopurity_2tau1L_aft[i];
 			delete h_correct_recoeff_2tau1L[i];
 			delete h_correct_recopurity_2tau1L[i];
+			delete h_significance_2tau2L[i];
 			delete h_recoeff_2tau2L_bef[i];
 			delete h_recoeff_2tau2L_aft[i];
 			delete h_recopurity_2tau2L_bef[i];
@@ -777,6 +862,12 @@ void recoPurity (vector<TLorentzVector> *genTaus, vector<TLorentzVector> *recoTa
 		if (dRmin < 0.4) hAft->Fill(recoTaus->at(rTau).Pt(), genW);
 		if (genW < 0 && !(dRmin < 0.4)) correction_histo->Fill(recoTaus->at(rTau).Pt(), fabs(genW)); 
 	}
+
+}
+
+void writeHisto(TH1F* histo, map<string, string>::iterator file_it, TString name) {
+
+   	histo->Write(name+file_it->first);
 
 }
 
