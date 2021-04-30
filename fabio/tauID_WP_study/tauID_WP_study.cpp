@@ -37,6 +37,66 @@ void tauID_WP_study() {
 
 		TH1::AddDirectory(kFALSE); 
 		//use array of TH1Fs; 0-th histo corresponds to tighter WP in VsJet; 7-th histo corresponds to looser WP in VsJet
+		//nocat category
+		//histos for significance
+		TH1F* h_significance_nocat[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_significance_nocat_%d", i);
+			sprintf(title, "h_significance_nocat_%d", i);
+			h_significance_nocat[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		//histos for reconstruction efficiency
+		TH1F* h_recoeff_nocat_bef[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_nocat_bef_%d", i);
+			sprintf(title, "h_recoeff_nocat_bef_%d", i);
+			h_recoeff_nocat_bef[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		TH1F* h_recoeff_nocat_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recoeff_nocat_aft_%d", i);
+			sprintf(title, "h_recoeff_nocat_aft_%d", i);
+			h_recoeff_nocat_aft[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		TH1F* h_correct_recoeff_nocat[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_correct_recoeff_nocat_%d", i);
+			sprintf(title, "h_correct_recoeff_nocat_%d", i);
+			h_correct_recoeff_nocat[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		//histos for reconstruction purity
+		TH1F* h_recopurity_nocat_bef[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_nocat_bef_%d", i);
+			sprintf(title, "h_recopurity_nocat_bef_%d", i);
+			h_recopurity_nocat_bef[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		TH1F* h_recopurity_nocat_aft[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_recopurity_nocat_aft_%d", i);
+			sprintf(title, "h_recopurity_nocat_aft_%d", i);
+			h_recopurity_nocat_aft[i] = new TH1F(name, title, 50, 0, 200);		
+		}
+		TH1F* h_correct_recopurity_nocat[8];
+		for (int i = 0; i < 8; i++) {
+			char name[200];
+			char title[200];
+			sprintf(name, "h_correct_recopurity_nocat_%d", i);
+			sprintf(title, "h_correct_recopurity_nocat_%d", i);
+			h_correct_recopurity_nocat[i] = new TH1F(name, title, 50, 0, 200);		
+		}
 		//1tau0L category
 		//histos for significance
 		TH1F* h_significance_1tau0L[8];
@@ -627,6 +687,10 @@ void tauID_WP_study() {
 
 			for (int i = 0; i < 8; i++){
 
+				if (mytausT[i]->size() > 0) h_significance_nocat[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
+				recoEff(mygenTaus, mytausT[i], h_recoeff_nocat_bef[i], h_recoeff_nocat_aft[i], mygenEvtWeight, h_correct_recoeff_nocat[i]);
+			   	recoPurity(mygenTaus, mytausT[i], h_recopurity_nocat_bef[i], h_recopurity_nocat_aft[i], mygenEvtWeight, h_correct_recopurity_nocat[i]);
+
 				if (is1tau0L[i]) {
 					h_significance_1tau0L[i]->Fill(mytausT[i]->at(0).Pt(), mygenEvtWeight);
 					recoEff(mygenTaus, mytausT[i], h_recoeff_1tau0L_bef[i], h_recoeff_1tau0L_aft[i], mygenEvtWeight, h_correct_recoeff_1tau0L[i]);
@@ -688,10 +752,17 @@ void tauID_WP_study() {
 		for (int i = 0; i < 8; i++) {
 
 			char significancename[200];
-			sprintf(significancename, "h_significance_1tau0L_%d_", i);
-			writeHisto(h_significance_1tau0L[i], file_it, significancename);
+			sprintf(significancename, "h_significance_nocat_%d_", i);
+			writeHisto(h_significance_nocat[i], file_it, significancename);
 			char recoEffname[200];
 			char recoPurityname[200];
+			sprintf(recoEffname, "recoEff_nocat_%d_", i);
+			sprintf(recoPurityname, "recoPurity_nocat_%d_", i);
+			writeTEfficiency(h_recoeff_nocat_bef[i], h_recoeff_nocat_aft[i], h_correct_recoeff_nocat[i], file_it, recoEffname);
+			writeTEfficiency(h_recopurity_nocat_bef[i], h_recopurity_nocat_aft[i], h_correct_recopurity_nocat[i], file_it, recoPurityname);
+
+			sprintf(significancename, "h_significance_1tau0L_%d_", i);
+			writeHisto(h_significance_1tau0L[i], file_it, significancename);
 			sprintf(recoEffname, "recoEff_1tau0L_%d_", i);
 			sprintf(recoPurityname, "recoPurity_1tau0L_%d_", i);
 			writeTEfficiency(h_recoeff_1tau0L_bef[i], h_recoeff_1tau0L_aft[i], h_correct_recoeff_1tau0L[i], file_it, recoEffname);
@@ -744,6 +815,13 @@ void tauID_WP_study() {
 
 		for (int i = 0; i < 8; i++) {
 
+			delete h_significance_nocat[i];
+			delete h_recoeff_nocat_bef[i];
+			delete h_recoeff_nocat_aft[i];
+			delete h_recopurity_nocat_bef[i];
+			delete h_recopurity_nocat_aft[i];
+			delete h_correct_recoeff_nocat[i];
+			delete h_correct_recopurity_nocat[i];
 			delete h_significance_1tau0L[i];
 			delete h_recoeff_1tau0L_bef[i];
 			delete h_recoeff_1tau0L_aft[i];
