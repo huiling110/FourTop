@@ -541,6 +541,12 @@ void tauID_WP_study() {
 		vector<TLorentzVector> * mygenTaus = {};
 		mychain.SetBranchAddress("genTaus", &mygenTaus);
 
+		vector<TLorentzVector> * mygenEles = {};
+		mychain.SetBranchAddress("genEles", &mygenEles);
+
+		vector<TLorentzVector> * mygenMuons = {};
+		mychain.SetBranchAddress("genMuons", &mygenMuons);
+
 		vector<TLorentzVector> *myjetsL = {}; 
 		mychain.SetBranchAddress("jets", &myjetsL);
 
@@ -602,6 +608,16 @@ void tauID_WP_study() {
 			///////////////////// DEFINE CATEGORY CUTS //////////////////////////
 			/////////////////////////////////////////////////////////////////////
 			
+			//gen-level categories
+			bool isgen1tau0L = (mygenTaus->size()==1 && (mygenEles->size() + mygenMuons->size())==0);
+			bool isgen1tau1L = (mygenTaus->size()==1 && (mygenEles->size() + mygenMuons->size())==1);
+			bool isgen1tau2L = (mygenTaus->size()==1 && (mygenEles->size() + mygenMuons->size())==2);
+			bool isgen1tau3L = (mygenTaus->size()==1 && (mygenEles->size() + mygenMuons->size())==3);
+			bool isgen2tau0L = (mygenTaus->size()==2 && (mygenEles->size() + mygenMuons->size())==0);
+			bool isgen2tau1L = (mygenTaus->size()==2 && (mygenEles->size() + mygenMuons->size())==1);
+			bool isgen2tau2L = (mygenTaus->size()==2 && (mygenEles->size() + mygenMuons->size())==2);
+
+			//reco-level categories
 			bool is1tau0L[8] = {
 				(mytausT_VVTightVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
 				(mytausT_VTightVsJet->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2),
