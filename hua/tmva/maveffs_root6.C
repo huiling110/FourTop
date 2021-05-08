@@ -33,7 +33,6 @@ using std::endl;
 // #include "tmvaglob.C"
 // #include "tmvaglob.h"
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
-// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmva5/tmvaglob.C"
 // this macro plots the signal and background efficiencies
 // as a function of the MVA cut.
 
@@ -636,9 +635,13 @@ void StatDialogMVAEffs::PrintResults( const MethodInfo* info )
 void maveffs_root6(TString dataset = "dataset",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/1tau0lTausT/TMVA_1Tau0L_v1.root",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tauol_inputLeading20.root",
-             TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau0l_v2leading20varibles.root", 
-              Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(S+B)" )
+             // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau0l_v2leading20varibles.root",
+             // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_leading20Variables_Allbg.root",
+             // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_Remove4correlation90_Allbg.root",
+             TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_Remove5correlation80_Allbg.root", 
+              // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(S+B)" )
               // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(B)" )
+              Bool_t useTMVAStyle = kTRUE, TString formula="sqrt(2( (S+B)log(1+S/B)-S ) )" )
 {
    TMVAGlob::Initialize( useTMVAStyle );
 
