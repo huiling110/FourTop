@@ -368,13 +368,12 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
                maxSigErr = sig * sqrt( 1./S + 1./(2.*B));
             }
          }
-         if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
-         // if (1+S/B>0) {
-             // if ( (S+B)*log10(1+S/B)-S )  info->sSig->SetBinContent( i, sig );
-         // }
+         if ( S>0 && B>0){
+             if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
+         }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
          cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
-         cout<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S"<<S+B*log10(1+S/B)-S<<endl;
+         cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
@@ -643,7 +642,7 @@ void maveffs_root6(TString dataset = "dataset",
               // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(S+B)" )
               // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(B)" )
               // Bool_t useTMVAStyle = kTRUE, TString formula="sqrt(2*((S+B)*ln(1+S/B)-S))" )
-              Bool_t useTMVAStyle = kTRUE, TString formula="sqrt(2*((S+B)*log10(1+S/B)-S))" )
+              Bool_t useTMVAStyle = kTRUE, TString formula="sqrt(2*((S+B)*log(1+S/B)-S))" )
 {
    TMVAGlob::Initialize( useTMVAStyle );
 
