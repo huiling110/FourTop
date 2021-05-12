@@ -353,8 +353,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
    Double_t maxSigErr = -1;
    while ((info = (MethodInfo*)next())) {
        //syntax strange, next();
-       // cout<<info->methodName<<endl;
-       // cout<<"bin number: "<<info->origSigE->GetNbinsX()<<endl;
+       cout<<info->methodName<<endl;
+       cout<<"bin number: "<<info->origSigE->GetNbinsX()<<endl;
       for (Int_t i=1; i<=info->origSigE->GetNbinsX(); i++) {
          Float_t eS = info->origSigE->GetBinContent( i );
          Float_t S = eS * fNSignal;
@@ -372,8 +372,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
              if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
          }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
-         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
-         cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
+         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  "<<endl;
+         // cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();

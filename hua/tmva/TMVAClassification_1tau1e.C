@@ -77,7 +77,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau1e_Remove3correlation70_Allbg";
+   TString outfile = "1tau1e_step6Add11_Allbg";
    // This loads the library
 
 
@@ -301,6 +301,17 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         // dataloader->AddVariable( "jets_8pt", 'F' );//20
         // dataloader->AddVariable( "jets_5pt", 'F' );//step 4
         // dataloader->AddVariable( "jets_transMass", 'F' );//step 5
+        dataloader->AddVariable( "bjetsT_num", 'F' );//step 6
+        dataloader->AddVariable( "toptagger_invariantMass", 'F' );//step 6
+        dataloader->AddVariable( "jets_HT", 'F' );//step 6
+        dataloader->AddVariable( "bjetsM_transMass", 'F' );//step 6
+        dataloader->AddVariable( "toptagger_2pt", 'F' );//step 6
+        dataloader->AddVariable( "toptagger_num", 'F' );//step 6
+        dataloader->AddVariable( "jets_4pt", 'F' );//step 6
+        dataloader->AddVariable( "nonbjetsM_num", 'F' );//step 6
+        dataloader->AddVariable( "bjetsL_2pt", 'F' );//step 6
+        dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );//step 6
+        dataloader->AddVariable( "bjetsT_invariantMass", 'F' );//step 6
     }
 
 
