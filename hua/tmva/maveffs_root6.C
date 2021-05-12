@@ -374,6 +374,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
          // }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
          cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
+         cout<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S"<<S+B*log10(1+S/B)-S<<endl;
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
