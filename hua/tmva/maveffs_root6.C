@@ -368,10 +368,12 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
                maxSigErr = sig * sqrt( 1./S + 1./(2.*B));
             }
          }
-         if (!isnan(sig))  info->sSig->SetBinContent( i, sig );
+         if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
+         // if (1+S/B>0) {
+             // if ( (S+B)*log10(1+S/B)-S )  info->sSig->SetBinContent( i, sig );
+         // }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
-         // cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
-         // cout<<"purity:"<<effpurS<<"  ";
+         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  ";
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
