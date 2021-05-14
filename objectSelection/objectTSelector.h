@@ -71,6 +71,7 @@ Int_t    Flag_BadPFMuonFilter_ ;
 Int_t    Flag_eeBadScFilter_ ;
     //HLT
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
+	Int_t HLT_PFJet450_;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
     Int_t HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ ;
     Int_t HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ ;
