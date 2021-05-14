@@ -10,12 +10,15 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_addNonBjets/"
+#outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_addNonBjets/"
+outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v41_noHLTselection/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/"
 
-Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+#Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+Jobsubmitpath = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+
 rootplizer = "run_objectTSelector.C"
 subAllFile = Jobsubmitpath+"/subAllProcess_seperate.sh"
 if os.path.exists(subAllFile):
