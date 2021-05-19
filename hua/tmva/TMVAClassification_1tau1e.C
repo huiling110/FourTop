@@ -76,8 +76,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    // Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
-   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/";
-   TString outfile = "1tau1e_step7A11Varibles_Allbg";
+   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
+   TString outfile = "1tau1e_step1Leading40";
    // This loads the library
 
 
@@ -154,8 +154,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    }else{
         Use["BDT"]             = 1;
         Use["BDTG"]            = 1;
-       Use["BDTB"]            = 1; // uses Bagging
-       Use["BDTD"]            = 1; // decorrelation + Adaptive Boost
+       Use["BDTB"]            = 0; // uses Bagging
+       Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
        // Use["BDTF"]            = 1; // allow usage of fisher discriminant for node splitting
        Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    }
@@ -281,37 +281,49 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         }
     }
     else{
+
+        dataloader->AddVariable( "tausL_leptonsT_invariantMass", 'F' );
         dataloader->AddVariable( "jets_bScore", 'F' );
         dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
-        dataloader->AddVariable( "bjetsM_3pt", 'F' ); //step 5
         dataloader->AddVariable( "bjetsM_num", 'I' );
+        dataloader->AddVariable( "bjetsM_3pt", 'F' ); // 5
         dataloader->AddVariable( "bjetsL_num", 'I' );
         dataloader->AddVariable( "bjetsL_3pt", 'F' );
         dataloader->AddVariable( "bjetsL_4pt", 'F' );
         dataloader->AddVariable( "jets_number", 'F' );
+        dataloader->AddVariable( "jets_7pt", 'F' ); //10
+        dataloader->AddVariable( "toptagger_HT", 'F' );
         dataloader->AddVariable( "bjetsL_HT", 'F' );
-        dataloader->AddVariable( "jets_7pt", 'F' ); //step 5
+        dataloader->AddVariable( "toptagger_transMass", 'F' );
         dataloader->AddVariable( "bjetsL_invariantMass", 'F' );
         dataloader->AddVariable( "bjetsL_transMass", 'F' );
-        dataloader->AddVariable( "toptagger_HT", 'F' );
-        dataloader->AddVariable( "toptagger_transMass", 'F' );
+        dataloader->AddVariable( "bjetsT_num", 'I' );
+        dataloader->AddVariable( "bjetsT_3pt", 'F' );
         dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
-        dataloader->AddVariable( "jets_6pt", 'F' );//20
-        dataloader->AddVariable( "bjetsM_HT", 'F' );
+        dataloader->AddVariable( "jets_6pt", 'F' );
         dataloader->AddVariable( "jets_8pt", 'F' );//20
-        dataloader->AddVariable( "jets_5pt", 'F' );//step 4
-        dataloader->AddVariable( "jets_transMass", 'F' );//step 5
-        dataloader->AddVariable( "bjetsT_num", 'F' );//step 6
-        dataloader->AddVariable( "toptagger_invariantMass", 'F' );//step 6
-        dataloader->AddVariable( "jets_HT", 'F' );//step 6
-        dataloader->AddVariable( "bjetsM_transMass", 'F' );//step 6
-        dataloader->AddVariable( "toptagger_2pt", 'F' );//step 6
-        dataloader->AddVariable( "toptagger_num", 'F' );//step 6
-        dataloader->AddVariable( "jets_4pt", 'F' );//step 6
-        dataloader->AddVariable( "nonbjetsM_num", 'F' );//step 6
-        dataloader->AddVariable( "bjetsL_2pt", 'F' );//step 6
-        dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );//step 6
-        dataloader->AddVariable( "bjetsT_invariantMass", 'F' );//step 6
+        dataloader->AddVariable( "toptagger_invariantMass", 'F' );
+        dataloader->AddVariable( "toptagger_num", 'I' );
+        dataloader->AddVariable( "bjetsM_HT", 'F' );
+        dataloader->AddVariable( "toptagger_2pt", 'F' );
+        dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );
+        dataloader->AddVariable( "jets_5pt", 'F' );
+        dataloader->AddVariable( "bjetsM_transMass", 'F' );
+        dataloader->AddVariable( "jets_transMass", 'F' );
+        dataloader->AddVariable( "jets_HT", 'F' );
+        dataloader->AddVariable( "nonbjetsM_num", 'I' );//30
+        dataloader->AddVariable( "bjetsL_minDeltaR", 'F' );
+        dataloader->AddVariable( "jets_rationHT_4toRest", 'F' );
+        dataloader->AddVariable( "bjetsT_invariantMass", 'F' );
+        dataloader->AddVariable( "jets_4pt", 'F' );
+        dataloader->AddVariable( "bjetsT_HT", 'F' );
+        dataloader->AddVariable( "bjetsL_2pt", 'F' );
+        dataloader->AddVariable( "jets_9pt", 'F' );
+        dataloader->AddVariable( "nonbjetsT_num", 'F' );
+        dataloader->AddVariable( "bjetsT_transMass", 'F' );
+        dataloader->AddVariable( "bjetsM_minDeltaR", 'F' );//40
+        // dataloader->AddVariable( "", 'F' );
+
     }
 
 
@@ -400,7 +412,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
 
    // Apply additional cuts on the signal and background samples (can be different)
     // TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";//1tau0l
-    TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2";
+    TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2";
 
    // Tell the dataloader how to use the training and testing events
@@ -424,7 +436,9 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
                ES1tau1e, ES1tau1e,
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau0l
-                                        "nTrain_Signal=56241:nTrain_Background=23927:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau1e
+                                        // "nTrain_Signal=56241:nTrain_Background=23927:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau1e
+                                        "nTrain_Signal=54296:nTrain_Background=23374:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau1e 
+       //means raw entries
    }
 
    // ### Book MVA methods
