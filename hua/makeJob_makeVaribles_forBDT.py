@@ -10,8 +10,8 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_addNonBjets/"
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v13etaPhiAbs_v42_addNonBjets/"
+inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v43_addSingJetHLT/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1AddHTcut_v43addSingJetHLT/"
 
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
