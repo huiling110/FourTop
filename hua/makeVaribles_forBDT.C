@@ -897,6 +897,11 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         toptagger_3phi = fabs(tops_toptagger[2].Phi());
       }
 
+      if ( preselection ){
+          if ( !( *HLT_PFJet450_==1))  return kFALSE;
+          if ( !( jets_HT > 400 ))     return kFALSE;
+      }
+
     newtree->Fill();
 
    return kTRUE;

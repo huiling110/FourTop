@@ -30,6 +30,7 @@ public :
 
    //add
    Bool_t wantFilterHLTBranches = true;
+   Bool_t preselection = true;
    Long64_t   fProcessed = 0;
    TFile *outputfile;
    TTree *newtree;
@@ -308,6 +309,7 @@ TTreeReaderValue<Int_t>    Flag_BadPFMuonFilter_  = {fReader, "Flag_BadPFMuonFil
 TTreeReaderValue<Int_t>    Flag_eeBadScFilter_  = {fReader, "Flag_eeBadScFilter_"};
 TTreeReaderValue<Int_t>     HLT_PFHT450_SixJet40_BTagCSV_p056_  = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
 TTreeReaderValue<Int_t>     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_  = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
+TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderArray<TLorentzVector> muonsL = {fReader, "muonsL"};
    TTreeReaderArray<Int_t> muonsL_index = {fReader, "muonsL_index"};

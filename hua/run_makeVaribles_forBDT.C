@@ -16,8 +16,7 @@ void run_makeVaribles_forBDT(
     if ( !istest){
         ifMergeAllevent = true;
     }
-    // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v40_fixedHLTBugWithPreselection/";
-    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_addNonBjets/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v43_addSingJetHLT/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 
