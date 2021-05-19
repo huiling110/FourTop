@@ -48,6 +48,7 @@ public :
     Int_t    Flag_eeBadScFilter ;
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056 ;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ;
+    Int_t HLT_PFJet450;
 
    
    

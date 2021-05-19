@@ -501,6 +501,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         Flag_eeBadScFilter = *Flag_eeBadScFilter_;
         HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+        HLT_PFJet450 = *HLT_PFJet450_;
     }
 
      //weights
@@ -939,6 +940,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
 
         newtree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
         newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
+       newtree->Branch( "HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
+
    }
    
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");

@@ -99,7 +99,7 @@ vector<TCut>   channelCut_step2   = { ES1tau0l_step2, ES1tau1e_step2,  ES1tau1m_
 vector<TCut>   channelCut_step3   = { ES1tau0l_step3, ES1tau1e_step3,  ES1tau1m_step3, ES1tau2os_step3, ES1tau2ss_step3, ES1tau3l_step3, ES2tau0l_step3, ES2tau1e_step3, ES2tau1m_step3, ES2tau2os_step3, ES2tau2ss_step3 };
 
 TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
-TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
+TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || ";
 
 
 
