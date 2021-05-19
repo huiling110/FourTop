@@ -170,8 +170,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 
     if ( HLTSelection){
-        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1) ) return kFALSE;
-        if ( !(*HLT_PFJet450 == 1)) return kFALSE;
+        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
     }
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;

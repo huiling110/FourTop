@@ -11,7 +11,7 @@ import subprocess
 #  isdata = True
 isdata = False
 inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v43_addSingJetHLT/"
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1AddHTcut_v43addSingJetHLT/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v1DeletedSinglejetCut_v43addSingJetHLT/"
 
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
