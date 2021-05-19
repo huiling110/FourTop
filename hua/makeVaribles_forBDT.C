@@ -898,7 +898,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
       if ( preselection ){
-          if ( !( *HLT_PFJet450_==1))  return kFALSE;
           if ( !( jets_HT > 400 ))     return kFALSE;
       }
 
