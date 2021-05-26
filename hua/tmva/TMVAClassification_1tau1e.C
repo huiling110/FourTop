@@ -77,7 +77,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
-   TString outfile = "1tau1e_step4RemoveCorrelation75";
+   TString outfile = "1tau1e_step5AddMoreVariables";
    // This loads the library
 
 
@@ -323,6 +323,19 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         // dataloader->AddVariable( "bjetsT_transMass", 'F' );
         dataloader->AddVariable( "nonbjetsM_4pt", 'F' );
 
+        dataloader->AddVariable( "bjetsM_2pt", 'F' );//step 5
+        dataloader->AddVariable( "nonbjetsT_4pt", 'F' );
+        dataloader->AddVariable( "jets_3pt", 'F' );
+        dataloader->AddVariable( "bjetsT_2pt", 'F' );
+        dataloader->AddVariable( "bjetsL_1pt", 'F' );
+        dataloader->AddVariable( "bjetsT_minDeltaR", 'F' );
+        dataloader->AddVariable( "toptagger_3pt", 'F' );
+        dataloader->AddVariable( "bjetsM_1pt", 'F' );
+        dataloader->AddVariable( "toptagger_MHT", 'F' );
+        dataloader->AddVariable( "leptonsMVAL_number", 'F' );
+        dataloader->AddVariable( "tausL_HT", 'F' );
+        dataloader->AddVariable( "jets_MHT", 'F' );
+        dataloader->AddVariable( "nonbjetsL_num", 'F' );
     }
 
 
