@@ -96,7 +96,8 @@ public:
       Double_t low = sigE->GetBinLowEdge(1);
       Double_t high = sigE->GetBinLowEdge(nbins+1);
       purS    = new TH1F(pname, pname, nbins, low, high);
-      sSig    = new TH1F(ssigname, ssigname, nbins, low, high);
+      // sSig    = new TH1F(ssigname, ssigname, nbins, low, high);
+      sSig    = new TH1F(ssigname, ssigname, nbins, low+0.1, high-0.1);
       effpurS = new TH1F(epname, epname, nbins, low, high);        
 
       // chop off useless stuff
@@ -370,6 +371,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
             }
          }
          if ( S>0 && B>0){
+             
              if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
          }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
@@ -381,7 +383,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       // cout<<"maxS="<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
       info->sSig->Scale(1/info->maxSignificance);
-      info->sSig->Rebin(50);
+      // info->sSig->Rebin(50);
+      // info->sSig->Rebin(100);
       // cout<<info->sSig<<endl;
 
       // update the text in the lower left corner
