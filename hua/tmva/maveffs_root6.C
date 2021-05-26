@@ -92,6 +92,7 @@ public:
       bgdE = (TH1*)origBgdE->Clone("bgdEffi");
       
       Int_t nbins = sigE->GetNbinsX();
+      // Int_t nbins = 200;
       Double_t low = sigE->GetBinLowEdge(1);
       Double_t high = sigE->GetBinLowEdge(nbins+1);
       purS    = new TH1F(pname, pname, nbins, low, high);
@@ -372,7 +373,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
              if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
          }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
-         cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  "<<endl;
+         // cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  "<<endl;
          // cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
       }
       
@@ -380,6 +381,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       // cout<<"maxS="<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
       info->sSig->Scale(1/info->maxSignificance);
+      info->sSig->Rebin(50);
       // cout<<info->sSig<<endl;
 
       // update the text in the lower left corner
@@ -636,9 +638,9 @@ void StatDialogMVAEffs::PrintResults( const MethodInfo* info )
 
 void maveffs_root6(TString dataset = "dataset",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau0l_v2leading20varibles.root",
-             TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_leading20Variables_Allbg.root",
+             // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_leading20Variables_Allbg.root",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_Remove4correlation90_Allbg.root",
-             // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_Remove5correlation80_Allbg.root",
+             TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1mu_step1_40variables.root",
               // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(S+B)" )
               // Bool_t useTMVAStyle = kTRUE, TString formula="S/sqrt(B)" )
               // Bool_t useTMVAStyle = kTRUE, TString formula="sqrt(2*((S+B)*ln(1+S/B)-S))" )
