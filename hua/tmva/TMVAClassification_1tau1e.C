@@ -77,7 +77,7 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
-   TString outfile = "1tau1e_step2RemoveBjetsTL";
+   TString outfile = "1tau1e_step3RemoveCorrelation80";
    // This loads the library
 
 
@@ -283,8 +283,8 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
     else{
 
         dataloader->AddVariable( "jets_bScore", 'F' );
-        dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
-        dataloader->AddVariable( "bjetsM_num", 'I' );
+        // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );//step 3
+        // dataloader->AddVariable( "bjetsM_num", 'I' );//step 3
         dataloader->AddVariable( "bjetsM_3pt", 'F' ); // 5
         // dataloader->AddVariable( "bjetsL_num", 'I' );//step 2
         // dataloader->AddVariable( "bjetsL_3pt", 'F' );
@@ -293,31 +293,31 @@ int TMVAClassification_1tau1e( TString myMethodList = "" )
         dataloader->AddVariable( "jets_7pt", 'F' ); //10
         dataloader->AddVariable( "toptagger_HT", 'F' );
         // dataloader->AddVariable( "bjetsL_HT", 'F' );
-        dataloader->AddVariable( "toptagger_transMass", 'F' );
+        // dataloader->AddVariable( "toptagger_transMass", 'F' );//step 3
         // dataloader->AddVariable( "bjetsL_invariantMass", 'F' );
         // dataloader->AddVariable( "bjetsL_transMass", 'F' );
         // dataloader->AddVariable( "bjetsT_num", 'I' );
         // dataloader->AddVariable( "bjetsT_3pt", 'F' );
         dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
         dataloader->AddVariable( "jets_6pt", 'F' );
-        dataloader->AddVariable( "jets_8pt", 'F' );//20
-        dataloader->AddVariable( "toptagger_invariantMass", 'F' );
+        // dataloader->AddVariable( "jets_8pt", 'F' );//20//step 3
+        // dataloader->AddVariable( "toptagger_invariantMass", 'F' );////step 3
         dataloader->AddVariable( "toptagger_num", 'I' );
-        dataloader->AddVariable( "bjetsM_HT", 'F' );
-        dataloader->AddVariable( "toptagger_2pt", 'F' );
-        dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );
+        // dataloader->AddVariable( "bjetsM_HT", 'F' );//step 3
+        // dataloader->AddVariable( "toptagger_2pt", 'F' );//step 3
+        // dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );//step 3
         dataloader->AddVariable( "jets_5pt", 'F' );
         dataloader->AddVariable( "bjetsM_transMass", 'F' );
         dataloader->AddVariable( "jets_transMass", 'F' );
-        dataloader->AddVariable( "jets_HT", 'F' );
+        // dataloader->AddVariable( "jets_HT", 'F' );//step 3
         // dataloader->AddVariable( "bjetsL_minDeltaR", 'F' );
-        dataloader->AddVariable( "nonbjetsM_num", 'I' );//30
+        // dataloader->AddVariable( "nonbjetsM_num", 'I' );//30//step 3
         dataloader->AddVariable( "jets_rationHT_4toRest", 'F' );
         // dataloader->AddVariable( "bjetsT_invariantMass", 'F' );
         dataloader->AddVariable( "jets_4pt", 'F' );
         // dataloader->AddVariable( "bjetsT_HT", 'F' );
         // dataloader->AddVariable( "bjetsL_2pt", 'F' );
-        dataloader->AddVariable( "jets_9pt", 'F' );
+        // dataloader->AddVariable( "jets_9pt", 'F' );//step 3
         // dataloader->AddVariable( "nonbjetsT_num", 'F' );
         dataloader->AddVariable( "bjetsM_minDeltaR", 'F' );//40
         // dataloader->AddVariable( "bjetsT_transMass", 'F' );

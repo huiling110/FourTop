@@ -14,7 +14,8 @@
 // void correlations( TString fin = "TMVA.root", Bool_t isRegression = kFALSE,
 void correlations_forManyInputs(
         // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/1tau0lTausT/TMVA_1Tau0L_v2.root",
-        TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step1Leading40V2.root",
+        // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step1Leading40V2.root",
+        TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step2RemoveBjetsTL.root",
                                 Bool_t isRegression = kFALSE, 
                    Bool_t greyScale = kFALSE, Bool_t useTMVAStyle = kTRUE )
 {
