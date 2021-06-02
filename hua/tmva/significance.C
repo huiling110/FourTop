@@ -371,7 +371,6 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
             }
          }
          if ( S>0 && B>0){
-             
              if (!isnan(sig) && !isinf(sig) )  info->sSig->SetBinContent( i, sig );
          }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
@@ -382,8 +381,11 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       info->maxSignificance    = info->sSig->GetMaximum();
       // cout<<"maxS="<<info->maxSignificance<<endl;
       info->maxSignificanceErr = (maxSigErr > 0) ? maxSigErr : 0;
-      info->sSig->Scale(1/info->maxSignificance);
+      // info->sSig->Scale(1/info->maxSignificance);
+      //???why have to scale?
+      //to look better togeter with efficiency plot
       // info->sSig->Rebin(50);
+      //???why rebinning not working here
       // info->sSig->Rebin(100);
       // cout<<info->sSig<<endl;
 
@@ -477,9 +479,9 @@ void StatDialogMVAEffs::DrawHistograms()
       info->canvas = c;
 
       // draw grid
-      c->SetGrid(1);
-      c->SetTickx(0);
-      c->SetTicky(0);
+      c->SetGrid(1);//is just the grid in plot
+      c->SetTickx(0);//???
+      c->SetTicky(0);//???
 
       TStyle *TMVAStyle = gROOT->GetStyle("Plain"); // our style is based on Plain
       TMVAStyle->SetLineStyleString( 5, "[32 22]" );
@@ -501,17 +503,20 @@ void StatDialogMVAEffs::DrawHistograms()
       c->SetTicks(0,0);
       c->SetRightMargin ( 2.0 );
 
-      info->effpurS->SetMaximum(1.1);
-      info->effpurS->Draw("histl");
+      info->sSig->SetLineColor( signifColor );
+      info->sSig->Draw("histl");
+      // info->effpurS->SetMaximum(1.1);
+      // info->effpurS->Draw("histl");
+      // info->effpurS->Draw("samehistl");
 
-      info->purS->Draw("samehistl");      
+      // info->purS->Draw("samehistl");
 
       // overlay signal and background histograms
-      info->sigE->Draw("samehistl");
-      info->bgdE->Draw("samehistl");
+      // info->sigE->Draw("samehistl");
+      // info->bgdE->Draw("samehistl");
 
-      info->sSig->SetLineColor( signifColor );
-      info->sSig->Draw("samehistl");
+      // info->sSig->SetLineColor( signifColor );
+      // info->sSig->Draw("samehistl");
 
       // redraw axes
       info->effpurS->Draw( "sameaxis" );
@@ -646,7 +651,7 @@ void StatDialogMVAEffs::PrintResults( const MethodInfo* info )
    }
 }
 
-void maveffs_root6(TString dataset = "dataset",
+void significance(TString dataset = "dataset",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau0l_v2leading20varibles.root",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_leading20Variables_Allbg.root",
              // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v13etaPhiAbs_v42_addNonBjets/1tau1e_Remove4correlation90_Allbg.root",
@@ -667,7 +672,7 @@ void maveffs_root6(TString dataset = "dataset",
    gGui->ReadHistograms(file);
    gGui->SetFormula(formula);
    gGui->UpdateSignificanceHists();
-   // gGui->DrawHistograms();
+   gGui->DrawHistograms();
    // gGui->PrintResults( gGui.fInfoList[0]);
    gGui->RaiseDialog();   
 }
