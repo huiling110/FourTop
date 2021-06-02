@@ -384,7 +384,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       // info->sSig->Scale(1/info->maxSignificance);
       //???why have to scale?
       //to look better togeter with efficiency plot
-      // info->sSig->Rebin(50);
+      info->sSig->Rebin(50);
       //???why rebinning not working here
       // info->sSig->Rebin(100);
       // cout<<info->sSig<<endl;
