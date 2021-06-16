@@ -165,7 +165,9 @@ private:
 
    TGMainFrame *fMain;
    Float_t fNSignal;
-   Float_t fNBackground;  
+   Float_t fNBackground;
+   // Float_t fNSignal = 4.11343;
+   // Float_t fNBackground = 1081.34;
    TString fFormula;
    TList * fInfoList;//All classes inheriting from TObject can be inserted in a TList
 
@@ -375,7 +377,8 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
          }
          info->effpurS->SetBinContent( i, eS*info->purS->GetBinContent( i ) );
          // cout<<"sig="<<sig<<" "<<"purity="<<eS*info->purS->GetBinContent( i )<<"  "<<endl;
-         // cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
+         cout<<"S="<<S<<" "<<"B="<<B<<" "<<"1+S/B="<<1+S/B<<" "<<"(S+B)*log10(1+S/B)-S="<<(S+B)*log10(1+S/B)-S<<" "<<sqrt(2*((S+B)*log10(1+S/B)-S))<<endl;
+         cout<<"sig = "<<sig<<endl;
       }
       
       info->maxSignificance    = info->sSig->GetMaximum();
@@ -387,7 +390,7 @@ void StatDialogMVAEffs::UpdateSignificanceHists()
       info->sSig->Rebin(50);
       //???why rebinning not working here
       // info->sSig->Rebin(100);
-      // cout<<info->sSig<<endl;
+      cout<<info->sSig->GetNbinsX()<<endl;
 
       // update the text in the lower left corner
       PrintResults( info );
@@ -443,11 +446,16 @@ void StatDialogMVAEffs::ReadHistograms(TFile* file)
          info->sig = dynamic_cast<TH1*>(titDir->Get( hname + "_S" ));
          cout<<"entries_S: "<<info->sig->GetEntries()<<endl;
          cout<<"Int_S: "<<info->sig->Integral()<<endl;
+         cout<<"binWidth_S"<<info->sig->GetBinWidth(3)<<endl;
+         cout<<"sig bin number: "<<info->sig->GetNbinsX()<<endl;
          info->bgd = dynamic_cast<TH1*>(titDir->Get( hname + "_B" ));
          cout<<"entries_B: "<<info->bgd->GetEntries()<<endl;
          cout<<"Int_B: "<<info->bgd->Integral()<<endl;
          info->origSigE = dynamic_cast<TH1*>(titDir->Get( hname + "_effS" ));
          info->origBgdE = dynamic_cast<TH1*>(titDir->Get( hname + "_effB" ));      
+         cout<<"origSigE bin number: "<<info->origSigE->GetNbinsX()<<endl;
+         // info->origSigE->Rebin(50);
+         cout<<"after rebin bin number: "<<info->origSigE->GetNbinsX()<<endl;
          //are these distribution of training or testing samples?
          //should be of testing samples
          if (info->origSigE==0 || info->origBgdE==0) { delete info; continue; }
@@ -479,32 +487,34 @@ void StatDialogMVAEffs::DrawHistograms()
       info->canvas = c;
 
       // draw grid
-      c->SetGrid(1);//is just the grid in plot
-      c->SetTickx(0);//???
-      c->SetTicky(0);//???
+      // c->SetGrid(1);//is just the grid in plot
+      // c->SetTickx(0);//???
+      // c->SetTicky(0);//???
 
-      TStyle *TMVAStyle = gROOT->GetStyle("Plain"); // our style is based on Plain
-      TMVAStyle->SetLineStyleString( 5, "[32 22]" );
-      TMVAStyle->SetLineStyleString( 6, "[12 22]" );
-         
-      c->SetTopMargin(.2);
+      // TStyle *TMVAStyle = gROOT->GetStyle("Plain"); // our style is based on Plain
+      // TMVAStyle->SetLineStyleString( 5, "[32 22]" );
+      // TMVAStyle->SetLineStyleString( 6, "[12 22]" );
+//
+      // c->SetTopMargin(.2);
       
       // and the signal purity and quality
-      info->effpurS->SetTitle("Cut efficiencies and optimal cut value");
-      if (info->methodTitle.Contains("Cuts")) {
-         info->effpurS->GetXaxis()->SetTitle( "Signal Efficiency" );
-      }
-      else {
-         info->effpurS->GetXaxis()->SetTitle( TString("Cut value applied on ") + info->methodTitle + " output" );
-      }
-      info->effpurS->GetYaxis()->SetTitle( "Efficiency (Purity)" );
-      TMVAGlob::SetFrameStyle( info->effpurS );
+      // info->effpurS->SetTitle("Cut efficiencies and optimal cut value");
+      // if (info->methodTitle.Contains("Cuts")) {
+         // info->effpurS->GetXaxis()->SetTitle( "Signal Efficiency" );
+      // }
+      // else {
+         // info->effpurS->GetXaxis()->SetTitle( TString("Cut value applied on ") + info->methodTitle + " output" );
+      // }
+      // info->effpurS->GetYaxis()->SetTitle( "Efficiency (Purity)" );
+      // TMVAGlob::SetFrameStyle( info->effpurS );
+      // TMVAGlob::SetFrameStyle( info->sSig );
 
-      c->SetTicks(0,0);
-      c->SetRightMargin ( 2.0 );
+      // c->SetTicks(0,0);
+      // c->SetRightMargin ( 2.0 );
 
       info->sSig->SetLineColor( signifColor );
-      info->sSig->Draw("histl");
+      // info->sSig->Draw("histl");
+      info->sSig->Draw();
       // info->effpurS->SetMaximum(1.1);
       // info->effpurS->Draw("histl");
       // info->effpurS->Draw("samehistl");
@@ -519,9 +529,10 @@ void StatDialogMVAEffs::DrawHistograms()
       // info->sSig->Draw("samehistl");
 
       // redraw axes
-      info->effpurS->Draw( "sameaxis" );
+      // info->effpurS->Draw( "sameaxis" );
 
       // Draw legend               
+      /*
       TLegend *legend1= new TLegend( c->GetLeftMargin(), 1 - c->GetTopMargin(), 
                                      c->GetLeftMargin() + 0.4, 1 - c->GetTopMargin() + 0.12 );
       legend1->SetFillStyle( 1 );
@@ -572,10 +583,12 @@ void StatDialogMVAEffs::DrawHistograms()
          tl.DrawLatex( 0.13, 0.77, "Method Cuts provides a bundle of cut selections, each tuned to a");
          tl.DrawLatex(0.13, 0.74, "different signal efficiency. Shown is the purity for each cut selection.");
       }
+      */
       // save canvas to file
       c->Update();
 
       // Draw second axes
+      /*
       info->rightAxis = new TGaxis(c->GetUxmax(), c->GetUymin(),
                                    c->GetUxmax(), c->GetUymax(),0,1.1*info->maxSignificance,510,"+L");
       info->rightAxis->SetLineColor ( signifColor );
@@ -587,6 +600,8 @@ void StatDialogMVAEffs::DrawHistograms()
       info->rightAxis->Draw();
 
       c->Update();
+      */
+
 
       // switches
       const Bool_t Save_Images = kTRUE;
@@ -663,7 +678,9 @@ void significance(TString dataset = "dataset",
 {
    TMVAGlob::Initialize( useTMVAStyle );
 
-   StatDialogMVAEffs* gGui = new StatDialogMVAEffs( dataset,gClient->GetRoot(), 1000, 1000);
+   // StatDialogMVAEffs* gGui = new StatDialogMVAEffs( dataset,gClient->GetRoot(), 1000, 1000);
+   // StatDialogMVAEffs* gGui = new StatDialogMVAEffs( dataset,gClient->GetRoot(), 4.11343, 1081.34);
+   StatDialogMVAEffs* gGui = new StatDialogMVAEffs( dataset,gClient->GetRoot(), 5.58, 1428);
    // StatDialogMVAEffs* gGui = new StatDialogMVAEffs(gClient->GetRoot(), 128089,135243 );
 
    TFile* file = TMVAGlob::OpenFile( fin );
