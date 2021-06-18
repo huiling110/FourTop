@@ -26,13 +26,13 @@ class objectTSelector : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
-
+   //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
-   // Bool_t isdata = true;
+   //Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
-    //Bool_t HLTSelection = true;
-    Bool_t HLTSelection = false;
+    Bool_t HLTSelection = true;
+    //Bool_t HLTSelection = false;
     // Bool_t preselection = true;
     // Bool_t preselection = false;
     Bool_t preselection = true;
@@ -195,7 +195,8 @@ Int_t    Flag_eeBadScFilter_ ;
     // all the branches only in MC
    // Double_t *EVENT_genWeight;
      // TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_event"};
-   
+	 //CHANGE HERE TO RUN ON DATA
+	 
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
@@ -221,7 +222,7 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<int> Muon_gen_pdgId = {fReader, "Muon_gen_pdgId"};
    TTreeReaderArray<int> Muon_gen_isPromptFinalState = {fReader, "Muon_gen_isPromptFinalState"};
    TTreeReaderArray<int> Muon_gen_isDirectPromptTauDecayProductFinalState = {fReader, "Muon_gen_isDirectPromptTauDecayProductFinalState"};
-   
+	 
    // Double_t EVENT_genWeight;
    TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
 

@@ -143,10 +143,13 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
    genWeight_allEvents = -99;
    //
+   //CHANGE HERE TO RUN ON DATA
+   
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *EVENT_genWeight );
        genWeight_allEvents = *EVENT_genWeight;
    }
+   
    allEvents->Fill();
 
    //MET filters
@@ -159,7 +162,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
         if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
           //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;
           //			why this filter not work?//applied only in 2017 and 2018
-         if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+        //CHANGE HERE TO RUN ON DATA 
+		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
     }
     Flag_goodVertices_ = *Flag_goodVertices;
     Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
@@ -170,7 +174,7 @@ Bool_t objectTSelector::Process(Long64_t entry)
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 
     if ( HLTSelection){
-        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1) ) return kFALSE;
+        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
     }
     //HLT
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
@@ -337,7 +341,8 @@ Bool_t objectTSelector::Process(Long64_t entry)
     sort( tops_toptagger.begin(), tops_toptagger.end(), compEle);
 
     //gen information
-
+	//CHANGE HERE TO RUN ON DATA
+	
     if ( !isdata ){
         genTaus.clear();
         genEles.clear();
@@ -346,17 +351,20 @@ Bool_t objectTSelector::Process(Long64_t entry)
         selectGenEles(genEles);
         selectGenMuons(genMuons);
     }
-
+	
     EVENT_prefireWeight_ = *EVENT_prefireWeight;
     PUWeight_ = *PUWeight;
-    if ( !isdata ){
+    //CHANGE HERE TO RUN ON DATA
+	
+	if ( !isdata ){
         EVENT_genWeight_ = *EVENT_genWeight;
     }
-
+	
     //preselection
     if (preselection) {
         if ( !( tausL.size()>0)) return kFALSE;
-        if ( !( jets.size()>3))  return kFALSE;
+        //if ( !( jets.size()>3))  return kFALSE;
+		if ( !( jets.size()>1))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
     }
 
@@ -444,21 +452,26 @@ void objectTSelector::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "patElectron_charge_", &patElectron_charge_  );
    tree->Branch( "Tau_charge_", &Tau_charge_ );
    tree->Branch( "Muon_charge_", &Muon_charge_ );
+   //CHANGE HERE TO RUN ON DATA
+   
    if ( !isdata ){
        tree->Branch( "genTaus", &genTaus );
        tree->Branch( "genEles", &genEles );
        tree->Branch( "genMuons", &genMuons );
    }
+   
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
    tree->Branch( "tops_toptagger", &tops_toptagger);
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    tree->Branch( "PUWeight_", &PUWeight_, "PUWeight_/D");
+   //CHANGE HERE TO RUN ON DATA
+   
    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
-
+   
    tree->Branch( "Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
    tree->Branch( "Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
    tree->Branch( "Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
@@ -978,6 +991,7 @@ void objectTSelector::MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET) {
   MET = sqrt(METx * METx + METy * METy);
 } /*}}}*/
 
+//CHANGE THIS TO RUN ON DATA
 
 void objectTSelector::selectGenTaus( vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < Gen_pt.GetSize(); ++j) {
