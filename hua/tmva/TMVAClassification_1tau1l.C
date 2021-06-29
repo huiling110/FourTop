@@ -61,7 +61,7 @@
 
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass.h"
 
-int TMVAClassification_1tau1mu( TString myMethodList = "" )
+int TMVAClassification_1tau1l( TString myMethodList = "" )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
    // if you use your private .rootrc, or run from a different directory, please copy the
@@ -72,12 +72,13 @@ int TMVAClassification_1tau1mu( TString myMethodList = "" )
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t forVariables = false;
-   // Bool_t forVariables = true;
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
-   TString outfile = "1tau1mu_step1_60variables";
+   // TString outfile = "1tau1l_step1_60variables";
+   TString outfile = "1tau1l_forvariables";
    // This loads the library
 
 
@@ -374,7 +375,6 @@ int TMVAClassification_1tau1mu( TString myMethodList = "" )
 
 
    // global event weights per tree (see below for setting event-wise weights)
-
    // You can add an arbitrary number of signal or background trees
     // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
@@ -448,7 +448,8 @@ int TMVAClassification_1tau1mu( TString myMethodList = "" )
    // Apply additional cuts on the signal and background samples (can be different)
     // TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";//1tau0l
     // TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
-    TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
+    // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
+    TCut ES1tau1l = "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
 
    // Tell the dataloader how to use the training and testing events
    //
@@ -463,18 +464,22 @@ int TMVAClassification_1tau1mu( TString myMethodList = "" )
    //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree(
-               ES1tau1m, ES1tau1m,
+               ES1tau1l, ES1tau1l,
                                         "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        dataloader->PrepareTrainingAndTestTree(
-               ES1tau1m, ES1tau1m,
+               ES1tau1l, ES1tau1l,
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
+                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );
                                         // "nTrain_Signal=166172:nTrain_Background=83185:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //1tau0l
                                         // "nTrain_Signal=54296:nTrain_Background=23374:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //
                                         // "nTrain_Signal=67557:nTrain_Background=26688:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //not working
-                                        "nTrain_Signal=57906:nTrain_Background=22876:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training // 
+                                        // "nTrain_Signal=57906:nTrain_Background=22876:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training //
        //means raw entries
+                                        "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" //1tau1l, 60% go to training
+
+                                            );
    }
 
    // ### Book MVA methods
@@ -744,5 +749,5 @@ int main( int argc, char** argv )
       if (!methodList.IsNull()) methodList += TString(",");
       methodList += regMethod;
    }
-   return TMVAClassification_1tau1mu(methodList);
+   return TMVAClassification_1tau1l(methodList);
 }
