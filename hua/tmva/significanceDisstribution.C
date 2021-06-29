@@ -18,9 +18,11 @@ void significanceDisstribution()
     TH1D* BDTG_B=new TH1D("BDTG_B","",200,-1,1);
     TH1D* BDTG_significance=new TH1D("BDTG_significancei","",200,-1,1);
     // TH1D* h_signif2=new TH1D("h_signifi2","",200,-1,1);//for the so called loose category
-    TH1D* BDT_S=new TH1D("BDT_S","",200,-1,1);
-    TH1D* BDT_B=new TH1D("BDT_B","",200,-1,1);
-    TH1D* BDT_significance=new TH1D("BDT_significance","",200,-1,1);
+    TH1D* BDT_S=new TH1D("BDT_S","",200,-0.2,0.4);
+    TH1D* BDT_B=new TH1D("BDT_B","",200,-0.2,0.4);
+    TH1D* BDT_significance=new TH1D("BDT_significance","",200,-0.2,0.4);
+
+    // BDT_S->Draw();
 
     
 
@@ -67,6 +69,10 @@ void significanceDisstribution()
         if( s_BDT>0 && b_BDT>0 ) BDT_significance->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
         // BDTG_significance->SetBinContent(i,TMath::Sqrt(2*((signal+background)*log(1+signal/background)-signal)));
      }
+
+
+    //draw
+
     BDTG_significance->SetMaximum(0.5);
     // BDTG_significance->Draw("same");
     BDTG_significance->Draw();
