@@ -53,6 +53,9 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     print( 'initialVariableList: ', initialVariableList)
 
 
+    createNextVariableList_correlation( initialVariableList )
+
+
     #  with open("the_new_csv.csv", "w+") as to_file:
         #  writer = csv.writer(to_file, delimiter=":")
         #  for new_row in data:
@@ -63,8 +66,34 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
 
 
 def createNextVariableList_correlation( vlist):
-    inputFile = TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
-    inputFile.print()
+    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
+    inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root")
+    inputFile.Print()
+    h2 = inputFile.Get("dataset/CorrelationMatrixS"); #TH2F
+    h2.Print()
+
+    print( h2.GetXaxis().GetBinLabel(1))
+    binNum = h2.GetNbinsX()
+    print( 'variable number in TH2F: ', binNum)
+    ibinX = 1
+    #  ibinY = 1
+    correlation_list = [] #list of sets
+    while ibinX<binNum+1:
+        #  print(ibinX)
+        ibinY = 1
+        while ibinY<ibinX:
+            #  print(ibinY)
+            xBinLabel = h2.GetXaxis().GetBinLabel(ibinX)
+            yBinLabel = h2.GetYaxis().GetBinLabel(ibinY)
+            icorrelation = h2.GetBinContent( ibinX, ibinY)
+            correlation_list.append( (xBinLabel, yBinLabel, icorrelation) )
+            ibinY+=1
+
+        ibinX+=1
+
+    print( 'correlaition list: ', correlation_list)
+
+
 
 
 
