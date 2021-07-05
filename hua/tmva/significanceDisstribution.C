@@ -1,7 +1,10 @@
 void significanceDisstribution()
 {
-    TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1mu_step1_40variables.root";
+    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1mu_step1_40variables.root";
     // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step2RemoveBjetsTL.root";
+    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step";
+    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step4RemoveCorrelation75.root";
+    TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root";
     TFile* f=new TFile(fileName);
     TTree* t=(TTree*)f->Get("dataset/TestTree");
     Float_t BDTG, weight;
@@ -60,25 +63,27 @@ void significanceDisstribution()
         if ( signal>0 && background>0 ) BDTG_significance->SetBinContent(i, sig/TMath::Sqrt(0.4));
 
 
-        Float_t s_BDT = BDT_S->Integral(i,200);
-        Float_t b_BDT = BDT_B->Integral(i,200);
+        Float_t s_BDT = BDT_S->Integral(i,200)/0.4;
+        Float_t b_BDT = BDT_B->Integral(i,200)/0.4;
         Float_t sig_BDT = TMath::Sqrt(2*((s_BDT+b_BDT)*log(1+s_BDT/b_BDT)-s_BDT));
         cout<<i<<":"<<sig_BDT<<"  ";
         // if (!isnan(sig) && !isinf(sig) ) BDTG_significance->SetBinContent(i, sig/TMath::Sqrt(0.4));
         // if( !isnan(sig_BDT)&&!isinf(sig_BDT) ) BDT_significance->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
-        if( s_BDT>0 && b_BDT>0 ) BDT_significance->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
+        // if( s_BDT>0 && b_BDT>0 ) BDT_significance->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
+        if( s_BDT>0 && b_BDT>0 ) BDT_significance->SetBinContent(i, sig_BDT);
         // BDTG_significance->SetBinContent(i,TMath::Sqrt(2*((signal+background)*log(1+signal/background)-signal)));
      }
 
 
     //draw
 
-    BDTG_significance->SetMaximum(0.5);
+    // BDTG_significance->SetMaximum(0.5);
+    BDTG_significance->SetMaximum(1);
     // BDTG_significance->Draw("same");
     BDTG_significance->Draw();
 
     BDT_significance->Print();
-    BDT_significance->Draw("same");
+    // BDT_significance->Draw("same");
 
     // Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin())/TMath::Sqrt(0.4);
     Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin());
