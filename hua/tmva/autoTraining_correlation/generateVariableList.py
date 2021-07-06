@@ -20,6 +20,7 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
         writer2 = csv.writer(to_file2, delimiter=":")
         linecount = 0
         SPline = 0
+        variable1 = ''
         for irow in csv_reader: 
             #Each row returned by the reader is a list of String elements containing the data found by removing the delimiters.
             #  if linecount<300:
@@ -29,17 +30,21 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
 
             #get the SP part
             if irow[0] == "IdTransformation         ":
-                print(irow[1])
+                #  print(irow[1])
                 SPline = linecount+2
             if (linecount == SPline and not(linecount == 0) ):
                 #  print(irow)
                 if len(irow)>3:
                     if not(irow[2] == ' -----------------------------------------------------') or not(irow[1]=='Factory                  ') :
-                        print(irow)
+                        #  print(irow)
                         print(irow[2])
                         #  writer2.writerow(irow[2])
-                        writer2.writerow([irow[2]])
-                        initialVariableList.append(irow[2])
+                        variable1 = irow[2].replace( " ", "")
+                        print( 'variable1', variable1 )
+                        #  writer2.writerow([irow[2]])
+                        #  initialVariableList.append(irow[2])
+                        writer2.writerow( variable1)
+                        initialVariableList.append(variable1)
 
 
                 if not irow[0] == 'Factory                  ':
@@ -51,9 +56,13 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
 
 
     print( 'initialVariableList: ', initialVariableList)
+    leading50List = leadingNList( initialVariableList, 50 )
+    print( '50 leadingList', leading50List)
+    removeBjetTL_list = removeBjetTL( leading50List )
+    print( 'removeBjets list: ', removeBjetTL_list )
 
 
-    createNextVariableList_correlation( initialVariableList )
+    createNextVariableList_correlation( removeBjetTL_list  )
 
 
     #  with open("the_new_csv.csv", "w+") as to_file:
@@ -62,12 +71,30 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
             #  writer.writerow(new_row)
 
 
-#  def removeBjetTL( vlist) :
+def leadingNList( variableList, N):
+    return variableList[0:N-1]
+    
+
+
+
+def removeBjetTL( variableList) :
+    removedList = []
+    for variable in variableList:
+        #  print( 'variable in list: ', variable)
+        if not(variable.find( 'bjetsL') != -1 or variable.find( 'bjetsT')!=-1 ):
+        #  if not(variable.find( 'bjetsL') ):
+            removedList.append( variable )
+        #  else:
+            #  print( variable )
+        #  if variable.find('bjetsL') != -1:
+            #  print( variable)
+    return removedList
+
 
 
 def createNextVariableList_correlation( vlist):
-    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
-    inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root")
+    inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
+    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root")
     inputFile.Print()
     h2 = inputFile.Get("dataset/CorrelationMatrixS"); #TH2F
     h2.Print()
@@ -85,13 +112,23 @@ def createNextVariableList_correlation( vlist):
             #  print(ibinY)
             xBinLabel = h2.GetXaxis().GetBinLabel(ibinX)
             yBinLabel = h2.GetYaxis().GetBinLabel(ibinY)
-            icorrelation = h2.GetBinContent( ibinX, ibinY)
+            #  if xBinLabel in vlist:
+            
+            icorrelation = abs( h2.GetBinContent( ibinX, ibinY) )
             correlation_list.append( (xBinLabel, yBinLabel, icorrelation) )
             ibinY+=1
-
         ibinX+=1
 
-    print( 'correlaition list: ', correlation_list)
+    #  print( 'correlaition list: ', correlation_list)
+    correlation_list.sort( key=takeThird, reverse = True )
+    print('\n')
+    #  print( 'list after sorting: \n', correlation_list)
+
+
+
+
+def takeThird( elem ):
+    return elem[2]
 
 
 
