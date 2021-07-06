@@ -13,9 +13,6 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     
     #the first line identifies each piece of datain other words, the name of a data column
     
-
-
-
     initialVariableList = getInitList( TMVAlog )
 
     print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
