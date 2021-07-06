@@ -1,4 +1,5 @@
 
+
 import ROOT
 #  from ROOT import *
 #  import array
@@ -35,12 +36,13 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
             if (linecount == SPline and not(linecount == 0) ):
                 #  print(irow)
                 if len(irow)>3:
-                    if not(irow[2] == ' -----------------------------------------------------') or not(irow[1]=='Factory                  ') :
+                    #  if not(irow[2] == ' -----------------------------------------------------') or not(irow[1]=='Factory                  '):
+                    if irow[2] != ' -----------------------------------------------------' and irow[1]!='Factory                  ' and irow[2]!=' Variable                     ':
                         #  print(irow)
-                        print(irow[2])
+                        #  print(irow[2])
                         #  writer2.writerow(irow[2])
                         variable1 = irow[2].replace( " ", "")
-                        print( 'variable1', variable1 )
+                        #  print( 'variable1', variable1 )
                         #  writer2.writerow([irow[2]])
                         #  initialVariableList.append(irow[2])
                         writer2.writerow( variable1)
@@ -55,7 +57,7 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
             linecount +=1
 
 
-    print( 'initialVariableList: ', initialVariableList)
+    print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
     leading50List = leadingNList( initialVariableList, 50 )
     print( '50 leadingList', leading50List)
     removeBjetTL_list = removeBjetTL( leading50List )
@@ -93,13 +95,15 @@ def removeBjetTL( variableList) :
 
 
 def createNextVariableList_correlation( vlist):
+    #only stores variable in vlist
     inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
     #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root")
     inputFile.Print()
     h2 = inputFile.Get("dataset/CorrelationMatrixS"); #TH2F
-    h2.Print()
+    #  h2.Print()
 
-    print( h2.GetXaxis().GetBinLabel(1))
+    #getting the correlaiton list out of root TH2F
+    #  print( h2.GetXaxis().GetBinLabel(1))
     binNum = h2.GetNbinsX()
     print( 'variable number in TH2F: ', binNum)
     ibinX = 1
@@ -112,17 +116,42 @@ def createNextVariableList_correlation( vlist):
             #  print(ibinY)
             xBinLabel = h2.GetXaxis().GetBinLabel(ibinX)
             yBinLabel = h2.GetYaxis().GetBinLabel(ibinY)
-            #  if xBinLabel in vlist:
-            
-            icorrelation = abs( h2.GetBinContent( ibinX, ibinY) )
-            correlation_list.append( (xBinLabel, yBinLabel, icorrelation) )
+            if xBinLabel in vlist and yBinLabel in vlist:
+                icorrelation = abs( h2.GetBinContent( ibinX, ibinY) )
+                #  correlation_list.append( (xBinLabel, yBinLabel, icorrelation) )
+                correlation_list.append( [xBinLabel, yBinLabel, icorrelation] )
             ibinY+=1
         ibinX+=1
 
     #  print( 'correlaition list: ', correlation_list)
     correlation_list.sort( key=takeThird, reverse = True )
     print('\n')
-    #  print( 'list after sorting: \n', correlation_list)
+    print( 'list after sorting: ', correlation_list)
+
+    #for simplisity, not taking muatiple same correlation into account for now
+    tempList = vlist
+    listLenth = len(vlist)
+    variableListList = []
+    for correlationPair in correlation_list:
+        if len(tempList)==listLenth:
+            print( 'tempList: ', len(tempList), tempList)
+            variableListList.append(tempList)
+            listLenth = listLenth-1
+        firstVariable = correlationPair[0]
+        secondVariable = correlationPair[1]
+        #  print( 'tempList: ', len(tempList), tempList)
+        if firstVariable in tempList and secondVariable in tempList:
+            if vlist.index( firstVariable) > vlist.index( secondVariable ):
+                tempList.remove( secondVariable)
+            else:
+                tempList.remove( firstVariable)
+        #  elif :
+    print('\n')
+    print( 'variableListList: ', len(variableListList), variableListList)
+    print( 'variableListList: ', variableListList[0])
+
+
+
 
 
 
