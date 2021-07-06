@@ -135,8 +135,9 @@ def createNextVariableList_correlation( vlist):
     for correlationPair in correlation_list:
         if len(tempList)==listLenth:
             #print( 'tempList: ', len(tempList), tempList)
-            variableListList.append(tempList)
-            print( 'tempList: ', len(tempList), tempList)
+
+            #  variableListList.append(tempList)
+            variableListList.append(tempList[:])# The notation list[:] creates a copy of the list.
             listLenth = listLenth-1
         firstVariable = correlationPair[0]
         secondVariable = correlationPair[1]
@@ -147,9 +148,10 @@ def createNextVariableList_correlation( vlist):
             else:
                 tempList.remove( firstVariable)
         #  elif :
+        print( 'tempList: ', len(tempList), tempList)
     print('\n')
     print( 'variableListList: ', len(variableListList), variableListList)
-    print( 'variableListList: ', variableListList[0])
+    #  print( 'variableListList: ', variableListList[0])
 
 
 
