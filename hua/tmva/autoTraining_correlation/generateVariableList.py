@@ -64,13 +64,34 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     print( 'removeBjets list: ', removeBjetTL_list )
 
 
-    createNextVariableList_correlation( removeBjetTL_list  )
+    vListList = createNextVariableList_correlation( removeBjetTL_list  )
+    print( 'vListList', len(vListList), vListList )
+
+    outputDir = 'output/'
+    writeListListToFile( vListList, outputDir )
 
 
     #  with open("the_new_csv.csv", "w+") as to_file:
         #  writer = csv.writer(to_file, delimiter=":")
         #  for new_row in data:
             #  writer.writerow(new_row)
+
+
+
+def writeListListToFile( listList, fileDir ):
+    for iList in listList:
+        writeListToFile( iList, fileDir )
+
+
+def writeListToFile( iList, fileDir ):
+    iFileName = fileDir + 'varibleList_'+str(len(iList)) + '.csv'
+    with open( iFileName, mode='w') as ifile:
+        writer = csv.writer( ifile, delimiter=":")
+        for ele in iList:
+            writer.writerow( [ele] )
+
+
+
 
 
 def leadingNList( variableList, N):
@@ -135,7 +156,6 @@ def createNextVariableList_correlation( vlist):
     for correlationPair in correlation_list:
         if len(tempList)==listLenth:
             #print( 'tempList: ', len(tempList), tempList)
-
             #  variableListList.append(tempList)
             variableListList.append(tempList[:])# The notation list[:] creates a copy of the list.
             listLenth = listLenth-1
@@ -148,10 +168,10 @@ def createNextVariableList_correlation( vlist):
             else:
                 tempList.remove( firstVariable)
         #  elif :
-        print( 'tempList: ', len(tempList), tempList)
     print('\n')
     print( 'variableListList: ', len(variableListList), variableListList)
     #  print( 'variableListList: ', variableListList[0])
+    return variableListList
 
 
 
