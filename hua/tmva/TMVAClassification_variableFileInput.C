@@ -45,6 +45,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <fstream>
+#include <typeinfo>
 
 #include "TChain.h"
 #include "TFile.h"
@@ -62,7 +64,8 @@
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-        TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
+        // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
+        string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
         Int_t channel = 1
         )
 {
@@ -287,99 +290,34 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );//’F’ indicates any floating point type, i.e., float and double
         //
-    if ( forVariables ){
-        std::vector<TString> branchNames;
-        TString branchName;
-        UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
-        cout<<"number of branches: "<<nbr<<endl;
-        for ( UInt_t i=0; i<nbr; i++){
-            branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
-            if ( branchName.Contains( "Flag") )  continue;
-            if ( branchName.Contains( "HLT"))    continue;
-            if ( branchName.Contains( "Weight"))  continue;
-            if ( branchName.Contains( "tausT_number") || branchName.Contains( "muonsT_number") || branchName.Contains( "elesMVAT_number")  ) continue;
-            if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
-            if ( branchName.Contains( "tausT_minDeltaR")) continue;
-            if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
-            //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
-            if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
-            //not sure what is wrong with this branch. //Variable muonsT_number is constant.
-            //because after the cut the branch is 0
-            cout<<branchName<<endl;
-            branchNames.push_back( branchName );
-            if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
-            else dataloader->AddVariable( branchName, 'F' );
-        }
+ 
+    //variableListCsv
+    ifstream fin( variableListCsv);
+    string line = "";
+    TString ivariable;
+    Int_t num = 1;
+    while ( getline( fin, line ) ){
+        // cout<<line<<endl;
+        // cout<<line;
+        // cout<<typeid(line).name()<<endl;
+        if (num>1)  {
+            ivariable = line;
+            cout<<ivariable.Length();
+            // ivariable = ivariable.ReplaceAll( " ", "");
+            // cout<<ivariable<<":";
+            if( line.size()>0)            dataloader->AddVariable( ivariable, 'F');
+            cout<<ivariable<<endl;
+        }      
+        // dataloader->AddVariable( line, 'F');
+        num = num+1;
     }
-    else{
+    fin.close();
+    cout<<"number of loops: "<<num<<endl;
 
-        dataloader->AddVariable( "jets_bScore", 'F' );
-        dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
-        dataloader->AddVariable( "bjetsM_num", 'F' );
-        dataloader->AddVariable( "bjetsM_3pt", 'F' );
-        // dataloader->AddVariable( "bjetsL_num", 'F' ); //step2
-        // dataloader->AddVariable( "bjetsL_3pt", 'F' ); //step2
-        // dataloader->AddVariable( "bjetsL_4pt", 'F' );//step2
-        dataloader->AddVariable( "jets_number", 'F' );
-        dataloader->AddVariable( "jets_7pt", 'F' );
-        dataloader->AddVariable( "toptagger_HT", 'F' );//10
-        // dataloader->AddVariable( "bjetsL_HT", 'F' );//step2
-        dataloader->AddVariable( "toptagger_transMass", 'F' );
-        // dataloader->AddVariable( "bjetsL_invariantMass", 'F' );//step2
-        // dataloader->AddVariable( "bjetsL_transMass", 'F' );//step2
-        dataloader->AddVariable( "bjetsM_invariantMass", 'F' );
-        dataloader->AddVariable( "jets_6pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_num", 'F' );//step2
-        dataloader->AddVariable( "jets_8pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_3pt", 'F' );//step2
-        dataloader->AddVariable( "toptagger_invariantMass", 'F' );//20
-        dataloader->AddVariable( "toptagger_num", 'F' );
-        dataloader->AddVariable( "bjetsM_HT", 'F' );
-        dataloader->AddVariable( "toptagger_2pt", 'F' );
-        dataloader->AddVariable( "toptagger_minDeltaR_v1", 'F' );
-        dataloader->AddVariable( "jets_5pt", 'F' );
-        dataloader->AddVariable( "bjetsM_transMass", 'F' );
-        dataloader->AddVariable( "jets_transMass", 'F' );
-        dataloader->AddVariable( "jets_rationHT_4toRest", 'F' );
-        dataloader->AddVariable( "jets_HT", 'F' );
-        dataloader->AddVariable( "nonbjetsM_num", 'F' ); //30
-        // dataloader->AddVariable( "bjetsT_invariantMass", 'F' );//step2
-        // dataloader->AddVariable( "bjetsL_minDeltaR", 'F' );//step2
-        dataloader->AddVariable( "bjetsM_4pt", 'F' );
-        // dataloader->AddVariable( "bjetsL_2pt", 'F' );//step2
-        dataloader->AddVariable( "jets_4pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_HT", 'F' );//step2
-        dataloader->AddVariable( "jets_9pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_transMass", 'F' );//step2
-        // dataloader->AddVariable( "nonbjetsT_num", 'F' );//step2
-        dataloader->AddVariable( "nonbjetsM_4pt", 'F' );//40
-        // dataloader->AddVariable( "bjetsL_2pt", 'F' );//
-        // dataloader->AddVariable( "jets_4pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_HT", 'F' );//
-        // dataloader->AddVariable( "jets_9pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_transMass", 'F' );//
-        // dataloader->AddVariable( "nonbjetsT_num", 'F' );//
-        // dataloader->AddVariable( "nonbjetsM_4pt", 'F' );
-        // dataloader->AddVariable( "bjetsM_2pt", 'F' );
-        // dataloader->AddVariable( "bjetsM_minDeltaR", 'F' );
-        // dataloader->AddVariable( "nonbjetsT_4pt", 'F' );//50//
-        // dataloader->AddVariable( "jets_3pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_2pt", 'F' );//
-        // dataloader->AddVariable( "toptagger_3pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_minDeltaR", 'F' );//
-        // dataloader->AddVariable( "bjetsL_1pt", 'F' );//
-        // dataloader->AddVariable( "toptagger_MHT", 'F' );
-        // dataloader->AddVariable( "bjetsM_1pt", 'F' );
-        // dataloader->AddVariable( "bjetsT_1pt", 'F' );//
-        // dataloader->AddVariable( "leptonsMVAL_number", 'F' );
-        // dataloader->AddVariable( "nonbjetsL_num", 'F' );//60
-        // dataloader->AddVariable( "tausL_HT", 'F' );
-        // dataloader->AddVariable( "jets_10pt", 'F' );
-        // dataloader->AddVariable( "", 'F' );
-        // dataloader->AddVariable( "", 'F' );
-        // dataloader->AddVariable( "", 'F' );
-    }
-
+    // dataloader->AddVariable( "jets_bScore", 'F' );
+    // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
+    // dataloader->AddVariable( "bjetsM_num", 'F' );
+    // dataloader->AddVariable( "toptagger_transMass", 'F' );
 
 
 
@@ -399,23 +337,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     for ( UInt_t p=1; p<allProcesses.size(); p++){
         dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
     }
-    /*
-    dataloader->AddBackgroundTree( TTTo2L2Nu.getEventTree(), LUMI* TTTo2L2Nu.getScale() );
-    dataloader->AddBackgroundTree( TTToHadronic.getEventTree(), LUMI* TTToHadronic.getScale() );
-    dataloader->AddBackgroundTree( TTToSemiLeptonic.getEventTree(), LUMI* TTToSemiLeptonic.getScale() );
-    dataloader->AddBackgroundTree( TTGJets.getEventTree(), LUMI* TTGJets.getScale() );
-    dataloader->AddBackgroundTree( ttZJets.getEventTree(), LUMI* ttZJets.getScale() );
-    dataloader->AddBackgroundTree( ttWJets.getEventTree(), LUMI* ttWJets.getScale() );
-    dataloader->AddBackgroundTree( ttH.getEventTree(), LUMI* ttH.getScale() );
-    // dataloader->AddBackgroundTree( QCD_HT200to300.getEventTree(), LUMI* QCD_HT200to300.getScale() );
-    // dataloader->AddBackgroundTree( QCD_HT300to500.getEventTree(), LUMI* QCD_HT300to500.getScale() );
-    // dataloader->AddBackgroundTree( QCD_HT500to700.getEventTree(), LUMI* QCD_HT500to700.getScale() );
-    dataloader->AddBackgroundTree( QCD_HT700to1000.getEventTree(), LUMI* QCD_HT700to1000.getScale() );
-    dataloader->AddBackgroundTree( QCD_HT1000to1500.getEventTree(), LUMI* QCD_HT1000to1500.getScale() );
-    dataloader->AddBackgroundTree( QCD_HT1500to2000.getEventTree(), LUMI* QCD_HT1500to2000.getScale() );
-    dataloader->AddBackgroundTree( QCD_HT2000toInf.getEventTree(), LUMI* QCD_HT2000toInf.getScale() );
-    */
-    // dataloader->AddBackgroundTree( .getEventTree(), LUMI* .getScale() );
 
    // To give different trees for training and testing, do as follows:
    //
