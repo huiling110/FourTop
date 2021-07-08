@@ -66,6 +66,7 @@
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
         string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
+        // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         Int_t channel = 1
         )
 {
@@ -293,8 +294,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
  
     //variableListCsv
     ifstream fin( variableListCsv);
-    string line = "";
+    string line ;
     TString ivariable;
+    vector<TString> variables {};
     Int_t num = 1;
     while ( getline( fin, line ) ){
         // cout<<line<<endl;
@@ -302,17 +304,44 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // cout<<typeid(line).name()<<endl;
         if (num>1)  {
             ivariable = line;
+            // cout<<"line: "<<line;
+            cout<<"line: "<<line<<endl;//In C++, we can explicitly flushed to forced the buffer to be written. Generally std::endl function works the same by inserting new-line character and flushes the stream. 
+            cout<<"line: "<<line<<"\n";
+            cout<<"line: "<<line;
             cout<<ivariable.Length();
             // ivariable = ivariable.ReplaceAll( " ", "");
+            // cout<<ivariable.Length();
             // cout<<ivariable<<":";
-            if( line.size()>0)            dataloader->AddVariable( ivariable, 'F');
-            cout<<ivariable<<endl;
+            if( line.size()>0)  {
+                // dataloader->AddVariable( ivariable, 'F');
+                // variables.push_back( line);
+                variables.push_back( ivariable);
+
+            }
+            cout<<"ivariable:"<<ivariable<<endl;
         }      
-        // dataloader->AddVariable( line, 'F');
+        dataloader->AddVariable( line, 'F');
         num = num+1;
     }
     fin.close();
     cout<<"number of loops: "<<num<<endl;
+    Int_t variablesNum = variables.size();
+    cout<<"variableNum: "<<variablesNum<<"\n";
+    // cout<<variables[0]<<std::flush<<variables[1]<<endl;
+    cout<<variables[0]<<endl;
+    cout<<variables[0]<<"\n";
+    cout<<variables[0].Length()<<"\n";//toptagger_transMass length is 20, which is one character more
+    for ( Int_t i = 0; i++; i<variables[0].Length() ){
+        TString istring = variables[0];
+        cout<<istring<<"\n";
+        cout<<istring[i]<<"\n";
+    }
+    cout<<variables[1]<<endl;
+    cout<<variables[0]<<variables[1]<<"\n";
+    // printf( "%s", &(variables[0]));
+
+    TString testS = "toptagger_transMass";
+    cout<<testS.Length()<<"\n";
 
     // dataloader->AddVariable( "jets_bScore", 'F' );
     // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );

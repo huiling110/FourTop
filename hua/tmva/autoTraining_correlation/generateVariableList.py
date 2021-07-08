@@ -80,12 +80,17 @@ def writeListListToFile( listList, fileDir ):
 
 def writeListToFile( iList, fileDir ):
     iFileName = fileDir + 'varibleList_'+str(len(iList)) + '.csv'
-    with open( iFileName, mode='w') as ifile:
-        writer = csv.writer( ifile, delimiter=":")
-        for ele in iList:
-            writer.writerow( [ele] )
+    #  with open( iFileName, mode='w') as ifile:
+        # writer = csv.writer( ifile, delimiter=":")
+        #  writer = csv.writer( ifile)
+#
+        #  for ele in iList:
+            #  writer.writerow( [ele] )
 
-
+    output = open(iFileName,'wt')
+    for ele in iList:
+        output.write(ele+'\n')
+    output.close()
 
 
 
