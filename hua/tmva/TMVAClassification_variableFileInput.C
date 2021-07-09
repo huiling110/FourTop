@@ -65,7 +65,7 @@
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
-        string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
+        TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         Int_t channel = 1
         )
@@ -83,10 +83,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Bool_t istest = false;
    Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
-   // TString outfile = "1tau1l_forvariables";
-   // TString outfile = "1tau1l_step1_40variables";
-   // TString outfile = "1tau1l_step1_50variables";
-   // TString outfile = "1tau1l_step1_60variables";
    TString outfile = "1tau1l_step2_removeBjetsLT";
    if ( outfile.Contains( "forvariables"))   forVariables = true;
    // This loads the library
@@ -99,10 +95,21 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     // TCut ES1tau1l = "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     TCut cutForSandB;
-    // if (channel == 0)   cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
+    TPRegexp r1("\\bvaribleList(\\w+).csv\\b");
+    // csv.Remove( ".csv")
+    // TString csvListName = variableListCsv( "varibleList.csv");
+    TString csvListName = variableListCsv( r1);
+    // csvListName = csvListName.Replace( ".csv", "");
+
+    // TString::EStripType es = kTrailing;
+    // csvListName.Remove( es, ".csv");//kTrailing
+    csvListName.Remove(  csvListName.First("."), csvListName.Length() ); 
+    cout<< csvListName<<"\n";
     switch( channel){
         case 1:
             cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
+            outDir = outDir + "1tau1l/";
+            outfile = "1tau1l_" + csvListName;
         case 2:
             cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
         default:

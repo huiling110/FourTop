@@ -1,5 +1,7 @@
 
 
+import sys
+import os
 import ROOT
 #  from ROOT import *
 #  import array
@@ -25,8 +27,19 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     vListList = createNextVariableList_correlation( removeBjetTL_list  )
     print( 'vListList', len(vListList), vListList )
 
-    outputDir = 'output/'
-    writeListListToFile( vListList, outputDir )
+    channel = 1;#1 for 1tau1l
+    #  outputDir = 'output/'
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    if channel == 1:
+        outputDir = outputDir + '1tau1l/'
+    vListDir = outputDir + 'variableList/'
+    print( 'outputDir: ', outputDir)
+    if not os.path.exists( outputDir ):
+        os.mkdir( outputDir )
+    if not os.path.exists( vListDir):
+        os.mkdir( vListDir )
+
+    writeListListToFile( vListList, vListDir)
 
 
     #  with open("the_new_csv.csv", "w+") as to_file:
