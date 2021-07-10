@@ -96,15 +96,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     // TCut ES1tau1l = "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     TCut cutForSandB;
     TPRegexp r1("\\bvaribleList(\\w+).csv\\b");
-    // csv.Remove( ".csv")
-    // TString csvListName = variableListCsv( "varibleList.csv");
     TString csvListName = variableListCsv( r1);
-    // csvListName = csvListName.Replace( ".csv", "");
-
-    // TString::EStripType es = kTrailing;
-    // csvListName.Remove( es, ".csv");//kTrailing
     csvListName.Remove(  csvListName.First("."), csvListName.Length() ); 
-    cout<< csvListName<<"\n";
+    cout<<"csvListName: "<< csvListName<<"\n";
     switch( channel){
         case 1:
             cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
