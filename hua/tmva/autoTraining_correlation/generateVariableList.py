@@ -42,11 +42,6 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     writeListListToFile( vListList, vListDir)
 
 
-    #  with open("the_new_csv.csv", "w+") as to_file:
-        #  writer = csv.writer(to_file, delimiter=":")
-        #  for new_row in data:
-            #  writer.writerow(new_row)
-
 
 def getInitList( TMVAlog ):
     initialVariableList = []
