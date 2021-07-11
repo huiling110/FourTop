@@ -80,10 +80,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    //---------------------------------------------------------------
    Bool_t forVariables = false;
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
-   TString outfile = "1tau1l_step2_removeBjetsLT";
+   TString outfile ;
    if ( outfile.Contains( "forvariables"))   forVariables = true;
    // This loads the library
 
@@ -280,18 +280,16 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-      (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
-   //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
+      // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
    // if ( !istest ){
        // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
        // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
        // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight/";
    // }
-   if ( istest ){
-        // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
-        (TMVA::gConfig().GetIONames()).fWeightFileDir =  "testweight/";
+   // if ( istest ){
+        (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
         TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
-   }
+   // }
    
 
    //???not sure of weightdir?can not run if I added it
