@@ -93,7 +93,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     // TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";//1tau0l
     // TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
-    // TCut ES1tau1l = "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     TCut cutForSandB;
     TPRegexp r1("\\bvaribleList(\\w+).csv\\b");
     TString csvListName = variableListCsv( r1);
@@ -249,13 +248,17 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
    TString outfileName;
    if ( istest ){
-       outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/TMVA_test.root";
+       outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/";
+       outfile = "TMVA_test";
+       outfileName = outDir + outfile + ".root";
    }else{
-       // outfileName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v12nonbjetsVariables_v42_addNonBjets/TMVA_1Tau0L_variables.root";
        if ( forVariables)       outfileName = outDir + outfile + "_variables.root";
        else outfileName = outDir + outfile + ".root";
    }
    TFile* outputFile = TFile::Open( outfileName, "RECREATE" );
+
+
+
 
    // Create the factory object. Later you can choose the methods
    // whose performance you'd like to investigate. The factory is
@@ -272,16 +275,22 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=D:AnalysisType=Classification" );
 
    TMVA::DataLoader *dataloader=new TMVA::DataLoader("dataset");
+   // TMVA::DataLoader *dataloader=new TMVA::DataLoader( outDir );
    // If you wish to modify default settings
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
       (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
    //    (TMVA::gConfig().GetIONames()).fWeightFileDir = "myWeightDirectory";
-   if ( !istest ){
-       (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
+   // if ( !istest ){
+       // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
        // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
-       (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile+"_weight";
+       // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight/";
+   // }
+   if ( istest ){
+        // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
+        (TMVA::gConfig().GetIONames()).fWeightFileDir =  "testweight/";
+        TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
    }
    
 
@@ -306,13 +315,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         if (num>1)  {
             ivariable = line;
             // cout<<"line: "<<line;
-            cout<<"line: "<<line<<endl;//In C++, we can explicitly flushed to forced the buffer to be written. Generally std::endl function works the same by inserting new-line character and flushes the stream. 
-            cout<<"line: "<<line<<"\n";
-            cout<<"line: "<<line;
-            cout<<ivariable.Length();
-            // ivariable = ivariable.ReplaceAll( " ", "");
-            // cout<<ivariable.Length();
-            // cout<<ivariable<<":";
             if( line.size()>0)  {
                 // dataloader->AddVariable( ivariable, 'F');
                 // variables.push_back( line);
