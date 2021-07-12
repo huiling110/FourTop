@@ -148,11 +148,11 @@ Int_t    Flag_eeBadScFilter_ ;
     vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
     vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
     vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
-    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Double_t> jets_btags; 
-    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Double_t> bjetsL_btags;
-    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Double_t> bjetsM_btags;
-    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Double_t> bjetsT_btags;
-    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Double_t> forwardJets_btags;
+    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags; 
+    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Int_t> bjetsL_flavour; vector<Double_t> bjetsL_btags;
+    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Int_t> bjetsM_flavour; vector<Double_t> bjetsM_btags;
+    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Int_t> bjetsT_flavour; vector<Double_t> bjetsT_btags;
+    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Int_t> forwardJets_flavour; vector<Double_t> forwardJets_btags;
     vector<TLorentzVector>  nonbjetsL;
     vector<TLorentzVector>  nonbjetsM;
     vector<TLorentzVector>  nonbjetsT;
@@ -181,7 +181,7 @@ Int_t    Flag_eeBadScFilter_ ;
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
@@ -240,6 +240,7 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
    // };
    
+   //CHANGE UP TO HERE
    //
    //
    //

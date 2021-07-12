@@ -251,11 +251,11 @@ Bool_t objectTSelector::Process(Long64_t entry)
     tausL.clear(); tausL_index.clear();
     tausF.clear(); tausF_index.clear();
     tausT.clear(); tausT_index.clear();
-    jets.clear(); jets_index.clear(); jets_btags.clear();
-    bjetsL.clear(); bjetsL_index.clear(); bjetsL_btags.clear();
-    bjetsM.clear(); bjetsM_index.clear(); bjetsM_btags.clear();
-    bjetsT.clear(); bjetsT_index.clear(); bjetsT_btags.clear();
-    forwardJets.clear(); forwardJets_index.clear(); forwardJets_btags.clear();
+    jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
     nonbjetsT.clear();
@@ -304,15 +304,15 @@ Bool_t objectTSelector::Process(Long64_t entry)
 
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
-    SelectJets( 0, deepJet, jets, jets_btags, jets_index, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
     sort( jets.begin(), jets.end(), compEle);
-    SelectJets( 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets( 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index,  SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
     sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets( 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
     sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets( 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, SysJes,  SysJer,  leptonsMVAL, tausL);
+    SelectJets(2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
@@ -433,18 +433,23 @@ void objectTSelector::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "tausT_index", &tausT_index );
    tree->Branch( "jets", &jets );
    tree->Branch( "jets_index", &jets_index );
+   tree->Branch( "jets_flavour", &jets_flavour );
    tree->Branch( "jets_btags", &jets_btags );
    tree->Branch( "bjetsL", &bjetsL );
    tree->Branch( "bjetsL_index", &bjetsL_index );
+   tree->Branch( "bjetsL_flavour", &bjetsL_flavour );
    tree->Branch( "bjetsL_btags", &bjetsL_btags );
    tree->Branch( "bjetsM", &bjetsM );
    tree->Branch( "bjetsM_index", &bjetsM_index );
+   tree->Branch( "bjetsM_flavour", &bjetsM_flavour );
    tree->Branch( "bjetsM_btags", &bjetsM_btags );
    tree->Branch( "bjetsT", &bjetsT );
    tree->Branch( "bjetsT_index", &bjetsT_index );
+   tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
    tree->Branch( "forwardJets", &forwardJets );
    tree->Branch( "forwardJets_index", &forwardJets_index );
+   tree->Branch( "forwardJets_flavour", &forwardJets_flavour );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
    tree->Branch( "nonbjetsL", &nonbjetsL );
    tree->Branch( "nonbjetsM", &nonbjetsM );
@@ -777,7 +782,7 @@ void objectTSelector::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<I
 }/*}}}*/
 
 void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
-                vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+                vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex, vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;/*{{{*/
@@ -908,6 +913,8 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         //???why do this?
         SelectedJets.push_back(jet);
         SelectedJetsIndex.push_back(j);
+		//CHANGE HERE TO RUN ON DATA
+		SelectedJetsFlavor.push_back(Jet_hadronFlavour.At(j));
         if (deepJet) {
             SelectedJetsBTags.push_back(Jet_pfDeepFlavourBJetTags.At(j));
         } else {
