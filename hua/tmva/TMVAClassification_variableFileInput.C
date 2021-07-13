@@ -283,12 +283,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
       // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
    // if ( !istest ){
        // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
-       // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight";
-       // (TMVA::gConfig().GetIONames()).fWeightFileDir =  outDir + outfile+"_weight/";
-   // }
    // if ( istest ){
-        (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
-        TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
+    (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
+    TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
    // }
    
 
