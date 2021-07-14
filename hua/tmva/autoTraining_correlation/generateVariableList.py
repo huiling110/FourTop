@@ -17,19 +17,27 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     
     initialVariableList = getInitList( TMVAlog )
 
-    print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
+    #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
     leading50List = leadingNList( initialVariableList, 50 )
-    print( '50 leadingList', leading50List)
+    print( '50 leadingList:\n', len(leading50List),  leading50List, '\n')
     removeBjetTL_list = removeBjetTL( leading50List )
-    print( 'removeBjets list: ', removeBjetTL_list )
+    print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
 
 
     vListList = createNextVariableList_correlation( removeBjetTL_list  )
-    print( 'vListList', len(vListList), vListList )
+
+    vListList.append( leading50List )
+    #  vListList.append( removeBjetTL_list )
+    print( 'vListList: \n', len(vListList), vListList )
 
     channel = 1;#1 for 1tau1l
-    #  outputDir = 'output/'
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    vListDir = checkAndMakeDir( channel, outputDir )
+
+    writeListListToFile( vListList, vListDir)
+
+
+def checkAndMakeDir( channel, outputDir ):
     if channel == 1:
         outputDir = outputDir + '1tau1l/'
     vListDir = outputDir + 'variableList/'
@@ -38,9 +46,7 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
         os.mkdir( outputDir )
     if not os.path.exists( vListDir):
         os.mkdir( vListDir )
-
-    writeListListToFile( vListList, vListDir)
-
+    return vListDir
 
 
 def getInitList( TMVAlog ):
@@ -103,7 +109,8 @@ def writeListToFile( iList, fileDir ):
 
 
 def leadingNList( variableList, N):
-    return variableList[0:N-1]
+    #  return variableList[0:N-1]
+    return variableList[0:N]
     
 
 
@@ -176,8 +183,7 @@ def createNextVariableList_correlation( vlist):
             else:
                 tempList.remove( firstVariable)
         #  elif :
-    print('\n')
-    print( 'variableListList: ', len(variableListList), variableListList)
+    #  print( 'variableListList: ', len(variableListList), variableListList)
     #  print( 'variableListList: ', variableListList[0])
     return variableListList
 
