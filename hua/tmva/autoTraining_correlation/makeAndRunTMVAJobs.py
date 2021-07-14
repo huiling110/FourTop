@@ -39,22 +39,21 @@ def makeSingleTMVAJob( listCsv, channel, jobName, TMVACodeDir ):
 
 
 
-def main():
-    channel = 1;#1 for 1tau1l
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+def checkMakeDir( channel, outputDir, TMVACodeDir ):
+    #  channel = 1;#1 for 1tau1l
+    #  outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    #  TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
     if channel == 1:
         outputDir = outputDir + '1tau1l/'
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
-    if not os.path.exists( vListDir):
-        os.mkdir( vListDir )
+    #  if not os.path.exists( vListDir):
+        #  os.mkdir( vListDir )
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
-
-    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir )
+    return vListDir, outputDir
 
 
 
@@ -63,4 +62,12 @@ def main():
 
 
 if __name__ == '__main__':
-	main()
+	#  main()
+    channel = 1;#1 for 1tau1l
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+
+    vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir )
+    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir )
+
+

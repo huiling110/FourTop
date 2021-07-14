@@ -316,30 +316,30 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                 variables.push_back( ivariable);
 
             }
-            cout<<"ivariable:"<<ivariable<<endl;
+            // cout<<"ivariable:"<<ivariable<<endl;
         }      
         dataloader->AddVariable( line, 'F');
         num = num+1;
     }
     fin.close();
-    cout<<"number of loops: "<<num<<endl;
+    // cout<<"number of loops: "<<num<<endl;
     Int_t variablesNum = variables.size();
-    cout<<"variableNum: "<<variablesNum<<"\n";
+    // cout<<"variableNum: "<<variablesNum<<"\n";
     // cout<<variables[0]<<std::flush<<variables[1]<<endl;
-    cout<<variables[0]<<endl;
-    cout<<variables[0]<<"\n";
-    cout<<variables[0].Length()<<"\n";//toptagger_transMass length is 20, which is one character more
+    // cout<<variables[0]<<endl;
+    // cout<<variables[0]<<"\n";
+    // cout<<variables[0].Length()<<"\n";//toptagger_transMass length is 20, which is one character more
     for ( Int_t i = 0; i++; i<variables[0].Length() ){
         TString istring = variables[0];
-        cout<<istring<<"\n";
-        cout<<istring[i]<<"\n";
+        // cout<<istring<<"\n";
+        // cout<<istring[i]<<"\n";
     }
-    cout<<variables[1]<<endl;
-    cout<<variables[0]<<variables[1]<<"\n";
+    // cout<<variables[1]<<endl;
+    // cout<<variables[0]<<variables[1]<<"\n";
     // printf( "%s", &(variables[0]));
 
-    TString testS = "toptagger_transMass";
-    cout<<testS.Length()<<"\n";
+    // TString testS = "toptagger_transMass";
+    // cout<<testS.Length()<<"\n";
 
     // dataloader->AddVariable( "jets_bScore", 'F' );
     // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
