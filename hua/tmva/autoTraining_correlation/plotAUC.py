@@ -4,7 +4,7 @@ import os
 import csv
 #  import array
 from array import array
-
+import numpy as np
 
 def getAUCfromLog( logDir, histo):
     for entry in os.listdir( logDir ):
@@ -23,8 +23,8 @@ def getAUCfromLog( logDir, histo):
 
 
 def getAUCToTGragh( logDir):
-    x, y = array( 'd' ), array( 'd' )
- 
+    #x, y = array( 'd' ), array( 'd' )
+    x, y = [], []
 #  for i in range( n ):
    #  x.append( 0.1*i )
    #  y.append( 10*sin( x[i]+0.2 ) )
@@ -48,7 +48,10 @@ def getAUCToTGragh( logDir):
         print(' i %i %f %f ' % ( n,x[n],y[n]))
 
         n = n+1
-
+    x, y = np.array([x,y])
+    flag = np.argsort(x)
+    x, y = x[flag], y[flag]
+     
 
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
     #  c1.SetFillColor( 42 )
