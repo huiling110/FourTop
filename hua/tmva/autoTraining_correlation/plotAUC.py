@@ -63,7 +63,7 @@ def getAUCToTGragh( logDir):
     gr.GetXaxis().SetTitle( 'number of variables' )
     gr.GetYaxis().SetTitle( 'AUC' )
     #  gr.Draw( 'ACP' )
-    gr.Draw()
+    gr.Draw('AP')
     
     c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test2.png")
     #  return gr
