@@ -51,7 +51,7 @@ def getAUCToTGragh( logDir):
 
 
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
-    c1.SetFillColor( 42 )
+    #  c1.SetFillColor( 42 )
     c1.SetGrid()
  
     gr = ROOT.TGraph( n, x, y )
@@ -59,9 +59,9 @@ def getAUCToTGragh( logDir):
     gr.SetLineWidth( 4 )
     gr.SetMarkerColor( 4 )
     gr.SetMarkerStyle( 21 )
-    gr.SetTitle( 'a simple graph' )
-    gr.GetXaxis().SetTitle( 'X title' )
-    gr.GetYaxis().SetTitle( 'Y title' )
+    gr.SetTitle( 'AUC vs No. of Variables ' )
+    gr.GetXaxis().SetTitle( 'number of variables' )
+    gr.GetYaxis().SetTitle( 'AUC' )
     #  gr.Draw( 'ACP' )
     gr.Draw()
     
@@ -71,7 +71,7 @@ def getAUCToTGragh( logDir):
     
 
 
-
+#
 
 
 def getROC( logFile):
