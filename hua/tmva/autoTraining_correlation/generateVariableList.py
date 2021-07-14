@@ -19,9 +19,10 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
 
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
     leading50List = leadingNList( initialVariableList, 50 )
-    print( '50 leadingList:\n', len(leading50List),  leading50List, '\n')
+    print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
     print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
+    print( '\n')
 
 
     vListList = createNextVariableList_correlation( removeBjetTL_list  )
@@ -163,6 +164,7 @@ def createNextVariableList_correlation( vlist):
     correlation_list.sort( key=takeThird, reverse = True )
     print('\n')
     print( 'list after sorting: ', correlation_list)
+    print('\n')
 
     #for simplisity, not taking muatiple same correlation into account for now
     tempList = vlist
