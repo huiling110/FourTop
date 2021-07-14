@@ -63,7 +63,8 @@ def getAUCToTGragh( logDir):
     gr.GetXaxis().SetTitle( 'number of variables' )
     gr.GetYaxis().SetTitle( 'AUC' )
     #  gr.Draw( 'ACP' )
-    gr.Draw('AP')
+    #  gr.Draw('AP')
+    gr.Draw('APL')
     
     c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test2.png")
     #  return gr
@@ -110,11 +111,5 @@ if __name__ == '__main__':
     #  getAUCfromLog( logDir, h_BDT )
     getAUCToTGragh( logDir )
 
-    #  c1 = ROOT.TCanvas("c1", "Relative Performance (AUROC) vs No. of Training Variables", 950, 600)
-    #  h_BDT.SetMaximum( 1.5)
-    #  h_BDT.Draw("TEXT")
-    #  h_BDT.Draw("L")
-    #  h_BDT.Draw()
 
 
-    #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test.png")
