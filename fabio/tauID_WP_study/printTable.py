@@ -41,6 +41,12 @@ files = {
 yields_significance = {}
 yields_recoeff_bef = {}
 yields_recoeff_aft = {}
+"""
+yields_sig = {}
+yields_ttbar = {}
+yields_QCD = {}
+yields_ttX = {}
+"""
 if cat != 'nocat':
     yields_recoeff_gen_bef = {}
     yields_recoeff_gen_aft = {}
@@ -51,6 +57,12 @@ for i in range(8) :
     yields_significance[i] = {}
     yields_recoeff_bef[i] = {}
     yields_recoeff_aft[i] = {}
+    """ 
+    yields_sig[i] = {}
+    yields_ttbar[i] = {}
+    yields_QCD[i] = {}
+    yields_ttX[i] = {}
+    """
     if cat != 'nocat':
         yields_recoeff_gen_bef[i] = {}
         yields_recoeff_gen_aft[i] = {}
@@ -87,6 +99,10 @@ for file in files :
         yields_recopurity_bef[wp][file] = h_recopurity_bef.Integral(-1,-1)
         yields_recopurity_aft[wp][file] = h_recopurity_aft.Integral(-1,-1)
         
+tttt = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+ttbar = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+QCD = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+ttX = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 B_sig = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 B_recoeff_bef = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 B_recoeff_aft = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -100,6 +116,10 @@ B_significance = []
 
 for i in range (8) :
     #print(i)
+    tttt[i] = yields_significance[i]["tttt"]
+    ttbar[i] = yields_significance[i]["ttbar-FH"] + yields_significance[i]["ttbar-SL"] + yields_significance[i]["ttbar-DL"]
+    QCD[i] = yields_significance[i]["QCD_HT300to500"] + yields_significance[i]["QCD_HT500to700"] + yields_significance[i]["QCD_HT700to1000"] + yields_significance[i]["QCD_HT1000to1500"] + yields_significance[i]["QCD_HT1500to2000"] + yields_significance[i]["QCD_HT2000toInf"]
+    ttX[i] = yields_significance[i]["ttW+jets"] + yields_significance[i]["ttZ+jets"] + yields_significance[i]["ttG+jets"] + yields_significance[i]["ttH"]
     S_significance.append(yields_significance[i]["tttt"])
     for file in files :
         B_sig[i] += yields_significance[i][file]
@@ -124,6 +144,7 @@ for i in range (8) :
 S = []
 B = []
 Z = []
+Z_syst = []
 Esig = []
 Ebkg = []
 if cat != 'nocat':
@@ -135,6 +156,7 @@ for i in range (8) :
     S.append(S_significance[i])
     B.append(B_significance[i])
     Z.append( (2 * ( (S_significance[i] + B_significance[i]) * math.log(1 + S_significance[i]/B_significance[i]) - S_significance[i]) )**0.5)
+    Z_syst.append(ROOT.RooStats.NumberCountingUtils.BinomialExpZ(S_significance[i]*50.0, B_significance[i], 0.2))
     Esig.append(yields_recoeff_aft[i]["tttt"]/yields_recoeff_bef[i]["tttt"])
     Ebkg.append(B_recoeff_aft[i]/B_recoeff_bef[i])
     if cat != 'nocat':
@@ -142,11 +164,16 @@ for i in range (8) :
         Ebkg_gen.append(B_recoeff_gen_aft[i]/B_recoeff_gen_bef[i])
     Psig.append(yields_recopurity_aft[i]["tttt"]/yields_recopurity_bef[i]["tttt"])
     Pbkg.append(B_recopurity_aft[i]/B_recopurity_bef[i])
-
+yields_to_print = []
+yields_to_print.append(tttt)
+yields_to_print.append(ttbar)
+yields_to_print.append(QCD)
+yields_to_print.append(ttX)
 to_print = []
 to_print.append(S)
 to_print.append(B)
 to_print.append(Z)
+to_print.append(Z_syst)
 to_print.append(Esig)
 #if cat != 'nocat':
  #   to_print.append(Esig_gen)
@@ -156,4 +183,5 @@ to_print.append(Ebkg)
 to_print.append(Psig)
 to_print.append(Pbkg)
 
+print(tabulate(yields_to_print, tablefmt="latex", floatfmt=".3f"))
 print(tabulate(to_print, tablefmt="latex", floatfmt=".3f"))
