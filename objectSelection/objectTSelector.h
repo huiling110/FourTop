@@ -26,13 +26,13 @@ class objectTSelector : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
-
+   //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
-   // Bool_t isdata = true;
+   //Bool_t isdata = true;
     Bool_t MetFilters = true;
     // Bool_t MetFilters = false;
     Bool_t HLTSelection = true;
-    // Bool_t HLTSelection = false;
+    //Bool_t HLTSelection = false;
     // Bool_t preselection = true;
     // Bool_t preselection = false;
     Bool_t preselection = true;
@@ -148,11 +148,11 @@ Int_t    Flag_eeBadScFilter_ ;
     vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
     vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
     vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
-    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Double_t> jets_btags; 
-    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Double_t> bjetsL_btags;
-    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Double_t> bjetsM_btags;
-    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Double_t> bjetsT_btags;
-    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Double_t> forwardJets_btags;
+    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags; 
+    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Int_t> bjetsL_flavour; vector<Double_t> bjetsL_btags;
+    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Int_t> bjetsM_flavour; vector<Double_t> bjetsM_btags;
+    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Int_t> bjetsT_flavour; vector<Double_t> bjetsT_btags;
+    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Int_t> forwardJets_flavour; vector<Double_t> forwardJets_btags;
     vector<TLorentzVector>  nonbjetsL;
     vector<TLorentzVector>  nonbjetsM;
     vector<TLorentzVector>  nonbjetsT;
@@ -181,7 +181,7 @@ Int_t    Flag_eeBadScFilter_ ;
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
      void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex , const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
@@ -195,7 +195,8 @@ Int_t    Flag_eeBadScFilter_ ;
     // all the branches only in MC
    // Double_t *EVENT_genWeight;
      // TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_event"};
-   
+	 //CHANGE HERE TO RUN ON DATA
+	 
        TTreeReaderArray<double> Gen_pt = {fReader, "Gen_pt"};
        TTreeReaderArray<double> Gen_eta = {fReader, "Gen_eta"};
        TTreeReaderArray<double> Gen_phi = {fReader, "Gen_phi"};
@@ -221,7 +222,7 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<int> Muon_gen_pdgId = {fReader, "Muon_gen_pdgId"};
    TTreeReaderArray<int> Muon_gen_isPromptFinalState = {fReader, "Muon_gen_isPromptFinalState"};
    TTreeReaderArray<int> Muon_gen_isDirectPromptTauDecayProductFinalState = {fReader, "Muon_gen_isDirectPromptTauDecayProductFinalState"};
-   
+	 
    // Double_t EVENT_genWeight;
    TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
 
@@ -239,6 +240,7 @@ Int_t    Flag_eeBadScFilter_ ;
    TTreeReaderArray<double> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
    // };
    
+   //CHANGE UP TO HERE
    //
    //
    //
