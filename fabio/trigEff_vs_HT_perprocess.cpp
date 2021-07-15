@@ -10,8 +10,8 @@
 #include <TLorentzVector.h>
 #include <TROOT.h> //for gROOT
 #include <TSystem.h> // for gSystem
-#define NBINSX 15
-#define NBINSY 9
+#define NBINSX 9
+#define NBINSY 8
 //using namespace std;
 
 void trigEff_vs_HT_perprocess() {
@@ -19,15 +19,21 @@ void trigEff_vs_HT_perprocess() {
 gBenchmark->Start("running time");
 
 gROOT->ProcessLine(".L Loader.C+");
- Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
- Float_t binsY[NBINSY+1] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+//Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
+ Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
+ Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
 
-TFile *outputfile = new TFile( "trigEff_vs_HTj_perprocess_output_withDATA_addHLT_PFJet450_expandHTRange.root", "RECREATE" ); 
+TFile *outputfile = new TFile( "trigEff_vs_HTj_perprocess_output_withDATA_addHLT_PFJet450_2jetsinpresel_reducebinsnjets.root", "RECREATE" ); 
 //TFile *outputfile = new TFile( "asdasd.root", "RECREATE" );
 
 map<string, string>::iterator file_it = file.begin();
 
 while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
+
+	//LOOP ONLY ON SIGNAL 
+ std::string tttt = "tttt";
+ if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
+
 
 cout << "Reading process " << file_it->second << "..." << endl;
 TString input_base_dir = file_it->second + "/";
@@ -48,6 +54,11 @@ continue;
  TH1F * h_HT_signal = new TH1F("h_HT_signal", "h_HT_signal; H_{T} [GeV]", 60, 0, 3000);
  //Njets distribution for signal
  TH1F * h_njets_signal = new TH1F("h_njets_signal", "h_njets_signal; Jet multiplicity", 15, 0, 15);
+ //histograms: for "gen" categories
+TH1F * h_gen1tau3L_bef = new TH1F("h_gen1tau3L_bef", "h_gen1tau3L_bef; Jet multiplicity;", 15, 0, 15);
+TH1F * h_gen1tau3L_aft = new TH1F("h_gen1tau3L_aft", "h_gen1tau3L_aft; Jet multiplicity;", 15, 0, 15);
+TH1F * h_gen2tau2L_bef = new TH1F("h_gen2tau2L_bef", "h_gen2tau2L_bef; Jet multiplicity;", 15, 0, 15);
+TH1F * h_gen2tau2L_aft = new TH1F("h_gen2tau2L_aft", "h_gen2tau2L_aft; Jet multiplicity;", 15, 0, 15);
 //histograms: wrt reference
 //before signal trigger
 //vs HT
@@ -150,8 +161,28 @@ cout << gen_sum_of_weights << endl;
 TH1::StatOverflows(kFALSE);
 
 double mygenEvtWeight = 1;
+
+vector<TLorentzVector> * mygenTaus = {};
+
+vector<TLorentzVector> * mygenEles = {};
+
+vector<TLorentzVector> * mygenMuons = {};
+
 //if running on data, do not set the gen event weight address
-if (!(file_it->first.find(data) !=std::string::npos)) mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
+ if (!(file_it->first.find(data) !=std::string::npos)) {
+
+ mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight );
+
+
+mychain.SetBranchAddress("genTaus", &mygenTaus);
+
+
+mychain.SetBranchAddress("genEles", &mygenEles);
+
+
+mychain.SetBranchAddress("genMuons", &mygenMuons);
+
+ }
 
 vector<TLorentzVector> *myjetsL = {}; 
 mychain.SetBranchAddress("jets", &myjetsL);
@@ -200,6 +231,7 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
    /////////////////////////////////////////////////////////////////////
    ///////////////////// DEFINE CATEGORY CUTS //////////////////////////
    /////////////////////////////////////////////////////////////////////
+ 
 
  bool is1tau0L = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
  bool is1tau1e = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2);
@@ -217,6 +249,82 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
  bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
  bool isReferenceTrig = (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1);
+
+ std::string sig = "tttt";
+ if (file_it->first.find(sig) !=std::string::npos) {
+
+	   bool isgen1tau3L = (mygenTaus->size()==1 && (mygenEles->size() + mygenMuons->size())==3);
+	   bool isgen2tau2L = (mygenTaus->size()==2 && (mygenEles->size() + mygenMuons->size())==2);
+ 
+	   if (isgen1tau3L) {
+	 
+	 bool passed = true;
+
+	 for (int e = 0; e < mygenEles->size(); e++) {
+		 
+		 if (!(mygenEles->at(e).Pt() > 10)) passed = false;
+		 if (!(fabs(mygenEles->at(e).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 for (int m = 0; m < mygenMuons->size(); m++) {
+		 
+		 if (!(mygenMuons->at(m).Pt() > 10)) passed = false;
+		 if (!(fabs(mygenMuons->at(m).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 for (int t = 0; t < mygenTaus->size(); t++) {
+		 
+		 if (!(mygenTaus->at(t).Pt() > 20)) passed = false;
+		 if (!(fabs(mygenTaus->at(t).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 if (passed) {
+
+		 h_gen1tau3L_bef->Fill(myjetsL->size(), mygenEvtWeight);
+		 if (isSignalTrig) h_gen1tau3L_aft->Fill(myjetsL->size(), mygenEvtWeight);
+	 
+	 }
+
+ }
+
+ if (isgen2tau2L) {
+	 
+	 bool passed = true;
+
+	 for (int e = 0; e < mygenEles->size(); e++) {
+		 
+		 if (!(mygenEles->at(e).Pt() > 10)) passed = false;
+		 if (!(fabs(mygenEles->at(e).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 for (int m = 0; m < mygenMuons->size(); m++) {
+		 
+		 if (!(mygenMuons->at(m).Pt() > 10)) passed = false;
+		 if (!(fabs(mygenMuons->at(m).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 for (int t = 0; t < mygenTaus->size(); t++) {
+		 
+		 if (!(mygenTaus->at(t).Pt() > 20)) passed = false;
+		 if (!(fabs(mygenTaus->at(t).Eta()) < 2.4)) passed = false;
+	 
+	 }
+
+	 if (passed) {
+
+		 h_gen2tau2L_bef->Fill(myjetsL->size(), mygenEvtWeight);
+		 if (isSignalTrig) h_gen2tau2L_aft->Fill(myjetsL->size(), mygenEvtWeight);
+	 
+	 }
+
+ }
+
+   }
  
  //compute HT
  float HT = 0.0;
@@ -244,10 +352,9 @@ for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
 
 //compute trigger efficiency in preselection asking for exactly 1 muon (a la ttH(bb))
 
-
 if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) {
     
-    std:string tttt = "tttt";
+    std::string tttt = "tttt";
 	if (file_it->first.find(tttt) !=std::string::npos) {
 	  if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight);
 	  if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight);
@@ -671,9 +778,16 @@ if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) {
  totalWeight->Write(hTotalWeightName.c_str());
  }
 
- h_HT_signal->Write();
- h_njets_signal->Write();
- 
+ std::string tttt = "tttt";
+ if (file_it->first.find(tttt) !=std::string::npos) {
+	 h_HT_signal->Write();
+	 h_njets_signal->Write();
+	 h_gen1tau3L_bef->Write();
+	 h_gen1tau3L_aft->Write();
+	 h_gen2tau2L_bef->Write();
+	 h_gen2tau2L_aft->Write();
+ }
+
  delete h_HT_nocat;
  delete h_njets_nocat;
  delete h_HT_nocat_njets;
@@ -714,6 +828,10 @@ if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) {
  delete totalWeight;
  delete h_HT_signal;
  delete h_njets_signal;
+ delete h_gen1tau3L_bef;
+ delete h_gen1tau3L_aft;
+ delete h_gen2tau2L_bef;
+ delete h_gen2tau2L_aft;
 
  mychain.Reset();
  mychain2.Reset();
