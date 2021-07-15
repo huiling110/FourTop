@@ -58,11 +58,11 @@ def getAUCToTGragh( logDir):
     c1.SetGrid()
  
     gr = ROOT.TGraph( n, x, y )
-    #  gr.SetLineColor( 2 )
-    gr.SetLineColor( 6 )
+    gr.SetLineColor( 2 )
+    #  gr.SetLineColor( 6 )
+    #  gr.SetLineColor( 9 )
     gr.SetLineWidth( 4 )
-    #  gr.SetMarkerColor( 4 )
-    gr.SetMarkerColor( 7 )
+    gr.SetMarkerColor( 4 )
     gr.SetMarkerStyle( 21 )
     gr.SetTitle( 'AUC vs No. of Variables ' )
     gr.GetXaxis().SetTitle( 'number of variables' )
@@ -93,7 +93,7 @@ def getROC( logFile):
             line+=1
             if len(irow) > 3:
                 if 'ROC-integ' in irow[3]:
-                    print( irow)
+                    #  print( irow)
                     ROCline = line
             if line == ROCline +1:
                 #  print( line )
