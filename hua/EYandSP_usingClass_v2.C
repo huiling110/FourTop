@@ -14,9 +14,12 @@
 #include "TString.h"
 #include "TCut.h"
 #include "TStopwatch.h"
+#include "TPaveText.h"
 
-void getAllHitos( vector<TH1D*> &allHistos, TH1D* &background_SR, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
-void printEventYield( const vector<TH1D*> &allHistos, const TH1D* background_SR );
+void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
+void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
+void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TCanvas* &c );
  
 
 void EYandSP_usingClass_v2(){ 
@@ -69,7 +72,7 @@ TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_Dou
 
 
 vector<TH1D*> allHistos;
-TH1D* background_SR;
+TH1D* h_background;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=0; cha<1; cha++){
@@ -82,113 +85,25 @@ for (UInt_t  cha=0; cha<1; cha++){
           // const char *plot = variablelist[i];
   	    TString plot = variablelist[i];
 
-        getAllHitos( allHistos, background_SR, plot, bin[i], Min[i], Max[i], weight, channelCut[i] );
+        getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[i] );
 
         if ( i ==0 && ifEY ){
-            printEventYield( allHistos, background_SR );
+            printEventYield( allHistos, h_background );
+
+
+            TCanvas *c = new TCanvas("c");
+            drawEventEield( allHistos, h_background, c);
         }
        
         if ( ifDraw ){
-            TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
-            TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
-            c1_2->Draw();
-            c1_2->cd();
-
-            background_SR->SetLineWidth(2);
-            background_SR->SetLineColor(kBlue); 
-            background_SR->SetMinimum(0);
-            background_SR->SetMaximum(1.5 * background_SR->GetMaximum());
-            background_SR->GetYaxis()->SetTitleSize(0.050);
-            background_SR->GetXaxis()->SetTitleSize(0.050);
-            background_SR->GetYaxis()->SetLabelSize(0.040);
-            background_SR->GetXaxis()->SetLabelSize(0.040); 
-            background_SR->SetTitle("");
-            background_SR->GetYaxis()->SetTitle("Events");
-            background_SR->GetXaxis()->SetTitle(axis[i]);
-            background_SR->GetYaxis()->SetTitleOffset(1.00);
-            background_SR->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
-            background_SR->DrawNormalized("hist", 1);
-            // background_SR->Draw("hist");
-            allHistos[0]->SetLineWidth(2);
-            allHistos[0]->SetLineColor(2);
-    //        allHistos[0]->SetLineColor(kViolet-2); 
-           // allHistos[0]->Draw("samehisto");
-            allHistos[0]->DrawNormalized("samehist", 1);
-            // allHistos[0]->Draw("samehist");
-
-
-            TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
-            gPad->RedrawAxis();
-            TString channelText = "";
-            Double_t channelTextFont   = 42;
-            Double_t channelTextSize   = 0.06;
-            TString cmsText     = "CMS";
-            Double_t cmsTextFont   = 61;  // default is helvetic-bold
-            bool writeExtraText = true;
-            TString extraText   = "MC";
-            //TString extraText   = "";
-            Double_t extraTextFont = 52;  // default is helvetica-italics
-            // text sizes and text offsets with respect to the top frame in unit of the top margin size
-            Double_t lumiTextSize     = 0.6;
-            Double_t lumiTextOffset   = 0.2;
-            Double_t cmsTextSize      = 0.75;
-            Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
-            Double_t relPosX    = 0.045;
-            Double_t relPosY    = 0.035;
-            Double_t relExtraDY = 1.2;
-            // ratio of "CMS" and extra text size
-            Double_t extraOverCmsTextSize  = 0.76;
-            TString lumi_13TeV;
-            lumi_13TeV = "35.9fb^{-1}";
-            TString lumiText;
-            lumiText += lumi_13TeV;
-            lumiText += " (2016, 13 TeV)";
-            Double_t t = pad->GetTopMargin();
-            Double_t b = pad->GetBottomMargin();
-            Double_t r = pad->GetRightMargin();
-            Double_t l = pad->GetLeftMargin();
-            TLatex latex;
-            latex.SetNDC();
-            latex.SetTextAngle(0);
-            latex.SetTextColor(kBlack);    
-            Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
-            latex.SetTextFont(42);
-            latex.SetTextAlign(31); 
-            latex.SetTextSize(lumiTextSize*t);    
-            latex.DrawLatex(1-r+0.06,0.94,lumiText);
-            latex.SetTextFont(cmsTextFont);
-            latex.SetTextAlign(11); 
-            latex.SetTextSize(cmsTextSize*t);    
-            latex.DrawLatex(l+0.01, 0.94,cmsText);
-            latex.SetTextFont(extraTextFont);
-            latex.SetTextSize(extraTextSize*t);
-            latex.DrawLatex(l+0.12, 0.94, extraText); 
-            latex.SetTextFont(channelTextFont);
-            latex.SetTextSize(channelTextSize);
-
-
-            //定义图中各个线和直方图的颜色
-            TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
-            pl2->SetTextSize(0.045); 
-            pl2->SetFillColor(0);
-          //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
-            TLegendEntry *ple2 = pl2->AddEntry(allHistos[0], "TTTT",  "L"); 
-            pl2->Draw();
-           
-     
-            TString NAME = variablelist[i];
-            c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+NAME+postfix);
-            
-            cout<<"Finished "<<NAME+postfix<<endl;
-            c1->Draw();
-
+            drawHistos( allHistos, h_background );
         } 
 
 
 
         //?for different range we have different sp, how to deal with this?
         if ( ifSP ){
-            Double_t sp = separationPower(allHistos[0], background_SR);
+            Double_t sp = separationPower(allHistos[0], h_background);
             cout<<variablelist[i]<<" separation power"<<sp<<endl;
             std::cout << '\n';
             if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
@@ -200,8 +115,8 @@ for (UInt_t  cha=0; cha<1; cha++){
              delete (allHistos[j]);
         }
 
-        delete background_SR;//put delete in the last
-  }//end of loop of all variables
+        delete h_background;//put delete in the last
+    }//end of loop of all variables
 
 
 
@@ -222,7 +137,7 @@ for (UInt_t  cha=0; cha<1; cha++){
 }
 
 
-void getAllHitos( vector<TH1D*> &allHistos, TH1D* &background_SR, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut ){
+void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut ){
     TH1D* TTTT_h ;//1
     TH1D* TTTo2L2Nu_h ; TH1D* TTToHadronic_h ; TH1D* TTToSemiLeptonic_h ;
     TH1D* TTGJets_h ;TH1D* ttZJets_h ; TH1D* ttWJets_h ;TH1D* ttH_h ; 
@@ -256,7 +171,7 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &background_SR, TString variab
     };
 
     // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
-    background_SR = new TH1D("BG", variable, bin, mini, maxi);
+    h_background = new TH1D("BG", variable, bin, mini, maxi);
 
     TString hname ;
     Double_t scale;
@@ -287,13 +202,13 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &background_SR, TString variab
             // cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
             // cout<<"\n";
         // }
-        // if(j > 0) background_SR->Add((allHistos[j]),1);
-        if(j > 0) background_SR->Add((allHistos[j]),scale);
+        // if(j > 0) h_background->Add((allHistos[j]),1);
+        if(j > 0) h_background->Add((allHistos[j]),scale);
     }
 
 }
 
-void printEventYield( const vector<TH1D*> &allHistos, const TH1D* background_SR ){
+void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background ){
     cout<<"Raw entries:"<<endl;
     cout<<"TTTT         = "<<allHistos[0]->GetEntries()  <<endl;
     // cout<<"TTTT         = "<<TTTT_h->GetEntries()  <<endl;
@@ -306,7 +221,7 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* background_SR 
     // cout<<"VVV          = "<<WWW_h->GetEntries()+ WWZ_h->GetEntries()+ WWG_h->GetEntries()+ ZZZ_h->GetEntries()+ WZZ_h->GetEntries()+ WZG_h->GetEntries()+ WGG_h->GetEntries()+ ZGGJets_h->GetEntries()<<endl;
     // cout<<"QCD          = "<<QCD_HT200to300_h->GetEntries()+ QCD_HT300to500_h->GetEntries()+ QCD_HT500to700_h->GetEntries()+ QCD_HT700to1000_h->GetEntries()+ QCD_HT1000to1500_h->GetEntries()+ QCD_HT1500to2000_h->GetEntries()+ QCD_HT2000toInf_h->GetEntries()<<endl;
 
-    cout<<"Total BKG    = "<<background_SR->GetEntries()<<endl;
+    cout<<"Total BKG    = "<<h_background->GetEntries()<<endl;
     cout<<"\n";
 
     //does Integral include weight?//I think they do
@@ -321,7 +236,7 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* background_SR 
     // cout<<"VVV          = "<<WWW_h->Integral()+ WWZ_h->Integral()+ WWG_h->Integral()+ ZZZ_h->Integral()+ WZZ_h->Integral()+ WZG_h->Integral()+ WGG_h->Integral()+ ZGGJets_h->Integral()<<endl;
     // cout<<"QCD          = "<<QCD_HT200to300_h->Integral()+ QCD_HT300to500_h->Integral()+ QCD_HT500to700_h->Integral()+ QCD_HT700to1000_h->Integral()+ QCD_HT1000to1500_h->Integral()+ QCD_HT1500to2000_h->Integral()+ QCD_HT2000toInf_h->Integral()<<endl;
 //
-    cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+    cout<<"Total BKG    = "<<h_background->Integral()<<endl;
     cout<<"\n";
 
     cout<<"Event yield:"<<endl;
@@ -335,10 +250,119 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* background_SR 
     // cout<<"VVV          = "<<WWW_h->Integral()*LUMI*WWW.getScale()+ WWZ_h->Integral()*LUMI*WWZ.getScale()+ WWG_h->Integral()*LUMI*WWG.getScale()+ ZZZ_h->Integral()*LUMI*ZZZ.getScale()+ WZZ_h->Integral()*LUMI*WZZ.getScale()+ WZG_h->Integral()*LUMI*WZG.getScale()+ WGG_h->Integral()*LUMI*WGG.getScale()+ ZGGJets_h->Integral()*LUMI*ZGGJets.getScale()<<endl;
     // cout<<"QCD          = "<<QCD_HT200to300_h->Integral()*LUMI*QCD_HT200to300.getScale()+ QCD_HT300to500_h->Integral()*LUMI*QCD_HT300to500.getScale()+ QCD_HT500to700_h->Integral()*LUMI*QCD_HT500to700.getScale()+ QCD_HT700to1000_h->Integral()*LUMI*QCD_HT700to1000.getScale()+ QCD_HT1000to1500_h->Integral()*LUMI*QCD_HT1000to1500.getScale()+ QCD_HT1500to2000_h->Integral()*LUMI*QCD_HT1500to2000.getScale()+ QCD_HT2000toInf_h->Integral()*LUMI*QCD_HT2000toInf.getScale()<<endl;
 
-    cout<<"Total BKG    = "<<background_SR->Integral()<<endl;
+    cout<<"Total BKG    = "<<h_background->Integral()<<endl;
     cout<<"\n";
 }
 
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TCanvas* &c ){
+    // TCanvas *c = new TCanvas("c");
+
+    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
+    pt->AddText( "raw entries:");
+
+    c->Draw();
+    c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
+    // cout<<"png in: "<<baseDir + "results/EY.png"<<"\n";
+
+
+
+}
+
+void drawHistos( const vector<TH1D*> &allHistos, TH1D* h_background , TString variable){
+
+    TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+    TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),
+    c1_2->Draw();
+    c1_2->cd();
+
+    h_background->SetLineWidth(2);
+    h_background->SetLineColor(kBlue); 
+    h_background->SetMinimum(0);
+    h_background->SetMaximum(1.5 * h_background->GetMaximum());
+    h_background->GetYaxis()->SetTitleSize(0.050);
+    h_background->GetXaxis()->SetTitleSize(0.050);
+    h_background->GetYaxis()->SetLabelSize(0.040);
+    h_background->GetXaxis()->SetLabelSize(0.040); 
+    h_background->SetTitle("");
+    h_background->GetYaxis()->SetTitle("Events");
+    // h_background->GetXaxis()->SetTitle(axis[i]);
+    h_background->GetYaxis()->SetTitleOffset(1.00);
+    h_background->GetXaxis()->SetTitleOffset(0.85);//Set distance between the axis and the axis title
+    h_background->DrawNormalized("hist", 1);
+    // h_background->Draw("hist");
+    allHistos[0]->SetLineWidth(2);
+    allHistos[0]->SetLineColor(2);
+//        allHistos[0]->SetLineColor(kViolet-2); 
+   // allHistos[0]->Draw("samehisto");
+    allHistos[0]->DrawNormalized("samehist", 1);
+    // allHistos[0]->Draw("samehist");
+
+
+    TPad *pad = new TPad("pad","pad",0.01,0.01,0.99,0.99);
+    gPad->RedrawAxis();
+    TString channelText = "";
+    Double_t channelTextFont   = 42;
+    Double_t channelTextSize   = 0.06;
+    TString cmsText     = "CMS";
+    Double_t cmsTextFont   = 61;  // default is helvetic-bold
+    bool writeExtraText = true;
+    TString extraText   = "MC";
+    //TString extraText   = "";
+    Double_t extraTextFont = 52;  // default is helvetica-italics
+    // text sizes and text offsets with respect to the top frame in unit of the top margin size
+    Double_t lumiTextSize     = 0.6;
+    Double_t lumiTextOffset   = 0.2;
+    Double_t cmsTextSize      = 0.75;
+    Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
+    Double_t relPosX    = 0.045;
+    Double_t relPosY    = 0.035;
+    Double_t relExtraDY = 1.2;
+    // ratio of "CMS" and extra text size
+    Double_t extraOverCmsTextSize  = 0.76;
+    TString lumi_13TeV;
+    lumi_13TeV = "35.9fb^{-1}";
+    TString lumiText;
+    lumiText += lumi_13TeV;
+    lumiText += " (2016, 13 TeV)";
+    Double_t t = pad->GetTopMargin();
+    Double_t b = pad->GetBottomMargin();
+    Double_t r = pad->GetRightMargin();
+    Double_t l = pad->GetLeftMargin();
+    TLatex latex;
+    latex.SetNDC();
+    latex.SetTextAngle(0);
+    latex.SetTextColor(kBlack);    
+    Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
+    latex.SetTextFont(42);
+    latex.SetTextAlign(31); 
+    latex.SetTextSize(lumiTextSize*t);    
+    latex.DrawLatex(1-r+0.06,0.94,lumiText);
+    latex.SetTextFont(cmsTextFont);
+    latex.SetTextAlign(11); 
+    latex.SetTextSize(cmsTextSize*t);    
+    latex.DrawLatex(l+0.01, 0.94,cmsText);
+    latex.SetTextFont(extraTextFont);
+    latex.SetTextSize(extraTextSize*t);
+    latex.DrawLatex(l+0.12, 0.94, extraText); 
+    latex.SetTextFont(channelTextFont);
+    latex.SetTextSize(channelTextSize);
+
+
+    //定义图中各个线和直方图的颜色
+    TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
+    pl2->SetTextSize(0.045); 
+    pl2->SetFillColor(0);
+  //  TLegendEntry *ple2 = pl2->AddEntry(data_SR, "data",  "L"); 
+    TLegendEntry *ple2 = pl2->AddEntry(allHistos[0], "TTTT",  "L"); 
+    pl2->Draw();
+   
+
+    // TString NAME = variablelist[i];
+    // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+ NAME+postfix);
+    
+    // cout<<"Finished "<<NAME+postfix<<endl;
+    c1->Draw();
+}
 
 Double_t separationPower(TH1D* h1, TH1D* h2){
     Double_t norm = 1;
