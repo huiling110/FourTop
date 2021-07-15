@@ -17,7 +17,8 @@ void run_makeVaribles_forBDT(
         ifMergeAllevent = true;
     }
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v42_addNonBjets/";
-    TString inputBase = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/";
+    TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v46_fixedJetCutBug/";
+    // TString inputBase = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/";
     // TString inputBase = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
    
 

@@ -12,7 +12,8 @@ import subprocess
 isdata = False
 inputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v46_fixedJetCutBug/"
 #  inputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/"
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v1/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v2Resubmitv1/"
+
 
 Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/"
 rootplizer = "run_makeVaribles_forBDT.C"
