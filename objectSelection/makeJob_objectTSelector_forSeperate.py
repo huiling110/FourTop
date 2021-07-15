@@ -10,8 +10,7 @@ import subprocess
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #  isdata = True
 isdata = False
-#  outputDir
-outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v44_fixedSingJetHLTBugAndAddHLTcut/"
+outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/v46_fixedJetCutBug/"
 #  outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/"
 inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/"
 #  inputDir = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/
