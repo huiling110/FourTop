@@ -8,7 +8,8 @@ void run_objectTSelector(
                         // TString inputDir = "SingleMuon/Legacy16V2_SMuBlockBv3/210304_135358/0000/",
                         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/",
                         TString singleFileName = "v3_1-1.root",
-			Bool_t ishuiling = false)
+                        Bool_t ishuiling = true )
+                        // Bool_t ishuiling = false)
                         // TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
 {
     gROOT->ProcessLine(".L Loader.C+");
