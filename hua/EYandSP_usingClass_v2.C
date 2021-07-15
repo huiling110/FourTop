@@ -19,7 +19,7 @@
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TCanvas* &c );
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background /*TCanvas* &c */);
  
 
 void EYandSP_usingClass_v2(){ 
@@ -91,8 +91,8 @@ for (UInt_t  cha=0; cha<1; cha++){
             printEventYield( allHistos, h_background );
 
 
-            TCanvas *c = new TCanvas("c");
-            drawEventEield( allHistos, h_background, c);
+            drawEventEield( allHistos, h_background);
+
         }
        
         if ( ifDraw ){
@@ -254,14 +254,25 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background )
     cout<<"\n";
 }
 
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TCanvas* &c ){
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background/*, TCanvas* &c*/ ){
     // TCanvas *c = new TCanvas("c");
+            TCanvas *c = new TCanvas("c");
+            TPaveText *pt = new TPaveText(.05,.1,.95,.8);
+            pt->AddText( "raw entries:");
+            // TString entris = allHistos[0]->GetEntries();
+            TString entries;
+            entries.Format( "%f", allHistos[0]->GetEntries() );
+            // pt->AddText( "TTTT    ="+ entries );
+            pt->AddText(  entries );
+            cout<<"drawEventEield:"<<entries<<"\n";
+            cout<<allHistos[0]->GetEntries()<<"\n";
+            pt->SetLabel("event yield");
 
-    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
-    pt->AddText( "raw entries:");
 
-    c->Draw();
-    c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
+            pt->Draw();
+            c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
+    // c->Draw();
+    // c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
     // cout<<"png in: "<<baseDir + "results/EY.png"<<"\n";
 
 
