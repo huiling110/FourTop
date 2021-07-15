@@ -34,8 +34,10 @@
     * this is what Fabio can do on his local repositary:
         * git checkout master 
         * git pull origin master
-        * git checkout to Fabio's branch
-        * git merge master ( this should be a smooth staight forward merge since only Huiling changed shared code)
+        * git checkout newFabioDevelepeBranch( worling on this new branch from now on)
+        * git branch -d oldFabioDevelopeBranch(can savely delete old branch because now master has old branch commits in it)
+        * git push origin --delete oldFabioDevelopeBranch( delete your old branch in remote, careful with this commad to avoid deleting other branches!!!)
+       
     * if you want to change the shared code and expriment you'd better make another branch out of it and do it in the expriment branch.
     * if you want to submit jobs and git tag of the job version you should definitely do it in Fabio's branch and later merge Fabio branch to master.
   
