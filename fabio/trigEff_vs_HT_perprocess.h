@@ -4,7 +4,7 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v42_noHLTselection_addHLT_PFJet450/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v44_triggerStudies_presel2jets/";
 
 map<string, string> file = { //MAP OF INPUT FILES
 

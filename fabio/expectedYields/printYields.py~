@@ -1,0 +1,53 @@
+import math
+from tabulate import tabulate
+import ROOT
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument('-c', type=str, default='1tau0L', help = 'category')
+
+FLAGS = parser.parse_args()
+cat = FLAGS.c
+
+inputfile  = ROOT.TFile.Open("expectedYields_output.root")
+
+LUMI2016 = 35900.0
+
+files = {
+
+    "tttt": 0.01197,
+
+    "ttbar-FH": 373.0,
+    "ttbar-SL": 367.0,
+    "ttbar-DL": 90.6,
+
+    "QCD_HT300to500": 347700.0,
+    "QCD_HT500to700": 32100.0,
+    "QCD_HT700to1000": 6831.0,
+    "QCD_HT1000to1500": 1207.0,
+    "QCD_HT1500to2000": 119.9,
+    "QCD_HT2000toInf": 25.24,
+
+    "ttW+jets": 0.2014,
+    "ttZ+jets": 0.6559,
+    "ttG+jets": 3.697,
+    "ttH": 0.3372,
+
+}
+
+yields = {}
+
+for file in files :
+    genEvts = inputfile.Get("totalWeight_"+file)
+    h = inputfile.Get("h_significance_"+cat+file)
+    h.Scale(files[file] * LUMI2016 / genEvts.GetSumOfWeights())
+    yields[file] = h.Integral(-1,-1)
+        
+yields_to_print = []
+yields_to_print.append(yields["tttt"])
+yields_to_print.append(yields["ttbar-FH"]+yields["ttbar-SL"]+yields["ttbar-DL"])
+yields_to_print.append(yields["QCD_HT300to500"]+yields["QCD_HT500to700"]+yields["QCD_HT700to1000"]+yields["QCD_HT1000to1500"]+yields["QCD_HT1500to2000"]+yields["QCD_HT2000toInf"])
+yields_to_print.append(yields["ttW+jets"]+yields["ttZ+jets"]+yields["ttG+jets"]+yields["ttH"])
+
+print(tabulate(yields_to_print, tablefmt="latex", floatfmt=".3f"))
