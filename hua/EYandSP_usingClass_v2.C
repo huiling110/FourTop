@@ -19,7 +19,7 @@
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background /*TCanvas* &c */);
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplot );
  
 
 void EYandSP_usingClass_v2(){ 
@@ -32,6 +32,7 @@ void EYandSP_usingClass_v2(){
     // Bool_t ifDraw = true;
     // Bool_t ifEY = false;
     Bool_t ifEY = true;
+    TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/";
 
   using namespace std; 
 
@@ -91,7 +92,7 @@ for (UInt_t  cha=0; cha<1; cha++){
             printEventYield( allHistos, h_background );
 
 
-            drawEventEield( allHistos, h_background);
+            drawEventEield( allHistos, h_background, EYplotDir+ "EY" +postfix );
 
         }
        
@@ -259,7 +260,7 @@ void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vect
     for ( Int_t start=startIndex; start<(startIndex+subprocessNum); start++ ){
         if ( sumType==0 ) EY = EY + allHistos[start]->GetEntries();
         if ( sumType==1 ) EY = EY + allHistos[start]->Integral();
-        if ( sumType==2 ) EY = EY + ( allHistos[start]->Integral()*allProcesses[start].getScale() );
+        if ( sumType==2 ) EY = EY + ( LUMI*allHistos[start]->Integral()*allProcesses[start].getScale() );
     }
     TString entries;
     entries.Form( processName + "  = %f", EY );
@@ -273,7 +274,7 @@ void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vect
 }
 
 
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background/*, TCanvas* &c*/ ){
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplot ){
     // TCanvas *c = new TCanvas("c", "c", 300, 3000);
     // TCanvas *c = new TCanvas("c", "c", 100, 1000);
     TCanvas *c = new TCanvas("c", "c");
@@ -336,7 +337,9 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background/*,
 
 
 
-    c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
+    // c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
+    c->SaveAs( EYplot);
+    cout<<"EY plot saved here: "<<"\n";
 
 
 
