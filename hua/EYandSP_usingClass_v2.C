@@ -254,26 +254,44 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background )
     cout<<"\n";
 }
 
+void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  vector<Process> &allProcesses  ){
+    Double_t EY = 0;
+    for ( Int_t start=startIndex; start<(startIndex+subprocessNum); start++ ){
+        if ( sumType==0 ) EY = EY + allHistos[start]->GetEntries();
+        if ( sumType==1 ) EY = EY + allHistos[start]->Integral();
+        if ( sumType==2 ) EY = EY + ( allHistos[start]->Integral()*allProcesses[start].getScale() );
+    }
+    TString entries;
+    entries.Form( processName + "  = %f", EY );
+    pt->AddText( entries );
+
+}
+
+
 void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background/*, TCanvas* &c*/ ){
-    // TCanvas *c = new TCanvas("c");
-            TCanvas *c = new TCanvas("c");
-            TPaveText *pt = new TPaveText(.05,.1,.95,.8);
-            pt->AddText( "raw entries:");
-            // TString entris = allHistos[0]->GetEntries();
-            TString entries;
-            entries.Format( "%f", allHistos[0]->GetEntries() );
-            // pt->AddText( "TTTT    ="+ entries );
-            pt->AddText(  entries );
-            cout<<"drawEventEield:"<<entries<<"\n";
-            cout<<allHistos[0]->GetEntries()<<"\n";
-            pt->SetLabel("event yield");
+    TCanvas *c = new TCanvas("c");
+    TPaveText *pt = new TPaveText(.05,.1,.95,.8);
+    pt->SetLabel("event yield");
+    pt->AddText( "raw entries:");
+    // TString entries;
+    // entries.Form( "TTTT = %f", allHistos[0]->GetEntries() );  pt->AddText(  entries );
+    // entries.Form( "TT = %f", allHistos[1]->GetEntries() +allHistos[2]->GetEntries() +allHistos[3]->GetEntries() );  pt->AddText(  entries );
+    addTextToPT( 0, pt, "TTTT", allHistos, 0, 1 , allProcesses );
+    addTextToPT( 0, pt, "TT", allHistos, 1, 3, allProcesses );
+    addTextToPT( 0, pt, "TTX", allHistos, 4, 4 , allProcesses);
+    addTextToPT( 0, pt, "VV", allHistos, 8, 5, allProcesses );
+    addTextToPT( 0, pt, "vvv", allHistos, 13, 8, allProcesses );
+    addTextToPT( 0, pt, "WJets", allHistos, 21, 1, allProcesses );
+    addTextToPT( 0, pt, "DY", allHistos, 22, 1, allProcesses );
+    addTextToPT( 0, pt, "singleTop", allHistos, 23, 4, allProcesses );
+    addTextToPT( 0, pt, "TX", allHistos, 27, 3, allProcesses );
+    addTextToPT( 0, pt, "QCD", allHistos, 30, 7, allProcesses );
 
 
-            pt->Draw();
-            c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
-    // c->Draw();
-    // c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
-    // cout<<"png in: "<<baseDir + "results/EY.png"<<"\n";
+
+
+    pt->Draw();
+    c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
 
 
 
