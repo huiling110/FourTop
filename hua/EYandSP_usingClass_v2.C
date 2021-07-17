@@ -19,7 +19,7 @@
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplot );
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel );
  
 
 void EYandSP_usingClass_v2(){ 
@@ -61,10 +61,17 @@ const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_numb
 const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=4 && bjetsM_num>=2";
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2";
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2";
+
+const TCut ES1tau1l = ES1tau1e||ES1tau1m;
+const TCut ES1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2";
+const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2";
+const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2";
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
-vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS"   };
-vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss };
+vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
+vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
+
+
 
 TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
@@ -76,7 +83,8 @@ vector<TH1D*> allHistos;
 TH1D* h_background;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=0; cha<1; cha++){
+// for (UInt_t  cha=0; cha<1; cha++){
+for (UInt_t  cha=12; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
@@ -86,13 +94,11 @@ for (UInt_t  cha=0; cha<1; cha++){
           // const char *plot = variablelist[i];
   	    TString plot = variablelist[i];
 
-        getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[i] );
+        getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[cha] );
 
         if ( i ==0 && ifEY ){
-            printEventYield( allHistos, h_background );
-
-
-            drawEventEield( allHistos, h_background, EYplotDir+ "EY" +postfix );
+            // printEventYield( allHistos, h_background );
+            drawEventEield( allHistos, h_background, EYplotDir, channelName[cha] );
 
         }
        
@@ -269,25 +275,23 @@ void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vect
     // t1->SetTextAlign(11);
     t1->SetTextAlign(12);
     // t1->SetTextSize( 0.1);
-    t1->SetTextSize( 0.05);
+    t1->SetTextSize( 0.055);
 
 }
 
 
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplot ){
-    // TCanvas *c = new TCanvas("c", "c", 300, 3000);
-    // TCanvas *c = new TCanvas("c", "c", 100, 1000);
+void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel ){
     TCanvas *c = new TCanvas("c", "c");
-    c->SetCanvasSize(300, 1200);
+    c->SetCanvasSize(300, 1000);
     c->SetWindowSize(400, 700);
 
     // TPaveText *pt = new TPaveText(.05,.95,.95,.7);// the position relative to cavas, first is the left down point
-    TPaveText *pt = new TPaveText(.05,.95,.95,.7, "NDC");// the position relative to cavas, first is the left down point
-    pt->SetLabel("raw entries"); 
-    // TText* label1 = pt->SetLabel("raw entries"); label1->SetTextSize( 0.5 );
+    TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
+    pt->SetLabel(channel); 
+    // pt->SetLabelSize(0.05);
     pt->AddText( "  ");
-    // TString entries;
-    // entries.Form( "TTTT = %f", allHistos[0]->GetEntries() );  pt->AddText(  entries );
+    pt->AddText( "  ");
+    TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.05);
     addTextToPT( 0, pt, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 0, pt, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 0, pt, "TTX", allHistos, 4, 4 , allProcesses);
@@ -299,12 +303,14 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     addTextToPT( 0, pt, "TX", allHistos, 27, 3, allProcesses );
     addTextToPT( 0, pt, "QCD", allHistos, 30, 7, allProcesses );
     TString entries;
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t1 = pt->AddText(  entries ); t1->SetTextAlign(11); t1->SetTextSize( 0.05);
+    entries.Form( "background = %f", h_background->GetEntries() ); TText* t1 = pt->AddText(  entries ); t1->SetTextAlign(11); t1->SetTextSize( 0.055);
     pt->Draw();
  
-    TPaveText *pt2 = new TPaveText(.05,.65,.95,.4, "NDC");
-    pt2->SetLabel("weighted");
+    TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
+    pt2->SetLabel(channel);
     pt2->AddText( "  ");
+    pt2->AddText( "  ");
+    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.05);
     addTextToPT( 1, pt2, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 1, pt2, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 1, pt2, "TTX", allHistos, 4, 4 , allProcesses);
@@ -315,12 +321,14 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     addTextToPT( 1, pt2, "singleTop", allHistos, 23, 4, allProcesses );
     addTextToPT( 1, pt2, "TX", allHistos, 27, 3, allProcesses );
     addTextToPT( 1, pt2, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t2 = pt2->AddText(  entries ); t2->SetTextAlign(11); t2->SetTextSize( 0.05);
+    entries.Form( "background = %f", h_background->GetEntries() ); TText* t2 = pt2->AddText(  entries ); t2->SetTextAlign(11); t2->SetTextSize( 0.055);
     pt2->Draw();
 
-    TPaveText *pt3 = new TPaveText(.05,.35,.95,.1, "NDC");
-    pt3->SetLabel("scaled to Lumi");
+    TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
+    pt3->SetLabel(channel );
     pt3->AddText( "  ");
+    pt3->AddText( "  ");
+    TText* t30 = pt3->AddText( "scaled to LUMI:"); t30->SetTextAlign(11); t30->SetTextSize( 0.05);
     addTextToPT( 2, pt3, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 2, pt3, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 2, pt3, "TTX", allHistos, 4, 4 , allProcesses);
@@ -331,15 +339,15 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     addTextToPT( 2, pt3, "singleTop", allHistos, 23, 4, allProcesses );
     addTextToPT( 2, pt3, "TX", allHistos, 27, 3, allProcesses );
     addTextToPT( 2, pt3, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.05);
+    entries.Form( "background = %f", h_background->GetEntries() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
     pt3->Draw();
 
 
 
 
     // c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
-    c->SaveAs( EYplot);
-    cout<<"EY plot saved here: "<<"\n";
+    c->SaveAs( EYplotDir+"EY"+channel+".png");
+    // cout<<"EY plot saved here: "<<EYplot<<"\n";
 
 
 
