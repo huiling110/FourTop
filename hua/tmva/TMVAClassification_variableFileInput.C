@@ -61,13 +61,14 @@
 #include "TMVA/Tools.h"
 #include "TMVA/TMVAGui.h"
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass.h"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
         TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
-        Int_t channel = 1
+        const Int_t channel = 2
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -79,36 +80,46 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t forVariables = false;
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
-   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/";
+   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/";
    TString outfile ;
-   if ( outfile.Contains( "forvariables"))   forVariables = true;
    // This loads the library
 
 
 
    // Apply additional cuts on the signal and background samples (can be different)
-    // TCut mycuts = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2";//1tau0l
-    // TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
-    // TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
-    TCut cutForSandB;
-    TPRegexp r1("\\bvaribleList(\\w+).csv\\b");
-    TString csvListName = variableListCsv( r1);
-    csvListName.Remove(  csvListName.First("."), csvListName.Length() ); 
+    TString csvListName;
+    if ( forVariables ){
+        csvListName = "";
+    }else{
+        TPRegexp r1("\\bvaribleList(\\w+).csv\\b");
+        csvListName = variableListCsv( r1);
+        csvListName.Remove(  csvListName.First("."), csvListName.Length() ); 
+    }
     cout<<"csvListName: "<< csvListName<<"\n";
+
+    TCut cutForSandB;
     switch( channel){
         case 1:
             cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
             outDir = outDir + "1tau1l/";
             outfile = "1tau1l_" + csvListName;
         case 2:
+            cout<<"channel 2"<<"\n";
             cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-        default:
-            cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
+            outDir = outDir + "1tau2os/";
+            outfile = "1tau2os_" + csvListName;
+        // case 3:
+            // cutForSandB =
+        // default:
+            // ???having strange behaviar
+            // cout<<"going to defaut"<<"\n";
+            // cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";
     }
-    cout<<cutForSandB<<endl;
+    cout<<channel<<": "<<cutForSandB<<endl;
 
 
 
@@ -298,48 +309,54 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         //
  
     //variableListCsv
-    ifstream fin( variableListCsv);
-    string line ;
-    TString ivariable;
-    vector<TString> variables {};
-    Int_t num = 1;
-    while ( getline( fin, line ) ){
-        // cout<<line<<endl;
-        // cout<<line;
-        // cout<<typeid(line).name()<<endl;
-        if (num>1)  {
-            ivariable = line;
-            // cout<<"line: "<<line;
-            if( line.size()>0)  {
-                // dataloader->AddVariable( ivariable, 'F');
-                // variables.push_back( line);
-                variables.push_back( ivariable);
+    if ( !forVariables ){
+        ifstream fin( variableListCsv);
+        string line ;
+        TString ivariable;
+        vector<TString> variables {};
+        Int_t num = 1;
+        while ( getline( fin, line ) ){
+            if (num>1)  {
+                ivariable = line;
+                // cout<<"line: "<<line;
+                if( line.size()>0)  {
+                    // dataloader->AddVariable( ivariable, 'F');
+                    // variables.push_back( line);
+                    variables.push_back( ivariable);
 
-            }
-            // cout<<"ivariable:"<<ivariable<<endl;
-        }      
-        dataloader->AddVariable( line, 'F');
-        num = num+1;
-    }
-    fin.close();
-    // cout<<"number of loops: "<<num<<endl;
-    Int_t variablesNum = variables.size();
-    // cout<<"variableNum: "<<variablesNum<<"\n";
-    // cout<<variables[0]<<std::flush<<variables[1]<<endl;
-    // cout<<variables[0]<<endl;
-    // cout<<variables[0]<<"\n";
-    // cout<<variables[0].Length()<<"\n";//toptagger_transMass length is 20, which is one character more
-    for ( Int_t i = 0; i++; i<variables[0].Length() ){
-        TString istring = variables[0];
-        // cout<<istring<<"\n";
-        // cout<<istring[i]<<"\n";
-    }
-    // cout<<variables[1]<<endl;
-    // cout<<variables[0]<<variables[1]<<"\n";
-    // printf( "%s", &(variables[0]));
+                }
+                // cout<<"ivariable:"<<ivariable<<endl;
+            }      
+            dataloader->AddVariable( line, 'F');
+            num = num+1;
+        }
+        fin.close();
 
-    // TString testS = "toptagger_transMass";
-    // cout<<testS.Length()<<"\n";
+    }else{
+        std::vector<TString> branchNames;
+        TString branchName;
+        UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+        cout<<"number of branches: "<<nbr<<endl;
+        for ( UInt_t i=0; i<nbr; i++){
+            branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
+            if ( branchName.Contains( "Flag") )  continue;
+            if ( branchName.Contains( "HLT"))    continue;
+            if ( branchName.Contains( "Weight"))  continue;
+            if ( branchName.Contains( "tausT_number") || branchName.Contains( "muonsT_number") || branchName.Contains( "elesMVAT_number")  ) continue;
+            if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
+            if ( branchName.Contains( "tausT_minDeltaR")) continue;
+            if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
+            //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
+            if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
+            //not sure what is wrong with this branch. //Variable muonsT_number is constant.
+            //because after the cut the branch is 0
+            cout<<branchName<<endl;
+            branchNames.push_back( branchName );
+            if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
+            else dataloader->AddVariable( branchName, 'F' );
+        }
+    }
+
 
     // dataloader->AddVariable( "jets_bScore", 'F' );
     // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
@@ -438,7 +455,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                                         // "nTrain_Signal=67557:nTrain_Background=26688:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//70% goes to training //not working
                                         // "nTrain_Signal=57906:nTrain_Background=22876:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training //
        //means raw entries
-                                        "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" //1tau1l, 60% go to training
+                                        "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" //1tau1l, 60% go to training
 
                                             );
    }
