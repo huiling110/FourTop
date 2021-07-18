@@ -83,8 +83,8 @@ vector<TH1D*> allHistos;
 TH1D* h_background;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=0; cha<1; cha++){
-for (UInt_t  cha=12; cha<channelName.size(); cha++){
+// for (UInt_t  cha=0; cha<3; cha++){
+for (UInt_t  cha=3; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
@@ -97,7 +97,7 @@ for (UInt_t  cha=12; cha<channelName.size(); cha++){
         getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[cha] );
 
         if ( i ==0 && ifEY ){
-            // printEventYield( allHistos, h_background );
+            printEventYield( allHistos, h_background );
             drawEventEield( allHistos, h_background, EYplotDir, channelName[cha] );
 
         }
@@ -291,7 +291,7 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     // pt->SetLabelSize(0.05);
     pt->AddText( "  ");
     pt->AddText( "  ");
-    TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.05);
+    TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     addTextToPT( 0, pt, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 0, pt, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 0, pt, "TTX", allHistos, 4, 4 , allProcesses);
@@ -310,7 +310,7 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     pt2->SetLabel(channel);
     pt2->AddText( "  ");
     pt2->AddText( "  ");
-    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.05);
+    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     addTextToPT( 1, pt2, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 1, pt2, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 1, pt2, "TTX", allHistos, 4, 4 , allProcesses);
@@ -321,14 +321,14 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     addTextToPT( 1, pt2, "singleTop", allHistos, 23, 4, allProcesses );
     addTextToPT( 1, pt2, "TX", allHistos, 27, 3, allProcesses );
     addTextToPT( 1, pt2, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t2 = pt2->AddText(  entries ); t2->SetTextAlign(11); t2->SetTextSize( 0.055);
+    entries.Form( "background = %f", h_background->Integral() ); TText* t2 = pt2->AddText(  entries ); t2->SetTextAlign(11); t2->SetTextSize( 0.055);
     pt2->Draw();
 
     TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
     pt3->SetLabel(channel );
     pt3->AddText( "  ");
     pt3->AddText( "  ");
-    TText* t30 = pt3->AddText( "scaled to LUMI:"); t30->SetTextAlign(11); t30->SetTextSize( 0.05);
+    TText* t30 = pt3->AddText( "scaled to LUMI:"); t30->SetTextAlign(11); t30->SetTextSize( 0.055);
     addTextToPT( 2, pt3, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 2, pt3, "TT", allHistos, 1, 3, allProcesses );
     addTextToPT( 2, pt3, "TTX", allHistos, 4, 4 , allProcesses);
@@ -339,7 +339,7 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     addTextToPT( 2, pt3, "singleTop", allHistos, 23, 4, allProcesses );
     addTextToPT( 2, pt3, "TX", allHistos, 27, 3, allProcesses );
     addTextToPT( 2, pt3, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
+    entries.Form( "background = %f", h_background->Integral() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
     pt3->Draw();
 
 
