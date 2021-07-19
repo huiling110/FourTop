@@ -19,16 +19,19 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46
     vListList = generateListList( TMVAlog )
     #  channel = 1;#1 for 1tau1l
     channel = 2;#2 for 1tau2os
+    version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
-    vListDir = checkAndMakeDir( channel, outputDir )
+    vListDir = checkAndMakeDir( channel, outputDir, version )
 
     writeListListToFile( vListList, vListDir)
 
 def generateListList( TMVAlog ):
     initialVariableList = getInitList( TMVAlog )
 
+    removedPhiEtaList = removephieta( initialVariableList )
+
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
-    leading50List = leadingNList( initialVariableList, 50 )
+    leading50List = leadingNList( removedPhiEtaList, 50 )
     print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
     print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
@@ -42,12 +45,24 @@ def generateListList( TMVAlog ):
 
     return vListList
 
+def removephieta( initialList ):
+    #  print('initialList length: ', len(initialList) )
+    removedList = []
+    for ivariable in initialList:
+        #  if ('phi' in ivariable) or ('eta' in ivariable):
+        if not(ivariable.find( 'phi') != -1 or ivariable.find( 'eta')!=-1 ):
+            #  print( ivariable)
+            removedList.append( ivariable )
+    print( 'list after remove phieta: ', len( removedList), removedList )
+    return removedList
 
-def checkAndMakeDir( channel, outputDir ):
+    return initialList
+
+def checkAndMakeDir( channel, outputDir, version ):
     if channel == 1:
-        outputDir = outputDir + '1tau1l/'
+        outputDir = outputDir + '1tau1l_v' + str(version) +'/'
     if channel == 2:
-        outputDir = outputDir + '1tau2os/'
+        outputDir = outputDir + '1tau2os_v' + str(version) + '/'
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( outputDir ):
