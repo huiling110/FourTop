@@ -16,6 +16,15 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46
     
     #the first line identifies each piece of datain other words, the name of a data column
     
+    vListList = generateListList( TMVAlog )
+    #  channel = 1;#1 for 1tau1l
+    channel = 2;#2 for 1tau2os
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
+    vListDir = checkAndMakeDir( channel, outputDir )
+
+    writeListListToFile( vListList, vListDir)
+
+def generateListList( TMVAlog ):
     initialVariableList = getInitList( TMVAlog )
 
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
@@ -25,19 +34,13 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46
     print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
     print( '\n')
 
-
     vListList = createNextVariableList_correlation( removeBjetTL_list  )
 
     vListList.append( leading50List )
     #  vListList.append( removeBjetTL_list )
     print( 'vListList: \n', len(vListList), vListList )
 
-    #  channel = 1;#1 for 1tau1l
-    channel = 2;#2 for 1tau2os
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
-    vListDir = checkAndMakeDir( channel, outputDir )
-
-    writeListListToFile( vListList, vListDir)
+    return vListList
 
 
 def checkAndMakeDir( channel, outputDir ):
