@@ -25,10 +25,6 @@ def getAUCfromLog( logDir, histo):
 def getAUCToTGragh( logDir):
     #x, y = array( 'd' ), array( 'd' )
     x, y = [], []
-#  for i in range( n ):
-   #  x.append( 0.1*i )
-   #  y.append( 10*sin( x[i]+0.2 ) )
-   #  print(' i %i %f %f ' % (i,x[i],y[i]))
 
     n = 0
     for entry in os.listdir( logDir ):
@@ -68,8 +64,17 @@ def getAUCToTGragh( logDir):
     gr.GetXaxis().SetTitle( 'number of variables' )
     gr.GetYaxis().SetTitle( 'AUC' )
     gr.Draw('APL')
-    
-    c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test2.png")
+
+
+    AUCDir = logDir[:-4]
+    #  print( AUCDir )
+    AUCDir = AUCDir + 'results/'
+    if not os.path.exists( AUCDir ):
+        os.mkdir( AUCDir )
+
+    #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
+    c1.SaveAs( AUCDir+'AUC.png' )
+    print( 'AUC plot saved here:', AUCDir )
     #  return gr
 
     
@@ -109,9 +114,8 @@ def getROC( logFile):
 
 
 if __name__ == '__main__':
-    logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l/log/'
-    #  h_BDT = ROOT.TH1F("AUC", "AUC", 50, 0, 50 )
-    #  getAUCfromLog( logDir, h_BDT )
+    #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l/log/'
+    logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/log/'
     getAUCToTGragh( logDir )
 
 

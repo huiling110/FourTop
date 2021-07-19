@@ -2,7 +2,8 @@
 #include "TText.h"
 #include "TH2.h"
 
-#include "tmvaglob.C"
+// #include "tmvaglob.C"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
 
 // this macro plots the resulting MVA distributions (Signal and
 // Background overlayed) of different MVA methods run in TMVA
@@ -14,7 +15,10 @@ enum HistType { MVAType = 0, ProbaType = 1, RarityType = 2, CompareType = 3 };
 // input: - Input file (result from TMVA)
 //        - use of TMVA plotting TStyle
 // void mvas( TString fin = "TMVA.root", HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
-void mvas( TString fin = "TMVA_1Tau0L.root", HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
+void mvas( 
+        // TString fin = "TMVA_1Tau0L.root",
+        TString fin = "TMVA_1Tau0L.root", 
+        HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
 {
    // set style and remove existing canvas'
    TMVAGlob::Initialize( useTMVAStyle );
@@ -35,7 +39,9 @@ void mvas( TString fin = "TMVA_1Tau0L.root", HistType htype = MVAType, Bool_t us
    Int_t countCanvas = 0;
 
    // search for the right histograms in full list of keys
-   TIter next(file->GetListOfKeys());
+   TString dataset = "dataset",
+   // TIter next(file->GetListOfKeys());
+   TIter next(file->GetDirectory(dataset.Data())->GetListOfKeys());
    TKey *key(0);  
    //?
    while ((key = (TKey*)next())) {
