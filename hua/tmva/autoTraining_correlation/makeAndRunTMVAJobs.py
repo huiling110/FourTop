@@ -4,6 +4,13 @@ import os
 
 import csv
 
+
+
+
+
+
+
+
 def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir ):
     if not os.path.exists( 'JobScript/'):
         os.mkdir('JobScript/')
@@ -45,29 +52,29 @@ def checkMakeDir( channel, outputDir, TMVACodeDir ):
     #  TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
     if channel == 1:
         outputDir = outputDir + '1tau1l/'
+    if channel ==2:
+        outputDir = outputDir + '1tau2os/'
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
-    #  if not os.path.exists( vListDir):
-        #  os.mkdir( vListDir )
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
     return vListDir, outputDir
 
 
 
-
-
-
-
 if __name__ == '__main__':
-	#  main()
-    channel = 1;#1 for 1tau1l
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    #  channel = 1;#1 for 1tau1l
+    channel = 2;#2 for 1tau2os
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
 
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir )
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir )
+
+
+
+
 
 

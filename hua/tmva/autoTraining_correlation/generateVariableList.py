@@ -11,7 +11,8 @@ import csv
 
 
 
-def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
+#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
+def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
     
     #the first line identifies each piece of datain other words, the name of a data column
     
@@ -31,8 +32,9 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
     #  vListList.append( removeBjetTL_list )
     print( 'vListList: \n', len(vListList), vListList )
 
-    channel = 1;#1 for 1tau1l
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
+    #  channel = 1;#1 for 1tau1l
+    channel = 2;#2 for 1tau2os
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     vListDir = checkAndMakeDir( channel, outputDir )
 
     writeListListToFile( vListList, vListDir)
@@ -41,6 +43,8 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1H
 def checkAndMakeDir( channel, outputDir ):
     if channel == 1:
         outputDir = outputDir + '1tau1l/'
+    if channel == 2:
+        outputDir = outputDir + '1tau2os/'
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( outputDir ):
@@ -61,17 +65,16 @@ def getInitList( TMVAlog ):
         for irow in csv_reader: 
             #Each row returned by the reader is a list of String elements containing the data found by removing the delimiters.
             #get the SP part
-            if irow[0] == "IdTransformation         ":
-                #  print(irow[1])
-                SPline = linecount+2
+            if len(irow)>0:
+                if irow[0] == "IdTransformation         ":
+                    #  print(irow[1])
+                    SPline = linecount+2
             if (linecount == SPline and not(linecount == 0) ):
                 #  print(irow)
                 if len(irow)>3:
                     #  if not(irow[2] == ' -----------------------------------------------------') or not(irow[1]=='Factory                  '):
                     if irow[2] != ' -----------------------------------------------------' and irow[1]!='Factory                  ' and irow[2]!=' Variable                     ':
                         #  print(irow)
-                        #  print(irow[2])
-                        #  writer2.writerow(irow[2])
                         variable1 = irow[2].replace( " ", "")
                         #  print( 'variable1', variable1 )
                         #  writer2.writerow([irow[2]])
