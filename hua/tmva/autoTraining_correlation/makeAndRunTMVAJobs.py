@@ -20,7 +20,7 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir ):
         entryName = entry[:-4]
         print( entry)
         iJob = 'JobScript/'+  entryName + ".sh"
-        makeSingleTMVAJob( vlistDir+entry, channel, iJob, TMVACodeDir )
+        makeSingleTMVAJob( vlistDir+entry, channel, iJob, TMVACodeDir, outputDir )
 
         logFile = outputDir +   "log/" + entryName + ".log"
         errFile = outputDir +  "log/" + entryName +".err"
@@ -29,13 +29,14 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir ):
     os.popen('chmod 777 ' + TMVACodeDir + 'autoTraining_correlation'+ '/subAlljobs.sh' )
 
     
-def makeSingleTMVAJob( listCsv, channel, jobName, TMVACodeDir ):
+def makeSingleTMVAJob( listCsv, channel, jobName, TMVACodeDir , outputDir):
     output = open( jobName ,'wt')
     output.write( '#!/bin/bash' + '\n')
     output.write( '/bin/hostname' + '\n')
     output.write( 'source /cvmfs/sft.cern.ch/lcg/releases/LCG_98python3/ROOT/v6.22.00/x86_64-centos7-gcc8-opt/ROOT-env.sh' + '\n' )
     output.write( 'cd '+ TMVACodeDir + '\n')
-    output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+listCsv+'\"' +',' + str(channel) + ')' + '\''   )
+    #  output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+listCsv+'\"' +',' + str(channel) + ')' + '\''   )
+    output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ')' + '\''   )
     output.close()
 
 #  def checkJob():

@@ -65,8 +65,7 @@
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-        // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_33.csv",
-        // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/varibleList_13.csv",
+        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/test/"
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         const Int_t channel = 2
@@ -85,7 +84,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
-   TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/";
+   // TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/";
+   TString outDir = outputDir;
    TString outfile ;
    // This loads the library
 
@@ -106,12 +106,12 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     switch( channel){
         case 1:
             cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
-            outDir = outDir + "1tau1l/";
+            // outDir = outDir + "1tau1l/";
             outfile = "1tau1l_" + csvListName;
         case 2:
             cout<<"channel 2"<<"\n";
             cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-            outDir = outDir + "1tau2os/";
+            // outDir = outDir + "1tau2os/";
             outfile = "1tau2os_" + csvListName;
         // case 3:
             // cutForSandB =
