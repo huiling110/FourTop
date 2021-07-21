@@ -59,17 +59,22 @@ def removephieta( initialList ):
     return initialList
 
 def checkAndMakeDir( channel, outputDir, version ):
+    outputDir = makeBaseDir( channel, outputDir, version )
+    vListDir = outputDir + 'variableList/'
+    print( 'outputDir: ', outputDir)
+    if not os.path.exists( vListDir):
+        os.mkdir( vListDir )
+    return vListDir
+
+def makeBaseDir( channel, outputDir, version ):
     if channel == 1:
         outputDir = outputDir + '1tau1l_v' + str(version) +'/'
     if channel == 2:
         outputDir = outputDir + '1tau2os_v' + str(version) + '/'
-    vListDir = outputDir + 'variableList/'
-    print( 'outputDir: ', outputDir)
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
-    if not os.path.exists( vListDir):
-        os.mkdir( vListDir )
-    return vListDir
+    return outputDir
+
 
 
 def getInitList( TMVAlog ):

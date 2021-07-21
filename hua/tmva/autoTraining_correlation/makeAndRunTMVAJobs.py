@@ -4,7 +4,7 @@ import os
 
 import csv
 
-
+import generateVariableList as GV
 
 
 
@@ -46,18 +46,17 @@ def makeSingleTMVAJob( listCsv, channel, jobName, TMVACodeDir ):
 
 
 
-def checkMakeDir( channel, outputDir, TMVACodeDir ):
+def checkMakeDir( channel, outputDir, TMVACodeDir, version ):
     #  channel = 1;#1 for 1tau1l
     #  outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
     #  TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    if channel == 1:
-        outputDir = outputDir + '1tau1l/'
-    if channel ==2:
-        outputDir = outputDir + '1tau2os/'
+    #  if channel == 1:
+        #  outputDir = outputDir + '1tau1l/'
+    #  if channel ==2:
+        #  outputDir = outputDir + '1tau2os/'
+    outputDir = GV.makeBaseDir(channel, outputDir, version )
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
-    if not os.path.exists( outputDir ):
-        os.mkdir( outputDir )
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
     return vListDir, outputDir
@@ -67,10 +66,11 @@ def checkMakeDir( channel, outputDir, TMVACodeDir ):
 if __name__ == '__main__':
     #  channel = 1;#1 for 1tau1l
     channel = 2;#2 for 1tau2os
+    version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
 
-    vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir )
+    vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version )
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir )
 
 
