@@ -25,6 +25,7 @@ def getAUCfromLog( logDir, histo):
 def getAUCToTGragh( logDir):
     #x, y = array( 'd' ), array( 'd' )
     x, y = [], []
+    x_BDTG, y_BDTG= [], []
 
     n = 0
     for entry in os.listdir( logDir ):
@@ -41,22 +42,29 @@ def getAUCToTGragh( logDir):
         print( AUC_BDT, AUC_BDTG)
         x.append( vListNum )
         y.append( AUC_BDT )
+        x_BDTG.append( vListNum )
+        y.append( AUC_BDTG )
         print(' i %i %f %f ' % ( n,x[n],y[n]))
 
         n = n+1
+    
     x, y = np.array([x,y])
     flag = np.argsort(x)
     x, y = x[flag], y[flag]
-     
+    plotAUC( x, y , logDir , True )
+    #  plotAUC( x_BDTG, y_BDTG, logDir,False )
+
+
+def plotAUC( x, y, logDir, isBDT ):
+    #  x, y = np.array([x,y])
+    #  flag = np.argsort(x)
+    #  x, y = x[flag], y[flag]
 
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
-    #  c1.SetFillColor( 42 )
     c1.SetGrid()
  
     gr = ROOT.TGraph( n, x, y )
     gr.SetLineColor( 2 )
-    #  gr.SetLineColor( 6 )
-    #  gr.SetLineColor( 9 )
     gr.SetLineWidth( 4 )
     gr.SetMarkerColor( 4 )
     gr.SetMarkerStyle( 21 )
@@ -73,14 +81,16 @@ def getAUCToTGragh( logDir):
         os.mkdir( AUCDir )
 
     #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
-    c1.SaveAs( AUCDir+'AUC.png' )
+    if isBDT:
+        c1.SaveAs( AUCDir+'AUC_BDT.png' )
+    else:
+        c1.SaveAs( AUCDir+'AUC_BDTG.png' )
+
     print( 'AUC plot saved here:', AUCDir )
     #  return gr
-
     
 
 
-#
 
 
 def getROC( logFile):
@@ -115,7 +125,7 @@ def getROC( logFile):
 
 if __name__ == '__main__':
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l/log/'
-    logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/log/'
+    logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/log/'
     getAUCToTGragh( logDir )
 
 
