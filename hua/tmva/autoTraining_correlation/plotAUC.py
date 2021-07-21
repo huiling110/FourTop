@@ -36,29 +36,29 @@ def getAUCToTGragh( logDir):
         vListNum = entry[:-4]
         vListNum = vListNum[12:]
         vListNum = int(vListNum)
-        print( vListNum )
+        #  print( vListNum )
 
         AUC_BDT, AUC_BDTG = getROC( logDir+entry)
-        print( AUC_BDT, AUC_BDTG)
+        #  print( AUC_BDT, AUC_BDTG)
         x.append( vListNum )
         y.append( AUC_BDT )
         x_BDTG.append( vListNum )
-        y.append( AUC_BDTG )
-        print(' i %i %f %f ' % ( n,x[n],y[n]))
+        y_BDTG.append( AUC_BDTG )
+        #  print(' i %i %f %f ' % ( n,x[n],y[n]))
 
         n = n+1
     
-    x, y = np.array([x,y])
-    flag = np.argsort(x)
-    x, y = x[flag], y[flag]
-    plotAUC( x, y , logDir , True )
-    #  plotAUC( x_BDTG, y_BDTG, logDir,False )
-
-
-def plotAUC( x, y, logDir, isBDT ):
     #  x, y = np.array([x,y])
     #  flag = np.argsort(x)
     #  x, y = x[flag], y[flag]
+    plotAUC( n, x, y , logDir , True )
+    plotAUC( n, x_BDTG, y_BDTG, logDir,False )
+
+
+def plotAUC( n, x, y, logDir, isBDT ):
+    x, y = np.array([x,y])
+    flag = np.argsort(x)
+    x, y = x[flag], y[flag]
 
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
     c1.SetGrid()
@@ -68,7 +68,11 @@ def plotAUC( x, y, logDir, isBDT ):
     gr.SetLineWidth( 4 )
     gr.SetMarkerColor( 4 )
     gr.SetMarkerStyle( 21 )
-    gr.SetTitle( 'AUC vs No. of Variables ' )
+    if isBDT: 
+        gr.SetTitle( 'AUC vs No. of Variables (BDT)' )
+    else:
+        gr.SetTitle( 'AUC vs No. of Variables (BDTG)' )
+
     gr.GetXaxis().SetTitle( 'number of variables' )
     gr.GetYaxis().SetTitle( 'AUC' )
     gr.Draw('APL')
