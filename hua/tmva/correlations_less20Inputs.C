@@ -42,9 +42,18 @@ void correlations_less20Inputs(
          cout << "Did not find histogram " << hName[ic] << " in " << fin << endl;
          continue;
       }
+    
+      //
+        TString inputNum = fin;
+        inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
+        inputNum.Remove( inputNum.First('.'), inputNum.Length() );
+        cout<<"\n";
+        cout<<"inputNum: "<<inputNum<<"\n";
+        cout<<"\n";
 
       TCanvas* c = new TCanvas( hName[ic], 
-                                Form("Correlations between MVA input variables (%s)",  (isRegression ? "" : (ic==0 ? "signal" : "background"))), 
+                                // Form("Correlations between MVA input variables (%s)",  (isRegression ? "" : (ic==0 ? "signal" : "background"))),
+                                Form("Correlations between MVA (%s)input variables (%s)", inputNum.Data(), (isRegression ? "" : (ic==0 ? "signal" : "background"))), 
                                 ic*(width+5)+200, 0, width, width ); 
       // Float_t newMargin1 = 0.13;
       // Float_t newMargin2 = 0.15;
@@ -90,7 +99,8 @@ void correlations_less20Inputs(
       h2->Draw("textsame");  // add text
 
       // add comment    
-      TText* t = new TText( 0.53, 0.88, "Linear correlation coefficients in %" );
+      // TText* t = new TText( 0.53, 0.88, "Linear correlation coefficients in %" );
+      TText* t = new TText( 0.53, 0.88, Form("(%s input variables) ", inputNum.Data() ) );
       t->SetNDC();
       t->SetTextSize( 0.026 );
       t->AppendPad();    

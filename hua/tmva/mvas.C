@@ -88,7 +88,6 @@ void mvas(
         
         //get number of input variables
         TString inputNum = fin;
-        // const TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root",
         inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
         inputNum.Remove( inputNum.First('.'), inputNum.Length() );
         cout<<"\n";
