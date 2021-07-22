@@ -85,6 +85,15 @@ void mvas(
             else cout << endl;
             continue;
          }
+        
+        //get number of input variables
+        TString inputNum = fin;
+        // const TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root",
+        inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
+        inputNum.Remove( inputNum.First('.'), inputNum.Length() );
+        cout<<"\n";
+        cout<<"inputNum: "<<inputNum<<"\n";
+        cout<<"\n";
 
          cout << " containing " << hname << "_S/_B" << endl;
          // chop off useless stuff
@@ -94,7 +103,8 @@ void mvas(
          else if (htype == RarityType) 
             sig->SetTitle( Form("TMVA Rarity for classifier: %s", methodTitle.Data()) );
          else if (htype == CompareType) 
-            sig->SetTitle( Form("TMVA overtraining check for classifier: %s", methodTitle.Data()) );
+            // sig->SetTitle( Form("TMVA overtraining check for classifier: %s", methodTitle.Data()) );
+            sig->SetTitle( Form("TMVA overtraining check for classifier: %s(%s inputs)", methodTitle.Data(), inputNum.Data() ) );
          
          // create new canvas
          TString ctitle = ((htype == MVAType) ? 
