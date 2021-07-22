@@ -44,7 +44,6 @@ def main():
             index = index + 1
 
     #  i=0
-    #  indexAdd =0
     for pair in plotPairList:
         #  if i == 0:
             #  i+=1
@@ -69,7 +68,7 @@ def addLinesToList( pair, sectionIndex, lines):
     lines.insert( sectionIndex+9, '    \\column{.5\\textwidth}\n' )
     lines.insert( sectionIndex+10, '    \\centering\n' )
     lines.insert( sectionIndex+11, '    \\begin{figure}\n' )
-    lines.insert( sectionIndex+12, '        \\includegraphics[width=.99\textwidth]{/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/' + pair[1] + '}\n' )
+    lines.insert( sectionIndex+12, '        \\includegraphics[width=.99\\textwidth]{/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/' + pair[1] + '}\n' )
     lines.insert( sectionIndex+13, '    \\end{figure}\n'  )
     lines.insert( sectionIndex+14, '  \\end{columns}\n'  )
     lines.insert( sectionIndex+15, '\\end{frame}\n'  )
