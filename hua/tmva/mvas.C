@@ -17,7 +17,8 @@ enum HistType { MVAType = 0, ProbaType = 1, RarityType = 2, CompareType = 3 };
 // void mvas( TString fin = "TMVA.root", HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
 void mvas( 
         // TString fin = "TMVA_1Tau0L.root",
-        TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/1tau2os_varibleList_15.root", 
+        // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/1tau2os_varibleList_15.root",
+        const TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root", 
         // HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
         HistType htype = CompareType, Bool_t useTMVAStyle = kTRUE )
 {
@@ -244,10 +245,25 @@ void mvas(
 
          TMVAGlob::plot_logo(1.058);
          if (Save_Images) {
+        // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root",
+            TString inputFile = fin;
+            TString fileDir = inputFile.Remove( inputFile.Last( '/')+1, inputFile.Length()-inputFile.Last( '/') );
+            fileDir = fileDir + "results/";
+            TString inputFile2 = fin;
+            TString fileName = inputFile2.Remove( 0, inputFile2.Last( '/')+1 );
+            fileName.Remove( fileName.Length()-5, fileName.Length() );
+            cout<<"fileNAME = "<<fileName<<"\n";
+            // gSystem->mkdir( dir );
+            cout<<"fileDir = "<<fileDir<<"\n";
+
             if      (htype == MVAType)     TMVAGlob::imgconv( c, Form("plots_1tau0l/mva_%s",     methodTitle.Data()) );
-            else if (htype == ProbaType)   TMVAGlob::imgconv( c, Form("plots_1tau0l/proba_%s",   methodTitle.Data()) ); 
-            else if (htype == CompareType) TMVAGlob::imgconv( c, Form("plots_1tau0l/overtrain_%s", methodTitle.Data()) ); 
-            else                           TMVAGlob::imgconv( c, Form("plots_1tau0l/rarity_%s",  methodTitle.Data()) ); 
+            else if (htype == ProbaType)   TMVAGlob::imgconv( c, Form("plots_1tau0l/proba_%s",   methodTitle.Data()) );
+            else if (htype == CompareType) TMVAGlob::imgconv( c, Form("%s%sovertrain_%s",fileDir.Data(),fileName.Data(), methodTitle.Data()) );
+            else                           TMVAGlob::imgconv( c, Form("plots_1tau0l/rarity_%s",  methodTitle.Data()) );
+            // if      (htype == MVAType)     TMVAGlob::imgconv( c, Form("plots_1tau0l/mva_%s",     methodTitle.Data()) );
+            // else if (htype == ProbaType)   TMVAGlob::imgconv( c, Form("plots_1tau0l/proba_%s",   methodTitle.Data()) );
+            // else if (htype == CompareType) TMVAGlob::imgconv( c, Form("plots_1tau0l/overtrain_%s", methodTitle.Data()) );
+            // else                           TMVAGlob::imgconv( c, Form("plots_1tau0l/rarity_%s",  methodTitle.Data()) );
          }
          countCanvas++;
          
