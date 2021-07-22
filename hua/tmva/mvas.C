@@ -253,7 +253,6 @@ void mvas(
             TString fileName = inputFile2.Remove( 0, inputFile2.Last( '/')+1 );
             fileName.Remove( fileName.Length()-5, fileName.Length() );
             cout<<"fileNAME = "<<fileName<<"\n";
-            // gSystem->mkdir( dir );
             cout<<"fileDir = "<<fileDir<<"\n";
 
             if      (htype == MVAType)     TMVAGlob::imgconv( c, Form("plots_1tau0l/mva_%s",     methodTitle.Data()) );
