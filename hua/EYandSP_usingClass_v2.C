@@ -287,10 +287,10 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
 
     // TPaveText *pt = new TPaveText(.05,.95,.95,.7);// the position relative to cavas, first is the left down point
     TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
-    pt->SetLabel(channel); 
+    // pt->SetLabel(channel);
     // pt->SetLabelSize(0.05);
-    pt->AddText( "  ");
-    pt->AddText( "  ");
+    // pt->AddText( "  ");
+    TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     addTextToPT( 0, pt, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 0, pt, "TT", allHistos, 1, 3, allProcesses );
@@ -307,9 +307,10 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     pt->Draw();
  
     TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
-    pt2->SetLabel(channel);
-    pt2->AddText( "  ");
-    pt2->AddText( "  ");
+    // pt2->SetLabel(channel);
+    // pt2->AddText( "  ");
+    // pt2->AddText( "  ");
+    TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
     TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     addTextToPT( 1, pt2, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 1, pt2, "TT", allHistos, 1, 3, allProcesses );
@@ -325,9 +326,10 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     pt2->Draw();
 
     TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
-    pt3->SetLabel(channel );
-    pt3->AddText( "  ");
-    pt3->AddText( "  ");
+    // pt3->SetLabel(channel );
+    // pt3->AddText( "  ");
+    // pt3->AddText( "  ");
+    TText* tt3 = pt3->AddText( channel ); tt3->SetTextSize( 0.065);
     TText* t30 = pt3->AddText( "scaled to LUMI:"); t30->SetTextAlign(11); t30->SetTextSize( 0.055);
     addTextToPT( 2, pt3, "TTTT", allHistos, 0, 1 , allProcesses );
     addTextToPT( 2, pt3, "TT", allHistos, 1, 3, allProcesses );

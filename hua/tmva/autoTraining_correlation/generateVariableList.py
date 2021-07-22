@@ -18,8 +18,9 @@ def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46
     #the first line identifies each piece of datain other words, the name of a data column
     
     vListList = generateListList( TMVAlog )
-    channel = 1;#1 for 1tau1l
+    #  channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
+    channel =3 # 2tau1l
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     vListDir = checkAndMakeDir( channel, outputDir, version )
