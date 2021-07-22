@@ -43,12 +43,14 @@ def main():
                 sectionIndex = index
             index = index + 1
 
-    i=0
+    #  i=0
+    #  indexAdd =0
     for pair in plotPairList:
-        if i == 0:
-            i+=1
-            addLinesToList( pair, sectionIndex, lines )
-    print( lines )
+        #  if i == 0:
+            #  i+=1
+        addLinesToList( pair, sectionIndex, lines )
+        sectionIndex = sectionIndex + 15
+    #  print( lines )
 
     with open(fileout, 'w+') as fileOut:
         fileOut.writelines(lines)
