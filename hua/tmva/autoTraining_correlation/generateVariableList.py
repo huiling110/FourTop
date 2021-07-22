@@ -13,7 +13,8 @@ import csv
 
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
-def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log"):
+#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log"):
+def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2tau2l__variables.log"):
     
     #the first line identifies each piece of datain other words, the name of a data column
     
@@ -73,6 +74,9 @@ def makeBaseDir( channel, outputDir, version ):
         outputDir = outputDir + '1tau1l_v' + str(version) +'/'
     if channel == 2:
         outputDir = outputDir + '1tau2os_v' + str(version) + '/'
+    if channel ==3:
+        outputDir = outputDir + '2tau1l_v' + str(version) + '/'
+
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
     return outputDir

@@ -84,11 +84,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t forVariables = false;
-   Bool_t forVariables = true;
+   Bool_t forVariables = false;
+   // Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
-   // TString outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/";
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
