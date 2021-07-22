@@ -24,7 +24,8 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir ):
 
         logFile = outputDir +   "log/" + entryName + ".log"
         errFile = outputDir +  "log/" + entryName +".err"
-        print >> subAllscript, "hep_sub -mem 8000 "+  iJob  + " -o " + logFile + " -e " + errFile
+        #  print >> subAllscript, "hep_sub -mem 8000 "+  iJob  + " -o " + logFile + " -e " + errFile
+        subAllscript.write( "hep_sub -mem 8000 "+  iJob  + " -o " + logFile + " -e " + errFile + '\n')
     os.popen('chmod 777 '+ TMVACodeDir + 'autoTraining_correlation' + "/JobScript/*sh")
     os.popen('chmod 777 ' + TMVACodeDir + 'autoTraining_correlation'+ '/subAlljobs.sh' )
 
@@ -48,13 +49,6 @@ def makeSingleTMVAJob( listCsv, channel, jobName, TMVACodeDir , outputDir):
 
 
 def checkMakeDir( channel, outputDir, TMVACodeDir, version ):
-    #  channel = 1;#1 for 1tau1l
-    #  outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/'
-    #  TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    #  if channel == 1:
-        #  outputDir = outputDir + '1tau1l/'
-    #  if channel ==2:
-        #  outputDir = outputDir + '1tau2os/'
     outputDir = GV.makeBaseDir(channel, outputDir, version )
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
@@ -65,8 +59,8 @@ def checkMakeDir( channel, outputDir, TMVACodeDir, version ):
 
 
 if __name__ == '__main__':
-    #  channel = 1;#1 for 1tau1l
-    channel = 2;#2 for 1tau2os
+    channel = 1;#1 for 1tau1l
+    #  channel = 2;#2 for 1tau2os
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'

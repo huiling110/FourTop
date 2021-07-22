@@ -12,13 +12,14 @@ import csv
 
 
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
-def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
+#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
+def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log"):
     
     #the first line identifies each piece of datain other words, the name of a data column
     
     vListList = generateListList( TMVAlog )
-    #  channel = 1;#1 for 1tau1l
-    channel = 2;#2 for 1tau2os
+    channel = 1;#1 for 1tau1l
+    #  channel = 2;#2 for 1tau2os
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     vListDir = checkAndMakeDir( channel, outputDir, version )
@@ -32,16 +33,16 @@ def generateListList( TMVAlog ):
 
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
     leading50List = leadingNList( removedPhiEtaList, 50 )
-    print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
+    #  print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
-    print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
+    #  print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
     print( '\n')
 
     vListList = createNextVariableList_correlation( removeBjetTL_list  )
 
     vListList.append( leading50List )
     #  vListList.append( removeBjetTL_list )
-    print( 'vListList: \n', len(vListList), vListList )
+    #  print( 'vListList: \n', len(vListList), vListList )
 
     return vListList
 
@@ -121,13 +122,7 @@ def writeListListToFile( listList, fileDir ):
 
 def writeListToFile( iList, fileDir ):
     iFileName = fileDir + 'varibleList_'+str(len(iList)) + '.csv'
-    #  with open( iFileName, mode='w') as ifile:
-        # writer = csv.writer( ifile, delimiter=":")
-        #  writer = csv.writer( ifile)
-#
-        #  for ele in iList:
-            #  writer.writerow( [ele] )
-
+    print( 'writing file: ', iFileName )
     output = open(iFileName,'wt')
     for ele in iList:
         output.write(ele+'\n')

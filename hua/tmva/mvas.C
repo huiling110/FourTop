@@ -17,8 +17,9 @@ enum HistType { MVAType = 0, ProbaType = 1, RarityType = 2, CompareType = 3 };
 // void mvas( TString fin = "TMVA.root", HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
 void mvas( 
         // TString fin = "TMVA_1Tau0L.root",
-        TString fin = "TMVA_1Tau0L.root", 
-        HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
+        TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/1tau2os_varibleList_15.root", 
+        // HistType htype = MVAType, Bool_t useTMVAStyle = kTRUE )
+        HistType htype = CompareType, Bool_t useTMVAStyle = kTRUE )
 {
    // set style and remove existing canvas'
    TMVAGlob::Initialize( useTMVAStyle );
@@ -39,7 +40,7 @@ void mvas(
    Int_t countCanvas = 0;
 
    // search for the right histograms in full list of keys
-   TString dataset = "dataset",
+   TString dataset = "dataset";
    // TIter next(file->GetListOfKeys());
    TIter next(file->GetDirectory(dataset.Data())->GetListOfKeys());
    TKey *key(0);  
