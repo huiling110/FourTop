@@ -5,8 +5,10 @@ import os
 
 def main():
     #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/'
-    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/results/'
-    channel = 2
+    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/results/'
+    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/results/'
+    #  channel = 2
+    channel = 1
      
     #  for entry in os.listdir( resultsDir ):
     allPlots = os.listdir( resultsDir )
@@ -33,9 +35,10 @@ def main():
 
 
     #  filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722.tex'
-    filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add.tex'
-    fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add2.tex'
-        #  with open(filename, 'a') as file:
+    #  filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add.tex'
+    #  fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add2.tex'
+    filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728.tex'
+    fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728_add.tex'
     with open(filename, 'r+') as file:
         lines = file.readlines()
 

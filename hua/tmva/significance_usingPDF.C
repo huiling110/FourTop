@@ -1,5 +1,7 @@
 
-void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h){
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
+
+void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TString fin ){
 
     Double_t EY_S = 7.37; //1tau1l
     Double_t EY_B = 2021.04;
@@ -10,7 +12,7 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h){
     Double_t gWeight_S = EY_S * binRange / binNum ;
     Double_t gWeight_B = EY_B * binRange / binNum ;
 
-    TCanvas *c = new TCanvas("c", "c")
+    TCanvas *c = new TCanvas("c", "c");
     sig_h = new TH1D( "sig_h", "sig_h", binNum, BDT_S->GetXaxis()->GetBinLowEdge(1), BDT_S->GetXaxis()->GetBinUpEdge(binNum) );
     for( int i=0;i<binNum;i++ ){
         
@@ -23,7 +25,14 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h){
     sig_h->SetMaximum( 1);
     sig_h->Draw();
 
+      TLatex tl;
+      tl.SetNDC();
+      tl.SetTextSize( 0.033 );
+      tl.DrawLatex( 0.15, 0.19, Form("maximum significance is %f when cutting at %f ", maximumSig, bestCut)  );
 
+    TString fileDir, fileName;
+    TMVAGlob::getFileDirName( fin, fileDir, fileName );
+    TMVAGlob::imgconv( c, Form("%s%s%s_sig",fileDir.Data(),fileName.Data(), BDT_S->GetName() ) ) ;
 }
 
 void significance_usingPDF(
@@ -49,8 +58,8 @@ void significance_usingPDF(
  
     TH1D* BDT_sig;
     TH1D* BDTG_sig;
-    calSigHisto( BDT_S, BDT_B, BDT_sig ) ;
-    calSigHisto( BDTG_S, BDTG_B, BDTG_sig );
+    calSigHisto( BDT_S, BDT_B, BDT_sig, fin ) ;
+    calSigHisto( BDTG_S, BDTG_B, BDTG_sig, fin );
 
 
 }
@@ -71,10 +80,6 @@ void significance_usingPDF(
     cout<<"background : "<<BDTG_B->Integral(BDTG_significance->GetMaximumBin(),200)/0.4<<endl;
     cout<<"significance : "<<maximumSig<<endl;
     //???is this calculation correct?
-      TLatex tl;
-      tl.SetNDC();
-      tl.SetTextSize( 0.033 );
-      tl.DrawLatex( 0.15, 0.19, Form("maximum significance is %f when cutting at %f ", maximumSig, bestCut)  );
 
 
 */

@@ -4,6 +4,7 @@
 #include "mvas.C"
 // #include "mutransform.C"
 #include "correlations_less20Inputs.C"
+#include "significance_usingPDF.C"
 
 void plotAll(
         // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root",
@@ -19,6 +20,9 @@ void plotAll(
 
   cout << "=== execute: mvas()" << endl;
   mvas( fin );
+
+  cout<< "=== execute: significance_usingPDF()" << endl;
+  significance_usingPDF( fin );
 
   // cout << "=== execute: efficiencies()" << endl;
   // efficiencies( fin );

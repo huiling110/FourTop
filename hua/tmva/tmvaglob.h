@@ -795,6 +795,17 @@ namespace TMVAGlob {
 
     }
 
+    TString getInputNum( const TString fin ){
+        TString inputNum = fin;
+        inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
+        inputNum.Remove( inputNum.First('.'), inputNum.Length() );
+        // cout<<"\n";
+        // cout<<"inputNum: "<<inputNum<<"\n";
+        // cout<<"\n";
+        return inputNum;
+
+    }
+
 
 }
 

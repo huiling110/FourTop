@@ -87,12 +87,13 @@ void mvas(
          }
         
         //get number of input variables
-        TString inputNum = fin;
-        inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
-        inputNum.Remove( inputNum.First('.'), inputNum.Length() );
-        cout<<"\n";
-        cout<<"inputNum: "<<inputNum<<"\n";
-        cout<<"\n";
+        // TString inputNum = fin;
+        // inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
+        // inputNum.Remove( inputNum.First('.'), inputNum.Length() );
+        // cout<<"\n";
+        // cout<<"inputNum: "<<inputNum<<"\n";
+        // cout<<"\n";
+        TString inputNum = TMVAGlob::getInputNum( fin );
 
          cout << " containing " << hname << "_S/_B" << endl;
          // chop off useless stuff
