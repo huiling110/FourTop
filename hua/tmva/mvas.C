@@ -255,14 +255,17 @@ void mvas(
          TMVAGlob::plot_logo(1.058);
          if (Save_Images) {
         // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_17.root",
-            TString inputFile = fin;
-            TString fileDir = inputFile.Remove( inputFile.Last( '/')+1, inputFile.Length()-inputFile.Last( '/') );
-            fileDir = fileDir + "results/";
-            TString inputFile2 = fin;
-            TString fileName = inputFile2.Remove( 0, inputFile2.Last( '/')+1 );
-            fileName.Remove( fileName.Length()-5, fileName.Length() );
-            cout<<"fileNAME = "<<fileName<<"\n";
-            cout<<"fileDir = "<<fileDir<<"\n";
+            // TString inputFile = fin;
+            // TString fileDir = inputFile.Remove( inputFile.Last( '/')+1, inputFile.Length()-inputFile.Last( '/') );
+            // fileDir = fileDir + "results/";
+            // TString inputFile2 = fin;
+            // TString fileName = inputFile2.Remove( 0, inputFile2.Last( '/')+1 );
+            // fileName.Remove( fileName.Length()-5, fileName.Length() );
+            // cout<<"fileNAME = "<<fileName<<"\n";
+            // cout<<"fileDir = "<<fileDir<<"\n";
+
+            TString fileDir, fileName;
+            TMVAGlob::getFileDirName( fin, fileDir, fileName );
 
             if      (htype == MVAType)     TMVAGlob::imgconv( c, Form("plots_1tau0l/mva_%s",     methodTitle.Data()) );
             else if (htype == ProbaType)   TMVAGlob::imgconv( c, Form("plots_1tau0l/proba_%s",   methodTitle.Data()) );

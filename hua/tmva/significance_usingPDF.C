@@ -10,6 +10,7 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h){
     Double_t gWeight_S = EY_S * binRange / binNum ;
     Double_t gWeight_B = EY_B * binRange / binNum ;
 
+    TCanvas *c = new TCanvas("c", "c")
     sig_h = new TH1D( "sig_h", "sig_h", binNum, BDT_S->GetXaxis()->GetBinLowEdge(1), BDT_S->GetXaxis()->GetBinUpEdge(binNum) );
     for( int i=0;i<binNum;i++ ){
         
@@ -19,8 +20,10 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h){
         cout<<i<<":"<<sig_BDT<<"  ";
         if( s_BDT>0 && b_BDT>0 ) sig_h->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
     }
-    // sig_h->SetMaximum(0.5);
+    sig_h->SetMaximum( 1);
     sig_h->Draw();
+
+
 }
 
 void significance_usingPDF(
@@ -33,19 +36,21 @@ void significance_usingPDF(
     //same enties in test tree
     //is a pdf because integral is 1
     TH1D* BDTG_S = (TH1D*)f->Get( "dataset/Method_BDT/BDTG/MVA_BDTG_S");
+    TH1D* BDTG_B = (TH1D*)f->Get( "dataset/Method_BDT/BDTG/MVA_BDTG_B");
 
     BDT_S->Draw();
 
-        // BDTG_S->Draw();
     // BDTG_B->Draw("same");
     // cout<<"entries in testTree: "<<t->GetEntries()<<endl;
-    cout<<"BDTG_S_entries = "<<BDTG_S->GetEntries()<<endl;
-    cout<<"BDTG_binNum = "<<BDTG_S->GetNbinsX()<<endl;
-    cout<<"BDTG_S_integral = "<<BDTG_S->Integral()<<endl;
-    cout<<"BDTG_S_integral*binWidth = "<<BDTG_S->Integral()*BDTG_S->GetBinWidth(1)<<endl;
+    // cout<<"BDTG_S_entries = "<<BDTG_S->GetEntries()<<endl;
+    // cout<<"BDTG_binNum = "<<BDTG_S->GetNbinsX()<<endl;
+    // cout<<"BDTG_S_integral = "<<BDTG_S->Integral()<<endl;
+    // cout<<"BDTG_S_integral*binWidth = "<<BDTG_S->Integral()*BDTG_S->GetBinWidth(1)<<endl;
  
     TH1D* BDT_sig;
+    TH1D* BDTG_sig;
     calSigHisto( BDT_S, BDT_B, BDT_sig ) ;
+    calSigHisto( BDTG_S, BDTG_B, BDTG_sig );
 
 
 }
@@ -56,11 +61,6 @@ void significance_usingPDF(
 
 
 /*        
-    //calculate significance
-
-    sig_h->Print();
-    sig_h->
-    sig_h->Draw("same");
 
     // Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin())/TMath::Sqrt(0.4);
     Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin());
