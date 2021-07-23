@@ -1,11 +1,10 @@
-void significanceDisstribution()
+void significanceDisstribution(
+    TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_15.root"
+        )
 {
-    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1mu_step1_40variables.root";
-    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step2RemoveBjetsTL.root";
-    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step";
-    // TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step4RemoveCorrelation75.root";
-    TString fileName="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root";
-    TFile* f=new TFile(fileName);
+    // TString fin="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1e_step4RemoveCorrelation75.root";
+    TString fin="/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root";
+    TFile* f=new TFile(fin);
     TTree* t=(TTree*)f->Get("dataset/TestTree");
     Float_t BDTG, weight;
     Float_t BDT, weightBDT;
@@ -19,7 +18,7 @@ void significanceDisstribution()
 
     TH1D* BDTG_S=new TH1D("BDTG_S","",200,-1,1);
     TH1D* BDTG_B=new TH1D("BDTG_B","",200,-1,1);
-    TH1D* BDTG_significance=new TH1D("BDTG_significancei","",200,-1,1);
+    TH1D* BDTG_significance=new TH1D("BDTG_significance","",200,-1,1);
     // TH1D* h_signif2=new TH1D("h_signifi2","",200,-1,1);//for the so called loose category
     TH1D* BDT_S=new TH1D("BDT_S","",200,-0.2,0.4);
     TH1D* BDT_B=new TH1D("BDT_B","",200,-0.2,0.4);
