@@ -7,8 +7,11 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
     Double_t EY_B = 2021.04;
     Int_t binNum = BDT_S->GetNbinsX();
     Double_t binRange = ( BDT_S->GetXaxis()->GetBinUpEdge(binNum) ) - ( BDT_S->GetXaxis()->GetBinLowEdge(1) );
-    cout<<BDT_S->GetXaxis()->GetBinUpEdge(binNum)<<" "<<BDT_S->GetXaxis()->GetBinLowEdge(1);
-    cout<<"binNum = "<<binNum<<"  binRange ="<<binRange<<"\n";
+    Double_t lowX = BDT_S->GetXaxis()->GetXmin(); 
+    Double_t maxX = BDT_S->GetXaxis()->GetXmax();
+    // cout<<BDT_S->GetXaxis()->GetBinUpEdge(binNum)<<" "<<BDT_S->GetXaxis()->GetBinLowEdge(1);
+    // cout<<"binNum = "<<binNum<<"  binRange ="<<binRange<<"\n";
+    // cout<<BDT_S->GetXaxis()->GetXmax()<<" : "<<BDT_S->GetXaxis()->GetBinUpEdge(binNum)<<"\n";
     Double_t gWeight_S = EY_S * binRange / binNum ;
     Double_t gWeight_B = EY_B * binRange / binNum ;
 
@@ -19,16 +22,39 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
         Float_t s_BDT = BDT_S->Integral(i,binNum) * gWeight_S ;
         Float_t b_BDT = BDT_B->Integral(i,binNum) * gWeight_B ;
         Float_t sig_BDT = TMath::Sqrt(2*((s_BDT+b_BDT)*log(1+s_BDT/b_BDT)-s_BDT));
-        cout<<i<<":"<<sig_BDT<<"  ";
+        // cout<<i<<":"<<sig_BDT<<"  ";
         if( s_BDT>0 && b_BDT>0 ) sig_h->SetBinContent(i, sig_BDT/TMath::Sqrt(0.4));
     }
+
+    TString s_name = BDT_S->GetName();
+    // cout<<"s_BDT Name: "<<BDT_S->GetName()<<"\n";
+    // cout<<s_name.Contains( "BDTG")<<"\n";
+    TString inputNum = TMVAGlob::getInputNum( fin );
+    Double_t maxSig , bestCut;
+    if ( s_name.Contains( "BDTG") ){
+        sig_h->SetTitle( Form("Significance of BDTG(%s inputs)", inputNum.Data() )   );
+        sig_h->GetXaxis()->SetRange( 1, 35 );
+        maxSig = sig_h->GetMaximum();
+        cout<<"BDTG_sigMax = "<<maxSig<<"\n";
+
+    }else{
+        sig_h->SetTitle( Form("Significance of BDT(%s inputs)", inputNum.Data() )   );
+        sig_h->GetXaxis()->SetRange( 1, 30 );
+        maxSig = sig_h->GetMaximum();
+        cout<<"BDT_sigMax = "<<maxSig<<"\n";
+        // cout<<"sigMax = "<<sig_h->GetMaximum()<<"\n";
+    }
+    
+    bestCut = lowX + sig_h->GetBinWidth(1)*sig_h->GetMaximumBin();
+    sig_h->GetXaxis()->SetRange( 1, binNum );
+
     sig_h->SetMaximum( 1);
     sig_h->Draw();
 
       TLatex tl;
       tl.SetNDC();
       tl.SetTextSize( 0.033 );
-      tl.DrawLatex( 0.15, 0.19, Form("maximum significance is %f when cutting at %f ", maximumSig, bestCut)  );
+      tl.DrawLatex( 0.15, 0.19, Form("maximum significance is %f when cutting at %f ", maxSig, bestCut )  );
 
     TString fileDir, fileName;
     TMVAGlob::getFileDirName( fin, fileDir, fileName );
@@ -47,7 +73,7 @@ void significance_usingPDF(
     TH1D* BDTG_S = (TH1D*)f->Get( "dataset/Method_BDT/BDTG/MVA_BDTG_S");
     TH1D* BDTG_B = (TH1D*)f->Get( "dataset/Method_BDT/BDTG/MVA_BDTG_B");
 
-    BDT_S->Draw();
+    // BDT_S->Draw();
 
     // BDTG_B->Draw("same");
     // cout<<"entries in testTree: "<<t->GetEntries()<<endl;
@@ -69,20 +95,6 @@ void significance_usingPDF(
 
 
 
-/*        
-
-    // Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin())/TMath::Sqrt(0.4);
-    Double_t maximumSig = BDTG_significance->GetBinContent(BDTG_significance->GetMaximumBin());
-    float bestCut = -1 + 0.01*(BDTG_significance->GetMaximumBin());
-    cout<<"tight category"<<endl;
-    cout<<"best cut : "<<BDTG_significance->GetMaximumBin()<<endl;
-    cout<<"signal : "<<BDTG_S->Integral(BDTG_significance->GetMaximumBin(),200)/0.4<<endl;
-    cout<<"background : "<<BDTG_B->Integral(BDTG_significance->GetMaximumBin(),200)/0.4<<endl;
-    cout<<"significance : "<<maximumSig<<endl;
-    //???is this calculation correct?
-
-
-*/
 
 
 
