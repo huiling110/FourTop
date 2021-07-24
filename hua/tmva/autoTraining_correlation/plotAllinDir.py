@@ -2,7 +2,7 @@
 import sys
 import os
 import subprocess
-
+import plotAUC
 
 def main( ):
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/'
@@ -45,8 +45,14 @@ def main( ):
                         BDTSig = float( line_Sig )
                         print( BDTSig )
                         sig_BDT.append( BDTSig )
+                    if 'inputNum' in line:
+                        line = line[11:]
+                        num = int(line)
+                        variableNum_BDT.append( num )
+                        
 
     print( sig_BDT )
+    print( variableNum_BDT )
 
 
 

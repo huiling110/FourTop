@@ -30,6 +30,7 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
     // cout<<"s_BDT Name: "<<BDT_S->GetName()<<"\n";
     // cout<<s_name.Contains( "BDTG")<<"\n";
     TString inputNum = TMVAGlob::getInputNum( fin );
+    cout<<"inputNum = "<<inputNum<<"\n";
     Double_t maxSig , bestCut;
     if ( s_name.Contains( "BDTG") ){
         sig_h->SetTitle( Form("Significance of BDTG(%s inputs)", inputNum.Data() )   );

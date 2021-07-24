@@ -51,30 +51,43 @@ def getAUCToTGragh( logDir):
     #  x, y = np.array([x,y])
     #  flag = np.argsort(x)
     #  x, y = x[flag], y[flag]
-    plotAUC( n, x, y , logDir , True )
-    plotAUC( n, x_BDTG, y_BDTG, logDir,False )
+    plotAUC( x, y , logDir , True, False )
+    plotAUC( x_BDTG, y_BDTG, logDir,False, False )
 
 
-def plotAUC( n, x, y, logDir, isBDT ):
+#  def plotAUC( n, x, y, logDir, isBDT, isSig ):
+def plotAUC( x, y, logDir, isBDT, isSig ):
     x, y = np.array([x,y])
     flag = np.argsort(x)
     x, y = x[flag], y[flag]
 
+
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
     c1.SetGrid()
  
+    n = len( x )
     gr = ROOT.TGraph( n, x, y )
     gr.SetLineColor( 2 )
     gr.SetLineWidth( 4 )
     gr.SetMarkerColor( 4 )
     gr.SetMarkerStyle( 21 )
     if isBDT: 
-        gr.SetTitle( 'AUC vs No. of Variables (BDT)' )
+        if isSig:
+            gr.SetTitle( 'Maximum Significance vs No. of Variables (BDT)' )
+        else:
+            gr.SetTitle( 'AUC vs No. of Variables (BDT)' )
     else:
-        gr.SetTitle( 'AUC vs No. of Variables (BDTG)' )
+        if isSig:
+            gr.SetTitle( 'Maximum Significance vs No. of Variables (BDTG)' )
+        else:
+            gr.SetTitle( 'AUC vs No. of Variables (BDTG)' )
+
 
     gr.GetXaxis().SetTitle( 'number of variables' )
-    gr.GetYaxis().SetTitle( 'AUC' )
+    if isSig:
+        gr.GetYaxis().SetTitle( 'Significance' )
+    else:
+        gr.GetYaxis().SetTitle( 'AUC' )
     gr.Draw('APL')
 
 
@@ -86,11 +99,17 @@ def plotAUC( n, x, y, logDir, isBDT ):
 
     #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
     if isBDT:
-        c1.SaveAs( AUCDir+'AUC_BDT.png' )
+        if isSig:
+            c1.SaveAs( AUCDir+'maxSig_BDT.png' )
+        else:
+            c1.SaveAs( AUCDir+'AUC_BDT.png' )
     else:
-        c1.SaveAs( AUCDir+'AUC_BDTG.png' )
+        if isSig:
+            c1.SaveAs( AUCDir+'maxSig_BDTG.png' )
+        else:
+            c1.SaveAs( AUCDir+'AUC_BDTG.png' )
 
-    print( 'AUC plot saved here:', AUCDir )
+    print( 'plot saved here:', AUCDir )
     #  return gr
     
 
