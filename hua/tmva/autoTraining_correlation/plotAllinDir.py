@@ -12,6 +12,8 @@ def main( ):
 
 
     variableNum_BDT, sig_BDT = [], []
+    variableNum_BDTG, sig_BDTG = [], []
+
 
     for entry in os.listdir( TMVAFileDir ):
         #  print( entry )
@@ -36,6 +38,7 @@ def main( ):
                 output = process.stdout
                 print( output)
                 #  for line in output:
+                findNum = 1
                 for line in output.split(os.linesep):
                     if 'BDT_sigMax' in line:
                         print( line )
@@ -45,15 +48,19 @@ def main( ):
                         BDTSig = float( line_Sig )
                         print( BDTSig )
                         sig_BDT.append( BDTSig )
-                    if 'inputNum' in line:
+                    if 'inputNum' in line and findNum%2==1:
+                        findNum +=1
                         line = line[11:]
                         num = int(line)
                         variableNum_BDT.append( num )
+                    
                         
 
-    print( sig_BDT )
-    print( variableNum_BDT )
-
+    #  print( len(sig_BDT), sig_BDT )
+    #  print( len(variableNum_BDT),variableNum_BDT )
+    
+    logDir = TMVAFileDir + 'log/'
+    plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
 
 
 
