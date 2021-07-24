@@ -15,11 +15,11 @@ void plotAll(
   // cout << "=== execute: variables()" << endl;
   // variables( fin );
 
-  cout << "=== execute: correlations()" << endl;
-  correlations_less20Inputs( fin );
-
-  cout << "=== execute: mvas()" << endl;
-  mvas( fin );
+  // cout << "=== execute: correlations()" << endl;
+  // correlations_less20Inputs( fin );
+//
+  // cout << "=== execute: mvas()" << endl;
+  // mvas( fin );
 
   cout<< "=== execute: significance_usingPDF()" << endl;
   significance_usingPDF( fin );
