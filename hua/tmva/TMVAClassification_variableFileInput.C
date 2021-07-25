@@ -67,12 +67,14 @@
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/test/",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/",
-        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/",
+        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/",
+        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2
         // const Int_t channel = 1
-        const Int_t channel = 3//2tau1l
+        // const Int_t channel = 3//2tau1l
+        const Int_t channel = 4//1tau2l
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -84,8 +86,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t forVariables = false;
-   // Bool_t forVariables = true;
+   // Bool_t forVariables = false;
+   Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = outputDir;
@@ -121,6 +123,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         cout<<"channel 3"<<"\n";
         cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
         outfile = "2tau2l_" + csvListName;
+    }
+    if ( channel==4 ){
+        cout<<"channel 4"<<"\n";
+            cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
+        outfile = "1tau2l_" + csvListName;
     }
     cout<<channel<<": "<<cutForSandB<<endl;
 
@@ -452,6 +459,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
        if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
        if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
        if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
+       if ( channel ==4 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=21632:nTrain_Background=5521:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2l
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );
        //means raw entries
