@@ -4,13 +4,13 @@ import os
 
 
 def main():
-    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/'
+    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/'
+    channel = 3
     #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/results/'
-    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/results/'
+    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/results/'
     #  channel = 2
-    channel = 1
+    #  channel = 1
      
-    #  for entry in os.listdir( resultsDir ):
     allPlots = os.listdir( resultsDir )
     allPlots.sort()
     #  print(allPlots)
@@ -37,23 +37,28 @@ def main():
     #  filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722.tex'
     #  filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add.tex'
     #  fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210722_add2.tex'
-    filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728.tex'
-    fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728_add.tex'
+    #  filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728.tex'
+    #  fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210728_add.tex'
+    filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA_allResults0725.tex'
+    fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA_allResults0725.tex'
     with open(filename, 'r+') as file:
         lines = file.readlines()
 
         index = 0
         for iline in lines:
             if channel ==1:
-                if 'subsection' in iline and '1tau1l' in iline :
+                #  if 'subsection' in iline and '1tau1l' in iline :
+                if 'section' in iline and '1tau1l' in iline :
                     print( iline )
                     sectionIndex = index
             if channel ==2:
-                if 'subsection' in iline and '1tau2os' in iline :
+                #  if 'subsection' in iline and '1tau2os' in iline :
+                if 'section' in iline and '1tau2os' in iline :
                     print( iline )
                     sectionIndex = index
             if channel ==3:
-                if 'subsection' in iline and '2tau1l' in iline :
+                #  if 'subsection' in iline and '2tau1l' in iline :
+                if 'section' in iline and '2tau1l' in iline :
                     print( iline )
                     sectionIndex = index
             index = index + 1

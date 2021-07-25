@@ -6,8 +6,8 @@ import plotAUC
 
 def main( ):
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/'
-    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/'
+    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/'
     print( 'TMVAFileDir: ', TMVAFileDir )
 
 
@@ -41,26 +41,34 @@ def main( ):
                 findNum = 1
                 for line in output.split(os.linesep):
                     if 'BDT_sigMax' in line:
-                        print( line )
+                        #  print( line )
                         #  print( repr(line))
-                        #  BDTSig = line.replace( '\n', '')
                         line_Sig = line[13:]
                         BDTSig = float( line_Sig )
-                        print( BDTSig )
+                        #  print( BDTSig )
                         sig_BDT.append( BDTSig )
+                    if 'BDTG_sigMax' in line:
+                        #  print( line )
+                        line_Sig = line[13:]
+                        BDTGSig = float( line_Sig )
+                        sig_BDTG.append( BDTGSig )
                     if 'inputNum' in line and findNum%2==1:
                         findNum +=1
                         line = line[11:]
                         num = int(line)
                         variableNum_BDT.append( num )
+                        variableNum_BDTG.append( num )
                     
                         
 
-    #  print( len(sig_BDT), sig_BDT )
+    print( len(sig_BDT), sig_BDT )
+    print( len(sig_BDTG), sig_BDTG )
+
     #  print( len(variableNum_BDT),variableNum_BDT )
     
     logDir = TMVAFileDir + 'log/'
     plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
+    plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
 
 
 
