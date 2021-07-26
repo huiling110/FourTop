@@ -4,14 +4,14 @@ import os
 
 
 def main():
-    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/'
-    #  channel = 3
+    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v2/results/'
+    channel = 3
     #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/results/'
-    #  channel = 4
-    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/results/'
-    resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/results/'
     #  channel = 2
-    channel = 1
+    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v2/results/'
+    #  channel = 4
+    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/results/'
+    #  channel = 1
     isSP = True
     filename = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210726.tex'
     fileout = '/workfs2/cms/huahuil/slides/tauOfTTTT/plots/2021_4-6/HuilingReport_MVA20210726.tex'
@@ -45,6 +45,7 @@ def main():
 
 def getInsertIndex( lines, isSP , channel):
     index = 0
+    sectionIndex = 0
     for iline in lines:
         if channel ==1:
             if isSP:
@@ -79,6 +80,9 @@ def getInsertIndex( lines, isSP , channel):
                     print( iline )
                     sectionIndex = index
         index = index + 1
+    if sectionIndex == 0:
+        print('have not find the section')
+        sys.exit()
     return sectionIndex
 
 def getPlotFromList( allPlots, isSP ):
