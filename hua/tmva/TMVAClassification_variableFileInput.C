@@ -68,13 +68,13 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/test/",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/",
-        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/",
+        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v2/",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2
         // const Int_t channel = 1
-        // const Int_t channel = 3//2tau1l
-        const Int_t channel = 4//1tau2l
+        const Int_t channel = 3//2tau1l
+        // const Int_t channel = 4//1tau2l
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -122,7 +122,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     if ( channel==3 ){
         cout<<"channel 3"<<"\n";
         cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
-        outfile = "2taull_" + csvListName;
+        outfile = "2tau1l_" + csvListName;
     }
     if ( channel==4 ){
         cout<<"channel 4"<<"\n";

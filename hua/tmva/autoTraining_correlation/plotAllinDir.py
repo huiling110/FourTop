@@ -9,8 +9,13 @@ def main( ):
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/'
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/'
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/'
+    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v2/'
     print( 'TMVAFileDir: ', TMVAFileDir )
+    plotSigOnly = True
+
+    if plotSigOnly:
+        plotSigOnlyC = 'true'
 
 
     variableNum_BDT, sig_BDT = [], []
@@ -24,8 +29,8 @@ def main( ):
             #  if entry.find( 'varibleList'):
             if  'varibleList' in entry:
                 #  print( entry )
-                #  command = 'root -q ../plotAll.C(' + '\"' + TMVAFileDir + entry + '\" )'
-                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\" )\''
+                #  command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\" )\''
+                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
                 process = subprocess.run( [command], 
                         shell=True,
@@ -72,6 +77,10 @@ def main( ):
     logDir = TMVAFileDir + 'log/'
     plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
     plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
+
+    #plot AUC
+    if not plotSigOnly:
+        plotAUC.getAUCToTGragh( logDir )
 
 
 

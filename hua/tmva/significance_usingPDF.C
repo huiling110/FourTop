@@ -45,7 +45,7 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
         sig_h->GetXaxis()->SetRange( 1, 30 );//1tau1l
         if ( fileName.Contains( "1tau2os" ) or fileName.Contains( "1tau2l")){
             cout<<"fileName contains 1tau2os"<<"\n";
-            sig_h->GetXaxis()->SetRange( 1, 24 );//1tau2os
+            sig_h->GetXaxis()->SetRange( 1, 26 );//1tau2os
         }
         // if ( fileName.Contains( "2tau1l") ){
         if ( fileName.Contains( "2taull") ){
