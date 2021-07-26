@@ -6,6 +6,8 @@ import os
 def main():
     resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/results/'
     channel = 3
+    #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/results/'
+    #  channel = 4
     #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/results/'
     #  resultsDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/results/'
     #  channel = 2
@@ -59,6 +61,10 @@ def main():
             if channel ==3:
                 #  if 'subsection' in iline and '2tau1l' in iline :
                 if 'section' in iline and '2tau1l' in iline :
+                    print( iline )
+                    sectionIndex = index
+            if channel ==4:
+                if 'section' in iline and '1tau2l' in iline :
                     print( iline )
                     sectionIndex = index
             index = index + 1

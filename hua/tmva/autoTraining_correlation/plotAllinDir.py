@@ -5,9 +5,10 @@ import subprocess
 import plotAUC
 
 def main( ):
-    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/'
+    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/'
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/'
+    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/'
     print( 'TMVAFileDir: ', TMVAFileDir )
 
 
@@ -65,7 +66,8 @@ def main( ):
     print( len(sig_BDTG), sig_BDTG )
 
     #  print( len(variableNum_BDT),variableNum_BDT )
-    
+
+    #plot sig
     logDir = TMVAFileDir + 'log/'
     plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
     plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )

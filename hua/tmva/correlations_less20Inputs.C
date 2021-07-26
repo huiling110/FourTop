@@ -48,7 +48,7 @@ void correlations_less20Inputs(
         inputNum.Remove( 0,  inputNum.Last( '_' )+1 );
         inputNum.Remove( inputNum.First('.'), inputNum.Length() );
         cout<<"\n";
-        cout<<"inputNum: "<<inputNum<<"\n";
+        // cout<<"inputNum: "<<inputNum<<"\n";
         cout<<"\n";
 
       TCanvas* c = new TCanvas( hName[ic], 

@@ -86,8 +86,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t forVariables = false;
-   Bool_t forVariables = true;
+   Bool_t forVariables = false;
+   // Bool_t forVariables = true;
    Bool_t istest = false;
    // Bool_t istest = true;
    TString outDir = outputDir;
@@ -122,7 +122,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     if ( channel==3 ){
         cout<<"channel 3"<<"\n";
         cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
-        outfile = "2tau2l_" + csvListName;
+        outfile = "2taull_" + csvListName;
     }
     if ( channel==4 ){
         cout<<"channel 4"<<"\n";

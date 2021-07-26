@@ -31,6 +31,8 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
     // cout<<s_name.Contains( "BDTG")<<"\n";
     TString inputNum = TMVAGlob::getInputNum( fin );
     cout<<"inputNum = "<<inputNum<<"\n";
+    TString fileDir, fileName;
+    TMVAGlob::getFileDirName( fin, fileDir, fileName );
     Double_t maxSig , bestCut;
     if ( s_name.Contains( "BDTG") ){
         sig_h->SetTitle( Form("Significance of BDTG(%s inputs)", inputNum.Data() )   );
@@ -40,7 +42,19 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
 
     }else{
         sig_h->SetTitle( Form("Significance of BDT(%s inputs)", inputNum.Data() )   );
-        sig_h->GetXaxis()->SetRange( 1, 30 );
+        sig_h->GetXaxis()->SetRange( 1, 30 );//1tau1l
+        if ( fileName.Contains( "1tau2os" ) or fileName.Contains( "1tau2l")){
+            cout<<"fileName contains 1tau2os"<<"\n";
+            sig_h->GetXaxis()->SetRange( 1, 24 );//1tau2os
+        }
+        // if ( fileName.Contains( "2tau1l") ){
+        if ( fileName.Contains( "2taull") ){
+            cout<<"fileName contains 2tau1l"<<"\n";
+            // sig_h->GetXaxis()->SetRange( 1, 22 );
+            // sig_h->GetXaxis()->SetRange( 1, 26 );
+            sig_h->GetXaxis()->SetRange( 1, 28 );
+            // sig_h->GetXaxis()->SetRange( 1, 21 );
+        }
         maxSig = sig_h->GetMaximum();
         cout<<"BDT_sigMax = "<<maxSig<<"\n";
         // cout<<"sigMax = "<<sig_h->GetMaximum()<<"\n";
@@ -57,13 +71,13 @@ void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TStri
       tl.SetTextSize( 0.033 );
       tl.DrawLatex( 0.15, 0.19, Form("maximum significance is %f when cutting at %f ", maxSig, bestCut )  );
 
-    TString fileDir, fileName;
-    TMVAGlob::getFileDirName( fin, fileDir, fileName );
     TMVAGlob::imgconv( c, Form("%s%s%s_sig",fileDir.Data(),fileName.Data(), BDT_S->GetName() ) ) ;
 }
 
 void significance_usingPDF(
-    TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_15.root"
+    // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l_varibleList_15.root"
+    // TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os_v1/1tau2os_varibleList_19.root"
+    TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2taull_varibleList_20.root"
         )
 {
     TFile* f=new TFile( fin );
