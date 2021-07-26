@@ -10,12 +10,16 @@ def main( ):
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/'
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/'
     #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v2/'
+    #  TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v2/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v2/'
     print( 'TMVAFileDir: ', TMVAFileDir )
-    plotSigOnly = True
+    #  plotSigOnly = True
+    plotSigOnly = False
 
     if plotSigOnly:
         plotSigOnlyC = 'true'
+    else:
+        plotSigOnlyC = 'false'
 
 
     variableNum_BDT, sig_BDT = [], []
