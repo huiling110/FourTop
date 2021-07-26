@@ -8,7 +8,7 @@ import ROOT
 #  import math
 
 import csv
-
+import plotVariablesAndSP
 
 
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
@@ -34,6 +34,11 @@ def main():
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
     vListList = generateListList( TMVAlog, TMVAroot )
     writeListListToFile( vListList, vListDir)
+
+    #plot variable list
+    SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
+    plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
+
 
 def getTMVAlog( outputDir, channel):
     if channel == 1:
