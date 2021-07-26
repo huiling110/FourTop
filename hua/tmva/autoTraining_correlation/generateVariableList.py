@@ -236,11 +236,11 @@ def createNextVariableList_correlation( vlist, TMVAroot):
         #  print( 'tempList: ', len(tempList), tempList)
         if firstVariable in tempList and secondVariable in tempList:
             #  print( firstVariable,' index = ', vlist.index( firstVariable), secondVariable,' index = ', vlist.index( secondVariable ))
-            if vlist.index( firstVariable)+1 > vlist.index( secondVariable )+1:
-                tempList.remove( secondVariable)
+            if vlist.index( firstVariable) > vlist.index( secondVariable ):
+                tempList.remove( firstVariable)
                 #  print( 'removed: ', secondVariable )
             else:
-                tempList.remove( firstVariable)
+                tempList.remove( secondVariable)
                 #  print( 'removed: ', firstVariable )
         #  elif :
     #  print( 'variableListList: ', len(variableListList), variableListList)
