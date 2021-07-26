@@ -15,22 +15,42 @@ import csv
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log"):
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2tau2l__variables.log"):
-def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/1tau2l__variables.log"):
+#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/1tau2l__variables.log"):
+def main():
+    #  TMVADir =  "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/"
     
     #the first line identifies each piece of datain other words, the name of a data column
     
-    vListList = generateListList( TMVAlog )
-    #  channel = 1;#1 for 1tau1l
+    channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
-    channel =4# 1tau2l
-    version = 1
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
-    vListDir = checkAndMakeDir( channel, outputDir, version )
+    #  channel =4# 1tau2l
+    #  version = 1
+    version = 2 #corrected correlation removel
+    outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
 
+    vListDir, outputDir = checkAndMakeDir( channel, outputBase, version )
+    
+    TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
+    vListList = generateListList( TMVAlog, TMVAroot )
     writeListListToFile( vListList, vListDir)
 
-def generateListList( TMVAlog ):
+def getTMVAlog( outputDir, channel):
+    if channel == 1:
+        TMVAlog = outputDir + '1tau1l__variables.log'
+        TMVAroot = outputDir + '1tau1l__variables.root'
+    if channel == 2:
+        TMVAlog = outputDir + '1tau2os__variables.log'
+        TMVAroot = outputDir + '1tau2os__variables.root'
+    if channel == 3:
+        TMVAlog = outputDir + '2tau1l__variables.log'
+        TMVAroot = outputDir + '2tau1l__variables.root'
+    if channel == 4:
+        TMVAlog = outputDir + '1tau2l__variables.log'
+        TMVAroot = outputDir + '1tau2l__variables.root'
+    return TMVAlog, TMVAroot
+
+def generateListList( TMVAlog, TMVAroot ):
     initialVariableList = getInitList( TMVAlog )
 
     removedPhiEtaList = removephieta( initialVariableList )
@@ -39,10 +59,10 @@ def generateListList( TMVAlog ):
     leading50List = leadingNList( removedPhiEtaList, 50 )
     #  print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
-    #  print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
+    print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
     print( '\n')
 
-    vListList = createNextVariableList_correlation( removeBjetTL_list  )
+    vListList = createNextVariableList_correlation( removeBjetTL_list, TMVAroot  )
 
     vListList.append( leading50List )
     #  vListList.append( removeBjetTL_list )
@@ -69,7 +89,7 @@ def checkAndMakeDir( channel, outputDir, version ):
     print( 'outputDir: ', outputDir)
     if not os.path.exists( vListDir):
         os.mkdir( vListDir )
-    return vListDir
+    return vListDir, outputDir
 
 def makeBaseDir( channel, outputDir, version ):
     if channel == 1:
@@ -161,10 +181,10 @@ def removeBjetTL( variableList) :
 
 
 
-def createNextVariableList_correlation( vlist):
+def createNextVariableList_correlation( vlist, TMVAroot):
     #only stores variable in vlist
-    inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
-    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_step1_40variables.root")
+    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
+    inputFile = ROOT.TFile( TMVAroot )
     inputFile.Print()
     h2 = inputFile.Get("dataset/CorrelationMatrixS"); #TH2F
     #  h2.Print()
@@ -196,7 +216,7 @@ def createNextVariableList_correlation( vlist):
     print( 'list after sorting: ', correlation_list)
     print('\n')
 
-    #for simplisity, not taking muatiple same correlation into account for now
+    #for simplisity, not taking multiple same correlation into account for now
     tempList = vlist
     listLenth = len(vlist)
     variableListList = []
@@ -210,10 +230,13 @@ def createNextVariableList_correlation( vlist):
         secondVariable = correlationPair[1]
         #  print( 'tempList: ', len(tempList), tempList)
         if firstVariable in tempList and secondVariable in tempList:
-            if vlist.index( firstVariable) > vlist.index( secondVariable ):
+            #  print( firstVariable,' index = ', vlist.index( firstVariable), secondVariable,' index = ', vlist.index( secondVariable ))
+            if vlist.index( firstVariable)+1 > vlist.index( secondVariable )+1:
                 tempList.remove( secondVariable)
+                #  print( 'removed: ', secondVariable )
             else:
                 tempList.remove( firstVariable)
+                #  print( 'removed: ', firstVariable )
         #  elif :
     #  print( 'variableListList: ', len(variableListList), variableListList)
     #  print( 'variableListList: ', variableListList[0])
