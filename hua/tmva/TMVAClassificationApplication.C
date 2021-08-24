@@ -334,6 +334,16 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
    theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt );
    theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT );
+   //for selection
+   // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
+   Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
+   Double_t jets_HT;
+   theTree->SetBranchAddress( "tausT_number",     &tausT_number );
+   theTree->SetBranchAddress( "leptonsMVAT_number",     &leptonsMVAT_number );
+   theTree->SetBranchAddress( "jets_number",     &jets_number );
+   theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
+   theTree->SetBranchAddress( "jets_HT",     &jets_HT );
+   // theTree->SetBranchAddress( "",     & );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -352,6 +362,10 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
       // var1 = userVar1 + userVar2;
       // var2 = userVar1 - userVar2;
+      
+      //channel selection
+       if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
+
 
       // Return the MVA outputs and fill into histograms
 
