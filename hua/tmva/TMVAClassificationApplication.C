@@ -27,6 +27,7 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 using namespace TMVA;
 
@@ -41,36 +42,36 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    std::map<std::string,int> Use;
 
    // Cut optimisation
-   Use["Cuts"]            = 1;
-   Use["CutsD"]           = 1;
+   Use["Cuts"]            = 0;
+   Use["CutsD"]           = 0;
    Use["CutsPCA"]         = 0;
    Use["CutsGA"]          = 0;
    Use["CutsSA"]          = 0;
    //
    // 1-dimensional likelihood ("naive Bayes estimator")
-   Use["Likelihood"]      = 1;
+   Use["Likelihood"]      = 0;
    Use["LikelihoodD"]     = 0; // the "D" extension indicates decorrelated input variables (see option strings)
-   Use["LikelihoodPCA"]   = 1; // the "PCA" extension indicates PCA-transformed input variables (see option strings)
+   Use["LikelihoodPCA"]   = 0; // the "PCA" extension indicates PCA-transformed input variables (see option strings)
    Use["LikelihoodKDE"]   = 0;
    Use["LikelihoodMIX"]   = 0;
    //
    // Mutidimensional likelihood and Nearest-Neighbour methods
-   Use["PDERS"]           = 1;
+   Use["PDERS"]           = 0;
    Use["PDERSD"]          = 0;
    Use["PDERSPCA"]        = 0;
-   Use["PDEFoam"]         = 1;
+   Use["PDEFoam"]         = 0;
    Use["PDEFoamBoost"]    = 0; // uses generalised MVA method boosting
-   Use["KNN"]             = 1; // k-nearest neighbour method
+   Use["KNN"]             = 0; // k-nearest neighbour method
    //
    // Linear Discriminant Analysis
-   Use["LD"]              = 1; // Linear Discriminant identical to Fisher
+   Use["LD"]              = 0; // Linear Discriminant identical to Fisher
    Use["Fisher"]          = 0;
    Use["FisherG"]         = 0;
    Use["BoostedFisher"]   = 0; // uses generalised MVA method boosting
    Use["HMatrix"]         = 0;
    //
    // Function Discriminant analysis
-   Use["FDA_GA"]          = 1; // minimisation of user-defined function using Genetics Algorithm
+   Use["FDA_GA"]          = 0; // minimisation of user-defined function using Genetics Algorithm
    Use["FDA_SA"]          = 0;
    Use["FDA_MC"]          = 0;
    Use["FDA_MT"]          = 0;
@@ -80,24 +81,24 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // Neural Networks (all are feed-forward Multilayer Perceptrons)
    Use["MLP"]             = 0; // Recommended ANN
    Use["MLPBFGS"]         = 0; // Recommended ANN with optional training method
-   Use["MLPBNN"]          = 1; // Recommended ANN with BFGS training method and bayesian regulator
+   Use["MLPBNN"]          = 0; // Recommended ANN with BFGS training method and bayesian regulator
    Use["CFMlpANN"]        = 0; // Depreciated ANN from ALEPH
    Use["TMlpANN"]         = 0; // ROOT's own ANN
    Use["DNN_CPU"] = 0;         // CUDA-accelerated DNN training.
    Use["DNN_GPU"] = 0;         // Multi-core accelerated DNN.
    //
    // Support Vector Machine
-   Use["SVM"]             = 1;
+   Use["SVM"]             = 0;
    //
    // Boosted Decision Trees
    Use["BDT"]             = 1; // uses Adaptive Boost
-   Use["BDTG"]            = 0; // uses Gradient Boost
+   Use["BDTG"]            = 1; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
    Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    //
    // Friedman's RuleFit method, ie, an optimised series of cuts ("rules")
-   Use["RuleFit"]         = 1;
+   Use["RuleFit"]         = 0;
    // ---------------------------------------------------------------
    Use["Plugin"]          = 0;
    Use["Category"]        = 0;
@@ -137,17 +138,44 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   Float_t var1, var2;
-   Float_t var3, var4;
-   reader->AddVariable( "myvar1 := var1+var2", &var1 );
-   reader->AddVariable( "myvar2 := var1-var2", &var2 );
-   reader->AddVariable( "var3",                &var3 );
-   reader->AddVariable( "var4",                &var4 );
+   // Float_t var1, var2;
+   // Float_t var3, var4;
+   // reader->AddVariable( "myvar1 := var1+var2", &var1 );
+   // reader->AddVariable( "myvar2 := var1-var2", &var2 );
+   // reader->AddVariable( "var3",                &var3 );
+   // reader->AddVariable( "var4",                &var4 );
+   Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+   reader->AddVariable( "jets_bScore",         &jets_bScore );
+   reader->AddVariable( "jets_7pt",         &jets_7pt );
+   reader->AddVariable( "toptagger_HT",         &toptagger_HT );
+   reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
+   reader->AddVariable( "jets_6pt",         &jets_6pt );
+   reader->AddVariable( "jets_transMass",         &jets_transMass );
+   reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
+   reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
+   reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
+   reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
+   reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
+    // ifstream fin( variableListCsv);
+    // string line ;
+    // TString ivariable;
+    // vector<TString> variables {};
+    // Int_t num = 1;
+    // while ( getline( fin, line ) ){
+            // ivariable = line;
+            // if( line.size()>0)  {
+                // variables.push_back( ivariable);
+//
+            // }
+        // reader->AddVariable( line, variables[num-2]);
+        // num = num+1;
+    // }
+    // fin.close();
 
    // Spectator variables declared in the training have to be added to the reader, too
-   Float_t spec1,spec2;
-   reader->AddSpectator( "spec1 := var1*2",   &spec1 );
-   reader->AddSpectator( "spec2 := var1*3",   &spec2 );
+   // Float_t spec1,spec2;
+   // reader->AddSpectator( "spec1 := var1*2",   &spec1 );
+   // reader->AddSpectator( "spec2 := var1*3",   &spec2 );
 
    Float_t Category_cat1, Category_cat2, Category_cat3;
    if (Use["Category"]){
@@ -159,8 +187,9 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
    // Book the MVA methods
 
-   TString dir    = "dataset/weights/";
+   // TString dir    = "dataset/weights/";
    TString prefix = "TMVAClassification";
+   TString dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
 
    // Book method(s)
    for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
@@ -264,20 +293,20 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // in this example, there is a toy tree with signal and one with background events
    // we'll later on use only the "signal" events for the test in this example.
    //
-   TFile *input(0);
-   TString fname = "./tmva_class_example.root";
-   if (!gSystem->AccessPathName( fname )) {
-      input = TFile::Open( fname ); // check if file in local directory exists
-   }
-   else {
-      TFile::SetCacheFileDir(".");
-      input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
-   }
-   if (!input) {
-      std::cout << "ERROR: could not open data file" << std::endl;
-      exit(1);
-   }
-   std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
+   // TFile *input(0);
+   // TString fname = "./tmva_class_example.root";
+   // if (!gSystem->AccessPathName( fname )) {
+      // input = TFile::Open( fname ); // check if file in local directory exists
+   // }
+   // else {
+      // TFile::SetCacheFileDir(".");
+      // input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
+   // }
+   // if (!input) {
+      // std::cout << "ERROR: could not open data file" << std::endl;
+      // exit(1);
+   // }
+   // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
 
    // Event loop
 
@@ -287,12 +316,24 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    //   but of course you can use different ones and copy the values inside the event loop
    //
    std::cout << "--- Select signal sample" << std::endl;
-   TTree* theTree = (TTree*)input->Get("TreeS");
-   Float_t userVar1, userVar2;
-   theTree->SetBranchAddress( "var1", &userVar1 );
-   theTree->SetBranchAddress( "var2", &userVar2 );
-   theTree->SetBranchAddress( "var3", &var3 );
-   theTree->SetBranchAddress( "var4", &var4 );
+   // TTree* theTree = (TTree*)input->Get("TreeS");
+   TTree* theTree = TTTT.getEventTree(); 
+   // Float_t userVar1, userVar2;
+   // theTree->SetBranchAddress( "var1", &userVar1 );
+   // theTree->SetBranchAddress( "var2", &userVar2 );
+   // theTree->SetBranchAddress( "var3", &var3 );
+   // theTree->SetBranchAddress( "var4", &var4 );
+   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore );
+   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt );
+   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT );
+   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass );
+   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt );
+   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass );
+   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
+   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt );
+   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
+   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt );
+   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -309,8 +350,8 @@ void TMVAClassificationApplication( TString myMethodList = "" )
 
       theTree->GetEntry(ievt);
 
-      var1 = userVar1 + userVar2;
-      var2 = userVar1 - userVar2;
+      // var1 = userVar1 + userVar2;
+      // var2 = userVar1 - userVar2;
 
       // Return the MVA outputs and fill into histograms
 
