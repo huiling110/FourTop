@@ -106,8 +106,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // Book output histograms
    UInt_t nbin = 100;
 
-   if (Use["BDT"])           histBdt     = new TH1F( "MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
-   if (Use["BDTG"])          histBdtG    = new TH1F( "MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
+   if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
+   if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
    // if (Use["BDTB"])          histBdtB    = new TH1F( "MVA_BDTB",          "MVA_BDTB",          nbin, -1.0, 1.0 );
    // if (Use["BDTD"])          histBdtD    = new TH1F( "MVA_BDTD",          "MVA_BDTD",          nbin, -0.8, 0.8 );
    // if (Use["BDTF"])          histBdtF    = new TH1F( "MVA_BDTF",          "MVA_BDTF",          nbin, -1.0, 1.0 );
@@ -310,11 +310,13 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // --------------------------------------------------------------------------------------------------
 
-   TH1F *histBdt(0);
-   TH1F *histBdtG(0);
+   TFile *target  = new TFile( "TMVApp.root","RECREATE" );
+   TH1F *histBdt(0); TH1F* histBdt_TT(0);
+   TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
 
    evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
-   histBdt->Print();
+   evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree(), histBdt_TT, histBdtG_TT );
+
    /*
    // Get efficiency for cuts classifier
    if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/theTree->GetEntries()
@@ -346,12 +348,10 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 */
    // Write histograms
 
-   TFile *target  = new TFile( "TMVApp.root","RECREATE" );
    if (Use["BDT"          ])   histBdt    ->Write();
    if (Use["BDTG"         ])   histBdtG   ->Write();
-   // if (Use["BDTB"         ])   histBdtB   ->Write();
-   // if (Use["BDTD"         ])   histBdtD   ->Write();
-   // if (Use["BDTF"         ])   histBdtF   ->Write();
+   histBdt_TT->Write();
+   histBdtG_TT->Write();
 
    // Write also error and significance histos
    // if (Use["PDEFoam"]) { histPDEFoam->Write(); histPDEFoamErr->Write(); histPDEFoamSig->Write(); }
