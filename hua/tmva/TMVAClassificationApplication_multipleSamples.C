@@ -32,13 +32,13 @@
 using namespace TMVA;
 
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Int_t channel ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
 
-   TH1F *histBdt(0); TH1F* histBdt_TT(0);
-   TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
+   TH1F *histBdt(0); 
+   TH1F *histBdtG(0);
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );
 
    // Create a set of variables and declare them to the reader
@@ -195,8 +195,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   for (Long64_t ievt=0; ievt<1000;ievt++) {
+   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   // for (Long64_t ievt=0; ievt<1000;ievt++) {
 
       if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
@@ -258,10 +258,15 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    sw.Stop();
    std::cout << "--- End of event loop: "; sw.Print();
 
-   TFile *target  = new TFile( "TMVApp.root","UPDATE" );
+   // TFile *target  = new TFile( "TMVApp.root","UPDATE" );
+   TString s_channel;
+   if ( channel==1 )       s_channel = "1tau1l";
+   TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
     
    if (Use["BDT"          ])   histBdt    ->Write();
    if (Use["BDTG"         ])   histBdtG   ->Write();
+   delete histBdt;
+   delete histBdtG;
 
    target->Close();
 }
@@ -324,9 +329,13 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    // TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
 
    // evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
-   evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree() );
-   // evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree(), histBdt_TT, histBdtG_TT );
-   evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree() );
+   // evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree() );
+   // evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree() );
+   Int_t channel = 1;
+    for ( UInt_t p=1; p<allProcesses.size(); p++){
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), channel );
+        
+    }
 
    // Write histograms
 
