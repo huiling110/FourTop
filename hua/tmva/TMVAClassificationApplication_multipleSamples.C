@@ -31,6 +31,231 @@
 
 using namespace TMVA;
 
+void evaluateMVA( std::map<std::string,int> Use, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
+   // Create the Reader object
+
+   TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );
+
+   // Create a set of variables and declare them to the reader
+   // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
+   // Float_t var1, var2;
+   // Float_t var3, var4;
+   // reader->AddVariable( "myvar1 := var1+var2", &var1 );
+   // reader->AddVariable( "myvar2 := var1-var2", &var2 );
+   // reader->AddVariable( "var3",                &var3 );
+   // reader->AddVariable( "var4",                &var4 );
+   Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+   // Double_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+   reader->AddVariable( "jets_bScore",         &jets_bScore );
+   reader->AddVariable( "jets_7pt",         &jets_7pt );
+   reader->AddVariable( "toptagger_HT",         &toptagger_HT );
+   reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
+   reader->AddVariable( "jets_6pt",         &jets_6pt );
+   reader->AddVariable( "jets_transMass",         &jets_transMass );
+   reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
+   reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
+   reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
+   reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
+   reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
+    // ifstream fin( variableListCsv);
+    // string line ;
+    // TString ivariable;
+    // vector<TString> variables {};
+    // Int_t num = 1;
+    // while ( getline( fin, line ) ){
+            // ivariable = line;
+            // if( line.size()>0)  {
+                // variables.push_back( ivariable);
+//
+            // }
+        // reader->AddVariable( line, variables[num-2]);
+        // num = num+1;
+    // }
+    // fin.close();
+
+   // Spectator variables declared in the training have to be added to the reader, too
+   // Float_t spec1,spec2;
+   // reader->AddSpectator( "spec1 := var1*2",   &spec1 );
+   // reader->AddSpectator( "spec2 := var1*3",   &spec2 );
+
+   // Float_t Category_cat1, Category_cat2, Category_cat3;
+   // if (Use["Category"]){
+      // Add artificial spectators for distinguishing categories
+      // reader->AddSpectator( "Category_cat1 := var3<=0",             &Category_cat1 );
+      // reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
+      // reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
+   // }
+
+   // Book the MVA methods
+
+   // TString dir    = "dataset/weights/";
+   TString prefix = "TMVAClassification";
+   TString dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
+
+   // Book method(s)
+   for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
+      if (it->second) {
+         TString methodName = TString(it->first) + TString(" method");
+         TString weightfile = dir + prefix + TString("_") + TString(it->first) + TString(".weights.xml");
+         reader->BookMVA( methodName, weightfile );
+      }
+   }
+
+   // Book output histograms
+   UInt_t nbin = 100;
+
+   if (Use["BDT"])           histBdt     = new TH1F( "MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
+   if (Use["BDTG"])          histBdtG    = new TH1F( "MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
+   // if (Use["BDTB"])          histBdtB    = new TH1F( "MVA_BDTB",          "MVA_BDTB",          nbin, -1.0, 1.0 );
+   // if (Use["BDTD"])          histBdtD    = new TH1F( "MVA_BDTD",          "MVA_BDTD",          nbin, -0.8, 0.8 );
+   // if (Use["BDTF"])          histBdtF    = new TH1F( "MVA_BDTF",          "MVA_BDTF",          nbin, -1.0, 1.0 );
+
+   // PDEFoam also returns per-event error, fill in histogram, and also fill significance
+   // if (Use["PDEFoam"]) {
+      // histPDEFoam    = new TH1F( "MVA_PDEFoam",       "MVA_PDEFoam",              nbin,  0, 1 );
+      // histPDEFoamErr = new TH1F( "MVA_PDEFoamErr",    "MVA_PDEFoam error",        nbin,  0, 1 );
+      // histPDEFoamSig = new TH1F( "MVA_PDEFoamSig",    "MVA_PDEFoam significance", nbin,  0, 10 );
+   // }
+//
+   // Book example histogram for probability (the other methods are done similarly)
+   // TH1F *probHistFi(0), *rarityHistFi(0);
+   // if (Use["Fisher"]) {
+      // probHistFi   = new TH1F( "MVA_Fisher_Proba",  "MVA_Fisher_Proba",  nbin, 0, 1 );
+      // rarityHistFi = new TH1F( "MVA_Fisher_Rarity", "MVA_Fisher_Rarity", nbin, 0, 1 );
+   // }
+
+   // Prepare input tree (this must be replaced by your data source)
+   // in this example, there is a toy tree with signal and one with background events
+   // we'll later on use only the "signal" events for the test in this example.
+   //
+   // TFile *input(0);
+   // TString fname = "./tmva_class_example.root";
+   // if (!gSystem->AccessPathName( fname )) {
+      // input = TFile::Open( fname ); // check if file in local directory exists
+   // }
+   // else {
+      // TFile::SetCacheFileDir(".");
+      // input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
+   // }
+   // if (!input) {
+      // std::cout << "ERROR: could not open data file" << std::endl;
+      // exit(1);
+   // }
+   // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
+
+   // Event loop
+
+   // Prepare the event tree
+   // - Here the variable names have to corresponds to your tree
+   // - You can use the same variables as above which is slightly faster,
+   //   but of course you can use different ones and copy the values inside the event loop
+   //
+   // std::cout << "--- Select signal sample" << std::endl;
+   // TTree* theTree = TTTT.getEventTree();
+   // Float_t userVar1, userVar2;
+   // theTree->SetBranchAddress( "var1", &userVar1 );
+   // theTree->SetBranchAddress( "var2", &userVar2 );
+   // theTree->SetBranchAddress( "var3", &var3 );
+   // theTree->SetBranchAddress( "var4", &var4 );
+
+   Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
+   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
+   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
+   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
+   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
+   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
+   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
+   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
+   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
+   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
+   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
+   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
+   //for selection
+   // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
+   Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
+   Double_t jets_HT;
+   theTree->SetBranchAddress( "tausT_number",     &tausT_number );
+   theTree->SetBranchAddress( "leptonsMVAT_number",     &leptonsMVAT_number );
+   theTree->SetBranchAddress( "jets_number",     &jets_number );
+   theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
+   theTree->SetBranchAddress( "jets_HT",     &jets_HT );
+   // theTree->SetBranchAddress( "",     & );
+
+   // Efficiency calculator for cut method
+   Int_t    nSelCutsGA = 0;
+   Double_t effS       = 0.7;
+
+   std::vector<Float_t> vecVar(4); // vector for EvaluateMVA tests
+
+   std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
+   TStopwatch sw;
+   sw.Start();
+   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   for (Long64_t ievt=0; ievt<1000;ievt++) {
+
+      if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
+
+      theTree->GetEntry(ievt);
+
+      // var1 = userVar1 + userVar2;
+      // var2 = userVar1 - userVar2;
+      
+   // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+      jets_bScore = jets_bScore_origin;
+      jets_7pt = jets_7pt_origin;
+      toptagger_HT = toptagger_HT_origin;
+      bjetsM_invariantMass = bjetsM_invariantMass_origin;
+      jets_6pt = jets_6pt_origin;
+      jets_transMass = jets_transMass_origin;
+      jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
+      nonbjetsM_4pt = nonbjetsM_4pt;
+      bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
+      toptagger_3pt = toptagger_3pt_origin;
+      toptagger_MHT = toptagger_MHT_origin;
+      //channel selection
+       if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
+       // if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
+
+
+      // Return the MVA outputs and fill into histograms
+
+      // if (Use["CutsGA"]) {
+         // Cuts is a special case: give the desired signal efficienciy
+         // Bool_t passed = reader->EvaluateMVA( "CutsGA method", effS );
+         // if (passed) nSelCutsGA++;
+      // }
+
+      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) );
+      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) );
+      // if (Use["BDTB"         ])   histBdtB   ->Fill( reader->EvaluateMVA( "BDTB method"          ) );
+      // if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) );
+      // if (Use["BDTF"         ])   histBdtF   ->Fill( reader->EvaluateMVA( "BDTF method"          ) );
+
+      // Retrieve also per-event error
+      // if (Use["PDEFoam"]) {
+         // Double_t val = reader->EvaluateMVA( "PDEFoam method" );
+         // Double_t err = reader->GetMVAError();
+         // histPDEFoam   ->Fill( val );
+         // histPDEFoamErr->Fill( err );
+         // if (err>1.e-50) histPDEFoamSig->Fill( val/err );
+      // }
+
+      // Retrieve probability instead of MVA output
+      // if (Use["Fisher"])   {
+         // probHistFi  ->Fill( reader->GetProba ( "Fisher method" ) );
+         // rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) );
+      // }
+   }
+   histBdt->Print();
+
+   delete reader;
+   // Get elapsed time
+   sw.Stop();
+   std::cout << "--- End of event loop: "; sw.Print();
+    
+}
+
+
 void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 {
 
@@ -83,231 +308,11 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // --------------------------------------------------------------------------------------------------
 
-   // Create the Reader object
-
-   TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );
-
-   // Create a set of variables and declare them to the reader
-   // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   // Float_t var1, var2;
-   // Float_t var3, var4;
-   // reader->AddVariable( "myvar1 := var1+var2", &var1 );
-   // reader->AddVariable( "myvar2 := var1-var2", &var2 );
-   // reader->AddVariable( "var3",                &var3 );
-   // reader->AddVariable( "var4",                &var4 );
-   Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-   // Double_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-   reader->AddVariable( "jets_bScore",         &jets_bScore );
-   reader->AddVariable( "jets_7pt",         &jets_7pt );
-   reader->AddVariable( "toptagger_HT",         &toptagger_HT );
-   reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
-   reader->AddVariable( "jets_6pt",         &jets_6pt );
-   reader->AddVariable( "jets_transMass",         &jets_transMass );
-   reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
-   reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
-   reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
-   reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
-   reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
-    // ifstream fin( variableListCsv);
-    // string line ;
-    // TString ivariable;
-    // vector<TString> variables {};
-    // Int_t num = 1;
-    // while ( getline( fin, line ) ){
-            // ivariable = line;
-            // if( line.size()>0)  {
-                // variables.push_back( ivariable);
-//
-            // }
-        // reader->AddVariable( line, variables[num-2]);
-        // num = num+1;
-    // }
-    // fin.close();
-
-   // Spectator variables declared in the training have to be added to the reader, too
-   // Float_t spec1,spec2;
-   // reader->AddSpectator( "spec1 := var1*2",   &spec1 );
-   // reader->AddSpectator( "spec2 := var1*3",   &spec2 );
-
-   Float_t Category_cat1, Category_cat2, Category_cat3;
-   if (Use["Category"]){
-      // Add artificial spectators for distinguishing categories
-      reader->AddSpectator( "Category_cat1 := var3<=0",             &Category_cat1 );
-      reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
-      reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
-   }
-
-   // Book the MVA methods
-
-   // TString dir    = "dataset/weights/";
-   TString prefix = "TMVAClassification";
-   TString dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
-
-   // Book method(s)
-   for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
-      if (it->second) {
-         TString methodName = TString(it->first) + TString(" method");
-         TString weightfile = dir + prefix + TString("_") + TString(it->first) + TString(".weights.xml");
-         reader->BookMVA( methodName, weightfile );
-      }
-   }
-
-   // Book output histograms
-   UInt_t nbin = 100;
-      TH1F *histBdt(0);
+   TH1F *histBdt(0);
    TH1F *histBdtG(0);
-   TH1F *histBdtB(0);
-   TH1F *histBdtD(0);
-   TH1F *histBdtF(0);
 
-   if (Use["BDT"])           histBdt     = new TH1F( "MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
-   if (Use["BDTG"])          histBdtG    = new TH1F( "MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
-   if (Use["BDTB"])          histBdtB    = new TH1F( "MVA_BDTB",          "MVA_BDTB",          nbin, -1.0, 1.0 );
-   if (Use["BDTD"])          histBdtD    = new TH1F( "MVA_BDTD",          "MVA_BDTD",          nbin, -0.8, 0.8 );
-   if (Use["BDTF"])          histBdtF    = new TH1F( "MVA_BDTF",          "MVA_BDTF",          nbin, -1.0, 1.0 );
-
-   // PDEFoam also returns per-event error, fill in histogram, and also fill significance
-   // if (Use["PDEFoam"]) {
-      // histPDEFoam    = new TH1F( "MVA_PDEFoam",       "MVA_PDEFoam",              nbin,  0, 1 );
-      // histPDEFoamErr = new TH1F( "MVA_PDEFoamErr",    "MVA_PDEFoam error",        nbin,  0, 1 );
-      // histPDEFoamSig = new TH1F( "MVA_PDEFoamSig",    "MVA_PDEFoam significance", nbin,  0, 10 );
-   // }
-//
-   // Book example histogram for probability (the other methods are done similarly)
-   // TH1F *probHistFi(0), *rarityHistFi(0);
-   // if (Use["Fisher"]) {
-      // probHistFi   = new TH1F( "MVA_Fisher_Proba",  "MVA_Fisher_Proba",  nbin, 0, 1 );
-      // rarityHistFi = new TH1F( "MVA_Fisher_Rarity", "MVA_Fisher_Rarity", nbin, 0, 1 );
-   // }
-
-   // Prepare input tree (this must be replaced by your data source)
-   // in this example, there is a toy tree with signal and one with background events
-   // we'll later on use only the "signal" events for the test in this example.
-   //
-   // TFile *input(0);
-   // TString fname = "./tmva_class_example.root";
-   // if (!gSystem->AccessPathName( fname )) {
-      // input = TFile::Open( fname ); // check if file in local directory exists
-   // }
-   // else {
-      // TFile::SetCacheFileDir(".");
-      // input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
-   // }
-   // if (!input) {
-      // std::cout << "ERROR: could not open data file" << std::endl;
-      // exit(1);
-   // }
-   // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
-
-   // Event loop
-
-   // Prepare the event tree
-   // - Here the variable names have to corresponds to your tree
-   // - You can use the same variables as above which is slightly faster,
-   //   but of course you can use different ones and copy the values inside the event loop
-   //
-   std::cout << "--- Select signal sample" << std::endl;
-   // TTree* theTree = (TTree*)input->Get("TreeS");
-   TTree* theTree = TTTT.getEventTree(); 
-   // Float_t userVar1, userVar2;
-   // theTree->SetBranchAddress( "var1", &userVar1 );
-   // theTree->SetBranchAddress( "var2", &userVar2 );
-   // theTree->SetBranchAddress( "var3", &var3 );
-   // theTree->SetBranchAddress( "var4", &var4 );
-
-   Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
-   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
-   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
-   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
-   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
-   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
-   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
-   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
-   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
-   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
-   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
-   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
-   //for selection
-   // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
-   Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
-   Double_t jets_HT;
-   theTree->SetBranchAddress( "tausT_number",     &tausT_number );
-   theTree->SetBranchAddress( "leptonsMVAT_number",     &leptonsMVAT_number );
-   theTree->SetBranchAddress( "jets_number",     &jets_number );
-   theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
-   theTree->SetBranchAddress( "jets_HT",     &jets_HT );
-   // theTree->SetBranchAddress( "",     & );
-
-   // Efficiency calculator for cut method
-   Int_t    nSelCutsGA = 0;
-   Double_t effS       = 0.7;
-
-   std::vector<Float_t> vecVar(4); // vector for EvaluateMVA tests
-
-   std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
-   TStopwatch sw;
-   sw.Start();
-   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   // for (Long64_t ievt=0; ievt<1000;ievt++) {
-
-      if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
-
-      theTree->GetEntry(ievt);
-
-      // var1 = userVar1 + userVar2;
-      // var2 = userVar1 - userVar2;
-      
-   // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-      jets_bScore = jets_bScore_origin;
-      jets_7pt = jets_7pt_origin;
-      toptagger_HT = toptagger_HT_origin;
-      bjetsM_invariantMass = bjetsM_invariantMass_origin;
-      jets_6pt = jets_6pt_origin;
-      jets_transMass = jets_transMass_origin;
-      jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
-      nonbjetsM_4pt = nonbjetsM_4pt;
-      bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
-      toptagger_3pt = toptagger_3pt_origin;
-      toptagger_MHT = toptagger_MHT_origin;
-      //channel selection
-       if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
-       // if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
-
-
-      // Return the MVA outputs and fill into histograms
-
-      // if (Use["CutsGA"]) {
-         // Cuts is a special case: give the desired signal efficienciy
-         // Bool_t passed = reader->EvaluateMVA( "CutsGA method", effS );
-         // if (passed) nSelCutsGA++;
-      // }
-
-      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) );
-      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) );
-      if (Use["BDTB"         ])   histBdtB   ->Fill( reader->EvaluateMVA( "BDTB method"          ) );
-      if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) );
-      if (Use["BDTF"         ])   histBdtF   ->Fill( reader->EvaluateMVA( "BDTF method"          ) );
-
-      // Retrieve also per-event error
-      // if (Use["PDEFoam"]) {
-         // Double_t val = reader->EvaluateMVA( "PDEFoam method" );
-         // Double_t err = reader->GetMVAError();
-         // histPDEFoam   ->Fill( val );
-         // histPDEFoamErr->Fill( err );
-         // if (err>1.e-50) histPDEFoamSig->Fill( val/err );
-      // }
-
-      // Retrieve probability instead of MVA output
-      // if (Use["Fisher"])   {
-         // probHistFi  ->Fill( reader->GetProba ( "Fisher method" ) );
-         // rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) );
-      // }
-   }
-
-   // Get elapsed time
-   sw.Stop();
-   std::cout << "--- End of event loop: "; sw.Print();
-
+   evaluateMVA(Use, TTTT.getEventTree(), histBdt, histBdtG );
+   histBdt->Print();
    /*
    // Get efficiency for cuts classifier
    if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/theTree->GetEntries()
@@ -342,9 +347,9 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    TFile *target  = new TFile( "TMVApp.root","RECREATE" );
    if (Use["BDT"          ])   histBdt    ->Write();
    if (Use["BDTG"         ])   histBdtG   ->Write();
-   if (Use["BDTB"         ])   histBdtB   ->Write();
-   if (Use["BDTD"         ])   histBdtD   ->Write();
-   if (Use["BDTF"         ])   histBdtF   ->Write();
+   // if (Use["BDTB"         ])   histBdtB   ->Write();
+   // if (Use["BDTD"         ])   histBdtD   ->Write();
+   // if (Use["BDTF"         ])   histBdtF   ->Write();
 
    // Write also error and significance histos
    // if (Use["PDEFoam"]) { histPDEFoam->Write(); histPDEFoamErr->Write(); histPDEFoamSig->Write(); }
@@ -355,7 +360,6 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    std::cout << "--- Created root file: \"TMVApp.root\" containing the MVA output histograms" << std::endl;
 
-   delete reader;
 
    std::cout << "==> TMVAClassificationApplication is done!" << std::endl << std::endl;
 }
