@@ -53,6 +53,14 @@ class Process
         Double_t getScale(){
             return m_sigma/getGenWeightSum();
         }
+        TString getProcessName(){
+            TString name = m_fileName;
+            name.Remove( 0, baseDir.Length()  );
+            name.Remove( name.First("_"), name.Length());
+            // std::cout<<m_fileName<<"\n";
+            return name;
+
+        }
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};

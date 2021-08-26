@@ -31,8 +31,10 @@
 
 using namespace TMVA;
 
-void evaluateMVA( std::map<std::string,int> Use, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
    // Create the Reader object
+    
+    std::cout<<"process Name: "<<processName<<"\n";
 
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );
 
@@ -311,7 +313,7 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    TH1F *histBdt(0);
    TH1F *histBdtG(0);
 
-   evaluateMVA(Use, TTTT.getEventTree(), histBdt, histBdtG );
+   evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
    histBdt->Print();
    /*
    // Get efficiency for cuts classifier
