@@ -31,11 +31,14 @@
 
 using namespace TMVA;
 
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
+// void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
 
+   TH1F *histBdt(0); TH1F* histBdt_TT(0);
+   TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
    TMVA::Reader *reader = new TMVA::Reader( "!Color:!Silent" );
 
    // Create a set of variables and declare them to the reader
@@ -248,13 +251,19 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
          // rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) );
       // }
    }
-   histBdt->Print();
+   // histBdt->Print();
 
    delete reader;
    // Get elapsed time
    sw.Stop();
    std::cout << "--- End of event loop: "; sw.Print();
+
+   TFile *target  = new TFile( "TMVApp.root","UPDATE" );
     
+   if (Use["BDT"          ])   histBdt    ->Write();
+   if (Use["BDTG"         ])   histBdtG   ->Write();
+
+   target->Close();
 }
 
 
@@ -310,55 +319,28 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // --------------------------------------------------------------------------------------------------
 
-   TFile *target  = new TFile( "TMVApp.root","RECREATE" );
-   TH1F *histBdt(0); TH1F* histBdt_TT(0);
-   TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
+   // TFile *target  = new TFile( "TMVApp.root","RECREATE" );
+   // TH1F *histBdt(0); TH1F* histBdt_TT(0);
+   // TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
 
-   evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
-   evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree(), histBdt_TT, histBdtG_TT );
+   // evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
+   evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree() );
+   // evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree(), histBdt_TT, histBdtG_TT );
+   evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree() );
 
-   /*
-   // Get efficiency for cuts classifier
-   if (Use["CutsGA"]) std::cout << "--- Efficiency for CutsGA method: " << double(nSelCutsGA)/theTree->GetEntries()
-                                << " (for a required signal efficiency of " << effS << ")" << std::endl;
-
-   if (Use["CutsGA"]) {
-
-      // test: retrieve cuts for particular signal efficiency
-      // CINT ignores dynamic_casts so we have to use a cuts-secific Reader function to acces the pointer
-      TMVA::MethodCuts* mcuts = reader->FindCutsMVA( "CutsGA method" ) ;
-
-      if (mcuts) {
-         std::vector<Double_t> cutsMin;
-         std::vector<Double_t> cutsMax;
-         mcuts->GetCuts( 0.7, cutsMin, cutsMax );
-         std::cout << "--- -------------------------------------------------------------" << std::endl;
-         std::cout << "--- Retrieve cut values for signal efficiency of 0.7 from Reader" << std::endl;
-         for (UInt_t ivar=0; ivar<cutsMin.size(); ivar++) {
-            std::cout << "... Cut: "
-                      << cutsMin[ivar]
-                      << " < \""
-                      << mcuts->GetInputVar(ivar)
-                      << "\" <= "
-                      << cutsMax[ivar] << std::endl;
-         }
-         std::cout << "--- -------------------------------------------------------------" << std::endl;
-      }
-   }
-*/
    // Write histograms
 
-   if (Use["BDT"          ])   histBdt    ->Write();
-   if (Use["BDTG"         ])   histBdtG   ->Write();
-   histBdt_TT->Write();
-   histBdtG_TT->Write();
+   // if (Use["BDT"          ])   histBdt    ->Write();
+   // if (Use["BDTG"         ])   histBdtG   ->Write();
+   // histBdt_TT->Write();
+   // histBdtG_TT->Write();
 
    // Write also error and significance histos
    // if (Use["PDEFoam"]) { histPDEFoam->Write(); histPDEFoamErr->Write(); histPDEFoamSig->Write(); }
 
    // Write also probability hists
    // if (Use["Fisher"]) { if (probHistFi != 0) probHistFi->Write(); if (rarityHistFi != 0) rarityHistFi->Write(); }
-   target->Close();
+   // target->Close();
 
    std::cout << "--- Created root file: \"TMVApp.root\" containing the MVA output histograms" << std::endl;
 
