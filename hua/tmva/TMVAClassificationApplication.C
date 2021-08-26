@@ -324,17 +324,19 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // theTree->SetBranchAddress( "var2", &userVar2 );
    // theTree->SetBranchAddress( "var3", &var3 );
    // theTree->SetBranchAddress( "var4", &var4 );
-   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore );
-   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt );
-   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT );
-   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass );
-   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt );
-   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass );
-   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
-   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt );
-   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
-   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt );
-   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT );
+
+   Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
+   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
+   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
+   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
+   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
+   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
+   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
+   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
+   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
+   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
+   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
+   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
    //for selection
    // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
@@ -365,6 +367,18 @@ void TMVAClassificationApplication( TString myMethodList = "" )
       // var1 = userVar1 + userVar2;
       // var2 = userVar1 - userVar2;
       
+   // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+      jets_bScore = jets_bScore_origin;
+      jets_7pt = jets_7pt_origin;
+      toptagger_HT = toptagger_HT_origin;
+      bjetsM_invariantMass = bjetsM_invariantMass_origin;
+      jets_6pt = jets_6pt_origin;
+      jets_transMass = jets_transMass_origin;
+      jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
+      nonbjetsM_4pt = nonbjetsM_4pt;
+      bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
+      toptagger_3pt = toptagger_3pt_origin;
+      toptagger_MHT = toptagger_MHT_origin;
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
        if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
