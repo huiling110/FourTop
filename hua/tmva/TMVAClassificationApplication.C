@@ -145,6 +145,7 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    // reader->AddVariable( "var3",                &var3 );
    // reader->AddVariable( "var4",                &var4 );
    Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+   // Double_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
    reader->AddVariable( "jets_bScore",         &jets_bScore );
    reader->AddVariable( "jets_7pt",         &jets_7pt );
    reader->AddVariable( "toptagger_HT",         &toptagger_HT );
@@ -354,7 +355,8 @@ void TMVAClassificationApplication( TString myMethodList = "" )
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   for (Long64_t ievt=0; ievt<1000;ievt++) {
 
       if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
@@ -365,6 +367,7 @@ void TMVAClassificationApplication( TString myMethodList = "" )
       
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
+       if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
 
 
       // Return the MVA outputs and fill into histograms
