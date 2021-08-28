@@ -31,8 +31,15 @@
 
 using namespace TMVA;
 
+void writeHistToFile( const TH1F* hist, TString outFile ){
+   TFile *target  = new TFile( outFile,"UPDATE" );
+   hist->Write();
+   delete hist;
+   target->Close();
+   std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
+}
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, Int_t channel ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, Bool_t writeData, Int_t channel ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
@@ -115,37 +122,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // if (Use["BDTD"])          histBdtD    = new TH1F( "MVA_BDTD",          "MVA_BDTD",          nbin, -0.8, 0.8 );
    // if (Use["BDTF"])          histBdtF    = new TH1F( "MVA_BDTF",          "MVA_BDTF",          nbin, -1.0, 1.0 );
 
-   // PDEFoam also returns per-event error, fill in histogram, and also fill significance
-   // if (Use["PDEFoam"]) {
-      // histPDEFoam    = new TH1F( "MVA_PDEFoam",       "MVA_PDEFoam",              nbin,  0, 1 );
-      // histPDEFoamErr = new TH1F( "MVA_PDEFoamErr",    "MVA_PDEFoam error",        nbin,  0, 1 );
-      // histPDEFoamSig = new TH1F( "MVA_PDEFoamSig",    "MVA_PDEFoam significance", nbin,  0, 10 );
-   // }
-//
-   // Book example histogram for probability (the other methods are done similarly)
-   // TH1F *probHistFi(0), *rarityHistFi(0);
-   // if (Use["Fisher"]) {
-      // probHistFi   = new TH1F( "MVA_Fisher_Proba",  "MVA_Fisher_Proba",  nbin, 0, 1 );
-      // rarityHistFi = new TH1F( "MVA_Fisher_Rarity", "MVA_Fisher_Rarity", nbin, 0, 1 );
-   // }
 
-   // Prepare input tree (this must be replaced by your data source)
-   // in this example, there is a toy tree with signal and one with background events
-   // we'll later on use only the "signal" events for the test in this example.
-   //
-   // TFile *input(0);
-   // TString fname = "./tmva_class_example.root";
-   // if (!gSystem->AccessPathName( fname )) {
-      // input = TFile::Open( fname ); // check if file in local directory exists
-   // }
-   // else {
-      // TFile::SetCacheFileDir(".");
-      // input = TFile::Open("http://root.cern.ch/files/tmva_class_example.root", "CACHEREAD"); // if not: download from ROOT server
-   // }
-   // if (!input) {
-      // std::cout << "ERROR: could not open data file" << std::endl;
-      // exit(1);
-   // }
    // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
 
    // Event loop
@@ -243,24 +220,27 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // std::cout<<"processScale = "<<processScale<<"\n";
    histBdt->Scale(processScale);
    histBdtG->Scale(processScale);
-
    std::cout<<"histBdt after scale: "<<histBdt->Integral()<<"\n";
 
-   // TFile *target  = new TFile( "TMVApp.root","UPDATE" );
-   // histBdt->Print();
+   //
+   *data_BDT = *data_BDT + *histBdt;
+
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
+   TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
+   writeHistToFile( histBdt, outFileName );
+   writeHistToFile( histBdtG, outFileName );
+   if ( writeData )   writeHistToFile( data_BDT, outFileName );
    // TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
-   TFile *target  = new TFile( "TMVApp_" + s_channel + "_forCombine.root","UPDATE" );
-    
-   if (Use["BDT"          ])   histBdt    ->Write();
-   if (Use["BDTG"         ])   histBdtG   ->Write();
-   delete histBdt;
-   delete histBdtG;
+   // TFile *target  = new TFile( "TMVApp_" + s_channel + "_forCombine.root","UPDATE" );
+//
+   // if (Use["BDT"          ])   histBdt    ->Write();
+   // if (Use["BDTG"         ])   histBdtG   ->Write();
+   // delete histBdt;
+   // delete histBdtG;
+//
+   // target->Close();
 
-   target->Close();
-
-   std::cout <<target->GetName()<< ": containing the MVA output histograms" << std::endl;
 }
 
 
@@ -317,12 +297,17 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    // --------------------------------------------------------------------------------------------------
 
    Int_t channel = 1;
+   UInt_t nbin = 100;
+
+   // if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
+   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );
     for ( UInt_t p=0; p<allProcesses.size(); p++){
     // for ( UInt_t p=0; p<1; p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(),channel );
-        
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, false,  channel );       
+       if ( p==allProcesses.size()-1 ){
+           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, true,  channel );
+       }
     }
-
 
 
    std::cout << "==> TMVAClassificationApplication is done!" << std::endl << std::endl;
