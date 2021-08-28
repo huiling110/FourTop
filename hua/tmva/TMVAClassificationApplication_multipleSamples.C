@@ -32,7 +32,7 @@
 using namespace TMVA;
 
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Int_t channel ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, Int_t channel ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
@@ -184,7 +184,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    theTree->SetBranchAddress( "jets_number",     &jets_number );
    theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
    theTree->SetBranchAddress( "jets_HT",     &jets_HT );
-   // theTree->SetBranchAddress( "",     & );
+   Double_t EVENT_genWeight, EVENT_prefireWeight, PUWeight;
+   theTree->SetBranchAddress( "EVENT_genWeight",     &EVENT_genWeight );
+   theTree->SetBranchAddress( "EVENT_prefireWeight",     &EVENT_prefireWeight );
+   theTree->SetBranchAddress( "PUWeight",     &PUWeight );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
@@ -198,7 +201,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
    // for (Long64_t ievt=0; ievt<1000;ievt++) {
 
-      if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
+      // if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
       theTree->GetEntry(ievt);
 
@@ -223,45 +226,32 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 
       // Return the MVA outputs and fill into histograms
+        Double_t eventWeight = EVENT_genWeight*EVENT_prefireWeight*PUWeight;
+        // std::cout<<"eventWeight = "<<eventWeight<<"\n";
 
-      // if (Use["CutsGA"]) {
-         // Cuts is a special case: give the desired signal efficienciy
-         // Bool_t passed = reader->EvaluateMVA( "CutsGA method", effS );
-         // if (passed) nSelCutsGA++;
-      // }
+      // if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method") *eventWeight );
+      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), eventWeight );
+      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"), eventWeight );
 
-      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"           ) );
-      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"          ) );
-      // if (Use["BDTB"         ])   histBdtB   ->Fill( reader->EvaluateMVA( "BDTB method"          ) );
-      // if (Use["BDTD"         ])   histBdtD   ->Fill( reader->EvaluateMVA( "BDTD method"          ) );
-      // if (Use["BDTF"         ])   histBdtF   ->Fill( reader->EvaluateMVA( "BDTF method"          ) );
-
-      // Retrieve also per-event error
-      // if (Use["PDEFoam"]) {
-         // Double_t val = reader->EvaluateMVA( "PDEFoam method" );
-         // Double_t err = reader->GetMVAError();
-         // histPDEFoam   ->Fill( val );
-         // histPDEFoamErr->Fill( err );
-         // if (err>1.e-50) histPDEFoamSig->Fill( val/err );
-      // }
-
-      // Retrieve probability instead of MVA output
-      // if (Use["Fisher"])   {
-         // probHistFi  ->Fill( reader->GetProba ( "Fisher method" ) );
-         // rarityHistFi->Fill( reader->GetRarity( "Fisher method" ) );
-      // }
    }
-   // histBdt->Print();
 
    delete reader;
    // Get elapsed time
    sw.Stop();
    std::cout << "--- End of event loop: "; sw.Print();
+   std::cout<<"histBdt before scale: "<<histBdt->Integral()<<"\n";
+   // std::cout<<"processScale = "<<processScale<<"\n";
+   histBdt->Scale(processScale);
+   histBdtG->Scale(processScale);
+
+   std::cout<<"histBdt after scale: "<<histBdt->Integral()<<"\n";
 
    // TFile *target  = new TFile( "TMVApp.root","UPDATE" );
+   // histBdt->Print();
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
-   TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
+   // TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
+   TFile *target  = new TFile( "TMVApp_" + s_channel + "_forCombine.root","UPDATE" );
     
    if (Use["BDT"          ])   histBdt    ->Write();
    if (Use["BDTG"         ])   histBdtG   ->Write();
@@ -269,6 +259,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    delete histBdtG;
 
    target->Close();
+
+   std::cout <<target->GetName()<< ": containing the MVA output histograms" << std::endl;
 }
 
 
@@ -324,34 +316,13 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // --------------------------------------------------------------------------------------------------
 
-   // TFile *target  = new TFile( "TMVApp.root","RECREATE" );
-   // TH1F *histBdt(0); TH1F* histBdt_TT(0);
-   // TH1F *histBdtG(0); TH1F* histBdtG_TT(0);
-
-   // evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree(), histBdt, histBdtG );
-   // evaluateMVA(Use,TTTT.getProcessName(), TTTT.getEventTree() );
-   // evaluateMVA(Use,TTTo2L2Nu.getProcessName(), TTTo2L2Nu.getEventTree() );
    Int_t channel = 1;
-    for ( UInt_t p=1; p<allProcesses.size(); p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), channel );
+    for ( UInt_t p=0; p<allProcesses.size(); p++){
+    // for ( UInt_t p=0; p<1; p++){
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(),channel );
         
     }
 
-   // Write histograms
-
-   // if (Use["BDT"          ])   histBdt    ->Write();
-   // if (Use["BDTG"         ])   histBdtG   ->Write();
-   // histBdt_TT->Write();
-   // histBdtG_TT->Write();
-
-   // Write also error and significance histos
-   // if (Use["PDEFoam"]) { histPDEFoam->Write(); histPDEFoamErr->Write(); histPDEFoamSig->Write(); }
-
-   // Write also probability hists
-   // if (Use["Fisher"]) { if (probHistFi != 0) probHistFi->Write(); if (rarityHistFi != 0) rarityHistFi->Write(); }
-   // target->Close();
-
-   std::cout << "--- Created root file: \"TMVApp.root\" containing the MVA output histograms" << std::endl;
 
 
    std::cout << "==> TMVAClassificationApplication is done!" << std::endl << std::endl;

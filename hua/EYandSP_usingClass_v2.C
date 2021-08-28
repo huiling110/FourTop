@@ -82,8 +82,8 @@ TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_Dou
 vector<TH1D*> allHistos;
 TH1D* h_background;
 
-for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=0; cha<3; cha++){
+// for (UInt_t  cha=0; cha<channelName.size(); cha++){
+for (UInt_t  cha=3; cha<4; cha++){
 // for (UInt_t  cha=3; cha<channelName.size(); cha++){
     TString postfix = channelName[cha] + ".png";
     cout<<channelName[cha]<<endl;
@@ -233,7 +233,7 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background )
 
     //does Integral include weight?//I think they do
     cout<<"Weighted:"<<endl;
-    // cout<<"TTTT         = "<<TTTT_h->Integral()<<endl;
+    cout<<"TTTT         = "<<allHistos[0]->Integral()<<endl;
     // cout<<"TT           = "<<TTTo2L2Nu_h->Integral()+TTToHadronic_h->Integral()+TTToSemiLeptonic_h->Integral()<<endl;
     // cout<<"TTX          = "<<TTGJets_h->Integral()+ ttZJets_h->Integral()+ ttWJets_h->Integral()<<endl;
     // cout<<"single top   = "<<tZq_ll_h->Integral()+ tZq_nunu_h->Integral()+ ST_tW_antitop_h->Integral()+ ST_tW_top_h->Integral()<<endl;
@@ -247,7 +247,8 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background )
     cout<<"\n";
 
     cout<<"Event yield:"<<endl;
-    // cout<<"TTTT         = "<<TTTT_h->Integral()*LUMI* TTTT.getScale()<<endl;
+    cout<<"TTTT         = "<<allHistos[0]->Integral()*LUMI* allProcesses[0].getScale()<<endl;
+    cout<<"scale = "<<allProcesses[0].getScale()*LUMI<<endl;
     // cout<<"TT           = "<<TTTo2L2Nu_h->Integral()*LUMI*TTTo2L2Nu.getScale()+ TTToHadronic_h->Integral()*LUMI*TTToHadronic.getScale()+ TTToSemiLeptonic_h->Integral()*LUMI*TTToSemiLeptonic.getScale()<<endl;
     // cout<<"TTX          = "<<TTGJets_h->Integral()*LUMI*TTGJets.getScale()+ ttZJets_h->Integral()*LUMI*ttZJets.getScale()+ ttWJets_h->Integral()*LUMI*ttWJets.getScale()<<endl;
     // cout<<"single top   = "<<tZq_ll_h->Integral()*LUMI*tZq_ll.getScale()+ tZq_nunu_h->Integral()*LUMI*tZq_nunu.getScale()+ ST_tW_antitop_h->Integral()*LUMI*ST_tW_antitop.getScale()+ ST_tW_top_h->Integral()*LUMI*ST_tW_top.getScale()<<endl;
