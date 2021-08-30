@@ -122,7 +122,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // - Here the variable names have to corresponds to your tree
    // - You can use the same variables as above which is slightly faster,
    //   but of course you can use different ones and copy the values inside the event loop
-    for ( UInt_t i; i<variableNum; i++ ){
+    for ( UInt_t i=0; i<variableNum; i++ ){
         theTree->SetBranchAddress( variablesName[i], &variablesOrigin[i] );
     }
 
@@ -180,9 +180,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       // toptagger_3pt = toptagger_3pt_origin;
       // toptagger_MHT = toptagger_MHT_origin;
       for ( UInt_t j = 0; j<variableNum; j++ ){
-          variablesForReader[j] = variablesOrigin[j];
-          cout<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
-          // cout<<variablesName[j]<<": "<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
+          // variablesForReader[j] = variablesOrigin[j];
+          variablesForReader.at(j) = variablesOrigin.at(j);
+          // cout<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
+          cout<<variablesName[j]<<": "<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
           // cout<<variablesOrigin[j]<<"\n";
       }
       cout<<"\n";
