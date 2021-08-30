@@ -181,8 +181,11 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       // toptagger_MHT = toptagger_MHT_origin;
       for ( UInt_t j = 0; j<variableNum; j++ ){
           variablesForReader[j] = variablesOrigin[j];
-          cout<<variablesForReader[j]<<"\n";
+          cout<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
+          // cout<<variablesName[j]<<": "<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
+          // cout<<variablesOrigin[j]<<"\n";
       }
+      cout<<"\n";
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
 
