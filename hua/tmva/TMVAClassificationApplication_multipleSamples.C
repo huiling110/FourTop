@@ -217,7 +217,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
-   TString s_variableNum = variableNum;
+   TString s_variableNum = std::to_string(variableNum);
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
    TString outFileName = outputDir + "TMVApp_" + s_channel + s_variableNum + "var_forCombineTest.root";
    // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
@@ -232,7 +232,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 
 void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
-        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
+        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
+        TString outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/outputFile/",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
        TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
         // const Int_t channel = 3//2tau1l
