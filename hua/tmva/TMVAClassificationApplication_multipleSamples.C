@@ -80,13 +80,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
             variablesName.push_back( ivariable);
             variablesForReader.push_back( 0.0 );
             variablesOrigin.push_back( 0.0);
-            // reader->AddVariable( line, variables[num-2]);
         }
     }
     fin.close();
-    Int_t variableNum = variablesName.size();
-    // vector<Float_t> variablesForReader[variableNum];
-    // array <Float_t, variableNum> variablesForReader;
+    UInt_t variableNum = variablesName.size();
     for ( UInt_t v = 0; v<variableNum; v++ ){
         reader->AddVariable( variablesName[v], &variablesForReader[v] );
 
@@ -97,20 +94,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // reader->AddSpectator( "spec1 := var1*2",   &spec1 );
    // reader->AddSpectator( "spec2 := var1*3",   &spec2 );
 
-   // Float_t Category_cat1, Category_cat2, Category_cat3;
-   // if (Use["Category"]){
-      // Add artificial spectators for distinguishing categories
-      // reader->AddSpectator( "Category_cat1 := var3<=0",             &Category_cat1 );
-      // reader->AddSpectator( "Category_cat2 := (var3>0)&&(var4<0)",  &Category_cat2 );
-      // reader->AddSpectator( "Category_cat3 := (var3>0)&&(var4>=0)", &Category_cat3 );
-   // }
 
    // Book the MVA methods
-
-   // TString dir    = "dataset/weights/";
-   TString prefix = "TMVAClassification";
    TString dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
-
+   TString prefix = "TMVAClassification";
    // Book method(s)
    for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
       if (it->second) {
@@ -125,9 +112,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
    if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
-   // if (Use["BDTB"])          histBdtB    = new TH1F( "MVA_BDTB",          "MVA_BDTB",          nbin, -1.0, 1.0 );
-   // if (Use["BDTD"])          histBdtD    = new TH1F( "MVA_BDTD",          "MVA_BDTD",          nbin, -0.8, 0.8 );
-   // if (Use["BDTF"])          histBdtF    = new TH1F( "MVA_BDTF",          "MVA_BDTF",          nbin, -1.0, 1.0 );
 
 
    // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
@@ -177,10 +161,9 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   // for (Long64_t ievt=0; ievt<1000;ievt++) {
+   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   for (Long64_t ievt=0; ievt<1000;ievt++) {
 
-      // if (ievt%1000 == 0) std::cout << "--- ... Processing event: " << ievt << std::endl;
 
       theTree->GetEntry(ievt);
 
@@ -234,7 +217,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
-   TString outFileName = "TMVApp_" + s_channel + "_forCombineTest.root";
+   // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest.root";
+   TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
    writeHistToFile( histBdt, outFileName );
    writeHistToFile( histBdtG, outFileName );
    if ( writeData )  {
