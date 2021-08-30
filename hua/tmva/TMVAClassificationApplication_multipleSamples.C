@@ -30,6 +30,7 @@
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 using namespace TMVA;
+using namespace std;
 
 void writeHistToFile( const TH1F* hist, TString outFile ){
    TFile *target  = new TFile( outFile,"UPDATE" );
@@ -39,7 +40,7 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
    std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
 }
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, Bool_t writeData, Int_t channel ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
@@ -50,40 +51,46 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    // Create a set of variables and declare them to the reader
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
-   // Float_t var1, var2;
-   // Float_t var3, var4;
-   // reader->AddVariable( "myvar1 := var1+var2", &var1 );
-   // reader->AddVariable( "myvar2 := var1-var2", &var2 );
-   // reader->AddVariable( "var3",                &var3 );
-   // reader->AddVariable( "var4",                &var4 );
-   Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-   // Double_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-   reader->AddVariable( "jets_bScore",         &jets_bScore );
-   reader->AddVariable( "jets_7pt",         &jets_7pt );
-   reader->AddVariable( "toptagger_HT",         &toptagger_HT );
-   reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
-   reader->AddVariable( "jets_6pt",         &jets_6pt );
-   reader->AddVariable( "jets_transMass",         &jets_transMass );
-   reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
-   reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
-   reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
-   reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
-   reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
-    // ifstream fin( variableListCsv);
-    // string line ;
-    // TString ivariable;
-    // vector<TString> variables {};
-    // Int_t num = 1;
-    // while ( getline( fin, line ) ){
-            // ivariable = line;
-            // if( line.size()>0)  {
-                // variables.push_back( ivariable);
-//
-            // }
-        // reader->AddVariable( line, variables[num-2]);
-        // num = num+1;
-    // }
-    // fin.close();
+   // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
+   //???type has to be Float_t
+   // reader->AddVariable( "jets_bScore",         &jets_bScore );
+   // reader->AddVariable( "jets_7pt",         &jets_7pt );
+   // reader->AddVariable( "toptagger_HT",         &toptagger_HT );
+   // reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
+   // reader->AddVariable( "jets_6pt",         &jets_6pt );
+   // reader->AddVariable( "jets_transMass",         &jets_transMass );
+   // reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
+   // reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
+   // reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
+   // reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
+   // reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
+
+    TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv";
+    ifstream fin( variableListCsv);
+    string line ;
+    TString ivariable;
+    vector<TString> variablesName {};
+
+    vector<Float_t> variablesForReader;
+    vector<Double_t> variablesOrigin;
+    // map<TString, Float_t>;
+    while ( getline( fin, line ) ){
+        ivariable = line;
+        if( line.size()>0)  {
+            variablesName.push_back( ivariable);
+            variablesForReader.push_back( 0.0 );
+            variablesOrigin.push_back( 0.0);
+            // reader->AddVariable( line, variables[num-2]);
+        }
+    }
+    fin.close();
+    Int_t variableNum = variablesName.size();
+    // vector<Float_t> variablesForReader[variableNum];
+    // array <Float_t, variableNum> variablesForReader;
+    for ( UInt_t v = 0; v<variableNum; v++ ){
+        reader->AddVariable( variablesName[v], &variablesForReader[v] );
+
+    }
 
    // Spectator variables declared in the training have to be added to the reader, too
    // Float_t spec1,spec2;
@@ -131,27 +138,22 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // - Here the variable names have to corresponds to your tree
    // - You can use the same variables as above which is slightly faster,
    //   but of course you can use different ones and copy the values inside the event loop
-   //
-   // std::cout << "--- Select signal sample" << std::endl;
-   // TTree* theTree = TTTT.getEventTree();
-   // Float_t userVar1, userVar2;
-   // theTree->SetBranchAddress( "var1", &userVar1 );
-   // theTree->SetBranchAddress( "var2", &userVar2 );
-   // theTree->SetBranchAddress( "var3", &var3 );
-   // theTree->SetBranchAddress( "var4", &var4 );
+    for ( UInt_t i; i<variableNum; i++ ){
+        theTree->SetBranchAddress( variablesName[i], &variablesOrigin[i] );
+    }
 
-   Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
-   theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
-   theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
-   theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
-   theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
-   theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
-   theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
-   theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
-   theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
-   theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
-   theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
-   theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
+   // Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
+   // theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
+   // theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
+   // theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
+   // theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
+   // theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
+   // theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
+   // theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
+   // theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
+   // theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
+   // theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
+   // theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
    //for selection
    // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
@@ -185,18 +187,21 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       // var1 = userVar1 + userVar2;
       // var2 = userVar1 - userVar2;
       
-   // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
-      jets_bScore = jets_bScore_origin;
-      jets_7pt = jets_7pt_origin;
-      toptagger_HT = toptagger_HT_origin;
-      bjetsM_invariantMass = bjetsM_invariantMass_origin;
-      jets_6pt = jets_6pt_origin;
-      jets_transMass = jets_transMass_origin;
-      jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
-      nonbjetsM_4pt = nonbjetsM_4pt;
-      bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
-      toptagger_3pt = toptagger_3pt_origin;
-      toptagger_MHT = toptagger_MHT_origin;
+      // jets_bScore = jets_bScore_origin;
+      // jets_7pt = jets_7pt_origin;
+      // toptagger_HT = toptagger_HT_origin;
+      // bjetsM_invariantMass = bjetsM_invariantMass_origin;
+      // jets_6pt = jets_6pt_origin;
+      // jets_transMass = jets_transMass_origin;
+      // jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
+      // nonbjetsM_4pt = nonbjetsM_4pt;
+      // bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
+      // toptagger_3pt = toptagger_3pt_origin;
+      // toptagger_MHT = toptagger_MHT_origin;
+      for ( UInt_t j = 0; j<variableNum; j++ ){
+          variablesForReader[j] = variablesOrigin[j];
+          // cout<<variablesForReader[j]<<"\n";
+      }
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
        // if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
@@ -224,13 +229,18 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    //
    *data_BDT = *data_BDT + *histBdt;
+   *data_BDTG = *data_BDTG + *histBdtG;
 
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
-   TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
+   // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
+   TString outFileName = "TMVApp_" + s_channel + "_forCombineTest.root";
    writeHistToFile( histBdt, outFileName );
    writeHistToFile( histBdtG, outFileName );
-   if ( writeData )   writeHistToFile( data_BDT, outFileName );
+   if ( writeData )  {
+       writeHistToFile( data_BDT, outFileName );
+       writeHistToFile( data_BDTG, outFileName );
+   }
    // TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
    // TFile *target  = new TFile( "TMVApp_" + s_channel + "_forCombine.root","UPDATE" );
 //
@@ -301,11 +311,12 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );
-    for ( UInt_t p=0; p<allProcesses.size(); p++){
-    // for ( UInt_t p=0; p<1; p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, false,  channel );       
+   TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );
+    // for ( UInt_t p=0; p<allProcesses.size(); p++){
+    for ( UInt_t p=0; p<1; p++){
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel );       
        if ( p==allProcesses.size()-1 ){
-           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, true,  channel );
+           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel );
        }
     }
 
