@@ -167,8 +167,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
       theTree->GetEntry(ievt);
 
-      // var1 = userVar1 + userVar2;
-      // var2 = userVar1 - userVar2;
       
       // jets_bScore = jets_bScore_origin;
       // jets_7pt = jets_7pt_origin;
@@ -183,11 +181,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       // toptagger_MHT = toptagger_MHT_origin;
       for ( UInt_t j = 0; j<variableNum; j++ ){
           variablesForReader[j] = variablesOrigin[j];
-          // cout<<variablesForReader[j]<<"\n";
+          cout<<variablesForReader[j]<<"\n";
       }
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
-       // if ( ievt<100 )       cout<<"jets_bSore = "<<jets_bScore<<"\n";
 
 
       // Return the MVA outputs and fill into histograms
