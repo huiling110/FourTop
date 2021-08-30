@@ -40,7 +40,7 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
    std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
 }
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir  ){
    // Create the Reader object
     
     std::cout<<"process Name: "<<processName<<"\n";
@@ -65,7 +65,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
    // reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
 
-    TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv";
+    // TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv";
     ifstream fin( variableListCsv);
     string line ;
     TString ivariable;
@@ -96,13 +96,13 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 
    // Book the MVA methods
-   TString dir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
+   // TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
    TString prefix = "TMVAClassification";
    // Book method(s)
    for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
       if (it->second) {
          TString methodName = TString(it->first) + TString(" method");
-         TString weightfile = dir + prefix + TString("_") + TString(it->first) + TString(".weights.xml");
+         TString weightfile = weightDir + prefix + TString("_") + TString(it->first) + TString(".weights.xml");
          reader->BookMVA( methodName, weightfile );
       }
    }
@@ -161,8 +161,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   for (Long64_t ievt=0; ievt<1000;ievt++) {
+   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   // for (Long64_t ievt=0; ievt<1000;ievt++) {
 
 
       theTree->GetEntry(ievt);
@@ -183,10 +183,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
           // variablesForReader[j] = variablesOrigin[j];
           variablesForReader.at(j) = variablesOrigin.at(j);
           // cout<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
-          cout<<variablesName[j]<<": "<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
+          // cout<<variablesName[j]<<": "<<variablesForReader[j]<<" "<<variablesOrigin[j]<<"\n";
           // cout<<variablesOrigin[j]<<"\n";
       }
-      cout<<"\n";
+      // cout<<"\n";
       //channel selection
        if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
 
@@ -217,29 +217,28 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
+   TString s_variableNum = variableNum;
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
-   // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest.root";
-   TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
+   TString outFileName = outputDir + "TMVApp_" + s_channel + s_variableNum + "var_forCombineTest.root";
+   // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
    writeHistToFile( histBdt, outFileName );
    writeHistToFile( histBdtG, outFileName );
    if ( writeData )  {
        writeHistToFile( data_BDT, outFileName );
        writeHistToFile( data_BDTG, outFileName );
    }
-   // TFile *target  = new TFile( "TMVApp_" + s_channel + ".root","UPDATE" );
-   // TFile *target  = new TFile( "TMVApp_" + s_channel + "_forCombine.root","UPDATE" );
-//
-   // if (Use["BDT"          ])   histBdt    ->Write();
-   // if (Use["BDTG"         ])   histBdtG   ->Write();
-   // delete histBdt;
-   // delete histBdtG;
-//
-   // target->Close();
 
 }
 
 
-void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
+void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
+        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
+        TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
+       TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
+        // const Int_t channel = 3//2tau1l
+        const Int_t channel = 1//1tau1l
+
+        )
 {
 
    //---------------------------------------------------------------
@@ -254,9 +253,6 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    // Boosted Decision Trees
    Use["BDT"]             = 1; // uses Adaptive Boost
    Use["BDTG"]            = 1; // uses Gradient Boost
-   Use["BDTB"]            = 0; // uses Bagging
-   Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
-   Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    //
    // ---------------------------------------------------------------
    // Use["Plugin"]          = 0;
@@ -291,7 +287,7 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
 
    // --------------------------------------------------------------------------------------------------
 
-   Int_t channel = 1;
+   // Int_t channel = 1;
    UInt_t nbin = 100;
 
    // if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
@@ -299,9 +295,9 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );
     // for ( UInt_t p=0; p<allProcesses.size(); p++){
     for ( UInt_t p=0; p<1; p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel );       
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir );       
        if ( p==allProcesses.size()-1 ){
-           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel );
+           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir );
        }
     }
 
@@ -309,15 +305,15 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "" )
    std::cout << "==> TMVAClassificationApplication is done!" << std::endl << std::endl;
 }
 
-int main( int argc, char** argv )
-{
-   TString methodList;
-   for (int i=1; i<argc; i++) {
-      TString regMethod(argv[i]);
-      if(regMethod=="-b" || regMethod=="--batch") continue;
-      if (!methodList.IsNull()) methodList += TString(",");
-      methodList += regMethod;
-   }
-   TMVAClassificationApplication_multipleSamples(methodList);
-   return 0;
-}
+// int main( int argc, char** argv )
+// {
+   // TString methodList;
+   // for (int i=1; i<argc; i++) {
+      // TString regMethod(argv[i]);
+      // if(regMethod=="-b" || regMethod=="--batch") continue;
+      // if (!methodList.IsNull()) methodList += TString(",");
+      // methodList += regMethod;
+   // }
+   // TMVAClassificationApplication_multipleSamples(methodList);
+   // return 0;
+// }
