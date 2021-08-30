@@ -219,7 +219,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    if ( channel==1 )       s_channel = "1tau1l";
    TString s_variableNum = std::to_string(variableNum);
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
-   TString outFileName = outputDir + "TMVApp_" + s_channel + s_variableNum + "var_forCombineTest.root";
+   TString outFileName = outputDir + "TMVApp_" + s_channel + "_"+ s_variableNum + "var_forCombine.root";
    // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
    writeHistToFile( histBdt, outFileName );
    writeHistToFile( histBdtG, outFileName );

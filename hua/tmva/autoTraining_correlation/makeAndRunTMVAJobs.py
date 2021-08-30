@@ -61,7 +61,7 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
     output.write( 'source /cvmfs/sft.cern.ch/lcg/releases/LCG_98python3/ROOT/v6.22.00/x86_64-centos7-gcc8-opt/ROOT-env.sh' + '\n' )
     output.write( 'cd '+ TMVACodeDir + '\n')
     if isApp:
-        weightDir = outputDir[:-10]
+        weightDir = outputDir[:-11]
         vlistName = entry[:-4]
         weightDir = weightDir + 'dataset/'+ getChannelName( channel ) + '_' + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
