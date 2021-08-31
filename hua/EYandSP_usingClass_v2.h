@@ -61,6 +61,8 @@ class Process
                 // cout<<"name"<<"\n";
             }else if ( name.Contains( "ST_tW") ) {
                 name.Remove( name.Index("5f")-1, name.Length() );
+            }else if ( name.Contains( "QCD") ){
+                name.Remove( name.Index( "Tune")-1, name.Length() );
             }
             else{
                 name.Remove( name.First("_"), name.Length());
