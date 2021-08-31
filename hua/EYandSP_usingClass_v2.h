@@ -56,7 +56,15 @@ class Process
         TString getProcessName(){
             TString name = m_fileName;
             name.Remove( 0, baseDir.Length()  );
-            name.Remove( name.First("_"), name.Length());
+            if ( name.Contains("tZq") ){
+                name.Remove( name.Index("4f")-1,name.Length());
+                // cout<<"name"<<"\n";
+            }else if ( name.Contains( "ST_tW") ) {
+                name.Remove( name.Index("5f")-1, name.Length() );
+            }
+            else{
+                name.Remove( name.First("_"), name.Length());
+            }
             // std::cout<<m_fileName<<"\n";
             return name;
 

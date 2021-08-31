@@ -42,7 +42,9 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
 // void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
 void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir  ){
    // Create the Reader object
-    
+   
+    cout<<"\n";
+    cout<<"\n";
     std::cout<<"process Name: "<<processName<<"\n";
 
    TH1F *histBdt(0); 
@@ -161,8 +163,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   // for (Long64_t ievt=0; ievt<1000;ievt++) {
+   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   for (Long64_t ievt=0; ievt<1000;ievt++) {
 
 
       theTree->GetEntry(ievt);
@@ -294,8 +296,8 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    // if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );
-    // for ( UInt_t p=0; p<allProcesses.size(); p++){
-    for ( UInt_t p=0; p<1; p++){
+    for ( UInt_t p=0; p<allProcesses.size(); p++){
+    // for ( UInt_t p=0; p<1; p++){
        evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir );       
        if ( p==allProcesses.size()-1 ){
            evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir );
