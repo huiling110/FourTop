@@ -25,7 +25,7 @@ def writeSingleCard( rootFile, outCard ):
     card.write( 'jmax *\n' )
     card.write( 'kmax *\n' )
     card.write( 80*'-' + '\n' )
-    card.write( 'shapes * *  ' + rootFile + '$PROCESS_MVA_BDT\n'  )
+    card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
     card.write( 'bin          SR_1tau1l\n')
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
