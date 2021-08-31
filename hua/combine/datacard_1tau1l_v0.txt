@@ -2,7 +2,7 @@ imax  * bins/channels
 jmax  * processes
 kmax  * NP
 --------------------------------------------------------------------------------
-shapes * * /workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/TMVApp_1tau1l_forCombine.root $PROCESS_MVA_BDT
+shapes * *  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/TMVApp_1tau1l_11var_forCombine.root $PROCESS_MVA_BDT
 --------------------------------------------------------------------------------
 bin          SR_1tau1l   
 observation  -1          

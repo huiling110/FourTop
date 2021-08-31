@@ -1,5 +1,6 @@
 import os
 import sys
+import ROOT
 
 g_allProcesses = [
     'TTTT', #0
@@ -12,14 +13,27 @@ g_allProcesses = [
     'TGJets', 'THW', 'THQ', #29
     'QCD_HT200to300', 'QCD_HT300to500', 'QCD_HT500to700', 'QCD_HT700to1000', 'QCD_HT1000to1500', 'QCD_HT1500to2000', 'QCD_HT2000toInf'
 ]
- 
+
+def main():
+    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
+    
+    emptyList = checkEmptyProcess()
+    listForCombine = []
+    for en in g_allProcesses:
+        if not en in emptyList:
+            listForCombine.append(en)
+    writeDatacards( TMVAppDir, listForCombine )
+    
+#  def getNoneEmptyProcess( gList, emptyList ):
+    
+
 def getStringWithSpaces( string, allSpaces ):
     if allSpaces< len(string):
         print( 'spaces not enough!')
         sys.exit()
     return string + (allSpaces-len(string))*' '
 
-def writeSingleCard( rootFile, outCard ):
+def writeSingleCard( rootFile, outCard, listForCombine ):
     card = open( outCard, 'wt' )
     card.write( 'imax *\n' )
     card.write( 'jmax *\n' )
@@ -30,10 +44,10 @@ def writeSingleCard( rootFile, outCard ):
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
 
-    processNum = len( g_allProcesses )
+    processNum = len( listForCombine )
     card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR_1tau1l', 18) + '\n')
     card.write( getStringWithSpaces('process', 10) )
-    for ip in g_allProcesses:
+    for ip in listForCombine:
         card.write( getStringWithSpaces(ip,18))
     card.write('\n')
 
@@ -60,7 +74,7 @@ def writeSingleCard( rootFile, outCard ):
 
 
 
-def writeDatacards( TMVAppDir ):
+def writeDatacards( TMVAppDir, listForCombine ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
@@ -71,14 +85,29 @@ def writeDatacards( TMVAppDir ):
         ioutCard = cardDir + ioutCard + '_datacard.txt'
         print( 'rootFile:', irootFile )
         print( 'datacard: ',ioutCard )
-        writeSingleCard( irootFile, ioutCard )
+        writeSingleCard( irootFile, ioutCard, listForCombine )
 
 
+def checkEmptyProcess():
+    fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
+    rootF = 'TMVApp_1tau1l_10var_forCombine.root'
+    
+    emptyProcesses = []
+    iFile = ROOT.TFile( fileDir+rootF)
+    itnext = iFile.GetListOfKeys()
+    for i in itnext:
+        print(i.GetName())
+        iHistName = i.GetName()
+        iProcessName = iHistName[:iHistName.find('MVA')-1]
+        iHist = iFile.Get(iHistName)
+        if iHist.GetEntries()==0:
+            emptyProcesses.append( iProcessName )
+    emptyProcesses = list( dict.fromkeys(emptyProcesses) )
+    print( 'emptyProcesses: ', emptyProcesses )
+    return emptyProcesses
 
 
 
 
 if __name__ == '__main__':
-    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
-
-    writeDatacards( TMVAppDir )
+    main()
