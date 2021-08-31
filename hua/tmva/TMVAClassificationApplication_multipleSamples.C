@@ -163,8 +163,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
    TStopwatch sw;
    sw.Start();
-   // for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
-   for (Long64_t ievt=0; ievt<1000;ievt++) {
+   for (Long64_t ievt=0; ievt<theTree->GetEntries();ievt++) {
+   // for (Long64_t ievt=0; ievt<1000;ievt++) {
 
 
       theTree->GetEntry(ievt);
