@@ -111,7 +111,51 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
 
     print( 'plot saved here:', AUCDir )
     #  return gr
-    
+
+
+def plot2D(x, y, name, outDir  ): 
+    x, y = np.array([x,y])
+    flag = np.argsort(x)
+    x, y = x[flag], y[flag]
+
+    c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
+    c1.SetGrid()
+ 
+    n = len( x )
+    gr = ROOT.TGraph( n, x, y )
+    gr.SetLineColor( 2 )
+    gr.SetLineWidth( 4 )
+    gr.SetMarkerColor( 4 )
+    gr.SetMarkerStyle( 21 )
+
+
+    gr.GetXaxis().SetTitle( 'number of variables' )
+    #  if isSig:
+        #  gr.GetYaxis().SetTitle( 'Significance' )
+    #  else:
+        #  gr.GetYaxis().SetTitle( 'AUC' )
+    gr.Draw('APL')
+
+
+    #  AUCDir = logDir[:-4]
+    #  AUCDir = AUCDir + 'results/'
+    #  if not os.path.exists( AUCDir ):
+        #  os.mkdir( AUCDir )
+
+    #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
+    #  if isBDT:
+        #  if isSig:
+            #  c1.SaveAs( AUCDir+'maxSig_BDT.png' )
+        #  else:
+            #  c1.SaveAs( AUCDir+'AUC_BDT.png' )
+    #  else:
+        #  if isSig:
+            #  c1.SaveAs( AUCDir+'maxSig_BDTG.png' )
+        #  else:
+            #  c1.SaveAs( AUCDir+'AUC_BDTG.png' )
+    c1.SaveAs( outDir + name + '.png' )
+
+    print( 'plot saved here:', outDir )
 
 
 
