@@ -1,0 +1,67 @@
+import os
+import sys
+#  import ROOT
+
+import subprocess
+
+def main():
+
+    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
+    #  cardToWorkspaces( cardDir )
+
+    #  runCombineSig( cardDir )
+    runCombineSig( cardDir, True )
+
+#  def runCombineLimit( cardDir )
+    #  workspaceDir =  cardDir + 'workspace/'
+
+
+def runCombineSig( cardDir, isLimit ):
+    workspaceDir =  cardDir + 'workspace/'
+    for ifile in os.listdir( workspaceDir ):
+        if ifile.find( 'root')>0:
+            iname = ifile[:-15]
+            irootF = workspaceDir + ifile
+            print("iname: ", iname)
+            if isLimit:
+                significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
+            else:
+                significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
+            print( significanceCommand )
+            irunSig = subprocess.Popen( [significanceCommand] ,
+                    shell=True
+                    )
+            irunSigOut = irunSig.communicate()[0]
+            print( irunSigOut )
+
+
+def cardToWorkspaces( cardDir):
+    for en in os.listdir( cardDir ):
+        idatacard = en
+        #  idatacard = 'TMVApp_1tau1l_11var_datacard.txt'
+        idatacard = cardDir +  idatacard
+        iworkspaceName = en[:]
+        iworkspaceName.replace('datacard.txt', 'workspace.root' )
+        iworkspaceDir = cardDir + '/workspace/'
+        if not os.path.exits(iworkspaceDir):
+            os.mkdir( iworkspaceDir )
+#
+        iworkspace = iworkspaceDir + iworkspaceName
+        command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
+        print( 'command: ', command )
+
+        iprocess = subprocess.run( [command], 
+                shell=True,
+                #  capture_output=True,
+                #  text=True,
+                #  bufsize=1,
+                #  universal_newlines=True
+                )
+        output = iprocess.stdout
+        print( output)
+    print( 'workpace transformation done!' )
+
+
+
+if __name__ == '__main__':
+    main()
