@@ -20,6 +20,7 @@
 #include "TLorentzVector.h"
 #include "TH1D.h"
 #include <vector>
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/btagWeightCal.h"
 
 
 
@@ -56,6 +57,7 @@ public :
     Double_t   EVENT_prefireWeight;
     Double_t   EVENT_genWeight;
     Double_t   PUWeight;
+    Double_t   btagEfficiency_weight;
     Double_t  Met_pt_;
     Double_t Met_phi_;
     Int_t muonsL_number;

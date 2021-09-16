@@ -508,6 +508,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      EVENT_prefireWeight = *EVENT_prefireWeight_;
      EVENT_genWeight = *EVENT_genWeight_;
      PUWeight = *PUWeight_;
+     btagEfficiency_weight = 
 
 
 
@@ -947,6 +948,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
+   newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
    newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
@@ -1224,6 +1226,7 @@ void makeVaribles_forBDT::InitializeBranches()
     EVENT_prefireWeight  = -99;
     EVENT_genWeight = -99;
     PUWeight = -99;
+    btagEfficiency_weight = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;

@@ -17,7 +17,8 @@ void run_objectTSelector(
                         TString singleFileName = "v3_1-1.root",
 						//TString singleFileName = "v3_1.root",
 						//TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root", //this is for data
-			Bool_t ishuiling = false)
+                        // Bool_t ishuiling = false)
+                        Bool_t ishuiling = true)
                         // TString singleFileName = "TauOfTTTT_TopTagger_oldEID_100.root")
 {
     gROOT->ProcessLine(".L Loader.C+");
