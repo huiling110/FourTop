@@ -29,6 +29,13 @@
 #include <TH2.h>
 #include <TStyle.h>
 
+void printElements(const vector<Double_t>& jets_btags, const vector<TLorentzVector>& jets ){
+    for( UInt_t j = 0; j<jets_btags.size(); j++ ){
+        std::cout<<jets[j].Pt()<<":"<<jets_btags[j]<<" ";
+        // std::cout<<jets_btags[j]<<"  ";
+    }
+    std::cout<<"  \n";
+}
 
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) {
   Double_t deltaPhi = TMath::Abs(phi1 - phi2);
@@ -81,6 +88,12 @@ void jetsSubstructBjets(vector<TLorentzVector>& nonbjets,   const vector<TLorent
     }
 }
 
+    // SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+void sortJetAndFlavorAndBcore( vector<TLorentzVector>& jets, vector<Double_t>& jets_btags, vector<Int_t> jets_flavour ){
+    sort( jets_btags.begin(), jets_btags.end(), [&](std::size_t i,std::size_t j){
+            return jets[i].Pt()>jets[j].Pt();
+            } );
+} 
 
 void objectTSelector::Begin(TTree * /*tree*/)
 {
@@ -305,7 +318,9 @@ Bool_t objectTSelector::Process(Long64_t entry)
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
     SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-    sort( jets.begin(), jets.end(), compEle);
+    printElements( jets_btags, jets );
+    // sort( jets.begin(), jets.end(), compEle);
+    // pt are sorted in MINIAOD
     SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsL.begin(), bjetsL.end(), compEle);
     SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);

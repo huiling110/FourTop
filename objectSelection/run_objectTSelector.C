@@ -64,7 +64,8 @@ void run_objectTSelector(
         if (ishuiling) outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
         else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         // chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        // chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        chain.Process( selection + "+", outputDir + outputFileName, 100);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 
