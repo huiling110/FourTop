@@ -158,7 +158,7 @@ if sample == "DATA" :
             h_nTaus_FnotT_eta0to1p5_topBkg.Add(h_nTaus_FnotT_eta0to1p5_topBkg_)
             h_nTaus_FnotT_eta1p5to2p3_topBkg.Add(h_nTaus_FnotT_eta1p5to2p3_topBkg_)
             
-    if region == "AR" and not no_bkgsub :
+    if (region == "AR" or region == "VR") and not no_bkgsub :
         h_nTaus_FnotT_eta0to1p5.Add(h_nTaus_FnotT_eta0to1p5_topBkg, -1)
         h_nTaus_FnotT_eta1p5to2p3.Add(h_nTaus_FnotT_eta1p5to2p3_topBkg, -1)
 
