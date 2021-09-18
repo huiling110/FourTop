@@ -505,14 +505,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         HLT_PFJet450 = *HLT_PFJet450_;
     }
 
-     //weights
-     EVENT_prefireWeight = *EVENT_prefireWeight_;
-     EVENT_genWeight = *EVENT_genWeight_;
-     PUWeight = *PUWeight_;
-     // btagEfficiency_weight = evalEventSF( jets, jets_flavour, jets_btags, CSVreader  );
-     Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
-     btagEfficiency_weight = allBtagSF[0];
-     cout<<"btagWeight: "<<btagEfficiency_weight<<"\n";
 
 
 
@@ -903,6 +895,15 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         toptagger_3phi = fabs(tops_toptagger[2].Phi());
       }
 
+
+     //weights
+     EVENT_prefireWeight = *EVENT_prefireWeight_;
+     EVENT_genWeight = *EVENT_genWeight_;
+     PUWeight = *PUWeight_;
+     Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
+     btagEfficiency_weight = allBtagSF[0];
+     HLTefficiency_weight = getHLTweight( jets_HT, jets_number ); 
+
       if ( preselection ){
           if ( !( jets_HT > 400 ))     return kFALSE;
       }
@@ -953,6 +954,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
    newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
+   newtree->Branch( "HLTefficiency_weight",  &HLTefficiency_weight, "HLTefficiency_weight/D");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
    newtree->Branch( "Met_phi_", &Met_phi_, "Met_phi_/D");
@@ -1270,6 +1272,7 @@ void makeVaribles_forBDT::InitializeBranches()
     EVENT_genWeight = -99;
     PUWeight = -99;
     btagEfficiency_weight = -99;
+    HLTefficiency_weight = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;

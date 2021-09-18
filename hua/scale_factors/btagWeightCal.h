@@ -1,6 +1,7 @@
-// Double_t * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlavor, vector<Double_t> * AK4JetBtag, BTagCalibrationReader CSV_nominal) {
 #include "BTagCalibrationStandalone.h"
 #include "BTagCalibrationStandalone.cpp"
+#include "TH2D.h"
+
 Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, const TTreeReaderArray<Int_t>& AK4JetFlavor, TTreeReaderArray<Double_t> & AK4JetBtag, BTagCalibrationReader CSV_nominal) {
 		// mychain.SetBranchAddress("jets_flavour", &myjets_flavor);
     
@@ -106,7 +107,7 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, const 
          
         if ( AK4Jets.GetSize() > 0 ) { 
         
-            for (int i = 0; i < AK4Jets.GetSize(); i++) {
+            for (UInt_t i = 0; i < AK4Jets.GetSize(); i++) {
                 
                 if ( fabs(AK4JetFlavor.At(i)) == 5) { //b flavor
                     
@@ -243,4 +244,13 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, const 
             // delete AK4Jets;
             // delete AK4JetBtag;
             
-} 
+}
+
+
+Double_t getHLTweight( const Double_t HT, const Int_t jets_number ){
+	static  TFile * input_TriggerSF = new TFile( "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/TriggerSF_2D_2jetsinpresel.root", "READ" );
+	static TH2D * triggerSF = (TH2D*)input_TriggerSF->Get("SF_njetsVsHT");
+    Double_t mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, jets_number ));
+    return mytriggerWeight;
+
+}

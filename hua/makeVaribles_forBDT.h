@@ -60,6 +60,7 @@ public :
     Double_t   EVENT_genWeight;
     Double_t   PUWeight;
     Double_t   btagEfficiency_weight;
+    Double_t HLTefficiency_weight;
     Double_t  Met_pt_;
     Double_t Met_phi_;
     Int_t muonsL_number;
