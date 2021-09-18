@@ -1,5 +1,7 @@
 // Double_t * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlavor, vector<Double_t> * AK4JetBtag, BTagCalibrationReader CSV_nominal) {
-Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, vector<int> * AK4JetFlavor, TTreeReaderArray<Double_t> & AK4JetBtag, BTagCalibrationReader CSV_nominal) {
+#include "BTagCalibrationStandalone.h"
+#include "BTagCalibrationStandalone.cpp"
+Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, const TTreeReaderArray<Int_t>& AK4JetFlavor, TTreeReaderArray<Double_t> & AK4JetBtag, BTagCalibrationReader CSV_nominal) {
 		// mychain.SetBranchAddress("jets_flavour", &myjets_flavor);
     
         Double_t * output;
@@ -102,24 +104,24 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, vector
          
             //loop over AK4 jets and compute scale factors depending on jet flavor, absolute value of jet eta, jet pt, jet CSV score
          
-        if ( AK4Jets->size() > 0 ) { 
+        if ( AK4Jets.GetSize() > 0 ) { 
         
-            for (int i = 0; i < AK4Jets->size(); i++) {
+            for (int i = 0; i < AK4Jets.GetSize(); i++) {
                 
-                if ( fabs(AK4JetFlavor->at(i)) == 5) { //b flavor
+                if ( fabs(AK4JetFlavor.At(i)) == 5) { //b flavor
                     
                     nB++;
 					
-                    Double_t mycsv_weight_BF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    Double_t mycsv_weight_BF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
                     //no uncertainty on contamination from HF sample when computing HF scale factors
-					Double_t mycsv_weight_BF_ak4LFUp = CSV_nominal.eval_auto_bounds("up_lf", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4LFDown = CSV_nominal.eval_auto_bounds("down_lf", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4hfstats1Up = CSV_nominal.eval_auto_bounds("up_hfstats1", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4hfstats1Down = CSV_nominal.eval_auto_bounds("down_hfstats1", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4hfstats2Up = CSV_nominal.eval_auto_bounds("up_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_BF_ak4hfstats2Down = CSV_nominal.eval_auto_bounds("down_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+					Double_t mycsv_weight_BF_ak4LFUp = CSV_nominal.eval_auto_bounds("up_lf", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4LFDown = CSV_nominal.eval_auto_bounds("down_lf", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4hfstats1Up = CSV_nominal.eval_auto_bounds("up_hfstats1", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4hfstats1Down = CSV_nominal.eval_auto_bounds("down_hfstats1", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4hfstats2Up = CSV_nominal.eval_auto_bounds("up_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_BF_ak4hfstats2Down = CSV_nominal.eval_auto_bounds("down_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
 					//no uncertainty on statistics of LF sample when computing HF scale factors
                     
                     if (mycsv_weight_BF_ak4 == 0) cout << "!!!!!!!!!!!!!!!!!!!!!!" << endl;
@@ -135,17 +137,17 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, vector
                     if (mycsv_weight_BF_ak4hfstats2Down != 0) csv_weight_BF_ak4hfstats2Down *= mycsv_weight_BF_ak4hfstats2Down;
                 }
                 
-                else if ( fabs(AK4JetFlavor->at(i)) == 4) { //c flavor
+                else if ( fabs(AK4JetFlavor.At(i)) == 4) { //c flavor
                     
                     nC++;
                 
-                    Double_t mycsv_weight_CF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i)); //always 1, checked
-					Double_t mycsv_weight_CF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_CF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_CF_ak4cfErr1Up = CSV_nominal.eval_auto_bounds("up_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_CF_ak4cfErr1Down = CSV_nominal.eval_auto_bounds("down_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_CF_ak4cfErr2Up = CSV_nominal.eval_auto_bounds("up_cferr2", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_CF_ak4cfErr2Down = CSV_nominal.eval_auto_bounds("down_cferr2", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    Double_t mycsv_weight_CF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i)); //always 1, checked
+					Double_t mycsv_weight_CF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_CF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_CF_ak4cfErr1Up = CSV_nominal.eval_auto_bounds("up_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_CF_ak4cfErr1Down = CSV_nominal.eval_auto_bounds("down_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_CF_ak4cfErr2Up = CSV_nominal.eval_auto_bounds("up_cferr2", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_CF_ak4cfErr2Down = CSV_nominal.eval_auto_bounds("down_cferr2", BTagEntry::FLAV_C, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
                     //for c-flavored jets only the cfErr uncertainty is applied
                     
                     if (mycsv_weight_CF_ak4 != 0) csv_weight_CF_ak4 *= mycsv_weight_CF_ak4;
@@ -162,16 +164,16 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, vector
 					
                     nL++;
                 
-                    Double_t mycsv_weight_LF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4HFUp = CSV_nominal.eval_auto_bounds("up_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4HFDown = CSV_nominal.eval_auto_bounds("down_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    Double_t mycsv_weight_LF_ak4 = CSV_nominal.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4JESUp = CSV_nominal.eval_auto_bounds("up_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4JESDown = CSV_nominal.eval_auto_bounds("down_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4HFUp = CSV_nominal.eval_auto_bounds("up_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4HFDown = CSV_nominal.eval_auto_bounds("down_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
                     //no uncertainty on contamination from LF sample when computing LF scale factors
-					Double_t mycsv_weight_LF_ak4lfstats1Up = CSV_nominal.eval_auto_bounds("up_lfstats1", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4lfstats1Down = CSV_nominal.eval_auto_bounds("down_lfstats1", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4lfstats2Up = CSV_nominal.eval_auto_bounds("up_lfstats2", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-                    Double_t mycsv_weight_LF_ak4lfstats2Down = CSV_nominal.eval_auto_bounds("down_lfstats2", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+					Double_t mycsv_weight_LF_ak4lfstats1Up = CSV_nominal.eval_auto_bounds("up_lfstats1", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4lfstats1Down = CSV_nominal.eval_auto_bounds("down_lfstats1", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4lfstats2Up = CSV_nominal.eval_auto_bounds("up_lfstats2", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
+                    Double_t mycsv_weight_LF_ak4lfstats2Down = CSV_nominal.eval_auto_bounds("down_lfstats2", BTagEntry::FLAV_UDSG, fabs(AK4Jets.At(i).Eta()), AK4Jets.At(i).Pt(), AK4JetBtag.At(i));
 					//no uncertainty on statistics of HF sample when computing LF scale factors
                     //no cfErr is computed for light-flavored jets
                     
@@ -238,7 +240,7 @@ Double_t * evalEventSF( const TTreeReaderArray<TLorentzVector> & AK4Jets, vector
             
             return output;
             delete output;
-            delete AK4Jets;
-            delete AK4JetBtag;
+            // delete AK4Jets;
+            // delete AK4JetBtag;
             
 } 

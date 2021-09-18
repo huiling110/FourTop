@@ -464,6 +464,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree = new TTree( "newtree", "tree for BDT");
 
    makeBranchForTree( newtree, wantFilterHLTBranches);
+    initializeBReader();
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -508,7 +509,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      EVENT_prefireWeight = *EVENT_prefireWeight_;
      EVENT_genWeight = *EVENT_genWeight_;
      PUWeight = *PUWeight_;
-     btagEfficiency_weight = 
+     // btagEfficiency_weight = evalEventSF( jets, jets_flavour, jets_btags, CSVreader  );
+     Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
+     btagEfficiency_weight = allBtagSF[0];
+     cout<<"btagWeight: "<<btagEfficiency_weight<<"\n";
 
 
 
@@ -1220,6 +1224,45 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
   newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 
 }
+  
+void makeVaribles_forBDT::initializeBReader(){
+    cout << "Loading the .csv file..." << endl;
+    
+	std::string inputCSVfile = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/DeepJet_2016LegacySF_V1.csv";  
+    //?might be wrong csv file
+	std::string measType = "iterativefit";
+	std::string sysType = "central";
+	std::string sysTypeJESUp = "up_jes";
+	std::string sysTypeJESDown = "down_jes";
+	std::string sysTypeHFUp = "up_hf";
+	std::string sysTypeHFDown = "down_hf";
+	std::string sysTypeLFUp = "up_lf";
+	std::string sysTypeLFDown = "down_lf";
+	std::string sysTypehfstats1Up = "up_hfstats1";
+	std::string sysTypehfstats1Down = "down_hfstats1";
+	std::string sysTypehfstats2Up = "up_hfstats2";
+	std::string sysTypehfstats2Down = "down_hfstats2";
+	std::string sysTypelfstats1Up = "up_lfstats1";
+	std::string sysTypelfstats1Down = "down_lfstats1";
+	std::string sysTypelfstats2Up = "up_lfstats2";
+	std::string sysTypelfstats2Down = "down_lfstats2";
+	std::string sysTypecfErr1Up = "up_cferr1";
+	std::string sysTypecfErr1Down = "down_cferr1";
+	std::string sysTypecfErr2Up = "up_cferr2";
+	std::string sysTypecfErr2Down = "down_cferr2";
+    
+    BTagCalibration calib("DeepJet", inputCSVfile);
+    
+    // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
+    CSVreader = BTagCalibrationReader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
+    CSVreader.load(calib, BTagEntry::FLAV_B, measType);
+    CSVreader.load(calib, BTagEntry::FLAV_C, measType);
+    CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
+    
+    cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
+
+}
+
 
 void makeVaribles_forBDT::InitializeBranches()
 {

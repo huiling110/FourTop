@@ -30,6 +30,8 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //add
+    BTagCalibrationReader CSVreader;
+    // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
    Bool_t wantFilterHLTBranches = true;
    Bool_t preselection = true;
    Long64_t   fProcessed = 0;
@@ -343,6 +345,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderArray<Int_t> tausT_index = {fReader, "tausT_index"};
    TTreeReaderArray<TLorentzVector> jets = {fReader, "jets"};
    TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
+   TTreeReaderArray<Int_t> jets_flavour = {fReader, "jets_flavour"};
    TTreeReaderArray<Double_t> jets_btags = {fReader, "jets_btags"};
    TTreeReaderArray<TLorentzVector> bjetsL = {fReader, "bjetsL"};
    TTreeReaderArray<Int_t> bjetsL_index = {fReader, "bjetsL_index"};
@@ -445,6 +448,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    virtual void    SlaveTerminate();
    virtual void    Terminate();
     void InitializeBranches();
+    void initializeBReader();;
     void makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches);
    ClassDef(makeVaribles_forBDT,0);
 
