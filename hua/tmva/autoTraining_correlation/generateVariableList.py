@@ -21,23 +21,27 @@ def main():
     
     #the first line identifies each piece of datain other words, the name of a data column
     
-    #  channel = 1;#1 for 1tau1l
+    channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
-    channel =3 # 2tau1l
+    #  channel =3 # 2tau1l
     #  channel =4# 1tau2l
-    #  version = 1
-    version = 2 #corrected correlation removel
-    outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
+    version = 1
+    #  version = 2 #corrected correlation removel
+    #  outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
+    outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
 
-    vListDir, outputDir = checkAndMakeDir( channel, outputBase, version )
+    channelName = getNameForChannelVersion( channel, version ) 
+    vListDir, outputDir = checkAndMakeDir( channelName, outputBase )
     
-    TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
-    vListList = generateListList( TMVAlog, TMVAroot )
-    writeListListToFile( vListList, vListDir)
+    #  TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
+    #  vListList = generateListList( TMVAlog, TMVAroot )
+    #  writeListListToFile( vListList, vListDir)
 
     #plot variable list
-    SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
-    plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
+    #  SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
+    #  plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
+
+#  def generateAllVariableLog( outputDir ):
 
 
 def getTMVAlog( outputDir, channel):
@@ -88,27 +92,44 @@ def removephieta( initialList ):
 
     return initialList
 
-def checkAndMakeDir( channel, outputDir, version ):
-    outputDir = makeBaseDir( channel, outputDir, version )
+#  def checkAndMakeDir( channel, outputDir, version ):
+def checkAndMakeDir( channelName, outputDir ):
+    outputDir = makeBaseDir( channelName, outputDir )
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( vListDir):
         os.mkdir( vListDir )
     return vListDir, outputDir
 
-def makeBaseDir( channel, outputDir, version ):
-    if channel == 1:
-        outputDir = outputDir + '1tau1l_v' + str(version) +'/'
-    if channel == 2:
-        outputDir = outputDir + '1tau2os_v' + str(version) + '/'
-    if channel ==3:
-        outputDir = outputDir + '2tau1l_v' + str(version) + '/'
-    if channel ==4:
-        outputDir = outputDir + '1tau2l_v' + str(version) + '/'
+def makeBaseDir( channelName, outputDir ):
+    if not os.path.exists( outputDir ):
+        os.mkdir( outputDir )
+
+    #  if channel == 1:
+        #  outputDir = outputDir + '1tau1l_v' + str(version) +'/'
+    #  if channel == 2:
+        #  outputDir = outputDir + '1tau2os_v' + str(version) + '/'
+    #  if channel ==3:
+        #  outputDir = outputDir + '2tau1l_v' + str(version) + '/'
+    #  if channel ==4:
+        #  outputDir = outputDir + '1tau2l_v' + str(version) + '/'
+    outputDir = outputDir + channelName + '/'
 
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
     return outputDir
+
+def getNameForChannelVersion( channel, version ):
+    channelName = ''
+    if channel == 1:
+        channelName = '1tau1l_v' + str(version) 
+    if channel == 2:
+        channelName = '1tau2os_v' + str(version) 
+    if channel == 3:
+        channelName = '2tau1l_v' + str(version) 
+    if channel == 4:
+        channelName = '1tau2l_v' + str(version) 
+    return channelName
 
 
 
@@ -264,4 +285,4 @@ def takeThird( elem ):
 
 
 if __name__ == '__main__':
-	main()
+        main()
