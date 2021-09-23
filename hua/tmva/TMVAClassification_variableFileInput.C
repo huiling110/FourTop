@@ -133,7 +133,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
    cout<<"allSignalEvents: "<< allSignal<<"\n";
-   // TH1D* bg = getBackHist( allProcesses, cutForSandB, weight );
    Double_t allBg = getAllBgEntries( cutForSandB, weight );
    cout<<"allBgEvents: "<<allBg<<"\n";
 
@@ -458,7 +457,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                                         "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
-        dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
+        dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );//60% goes to training, 1tau1l
        // if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
        // if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
        // if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
