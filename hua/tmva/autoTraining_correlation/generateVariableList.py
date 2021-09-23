@@ -2,6 +2,7 @@
 
 import sys
 import os
+import subprocess
 import ROOT
 #  from ROOT import *
 #  import array
@@ -32,6 +33,8 @@ def main():
 
     channelName = getNameForChannelVersion( channel, version ) 
     vListDir, outputDir = checkAndMakeDir( channelName, outputBase )
+
+    generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
     
     #  TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
     #  vListList = generateListList( TMVAlog, TMVAroot )
@@ -41,7 +44,17 @@ def main():
     #  SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
     #  plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
-#  def generateAllVariableLog( outputDir ):
+def generateAllVariablesLog( outputDir , channelName, channel ):
+    tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
+    trainingCommand = 'root -b -q \'{}( \"\", \"{}\", \"\", {}, true )\''.format( tmvaTraining, outputDir, channel )
+    print( 'training for all variables starts....................................... ' )
+    print( 'command: ', trainingCommand )
+    process = subprocess.run( 'root -b -q {}'.format(tmvaTraining), shell=True, capture_output=True, text=True )
+    output = process.stdout.strip()
+    print( output )
+
+    with open( outputDir+'{}__variables.log'.format(channelName), 'w') as logFile:
+        logFile.writelines( output )
 
 
 def getTMVAlog( outputDir, channel):
