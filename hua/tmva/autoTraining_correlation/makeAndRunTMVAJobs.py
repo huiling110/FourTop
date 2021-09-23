@@ -6,15 +6,22 @@ import csv
 
 import generateVariableList as GV
 
-def getChannelName( channel ):
-    chName = ''
-    if channel==1:
-        chName = '1tau1l'
-    if channel==2:
-        chName = '1tau2os'
-    if channel==3:
-        chName = '2tau1l'
-    return chName
+
+def main():
+    channel = 1;#1 for 1tau1l
+    #  channel = 2;#2 for 1tau2os
+    #  channel =3 # 2tau1l
+    #  channel = 4
+    #  version = 1
+    version = 1
+    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
+    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+    #  isApp = True
+    isApp = False
+    channelName = GV.getNameForChannel( channel ) 
+
+    vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp )
+    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp )
 
 
 
@@ -63,7 +70,7 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
     if isApp:
         weightDir = outputDir[:-11]
         vlistName = entry[:-4]
-        weightDir = weightDir + 'dataset/'+ getChannelName( channel ) + '_' + vlistName + '_weight/'
+        weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) + ')' + '\''   )
     else:
@@ -78,8 +85,8 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
 
 
 
-def checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp ):
-    outputDir = GV.makeBaseDir(channel, outputDir, version )
+def checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp ):
+    outputDir = GV.makeBaseDir(channelName, version, outputDir )
     vListDir = outputDir + 'variableList/'
     if isApp:
         outputDir = outputDir + 'AppResults/'
@@ -93,18 +100,7 @@ def checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp ):
 
 
 if __name__ == '__main__':
-    channel = 1;#1 for 1tau1l
-    #  channel = 2;#2 for 1tau2os
-    #  channel =3 # 2tau1l
-    #  channel = 4
-    #  version = 1
-    version = 2
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    isApp = True
-
-    vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp )
-    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp )
+    main()
 
 
 
