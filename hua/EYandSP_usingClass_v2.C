@@ -9,13 +9,10 @@
 #include "TLatex.h"
 #include "TLegend.h"
 #include <iostream>
-#include "TROOT.h"
-#include "TMath.h"
-#include "TString.h"
-#include "TCut.h"
 #include "TStopwatch.h"
 #include "TPaveText.h"
 
+using  std::cout; 
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
@@ -32,60 +29,32 @@ void EYandSP_usingClass_v2(){
     // Bool_t ifDraw = true;
     // Bool_t ifEY = false;
     Bool_t ifEY = true;
-    TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/";
+    // TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/";
+    // TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/results/";
+    TString EYplotDir = baseDir + "results/";
 
-  using namespace std; 
 
 //  bool SYST = false;
 
   vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
 //variablelist is plots we want to show   
-//?is there a more clever way to push_back all in a loop?
 
   variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
  
 
-
-
   //apply selection cuts here
-//step4
-      //
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-
-const TCut ES1tau1l = ES1tau1e||ES1tau1m;
-const TCut ES1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
-
-
-
-TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
-TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
-
-
 
 
 vector<TH1D*> allHistos;
 TH1D* h_background;
 
+
+
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=3; cha<4; cha++){
 // for (UInt_t  cha=3; cha<channelName.size(); cha++){
-    TString postfix = channelName[cha] + ".png";
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
@@ -95,11 +64,12 @@ for (UInt_t  cha=3; cha<4; cha++){
   	    TString plot = variablelist[i];
 
         getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[cha] );
+        t.Print();
 
         if ( i ==0 && ifEY ){
             printEventYield( allHistos, h_background );
             drawEventEield( allHistos, h_background, EYplotDir, channelName[cha] );
-
+            // writeEYtoFile(  );
         }
        
         if ( ifDraw ){
@@ -446,6 +416,7 @@ void drawHistos( const vector<TH1D*> &allHistos, TH1D* h_background , TString va
    
 
     // TString NAME = variablelist[i];
+    // TString postfix = channelName[cha] + ".png";
     // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/plotsAndResults/test/"+ NAME+postfix);
     
     // cout<<"Finished "<<NAME+postfix<<endl;

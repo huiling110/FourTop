@@ -1,5 +1,5 @@
-/// \file
 /// \ingroup tutorial_tmva
+/// \file
 /// \notebook -nodraw
 /// This macro provides examples for the training and testing of the
 /// TMVA classifiers.
@@ -75,6 +75,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
         Bool_t forVariables = true
+        // Bool_t forVariables = false
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -86,8 +87,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t istest = false;
-   // Bool_t istest = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
@@ -128,6 +129,14 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         outfile = "1tau2l_" + csvListName;
     }
     cout<<channel<<": "<<cutForSandB<<endl;
+
+   Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
+   cout<<"allSignalEvents: "<< allSignal<<"\n";
+   TH1D* bg = getBackHist( allProcesses, cutForSandB, weight );
+   Double_t allBg = bg->GetEntries();
+   // delete bg;
+   cout<<"allBgEvents: "<<allBg<<"\n";
+
 
 
 
@@ -443,11 +452,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // for training, and the other half for testing:
    //
    //    dataloader->PrepareTrainingAndTestTree( mycut, "SplitMode=random:!V" );
-   //
-   // To also specify the number of testing events, use:
-   //
-   //    dataloader->PrepareTrainingAndTestTree( mycut,
-   //         "NSigTrain=3000:NBkgTrain=3000:NSigTest=3000:NBkgTest=3000:SplitMode=Random:!V" );
+
+    TString trainingSetup = "";
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree(
                cutForSandB, cutForSandB,
@@ -455,12 +461,13 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
        if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
-       if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
-       if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
-       if ( channel ==4 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=21632:nTrain_Background=5521:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2l
+       // if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
+       // if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
+       // if ( channel ==4 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=21632:nTrain_Background=5521:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2l
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );
        //means raw entries
+    // dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );
    }
 
    // ### Book MVA methods

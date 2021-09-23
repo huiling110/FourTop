@@ -2,6 +2,11 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1D.h"
+#include "TROOT.h"
+#include "TMath.h"
+#include "TString.h"
+#include "TCut.h"
+#include "TPRegexp.h"
 
 
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v13etaPhiAbs_v42_addNonBjets/";
@@ -15,6 +20,28 @@ Double_t LUMI = 35900; //pb-1
 Double_t separationPower(TH1D* h1, TH1D* h2);
 
 
+const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
+const TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
+
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
+
+const TCut ES1tau1l = ES1tau1e||ES1tau1m;
+const TCut ES1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
+
+
 class Process
 {
     private:
@@ -23,6 +50,7 @@ class Process
         TFile* m_file;
         TTree *eventTree;
         TTree *alleventTree;
+        TH1D *channelEY;
     public:
         Process( TString fileName, Double_t sigma)
             :m_fileName{ fileName}, m_sigma{ sigma}
@@ -70,8 +98,18 @@ class Process
             }
             // std::cout<<m_fileName<<"\n";
             return name;
-
         }
+
+        TH1D* getChannelHist( const TCut cut, const TCut weight ){
+            TH1D* h = new TH1D("h_EY", "h_EY", 40 , 0 , 40 );//1
+            getEventTree()->Project( "h_EY", "jets_number", weight*( cut ));
+            channelEY = (TH1D*)h->Clone("channel_EY");
+            delete h;
+            return channelEY;
+        }
+
+        // Double_t getChannelYield( const TCut cut, const TCut weight ){
+        // }
 };
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
@@ -150,6 +188,17 @@ vector<Process> allProcesses = {
 };
 
 
+TH1D* getBackHist( vector<Process> allProcesses,  const TCut cut, const TCut weight ){
+    TH1D* bg = new TH1D( "bg", "bg", 40, 0, 40);
+    TString hname ;
+    Double_t scale;
+    Double_t sumGenWeights = -99;
+    for(UInt_t j = 1; j < allProcesses.size(); j++){
+        if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
+    }
+    return bg;
+
+}
 
                                                    
 
