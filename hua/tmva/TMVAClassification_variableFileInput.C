@@ -134,7 +134,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    cout<<"allSignalEvents: "<< allSignal<<"\n";
    TH1D* bg = getBackHist( allProcesses, cutForSandB, weight );
    Double_t allBg = bg->GetEntries();
-   // delete bg;
    cout<<"allBgEvents: "<<allBg<<"\n";
 
 
