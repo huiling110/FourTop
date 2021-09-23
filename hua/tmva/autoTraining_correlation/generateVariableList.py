@@ -31,18 +31,18 @@ def main():
     #  outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
     outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
 
-    channelName = getNameForChannelVersion( channel, version ) 
-    vListDir, outputDir = checkAndMakeDir( channelName, outputBase )
+    channelName = getNameForChannel( channel ) 
+    vListDir, outputDir = checkAndMakeDir( channelName, version, outputBase )
 
-    generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
+    #  generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
     
-    #  TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
-    #  vListList = generateListList( TMVAlog, TMVAroot )
-    #  writeListListToFile( vListList, vListDir)
+    TMVAlog, TMVAroot = getTMVAlog( outputDir, channelName )
+    vListList = generateListList( TMVAlog, TMVAroot )
+    writeListListToFile( vListList, vListDir)
 
     #plot variable list
-    #  SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
-    #  plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
+    SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
+    plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
 def generateAllVariablesLog( outputDir , channelName, channel ):
     tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
@@ -57,19 +57,21 @@ def generateAllVariablesLog( outputDir , channelName, channel ):
         logFile.writelines( output )
 
 
-def getTMVAlog( outputDir, channel):
-    if channel == 1:
-        TMVAlog = outputDir + '1tau1l__variables.log'
-        TMVAroot = outputDir + '1tau1l__variables.root'
-    if channel == 2:
-        TMVAlog = outputDir + '1tau2os__variables.log'
-        TMVAroot = outputDir + '1tau2os__variables.root'
-    if channel == 3:
-        TMVAlog = outputDir + '2tau1l__variables.log'
-        TMVAroot = outputDir + '2tau1l__variables.root'
-    if channel == 4:
-        TMVAlog = outputDir + '1tau2l__variables.log'
-        TMVAroot = outputDir + '1tau2l__variables.root'
+def getTMVAlog( outputDir, channelName ):
+    #  if channel == 1:
+        #  TMVAlog = outputDir + '1tau1l__variables.log'
+        #  TMVAroot = outputDir + '1tau1l__variables.root'
+    #  if channel == 2:
+        #  TMVAlog = outputDir + '1tau2os__variables.log'
+        #  TMVAroot = outputDir + '1tau2os__variables.root'
+    #  if channel == 3:
+        #  TMVAlog = outputDir + '2tau1l__variables.log'
+        #  TMVAroot = outputDir + '2tau1l__variables.root'
+    #  if channel == 4:
+        #  TMVAlog = outputDir + '1tau2l__variables.log'
+        #  TMVAroot = outputDir + '1tau2l__variables.root'
+    TMVAlog = outputDir + channelName + '__variables.log'
+    TMVAroot = outputDir + channelName + '_variables.root'
     return TMVAlog, TMVAroot
 
 def generateListList( TMVAlog, TMVAroot ):
@@ -106,42 +108,33 @@ def removephieta( initialList ):
     return initialList
 
 #  def checkAndMakeDir( channel, outputDir, version ):
-def checkAndMakeDir( channelName, outputDir ):
-    outputDir = makeBaseDir( channelName, outputDir )
+def checkAndMakeDir( channelName, version, outputDir ):
+    outputDir = makeBaseDir( channelName, version, outputDir )
     vListDir = outputDir + 'variableList/'
     print( 'outputDir: ', outputDir)
     if not os.path.exists( vListDir):
         os.mkdir( vListDir )
     return vListDir, outputDir
 
-def makeBaseDir( channelName, outputDir ):
+def makeBaseDir( channelName, version, outputDir ):
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
-
-    #  if channel == 1:
-        #  outputDir = outputDir + '1tau1l_v' + str(version) +'/'
-    #  if channel == 2:
-        #  outputDir = outputDir + '1tau2os_v' + str(version) + '/'
-    #  if channel ==3:
-        #  outputDir = outputDir + '2tau1l_v' + str(version) + '/'
-    #  if channel ==4:
-        #  outputDir = outputDir + '1tau2l_v' + str(version) + '/'
-    outputDir = outputDir + channelName + '/'
+    outputDir = outputDir + channelName + '_v' + str(version) + '/'
 
     if not os.path.exists( outputDir ):
         os.mkdir( outputDir )
     return outputDir
 
-def getNameForChannelVersion( channel, version ):
+def getNameForChannel( channel ):
     channelName = ''
     if channel == 1:
-        channelName = '1tau1l_v' + str(version) 
+        channelName = '1tau1l'  
     if channel == 2:
-        channelName = '1tau2os_v' + str(version) 
+        channelName = '1tau2os'  
     if channel == 3:
-        channelName = '2tau1l_v' + str(version) 
+        channelName = '2tau1l'  
     if channel == 4:
-        channelName = '1tau2l_v' + str(version) 
+        channelName = '1tau2l' 
     return channelName
 
 

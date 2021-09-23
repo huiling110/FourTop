@@ -86,10 +86,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t forVariables = false;
-   // Bool_t forVariables = true;
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
@@ -435,8 +433,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Set individual event weights (the variables must exist in the original TTree)
   // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
    // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight");
-   dataloader->SetBackgroundWeightExpression( "EVENT_genWeight*EVENT_prefireWeight*PUWeight" );
+   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight");
+   dataloader->SetBackgroundWeightExpression( "EVENT_genWeight*EVENT_prefireWeight*PUWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight" );
 
 
    // Tell the dataloader how to use the training and testing events
