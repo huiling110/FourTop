@@ -62,7 +62,6 @@
 #include "TMVA/TMVAGui.h"
 
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
-// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/test/",
@@ -133,9 +132,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    cout<<"allSignalEvents: "<< allSignal<<"\n";
    Double_t allBg = getAllBgEntries( cutForSandB, weight );
    cout<<"allBgEvents: "<<allBg<<"\n";
-
-
-
 
 
 

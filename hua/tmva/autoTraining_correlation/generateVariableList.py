@@ -13,9 +13,6 @@ import plotVariablesAndSP
 
 
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
-#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log"):
-#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log"):
-#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2tau2l__variables.log"):
 #  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/1tau2l__variables.log"):
 def main():
     #  TMVADir =  "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/"
@@ -49,7 +46,8 @@ def generateAllVariablesLog( outputDir , channelName, channel ):
     trainingCommand = 'root -b -q \'{}( \"\", \"{}\", \"\", {}, true )\''.format( tmvaTraining, outputDir, channel )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
-    process = subprocess.run( 'root -b -q {}'.format(tmvaTraining), shell=True, capture_output=True, text=True )
+    #  process = subprocess.run( 'root -b -q {}'.format(tmvaTraining), shell=True, capture_output=True, text=True )
+    process = subprocess.run( trainingCommand, shell=True, capture_output=True, text=True )
     output = process.stdout.strip()
     print( output )
 
@@ -58,20 +56,8 @@ def generateAllVariablesLog( outputDir , channelName, channel ):
 
 
 def getTMVAlog( outputDir, channelName ):
-    #  if channel == 1:
-        #  TMVAlog = outputDir + '1tau1l__variables.log'
-        #  TMVAroot = outputDir + '1tau1l__variables.root'
-    #  if channel == 2:
-        #  TMVAlog = outputDir + '1tau2os__variables.log'
-        #  TMVAroot = outputDir + '1tau2os__variables.root'
-    #  if channel == 3:
-        #  TMVAlog = outputDir + '2tau1l__variables.log'
-        #  TMVAroot = outputDir + '2tau1l__variables.root'
-    #  if channel == 4:
-        #  TMVAlog = outputDir + '1tau2l__variables.log'
-        #  TMVAroot = outputDir + '1tau2l__variables.root'
     TMVAlog = outputDir + channelName + '__variables.log'
-    TMVAroot = outputDir + channelName + '_variables.root'
+    TMVAroot = outputDir + channelName + '__variables.root'
     return TMVAlog, TMVAroot
 
 def generateListList( TMVAlog, TMVAroot ):
