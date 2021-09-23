@@ -50,7 +50,7 @@ class Process
         TFile* m_file;
         TTree *eventTree;
         TTree *alleventTree;
-        // TH1D *channelEY;
+        TH1D *channelEY;
     public:
         Process( TString fileName, Double_t sigma)
             :m_fileName{ fileName}, m_sigma{ sigma}
@@ -101,12 +101,12 @@ class Process
         }
 
         TH1D* getChannelHist( const TCut cut, const TCut weight ){
-            // TH1D* h = new TH1D("h_EY", "h_EY", 40 , 0 , 40 );//1
             TString hName = getProcessName();
             TH1D* h = new TH1D( hName, hName, 40 , 0 , 40 );//1
-            getEventTree()->Project( "h_EY", "jets_number", weight*( cut ));
+            getEventTree()->Project( hName, "jets_number", weight*( cut ));
             channelEY = (TH1D*)h->Clone( hName );
-            return h;
+            delete h;
+            return channelEY;
         }
 
         // Double_t getChannelYield( const TCut cut, const TCut weight ){
@@ -189,12 +189,20 @@ vector<Process> allProcesses = {
 };
 
 
-TH1D* getBackHist( const vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
+TH1D* getBackHist(  vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
     TH1D* bg = new TH1D( "bg", "bg", 40, 0, 40);
     for(UInt_t j = 1; j < allProcesses.size(); j++){
         if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
     }
     return bg;
+}
+
+Double_t getAllBgEntries( const TCut cut, const TCut weight ){
+    Double_t bgEntries = 0.0;
+    for(UInt_t j = 1; j < allProcesses.size(); j++){
+        bgEntries += allProcesses[j].getChannelHist( cut, weight)->GetEntries();
+    }
+    return bgEntries;
 }
 
                                                    

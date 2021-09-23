@@ -61,7 +61,8 @@
 #include "TMVA/Tools.h"
 #include "TMVA/TMVAGui.h"
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/test/",
@@ -132,8 +133,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
    cout<<"allSignalEvents: "<< allSignal<<"\n";
-   TH1D* bg = getBackHist( allProcesses, cutForSandB, weight );
-   Double_t allBg = bg->GetEntries();
+   // TH1D* bg = getBackHist( allProcesses, cutForSandB, weight );
+   Double_t allBg = getAllBgEntries( cutForSandB, weight );
    cout<<"allBgEvents: "<<allBg<<"\n";
 
 
@@ -449,17 +450,16 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //
    // If no numbers of events are given, half of the events in the tree are used
    // for training, and the other half for testing:
-   //
-   //    dataloader->PrepareTrainingAndTestTree( mycut, "SplitMode=random:!V" );
-
-    TString trainingSetup = "";
+    char trainingSetup[100];
+    sprintf( trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal*0.6, allBg*0.6 );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree(
                cutForSandB, cutForSandB,
                                         "nTrain_Signal=1000:nTrain_Background=1000:nTest_Signal=1000:nTest_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
-       if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
+        dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
+       // if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
        // if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
        // if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
        // if ( channel ==4 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=21632:nTrain_Background=5521:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2l
