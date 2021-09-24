@@ -27,10 +27,10 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v2.h"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
 
 using namespace TMVA;
-using namespace std;
+using std::cout;
 
 void writeHistToFile( const TH1F* hist, TString outFile ){
    TFile *target  = new TFile( outFile,"UPDATE" );
@@ -39,7 +39,6 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
    target->Close();
    std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
 }
-// void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree , TH1F* &histBdt, TH1F* &histBdtG ){
 void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir  ){
    // Create the Reader object
    
@@ -55,19 +54,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // - the variable names MUST corresponds in name and type to those given in the weight file(s) used
    // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
    //???type has to be Float_t
-   // reader->AddVariable( "jets_bScore",         &jets_bScore );
-   // reader->AddVariable( "jets_7pt",         &jets_7pt );
-   // reader->AddVariable( "toptagger_HT",         &toptagger_HT );
-   // reader->AddVariable( "bjetsM_invariantMass",         &bjetsM_invariantMass );
-   // reader->AddVariable( "jets_6pt",         &jets_6pt );
-   // reader->AddVariable( "jets_transMass",         &jets_transMass );
-   // reader->AddVariable( "jets_rationHT_4toRest",         &jets_rationHT_4toRest );
-   // reader->AddVariable( "nonbjetsM_4pt",         &nonbjetsM_4pt );
-   // reader->AddVariable( "bjetsM_minDeltaR",         &bjetsM_minDeltaR );
-   // reader->AddVariable( "toptagger_3pt",         &toptagger_3pt );
-   // reader->AddVariable( "toptagger_MHT",         &toptagger_MHT );
 
-    // TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv";
     ifstream fin( variableListCsv);
     string line ;
     TString ivariable;
@@ -98,7 +85,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 
    // Book the MVA methods
-   // TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/";
    TString prefix = "TMVAClassification";
    // Book method(s)
    for (std::map<std::string,int>::iterator it = Use.begin(); it != Use.end(); it++) {
@@ -128,18 +114,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
         theTree->SetBranchAddress( variablesName[i], &variablesOrigin[i] );
     }
 
-   // Double_t jets_bScore_origin, jets_7pt_origin, toptagger_HT_origin, bjetsM_invariantMass_origin, jets_6pt_origin, jets_transMass_origin, jets_rationHT_4toRest_origin, nonbjetsM_4pt_origin, bjetsM_minDeltaR_origin, toptagger_3pt_origin, toptagger_MHT_origin;
-   // theTree->SetBranchAddress( "jets_bScore",         &jets_bScore_origin );
-   // theTree->SetBranchAddress( "jets_7pt",         &jets_7pt_origin );
-   // theTree->SetBranchAddress( "toptagger_HT",         &toptagger_HT_origin );
-   // theTree->SetBranchAddress( "bjetsM_invariantMass",         &bjetsM_invariantMass_origin );
-   // theTree->SetBranchAddress( "jets_6pt",         &jets_6pt_origin );
-   // theTree->SetBranchAddress( "jets_transMass",         &jets_transMass_origin );
-   // theTree->SetBranchAddress( "jets_rationHT_4toRest",         &jets_rationHT_4toRest_origin );
-   // theTree->SetBranchAddress( "nonbjetsM_4pt",         &nonbjetsM_4pt_origin );
-   // theTree->SetBranchAddress( "bjetsM_minDeltaR",         &bjetsM_minDeltaR_origin );
-   // theTree->SetBranchAddress( "toptagger_3pt",         &toptagger_3pt_origin );
-   // theTree->SetBranchAddress( "toptagger_MHT",         &toptagger_MHT_origin );
    //for selection
    // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
@@ -171,15 +145,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
       
       // jets_bScore = jets_bScore_origin;
-      // jets_7pt = jets_7pt_origin;
-      // toptagger_HT = toptagger_HT_origin;
-      // bjetsM_invariantMass = bjetsM_invariantMass_origin;
-      // jets_6pt = jets_6pt_origin;
-      // jets_transMass = jets_transMass_origin;
-      // jets_rationHT_4toRest = jets_rationHT_4toRest_origin;
-      // nonbjetsM_4pt = nonbjetsM_4pt;
-      // bjetsM_minDeltaR = bjetsM_minDeltaR_origin;
-      // toptagger_3pt = toptagger_3pt_origin;
       // toptagger_MHT = toptagger_MHT_origin;
       for ( UInt_t j = 0; j<variableNum; j++ ){
           // variablesForReader[j] = variablesOrigin[j];
@@ -194,8 +159,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 
       // Return the MVA outputs and fill into histograms
-        Double_t eventWeight = EVENT_genWeight*EVENT_prefireWeight*PUWeight;
-        // std::cout<<"eventWeight = "<<eventWeight<<"\n";
+        Double_t eventWeight = EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight;
 
       // if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method") *eventWeight );
       if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), eventWeight );
@@ -208,7 +172,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    sw.Stop();
    std::cout << "--- End of event loop: "; sw.Print();
    std::cout<<"histBdt before scale: "<<histBdt->Integral()<<"\n";
-   // std::cout<<"processScale = "<<processScale<<"\n";
    histBdt->Scale(processScale);
    histBdtG->Scale(processScale);
    std::cout<<"histBdt after scale: "<<histBdt->Integral()<<"\n";
@@ -236,8 +199,10 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
         TString outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/outputFile/",
-        TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
-       TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
+        // TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
+       // TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
+        TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
+        TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/dataset/1tau1l_varibleList_11_weight/",
         // const Int_t channel = 3//2tau1l
         const Int_t channel = 1//1tau1l
 
@@ -293,8 +258,7 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    // Int_t channel = 1;
    UInt_t nbin = 100;
 
-   // if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
-   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );
+   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );//for combine
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );
     for ( UInt_t p=0; p<allProcesses.size(); p++){
     // for ( UInt_t p=0; p<1; p++){

@@ -16,8 +16,8 @@ def main():
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    #  isApp = True
-    isApp = False
+    isApp = True
+    #  isApp = False
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp )
@@ -74,7 +74,7 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         print( 'weightDir :', weightDir)
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) + ')' + '\''   )
     else:
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ')' + '\''   )
+        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ', false' ')' + '\''   )
     output.close()
 
 #  def checkJob():
@@ -90,8 +90,10 @@ def checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp ):
     vListDir = outputDir + 'variableList/'
     if isApp:
         outputDir = outputDir + 'AppResults/'
-        if not os.path.exists(outputDir +"AppResults/" ):
-            os.mkdir( outputDir  +"AppResults/")
+        #  if not os.path.exists(outputDir +"AppResults/" ):
+            #  os.mkdir( outputDir  +"AppResults/")
+        if not os.path.exists(outputDir ):
+            os.mkdir( outputDir )
     print( 'outputDir: ', outputDir)
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
