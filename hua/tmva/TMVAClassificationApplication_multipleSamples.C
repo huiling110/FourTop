@@ -123,10 +123,12 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    theTree->SetBranchAddress( "jets_number",     &jets_number );
    theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
    theTree->SetBranchAddress( "jets_HT",     &jets_HT );
-   Double_t EVENT_genWeight, EVENT_prefireWeight, PUWeight;
+   Double_t EVENT_genWeight, EVENT_prefireWeight, PUWeight, btagEfficiency_weight, HLTefficiency_weight;
    theTree->SetBranchAddress( "EVENT_genWeight",     &EVENT_genWeight );
    theTree->SetBranchAddress( "EVENT_prefireWeight",     &EVENT_prefireWeight );
    theTree->SetBranchAddress( "PUWeight",     &PUWeight );
+   theTree->SetBranchAddress( "btagEfficiency_weight",     &btagEfficiency_weight );
+   theTree->SetBranchAddress( "HLTefficiency_weight",     &HLTefficiency_weight );
 
    // Efficiency calculator for cut method
    Int_t    nSelCutsGA = 0;
