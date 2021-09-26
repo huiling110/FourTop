@@ -9,8 +9,8 @@ def main():
     cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
     #  cardToWorkspaces( cardDir )
 
-    #  runCombineSig( cardDir )
-    runCombineSig( cardDir, True )
+    #  runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
 
 #  def runCombineLimit( cardDir )
     #  workspaceDir =  cardDir + 'workspace/'
@@ -42,8 +42,8 @@ def cardToWorkspaces( cardDir):
         idatacard = cardDir +  idatacard
         iworkspaceName = en[:]
         iworkspaceName.replace('datacard.txt', 'workspace.root' )
-        iworkspaceDir = cardDir + '/workspace/'
-        if not os.path.exits(iworkspaceDir):
+        iworkspaceDir = cardDir + 'workspace/'
+        if not os.path.exists(iworkspaceDir):
             os.mkdir( iworkspaceDir )
 #
         iworkspace = iworkspaceDir + iworkspaceName

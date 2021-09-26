@@ -6,18 +6,17 @@ sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/h
 import plotAUC
 
 def main():
-    resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/1tau1l_v2/'
+    #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/1tau1l_v2/'
+    resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/'
     variable_nums, mediumLimits = getMediumLimit( resultDir, False )
     variable_numsSig, mediumSigs = getMediumLimit( resultDir, True )
 
     outDir = resultDir + 'combineResults/'
     if not os.path.exists(outDir):
         os.mkdir( outDir )
-    #  plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir)
     plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir)
     plotAUC.plot2D( variable_numsSig, mediumSigs, 'expectedSigs', outDir)
 
-#  def getMediumSigs( resultDir )
 
 
 def getMediumLimit( resultDir, isSig ):
