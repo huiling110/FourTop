@@ -14,7 +14,7 @@ void sumBGsTogether(
     // TFile* input = TFile::Open( inputName, "READ");
     TFile* input = TFile::Open( inputName, "UPDATE");
 
-    // TH1D* TTTo2L2Nu = getHist( "TTTo2L2Nu", input );
+    TH1D* TTTo2L2Nu = getHist( "TTTo2L2Nu", input );
     // TH1D* TTToHadronic = getHist( "TTToHadronic", input );
     // TH1D* TTToSemiLeptonic = getHist( "TTToSemiLeptonic", input );
     // TTTo2L2Nu->Print();
@@ -27,15 +27,15 @@ void sumBGsTogether(
     // TT->Add( TTToHadronic, 1.0 );
     // TT->Print();
     
-    TH1D* TT_BDT = new TH1D( "TT_BDT", "TT_BDT", binNum, binMin, binMax );
-    TH1D* TTX_BDT = new TH1D( "TTX_BDT", "TTX_BDT", binNum, binMin, binMax );
-    TH1D* VV_BDT = new TH1D( "VV_BDT", "VV_BDT", binNum, binMin, binMax );
-    TH1D* VVV_BDT = new TH1D( "VVV_BDT", "VVV_BDT", binNum, binMin, binMax );
-    TH1D* WJets_BDT = new TH1D( "WJets_BDT", "WJets_BDT", binNum, binMin, binMax );
-    TH1D* DY_BDT = new TH1D( "DY_BDT", "DY_BDT", binNum, binMin, binMax );
-    TH1D* SingleTop_BDT = new TH1D( "SingleTop_BDT", "SingleTop_BDT", binNum, binMin, binMax );
-    TH1D* TX_BDT = new TH1D( "TX_BDT", "TX_BDT", binNum, binMin, binMax );
-    TH1D* QCD_BDT = new TH1D( "QCD_BDT", "QCD_BDT", binNum, binMin, binMax );
+    TH1D* TT_MVA_BDT = new TH1D( "TT_MVA_BDT", "TT_MVA_BDT", binNum, binMin, binMax );
+    TH1D* TTX_MVA_BDT = new TH1D( "TTX_MVA_BDT", "TTX_MVA_BDT", binNum, binMin, binMax );
+    TH1D* VV_MVA_BDT = new TH1D( "VV_MVA_BDT", "VV_MVA_BDT", binNum, binMin, binMax );
+    TH1D* VVV_MVA_BDT = new TH1D( "VVV_MVA_BDT", "VVV_MVA_BDT", binNum, binMin, binMax );
+    TH1D* WJets_MVA_BDT = new TH1D( "WJets_MVA_BDT", "WJets_MVA_BDT", binNum, binMin, binMax );
+    TH1D* DY_MVA_BDT = new TH1D( "DY_MVA_BDT", "DY_MVA_BDT", binNum, binMin, binMax );
+    TH1D* SingleTop_MVA_BDT = new TH1D( "SingleTop_MVA_BDT", "SingleTop_MVA_BDT", binNum, binMin, binMax );
+    TH1D* TX_MVA_BDT = new TH1D( "TX_MVA_BDT", "TX_MVA_BDT", binNum, binMin, binMax );
+    TH1D* QCD_MVA_BDT = new TH1D( "QCD_MVA_BDT", "QCD_MVA_BDT", binNum, binMin, binMax );
     TH1D* iHist ;
     for( UInt_t p=0; p<allProcesses.size(); p++){
         TString iprocessName = allProcesses[p].getProcessName();
@@ -43,50 +43,50 @@ void sumBGsTogether(
         if( 0<p && p<4 ){
             cout<<"adding TT:"<<"\n";
             cout<<"processName = "<<allProcesses[p].getProcessName()<<"\n";
-            TT_BDT->Add( iHist, 1.0 );
+            TT_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<8 ){
             cout<<"addding TTX:"<<"\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            TTX_BDT->Add( iHist, 1.0 );
+            TTX_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<13 ){
             cout<<"adding VV:"<<"\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            VV_BDT->Add( iHist, 1.0 );
+            VV_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<21 ){
             cout<<"adding VVV:"<<"\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            VVV_BDT->Add( iHist, 1.0 );
+            VVV_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<22 ){
             cout<<"adding WJets:\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            WJets_BDT->Add( iHist, 1.0 );
+            WJets_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<23 ){
             cout<<"adding DY:\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            DY_BDT->Add( iHist, 1.0 );
+            DY_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<27 ){
             cout<<"adding SingleTop:\n";
             cout<<"processName = "<<iprocessName<<"\n";
-            SingleTop_BDT->Add( iHist, 1.0 );
+            SingleTop_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<30 ){
             cout<<"adding TX:\n";
-            TX_BDT->Add( iHist, 1.0 );
+            TX_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<36 ){
             cout<<"adding QCD:\n";
-            QCD_BDT->Add( iHist, 1.0 );
+            QCD_MVA_BDT->Add( iHist, 1.0 );
         }
         
        delete iHist; 
     }
 
-    TT_BDT->Print();
-    VV_BDT->Print();
-    VVV_BDT->Print();
-    WJets_BDT->Print();
-    DY_BDT->Print();
-    SingleTop_BDT->Print();
-    TX_BDT->Print();
-    QCD_BDT->Print();
+    TT_MVA_BDT->Print();
+    VV_MVA_BDT->Print();
+    VVV_MVA_BDT->Print();
+    WJets_MVA_BDT->Print();
+    DY_MVA_BDT->Print();
+    SingleTop_MVA_BDT->Print();
+    TX_MVA_BDT->Print();
+    QCD_MVA_BDT->Print();
 
 
 

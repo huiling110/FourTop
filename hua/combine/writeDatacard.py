@@ -13,6 +13,17 @@ g_allProcesses = [
     'TGJets', 'THW', 'THQ', #29
     'QCD_HT200to300', 'QCD_HT300to500', 'QCD_HT500to700', 'QCD_HT700to1000', 'QCD_HT1000to1500', 'QCD_HT1500to2000', 'QCD_HT2000toInf'
 ]
+g_allSumProcesses = [
+    'TT',
+    'TTX',
+    'VV',
+    'VVV',
+    'WJets',
+    'DY',
+    'SingleTop',
+    'TX',
+    'QCD',
+]
 
 def main():
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
@@ -23,9 +34,9 @@ def main():
     for en in g_allProcesses:
         if not en in emptyList:
             listForCombine.append(en)
-    writeDatacards( TMVAppDir, listForCombine )
+    #  writeDatacards( TMVAppDir, listForCombine )
+    writeDatacards( TMVAppDir, g_allSumProcesses, True )
     
-#  def getNoneEmptyProcess( gList, emptyList ):
     
 
 def getStringWithSpaces( string, allSpaces ):
@@ -75,7 +86,7 @@ def writeSingleCard( rootFile, outCard, listForCombine ):
 
 
 
-def writeDatacards( TMVAppDir, listForCombine ):
+def writeDatacards( TMVAppDir, listForCombine,  isSum ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
@@ -83,7 +94,10 @@ def writeDatacards( TMVAppDir, listForCombine ):
     for entry in os.listdir( TMVAppDir ):
         irootFile = TMVAppDir+entry
         ioutCard = entry[:-16]
-        ioutCard = cardDir + ioutCard + '_datacard.txt'
+        if isSum:
+            ioutCard = cardDir + ioutCard + '_SumDatacard.txt'
+        else:
+            ioutCard = cardDir + ioutCard + '_datacard.txt'
         print( 'rootFile:', irootFile )
         print( 'datacard: ',ioutCard )
         writeSingleCard( irootFile, ioutCard, listForCombine )
