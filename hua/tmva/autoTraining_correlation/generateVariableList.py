@@ -19,10 +19,10 @@ def main():
     
     #the first line identifies each piece of datain other words, the name of a data column
     
-    channel = 1;#1 for 1tau1l
+    #  channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
-    #  channel =4# 1tau2l
+    channel =4# 1tau2l
     version = 1
     #  version = 2 #corrected correlation removel
     #  outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
@@ -31,7 +31,7 @@ def main():
     channelName = getNameForChannel( channel ) 
     vListDir, outputDir = checkAndMakeDir( channelName, version, outputBase )
 
-    #  generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
+    generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
     
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channelName )
     vListList = generateListList( TMVAlog, TMVAroot )
@@ -121,6 +121,9 @@ def getNameForChannel( channel ):
         channelName = '2tau1l'  
     if channel == 4:
         channelName = '1tau2l' 
+    if channel == 5:
+        channelName = '2tauXl'
+
     return channelName
 
 

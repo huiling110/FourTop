@@ -39,6 +39,7 @@ const TCut ES1tau1l = ES1tau1e||ES1tau1m;
 const TCut ES1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
+const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
 
 

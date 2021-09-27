@@ -96,8 +96,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    }
 
    // Book output histograms
-   // UInt_t nbin = 100;
-   UInt_t nbin = 11;
+   UInt_t nbin = 100;
+   // UInt_t nbin = 11;
 
    if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
    if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
@@ -259,8 +259,8 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    // --------------------------------------------------------------------------------------------------
 
    // Int_t channel = 1;
-   // UInt_t nbin = 100;
-    UInt_t nbin = 11;
+   UInt_t nbin = 100;
+    // UInt_t nbin = 11;
 
    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );//for combine
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );

@@ -8,22 +8,19 @@ import generateVariableList as GV
 
 
 def main():
-    channel = 1;#1 for 1tau1l
+    #  channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
-    #  channel = 4
+    channel = 4
     #  version = 1
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    isApp = True
-    #  isApp = False
+    #  isApp = True
+    isApp = False
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp )
-    outputDir = outputDir + '11bins/'
-    if not os.path.exists(outputDir +"/log/" ):
-        os.mkdir( outputDir  +"/log/")
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp )
 
 
