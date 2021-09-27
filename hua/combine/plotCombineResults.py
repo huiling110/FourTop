@@ -7,7 +7,9 @@ import plotAUC
 
 def main():
     #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/1tau1l_v2/'
-    resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/'
+    #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/'
+    #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/sumHist/'
+    resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/seperateHist/'
     variable_nums, mediumLimits = getMediumLimit( resultDir, False )
     variable_numsSig, mediumSigs = getMediumLimit( resultDir, True )
 
