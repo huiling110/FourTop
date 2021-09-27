@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 import ROOT
 
 g_allProcesses = [
@@ -28,16 +29,61 @@ g_allSumProcesses = [
 def main():
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
     TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
-    
-    emptyList = checkEmptyProcess()
-    listForCombine = []
-    for en in g_allProcesses:
+    #  addSummedHists( TMVAppDir )
+
+    emptyList = checkEmptyProcess( TMVAppDir) #after addSummedHists emptyList contains summeDhist
+    emptyListSum = checkEmptyProcessForSum( emptyList )
+    listForCombine = getNonEmptyList( g_allProcesses, emptyList )
+    listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
+
+    writeDatacards( TMVAppDir, listForCombineSum, True )
+
+    writeDatacards( TMVAppDir, listForCombine, False )
+  
+
+
+def getNonEmptyList( allList, emptyList ):
+    nonEmptyList = []
+    for en in allList:
         if not en in emptyList:
-            listForCombine.append(en)
-    #  writeDatacards( TMVAppDir, listForCombine )
-    writeDatacards( TMVAppDir, g_allSumProcesses, True )
-    
-    
+            nonEmptyList.append(en)
+    return nonEmptyList
+
+def checkEmptyProcessForSum( emptyList ):
+    emptyListSum=[]
+    if  'TTTo2L2Nu' in emptyList and 'TTToHadronic' in emptyList and  'TTToSemiLeptonic' in emptyList:
+        emptyListSum.append( 'TT' )
+    if 'TTGJets' in emptyList and 'ttZJets' in emptyList and 'ttWJets' in emptyList and 'ttH' in emptyList:
+        emptyListSum.append( 'TTX')
+    if 'WZ' in emptyList and 'WW' in emptyList and 'ZZ' in emptyList and 'WGJets' in emptyList and 'ZGJetsToLLG' in emptyList:
+        emptyListSum.append( 'VV' )
+    if 'WWW' in emptyList and 'WWZ' in emptyList and 'WWG' in emptyList and 'ZZZ' in emptyList and 'WZZ' in emptyList and 'WZG' in emptyList and 'WGG' in emptyList and 'ZGGJets' in emptyList:
+        emptyListSum.append( 'VVV' )
+    if 'WJetsToLNu' in emptyList: 
+        emptyListSum.append( 'WJets' )
+    if 'DYJetsToTauTau' in emptyList:
+        emptyListSum.append( 'DY' )
+    if 'tZq_ll' in emptyList and 'tZq_nunu' in emptyList and 'ST_tW_antitop' in emptyList and 'ST_tW_top' in emptyList:
+        emptyListSum.append( 'SingleTop' )
+    if 'TGJets' in emptyList and 'THW' in emptyList and 'THQ' in emptyList:
+        emptyListSum.append( 'TX' )
+    if 'QCD_HT200to300' in emptyList and 'QCD_HT300to500' in emptyList and 'QCD_HT500to700' in emptyList and 'QCD_HT700to1000' in emptyList and 'QCD_HT1000to1500' in emptyList and 'QCD_HT1500to2000' in emptyList and 'QCD_HT2000toInf' in emptyList:
+        emptyListSum.append( 'QCD' )
+    print( 'summedEmptyList: ', emptyListSum)
+    return emptyListSum
+
+   
+def addSummedHists( TMVAppDir ):
+    for ifile in os.listdir( TMVAppDir ):
+        if '.root' in ifile:
+            print( ifile )
+            ifile = TMVAppDir + ifile
+            command = 'root -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/sumBGsTogether.C( \"{}\")\''.format(ifile)
+            print(command)
+            process = subprocess.run( command, shell=True, capture_output=True, text=True )
+            output = process.stdout
+            print( output )
+
 
 def getStringWithSpaces( string, allSpaces ):
     if allSpaces< len(string):
@@ -90,6 +136,12 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
+    if isSum:
+        cardDir = cardDir + 'sumDC/'
+    else:
+        carDir = cardDir +'seperateDC/'
+    if not os.path.exists( cardDir ):
+        os.mkdir( cardDir )
 
     for entry in os.listdir( TMVAppDir ):
         irootFile = TMVAppDir+entry
@@ -103,8 +155,8 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum ):
         writeSingleCard( irootFile, ioutCard, listForCombine )
 
 
-def checkEmptyProcess():
-    fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
+def checkEmptyProcess( fileDir ):
+    #  fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
     rootF = 'TMVApp_1tau1l_10var_forCombine.root'
     
     emptyProcesses = []

@@ -6,14 +6,14 @@ import subprocess
 
 def main():
 
-    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
-    #  cardToWorkspaces( cardDir )
+    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
+    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/'
+    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/'
+    cardToWorkspaces( cardDir )
 
     #  runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
+    #  runCombineSig( cardDir, False )
 
-#  def runCombineLimit( cardDir )
-    #  workspaceDir =  cardDir + 'workspace/'
 
 
 def runCombineSig( cardDir, isLimit ):
