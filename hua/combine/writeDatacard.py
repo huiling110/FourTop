@@ -32,9 +32,11 @@ g_allSumProcesses = [
 def main():
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
-    channel = 4
-    #  addSummedHists( TMVAppDir )
+    #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults/'
+    #  channel = 4
+    channel = 5
+    addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     emptyListSum = checkEmptyProcessForSum( emptyList )
@@ -176,7 +178,8 @@ def checkEmptyProcess( fileDir, channel ):
         iHistName = i.GetName()
         iProcessName = iHistName[:iHistName.find('MVA')-1]
         iHist = iFile.Get(iHistName)
-        if iHist.GetEntries()==0:
+        #  if iHist.GetEntries()==0:
+        if iHist.Integral()<=0:
             emptyProcesses.append( iProcessName )
     emptyProcesses = list( dict.fromkeys(emptyProcesses) )
     print( 'emptyProcesses: ', emptyProcesses )

@@ -165,7 +165,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
          if ( !(tausT_number==1 && leptonsMVAT_number==2&& jets_number>=4 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
       } 
       if ( channel==5){//2tauXl
-         if ( !(tausT_number==2&&bjetsM_num>=2&&jets_HT>400 && (  (leptonsMVAT_number==0&&jets_number>=6)||(leptonsMVAT_number==1&& jets_number>=4)||(leptonsMVAT_number==2&&jets_number>=2) )     ) )  continue;
+         if ( !(tausT_number==2&&bjetsM_num>=2&&jets_HT>400 && (  (leptonsMVAT_number==0&&jets_number>=6)||(leptonsMVAT_number==1&& jets_number>=4)||(leptonsMVAT_number==2&&jets_number>=2)      ) ))  continue;
       }
 
 
@@ -218,7 +218,8 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/dataset/1tau1l_varibleList_11_weight/",
         // const Int_t channel = 3//2tau1l
         // const Int_t channel = 1//1tau1l
-        const Int_t channel = 4//1tau2l
+        // const Int_t channel = 4//1tau2l
+        const Int_t channel = 5//1tau2l
 
         )
 {
