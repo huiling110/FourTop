@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 import ROOT
+sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
+import generateVariableList as GV
 
 g_allProcesses = [
     'TTTT', #0
@@ -29,17 +31,19 @@ g_allSumProcesses = [
 
 def main():
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
+    #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
+    channel = 4
     #  addSummedHists( TMVAppDir )
 
-    emptyList = checkEmptyProcess( TMVAppDir) #after addSummedHists emptyList contains summeDhist
+    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     emptyListSum = checkEmptyProcessForSum( emptyList )
     listForCombine = getNonEmptyList( g_allProcesses, emptyList )
     listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
 
     writeDatacards( TMVAppDir, listForCombineSum, True )
 
-    #  writeDatacards( TMVAppDir, listForCombine, False )
+    writeDatacards( TMVAppDir, listForCombine, False )
   
 
 
@@ -156,9 +160,13 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum ):
         writeSingleCard( irootFile, ioutCard, listForCombine )
 
 
-def checkEmptyProcess( fileDir ):
+def checkEmptyProcess( fileDir, channel ):
     #  fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
-    rootF = 'TMVApp_1tau1l_10var_forCombine.root'
+    rootF = ""
+    channelName = GV.getNameForChannel( channel )
+    rootF = 'TMVApp_' + channelName + '_10var_forCombine.root'
+    #  if channel==1 :
+        #  rootF = 'TMVApp_1tau1l_10var_forCombine.root'
     
     emptyProcesses = []
     iFile = ROOT.TFile( fileDir+rootF)

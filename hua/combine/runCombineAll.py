@@ -11,13 +11,14 @@ def main():
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/'
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/'
-    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/seperateDC/'
-    #  cardToWorkspaces( cardDir )
+    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/seperateDC/'
+    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/datacard/sumDC/'
+    cardToWorkspaces( cardDir )
 #
-    #  runCombineSig( cardDir, True )
-    #  runCombineSig( cardDir, False )
+    runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
 #
-    #  copyCombineResultsToDir( cardDir )
+    copyCombineResultsToDir( cardDir )
 
     plot.main( cardDir+ 'combineResults/')
 
@@ -27,8 +28,9 @@ def copyCombineResultsToDir( cardDir ):
     if not os.path.exists( resultsDir ):
         os.mkdir( resultsDir )
     command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir )
-    #  process = subprocess.run( [ 'mv', command], shell=True )
-    process = subprocess.run( command, shell=True )
+    #  process = subprocess.run( command, shell=True )
+    process = subprocess.Popen( command, shell=True )
+    out = process.communicate()
 
 
 def runCombineSig( cardDir, isLimit ):
@@ -66,14 +68,12 @@ def cardToWorkspaces( cardDir):
         command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
         print( 'command: ', command )
 
-        iprocess = subprocess.run( [command], 
-                shell=True,
-                #  capture_output=True,
-                #  text=True,
-                #  bufsize=1,
-                #  universal_newlines=True
-                )
-        output = iprocess.stdout
+        #  iprocess = subprocess.run( [command],
+                #  shell=True,
+                #  )
+        #  output = iprocess.stdout
+        iprocess = subprocess.Popen( [command], shell=True )
+        output = iprocess.communicate()[0]
         print( output)
     print( 'workpace transformation done!' )
 
