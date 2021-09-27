@@ -16,8 +16,8 @@ def main():
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    #  isApp = True
-    isApp = False
+    isApp = True
+    #  isApp = False
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp )

@@ -158,7 +158,15 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       }
       // cout<<"\n";
       //channel selection
-       if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; 
+      if (channel==1){
+         if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
+      }
+      if ( channel==4){//1tau2l
+         if ( !(tausT_number==1 && leptonsMVAT_number==2&& jets_number>=4 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
+      } 
+      if ( channel==5){//2tauXl
+         if ( !(tausT_number==2&&bjetsM_num>=2&&jets_HT>400 && (  (leptonsMVAT_number==0&&jets_number>=6)||(leptonsMVAT_number==1&& jets_number>=4)||(leptonsMVAT_number==2&&jets_number>=2) )     ) )  continue;
+      }
 
 
       // Return the MVA outputs and fill into histograms
@@ -185,6 +193,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    TString s_channel;
    if ( channel==1 )       s_channel = "1tau1l";
+   if ( channel==4 )  s_channel = "1tau2l";
+   if ( channel==5 )  s_channel = "2tauXl";
    TString s_variableNum = std::to_string(variableNum);
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
    TString outFileName = outputDir + "TMVApp_" + s_channel + "_"+ s_variableNum + "var_forCombine.root";
@@ -207,7 +217,8 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
         TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/dataset/1tau1l_varibleList_11_weight/",
         // const Int_t channel = 3//2tau1l
-        const Int_t channel = 1//1tau1l
+        // const Int_t channel = 1//1tau1l
+        const Int_t channel = 4//1tau2l
 
         )
 {
