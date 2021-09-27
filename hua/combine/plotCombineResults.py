@@ -5,11 +5,13 @@ import sys
 sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
 import plotAUC
 
-def main():
+def main(
+    resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/combineResults/'
+        ):
     #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/1tau1l_v2/'
     #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/'
     #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/sumHist/'
-    resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/seperateHist/'
+    #  resultDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/v46_v3addBtagHLTweights/1tau1l_v1/seperateHist/'
     variable_nums, mediumLimits = getMediumLimit( resultDir, False )
     variable_numsSig, mediumSigs = getMediumLimit( resultDir, True )
 
