@@ -21,6 +21,9 @@ def main():
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp )
+    outputDir = outputDir + '11bins/'
+    if not os.path.exists(outputDir +"/log/" ):
+        os.mkdir( outputDir  +"/log/")
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp )
 
 
