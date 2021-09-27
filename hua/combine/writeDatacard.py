@@ -38,7 +38,7 @@ def main():
 
     writeDatacards( TMVAppDir, listForCombineSum, True )
 
-    writeDatacards( TMVAppDir, listForCombine, False )
+    #  writeDatacards( TMVAppDir, listForCombine, False )
   
 
 
@@ -147,7 +147,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum ):
         irootFile = TMVAppDir+entry
         ioutCard = entry[:-16]
         if isSum:
-            ioutCard = cardDir + ioutCard + '_SumDatacard.txt'
+            ioutCard = cardDir + ioutCard + '_Sum_datacard.txt'
         else:
             ioutCard = cardDir + ioutCard + '_datacard.txt'
         print( 'rootFile:', irootFile )

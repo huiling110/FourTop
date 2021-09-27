@@ -9,10 +9,11 @@ def main():
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/'
     cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/'
-    cardToWorkspaces( cardDir )
+    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/seperateDC/'
+    #  cardToWorkspaces( cardDir )
 
-    #  runCombineSig( cardDir, True )
-    #  runCombineSig( cardDir, False )
+    runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
 
 
 
@@ -41,7 +42,8 @@ def cardToWorkspaces( cardDir):
         #  idatacard = 'TMVApp_1tau1l_11var_datacard.txt'
         idatacard = cardDir +  idatacard
         iworkspaceName = en[:]
-        iworkspaceName.replace('datacard.txt', 'workspace.root' )
+        iworkspaceName = iworkspaceName.replace('datacard.txt', 'workspace.root' )
+        print('iworkspaceName; ', iworkspaceName )
         iworkspaceDir = cardDir + 'workspace/'
         if not os.path.exists(iworkspaceDir):
             os.mkdir( iworkspaceDir )
