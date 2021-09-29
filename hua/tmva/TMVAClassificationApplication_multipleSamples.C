@@ -39,7 +39,7 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
    target->Close();
    std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
 }
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir  ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir, const Int_t binNum  ){
    // Create the Reader object
    
     cout<<"\n";
@@ -96,11 +96,11 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    }
 
    // Book output histograms
-   UInt_t nbin = 100;
-   // UInt_t nbin = 11;
+   // UInt_t binNum = 100;
+   // UInt_t binNum = 11;
 
-   if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           nbin, -0.8, 0.8 );
-   if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          nbin, -1.0, 1.0 );
+   if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           binNum, -0.8, 0.8 );
+   if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          binNum, -1.0, 1.0 );
 
 
    // std::cout << "--- TMVAClassificationApp    : Using input file: " << input->GetName() << std::endl;
@@ -217,9 +217,10 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
         TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/dataset/1tau1l_varibleList_11_weight/",
         // const Int_t channel = 3//2tau1l
-        // const Int_t channel = 1//1tau1l
+        const Int_t channel = 1,//1tau1l
         // const Int_t channel = 4//1tau2l
-        const Int_t channel = 5//1tau2l
+        // const Int_t channel = 5,//1tau2l
+        const  Int_t binNum = 100
 
         )
 {
@@ -270,17 +271,16 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
 
    // --------------------------------------------------------------------------------------------------
 
-   // Int_t channel = 1;
-   UInt_t nbin = 100;
-    // UInt_t nbin = 11;
+   // UInt_t binNum = 100;
+    // UInt_t binNum = 11;
 
-   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", nbin, -0.8, 0.8 );//for combine
-   TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", nbin, -1.0, 1.0 );
+   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.8, 0.8 );//for combine
+   TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0 );
     for ( UInt_t p=0; p<allProcesses.size(); p++){
     // for ( UInt_t p=0; p<1; p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir );       
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir, binNum );       
        if ( p==allProcesses.size()-1 ){
-           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir );
+           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir, binNum );
        }
     }
 

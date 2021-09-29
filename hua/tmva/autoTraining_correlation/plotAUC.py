@@ -129,7 +129,13 @@ def plot2D(x, y, name, outDir  ):
     gr.SetMarkerStyle( 21 )
 
 
-    gr.GetXaxis().SetTitle( 'number of variables' )
+    gr.GetXaxis().SetTitle( 'numer of variables' )
+    #  if name.find( 'Limit'):
+    if 'Limit' in name:
+        gr.GetYaxis().SetTitle( 'expected limit' )
+    else:
+        gr.GetYaxis().SetTitle( 'expected significance' )
+
     #  if isSig:
         #  gr.GetYaxis().SetTitle( 'Significance' )
     #  else:
