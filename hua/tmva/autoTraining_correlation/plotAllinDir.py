@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# File              : plotAllinDir.py
+# Author            : Huiling Hua <huahl@ihep.ac.cn>
+# Date              : 03.10.2021
+# Last Modified Date: 03.10.2021
+# Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
 import sys
 import os
