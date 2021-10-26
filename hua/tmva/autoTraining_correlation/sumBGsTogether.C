@@ -1,3 +1,10 @@
+/**
+ * File              : sumBGsTogether.C
+ * Author            : Huiling Hua <huahl@ihep.ac.cn>
+ * Date              : 05.10.2021
+ * Last Modified Date: 05.10.2021
+ * Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
+ */
 #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h" 
 
 TH1D* getHist( const TString histName, TFile* input ){
