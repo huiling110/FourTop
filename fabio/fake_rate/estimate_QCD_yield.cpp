@@ -20,11 +20,26 @@ void estimate_QCD_yield() {
 
 	Float_t binsX[NBINSX+1] = {20, 30, 75, 150, 300};
 
-	TFile *outputfile = new TFile( "tauF_Pt_DATA.root", "RECREATE" );
+	TFile *outputfile = new TFile( "tauF_Pt_QCD.root", "RECREATE" );
 
 	//total QCD yield
-	TH1F * h_QCD_yield = new TH1F("h_QCD_yield", "h_QCD_yield", 1, 0, 3000);
-	h_QCD_yield->Sumw2();
+	TH1F * h_QCD_yield_CR = new TH1F("h_QCD_yield_CR", "h_QCD_yield_CR", 1, 0, 3000);
+	h_QCD_yield_CR->Sumw2();
+	TH1F * h_QCD_yield_AR = new TH1F("h_QCD_yield_AR", "h_QCD_yield_AR", 1, 0, 3000);
+	h_QCD_yield_AR->Sumw2();
+	TH1F * h_QCD_yield_SR = new TH1F("h_QCD_yield_SR", "h_QCD_yield_SR", 1, 0, 3000);
+	h_QCD_yield_SR->Sumw2();
+	//set up histograms for transition factor computation
+	TH1F * h_QCD_HT_CR = new TH1F("h_QCD_HT_CR", "h_QCD_HT_CR", 11, 400, 1500);
+	h_QCD_HT_CR->Sumw2();
+	TH1F * h_QCD_HT_looseCR = new TH1F("h_QCD_HT_looseCR", "h_QCD_HT_looseCR", 11, 400, 1500);
+	h_QCD_HT_looseCR->Sumw2();
+	TH1F * h_QCD_HT_VR = new TH1F("h_QCD_HT_VR", "h_QCD_HT_VR", 11, 400, 1500);
+	h_QCD_HT_VR->Sumw2();
+	TH1F * h_QCD_HT_SR = new TH1F("h_QCD_HT_SR", "h_QCD_HT_SR", 11, 400, 1500);
+	h_QCD_HT_SR->Sumw2();
+	
+
 	map<string, string>::iterator file_it = file.begin();
 	map<string, float>::iterator xsec_it = xsec.begin();
 
@@ -45,6 +60,8 @@ void estimate_QCD_yield() {
 		TH1F * h_nTaus_FnotT_eta1p5to2p3_AR = new TH1F("h_nTaus_FnotT_eta1p5to2p3_AR", "h_nTaus_FnotT_eta1p5to2p3_AR; #tau_{h} p_{T} [GeV]", NBINSX, binsX);
 		TH1F * h_nTaus_FnotT_eta0to1p5_CR = new TH1F("h_nTaus_FnotT_eta0to1p5_CR", "h_nTaus_FnotT_eta0to1p5_CR; #tau_{h} p_{T} [GeV]", NBINSX, binsX);
 		TH1F * h_nTaus_FnotT_eta1p5to2p3_CR = new TH1F("h_nTaus_FnotT_eta1p5to2p3_CR", "h_nTaus_FnotT_eta1p5to2p3_CR; #tau_{h} p_{T} [GeV]", NBINSX, binsX);
+		TH1F * h_nTaus_FnotT_eta0to1p5_VR = new TH1F("h_nTaus_FnotT_eta0to1p5_VR", "h_nTaus_FnotT_eta0to1p5_VR; #tau_{h} p_{T} [GeV]", NBINSX, binsX);
+		TH1F * h_nTaus_FnotT_eta1p5to2p3_VR = new TH1F("h_nTaus_FnotT_eta1p5to2p3_VR", "h_nTaus_FnotT_eta1p5to2p3_VR; #tau_{h} p_{T} [GeV]", NBINSX, binsX);
 
 		//deltaR between fakeable and tight taus (for debugging purposes)
 		TH1F * deltaR_FT_eta0to1p5 = new TH1F("deltaR_FT_eta0to1p5", "deltaR_FT_eta0to1p5", 50, 0, 5);
@@ -70,6 +87,8 @@ void estimate_QCD_yield() {
 		}
 		TH1::StatOverflows(kFALSE);
 
+		double mygenEvtWeight = 1;//set to one, and then if it's MC...
+		if (!(file_it->first.find(data) !=std::string::npos)) mychain.SetBranchAddress( "EVENT_genWeight_", &mygenEvtWeight ); //...get the generator weight
 
 		vector<TLorentzVector> *myjetsL = {}; 
 		mychain.SetBranchAddress("jets", &myjetsL);
@@ -110,17 +129,44 @@ void estimate_QCD_yield() {
 			//application region (estimate number of fakeable but non tight taus here)
 			bool is1tau0L_AR = (mytausF->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2); //ask for 1 fakeable tau here, will ask for no tight taus after
 
+			//validation region (perform closure test for FR method here)
+			bool is1tau0L_VR = (mytausF->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()==1); //ask for 1 fakeable tau here, will ask for no tight taus after
+
 			//control region (estimate fake rate here)
 			bool is1tau0L_CR = (mytausF->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()==0); //ask for 1 fakeable tau here, will ask for 1 tight tau after
 	
+			//loose control region (attempt to estimate QCD shape with higher stats)
+			bool is1tau0L_looseCR = (mytausF->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()==0); //ask for 1 fakeable tau here, will ask for 1 tight tau after
+
+			//signal region
+			bool is1tau0L_SR = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
+
 			if (HT > 400) {
 
 				if (is1tau0L_AR) {
 
 					if (mytausT->size() == 0) {// compute number of fakeable-non-tight events in AR
+						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_yield_AR->Fill(mytausF->at(0).Pt(), mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+						else h_QCD_yield_AR->Fill(mytausF->at(0).Pt());
 
-						if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) h_nTaus_FnotT_eta0to1p5_AR->Fill(mytausF->at(0).Pt());
-						if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) h_nTaus_FnotT_eta1p5to2p3_AR->Fill(mytausF->at(0).Pt());
+						if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) h_nTaus_FnotT_eta0to1p5_AR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
+						if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) h_nTaus_FnotT_eta1p5to2p3_AR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
+					
+					}
+
+				}// end if AR
+
+				if (is1tau0L_VR) {
+
+					if (mytausT->size() == 1) {
+						
+						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_HT_VR->Fill(HT, mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+						else h_QCD_HT_VR->Fill(HT);
+					}
+					if (mytausT->size() == 0) {// compute number of fakeable-non-tight events in VR
+						
+						if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) h_nTaus_FnotT_eta0to1p5_VR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
+						if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) h_nTaus_FnotT_eta1p5to2p3_VR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
 					
 					}
 
@@ -128,31 +174,37 @@ void estimate_QCD_yield() {
 
 				if (is1tau0L_CR) {
 
+					if (mytausT->size() == 1) {
+
+						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_HT_CR->Fill(HT, mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+						else h_QCD_HT_CR->Fill(HT);
+
+					}
 					if (mytausT->size() == 0) {// compute number of fakeable-non-tight events in CR
 
-						if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) h_nTaus_FnotT_eta0to1p5_CR->Fill(mytausF->at(0).Pt());
-						if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) h_nTaus_FnotT_eta1p5to2p3_CR->Fill(mytausF->at(0).Pt());
+						if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) h_nTaus_FnotT_eta0to1p5_CR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
+						if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) h_nTaus_FnotT_eta1p5to2p3_CR->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
 					
 					}
 					
 					if (mytausT->size() == 1) {
 
-						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_yield->Fill(mytausF->at(0).Pt(), LUMI2016*xsec_it->second/gen_sum_of_weights);
-						else h_QCD_yield->Fill(mytausF->at(0).Pt());
+						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_yield_CR->Fill(mytausF->at(0).Pt(), mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+						else h_QCD_yield_CR->Fill(mytausF->at(0).Pt());
 
 					}
 
 					if ( fabs( mytausF->at(0).Eta() ) < 1.5 ) {// compute fake rates
 
-						h_tauF_pt_eta0to1p5_bef->Fill(mytausF->at(0).Pt());
+						h_tauF_pt_eta0to1p5_bef->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
 						if (mytausT->size() == 1 && fabs( mytausT->at(0).Eta() ) < 1.5) {
 
-							h_tauF_pt_eta0to1p5_aft->Fill(mytausF->at(0).Pt());
+							h_tauF_pt_eta0to1p5_aft->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
 							Float_t dEta = fabs( mytausF->at(0).Eta() - mytausT->at(0).Eta() );
 							Float_t dPhi = fabs( mytausF->at(0).Phi() - mytausT->at(0).Phi() );
 							if(dPhi > 3.14159265358979323846) dPhi  = 2*3.14159265358979323846 - dPhi;
 							Float_t dR = sqrt( pow(dEta, 2) + pow(dPhi, 2) );
-							deltaR_FT_eta0to1p5->Fill(dR);
+							deltaR_FT_eta0to1p5->Fill(dR, mygenEvtWeight);
 
 						}
 
@@ -160,22 +212,39 @@ void estimate_QCD_yield() {
 
 					if ( fabs( mytausF->at(0).Eta() ) > 1.5 && fabs( mytausF->at(0).Eta() ) < 2.3 ) {
 
-						h_tauF_pt_eta1p5to2p3_bef->Fill(mytausF->at(0).Pt());
+						h_tauF_pt_eta1p5to2p3_bef->Fill(mytausF->at(0).Pt() , mygenEvtWeight);
 						if ( mytausT->size() == 1 && fabs( mytausT->at(0).Eta() ) > 1.5 && fabs( mytausT->at(0).Eta() ) < 2.3 ) {
 
-							h_tauF_pt_eta1p5to2p3_aft->Fill(mytausF->at(0).Pt());
+							h_tauF_pt_eta1p5to2p3_aft->Fill(mytausF->at(0).Pt(), mygenEvtWeight);
 							Float_t dEta = fabs( mytausF->at(0).Eta() - mytausT->at(0).Eta() );
 							Float_t dPhi = fabs( mytausF->at(0).Phi() - mytausT->at(0).Phi() );
 							if(dPhi > 3.14159265358979323846) dPhi  = 2*3.14159265358979323846 - dPhi;
 							Float_t dR = sqrt( pow(dEta, 2) + pow(dPhi, 2) );
-							deltaR_FT_eta1p5to2p3->Fill(dR);
+							deltaR_FT_eta1p5to2p3->Fill(dR, mygenEvtWeight);
 
 						}
 
 					}
 				
 				}// end if CR
-				
+
+				if (is1tau0L_looseCR) {
+
+					if (mytausT->size() == 1) {
+
+						if(!(file_it->first.find(data) !=std::string::npos)) h_QCD_HT_looseCR->Fill(HT, mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+						else h_QCD_HT_looseCR->Fill(HT);
+
+					}
+
+				}
+
+				if (is1tau0L_SR && !(file_it->first.find(data) !=std::string::npos)) {
+
+					h_QCD_yield_SR->Fill(mytausF->at(0).Pt(), mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+					h_QCD_HT_SR->Fill(HT, mygenEvtWeight*LUMI2016*xsec_it->second/gen_sum_of_weights);
+				}
+
 			}// end HT cut			
 		
 		}//end loop over events
@@ -191,6 +260,8 @@ void estimate_QCD_yield() {
 
 		writeHisto(h_nTaus_FnotT_eta0to1p5_AR, file_it);
 		writeHisto(h_nTaus_FnotT_eta1p5to2p3_AR, file_it);
+		writeHisto(h_nTaus_FnotT_eta0to1p5_VR, file_it);
+		writeHisto(h_nTaus_FnotT_eta1p5to2p3_VR, file_it);
 		writeHisto(h_nTaus_FnotT_eta0to1p5_CR, file_it);
 		writeHisto(h_nTaus_FnotT_eta1p5to2p3_CR, file_it);
 		writeHisto(deltaR_FT_eta0to1p5, file_it);
@@ -205,16 +276,10 @@ void estimate_QCD_yield() {
 			totalWeight->Write(hTotalWeightName.c_str());
 		}
 
-		delete h_nTaus_FnotT_eta0to1p5_AR;
-		delete h_nTaus_FnotT_eta1p5to2p3_AR;
-		delete h_nTaus_FnotT_eta0to1p5_CR;
-		delete h_nTaus_FnotT_eta1p5to2p3_CR;
 		delete h_tauF_pt_eta0to1p5_bef;
 		delete h_tauF_pt_eta0to1p5_aft;
 		delete h_tauF_pt_eta1p5to2p3_bef;
 		delete h_tauF_pt_eta1p5to2p3_aft;
-		delete deltaR_FT_eta0to1p5;
-		delete deltaR_FT_eta1p5to2p3;
 		delete totalWeight;
 		delete genEvtWeights;
 
@@ -225,9 +290,20 @@ void estimate_QCD_yield() {
 
 	}//end loop over files
 
-	h_QCD_yield->Write();
-	delete h_QCD_yield;
-	
+	h_QCD_yield_CR->Write();
+	delete h_QCD_yield_CR;
+	h_QCD_yield_AR->Write();
+	delete h_QCD_yield_AR;
+	h_QCD_yield_SR->Write();
+	delete h_QCD_yield_SR;
+	h_QCD_HT_CR->Write();
+	delete h_QCD_HT_CR;
+	h_QCD_HT_looseCR->Write();
+	delete h_QCD_HT_looseCR;
+	h_QCD_HT_VR->Write();
+	delete h_QCD_HT_VR;
+	h_QCD_HT_SR->Write();
+	delete h_QCD_HT_SR;	
 	outputfile->Close();
 	delete outputfile;
 	
@@ -240,7 +316,7 @@ void writeHisto(TH1F* histo, map<string, string>::iterator file_it) {
 	histoName.append("_");
 	histoName.append(file_it->first);
    	histo->Write(histoName.c_str());
-
+	delete histo;
 }
 
 void writeTEfficiency(TH1F* hBef, TH1F* hAft, map<string, string>::iterator file_it, TString name) {
