@@ -1,3 +1,12 @@
+/**
+ * @author Huiliing Hua
+ * @email huahl@ihep.ac.cn
+ * @create date 2021-11-17 01:00:03
+ * @modify date 2021-11-17 01:00:03
+ * @desc [description]
+ */
+
+
 #include "EYandSP_usingClass_v2.h"
 
 #include "TH1.h"
@@ -35,22 +44,17 @@ void EYandSP_usingClass_v3(){
 
 
 //  bool SYST = false;
-
   vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
 //variablelist is plots we want to show   
-
   variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
  
-
   //apply selection cuts here
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
-
 vector<TH1D*> allHistos;
 TH1D* h_background;
 TH1D* h_bg;
-
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=3; cha<4; cha++){
@@ -58,9 +62,9 @@ for (UInt_t  cha=3; cha<4; cha++){
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
+    //loop variableList
     for(UInt_t i=0; i<1; i++){
     // for(UInt_t i=0; i<variablelist.size(); i++){
-          // const char *plot = variablelist[i];
   	    TString plot = variablelist[i];
         h_bg = getBackHist( allProcesses, channelCut[cha], weight );
         cout<<"new bg: "<<h_bg->GetEntries();
@@ -386,7 +390,7 @@ void drawHistos( const vector<TH1D*> &allHistos, TH1D* h_background , TString va
     latex.SetTextSize(channelTextSize);
 
 
-    //¶¨ÒåÍ¼ÖÐ¸÷¸öÏßºÍÖ±·½Í¼µÄÑÕÉ«
+    //ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ßºï¿½Ö±ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½É«
     TLegend *pl2 = new TLegend(0.65,0.60,0.91,0.91);
     pl2->SetTextSize(0.045); 
     pl2->SetFillColor(0);
