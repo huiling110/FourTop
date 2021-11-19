@@ -35,13 +35,19 @@ void makeRootForCombine_1tau0l(){
     Int_t binNum = QCD_HT->GetXaxis()->GetNbins();
     Double_t binMin = QCD_HT->GetXaxis()->GetXmin();
     Double_t binMax = QCD_HT->GetXaxis()->GetXmax();
-    TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
-    TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
-    TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight,"jets_HT", binNum, binMin, binMax ) );
+    // TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
+    // TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
+    // TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight,"jets_HT", binNum, binMin, binMax ) );
+    TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4 );
     TT->SetName( "TT_HT");
     TT->Print();
     TT->Write();
     // TT->Draw();
+
+    // TH1D* ttX = TTGJets.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
+    // ttX->Add( ttZJets.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
+    TH1D* ttX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8 );
+    ttX->Print();
 
     my_QCD_HT->Write();
     output->Close();
