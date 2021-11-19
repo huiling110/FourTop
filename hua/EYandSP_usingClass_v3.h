@@ -16,7 +16,6 @@
 #include "TPRegexp.h"
 
 
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v13etaPhiAbs_v42_addNonBjets/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v2Resubmitv1/";
 const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v3addBtagHLTweights/";
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
@@ -52,6 +51,7 @@ const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency
 
 class Process
 {
+    //it seems you lack a deconstructor for this class
     private:
         TString m_fileName;
         Double_t m_sigma;

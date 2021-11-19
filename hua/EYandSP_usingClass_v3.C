@@ -7,7 +7,7 @@
  */
 
 
-#include "EYandSP_usingClass_v2.h"
+#include "EYandSP_usingClass_v3.h"
 
 #include "TH1.h"
 #include "TCanvas.h"
@@ -56,9 +56,9 @@ vector<TH1D*> allHistos;
 TH1D* h_background;
 TH1D* h_bg;
 
-// for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=3; cha<4; cha++){
-// for (UInt_t  cha=3; cha<channelName.size(); cha++){
+for (UInt_t  cha=0; cha<channelName.size(); cha++){
+// for (UInt_t  cha=3; cha<4; cha++){
+// for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
 
@@ -302,7 +302,6 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
 
 
 
-    // c->SaveAs( "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/EY.png");
     c->SaveAs( EYplotDir+"EY"+channel+".png");
     // cout<<"EY plot saved here: "<<EYplot<<"\n";
 

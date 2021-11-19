@@ -1,3 +1,14 @@
+/**
+ * @author Huiling Hua
+ * @email huahl@ihep.ac.cn
+ * @create date 2021-11-19 17:40:24
+ * @modify date 2021-11-19 17:40:24
+ * @desc [description]
+ */
+
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
+
+
 void makeRootForCombine_1tau0l(){
     TString inputQCD = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/QCDshapes_corrected.root";
     TFile *QCDfile = new TFile( inputQCD, "READ" );
@@ -19,6 +30,13 @@ void makeRootForCombine_1tau0l(){
     my_QCD_HT->SetName( "QCD_HT" );
     cout<<my_QCD_HT->GetName()<<"\n"; 
     cout<<"interal after scaling: "<<my_QCD_HT->Integral()<<"\n";
+
+    //HT distribution from other processes other than QCD
+    TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight );
+    TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight) );
+    TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight) );
+    TT->Print();
+
 
     my_QCD_HT->Write();
     output->Close();
