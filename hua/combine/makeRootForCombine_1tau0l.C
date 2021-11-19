@@ -38,18 +38,26 @@ void makeRootForCombine_1tau0l(){
     // TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
     // TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
     // TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight,"jets_HT", binNum, binMin, binMax ) );
-    TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4 );
-    TT->SetName( "TT_HT");
+    TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4, "TT_HT");
     TT->Print();
     TT->Write();
-    // TT->Draw();
 
-    // TH1D* ttX = TTGJets.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
-    // ttX->Add( ttZJets.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
-    TH1D* ttX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8 );
+    TH1D* ttX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8, "ttX_HT" );
     ttX->Print();
 
-    my_QCD_HT->Write();
+    TH1D* VV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 8, 13, "VV_HT" );
+
+    TH1D* VVV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 13, 21, "VVV_HT" );
+
+    TH1D* WJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 21, 22, "WJets_HT" );
+
+    TH1D* DYJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 22, 23, "DYJets_HT" );
+    TH1D*  singleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 23, 27, "singleTop_HT" );
+    TH1D*  TX= addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 27, 30, "TX_HT" );
+
+
+    // my_QCD_HT->Write();
+    output->Write();
     output->Close();
 
     

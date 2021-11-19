@@ -213,8 +213,9 @@ TH1D* getBackHist(  vector<Process>& allProcesses,  const TCut cut, const TCut w
     return bg;
 }
 
-TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax, Int_t fromProcess, Int_t toProcess  ){
-    TH1D* addedHist = new TH1D( branchName, branchName, binNum, binMin, binMax );
+TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax, Int_t fromProcess, Int_t toProcess, TString histName  ){
+    TH1D* addedHist = new TH1D( histName, branchName, binNum, binMin, binMax );
+    addedHist->SetDefaultSumw2();
     for(UInt_t j = fromProcess; j < toProcess; j++){
         addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax) );
 
