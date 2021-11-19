@@ -32,9 +32,10 @@ void makeRootForCombine_1tau0l(){
     cout<<"interal after scaling: "<<my_QCD_HT->Integral()<<"\n";
 
     //HT distribution from other processes other than QCD
-    TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight );
-    TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight) );
-    TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight) );
+    TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight, "jets_HT", 11, 0, 2000 );
+    TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight, "jets_HT", 11, 0, 2000 ) );
+    TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight,"jets_HT", 11, 0, 2000 ) );
+    TT->SetName( "TT_HT");
     TT->Print();
 
 

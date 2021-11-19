@@ -116,6 +116,14 @@ class Process
             delete h;
             return channelEY;
         }
+        TH1D* getChannelHist( const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+            TString hName = getProcessName();
+            TH1D* h = new TH1D( hName, hName, 40 , 0 , 40 );//1
+            getEventTree()->Project( hName, branchName, weight*( cut ));
+            channelEY = (TH1D*)h->Clone( hName );
+            delete h;
+            return channelEY;
+        }
 
         // Double_t getChannelYield( const TCut cut, const TCut weight ){
         // }
