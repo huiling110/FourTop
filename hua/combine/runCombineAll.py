@@ -14,7 +14,8 @@ def main():
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/seperateDC/'
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/datacard/sumDC/'
     #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults/datacard/sumDC/'
-    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC/'
+    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC/'
+    cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/datacard/'
     cardToWorkspaces( cardDir )
 #
     runCombineSig( cardDir, True )
@@ -57,26 +58,28 @@ def runCombineSig( cardDir, isLimit ):
 def cardToWorkspaces( cardDir):
     for en in os.listdir( cardDir ):
         idatacard = en
-        #  idatacard = 'TMVApp_1tau1l_11var_datacard.txt'
+            #  idatacard = 'TMVApp_1tau1l_11var_datacard.txt'
         idatacard = cardDir +  idatacard
-        iworkspaceName = en[:]
-        iworkspaceName = iworkspaceName.replace('datacard.txt', 'workspace.root' )
-        print('iworkspaceName; ', iworkspaceName )
-        iworkspaceDir = cardDir + 'workspace/'
-        if not os.path.exists(iworkspaceDir):
-            os.mkdir( iworkspaceDir )
-#
-        iworkspace = iworkspaceDir + iworkspaceName
-        command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
-        print( 'command: ', command )
+        if os.path.isfile( idatacard ):
+            print( 'idatacard: ', idatacard )
+            iworkspaceName = en[:]
+            iworkspaceName = iworkspaceName.replace('datacard.txt', 'workspace.root' )
+            print('iworkspaceName; ', iworkspaceName )
+            iworkspaceDir = cardDir + 'workspace/'
+            if not os.path.exists(iworkspaceDir):
+                os.mkdir( iworkspaceDir )
+    #
+            iworkspace = iworkspaceDir + iworkspaceName
+            command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
+            print( 'command: ', command )
 
-        #  iprocess = subprocess.run( [command],
-                #  shell=True,
-                #  )
-        #  output = iprocess.stdout
-        iprocess = subprocess.Popen( [command], shell=True )
-        output = iprocess.communicate()[0]
-        print( output)
+            #  iprocess = subprocess.run( [command],
+                    #  shell=True,
+                    #  )
+            #  output = iprocess.stdout
+            iprocess = subprocess.Popen( [command], shell=True )
+            output = iprocess.communicate()[0]
+            print( output)
     print( 'workpace transformation done!' )
 
 
