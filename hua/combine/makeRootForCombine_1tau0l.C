@@ -55,6 +55,13 @@ void makeRootForCombine_1tau0l(){
     TH1D*  singleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 23, 27, "singleTop_HT" );
     TH1D*  TX= addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 27, 30, "TX_HT" );
 
+    //data_obs
+    
+    TH1D*  TTTT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
+    TH1D* data_obs = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 30, "data_obs_HT" );
+    // data_obs->Add( TTTT );
+    // data_obs->SetName( "data_obs_HT" ); 
+
 
     // my_QCD_HT->Write();
     output->Write();
