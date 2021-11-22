@@ -219,7 +219,7 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         // const Int_t channel = 3//2tau1l
         const Int_t channel = 1,//1tau1l
         // const Int_t channel = 4//1tau2l
-        // const Int_t channel = 5,//1tau2l
+        // const Int_t channel = 5,//2tauXl
         const  Int_t binNum = 100
 
         )
