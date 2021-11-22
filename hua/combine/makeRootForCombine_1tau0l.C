@@ -52,7 +52,8 @@ void makeRootForCombine_1tau0l(){
     TH1D* WJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 21, 22, "WJets_HT" );
 
     TH1D* DYJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 22, 23, "DYJets_HT" );
-    TH1D*  singleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 23, 27, "singleTop_HT" );
+    TH1D*  SingleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 23, 27, "SingleTop_HT" );
+
     TH1D*  TX= addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 27, 30, "TX_HT" );
 
     //data_obs

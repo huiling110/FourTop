@@ -30,8 +30,7 @@ def copyCombineResultsToDir( cardDir ):
     print( 'combineResultsDir', resultsDir )
     if not os.path.exists( resultsDir ):
         os.mkdir( resultsDir )
-    command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir )
-    #  process = subprocess.run( command, shell=True )
+    command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir   process = subprocess.run( command, shell=True )
     process = subprocess.Popen( command, shell=True )
     out = process.communicate()
 
