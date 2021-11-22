@@ -1,8 +1,8 @@
 /**
  * @author Huiling Hua
  * @email huahl@ihep.ac.cn
- * @create date 2021-11-19 17:40:24
- * @modify date 2021-11-19 17:40:24
+ * @create date 2021-11-22 22:54:06
+ * @modify date 2021-11-22 22:54:06
  * @desc [description]
  */
 
@@ -42,8 +42,8 @@ void makeRootForCombine_1tau0l(){
     TT->Print();
     TT->Write();
 
-    TH1D* ttX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8, "ttX_HT" );
-    ttX->Print();
+    TH1D* TTX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8, "TTX_HT" );
+    // ttX->Print();
 
     TH1D* VV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 8, 13, "VV_HT" );
 
