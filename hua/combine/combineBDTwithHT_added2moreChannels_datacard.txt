@@ -1,0 +1,24 @@
+imax 6 number of bins
+jmax *  number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *    ch1  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults_11bins/TMVApp_1tau2l_15var_forCombine.root $PROCESS_MVA_BDT
+shapes *    ch2  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_11var_forCombine.root $PROCESS_MVA_BDT
+shapes *    ch3  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/TMVApp_2tauXl_12var_forCombine.root $PROCESS_MVA_BDT
+shapes *    ch4  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/dataDriven_1tau0l_forCombine.root $PROCESS_HT
+shapes *    ch5  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tau0l_HT/11bins/dataDriven_2tau0l_forCombine.root $PROCESS_HT
+shapes *    ch6  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau3l_HT/11bins/dataDriven_1tau3l_forCombine.root $PROCESS_HT
+
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1    ch2    ch3   ch4    ch5    ch6 
+observation  -1     -1     -1    -1     -1      -1
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1        ch1        ch1        ch1        ch1        ch1        ch2        ch2        ch2        ch2        ch2        ch2        ch2        ch2        ch3        ch3        ch3        ch3        ch3        ch3        ch3       ch4      ch4     ch4      ch4         ch4     ch4      ch4    ch4    ch5     ch5     ch5     ch5     ch5     ch5     ch5     ch6     ch6     ch6     ch6          
+process      TTTT       TTX        TX         VVV        TT         SingleTop  TTTT       TTX        TX         VVV        TT         VV         QCD        SingleTop  TTTT       TTX        TX         VVV        TT         VV         SingleTop TTTT     TT      TTX      VV          VVV     SingleTop TX    QCD    TTTT    TT      TTX     VV      VVV     SingleTop QCD   TTTT    TTX     SingleTop TX    
+process      0          1          2          3          4          5          0          1          2          3          4          6          7          5          0          1          2          3          4          6          5         0        4        2        6          3       5         2     7      0       4       2       5       3       5         7     0       2       5         2           5
+rate         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1        -1       -1      -1       -1          -1      -1        -1    -1     -1      -1      -1      -1      -1      -1       -1     -1      -1      -1       -1    
+----------------------------------------------------------------------------------------------------------------------------------
+ch1 autoMCStats 0 0 1
+ch2 autoMCStats 0 0 1
+ch3 autoMCStats 0 0 1
+ch4 autoMCStats 0 0 1
