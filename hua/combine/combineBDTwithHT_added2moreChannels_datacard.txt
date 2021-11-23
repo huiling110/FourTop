@@ -15,10 +15,12 @@ observation  -1     -1     -1    -1     -1      -1
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          ch1        ch1        ch1        ch1        ch1        ch1        ch2        ch2        ch2        ch2        ch2        ch2        ch2        ch2        ch3        ch3        ch3        ch3        ch3        ch3        ch3       ch4      ch4     ch4      ch4         ch4     ch4      ch4    ch4    ch5     ch5     ch5     ch5     ch5     ch5     ch5     ch6     ch6     ch6     ch6          
 process      TTTT       TTX        TX         VVV        TT         SingleTop  TTTT       TTX        TX         VVV        TT         VV         QCD        SingleTop  TTTT       TTX        TX         VVV        TT         VV         SingleTop TTTT     TT      TTX      VV          VVV     SingleTop TX    QCD    TTTT    TT      TTX     VV      VVV     SingleTop QCD   TTTT    TTX     SingleTop TX    
-process      0          1          2          3          4          5          0          1          2          3          4          6          7          5          0          1          2          3          4          6          5         0        4        2        6          3       5         2     7      0       4       2       5       3       5         7     0       2       5         2           5
+process      0          1          2          3          4          5          0          1          2          3          4          6          7          5          0          1          2          3          4          6          5         0        4        2        6          3       5         2     7      0       4       2       5       3       5         7     0       2       5         2 
 rate         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1        -1       -1      -1       -1          -1      -1        -1    -1     -1      -1      -1      -1      -1      -1       -1     -1      -1      -1       -1    
 ----------------------------------------------------------------------------------------------------------------------------------
 ch1 autoMCStats 0 0 1
 ch2 autoMCStats 0 0 1
 ch3 autoMCStats 0 0 1
 ch4 autoMCStats 0 0 1
+ch5 autoMCStats 0 0 1
+ch6 autoMCStats 0 0 1
