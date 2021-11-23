@@ -24,6 +24,7 @@ void sumBGsTogether(
     // TFile* input = TFile::Open( inputName, "READ");
     TFile* input = TFile::Open( inputName, "UPDATE");
 
+    TH1::SetDefaultSumw2();
     TH1D* TTTo2L2Nu = getHist( "TTTo2L2Nu", input );
     // TH1D* TTToHadronic = getHist( "TTToHadronic", input );
     // TH1D* TTToSemiLeptonic = getHist( "TTToSemiLeptonic", input );
