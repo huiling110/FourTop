@@ -140,34 +140,13 @@ def plot2D(x, y, name, outDir  ):
     #  if name.find( 'Limit'):
     if 'Limit' in name:
         gr.GetYaxis().SetTitle( 'expected limit' )
+        gr.SetTitle( "Expected Limit Vs Number of Variables" )
     else:
+        gr.SetTitle( "Expected Significance Vs Number of Variables" )
         gr.GetYaxis().SetTitle( 'expected significance' )
 
-    #  if isSig:
-        #  gr.GetYaxis().SetTitle( 'Significance' )
-    #  else:
-        #  gr.GetYaxis().SetTitle( 'AUC' )
     gr.Draw('APL')
-
-
-    #  AUCDir = logDir[:-4]
-    #  AUCDir = AUCDir + 'results/'
-    #  if not os.path.exists( AUCDir ):
-        #  os.mkdir( AUCDir )
-
-    #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
-    #  if isBDT:
-        #  if isSig:
-            #  c1.SaveAs( AUCDir+'maxSig_BDT.png' )
-        #  else:
-            #  c1.SaveAs( AUCDir+'AUC_BDT.png' )
-    #  else:
-        #  if isSig:
-            #  c1.SaveAs( AUCDir+'maxSig_BDTG.png' )
-        #  else:
-            #  c1.SaveAs( AUCDir+'AUC_BDTG.png' )
     c1.SaveAs( outDir + name + '.png' )
-
     print( 'plot saved here:', outDir )
 
 
