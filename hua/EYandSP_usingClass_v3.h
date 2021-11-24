@@ -224,6 +224,33 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
 
 }
 
+void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+
+    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT"+branch );
+    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT"+branch);
+    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 8, "TTX"+branch );
+    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 8, 13, "VV"+branch );
+    TH1D* VVV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 13, 21, "VVV"+branch );
+    TH1D* WJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 21, 22, "WJets"+branch );
+    TH1D* DYJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 22, 23, "DYJets"+branch );
+    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 23, 27, "SingleTop"+branch );
+    TH1D*  TX= addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 27, 30, "TX"+branch );
+    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 30, 36, "QCD"+branch);
+
+    groupedBGsAndSignal.push_back( TTTT );
+    groupedBGsAndSignal.push_back( TT );
+    groupedBGsAndSignal.push_back( TTX );
+    groupedBGsAndSignal.push_back( VV );
+    groupedBGsAndSignal.push_back( VVV );
+    groupedBGsAndSignal.push_back( WJets );
+    groupedBGsAndSignal.push_back( DYJets );
+    groupedBGsAndSignal.push_back( SingleTop );
+    groupedBGsAndSignal.push_back(  TX );
+    groupedBGsAndSignal.push_back( QCD );
+
+    // delete TTTT, TT;
+}
+
 Double_t getAllBgEntries( const TCut cut, const TCut weight ){
     Double_t bgEntries = 0.0;
     for(UInt_t j = 1; j < allProcesses.size(); j++){

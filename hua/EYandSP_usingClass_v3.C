@@ -52,12 +52,16 @@ void EYandSP_usingClass_v3(){
 vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
 vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
-vector<TH1D*> allHistos;
+// vector<TH1D*> allHistos;
 TH1D* h_background;
 TH1D* h_bg;
 
-for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=3; cha<4; cha++){
+// TH1D* TTTT, TT,  TTX, VV, VVV, WJets, DYJets, SingleTop, TX;
+// vector<TH1D*>  groupedBgsAndSignal = { TTTT, TT,  TTX, VV, VVV, WJets, DYJets, SingleTop, TX };
+vector<TH1D*>  groupedBgsAndSignal;
+
+// for (UInt_t  cha=0; cha<channelName.size(); cha++){
+for (UInt_t  cha=3; cha<4; cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     std::map<Double_t, TString> mymap;
@@ -65,17 +69,25 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
     //loop variableList
     for(UInt_t i=0; i<1; i++){
     // for(UInt_t i=0; i<variablelist.size(); i++){
-  	    TString plot = variablelist[i];
-        h_bg = getBackHist( allProcesses, channelCut[cha], weight );
-        cout<<"new bg: "<<h_bg->GetEntries();
+  	    TString iVariable = variablelist[i];
+        // h_bg = getBackHist( allProcesses, channelCut[cha], weight );
+        // cout<<"new bg: "<<h_bg->GetEntries();
 
-        getAllHitos( allHistos, h_background, plot, bin[i], Min[i], Max[i], weight, channelCut[cha] );
-        t.Print();
 
+        getBgsAndSignalHist( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
+
+        for( Int_t p; p<groupedBgsAndSignal.size(); p++){
+            groupedBgsAndSignal[p]->Print();
+            delete groupedBgsAndSignal[p];
+
+        }
+
+
+
+/*
         if ( i ==0 && ifEY ){
             printEventYield( allHistos, h_background );
             drawEventEield( allHistos, h_background, EYplotDir, channelName[cha] );
-            // writeEYtoFile(  );
         }
        
         if ( ifDraw ){
@@ -100,6 +112,8 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
 
         delete h_background;//put delete in the last
         delete h_bg;
+
+        */
     }//end of loop of all variables
 
 
@@ -107,7 +121,6 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
     if ( ifSP ){
         for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
             std::cout <<  rit->second << " = "<< rit->first << endl;
-            // std::cout << '\n';
         }
     }
 
