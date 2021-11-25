@@ -26,6 +26,8 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variabl
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel );
+void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel );
  
 
 void EYandSP_usingClass_v3(){ 
@@ -76,11 +78,13 @@ for (UInt_t  cha=3; cha<4; cha++){
 
         getBgsAndSignalHist( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
 
-        for( Int_t p; p<groupedBgsAndSignal.size(); p++){
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
+
+        for( UInt_t p; p<groupedBgsAndSignal.size(); p++){
             groupedBgsAndSignal[p]->Print();
             delete groupedBgsAndSignal[p];
-
         }
+
 
 
 
@@ -312,13 +316,39 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     entries.Form( "background = %f", h_background->Integral() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
     pt3->Draw();
 
-
-
-
     c->SaveAs( EYplotDir+"EY"+channel+".png");
-    // cout<<"EY plot saved here: "<<EYplot<<"\n";
+}
 
+void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
+    Double_t EY = -99;
+    if( type ==0 ) EY = bgs->GetEntries();
 
+    TString entries;
+    TString bgsName = bgs->GetName();
+    TString processName = bgsName.Remove( bgsName.First("_"), bgsName.Sizeof() );
+    entries.Form( processName + "  = %f", EY );
+    TText *t1 = pt->AddText( entries );
+    t1->SetTextAlign(12);
+    t1->SetTextSize( 0.055);
+    cout<<"entry: "<<entries<<"\n";
+}
+
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel ){
+
+    TCanvas *c = new TCanvas("c", "c");
+    c->SetCanvasSize(300, 1000);
+    c->SetWindowSize(400, 700);
+
+    TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
+    TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
+    TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
+    for( UInt_t i; i<groupedBgsAndSignal.size(); i++){
+        addTextToPT(0, pt, groupedBgsAndSignal[i]);
+    }
+    // addTextToPT( 0, pt,  groupedBgsAndSignal[0] );
+    pt->Draw();
+
+    c->SaveAs( EYplotDir+"EY"+channel+"_new.png");
 
 }
 

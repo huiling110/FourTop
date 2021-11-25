@@ -226,16 +226,16 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
 
 void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
 
-    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT"+branch );
-    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT"+branch);
-    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 8, "TTX"+branch );
-    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 8, 13, "VV"+branch );
-    TH1D* VVV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 13, 21, "VVV"+branch );
-    TH1D* WJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 21, 22, "WJets"+branch );
-    TH1D* DYJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 22, 23, "DYJets"+branch );
-    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 23, 27, "SingleTop"+branch );
-    TH1D*  TX= addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 27, 30, "TX"+branch );
-    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 30, 36, "QCD"+branch);
+    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT_"+branch );
+    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT_"+branch);
+    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 8, "TTX_"+branch );
+    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 8, 13, "VV_"+branch );
+    TH1D* VVV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 13, 21, "VVV_"+branch );
+    TH1D* WJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 21, 22, "WJets_"+branch );
+    TH1D* DYJets = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 22, 23, "DYJets_"+branch );
+    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 23, 27, "SingleTop_"+branch );
+    TH1D*  TX= addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 27, 30, "TX_"+branch );
+    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 30, 36, "QCD_"+branch);
 
     groupedBGsAndSignal.push_back( TTTT );
     groupedBGsAndSignal.push_back( TT );
