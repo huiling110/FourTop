@@ -28,6 +28,7 @@ void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
 void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel );
+void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
 void EYandSP_usingClass_v3(){ 
@@ -80,8 +81,12 @@ for (UInt_t  cha=3; cha<4; cha++){
 
         drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
 
+        plotChannelDis( groupedBgsAndSignal, EYplotDir );
+
         for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
             groupedBgsAndSignal[p]->Print();
+            cout<<"integral: "<<groupedBgsAndSignal[p]->Integral()<<"\n";
+            cout<<"entries: "<<groupedBgsAndSignal[p]->GetEntries()<<"\n";
             delete groupedBgsAndSignal[p];
         }
 
@@ -89,16 +94,6 @@ for (UInt_t  cha=3; cha<4; cha++){
 
 
 /*
-        if ( i ==0 && ifEY ){
-            printEventYield( allHistos, h_background );
-            drawEventEield( allHistos, h_background, EYplotDir, channelName[cha] );
-        }
-       
-        if ( ifDraw ){
-            drawHistos( allHistos, h_background );
-        } 
-
-
 
         //?for different range we have different sp, how to deal with this?
         if ( ifSP ){
@@ -137,6 +132,15 @@ for (UInt_t  cha=3; cha<4; cha++){
     t.Print();
 }
 
+void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir ){
+    TFile* plotFile = new TFile( plotDir+"dis.root", "RECREATE" );
+    for ( UInt_t i=0; i<groupedBgsAndSignal.size(); i++ ){
+        groupedBgsAndSignal[i]->Write();
+    }
+    // cout<<"writen file: "<<
+    plotFile->Close();
+
+}
 
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut ){
     TH1D* TTTT_h ;//1
@@ -206,6 +210,7 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variabl
 
 }
 
+
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background ){
     cout<<"Raw entries:"<<endl;
     cout<<"TTTT         = "<<allHistos[0]->GetEntries()  <<endl;
@@ -228,10 +233,6 @@ void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background )
     cout<<"\n";
 }
 
-void printEventYield( const vector<Process> allProcesses, const TH1D* h_bg ){
-
-
-}
 
 void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  vector<Process> &allProcesses  ){
     Double_t EY = 0;
