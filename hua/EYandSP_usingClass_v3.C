@@ -80,7 +80,7 @@ for (UInt_t  cha=3; cha<4; cha++){
 
         drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
 
-        for( UInt_t p; p<groupedBgsAndSignal.size(); p++){
+        for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
             groupedBgsAndSignal[p]->Print();
             delete groupedBgsAndSignal[p];
         }
@@ -320,7 +320,7 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
     Double_t EY = -99;
     if( type ==0 ) EY = bgs->GetEntries();
     if( type ==1 ) EY = bgs->Integral()*LUMI;
-    if( type ==2 ) EY = bgs->Integral()*LUMI*
+    if( type ==2 ) EY = bgs->Integral()*LUMI;
 
     TString entries;
     TString bgsName = bgs->GetName();
@@ -341,7 +341,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
     TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
-    for( UInt_t i; i<groupedBgsAndSignal.size(); i++){
+    for( UInt_t i = 0; i<groupedBgsAndSignal.size(); i++){
         addTextToPT( 0, pt, groupedBgsAndSignal[i] );
     }
     pt->Draw();
@@ -350,7 +350,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
     TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
     TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
-    for( UInt_t j; j<groupedBgsAndSignal.size(); j++){
+    for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
         addTextToPT( 1, pt2, groupedBgsAndSignal[j] );
     }
     pt2->Draw();
