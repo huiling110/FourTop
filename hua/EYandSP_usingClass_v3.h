@@ -218,7 +218,11 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
     TH1D* addedHist = new TH1D( histName, branchName, binNum, binMin, binMax );
     TH1D::SetDefaultSumw2();
     for(UInt_t j = fromProcess; j < toProcess; j++){
-        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
+        // addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
+        TH1D* temp = allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax);
+        temp->Scale( LUMI*allProcesses[j].getScale() );
+        addedHist->Add( temp,1   );
+        delete temp;
 
     }
     return addedHist;
