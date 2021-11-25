@@ -116,11 +116,12 @@ class Process
             delete h;
             return channelEY;
         }
-        TH1D* getChannelHist( const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+        TH1D* getChannelHist( const TCut cut, const TCut weight, const Double_t globalWeight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
             TString hName = getProcessName();
             TH1D* h = new TH1D( hName, hName, binNum , binMin , binMax );//1
             getEventTree()->Project( hName, branchName, weight*( cut ));
             channelEY = (TH1D*)h->Clone( hName );
+            channelEY->Scale( globalWeight );
             delete h;
             return channelEY;
         }
@@ -217,7 +218,7 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
     TH1D* addedHist = new TH1D( histName, branchName, binNum, binMin, binMax );
     addedHist->SetDefaultSumw2();
     for(UInt_t j = fromProcess; j < toProcess; j++){
-        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax) );
+        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, LUMI*allProcesses[j].getScale(), branchName, binNum, binMin, binMax) );
 
     }
     return addedHist;
@@ -237,6 +238,8 @@ void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channe
     TH1D*  TX= addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 27, 30, "TX_"+branch );
     TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 30, 36, "QCD_"+branch);
 
+    TH1D*  allBg = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 36, "allBg_"+branch);
+
     groupedBGsAndSignal.push_back( TTTT );
     groupedBGsAndSignal.push_back( TT );
     groupedBGsAndSignal.push_back( TTX );
@@ -247,6 +250,7 @@ void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channe
     groupedBGsAndSignal.push_back( SingleTop );
     groupedBGsAndSignal.push_back(  TX );
     groupedBGsAndSignal.push_back( QCD );
+    groupedBGsAndSignal.push_back( allBg );
 
     // delete TTTT, TT;
 }

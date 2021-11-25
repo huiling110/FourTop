@@ -279,9 +279,6 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
     pt->Draw();
  
     TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
-    // pt2->SetLabel(channel);
-    // pt2->AddText( "  ");
-    // pt2->AddText( "  ");
     TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
     TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     addTextToPT( 1, pt2, "TTTT", allHistos, 0, 1 , allProcesses );
@@ -322,6 +319,8 @@ void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, T
 void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
     Double_t EY = -99;
     if( type ==0 ) EY = bgs->GetEntries();
+    if( type ==1 ) EY = bgs->Integral()*LUMI;
+    if( type ==2 ) EY = bgs->Integral()*LUMI*
 
     TString entries;
     TString bgsName = bgs->GetName();
@@ -343,10 +342,19 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     for( UInt_t i; i<groupedBgsAndSignal.size(); i++){
-        addTextToPT(0, pt, groupedBgsAndSignal[i]);
+        addTextToPT( 0, pt, groupedBgsAndSignal[i] );
     }
-    // addTextToPT( 0, pt,  groupedBgsAndSignal[0] );
     pt->Draw();
+
+
+    TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
+    TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
+    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
+    for( UInt_t j; j<groupedBgsAndSignal.size(); j++){
+        addTextToPT( 1, pt2, groupedBgsAndSignal[j] );
+    }
+    pt2->Draw();
+
 
     c->SaveAs( EYplotDir+"EY"+channel+"_new.png");
 
