@@ -216,13 +216,14 @@ TH1D* getBackHist(  vector<Process>& allProcesses,  const TCut cut, const TCut w
 
 TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax, Int_t fromProcess, Int_t toProcess, TString histName  ){
     TH1D* addedHist = new TH1D( histName, branchName, binNum, binMin, binMax );
+    // addedHist->ResetStats();
     TH1D::SetDefaultSumw2();
     for(UInt_t j = fromProcess; j < toProcess; j++){
-        // addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
-        TH1D* temp = allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax);
-        temp->Scale( LUMI*allProcesses[j].getScale() );
-        addedHist->Add( temp,1   );
-        delete temp;
+        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
+        // TH1D* temp = allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax);
+        // temp->Scale( LUMI*allProcesses[j].getScale() );
+        // addedHist->Add( temp,1   );
+        // delete temp;
 
     }
     return addedHist;
