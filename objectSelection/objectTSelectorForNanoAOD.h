@@ -1,3 +1,10 @@
+/**
+ * @author Huiling Hua
+ * @email huahl@ihep.ac.cn
+ * @create date 2021-12-08 02:36:18
+ * @modify date 2021-12-08 02:36:18
+ * @desc [description]
+ */
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
 // Wed Dec  8 02:32:26 2021 by ROOT version 6.22/00
@@ -16,12 +23,189 @@
 #include <TTreeReaderArray.h>
 
 // Headers needed by this particular selector
+#include <vector>
+#include "TLorentzVector.h"
+#include "TH1D.h"
 
 
 class objectTSelectorForNanoAOD : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
+
+/////////////////////////
+//our own members
+////////////////////////
+    TFile *outputfile;
+    TTree *tree;
+    TTree *allEvents;
+    TH1D  *h_genWeight ;
+   //CHANGE HERE TO RUN ON DATA
+   Bool_t isdata = false;
+   //Bool_t isdata = true;
+   Bool_t MetFilters = true;
+    // Bool_t MetFilters = false;
+   Bool_t HLTSelection = true;
+    //Bool_t HLTSelection = false;
+    // Bool_t preselection = true;
+    // Bool_t preselection = false;
+   Bool_t preselection = true;
+
+
+   Long64_t   fProcessed = 0;
+   Long64_t eventsPassed = 0;
+   Long64_t tausT_total = 0;
+   Long64_t tausL_total = 0;
+   Long64_t tausF_total = 0;
+   Long64_t elesT_total =0;
+   Long64_t elesL_total =0;
+   Long64_t elesF_total =0;
+    Long64_t mounsT_total = 0;
+    Long64_t mounsF_total = 0;
+    Long64_t mounsL_total = 0;
+    Long64_t jets_total = 0;
+    Long64_t bjetsM_total =0;
+
+    Double_t genWeight_allEvents;
+
+
+   Int_t    Flag_goodVertices_ ;
+   Int_t    Flag_globalSuperTightHalo2016Filter_ ;
+   Int_t    Flag_HBHENoiseFilter_ ;
+   Int_t    Flag_HBHENoiseIsoFilter_ ;
+   Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter_ ;
+   Int_t    Flag_BadPFMuonFilter_ ;
+   Int_t    Flag_eeBadScFilter_ ;
+    //HLT
+    Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
+	Int_t HLT_PFJet450_;
+    Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
+    Int_t HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ ;
+    Int_t HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ ;
+    Int_t HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ ;
+    Int_t HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_ ;
+    Int_t HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_ ;
+    Int_t HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_ ;
+    Int_t HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_ ;//this Int_t HLT doesn't exist in ntuple
+ 
+    Int_t HLT_Ele27_eta2p1_WPTight_Gsf_ ;
+    Int_t HLT_Ele27_eta2p1_WPLoose_Gsf_ ;
+    Int_t HLT_Ele27_WPTight_Gsf_ ;
+    Int_t HLT_IsoMu22_ ;
+    Int_t HLT_Ele25_eta2p1_WPTight_Gsf_ ;
+    Int_t HLT_IsoTkMu22_ ;
+    Int_t HLT_IsoMu24_ ;
+    Int_t HLT_IsoTkMu24_ ;
+    Int_t HLT_IsoMu22_eta2p1_ ;
+    Int_t HLT_IsoTkMu22_eta2p1_ ;
+    Int_t HLT_Mu50_ ;
+    Int_t HLT_TkMu50_ ;
+    Int_t HLT_Ele32_WPTight_Gsf_ ;
+    Int_t HLT_Ele35_WPTight_Gsf_ ;
+    Int_t HLT_IsoMu27_ ;
+
+    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ ;
+    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ ;
+    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ ;
+    Int_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_ ;
+    Int_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ ;
+    Int_t HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ ;
+    Int_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_ ;
+    Int_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_ ;
+
+    Int_t HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_ ;
+    Int_t HLT_DoubleEle33_CaloIdL_MW_ ;
+    Int_t HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_ ;
+    Int_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ ;
+    Int_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ ;
+    Int_t HLT_DoubleMu33NoFiltersNoVtx_ ;
+    Int_t HLT_DoubleMu23NoFiltersNoVtxDisplaced_ ;
+    Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ ;
+    Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ ;
+    Int_t HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ ;
+    Int_t HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ ;
+    Int_t HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_ ;
+    Int_t HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ ;
+    Int_t HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_ ;
+    Int_t HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_ ;
+    Int_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ ;
+    Int_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ ;
+    Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ ;
+    Int_t HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ ;
+
+    Int_t HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_ ;
+    Int_t HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ ;
+    Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ ;
+    Int_t HLT_TripleMu_12_10_5_ ;
+    Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ ;
+
+
+    vector<TLorentzVector> muonsL; vector<Int_t> muonsL_index;
+    vector<TLorentzVector> muonsF; vector<Int_t> muonsF_index;
+    vector<TLorentzVector> muonsT; vector<Int_t> muonsT_index;
+    vector<TLorentzVector> eleMVAL; vector<Int_t> eleMVAL_index;
+    vector<TLorentzVector> eleMVAF; vector<Int_t> eleMVAF_index;
+    vector<TLorentzVector> eleMVAT; vector<Int_t> eleMVAT_index;
+    // vector<TLorentzVector> eleMVAL_IsoT; vector<Int_t> eleMVAL_IsoT_index;
+    // vector<TLorentzVector> eleMVAF_IsoT; vector<Int_t> eleMVAF_IsoT_index;
+    // vector<TLorentzVector> eleMVAT_IsoT; vector<Int_t> eleMVAT_IsoT_index;
+    vector<TLorentzVector> leptonsMVAF; 
+    vector<TLorentzVector> leptonsMVAT; 
+    vector<TLorentzVector> leptonsMVAL; 
+    vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
+    vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
+    vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
+    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags; 
+    vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Int_t> bjetsL_flavour; vector<Double_t> bjetsL_btags;
+    vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Int_t> bjetsM_flavour; vector<Double_t> bjetsM_btags;
+    vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Int_t> bjetsT_flavour; vector<Double_t> bjetsT_btags;
+    vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Int_t> forwardJets_flavour; vector<Double_t> forwardJets_btags;
+    vector<TLorentzVector>  nonbjetsL;
+    vector<TLorentzVector>  nonbjetsM;
+    vector<TLorentzVector>  nonbjetsT;
+    // vector<TLorentzVector> ; vector<Int_t> ;
+    // vector<TLorentzVector> ; vector<Int_t> ;
+    // vector<TLorentzVector> ; vector<Int_t> ;
+    // vector<TLorentzVector> ; vector<Int_t> ;
+    vector<Double_t> patElectron_charge_;
+    // vector<Double_t> patElectron_charge_;
+    vector<Double_t> Tau_charge_;
+    vector<Double_t> Muon_charge_;
+    Double_t Met_pt;
+    Double_t Met_phi;
+    vector<TLorentzVector> tops_toptagger;
+
+    vector<TLorentzVector> genTaus; 
+    vector<TLorentzVector> genEles;
+    vector<TLorentzVector> genMuons;
+
+    //weight
+    Double_t EVENT_prefireWeight_;
+    Double_t PUWeight_;
+    Double_t EVENT_genWeight_;
+
+    //functions I added
+     void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
+     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
+     void SelectTops(vector<TLorentzVector> &SelectedTops);
+     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
+     void selectGenTaus( vector<TLorentzVector> &genTaus );
+     void selectGenEles( vector<TLorentzVector> &genEles );
+     void selectGenMuons( vector<TLorentzVector> &genMuons );
+     void SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons, vector<Int_t> &SelectedElectronsIndex,const Int_t type);
+
+     void makeBranch( TTree*  tree, Bool_t isdata);
+
+
+
+
+
+
+
+
+
+
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<UInt_t> run = {fReader, "run"};
