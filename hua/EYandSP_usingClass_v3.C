@@ -21,7 +21,6 @@
 #include "TStopwatch.h"
 #include "TPaveText.h"
 
-using  std::cout; 
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
@@ -31,6 +30,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
+using  std::cout; 
 void EYandSP_usingClass_v3(){ 
     TStopwatch t;
     t.Start();
