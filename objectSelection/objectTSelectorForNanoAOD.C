@@ -1,4 +1,4 @@
-/**
+/*
  * @author Huiling Hua
  * @email huahl@ihep.ac.cn
  * @create date 2021-12-08 02:46:13
@@ -320,7 +320,21 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
+    SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
+    SelectMuons( muonsT, muonsT_index, 2);sort( muonsT.begin(), muonsT.end(), compEle);
+    mounsT_total = mounsT_total + muonsT.size();
+    mounsF_total = mounsF_total + muonsF.size();
+    mounsL_total = mounsL_total + muonsL.size();
 
+    SelectElectronsMVA( eleMVAT, eleMVAT_index, 2 ); 
+    SelectElectronsMVA( eleMVAF, eleMVAF_index, 1 ); 
+    SelectElectronsMVA( eleMVAL, eleMVAL_index, 0 ); 
+    sort( eleMVAL.begin(), eleMVAL.end(), compEle);
+    sort( eleMVAF.begin(), eleMVAF.end(), compEle);
+    sort( eleMVAT.begin(), eleMVAT.end(), compEle);
+    elesT_total = elesT_total + eleMVAT.size();
+    elesF_total = elesF_total + eleMVAF.size();
+    elesL_total = elesL_total + eleMVAL.size();
 
 
 
@@ -533,8 +547,7 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
             I1 = 0.16; I2 = 0.76, I3 = 7.2;
         }
         //Muon_jetRelIso = 1/ptRatio-1; ptRatio = 1/(Muon_jetRelIso+1)
-        if (!((Muon_miniPFRelIso_all.At(j) < I1) && (   1/((Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))))
-            continue;
+        if (!((Muon_miniPFRelIso_all.At(j) < I1) && (   1/((Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))))     continue;
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
         if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
@@ -553,4 +566,125 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         SelectedMuons.push_back(muon);
         SelectedMuonsIndex.push_back(j);
     }
-} 
+}
+
+
+void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,   vector<Int_t> &SelectedElectronsIndex, const Int_t type) {
+  // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
+  // 2016 - MVANoIso94XV2, from SUSY
+    for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j) { /*{{{*/
+        Double_t pt = Electron_pt.At(j);
+        Double_t eta = Electron_eta.At(j);
+        Double_t MVA_value = Electron_mvaFall17V2noIso.At(j);
+        Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
+        if (!(fabs(eta) < 2.5))      continue;
+        if (!(pt > 10))         continue;
+        // cout << "Electron_pt=" <<pt<<"\n ";
+
+            // id
+        if (fabs(eta) < 0.8)
+        {
+            if (type == 2) {
+                if (10 < pt && pt < 40) {
+                  if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))      continue;
+                }
+                if (pt >= 40) {
+                  if (!(raw_MVA_value > 4.392))   continue;
+                }
+            }
+            if (type == 0 || type==1) {
+                if (5 < pt && pt < 10) {
+                  if (!(raw_MVA_value > 1.309))  continue;
+                }
+                if (10 < pt && pt < 25) {
+                  if (!(raw_MVA_value > ( 0.887 + 0.088 * (pt - 25))))  continue;
+                }
+                if (pt >= 25) {
+                  if (!(raw_MVA_value > 0.887))  continue;
+                }
+            }
+        }
+        if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
+            if (type == 2) {
+                if (10 < pt && pt < 40) {
+                    if (!(raw_MVA_value > (2.522 + 0.058 * (pt - 25))))      continue;
+                }
+                if (pt >= 40) {
+                    if (!(raw_MVA_value > 3.392))      continue;
+                }
+            }
+            if (type == 0 || type==1 ) {
+                if (5 < pt && pt <= 10) {
+                  if (!(raw_MVA_value > 0.373))           continue;
+                }
+                if (10 < pt && pt < 25) {
+                  if (!(raw_MVA_value > (0.112 + 0.099 * (pt - 25))))    continue;
+                }
+                if (pt >= 25) {
+                  if (!(raw_MVA_value > 0.112))     continue;
+                }
+            }
+        }
+        if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
+            if (type == 2) {
+                if (10 < pt && pt < 40) {
+                  if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))         continue;
+                }
+                if (pt >= 40) {
+                  if (!(raw_MVA_value > 2.680))                continue;
+                }
+            }
+            if (type == 0 || type==1) {
+                if (5 < pt && pt <= 10) {
+                  if (!(raw_MVA_value > 0.071))   continue;
+                }
+                if (10 < pt && pt < 25) {
+                  if (!(raw_MVA_value > ((-0.017) + 0.137 * (pt - 25))))   continue;
+                }
+                if (pt >= 25) {
+                  if (!(raw_MVA_value > (-0.017)))              continue;
+                }
+            }
+        }
+
+         // ISO
+        Double_t I1 = 0.4, I2 = 0, I3 = 0;
+        if (type == 0 || type == 1) {
+            I1 = 0.4;         I2 = 0;      I3 = 0;
+        } // looseWP from ss of TTTT}
+        if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
+        if (!((Electron_miniPFRelIso_all.At(j) < I1) && (   1/((Electron_jetRelIso.At(j)+1) > I2) || (Electron_jetPtRelv2.At(j) > I3))))     continue;
+  
+      // IP
+        if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
+        if (!(fabs(Electron_dz.At(j)) < 0.1))        continue;
+        if (type == 1 or type == 2) {
+            if (!((Electron_ip3d.At(j)) < 4))          continue;
+        }
+    
+        //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
+        // cout << "Electron_lostHits= " << static_cast<int>(Eleictron_lostHits.At(j)) << "\n";
+        //UChar_t is just int with 1 bit
+        if (type == 0)
+        {
+            if ( !(Electron_lostHits.At(j)<=1) )  continue;
+        }
+        if ( type==1 || type==2 ){
+            if ( !(Electron_lostHits.At(j)==0))  continue;
+        }
+        if ( !(Electron_convVeto.At(j)==1)) continue;
+        // tight charge
+        //Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+        //???not sure which one to use, drop for now
+
+      
+        TLorentzVector electron;
+        electron.SetPtEtaPhiM(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
+        SelectedElectrons.push_back(electron);
+        SelectedElectronsIndex.push_back(j);
+    }
+}
+/*}}}*/
+
+
+
