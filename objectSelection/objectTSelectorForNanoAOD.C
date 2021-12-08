@@ -343,6 +343,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL = muonsL; leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
+    SelectTaus( tausF, tausF_index, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_index, 3 , leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
+    //???does here imply we need at least 1 leptons
+    tausT_total = tausT_total + tausT.size();
+    tausF_total = tausF_total + tausF.size();
+    tausL_total = tausL_total + tausL.size();
 
 
 
@@ -697,4 +704,43 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
+void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+  // this is tau ID in ttH
+  // 1:loose;2:fakeble;3:tight
+  
+  for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
+
+    if (!(Tau_pt.At(j) > 20))     continue;
+    if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
+    if (!( TMath::Abs(Tau_dz.At(j)) < 0.2) )      continue; 
+    //???why no dxy requirement?
+    // if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
+    if (!(Tau_idDecayModeOldDMs.At(j) == 0))      continue;
+    if (TauWP == 2 || TauWP == 3) {
+       if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
+    if (TauWP == 1) {
+      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
+      if (!(Tau_idDeepTau2017v2p1VSjet.At(j)>2 ))        continue;
+      // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
+    }
+    if (TauWP == 2) {
+      if ( !(Tau_idDeepTau2017v2p1VSjet.At(j) > 2 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1) )        continue;
+    }
+    if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
+      if ( !( Tau_idDeepTau2017v2p1VSjet.At(j)>16 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1 ) )        continue;
+    }
+    //overlap removal
+    Double_t minDeltaR_lep;
+    if ( LeptonsMVAL.size() > 0){
+        minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
+        if( !(minDeltaR_lep >= 0.4 )) continue;
+    }
+    //?need err handling
+    TLorentzVector tau;
+    tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
+                     Tau_mass.At(j));
+    SelectedTaus.push_back(tau);
+    SelectedTausIndex.push_back(j);
+  }
+}/*}}}*/
 
