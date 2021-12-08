@@ -69,7 +69,12 @@ bool compEle(const TLorentzVector a, const TLorentzVector b) {
     return a.Pt() > b.Pt();
 }
 
-void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Double_t> &array, vector<Double_t> & vec){
+void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Float_t> &array, vector<Double_t> & vec){
+    for( UInt_t i=0; i< array.GetSize(); i++){
+        vec.push_back( array.At(i));
+    }
+}
+void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Int_t> &array, vector<Double_t> & vec){
     for( UInt_t i=0; i< array.GetSize(); i++){
         vec.push_back( array.At(i));
     }
@@ -384,8 +389,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
 
+    // MetCorrection(SysJes, SysJer, Met_pt);
+    // Met_phi = *Met_type1PF_phi; 
 
+    // SelectTops( tops_toptagger);
+    // sort( tops_toptagger.begin(), tops_toptagger.end(), compEle);
 
+    if ( !isdata ){
+        genTaus.clear();
+        genEles.clear();
+        genMuons.clear();
+        selectGenTaus(genTaus);
+        selectGenEles(genEles);
+        selectGenMuons(genMuons);
+    }
 
 
 
@@ -883,3 +900,27 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
 
 } 
 /*}}}*/
+void objectTSelectorForNanoAOD::selectGenTaus( vector<TLorentzVector> &genTaus ){
+    for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
+        if(!(abs(GenPart_genPartIdxMother.At(j))==24 && abs(GenPart_pdgId.At(j))==15)) continue;//tau:15; top:6;W:
+        TLorentzVector gentau;
+        gentau.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        genTaus.push_back(gentau);
+    }
+}
+void objectTSelectorForNanoAOD::selectGenEles( vector<TLorentzVector> &genEles ){
+    for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
+        if(!(abs(GenPart_genPartIdxMother.At(j))==24 && abs(GenPart_pdgId.At(j))==11)) continue;//tau:15; ele:11;
+        TLorentzVector genele;
+        genele.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        genEles.push_back(genele);
+    }
+}
+void objectTSelectorForNanoAOD::selectGenMuons( vector<TLorentzVector> &genMuons ){
+    for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
+        if(!(abs(GenPart_genPartIdxMother.At(j))==24  && abs(GenPart_pdgId.At(j))==13)) continue;//tau:15; top:6;W:;muon:13
+        TLorentzVector genmuon;
+        genmuon.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        genMuons.push_back(genmuon);
+    }
+}

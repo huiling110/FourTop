@@ -38,7 +38,7 @@ void run_objectTSelectorForNanoAOD(
     if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
     else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
     if ( istest ){
-        if (ishuiling) outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/test_objectSelction/";
+        if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
         else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         eventNum = 100;
     }

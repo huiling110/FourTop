@@ -378,7 +378,6 @@ Bool_t objectTSelector::Process(Long64_t entry)
     //preselection
     if (preselection) {
         if ( !( tausL.size()>0)) return kFALSE;
-        //if ( !( jets.size()>3))  return kFALSE;
 		if ( !( jets.size()>1))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
     }
@@ -560,7 +559,8 @@ void objectTSelector::makeBranch( TTree* tree, Bool_t isdata ){
     tree->Branch( "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_/I");
     tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_/I");
     tree->Branch( "HLT_TripleMu_12_10_5_", &HLT_TripleMu_12_10_5_, "HLT_TripleMu_12_10_5_/I");
-    tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_/I");/*}}}*/
+    tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_/I");
+/*}}}*/
 
 }
 void objectTSelector::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
@@ -750,7 +750,8 @@ void objectTSelector::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectro
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
     }
-}/*}}}*/
+}
+/*}}}*/
 
 
 
@@ -937,14 +938,15 @@ void objectTSelector::SelectJets(const Int_t jetType,const  bool deepJet, vector
         }
     }
 
-} /*}}}*/
+} 
+/*}}}*/
 
 void objectTSelector::SelectTops(vector<TLorentzVector> &SelectedTops) {
   for (UInt_t j = 0; j < TopTagger_type.GetSize(); ++j) {
     if (!(TopTagger_type.At(j) == 3))
       continue; // resolved
-    //        if(!(TopTagger_discriminator.At(j)>0.6)) continue;
-    //        ??not sure of the effect of discriminator
+    //        if(!(TopTagger_discriminator.At(j)>0.75)) continue;
+    // ???0.75->10%qcd mistag rate
     TLorentzVector jet1;
     jet1.SetPtEtaPhiM(Jet_pt.At(TopTagger_jet1Idx.At(j)),
                       Jet_eta.At(TopTagger_jet1Idx.At(j)), Jet_phi.At(j),
