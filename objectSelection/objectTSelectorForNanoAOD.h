@@ -80,6 +80,7 @@ public :
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
 	Int_t HLT_PFJet450_;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
+    /*
     Int_t HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ ;
     Int_t HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ ;
     Int_t HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ ;
@@ -138,7 +139,7 @@ public :
     Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ ;
     Int_t HLT_TripleMu_12_10_5_ ;
     Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ ;
-
+*/
 
     vector<TLorentzVector> muonsL; vector<Int_t> muonsL_index;
     vector<TLorentzVector> muonsF; vector<Int_t> muonsF_index;

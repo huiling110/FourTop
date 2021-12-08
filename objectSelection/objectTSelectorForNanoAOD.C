@@ -196,6 +196,139 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    }
    
    allEvents->Fill();
+
+
+   //MET filters
+    if ( MetFilters ){
+        if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
+        if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
+        if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
+        if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
+        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
+        if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
+          //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;
+          //			why this filter not work?//applied only in 2017 and 2018
+        //CHANGE HERE TO RUN ON DATA 
+		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+    }
+    Flag_goodVertices_ = *Flag_goodVertices;
+    Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
+    Flag_HBHENoiseFilter_ = *Flag_HBHENoiseFilter;
+    Flag_HBHENoiseIsoFilter_ = *Flag_HBHENoiseIsoFilter;
+    Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
+    Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
+    Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+
+
+    //HLT
+    if ( HLTSelection){
+        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
+    }
+    HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+	HLT_PFJet450_ = *HLT_PFJet450;
+    //???it seems some triggers are not present in NanoAOD
+    // HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
+    // HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
+    // HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg;
+    // HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_ = *HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg;
+    // HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_ = *HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg;
+    // HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_ = *HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg;
+    // HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg;//this HLT doesn't exist in ntuple
+ 
+    // HLT_Ele27_eta2p1_WPTight_Gsf_ = *HLT_Ele27_eta2p1_WPTight_Gsf;
+    // HLT_Ele27_eta2p1_WPLoose_Gsf_ = *HLT_Ele27_eta2p1_WPLoose_Gsf;
+    // HLT_Ele27_WPTight_Gsf_ = *HLT_Ele27_WPTight_Gsf;
+    // HLT_IsoMu22_ = *HLT_IsoMu22;
+    // HLT_Ele25_eta2p1_WPTight_Gsf_ = *HLT_Ele25_eta2p1_WPTight_Gsf;
+    // HLT_IsoTkMu22_ = *HLT_IsoTkMu22;
+    // HLT_IsoMu24_ = *HLT_IsoMu24;
+    // HLT_IsoTkMu24_ = *HLT_IsoTkMu24;
+    // HLT_IsoMu22_eta2p1_ = *HLT_IsoMu22_eta2p1;
+    // HLT_IsoTkMu22_eta2p1_ = *HLT_IsoTkMu22_eta2p1;
+    // HLT_Mu50_ = *HLT_Mu50;
+    // HLT_TkMu50_ = *HLT_TkMu50;
+    // HLT_Ele32_WPTight_Gsf_ = *HLT_Ele32_WPTight_Gsf;
+    // HLT_Ele35_WPTight_Gsf_ = *HLT_Ele35_WPTight_Gsf;
+    // HLT_IsoMu27_ = *HLT_IsoMu27;
+
+    // HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20;
+    // HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+    // HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30;
+    // HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_ = *HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1;
+    // HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = *HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1;
+    // HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = *HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1;
+    // HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_ = *HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1;
+    // HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_ = *HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1;
+
+    // HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_ = *HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf;
+    // HLT_DoubleEle33_CaloIdL_MW_ = *HLT_DoubleEle33_CaloIdL_MW;
+    // HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_ = *HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW;
+    // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ = *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL;
+    // HLT_DoubleMu33NoFiltersNoVtx_ = *HLT_DoubleMu33NoFiltersNoVtx;
+    // HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = *HLT_DoubleMu23NoFiltersNoVtxDisplaced;
+    // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ;
+    // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8;
+    // HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
+    // HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
+    // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_ = *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
+    // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+    // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_ = *HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
+    // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_ = *HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
+    // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ = *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL;
+    // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
+    // HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = *HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+
+    // HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_ = *HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;
+    // HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = *HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
+    // HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;
+    // HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
+    // HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+
+
+    //
+    muonsL.clear(); muonsL_index.clear();
+    muonsF.clear(); muonsF_index.clear();
+    muonsT.clear(); muonsT_index.clear();
+    eleMVAL.clear(); eleMVAL_index.clear();
+    eleMVAF.clear(); eleMVAF_index.clear();
+    eleMVAT.clear(); eleMVAT_index.clear();
+    leptonsMVAF.clear();
+    leptonsMVAT.clear();
+    leptonsMVAL.clear();
+    tausL.clear(); tausL_index.clear();
+    tausF.clear(); tausF_index.clear();
+    tausT.clear(); tausT_index.clear();
+    jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
+    nonbjetsL.clear();
+    nonbjetsM.clear();
+    nonbjetsT.clear();
+    patElectron_charge_.clear();
+    Tau_charge_.clear();
+    Muon_charge_.clear();
+    tops_toptagger.clear();
+    // .clear(); _index.clear();
+    EVENT_prefireWeight_ = -99;
+    PUWeight_ = -99;
+    EVENT_genWeight_ = -99;
+
+
+    SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
+
+
+
+
+
+    tree->Fill();
+
+    return kTRUE;
+
 ///////////////////////////////////////
 
 
@@ -317,6 +450,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
     tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
     tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
     tree->Branch( "HLT_PFJet450_", &HLT_PFJet450_, "HLT_PFJet450_/I");
+    /*
 	tree->Branch( "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_", &HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_/I");
     tree->Branch( "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_", &HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_, "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_/I");
     tree->Branch( "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_", &HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_, "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_/I");
@@ -375,6 +509,46 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
     tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_/I");
     tree->Branch( "HLT_TripleMu_12_10_5_", &HLT_TripleMu_12_10_5_, "HLT_TripleMu_12_10_5_/I");
     tree->Branch( "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_/I");
+    */
 /*}}}*/
-
 }
+
+void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
+  // changed ISO to ss of TTTT
+  // 0 for Loose; 2 for medium 
+    for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
+        //in objectSelection.h Muon_pt_ is global variable
+        if(!(Muon_pt.At(j)>10))                     continue;
+        if (!(fabs(Muon_eta.At(j)) < 2.4))        continue;
+        //ID
+        if (type == 0) {
+            if (!(Muon_looseId.At(j) == 1))              continue;
+        }
+        if (type == 1 or type == 2) {
+            if (!(Muon_mediumId.At(j) == 1))     continue;
+        }
+        //ISO
+        Double_t I1 = 0.4, I2 = 0, I3 = 0; // loose:WP from ss of TTTT
+        if(type == 2){
+            I1 = 0.16; I2 = 0.76, I3 = 7.2;
+        }
+        if (!((Muon_miniPFRelIso_all.At(j) < I1) && ((Muon_jetRelIso.At(j) > I2) || (Muon_jetPtRelv2.At(j) > I3))))      continue;
+        // IP
+        if(!(fabs(Muon_dz.At(j))<0.1)) continue;
+        if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
+        if(type == 1 or type == 2) {
+          if(!(fabs(Muon_ip3d.At(j))<4)) continue;
+        }
+        //charge,The quality of the charge reconstruction 
+        // if ( type==1 || type==2 ){
+            // if ( !(Muon_pTErrOVpT_bt.At(j)<2) ) continue;
+        // }
+        
+        TLorentzVector muon;
+        // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
+        muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
+                          Muon_mass.At(j));
+        SelectedMuons.push_back(muon);
+        SelectedMuonsIndex.push_back(j);
+    }
+} 
