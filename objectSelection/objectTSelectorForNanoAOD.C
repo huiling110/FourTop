@@ -404,6 +404,24 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         selectGenMuons(genMuons);
     }
 
+    EVENT_prefireWeight_ = *L1PreFiringWeight_Nom;
+    // PUWeight_ = *PUWeight;
+    //???can not fine pileup weight in NanoAOD
+
+    //CHANGE HERE TO RUN ON DATA
+	
+	if ( !isdata ){
+        EVENT_genWeight_ = *genWeight;
+    }
+	
+    //preselection
+    if (preselection) {
+        if ( !( tausL.size()>0)) return kFALSE;
+		if ( !( jets.size()>1))  return kFALSE;
+        if ( !( bjetsL.size()>1)) return kFALSE;
+    }
+
+    eventsPassed++;
 
 
     tree->Fill();
