@@ -336,6 +336,16 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     elesF_total = elesF_total + eleMVAF.size();
     elesL_total = elesL_total + eleMVAL.size();
 
+    leptonsMVAF = muonsF;    leptonsMVAF.insert(leptonsMVAF.end(), eleMVAF.begin(), eleMVAF.end());
+    sort( leptonsMVAF.begin(), leptonsMVAF.end(), compEle);
+    leptonsMVAT = muonsT;  leptonsMVAT.insert(leptonsMVAT.end(), eleMVAT.begin(), eleMVAT.end());
+    sort( leptonsMVAT.begin(), leptonsMVAT.end(), compEle);
+    leptonsMVAL = muonsL; leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
+    sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
+
+
+
+
 
 
 
