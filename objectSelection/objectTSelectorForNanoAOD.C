@@ -515,7 +515,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
 
 void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
   // changed ISO to ss of TTTT
-  // 0 for Loose; 2 for medium 
+  // 0 for Loose; 1 fakeble; 2 tight 
     for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
         //in objectSelection.h Muon_pt_ is global variable
         if(!(Muon_pt.At(j)>10))                     continue;
@@ -532,7 +532,9 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         if(type == 2){
             I1 = 0.16; I2 = 0.76, I3 = 7.2;
         }
-        if (!((Muon_miniPFRelIso_all.At(j) < I1) && ((Muon_jetRelIso.At(j) > I2) || (Muon_jetPtRelv2.At(j) > I3))))      continue;
+        //Muon_jetRelIso = 1/ptRatio-1; ptRatio = 1/(Muon_jetRelIso+1)
+        if (!((Muon_miniPFRelIso_all.At(j) < I1) && (   1/((Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))))
+            continue;
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
         if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
@@ -540,9 +542,9 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
           if(!(fabs(Muon_ip3d.At(j))<4)) continue;
         }
         //charge,The quality of the charge reconstruction 
-        // if ( type==1 || type==2 ){
-            // if ( !(Muon_pTErrOVpT_bt.At(j)<2) ) continue;
-        // }
+        if ( type==1 || type==2 ){
+            if ( !(Muon_tightCharge.At(j)<2) ) continue;
+        }
         
         TLorentzVector muon;
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
