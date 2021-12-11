@@ -197,6 +197,7 @@ public :
      void makeBranch( TTree*  tree, Bool_t isdata);
 
      void copyHLT();
+	 void copyFlags();
 
 
 

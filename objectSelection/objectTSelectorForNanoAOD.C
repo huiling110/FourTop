@@ -216,13 +216,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         //CHANGE HERE TO RUN ON DATA 
 		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
     }
-    Flag_goodVertices_ = *Flag_goodVertices;
-    Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
-    Flag_HBHENoiseFilter_ = *Flag_HBHENoiseFilter;
-    Flag_HBHENoiseIsoFilter_ = *Flag_HBHENoiseIsoFilter;
-    Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
-    Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
-    Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+    copyFlags();
 
 
     //HLT
@@ -943,4 +937,15 @@ void objectTSelectorForNanoAOD::copyHLT(){
     // HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
     HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+}
+
+void objectTSelectorForNanoAOD::copyFlags(){
+    Flag_goodVertices_ = *Flag_goodVertices;
+    Flag_globalSuperTightHalo2016Filter_ = *Flag_globalSuperTightHalo2016Filter;
+    Flag_HBHENoiseFilter_ = *Flag_HBHENoiseFilter;
+    Flag_HBHENoiseIsoFilter_ = *Flag_HBHENoiseIsoFilter;
+    Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
+    Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
+    Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+
 }
