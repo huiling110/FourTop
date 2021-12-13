@@ -192,9 +192,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    fProcessed++;
 
    genWeight_allEvents = -99;
-   //
    //CHANGE HERE TO RUN ON DATA
-   
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *Generator_weight );
        genWeight_allEvents = *Generator_weight;
@@ -218,43 +216,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     copyFlags();
 
-
     //HLT
     if ( HLTSelection){
         if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
     }
     copyHLT();
 
-
-    //
-    muonsL.clear(); muonsL_index.clear();
-    muonsF.clear(); muonsF_index.clear();
-    muonsT.clear(); muonsT_index.clear();
-    eleMVAL.clear(); eleMVAL_index.clear();
-    eleMVAF.clear(); eleMVAF_index.clear();
-    eleMVAT.clear(); eleMVAT_index.clear();
-    leptonsMVAF.clear();
-    leptonsMVAT.clear();
-    leptonsMVAL.clear();
-    tausL.clear(); tausL_index.clear();
-    tausF.clear(); tausF_index.clear();
-    tausT.clear(); tausT_index.clear();
-    jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
-    bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
-    bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
-    bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
-    forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
-    nonbjetsL.clear();
-    nonbjetsM.clear();
-    nonbjetsT.clear();
-    patElectron_charge_.clear();
-    Tau_charge_.clear();
-    Muon_charge_.clear();
-    tops_toptagger.clear();
-    // .clear(); _index.clear();
-    EVENT_prefireWeight_ = -99;
-    PUWeight_ = -99;
-    EVENT_genWeight_ = -99;
+    initializeBrancheValues();
 
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
@@ -354,12 +322,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if ( !( bjetsL.size()>1)) return kFALSE;
     }
 
+
+
+
     eventsPassed++;
-
-
     tree->Fill();
-
-    return kTRUE;
 
 ///////////////////////////////////////
 
@@ -563,7 +530,7 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
             I1 = 0.16; I2 = 0.76, I3 = 7.2;
         }
         //Muon_jetRelIso = 1/ptRatio-1; ptRatio = 1/(Muon_jetRelIso+1)
-        if (!((Muon_miniPFRelIso_all.At(j) < I1) && (   1/((Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))))     continue;
+        if (  !( (Muon_miniPFRelIso_all.At(j) < I1) && ((1/(Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))  )  )     continue;
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
         if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
@@ -947,5 +914,36 @@ void objectTSelectorForNanoAOD::copyFlags(){
     Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
     Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+
+}
+
+void objectTSelectorForNanoAOD::initializeBrancheValues(){
+    muonsL.clear(); muonsL_index.clear();
+    muonsF.clear(); muonsF_index.clear();
+    muonsT.clear(); muonsT_index.clear();
+    eleMVAL.clear(); eleMVAL_index.clear();
+    eleMVAF.clear(); eleMVAF_index.clear();
+    eleMVAT.clear(); eleMVAT_index.clear();
+    leptonsMVAF.clear();
+    leptonsMVAT.clear();
+    leptonsMVAL.clear();
+    tausL.clear(); tausL_index.clear();
+    tausF.clear(); tausF_index.clear();
+    tausT.clear(); tausT_index.clear();
+    jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
+    nonbjetsL.clear();
+    nonbjetsM.clear();
+    nonbjetsT.clear();
+    patElectron_charge_.clear();
+    Tau_charge_.clear();
+    Muon_charge_.clear();
+    tops_toptagger.clear();
+    EVENT_prefireWeight_ = -99;
+    PUWeight_ = -99;
+    EVENT_genWeight_ = -99;
 
 }

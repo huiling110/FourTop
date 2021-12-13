@@ -198,6 +198,7 @@ public :
 
      void copyHLT();
 	 void copyFlags();
+	 void initializeBrancheValues();
 
 
 
