@@ -260,7 +260,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
     SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-    printElements( jets_btags, jets );
+    // tprintElements( jets_btags, jets );
     // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
     SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
@@ -358,7 +358,7 @@ void objectTSelectorForNanoAOD::Terminate()
     outputfile->Write();
     outputfile->Close();
     Info("Terminate", "processed %lld events", fProcessed);
-    // Info("Terminate", "passed %lld events", eventsPassed);
+    Info("Terminate", "passed %lld events", eventsPassed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
 ///////////////////////////////
 
@@ -636,7 +636,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
             I1 = 0.4;         I2 = 0;      I3 = 0;
         } // looseWP from ss of TTTT}
         if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
-        if (!((Electron_miniPFRelIso_all.At(j) < I1) && (   1/((Electron_jetRelIso.At(j)+1) > I2) || (Electron_jetPtRelv2.At(j) > I3))))     continue;
+        if (  !(  (Electron_miniPFRelIso_all.At(j) < I1) && (( 1/(Electron_jetRelIso.At(j)+1) > I2) || (Electron_jetPtRelv2.At(j) > I3))  )  )     continue;
   
       // IP
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
@@ -680,8 +680,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
     if (!( TMath::Abs(Tau_dz.At(j)) < 0.2) )      continue; 
     //???why no dxy requirement?
-    // if (!(Tau_decayModeFindingNewDMs.At(j) == 1))      continue;
-    if (!(Tau_idDecayModeOldDMs.At(j) == 0))      continue;
+    // if (!(Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
     if (TauWP == 2 || TauWP == 3) {
        if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
     if (TauWP == 1) {
@@ -722,8 +721,8 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
         Double_t jetpt = Jet_pt[j];
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
-        // cout << "jetId = " << Jet_jetId.At(j);
-        if (!(Jet_jetId.At(j) == 2)) continue;
+        // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
+        if (!(Jet_jetId.At(j) >= 2)) continue;//Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         //???I am guessing 2 is loose, 6 is tight
         //Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
 
