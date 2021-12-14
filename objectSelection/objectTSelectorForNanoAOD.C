@@ -722,9 +722,9 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
-        if (!(Jet_jetId.At(j) >= 2)) continue;//Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
-        //???I am guessing 2 is loose, 6 is tight
-        //Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        if (!(Jet_jetId.At(j) >0)) continue;//Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        //Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        //passlooseID*1+passtightID*2+passtightLepVetoID*4
 
         if ( jetType == 11 || jetType == 12 || jetType == 13 ) {
             if( !( fabs(Jet_eta.At(j))<2.4) ) continue;
