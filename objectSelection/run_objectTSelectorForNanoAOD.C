@@ -10,7 +10,7 @@ void run_objectTSelectorForNanoAOD(
 						TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
                         TString singleFileName = "outTree_0.root",
                         // Bool_t ishuiling = false)
-                        Bool_t ishuiling = true
+                        Bool_t ishuiling = false
                         )
 {
     gROOT->ProcessLine(".L Loader.C+");
@@ -36,7 +36,7 @@ void run_objectTSelectorForNanoAOD(
     TString option;
     Int_t eventNum = 100;
     if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
-    else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelector.C";
+    else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
     if ( istest ){
         if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
         else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
