@@ -152,7 +152,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
         cardDir = cardDir + 'sumDC'
     else:
         cardDir = cardDir +'seperateDC'
-    cardir = cardDir + str( autoMCNum ) + '/'
+    cardDir = cardDir + '_' + str( autoMCNum ) + '/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
 
