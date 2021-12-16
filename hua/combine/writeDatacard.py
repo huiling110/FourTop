@@ -30,26 +30,25 @@ g_allSumProcesses = [
 ]
 
 def main():
-    #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
-    #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults_11bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins_ReSumWithW2/'
     # channel = 4 #1tau2l
-    channel = 5
-    # channel = 1
-    addSummedHists( TMVAppDir )
+    # channel = 5
+    channel = 1
+    # addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     emptyListSum = checkEmptyProcessForSum( emptyList )
     listForCombine = getNonEmptyList( g_allProcesses, emptyList )
     listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
 
-    writeDatacards( TMVAppDir, listForCombineSum, True )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
 
-    writeDatacards( TMVAppDir, listForCombine, False )
+    writeDatacards( TMVAppDir, listForCombine, False, 10)
   
 
 
@@ -103,7 +102,7 @@ def getStringWithSpaces( string, allSpaces ):
         sys.exit()
     return string + (allSpaces-len(string))*' '
 
-def writeSingleCard( rootFile, outCard, listForCombine ):
+def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum ):
     card = open( outCard, 'wt' )
     card.write( 'imax *\n' )
     card.write( 'jmax *\n' )
@@ -136,7 +135,8 @@ def writeSingleCard( rootFile, outCard, listForCombine ):
     card.write('\n')
     card.write( 80*'-' + '\n' )
 
-    card.write( 'SR_1tau1l   autoMCStats  0\n')
+    # card.write( 'SR_1tau1l   autoMCStats  0\n')
+    card.write( 'SR_1tau1l   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
 
@@ -144,14 +144,15 @@ def writeSingleCard( rootFile, outCard, listForCombine ):
 
 
 
-def writeDatacards( TMVAppDir, listForCombine,  isSum ):
+def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
     if isSum:
-        cardDir = cardDir + 'sumDC/'
+        cardDir = cardDir + 'sumDC'
     else:
-        cardDir = cardDir +'seperateDC/'
+        cardDir = cardDir +'seperateDC'
+    cardir = cardDir + str( autoMCNum ) + '/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
 
@@ -164,7 +165,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum ):
             ioutCard = cardDir + ioutCard + '_datacard.txt'
         print( 'rootFile:', irootFile )
         print( 'datacard: ',ioutCard )
-        writeSingleCard( irootFile, ioutCard, listForCombine )
+        writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum )
 
 
 def checkEmptyProcess( fileDir, channel ):
