@@ -56,13 +56,15 @@ void makeRootForCombine_1tau0l(){
 
     TH1D*  TX= addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 27, 30, "TX_HT" );
 
-    //data_obs
     
     TH1D*  TTTT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
     TH1D* data_obs = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 30, "data_obs_HT" );
-    // data_obs->Add( TTTT );
-    // data_obs->SetName( "data_obs_HT" ); 
-
+    //QCD starts from index 30
+    TH1D *allBgs = addHistChannel(ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 30, "allBgs_HT");
+    cout << "allBGs before QCD = " << allBgs->Integral();
+    allBgs->SetDefaultSumw2();
+    allBgs->Add(my_QCD_HT);
+    cout << "allBGs after QCD = " << allBgs->Integral();
 
     // my_QCD_HT->Write();
     output->Write();

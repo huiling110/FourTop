@@ -16,7 +16,7 @@
 #include "TPRegexp.h"
 
 
-gROOT->ProcessLine(".L Process_class.h+");
+// gROOT->ProcessLine(".L Process_class.h+");
 
 
 
@@ -55,7 +55,6 @@ const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>
 const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
 
-/*
 class Process
 {
     //it seems you lack a deconstructor for this class
@@ -136,7 +135,6 @@ class Process
         // Double_t getChannelYield( const TCut cut, const TCut weight ){
         // }
 };
-*/
 
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
 Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 88.29 };//90.6->
