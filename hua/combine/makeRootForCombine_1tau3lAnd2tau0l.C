@@ -10,8 +10,8 @@
 
 
 void makeRootForCombine_1tau3lAnd2tau0l(
-    // Int_t channel = 8
-    Int_t channel = 7
+    Int_t channel = 8
+    // Int_t channel = 7
 ){
 
     //output file for combine
@@ -49,6 +49,7 @@ void makeRootForCombine_1tau3lAnd2tau0l(
     //data_obs
     TH1D*  TTTT = addHistChannel( channelCut, weight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
     TH1D* data_obs = addHistChannel( channelCut, weight, "jets_HT", binNum, binMin, binMax, 0, 36, "data_obs_HT" );
+    TH1D* allBgs = addHistChannel( channelCut, weight, "jets_HT", binNum, binMin, binMax, 1, 36, "allBgs_HT" );
 
     TH1D*  QCD = addHistChannel( channelCut, weight, "jets_HT", binNum, binMin, binMax, 30, 36, "QCD_HT");
 
