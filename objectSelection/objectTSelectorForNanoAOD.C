@@ -163,6 +163,23 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    makeBranch( tree, isdata );
 
+   //Set up branch for pileup correction
+   //inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_data2016_postAPV.root", "READ");
+   //inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+   inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+   inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+   inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+   inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+   //Get needed histograms
+    dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
+    dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
+    dataPileupProfileDown = (TH1F*)inputPUFile_dataDown->Get("pileup");
+    MCPileupProfile = (TH1F*)inputPUFile_mc->Get("pileup");
+    //Scale to unit area for a fair comparison
+    dataPileupProfile->Scale(1.0/dataPileupProfile->Integral());
+    dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
+    dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
+    MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
 
 ///////////////////////////////////////
 
@@ -224,7 +241,16 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     initializeBrancheValues();
 
+    //Compute the per-event PU weight
+    if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
 
+        PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+        PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+        PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+
+    }
+    
+    
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2);sort( muonsT.begin(), muonsT.end(), compEle);
@@ -354,6 +380,15 @@ void objectTSelectorForNanoAOD::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
+    inputPUFile_data->Close();
+    delete inputPUFile_data;
+    inputPUFile_dataUp->Close();
+    delete inputPUFile_dataUp;
+    inputPUFile_dataDown->Close();
+    delete inputPUFile_dataDown;
+    inputPUFile_mc->Close();
+    delete inputPUFile_mc;
+
 ///////////////////////////////
     outputfile->Write();
     outputfile->Close();
@@ -432,6 +467,8 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    tree->Branch( "PUWeight_", &PUWeight_, "PUWeight_/D");
+   tree->Branch( "PUWeight_Up", &PUWeight_Up, "PUWeight_Up/D");
+   tree->Branch( "PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
    //CHANGE HERE TO RUN ON DATA
    
    if ( !isdata ){
@@ -943,6 +980,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tops_toptagger.clear();
     EVENT_prefireWeight_ = -99;
     PUWeight_ = -99;
+    PUWeight_Up = -99;
+    PUWeight_Down = -99;
     EVENT_genWeight_ = -99;
 
 }

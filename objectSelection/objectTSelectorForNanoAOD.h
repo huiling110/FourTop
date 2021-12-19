@@ -37,9 +37,17 @@ public :
 //our own members
 ////////////////////////
     TFile *outputfile;
+    TFile *inputPUFile_data;
+    TFile *inputPUFile_dataUp;
+    TFile *inputPUFile_dataDown;
+    TFile *inputPUFile_mc;
     TTree *tree;
     TTree *allEvents;
     TH1D  *h_genWeight ;
+    TH1F  *dataPileupProfile;
+    TH1F  *dataPileupProfileUp;
+    TH1F  *dataPileupProfileDown;
+    TH1F  *MCPileupProfile;
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    //Bool_t isdata = true;
@@ -181,6 +189,8 @@ public :
     //weight
     Double_t EVENT_prefireWeight_;
     Double_t PUWeight_;
+    Double_t PUWeight_Up;
+    Double_t PUWeight_Down;
     Double_t EVENT_genWeight_;
 
     //functions I added
