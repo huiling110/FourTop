@@ -109,6 +109,30 @@ void sortJetAndFlavorAndBcore( vector<TLorentzVector>& jets, vector<Double_t>& j
             } );
 } 
 
+void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _resolution, std::string & _resFormula) {
+
+    std::ifstream file(_path);
+    std::string lineStr;
+    bool firstLine = true;
+    while (std::getline(file,lineStr)){
+        std::stringstream ss(lineStr);
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
+        std::vector<std::string> vstrings(begin, end);
+        if (firstLine){
+            //if reading resolution file, store formula
+            if (vstrings.size() > 5) _resFormula = vstrings[5];
+            //else, store a toy formula
+            else _resFormula = "none";
+            firstLine = false;
+            continue;
+        }
+
+        _resolution.push_back(vstrings);
+
+    }
+
+}
 
 
 
@@ -180,6 +204,14 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
     dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
     MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
+
+    //Read files for jet smearing in MC
+    std::vector<std::vector<std::string>> resolution;
+    std::string resFormula;
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
+    std::vector<std::vector<std::string>> resSFs;
+    std::string toyResFormula;
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );
 
 ///////////////////////////////////////
 
