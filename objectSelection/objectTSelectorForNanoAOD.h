@@ -24,6 +24,8 @@
 
 // Headers needed by this particular selector
 #include <vector>
+#include <TRandom3.h>
+#include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
 
@@ -48,6 +50,7 @@ public :
     TH1F  *dataPileupProfileUp;
     TH1F  *dataPileupProfileDown;
     TH1F  *MCPileupProfile;
+    TRandom3 jet_jer_myran;
     std::vector<std::vector<std::string>> resolution;
     std::string resFormula;
     std::vector<std::vector<std::string>> resSFs;

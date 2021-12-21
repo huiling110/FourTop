@@ -160,6 +160,45 @@ void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Floa
 
 }
 
+float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central){
+    for (auto res: resSFs){//go through all the lines
+        if (eta < std::stof(res[0]) || eta > std::stof(res[1])) continue; //if jet eta out of range, move to next line
+        return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Up/Down
+    }
+    return 1.;
+}
+
+float GetStochasticFactor(float pt, float eta, float rho, std::vector<std::vector<std::string> >  resolution, TString  resFormula){
+  
+    TFormula resForm("",resFormula);
+
+    for (auto res : resolution){
+        //skip if not in the right bin
+        if (eta < std::stof(res[0]) || eta > std::stof(res[1]) || rho < std::stof(res[2]) || rho > std::stof(res[3])) continue;
+        resForm.SetParameter(0,std::stof(res[7]));
+        resForm.SetParameter(1,std::stof(res[8]));
+        resForm.SetParameter(2,std::stof(res[9]));
+        resForm.SetParameter(3,std::stof(res[10]));
+    }
+    return resForm.Eval(pt);
+
+}
+
+float GetSmearFactor(float pt, float genPt, float eta, float rho, float jer_sf, std::vector<std::vector<std::string> > resolution, TString resFormula, TRandom3 ran){
+    
+    float smearFactor = 1.;
+    float relpterr = GetStochasticFactor(pt,eta,rho,resolution,resFormula);
+    if (genPt > 0. && (abs(pt-genPt)<3*relpterr*pt)) {
+        double dPt = pt - genPt;
+        smearFactor = 1 + (jer_sf - 1.) * dPt / pt;
+     
+    }
+    else {
+        smearFactor = 1 + ran.Gaus(0,relpterr)*std::sqrt(std::max(0.,(jer_sf*jer_sf)-1.));
+        if (smearFactor <= 0.) smearFactor = 1.;
+    }
+    return smearFactor;
+}
 
 /////////////////////////
 
@@ -301,7 +340,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     
 
     vector<int> matchingIndices;
-    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices);
+    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
+    for (unsigned int i = 0; i < *nJet; i++) {
+
+        float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        
+    }
     matchingIndices.clear();
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
