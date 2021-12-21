@@ -161,8 +161,6 @@ void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Floa
 }
 
 
-
-
 /////////////////////////
 
 
@@ -230,11 +228,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
 
     //Read files for jet smearing in MC
-    std::vector<std::vector<std::string>> resolution;
-    std::string resFormula;
     readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
-    std::vector<std::vector<std::string>> resSFs;
-    std::string toyResFormula;
     readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 

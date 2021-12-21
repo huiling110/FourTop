@@ -48,6 +48,10 @@ public :
     TH1F  *dataPileupProfileUp;
     TH1F  *dataPileupProfileDown;
     TH1F  *MCPileupProfile;
+    std::vector<std::vector<std::string>> resolution;
+    std::string resFormula;
+    std::vector<std::vector<std::string>> resSFs;
+    std::string toyResFormula;
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    //Bool_t isdata = true;
