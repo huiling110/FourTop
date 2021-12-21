@@ -30,8 +30,6 @@
 // root> T->Process("objectTSelectorForNanoAOD.C","some options")
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
-
-
 #include "objectTSelectorForNanoAOD.h"
 #include <TH2.h>
 #include <TStyle.h>
@@ -134,7 +132,33 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _re
 
 }
 
+void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, vector<int> & matchingIdx) { // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
+    // Error in <TTreeReader::RegisterValueReader>: Error registering reader for GenJet_phi: TTreeReaderValue/Array objects must be created before the call to Next() / SetEntry() / SetLocalEntry(), or after TTreeReader::Restart()!
+    
+    for (unsigned int i = 0; i < recoEta.GetSize(); i++) {
+        
+        float dRmin = 10.0;
+        int matchIdx = -1;
+        int idx = -1;
+        for (unsigned int j = 0; j < genEta.GetSize(); j++) {
 
+            Double_t dr = DeltaR(recoEta.At(i), genEta.At(j), recoPhi.At(i), genPhi.At(j));
+            //cout << "dr: " << dr << endl;
+            if (dr < dRmin) {
+
+                dRmin = dr;
+                idx = j;
+
+            }
+                
+        }
+        
+        if (dRmin < 0.2) matchIdx = idx;
+        matchingIdx.push_back(matchIdx);
+
+    }
+
+}
 
 
 
@@ -211,8 +235,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
     std::vector<std::vector<std::string>> resSFs;
     std::string toyResFormula;
-    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );
-
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 
 }
@@ -282,7 +305,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     }
     
-    
+
+    vector<int> matchingIndices;
+    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices);
+    matchingIndices.clear();
+
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2);sort( muonsT.begin(), muonsT.end(), compEle);
