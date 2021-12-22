@@ -341,13 +341,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
+    vector<float> jetSmearingFactors;
     for (unsigned int i = 0; i < *nJet; i++) {
 
         float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
         float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-        
+        jetSmearingFactors.push_back(smearFactor);
     }
-    matchingIndices.clear();
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
@@ -383,18 +383,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
-    SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
     // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
-    SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(12, deepJet, jetSmearingFactors, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
     sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets(13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(13, deepJet, jetSmearingFactors, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
     sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets(2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
+    SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
+    matchingIndices.clear();
+    jetSmearingFactors.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -845,7 +847,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, vector<float> jetSmearingFactors, vector<TLorentzVector> &SelectedJets,
                 vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex, vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -853,7 +855,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
     Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-        Double_t jetpt = Jet_pt[j];
+        Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
@@ -933,8 +935,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
         jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                 Jet_mass.At(j));
         TLorentzVector jet;
-        jet.SetPxPyPzE(SF * jet_prov.Px(), SF * jet_prov.Py(), SF * jet_prov.Pz(),
-                SF * jet_prov.E());
+        jet.SetPxPyPzE(SF * jet_prov.Px() * jetSmearingFactors.at(j), SF * jet_prov.Py() * jetSmearingFactors.at(j), SF * jet_prov.Pz() * jetSmearingFactors.at(j), SF * jet_prov.E() * jetSmearingFactors.at(j));
         //?is this  step necessary?
         //???why do this?
         SelectedJets.push_back(jet);
