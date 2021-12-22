@@ -163,7 +163,7 @@ void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Floa
 float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central){
     for (auto res: resSFs){//go through all the lines
         if (eta < std::stof(res[0]) || eta > std::stof(res[1])) continue; //if jet eta out of range, move to next line
-        return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Up/Down
+        return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Down/Up
     }
     return 1.;
 }
@@ -342,11 +342,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
     vector<float> jetSmearingFactors;
+    vector<float> jetSmearingFactorsUp;
+    vector<float> jetSmearingFactorsDown;
     for (unsigned int i = 0; i < *nJet; i++) {
 
         float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+        float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+        float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
         float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
         jetSmearingFactors.push_back(smearFactor);
+        jetSmearingFactorsUp.push_back(smearFactorUp);
+        jetSmearingFactorsDown.push_back(smearFactorDown);
+
     }
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
@@ -384,19 +393,35 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
     SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
     // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
     SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactorsUp, bjetsL_smearedUp, bjetsL_btags_smearedUp, bjetsL_index_smearedUp, bjetsL_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactorsDown, bjetsL_smearedDown, bjetsL_btags_smearedDown, bjetsL_index_smearedDown, bjetsL_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsL.begin(), bjetsL.end(), compEle);
+    sort( bjetsL_smearedUp.begin(), bjetsL_smearedUp.end(), compEle);
+    sort( bjetsL_smearedDown.begin(), bjetsL_smearedDown.end(), compEle);
     SelectJets(12, deepJet, jetSmearingFactors, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(12, deepJet, jetSmearingFactorsUp, bjetsM_smearedUp, bjetsM_btags_smearedUp, bjetsM_index_smearedUp, bjetsM_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(12, deepJet, jetSmearingFactorsDown, bjetsM_smearedDown, bjetsM_btags_smearedDown, bjetsM_index_smearedDown, bjetsM_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsM.begin(), bjetsM.end(), compEle);
+    sort( bjetsM_smearedUp.begin(), bjetsM_smearedUp.end(), compEle);
+    sort( bjetsM_smearedDown.begin(), bjetsM_smearedDown.end(), compEle);
     SelectJets(13, deepJet, jetSmearingFactors, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(13, deepJet, jetSmearingFactorsUp, bjetsT_smearedUp, bjetsT_btags_smearedUp, bjetsT_index_smearedUp, bjetsT_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(13, deepJet, jetSmearingFactorsDown, bjetsT_smearedDown, bjetsT_btags_smearedDown, bjetsT_index_smearedDown, bjetsT_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsT.begin(), bjetsT.end(), compEle);
+    sort( bjetsT_smearedUp.begin(), bjetsT_smearedUp.end(), compEle);
+    sort( bjetsT_smearedDown.begin(), bjetsT_smearedDown.end(), compEle);
     SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
     matchingIndices.clear();
     jetSmearingFactors.clear();
+    jetSmearingFactorsUp.clear();
+    jetSmearingFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -531,18 +556,50 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "jets_index", &jets_index );
    tree->Branch( "jets_flavour", &jets_flavour );
    tree->Branch( "jets_btags", &jets_btags );
+   tree->Branch( "jets_smearedUp", &jets_smearedUp );
+   tree->Branch( "jets_index_smearedUp", &jets_index_smearedUp );
+   tree->Branch( "jets_flavour_smearedUp", &jets_flavour_smearedUp );
+   tree->Branch( "jets_btags_smearedUp", &jets_btags_smearedUp );
+   tree->Branch( "jets_smearedDown", &jets_smearedDown );
+   tree->Branch( "jets_index_smearedDown", &jets_index_smearedDown );
+   tree->Branch( "jets_flavour_smearedDown", &jets_flavour_smearedDown );
+   tree->Branch( "jets_btags_smearedDown", &jets_btags_smearedDown );
    tree->Branch( "bjetsL", &bjetsL );
    tree->Branch( "bjetsL_index", &bjetsL_index );
    tree->Branch( "bjetsL_flavour", &bjetsL_flavour );
    tree->Branch( "bjetsL_btags", &bjetsL_btags );
+   tree->Branch( "bjetsL_smearedUp", &bjetsL_smearedUp );
+   tree->Branch( "bjetsL_index_smearedUp", &bjetsL_index_smearedUp );
+   tree->Branch( "bjetsL_flavour", &bjetsL_flavour_smearedUp );
+   tree->Branch( "bjetsL_btags_smearedUp", &bjetsL_btags_smearedUp );
+   tree->Branch( "bjetsL_smearedDown", &bjetsL_smearedDown );
+   tree->Branch( "bjetsL_index_smearedDown", &bjetsL_index_smearedDown );
+   tree->Branch( "bjetsL_flavour", &bjetsL_flavour_smearedDown );
+   tree->Branch( "bjetsL_btags_smearedDown", &bjetsL_btags_smearedDown );
    tree->Branch( "bjetsM", &bjetsM );
    tree->Branch( "bjetsM_index", &bjetsM_index );
    tree->Branch( "bjetsM_flavour", &bjetsM_flavour );
    tree->Branch( "bjetsM_btags", &bjetsM_btags );
+   tree->Branch( "bjetsM_smearedUp", &bjetsM_smearedUp );
+   tree->Branch( "bjetsM_index_smearedUp", &bjetsM_index_smearedUp );
+   tree->Branch( "bjetsM_flavour", &bjetsM_flavour_smearedUp );
+   tree->Branch( "bjetsM_btags_smearedUp", &bjetsM_btags_smearedUp );
+   tree->Branch( "bjetsM_smearedDown", &bjetsM_smearedDown );
+   tree->Branch( "bjetsM_index_smearedDown", &bjetsM_index_smearedDown );
+   tree->Branch( "bjetsM_flavour", &bjetsM_flavour_smearedDown );
+   tree->Branch( "bjetsM_btags_smearedDown", &bjetsM_btags_smearedDown );
    tree->Branch( "bjetsT", &bjetsT );
    tree->Branch( "bjetsT_index", &bjetsT_index );
    tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
+   tree->Branch( "bjetsT_smearedUp", &bjetsT_smearedUp );
+   tree->Branch( "bjetsT_index_smearedUp", &bjetsT_index_smearedUp );
+   tree->Branch( "bjetsT_flavour", &bjetsT_flavour_smearedUp );
+   tree->Branch( "bjetsT_btags_smearedUp", &bjetsT_btags_smearedUp );
+   tree->Branch( "bjetsT_smearedDown", &bjetsT_smearedDown );
+   tree->Branch( "bjetsT_index_smearedDown", &bjetsT_index_smearedDown );
+   tree->Branch( "bjetsT_flavour", &bjetsT_flavour_smearedDown );
+   tree->Branch( "bjetsT_btags_smearedDown", &bjetsT_btags_smearedDown );
    tree->Branch( "forwardJets", &forwardJets );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_flavour", &forwardJets_flavour );
@@ -1066,9 +1123,17 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tausF.clear(); tausF_index.clear();
     tausT.clear(); tausT_index.clear();
     jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
+    jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
     bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    bjetsL_smearedUp.clear(); bjetsL_index_smearedUp.clear(); bjetsL_flavour_smearedUp.clear(); bjetsL_btags_smearedUp.clear();
+    bjetsL_smearedDown.clear(); bjetsL_index_smearedDown.clear(); bjetsL_flavour_smearedDown.clear(); bjetsL_btags_smearedDown.clear();
     bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    bjetsM_smearedUp.clear(); bjetsM_index_smearedUp.clear(); bjetsM_flavour_smearedUp.clear(); bjetsM_btags_smearedUp.clear();
+    bjetsM_smearedDown.clear(); bjetsM_index_smearedDown.clear(); bjetsM_flavour_smearedDown.clear(); bjetsM_btags_smearedDown.clear();
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    bjetsT_smearedUp.clear(); bjetsT_index_smearedUp.clear(); bjetsT_flavour_smearedUp.clear(); bjetsT_btags_smearedUp.clear();
+    bjetsT_smearedDown.clear(); bjetsT_index_smearedDown.clear(); bjetsT_flavour_smearedDown.clear(); bjetsT_btags_smearedDown.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
