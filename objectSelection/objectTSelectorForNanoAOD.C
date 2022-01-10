@@ -382,9 +382,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL = muonsL; leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectTaus( tausF, tausF_index, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
-    SelectTaus( tausL, tausL_index, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tausF_index, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_index, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -545,13 +545,15 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "leptonsMVAF", &leptonsMVAF );
    tree->Branch( "leptonsMVAT", &leptonsMVAT );
    tree->Branch( "leptonsMVAL", &leptonsMVAL );
-
    tree->Branch( "tausL", &tausL );
    tree->Branch( "tausF", &tausF );
    tree->Branch( "tausT", &tausT );
    tree->Branch( "tausL_index", &tausL_index );
    tree->Branch( "tausF_index", &tausF_index );
    tree->Branch( "tausT_index", &tausT_index );
+   tree->Branch( "tausL_genPartFlav", &tausL_genPartFlav );
+   tree->Branch( "tausF_genPartFlav", &tausF_genPartFlav );
+   tree->Branch( "tausT_genPartFlav", &tausT_genPartFlav );
    tree->Branch( "jets", &jets );
    tree->Branch( "jets_index", &jets_index );
    tree->Branch( "jets_flavour", &jets_flavour );
@@ -864,7 +866,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<UChar_t> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
@@ -900,6 +902,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
                      Tau_mass.At(j));
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
+    SelectedTausGenPartFlav.push_back(Tau_genPartFlav.At(j));
   }
 }/*}}}*/
 
@@ -1119,9 +1122,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
-    tausL.clear(); tausL_index.clear();
-    tausF.clear(); tausF_index.clear();
-    tausT.clear(); tausT_index.clear();
+    tausL.clear(); tausL_index.clear(); tausL_genPartFlav.clear();
+    tausF.clear(); tausF_index.clear(); tausF_genPartFlav.clear();
+    tausT.clear(); tausT_index.clear(); tausT_genPartFlav.clear();
     jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
     jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
     jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
