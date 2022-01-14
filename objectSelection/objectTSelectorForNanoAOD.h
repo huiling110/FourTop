@@ -166,9 +166,9 @@ public :
     vector<TLorentzVector> leptonsMVAF; 
     vector<TLorentzVector> leptonsMVAT; 
     vector<TLorentzVector> leptonsMVAL; 
-    vector<TLorentzVector> tausL; vector<Int_t> tausL_index; vector<UChar_t> tausL_genPartFlav;
-    vector<TLorentzVector> tausF; vector<Int_t> tausF_index; vector<UChar_t> tausF_genPartFlav;
-    vector<TLorentzVector> tausT; vector<Int_t> tausT_index; vector<UChar_t> tausT_genPartFlav;
+    vector<TLorentzVector> tausL; vector<Int_t> tausL_index; vector<int> tausL_genPartFlav;
+    vector<TLorentzVector> tausF; vector<Int_t> tausF_index; vector<int> tausF_genPartFlav;
+    vector<TLorentzVector> tausT; vector<Int_t> tausT_index; vector<int> tausT_genPartFlav;
     vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags;
     vector<TLorentzVector> jets_smearedUp; vector<Int_t> jets_index_smearedUp; vector<Int_t> jets_flavour_smearedUp;  vector<Double_t> jets_btags_smearedUp;
     vector<TLorentzVector> jets_smearedDown; vector<Int_t> jets_index_smearedDown; vector<Int_t> jets_flavour_smearedDown;  vector<Double_t> jets_btags_smearedDown;
@@ -210,7 +210,7 @@ public :
 
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<UChar_t> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
+     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
      void SelectJets(const Int_t jetType, const bool deepJet, vector<float> jetSmearingFactors, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
