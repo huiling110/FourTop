@@ -243,7 +243,7 @@ void scaledYields() {
 		vector<TLorentzVector> *mytausT = {}; 
 		mychain.SetBranchAddress("tausT", &mytausT);
 
-        vector<unsigned char> *mytausT_genPartFlav = {}; 
+        vector<int> *mytausT_genPartFlav = {}; 
 		mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
 
 		vector<TLorentzVector> *myleptonsMVAT = {}; 
