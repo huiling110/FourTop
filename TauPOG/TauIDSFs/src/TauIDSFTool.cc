@@ -1,4 +1,5 @@
-#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+//#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "../interface/TauIDSFTool.h"
 #include <iostream> // std::cerr, std::endl
 #include <iomanip>
 #include <assert.h> // assert
@@ -46,7 +47,7 @@ void TauIDSFTool::disabled() const {
 TauIDSFTool::TauIDSFTool(const std::string& year, const std::string& id, const std::string& wp, const bool dm, const bool embedding): ID(id), WP(wp){
 
   bool verbose = false;
-  std::string datapath                = Form("%s/src/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
+  std::string datapath                = Form("%s/src/FourTop/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
   std::vector<std::string> years      = {"2016Legacy","2017ReReco","2018ReReco"};
   std::vector<std::string> antiJetIDs = {"MVAoldDM2017v2","DeepTau2017v2p1VSjet"};
   std::vector<std::string> antiEleIDs = {"antiEleMVA6",   "DeepTau2017v2p1VSe"};
