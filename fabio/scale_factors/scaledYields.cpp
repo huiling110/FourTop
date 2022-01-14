@@ -243,6 +243,9 @@ void scaledYields() {
 		vector<TLorentzVector> *mytausT = {}; 
 		mychain.SetBranchAddress("tausT", &mytausT);
 
+        vector<unsigned char> *mytausT_genPartFlav = {}; 
+		mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
+
 		vector<TLorentzVector> *myleptonsMVAT = {}; 
 		mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 
@@ -300,7 +303,8 @@ void scaledYields() {
 					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
                         TauIDSFTool tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium");
-                        double sf = tool.getSFvsPT(mytausT->at(0).Pt());
+                        double sf = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
+                        cout << "reco tau gen part flav: " << mytausT_genPartFlav->at(0) << endl;
                         cout << "deeptau sf is: " << sf << endl;
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
