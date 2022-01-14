@@ -15,7 +15,8 @@
 #include "BTagCalibrationStandalone.cpp"
 #include "evalEventSF.C"
 //tools for DeepTau SFs implementation
-#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+//#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 
 void scaledYields() {
 
@@ -298,7 +299,9 @@ void scaledYields() {
 					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
-
+                        TauIDSFTool tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium");
+                        double sf = tool.getSFvsPT(mytausT->at(0).Pt());
+                        cout << "deeptau sf is: " << sf << endl;
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
