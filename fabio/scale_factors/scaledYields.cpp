@@ -29,11 +29,33 @@ void scaledYields() {
 	// set up calibration + reader
     cout << "Loading the .csv file..." << endl;
     
-	std::string inputCSVfile = "DeepJet_2016LegacySF_V1.csv";  
+	std::string inputCSVfile = "DeepJet_2016LegacySF_V1_TuneCP5_JESreduced.csv";  
 	std::string measType = "iterativefit";
 	std::string sysType = "central";
-	std::string sysTypeJESUp = "up_jes";
-	std::string sysTypeJESDown = "down_jes";
+	std::string sysTypejesUp = "up_jes";
+	std::string sysTypejesDown = "down_jes";
+    std::string sysTypejesEC2_2016Up = "up_jesEC2_2016";
+	std::string sysTypejesEC2_2016Down = "down_jesEC2_2016";
+    std::string sysTypejesEC2Up = "up_jesEC2";
+	std::string sysTypejesEC2Down = "down_jesEC2";
+    std::string sysTypejesBBEC1Up = "up_jesBBEC1";
+	std::string sysTypejesBBEC1Down = "down_jesBBEC1";
+    std::string sysTypejesAbsoluteUp = "up_jesAbsolute";
+	std::string sysTypejesAbsoluteDown = "down_jesAbsolute";
+    std::string sysTypejesAbsolute_2016Up = "up_jesAbsolute_2016";
+	std::string sysTypejesAbsolute_2016Down = "down_jesAbsolute_2016";
+    std::string sysTypejesHFUp = "up_jesHF";
+	std::string sysTypejesHFDown = "down_jesHF";
+    std::string sysTypejesFlavorQCDUp = "up_jesFlavorQCD";
+	std::string sysTypejesFlavorQCDDown = "down_jesFlavorQCD";
+    std::string sysTypejesBBEC1_2016Up = "up_jesBBEC1_2016";
+	std::string sysTypejesBBEC1_2016Down = "down_jesBBEC1_2016";
+    std::string sysTypejesRelativeBalUp = "up_jesRelativeBal";
+	std::string sysTypejesRelativeBalDown = "down_jesRelativeBal";
+    std::string sysTypejesHF_2016Up = "up_jesHF_2016";
+	std::string sysTypejesHF_2016Down = "down_jesHF_2016";
+    std::string sysTypejesRelativeSample_2016Up = "up_jesRelativeSample_2016";
+	std::string sysTypejesRelativeSample_2016Down = "down_jesRelativeSample_2016";
 	std::string sysTypeHFUp = "up_hf";
 	std::string sysTypeHFDown = "down_hf";
 	std::string sysTypeLFUp = "up_lf";
@@ -53,7 +75,7 @@ void scaledYields() {
     
     BTagCalibration calib("DeepJet", inputCSVfile);
     
-    BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});       
+    BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown, sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});       
     CSVreader.load(calib, BTagEntry::FLAV_B, measType);
     CSVreader.load(calib, BTagEntry::FLAV_C, measType);
     CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
@@ -136,8 +158,10 @@ void scaledYields() {
 	//////////////////////////////////////////////////
 
 	map<string, string>::iterator file_it = file.begin();
+    map<string, TH1F*>::iterator PSEF_it = PSEF.begin();
 
-	TFile *outputfile = new TFile( "scaledYields_output.root", "RECREATE" );
+	//TFile *outputfile = new TFile( "scaledYields_output.root", "RECREATE" );
+    TFile *outputfile = new TFile( "asd.root", "RECREATE" );
 
 	while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
    
@@ -225,7 +249,7 @@ void scaledYields() {
 		Long64_t nevents = mychain.GetEntries();
 
 		for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-			//if (ievent > 100) break;
+			if (ievent > 100) break;
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
@@ -268,9 +292,9 @@ void scaledYields() {
 					double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
 					if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
 					
-					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]);
-					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]);
-					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]);
+					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
 					if(is1tau1L) {
 
                         float myEleSF = 1.0;
@@ -294,7 +318,7 @@ void scaledYields() {
                         if (myMuSF == 0) myMuSF = 1.0;
                         
                         //if (ievent % 1000 == 0) cout << "EleSF: " << myEleSF << " MuSF: " << myMuSF << endl;
-                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]);
+                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
 					
                     }
                     if(is1tau2L){
@@ -317,7 +341,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]);
+                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
                         
                     } 
 					if(is1tau3L) {
@@ -330,10 +354,10 @@ void scaledYields() {
                             myEleSF *= SUSYEleISOSF->GetBinContent(SUSYEleISOSF->FindBin(myelesMVAT->at(i).Eta(),myelesMVAT->at(i).Pt()));
                         }
                         if (myEleSF == 0) myEleSF = 1.0;
-                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  * mybtagWeight[0]);
+                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
                     }
 
-					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]);
+					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
 					if(is2tau1L) {
 
                         float myEleSF = 1.0;
@@ -354,7 +378,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]);
+                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
 
                     }
 					if(is2tau2L) {
@@ -377,7 +401,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]);
+                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
 
                     }
 				
@@ -452,6 +476,7 @@ void scaledYields() {
 		mychain.Reset();
 		mychain2.Reset();
 		file_it++;
+        PSEF_it++;
 
 	}//end loop over files
 

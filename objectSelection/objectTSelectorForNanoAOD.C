@@ -30,8 +30,6 @@
 // root> T->Process("objectTSelectorForNanoAOD.C","some options")
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
-
-
 #include "objectTSelectorForNanoAOD.h"
 #include <TH2.h>
 #include <TStyle.h>
@@ -109,11 +107,98 @@ void sortJetAndFlavorAndBcore( vector<TLorentzVector>& jets, vector<Double_t>& j
             } );
 } 
 
+void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _resolution, std::string & _resFormula) {
 
+    std::ifstream file(_path);
+    std::string lineStr;
+    bool firstLine = true;
+    while (std::getline(file,lineStr)){
+        std::stringstream ss(lineStr);
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
+        std::vector<std::string> vstrings(begin, end);
+        if (firstLine){
+            //if reading resolution file, store formula
+            if (vstrings.size() > 5) _resFormula = vstrings[5];
+            //else, store a toy formula
+            else _resFormula = "none";
+            firstLine = false;
+            continue;
+        }
 
+        _resolution.push_back(vstrings);
 
+    }
 
+}
 
+void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, vector<int> & matchingIdx) { // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
+    // Error in <TTreeReader::RegisterValueReader>: Error registering reader for GenJet_phi: TTreeReaderValue/Array objects must be created before the call to Next() / SetEntry() / SetLocalEntry(), or after TTreeReader::Restart()!
+    
+    for (unsigned int i = 0; i < recoEta.GetSize(); i++) {
+        
+        float dRmin = 10.0;
+        int matchIdx = -1;
+        int idx = -1;
+        for (unsigned int j = 0; j < genEta.GetSize(); j++) {
+
+            Double_t dr = DeltaR(recoEta.At(i), genEta.At(j), recoPhi.At(i), genPhi.At(j));
+            //cout << "dr: " << dr << endl;
+            if (dr < dRmin) {
+
+                dRmin = dr;
+                idx = j;
+
+            }
+                
+        }
+        
+        if (dRmin < 0.2) matchIdx = idx;
+        matchingIdx.push_back(matchIdx);
+
+    }
+
+}
+
+float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central){
+    for (auto res: resSFs){//go through all the lines
+        if (eta < std::stof(res[0]) || eta > std::stof(res[1])) continue; //if jet eta out of range, move to next line
+        return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Down/Up
+    }
+    return 1.;
+}
+
+float GetStochasticFactor(float pt, float eta, float rho, std::vector<std::vector<std::string> >  resolution, TString  resFormula){
+  
+    TFormula resForm("",resFormula);
+
+    for (auto res : resolution){
+        //skip if not in the right bin
+        if (eta < std::stof(res[0]) || eta > std::stof(res[1]) || rho < std::stof(res[2]) || rho > std::stof(res[3])) continue;
+        resForm.SetParameter(0,std::stof(res[7]));
+        resForm.SetParameter(1,std::stof(res[8]));
+        resForm.SetParameter(2,std::stof(res[9]));
+        resForm.SetParameter(3,std::stof(res[10]));
+    }
+    return resForm.Eval(pt);
+
+}
+
+float GetSmearFactor(float pt, float genPt, float eta, float rho, float jer_sf, std::vector<std::vector<std::string> > resolution, TString resFormula, TRandom3 ran){
+    
+    float smearFactor = 1.;
+    float relpterr = GetStochasticFactor(pt,eta,rho,resolution,resFormula);
+    if (genPt > 0. && (abs(pt-genPt)<3*relpterr*pt)) {
+        double dPt = pt - genPt;
+        smearFactor = 1 + (jer_sf - 1.) * dPt / pt;
+     
+    }
+    else {
+        smearFactor = 1 + ran.Gaus(0,relpterr)*std::sqrt(std::max(0.,(jer_sf*jer_sf)-1.));
+        if (smearFactor <= 0.) smearFactor = 1.;
+    }
+    return smearFactor;
+}
 
 /////////////////////////
 
@@ -163,7 +248,27 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    makeBranch( tree, isdata );
 
+   //Set up branch for pileup correction
+   //inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_data2016_postAPV.root", "READ");
+   //inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+   inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+   inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+   inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+   inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+   //Get needed histograms
+    dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
+    dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
+    dataPileupProfileDown = (TH1F*)inputPUFile_dataDown->Get("pileup");
+    MCPileupProfile = (TH1F*)inputPUFile_mc->Get("pileup");
+    //Scale to unit area for a fair comparison
+    dataPileupProfile->Scale(1.0/dataPileupProfile->Integral());
+    dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
+    dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
+    MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
 
+    //Read files for jet smearing in MC
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 
 }
@@ -224,6 +329,34 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     initializeBrancheValues();
 
+    //Compute the per-event PU weight
+    if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
+
+        PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+        PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+        PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+
+    }
+    
+
+    vector<int> matchingIndices;
+    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
+    vector<float> jetSmearingFactors;
+    vector<float> jetSmearingFactorsUp;
+    vector<float> jetSmearingFactorsDown;
+    for (unsigned int i = 0; i < *nJet; i++) {
+
+        float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+        float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+        float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
+        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        jetSmearingFactors.push_back(smearFactor);
+        jetSmearingFactorsUp.push_back(smearFactorUp);
+        jetSmearingFactorsDown.push_back(smearFactorDown);
+
+    }
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
@@ -249,9 +382,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL = muonsL; leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectTaus( tausF, tausF_index, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, 3 , leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
-    SelectTaus( tausL, tausL_index, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tausF_index, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_index, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_index, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -259,18 +392,36 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
-    SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
     // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
-    SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactorsUp, bjetsL_smearedUp, bjetsL_btags_smearedUp, bjetsL_index_smearedUp, bjetsL_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, jetSmearingFactorsDown, bjetsL_smearedDown, bjetsL_btags_smearedDown, bjetsL_index_smearedDown, bjetsL_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
+    sort( bjetsL_smearedUp.begin(), bjetsL_smearedUp.end(), compEle);
+    sort( bjetsL_smearedDown.begin(), bjetsL_smearedDown.end(), compEle);
+    SelectJets(12, deepJet, jetSmearingFactors, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(12, deepJet, jetSmearingFactorsUp, bjetsM_smearedUp, bjetsM_btags_smearedUp, bjetsM_index_smearedUp, bjetsM_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(12, deepJet, jetSmearingFactorsDown, bjetsM_smearedDown, bjetsM_btags_smearedDown, bjetsM_index_smearedDown, bjetsM_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets(13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    sort( bjetsM_smearedUp.begin(), bjetsM_smearedUp.end(), compEle);
+    sort( bjetsM_smearedDown.begin(), bjetsM_smearedDown.end(), compEle);
+    SelectJets(13, deepJet, jetSmearingFactors, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(13, deepJet, jetSmearingFactorsUp, bjetsT_smearedUp, bjetsT_btags_smearedUp, bjetsT_index_smearedUp, bjetsT_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    SelectJets(13, deepJet, jetSmearingFactorsDown, bjetsT_smearedDown, bjetsT_btags_smearedDown, bjetsT_index_smearedDown, bjetsT_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets(2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
+    sort( bjetsT_smearedUp.begin(), bjetsT_smearedUp.end(), compEle);
+    sort( bjetsT_smearedDown.begin(), bjetsT_smearedDown.end(), compEle);
+    SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
+    matchingIndices.clear();
+    jetSmearingFactors.clear();
+    jetSmearingFactorsUp.clear();
+    jetSmearingFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -354,6 +505,15 @@ void objectTSelectorForNanoAOD::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
+    inputPUFile_data->Close();
+    delete inputPUFile_data;
+    inputPUFile_dataUp->Close();
+    delete inputPUFile_dataUp;
+    inputPUFile_dataDown->Close();
+    delete inputPUFile_dataDown;
+    inputPUFile_mc->Close();
+    delete inputPUFile_mc;
+
 ///////////////////////////////
     outputfile->Write();
     outputfile->Close();
@@ -385,29 +545,63 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "leptonsMVAF", &leptonsMVAF );
    tree->Branch( "leptonsMVAT", &leptonsMVAT );
    tree->Branch( "leptonsMVAL", &leptonsMVAL );
-
    tree->Branch( "tausL", &tausL );
    tree->Branch( "tausF", &tausF );
    tree->Branch( "tausT", &tausT );
    tree->Branch( "tausL_index", &tausL_index );
    tree->Branch( "tausF_index", &tausF_index );
    tree->Branch( "tausT_index", &tausT_index );
+   tree->Branch( "tausL_genPartFlav", &tausL_genPartFlav );
+   tree->Branch( "tausF_genPartFlav", &tausF_genPartFlav );
+   tree->Branch( "tausT_genPartFlav", &tausT_genPartFlav );
    tree->Branch( "jets", &jets );
    tree->Branch( "jets_index", &jets_index );
    tree->Branch( "jets_flavour", &jets_flavour );
    tree->Branch( "jets_btags", &jets_btags );
+   tree->Branch( "jets_smearedUp", &jets_smearedUp );
+   tree->Branch( "jets_index_smearedUp", &jets_index_smearedUp );
+   tree->Branch( "jets_flavour_smearedUp", &jets_flavour_smearedUp );
+   tree->Branch( "jets_btags_smearedUp", &jets_btags_smearedUp );
+   tree->Branch( "jets_smearedDown", &jets_smearedDown );
+   tree->Branch( "jets_index_smearedDown", &jets_index_smearedDown );
+   tree->Branch( "jets_flavour_smearedDown", &jets_flavour_smearedDown );
+   tree->Branch( "jets_btags_smearedDown", &jets_btags_smearedDown );
    tree->Branch( "bjetsL", &bjetsL );
    tree->Branch( "bjetsL_index", &bjetsL_index );
    tree->Branch( "bjetsL_flavour", &bjetsL_flavour );
    tree->Branch( "bjetsL_btags", &bjetsL_btags );
+   tree->Branch( "bjetsL_smearedUp", &bjetsL_smearedUp );
+   tree->Branch( "bjetsL_index_smearedUp", &bjetsL_index_smearedUp );
+   tree->Branch( "bjetsL_flavour", &bjetsL_flavour_smearedUp );
+   tree->Branch( "bjetsL_btags_smearedUp", &bjetsL_btags_smearedUp );
+   tree->Branch( "bjetsL_smearedDown", &bjetsL_smearedDown );
+   tree->Branch( "bjetsL_index_smearedDown", &bjetsL_index_smearedDown );
+   tree->Branch( "bjetsL_flavour", &bjetsL_flavour_smearedDown );
+   tree->Branch( "bjetsL_btags_smearedDown", &bjetsL_btags_smearedDown );
    tree->Branch( "bjetsM", &bjetsM );
    tree->Branch( "bjetsM_index", &bjetsM_index );
    tree->Branch( "bjetsM_flavour", &bjetsM_flavour );
    tree->Branch( "bjetsM_btags", &bjetsM_btags );
+   tree->Branch( "bjetsM_smearedUp", &bjetsM_smearedUp );
+   tree->Branch( "bjetsM_index_smearedUp", &bjetsM_index_smearedUp );
+   tree->Branch( "bjetsM_flavour", &bjetsM_flavour_smearedUp );
+   tree->Branch( "bjetsM_btags_smearedUp", &bjetsM_btags_smearedUp );
+   tree->Branch( "bjetsM_smearedDown", &bjetsM_smearedDown );
+   tree->Branch( "bjetsM_index_smearedDown", &bjetsM_index_smearedDown );
+   tree->Branch( "bjetsM_flavour", &bjetsM_flavour_smearedDown );
+   tree->Branch( "bjetsM_btags_smearedDown", &bjetsM_btags_smearedDown );
    tree->Branch( "bjetsT", &bjetsT );
    tree->Branch( "bjetsT_index", &bjetsT_index );
    tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
+   tree->Branch( "bjetsT_smearedUp", &bjetsT_smearedUp );
+   tree->Branch( "bjetsT_index_smearedUp", &bjetsT_index_smearedUp );
+   tree->Branch( "bjetsT_flavour", &bjetsT_flavour_smearedUp );
+   tree->Branch( "bjetsT_btags_smearedUp", &bjetsT_btags_smearedUp );
+   tree->Branch( "bjetsT_smearedDown", &bjetsT_smearedDown );
+   tree->Branch( "bjetsT_index_smearedDown", &bjetsT_index_smearedDown );
+   tree->Branch( "bjetsT_flavour", &bjetsT_flavour_smearedDown );
+   tree->Branch( "bjetsT_btags_smearedDown", &bjetsT_btags_smearedDown );
    tree->Branch( "forwardJets", &forwardJets );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_flavour", &forwardJets_flavour );
@@ -432,6 +626,8 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
    tree->Branch( "PUWeight_", &PUWeight_, "PUWeight_/D");
+   tree->Branch( "PUWeight_Up", &PUWeight_Up, "PUWeight_Up/D");
+   tree->Branch( "PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
    //CHANGE HERE TO RUN ON DATA
    
    if ( !isdata ){
@@ -670,7 +866,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,  vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<UChar_t> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
@@ -706,11 +902,12 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
                      Tau_mass.At(j));
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
+    SelectedTausGenPartFlav.push_back(Tau_genPartFlav.At(j));
   }
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets,
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, vector<float> jetSmearingFactors, vector<TLorentzVector> &SelectedJets,
                 vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex, vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -718,7 +915,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
     Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-        Double_t jetpt = Jet_pt[j];
+        Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
@@ -798,8 +995,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType,const  bool deepJ
         jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                 Jet_mass.At(j));
         TLorentzVector jet;
-        jet.SetPxPyPzE(SF * jet_prov.Px(), SF * jet_prov.Py(), SF * jet_prov.Pz(),
-                SF * jet_prov.E());
+        jet.SetPxPyPzE(SF * jet_prov.Px() * jetSmearingFactors.at(j), SF * jet_prov.Py() * jetSmearingFactors.at(j), SF * jet_prov.Pz() * jetSmearingFactors.at(j), SF * jet_prov.E() * jetSmearingFactors.at(j));
         //?is this  step necessary?
         //???why do this?
         SelectedJets.push_back(jet);
@@ -926,13 +1122,21 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
-    tausL.clear(); tausL_index.clear();
-    tausF.clear(); tausF_index.clear();
-    tausT.clear(); tausT_index.clear();
+    tausL.clear(); tausL_index.clear(); tausL_genPartFlav.clear();
+    tausF.clear(); tausF_index.clear(); tausF_genPartFlav.clear();
+    tausT.clear(); tausT_index.clear(); tausT_genPartFlav.clear();
     jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
+    jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
     bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    bjetsL_smearedUp.clear(); bjetsL_index_smearedUp.clear(); bjetsL_flavour_smearedUp.clear(); bjetsL_btags_smearedUp.clear();
+    bjetsL_smearedDown.clear(); bjetsL_index_smearedDown.clear(); bjetsL_flavour_smearedDown.clear(); bjetsL_btags_smearedDown.clear();
     bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    bjetsM_smearedUp.clear(); bjetsM_index_smearedUp.clear(); bjetsM_flavour_smearedUp.clear(); bjetsM_btags_smearedUp.clear();
+    bjetsM_smearedDown.clear(); bjetsM_index_smearedDown.clear(); bjetsM_flavour_smearedDown.clear(); bjetsM_btags_smearedDown.clear();
     bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    bjetsT_smearedUp.clear(); bjetsT_index_smearedUp.clear(); bjetsT_flavour_smearedUp.clear(); bjetsT_btags_smearedUp.clear();
+    bjetsT_smearedDown.clear(); bjetsT_index_smearedDown.clear(); bjetsT_flavour_smearedDown.clear(); bjetsT_btags_smearedDown.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
@@ -943,6 +1147,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tops_toptagger.clear();
     EVENT_prefireWeight_ = -99;
     PUWeight_ = -99;
+    PUWeight_Up = -99;
+    PUWeight_Down = -99;
     EVENT_genWeight_ = -99;
 
 }

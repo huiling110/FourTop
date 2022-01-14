@@ -24,6 +24,8 @@
 
 // Headers needed by this particular selector
 #include <vector>
+#include <TRandom3.h>
+#include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
 
@@ -37,9 +39,22 @@ public :
 //our own members
 ////////////////////////
     TFile *outputfile;
+    TFile *inputPUFile_data;
+    TFile *inputPUFile_dataUp;
+    TFile *inputPUFile_dataDown;
+    TFile *inputPUFile_mc;
     TTree *tree;
     TTree *allEvents;
     TH1D  *h_genWeight ;
+    TH1F  *dataPileupProfile;
+    TH1F  *dataPileupProfileUp;
+    TH1F  *dataPileupProfileDown;
+    TH1F  *MCPileupProfile;
+    TRandom3 jet_jer_myran;
+    std::vector<std::vector<std::string>> resolution;
+    std::string resFormula;
+    std::vector<std::vector<std::string>> resSFs;
+    std::string toyResFormula;
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    //Bool_t isdata = true;
@@ -151,13 +166,21 @@ public :
     vector<TLorentzVector> leptonsMVAF; 
     vector<TLorentzVector> leptonsMVAT; 
     vector<TLorentzVector> leptonsMVAL; 
-    vector<TLorentzVector> tausL; vector<Int_t> tausL_index;
-    vector<TLorentzVector> tausF; vector<Int_t> tausF_index;
-    vector<TLorentzVector> tausT; vector<Int_t> tausT_index;
-    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags; 
+    vector<TLorentzVector> tausL; vector<Int_t> tausL_index; vector<UChar_t> tausL_genPartFlav;
+    vector<TLorentzVector> tausF; vector<Int_t> tausF_index; vector<UChar_t> tausF_genPartFlav;
+    vector<TLorentzVector> tausT; vector<Int_t> tausT_index; vector<UChar_t> tausT_genPartFlav;
+    vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags;
+    vector<TLorentzVector> jets_smearedUp; vector<Int_t> jets_index_smearedUp; vector<Int_t> jets_flavour_smearedUp;  vector<Double_t> jets_btags_smearedUp;
+    vector<TLorentzVector> jets_smearedDown; vector<Int_t> jets_index_smearedDown; vector<Int_t> jets_flavour_smearedDown;  vector<Double_t> jets_btags_smearedDown;
     vector<TLorentzVector> bjetsL; vector<Int_t> bjetsL_index; vector<Int_t> bjetsL_flavour; vector<Double_t> bjetsL_btags;
+    vector<TLorentzVector> bjetsL_smearedUp; vector<Int_t> bjetsL_index_smearedUp; vector<Int_t> bjetsL_flavour_smearedUp; vector<Double_t> bjetsL_btags_smearedUp;
+    vector<TLorentzVector> bjetsL_smearedDown; vector<Int_t> bjetsL_index_smearedDown; vector<Int_t> bjetsL_flavour_smearedDown; vector<Double_t> bjetsL_btags_smearedDown;
     vector<TLorentzVector> bjetsM; vector<Int_t> bjetsM_index; vector<Int_t> bjetsM_flavour; vector<Double_t> bjetsM_btags;
+    vector<TLorentzVector> bjetsM_smearedUp; vector<Int_t> bjetsM_index_smearedUp; vector<Int_t> bjetsM_flavour_smearedUp; vector<Double_t> bjetsM_btags_smearedUp;
+    vector<TLorentzVector> bjetsM_smearedDown; vector<Int_t> bjetsM_index_smearedDown; vector<Int_t> bjetsM_flavour_smearedDown; vector<Double_t> bjetsM_btags_smearedDown;
     vector<TLorentzVector> bjetsT; vector<Int_t> bjetsT_index; vector<Int_t> bjetsT_flavour; vector<Double_t> bjetsT_btags;
+    vector<TLorentzVector> bjetsT_smearedUp; vector<Int_t> bjetsT_index_smearedUp; vector<Int_t> bjetsT_flavour_smearedUp; vector<Double_t> bjetsT_btags_smearedUp;
+    vector<TLorentzVector> bjetsT_smearedDown; vector<Int_t> bjetsT_index_smearedDown; vector<Int_t> bjetsT_flavour_smearedDown; vector<Double_t> bjetsT_btags_smearedDown;
     vector<TLorentzVector> forwardJets; vector<Int_t> forwardJets_index; vector<Int_t> forwardJets_flavour; vector<Double_t> forwardJets_btags;
     vector<TLorentzVector>  nonbjetsL;
     vector<TLorentzVector>  nonbjetsM;
@@ -181,13 +204,15 @@ public :
     //weight
     Double_t EVENT_prefireWeight_;
     Double_t PUWeight_;
+    Double_t PUWeight_Up;
+    Double_t PUWeight_Down;
     Double_t EVENT_genWeight_;
 
     //functions I added
      void SelectMuons(vector<TLorentzVector> &SelectedMuons, vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex,const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
+     void SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<UChar_t> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const Int_t jetType,const  bool deepJet, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
+     void SelectJets(const Int_t jetType, const bool deepJet, vector<float> jetSmearingFactors, vector<TLorentzVector> &SelectedJets, vector<Double_t> &SelectedJetsBTags, vector<Int_t>  &SelectedJetsIndex, vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
      void selectGenTaus( vector<TLorentzVector> &genTaus );
      void selectGenEles( vector<TLorentzVector> &genEles );
