@@ -25,7 +25,7 @@ void scaledYields() {
 	//////////////////////////////////////////////////
 	///////// SET UP B-TAGGING SCALE FACTORS /////////
 	//////////////////////////////////////////////////
-    
+    /*
 	// set up calibration + reader
     cout << "Loading the .csv file..." << endl;
     
@@ -81,7 +81,7 @@ void scaledYields() {
     CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
     
     cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
-	
+	*/
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
@@ -192,10 +192,12 @@ void scaledYields() {
 
 		string data = "JetHT";
 		TChain mychain("tree");
-		if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "v3*.root"); 
-		else mychain.Add(input_base_dir + "TauOfTTTT*.root");
+		//if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "v3*.root"); 
+		if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "out*.root");
+        else mychain.Add(input_base_dir + "TauOfTTTT*.root");
 		TChain mychain2("allevents");
-		if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "v3*.root");
+		//if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "v3*.root");
+        if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "out*.root");
 		
 		cout << "Computing the sum of gen event weights..." << endl;
 		TH1::StatOverflows(kTRUE);
@@ -285,16 +287,16 @@ void scaledYields() {
 					if(is2tau1L) h_2tau1L_noW->Fill(myjetsL->size(), mygenEvtWeight);
 					if(is2tau2L) h_2tau2L_noW->Fill(myjetsL->size(), mygenEvtWeight);
                     
-                    
+                    /*
 					double * mybtagWeight;
 					mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-				    
+				    */
 					double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
 					if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
 					
-					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
-					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
-					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
+					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
+					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
 
                         float myEleSF = 1.0;
@@ -318,7 +320,7 @@ void scaledYields() {
                         if (myMuSF == 0) myMuSF = 1.0;
                         
                         //if (ievent % 1000 == 0) cout << "EleSF: " << myEleSF << " MuSF: " << myMuSF << endl;
-                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					
                     }
                     if(is1tau2L){
@@ -341,7 +343,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
                         
                     } 
 					if(is1tau3L) {
@@ -354,10 +356,10 @@ void scaledYields() {
                             myEleSF *= SUSYEleISOSF->GetBinContent(SUSYEleISOSF->FindBin(myelesMVAT->at(i).Eta(),myelesMVAT->at(i).Pt()));
                         }
                         if (myEleSF == 0) myEleSF = 1.0;
-                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
                     }
 
-					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is2tau1L) {
 
                         float myEleSF = 1.0;
@@ -378,7 +380,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 
                     }
 					if(is2tau2L) {
@@ -401,7 +403,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 
                     }
 				
