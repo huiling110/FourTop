@@ -142,7 +142,7 @@ std::vector<std::string> years      = {"2016Legacy","2017ReReco","2018ReReco", "
   }
 }
 
-TauIDSFTool::TauESTool(const std::string& year, const std::string& id): ID(id){
+TauESTool::TauESTool(const std::string& year, const std::string& id): ID(id){
 
     bool verbose = false;
     std::string datapath           = Form("%s/src/FourTop/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
@@ -159,16 +159,14 @@ TauIDSFTool::TauESTool(const std::string& year, const std::string& id): ID(id){
     assert(0);
     }
 
-    TString filename_lowpt = Form("TauES_dm_%s_&s.root",ID.data(),year.data());
-    TString filename_highpt = Form("TauES_dm_%s_&s_ptgt100.root",ID.data(),year.data());
+    TString filename_lowpt = Form("%s/TauES_dm_%s_%s.root",datapath.data(),ID.data(),year.data());
+    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),year.data());
     TFile* file_lowpt = ensureTFile(filename_lowpt,verbose);
     TFile* file_highpt = ensureTFile(filename_highpt,verbose);
     hist_lowpt = extractTH1(file_lowpt,"tes");
     hist_highpt = extractTH1(file_highpt,"tes");
     file_lowpt->Close(); delete file_lowpt;
     file_highpt->Close(); delete file_highpt;
-    float pt_low = 34.0;
-    float pt_high = 170;
     if (ID.find("oldDM") == std::string::npos) DMs = {0,1,10};
     else DMs = {0,1,10,11};
     
@@ -181,16 +179,16 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
         float TES = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
   
         if (unc!="") {
-
-            if (pt > pt_high) float err = hist_highpt->GetBinContent(hist_highpt->FindBin(dm)); // high pT
+            float err = 0.0;
+            if (pt > pt_high) err = hist_highpt->GetBinContent(hist_highpt->FindBin(dm)); // high pT
             else if (pt > pt_low) { // linearly interpolate between low and high pT
 
                 float err_high = hist_highpt->GetBinContent(hist_highpt->FindBin(dm));
                 float err_low = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
-                float err = err_low + (err_high-err_low)/(pt_high_pt_low)*(pt-pt_low);
+                err = err_low + (err_high-err_low)/(pt_high-pt_low)*(pt-pt_low);
 
             }
-            else float err = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm)); // low pT
+            else err = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm)); // low pT
 
             if (unc=="Up") return TES + err;
             else if (unc=="Down") {

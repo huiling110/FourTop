@@ -67,8 +67,12 @@ class TauESTool {
  public:
     std::string ID;
     std::vector<int> DMs;
+    float pt_low = 34.0;
+    float pt_high = 170;
     TauESTool(const std::string& year, const std::string& id="DeepTau2017v2p1VSjet");
-    ~TauIDSFTool() { }
-}
+    ~TauESTool() { }
+
+    float getTES(double pt, int dm, int genmatch, const std::string& unc);
+};
 
 #endif // TauIDSFTool_h
