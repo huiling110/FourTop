@@ -58,4 +58,17 @@ class TauIDSFTool {
 
 };
 
+class TauESTool {
+
+ protected:
+    TH1* hist_lowpt;
+    TH1* hist_highpt;
+    [[noreturn]] void disabled() const;
+ public:
+    std::string ID;
+    std::vector<int> DMs;
+    TauESTool(const std::string& year, const std::string& id="DeepTau2017v2p1VSjet");
+    ~TauIDSFTool() { }
+}
+
 #endif // TauIDSFTool_h
