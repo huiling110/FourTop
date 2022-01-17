@@ -304,8 +304,20 @@ void scaledYields() {
 					if(is1tau1L) {
                         TauIDSFTool tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium");
                         double sf = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
+                        double sfUp = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
+                        double sfDown = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
+                        TauIDSFTool Tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
+                        double Sf = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
+                        double SfUp = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
+                        double SfDown = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
                         cout << "reco tau gen part flav: " << mytausT_genPartFlav->at(0) << endl;
+                        cout << "reco tau pT: " << mytausT->at(0).Pt() << endl;
                         cout << "deeptau sf is: " << sf << endl;
+                        cout << "deeptau sfUp is: " << sfUp << endl;
+                        cout << "deeptau sfDown is: " << sfDown << endl;
+                        cout << "deeptau Sf is: " << Sf << endl;
+                        cout << "deeptau SfUp is: " << SfUp << endl;
+                        cout << "deeptau SfDown is: " << SfDown << endl;
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
