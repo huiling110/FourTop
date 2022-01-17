@@ -38,6 +38,8 @@ class TauIDSFTool {
 
     std::string ID;
     std::string WP;
+    bool emb;
+    bool otherVSlepWP;
     std::vector<int> DMs;
     std::vector<int> genmatches;
     bool isVsPT  = false;
@@ -45,7 +47,7 @@ class TauIDSFTool {
     bool isVsEta = false;
 
     TauIDSFTool(const std::string& year, const std::string& id="MVAoldDM2017v2", const std::string& wp="Tight",
-                const bool dm=false, const bool embedding=false);
+                const bool dm=false, const bool embedding=false, const bool OtherVSlepWP=false);
     ~TauIDSFTool() { }
 
     float getSFvsPT( double pt,          int genmatch, const std::string& unc="");

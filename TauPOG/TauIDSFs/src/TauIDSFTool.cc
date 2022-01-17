@@ -44,7 +44,7 @@ void TauIDSFTool::disabled() const {
 }
 
 
-TauIDSFTool::TauIDSFTool(const std::string& year, const std::string& id, const std::string& wp, const bool dm, const bool embedding): ID(id), WP(wp){
+TauIDSFTool::TauIDSFTool(const std::string& year, const std::string& id, const std::string& wp, const bool dm, const bool embedding, const bool OtherVSlepWP): ID(id), WP(wp), emb(embedding), otherVSlepWP(OtherVSlepWP){
 
   bool verbose = false;
   std::string datapath                = Form("%s/src/FourTop/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
@@ -147,8 +147,38 @@ std::vector<std::string> years      = {"2016Legacy","2017ReReco","2018ReReco", "
 float TauIDSFTool::getSFvsPT(double pt, int genmatch, const std::string& unc){
   if(!isVsPT) disabled();
   if(genmatch==5){
-    float SF = static_cast<float>(func[unc]->Eval(pt));
-    return SF;
+    if (otherVSlepWP)
+    {
+      float extraUnc = 0.0;
+      if (emb) 
+      {
+        if (pt < 100) extraUnc = 0.05;
+        else extraUnc = 0.15;
+      }
+      else 
+      {
+        if (pt < 100) extraUnc = 0.03;
+        else extraUnc = 0.15;
+      }
+      float SF = static_cast<float>(func[""]->Eval(pt)); //first get nominal SF
+      if (unc=="Up") 
+      {
+        float errUp = sqrt( pow(SF-static_cast<float>(func["Up"]->Eval(pt)),2) + pow(SF*extraUnc,2) );
+        return SF+errUp;
+      }
+      else if (unc=="Down") 
+      {
+        float errDown = sqrt( pow(SF-static_cast<float>(func["Down"]->Eval(pt)),2) + pow(SF*extraUnc,2) );
+        return SF-errDown;
+      }
+      else return SF;
+    }
+    else // if not otherVSlepWP, do not add extra uncertainty
+    {
+      float SF = static_cast<float>(func[unc]->Eval(pt));
+      return SF;
+    }
+    
   }
   return 1.0;
 }
