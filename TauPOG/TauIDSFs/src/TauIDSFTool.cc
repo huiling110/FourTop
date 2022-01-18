@@ -193,15 +193,15 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
         float TES = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
         if (unc!="") {
             float err = 0.0;
-            if (pt > pt_high) err = hist_highpt->GetBinContent(hist_highpt->FindBin(dm)); // high pT
+            if (pt > pt_high) err = hist_highpt->GetBinError(hist_highpt->FindBin(dm)); // high pT
             else if (pt > pt_low) { // linearly interpolate between low and high pT
 
-                float err_high = hist_highpt->GetBinContent(hist_highpt->FindBin(dm));
-                float err_low = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
+                float err_high = hist_highpt->GetBinError(hist_highpt->FindBin(dm));
+                float err_low = hist_lowpt->GetBinError(hist_lowpt->FindBin(dm));
                 err = err_low + (err_high-err_low)/(pt_high-pt_low)*(pt-pt_low);
 
             }
-            else err = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm)); // low pT
+            else err = hist_lowpt->GetBinError(hist_lowpt->FindBin(dm)); // low pT
 
             if (unc=="Up") return TES + err;
             else if (unc=="Down") {
