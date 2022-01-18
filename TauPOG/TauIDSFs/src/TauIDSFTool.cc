@@ -160,11 +160,25 @@ TauESTool::TauESTool(const std::string& year, const std::string& id): ID(id){
     }
 
     TString filename_lowpt = Form("%s/TauES_dm_%s_%s.root",datapath.data(),ID.data(),year.data());
-    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),year.data());
+    //no high-pT measurement available for UL up to now, use the ReReco
+    //remove "UL" from year
+    std::string baseString = year;
+    std::string toErase = "UL";
+    size_t pos = baseString.find(toErase);
+    if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
+    //remove "post_VFP" from year
+    toErase = "_postVFP";
+    pos = baseString.find(toErase);
+    if (pos!=std::string::npos) baseString.erase(pos, toErase.length());
+    //append "Legacy"
+    baseString.append("Legacy");
+    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),baseString.data());
     TFile* file_lowpt = ensureTFile(filename_lowpt,verbose);
     TFile* file_highpt = ensureTFile(filename_highpt,verbose);
     hist_lowpt = extractTH1(file_lowpt,"tes");
+    hist_lowpt->SetDirectory(nullptr);
     hist_highpt = extractTH1(file_highpt,"tes");
+    hist_highpt->SetDirectory(nullptr);
     file_lowpt->Close(); delete file_lowpt;
     file_highpt->Close(); delete file_highpt;
     if (ID.find("oldDM") == std::string::npos) DMs = {0,1,10};
@@ -177,7 +191,6 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
     if (genmatch==5 && std::count(DMs.begin(),DMs.end(),dm)) {
 
         float TES = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
-  
         if (unc!="") {
             float err = 0.0;
             if (pt > pt_high) err = hist_highpt->GetBinContent(hist_highpt->FindBin(dm)); // high pT
@@ -202,6 +215,8 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
         
         return TES;
     }
+
+    return 1.0;
     
 }
 
