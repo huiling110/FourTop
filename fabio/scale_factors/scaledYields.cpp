@@ -305,31 +305,17 @@ void scaledYields() {
 					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
-                        TauIDSFTool tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium");
-                        double sf = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
-                        double sfUp = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
-                        double sfDown = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
-                        TauIDSFTool Tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
-                        double Sf = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
-                        double SfUp = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
-                        double SfDown = Tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
-                        cout << "reco tau DM is: " << mytausT_decayMode->at(0) << endl;
-                        cout << "reco tau gen part flav: " << mytausT_genPartFlav->at(0) << endl;
-                        cout << "reco tau pT: " << mytausT->at(0).Pt() << endl;
-                        cout << "deeptau sf is: " << sf << endl;
-                        cout << "deeptau sfUp is: " << sfUp << endl;
-                        cout << "deeptau sfDown is: " << sfDown << endl;
-                        cout << "deeptau Sf is: " << Sf << endl;
-                        cout << "deeptau SfUp is: " << SfUp << endl;
-                        cout << "deeptau SfDown is: " << SfDown << endl;
-                        TauESTool Tool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
-                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "");
-                        cout << "TES is: " << sf << endl;
-                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Up");
-                        cout << "TESUp is: " << sf << endl;
-                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Down");
-                        cout << "TESDown is: " << sf << endl;
-
+                        
+                        TauIDSFTool IDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
+                        double IDSF = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "");
+                        double IDSFUp = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
+                        double IDSFDown = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
+                        cout << "ID scale factors (central, up, down): " << IDSF << " " << IDSFUp << " " << IDSFDown << endl;
+                        TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+                        double TESSF = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "");
+                        double TESSFUp = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Up");
+                        double TESSFDown= TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Down");
+                        cout << "TES scale factors (central, up, down): " << TESSF << " " << TESSFUp << " " << TESSFDown << endl;
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
