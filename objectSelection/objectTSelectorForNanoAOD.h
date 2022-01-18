@@ -169,6 +169,12 @@ public :
     vector<TLorentzVector> tausL; vector<Int_t> tausL_index; vector<int> tausL_decayMode; vector<int> tausL_genPartFlav;
     vector<TLorentzVector> tausF; vector<Int_t> tausF_index; vector<int> tausF_decayMode;vector<int> tausF_genPartFlav;
     vector<TLorentzVector> tausT; vector<Int_t> tausT_index; vector<int> tausT_decayMode; vector<int> tausT_genPartFlav;
+    vector<TLorentzVector> tausL_TESUp; vector<Int_t> tausL_TESUp_index; vector<int> tausL_TESUp_decayMode; vector<int> tausL_TESUp_genPartFlav;
+    vector<TLorentzVector> tausF_TESUp; vector<Int_t> tausF_TESUp_index; vector<int> tausF_TESUp_decayMode; vector<int> tausF_TESUp_genPartFlav;
+    vector<TLorentzVector> tausT_TESUp; vector<Int_t> tausT_TESUp_index; vector<int> tausT_TESUp_decayMode; vector<int> tausT_TESUp_genPartFlav;
+    vector<TLorentzVector> tausL_TESDown; vector<Int_t> tausL_TESDown_index; vector<int> tausL_TESDown_decayMode; vector<int> tausL_TESDown_genPartFlav;
+    vector<TLorentzVector> tausF_TESDown; vector<Int_t> tausF_TESDown_index; vector<int> tausF_TESDown_decayMode; vector<int> tausF_TESDown_genPartFlav;
+    vector<TLorentzVector> tausT_TESDown; vector<Int_t> tausT_TESDown_index; vector<int> tausT_TESDown_decayMode; vector<int> tausT_TESDown_genPartFlav;
     vector<TLorentzVector> jets; vector<Int_t> jets_index; vector<Int_t> jets_flavour;  vector<Double_t> jets_btags;
     vector<TLorentzVector> jets_smearedUp; vector<Int_t> jets_index_smearedUp; vector<Int_t> jets_flavour_smearedUp;  vector<Double_t> jets_btags_smearedUp;
     vector<TLorentzVector> jets_smearedDown; vector<Int_t> jets_index_smearedDown; vector<Int_t> jets_flavour_smearedDown;  vector<Double_t> jets_btags_smearedDown;
