@@ -142,7 +142,83 @@ std::vector<std::string> years      = {"2016Legacy","2017ReReco","2018ReReco", "
   }
 }
 
+TauESTool::TauESTool(const std::string& year, const std::string& id): ID(id){
 
+    bool verbose = false;
+    std::string datapath           = Form("%s/src/FourTop/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
+    std::vector<std::string> years = {"2016Legacy","2017ReReco","2018ReReco", "UL2016_preVFP", "UL2016_postVFP", "UL2017", "UL2018"};
+
+    if(std::find(years.begin(),years.end(),year)==years.end()){
+    std::cerr << std::endl << "ERROR! '"<<year<<"' is not a valid year! Please choose from ";
+     std::vector<std::string>::iterator it = years.begin();
+    for(it=years.begin(); it!=years.end(); it++){
+      if(it!=years.begin()) std::cerr << ", ";
+      std::cerr << *it;
+    }
+    std::cerr << std::endl;
+    assert(0);
+    }
+
+    TString filename_lowpt = Form("%s/TauES_dm_%s_%s.root",datapath.data(),ID.data(),year.data());
+    //no high-pT measurement available for UL up to now, use the ReReco
+    //remove "UL" from year
+    std::string baseString = year;
+    std::string toErase = "UL";
+    size_t pos = baseString.find(toErase);
+    if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
+    //remove "post_VFP" from year
+    toErase = "_postVFP";
+    pos = baseString.find(toErase);
+    if (pos!=std::string::npos) baseString.erase(pos, toErase.length());
+    //append "Legacy"
+    baseString.append("Legacy");
+    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),baseString.data());
+    TFile* file_lowpt = ensureTFile(filename_lowpt,verbose);
+    TFile* file_highpt = ensureTFile(filename_highpt,verbose);
+    hist_lowpt = extractTH1(file_lowpt,"tes");
+    hist_lowpt->SetDirectory(nullptr);
+    hist_highpt = extractTH1(file_highpt,"tes");
+    hist_highpt->SetDirectory(nullptr);
+    file_lowpt->Close(); delete file_lowpt;
+    file_highpt->Close(); delete file_highpt;
+    if (ID.find("oldDM") == std::string::npos) DMs = {0,1,10};
+    else DMs = {0,1,10,11};
+    
+}
+
+float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc){
+
+    if (genmatch==5 && std::count(DMs.begin(),DMs.end(),dm)) {
+
+        float TES = hist_lowpt->GetBinContent(hist_lowpt->FindBin(dm));
+        if (unc!="") {
+            float err = 0.0;
+            if (pt > pt_high) err = hist_highpt->GetBinError(hist_highpt->FindBin(dm)); // high pT
+            else if (pt > pt_low) { // linearly interpolate between low and high pT
+
+                float err_high = hist_highpt->GetBinError(hist_highpt->FindBin(dm));
+                float err_low = hist_lowpt->GetBinError(hist_lowpt->FindBin(dm));
+                err = err_low + (err_high-err_low)/(pt_high-pt_low)*(pt-pt_low);
+
+            }
+            else err = hist_lowpt->GetBinError(hist_lowpt->FindBin(dm)); // low pT
+
+            if (unc=="Up") return TES + err;
+            else if (unc=="Down") {
+
+                if ((TES - err) > 0) return TES - err; // protect from returning negative TESs
+                else return 0.0;
+
+            }
+        
+        }
+        
+        return TES;
+    }
+
+    return 1.0;
+    
+}
 
 float TauIDSFTool::getSFvsPT(double pt, int genmatch, const std::string& unc){
   if(!isVsPT) disabled();
