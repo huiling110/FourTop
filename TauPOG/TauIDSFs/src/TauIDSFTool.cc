@@ -266,14 +266,14 @@ float TauIDSFTool::getSFvsPT(double pt, const std::string& unc){
 
 
 float TauIDSFTool::getSFvsDM(double pt, int dm, int genmatch, const std::string& unc) const{
-  if(!isVsDM) disabled();
+  if(!isVsDM) disabled(); 
   if(std::find(DMs.begin(),DMs.end(),dm)!=DMs.end() or pt<=40){
     if(genmatch==5){
       Int_t bin = hist->GetXaxis()->FindBin(dm);
       float SF  = static_cast<float>(hist->GetBinContent(bin));
-      if(unc=="Up")
+      if(unc=="Up") 
         SF += hist->GetBinError(bin);
-      else if(unc=="Down")
+      else if(unc=="Down") 
         SF -= hist->GetBinError(bin);
       return SF;
     }
@@ -293,10 +293,30 @@ float TauIDSFTool::getSFvsEta(double eta, int genmatch, const std::string& unc) 
   if(std::find(genmatches.begin(),genmatches.end(),genmatch)!=genmatches.end()){
     Int_t bin = hist->GetXaxis()->FindBin(eta);
     float SF  = static_cast<float>(hist->GetBinContent(bin));
-    if(unc=="Up")
-      SF += hist->GetBinError(bin);
-    else if(unc=="Down")
-      SF -= hist->GetBinError(bin);
+    if(unc=="Up") {
+
+        //SFs for VVVLoose WP are not provided. If you use this WP, use the flag otherVSlepWP. It will add a +3% unc inquadrature
+        if (otherVSlepWP) {
+            float extraUnc = 0.03;
+            float err = sqrt( pow(hist->GetBinError(bin), 2) + pow(SF*extraUnc, 2) );
+            SF += err;
+        }
+          
+        else SF += hist->GetBinError(bin);
+        
+    }
+      
+    else if(unc=="Down") {
+
+        if (otherVSlepWP) {
+            float extraUnc = 0.03;
+            float err = sqrt( pow(hist->GetBinError(bin), 2) + pow(SF*extraUnc, 2) );
+            SF -= err;
+        }
+
+        else SF -= hist->GetBinError(bin);
+    
+    }
     return SF;
   }
   return 1.0;
