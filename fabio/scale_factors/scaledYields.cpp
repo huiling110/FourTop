@@ -15,7 +15,8 @@
 #include "BTagCalibrationStandalone.cpp"
 #include "evalEventSF.C"
 //tools for DeepTau SFs implementation
-#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+//#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 
 void scaledYields() {
 
@@ -25,7 +26,7 @@ void scaledYields() {
 	//////////////////////////////////////////////////
 	///////// SET UP B-TAGGING SCALE FACTORS /////////
 	//////////////////////////////////////////////////
-    
+    /*
 	// set up calibration + reader
     cout << "Loading the .csv file..." << endl;
     
@@ -81,7 +82,7 @@ void scaledYields() {
     CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
     
     cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
-	
+	*/
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
 	//////////////////////////////////////////////////
@@ -192,10 +193,12 @@ void scaledYields() {
 
 		string data = "JetHT";
 		TChain mychain("tree");
-		if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "v3*.root"); 
-		else mychain.Add(input_base_dir + "TauOfTTTT*.root");
+		//if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "v3*.root"); 
+		if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_base_dir + "out*.root");
+        else mychain.Add(input_base_dir + "TauOfTTTT*.root");
 		TChain mychain2("allevents");
-		if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "v3*.root");
+		//if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "v3*.root");
+        if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_base_dir + "out*.root");
 		
 		cout << "Computing the sum of gen event weights..." << endl;
 		TH1::StatOverflows(kTRUE);
@@ -239,6 +242,12 @@ void scaledYields() {
 
 		vector<TLorentzVector> *mytausT = {}; 
 		mychain.SetBranchAddress("tausT", &mytausT);
+
+        vector<int> *mytausT_decayMode = {}; 
+		mychain.SetBranchAddress("tausT_decayMode", &mytausT_decayMode);
+
+        vector<int> *mytausT_genPartFlav = {}; 
+		mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
 
 		vector<TLorentzVector> *myleptonsMVAT = {}; 
 		mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
@@ -285,18 +294,28 @@ void scaledYields() {
 					if(is2tau1L) h_2tau1L_noW->Fill(myjetsL->size(), mygenEvtWeight);
 					if(is2tau2L) h_2tau2L_noW->Fill(myjetsL->size(), mygenEvtWeight);
                     
-                    
+                    /*
 					double * mybtagWeight;
 					mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-				    
+				    */
 					double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
 					if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
 					
-					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
-					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
-					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
+					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
+					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
-
+                        
+                        TauIDSFTool IDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
+                        double IDSF = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "");
+                        double IDSFUp = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
+                        double IDSFDown = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
+                        cout << "ID scale factors (central, up, down): " << IDSF << " " << IDSFUp << " " << IDSFDown << endl;
+                        TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+                        double TESSF = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "");
+                        double TESSFUp = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Up");
+                        double TESSFDown= TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Down");
+                        cout << "TES scale factors (central, up, down): " << TESSF << " " << TESSFUp << " " << TESSFDown << endl;
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
@@ -318,7 +337,7 @@ void scaledYields() {
                         if (myMuSF == 0) myMuSF = 1.0;
                         
                         //if (ievent % 1000 == 0) cout << "EleSF: " << myEleSF << " MuSF: " << myMuSF << endl;
-                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					
                     }
                     if(is1tau2L){
@@ -341,7 +360,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF * myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
                         
                     } 
 					if(is1tau3L) {
@@ -354,10 +373,10 @@ void scaledYields() {
                             myEleSF *= SUSYEleISOSF->GetBinContent(SUSYEleISOSF->FindBin(myelesMVAT->at(i).Eta(),myelesMVAT->at(i).Pt()));
                         }
                         if (myEleSF == 0) myEleSF = 1.0;
-                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
                     }
 
-					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+					if(is2tau0L) h_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is2tau1L) {
 
                         float myEleSF = 1.0;
@@ -378,7 +397,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_2tau1L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 
                     }
 					if(is2tau2L) {
@@ -401,7 +420,7 @@ void scaledYields() {
                             
                         }
                         if (myMuSF == 0) myMuSF = 1.0;
-                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())));
+                        h_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight * myEleSF *myMuSF  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 
                     }
 				

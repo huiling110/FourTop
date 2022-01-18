@@ -4,13 +4,16 @@ using namespace std;
 
 double LUMI2016 = 35900.0;
 
-string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/";
+//string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/";
+string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/";
 
 map<string, string> file = { //MAP OF INPUT FILES
 
 //signal
-{"tttt", dir + "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn"},
+///{"tttt", dir + "TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn"},
+{"tttt", dir + "test_tobjectSelector"},
 
+/*
 //ttbar background    
 {"ttbar-FH", dir + "TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 {"ttbar-SL", dir + "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
@@ -63,14 +66,14 @@ map<string, string> file = { //MAP OF INPUT FILES
 {"JetHT_G1", dir + "JetHTG_1"},
 {"JetHT_H0", dir + "JetHTH_0"},
 {"JetHT_H1", dir + "JetHTH_1"},
-
+*/
 };
 
 map<string, float> xsec = {
     
 //signal
 {"tttt", 0.01197},
-
+/*
 //ttbar background    
 {"ttbar-FH", 373.0},
 {"ttbar-SL", 367.0},
@@ -109,7 +112,7 @@ map<string, float> xsec = {
 {"VBFHToTauTau", 0.24},
 {"VBFHToGammaGamma", 0.00858},
 {"VBFHToMuMu", 0.000824},
-
+*/
 };
 
 TFile * inputPSEFsfile = TFile::Open("PSEFs/PSEFs.root");
@@ -124,7 +127,7 @@ map<string, TH1F*> PSEF = {
     
 //signal
 {"tttt", PSEF_tttt},
-
+/*
 //ttbar background    
 {"ttbar-FH", PSEF_ttbar},
 {"ttbar-SL", PSEF_ttbar},
@@ -163,7 +166,7 @@ map<string, TH1F*> PSEF = {
 {"VBFHToTauTau", PSEF_SH},
 {"VBFHToGammaGamma", PSEF_SH},
 {"VBFHToMuMu", PSEF_SH},
-
+*/
 };
 
 void writeHisto(TH1F* histo, map<string, string>::iterator file_it);
