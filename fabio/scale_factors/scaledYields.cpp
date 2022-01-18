@@ -249,7 +249,7 @@ void scaledYields() {
         vector<int> *mytausT_genPartFlav = {}; 
 		mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
 
-		vector<TLorentzVector> *myleptonsMVAT = {}; 
+        vector<TLorentzVector> *myleptonsMVAT = {}; 
 		mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 
 		vector<TLorentzVector> *myresolvedTops = {}; 
@@ -300,22 +300,36 @@ void scaledYields() {
 				    */
 					double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
 					if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
-					
+
 					if(is1tau0L) h_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau0L_CR) h_1tau0L_CR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau0L_VR) h_1tau0L_VR->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * mytriggerWeight  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */);
 					if(is1tau1L) {
                         
-                        TauIDSFTool IDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
-                        double IDSF = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "");
-                        double IDSFUp = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
-                        double IDSFDown = IDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
-                        cout << "ID scale factors (central, up, down): " << IDSF << " " << IDSFUp << " " << IDSFDown << endl;
-                        TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+                        TauIDSFTool VSjetIDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
+                        double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "");
+                        double VSjetSFUp = VSjetIDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Up");
+                        double VSjetSFDown = VSjetIDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "Down");
+                        cout << "VSjet scale factors (central, up, down): " << VSjetSF << " " << VSjetSFUp << " " << VSjetSFDown << endl;
+
+                        TauIDSFTool VSeIDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+                        double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "");
+                        double VSeSFUp = VSeIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "Up");
+                        double VSeSFDown = VSeIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "Down");
+                        cout << "VSe scale factors (central, up, down): " << VSeSF << " " << VSeSFUp << " " << VSeSFDown << endl;
+                  
+                        TauIDSFTool VSmuIDTool = TauIDSFTool("2016Legacy","DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
+                        double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "");
+                        double VSmuSFUp = VSmuIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "Up");
+                        double VSmuSFDown = VSmuIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "Down");
+                        cout << "VSmu scale factors (central, up, down): " << VSmuSF << " " << VSmuSFUp << " " << VSmuSFDown << endl;
+
+                        /*TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
                         double TESSF = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "");
                         double TESSFUp = TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Up");
                         double TESSFDown= TESTool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Down");
-                        cout << "TES scale factors (central, up, down): " << TESSF << " " << TESSFUp << " " << TESSFDown << endl;
+                        cout << "TES scale factors (central, up, down): " << TESSF << " " << TESSFUp << " " << TESSFDown << endl;*/
+
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
