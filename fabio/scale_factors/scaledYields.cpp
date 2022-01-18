@@ -243,6 +243,9 @@ void scaledYields() {
 		vector<TLorentzVector> *mytausT = {}; 
 		mychain.SetBranchAddress("tausT", &mytausT);
 
+        vector<int> *mytausT_decayMode = {}; 
+		mychain.SetBranchAddress("tausT_decayMode", &mytausT_decayMode);
+
         vector<int> *mytausT_genPartFlav = {}; 
 		mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
 
@@ -304,8 +307,17 @@ void scaledYields() {
 					if(is1tau1L) {
                         TauIDSFTool tool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium");
                         double sf = tool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0));
+                        cout << "reco tau DM is: " << mytausT_decayMode->at(0) << endl;
                         cout << "reco tau gen part flav: " << mytausT_genPartFlav->at(0) << endl;
                         cout << "deeptau sf is: " << sf << endl;
+                        TauESTool Tool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "");
+                        cout << "TES is: " << sf << endl;
+                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Up");
+                        cout << "TESUp is: " << sf << endl;
+                        sf = Tool.getTES(mytausT->at(0).Pt(), mytausT_decayMode->at(0), mytausT_genPartFlav->at(0), "Down");
+                        cout << "TESDown is: " << sf << endl;
+
                         float myEleSF = 1.0;
                         for (int i = 0; i < myelesMVAT->size(); i++) {
 
