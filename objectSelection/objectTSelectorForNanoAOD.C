@@ -31,6 +31,7 @@
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
 #include "objectTSelectorForNanoAOD.h"
+#include "../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #include <TH2.h>
 #include <TStyle.h>
 
@@ -358,6 +359,22 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     }
 
+    vector<float> tauTESFactors;
+    vector<float> tauTESFactorsUp;
+    vector<float> tauTESFactorsDown;
+
+    for (unsigned int i = 0; i < *nTau; i++) {
+        
+        TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+        float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        tauTESFactors.push_back(TESSF);
+        tauTESFactorsUp.push_back(TESSFUp);
+        tauTESFactorsDown.push_back(TESSFDown);
+        
+    }
+
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
     SelectMuons( muonsT, muonsT_index, 2);sort( muonsT.begin(), muonsT.end(), compEle);
@@ -382,9 +399,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL = muonsL; leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectTaus( tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tauTESFactors, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tauTESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tauTESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
     //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -422,6 +439,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
+    tauTESFactors.clear();
+    tauTESFactorsUp.clear();
+    tauTESFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -869,13 +889,13 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<Int_t> &SelectedTausIndex, vector<Int_t> &SelectedTausDecayMode, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<float> tauTESFactors, vector<Int_t> &SelectedTausIndex, vector<Int_t> &SelectedTausDecayMode, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
-
-    if (!(Tau_pt.At(j) > 20))     continue;
+      
+      if (!(Tau_pt.At(j)*tauTESFactors.at(j) > 20))     continue;
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
     if (!( TMath::Abs(Tau_dz.At(j)) < 0.2) )      continue; 
     //???why no dxy requirement?
@@ -903,6 +923,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     TLorentzVector tau;
     tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
                      Tau_mass.At(j));
+    tau *= tauTESFactors.at(j); //apply TES correction
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
