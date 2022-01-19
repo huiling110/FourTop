@@ -35,7 +35,14 @@ const TF1* extractTF1(const TFile* file, const std::string& funcname){
   return function;
 }
 
-
+TGraph* extractTGraph(const TFile* file, const std::string& graphname){
+  TGraph* graph = dynamic_cast<TGraph*>((const_cast<TFile*>(file))->Get(graphname.data()));
+  if(!graph){
+    std::cerr << std::endl << "ERROR! Failed to load TGraph = '" << graphname << "' from input file!" << std::endl;
+    assert(0);
+  }
+  return graph;
+}
 
 void TauIDSFTool::disabled() const {
   std::cerr << std::endl << "ERROR! Method has been disabled! isVsPT = "<<isVsPT<<", isVsDM = "
@@ -206,7 +213,7 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
             if (unc=="Up") return TES + err;
             else if (unc=="Down") {
 
-                if ((TES - err) > 0) return TES - err; // protect from returning negative TESs
+                if (TES > err) return TES - err; // protect from returning negative TESs
                 else return 0.0;
 
             }
@@ -220,6 +227,155 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
     
 }
 
+TauFESTool::TauFESTool(const std::string& year, const std::string& id): ID(id){
+
+    bool verbose = false;
+    std::string datapath           = Form("%s/src/FourTop/TauPOG/TauIDSFs/data",getenv("CMSSW_BASE"));
+    std::vector<std::string> years = {"2016Legacy","2017ReReco","2018ReReco"}; //no measurement for UL, use of ReReco is recommended
+
+    if(std::find(years.begin(),years.end(),year)==years.end()){
+    std::cerr << std::endl << "ERROR! '"<<year<<"' is not a valid year! Please choose from ";
+     std::vector<std::string>::iterator it = years.begin();
+    for(it=years.begin(); it!=years.end(); it++){
+      if(it!=years.begin()) std::cerr << ", ";
+      std::cerr << *it;
+    }
+    std::cerr << std::endl;
+    assert(0);
+    }
+
+    TString filename = Form("%s/TauFES_eta-dm_%s_%s.root",datapath.data(),ID.data(),year.data());
+    
+    TFile* file = ensureTFile(filename,verbose);
+    graph = extractTGraph(file,"fes");
+    //graph->SetDirectory(nullptr);
+    file->Close(); delete file;
+    
+}
+
+float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& unc){
+
+    if (std::count(DMs.begin(),DMs.end(),dm) && std::count(genmatches.begin(),genmatches.end(),genmatch)) {
+        
+        Double_t* points = graph->GetY();
+
+        if (fabs(eta) < 1.5) {//barrel region, first two points of loaded graph
+
+            if (dm == 0) {
+
+                float FES = points[0];
+                if (unc!=""){
+
+                    if (unc == "Up") {
+
+                    float err = graph->GetErrorYhigh(0);
+                    return FES + err;
+                    
+                    }
+                    
+                    else if (unc == "Down") {
+
+                    float err = graph->GetErrorYlow(0);
+                    if (FES > err) return FES - err;
+                    else return 0.0;
+
+                    }
+                
+                }
+
+                return FES;
+
+            }//end dm == 0
+
+            if (dm == 1) {
+
+                float FES = points[1];
+                if (unc!=""){
+
+                    if (unc == "Up") {
+
+                    float err = graph->GetErrorYhigh(1);
+                    return FES + err;
+                    
+                    }
+                    
+                    else if (unc == "Down") {
+
+                    float err = graph->GetErrorYlow(1);
+                    if (FES > err) return FES - err;
+                    else return 0.0;
+
+                    }
+                
+                }
+
+                return FES;
+
+            }//end dm == 1
+
+        }//end barrel
+
+        else {//endcap region, third and fourth points of loaded graph
+
+            if (dm == 0) {
+
+                float FES = points[2];
+                if (unc!=""){
+
+                    if (unc == "Up") {
+
+                    float err = graph->GetErrorYhigh(2);
+                    return FES + err;
+                    
+                    }
+                    
+                    else if (unc == "Down") {
+
+                    float err = graph->GetErrorYlow(2);
+                    if (FES > err) return FES - err;
+                    else return 0.0;
+
+                    }
+                
+                }
+
+                return FES;
+
+            }//end dm == 0
+
+            if (dm == 1) {
+
+                float FES = points[3];
+                if (unc!=""){
+
+                    if (unc == "Up") {
+
+                    float err = graph->GetErrorYhigh(3);
+                    return FES + err;
+                    
+                    }
+                    
+                    else if (unc == "Down") {
+
+                    float err = graph->GetErrorYlow(3);
+                    if (FES > err) return FES - err;
+                    else return 0.0;
+
+                    }
+                
+                }
+
+                return FES;
+
+            }//end dm == 1
+
+        }//end barrel
+
+    }
+
+    return 1.0;
+
+}
 float TauIDSFTool::getSFvsPT(double pt, int genmatch, const std::string& unc){
   if(!isVsPT) disabled();
   if(genmatch==5){

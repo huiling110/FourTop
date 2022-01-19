@@ -19,6 +19,7 @@
 #include <TFile.h>   // TFile
 #include <TH1.h>     // TH1
 #include <TF1.h>     // TF1
+#include <TGraph.h>
 #include <TString.h> // Form
 #include <string>    // std::string
 #include <vector>    // std::vector
@@ -73,6 +74,21 @@ class TauESTool {
     ~TauESTool() { }
 
     float getTES(double pt, int dm, int genmatch, const std::string& unc);
+};
+
+class TauFESTool {
+
+ protected:
+    TGraph* graph;
+    [[noreturn]] void disabled() const;
+ public:
+    std::string ID;
+    std::vector<int> DMs = {0, 1};
+    std::vector<int> genmatches = {1, 3};
+    TauFESTool(const std::string& year, const std::string& id="DeepTau2017v2p1VSe");
+    ~TauFESTool() { }
+
+    float getFES(double eta, int dm, int genmatch, const std::string& unc);
 };
 
 #endif // TauIDSFTool_h
