@@ -337,7 +337,7 @@ float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& un
 
             }//end dm == 0
 
-            if (dm == 1) {
+            else if (dm == 1) {
 
                 float FES = points[1];
                 if (unc!=""){
@@ -393,7 +393,7 @@ float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& un
 
             }//end dm == 0
 
-            if (dm == 1) {
+            else if (dm == 1) {
 
                 float FES = points[3];
                 if (unc!=""){
