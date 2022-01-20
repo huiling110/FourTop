@@ -50,6 +50,66 @@ void TauIDSFTool::disabled() const {
   assert(0);
 }
 
+std::string fromULtoReReco(const std::string year) {
+
+    //update string for 2016
+    if (year.find("2016") != std::string::npos) {
+
+        std::string baseString = year;
+        //remove "UL" from baseString
+        std::string toErase = "UL";
+        size_t pos = baseString.find(toErase);
+        if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
+        //remove "pre/post_VFP" from baseString
+        if (baseString.find("pre") != std::string::npos) {
+
+            toErase = "_preVFP";
+            pos = baseString.find(toErase);
+            if (pos!=std::string::npos) baseString.erase(pos, toErase.length());
+
+        }
+
+        else if (baseString.find("post") != std::string::npos) {
+
+            toErase = "_postVFP";
+            pos = baseString.find(toErase);
+            if (pos!=std::string::npos) baseString.erase(pos, toErase.length());
+
+        }
+
+        //append "Legacy"
+        baseString.append("Legacy");
+        return baseString;
+
+    }//end if year is 2016
+
+    else if (year.find("2017") != std::string::npos) {
+
+        std::string baseString = year;
+        //remove "UL" from baseString
+        std::string toErase = "UL";
+        size_t pos = baseString.find(toErase);
+        if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
+        //append "ReReco"
+        baseString.append("ReReco");
+        return baseString;
+        
+    }//end if year is 2017
+
+    else if (year.find("2018") != std::string::npos) {
+
+        std::string baseString = year;
+        //remove "UL" from baseString
+        std::string toErase = "UL";
+        size_t pos = baseString.find(toErase);
+        if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
+        //append "ReReco"
+        baseString.append("ReReco");
+        return baseString;
+
+    }//end if year is 2018
+
+}
 
 TauIDSFTool::TauIDSFTool(const std::string& year, const std::string& id, const std::string& wp, const bool dm, const bool embedding, const bool OtherVSlepWP): ID(id), WP(wp), emb(embedding), otherVSlepWP(OtherVSlepWP){
 
@@ -168,18 +228,8 @@ TauESTool::TauESTool(const std::string& year, const std::string& id): ID(id){
 
     TString filename_lowpt = Form("%s/TauES_dm_%s_%s.root",datapath.data(),ID.data(),year.data());
     //no high-pT measurement available for UL up to now, use the ReReco
-    //remove "UL" from year
-    std::string baseString = year;
-    std::string toErase = "UL";
-    size_t pos = baseString.find(toErase);
-    if (pos!=std::string::npos) baseString.erase(pos,toErase.length());
-    //remove "post_VFP" from year
-    toErase = "_postVFP";
-    pos = baseString.find(toErase);
-    if (pos!=std::string::npos) baseString.erase(pos, toErase.length());
-    //append "Legacy"
-    baseString.append("Legacy");
-    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),baseString.data());
+    std::string yearReReco = fromULtoReReco(year);
+    TString filename_highpt = Form("%s/TauES_dm_%s_%s_ptgt100.root",datapath.data(),ID.data(),yearReReco.data());
     TFile* file_lowpt = ensureTFile(filename_lowpt,verbose);
     TFile* file_highpt = ensureTFile(filename_highpt,verbose);
     hist_lowpt = extractTH1(file_lowpt,"tes");
