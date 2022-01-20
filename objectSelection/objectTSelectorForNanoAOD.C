@@ -862,79 +862,10 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
     for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j) { /*{{{*/
         Double_t pt = Electron_pt.At(j);
         Double_t eta = Electron_eta.At(j);
-        Double_t MVA_value = Electron_mvaFall17V2noIso.At(j);
-        Double_t raw_MVA_value = 0.5 * log ( (1 + MVA_value)/(1 - MVA_value) );
         if (!(fabs(eta) < 2.5))      continue;
         if (!(pt > 10))         continue;
-        // cout << "Electron_pt=" <<pt<<"\n ";
-
-            // id
-        if (fabs(eta) < 0.8)
-        {
-            if (type == 2) {
-                if (10 < pt && pt < 40) {
-                  if (!(raw_MVA_value > (3.447 + 0.063 * (pt - 25))))      continue;
-                }
-                if (pt >= 40) {
-                  if (!(raw_MVA_value > 4.392))   continue;
-                }
-            }
-            if (type == 0 || type==1) {
-                if (5 < pt && pt < 10) {
-                  if (!(raw_MVA_value > 1.309))  continue;
-                }
-                if (10 < pt && pt < 25) {
-                  if (!(raw_MVA_value > ( 0.887 + 0.088 * (pt - 25))))  continue;
-                }
-                if (pt >= 25) {
-                  if (!(raw_MVA_value > 0.887))  continue;
-                }
-            }
-        }
-        if (0.8 <= fabs(eta) && fabs(eta) < 1.479) {
-            if (type == 2) {
-                if (10 < pt && pt < 40) {
-                    if (!(raw_MVA_value > (2.522 + 0.058 * (pt - 25))))      continue;
-                }
-                if (pt >= 40) {
-                    if (!(raw_MVA_value > 3.392))      continue;
-                }
-            }
-            if (type == 0 || type==1 ) {
-                if (5 < pt && pt <= 10) {
-                  if (!(raw_MVA_value > 0.373))           continue;
-                }
-                if (10 < pt && pt < 25) {
-                  if (!(raw_MVA_value > (0.112 + 0.099 * (pt - 25))))    continue;
-                }
-                if (pt >= 25) {
-                  if (!(raw_MVA_value > 0.112))     continue;
-                }
-            }
-        }
-        if (1.479 <= fabs(eta) && fabs(eta) < 2.5) {
-            if (type == 2) {
-                if (10 < pt && pt < 40) {
-                  if (!(raw_MVA_value > (1.555 + 0.075 * (pt - 25))))         continue;
-                }
-                if (pt >= 40) {
-                  if (!(raw_MVA_value > 2.680))                continue;
-                }
-            }
-            if (type == 0 || type==1) {
-                if (5 < pt && pt <= 10) {
-                  if (!(raw_MVA_value > 0.071))   continue;
-                }
-                if (10 < pt && pt < 25) {
-                  if (!(raw_MVA_value > ((-0.017) + 0.137 * (pt - 25))))   continue;
-                }
-                if (pt >= 25) {
-                  if (!(raw_MVA_value > (-0.017)))              continue;
-                }
-            }
-        }
-
-         // ISO
+        if (!Electron_mvaFall17V2noIso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
+        // ISO 
         Double_t I1 = 0.4, I2 = 0, I3 = 0;
         if (type == 0 || type == 1) {
             I1 = 0.4;         I2 = 0;      I3 = 0;
@@ -942,7 +873,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
         if (  !(  (Electron_miniPFRelIso_all.At(j) < I1) && (( 1/(Electron_jetRelIso.At(j)+1) > I2) || (Electron_jetPtRelv2.At(j) > I3))  )  )     continue;
   
-      // IP
+        // IP 
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))        continue;
         if (type == 1 or type == 2) {
