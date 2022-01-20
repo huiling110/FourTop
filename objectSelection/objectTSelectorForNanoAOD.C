@@ -359,9 +359,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     }
 
-    vector<float> tauTESFactors;
-    vector<float> tauTESFactorsUp;
-    vector<float> tauTESFactorsDown;
+    vector<float> tauESFactors;
+    vector<float> tauESFactorsUp;
+    vector<float> tauESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
         
@@ -369,9 +369,25 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
         float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
-        tauTESFactors.push_back(TESSF);
-        tauTESFactorsUp.push_back(TESSFUp);
-        tauTESFactorsDown.push_back(TESSFDown);
+        tauESFactors.push_back(TESSF);
+        tauESFactorsUp.push_back(TESSFUp);
+        tauESFactorsDown.push_back(TESSFDown);
+        
+    }
+
+    vector<float> tauFESFactors;
+    vector<float> tauFESFactorsUp;
+    vector<float> tauFESFactorsDown;
+
+    for (unsigned int i = 0; i < *nTau; i++) {
+        
+        TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+        float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        float FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        tauFESFactors.push_back(FESSF);
+        tauFESFactorsUp.push_back(FESSFUp);
+        tauFESFactorsDown.push_back(FESSFDown);
         
     }
 
@@ -400,17 +416,25 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     //nominal taus
-    SelectTaus( tausL, tauTESFactors, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tauTESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tauTESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tauESFactors, tauFESFactors, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tauESFactors, tauFESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tauESFactors, tauFESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
     //Up TES
-    SelectTaus( tausL_TESUp, tauTESFactorsUp, tausL_TESUp_index, tausL_TESUp_decayMode, tausL_TESUp_genPartFlav, 1, leptonsMVAL); sort( tausL_TESUp.begin(), tausL_TESUp.end(), compEle);
-    SelectTaus( tausF_TESUp, tauTESFactorsUp, tausF_TESUp_index, tausF_TESUp_decayMode, tausF_TESUp_genPartFlav, 2, leptonsMVAL); sort( tausF_TESUp.begin(), tausF_TESUp.end(), compEle);
-    SelectTaus( tausT_TESUp, tauTESFactorsUp, tausT_TESUp_index, tausT_TESUp_decayMode, tausT_TESUp_genPartFlav, 3, leptonsMVAL); sort( tausT_TESUp.begin(), tausT_TESUp.end(), compEle);
+    SelectTaus( tausL_TESUp, tauESFactorsUp, tauFESFactors, tausL_TESUp_index, tausL_TESUp_decayMode, tausL_TESUp_genPartFlav, 1, leptonsMVAL); sort( tausL_TESUp.begin(), tausL_TESUp.end(), compEle);
+    SelectTaus( tausF_TESUp, tauESFactorsUp, tauFESFactors, tausF_TESUp_index, tausF_TESUp_decayMode, tausF_TESUp_genPartFlav, 2, leptonsMVAL); sort( tausF_TESUp.begin(), tausF_TESUp.end(), compEle);
+    SelectTaus( tausT_TESUp, tauESFactorsUp, tauFESFactors, tausT_TESUp_index, tausT_TESUp_decayMode, tausT_TESUp_genPartFlav, 3, leptonsMVAL); sort( tausT_TESUp.begin(), tausT_TESUp.end(), compEle);
     //Down TES
-    SelectTaus( tausL_TESDown, tauTESFactorsDown, tausL_TESDown_index, tausL_TESDown_decayMode, tausL_TESDown_genPartFlav, 1, leptonsMVAL); sort( tausL_TESDown.begin(), tausL_TESDown.end(), compEle);
-    SelectTaus( tausF_TESDown, tauTESFactorsDown, tausF_TESDown_index, tausF_TESDown_decayMode, tausF_TESDown_genPartFlav, 2, leptonsMVAL); sort( tausF_TESDown.begin(), tausF_TESDown.end(), compEle);
-    SelectTaus( tausT_TESDown, tauTESFactorsDown, tausT_TESDown_index, tausT_TESDown_decayMode, tausT_TESDown_genPartFlav, 3, leptonsMVAL); sort( tausT_TESDown.begin(), tausT_TESDown.end(), compEle);
+    SelectTaus( tausL_TESDown, tauESFactorsDown, tauFESFactors, tausL_TESDown_index, tausL_TESDown_decayMode, tausL_TESDown_genPartFlav, 1, leptonsMVAL); sort( tausL_TESDown.begin(), tausL_TESDown.end(), compEle);
+    SelectTaus( tausF_TESDown, tauESFactorsDown, tauFESFactors, tausF_TESDown_index, tausF_TESDown_decayMode, tausF_TESDown_genPartFlav, 2, leptonsMVAL); sort( tausF_TESDown.begin(), tausF_TESDown.end(), compEle);
+    SelectTaus( tausT_TESDown, tauESFactorsDown, tauFESFactors, tausT_TESDown_index, tausT_TESDown_decayMode, tausT_TESDown_genPartFlav, 3, leptonsMVAL); sort( tausT_TESDown.begin(), tausT_TESDown.end(), compEle);
+    //Up FES
+    SelectTaus( tausL_FESUp, tauESFactors, tauFESFactorsUp, tausL_FESUp_index, tausL_FESUp_decayMode, tausL_FESUp_genPartFlav, 1, leptonsMVAL); sort( tausL_FESUp.begin(), tausL_FESUp.end(), compEle);
+    SelectTaus( tausF_FESUp, tauESFactors, tauFESFactorsUp, tausF_FESUp_index, tausF_FESUp_decayMode, tausF_FESUp_genPartFlav, 2, leptonsMVAL); sort( tausF_FESUp.begin(), tausF_FESUp.end(), compEle);
+    SelectTaus( tausT_FESUp, tauESFactors, tauFESFactorsUp, tausT_FESUp_index, tausT_FESUp_decayMode, tausT_FESUp_genPartFlav, 3, leptonsMVAL); sort( tausT_FESUp.begin(), tausT_FESUp.end(), compEle);
+    //Down FES
+    SelectTaus( tausL_FESDown, tauESFactors, tauFESFactorsDown, tausL_FESDown_index, tausL_FESDown_decayMode, tausL_FESDown_genPartFlav, 1, leptonsMVAL); sort( tausL_FESDown.begin(), tausL_FESDown.end(), compEle);
+    SelectTaus( tausF_FESDown, tauESFactors, tauFESFactorsDown, tausF_FESDown_index, tausF_FESDown_decayMode, tausF_FESDown_genPartFlav, 2, leptonsMVAL); sort( tausF_FESDown.begin(), tausF_FESDown.end(), compEle);
+    SelectTaus( tausT_FESDown, tauESFactors, tauFESFactorsDown, tausT_FESDown_index, tausT_FESDown_decayMode, tausT_FESDown_genPartFlav, 3, leptonsMVAL); sort( tausT_FESDown.begin(), tausT_FESDown.end(), compEle);
     //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -448,9 +472,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
-    tauTESFactors.clear();
-    tauTESFactorsUp.clear();
-    tauTESFactorsDown.clear();
+    tauESFactors.clear();
+    tauESFactorsUp.clear();
+    tauESFactorsDown.clear();
+    tauFESFactors.clear();
+    tauFESFactorsUp.clear();
+    tauFESFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -610,6 +637,32 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "tausL_TESDown_genPartFlav", &tausL_TESDown_genPartFlav );
    tree->Branch( "tausF_TESDown_genPartFlav", &tausF_TESDown_genPartFlav );
    tree->Branch( "tausT_TESDown_genPartFlav", &tausT_TESDown_genPartFlav );
+   
+   tree->Branch( "tausL_FESUp", &tausL_FESUp );
+   tree->Branch( "tausF_FESUp", &tausF_FESUp );
+   tree->Branch( "tausT_FESUp", &tausT_FESUp );
+   tree->Branch( "tausL_FESUp_index", &tausL_FESUp_index );
+   tree->Branch( "tausF_FESUp_index", &tausF_FESUp_index );
+   tree->Branch( "tausT_FESUp_index", &tausT_FESUp_index );
+   tree->Branch( "tausL_FESUp_decayMode", &tausL_FESUp_decayMode );
+   tree->Branch( "tausF_FESUp_decayMode", &tausF_FESUp_decayMode );
+   tree->Branch( "tausT_FESUp_decayMode", &tausT_FESUp_decayMode );
+   tree->Branch( "tausL_FESUp_genPartFlav", &tausL_FESUp_genPartFlav );
+   tree->Branch( "tausF_FESUp_genPartFlav", &tausF_FESUp_genPartFlav );
+   tree->Branch( "tausT_FESUp_genPartFlav", &tausT_FESUp_genPartFlav );
+   tree->Branch( "tausL_FESDown", &tausL_FESDown );
+   tree->Branch( "tausF_FESDown", &tausF_FESDown );
+   tree->Branch( "tausT_FESDown", &tausT_FESDown );
+   tree->Branch( "tausL_FESDown_index", &tausL_FESDown_index );
+   tree->Branch( "tausF_FESDown_index", &tausF_FESDown_index );
+   tree->Branch( "tausT_FESDown_index", &tausT_FESDown_index );
+   tree->Branch( "tausL_FESDown_decayMode", &tausL_FESDown_decayMode );
+   tree->Branch( "tausF_FESDown_decayMode", &tausF_FESDown_decayMode );
+   tree->Branch( "tausT_FESDown_decayMode", &tausT_FESDown_decayMode );
+   tree->Branch( "tausL_FESDown_genPartFlav", &tausL_FESDown_genPartFlav );
+   tree->Branch( "tausF_FESDown_genPartFlav", &tausF_FESDown_genPartFlav );
+   tree->Branch( "tausT_FESDown_genPartFlav", &tausT_FESDown_genPartFlav );
+
    tree->Branch( "jets", &jets );
    tree->Branch( "jets_index", &jets_index );
    tree->Branch( "jets_flavour", &jets_flavour );
@@ -922,13 +975,13 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<float> tauTESFactors, vector<Int_t> &SelectedTausIndex, vector<Int_t> &SelectedTausDecayMode, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<float> tauESFactors, vector<float> tauFESFactors, vector<Int_t> &SelectedTausIndex, vector<Int_t> &SelectedTausDecayMode, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
       
-      if (!(Tau_pt.At(j)*tauTESFactors.at(j) > 20))     continue;
+    if (!(Tau_pt.At(j)*tauESFactors.at(j)*tauFESFactors.at(j) > 20))     continue;
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
     if (!( TMath::Abs(Tau_dz.At(j)) < 0.2) )      continue; 
     //???why no dxy requirement?
@@ -956,7 +1009,8 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     TLorentzVector tau;
     tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
                      Tau_mass.At(j));
-    tau *= tauTESFactors.at(j); //apply TES correction
+    tau *= tauESFactors.at(j); //apply TES correction
+    tau *= tauFESFactors.at(j); //apply TES correction
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
@@ -1190,6 +1244,12 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tausL_TESDown.clear(); tausL_TESDown_index.clear(); tausL_TESDown_genPartFlav.clear(); tausL_TESDown_decayMode.clear();
     tausF_TESDown.clear(); tausF_TESDown_index.clear(); tausF_TESDown_genPartFlav.clear(); tausF_TESDown_decayMode.clear();
     tausT_TESDown.clear(); tausT_TESDown_index.clear(); tausT_TESDown_genPartFlav.clear(); tausT_TESDown_decayMode.clear();
+    tausL_FESUp.clear(); tausL_FESUp_index.clear(); tausL_FESUp_genPartFlav.clear(); tausL_FESUp_decayMode.clear();
+    tausF_FESUp.clear(); tausF_FESUp_index.clear(); tausF_FESUp_genPartFlav.clear(); tausF_FESUp_decayMode.clear();
+    tausT_FESUp.clear(); tausT_FESUp_index.clear(); tausT_FESUp_genPartFlav.clear(); tausT_FESUp_decayMode.clear();
+    tausL_FESDown.clear(); tausL_FESDown_index.clear(); tausL_FESDown_genPartFlav.clear(); tausL_FESDown_decayMode.clear();
+    tausF_FESDown.clear(); tausF_FESDown_index.clear(); tausF_FESDown_genPartFlav.clear(); tausF_FESDown_decayMode.clear();
+    tausT_FESDown.clear(); tausT_FESDown_index.clear(); tausT_FESDown_genPartFlav.clear(); tausT_FESDown_decayMode.clear();
     jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
     jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
     jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
