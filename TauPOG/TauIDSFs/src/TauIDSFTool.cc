@@ -223,7 +223,7 @@ float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc)
         return TES;
     }
 
-    return 1.0;
+    return 1.0; //if it's not a genuine tau or if it's a dm for which no recommendation exists, return 1.0 as TES correction 
     
 }
 
@@ -373,7 +373,7 @@ float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& un
 
     }
 
-    return 1.0;
+    return 1.0; //if not correct dm or genmatch, return 1.0
 
 }
 float TauIDSFTool::getSFvsPT(double pt, int genmatch, const std::string& unc){
