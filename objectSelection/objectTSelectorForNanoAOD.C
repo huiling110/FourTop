@@ -829,12 +829,16 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
             if (!(Muon_mediumId.At(j) == 1))     continue;
         }
         //ISO
-        Double_t I1 = 0.4, I2 = 0, I3 = 0; // loose:WP from ss of TTTT
-        if(type == 2){
-            I1 = 0.16; I2 = 0.76, I3 = 7.2;
+        if (type == 0 || type == 1) {
+
+            if (!(Muon_miniIsoId.At(j) == 1)) continue; // Muon_miniIsoId == 1 corresponds to MiniIsoLoose WP, corresponding to relMiniIso < 0.4
+
         }
-        //Muon_jetRelIso = 1/ptRatio-1; ptRatio = 1/(Muon_jetRelIso+1)
-        if (  !( (Muon_miniPFRelIso_all.At(j) < I1) && ((1/(Muon_jetRelIso.At(j)+1) > I2) || (Muon_jetPtRelv2.At(j) > I3))  )  )     continue;
+        if (type == 2) {
+
+            if (!(Muon_miniIsoId.At(j) == 3)) continue; // Muon_miniIsoId == 3 corresponds to MiniIsoTight WP, corresponding to relMiniIso < 0.1
+
+        }
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
         if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
@@ -866,12 +870,12 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         if (!(pt > 10))         continue;
         if (!Electron_mvaFall17V2noIso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
         // ISO 
-        Double_t I1 = 0.4, I2 = 0, I3 = 0;
+        Double_t relMiniIso = 0.4;
         if (type == 0 || type == 1) {
-            I1 = 0.4;         I2 = 0;      I3 = 0;
-        } // looseWP from ss of TTTT}
-        if(type == 2) {I1 = 0.12; I2 = 0.80; I3 = 7.2;    }//TightWP of SS
-        if (  !(  (Electron_miniPFRelIso_all.At(j) < I1) && (( 1/(Electron_jetRelIso.At(j)+1) > I2) || (Electron_jetPtRelv2.At(j) > I3))  )  )     continue;
+            relMiniIso = 0.4;
+        } 
+        if(type == 2) {relMiniIso = 0.1;}
+        if ( !(Electron_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
   
         // IP 
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
