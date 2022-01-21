@@ -32,6 +32,7 @@
 //
 #include "objectTSelectorForNanoAOD.h"
 #include "../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+//we should use a better way of modulization of code rather the include copy here???
 #include <TH2.h>
 #include <TStyle.h>
 
@@ -364,7 +365,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     vector<float> tauESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
-        
+
+       //??? add year parameter here for different year 
         TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
         float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
@@ -375,12 +377,14 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         
     }
 
+    //misidentified electron energy scale (FES), fake taus which is genuine electrons
     vector<float> tauFESFactors;
     vector<float> tauFESFactorsUp;
     vector<float> tauFESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
         
+        //???year paremeter
         TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
         float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
