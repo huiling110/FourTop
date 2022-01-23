@@ -819,6 +819,7 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
   // 0 for Loose; 1 fakeble; 2 tight 
     for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
         //in objectSelection.h Muon_pt_ is global variable
+        
         if(!(Muon_pt.At(j)>10))                     continue;
         if (!(fabs(Muon_eta.At(j)) < 2.4))        continue;
         //ID
@@ -829,6 +830,8 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
             if (!(Muon_mediumId.At(j) == 1))     continue;
         }
         //ISO
+        //THE FOLLOWING COMMENTED BLOCK DOES NOT GIVE THE SAME RESULT AS THE "HAND-MADE" ISOLATION IMPLEMENTATION AND LEADS TO IMBALANCE BETWEEN ELECTRON ("HAND-MADE") AND MUON NUMBERS
+        /*
         if (type == 0 || type == 1) {
 
             if (!(Muon_miniIsoId.At(j) == 1)) continue; // Muon_miniIsoId == 1 corresponds to MiniIsoLoose WP, corresponding to relMiniIso < 0.4
@@ -839,17 +842,27 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
             if (!(Muon_miniIsoId.At(j) == 3)) continue; // Muon_miniIsoId == 3 corresponds to MiniIsoTight WP, corresponding to relMiniIso < 0.1
 
         }
+        */
+        
+        Double_t relMiniIso = 0.4;
+        if (type == 0 || type == 1) {
+            relMiniIso = 0.4;
+        } 
+        if(type == 2) {relMiniIso = 0.1;}
+        if ( !(Muon_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
+        
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
         if(!(fabs(Muon_dxy.At(j))<0.05)) continue;
         if(type == 1 or type == 2) {
           if(!(fabs(Muon_ip3d.At(j))<4)) continue;
         }
+        /*
         //charge,The quality of the charge reconstruction 
         if ( type==1 || type==2 ){
             if ( !(Muon_tightCharge.At(j)<2) ) continue;
         }
-        
+        */
         TLorentzVector muon;
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
         muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
@@ -869,6 +882,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         if (!(fabs(eta) < 2.5))      continue;
         if (!(pt > 10))         continue;
         if (!Electron_mvaFall17V2noIso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
+        
         // ISO 
         Double_t relMiniIso = 0.4;
         if (type == 0 || type == 1) {
@@ -876,14 +890,14 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         } 
         if(type == 2) {relMiniIso = 0.1;}
         if ( !(Electron_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
-  
+        
         // IP 
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))        continue;
         if (type == 1 or type == 2) {
             if (!((Electron_ip3d.At(j)) < 4))          continue;
         }
-    
+        
         //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
         // cout << "Electron_lostHits= " << static_cast<int>(Eleictron_lostHits.At(j)) << "\n";
         //UChar_t is just int with 1 bit
@@ -898,7 +912,6 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         // tight charge
         //Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
         //???not sure which one to use, drop for now
-
       
         TLorentzVector electron;
         electron.SetPtEtaPhiM(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
