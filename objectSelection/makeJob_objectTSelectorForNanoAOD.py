@@ -6,6 +6,13 @@ import subprocess
  #
 
 
+def prepareCshJob( inputDir,shFile, singleFile ):
+    subFile = open( shFile, 'w')
+    subFile.write( "#!/bin/bash\n" )
+    subFile.write( "cd "+Jobsubmitpath + "\n")
+    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+outputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
+    subFile.close()
+    print( 'done writing the iJob for kProcess: ', shFile )
 
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #CHANGE HERE TO RUN ON DATA
@@ -32,43 +39,11 @@ if not os.path.exists(Jobsubmitpath+"Jobsubmit_seperate"):
 if not os.path.exists( outputDir):
     os.mkdir(outputDir)
 
-# sample = {
-    #"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_055930/0000/": "17",
-    #"QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_055930/0000/": "18",
-    #"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/Legacy16V2_QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8addGenWeight/210201_060130/0000/": "19",:3
 
-# }
-#better not change code after this line
-
-
-
-
-
-
-
-
-
-
-
-
-
-def prepareCshJob( inputDir,shFile, singleFile ):
-    subFile = open( shFile, 'w')
-    subFile.write( "#!/bin/bash\n" )
-    subFile.write( "cd "+Jobsubmitpath + "\n")
-    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+outputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
-    subFile.close()
-    print( 'done writing the iJob for kProcess: ', shFile )
-
-
-# subAllProcessName = file(subAllFile,"w")
-# print >> subAllProcessName, "#!/bin/bash"
-# print >> subAllProcessName, "cd "+Jobsubmitpath+"Jobsubmit_seperate"
 subAllProcessName = open( subAllFile, 'w')
 subAllProcessName.write( "#!/bin/bash\n")
 subAllProcessName.write( "cd "+Jobsubmitpath+"Jobsubmit_seperate\n" )
 
-# for k in sample:
 processNumber = 0
 for k in allProcesses:
     print(k)
@@ -86,10 +61,11 @@ for k in allProcesses:
 
     oneProcess =  Jobsubmitpath + "Jobsubmit_seperate/"+  sampleName + ".sh"
     if os.path.exists(Jobsubmitpath+"Jobsubmit_seperate/"+sampleName+"/"):
-       os.popen('rm -fr '+Jobsubmitpath+"Jobsubmit_seperate/"+sampleName+"/")
-    os.popen('mkdir -p '+Jobsubmitpath+"Jobsubmit_seperate/"+sampleName+"/")
+       subprocess.run('rm -fr '+Jobsubmitpath+"Jobsubmit_seperate/"+sampleName+"/", shell=True)
+    #    subprocess.run( ['rm ', '-fr', Jobsubmitpath +"Jobsubmit_seperate/"+ sampleName +"/"]   )
+    subprocess.run('mkdir -p '+Jobsubmitpath+"Jobsubmit_seperate/"+sampleName+"/", shell=True )
     if os.path.exists(oneProcess):
-        os.popen('rm -fr '+ oneProcess)
+        subprocess.run('rm -fr '+ oneProcess,  shell=True )
     sub_oneProcess = open ( oneProcess, 'w')
     sub_oneProcess.write( "cd "+Jobsubmitpath+"Jobsubmit_seperate/" + sampleName + "/" + "\n" + "\n")
     print( 'job sub script for kProcess is: ', oneProcess )
@@ -104,16 +80,19 @@ for k in allProcesses:
             
             logFile = outputDir +  sampleName + "/log/" + smallFile + ".log"
             errFile = outputDir +  sampleName + "/log/" + smallFile + ".err"
-            sub_oneProcess.write( "hep_sub "+  smallFile + ".sh" + " -o " + logFile + " -e " + errFile )
+            sub_oneProcess.write( "hep_sub "+  smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
 
     subAllProcessName.write( "sh  " + oneProcess + "\n")
     os.popen('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/" + sampleName + "/*sh")
-    os.popen('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/*sh")
-    print( 'done with kProcess')
+    # os.popen('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/*sh")
+    sub_oneProcess.close()
+    print( 'done with kProcess: ', k )
     print( '\n')
 
+subAllProcessName.close()
 
-os.popen('chmod 777 '+Jobsubmitpath+"subAllProcess_seperate.sh")
+subprocess.run('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/*sh", shell=True )
+subprocess.run('chmod 777 '+Jobsubmitpath+"subAllProcess_seperate.sh", shell=True )
 
 
 
