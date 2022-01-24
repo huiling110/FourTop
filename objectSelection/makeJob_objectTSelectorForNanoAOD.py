@@ -6,11 +6,12 @@ import subprocess
  #
 
 
-def prepareCshJob( inputDir,shFile, singleFile ):
+def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
     subFile = open( shFile, 'w')
     subFile.write( "#!/bin/bash\n" )
     subFile.write( "cd "+Jobsubmitpath + "\n")
-    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+outputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
+	# subFile.write( "/bin/hostname\n" )
+    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
     subFile.close()
     print( 'done writing the iJob for kProcess: ', shFile )
 
@@ -20,7 +21,7 @@ def prepareCshJob( inputDir,shFile, singleFile ):
 isdata = False
 isHuiling = True
 if isHuiling:
-    outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/"
+    outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v0_testing/"
     Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
 else:
     outputDir = "/publicfs/cms/user/fabioiemmi/tauOfTTTT_NanoAOD/"
@@ -30,10 +31,10 @@ allProcesses = os.listdir( inputDir )
 
 
 
-rootplizer = "run_objectTSelector.C"
+rootplizer = "run_objectTSelectorForNanoAOD.C"
 subAllFile = Jobsubmitpath+"subAllProcess_seperate.sh"
 if os.path.exists(subAllFile):
-    os.popen('rm -fr '+subAllFile)
+    subprocess.run('rm -fr '+subAllFile , shell=True)
 if not os.path.exists(Jobsubmitpath+"Jobsubmit_seperate"):
     os.mkdir('Jobsubmit_seperate/')
 if not os.path.exists( outputDir):
@@ -71,12 +72,14 @@ for k in allProcesses:
     print( 'job sub script for kProcess is: ', oneProcess )
 
     sampleDir = inputDir + sample_k +'/'
+    koutputDir = outputDir + k + '/'
+    print( 'outputDir for kprocess: ', koutputDir )
     for entry in os.listdir( sampleDir):
         if os.path.isfile(os.path.join(sampleDir, entry)):
 
             smallFile = entry.replace( ".root", "")
             smallFilejob = "Jobsubmit_seperate/" +sampleName + "/" + smallFile + ".sh"  
-            prepareCshJob( sampleDir, smallFilejob, entry)
+            prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
             
             logFile = outputDir +  sampleName + "/log/" + smallFile + ".log"
             errFile = outputDir +  sampleName + "/log/" + smallFile + ".err"
@@ -92,7 +95,7 @@ for k in allProcesses:
 subAllProcessName.close()
 
 subprocess.run('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/*sh", shell=True )
-subprocess.run('chmod 777 '+Jobsubmitpath+"subAllProcess_seperate.sh", shell=True )
+subprocess.run( 'chmod 777 ' + subAllFile,  shell=True )
 
 
 

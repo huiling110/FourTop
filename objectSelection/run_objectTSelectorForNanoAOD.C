@@ -19,11 +19,6 @@ void run_objectTSelectorForNanoAOD(
     if ( inputDir.Contains( "Block")) isData = true;
 
     TString inputFile; 
-    // TString inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v3/2016/";
-    // if ( isData ){//only for JETHT
-    //      inputBase = "/publicfs/cms/data/TopQuark/FourTop_hua/v2/mc/2016/";
-    // }
-    // inputFile = inputBase + inputDir;
     inputFile = inputDir + singleFileName;
     cout << "inputFile: " << inputFile << "\n";
     TChain chain("Events");
