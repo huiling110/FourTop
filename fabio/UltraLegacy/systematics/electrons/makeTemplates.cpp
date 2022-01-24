@@ -15,8 +15,8 @@
 #include "../../tools/BTagCalibrationStandalone.cpp"
 #include "../../tools/evalEventSF.C"
 //tools for DeepTau SFs implementation
-//#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
-//#include "../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+#include "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 
 void makeTemplates(string year) {
 
@@ -151,10 +151,10 @@ void makeTemplates(string year) {
     //////////////////////////////////////////////////
 	//////////// SET UP MUON SCALE FACTORS ///////////
 	//////////////////////////////////////////////////
-    /*
-    TFile* input_MuonIDSF = new TFile( "muonSFs/TnP_NUM_MediumID_DENOM_generalTracks_VAR_map_pt_eta.root" );
-    TH2F * MuonIDSF = (TH2F*)input_MuonIDSF->Get("SF");
-    TFile* input_MuonISOSF = new TFile( "muonSFs/TnP_NUM_MultiIsoMedium_DENOM_MediumID_VAR_map_pt_eta.root" );
+    
+    TFile* input_MuonIDSF = new TFile( TString(MUOSF_files[year]), "READ" );
+    TH2F * MuonIDSF = (TH2F*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
+    /*TFile* input_MuonISOSF = new TFile( "muonSFs/TnP_NUM_MultiIsoMedium_DENOM_MediumID_VAR_map_pt_eta.root" );
     TH2F * MuonISOSF = (TH2F*)input_MuonISOSF->Get("SF");
     TFile* input_MuonIP2DSF = new TFile( "muonSFs/TnP_NUM_TightIP2D_DENOM_MediumID_VAR_map_pt_eta.root" );
     TH2F * MuonIP2DSF = (TH2F*)input_MuonIP2DSF->Get("SF");
@@ -177,8 +177,7 @@ void makeTemplates(string year) {
 
 	map<string, string>::iterator file_it = file.begin();
     map<string, float>::iterator xsec_it = xsec.begin();
-    TString Year = year;
-	TFile *outputfile = new TFile( "TemplateHistos_EleUncertainties_" + Year + ".root", "RECREATE" );
+	TFile *outputfile = new TFile( "TemplateHistos_EleUncertainties_" +TString(year) + ".root", "RECREATE" );
     
 	while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
    
@@ -259,7 +258,7 @@ void makeTemplates(string year) {
 		Long64_t nevents = mychain.GetEntries();
 
 		for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-			if (ievent > 100) break;
+			if (ievent > 500) break;
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
@@ -290,16 +289,6 @@ void makeTemplates(string year) {
 				    
 					double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
 					if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
-                    
-                    TauIDSFTool VSjetIDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSjet","Medium", false, false, true);
-                    double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(0).Pt(), mytausT_genPartFlav->at(0), "");
-
-                    TauIDSFTool VSeIDTool = TauIDSFTool("UL2016_postVFP","DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
-                    double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "");
-                    
-                    TauIDSFTool VSmuIDTool = TauIDSFTool("2016Legacy","DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
-                    double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(0).Eta()), mytausT_genPartFlav->at(0), "");
-                    
                     */
                     
                     if(is1tau1L) {
@@ -317,20 +306,37 @@ void makeTemplates(string year) {
                         if (eleIDSFUp == 0) eleIDSFUp = 1.0;
                         if (eleIDSFDown == 0) eleIDSFDown = 1.0;
 
-                        /*
-                        float myMuSF = 1.0;
+                        
+                        float muonIDSF = 1.0;
                         for (int i = 0; i < mymuonsT->size(); i++) {
-                            //if (ievent % 1000 == 0) cout << "Mu eta: " << mymuonsT->at(i).Eta() << " Mu pt: " << mymuonsT->at(i).Pt() << endl;
-                            myMuSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonISOSF->GetBinContent(MuonISOSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonIP2DSF->GetBinContent(MuonIP2DSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonIP3DSF->GetBinContent(MuonIP3DSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
+                            
+                            muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
+                                                        
+                        }
+                        if (muonIDSF == 0) muonIDSF = 1.0;
+                        
+                        float tauIDSF = 1.0;
+                        for (int i = 0; i < mytausT->size(); i ++) {
+
+                            TauIDSFTool VSjetIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSjet","Medium", false, false, true);
+                            double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
+
+                            TauIDSFTool VSeIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+                            double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                        
+                            TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(year),"DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
+                    
+                            double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                            
+                            tauIDSF *= VSjetSF; 
+                            tauIDSF *= VSeSF;
+                            tauIDSF *= VSmuSF;
                             
                         }
-                        if (myMuSF == 0) myMuSF = 1.0;
-                        */
-                        h_1tau1L_eleIDUp->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFUp  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
-                        h_1tau1L_eleIDDown->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFDown  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
+                        if (tauIDSF == 0) tauIDSF = 1.0;
+                        
+                        h_1tau1L_eleIDUp->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFUp * muonIDSF *tauIDSF /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
+                        h_1tau1L_eleIDDown->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFDown  * muonIDSF *tauIDSF /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
                     }
                     
 					if(is1tau3L) {
@@ -348,20 +354,37 @@ void makeTemplates(string year) {
                         if (eleIDSFUp == 0) eleIDSFUp = 1.0;
                         if (eleIDSFDown == 0) eleIDSFDown = 1.0;
 
-                        /*
-                        float myMuSF = 1.0;
+                        float muonIDSF = 1.0;
                         for (int i = 0; i < mymuonsT->size(); i++) {
+                            
                             //if (ievent % 1000 == 0) cout << "Mu eta: " << mymuonsT->at(i).Eta() << " Mu pt: " << mymuonsT->at(i).Pt() << endl;
-                            myMuSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonISOSF->GetBinContent(MuonISOSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonIP2DSF->GetBinContent(MuonIP2DSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
-                            myMuSF *= MuonIP3DSF->GetBinContent(MuonIP3DSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
+                            muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(mymuonsT->at(i).Pt(), fabs(mymuonsT->at(i).Eta())));
+                                                        
+                        }
+                        if (muonIDSF == 0) muonIDSF = 1.0;
+
+                        float tauIDSF = 1.0;
+                        for (int i = 0; i < mytausT->size(); i ++) {
+
+                            TauIDSFTool VSjetIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSjet","Medium", false, false, true);
+                            double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
+
+                            TauIDSFTool VSeIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+                            double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                        
+                            TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(year),"DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
+                    
+                            double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                            
+                            tauIDSF *= VSjetSF; 
+                            tauIDSF *= VSeSF;
+                            tauIDSF *= VSmuSF;
                             
                         }
-                        if (myMuSF == 0) myMuSF = 1.0;
-                        */
-                        h_1tau3L_eleIDUp->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFUp  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
-                        h_1tau3L_eleIDDown->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFDown  /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
+                        if (tauIDSF == 0) tauIDSF = 1.0;
+                        
+                        h_1tau3L_eleIDUp->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFUp * muonIDSF * tauIDSF /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
+                        h_1tau3L_eleIDDown->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight /** mytriggerWeight*/ * eleIDSFDown * muonIDSF * tauIDSF /* * mybtagWeight[0]*PSEF_it->second->GetBinContent(PSEF_it->second->FindBin(myjetsL->size())) */* LUMI[year] * xsec_it->second / gen_sum_of_weights);
                     }
 
 					//delete mybtagWeight;	
@@ -429,4 +452,3 @@ void writeHisto(TH1F* histo, map<string, string>::iterator file_it) {
 	delete histo;
 
 }
-

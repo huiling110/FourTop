@@ -6,20 +6,30 @@ map<string, double> LUMI = { //MAP OF LUMIS
 
     {"UL2016_preVFP", 35900.0},
     {"UL2016_postVFP", 35900.0},
-    {"UL2017", 35900.0},
-    {"UL2018", 35900.0},
+    {"UL2017", 41480.0},
+    {"UL2018", 59830.0},
 
 };
 //string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/v45_yieldsCrosscheck_presel2jets_PFJet450required/";
 string dir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/";
 
-string SF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
+string EGammaSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
 map<string, string> EGammaSF_files = { //MAP OF INPUT SCALE FACTOR FILES
 
-    {"UL2016_preVFP", SF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
-    {"UL2016_postVFP", SF_dir + "egammaEffi.txt_Ele_wp90noiso_postVFP_EGM2D.root"},
-    {"UL2017", SF_dir + "egammaEffi.txt_EGM2D_MVA90noIso_UL17.root"},
-    {"UL2018", SF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
+    {"UL2016_preVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
+    {"UL2016_postVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_postVFP_EGM2D.root"},
+    {"UL2017", EGammaSF_dir + "egammaEffi.txt_EGM2D_MVA90noIso_UL17.root"},
+    {"UL2018", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
+
+};
+
+string MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
+map<string, string> MUOSF_files = { //MAP OF INPUT SCALE FACTOR FILES
+
+    {"UL2016_preVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_preVFP_ID.root"},
+    {"UL2016_postVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_postVFP_ID.root"},
+    {"UL2017", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root"},
+    {"UL2018", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2018_UL_ID.root"},
 
 };
 
