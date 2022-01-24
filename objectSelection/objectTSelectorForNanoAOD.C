@@ -268,8 +268,8 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
 
     //Read files for jet smearing in MC
-    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
-    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/2016/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 
 }
