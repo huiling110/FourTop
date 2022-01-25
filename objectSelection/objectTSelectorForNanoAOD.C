@@ -256,10 +256,16 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    makeBranch( tree, isdata );
 
    //Set up branch for pileup correction
-   inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
-   inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
-   inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
-   inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+   if ( era == "2016postVFP" ){
+        // inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+        // inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+        // inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+        // inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
+   }
    //Get needed histograms
     dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
     dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");

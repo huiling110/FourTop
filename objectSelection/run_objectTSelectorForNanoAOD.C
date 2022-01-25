@@ -41,7 +41,7 @@ void run_objectTSelectorForNanoAOD(
     outputFile = outputDir + singleFileName;
     cout << "outputFile: "<< outputFile << endl;
     // option = outputFile;
-    option = outputFile + ":2016PPV";
+    option = outputFile + ":2016postVFP";
 
     if ( istest )    chain.Process( selection + "+", option, eventNum );
     else  chain.Process(selection + "+", option);
