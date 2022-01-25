@@ -15,6 +15,10 @@ void run_objectTSelectorForNanoAOD(
 {
     gROOT->ProcessLine(".L Loader.C+");
 
+    //determine era from inputDir
+    TString era = inputDir( inputDir.First("nanoAOD")+8, inputDir.First("mc") );
+    cout<<"era is: "<<era<<"\n";
+
     Bool_t isData = false;
     if ( inputDir.Contains( "Block")) isData = true;
 
@@ -40,7 +44,6 @@ void run_objectTSelectorForNanoAOD(
     TString outputFile;
     outputFile = outputDir + singleFileName;
     cout << "outputFile: "<< outputFile << endl;
-    // option = outputFile;
     option = outputFile + ":2016postVFP";
 
     if ( istest )    chain.Process( selection + "+", option, eventNum );

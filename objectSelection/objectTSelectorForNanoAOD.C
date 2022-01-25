@@ -308,8 +308,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
         if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
         if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
-          //			if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;
-          //			why this filter not work?//applied only in 2017 and 2018
+        if ( era == "2017" || era == "2018" ){
+            // if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;//			why this filter not work?//applied only in 2017 and 2018
+            if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;//			why this filter not work?//applied only in 2017 and 2018
+        }
         //CHANGE HERE TO RUN ON DATA 
 		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
     }
@@ -1227,7 +1229,6 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 }
 
 void objectTSelectorForNanoAOD::setupInputFile(){
-
    //Set up branch for pileup correction
    if ( era == "2016postVFP" ){
         // inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
@@ -1244,8 +1245,22 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
 
+   }else if( era == "2017" ){
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
+   }else if( era == "2017" ){
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
+   }else if( era == "2018" ){
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
    }
-
    //Get needed histograms
     dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
     dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
