@@ -4,8 +4,8 @@
 #include "TROOT.h"
 
 void run_objectTSelectorForNanoAOD(
-    // Bool_t istest = true,
-    Bool_t istest = false,
+    Bool_t istest = true,
+    // Bool_t istest = false,
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString singleFileName = "outTree_0.root",

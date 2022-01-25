@@ -81,8 +81,11 @@ public :
     Long64_t jets_total = 0;
     Long64_t bjetsM_total =0;
 
-    Double_t genWeight_allEvents;
 
+   //branches in output trees
+   Int_t PV_npvs_;
+   Int_t PV_npvsGood_;
+   Double_t genWeight_allEvents;
 
    Int_t    Flag_goodVertices_ ;
    Int_t    Flag_globalSuperTightHalo2016Filter_ ;

@@ -323,6 +323,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     copyFlags();
 
+    
+
     //HLT
     if ( HLTSelection){
         if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
@@ -339,7 +341,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
 
     }
-    
+    PV_npvs_ = *PV_npvs;
+    PV_npvsGood_ = *PV_npvsGood;
 
     vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
@@ -745,8 +748,10 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
    }
-   
-   tree->Branch( "Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
+
+   tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
+   tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
+   tree->Branch("Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
    tree->Branch( "Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
    tree->Branch( "Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
    tree->Branch( "Flag_HBHENoiseIsoFilter_", &Flag_HBHENoiseIsoFilter_, "Flag_HBHENoiseIsoFilter_/I");
