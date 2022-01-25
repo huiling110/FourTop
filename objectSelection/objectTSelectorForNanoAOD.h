@@ -58,11 +58,12 @@ public :
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    //Bool_t isdata = true;
+   // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
+   TString era = "2016PPV";
    Bool_t MetFilters = true;
-    // Bool_t MetFilters = false;
+   // Bool_t MetFilters = false;
    Bool_t HLTSelection = true;
     //Bool_t HLTSelection = false;
-    // Bool_t preselection = true;
     // Bool_t preselection = false;
    Bool_t preselection = true;
 

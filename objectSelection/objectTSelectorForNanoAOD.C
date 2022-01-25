@@ -228,15 +228,20 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+   TString option1 = option(0, option.First(":"));
+   TString option2 = option(option.First(":") + 1, option.Sizeof());
+   std::cout << "option1: " << option1 << "\n";
+   std::cout << "option2: " << option2 << "\n";
 
-///////////////////////////////////////
+   ///////////////////////////////////////
 
    if ( option.Contains( "JetHT")|| option.Contains( "SingleMuon") ) isdata = true;
    cout<<"is data?: "<<isdata<<endl;
-    
-   // TString inName = fChain->GetName();
-   // cout<<inName<<endl;
-   TString outFileName = option;
+
+   era = option2;
+   std::cout << "era is: " << era << "\n";
+
+   TString outFileName = option1;
    outputfile = new TFile( outFileName, "RECREATE");
    cout<<"outputFileName: "<<outputfile->GetName()<<endl;
    
@@ -251,8 +256,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    makeBranch( tree, isdata );
 
    //Set up branch for pileup correction
-   //inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_data2016_postAPV.root", "READ");
-   //inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
    inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
    inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
    inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
@@ -297,6 +300,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 ///////////////////////////////////////
    fProcessed++;
+
+    //test
+//    std::cout << "LHE_Njets = " << *LHE_Njets << "\n";
 
    genWeight_allEvents = -99;
    //CHANGE HERE TO RUN ON DATA
