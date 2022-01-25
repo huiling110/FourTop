@@ -229,9 +229,19 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
    TString option1 = option(0, option.First(":"));
-   TString option2 = option(option.First(":") + 1, option.Sizeof());
+//    TString option2 = option(option.First(":") + 1, option.Sizeof()-3);
+//    TString option2 = option(option.First(":") + 1, option.Length()-6);
+    // Int_t length = option.Last(":")-option.First（":");
+    // TString option2 = option(option.First(":")+1, option.Last(":")-option.First(":") );//???
+    // TString temp = option.Clone();
+    TString temp = option;
+    TString option2 = temp.Remove(0, option.First(":")+1);
+    option2 = option2(0, option2.First(":"));
+    std::cout<<temp<<"\n";
+    TString option3 = temp.Remove(0, option.First(":")-1);
    std::cout << "option1: " << option1 << "\n";
    std::cout << "option2: " << option2 << "\n";
+   std::cout<<"option3: "<<option3<<"\n";
 
    ///////////////////////////////////////
 

@@ -9,6 +9,7 @@ void run_objectTSelectorForNanoAOD(
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString singleFileName = "outTree_0.root",
+    TString eventSelectionBit = "7", // 2 for MetFilters, 4 for HLTSelection, 1 for preselection. so 7 if all selection; 0 if no selection 
     // Bool_t ishuiling = false
     Bool_t ishuiling = true
     )
@@ -17,7 +18,10 @@ void run_objectTSelectorForNanoAOD(
 
     //determine era from inputDir
     TString era = inputDir( inputDir.First("nanoAOD")+8, inputDir.First("mc") );
+    if (era="2016") era = "2016postVFP";
+    if (era="2016APV") era = "2016preVFP";
     cout<<"era is: "<<era<<"\n";
+    cout<<"selectionBit is:"<<eventSelectionBit<<"\n";
 
     Bool_t isData = false;
     if ( inputDir.Contains( "Block")) isData = true;
@@ -44,7 +48,9 @@ void run_objectTSelectorForNanoAOD(
     TString outputFile;
     outputFile = outputDir + singleFileName;
     cout << "outputFile: "<< outputFile << endl;
-    option = outputFile + ":2016postVFP";
+    // option = outputFile + ":2016postVP";
+    option = outputFile + ":" + era + ":"+ eventSelectionBit;
+    cout<<"option: "<<option<<"\n";
 
     if ( istest )    chain.Process( selection + "+", option, eventNum );
     else  chain.Process(selection + "+", option);
