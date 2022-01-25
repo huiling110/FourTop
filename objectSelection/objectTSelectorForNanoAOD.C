@@ -255,27 +255,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    makeBranch( tree, isdata );
 
-   //Set up branch for pileup correction
-   if ( era == "2016postVFP" ){
-        // inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
-        // inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
-        // inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
-        // inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
-        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
-        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
-        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
-        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
-   }
-   //Get needed histograms
-    dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
-    dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
-    dataPileupProfileDown = (TH1F*)inputPUFile_dataDown->Get("pileup");
-    MCPileupProfile = (TH1F*)inputPUFile_mc->Get("pileup");
-    //Scale to unit area for a fair comparison
-    dataPileupProfile->Scale(1.0/dataPileupProfile->Integral());
-    dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
-    dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
-    MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
+    setupInputFile();
 
     //Read files for jet smearing in MC
     readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
@@ -1244,4 +1224,36 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     PUWeight_Down = -99;
     EVENT_genWeight_ = -99;
 
+}
+
+void objectTSelectorForNanoAOD::setupInputFile(){
+
+   //Set up branch for pileup correction
+   if ( era == "2016postVFP" ){
+        // inputPUFile_data = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+        // inputPUFile_dataUp = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+        // inputPUFile_dataDown = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+        // inputPUFile_mc = new TFile("/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/pileupCalc/2016/PUHistogram_mc2016_postAPV.root", "READ");
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
+   }else if( era == "2016preVFP" ){
+        inputPUFile_data = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "READ");
+        inputPUFile_dataUp = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
+        inputPUFile_dataDown = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
+        inputPUFile_mc = new TFile("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
+
+   }
+
+   //Get needed histograms
+    dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
+    dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
+    dataPileupProfileDown = (TH1F*)inputPUFile_dataDown->Get("pileup");
+    MCPileupProfile = (TH1F*)inputPUFile_mc->Get("pileup");
+    //Scale to unit area for a fair comparison
+    dataPileupProfile->Scale(1.0/dataPileupProfile->Integral());
+    dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
+    dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
+    MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
 }
