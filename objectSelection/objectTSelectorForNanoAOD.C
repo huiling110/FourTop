@@ -837,32 +837,22 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         if (!(fabs(Muon_eta.At(j)) < 2.4))        continue;
         //ID
         if (type == 0) {
-            if (!(Muon_looseId.At(j) == 1))              continue;
+            if ( !Muon_looseId.At(j) )              continue;
         }
         if (type == 1 or type == 2) {
-            if (!(Muon_mediumId.At(j) == 1))     continue;
+            if ( !Muon_mediumId.At(j) )     continue;
         }
         //ISO
-        //THE FOLLOWING COMMENTED BLOCK DOES NOT GIVE THE SAME RESULT AS THE "HAND-MADE" ISOLATION IMPLEMENTATION AND LEADS TO IMBALANCE BETWEEN ELECTRON ("HAND-MADE") AND MUON NUMBERS
-        /*
         if (type == 0 || type == 1) {
 
-            if (!(Muon_miniIsoId.At(j) == 1)) continue; // Muon_miniIsoId == 1 corresponds to MiniIsoLoose WP, corresponding to relMiniIso < 0.4
+            if ( !( int(Muon_miniIsoId.At(j)) >= 1) ) continue;
 
         }
         if (type == 2) {
 
-            if (!(Muon_miniIsoId.At(j) == 3)) continue; // Muon_miniIsoId == 3 corresponds to MiniIsoTight WP, corresponding to relMiniIso < 0.1
+            if ( !( int(Muon_miniIsoId.At(j)) >=3) ) continue;
 
         }
-        */
-        
-        Double_t relMiniIso = 0.4;
-        if (type == 0 || type == 1) {
-            relMiniIso = 0.4;
-        } 
-        if(type == 2) {relMiniIso = 0.1;}
-        if ( !(Muon_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
         
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
