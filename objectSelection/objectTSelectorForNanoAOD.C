@@ -930,15 +930,22 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     if (TauWP == 2 || TauWP == 3) {
        if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
     if (TauWP == 1) {
-      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-      if (!(Tau_idDeepTau2017v2p1VSjet.At(j)>2 ))        continue;
+      bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); //check if the 2nd bit (VVLoose WP) is 1
+      if (!isVSjetVVLoose)        continue;
       // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
     }
     if (TauWP == 2) {
-      if ( !(Tau_idDeepTau2017v2p1VSjet.At(j) > 2 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1) )        continue;
+        bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); //check if the 2nd bit (VVLoose WP) is 1
+        bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); //check if the 1st bit (VVVLoose WP) is 1
+        bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); //check if the 1st bit (VLoose WP) is 1
+      if ( !( isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose ) )        continue;
     }
     if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
-      if ( !( Tau_idDeepTau2017v2p1VSjet.At(j)>16 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1 ) )        continue;
+        
+        bool isVSjetM = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4); //check if the 5th bit (Medium WP) is 1
+        bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); //check if the 1st bit (VVVLoose WP) is 1
+        bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); //check if the 1st bit (VLoose WP) is 1
+        if ( !( isVSjetM && isVSeVVVLoose && isVSmuVLoose ) )        continue;
     }
     //overlap removal
     Double_t minDeltaR_lep;
