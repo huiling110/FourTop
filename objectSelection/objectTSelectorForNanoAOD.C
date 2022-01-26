@@ -860,12 +860,12 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         if(type == 1 or type == 2) {
           if(!(fabs(Muon_ip3d.At(j))<4)) continue;
         }
-        /*
+        
         //charge,The quality of the charge reconstruction 
         if ( type==1 || type==2 ){
-            if ( !(Muon_tightCharge.At(j)<2) ) continue;
+            if ( !(Muon_tightCharge.At(j)==2) ) continue;
         }
-        */
+        
         TLorentzVector muon;
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
         muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
