@@ -1271,14 +1271,15 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
    }
+   std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
    //Get needed histograms
-    dataPileupProfile = (TH1F*)inputPUFile_data->Get("pileup");
-    dataPileupProfileUp = (TH1F*)inputPUFile_dataUp->Get("pileup");
-    dataPileupProfileDown = (TH1F*)inputPUFile_dataDown->Get("pileup");
-    MCPileupProfile = (TH1F*)inputPUFile_mc->Get("pileup");
-    //Scale to unit area for a fair comparison
-    dataPileupProfile->Scale(1.0/dataPileupProfile->Integral());
-    dataPileupProfileUp->Scale(1.0/dataPileupProfileUp->Integral());
-    dataPileupProfileDown->Scale(1.0/dataPileupProfileDown->Integral());
-    MCPileupProfile->Scale(1.0/MCPileupProfile->Integral());
+   dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup");
+   dataPileupProfileUp = (TH1F *)inputPUFile_dataUp->Get("pileup");
+   dataPileupProfileDown = (TH1F *)inputPUFile_dataDown->Get("pileup");
+   MCPileupProfile = (TH1F *)inputPUFile_mc->Get("pileup");
+   //Scale to unit area for a fair comparison
+   dataPileupProfile->Scale(1.0 / dataPileupProfile->Integral());
+   dataPileupProfileUp->Scale(1.0 / dataPileupProfileUp->Integral());
+   dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
+   MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
 }
