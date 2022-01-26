@@ -884,16 +884,9 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         Double_t eta = Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))      continue;
         if (!(pt > 10))         continue;
-        if (!Electron_mvaFall17V2noIso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
-        
-        // ISO 
-        Double_t relMiniIso = 0.4;
-        if (type == 0 || type == 1) {
-            relMiniIso = 0.4;
-        } 
-        if(type == 2) {relMiniIso = 0.1;}
-        if ( !(Electron_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
-        
+        if (!Electron_mvaFall17V2Iso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
+        //note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
+
         // IP 
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))        continue;
@@ -902,16 +895,14 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         }
         
         //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-        // cout << "Electron_lostHits= " << static_cast<int>(Eleictron_lostHits.At(j)) << "\n";
-        //UChar_t is just int with 1 bit
         if (type == 0)
         {
-            if ( !(Electron_lostHits.At(j)<=1) )  continue;
+            if ( !(int(Electron_lostHits.At(j))<=1) )  continue;
         }
         if ( type==1 || type==2 ){
-            if ( !(Electron_lostHits.At(j)==0))  continue;
+            if ( !(int(Electron_lostHits.At(j))==0))  continue;
         }
-        if ( !(Electron_convVeto.At(j)==1)) continue;
+        if ( !Electron_convVeto.At(j) ) continue;
         // tight charge
         //Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
         //???not sure which one to use, drop for now
