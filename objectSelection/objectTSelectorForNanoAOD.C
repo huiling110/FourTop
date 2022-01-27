@@ -1251,11 +1251,16 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
+
+        jetSmearing_PtFile = "../data_rootFile/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
+        jetSmearing_MCFile = "../data_rootFile/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
    }else if( era == "2016preVFP" ){
         inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "READ");
         inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
+
+        // jetSmearing_PtFile = ""
 
    }else if( era == "2017" ){
         inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
