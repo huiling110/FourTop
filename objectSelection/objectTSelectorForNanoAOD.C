@@ -268,9 +268,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
     setupInputFile();
 
-    //Read files for jet smearing in MC
-    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
-    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 
 }
@@ -376,6 +373,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
        //??? add year parameter here for different year 
         TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+       if ( era.CompareTo( "2016postVFP")==0 ){
+        //    std::cout<<__LINE__<<"\n";
+           TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+
+       }else if( era.CompareTo( "2016preVFP")==0 ){
+           TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
+
+       }else if( era.CompareTo("2017")==0 ){
+           TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
+
+       }else if( era.CompareTo("2018")==0 ){
+           TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
+
+       }
         float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
         float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
@@ -1253,16 +1264,16 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
 
-        jetSmearing_PtFile = "../data_rootFile/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
-        jetSmearing_MCFile = "../data_rootFile/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
+        jetSmearing_PtFile = "../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
+        jetSmearing_MCFile = "../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
    }else if( era.CompareTo("2016preVFP")==0 ){
         inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "READ");
         inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
 
-        // jetSmearing_PtFile = "../data_rootFile/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt";
-        // jetSmearing_MCFile = "../data_rootFile/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_SF_AK4PFchs.txt";
+        jetSmearing_PtFile = "../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt";
+        jetSmearing_MCFile = "../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_SF_AK4PFchs.txt";
 
    }else if( era.CompareTo("2017")==0 ){
         inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
@@ -1270,8 +1281,8 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
 
-        // jetSmearing_PtFile = "../dada_rootFiles/UL2017/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt";
-        // jetSmearing_MCFile = "../data_rootFiles/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt";
+        jetSmearing_PtFile = "../dada_rootFiles/UL2017/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt";
+        jetSmearing_MCFile = "../data_rootFiles/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt";
 
    }else if( era.CompareTo("2018")==0 ){
         inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "READ");
@@ -1279,8 +1290,8 @@ void objectTSelectorForNanoAOD::setupInputFile(){
         inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
         inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017_postVFP.root", "READ");
 
-        // jetSmearing_PtFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt";
-        // jetSmearing_MCFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt";
+        jetSmearing_PtFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt";
+        jetSmearing_MCFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt";
    }
    std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
    std::cout<<"jetSmearing file used: "<<jetSmearing_PtFile<<"\n"<<jetSmearing_MCFile<<"\n";
@@ -1295,9 +1306,6 @@ void objectTSelectorForNanoAOD::setupInputFile(){
    dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
    MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
 
-    //Read files for jet smearing in MC
-    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
-    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
     readSmearingFile( jetSmearing_PtFile, resolution, resFormula );
     readSmearingFile( jetSmearing_MCFile, resSFs, toyResFormula );
 
