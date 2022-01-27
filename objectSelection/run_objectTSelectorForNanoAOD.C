@@ -18,11 +18,13 @@ void run_objectTSelectorForNanoAOD(
     gROOT->ProcessLine(".L Loader.C+");
 
     //determine era from inputDir
-    TString era = inputDir( inputDir.First("nanoAOD")+8, inputDir.First("mc") );
+    // TString era = inputDir( inputDir.First("nanoAOD")+8, inputDir.First("mc") );
+    TString era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("mc")-inputDir.Index("nanoAOD")-9) );
+    cout<<"era is: "<<era<<"\n";
     
-    if ( era.CompareTo( "2016"==0 )) {
+    if ( era.CompareTo( "2016" )==0) {
         era = "2016postVFP";
-    }else if( era.CompareTo( "2016APV") ){
+    }else if( era.CompareTo( "2016APV")==0 ){
         era = "2016preVFP";
     }
     cout<<"era is: "<<era<<"\n";
