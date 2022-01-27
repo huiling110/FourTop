@@ -958,7 +958,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
                      Tau_mass.At(j));
     tau *= tauESFactors.at(j); //apply TES correction
-    tau *= tauFESFactors.at(j); //apply TES correction
+    tau *= tauFESFactors.at(j); //apply FES correction
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
@@ -1049,13 +1049,12 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
                 }
             if ( !(minDeltaR_tau >= 0.4)) continue;
         }
-        // Double_t SF = jetpt / Jet_pt.At(j);
-        Double_t SF =1;
+        
         TLorentzVector jet_prov;
         jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                 Jet_mass.At(j));
         TLorentzVector jet;
-        jet.SetPxPyPzE(SF * jet_prov.Px() * jetSmearingFactors.at(j), SF * jet_prov.Py() * jetSmearingFactors.at(j), SF * jet_prov.Pz() * jetSmearingFactors.at(j), SF * jet_prov.E() * jetSmearingFactors.at(j));
+        jet.SetPxPyPzE(jet_prov.Px() * jetSmearingFactors.at(j), jet_prov.Py() * jetSmearingFactors.at(j), jet_prov.Pz() * jetSmearingFactors.at(j), jet_prov.E() * jetSmearingFactors.at(j));
         //?is this  step necessary?
         //???why do this?
         SelectedJets.push_back(jet);
