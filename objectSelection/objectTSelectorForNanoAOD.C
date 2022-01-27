@@ -238,7 +238,8 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     TString option2 = temp.Remove(0, option.First(":")+1);
     option2 = option2(0, option2.First(":"));
     std::cout<<temp<<"\n";
-    TString option3 = temp.Remove(0, option.First(":")-1);
+    TString option3 = temp.Remove(0, option.First(":")-
+    //???
    std::cout << "option1: " << option1 << "\n";
    std::cout << "option2: " << option2 << "\n";
    std::cout<<"option3: "<<option3<<"\n";
