@@ -238,11 +238,11 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     TString option2 = temp.Remove(0, option.First(":")+1);
     option2 = option2(0, option2.First(":"));
     std::cout<<temp<<"\n";
-    TString option3 = temp.Remove(0, option.First(":")-
+    // TString option3 = temp.Remove(0, option.First(":")-
     //???
    std::cout << "option1: " << option1 << "\n";
    std::cout << "option2: " << option2 << "\n";
-   std::cout<<"option3: "<<option3<<"\n";
+// t    std::cout<<"option3: "<<option3<<"\n";
 
    ///////////////////////////////////////
 
@@ -269,8 +269,8 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     setupInputFile();
 
     //Read files for jet smearing in MC
-    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
-    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
+    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
+    // readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
 ///////////////////////////////////////
 
 }
@@ -1283,4 +1283,10 @@ void objectTSelectorForNanoAOD::setupInputFile(){
    dataPileupProfileUp->Scale(1.0 / dataPileupProfileUp->Integral());
    dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
    MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
+
+    //Read files for jet smearing in MC
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", resolution, resFormula );
+    readSmearingFile( "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt", resSFs, toyResFormula );    
+
+
 }
