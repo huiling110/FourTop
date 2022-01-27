@@ -19,8 +19,12 @@ void run_objectTSelectorForNanoAOD(
 
     //determine era from inputDir
     TString era = inputDir( inputDir.First("nanoAOD")+8, inputDir.First("mc") );
-    if (era="2016") era = "2016postVFP";
-    if (era="2016APV") era = "2016preVFP";
+    
+    if ( era.CompareTo( "2016"==0 )) {
+        era = "2016postVFP";
+    }else if( era.CompareTo( "2016APV") ){
+        era = "2016preVFP";
+    }
     cout<<"era is: "<<era<<"\n";
     cout<<"selectionBit is:"<<eventSelectionBit<<"\n";
 
