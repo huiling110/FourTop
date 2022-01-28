@@ -849,32 +849,22 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         if (!(fabs(Muon_eta.At(j)) < 2.4))        continue;
         //ID
         if (type == 0) {
-            if (!(Muon_looseId.At(j) == 1))              continue;
+            if ( !Muon_looseId.At(j) )              continue;
         }
         if (type == 1 or type == 2) {
-            if (!(Muon_mediumId.At(j) == 1))     continue;
+            if ( !Muon_mediumId.At(j) )     continue;
         }
         //ISO
-        //THE FOLLOWING COMMENTED BLOCK DOES NOT GIVE THE SAME RESULT AS THE "HAND-MADE" ISOLATION IMPLEMENTATION AND LEADS TO IMBALANCE BETWEEN ELECTRON ("HAND-MADE") AND MUON NUMBERS
-        /*
         if (type == 0 || type == 1) {
 
-            if (!(Muon_miniIsoId.At(j) == 1)) continue; // Muon_miniIsoId == 1 corresponds to MiniIsoLoose WP, corresponding to relMiniIso < 0.4
+            if ( !( int(Muon_miniIsoId.At(j)) >= 1) ) continue;
 
         }
         if (type == 2) {
 
-            if (!(Muon_miniIsoId.At(j) == 3)) continue; // Muon_miniIsoId == 3 corresponds to MiniIsoTight WP, corresponding to relMiniIso < 0.1
+            if ( !( int(Muon_miniIsoId.At(j)) >=3) ) continue;
 
         }
-        */
-        
-        Double_t relMiniIso = 0.4;
-        if (type == 0 || type == 1) {
-            relMiniIso = 0.4;
-        } 
-        if(type == 2) {relMiniIso = 0.1;}
-        if ( !(Muon_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
         
         // IP
         if(!(fabs(Muon_dz.At(j))<0.1)) continue;
@@ -882,12 +872,12 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
         if(type == 1 or type == 2) {
           if(!(fabs(Muon_ip3d.At(j))<4)) continue;
         }
-        /*
+        
         //charge,The quality of the charge reconstruction 
         if ( type==1 || type==2 ){
-            if ( !(Muon_tightCharge.At(j)<2) ) continue;
+            if ( !(Muon_tightCharge.At(j)==2) ) continue;
         }
-        */
+        
         TLorentzVector muon;
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
         muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
@@ -906,16 +896,9 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         Double_t eta = Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))      continue;
         if (!(pt > 10))         continue;
-        if (!Electron_mvaFall17V2noIso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
-        
-        // ISO 
-        Double_t relMiniIso = 0.4;
-        if (type == 0 || type == 1) {
-            relMiniIso = 0.4;
-        } 
-        if(type == 2) {relMiniIso = 0.1;}
-        if ( !(Electron_miniPFRelIso_all.At(j) < relMiniIso) )     continue;
-        
+        if (!Electron_mvaFall17V2Iso_WP90.At(j)) continue; //note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
+        //note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
+
         // IP 
         if (!(fabs(Electron_dxy.At(j)) < 0.05))    continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))        continue;
@@ -924,16 +907,14 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
         }
         
         //the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-        // cout << "Electron_lostHits= " << static_cast<int>(Eleictron_lostHits.At(j)) << "\n";
-        //UChar_t is just int with 1 bit
         if (type == 0)
         {
-            if ( !(Electron_lostHits.At(j)<=1) )  continue;
+            if ( !(int(Electron_lostHits.At(j))<=1) )  continue;
         }
         if ( type==1 || type==2 ){
-            if ( !(Electron_lostHits.At(j)==0))  continue;
+            if ( !(int(Electron_lostHits.At(j))==0))  continue;
         }
-        if ( !(Electron_convVeto.At(j)==1)) continue;
+        if ( !Electron_convVeto.At(j) ) continue;
         // tight charge
         //Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
         //???not sure which one to use, drop for now
@@ -961,15 +942,22 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     if (TauWP == 2 || TauWP == 3) {
        if( Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)      continue;} // for decay mode
     if (TauWP == 1) {
-      // if (!(Tau_byVVLooseDeepTau2017v2p1VSjet.At(j) > 0.5))        continue;
-      if (!(Tau_idDeepTau2017v2p1VSjet.At(j)>2 ))        continue;
+      bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); //check if the 2nd bit (VVLoose WP) is 1
+      if (!isVSjetVVLoose)        continue;
       // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
     }
     if (TauWP == 2) {
-      if ( !(Tau_idDeepTau2017v2p1VSjet.At(j) > 2 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1) )        continue;
+        bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); //check if the 2nd bit (VVLoose WP) is 1
+        bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); //check if the 1st bit (VVVLoose WP) is 1
+        bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); //check if the 1st bit (VLoose WP) is 1
+      if ( !( isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose ) )        continue;
     }
     if (TauWP == 3) { // channel specific in ttH. use the tight from 1t 1l
-      if ( !( Tau_idDeepTau2017v2p1VSjet.At(j)>16 && Tau_idDeepTau2017v2p1VSmu.At(j) > 4 && Tau_idDeepTau2017v2p1VSe.At(j) > 1 ) )        continue;
+        
+        bool isVSjetM = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4); //check if the 5th bit (Medium WP) is 1
+        bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); //check if the 1st bit (VVVLoose WP) is 1
+        bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); //check if the 1st bit (VLoose WP) is 1
+        if ( !( isVSjetM && isVSeVVVLoose && isVSmuVLoose ) )        continue;
     }
     //overlap removal
     Double_t minDeltaR_lep;
@@ -982,7 +970,7 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
     tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j),
                      Tau_mass.At(j));
     tau *= tauESFactors.at(j); //apply TES correction
-    tau *= tauFESFactors.at(j); //apply TES correction
+    tau *= tauFESFactors.at(j); //apply FES correction
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
@@ -1073,13 +1061,12 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
                 }
             if ( !(minDeltaR_tau >= 0.4)) continue;
         }
-        // Double_t SF = jetpt / Jet_pt.At(j);
-        Double_t SF =1;
+        
         TLorentzVector jet_prov;
         jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
                 Jet_mass.At(j));
         TLorentzVector jet;
-        jet.SetPxPyPzE(SF * jet_prov.Px() * jetSmearingFactors.at(j), SF * jet_prov.Py() * jetSmearingFactors.at(j), SF * jet_prov.Pz() * jetSmearingFactors.at(j), SF * jet_prov.E() * jetSmearingFactors.at(j));
+        jet.SetPxPyPzE(jet_prov.Px() * jetSmearingFactors.at(j), jet_prov.Py() * jetSmearingFactors.at(j), jet_prov.Pz() * jetSmearingFactors.at(j), jet_prov.E() * jetSmearingFactors.at(j));
         //?is this  step necessary?
         //???why do this?
         SelectedJets.push_back(jet);
