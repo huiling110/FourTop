@@ -252,7 +252,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    era = option2;
    std::cout << "era is: " << era << "\n";
 
-   //if (isdata) {// deal with Lumi JSONs only if reading data
+   if (isdata) {// deal with Lumi JSONs only if reading data
        
        TString jsonInFile = GoldenJSONs[era];
        if (jsonInFile){
@@ -299,7 +299,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
            }
        }// end if JSON file
 
-       //}  
+   }  
 
    TString outFileName = option1;
    outputfile = new TFile( outFileName, "RECREATE");
@@ -355,6 +355,16 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    }
    
    allEvents->Fill();
+
+   if(isdata) {
+
+       if ( _goodLumis.find(*run) == _goodLumis.end() ) return kFALSE;
+       else { //if run number is in map
+           for ( Int_t i ; i < _goodLumis[*run].size()/2.; i++){
+               if ( !(*luminosityBlock > _goodLumis[*run][i*2] && *luminosityBlock < _goodLumis[*run][i*2+1]) ) return kFALSE; //veto luminosity blocks not in JSON
+           }
+       }
+   }
 
    //MET filters
    if ( MetFilters ){ //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
