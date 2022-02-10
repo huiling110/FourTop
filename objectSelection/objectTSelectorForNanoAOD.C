@@ -309,16 +309,19 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 
    //MET filters
-    if ( MetFilters ){
+   if ( MetFilters ){ //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
         if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
         if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
         if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
         if (!(*Flag_HBHENoiseIsoFilter == 1))        return kFALSE;
         if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
         if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
+        if (!(*Flag_BadPFMuonDzFilter == 1))      return kFALSE;
+        if (!(*Flag_eeBadScFilter == 1))      return kFALSE;
         if ( era == "2017" || era == "2018" ){
-            // if(!(*Flag_ecalBadCalibReducedMINIAODFilter==1))  return kFALSE;//			why this filter not work?//applied only in 2017 and 2018
-            if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;//			why this filter not work?//applied only in 2017 and 2018
+
+            if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;
+
         }
         //CHANGE HERE TO RUN ON DATA 
 		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
