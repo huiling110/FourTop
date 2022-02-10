@@ -1019,28 +1019,28 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         }
         if (deepJet) {//https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
             if (jetType == 11) {
-                if (!(Jet_btagDeepFlavB.At(j) > 0.0614))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetL[era]))
                     continue;
             }
             if (jetType == 12) {
-                if (!(Jet_btagDeepFlavB.At(j) > 0.3093))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetM[era]))
                     continue;
             }
             if (jetType == 13) {
-                if (!(Jet_btagDeepFlavB.At(j) > 0.7221))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetT[era]))
                     continue;
             }
         } else {
             if (jetType == 11) {
-                if (!(Jet_btagDeepB.At(j) > 0.2217))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVL[era]))
                     continue;
             }
             if (jetType == 12) {
-                if (!(Jet_btagDeepB.At(j) > 0.6321))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVM[era]))
                     continue;
             }
             if (jetType == 13) {
-                if (!(Jet_btagDeepB.At(j) > 0.8953))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVT[era]))
                     continue;
             }
         }

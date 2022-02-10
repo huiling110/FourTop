@@ -25,10 +25,10 @@
 // Headers needed by this particular selector
 #include <vector>
 #include <TRandom3.h>
+#include <map>
 #include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
-
 
 class objectTSelectorForNanoAOD : public TSelector {
 public :
@@ -60,7 +60,59 @@ public :
    //Bool_t isdata = true;
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
    TString era = "2016postVFP";
+   map<TString, double> DeepJetL = { //map of loose WPs for DeepJet
 
+       {"2016postVFP", 0.0480},
+       {"2016preVFP", 0.0508},
+       {"2017", 0.0532},
+       {"2018", 0.0490},
+
+   };
+
+   map<TString, double> DeepJetM = { //map of medium WPs for DeepJet
+
+       {"2016postVFP", 0.2489},
+       {"2016preVFP", 0.2598},
+       {"2017", 0.3040},
+       {"2018", 0.2783},
+
+   };
+
+   map<TString, double> DeepJetT = { //map of tight WPs for DeepJet
+
+       {"2016postVFP", 0.6377},
+       {"2016preVFP", 0.6502},
+       {"2017", 0.7476},
+       {"2018", 0.7100},
+
+   };
+
+   map<TString, double> DeepCSVL = { //map of loose WPs for DeepCSV
+
+       {"2016postVFP",  0.1918},
+       {"2016preVFP",  0.2027},
+       {"2017", 0.1355},
+       {"2018", 0.1208},
+
+   };
+
+   map<TString, double> DeepCSVM = { //map of medium WPs for DeepCSV
+
+       {"2016postVFP",   0.5847},
+       {"2016preVFP",  0.6001},
+       {"2017", 0.4506},
+       {"2018", 0.4168},
+
+   };
+
+   map<TString, double> DeepCSVT = { //map of tight WPs for DeepCSV
+
+       {"2016postVFP",  0.8767},
+       {"2016preVFP", 0.8819},
+       {"2017",  0.7738},
+       {"2018", 0.7665},
+
+   };
    Bool_t MetFilters = true;
    // Bool_t MetFilters = false;
    Bool_t HLTSelection = true;
