@@ -278,7 +278,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
            } 
            TString processString = JSON;
            TString segment;
-           Ssiz_t from = 0;
+           Ssiz_t from = 2;
            while(processString.Tokenize(segment,from,", \"")){ 
                // JSON file has a layout like this: "284029": [[1, 112]], "284035": [[1, 369]], etc
                // So first tokenize with respect to the string ', "' which separates each run+lumi block
