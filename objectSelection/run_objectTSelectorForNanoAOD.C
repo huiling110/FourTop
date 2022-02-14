@@ -58,8 +58,13 @@ void run_objectTSelectorForNanoAOD(
     cout << "outputFile: "<< outputFile << endl;
     // option = outputFile + ":2016postVP";
     option = outputFile + ":" + era + ":"+ eventSelectionBit;
-    cout<<"option: "<<option<<"\n";
+    cout<<"option in run: "<<option<<"\n";
 
-    if ( istest )    chain.Process( selection + "+", option, eventNum );
-    else  chain.Process(selection + "+", option);
+    if ( istest )  {
+        chain.Process( selection + "+", option, eventNum );
+    // cout<<"option: "<<option<<"\n";
+    }else  { 
+        chain.Process(selection + "+", option);
+    }
+    // cout<<"option: "<<option<<"\n";
 }
