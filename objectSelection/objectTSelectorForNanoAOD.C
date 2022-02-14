@@ -228,6 +228,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+   std::cout<<"option: "<<option;
    TString option1 = option(0, option.First(":"));
 //    TString option2 = option(option.First(":") + 1, option.Sizeof()-3);
 //    TString option2 = option(option.First(":") + 1, option.Length()-6);
@@ -238,11 +239,11 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     TString option2 = temp.Remove(0, option.First(":")+1);
     option2 = option2(0, option2.First(":"));
     std::cout<<temp<<"\n";
-    // TString option3 = temp.Remove(0, option.First(":")-
+    TString option3 = temp.Remove(0, option.First(":"));
     //???
-   std::cout << "option1: " << option1 << "\n";
-   std::cout << "option2: " << option2 << "\n";
-// t    std::cout<<"option3: "<<option3<<"\n";
+    std::cout << "option1: " << option1 << "\n";
+    std::cout << "option2: " << option2 << "\n";
+    std::cout<<"option3: "<<option3<<"\n";
 
    ///////////////////////////////////////
 

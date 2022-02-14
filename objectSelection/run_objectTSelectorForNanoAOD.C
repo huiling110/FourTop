@@ -44,11 +44,13 @@ void run_objectTSelectorForNanoAOD(
     TString selection;
     TString option;
     Int_t eventNum = 100;
-    if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
-    else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
+    // if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
+    // else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
+    selection = "objectTSelectorForNanoAOD.C";
     if ( istest ){
-        if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
-        else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
+        // if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
+        // else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
+        outputDir = "output/";
         eventNum = 100;
     }
     TString outputFile;
