@@ -20,13 +20,15 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
 #isdata = True
 isdata = False
 isHuiling = True
+inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
 if isHuiling:
-    outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v0_testing/"
-    Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+    outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016postVFP/v0_testing/"
+    # outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v/"
+    # Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+    Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/"
 else:
     outputDir = "/publicfs/cms/user/fabioiemmi/tauOfTTTT_NanoAOD/"
     Jobsubmitpath = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
-inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
 allProcesses = os.listdir( inputDir )
 
 
