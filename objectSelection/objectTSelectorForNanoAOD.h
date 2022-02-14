@@ -124,6 +124,8 @@ public :
    };
 
    map<Int_t,std::vector<Int_t> > _goodLumis;
+
+   Char_t eventSelection = '7'; // 2 for MetFilters, 4 for HLTSelection, 1 for preselection. so 7 if all selection; 0 if no selection 
    Bool_t MetFilters = true;
    // Bool_t MetFilters = false;
    Bool_t HLTSelection = true;

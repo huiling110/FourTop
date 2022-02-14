@@ -238,9 +238,8 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     TString temp = option;
     TString option2 = temp.Remove(0, option.First(":")+1);
     option2 = option2(0, option2.First(":"));
-    std::cout<<"temp: "<<temp<<"\n";
+    // std::cout<<"temp: "<<temp<<"\n";
     TString option3 = temp.Remove(0, temp.First(":")+1);
-    //???
     std::cout << "option1: " << option1 << "\n";
     std::cout << "option2: " << option2 << "\n";
     std::cout<<"option3: "<<option3<<"\n";
@@ -252,6 +251,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    era = option2;
    std::cout << "era is: " << era << "\n";
+//    eventSelection = option3;
+//    std::cout<<"eventSelection: "<<eventSelection<<"\n";
+   
 
    if (isdata) {// deal with Lumi JSONs only if reading data
        
