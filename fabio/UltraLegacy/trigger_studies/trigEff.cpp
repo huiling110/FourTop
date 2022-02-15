@@ -44,7 +44,7 @@ void trigEff(string year) {
  MuonIDSF->SetDirectory(nullptr);
  input_MuonIDSF->Close();
  delete input_MuonIDSF;
- 
+
  //Float_t binsX[NB  INSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
  Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
@@ -251,20 +251,6 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
         //get i-th entry in tree
         mychain.GetEntry( ievent );
         if (!(mygenEvtWeight > 0)) continue;
-        /////////////////////////////////////////////////////////////////////
-        ///////////////////// DEFINE CATEGORY CUTS //////////////////////////
-        /////////////////////////////////////////////////////////////////////
- 
-
-        bool is1tau0L = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
-        bool is1tau1e = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 && myjetsL->size()>=6 && mybjetsM->size()>=2);
-        bool is1tau1mu = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=6 && mybjetsM->size()>=2);
-        bool is1tau2L = (mytausT->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2);
-        bool is1tau3L = (mytausT->size()==1 && myleptonsMVAT->size()==3 && myjetsL->size()>=2 && mybjetsM->size()>=2);
-        bool is2tau0L = (mytausT->size()==2 && myleptonsMVAT->size()==0 && myjetsL->size()>=6 && mybjetsM->size()>=2);
-        bool is2tau1e = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && myelesMVAT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
-        bool is2tau1mu = (mytausT->size()==2 && myleptonsMVAT->size() == 1 && mymuonsT->size()==1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
-        bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
 
         /////////////////////////////////////////////////////////////////////
         ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
@@ -374,29 +360,38 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
         //compute trigger efficiency in preselection asking for exactly 1 muon (a la ttH(bb))
 
         if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) { //ask for exactly 1 muon
-    
+
+            //Get Muon ID scale factor
+            float muonIDSF = 1.0;
+            for (int i = 0; i < mymuonsT->size(); i++) { // only one muon but loop anyways
+
+                muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+
+            }
+            if (muonIDSF == 0) muonIDSF = 1.0;
+            
             std::string tttt = "tttt";
             if (file_it->first.find(tttt) !=std::string::npos) {
              
-                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight);
-                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight);
+                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight*muonIDSF);
+                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
 	 
             }
 
             if (isReferenceTrig) {
 
-                h_HT_nocat->Fill(HT, mygenEvtWeight);
-                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight);
-                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight);
+                h_HT_nocat->Fill(HT, mygenEvtWeight*muonIDSF);
+                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight*muonIDSF);
 
                 if (myjetsL->size() >= 6) {
    
-                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight);
+                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight*muonIDSF);
      
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight);
+                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*muonIDSF);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*muonIDSF);
 
                     }
 
@@ -404,11 +399,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
                 if (HT > 500) {
 
-                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight);
+                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight);
+                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
 	   
                     }
                     
@@ -416,17 +411,17 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
                 if(isSignalTrig) {
 
-                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight);
-                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight);
-                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight);
+                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight*muonIDSF);
+                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*muonIDSF);
 
                     if (myjetsL->size() >= 6) {
 
-                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight);
+                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*muonIDSF);
                         if (mymuonsT->at(0).Pt() > 25) {
            
-                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight);
-                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight);
+                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*muonIDSF);
+                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*muonIDSF);
 
                         }
 
@@ -434,11 +429,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
      
                     if (HT > 500) {
 
-                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight);
+                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
                         if (mymuonsT->at(0).Pt() > 25) {
 
-                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight);
-                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight); 
+                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF); 
 
                         }
 
@@ -456,17 +451,26 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
   
         if (myleptonsMVAT->size() == 1 && mymuonsT->size()==1) { //ask for exaclty 1 muon
 
-            h_HT_nocat_truth->Fill(HT, mygenEvtWeight);
-            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight);
-            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight);
+            //Get Muon ID scale factor
+            float muonIDSF = 1.0;
+            for (int i = 0; i < mymuonsT->size(); i++) { // only one muon but loop anyways
+
+                muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+
+            }
+            if (muonIDSF == 0) muonIDSF = 1.0;
+
+            h_HT_nocat_truth->Fill(HT, mygenEvtWeight*muonIDSF);
+            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*muonIDSF);
    
             if (myjetsL->size() >= 6) {
                 
-                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight);
+                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*muonIDSF);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight);
-                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight);
+                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*muonIDSF);
+                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*muonIDSF);
                     
                 }
                 
@@ -474,11 +478,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             if (HT > 500) {
 
-                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight);
+                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight);
-                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight);
+                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
        
                 }
                 
@@ -488,17 +492,17 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             if(isSignalTrig) {
 
-                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight);
-                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight);
-                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight);
+                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*muonIDSF);
+                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*muonIDSF);
 
                 if (myjetsL->size() >= 6){
 
-                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight);
+                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*muonIDSF);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight);
+                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*muonIDSF);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*muonIDSF);
 
                     }
                     
@@ -506,11 +510,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
      
                 if (HT > 500) {
 
-                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight);
+                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight);
+                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*muonIDSF);
          
                     }
 
