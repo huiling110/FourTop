@@ -29,11 +29,11 @@ map<string, string> file = { //MAP OF INPUT FILES
 //{"tttt", "tttt"},
 
 //ttbar background    
-{"ttbar-FH", "ttbar_0l"},
-/*{"ttbar-SL", "TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8"},
-{"ttbar-DL", "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
+//{"ttbar-FH", "ttbar_0l"},
+{"ttbar-SL", "ttbar_1l"},
+//{"ttbar-DL", "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
 //{"ttbar-incl", "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
-*/
+
 /*
 //QCD background
 //{"QCD_HT200to300", "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
