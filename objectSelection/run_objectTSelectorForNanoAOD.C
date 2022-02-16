@@ -8,6 +8,7 @@ void run_objectTSelectorForNanoAOD(
     // Bool_t istest = false,
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
     TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString singleFileName = "outTree_0.root",
     TString eventSelectionBit = "7", // 2 for MetFilters, 4 for HLTSelection, 1 for preselection. so 7 if all selection; 0 if no selection 
@@ -18,7 +19,17 @@ void run_objectTSelectorForNanoAOD(
     gROOT->ProcessLine(".L Loader.C+");
 
     //determine era from inputDir
-    TString era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("mc")-inputDir.Index("nanoAOD")-9) );
+    TString era = "2016";
+    if (inputDir.Contains( "mc" )) {
+        era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("mc")-inputDir.Index("nanoAOD")-9) );
+    }else{
+        // TString tempo = inputDir.Remove( 0, inputDir.Index("data")+4);
+        // TString tempo = inputDir.Clone();
+        TString tempo = inputDir;
+        tempo.Remove( 0, inputDir.Index("data")+4);
+        era = tempo( tempo.Index("nanoAOD")+8, (tempo.Index("data")-tempo.Index("nanoAOD")-9) );
+        // era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("data")-inputDir.Index("nanoAOD")) );
+    }
     cout<<"era is: "<<era<<"\n";
     
     if ( era.CompareTo( "2016" )==0) {
@@ -51,7 +62,8 @@ void run_objectTSelectorForNanoAOD(
         // if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
         // else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         outputDir = "output/";
-        eventNum = 100;
+        // eventNum = 100;
+        eventNum = 1000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
@@ -60,11 +72,13 @@ void run_objectTSelectorForNanoAOD(
     option = outputFile + ":" + era + ":"+ eventSelectionBit;
     cout<<"option in run: "<<option<<"\n";
 
+    TStopwatch t;
+    t.Start();
     if ( istest )  {
         chain.Process( selection + "+", option, eventNum );
-    // cout<<"option: "<<option<<"\n";
     }else  { 
         chain.Process(selection + "+", option);
     }
-    // cout<<"option: "<<option<<"\n";
+    t.Stop();
+    t.Print();
 }

@@ -245,9 +245,10 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     std::cout<<"option3: "<<option3<<"\n";
 
    ///////////////////////////////////////
-
-   if ( option.Contains( "JetHT")|| option.Contains( "SingleMuon") ) isdata = true;
-   cout<<"is data?: "<<isdata<<endl;
+//    if ( option.Contains( "JetHT")|| option.Contains( "SingleMuon") ) isdata = true;
+//    cout<<"is data?: "<<isdata<<endl;
+    if ( option1.Contains( "data") ) isdata = true;
+    std::cout<<"isData: "<<isdata<<"\n";
 
    era = option2;
    std::cout << "era is: " << era << "\n";
