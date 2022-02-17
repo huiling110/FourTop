@@ -6,9 +6,9 @@
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
     TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString singleFileName = "outTree_0.root",
     TString eventSelectionBit = "7", // 2 for MetFilters, 4 for HLTSelection, 1 for preselection. so 7 if all selection; 0 if no selection 

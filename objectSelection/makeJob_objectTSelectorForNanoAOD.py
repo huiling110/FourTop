@@ -22,9 +22,7 @@ isdata = False
 isHuiling = True
 inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
 if isHuiling:
-    outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/
-   */
-/"
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v1_testing/'
     # outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v/"
     # Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
     Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/"
@@ -82,12 +80,14 @@ for k in allProcesses:
         if os.path.isfile(os.path.join(sampleDir, entry)):
 
             smallFile = entry.replace( ".root", "")
-            smallFilejob = "Jobsubmit_seperate/" +sampleName + "/" + smallFile + ".sh"  
+            # smallFilejob = "Jobsubmit_seperate/" +sampleName + "/" + smallFile + ".sh"  
+            smallFilejob = "Jobsubmit_seperate/" +sampleName + "/" + sampleName + '_' + smallFile + ".sh"  
             prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
             
             logFile = outputDir +  sampleName + "/log/" + smallFile + ".log"
             errFile = outputDir +  sampleName + "/log/" + smallFile + ".err"
-            sub_oneProcess.write( "hep_sub "+  smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
+            # sub_oneProcess.write( "hep_sub "+  smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
+            sub_oneProcess.write( "hep_sub "+ sampleName + '_' + smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
 
     subAllProcessName.write( "sh  " + oneProcess + "\n")
     os.popen('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/" + sampleName + "/*sh")
