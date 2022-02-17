@@ -26,9 +26,9 @@ with open(outputfile, "w"):
     #get a list of all systematic sources available in the .csv file
     syst_to_remove = df.sysType.unique().tolist()
     #only consider jes-related sources
-    for element in syst_to_remove:
+    for element in syst_to_remove[:]: # note: when removing elements from a string, loop on a copy of the string and not on the string itself!
         if "jes" not in element: syst_to_remove.remove(element)
-    #remove from list up_jes and down_jes: you want to save tham
+    #remove from list up_jes and down_jes: you want to save them
     syst_to_remove.remove("up_jes")
     syst_to_remove.remove("down_jes")
     for syst in syst_to_remove:
