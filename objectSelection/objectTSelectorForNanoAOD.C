@@ -248,10 +248,23 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    else isdata = true;
    std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
 
-    //testing
-
+    //overriding for MC files
    if( !isdata ){
         GenJet_eta = {fReader, "GenJet_eta"};
+        GenJet_phi = {fReader, "GenJet_phi"};
+        GenJet_pt = {fReader, "GenJet_pt"};
+        nGenPart = {fReader, "nGenPart"};
+        GenPart_eta = {fReader, "GenPart_eta"};
+        GenPart_mass = {fReader, "GenPart_mass"};
+        GenPart_phi = {fReader, "GenPart_phi"};
+        GenPart_pt = {fReader, "GenPart_pt"};
+        GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
+        GenPart_pdgId = {fReader, "GenPart_pdgId"};
+        Generator_weight = {fReader, "Generator_weight"};
+        genWeight = {fReader, "genWeight"};
+         Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
+        Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
+         Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
    }
    
 
@@ -411,7 +424,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     PV_npvsGood_ = *PV_npvsGood;
 
     //test
-    std::cout<<GenJet_eta.At(0)<<"\n";
+    // std::cout<<GenJet_eta.At(0)<<"\n";
+    // std::cout<<GenJet_eta.GetSize()<<"\n";
 
     vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0

@@ -2,7 +2,7 @@
  * @author Huiling Hua
  * @email huahl@ihep.ac.cn
  * @create date 2021-12-08 02:36:18
- * @modify date 2021-12-08 02:36:18
+ * @modify date 2022-02-18 03:13:23
  * @desc [description]
  */
 //////////////////////////////////////////////////////////
@@ -514,17 +514,19 @@ public :
 //    TTreeReaderValue<UInt_t> nGenJet = {fReader, "nGenJet"};
 //    TTreeReaderArray<Float_t> GenJet_eta = {fReader, "GenJet_eta"};
    TTreeReaderArray<Float_t> GenJet_eta = { fReader, "Electron_dz" } ;//!!!need to overwrite for MC!!!
-   //???protential problem of overloading!!!
+   //protential problem of overloading!!! tested that no overloading.
 //    TTreeReaderArray<Float_t> GenJet_mass = {fReader, "GenJet_mass"};
-   TTreeReaderArray<Float_t> GenJet_phi = {fReader, "GenJet_phi"};
-   TTreeReaderArray<Float_t> GenJet_pt = {fReader, "GenJet_pt"};
-   TTreeReaderValue<UInt_t> nGenPart = {fReader, "nGenPart"};
-   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "GenPart_eta"};
-   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "GenPart_mass"};
-   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "GenPart_phi"};
-   TTreeReaderArray<Float_t> GenPart_pt = {fReader, "GenPart_pt"};
-   TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
-   TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "GenPart_pdgId"};
+
+   TTreeReaderArray<Float_t> GenJet_phi = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> GenJet_pt = {fReader, "Electron_dz"};
+   TTreeReaderValue<UInt_t> nGenPart = {fReader, "nElectron"};
+   TTreeReaderArray<Float_t> GenPart_eta = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> GenPart_mass = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> GenPart_phi = {fReader, "Electron_dz"};
+   TTreeReaderArray<Float_t> GenPart_pt = {fReader, "Electron_dz"};
+   TTreeReaderArray<Int_t> GenPart_genPartIdxMother = {fReader, "Electron_charge"};
+   TTreeReaderArray<Int_t> GenPart_pdgId = {fReader, "Electron_charge"};
+   
 //    TTreeReaderArray<Int_t> GenPart_status = {fReader, "GenPart_status"};
 //    TTreeReaderArray<Int_t> GenPart_statusFlags = {fReader, "GenPart_statusFlags"};
 //    TTreeReaderValue<UInt_t> nSubGenJetAK8 = {fReader, "nSubGenJetAK8"};
@@ -534,14 +536,14 @@ public :
 //    TTreeReaderArray<Float_t> SubGenJetAK8_pt = {fReader, "SubGenJetAK8_pt"};
 //    TTreeReaderValue<Float_t> Generator_binvar = {fReader, "Generator_binvar"};
 //    TTreeReaderValue<Float_t> Generator_scalePDF = {fReader, "Generator_scalePDF"};
-   TTreeReaderValue<Float_t> Generator_weight = {fReader, "Generator_weight"};
+   TTreeReaderValue<Float_t> Generator_weight = {fReader, "L1PreFiringWeight_Nom"};
 //    TTreeReaderValue<Float_t> Generator_x1 = {fReader, "Generator_x1"};
 //    TTreeReaderValue<Float_t> Generator_x2 = {fReader, "Generator_x2"};
 //    TTreeReaderValue<Float_t> Generator_xpdf1 = {fReader, "Generator_xpdf1"};
 //    TTreeReaderValue<Float_t> Generator_xpdf2 = {fReader, "Generator_xpdf2"};
 //    TTreeReaderValue<Int_t> Generator_id1 = {fReader, "Generator_id1"};
 //    TTreeReaderValue<Int_t> Generator_id2 = {fReader, "Generator_id2"};
-//    TTreeReaderValue<Float_t> GenVtx_x = {fReader, "GenVtx_x"};
+//    TTreeReaderValue<Float_t> GenVtx_x = {fReader, "GenVtx_x"};:
 //    TTreeReaderValue<Float_t> GenVtx_y = {fReader, "GenVtx_y"};
 //    TTreeReaderValue<Float_t> GenVtx_z = {fReader, "GenVtx_z"};
 //    TTreeReaderValue<UInt_t> nGenVisTau = {fReader, "nGenVisTau"};
@@ -552,7 +554,7 @@ public :
 //    TTreeReaderArray<Int_t> GenVisTau_charge = {fReader, "GenVisTau_charge"};
 //    TTreeReaderArray<Int_t> GenVisTau_genPartIdxMother = {fReader, "GenVisTau_genPartIdxMother"};
 //    TTreeReaderArray<Int_t> GenVisTau_status = {fReader, "GenVisTau_status"};
-   TTreeReaderValue<Float_t> genWeight = {fReader, "genWeight"};
+   TTreeReaderValue<Float_t> genWeight = {fReader, "L1PreFiringWeight_Nom"};
 //    TTreeReaderValue<Float_t> LHEWeight_originalXWGTUP = {fReader, "LHEWeight_originalXWGTUP"};
 //    TTreeReaderValue<UInt_t> nLHEPdfWeight = {fReader, "nLHEPdfWeight"};
 //    TTreeReaderArray<Float_t> LHEPdfWeight = {fReader, "LHEPdfWeight"};
@@ -777,7 +779,7 @@ public :
 //    TTreeReaderArray<Bool_t> Photon_mvaID_WP90 = {fReader, "Photon_mvaID_WP90"};
 //    TTreeReaderArray<Bool_t> Photon_pixelSeed = {fReader, "Photon_pixelSeed"};
 //    TTreeReaderArray<UChar_t> Photon_seedGain = {fReader, "Photon_seedGain"};
-   TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
+   TTreeReaderValue<Float_t> Pileup_nTrueInt = {fReader, "L1PreFiringWeight_Nom"};
 //    TTreeReaderValue<Float_t> Pileup_pudensity = {fReader, "Pileup_pudensity"};
 //    TTreeReaderValue<Float_t> Pileup_gpudensity = {fReader, "Pileup_gpudensity"};
 //    TTreeReaderValue<Int_t> Pileup_nPU = {fReader, "Pileup_nPU"};
@@ -907,11 +909,11 @@ public :
 //    TTreeReaderArray<Float_t> SV_pAngle = {fReader, "SV_pAngle"};
 //    TTreeReaderArray<Int_t> SV_charge = {fReader, "SV_charge"};
 //    TTreeReaderArray<Int_t> boostedTau_genPartIdx = {fReader, "boostedTau_genPartIdx"};
-   TTreeReaderArray<UChar_t> boostedTau_genPartFlav = {fReader, "boostedTau_genPartFlav"};
+//    TTreeReaderArray<UChar_t> boostedTau_genPartFlav = {fReader, "boostedTau_genPartFlav"};
 //    TTreeReaderArray<Int_t> Electron_genPartIdx = {fReader, "Electron_genPartIdx"};
 //    TTreeReaderArray<UChar_t> Electron_genPartFlav = {fReader, "Electron_genPartFlav"};
 //    TTreeReaderArray<Int_t> FatJet_genJetAK8Idx = {fReader, "FatJet_genJetAK8Idx"};
-   TTreeReaderArray<Int_t> FatJet_hadronFlavour = {fReader, "FatJet_hadronFlavour"};
+//    TTreeReaderArray<Int_t> FatJet_hadronFlavour = {fReader, "FatJet_hadronFlavour"};
 //    TTreeReaderArray<UChar_t> FatJet_nBHadrons = {fReader, "FatJet_nBHadrons"};
 //    TTreeReaderArray<UChar_t> FatJet_nCHadrons = {fReader, "FatJet_nCHadrons"};
 //    TTreeReaderArray<Int_t> GenJetAK8_partonFlavour = {fReader, "GenJetAK8_partonFlavour"};
@@ -920,7 +922,8 @@ public :
 //    TTreeReaderArray<UChar_t> GenJet_hadronFlavour = {fReader, "GenJet_hadronFlavour"};
 //    TTreeReaderValue<Float_t> GenVtx_t0 = {fReader, "GenVtx_t0"};
 //    TTreeReaderArray<Int_t> Jet_genJetIdx = {fReader, "Jet_genJetIdx"};
-   TTreeReaderArray<Int_t> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
+//    TTreeReaderArray<Int_t> Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
+   TTreeReaderArray<Int_t> Jet_hadronFlavour = {fReader, "Electron_charge"};
 //    TTreeReaderArray<Int_t> Jet_partonFlavour = {fReader, "Jet_partonFlavour"};
 //    TTreeReaderArray<Int_t> LowPtElectron_genPartIdx = {fReader, "LowPtElectron_genPartIdx"};
 //    TTreeReaderArray<UChar_t> LowPtElectron_genPartFlav = {fReader, "LowPtElectron_genPartFlav"};
@@ -949,7 +952,8 @@ public :
 //    TTreeReaderArray<Float_t> SV_z = {fReader, "SV_z"};
 //    TTreeReaderArray<UChar_t> SV_ntracks = {fReader, "SV_ntracks"};
 //    TTreeReaderArray<Int_t> Tau_genPartIdx = {fReader, "Tau_genPartIdx"};
-   TTreeReaderArray<UChar_t> Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
+//    TTreeReaderArray<UChar_t> Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
+   TTreeReaderArray<UChar_t> Tau_genPartFlav = {fReader, "Electron_jetNDauCharged"};
 //    TTreeReaderValue<Bool_t> L1_AlwaysTrue = {fReader, "L1_AlwaysTrue"};
 //    TTreeReaderValue<Bool_t> L1_BRIL_TRIG0_AND = {fReader, "L1_BRIL_TRIG0_AND"};
 //    TTreeReaderValue<Bool_t> L1_BRIL_TRIG0_FstBunchInTrain = {fReader, "L1_BRIL_TRIG0_FstBunchInTrain"};
