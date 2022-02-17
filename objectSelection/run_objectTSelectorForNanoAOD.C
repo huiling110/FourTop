@@ -62,8 +62,8 @@ void run_objectTSelectorForNanoAOD(
         // if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
         // else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         outputDir = "output/";
-        // eventNum = 100;
-        eventNum = 1000;
+        eventNum = 100;
+        // eventNum = 1000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
