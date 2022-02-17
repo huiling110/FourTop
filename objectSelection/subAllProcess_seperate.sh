@@ -25,6 +25,7 @@ sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobs
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/ttH_nonbb.sh
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/ttH_bb.sh
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/qcd_100to200.sh
+sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/ttW.sh
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/ttZZ.sh
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/qcd_1500to2000.sh
 sh  /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/Jobsubmit_seperate/ttWZ.sh
