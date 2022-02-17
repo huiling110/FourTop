@@ -23,6 +23,7 @@ if year not in file_dict: sys.exit("Specified year is invalid. Please pick one o
 outputfile = file_dict[year] + "_dropLines.csv"
 with open(outputfile, "w"):
     df = pd.read_csv(file_dict[year] + ".csv")
+    print(df.head(10))
     #get a list of all systematic sources available in the .csv file
     syst_to_remove = df.sysType.unique().tolist()
     #only consider jes-related sources
@@ -33,4 +34,5 @@ with open(outputfile, "w"):
     syst_to_remove.remove("down_jes")
     for syst in syst_to_remove:
         df = df[df.sysType != syst]
-    df.to_csv(outputfile)
+    print(df.shape)
+    df.to_csv(outputfile, index=False)
