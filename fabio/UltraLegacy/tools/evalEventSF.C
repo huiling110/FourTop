@@ -1,7 +1,7 @@
 double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlavor, vector<double> * AK4JetBtag, BTagCalibrationReader CSVReader) {
     
         double * output;
-        output = new double[41]; //returned by evalEventSF
+        output = new double[19]; //returned by evalEventSF
         
         double csv_weight_BF_ak4 = 1.0;
         double csv_weight_CF_ak4 = 1.0;
@@ -18,7 +18,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
         double csv_weight_CF_ak4jesDown = 1.0;
         double csv_weight_LF_ak4jesDown = 1.0;
         double csv_weight_total_ak4jesDown = 1.0;
-        double csv_weight_BF_ak4jesEC2_2016Up = 1.0;
+        /*double csv_weight_BF_ak4jesEC2_2016Up = 1.0;
         double csv_weight_CF_ak4jesEC2_2016Up = 1.0;
         double csv_weight_LF_ak4jesEC2_2016Up = 1.0;
         double csv_weight_total_ak4jesEC2_2016Up = 1.0;
@@ -117,7 +117,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
         double csv_weight_CF_ak4jesRelativeSample_2016Down = 1.0;
         double csv_weight_LF_ak4jesRelativeSample_2016Down = 1.0;
         double csv_weight_total_ak4jesRelativeSample_2016Down = 1.0;
-
+        */
         //HF purity up and down
         double csv_weight_BF_ak4HFUp = 1.0;
         double csv_weight_CF_ak4HFUp = 1.0;
@@ -207,6 +207,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_BF_ak4 = CSVReader.eval_auto_bounds("central", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesUp = CSVReader.eval_auto_bounds("up_jes", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesDown = CSVReader.eval_auto_bounds("down_jes", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    /*
                     double mycsv_weight_BF_ak4jesEC2_2016Up = CSVReader.eval_auto_bounds("up_jesEC2_2016", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesEC2_2016Down = CSVReader.eval_auto_bounds("down_jesEC2_2016", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesEC2Up = CSVReader.eval_auto_bounds("up_jesEC2", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
@@ -229,6 +230,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_BF_ak4jesHF_2016Down = CSVReader.eval_auto_bounds("down_jesHF_2016", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesRelativeSample_2016Up = CSVReader.eval_auto_bounds("up_jesRelativeSample_2016", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4jesRelativeSample_2016Down = CSVReader.eval_auto_bounds("down_jesRelativeSample_2016", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    */
                     //no uncertainty on contamination from HF sample when computing HF scale factors
 					double mycsv_weight_BF_ak4LFUp = CSVReader.eval_auto_bounds("up_lf", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4LFDown = CSVReader.eval_auto_bounds("down_lf", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
@@ -236,13 +238,14 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_BF_ak4hfstats1Down = CSVReader.eval_auto_bounds("down_hfstats1", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4hfstats2Up = CSVReader.eval_auto_bounds("up_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_BF_ak4hfstats2Down = CSVReader.eval_auto_bounds("down_hfstats2", BTagEntry::FLAV_B, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
-					//no uncertainty on statistics of LF sample when computing HF scale factors
+                    //no uncertainty on statistics of LF sample when computing HF scale factors
                     
                     if (mycsv_weight_BF_ak4 == 0) cout << "!!!!!!!!!!!!!!!!!!!!!!" << endl;
                     
                     if (mycsv_weight_BF_ak4 != 0) csv_weight_BF_ak4 *= mycsv_weight_BF_ak4;
                     if (mycsv_weight_BF_ak4jesUp != 0) csv_weight_BF_ak4jesUp *= mycsv_weight_BF_ak4jesUp;
                     if (mycsv_weight_BF_ak4jesDown != 0) csv_weight_BF_ak4jesDown *= mycsv_weight_BF_ak4jesDown;
+                    /*
                     if (mycsv_weight_BF_ak4jesEC2_2016Up != 0) csv_weight_BF_ak4jesEC2_2016Up *= mycsv_weight_BF_ak4jesEC2_2016Up;
                     if (mycsv_weight_BF_ak4jesEC2_2016Down != 0) csv_weight_BF_ak4jesEC2_2016Down *= mycsv_weight_BF_ak4jesEC2_2016Down;
                     if (mycsv_weight_BF_ak4jesEC2Up != 0) csv_weight_BF_ak4jesEC2Up *= mycsv_weight_BF_ak4jesEC2Up;
@@ -265,6 +268,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     if (mycsv_weight_BF_ak4jesHF_2016Down != 0) csv_weight_BF_ak4jesHF_2016Down *= mycsv_weight_BF_ak4jesHF_2016Down;
                     if (mycsv_weight_BF_ak4jesRelativeSample_2016Up != 0) csv_weight_BF_ak4jesRelativeSample_2016Up *= mycsv_weight_BF_ak4jesRelativeSample_2016Up;
                     if (mycsv_weight_BF_ak4jesRelativeSample_2016Down != 0) csv_weight_BF_ak4jesRelativeSample_2016Down *= mycsv_weight_BF_ak4jesRelativeSample_2016Down;
+                    */
                     if (mycsv_weight_BF_ak4LFUp != 0) csv_weight_BF_ak4LFUp *= mycsv_weight_BF_ak4LFUp;
                     if (mycsv_weight_BF_ak4LFDown != 0) csv_weight_BF_ak4LFDown *= mycsv_weight_BF_ak4LFDown;
                     if (mycsv_weight_BF_ak4hfstats1Up != 0) csv_weight_BF_ak4hfstats1Up *= mycsv_weight_BF_ak4hfstats1Up;
@@ -278,6 +282,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_CF_ak4 = CSVReader.eval_auto_bounds("central", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i)); //always 1, checked
 					double mycsv_weight_CF_ak4jesUp = CSVReader.eval_auto_bounds("up_jes", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4jesDown = CSVReader.eval_auto_bounds("down_jes", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    /*
                     double mycsv_weight_CF_ak4jesEC2_2016Up = CSVReader.eval_auto_bounds("up_jesEC2_2016", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4jesEC2_2016Down = CSVReader.eval_auto_bounds("down_jesEC2_2016", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4jesEC2Up = CSVReader.eval_auto_bounds("up_jesEC2", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
@@ -300,6 +305,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_CF_ak4jesHF_2016Down = CSVReader.eval_auto_bounds("down_jesHF_2016", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4jesRelativeSample_2016Up = CSVReader.eval_auto_bounds("up_jesRelativeSample_2016", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4jesRelativeSample_2016Down = CSVReader.eval_auto_bounds("down_jesRelativeSample_2016", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    */
                     double mycsv_weight_CF_ak4cfErr1Up = CSVReader.eval_auto_bounds("up_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4cfErr1Down = CSVReader.eval_auto_bounds("down_cferr1", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_CF_ak4cfErr2Up = CSVReader.eval_auto_bounds("up_cferr2", BTagEntry::FLAV_C, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
@@ -309,6 +315,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     if (mycsv_weight_CF_ak4 != 0) csv_weight_CF_ak4 *= mycsv_weight_CF_ak4;
                     if (mycsv_weight_CF_ak4jesUp != 0) csv_weight_CF_ak4jesUp *= mycsv_weight_CF_ak4jesUp;
                     if (mycsv_weight_CF_ak4jesDown != 0) csv_weight_CF_ak4jesDown *= mycsv_weight_CF_ak4jesDown;
+                    /*
                     if (mycsv_weight_CF_ak4jesEC2_2016Up != 0) csv_weight_CF_ak4jesEC2_2016Up *= mycsv_weight_CF_ak4jesEC2_2016Up;
                     if (mycsv_weight_CF_ak4jesEC2_2016Down != 0) csv_weight_CF_ak4jesEC2_2016Down *= mycsv_weight_CF_ak4jesEC2_2016Down;
                     if (mycsv_weight_CF_ak4jesEC2Up != 0) csv_weight_CF_ak4jesEC2Up *= mycsv_weight_CF_ak4jesEC2Up;
@@ -331,6 +338,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     if (mycsv_weight_CF_ak4jesHF_2016Down != 0) csv_weight_CF_ak4jesHF_2016Down *= mycsv_weight_CF_ak4jesHF_2016Down;
                     if (mycsv_weight_CF_ak4jesRelativeSample_2016Up != 0) csv_weight_CF_ak4jesRelativeSample_2016Up *= mycsv_weight_CF_ak4jesRelativeSample_2016Up;
                     if (mycsv_weight_CF_ak4jesRelativeSample_2016Down != 0) csv_weight_CF_ak4jesRelativeSample_2016Down *= mycsv_weight_CF_ak4jesRelativeSample_2016Down;
+                    */
                     if (mycsv_weight_CF_ak4cfErr1Up != 0) csv_weight_CF_ak4cfErr1Up *= mycsv_weight_CF_ak4cfErr1Up;
                     if (mycsv_weight_CF_ak4cfErr1Down != 0) csv_weight_CF_ak4cfErr1Down *= mycsv_weight_CF_ak4cfErr1Down;
                     if (mycsv_weight_CF_ak4cfErr2Up != 0) csv_weight_CF_ak4cfErr2Up *= mycsv_weight_CF_ak4cfErr2Up;
@@ -343,6 +351,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_LF_ak4 = CSVReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesUp = CSVReader.eval_auto_bounds("up_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesDown = CSVReader.eval_auto_bounds("down_jes", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    /*
                     double mycsv_weight_LF_ak4jesEC2_2016Up = CSVReader.eval_auto_bounds("up_jesEC2_2016", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesEC2_2016Down = CSVReader.eval_auto_bounds("down_jesEC2_2016", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesEC2Up = CSVReader.eval_auto_bounds("up_jesEC2", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
@@ -365,6 +374,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     double mycsv_weight_LF_ak4jesHF_2016Down = CSVReader.eval_auto_bounds("down_jesHF_2016", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesRelativeSample_2016Up = CSVReader.eval_auto_bounds("up_jesRelativeSample_2016", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4jesRelativeSample_2016Down = CSVReader.eval_auto_bounds("down_jesRelativeSample_2016", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
+                    */
                     double mycsv_weight_LF_ak4HFUp = CSVReader.eval_auto_bounds("up_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     double mycsv_weight_LF_ak4HFDown = CSVReader.eval_auto_bounds("down_hf", BTagEntry::FLAV_UDSG, fabs(AK4Jets->at(i).Eta()), AK4Jets->at(i).Pt(), AK4JetBtag->at(i));
                     //no uncertainty on contamination from LF sample when computing LF scale factors
@@ -379,6 +389,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     if (mycsv_weight_LF_ak4 != 0) csv_weight_LF_ak4 *= mycsv_weight_LF_ak4;
                     if (mycsv_weight_LF_ak4jesUp != 0) csv_weight_LF_ak4jesUp *= mycsv_weight_LF_ak4jesUp;
                     if (mycsv_weight_LF_ak4jesDown != 0) csv_weight_LF_ak4jesDown *= mycsv_weight_LF_ak4jesDown;
+                    /*
                     if (mycsv_weight_LF_ak4jesEC2_2016Up != 0) csv_weight_LF_ak4jesEC2_2016Up *= mycsv_weight_LF_ak4jesEC2_2016Up;
                     if (mycsv_weight_LF_ak4jesEC2_2016Down != 0) csv_weight_LF_ak4jesEC2_2016Down *= mycsv_weight_LF_ak4jesEC2_2016Down;
                     if (mycsv_weight_LF_ak4jesEC2Up != 0) csv_weight_LF_ak4jesEC2Up *= mycsv_weight_LF_ak4jesEC2Up;
@@ -401,6 +412,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
                     if (mycsv_weight_LF_ak4jesHF_2016Down != 0) csv_weight_LF_ak4jesHF_2016Down *= mycsv_weight_LF_ak4jesHF_2016Down;
                     if (mycsv_weight_LF_ak4jesRelativeSample_2016Up != 0) csv_weight_LF_ak4jesRelativeSample_2016Up *= mycsv_weight_LF_ak4jesRelativeSample_2016Up;
                     if (mycsv_weight_LF_ak4jesRelativeSample_2016Down != 0) csv_weight_LF_ak4jesRelativeSample_2016Down *= mycsv_weight_LF_ak4jesRelativeSample_2016Down;
+                    */
                     if (mycsv_weight_LF_ak4HFUp != 0) csv_weight_LF_ak4HFUp *= mycsv_weight_LF_ak4HFUp;
                     if (mycsv_weight_LF_ak4HFDown != 0) csv_weight_LF_ak4HFDown *= mycsv_weight_LF_ak4HFDown;
 					if (mycsv_weight_LF_ak4lfstats1Up != 0) csv_weight_LF_ak4lfstats1Up *= mycsv_weight_LF_ak4lfstats1Up;
@@ -417,6 +429,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
             csv_weight_total_ak4 = csv_weight_BF_ak4 * csv_weight_CF_ak4 * csv_weight_LF_ak4;
             csv_weight_total_ak4jesUp = csv_weight_BF_ak4jesUp * csv_weight_CF_ak4jesUp * csv_weight_LF_ak4jesUp;
             csv_weight_total_ak4jesDown = csv_weight_BF_ak4jesDown * csv_weight_CF_ak4jesDown * csv_weight_LF_ak4jesDown;
+            /*
             csv_weight_total_ak4jesEC2_2016Up = csv_weight_BF_ak4jesEC2_2016Up * csv_weight_CF_ak4jesEC2_2016Up * csv_weight_LF_ak4jesEC2_2016Up;
             csv_weight_total_ak4jesEC2_2016Down = csv_weight_BF_ak4jesEC2_2016Down * csv_weight_CF_ak4jesEC2_2016Down * csv_weight_LF_ak4jesEC2_2016Down;
             csv_weight_total_ak4jesEC2Up = csv_weight_BF_ak4jesEC2Up * csv_weight_CF_ak4jesEC2Up * csv_weight_LF_ak4jesEC2Up;
@@ -439,6 +452,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
             csv_weight_total_ak4jesHF_2016Down = csv_weight_BF_ak4jesHF_2016Down * csv_weight_CF_ak4jesHF_2016Down * csv_weight_LF_ak4jesHF_2016Down;
             csv_weight_total_ak4jesRelativeSample_2016Up = csv_weight_BF_ak4jesRelativeSample_2016Up * csv_weight_CF_ak4jesRelativeSample_2016Up * csv_weight_LF_ak4jesRelativeSample_2016Up;
             csv_weight_total_ak4jesRelativeSample_2016Down = csv_weight_BF_ak4jesRelativeSample_2016Down * csv_weight_CF_ak4jesRelativeSample_2016Down * csv_weight_LF_ak4jesRelativeSample_2016Down;
+            */
             csv_weight_total_ak4HFUp = csv_weight_BF_ak4HFUp * csv_weight_CF_ak4HFUp * csv_weight_LF_ak4HFUp;
 			csv_weight_total_ak4HFDown = csv_weight_BF_ak4HFDown * csv_weight_CF_ak4HFDown * csv_weight_LF_ak4HFDown;
             csv_weight_total_ak4LFUp = csv_weight_BF_ak4LFUp * csv_weight_CF_ak4LFUp * csv_weight_LF_ak4LFUp;
@@ -456,7 +470,27 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
             csv_weight_total_ak4cfErr2Up = csv_weight_BF_ak4cfErr2Up * csv_weight_CF_ak4cfErr2Up * csv_weight_LF_ak4cfErr2Up;
             csv_weight_total_ak4cfErr2Down = csv_weight_BF_ak4cfErr2Down * csv_weight_CF_ak4cfErr2Down * csv_weight_LF_ak4cfErr2Down;
            
-
+            output[0] = csv_weight_total_ak4;
+            output[1] = csv_weight_total_ak4jesUp;
+            output[2] = csv_weight_total_ak4jesDown;
+            output[3] = csv_weight_total_ak4HFUp;
+            output[4] = csv_weight_total_ak4HFDown;
+            output[5] = csv_weight_total_ak4LFUp;
+            output[6] = csv_weight_total_ak4LFDown;
+            output[7] = csv_weight_total_ak4hfstats1Up;
+            output[8] = csv_weight_total_ak4hfstats1Down;
+            output[9] = csv_weight_total_ak4hfstats2Up;
+            output[10] = csv_weight_total_ak4hfstats2Down;
+            output[11] = csv_weight_total_ak4lfstats1Up;
+            output[12] = csv_weight_total_ak4lfstats1Down;
+            output[13] = csv_weight_total_ak4lfstats2Up;
+            output[14] = csv_weight_total_ak4lfstats2Down;
+            output[15] = csv_weight_total_ak4cfErr1Up;
+            output[16] = csv_weight_total_ak4cfErr1Down;
+            output[17] = csv_weight_total_ak4cfErr2Up;
+            output[18] = csv_weight_total_ak4cfErr2Down;
+            
+            /*
             output[0] = csv_weight_total_ak4;
             output[1] = csv_weight_total_ak4jesUp;
             output[2] = csv_weight_total_ak4jesDown;
@@ -498,7 +532,7 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
             output[38] = csv_weight_total_ak4cfErr1Down;
             output[39] = csv_weight_total_ak4cfErr2Up;
             output[40] = csv_weight_total_ak4cfErr2Down;
-            
+            */
             return output;
             delete output;
             delete AK4Jets;
