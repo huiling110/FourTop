@@ -230,30 +230,22 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    TString option = GetOption();
    std::cout<<"option in TSelector : "<<option<<"\n";
    TString option1 = option(0, option.First(":"));
-//    TString option2 = option(option.First(":") + 1, option.Sizeof()-3);
-//    TString option2 = option(option.First(":") + 1, option.Length()-6);
-    // Int_t length = option.Last(":")-option.First（":");
-    // TString option2 = option(option.First(":")+1, option.Last(":")-option.First(":") );//???
-    // TString temp = option.Clone();
     TString temp = option;
     TString option2 = temp.Remove(0, option.First(":")+1);
     option2 = option2(0, option2.First(":"));
     // std::cout<<"temp: "<<temp<<"\n";
     TString option3 = temp.Remove(0, temp.First(":")+1);
+    TString option4 = temp.Remove(0, temp.First(":")+1 );
     std::cout << "option1: " << option1 << "\n";
     std::cout << "option2: " << option2 << "\n";
     std::cout<<"option3: "<<option3<<"\n";
+    std::cout<<"option4: "<<option4<<"\n";
 
-   ///////////////////////////////////////
-//    if ( option.Contains( "JetHT")|| option.Contains( "SingleMuon") ) isdata = true;
-//    cout<<"is data?: "<<isdata<<endl;
-    if ( option1.Contains( "data") ) isdata = true;
-    std::cout<<"isData: "<<isdata<<"\n";
 
    era = option2;
    std::cout << "era is: " << era << "\n";
-//    eventSelection = option3;
-//    std::cout<<"eventSelection: "<<eventSelection<<"\n";
+   if ( option4.CompareTo( "0") ) isdata = false;
+   else isdata = true; 
    
 
    if (isdata) {// deal with Lumi JSONs only if reading data

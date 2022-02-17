@@ -18,17 +18,16 @@ void run_objectTSelectorForNanoAOD(
 {
     gROOT->ProcessLine(".L Loader.C+");
 
-    //determine era from inputDir
+    //determine era and isData from inputDir
     TString era = "2016";
+    Bool_t isData = true;
     if (inputDir.Contains( "mc" )) {
         era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("mc")-inputDir.Index("nanoAOD")-9) );
+        isData = false;
     }else{
-        // TString tempo = inputDir.Remove( 0, inputDir.Index("data")+4);
-        // TString tempo = inputDir.Clone();
         TString tempo = inputDir;
         tempo.Remove( 0, inputDir.Index("data")+4);
         era = tempo( tempo.Index("nanoAOD")+8, (tempo.Index("data")-tempo.Index("nanoAOD")-9) );
-        // era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("data")-inputDir.Index("nanoAOD")) );
     }
     cout<<"era is: "<<era<<"\n";
     
@@ -39,9 +38,8 @@ void run_objectTSelectorForNanoAOD(
     }
     cout<<"era is: "<<era<<"\n";
     cout<<"selectionBit is:"<<eventSelectionBit<<"\n";
+    cout<<"isdata: "<<isData<<"\n";
 
-    Bool_t isData = false;
-    if ( inputDir.Contains( "Block")) isData = true;
 
     TString inputFile; 
     inputFile = inputDir + singleFileName;
@@ -55,21 +53,18 @@ void run_objectTSelectorForNanoAOD(
     TString selection;
     TString option;
     Int_t eventNum = 100;
-    // if (ishuiling) selection = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
-    // else selection = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectTSelectorForNanoAOD.C";
     selection = "objectTSelectorForNanoAOD.C";
     if ( istest ){
-        // if (ishuiling) outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/output/";
-        // else outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/";
         outputDir = "output/";
-        // eventNum = 100;
-        eventNum = 1000;
+        eventNum = 100;
+        // eventNum = 1000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
     cout << "outputFile: "<< outputFile << endl;
     // option = outputFile + ":2016postVP";
-    option = outputFile + ":" + era + ":"+ eventSelectionBit;
+    // option = outputFile + ":" + era + ":"+ eventSelectionBit;
+    option = outputFile + ":" + era + ":"+ eventSelectionBit + ":" + isData;
     cout<<"option in run: "<<option<<"\n";
 
     TStopwatch t;
