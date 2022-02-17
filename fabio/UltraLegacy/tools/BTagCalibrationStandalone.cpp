@@ -73,14 +73,40 @@ throw std::exception();
   }
 
   // make parameters
-  unsigned op = stoi(vec[0]);
-  if (op > 3) {
+  // Change by Fabio
+  // unsigned op = stoi(vec[0]);
+  // Map UL operatingPoint values to pre-UL values so that the script can run on UL files too
+  unsigned op = 4; //give incorrect value as default, code should stop if for some reason not entering in any of the following ifs
+  std::map<std::string, int> OPmap = {
+      
+      {"loose", 0},
+      {"medium", 1},
+      {"tight", 2},
+      {"shape", 3},
+
+  };
+  op = OPmap[vec[0]];
+  
+if (op > 3) {
 std::cerr << "ERROR in BTagCalibration: "
           << "Invalid csv line; OperatingPoint > 3: "
           << csvLine;
 throw std::exception();
   }
-  unsigned jf = stoi(vec[3]);
+
+  // Change by Fabio
+  // unsigned jf = stoi(vec[3]);
+  // Map UL jet flavor values to pre-UL values so that the script can run on UL files too
+  unsigned jf = 3; //give incorrect value as default, code should stop if for some reason not entering in any of the following ifs
+  std::map<int, int> JFmap = {
+      
+      {5, 0},
+      {4, 1},
+      {0, 2},
+
+  };
+  jf = JFmap[stoi(vec[3])];
+
   if (jf > 2) {
 std::cerr << "ERROR in BTagCalibration: "
           << "Invalid csv line; JetFlavor > 2: "
