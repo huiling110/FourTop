@@ -244,8 +244,15 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    era = option2;
    std::cout << "era is: " << era << "\n";
-   if ( option4.CompareTo( "0") ) isdata = false;
-   else isdata = true; 
+   if ( option4.CompareTo( "0")==0 ) isdata = false;
+   else isdata = true;
+   std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
+
+    //testing
+
+   if( !isdata ){
+        GenJet_eta = {fReader, "GenJet_eta"};
+   }
    
 
    if (isdata) {// deal with Lumi JSONs only if reading data
@@ -402,6 +409,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
+
+    //test
+    std::cout<<GenJet_eta.At(0)<<"\n";
 
     vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
@@ -818,11 +828,11 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "Muon_charge_", &Muon_charge_ );
    //CHANGE HERE TO RUN ON DATA
    
-   if ( !isdata ){
+//    if ( !isdata ){
        tree->Branch( "genTaus", &genTaus );
        tree->Branch( "genEles", &genEles );
        tree->Branch( "genMuons", &genMuons );
-   }
+//    }
    
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
@@ -834,9 +844,9 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
    tree->Branch( "PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
    //CHANGE HERE TO RUN ON DATA
    
-   if ( !isdata ){
+//    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
-   }
+//    }
 
    tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
    tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");

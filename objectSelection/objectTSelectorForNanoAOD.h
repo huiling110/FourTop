@@ -366,8 +366,8 @@ public :
    // TTreeReaderArray<UChar_t> boostedTau_idMVAnewDM2017v2 = {fReader, "boostedTau_idMVAnewDM2017v2"};
    // TTreeReaderArray<UChar_t> boostedTau_idMVAoldDM2017v2 = {fReader, "boostedTau_idMVAoldDM2017v2"};
    // TTreeReaderArray<UChar_t> boostedTau_idMVAoldDMdR032017v2 = {fReader, "boostedTau_idMVAoldDMdR032017v2"};
-   TTreeReaderValue<Float_t> btagWeight_CSVV2 = {fReader, "btagWeight_CSVV2"};
-   TTreeReaderValue<Float_t> btagWeight_DeepCSVB = {fReader, "btagWeight_DeepCSVB"};
+//    TTreeReaderValue<Float_t> btagWeight_CSVV2 = {fReader, "btagWeight_CSVV2"};//???not in data
+//    TTreeReaderValue<Float_t> btagWeight_DeepCSVB = {fReader, "btagWeight_DeepCSVB"};//???not in data?
    /*
    TTreeReaderValue<Float_t> CaloMET_phi = {fReader, "CaloMET_phi"};
    TTreeReaderValue<Float_t> CaloMET_pt = {fReader, "CaloMET_pt"};
@@ -512,7 +512,9 @@ public :
 //    TTreeReaderArray<Float_t> GenJetAK8_phi = {fReader, "GenJetAK8_phi"};
 //    TTreeReaderArray<Float_t> GenJetAK8_pt = {fReader, "GenJetAK8_pt"};
 //    TTreeReaderValue<UInt_t> nGenJet = {fReader, "nGenJet"};
-   TTreeReaderArray<Float_t> GenJet_eta = {fReader, "GenJet_eta"};
+//    TTreeReaderArray<Float_t> GenJet_eta = {fReader, "GenJet_eta"};
+   TTreeReaderArray<Float_t> GenJet_eta = { fReader, "Electron_dz" } ;//!!!need to overwrite for MC!!!
+   //???protential problem of overloading!!!
 //    TTreeReaderArray<Float_t> GenJet_mass = {fReader, "GenJet_mass"};
    TTreeReaderArray<Float_t> GenJet_phi = {fReader, "GenJet_phi"};
    TTreeReaderArray<Float_t> GenJet_pt = {fReader, "GenJet_pt"};
