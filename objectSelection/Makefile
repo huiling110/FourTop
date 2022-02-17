@@ -1,15 +1,19 @@
 #-----------------------------------------------------------------------------
 
-PROGRAM = Analysis
+# PROGRAM = Analysis
+PROGRAM = objectTSelectorForNanoAOD
 
-HDRS = EventLoop.h\
+
+HDRS = objectTSelectorForNanoAOD.h\
+	utilityFunctions.h\
  
-OBJS = EventLoop.o\
-        dict_$(PROGRAM).o
+OBJS = objectTSelectorForNanoAOD.o\
+		utilityFunctions.o\
+        dict_$(PROGRAM).o\
 
 #-----------------------------------------------------------------------------
 ObjSuf = o
-SrcSuf = cpp
+SrcSuf = C
 ExeSuf = exe
 DllSuf = so
 OutPutOpt = -o
@@ -37,17 +41,17 @@ LIBS = $(ROOTLIBS)
 GLIBS = $(ROOTGLIBS)
 
 
-%/%.o: %.cpp
-	$(CXX) -c $(CXXFLAGS) $*.cpp
+%/%.o: %.C
+	$(CXX) -c $(CXXFLAGS) $*.C
  
 $(PROGRAM).so: $(OBJS)
 	@echo "Linking $(PROGRAM).so ..."
 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
 	@echo "linking done"
 
-dict_$(PROGRAM).cpp: $(HDRS)
+dict_$(PROGRAM).C: $(HDRS)
 	@echo "Generating dictionary ..."
-	rootcint -f dict_$(PROGRAM).cpp -c -p -I$(HEADRDIR) $(HDRS) Linkdef.h 
+	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(HDRS) Linkdef.h 
 
 clean:
 	@rm -f $(OBJS) $(PROGRAM).so dict_*

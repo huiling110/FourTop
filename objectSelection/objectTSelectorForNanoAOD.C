@@ -32,177 +32,12 @@
 //
 #include "objectTSelectorForNanoAOD.h"
 #include "../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+#include "utilityFunctions.h"
 //we should use a better way of modulization of code rather the include copy here???
 #include <TH2.h>
 #include <TStyle.h>
 
-
 ///////////////////////
-void printElements(const vector<Double_t>& jets_btags, const vector<TLorentzVector>& jets ){
-    for( UInt_t j = 0; j<jets_btags.size(); j++ ){
-        std::cout<<jets[j].Pt()<<":"<<jets_btags[j]<<" ";
-        // std::cout<<jets_btags[j]<<"  ";
-    }
-    std::cout<<"  \n";
-}
-
-Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) {
-  Double_t deltaPhi = TMath::Abs(phi1 - phi2);
-  Double_t deltaEta = eta1 - eta2;
-  if (deltaPhi > TMath::Pi())
-    deltaPhi = TMath::TwoPi() - deltaPhi;
-  return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
-}
-
-
-Double_t deltRmin(const Double_t eta1, const Double_t phi1, const vector<TLorentzVector> LeptonsMVAF){
-    Double_t deltaR = 0;
-    Double_t minDeltaR = 100;
-    for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++){
-        deltaR =  DeltaR( LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
-        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
-    }
-    return minDeltaR; 
-}
-
-bool compEle(const TLorentzVector a, const TLorentzVector b) {
-    return a.Pt() > b.Pt();
-}
-
-void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Float_t> &array, vector<Double_t> & vec){
-    for( UInt_t i=0; i< array.GetSize(); i++){
-        vec.push_back( array.At(i));
-    }
-}
-void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Int_t> &array, vector<Double_t> & vec){
-    for( UInt_t i=0; i< array.GetSize(); i++){
-        vec.push_back( array.At(i));
-    }
-}
-
-
-// void jetsSubstructBjets(vector<TLorentzVector>& nonbjets, const vector<Double_t> &bjets_btags,const vector<Double_t> &jets_btags,  const vector<TLorentzVector>& jets ){
-void jetsSubstructBjets(vector<TLorentzVector>& nonbjets,   const vector<TLorentzVector>& jets, const vector<TLorentzVector>& bjets ){
-    // for( UInt_t jet =0; jet<jets_btags.size(); jet++){
-        // if ( jets_btags[jet]== bjets_btags[jet]){
-            // nonbjets.push_back( jets[jet]);
-        // }
-    // }
-    Bool_t findMatchingB = false;
-    for( UInt_t j=0; j<jets.size(); j++){
-        for ( UInt_t i=0; i<bjets.size(); i++){
-            if ( bjets[i] == jets[j] )  {
-                // nonbjets.push_back( jets[j]);
-                findMatchingB = true;
-                break;
-            }
-        }
-        if ( !findMatchingB ) nonbjets.push_back( jets[j]);
-        findMatchingB = false;
-    }
-}
-
-    // SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-void sortJetAndFlavorAndBcore( vector<TLorentzVector>& jets, vector<Double_t>& jets_btags, vector<Int_t> jets_flavour ){
-    sort( jets_btags.begin(), jets_btags.end(), [&](std::size_t i,std::size_t j){
-            return jets[i].Pt()>jets[j].Pt();
-            } );
-} 
-
-void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _resolution, std::string & _resFormula) {
-
-    std::ifstream file(_path);
-    std::string lineStr;
-    bool firstLine = true;
-    while (std::getline(file,lineStr)){
-        std::stringstream ss(lineStr);
-        std::istream_iterator<std::string> begin(ss);
-        std::istream_iterator<std::string> end;
-        std::vector<std::string> vstrings(begin, end);
-        if (firstLine){
-            //if reading resolution file, store formula
-            if (vstrings.size() > 5) _resFormula = vstrings[5];
-            //else, store a toy formula
-            else _resFormula = "none";
-            firstLine = false;
-            continue;
-        }
-
-        _resolution.push_back(vstrings);
-
-    }
-
-}
-
-void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, vector<int> & matchingIdx) { // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
-    // Error in <TTreeReader::RegisterValueReader>: Error registering reader for GenJet_phi: TTreeReaderValue/Array objects must be created before the call to Next() / SetEntry() / SetLocalEntry(), or after TTreeReader::Restart()!
-    
-    for (unsigned int i = 0; i < recoEta.GetSize(); i++) {
-        
-        float dRmin = 10.0;
-        int matchIdx = -1;
-        int idx = -1;
-        for (unsigned int j = 0; j < genEta.GetSize(); j++) {
-
-            Double_t dr = DeltaR(recoEta.At(i), genEta.At(j), recoPhi.At(i), genPhi.At(j));
-            //cout << "dr: " << dr << endl;
-            if (dr < dRmin) {
-
-                dRmin = dr;
-                idx = j;
-
-            }
-                
-        }
-        
-        if (dRmin < 0.2) matchIdx = idx;
-        matchingIdx.push_back(matchIdx);
-
-    }
-
-}
-
-float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central){
-    for (auto res: resSFs){//go through all the lines
-        if (eta < std::stof(res[0]) || eta > std::stof(res[1])) continue; //if jet eta out of range, move to next line
-        return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Down/Up
-    }
-    return 1.;
-}
-
-float GetStochasticFactor(float pt, float eta, float rho, std::vector<std::vector<std::string> >  resolution, TString  resFormula){
-  
-    TFormula resForm("",resFormula);
-
-    for (auto res : resolution){
-        //skip if not in the right bin
-        if (eta < std::stof(res[0]) || eta > std::stof(res[1]) || rho < std::stof(res[2]) || rho > std::stof(res[3])) continue;
-        resForm.SetParameter(0,std::stof(res[7]));
-        resForm.SetParameter(1,std::stof(res[8]));
-        resForm.SetParameter(2,std::stof(res[9]));
-        resForm.SetParameter(3,std::stof(res[10]));
-    }
-    return resForm.Eval(pt);
-
-}
-
-float GetSmearFactor(float pt, float genPt, float eta, float rho, float jer_sf, std::vector<std::vector<std::string> > resolution, TString resFormula, TRandom3 ran){
-    
-    float smearFactor = 1.;
-    float relpterr = GetStochasticFactor(pt,eta,rho,resolution,resFormula);
-    if (genPt > 0. && (abs(pt-genPt)<3*relpterr*pt)) {
-        double dPt = pt - genPt;
-        smearFactor = 1 + (jer_sf - 1.) * dPt / pt;
-     
-    }
-    else {
-        smearFactor = 1 + ran.Gaus(0,relpterr)*std::sqrt(std::max(0.,(jer_sf*jer_sf)-1.));
-        if (smearFactor <= 0.) smearFactor = 1.;
-    }
-    return smearFactor;
-}
-
-/////////////////////////
 
 
 
@@ -280,13 +115,13 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
                exit(8);
            }
            //cout << "0" << endl;
-           string JSON = "";
-           string readLine;
+           std::string JSON = "";
+           std::string readLine;
            bool firstline = true;
            while (getline(cfgfile,readLine)) { // read all lines from JSON file
 
                std::stringstream ss(readLine);
-               string line = ss.str();
+               std::string line = ss.str();
                if (!firstline && line!="}") line.erase(0,1); //erase first charater: in golden JSONs each line starts with two spaces, but we want just one separating good runs; also, save last curly bracket
                JSON.append(line);
                if (firstline) firstline = false;
@@ -319,7 +154,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    TString outFileName = option1;
    outputfile = new TFile( outFileName, "RECREATE");
-   cout<<"outputFileName: "<<outputfile->GetName()<<endl;
+   std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
    
    
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
@@ -427,11 +262,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // std::cout<<GenJet_eta.At(0)<<"\n";
     // std::cout<<GenJet_eta.GetSize()<<"\n";
 
-    vector<int> matchingIndices;
+    std::vector<int> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
-    vector<float> jetSmearingFactors;
-    vector<float> jetSmearingFactorsUp;
-    vector<float> jetSmearingFactorsDown;
+    std::vector<float> jetSmearingFactors;
+    std::vector<float> jetSmearingFactorsUp;
+    std::vector<float> jetSmearingFactorsDown;
     for (unsigned int i = 0; i < *nJet; i++) {
 
         float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
@@ -446,9 +281,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     }
 
-    vector<float> tauESFactors;
-    vector<float> tauESFactorsUp;
-    vector<float> tauESFactorsDown;
+    std::vector<float> tauESFactors;
+    std::vector<float> tauESFactorsUp;
+    std::vector<float> tauESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
 
@@ -479,9 +314,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     //misidentified electron energy scale (FES), fake taus which is genuine electrons
-    vector<float> tauFESFactors;
-    vector<float> tauFESFactorsUp;
-    vector<float> tauFESFactorsDown;
+    std::vector<float> tauFESFactors;
+    std::vector<float> tauFESFactorsUp;
+    std::vector<float> tauFESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
         //??? add year parameter here for different year
@@ -936,7 +771,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
 /*}}}*/
 }
 
-void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuons,   vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
+void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &SelectedMuons,   std::vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
   // changed ISO to ss of TTTT
   // 0 for Loose; 1 fakeble; 2 tight 
     for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j) {
@@ -985,7 +820,7 @@ void objectTSelectorForNanoAOD::SelectMuons(vector<TLorentzVector> &SelectedMuon
 }
 
 
-void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &SelectedElectrons,   vector<Int_t> &SelectedElectronsIndex, const Int_t type) {
+void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons,   std::vector<Int_t> &SelectedElectronsIndex, const Int_t type) {
   // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
   // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j) { /*{{{*/
@@ -1025,7 +860,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(vector<TLorentzVector> &Selec
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus, vector<float> tauESFactors, vector<float> tauFESFactors, vector<Int_t> &SelectedTausIndex, vector<Int_t> &SelectedTausDecayMode, vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<float> tauESFactors, std::vector<float> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
@@ -1076,8 +911,8 @@ void objectTSelectorForNanoAOD::SelectTaus(vector<TLorentzVector> &SelectedTaus,
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, vector<float> jetSmearingFactors, vector<TLorentzVector> &SelectedJets,
-                vector<Double_t> &SelectedJetsBTags, vector<Int_t> &SelectedJetsIndex, vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const vector<TLorentzVector> LeptonsMVAF, const vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<float> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
+                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;/*{{{*/
@@ -1179,7 +1014,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
 
 } 
 /*}}}*/
-void objectTSelectorForNanoAOD::selectGenTaus( vector<TLorentzVector> &genTaus ){
+void objectTSelectorForNanoAOD::selectGenTaus( std::vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
         if(!(abs(GenPart_genPartIdxMother.At(j))==24 && abs(GenPart_pdgId.At(j))==15)) continue;//tau:15; top:6;W:
         TLorentzVector gentau;
@@ -1187,7 +1022,7 @@ void objectTSelectorForNanoAOD::selectGenTaus( vector<TLorentzVector> &genTaus )
         genTaus.push_back(gentau);
     }
 }
-void objectTSelectorForNanoAOD::selectGenEles( vector<TLorentzVector> &genEles ){
+void objectTSelectorForNanoAOD::selectGenEles( std::vector<TLorentzVector> &genEles ){
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
         if(!(abs(GenPart_genPartIdxMother.At(j))==24 && abs(GenPart_pdgId.At(j))==11)) continue;//tau:15; ele:11;
         TLorentzVector genele;
@@ -1195,7 +1030,7 @@ void objectTSelectorForNanoAOD::selectGenEles( vector<TLorentzVector> &genEles )
         genEles.push_back(genele);
     }
 }
-void objectTSelectorForNanoAOD::selectGenMuons( vector<TLorentzVector> &genMuons ){
+void objectTSelectorForNanoAOD::selectGenMuons( std::vector<TLorentzVector> &genMuons ){
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
         if(!(abs(GenPart_genPartIdxMother.At(j))==24  && abs(GenPart_pdgId.At(j))==13)) continue;//tau:15; top:6;W:;muon:13
         TLorentzVector genmuon;
