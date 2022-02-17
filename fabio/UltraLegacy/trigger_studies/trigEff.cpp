@@ -11,11 +11,9 @@
 #include <TROOT.h> //for gROOT
 #include <TSystem.h> // for gSystem
 //tools for b tagging SFs implementation
-#include "../tools/BTagCalibrationStandalone.h"
 #include "../tools/BTagCalibrationStandalone.cpp"
 #include "../tools/evalEventSF.C"
 //tools for DeepTau SFs implementation
-#include "../../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 #include "../../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #define NBINSX 9
 #define NBINSY 8
@@ -52,13 +50,14 @@ void trigEff(string year) {
   
  // set up calibration + reader
  cout << "Loading the .csv file..." << endl;
-    
- //std::string inputCSVfile = BTVSF_files[year];
- std::string inputCSVfile = "DeepJet_2016LegacySF_V1_TuneCP5_JESreduced.csv";
+
+ std::string inputCSVfile = BTVSF_files[year];
+ const std::string tagger = "DeepJet";   
  std::string measType = "iterativefit";
  std::string sysType = "central";
  std::string sysTypejesUp = "up_jes";
  std::string sysTypejesDown = "down_jes";
+ /*
  std::string sysTypejesEC2_2016Up = "up_jesEC2_2016";
  std::string sysTypejesEC2_2016Down = "down_jesEC2_2016";
  std::string sysTypejesEC2Up = "up_jesEC2";
@@ -81,6 +80,7 @@ void trigEff(string year) {
  std::string sysTypejesHF_2016Down = "down_jesHF_2016";
  std::string sysTypejesRelativeSample_2016Up = "up_jesRelativeSample_2016";
  std::string sysTypejesRelativeSample_2016Down = "down_jesRelativeSample_2016";
+ */
  std::string sysTypeHFUp = "up_hf";
  std::string sysTypeHFDown = "down_hf";
  std::string sysTypeLFUp = "up_lf";
@@ -97,16 +97,14 @@ void trigEff(string year) {
  std::string sysTypecfErr1Down = "down_cferr1";
  std::string sysTypecfErr2Up = "up_cferr2";
  std::string sysTypecfErr2Down = "down_cferr2";
- cout << "inputCSVfile: " << inputCSVfile << endl;
- BTagCalibration calib("DeepJet", inputCSVfile);
- BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown, sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
+ BTagCalibration calib(tagger, inputCSVfile);
+ BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown,/* sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, */sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
  CSVreader.load(calib, BTagEntry::FLAV_B, measType);
  CSVreader.load(calib, BTagEntry::FLAV_C, measType);
  CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
  
  cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
 	
-
  //Float_t binsX[NB  INSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
  Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
@@ -266,6 +264,12 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
     
     vector<TLorentzVector> *myjetsL = {}; 
     mychain.SetBranchAddress("jets", &myjetsL);
+    
+    vector<int> *myjets_flavor = {};
+    mychain.SetBranchAddress("jets_flavour", &myjets_flavor);
+
+    vector<double> *myjets_btags = {};
+    mychain.SetBranchAddress("jets_btags", &myjets_btags);
 
     vector<TLorentzVector> *mybjetsM = {}; 
     mychain.SetBranchAddress("bjetsM", &mybjetsM);
@@ -447,29 +451,33 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             }
             if (tauIDSF == 0) tauIDSF = 1.0;
+            
+            //Get b tagging scale factor
+            double * mybtagWeight;
+            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
 
             std::string tttt = "tttt";
             if (file_it->first.find(tttt) !=std::string::npos) {
              
-                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 	 
             }
 
             if (isReferenceTrig) {
 
-                h_HT_nocat->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                h_HT_nocat->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                 if (myjetsL->size() >= 6) {
    
-                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
      
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                     }
 
@@ -477,11 +485,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
                 if (HT > 500) {
 
-                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 	   
                     }
                     
@@ -489,17 +497,17 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
                 if(isSignalTrig) {
 
-                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                     if (myjetsL->size() >= 6) {
 
-                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                         if (mymuonsT->at(0).Pt() > 25) {
            
-                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                         }
 
@@ -507,11 +515,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
      
                     if (HT > 500) {
 
-                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                         if (mymuonsT->at(0).Pt() > 25) {
 
-                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF); 
+                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]); 
 
                         }
 
@@ -556,17 +564,21 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
             }
             if (tauIDSF == 0) tauIDSF = 1.0;
 
-            h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+            //Get b tagging scale factor
+            double * mybtagWeight;
+            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
+
+            h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
    
             if (myjetsL->size() >= 6) {
                 
-                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                     
                 }
                 
@@ -574,11 +586,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             if (HT > 500) {
 
-                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
        
                 }
                 
@@ -588,17 +600,17 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             if(isSignalTrig) {
 
-                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                 if (myjetsL->size() >= 6){
 
-                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
 
                     }
                     
@@ -606,11 +618,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
      
                 if (HT > 500) {
 
-                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF);
+                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
          
                     }
 
