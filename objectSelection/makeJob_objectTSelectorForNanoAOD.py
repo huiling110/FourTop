@@ -17,8 +17,8 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
 
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #CHANGE HERE TO RUN ON DATA
-#isdata = True
-isdata = False
+isdata = True
+# isdata = False
 isHuiling = True
 # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
 inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/'
@@ -56,8 +56,9 @@ for k in allProcesses:
     sampleName = k
     if  isdata:
         if dataSet not in k:
-            continue #go to next iteration 
-        sampleName = sampleName + sample[k]
+            print( "omitting: ", k )
+            continue
+        # sampleName = k
     print( 'kProcess: ', sampleName )
    
     if not os.path.exists(outputDir +sampleName):
