@@ -421,6 +421,8 @@ float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& un
 
         }//end barrel
 
+        delete points;
+
     }
 
     return 1.0; //if not correct dm or genmatch, return 1.0
