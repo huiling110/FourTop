@@ -7,9 +7,9 @@
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
     TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString singleFileName = "outTree_0.root",
     TString eventSelectionBit = "7", // 2 for MetFilters, 4 for HLTSelection, 1 for preselection. so 7 if all selection; 0 if no selection 
@@ -23,6 +23,7 @@ void run_objectTSelectorForNanoAOD(
     //determine era and isData from inputDir
     TString era = "2016";
     Bool_t isData = true;
+    TString dataSet = "mc" ;
     if (inputDir.Contains( "mc" )) {
         era = inputDir( inputDir.Index("nanoAOD")+8, (inputDir.Index("mc")-inputDir.Index("nanoAOD")-9) );
         isData = false;
@@ -30,6 +31,8 @@ void run_objectTSelectorForNanoAOD(
         TString tempo = inputDir;
         tempo.Remove( 0, inputDir.Index("data")+4);
         era = tempo( tempo.Index("nanoAOD")+8, (tempo.Index("data")-tempo.Index("nanoAOD")-9) );
+        dataSet = tempo( tempo.Index("data")+5, tempo.Length()-tempo.Index("data")-6 ) ;
+        cout<<"dataSet in run: "<<dataSet<<"\n";
     }
     cout<<"era is: "<<era<<"\n";
     
@@ -58,15 +61,15 @@ void run_objectTSelectorForNanoAOD(
     selection = "objectTSelectorForNanoAOD.C";
     if ( istest ){
         outputDir = "output/";
-        eventNum = 100;
-        // eventNum = 1000;
+        // eventNum = 100;
+        eventNum = 1000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
     cout << "outputFile: "<< outputFile << endl;
     // option = outputFile + ":2016postVP";
     // option = outputFile + ":" + era + ":"+ eventSelectionBit;
-    option = outputFile + ":" + era + ":"+ eventSelectionBit + ":" + isData;
+    option = outputFile + ":" + era + ":"+ eventSelectionBit + ":" + isData + ":"+ dataSet;
     cout<<"option in run: "<<option<<"\n";
 
     TStopwatch t;

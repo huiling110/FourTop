@@ -57,7 +57,8 @@ public :
     std::string toyResFormula;
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
-   //Bool_t isdata = true;
+   TString dataSet;
+
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
    TString era = "2016postVFP";
    std::map<TString, double> DeepJetL = { //std::map of loose WPs for DeepJet

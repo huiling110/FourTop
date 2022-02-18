@@ -71,10 +71,13 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     // std::cout<<"temp: "<<temp<<"\n";
     TString option3 = temp.Remove(0, temp.First(":")+1);
     TString option4 = temp.Remove(0, temp.First(":")+1 );
+    TString option5 = temp.Remove(0, temp.First(":")+1 );
+
     std::cout << "option1: " << option1 << "\n";
     std::cout << "option2: " << option2 << "\n";
     std::cout<<"option3: "<<option3<<"\n";
     std::cout<<"option4: "<<option4<<"\n";
+    std::cout<<"option5: "<<option5<<"\n";
 
 
    era = option2;
@@ -82,6 +85,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    if ( option4.CompareTo( "0")==0 ) isdata = false;
    else isdata = true;
    std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
+   dataSet = option5;
 
     //overriding for MC files
    if( !isdata ){
@@ -139,7 +143,11 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
         // HLT_Mu8_DiEle12_CaloIdL_TrackIdL = { fReader, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL"};
         HLT_TripleMu_12_10_5 = { fReader, "HLT_TripleMu_12_10_5"};
         // HLT_DiMu9_Ele9_CaloIdL_TrackIdL = { fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL"};
-
+   }else if( dataSet.Contains("jetHT") ){
+        std::cout<<"running over: "<<dataSet<<"\n";
+        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
 
    }
    
