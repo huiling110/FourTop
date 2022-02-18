@@ -265,7 +265,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            }
        }
    }
-
    //MET filters
    if ( MetFilters ){ //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
         if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
@@ -293,6 +292,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
     }
     copyHLT( isdata );
+    eventsPassedHLT++;
 
     initializeBrancheValues();
 
@@ -579,6 +579,7 @@ void objectTSelectorForNanoAOD::Terminate()
     outputfile->Close();
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "passed %lld events", eventsPassed);
+    Info("Terminate", "passed HLT %lld events", eventsPassedHLT);
     Info("Terminate", "output file here: %s", outputfile->GetName());
 ///////////////////////////////
 

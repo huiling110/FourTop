@@ -20,7 +20,9 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
 #isdata = True
 isdata = False
 isHuiling = True
-inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
+# inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
+inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/'
+dataSet = 'jetHT'
 if isHuiling:
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v1_testing/'
     # outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v/"
@@ -53,6 +55,8 @@ for k in allProcesses:
     sample_k = k
     sampleName = k
     if  isdata:
+        if dataSet not in k:
+            continue #go to next iteration 
         sampleName = sampleName + sample[k]
     print( 'kProcess: ', sampleName )
    
