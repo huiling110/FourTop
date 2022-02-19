@@ -434,32 +434,37 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             //Get Muon ID scale factor
             float muonIDSF = 1.0;
-            for (int i = 0; i < mymuonsT->size(); i++) { // only one muon but loop anyways
-
-                muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+            if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
+                
+                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
-            if (muonIDSF == 0) muonIDSF = 1.0;
-
+            
             //Get Tau ID scale factors
             float tauIDSF = 1.0;
-            for (int i = 0; i < mytausT->size(); i ++) {
+            if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
+            
+                for (int i = 0; i < mytausT->size(); i ++) {
                 
-                double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
-                double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
-                double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                    double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
+                    double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                    double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
 
-                tauIDSF *= VSjetSF;
-                tauIDSF *= VSeSF;
-                tauIDSF *= VSmuSF;
+                    tauIDSF *= VSjetSF;
+                    tauIDSF *= VSeSF;
+                    tauIDSF *= VSmuSF;
 
+                }
+                if (tauIDSF == 0) tauIDSF = 1.0;
+            
             }
-            if (tauIDSF == 0) tauIDSF = 1.0;
             
             //Get b tagging scale factor
             double * mybtagWeight;
             mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-
+            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
+                
             std::string tttt = "tttt";
             if (file_it->first.find(tttt) !=std::string::npos) {
              
@@ -543,32 +548,37 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
             //Get Muon ID scale factor
             float muonIDSF = 1.0;
-            for (int i = 0; i < mymuonsT->size(); i++) { // only one muon but loop anyways
-
-                muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+            if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
+                
+                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
-            if (muonIDSF == 0) muonIDSF = 1.0;
             
             //Get Tau ID scale factors
             float tauIDSF = 1.0;
-            for (int i = 0; i < mytausT->size(); i ++) {
+            if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
+            
+                for (int i = 0; i < mytausT->size(); i ++) {
+                
+                    double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
+                    double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                    double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
 
-                double VSjetSF = VSjetIDTool.getSFvsPT(mytausT->at(i).Pt(), mytausT_genPartFlav->at(i), "");
-                double VSeSF = VSeIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
-                double VSmuSF = VSmuIDTool.getSFvsEta(fabs(mytausT->at(i).Eta()), mytausT_genPartFlav->at(i), "");
+                    tauIDSF *= VSjetSF;
+                    tauIDSF *= VSeSF;
+                    tauIDSF *= VSmuSF;
 
-                tauIDSF *= VSjetSF;
-                tauIDSF *= VSeSF;
-                tauIDSF *= VSmuSF;
-
+                }
+                if (tauIDSF == 0) tauIDSF = 1.0;
+            
             }
-            if (tauIDSF == 0) tauIDSF = 1.0;
-
+            
             //Get b tagging scale factor
             double * mybtagWeight;
             mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-
+            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
+            
             h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
             h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
             h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
