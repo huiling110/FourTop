@@ -537,5 +537,5 @@ double * evalEventSF( vector<TLorentzVector> * AK4Jets, vector<int> * AK4JetFlav
             delete output;
             delete AK4Jets;
             delete AK4JetBtag;
-            
+            delete AK4JetFlavor;
 } 
