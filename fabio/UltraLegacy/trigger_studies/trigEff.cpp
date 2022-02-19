@@ -747,6 +747,19 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
     delete h_gen2tau2L_bef;
     delete h_gen2tau2L_aft;
 
+    delete mygenTaus;
+    delete mygenEles;
+    delete mygenMuons;
+    delete myjetsL;
+    delete myjets_flavor;
+    delete myjets_btags;
+    delete mybjetsM;
+    delete myelesMVAT;
+    delete mymuonsT;
+    delete mytausT;
+    delete mytausT_genPartFlav;
+    delete myleptonsMVAT;
+    
     mychain.Reset();
     mychain2.Reset();
 
