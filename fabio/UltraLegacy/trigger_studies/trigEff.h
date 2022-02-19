@@ -26,33 +26,38 @@ map<string, string> file = { //MAP OF INPUT FILES
 
 //signal
 
-//{"tttt", "tttt"},
+{"tttt", "tttt"},
 
 //ttbar background    
-//{"ttbar-FH", "ttbar_0l"},
+{"ttbar-FH", "ttbar_0l"},
 {"ttbar-SL", "ttbar_1l"},
-//{"ttbar-DL", "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8"},
-//{"ttbar-incl", "TT_TuneCUETP8M2T4_13TeV-powheg-pythia8"},
+{"ttbar-DL", "ttbar_2l"},
 
-/*
 //QCD background
-//{"QCD_HT200to300", "QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT300to500", "QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT500to700", "QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT700to1000", "QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT1000to1500", "QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT1500to2000", "QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-{"QCD_HT2000toInf", "QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"},
-
+{"QCD_HT200to300", "qcd_200to300"},
+{"QCD_HT300to500", "qcd_300to500"},
+{"QCD_HT500to700", "qcd_500to700"},
+{"QCD_HT700to1000", "qcd_700to1000"},
+{"QCD_HT1000to1500", "qcd_1000to1500"},
+{"QCD_HT1500to2000", "qcd_1500to2000"},
+{"QCD_HT2000toInf", "qcd_2000toInf"},
 
 //tt+X background
 //{"ttG-SL", "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
 //{"ttG-DL", "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp"},
-{"ttW+jets", "ttWJets_13TeV_madgraphMLM"},
-{"ttZ+jets", "ttZJets_13TeV_madgraphMLM-pythia8"},
-{"ttG+jets", "TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8"},
-{"ttH", "ttH_4f_ctcvcp_TuneCP5_13TeV_madgraph_pythia8"},
-*/
+{"ttW+jets", "ttW"},
+{"ttZ+jets", "ttZ"},
+{"ttG+jets", "ttG"},
+{"ttH_bb", "ttH_bb"},
+{"ttH_nonbb", "ttH_nonbb"},
+
+//single-top background
+{"st_tchan", "st_tchan"},
+{"st_antitchan", "st_antitchan"},
+{"st_tW_top", "st_tW_top"},
+{"st_tW_antitop", "st_tW_antitop"},
+{"st_tZq", "st_tZq"},
+
 /*
 //diboson background
 {"WZ", "WZ_TuneCUETP8M1_13TeV-pythia8"},
@@ -76,14 +81,6 @@ map<string, string> file = { //MAP OF INPUT FILES
 
 //DY background
 {"DY", "DYJetsToTauTau_ForcedMuEleDecay_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ext1"},
-
-//single-top background
-{"tZq", "tZq_ll_4f_ckm_NLO_TuneCP5_PSweights_13TeV-amcatnlo-pythia8"},
-{"tW_antitop", "ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4"},
-{"tW_top", "ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M2T4"},
-//{"tG+jets", "TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8"},
-{"tHW", "THW_ctcvcp_HIncl_M125_TuneCP5_13TeV-madgraph-pythia8"},
-{"THq", "THQ_ctcvcp_Hincl_13TeV-madgraph-pythia8_TuneCUETP8M1"},
 
 //Higgs background
 {"VHToNonbb", "VHToNonbb_M125_13TeV_amcatnloFXFX_madspin_pythia8"},
