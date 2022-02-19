@@ -754,11 +754,11 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 
     }//end loop over files
 
- 
-outputfile->Close();
-delete outputfile;
+ delete MuonIDSF; 
+ outputfile->Close();
+ delete outputfile;
 
-gBenchmark->Show("running time");
+ gBenchmark->Show("running time");
 
 }//end
 
