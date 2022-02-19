@@ -125,7 +125,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
 	//LOOP ONLY ON SIGNAL 
     //std::string tttt = "tttt";
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
-    TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/v0_testing/" + TString(file_it->second) + "/";
+    TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/v1_testing/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     /*
       gSystem->RedirectOutput("/dev/null"); // do not show errors when not finding the following files: will print a custom error a few lines below
@@ -317,7 +317,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
     Long64_t nevents = mychain.GetEntries();
 
     for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-        if (ievent > 100) break;
+        //if (ievent > 100) break;
         if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
         //get i-th entry in tree
         mychain.GetEntry( ievent );
