@@ -26,10 +26,10 @@ map<string, string> file = { //MAP OF INPUT FILES
 
 //signal
 
-{"tttt", "tttt"},
+{"tttt", "tttt"}, //broken
 
 //ttbar background    
-{"ttbar-FH", "ttbar_0l"},
+{"ttbar-FH", "ttbar_0l"},//broken
 {"ttbar-SL", "ttbar_1l"},
 {"ttbar-DL", "ttbar_2l"},
 
@@ -45,11 +45,11 @@ map<string, string> file = { //MAP OF INPUT FILES
 //tt+X background
 //{"ttG-SL", "TTGamma_SingleLept_TuneEE5C_13TeV-madgraph-herwigpp"},
 //{"ttG-DL", "TTGamma_Dilept_TuneEE5C_13TeV-madgraph-herwigpp"},
-{"ttW+jets", "ttW"},
-{"ttZ+jets", "ttZ"},
-{"ttG+jets", "ttG"},
-{"ttH_bb", "ttH_bb"},
-{"ttH_nonbb", "ttH_nonbb"},
+{"ttW+jets", "ttW"}, //broken
+{"ttZ+jets", "ttZ"}, //broken
+{"ttG+jets", "ttG"}, //broken
+{"ttH_bb", "ttH_bb"}, //broken
+{"ttH_nonbb", "ttH_nonbb"}, //broken
 
 //single-top background
 {"st_tchan", "st_tchan"},
