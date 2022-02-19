@@ -127,18 +127,12 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
     TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/v1_testing/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
-    /*
-      gSystem->RedirectOutput("/dev/null"); // do not show errors when not finding the following files: will print a custom error a few lines below
-      TFile * checki  nput = new TFile(input_base_dir + "v3_1-1.root");
-      TFile * checkinput2 =   new TFile(input_base_dir + "v3_1.root");
-      gSystem->RedirectOutput(0,0);   // restore the printing to normal behavior
-      if (checkinput->IsZombie() && checkinp  ut2->IsZombie()){
-      cout << "+++ INPUT FILES NOT FOUND! SKIPPING +  ++" << endl;
-      file_it++; 
-      continue;   
-      }   
-    */
+    if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
+        std::cout << "*** ERROR: file you are trying to read does not exist. Exiting. ***" << endl;
+        return;
+    }
+    
     TH1::AddDirectory(kFALSE); 
     // HT distribution for signal
     TH1F * h_HT_signal = new TH1F("h_HT_signal", "h_HT_signal; H_{T} [GeV]", 60, 0, 3000);
