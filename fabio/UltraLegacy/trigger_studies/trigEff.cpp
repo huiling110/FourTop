@@ -315,7 +315,7 @@ while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////
         if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
         //get i-th entry in tree
         mychain.GetEntry( ievent );
-        if (!(mygenEvtWeight > 0)) continue;
+        if (!(mygenEvtWeight > 0)) continue; //ignore negative-weighted events when dealing with TEfficiencies
 
         /////////////////////////////////////////////////////////////////////
         ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
