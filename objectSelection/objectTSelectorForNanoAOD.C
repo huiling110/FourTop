@@ -86,6 +86,35 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    else isdata = true;
    std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
    dataSet = option5;
+   Int_t eventSelection = std::stoi( option3.Data() );
+   // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
+   std::cout<<"eventSelection in selector: "<<eventSelection<<"\n";
+//    if ( eventSelection > 6 ) {
+//        MetFilters = true; HLTSelection = true; preSelection = true;
+//    }else if ( eventSelection > 5 ){
+//        MetFilters = false; HLTSelection = true; preSelection = true;
+//    }else if ( eventSelection > 4 ){
+//        MetFilters = false; HLTSelection = true; preSelection = true;
+//    }
+    switch ( eventSelection ){
+        case 0:
+            MetFilters = false; HLTSelection = false; preSelection = false;
+        case 1:
+            MetFilters = true; HLTSelection = false; preSelection = false;
+        case 2:
+            MetFilters = false; HLTSelection = true; preSelection = false;
+        case 3:
+            MetFilters = true; HLTSelection = true; preSelection = false;
+        case 4:
+            MetFilters = false; HLTSelection = false; preSelection = true;
+        case 5:
+            MetFilters = true; HLTSelection = false; preSelection = true;
+        case 6:
+            MetFilters = false; HLTSelection = true; preSelection = true;
+        case 7:
+            MetFilters = true; HLTSelection = true; preSelection = true;
+    }
+    std::cout<<"MetFilters = "<<MetFilters<<"; HLTSelection = "<<HLTSelection<<"; preSelection"<<preSelection<<"\n";
 
     //overriding for MC files
    if( !isdata ){
@@ -537,8 +566,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         EVENT_genWeight_ = *genWeight;
     }
 	
-    //preselection
-    if (preselection) {
+    //preSelection
+    if (preSelection) {
         if ( !( tausL.size()>0)) return kFALSE;
 		if ( !( jets.size()>1))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
