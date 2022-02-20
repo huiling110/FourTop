@@ -126,7 +126,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
         HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30"};
         HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = { fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1"};
 
-        HLT_DoubleMu33NoFiltersNoVtx = { fReader, "HLT_DoubleMu33NoFiltersNoVtx"};
+        HLT_DoubleMu33NoFiltersNoVtx = { fReader, "HLT_DoubleMu33NoFiltersNoVtx"};//double muon
         HLT_DoubleMu23NoFiltersNoVtxDisplaced = { fReader, "HLT_DoubleMu23NoFiltersNoVtxDisplaced"};
         HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = { fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
         HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = { fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
@@ -148,6 +148,17 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
         HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
         HLT_PFJet450 = { fReader, "HLT_PFJet450"};
+   }else if( dataSet.Contains("singleMu")){
+        std::cout<<"running over: "<<dataSet<<"\n";
+        HLT_IsoMu22 = { fReader, "HLT_IsoMu22"};
+        HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
+        HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
+        HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
+        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
+        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
+        HLT_Mu50 = { fReader, "HLT_Mu50"};
+        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
+        HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
 
    }
    
