@@ -118,9 +118,9 @@ void trigEff(string year) {
 
  TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" ); 
 
- map<string, string>::iterator file_it = file.begin();
+ map<string, string>::iterator file_it = file[year].begin();
 
-while (file_it != file.end()) { //////////////////////// LOOP OVER FILES ///////////////////////
+while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
 
 	//LOOP ONLY ON SIGNAL 
     //std::string tttt = "tttt";
