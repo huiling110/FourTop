@@ -70,7 +70,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     option2 = option2(0, option2.First(":"));
     // std::cout<<"temp: "<<temp<<"\n";
     TString option3 = temp.Remove(0, temp.First(":")+1);
+    option3 = option3(0, option3.First(":"));
     TString option4 = temp.Remove(0, temp.First(":")+1 );
+    option4 = option4(0, option4.First(":"));
     TString option5 = temp.Remove(0, temp.First(":")+1 );
 
     std::cout << "option1: " << option1 << "\n";
@@ -89,32 +91,58 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    Int_t eventSelection = std::stoi( option3.Data() );
    // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
    std::cout<<"eventSelection in selector: "<<eventSelection<<"\n";
-//    if ( eventSelection > 6 ) {
-//        MetFilters = true; HLTSelection = true; preSelection = true;
-//    }else if ( eventSelection > 5 ){
-//        MetFilters = false; HLTSelection = true; preSelection = true;
-//    }else if ( eventSelection > 4 ){
-//        MetFilters = false; HLTSelection = true; preSelection = true;
-//    }
-    switch ( eventSelection ){
-        case 0:
+    // switch ( eventSelection ){
+    //     case 0:
+    //         MetFilters = false; HLTSelection = false; preSelection = false;
+    //         return;
+    //     case 1:
+    //         MetFilters = true; HLTSelection = false; preSelection = false;
+    //         return;
+    //     case 2:
+    //         MetFilters = false; HLTSelection = true; preSelection = false;
+    //         return;
+    //     case 3:
+    //         MetFilters = true; HLTSelection = true; preSelection = false;
+    //         return;
+    //     case 4:
+    //         MetFilters = false; HLTSelection = false; preSelection = true;
+    //         return;
+    //     case 5:
+    //         MetFilters = true; HLTSelection = false; preSelection = true;
+    //         return;
+    //     case 6:
+    //         MetFilters = false; HLTSelection = true; preSelection = true;
+    //         return;
+    //     case 7:
+    //         MetFilters = true; HLTSelection = true; preSelection = true;
+    //         return;
+    // }
+        if ( eventSelection ==  0) {
             MetFilters = false; HLTSelection = false; preSelection = false;
-        case 1:
+        }
+        if ( eventSelection ==  1 ) {
             MetFilters = true; HLTSelection = false; preSelection = false;
-        case 2:
+        }
+        if ( eventSelection ==  2 ) {
             MetFilters = false; HLTSelection = true; preSelection = false;
-        case 3:
+        }
+        if ( eventSelection ==  3 ) {
             MetFilters = true; HLTSelection = true; preSelection = false;
-        case 4:
+        }
+        if ( eventSelection ==  4 ) {
             MetFilters = false; HLTSelection = false; preSelection = true;
-        case 5:
+        }
+        if ( eventSelection ==  5 ) {
             MetFilters = true; HLTSelection = false; preSelection = true;
-        case 6:
+        }
+        if ( eventSelection ==  6 ) {
             MetFilters = false; HLTSelection = true; preSelection = true;
-        case 7:
+        }
+        if ( eventSelection ==  7 ) {
             MetFilters = true; HLTSelection = true; preSelection = true;
-    }
-    std::cout<<"MetFilters = "<<MetFilters<<"; HLTSelection = "<<HLTSelection<<"; preSelection"<<preSelection<<"\n";
+        }
+    
+    std::cout<<"MetFilters = "<<MetFilters<<"; HLTSelection = "<<HLTSelection<<"; preSelection = "<<preSelection<<"\n";
 
     //overriding for MC files
    if( !isdata ){
@@ -321,7 +349,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
         }
         //CHANGE HERE TO RUN ON DATA 
-		//if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+		if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
     }
     copyFlags();
 

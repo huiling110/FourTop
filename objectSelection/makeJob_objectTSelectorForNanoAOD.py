@@ -17,16 +17,15 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
 
 #all the parameters you need to change is in this part , better not change the rest of the code.
 #CHANGE HERE TO RUN ON DATA
-isdata = True
-# isdata = False
+# isdata = True
+isdata = False
 isHuiling = True
-# inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
-inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/'
+inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
+# inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/'
 dataSet = 'jetHT'
 if isHuiling:
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v1_testing/'
-    # outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2016PPV/v/"
-    # Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/"
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v2_noEventSelection/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v3_onlyMETandPreselectionNoHLT/'
     Jobsubmitpath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/"
 else:
     outputDir = "/publicfs/cms/user/fabioiemmi/tauOfTTTT_NanoAOD/"
