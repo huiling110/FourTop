@@ -129,8 +129,27 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
     setupInputFile();
 
-    ///???year
-    FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+    if ( era.CompareTo( "2016postVFP")==0 ){
+    //    std::cout<<__LINE__<<"\n";
+        TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+        FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+
+    }else if( era.CompareTo( "2016preVFP")==0 ){
+        TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
+           FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+
+    }else if( era.CompareTo("2017")==0 ){
+        TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
+           FESTool = TauFESTool("2017ReReco","DeepTau2017v2p1VSe"); //no measurement for 2017 UL, use ReReco instead
+
+    }else if( era.CompareTo("2018")==0 ){
+        TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
+           FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
+
+    }
+
+
+
 
 ///////////////////////////////////////
 
@@ -239,6 +258,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
        //??? add year parameter here for different year
         //CANT' WE MOVE TOOL DEFINITION OUTSIDE OF THE FOR LOOP^
+        /*
         TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
        if ( era.CompareTo( "2016postVFP")==0 ){
         //    std::cout<<__LINE__<<"\n";
@@ -254,6 +274,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
 
        }
+       */
         float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
         float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
@@ -272,6 +293,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         //??? add year parameter here for different year
         //CANT' WE MOVE TOOL DEFINITION OUTSIDE OF THE FOR LOOP^
         // TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+        /*
        if ( era.CompareTo( "2016postVFP")==0 ){
         //    std::cout<<__LINE__<<"\n";
            FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
@@ -286,6 +308,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
 
        }
+       */
 
         float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
