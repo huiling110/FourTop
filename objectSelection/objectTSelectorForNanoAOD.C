@@ -221,13 +221,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
 
+    //isData
     calJetSmearFactors( );
     
 
-    std::vector<float> tauESFactors;
-    std::vector<float> tauESFactorsUp;
-    std::vector<float> tauESFactorsDown;
+    // std::vector<float> tauESFactors;
+    // std::vector<float> tauESFactorsUp;
+    // std::vector<float> tauESFactorsDown;
 
+    tauESFactors.clear();
+    tauESFactorsUp.clear();
+    tauESFactorsDown.clear();
+    // tauFESFactors.clear();
+    // tauFESFactorsUp.clear();
+    // tauFESFactorsDown.clear();
     for (unsigned int i = 0; i < *nTau; i++) {
 
        //??? add year parameter here for different year
@@ -257,9 +264,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     //misidentified electron energy scale (FES), fake taus which is genuine electrons
-    std::vector<float> tauFESFactors;
-    std::vector<float> tauFESFactorsUp;
-    std::vector<float> tauFESFactorsDown;
+    // std::vector<float> tauFESFactors;
+    // std::vector<float> tauFESFactorsUp;
+    // std::vector<float> tauFESFactorsDown;
 
     for (unsigned int i = 0; i < *nTau; i++) {
         //??? add year parameter here for different year
@@ -370,12 +377,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
-    tauESFactors.clear();
-    tauESFactorsUp.clear();
-    tauESFactorsDown.clear();
-    tauFESFactors.clear();
-    tauFESFactorsUp.clear();
-    tauFESFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );

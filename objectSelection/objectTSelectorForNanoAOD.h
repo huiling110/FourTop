@@ -287,6 +287,12 @@ public :
     std::vector<float> jetSmearingFactors;
     std::vector<float> jetSmearingFactorsUp;
     std::vector<float> jetSmearingFactorsDown;
+    std::vector<float> tauESFactors;
+    std::vector<float> tauESFactorsUp;
+    std::vector<float> tauESFactorsDown;
+    std::vector<float> tauFESFactors;
+    std::vector<float> tauFESFactorsUp;
+    std::vector<float> tauFESFactorsDown;
 
     //weight
     Double_t EVENT_prefireWeight_;
