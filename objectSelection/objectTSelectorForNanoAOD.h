@@ -284,6 +284,9 @@ public :
     std::vector<TLorentzVector> genTaus; 
     std::vector<TLorentzVector> genEles;
     std::vector<TLorentzVector> genMuons;
+    std::vector<float> jetSmearingFactors;
+    std::vector<float> jetSmearingFactorsUp;
+    std::vector<float> jetSmearingFactorsDown;
 
     //weight
     Double_t EVENT_prefireWeight_;
@@ -311,6 +314,7 @@ public :
 	 void initializeBrancheValues();
     void setupInputFile();
     void getOptionFromRunMacro( const TString option ); 
+    void calJetSmearFactors( );
 
 
 

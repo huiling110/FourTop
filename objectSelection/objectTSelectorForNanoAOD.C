@@ -221,27 +221,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
 
-
-    std::vector<int>* matchingIndices   { new std::vector<int>} ;
-    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
-    std::vector<float> jetSmearingFactors;
-    std::vector<float> jetSmearingFactorsUp;
-    std::vector<float> jetSmearingFactorsDown;
-    for (unsigned int i = 0; i < *nJet; i++) {
-
-        float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
-        float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
-        float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
-        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
-        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
-        jetSmearingFactors.push_back(smearFactor);
-        jetSmearingFactorsUp.push_back(smearFactorUp);
-        jetSmearingFactorsDown.push_back(smearFactorDown);
-
-    }
-    matchingIndices->clear();
-    delete matchingIndices;
+    calJetSmearFactors( );
     
 
     std::vector<float> tauESFactors;
@@ -1379,5 +1359,32 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
         HLT_TkMu50 = { fReader, "HLT_TkMu50"};
         HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
    }
+
+}
+
+
+void objectTSelectorForNanoAOD::calJetSmearFactors( ){
+    std::vector<int>* matchingIndices   { new std::vector<int>} ;
+    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
+    // std::vector<float> jetSmearingFactors;
+    // std::vector<float> jetSmearingFactorsUp;
+    // std::vector<float> jetSmearingFactorsDown;
+    jetSmearingFactors.clear();
+    jetSmearingFactorsUp.clear();
+    jetSmearingFactorsDown.clear();
+    for (unsigned int i = 0; i < *nJet; i++) {
+        float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+        float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+        float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
+        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        jetSmearingFactors.push_back(smearFactor);
+        jetSmearingFactorsUp.push_back(smearFactorUp);
+        jetSmearingFactorsDown.push_back(smearFactorDown);
+
+    }
+    // matchingIndices->clear();
+    delete matchingIndices;
 
 }
