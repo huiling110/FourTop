@@ -19,7 +19,7 @@
 #define NBINSY 8
 //using namespace std;
 
-void trigEff(string year) {
+void trigEff(string year, string dir) {
 
  gBenchmark->Start("running time");
  gROOT->ProcessLine(".L Loader.C+");
@@ -125,7 +125,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 	//LOOP ONLY ON SIGNAL 
     //std::string tttt = "tttt";
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
-    TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/v1_testing/" + TString(file_it->second) + "/";
+    TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
