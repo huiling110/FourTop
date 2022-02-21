@@ -244,80 +244,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     calJetSmearFactors( );
     
 
-    // std::vector<float> tauESFactors;
-    // std::vector<float> tauESFactorsUp;
-    // std::vector<float> tauESFactorsDown;
 
-    tauESFactors.clear();
-    tauESFactorsUp.clear();
-    tauESFactorsDown.clear();
-    // tauFESFactors.clear();
-    // tauFESFactorsUp.clear();
-    // tauFESFactorsDown.clear();
-    for (unsigned int i = 0; i < *nTau; i++) {
-
-       //??? add year parameter here for different year
-        //CANT' WE MOVE TOOL DEFINITION OUTSIDE OF THE FOR LOOP^
-        /*
-        TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
-       if ( era.CompareTo( "2016postVFP")==0 ){
-        //    std::cout<<__LINE__<<"\n";
-           TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
-
-       }else if( era.CompareTo( "2016preVFP")==0 ){
-           TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
-
-       }else if( era.CompareTo("2017")==0 ){
-           TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
-
-       }else if( era.CompareTo("2018")==0 ){
-           TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
-
-       }
-       */
-        float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
-        tauESFactors.push_back(TESSF);
-        tauESFactorsUp.push_back(TESSFUp);
-        tauESFactorsDown.push_back(TESSFDown);
-        
-    }
-
-    //misidentified electron energy scale (FES), fake taus which is genuine electrons
-    // std::vector<float> tauFESFactors;
-    // std::vector<float> tauFESFactorsUp;
-    // std::vector<float> tauFESFactorsDown;
-
-    for (unsigned int i = 0; i < *nTau; i++) {
-        //??? add year parameter here for different year
-        //CANT' WE MOVE TOOL DEFINITION OUTSIDE OF THE FOR LOOP^
-        // TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
-        /*
-       if ( era.CompareTo( "2016postVFP")==0 ){
-        //    std::cout<<__LINE__<<"\n";
-           FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
-
-       }else if( era.CompareTo( "2016preVFP")==0 ){
-           FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
-
-       }else if( era.CompareTo("2017")==0 ){
-           FESTool = TauFESTool("2017ReReco","DeepTau2017v2p1VSe"); //no measurement for 2017 UL, use ReReco instead
-
-       }else if( era.CompareTo("2018")==0 ){
-           FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
-
-       }
-       */
-
-        float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        float FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
-        tauFESFactors.push_back(FESSF);
-        tauFESFactorsUp.push_back(FESSFUp);
-        tauFESFactorsDown.push_back(FESSFDown);
-        
-    }
 
     SelectMuons( muonsL, muonsL_index, 0 ); sort( muonsL.begin(), muonsL.end(), compEle);
     SelectMuons( muonsF, muonsF_index, 1); sort( muonsF.begin(), muonsF.end(), compEle);
@@ -344,6 +271,30 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort( leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     //nominal taus
+    tauESFactors.clear();
+    tauESFactorsUp.clear();
+    tauESFactorsDown.clear();
+    tauFESFactors.clear();
+    tauFESFactorsUp.clear();
+    tauFESFactorsDown.clear();
+    for (unsigned int i = 0; i < *nTau; i++) {
+        float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        tauESFactors.push_back(TESSF);
+        tauESFactorsUp.push_back(TESSFUp);
+        tauESFactorsDown.push_back(TESSFDown);
+    }
+
+    //misidentified electron energy scale (FES), fake taus which is genuine electrons
+    for (unsigned int i = 0; i < *nTau; i++) {
+        float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        float FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        tauFESFactors.push_back(FESSF);
+        tauFESFactorsUp.push_back(FESSFUp);
+        tauFESFactorsDown.push_back(FESSFDown);
+    }
     SelectTaus( tausL, tauESFactors, tauFESFactors, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     SelectTaus( tausF, tauESFactors, tauFESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
     SelectTaus( tausT, tauESFactors, tauFESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);

@@ -90,8 +90,8 @@ for k in allProcesses:
             
             logFile = outputDir +  sampleName + "/log/" + smallFile + ".log"
             errFile = outputDir +  sampleName + "/log/" + smallFile + ".err"
-            # sub_oneProcess.write( "hep_sub "+ sampleName + '_' + smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
-            sub_oneProcess.write( "hep_sub "+ sampleName + '_' + smallFile + ".sh" + " -mem 5000" +  " -o " + logFile + " -e " + errFile + "\n")
+            sub_oneProcess.write( "hep_sub "+ sampleName + '_' + smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
+            # sub_oneProcess.write( "hep_sub "+ sampleName + '_' + smallFile + ".sh" + " -mem 5000" +  " -o " + logFile + " -e " + errFile + "\n")
 
     subAllProcessName.write( "sh  " + oneProcess + "\n")
     os.popen('chmod 777 '+Jobsubmitpath+"Jobsubmit_seperate/" + sampleName + "/*sh")
