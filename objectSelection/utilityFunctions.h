@@ -36,7 +36,7 @@ void jetsSubstructBjets(std::vector<TLorentzVector>& nonbjets,   const std::vect
 void sortJetAndFlavorAndBcore( std::vector<TLorentzVector>& jets, std::vector<Double_t>& jets_btags, std::vector<Int_t> jets_flavour );
 
 void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _resolution, std::string & _resFormula) ;
-void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> & matchingIdx);// why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
+void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int>* & matchingIdx);// why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
 
 
 float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central);

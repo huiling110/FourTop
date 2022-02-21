@@ -214,20 +214,15 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     //Compute the per-event PU weight
     if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
-
         PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
         PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
         PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
-
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
 
-    //test
-    // std::cout<<GenJet_eta.At(0)<<"\n";
-    // std::cout<<GenJet_eta.GetSize()<<"\n";
 
-    std::vector<int> matchingIndices;
+    std::vector<int>* matchingIndices   { new std::vector<int>} ;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
     std::vector<float> jetSmearingFactors;
     std::vector<float> jetSmearingFactorsUp;
@@ -237,14 +232,17 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
         float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
         float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
-        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
-        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
         jetSmearingFactors.push_back(smearFactor);
         jetSmearingFactorsUp.push_back(smearFactorUp);
         jetSmearingFactorsDown.push_back(smearFactorDown);
 
     }
+    matchingIndices->clear();
+    delete matchingIndices;
+    
 
     std::vector<float> tauESFactors;
     std::vector<float> tauESFactorsUp;
@@ -388,7 +386,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort( bjetsT_smearedDown.begin(), bjetsT_smearedDown.end(), compEle);
     SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     sort( forwardJets.begin(), forwardJets.end(), compEle);
-    matchingIndices.clear();
+    // matchingIndices.clear();
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();

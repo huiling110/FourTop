@@ -111,11 +111,8 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _re
 
 }
 
-void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> & matchingIdx) { // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted 
-    // Error in <TTreeReader::RegisterValueReader>: Error registering reader for GenJet_phi: TTreeReaderValue/Array objects must be created before the call to Next() / SetEntry() / SetLocalEntry(), or after TTreeReader::Restart()!
-    
+void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int>* & matchingIdx) { 
     for (unsigned int i = 0; i < recoEta.GetSize(); i++) {
-        
         float dRmin = 10.0;
         int matchIdx = -1;
         int idx = -1;
@@ -133,7 +130,8 @@ void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Floa
         }
         
         if (dRmin < 0.2) matchIdx = idx;
-        matchingIdx.push_back(matchIdx);
+        // matchingIdx.push_back(matchIdx);
+        matchingIdx->push_back(matchIdx);
 
     }
 
