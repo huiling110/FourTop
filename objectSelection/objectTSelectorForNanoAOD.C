@@ -31,7 +31,6 @@
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
 #include "objectTSelectorForNanoAOD.h"
-#include "../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #include "utilityFunctions.h"
 //we should use a better way of modulization of code rather the include copy here???
 #include <TH2.h>
@@ -285,6 +284,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
     setupInputFile();
 
+    ///???year
+    FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+
 ///////////////////////////////////////
 
 }
@@ -438,7 +440,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     for (unsigned int i = 0; i < *nTau; i++) {
         //??? add year parameter here for different year
         //CANT' WE MOVE TOOL DEFINITION OUTSIDE OF THE FOR LOOP^
-        TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+        // TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
        if ( era.CompareTo( "2016postVFP")==0 ){
         //    std::cout<<__LINE__<<"\n";
            FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead

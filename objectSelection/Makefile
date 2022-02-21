@@ -6,9 +6,11 @@ PROGRAM = objectTSelectorForNanoAOD
 
 HDRS = objectTSelectorForNanoAOD.h\
 	utilityFunctions.h\
+	../TauPOG/TauIDSFs/interface/TauIDSFTool.h\
  
 OBJS = objectTSelectorForNanoAOD.o\
 		utilityFunctions.o\
+		../TauPOG/TauIDSFs/src/TauIDSFTool.o\
         dict_$(PROGRAM).o\
 
 #-----------------------------------------------------------------------------

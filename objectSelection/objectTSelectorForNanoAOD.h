@@ -29,6 +29,7 @@
 #include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
+#include "../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 
 class objectTSelectorForNanoAOD : public TSelector {
 public :
@@ -59,6 +60,8 @@ public :
    Bool_t isdata = false;
    TString dataSet;
 
+//???year handdling
+   TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
    TString era = "2016postVFP";
    std::map<TString, double> DeepJetL = { //std::map of loose WPs for DeepJet
