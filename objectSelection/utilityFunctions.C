@@ -113,7 +113,7 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> & _re
 
 void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int>* & matchingIdx) { 
     for (unsigned int i = 0; i < recoEta.GetSize(); i++) {
-        float dRmin = 10.0;
+        Float_t dRmin = 10.0;
         int matchIdx = -1;
         int idx = -1;
         for (unsigned int j = 0; j < genEta.GetSize(); j++) {
@@ -137,7 +137,7 @@ void getMatchingToGen (TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Floa
 
 }
 
-float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, int central){
+Float_t GetJerFromFile(Float_t eta, std::vector<std::vector<std::string>>  resSFs, int central){
     for (auto res: resSFs){//go through all the lines
         if (eta < std::stof(res[0]) || eta > std::stof(res[1])) continue; //if jet eta out of range, move to next line
         return std::stof(res[central+3]); //get SF. central == 0 ---> nominal, central == 1/2 ---> Down/Up
@@ -145,7 +145,7 @@ float GetJerFromFile(float eta, std::vector<std::vector<std::string>>  resSFs, i
     return 1.;
 }
 
-float GetStochasticFactor(float pt, float eta, float rho, std::vector<std::vector<std::string> >  resolution, TString  resFormula){
+Float_t GetStochasticFactor(Float_t pt, Float_t eta, Float_t rho, std::vector<std::vector<std::string> >  resolution, TString  resFormula){
   
     TFormula resForm("",resFormula);
 
@@ -161,10 +161,10 @@ float GetStochasticFactor(float pt, float eta, float rho, std::vector<std::vecto
 
 }
 
-float GetSmearFactor(float pt, float genPt, float eta, float rho, float jer_sf, std::vector<std::vector<std::string> > resolution, TString resFormula, TRandom3 ran){
+Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Float_t jer_sf, std::vector<std::vector<std::string> > resolution, TString resFormula, TRandom3 ran){
     
-    float smearFactor = 1.;
-    float relpterr = GetStochasticFactor(pt,eta,rho,resolution,resFormula);
+    Float_t smearFactor = 1.;
+    Float_t relpterr = GetStochasticFactor(pt,eta,rho,resolution,resFormula);
     if (genPt > 0. && (abs(pt-genPt)<3*relpterr*pt)) {
         double dPt = pt - genPt;
         smearFactor = 1 + (jer_sf - 1.) * dPt / pt;

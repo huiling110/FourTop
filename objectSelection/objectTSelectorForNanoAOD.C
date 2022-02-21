@@ -38,15 +38,6 @@
 
 ///////////////////////
 
-
-
-
-
-
-
-
-
-
 void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
@@ -233,9 +224,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tauFESFactorsUp.clear();
     tauFESFactorsDown.clear();
     for (unsigned int i = 0; i < *nTau; i++) {
-        float TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        float TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        float TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        Float_t TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        Float_t TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        Float_t TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
         tauESFactors.push_back(TESSF);
         tauESFactorsUp.push_back(TESSFUp);
         tauESFactorsDown.push_back(TESSFDown);
@@ -243,9 +234,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     //misidentified electron energy scale (FES), fake taus which is genuine electrons
     for (unsigned int i = 0; i < *nTau; i++) {
-        float FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        float FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        float FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        Float_t FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+        Float_t FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+        Float_t FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
         tauFESFactors.push_back(FESSF);
         tauFESFactorsUp.push_back(FESSFUp);
         tauFESFactorsDown.push_back(FESSFDown);
@@ -734,7 +725,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<float> tauESFactors, std::vector<float> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
@@ -785,7 +776,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<float> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
                 std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -1296,19 +1287,19 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
 void objectTSelectorForNanoAOD::calJetSmearFactors( ){
     std::vector<int>* matchingIndices   { new std::vector<int>} ;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
-    // std::vector<float> jetSmearingFactors;
-    // std::vector<float> jetSmearingFactorsUp;
-    // std::vector<float> jetSmearingFactorsDown;
+    // std::vector<Float_t> jetSmearingFactors;
+    // std::vector<Float_t> jetSmearingFactorsUp;
+    // std::vector<Float_t> jetSmearingFactorsDown;
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
     for (unsigned int i = 0; i < *nJet; i++) {
-        float resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
-        float resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
-        float resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
-        float smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-        float smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
-        float smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        Float_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+        Float_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+        Float_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
+        Float_t smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+        Float_t smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+        Float_t smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
         jetSmearingFactors.push_back(smearFactor);
         jetSmearingFactorsUp.push_back(smearFactorUp);
         jetSmearingFactorsDown.push_back(smearFactorDown);

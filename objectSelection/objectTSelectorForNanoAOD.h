@@ -285,15 +285,15 @@ public :
     std::vector<TLorentzVector> genTaus; 
     std::vector<TLorentzVector> genEles;
     std::vector<TLorentzVector> genMuons;
-    std::vector<float> jetSmearingFactors;
-    std::vector<float> jetSmearingFactorsUp;
-    std::vector<float> jetSmearingFactorsDown;
-    std::vector<float> tauESFactors;
-    std::vector<float> tauESFactorsUp;
-    std::vector<float> tauESFactorsDown;
-    std::vector<float> tauFESFactors;
-    std::vector<float> tauFESFactorsUp;
-    std::vector<float> tauFESFactorsDown;
+    std::vector<Float_t> jetSmearingFactors;
+    std::vector<Float_t> jetSmearingFactorsUp;
+    std::vector<Float_t> jetSmearingFactorsDown;
+    std::vector<Float_t> tauESFactors;
+    std::vector<Float_t> tauESFactorsUp;
+    std::vector<Float_t> tauESFactorsDown;
+    std::vector<Float_t> tauFESFactors;
+    std::vector<Float_t> tauFESFactorsUp;
+    std::vector<Float_t> tauFESFactorsDown;
 
     //weight
     Double_t EVENT_prefireWeight_;
@@ -304,9 +304,9 @@ public :
 
     //functions I added
      void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-     void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<float> tauTESFactors, std::vector<float> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
+     void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauTESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(std::vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const Int_t jetType, const bool deepJet, std::vector<float> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
+     void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
      void selectGenTaus( std::vector<TLorentzVector> &genTaus );
      void selectGenEles( std::vector<TLorentzVector> &genEles );
