@@ -306,7 +306,7 @@ public :
      void makeBranch( TTree*  tree );
      void intializaTreeBranches( const Bool_t isdata, const TString dataset );
 
-     void copyHLT( Bool_t isdata );
+     void copyHLT( const Bool_t isdata, const TString dataset );
 	 void copyFlags();
 	 void initializeBrancheValues();
     void setupInputFile();

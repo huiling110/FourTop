@@ -207,7 +207,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     if ( HLTSelection){
         if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
     }
-    copyHLT( isdata );
+    copyHLT( isdata, dataSet );
     eventsPassedHLT++;
 
     initializeBrancheValues();
@@ -1005,7 +1005,8 @@ void objectTSelectorForNanoAOD::selectGenMuons( std::vector<TLorentzVector> &gen
     }
 }
 
-void objectTSelectorForNanoAOD::copyHLT(  Bool_t isdata ){
+void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dataset ){
+    /*
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
 	HLT_PFJet450_ = *HLT_PFJet450;
@@ -1044,6 +1045,93 @@ void objectTSelectorForNanoAOD::copyHLT(  Bool_t isdata ){
     // HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = *HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
     HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
     // HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = *HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+    */
+   if( !isdata ){
+         //HLT for MC
+        HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+        HLT_PFJet450_ = *HLT_PFJet450;
+        HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg;
+        HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = *HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg;
+        HLT_IsoMu22_ = *HLT_IsoMu22;
+        HLT_IsoTkMu22_ = *HLT_IsoTkMu22;
+        HLT_IsoMu24_ = *HLT_IsoMu24;
+        HLT_IsoTkMu24_ = *HLT_IsoTkMu24;
+        HLT_IsoMu22_eta2p1_ = *HLT_IsoMu22_eta2p1;
+        HLT_IsoTkMu22_eta2p1_ = *HLT_IsoTkMu22_eta2p1;
+        HLT_Mu50_ = *HLT_Mu50;
+        HLT_TkMu50_ = *HLT_TkMu50;
+        HLT_IsoMu27_ = *HLT_IsoMu27;
+
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = *HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30;
+        HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = *HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1;
+
+        HLT_DoubleMu33NoFiltersNoVtx_ = *HLT_DoubleMu33NoFiltersNoVtx;//double muon
+        HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = *HLT_DoubleMu23NoFiltersNoVtxDisplaced;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = *HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
+        HLT_TripleMu_12_10_5_ = *HLT_TripleMu_12_10_5;
+   }else if( dataSet.Contains("jetHT") ){
+        HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+        HLT_PFJet450_ = *HLT_PFJet450;
+        HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
+        HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
+        HLT_IsoMu22_ = -99;
+        HLT_IsoTkMu22_ = -99;
+        HLT_IsoMu24_ = -99;
+        HLT_IsoTkMu24_ = -99;
+        HLT_IsoMu22_eta2p1_ = -99;
+        HLT_IsoTkMu22_eta2p1_ = -99;
+        HLT_Mu50_ = -99;
+        HLT_TkMu50_ = -99;
+        HLT_IsoMu27_ = -99;
+
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = -99;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = -99;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = -99;
+        HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = -99;
+
+        HLT_DoubleMu33NoFiltersNoVtx_ = -99; 
+        HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = -99;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = -99;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = -99;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = -99;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = -99;
+        HLT_TripleMu_12_10_5_ = -99;
+   }else if( dataSet.Contains("singleMu")){
+        HLT_PFHT450_SixJet40_BTagCSV_p056_ = -99;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = -99;
+        HLT_PFJet450_ = -99;
+        HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
+        HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
+        HLT_IsoMu22_ = *HLT_IsoMu22;
+        HLT_IsoTkMu22_ = *HLT_IsoTkMu22;
+        HLT_IsoMu24_ = *HLT_IsoMu24;
+        HLT_IsoTkMu24_ = *HLT_IsoTkMu24;
+        HLT_IsoMu22_eta2p1_ = *HLT_IsoMu22_eta2p1;
+        HLT_IsoTkMu22_eta2p1_ = *HLT_IsoTkMu22_eta2p1;
+        HLT_Mu50_ = *HLT_Mu50;
+        HLT_TkMu50_ = *HLT_TkMu50;
+        HLT_IsoMu27_ = *HLT_IsoMu27;
+
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = -99;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = -99;
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = -99;
+        HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = -99;
+
+        HLT_DoubleMu33NoFiltersNoVtx_ = -99; 
+        HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = -99;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = -99;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = -99;
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = -99;
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = -99;
+        HLT_TripleMu_12_10_5_ = -99;
+   }
 }
 
 void objectTSelectorForNanoAOD::copyFlags(){
