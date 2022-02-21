@@ -303,7 +303,7 @@ public :
      void selectGenMuons( std::vector<TLorentzVector> &genMuons );
      void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex,const Int_t type);
 
-     void makeBranch( TTree*  tree, Bool_t isdata);
+     void makeBranch( TTree*  tree );
 
      void copyHLT( Bool_t isdata );
 	 void copyFlags();

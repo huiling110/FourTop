@@ -199,7 +199,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    allEvents->Branch( "genWeight_allEvents", &genWeight_allEvents, "genWeight_allEvents/D");
 
-   makeBranch( tree, isdata );
+   makeBranch( tree );
 
     setupInputFile();
 
@@ -234,16 +234,16 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    fProcessed++;
 
     //test
-//    std::cout << "LHE_Njets = " << *LHE_Njets << "\n";
 
+    //allEvents new tree
    genWeight_allEvents = -99;
    //CHANGE HERE TO RUN ON DATA
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *Generator_weight );
        genWeight_allEvents = *Generator_weight;
    }
-   
    allEvents->Fill();
+
 
     //good lumi selection
    if(isdata) {
@@ -254,8 +254,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            }
        }
    }
+
+
    //MET filters
-   if ( MetFilters ){ //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
+   if ( MetFilters ){
+        //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
         if (!(*Flag_goodVertices == 1)) return kFALSE; // a branch in tree.
         if (!(*Flag_globalSuperTightHalo2016Filter == 1))    return kFALSE;
         if (!(*Flag_HBHENoiseFilter == 1))        return kFALSE;
@@ -265,12 +268,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_BadPFMuonDzFilter == 1))      return kFALSE;
         if (!(*Flag_eeBadScFilter == 1))      return kFALSE;
         if ( era == "2017" || era == "2018" ){
-
             if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;
-
         }
         //CHANGE HERE TO RUN ON DATA 
-		if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+		// if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+	    if (!(*Flag_eeBadScFilter == 1)) return kFALSE; //for UL this filter exists for 2016 MC too
     }
     copyFlags();
 
@@ -579,7 +581,7 @@ void objectTSelectorForNanoAOD::Terminate()
 
 
 /////////////////
-void objectTSelectorForNanoAOD::makeBranch( TTree* tree, Bool_t isdata ){
+void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "muonsL", &muonsL);
    tree->Branch( "muonsL_index", &muonsL_index);
    tree->Branch( "muonsF", &muonsF );
