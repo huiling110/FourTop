@@ -309,6 +309,7 @@ public :
 	 void copyFlags();
 	 void initializeBrancheValues();
     void setupInputFile();
+    void getOptionFromRunMacro( const TString option ); 
 
 
 

@@ -63,85 +63,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
    std::cout<<"option in TSelector : "<<option<<"\n";
-   TString option1 = option(0, option.First(":"));
-    TString temp = option;
-    TString option2 = temp.Remove(0, option.First(":")+1);
-    option2 = option2(0, option2.First(":"));
-    // std::cout<<"temp: "<<temp<<"\n";
-    TString option3 = temp.Remove(0, temp.First(":")+1);
-    option3 = option3(0, option3.First(":"));
-    TString option4 = temp.Remove(0, temp.First(":")+1 );
-    option4 = option4(0, option4.First(":"));
-    TString option5 = temp.Remove(0, temp.First(":")+1 );
-
-    std::cout << "option1: " << option1 << "\n";
-    std::cout << "option2: " << option2 << "\n";
-    std::cout<<"option3: "<<option3<<"\n";
-    std::cout<<"option4: "<<option4<<"\n";
-    std::cout<<"option5: "<<option5<<"\n";
-
-
-   era = option2;
-   std::cout << "era is: " << era << "\n";
-   if ( option4.CompareTo( "0")==0 ) isdata = false;
-   else isdata = true;
-   std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
-   dataSet = option5;
-   Int_t eventSelection = std::stoi( option3.Data() );
-   // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
-   std::cout<<"eventSelection in selector: "<<eventSelection<<"\n";
-    // switch ( eventSelection ){
-    //     case 0:
-    //         MetFilters = false; HLTSelection = false; preSelection = false;
-    //         return;
-    //     case 1:
-    //         MetFilters = true; HLTSelection = false; preSelection = false;
-    //         return;
-    //     case 2:
-    //         MetFilters = false; HLTSelection = true; preSelection = false;
-    //         return;
-    //     case 3:
-    //         MetFilters = true; HLTSelection = true; preSelection = false;
-    //         return;
-    //     case 4:
-    //         MetFilters = false; HLTSelection = false; preSelection = true;
-    //         return;
-    //     case 5:
-    //         MetFilters = true; HLTSelection = false; preSelection = true;
-    //         return;
-    //     case 6:
-    //         MetFilters = false; HLTSelection = true; preSelection = true;
-    //         return;
-    //     case 7:
-    //         MetFilters = true; HLTSelection = true; preSelection = true;
-    //         return;
-    // }
-        if ( eventSelection ==  0) {
-            MetFilters = false; HLTSelection = false; preSelection = false;
-        }
-        if ( eventSelection ==  1 ) {
-            MetFilters = true; HLTSelection = false; preSelection = false;
-        }
-        if ( eventSelection ==  2 ) {
-            MetFilters = false; HLTSelection = true; preSelection = false;
-        }
-        if ( eventSelection ==  3 ) {
-            MetFilters = true; HLTSelection = true; preSelection = false;
-        }
-        if ( eventSelection ==  4 ) {
-            MetFilters = false; HLTSelection = false; preSelection = true;
-        }
-        if ( eventSelection ==  5 ) {
-            MetFilters = true; HLTSelection = false; preSelection = true;
-        }
-        if ( eventSelection ==  6 ) {
-            MetFilters = false; HLTSelection = true; preSelection = true;
-        }
-        if ( eventSelection ==  7 ) {
-            MetFilters = true; HLTSelection = true; preSelection = true;
-        }
-    
-    std::cout<<"MetFilters = "<<MetFilters<<"; HLTSelection = "<<HLTSelection<<"; preSelection = "<<preSelection<<"\n";
+   getOptionFromRunMacro( option );
 
     //overriding for MC files
    if( !isdata ){
@@ -268,9 +190,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 
    }  
 
-   TString outFileName = option1;
-   outputfile = new TFile( outFileName, "RECREATE");
-   std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
    
    
    h_genWeight = new TH1D( "h_genweight", "h_genweight", 1,-0.5, 0.5);
@@ -1325,4 +1244,89 @@ void objectTSelectorForNanoAOD::setupInputFile(){
     readSmearingFile( jetSmearing_MCFile, resSFs, toyResFormula );
 
 
+}
+
+void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
+
+   TString option1 = option(0, option.First(":"));
+    TString temp = option;
+    TString option2 = temp.Remove(0, option.First(":")+1);
+    option2 = option2(0, option2.First(":"));
+    // std::cout<<"temp: "<<temp<<"\n";
+    TString option3 = temp.Remove(0, temp.First(":")+1);
+    option3 = option3(0, option3.First(":"));
+    TString option4 = temp.Remove(0, temp.First(":")+1 );
+    option4 = option4(0, option4.First(":"));
+    TString option5 = temp.Remove(0, temp.First(":")+1 );
+
+    std::cout << "option1: " << option1 << "\n";
+    std::cout << "option2: " << option2 << "\n";
+    std::cout<<"option3: "<<option3<<"\n";
+    std::cout<<"option4: "<<option4<<"\n";
+    std::cout<<"option5: "<<option5<<"\n";
+
+
+   era = option2;
+   std::cout << "era is: " << era << "\n";
+   if ( option4.CompareTo( "0")==0 ) isdata = false;
+   else isdata = true;
+   std::cout<<"isdata  in TSelector: "<<isdata<<"\n"; 
+   dataSet = option5;
+   Int_t eventSelection = std::stoi( option3.Data() );
+   // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
+   std::cout<<"eventSelection in selector: "<<eventSelection<<"\n";
+    // switch ( eventSelection ){
+    //     case 0:
+    //         MetFilters = false; HLTSelection = false; preSelection = false;
+    //         return;
+    //     case 1:
+    //         MetFilters = true; HLTSelection = false; preSelection = false;
+    //         return;
+    //     case 2:
+    //         MetFilters = false; HLTSelection = true; preSelection = false;
+    //         return;
+    //     case 3:
+    //         MetFilters = true; HLTSelection = true; preSelection = false;
+    //         return;
+    //     case 4:
+    //         MetFilters = false; HLTSelection = false; preSelection = true;
+    //         return;
+    //     case 5:
+    //         MetFilters = true; HLTSelection = false; preSelection = true;
+    //         return;
+    //     case 6:
+    //         MetFilters = false; HLTSelection = true; preSelection = true;
+    //         return;
+    //     case 7:
+    //         MetFilters = true; HLTSelection = true; preSelection = true;
+    //         return;
+    // }
+        if ( eventSelection ==  0) {
+            MetFilters = false; HLTSelection = false; preSelection = false;
+        }
+        if ( eventSelection ==  1 ) {
+            MetFilters = true; HLTSelection = false; preSelection = false;
+        }
+        if ( eventSelection ==  2 ) {
+            MetFilters = false; HLTSelection = true; preSelection = false;
+        }
+        if ( eventSelection ==  3 ) {
+            MetFilters = true; HLTSelection = true; preSelection = false;
+        }
+        if ( eventSelection ==  4 ) {
+            MetFilters = false; HLTSelection = false; preSelection = true;
+        }
+        if ( eventSelection ==  5 ) {
+            MetFilters = true; HLTSelection = false; preSelection = true;
+        }
+        if ( eventSelection ==  6 ) {
+            MetFilters = false; HLTSelection = true; preSelection = true;
+        }
+        if ( eventSelection ==  7 ) {
+            MetFilters = true; HLTSelection = true; preSelection = true;
+        }
+    std::cout<<"MetFilters = "<<MetFilters<<"; HLTSelection = "<<HLTSelection<<"; preSelection = "<<preSelection<<"\n";
+   TString outFileName = option1;
+   outputfile = new TFile( outFileName, "RECREATE");
+   std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
 }
