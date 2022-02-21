@@ -239,21 +239,21 @@ public :
     std::vector<TLorentzVector> leptonsMVAF; 
     std::vector<TLorentzVector> leptonsMVAT; 
     std::vector<TLorentzVector> leptonsMVAL; 
-    std::vector<TLorentzVector> tausL; std::vector<Int_t> tausL_index; std::vector<int> tausL_decayMode; std::vector<int> tausL_genPartFlav;
-    std::vector<TLorentzVector> tausF; std::vector<Int_t> tausF_index; std::vector<int> tausF_decayMode;std::vector<int> tausF_genPartFlav;
-    std::vector<TLorentzVector> tausT; std::vector<Int_t> tausT_index; std::vector<int> tausT_decayMode; std::vector<int> tausT_genPartFlav;
-    std::vector<TLorentzVector> tausL_TESUp; std::vector<Int_t> tausL_TESUp_index; std::vector<int> tausL_TESUp_decayMode; std::vector<int> tausL_TESUp_genPartFlav;
-    std::vector<TLorentzVector> tausF_TESUp; std::vector<Int_t> tausF_TESUp_index; std::vector<int> tausF_TESUp_decayMode; std::vector<int> tausF_TESUp_genPartFlav;
-    std::vector<TLorentzVector> tausT_TESUp; std::vector<Int_t> tausT_TESUp_index; std::vector<int> tausT_TESUp_decayMode; std::vector<int> tausT_TESUp_genPartFlav;
-    std::vector<TLorentzVector> tausL_TESDown; std::vector<Int_t> tausL_TESDown_index; std::vector<int> tausL_TESDown_decayMode; std::vector<int> tausL_TESDown_genPartFlav;
-    std::vector<TLorentzVector> tausF_TESDown; std::vector<Int_t> tausF_TESDown_index; std::vector<int> tausF_TESDown_decayMode; std::vector<int> tausF_TESDown_genPartFlav;
-    std::vector<TLorentzVector> tausT_TESDown; std::vector<Int_t> tausT_TESDown_index; std::vector<int> tausT_TESDown_decayMode; std::vector<int> tausT_TESDown_genPartFlav;
-    std::vector<TLorentzVector> tausL_FESUp; std::vector<Int_t> tausL_FESUp_index; std::vector<int> tausL_FESUp_decayMode; std::vector<int> tausL_FESUp_genPartFlav;
-    std::vector<TLorentzVector> tausF_FESUp; std::vector<Int_t> tausF_FESUp_index; std::vector<int> tausF_FESUp_decayMode; std::vector<int> tausF_FESUp_genPartFlav;
-    std::vector<TLorentzVector> tausT_FESUp; std::vector<Int_t> tausT_FESUp_index; std::vector<int> tausT_FESUp_decayMode; std::vector<int> tausT_FESUp_genPartFlav;
-    std::vector<TLorentzVector> tausL_FESDown; std::vector<Int_t> tausL_FESDown_index; std::vector<int> tausL_FESDown_decayMode; std::vector<int> tausL_FESDown_genPartFlav;
-    std::vector<TLorentzVector> tausF_FESDown; std::vector<Int_t> tausF_FESDown_index; std::vector<int> tausF_FESDown_decayMode; std::vector<int> tausF_FESDown_genPartFlav;
-    std::vector<TLorentzVector> tausT_FESDown; std::vector<Int_t> tausT_FESDown_index; std::vector<int> tausT_FESDown_decayMode; std::vector<int> tausT_FESDown_genPartFlav;
+    std::vector<TLorentzVector> tausL; std::vector<Int_t> tausL_index; std::vector<Int_t> tausL_decayMode; std::vector<Int_t> tausL_genPartFlav;
+    std::vector<TLorentzVector> tausF; std::vector<Int_t> tausF_index; std::vector<Int_t> tausF_decayMode;std::vector<Int_t> tausF_genPartFlav;
+    std::vector<TLorentzVector> tausT; std::vector<Int_t> tausT_index; std::vector<Int_t> tausT_decayMode; std::vector<Int_t> tausT_genPartFlav;
+    std::vector<TLorentzVector> tausL_TESUp; std::vector<Int_t> tausL_TESUp_index; std::vector<Int_t> tausL_TESUp_decayMode; std::vector<Int_t> tausL_TESUp_genPartFlav;
+    std::vector<TLorentzVector> tausF_TESUp; std::vector<Int_t> tausF_TESUp_index; std::vector<Int_t> tausF_TESUp_decayMode; std::vector<Int_t> tausF_TESUp_genPartFlav;
+    std::vector<TLorentzVector> tausT_TESUp; std::vector<Int_t> tausT_TESUp_index; std::vector<Int_t> tausT_TESUp_decayMode; std::vector<Int_t> tausT_TESUp_genPartFlav;
+    std::vector<TLorentzVector> tausL_TESDown; std::vector<Int_t> tausL_TESDown_index; std::vector<Int_t> tausL_TESDown_decayMode; std::vector<Int_t> tausL_TESDown_genPartFlav;
+    std::vector<TLorentzVector> tausF_TESDown; std::vector<Int_t> tausF_TESDown_index; std::vector<Int_t> tausF_TESDown_decayMode; std::vector<Int_t> tausF_TESDown_genPartFlav;
+    std::vector<TLorentzVector> tausT_TESDown; std::vector<Int_t> tausT_TESDown_index; std::vector<Int_t> tausT_TESDown_decayMode; std::vector<Int_t> tausT_TESDown_genPartFlav;
+    std::vector<TLorentzVector> tausL_FESUp; std::vector<Int_t> tausL_FESUp_index; std::vector<Int_t> tausL_FESUp_decayMode; std::vector<Int_t> tausL_FESUp_genPartFlav;
+    std::vector<TLorentzVector> tausF_FESUp; std::vector<Int_t> tausF_FESUp_index; std::vector<Int_t> tausF_FESUp_decayMode; std::vector<Int_t> tausF_FESUp_genPartFlav;
+    std::vector<TLorentzVector> tausT_FESUp; std::vector<Int_t> tausT_FESUp_index; std::vector<Int_t> tausT_FESUp_decayMode; std::vector<Int_t> tausT_FESUp_genPartFlav;
+    std::vector<TLorentzVector> tausL_FESDown; std::vector<Int_t> tausL_FESDown_index; std::vector<Int_t> tausL_FESDown_decayMode; std::vector<Int_t> tausL_FESDown_genPartFlav;
+    std::vector<TLorentzVector> tausF_FESDown; std::vector<Int_t> tausF_FESDown_index; std::vector<Int_t> tausF_FESDown_decayMode; std::vector<Int_t> tausF_FESDown_genPartFlav;
+    std::vector<TLorentzVector> tausT_FESDown; std::vector<Int_t> tausT_FESDown_index; std::vector<Int_t> tausT_FESDown_decayMode; std::vector<Int_t> tausT_FESDown_genPartFlav;
     std::vector<TLorentzVector> jets; std::vector<Int_t> jets_index; std::vector<Int_t> jets_flavour;  std::vector<Double_t> jets_btags;
     std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
     std::vector<TLorentzVector> jets_smearedDown; std::vector<Int_t> jets_index_smearedDown; std::vector<Int_t> jets_flavour_smearedDown;  std::vector<Double_t> jets_btags_smearedDown;
@@ -304,7 +304,7 @@ public :
 
     //functions I added
      void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-     void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauTESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
+     void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauTESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(std::vector<TLorentzVector> &SelectedTops);
      void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);

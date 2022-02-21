@@ -223,7 +223,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tauFESFactors.clear();
     tauFESFactorsUp.clear();
     tauFESFactorsDown.clear();
-    for (unsigned int i = 0; i < *nTau; i++) {
+    for (UInt_t i = 0; i < *nTau; i++) {
         Float_t TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         Float_t TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
         Float_t TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
@@ -233,7 +233,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     //misidentified electron energy scale (FES), fake taus which is genuine electrons
-    for (unsigned int i = 0; i < *nTau; i++) {
+    for (UInt_t i = 0; i < *nTau; i++) {
         Float_t FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
         Float_t FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
         Float_t FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
@@ -725,7 +725,7 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
 /*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<int> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
@@ -1285,7 +1285,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
 
 
 void objectTSelectorForNanoAOD::calJetSmearFactors( ){
-    std::vector<int>* matchingIndices   { new std::vector<int>} ;
+    std::vector<Int_t>* matchingIndices   { new std::vector<Int_t>} ;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
     // std::vector<Float_t> jetSmearingFactors;
     // std::vector<Float_t> jetSmearingFactorsUp;
@@ -1293,7 +1293,7 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( ){
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
-    for (unsigned int i = 0; i < *nJet; i++) {
+    for (UInt_t i = 0; i < *nJet; i++) {
         Float_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
         Float_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
         Float_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
