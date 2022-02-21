@@ -111,81 +111,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    std::cout<<"option in TSelector : "<<option<<"\n";
    getOptionFromRunMacro( option );
 
-    //overriding for MC files
-   if( !isdata ){
-       std::cout<<"running over: MC"<<"\n";
-        GenJet_eta = {fReader, "GenJet_eta"};
-        GenJet_phi = {fReader, "GenJet_phi"};
-        GenJet_pt = {fReader, "GenJet_pt"};
-        nGenPart = {fReader, "nGenPart"};
-        GenPart_eta = {fReader, "GenPart_eta"};
-        GenPart_mass = {fReader, "GenPart_mass"};
-        GenPart_phi = {fReader, "GenPart_phi"};
-        GenPart_pt = {fReader, "GenPart_pt"};
-        GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
-        GenPart_pdgId = {fReader, "GenPart_pdgId"};
-        Generator_weight = {fReader, "Generator_weight"};
-        genWeight = {fReader, "genWeight"};
-         Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
-        Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
-         Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
-
-         //HLT for MC
-        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
-        HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = { fReader, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg"};
-        HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = { fReader, "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg"};
-        HLT_IsoMu22 = { fReader, "HLT_IsoMu22"};
-        HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
-        HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-        HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
-        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
-        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
-        HLT_Mu50 = { fReader, "HLT_Mu50"};
-        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
-        HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-
-        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20"};
-        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"};
-        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30"};
-        HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = { fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1"};
-
-        HLT_DoubleMu33NoFiltersNoVtx = { fReader, "HLT_DoubleMu33NoFiltersNoVtx"};//double muon
-        HLT_DoubleMu23NoFiltersNoVtxDisplaced = { fReader, "HLT_DoubleMu23NoFiltersNoVtxDisplaced"};
-        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = { fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
-        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = { fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
-        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = { fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
-        // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL"};
-        // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ"};
-        // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL"};
-        // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ"};
-        // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL"};
-        // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
-        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = { fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL"};
-        // HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ"};
-
-        // HLT_Mu8_DiEle12_CaloIdL_TrackIdL = { fReader, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL"};
-        HLT_TripleMu_12_10_5 = { fReader, "HLT_TripleMu_12_10_5"};
-        // HLT_DiMu9_Ele9_CaloIdL_TrackIdL = { fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL"};
-   }else if( dataSet.Contains("jetHT") ){
-        std::cout<<"running over: "<<dataSet<<"\n";
-        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
-   }else if( dataSet.Contains("singleMu")){
-        std::cout<<"running over: "<<dataSet<<"\n";
-        HLT_IsoMu22 = { fReader, "HLT_IsoMu22"};
-        HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
-        HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-        HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
-        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
-        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
-        HLT_Mu50 = { fReader, "HLT_Mu50"};
-        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
-        HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-
-   }
+    intializaTreeBranches( isdata, dataSet );
    
     TString jsonInFile = GoldenJSONs[era];
     readJSON( isdata, jsonInFile,  _goodLumis );
@@ -268,9 +194,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_BadPFMuonDzFilter == 1))      return kFALSE;
         if (!(*Flag_eeBadScFilter == 1))      return kFALSE;
         // if ( era == "2017" || era == "2018" ){
-            if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;
+            if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;//for UL 2016 has this flag too
         // }
-        //CHANGE HERE TO RUN ON DATA 
 		// if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
 	    if (!(*Flag_eeBadScFilter == 1)) return kFALSE; //for UL this filter exists for 2016 MC too
     }
@@ -1331,4 +1256,82 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
    TString outFileName = option1;
    outputfile = new TFile( outFileName, "RECREATE");
    std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
+}
+
+void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, const TString dataset ){
+    //overriding for MC files
+   if( !isdata ){
+       std::cout<<"running over: MC"<<"\n";
+        GenJet_eta = {fReader, "GenJet_eta"};
+        GenJet_phi = {fReader, "GenJet_phi"};
+        GenJet_pt = {fReader, "GenJet_pt"};
+        nGenPart = {fReader, "nGenPart"};
+        GenPart_eta = {fReader, "GenPart_eta"};
+        GenPart_mass = {fReader, "GenPart_mass"};
+        GenPart_phi = {fReader, "GenPart_phi"};
+        GenPart_pt = {fReader, "GenPart_pt"};
+        GenPart_genPartIdxMother = {fReader, "GenPart_genPartIdxMother"};
+        GenPart_pdgId = {fReader, "GenPart_pdgId"};
+        Generator_weight = {fReader, "Generator_weight"};
+        genWeight = {fReader, "genWeight"};
+         Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
+        Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
+         Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
+
+         //HLT for MC
+        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
+        HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = { fReader, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg"};
+        HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = { fReader, "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg"};
+        HLT_IsoMu22 = { fReader, "HLT_IsoMu22"};
+        HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
+        HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
+        HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
+        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
+        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
+        HLT_Mu50 = { fReader, "HLT_Mu50"};
+        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
+        HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
+
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20"};
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"};
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = { fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30"};
+        HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = { fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1"};
+
+        HLT_DoubleMu33NoFiltersNoVtx = { fReader, "HLT_DoubleMu33NoFiltersNoVtx"};//double muon
+        HLT_DoubleMu23NoFiltersNoVtxDisplaced = { fReader, "HLT_DoubleMu23NoFiltersNoVtxDisplaced"};
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = { fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ"};
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = { fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL"};
+        HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = { fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ"};
+        // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL"};
+        // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ"};
+        // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL"};
+        // HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ"};
+        // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = { fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL"};
+        // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ"};
+        HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = { fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL"};
+        // HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = { fReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ"};
+
+        // HLT_Mu8_DiEle12_CaloIdL_TrackIdL = { fReader, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL"};
+        HLT_TripleMu_12_10_5 = { fReader, "HLT_TripleMu_12_10_5"};
+        // HLT_DiMu9_Ele9_CaloIdL_TrackIdL = { fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL"};
+   }else if( dataSet.Contains("jetHT") ){
+        std::cout<<"running over: "<<dataSet<<"\n";
+        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
+   }else if( dataSet.Contains("singleMu")){
+        std::cout<<"running over: "<<dataSet<<"\n";
+        HLT_IsoMu22 = { fReader, "HLT_IsoMu22"};
+        HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
+        HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
+        HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
+        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
+        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
+        HLT_Mu50 = { fReader, "HLT_Mu50"};
+        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
+        HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
+   }
+
 }

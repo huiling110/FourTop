@@ -304,6 +304,7 @@ public :
      void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex,const Int_t type);
 
      void makeBranch( TTree*  tree );
+     void intializaTreeBranches( const Bool_t isdata, const TString dataset );
 
      void copyHLT( Bool_t isdata );
 	 void copyFlags();
