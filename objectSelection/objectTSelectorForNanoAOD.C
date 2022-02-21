@@ -267,9 +267,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
         if (!(*Flag_BadPFMuonDzFilter == 1))      return kFALSE;
         if (!(*Flag_eeBadScFilter == 1))      return kFALSE;
-        if ( era == "2017" || era == "2018" ){
+        // if ( era == "2017" || era == "2018" ){
             if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;
-        }
+        // }
         //CHANGE HERE TO RUN ON DATA 
 		// if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
 	    if (!(*Flag_eeBadScFilter == 1)) return kFALSE; //for UL this filter exists for 2016 MC too
