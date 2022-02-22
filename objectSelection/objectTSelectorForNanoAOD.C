@@ -338,14 +338,14 @@ void objectTSelectorForNanoAOD::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-    inputPUFile_data->Close();
-    delete inputPUFile_data;
-    inputPUFile_dataUp->Close();
-    delete inputPUFile_dataUp;
-    inputPUFile_dataDown->Close();
-    delete inputPUFile_dataDown;
-    inputPUFile_mc->Close();
-    delete inputPUFile_mc;
+    // inputPUFile_data->Close();
+    // delete inputPUFile_data;
+    // inputPUFile_dataUp->Close();
+    // delete inputPUFile_dataUp;
+    // inputPUFile_dataDown->Close();
+    // delete inputPUFile_dataDown;
+    // inputPUFile_mc->Close();
+    // delete inputPUFile_mc;
 
 ///////////////////////////////
     outputfile->Write();
