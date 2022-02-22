@@ -321,7 +321,7 @@ public :
 	 void initializeBrancheValues();
     void setupInputFile( const Bool_t isdata );
     void getOptionFromRunMacro( const TString option ); 
-    void calJetSmearFactors( );
+    void calJetSmearFactors( const Bool_t isdata );
     void setupTauSFTool( const Bool_t isdata);
 
 

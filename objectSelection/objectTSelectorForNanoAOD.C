@@ -161,16 +161,17 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     initializeBrancheValues();
 
     //Compute the per-event PU weight
-    if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
-        PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
-        PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
-        PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+    if ( !isdata ){
+        if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
+            PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+            PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+            PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+        }
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
 
-    //isData
-    calJetSmearFactors( );
+    calJetSmearFactors(  isdata );
     
 
 
@@ -315,10 +316,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     EVENT_prefireWeight_ = *L1PreFiringWeight_Nom;
-    // PUWeight_ = *PUWeight;
-    //???can not fine pileup weight in NanoAOD
 
-    //CHANGE HERE TO RUN ON DATA
 	
 	if ( !isdata ){
         EVENT_genWeight_ = *genWeight;
@@ -1270,28 +1268,33 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
 }
 
 
-void objectTSelectorForNanoAOD::calJetSmearFactors( ){
+void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
     std::vector<Int_t>* matchingIndices   { new std::vector<Int_t>} ;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
-    // std::vector<Float_t> jetSmearingFactors;
-    // std::vector<Float_t> jetSmearingFactorsUp;
-    // std::vector<Float_t> jetSmearingFactorsDown;
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
+    Float_t smearFactor = 1.0;
+    Float_t smearFactorUp = 1.0;
+    Float_t smearFactorDown = 1.0;
     for (UInt_t i = 0; i < *nJet; i++) {
-        Float_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
-        Float_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
-        Float_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
-        Float_t smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-        Float_t smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
-        Float_t smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        if ( !isdata ){
+            Float_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+            Float_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+            Float_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
+            smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+            smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+            smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+        }else{
+            smearFactor = 1.0;
+            smearFactorUp = 1.0;
+            smearFactorDown = 1.0;
+        }
         jetSmearingFactors.push_back(smearFactor);
         jetSmearingFactorsUp.push_back(smearFactorUp);
         jetSmearingFactorsDown.push_back(smearFactorDown);
 
     }
-    // matchingIndices->clear();
     delete matchingIndices;
 
 }
