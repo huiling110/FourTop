@@ -319,7 +319,7 @@ public :
      void copyHLT( const Bool_t isdata, const TString dataset );
 	 void copyFlags();
 	 void initializeBrancheValues();
-    void setupInputFile();
+    void setupInputFile( const Bool_t isdata );
     void getOptionFromRunMacro( const TString option ); 
     void calJetSmearFactors( );
 
