@@ -76,24 +76,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
     setupInputFile( isdata );
     setupTauSFTool( isdata );
 
-    if ( era.CompareTo( "2016postVFP")==0 ){
-    //    std::cout<<__LINE__<<"\n";
-        TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
-        FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
-
-    }else if( era.CompareTo( "2016preVFP")==0 ){
-        TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
-           FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
-
-    }else if( era.CompareTo("2017")==0 ){
-        TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
-           FESTool = TauFESTool("2017ReReco","DeepTau2017v2p1VSe"); //no measurement for 2017 UL, use ReReco instead
-
-    }else if( era.CompareTo("2018")==0 ){
-        TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
-           FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
-
-    }
 
 
 
@@ -1311,5 +1293,34 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( ){
     }
     // matchingIndices->clear();
     delete matchingIndices;
+
+}
+
+
+
+void objectTSelectorForNanoAOD::setupTauSFTool( const Bool_t isdata){
+    if ( !isdata ){
+        if ( era.CompareTo( "2016postVFP")==0 ){
+        //    std::cout<<__LINE__<<"\n";
+            TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+            FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+
+        }else if( era.CompareTo( "2016preVFP")==0 ){
+            TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
+            FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+
+        }else if( era.CompareTo("2017")==0 ){
+            TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
+            FESTool = TauFESTool("2017ReReco","DeepTau2017v2p1VSe"); //no measurement for 2017 UL, use ReReco instead
+
+        }else if( era.CompareTo("2018")==0 ){
+            TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
+            FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
+
+        }
+
+    }else{
+        std::cout<<"data not setting up TauESTool or TAUFESTool"<<"\n";
+    }
 
 }

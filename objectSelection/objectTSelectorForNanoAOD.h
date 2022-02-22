@@ -322,6 +322,7 @@ public :
     void setupInputFile( const Bool_t isdata );
     void getOptionFromRunMacro( const TString option ); 
     void calJetSmearFactors( );
+    void setupTauSFTool( const Bool_t isdata);
 
 
 
