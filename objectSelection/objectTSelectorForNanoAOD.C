@@ -1319,9 +1319,11 @@ void objectTSelectorForNanoAOD::calTauSF( const Bool_t isdata ){
     Float_t FESSFUp = 1.0;
     Float_t FESSFDown = 1.0;
     for (UInt_t i = 0; i < *nTau; i++) {
-        TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        if ( !isdata ){
+            TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+            TESSFUp = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+            TESSFDown= TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        }
         tauESFactors.push_back(TESSF);
         tauESFactorsUp.push_back(TESSFUp);
         tauESFactorsDown.push_back(TESSFDown);
@@ -1329,9 +1331,11 @@ void objectTSelectorForNanoAOD::calTauSF( const Bool_t isdata ){
 
     //misidentified electron energy scale (FES), fake taus which is genuine electrons
     for (UInt_t i = 0; i < *nTau; i++) {
-        FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
-        FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
-        FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        if ( !isdata ){
+            FESSF = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
+            FESSFUp = FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Up");
+            FESSFDown= FESTool.getFES(Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "Down");
+        }
         tauFESFactors.push_back(FESSF);
         tauFESFactorsUp.push_back(FESSFUp);
         tauFESFactorsDown.push_back(FESSFDown);
