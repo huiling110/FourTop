@@ -8,25 +8,21 @@
   * git checkout  TauOfTTTT_SimplifyPlotter
   * cmsenv
  * run
-   * root -b -q EventSelection_4top_v1.cpp+
-     * use the default parameters
-     * add a + would speed up
-   * root -b -q 'EventSelection_4top_v1.cpp+(false,"TauOfTTTT_Toptagger_oldEID_2.root", "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/NewNtupleAfterEventSelection_test/")'
-   * root -q PlotterPreselection_PlayWithMC.cpp+
+   * cmsenv
+   * cd objectSelection
+   * make 
+   * make clean (complie objectTSelectorForNano )
+   * root -b -q run_objectTSelectorForNanoAOD.C
  * tips
-    * git pull origin
-      * use this command to get the most recent version from Huiling's repositary
- * notes
-    * EventSelection_4top_v1.cpp : take ntuples(poduced from crab job) as input, and produce a corresponding root file with new branches of our interest in it 
-    * GetEntry.cpp : get the positive and negative event in MC ntuples
-    * HLTstudy_v1.cpp: calculate the efficiency of HLT, take root file produced by HLTstudy_v1.cpp as input
-    * PlotterPreselection_PlayWithMC.cpp : look at the root files produced by PlotterPreselection_PlayWithMC.cpp, calculate separation power and make some plots of variables
-    * makeIHEPjob.py: make IHEP job script and submission shell script .
+   * modify Linkdef.h and Makefile to use classes and functions from other source file(.C). never #inlude .C source code! only #include .h
+   * only member functions of objectTSelector class should be in the class file, other functions go to utilityFunctions.C( keep things clean and code modulized)
+   * only need to recompile if modifying source code, don't need to if only modifying run_objectTSelectorForNanoAOD.C
+
 
  * submit jobs in IHEP cluster
     * cd FourTop/objectSelection
-    * open makeJob_objectTSelector_forSeperate.py, change the parameters to your setting in the file in the first few lines.
-    * python makeJob_objectTSelector_forSeperate.py
+    * open makeJob_objectTSelectorForNanoAOD.py, change the parameters to your setting in the file in the first few lines.
+    * python3 makeJob_objectTSelector_forSeperate.py
     * . subAllProcess_seperate.sh
 
  * set up combine
