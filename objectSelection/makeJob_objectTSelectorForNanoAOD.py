@@ -20,10 +20,13 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
 isdata = True
 # isdata = False
 isHuiling = True
+
+inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
 inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/data/'
 # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/'
-dataSet = 'jetHT'
+# dataSet = 'jetHT'
+dataSet = 'singleMu'
 if isHuiling:
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v2_noEventSelection/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v3_onlyMETandPreselectionNoHLT/'
