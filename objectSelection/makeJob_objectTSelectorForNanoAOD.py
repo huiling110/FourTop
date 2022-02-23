@@ -18,24 +18,30 @@ rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
-    # jobVersionName = 'v5_preselectionHLTMet'
-    jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
-    # isHuiling = True
-    # onlyMC = True
-    onlyMC = False
+    jobVersionName = 'v5_preselectionHLTMet'
+    # jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
+    onlyMC = True
+    # onlyMC = False
     # era = '2016'
     era = '2016APV'
+    eventSelection = '7'
+   # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
+    isHuiling = True
     dataList = [ 'jetHT', 'singleMu'] 
 
+
+
+###########################################
+#better not modify anything afer this
     inputDir = inputBase + era +'/'
     outputDir = outputBase + eraDic[era] + '/' +jobVersionName +'/' 
     checkMakeDir( outputDir) 
     inputDirMC = inputDir + 'mc/'
-    makeJobsInDir( inputDirMC, outputDir , False, '' )
+    makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling )
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
-            makeJobsInDir( inputDirData, outputDir, True, idata )
+            makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling )
 
     jobsDir = codePath + 'jobs_seperata/'
     makeSubAllJobs( jobsDir )
@@ -72,7 +78,7 @@ def checkMakeDir( folder ):
     if not os.path.exists( folder ):
         os.mkdir( folder )
 
-def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
+def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuiling ):
     allProcesses = os.listdir( inputDir )
     if isData:
         outputDir = outputDir + 'data/'
@@ -117,7 +123,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
                 smallFile = entry.replace( ".root", "")
                 # smallFilejob = "jobs_seperate/" +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
                 smallFilejob = jobScriptsFolder +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
-                prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
+                prepareCshJob( sampleDir, koutputDir, smallFilejob, entry, eventSelection, isHuiling )
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
@@ -131,12 +137,16 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
 
 
 
-def prepareCshJob( inputDir, koutputDir, shFile, singleFile ):
+def prepareCshJob( inputDir, koutputDir, shFile, singleFile, eventSelection, isHuiling ):
+    if isHuiling: 
+        ishuiling = 'true'
+    else:
+        ishuiling = 'false'
     subFile = open( shFile, 'w')
     subFile.write( "#!/bin/bash\n" )
     subFile.write( "cd "+codePath + "\n")
-	# subFile.write( "/bin/hostname\n" )
-    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
+    # subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
+    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\"," +  "\""+eventSelection+"\","  +ishuiling   + ")"+ "\'" + "\n" )
     subFile.close()
     print( 'done writing the iJob for kProcess: ', shFile )
 

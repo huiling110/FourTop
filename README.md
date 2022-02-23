@@ -22,8 +22,9 @@
  * submit jobs in IHEP cluster
     * cd FourTop/objectSelection
     * open makeJob_objectTSelectorForNanoAOD.py, change the parameters to your setting in the file in the first few lines.
+      * all the modification you should do it in the makeJob script
     * python3 makeJob_objectTSelector_forSeperate.py
-    * . subAllProcess_seperate.sh
+    * . subAllJobs.sh
 
  * set up combine
     * cd $CMSSW_BASE/src

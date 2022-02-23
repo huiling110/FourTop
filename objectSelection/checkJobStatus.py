@@ -7,7 +7,8 @@ import csv
 
 
 def main():
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v4_onlyMETandPreselectionNoHLT_FixedBugForData/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v4_onlyMETandPreselectionNoHLT_FixedBugForData/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v5_preselectionHLTMet/mc/'
 
     allProcesses = os.listdir( logDir )
 
