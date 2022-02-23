@@ -923,8 +923,8 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
    }else if( dataSet.Contains("singleMu")){
         // HLT_PFHT450_SixJet40_BTagCSV_p056_ = -99;
         HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
-        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = -99;
-        HLT_PFJet450_ = -99;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+        HLT_PFJet450_ = *HLT_PFJet450;
         HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
         HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = -99;
         HLT_IsoMu22_ = *HLT_IsoMu22;
@@ -1242,6 +1242,8 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
         HLT_TkMu50 = { fReader, "HLT_TkMu50"};
         HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
         HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
    }
 
 }
