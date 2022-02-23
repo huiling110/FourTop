@@ -20,7 +20,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     jobVersionName = 'v5_preselectionHLTMet'
     isHuiling = True
-    onlyMC = True
+    # onlyMC = True
+    onlyMC = False
     era = '2016'
     dataList = [ 'jetHT', 'singleMu'] 
 
@@ -31,44 +32,34 @@ def main():
     makeJobsInDir( inputDirMC, outputDir , False, '' )
     if not onlyMC:
         for idata in dataList:
-            inputDirData = inpuDir + 'data/'
+            inputDirData = inputDir + 'data/'
             makeJobsInDir( inputDirData, outputDir, True, idata )
 
-
-
-
-    # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
-    # inputSubDir = '2016/data/'
-    # inputDir = inputBase + inputSubDir
-
-    # era = inputSubDir[ 0:inputSubDir.find('/') ]
+    jobsDir = codePath + 'jobs_seperata/'
+    makeSubAllJobs( jobsDir )
+    subprocess.run('chmod 777 '+codePath+"jobs_seperata/*sh", shell=True )
 
 
 
 
 
 
+def makeSubAllJobs( jobsDir ):
+    subAllFile = codePath+"subAllJobs.sh"
+    if os.path.exists(subAllFile):
+        subprocess.run('rm -fr '+subAllFile , shell=True)
+
+    subAllProcessName = open( subAllFile, 'w')
+    subAllProcessName.write( "#!/bin/bash\n")
+    subAllProcessName.write( 'cd' + jobsDir )
+    for ijob in os.listdir( jobsDir ):
+        if '.sh' in ijob:
+            subAllProcessName.write( "sh  " + ijob + "\n")
+    subAllProcessName.close()
+    print( 'submitting all jobs using: ', subAllFile )
+    subprocess.run( 'chmod 777 ' + subAllFile,  shell=True )
 
 
-
-
-    # subAllFile = codePath+"subAllProcess_seperate.sh"
-    # if os.path.exists(subAllFile):
-    #     subprocess.run('rm -fr '+subAllFile , shell=True)
-    # if not os.path.exists(codePath+"jobs_seperate"):
-    #     os.mkdir('jobs_seperate/')
-    # if not os.path.exists( outputDir):
-    #     os.mkdir(outputDir)
-
-
-    # subAllProcessName = open( subAllFile, 'w')
-    # subAllProcessName.write( "#!/bin/bash\n")
-    # subAllProcessName.write( "cd "+codePath+"jobs_seperate\n" )
-    # subAllProcessName.write( "sh  " + oneProcess + "\n")
-    # subAllProcessName.close()
-
-    # subprocess.run('chmod 777 '+codePath+"jobs_seperate/*sh", shell=True )
-    # subprocess.run( 'chmod 777 ' + subAllFile,  shell=True )
 
 
 
