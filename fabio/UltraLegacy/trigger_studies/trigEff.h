@@ -26,6 +26,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_postVFP", 
      {   //signal
+         
          {"tttt", "tttt"}, //broken
 
          //ttbar background    
@@ -55,6 +56,10 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"st_tW_top", "st_tW_top"},
          {"st_tW_antitop", "st_tW_antitop"},
          {"st_tZq", "st_tZq"},
+
+         {"data_singleMuon_eraF", "singleMu_2016F"},    
+         {"data_singleMuon_eraG", "singleMu_2016G"},    
+         {"data_singleMuon_eraH", "singleMu_2016H"},    
 
          /*  
          //diboson background    
@@ -95,18 +100,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"VBFHToMuMu", "VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8"},  
          {"VBFHToGG", "VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2"},    
          */
-         /*  
-         {"data_singleMuon_eraB_0", "SingleMuonB_0"},    
-         {"data_singleMuon_eraB_1", "SingleMuonB_1"},    
-         {"data_singleMuon_eraC_0", "SingleMuonC_0"},    
-         {"data_singleMuon_eraD_0", "SingleMuonD_0"},    
-         {"data_singleMuon_eraE_0", "SingleMuonE_0"},    
-         {"data_singleMuon_eraF_0", "SingleMuonF_0"},    
-         {"data_singleMuon_eraG_0", "SingleMuonG_0"},    
-         {"data_singleMuon_eraG_1", "SingleMuonG_1"},    
-         {"data_singleMuon_eraH_0", "SingleMuonH_0"},    
-         {"data_singleMuon_eraH_1", "SingleMuonH_1"},    
-         */
+        
      }
     }, //UL2016_postVFP
 

@@ -227,7 +227,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     string data = "data";
     TChain mychain("tree");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_dir + "outTree*.root"); 
-    else mychain.Add(input_dir + "TauOfTTTT*.root");
+    else mychain.Add(input_dir + "outTree*.root");
     TChain mychain2("allevents");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_dir + "outTree*.root");
 
