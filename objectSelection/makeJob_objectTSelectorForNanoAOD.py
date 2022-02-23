@@ -20,8 +20,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     jobVersionName = 'v5_preselectionHLTMet'
     isHuiling = True
-    # onlyMC = True
-    onlyMC = False
+    onlyMC = True
+    # onlyMC = False
     era = '2016'
     dataList = [ 'jetHT', 'singleMu'] 
 
@@ -51,7 +51,7 @@ def makeSubAllJobs( jobsDir ):
 
     subAllProcessName = open( subAllFile, 'w')
     subAllProcessName.write( "#!/bin/bash\n")
-    subAllProcessName.write( 'cd' + jobsDir )
+    subAllProcessName.write( 'cd ' + jobsDir + '\n')
     for ijob in os.listdir( jobsDir ):
         if '.sh' in ijob:
             subAllProcessName.write( "sh  " + ijob + "\n")
