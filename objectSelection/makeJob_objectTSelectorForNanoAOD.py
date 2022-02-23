@@ -15,43 +15,33 @@ eraDic = {
 
 codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelectorForNanoAOD.C"
+inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
+outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     jobVersionName = 'v5_preselectionHLTMet'
     isHuiling = True
+    onlyMC = True
+    era = '2016'
     dataList = [ 'jetHT', 'singleMu'] 
 
-
-
-
-    inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
-    # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
-    inputSubDir = '2016/data/'
-    inputDir = inputBase + inputSubDir
-
-    era = inputSubDir[ 0:inputSubDir.find('/') ]
-    print( era )
-    
-    outputSubDir = eraDic[era]
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputDir = outputBase + outputSubDir + jobVersionName
-
-    isData = True
-    isDataS = inputSubDir[ inputSubDir.find('/')+1:len(inputSubDir)-1]
-    print( isDataS ) 
-    if isDataS=='data':
-        isData = True
-    else:
-        isData = False
-
-    # if isHuiling:
-    # else:
-
-    
-    if not isData:
-        makeJobsInDir( inputDir, outputDir ,isData, '' )
-    else:
+    inputDir = inputBase + era +'/'
+    outputDir = outputBase + eraDic[era] + '/' +jobVersionName +'/' 
+    checkMakeDir( outputDir) 
+    inputDirMC = inputDir + 'mc/'
+    makeJobsInDir( inputDirMC, outputDir , False, '' )
+    if not onlyMC:
         for idata in dataList:
-            makeJobsInDir( inputDir, outputDir, isData, idata )
+            inputDirData = inpuDir + 'data/'
+            makeJobsInDir( inputDirData, outputDir, True, idata )
+
+
+
+
+    # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
+    # inputSubDir = '2016/data/'
+    # inputDir = inputBase + inputSubDir
+
+    # era = inputSubDir[ 0:inputSubDir.find('/') ]
 
 
 
@@ -92,9 +82,9 @@ def checkMakeDir( folder ):
 def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
     allProcesses = os.listdir( inputDir )
     if isData:
-        outputDir = outputDir + 'mc/'
-    else:
         outputDir = outputDir + 'data/'
+    else:
+        outputDir = outputDir + 'mc/'
     checkMakeDir( outputDir )
 
     jobScriptsFolder = codePath + 'jobs_seperata/'
