@@ -18,11 +18,13 @@ rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
-    jobVersionName = 'v5_preselectionHLTMet'
-    isHuiling = True
-    onlyMC = True
-    # onlyMC = False
-    era = '2016'
+    # jobVersionName = 'v5_preselectionHLTMet'
+    jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
+    # isHuiling = True
+    # onlyMC = True
+    onlyMC = False
+    # era = '2016'
+    era = '2016APV'
     dataList = [ 'jetHT', 'singleMu'] 
 
     inputDir = inputBase + era +'/'
@@ -79,7 +81,6 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
     checkMakeDir( outputDir )
 
     jobScriptsFolder = codePath + 'jobs_seperata/'
-    subprocess.run( 'rm -rf '+jobScriptsFolder, shell = True )
     checkMakeDir( jobScriptsFolder )
 
     processNumber = 0
@@ -95,11 +96,12 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet ):
         print( 'have made folder neccessary for out put directory' )
 
         oneProcess =  jobScriptsFolder +  sample_k + ".sh"
-        # if os.path.exists(codePath+"jobs_seperate/"+sample_k+"/"):
-        # subprocess.run('rm -fr '+codePath+"jobs_seperate/"+sample_k+"/", shell=True)
-        subprocess.run('mkdir -p '+ jobScriptsFolder +sample_k+"/", shell=True )
-        # if os.path.exists(oneProcess):
-        #     subprocess.run('rm -fr '+ oneProcess,  shell=True )
+        kProcessDir = jobScriptsFolder + sample_k + '/'
+        if os.path.exists( kProcessDir ):
+            subprocess.run('rm -fr '+ kProcessDir , shell=True)
+        subprocess.run('mkdir -p '+ kProcessDir, shell=True )
+        if os.path.exists(oneProcess):
+            subprocess.run('rm -fr '+ oneProcess,  shell=True )
         sub_oneProcess = open ( oneProcess, 'w')
         sub_oneProcess.write( "cd "+ jobScriptsFolder + sample_k + "/" + "\n" + "\n")
         print( 'job sub script for kProcess is: ', oneProcess )
