@@ -125,7 +125,10 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 	//LOOP ONLY ON SIGNAL 
     //std::string tttt = "tttt";
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
-    TString input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/" + TString(file_it->second) + "/";
+    string data = "data";
+    TString input_dir;
+    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
+    else input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
@@ -224,7 +227,6 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH2F * h_njetsvsHT_nocat_truth_aft = new TH2F ("h_njetsvsHT_nocat_truth_aft", "h_njetsvsHT_nocat_truth_aft; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
     TH1::AddDirectory(kTRUE); 
 
-    string data = "data";
     TChain mychain("tree");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_dir + "outTree*.root"); 
     else mychain.Add(input_dir + "outTree*.root");
