@@ -18,13 +18,14 @@ rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
-    jobVersionName = 'v5_preselectionHLTMet'
+    # jobVersionName = 'v5_preselectionHLTMet'
+    jobVersionName = 'v6_noHLTSelection_addedMulitjetForSingleMu'
     # jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
-    onlyMC = True
-    # onlyMC = False
+    # onlyMC = True
+    onlyMC = False
     # era = '2016'
     era = '2016APV'
-    eventSelection = '7'
+    eventSelection = '5'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     dataList = [ 'jetHT', 'singleMu'] 
