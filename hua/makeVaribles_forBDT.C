@@ -464,7 +464,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    newtree = new TTree( "newtree", "tree for BDT");
 
    makeBranchForTree( newtree, wantFilterHLTBranches);
-    initializeBReader();
+    // initializeBReader();
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -900,9 +900,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      EVENT_prefireWeight = *EVENT_prefireWeight_;
      EVENT_genWeight = *EVENT_genWeight_;
      PUWeight = *PUWeight_;
-     Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
-     btagEfficiency_weight = allBtagSF[0];
-     HLTefficiency_weight = getHLTweight( jets_HT, jets_number ); 
+    //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
+    //  btagEfficiency_weight = allBtagSF[0];
+    //  HLTefficiency_weight = getHLTweight( jets_HT, jets_number ); 
 
       if ( preselection ){
           if ( !( jets_HT > 400 ))     return kFALSE;
@@ -1226,7 +1226,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
   newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 
 }
-  
+ /* 
 void makeVaribles_forBDT::initializeBReader(){
     cout << "Loading the .csv file..." << endl;
     
@@ -1264,7 +1264,7 @@ void makeVaribles_forBDT::initializeBReader(){
     cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
 
 }
-
+*/
 
 void makeVaribles_forBDT::InitializeBranches()
 {

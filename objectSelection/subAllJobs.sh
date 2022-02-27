@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/jobs_seperata/
+sh  jetHT_2016F.sh
 sh  singleMu_2016E.sh
 sh  singleMu_2016C.sh
 sh  ttW.sh
@@ -11,9 +12,11 @@ sh  st_tZq.sh
 sh  jetHT_2016B_v1.sh
 sh  jetHT_2016B_v2.sh
 sh  ttbar_2l.sh
+sh  ttHZ.sh
 sh  st_antitchan.sh
 sh  vH_nonbb.sh
 sh  dy_fxfx.sh
+sh  singleMu_2016G.sh
 sh  singleMu_2016B_v2.sh
 sh  st_tW_antitop.sh
 sh  qcd_50to100.sh
@@ -30,8 +33,10 @@ sh  st_schan_leptonDecay.sh
 sh  dy_fxfx_0j.sh
 sh  st_tW_top.sh
 sh  tZq_ll.sh
+sh  singleMu_2016H.sh
 sh  zz.sh
 sh  jetHT_2016E.sh
+sh  jetHT_2016G.sh
 sh  ww.sh
 sh  st_tchan.sh
 sh  qcd_1000to1500.sh
@@ -39,6 +44,8 @@ sh  singleMu_2016F_hipm.sh
 sh  ttH_nonbb.sh
 sh  qcd_700to1000.sh
 sh  dy.sh
+sh  jetHT_2016H.sh
+sh  singleMu_2016F.sh
 sh  jetHT_2016C.sh
 sh  tttt.sh
 sh  dy_fxfx_1j.sh

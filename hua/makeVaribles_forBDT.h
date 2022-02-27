@@ -20,7 +20,7 @@
 #include "TLorentzVector.h"
 #include "TH1D.h"
 #include <vector>
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/btagWeightCal.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/btagWeightCal.h"
 
 
 
@@ -30,7 +30,7 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //add
-    BTagCalibrationReader CSVreader;
+   //  BTagCalibrationReader CSVreader;
     // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
    Bool_t wantFilterHLTBranches = true;
    Bool_t preselection = true;
@@ -377,60 +377,60 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderValue<Double_t> PUWeight_ = {fReader, "PUWeight_"};
    // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
    // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_ = {fReader, "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_"};
-   TTreeReaderValue<Int_t> HLT_Ele27_eta2p1_WPTight_Gsf_ = {fReader, "HLT_Ele27_eta2p1_WPTight_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_Ele27_eta2p1_WPLoose_Gsf_ = {fReader, "HLT_Ele27_eta2p1_WPLoose_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_Ele27_WPTight_Gsf_ = {fReader, "HLT_Ele27_WPTight_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu22_ = {fReader, "HLT_IsoMu22_"};
-   TTreeReaderValue<Int_t> HLT_Ele25_eta2p1_WPTight_Gsf_ = {fReader, "HLT_Ele25_eta2p1_WPTight_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_IsoTkMu22_ = {fReader, "HLT_IsoTkMu22_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu24_ = {fReader, "HLT_IsoMu24_"};
-   TTreeReaderValue<Int_t> HLT_IsoTkMu24_ = {fReader, "HLT_IsoTkMu24_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu22_eta2p1_ = {fReader, "HLT_IsoMu22_eta2p1_"};
-   TTreeReaderValue<Int_t> HLT_IsoTkMu22_eta2p1_ = {fReader, "HLT_IsoTkMu22_eta2p1_"};
-   TTreeReaderValue<Int_t> HLT_Mu50_ = {fReader, "HLT_Mu50_"};
-   TTreeReaderValue<Int_t> HLT_TkMu50_ = {fReader, "HLT_TkMu50_"};
-   TTreeReaderValue<Int_t> HLT_Ele32_WPTight_Gsf_ = {fReader, "HLT_Ele32_WPTight_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_Ele35_WPTight_Gsf_ = {fReader, "HLT_Ele35_WPTight_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu27_ = {fReader, "HLT_IsoMu27_"};
-   TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_"};
-   TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_"};
-   TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_"};
-   TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_ = {fReader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_"};
-   TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = {fReader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = {fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_ = {fReader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_"};
-   TTreeReaderValue<Int_t> HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_ = {fReader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_"};
-   TTreeReaderValue<Int_t> HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_ = {fReader, "HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_"};
-   TTreeReaderValue<Int_t> HLT_DoubleEle33_CaloIdL_MW_ = {fReader, "HLT_DoubleEle33_CaloIdL_MW_"};
-   TTreeReaderValue<Int_t> HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_ = {fReader, "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_"};
-   TTreeReaderValue<Int_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMu33NoFiltersNoVtx_ = {fReader, "HLT_DoubleMu33NoFiltersNoVtx_"};
-   TTreeReaderValue<Int_t> HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = {fReader, "HLT_DoubleMu23NoFiltersNoVtxDisplaced_"};
-   TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_"};
-   TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_"};
-   TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_"};
-   TTreeReaderValue<Int_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_"};
-   TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_"};
-   TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_"};
-   TTreeReaderValue<Int_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_ = {fReader, "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_"};
-   TTreeReaderValue<Int_t> HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = {fReader, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_"};
-   TTreeReaderValue<Int_t> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = {fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_"};
-   TTreeReaderValue<Int_t> HLT_TripleMu_12_10_5_ = {fReader, "HLT_TripleMu_12_10_5_"};
-   TTreeReaderValue<Int_t> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = {fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_ = {fReader, "HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_"};
+   // TTreeReaderValue<Int_t> HLT_Ele27_eta2p1_WPTight_Gsf_ = {fReader, "HLT_Ele27_eta2p1_WPTight_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_Ele27_eta2p1_WPLoose_Gsf_ = {fReader, "HLT_Ele27_eta2p1_WPLoose_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_Ele27_WPTight_Gsf_ = {fReader, "HLT_Ele27_WPTight_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu22_ = {fReader, "HLT_IsoMu22_"};
+   // TTreeReaderValue<Int_t> HLT_Ele25_eta2p1_WPTight_Gsf_ = {fReader, "HLT_Ele25_eta2p1_WPTight_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_IsoTkMu22_ = {fReader, "HLT_IsoTkMu22_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu24_ = {fReader, "HLT_IsoMu24_"};
+   // TTreeReaderValue<Int_t> HLT_IsoTkMu24_ = {fReader, "HLT_IsoTkMu24_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu22_eta2p1_ = {fReader, "HLT_IsoMu22_eta2p1_"};
+   // TTreeReaderValue<Int_t> HLT_IsoTkMu22_eta2p1_ = {fReader, "HLT_IsoTkMu22_eta2p1_"};
+   // TTreeReaderValue<Int_t> HLT_Mu50_ = {fReader, "HLT_Mu50_"};
+   // TTreeReaderValue<Int_t> HLT_TkMu50_ = {fReader, "HLT_TkMu50_"};
+   // TTreeReaderValue<Int_t> HLT_Ele32_WPTight_Gsf_ = {fReader, "HLT_Ele32_WPTight_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_Ele35_WPTight_Gsf_ = {fReader, "HLT_Ele35_WPTight_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu27_ = {fReader, "HLT_IsoMu27_"};
+   // TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_"};
+   // TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_"};
+   // TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_"};
+   // TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_ = {fReader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_"};
+   // TTreeReaderValue<Int_t> HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = {fReader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ = {fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_ = {fReader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_"};
+   // TTreeReaderValue<Int_t> HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_ = {fReader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_ = {fReader, "HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleEle33_CaloIdL_MW_ = {fReader, "HLT_DoubleEle33_CaloIdL_MW_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_ = {fReader, "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_"};
+   // TTreeReaderValue<Int_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMu33NoFiltersNoVtx_ = {fReader, "HLT_DoubleMu33NoFiltersNoVtx_"};
+   // TTreeReaderValue<Int_t> HLT_DoubleMu23NoFiltersNoVtxDisplaced_ = {fReader, "HLT_DoubleMu23NoFiltersNoVtxDisplaced_"};
+   // TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_"};
+   // TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ = {fReader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ = {fReader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = {fReader, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_ = {fReader, "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_"};
+   // TTreeReaderValue<Int_t> HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ = {fReader, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_"};
+   // TTreeReaderValue<Int_t> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ = {fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_"};
+   // TTreeReaderValue<Int_t> HLT_TripleMu_12_10_5_ = {fReader, "HLT_TripleMu_12_10_5_"};
+   // TTreeReaderValue<Int_t> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ = {fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_"};
 
 
    makeVaribles_forBDT(TTree * /*tree*/ =0) { }
