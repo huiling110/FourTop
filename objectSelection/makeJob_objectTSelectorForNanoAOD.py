@@ -19,13 +19,14 @@ inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     # jobVersionName = 'v5_preselectionHLTMet'
-    jobVersionName = 'v6_noHLTSelection_addedMulitjetForSingleMu'
+    # jobVersionName = 'v6_noHLTSelection_addedMulitjetForSingleMu'
     # jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
-    # onlyMC = True
-    onlyMC = False
+    jobVersionName ='v7_preselectionAddingTausL'
+    onlyMC = True
+    # onlyMC = False
     era = '2016'
     # era = '2016APV'
-    eventSelection = '5'
+    eventSelection = '7'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     dataList = [ 'jetHT', 'singleMu'] 
