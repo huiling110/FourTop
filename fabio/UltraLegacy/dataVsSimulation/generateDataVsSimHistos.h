@@ -1,4 +1,8 @@
 #include <map>
+#include <TMatrixDSym.h>
+#include <TVectorD.h>
+#include <TMatrixDSymEigen.h>
+#include <TLorentzVector.h>
 
 using namespace std;
 
@@ -12,6 +16,16 @@ map<string, string> MUOSF_files = { //MAP OF INPUT MUO SCALE FACTOR FILES
 
 };
 
+string EGammaSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
+map<string, string> EGammaSF_files = { //MAP OF INPUT EGamma SCALE FACTOR FILES                                                                                                                                                            
+
+    {"UL2016_preVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
+    {"UL2016_postVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_postVFP_EGM2D.root"},
+    {"UL2017", EGammaSF_dir + "egammaEffi.txt_EGM2D_MVA90noIso_UL17.root"},
+    {"UL2018", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
+
+};
+
 string BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
 map<string, string> BTVSF_files = { //MAP OF INPUT BTV SCALE FACTOR FILES
 
@@ -22,12 +36,21 @@ map<string, string> BTVSF_files = { //MAP OF INPUT BTV SCALE FACTOR FILES
 
 };
 
+std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
+
+    {"2016postVFP", 0.2489},
+    {"2016preVFP", 0.2598},
+    {"2017", 0.3040},
+    {"2018", 0.2783},
+
+};
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
 
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -44,11 +67,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},
@@ -56,13 +79,13 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"st_tW_top", "st_tW_top"},
          {"st_tW_antitop", "st_tW_antitop"},
          {"st_tZq", "st_tZq"},
-
-         {"data_singleMuon_eraB_v1", "singleMu_2016B_v1"},
-         {"data_singleMuon_eraB_v2", "singleMu_2016B_v2"},
-         {"data_singleMuon_eraC", "singleMu_2016C"},    
-         {"data_singleMuon_eraD", "singleMu_2016D"},
-         {"data_singleMuon_eraE", "singleMu_2016E"},
-         {"data_singleMuon_eraF_hipm", "singleMu_2016F_hipm"},
+         
+         {"data_JetHT_eraB_v1", "jetHT_2016B_v1"},
+         {"data_JetHT_eraB_v2", "jetHT_2016B_v2"},
+         {"data_JetHT_eraC", "jetHT_2016C"},    
+         {"data_JetHT_eraD", "jetHT_2016D"},
+         {"data_JetHT_eraE", "jetHT_2016E"},
+         {"data_JetHT_eraF_hipm", "jetHT_2016F_hipm"},
          
      }
     }, //UL2016_preVFP
@@ -70,7 +93,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
     {"UL2016_postVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
 
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -87,11 +110,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},
@@ -100,14 +123,49 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"st_tW_antitop", "st_tW_antitop"},
          {"st_tZq", "st_tZq"},
 
-         {"data_singleMuon_eraF", "singleMu_2016F"},    
-         {"data_singleMuon_eraG", "singleMu_2016G"},    
-         {"data_singleMuon_eraH", "singleMu_2016H"},    
+         {"data_JetHT_eraF", "jetHT_2016F"},    
+         {"data_JetHT_eraG", "jetHT_2016G"},    
+         {"data_JetHT_eraH", "jetHT_2016H"},    
         
      }
     }, //UL2016_postVFP
 
 };
 
-void writeTEfficiency(TH1F* hBef, TH1F* hAFt, map<string, string>::iterator file_it, TString name);
-void writeTEfficiency2D(TH2F* hBef, TH2F* hAFt, map<string, string>::iterator file_it, TString name);
+void writeHisto(TH1F* histo, map<string, string>::iterator file_it);
+ 
+float HTCalculator ( vector<TLorentzVector> * jets );
+
+double bTagScoreAllJetsCalculator ( vector<double> * btag_scores );
+
+double InvariantMassCalculator(vector<TLorentzVector> * jets);
+
+double SysPtCalculator(vector<TLorentzVector> * jets);
+
+double MTCalculator(vector<TLorentzVector> * jets);
+
+double TransEnergyCalculator(TLorentzVector jet);
+
+double TransEnergySysCalculator(vector<TLorentzVector> * jets);
+
+double ratioHT_4toRestCalculator(vector<TLorentzVector> * jets);
+
+double MinDeltaRSingleCalculator(vector<TLorentzVector> * jets);
+
+double energyCal( vector<TLorentzVector> * jets );
+
+double pzCal( vector<TLorentzVector> * jets );
+
+void SphericityAplanarityCal( vector<TLorentzVector> * jets, double& Spher, double& Apla );
+
+double MinDeltaRCal(vector<TLorentzVector> * jets, vector<TLorentzVector> * leptons);
+
+double DeltaR(double eta1, double eta2, double phi1, double phi2);
+
+double AverageDeltaRCal(vector<TLorentzVector> * jets);
+
+double bscoreSumOf4largestCal(vector<double> * btag_scores);
+
+double TransMassCal(vector<TLorentzVector> * jets);
+
+double InvariantMass2SysCal(vector<TLorentzVector> * a, vector<TLorentzVector> * b);
