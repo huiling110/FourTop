@@ -123,9 +123,14 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    if(isdata) {
        if ( _goodLumis.find(*run) == _goodLumis.end() ) return kFALSE;
        else { //if run number is in map
+           Bool_t keepEvent = false;
            for ( Int_t i ; i < _goodLumis[*run].size()/2.; i++){
-               if ( !(*luminosityBlock > _goodLumis[*run][i*2] && *luminosityBlock < _goodLumis[*run][i*2+1]) ) return kFALSE; //veto luminosity blocks not in JSON
+               if ( *luminosityBlock >= _goodLumis[*run][i*2] && *luminosityBlock <= _goodLumis[*run][i*2+1] ) {
+                   keepEvent = true;
+                   break;
+               }
            }
+           if (!keepEvent) return kFALSE; //veto luminosity blocks not in JSON
        }
    }
 
