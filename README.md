@@ -10,8 +10,8 @@
  * run
    * cmsenv
    * cd objectSelection
-   * make 
-   * make clean (complie objectTSelectorForNano )
+   * make clean
+   * make  (complie objectTSelectorForNano )
    * root -b -q run_objectTSelectorForNanoAOD.C
  * tips
    * modify Linkdef.h and Makefile to use classes and functions from other source file(.C). never #inlude .C source code! only #include .h
@@ -38,13 +38,15 @@
     * scramv1 b clean; scramv1 b
 
  * tips for Fabio to uptade his branch with master
-    * suppose remote master branch now has Huiling's most recent commits, and suppose only Huiling has changed shared codes and Fabio hasn't. 
-    * this is what Fabio can do on his local repositary:
-        * git checkout master 
-        * git pull origin master
-        * git checkout newFabioDevelepeBranch( worling on this new branch from now on)
-        * git branch -d oldFabioDevelopeBranch(can savely delete old branch because now master has old branch commits in it)
-        * git push origin --delete oldFabioDevelopeBranch( delete your old branch in remote, careful with this commad to avoid deleting other branches!!!)
+    * before Huiling's merge:
+       * git push origin --delete fabio_developing
+       * git push origin fabio_developing
+    * after Huiling has merged:
+       * git checkout master
+       * git pull origin master
+       * git branch -D fabio_developing
+       * git checkout -b fabio_developing
+
        
     * if you want to change the shared code and expriment you'd better make another branch out of it and do it in the expriment branch.
     * if you want to submit jobs and git tag of the job version you should definitely do it in Fabio's branch and later merge Fabio branch to master.
