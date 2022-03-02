@@ -432,7 +432,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float muonIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                for (int i = 0; i < mymuonsT->size(); i++) {
+                    Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(mymuonsT->at(i).Eta()));
+                    Int_t biny = MuonIDSF->GetYaxis()->FindBin(mymuonsT->at(i).Pt());
+                    muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+                }
                 if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
@@ -546,7 +550,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float muonIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                for (int i = 0; i < mymuonsT->size(); i++) {
+                    Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(mymuonsT->at(i).Eta()));
+                    Int_t biny = MuonIDSF->GetYaxis()->FindBin(mymuonsT->at(i).Pt());
+                    muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+                }
                 if (muonIDSF == 0) muonIDSF = 1.0;
 
             }

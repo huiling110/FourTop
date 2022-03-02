@@ -64,7 +64,7 @@ void btagEff(string year, string dir) {
  Float_t binsY[NBINSY+1] = {20.,30.,50.,70.,100.,140.,300.,600.,1000};
 
  TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" ); 
-
+ 
     TH2::AddDirectory(kFALSE); 
     TH2F * h_btagEff_den_b_tttt = new TH2F ("h_btagEff_den_b_tttt", "h_btagEff_den_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
     TH2F * h_btagEff_num_b_tttt = new TH2F ("h_btagEff_num_b_tttt", "h_btagEff_num_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
@@ -176,7 +176,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float muonIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                for (int i = 0; i < mymuonsT->size(); i++) {
+                    Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(mymuonsT->at(i).Eta()));
+                    Int_t biny = MuonIDSF->GetYaxis()->FindBin(mymuonsT->at(i).Pt());
+                    muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+                }
                 if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
@@ -185,7 +189,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float eleIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < myelesMVAT->size(); i++) eleIDSF *= EleIDSF->GetBinContent(EleIDSF->FindBin(myelesMVAT->at(i).Eta()), EleIDSF->FindBin(myelesMVAT->at(i).Pt()));
+                for (int i = 0; i < myelesMVAT->size(); i++) { 
+                    Int_t binx = EleIDSF->GetXaxis()->FindBin(myelesMVAT->at(i).Eta());
+                    Int_t biny = EleIDSF->GetYaxis()->FindBin(myelesMVAT->at(i).Pt());
+                    eleIDSF *= EleIDSF->GetBinContent(binx, biny); 
+                }
                 if (eleIDSF == 0) eleIDSF = 1.0;
                 
             }
