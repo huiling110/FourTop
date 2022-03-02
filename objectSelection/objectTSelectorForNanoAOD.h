@@ -155,6 +155,7 @@ public :
    //branches in output trees
    Int_t PV_npvs_;
    Int_t PV_npvsGood_;
+   Int_t genTtbarId_;
    Double_t genWeight_allEvents;
 
    Int_t    Flag_goodVertices_ ;
@@ -907,7 +908,7 @@ public :
 //    TTreeReaderArray<Int_t> TrigObj_l1iso = {fReader, "TrigObj_l1iso"};
 //    TTreeReaderArray<Int_t> TrigObj_l1charge = {fReader, "TrigObj_l1charge"};
 //    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
-//    TTreeReaderValue<Int_t> genTtbarId = {fReader, "genTtbarId"};
+   TTreeReaderValue<Int_t> genTtbarId = {fReader, "genTtbarId"};
 //    TTreeReaderValue<UInt_t> nOtherPV = {fReader, "nOtherPV"};
 //    TTreeReaderArray<Float_t> OtherPV_z = {fReader, "OtherPV_z"};
 //    TTreeReaderValue<Float_t> PV_ndof = {fReader, "PV_ndof"};

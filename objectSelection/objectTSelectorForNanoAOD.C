@@ -175,6 +175,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
+    genTtbarId_ = *genTtbarId;
 
     calJetSmearFactors(  isdata );
     
@@ -527,6 +528,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
 
    tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
    tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
+   tree->Branch("genTtbarId_", &genTtbarId_, "genTtbarId_/I");
    tree->Branch("Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
    tree->Branch( "Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
    tree->Branch( "Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
