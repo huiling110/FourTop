@@ -221,54 +221,54 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             for (unsigned int i = 0; i < myjetsL->size(); i++) {
                 if (fabs(myjets_flavor->at(i))==5) { // b jets
                     
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_b_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_b_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_b_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_b_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_b_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_b_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_b_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_b_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_b_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_b_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
 
                     if (myjets_btags->at(i) > DeepJetM[year]) {
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_b_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_b_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_b_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_b_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_b_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_b_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_b_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_b_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_b_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_b_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
 
                     }
                 }// end b flavor
 
                 else if (fabs(myjets_flavor->at(i))==4) { // c jets
 
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_c_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_c_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_c_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_c_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_c_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_c_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_c_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_c_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_c_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_c_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
 
                     if (myjets_btags->at(i) > DeepJetM[year]) {
 
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_c_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_c_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_c_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_c_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_c_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_c_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_c_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_c_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_c_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_c_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
 
                     }
                 }//end c flavor
 
                 else { // light jets
                     
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_udsg_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_udsg_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_udsg_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_udsg_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_udsg_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_udsg_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_udsg_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_udsg_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_udsg_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_udsg_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
                     if (myjets_btags->at(i) > DeepJetM[year]) {
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_udsg_tttt->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_udsg_ttbar->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_udsg_QCD->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_udsg_ttX->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_udsg_ST->Fill(myjetsL->at(i).Eta(), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_udsg_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_udsg_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_udsg_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_udsg_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
+                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_udsg_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF);
                     }
 
                 }//end light flavor
