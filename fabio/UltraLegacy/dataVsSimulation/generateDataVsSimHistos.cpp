@@ -394,7 +394,7 @@ gROOT->ProcessLine(".L Loader.C+");
                 float eleIDSF = 1.0;
                 if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                    for (int i = 0; i < myelesMVAT->size(); i++) eleIDSF *= EleIDSF->GetBinContent(MuonIDSF->FindBin(myelesMVAT->at(i).Eta()), MuonIDSF->FindBin(myelesMVAT->at(i).Pt()));
+                    for (int i = 0; i < myelesMVAT->size(); i++) eleIDSF *= EleIDSF->GetBinContent(EleIDSF->FindBin(myelesMVAT->at(i).Eta()), EleIDSF->FindBin(myelesMVAT->at(i).Pt()));
                     if (eleIDSF == 0) eleIDSF = 1.0;
 
                 }
