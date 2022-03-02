@@ -175,7 +175,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
-    genTtbarId_ = *genTtbarId;
+    if ( !isdata )genTtbarId_ = *genTtbarId;
 
     calJetSmearFactors(  isdata );
     
@@ -1193,7 +1193,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          Pileup_nTrueInt = {fReader, "Pileup_nTrueInt"};
         Jet_hadronFlavour = {fReader, "Jet_hadronFlavour"};
          Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
-
+         genTtbarId = {fReader, "genTtbarId"};
          //HLT for MC
         HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
