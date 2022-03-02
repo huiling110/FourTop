@@ -1,5 +1,6 @@
 #include "TTreeReader.h"
 #include "TTreeReaderArray.h"
+#include <TROOT.h>
 #include <vector>
 
 #include "TFormula.h"
