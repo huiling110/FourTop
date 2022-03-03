@@ -13,12 +13,21 @@ map<string, string> MUOSF_files = { //MAP OF INPUT MUO SCALE FACTOR FILES
 };
 
 string BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
-map<string, string> BTVSF_files = { //MAP OF INPUT BTV SCALE FACTOR FILES
+map<string, string> BTVSF_files_reshaping = { //MAP OF INPUT BTV SCALE FACTOR FILES
 
     {"UL2016_preVFP", BTVSF_dir + "reshaping_deepJet_106XUL16preVFP_v2_dropLines.csv"},
     {"UL2016_postVFP", BTVSF_dir + "reshaping_deepJet_106XUL16postVFP_v3_dropLines.csv"},
     {"UL2017", BTVSF_dir + "reshaping_deepJet_106XUL17_v3_dropLines.csv"},
     {"UL2018", BTVSF_dir + "reshaping_deepJet_106XUL18_v2_dropLines.csv"},
+
+};
+
+map<string, string> BTVSF_files_fixedWP = { //MAP OF INPUT BTV SCALE FACTOR FILES
+
+    {"UL2016_preVFP", BTVSF_dir + "wp_deepJet_106XUL16preVFP_v2.csv"},
+    {"UL2016_postVFP", BTVSF_dir + "wp_deepJet_106XUL16postVFP_v3.csv"},
+    {"UL2017", BTVSF_dir + "wp_deepJet_106XUL17_v3.csv"},
+    {"UL2018", BTVSF_dir + "wp_deepJet_106XUL18_v2.csv"},
 
 };
 
