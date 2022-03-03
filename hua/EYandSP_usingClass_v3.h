@@ -36,6 +36,7 @@ Double_t separationPower(TH1D* h1, TH1D* h2);
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 // const TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
 
+//???we can do a mapping of channel number with cut here
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
@@ -54,6 +55,11 @@ const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=
 const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
+
+
+
+std::map<Int_t, TCut> channelCutMap;
+channelCutMap.insert( pair<In_t, TCut>( 1, ES1tau1l) );
 
 class Process
 {
