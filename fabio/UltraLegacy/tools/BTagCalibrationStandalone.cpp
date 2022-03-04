@@ -40,13 +40,28 @@ BTagEntry::BTagEntry(const std::string &csvLine)
   std::stringstream buff(csvLine);
   std::vector<std::string> vec;
   std::string token;
+  std::string pow;
+  bool pow_found = false;
   while (std::getline(buff, token, ","[0])) {
     token = BTagEntry::trimStr(token);
     if (token.empty()) {
       continue;
     }
+    ////////////////// pow operator contains a comma, which spoils the tokens. Take care of it
+    if (pow_found == true) {
+        vec.push_back(pow+token);
+        pow_found = false;
+        continue;
+    }
+    if (token.find("pow") != std::string::npos) {
+        pow = token+",";
+        pow_found = true;
+        continue;
+    }
+    //////////////////
     vec.push_back(token);
   }
+
   if (vec.size() != 11) {
 std::cerr << "ERROR in BTagCalibration: "
           << "Invalid csv line; num tokens != 11: "
