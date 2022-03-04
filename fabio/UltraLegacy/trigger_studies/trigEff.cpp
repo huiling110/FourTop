@@ -12,7 +12,7 @@
 #include <TSystem.h> // for gSystem
 //tools for b tagging SFs implementation
 #include "../tools/BTagCalibrationStandalone.cpp"
-#include "../tools/evalEventSF.C"
+#include "../tools/evalEventSF_fixedWP.C"
 //tools for DeepTau SFs implementation
 #include "../../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #define NBINSX 9
@@ -58,59 +58,24 @@ void trigEff(string year, string analyzer, string dir) {
  // set up calibration + reader
  cout << "Loading the .csv file..." << endl;
 
- std::string inputCSVfile = BTVSF_files_reshaping[year];
+ std::string inputCSVfile = BTVSF_files_fixedWP[year];
  const std::string tagger = "DeepJet";
  std::string measType = "iterativefit";
+ std::string measTypeIncl = "incl";
+ std::string measTypeComb = "comb";
  std::string sysType = "central";
- std::string sysTypejesUp = "up_jes";
- std::string sysTypejesDown = "down_jes";
- /*
- std::string sysTypejesEC2_2016Up = "up_jesEC2_2016";
- std::string sysTypejesEC2_2016Down = "down_jesEC2_2016";
- std::string sysTypejesEC2Up = "up_jesEC2";
- std::string sysTypejesEC2Down = "down_jesEC2";
- std::string sysTypejesBBEC1Up = "up_jesBBEC1";
- std::string sysTypejesBBEC1Down = "down_jesBBEC1";
- std::string sysTypejesAbsoluteUp = "up_jesAbsolute";
- std::string sysTypejesAbsoluteDown = "down_jesAbsolute";
- std::string sysTypejesAbsolute_2016Up = "up_jesAbsolute_2016";
- std::string sysTypejesAbsolute_2016Down = "down_jesAbsolute_2016";
- std::string sysTypejesHFUp = "up_jesHF";
- std::string sysTypejesHFDown = "down_jesHF";
- std::string sysTypejesFlavorQCDUp = "up_jesFlavorQCD";
- std::string sysTypejesFlavorQCDDown = "down_jesFlavorQCD";
- std::string sysTypejesBBEC1_2016Up = "up_jesBBEC1_2016";
- std::string sysTypejesBBEC1_2016Down = "down_jesBBEC1_2016";
- std::string sysTypejesRelativeBalUp = "up_jesRelativeBal";
- std::string sysTypejesRelativeBalDown = "down_jesRelativeBal";
- std::string sysTypejesHF_2016Up = "up_jesHF_2016";
- std::string sysTypejesHF_2016Down = "down_jesHF_2016";
- std::string sysTypejesRelativeSample_2016Up = "up_jesRelativeSample_2016";
- std::string sysTypejesRelativeSample_2016Down = "down_jesRelativeSample_2016";
- */
- std::string sysTypeHFUp = "up_hf";
- std::string sysTypeHFDown = "down_hf";
- std::string sysTypeLFUp = "up_lf";
- std::string sysTypeLFDown = "down_lf";
- std::string sysTypehfstats1Up = "up_hfstats1";
- std::string sysTypehfstats1Down = "down_hfstats1";
- std::string sysTypehfstats2Up = "up_hfstats2";
- std::string sysTypehfstats2Down = "down_hfstats2";
- std::string sysTypelfstats1Up = "up_lfstats1";
- std::string sysTypelfstats1Down = "down_lfstats1";
- std::string sysTypelfstats2Up = "up_lfstats2";
- std::string sysTypelfstats2Down = "down_lfstats2";
- std::string sysTypecfErr1Up = "up_cferr1";
- std::string sysTypecfErr1Down = "down_cferr1";
- std::string sysTypecfErr2Up = "up_cferr2";
- std::string sysTypecfErr2Down = "down_cferr2";
- BTagCalibration calib(tagger, inputCSVfile);
- BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown,/* sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, */sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
- CSVreader.load(calib, BTagEntry::FLAV_B, measType);
- CSVreader.load(calib, BTagEntry::FLAV_C, measType);
- CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
+ std::string sysTypecorrelatedUp = "up_correlated";
+ std::string sysTypecorrelatedDown = "down_correlated";
+ std::string sysTypeuncorrelatedUp = "up_uncorrelated";
+ std::string sysTypeuncorrelatedDown = "down_uncorrelated";
  
- cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
+ BTagCalibration calib(tagger, inputCSVfile);
+ BTagCalibrationReader CSVreader(BTagEntry::OP_MEDIUM, sysType, {sysTypecorrelatedUp, sysTypecorrelatedDown, sysTypeuncorrelatedUp, sysTypeuncorrelatedDown});
+ //CSVreader.load(calib, BTagEntry::FLAV_B, measTypeComb);
+ //CSVreader.load(calib, BTagEntry::FLAV_C, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_UDSG, measTypeIncl);
+ 
+ cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measTypeComb << "/" << measTypeIncl << ";" << endl;
 	
  //Float_t binsX[NB  INSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
@@ -128,7 +93,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     string data = "data";
     TString input_dir;
     TString base_dir;
-    if (analyzer == "fabio") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
+    if (analyzer == "fabio") base_dir = TString("/publicfs/cms/user/fabioiemmi/TauOfTTTT_NanoAOD/");
     else if (analyzer == "huiling") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
     else {
 
@@ -471,7 +436,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             
             //Get b tagging scale factor
             double * mybtagWeight;
-            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
+            mybtagWeight = evalEventSF_fixedWP(myjetsL, myjets_flavor, myjets_btags, CSVreader);
             if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
                 
             std::string tttt = "tttt";
@@ -589,7 +554,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             
             //Get b tagging scale factor
             double * mybtagWeight;
-            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
+            mybtagWeight = evalEventSF_fixedWP(myjetsL, myjets_flavor, myjets_btags, CSVreader);
             if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
             
             h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
