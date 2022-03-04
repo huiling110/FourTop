@@ -21,7 +21,7 @@
 #define NBINSY 8
 //using namespace std;
 
-void btagEff(string year, string dir) {
+void btagEff(string year, string analyzer, string dir) {
 
  gBenchmark->Start("running time");
  gROOT->ProcessLine(".L Loader.C+");
@@ -63,7 +63,8 @@ void btagEff(string year, string dir) {
  Float_t binsX[NBINSX+1] = {0.0,0.8,1.6,2.4};
  Float_t binsY[NBINSY+1] = {20.,30.,50.,70.,100.,140.,300.,600.,1000};
 
- TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" ); 
+ //TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" );
+ TFile *outputfile = new TFile( "asd.root", "RECREATE" );
  
     TH2::AddDirectory(kFALSE); 
     TH2F * h_btagEff_den_b_tttt = new TH2F ("h_btagEff_den_b_tttt", "h_btagEff_den_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
@@ -108,15 +109,23 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
     string data = "data";
     TString input_dir;
-    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
-    else input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
+    TString base_dir;
+    if (analyzer == "fabio") base_dir = TString("/publicfs/cms/user/fabioiemmi/TauOfTTTT_NanoAOD/");
+    else if (analyzer == "huiling") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
+    else {
+
+        std::cout << "*** ERROR: The analyzer name is invalid. Exiting. ***" << endl;
+        return;
+
+    }
+    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = base_dir + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
+    else input_dir = base_dir + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
         std::cout << "*** ERROR: file you are trying to read does not exist. Exiting. ***" << endl;
         return;
     }
-    
     TChain mychain("tree");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_dir + "outTree*.root"); 
     else mychain.Add(input_dir + "outTree*.root");
