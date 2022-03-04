@@ -13,6 +13,7 @@
 //tools for b tagging SFs implementation
 #include "../tools/BTagCalibrationStandalone.cpp"
 #include "../tools/evalEventSF_fixedWP.C"
+#include "../tools/debug.cpp"
 //tools for DeepTau SFs implementation
 #include "../../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #define NBINSX 9
@@ -71,8 +72,8 @@ void trigEff(string year, string analyzer, string dir) {
  
  BTagCalibration calib(tagger, inputCSVfile);
  BTagCalibrationReader CSVreader(BTagEntry::OP_MEDIUM, sysType, {sysTypecorrelatedUp, sysTypecorrelatedDown, sysTypeuncorrelatedUp, sysTypeuncorrelatedDown});
- //CSVreader.load(calib, BTagEntry::FLAV_B, measTypeComb);
- //CSVreader.load(calib, BTagEntry::FLAV_C, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_B, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_C, measTypeComb);
  CSVreader.load(calib, BTagEntry::FLAV_UDSG, measTypeIncl);
  
  cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measTypeComb << "/" << measTypeIncl << ";" << endl;
@@ -292,7 +293,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
         //get i-th entry in tree
         mychain.GetEntry( ievent );
         if (!(mygenEvtWeight > 0)) continue; //ignore negative-weighted events when dealing with TEfficiencies
-
+        
         /////////////////////////////////////////////////////////////////////
         ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
         /////////////////////////////////////////////////////////////////////
@@ -375,7 +376,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             }//end is gen2tau2L
 
         }//end is tttt MC
- 
+
         //compute HT   
         float HT = 0.0;
         bool jetptcut = false;
@@ -438,7 +439,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             double * mybtagWeight;
             mybtagWeight = evalEventSF_fixedWP(myjetsL, myjets_flavor, myjets_btags, CSVreader);
             if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
-                
+            
             std::string tttt = "tttt";
             if (file_it->first.find(tttt) !=std::string::npos) {
              
