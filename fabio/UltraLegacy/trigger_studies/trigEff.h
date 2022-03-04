@@ -31,13 +31,31 @@ map<string, string> BTVSF_files_fixedWP = { //MAP OF INPUT BTV SCALE FACTOR FILE
 
 };
 
+map<string, string> btagEff_files = { //MAP OF INPUT B TAG EFFICIENCY FILES
+
+    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_preVFP.root"},
+    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_postVFP.root"},
+    {"UL2017", BTVSF_dir + "efficiencies/btagEff_output_UL2017.root"},
+    {"UL2018", BTVSF_dir + "efficiencies/btagEff_output_UL2018.root"},
+
+};
+
+std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
+
+    {"UL2016_postVFP", 0.2489},
+    {"UL2016_preVFP", 0.2598},
+    {"UL2017", 0.3040},
+    {"UL2018", 0.2783},
+
+};
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
      {   //signal
          
          {"tttt", "tttt"}, //broken
-
+         /*
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
          {"ttbar-SL", "ttbar_1l"},
@@ -72,7 +90,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"data_singleMuon_eraD", "singleMu_2016D"},
          {"data_singleMuon_eraE", "singleMu_2016E"},
          {"data_singleMuon_eraF_hipm", "singleMu_2016F_hipm"},
-         
+         */
      }
     }, //UL2016_preVFP
 
