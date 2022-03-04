@@ -19,7 +19,7 @@
 #define NBINSY 8
 //using namespace std;
 
-void trigEff(string year, string dir) {
+void trigEff(string year, string analyzer, string dir) {
 
  gBenchmark->Start("running time");
  gROOT->ProcessLine(".L Loader.C+");
@@ -58,8 +58,8 @@ void trigEff(string year, string dir) {
  // set up calibration + reader
  cout << "Loading the .csv file..." << endl;
 
- std::string inputCSVfile = BTVSF_files[year];
- const std::string tagger = "DeepJet";   
+ std::string inputCSVfile = BTVSF_files_reshaping[year];
+ const std::string tagger = "DeepJet";
  std::string measType = "iterativefit";
  std::string sysType = "central";
  std::string sysTypejesUp = "up_jes";
@@ -127,8 +127,17 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
     string data = "data";
     TString input_dir;
-    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
-    else input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
+    TString base_dir;
+    if (analyzer == "fabio") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
+    else if (analyzer == "huiling") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
+    else {
+
+        std::cout << "*** ERROR: The analyzer name is invalid. Exiting. ***" << endl;
+        return;
+
+    }
+    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = base_dir + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
+    else input_dir = base_dir + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
