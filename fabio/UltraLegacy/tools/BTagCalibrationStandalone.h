@@ -19,6 +19,22 @@
 #include <TF1.h>
 #include <TH1.h>
 
+std::map<std::string, int> OPmap = { //map of operating points
+      
+      {"L", 0},
+      {"M", 1},
+      {"T", 2},
+      {"shape", 3},
+
+  };
+
+std::map<int, int> JFmap = { //map of jet flavors
+      
+      {5, 0},
+      {4, 1},
+      {0, 2},
+
+  };
 
 class BTagEntry
 {
