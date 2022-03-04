@@ -2,7 +2,7 @@
  * @author Huiliing Hua
  * @email huahl@ihep.ac.cn
  * @create date 2021-11-17 01:00:03
- * @modify date 2021-11-17 01:00:03
+ * @modify date 2022-03-03 22:57:51
  * @desc [description]
  */
 
@@ -21,6 +21,8 @@
 #include "TStopwatch.h"
 #include "TPaveText.h"
 
+
+
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
@@ -30,44 +32,38 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
-using  std::cout; 
+// using  std::cout; 
 void EYandSP_usingClass_v3(){ 
     TStopwatch t;
     t.Start();
 
-    Bool_t ifSP = false;
+    // Bool_t ifSP = false;
     // Bool_t ifSP = true;
     Bool_t ifDraw = false;
     // Bool_t ifDraw = true;
     // Bool_t ifEY = false;
     Bool_t ifEY = true;
-    // TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/results/";
-    // TString EYplotDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/results/";
     TString EYplotDir = baseDir + "results/";
 
 
-//  bool SYST = false;
-  vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
-//variablelist is plots we want to show   
-  variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
+    vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
+    variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
  
   //apply selection cuts here
-vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
-vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
+    vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
+    vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
 // vector<TH1D*> allHistos;
-TH1D* h_background;
-TH1D* h_bg;
+    // TH1D* h_background;
+    // TH1D* h_bg;
 
-// TH1D* TTTT, TT,  TTX, VV, VVV, WJets, DYJets, SingleTop, TX;
-// vector<TH1D*>  groupedBgsAndSignal = { TTTT, TT,  TTX, VV, VVV, WJets, DYJets, SingleTop, TX };
-vector<TH1D*>  groupedBgsAndSignal;
+    vector<TH1D*>  groupedBgsAndSignal;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=3; cha<4; cha++){
+for (UInt_t  cha=0; cha<1; cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
-    std::map<Double_t, TString> mymap;
+    // std::map<Double_t, TString> mymap;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
@@ -77,11 +73,11 @@ for (UInt_t  cha=3; cha<4; cha++){
         // cout<<"new bg: "<<h_bg->GetEntries();
 
 
-        getBgsAndSignalHist( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
+        getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
+        // drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
 
-        plotChannelDis( groupedBgsAndSignal, EYplotDir );
+        // plotChannelDis( groupedBgsAndSignal, EYplotDir );
 
         for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
             groupedBgsAndSignal[p]->Print();
@@ -117,11 +113,11 @@ for (UInt_t  cha=3; cha<4; cha++){
 
 
 
-    if ( ifSP ){
-        for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
-            std::cout <<  rit->second << " = "<< rit->first << endl;
-        }
-    }
+    // if ( ifSP ){
+    //     for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
+    //         std::cout <<  rit->second << " = "<< rit->first << endl;
+    //     }
+    // }
 
 	//how do we exactly include SYST in our histograms?
 
@@ -131,6 +127,13 @@ for (UInt_t  cha=3; cha<4; cha++){
     t.Stop();
     t.Print();
 }
+
+
+
+
+
+
+
 
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir ){
     TFile* plotFile = new TFile( plotDir+"dis.root", "RECREATE" );

@@ -1,9 +1,9 @@
 /**
- * File              : TMVAClassification_variableFileInput.C
- * Author            : Huiling Hua <huahl@ihep.ac.cn>
- * Date              : 05.10.2021
- * Last Modified Date: 05.10.2021
- * Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
+ * @author Huiling Hua
+ * @email huahl@ihep.ac.cn
+ * @create date 2022-03-03 21:36:07
+ * @modify date 2022-03-03 21:36:07
+ * @desc [description]
  */
 /// \ingroup tutorial_tmva
 /// \file
@@ -76,10 +76,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2
-        // const Int_t channel = 1,
+        const Int_t channel = 1,
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
-        const Int_t channel = 5, //2tauXl
+      //   const Int_t channel = 5, //2tauXl
         Bool_t forVariables = true
         // Bool_t forVariables = false
         )

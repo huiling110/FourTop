@@ -16,7 +16,6 @@
 #include "TPRegexp.h"
 
 
-// gROOT->ProcessLine(".L Process_class.h+");
 
 
 
@@ -24,9 +23,8 @@
 
 
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v2Resubmitv1/";
-const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v3addBtagHLTweights/";
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
-// Int_t SigSF = 1;
+// const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v3addBtagHLTweights/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1/";
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
 //?where to get the more precise LUMI?
@@ -55,11 +53,12 @@ const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=
 const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
 const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
+const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
 
 
-std::map<Int_t, TCut> channelCutMap;
-channelCutMap.insert( pair<In_t, TCut>( 1, ES1tau1l) );
+// std::map<Int_t, TCut> channelCutMap;
+// channelCutMap.insert( pair<In_t, TCut>( 1, ES1tau1l) );
 
 class Process
 {
@@ -142,6 +141,24 @@ class Process
         // }
 };
 
+std::map<TString, Double_t> crossSectionMap = {
+    {"tttt", 0.01197},
+    {"ttbar_2l", 88.29},
+    {"ttbar_0l", 377.96},
+    {"ttbar_1l", 365.34},
+} ;
+
+
+#include "eventYieldCal.C"
+
+
+
+
+
+
+
+
+/*
 Process TTTT{ baseDir+"TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn.root", 0.01197};
 Process TTTo2L2Nu{ baseDir+ "TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 88.29 };//90.6->
 Process TTToHadronic(baseDir+"TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8.root", 377.96 );//367.
@@ -204,6 +221,7 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 // Process VBFHToTauTau(baseDir+"VBFHToTauTau_M125_13TeV_powheg_pythia8.root", 0.237 );
 // Process VBFHToMuMu(baseDir+"VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root", 0.000823 );
 // Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 );
+
 vector<Process> allProcesses = {
     TTTT, //0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
@@ -214,9 +232,9 @@ vector<Process> allProcesses = {
     tZq_ll, tZq_nunu, ST_tW_antitop, ST_tW_top,//26
     TGJets, THW, THQ, //29
     QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,//36
-    // VHToNonbb, [>ZHToTauTau,*/ ZH_HToBB_ZToLL,[> GluGluHToZZTo4L,*/ /*GluGluHToBB.<] GluGluHToGG, GluGluHToMuMu, GluGluHToTauTau, GluGluHToWWTo2L2Nu, GluGluHToWWToLNuQQ,/* VBFHToWWTo2L2Nu, VBFHToTauTau, <]VBFHToMuMu, VBFHToGG,
 };
 
+*/
 
 TH1D* getBackHist(  vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
     TH1D* bg = new TH1D( "bg", "bg", 40, 0, 40);
@@ -271,6 +289,28 @@ void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channe
 
     // delete TTTT, TT;
 }
+void getBgsAndSignalHist_Nano( vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+
+    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT_"+branch );
+    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT_"+branch);
+    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 9, "TTX_"+branch );
+    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 9, 12, "VV_"+branch );
+    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 12, 15, "SingleTop_"+branch );
+    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 15, 24, "QCD_"+branch);
+
+    TH1D*  allBg = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 24, "allBg_"+branch);
+
+    groupedBGsAndSignal.push_back( TTTT );
+    groupedBGsAndSignal.push_back( TT );
+    groupedBGsAndSignal.push_back( TTX );
+    groupedBGsAndSignal.push_back( VV );
+    groupedBGsAndSignal.push_back( SingleTop );
+    groupedBGsAndSignal.push_back( QCD );
+    groupedBGsAndSignal.push_back( allBg );
+
+}
+
+
 
 Double_t getAllBgEntries( const TCut cut, const TCut weight ){
     Double_t bgEntries = 0.0;
