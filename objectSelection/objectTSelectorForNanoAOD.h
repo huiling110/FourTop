@@ -21,7 +21,7 @@
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
-
+#include <fstream>
 // Headers needed by this particular selector
 #include <vector>
 #include <TRandom3.h>
@@ -139,6 +139,7 @@ public :
    Long64_t   fProcessed = 0;
    Long64_t eventsPassed = 0;
    Long64_t eventsPassedHLT = 0;
+   Long64_t eventsPassedJSON = 0;
    Long64_t tausT_total = 0;
    Long64_t tausL_total = 0;
    Long64_t tausF_total = 0;

@@ -35,7 +35,6 @@
 //we should use a better way of modulization of code rather the include copy here???
 #include <TH2.h>
 #include <TStyle.h>
-
 ///////////////////////
 
 void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
@@ -52,7 +51,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    // The SlaveBegin() function is called after the Begin() function.
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
-
+   
    TString option = GetOption();
    std::cout<<"option in TSelector : "<<option<<"\n";
    getOptionFromRunMacro( option );
@@ -117,8 +116,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
        genWeight_allEvents = *Generator_weight;
    }
    allEvents->Fill();
-
-
     //good lumi selection
    if(isdata) {
        if ( _goodLumis.find(*run) == _goodLumis.end() ) return kFALSE;
@@ -133,8 +130,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            if (!keepEvent) return kFALSE; //veto luminosity blocks not in JSON
        }
    }
-
-
+   
+   eventsPassedJSON++;
+   
    //MET filters
    if ( MetFilters ){
         //recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
@@ -352,12 +350,12 @@ void objectTSelectorForNanoAOD::Terminate()
     // delete inputPUFile_dataDown;
     // inputPUFile_mc->Close();
     // delete inputPUFile_mc;
-
 ///////////////////////////////
     outputfile->Write();
     outputfile->Close();
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "passed %lld events", eventsPassed);
+    Info("Terminate", "passed JSON %lld events", eventsPassedJSON);
     Info("Terminate", "passed HLT %lld events", eventsPassedHLT);
     Info("Terminate", "output file here: %s", outputfile->GetName());
 ///////////////////////////////
@@ -938,10 +936,10 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
         HLT_IsoTkMu22_ = *HLT_IsoTkMu22;
         HLT_IsoMu24_ = *HLT_IsoMu24;
         HLT_IsoTkMu24_ = *HLT_IsoTkMu24;
-        HLT_IsoMu22_eta2p1_ = *HLT_IsoMu22_eta2p1;
-        HLT_IsoTkMu22_eta2p1_ = *HLT_IsoTkMu22_eta2p1;
+        HLT_IsoMu22_eta2p1_ = -99;
+        HLT_IsoTkMu22_eta2p1_ = -99;
         HLT_Mu50_ = *HLT_Mu50;
-        HLT_TkMu50_ = *HLT_TkMu50;
+        HLT_TkMu50_ = -99;
         HLT_IsoMu27_ = *HLT_IsoMu27;
 
         HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ = -99;
@@ -1243,10 +1241,10 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
         HLT_IsoTkMu22 = { fReader, "HLT_IsoTkMu22"};
         HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
         HLT_IsoTkMu24 = { fReader, "HLT_IsoTkMu24"};
-        HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
-        HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
+        //HLT_IsoMu22_eta2p1 = { fReader, "HLT_IsoMu22_eta2p1"};
+        //HLT_IsoTkMu22_eta2p1 = { fReader, "HLT_IsoTkMu22_eta2p1"};
         HLT_Mu50 = { fReader, "HLT_Mu50"};
-        HLT_TkMu50 = { fReader, "HLT_TkMu50"};
+        //HLT_TkMu50 = { fReader, "HLT_TkMu50"};
         HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
         HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
