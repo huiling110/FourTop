@@ -24,7 +24,8 @@
 
 // TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v2Resubmitv1/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v3addBtagHLTweights/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromv7/";
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
 //?where to get the more precise LUMI?
