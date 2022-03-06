@@ -359,6 +359,15 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     }
     pt2->Draw();
 
+    TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
+    TText* tt3 = pt3->AddText( channel ); tt3->SetTextSize( 0.065);
+    TText* t3 = pt3->AddText( "scaled to LUMI:"); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
+    for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
+        addTextToPT( 2, pt3, groupedBgsAndSignal[j] );
+    }
+    pt3->Draw();
+
+
 
     c->SaveAs( EYplotDir+"EY"+channel+"_new.png");
 
