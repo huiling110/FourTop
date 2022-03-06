@@ -19,11 +19,11 @@
 
 
 
+#include "Process_Class.C"
 
 
 
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromv7/";
-#include "Process_Class.C"
 
 
 

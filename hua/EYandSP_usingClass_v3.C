@@ -72,7 +72,8 @@ for (UInt_t  cha=0; cha<1; cha++){
         // cout<<"new bg: "<<h_bg->GetEntries();
 
 
-        getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
+        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
+        getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
 
         drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
 
