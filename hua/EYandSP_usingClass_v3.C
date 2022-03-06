@@ -26,7 +26,6 @@
 void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
 void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel );
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
@@ -256,69 +255,6 @@ void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vect
 }
 
 
-void drawEventEield( const vector<TH1D*> &allHistos, const TH1D* h_background, TString EYplotDir, TString channel ){
-    TCanvas *c = new TCanvas("c", "c");
-    c->SetCanvasSize(300, 1000);
-    c->SetWindowSize(400, 700);
-
-    // TPaveText *pt = new TPaveText(.05,.95,.95,.7);// the position relative to cavas, first is the left down point
-    TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
-    // pt->SetLabel(channel);
-    // pt->SetLabelSize(0.05);
-    // pt->AddText( "  ");
-    TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
-    TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
-    addTextToPT( 0, pt, "TTTT", allHistos, 0, 1 , allProcesses );
-    addTextToPT( 0, pt, "TT", allHistos, 1, 3, allProcesses );
-    addTextToPT( 0, pt, "TTX", allHistos, 4, 4 , allProcesses);
-    addTextToPT( 0, pt, "VV", allHistos, 8, 5, allProcesses );
-    addTextToPT( 0, pt, "VVV", allHistos, 13, 8, allProcesses );
-    addTextToPT( 0, pt, "WJets", allHistos, 21, 1, allProcesses );
-    addTextToPT( 0, pt, "DY", allHistos, 22, 1, allProcesses );
-    addTextToPT( 0, pt, "singleTop", allHistos, 23, 4, allProcesses );
-    addTextToPT( 0, pt, "TX", allHistos, 27, 3, allProcesses );
-    addTextToPT( 0, pt, "QCD", allHistos, 30, 7, allProcesses );
-    TString entries;
-    entries.Form( "background = %f", h_background->GetEntries() ); TText* t1 = pt->AddText(  entries ); t1->SetTextAlign(11); t1->SetTextSize( 0.055);
-    pt->Draw();
- 
-    TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
-    TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
-    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
-    addTextToPT( 1, pt2, "TTTT", allHistos, 0, 1 , allProcesses );
-    addTextToPT( 1, pt2, "TT", allHistos, 1, 3, allProcesses );
-    addTextToPT( 1, pt2, "TTX", allHistos, 4, 4 , allProcesses);
-    addTextToPT( 1, pt2, "VV", allHistos, 8, 5, allProcesses );
-    addTextToPT( 1, pt2, "vvv", allHistos, 13, 8, allProcesses );
-    addTextToPT( 1, pt2, "WJets", allHistos, 21, 1, allProcesses );
-    addTextToPT( 1, pt2, "DY", allHistos, 22, 1, allProcesses );
-    addTextToPT( 1, pt2, "singleTop", allHistos, 23, 4, allProcesses );
-    addTextToPT( 1, pt2, "TX", allHistos, 27, 3, allProcesses );
-    addTextToPT( 1, pt2, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->Integral() ); TText* t2 = pt2->AddText(  entries ); t2->SetTextAlign(11); t2->SetTextSize( 0.055);
-    pt2->Draw();
-
-    TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
-    // pt3->SetLabel(channel );
-    // pt3->AddText( "  ");
-    // pt3->AddText( "  ");
-    TText* tt3 = pt3->AddText( channel ); tt3->SetTextSize( 0.065);
-    TText* t30 = pt3->AddText( "scaled to LUMI:"); t30->SetTextAlign(11); t30->SetTextSize( 0.055);
-    addTextToPT( 2, pt3, "TTTT", allHistos, 0, 1 , allProcesses );
-    addTextToPT( 2, pt3, "TT", allHistos, 1, 3, allProcesses );
-    addTextToPT( 2, pt3, "TTX", allHistos, 4, 4 , allProcesses);
-    addTextToPT( 2, pt3, "VV", allHistos, 8, 5, allProcesses );
-    addTextToPT( 2, pt3, "vvv", allHistos, 13, 8, allProcesses );
-    addTextToPT( 2, pt3, "WJets", allHistos, 21, 1, allProcesses );
-    addTextToPT( 2, pt3, "DY", allHistos, 22, 1, allProcesses );
-    addTextToPT( 2, pt3, "singleTop", allHistos, 23, 4, allProcesses );
-    addTextToPT( 2, pt3, "TX", allHistos, 27, 3, allProcesses );
-    addTextToPT( 2, pt3, "QCD", allHistos, 30, 7, allProcesses );
-    entries.Form( "background = %f", h_background->Integral() ); TText* t3 = pt3->AddText(  entries ); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
-    pt3->Draw();
-
-    c->SaveAs( EYplotDir+"EY"+channel+".png");
-}
 
 void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
     Double_t EY = -99;
