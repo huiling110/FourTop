@@ -150,6 +150,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 		// if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
 	    if (!(*Flag_eeBadScFilter == 1)) return kFALSE; //for UL this filter exists for 2016 MC too
     }
+   eventsPassedMETFilters++;
     copyFlags();
 
     
@@ -354,9 +355,10 @@ void objectTSelectorForNanoAOD::Terminate()
     outputfile->Write();
     outputfile->Close();
     Info("Terminate", "processed %lld events", fProcessed);
-    Info("Terminate", "passed %lld events", eventsPassed);
     Info("Terminate", "passed JSON %lld events", eventsPassedJSON);
+    Info("Terminate", "passed MET filters %lld events", eventsPassedMETFilters);
     Info("Terminate", "passed HLT %lld events", eventsPassedHLT);
+    Info("Terminate", "passed %lld events", eventsPassed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
 ///////////////////////////////
 
