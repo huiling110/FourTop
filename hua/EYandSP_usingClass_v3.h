@@ -21,7 +21,9 @@
 
 #include "Process_Class.C"
 
-
+// if (!TClass::GetDict("Process_Class")) {
+    //   gROOT->ProcessLine(".L Process_Class.C++");
+// }
 
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromv7/";
 
@@ -34,6 +36,8 @@ const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/201
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1/";
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
+const Double_t gLUMI_2016preVFP = 19520;//19.52 fb
+const Double_t gLUMI_2016postVFP = 16810;
 //?where to get the more precise LUMI?
 Double_t separationPower(TH1D* h1, TH1D* h2);
 
