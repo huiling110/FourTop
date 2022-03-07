@@ -974,8 +974,8 @@ void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata ){
                 inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
                 inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017.root", "READ");
 
-                jetSmearing_PtFile = "../dada_rootFiles/UL2017/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt";
-                jetSmearing_MCFile = "../data_rootFiles/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt";
+                jetSmearing_PtFile = "../dada_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt";
+                jetSmearing_MCFile = "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt";
 
         }else if( era.CompareTo("2018")==0 ){
                 inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "READ");
@@ -983,8 +983,8 @@ void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata ){
                 inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
                 inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2018.root", "READ");
 
-                jetSmearing_PtFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt";
-                jetSmearing_MCFile = "../data_rootFiles/UL2018/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt";
+                jetSmearing_PtFile = "../data_rootFiles/smearing/UL2018/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt";
+                jetSmearing_MCFile = "../data_rootFiles/smearing/UL2018/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt";
         }
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
         std::cout<<"jetSmearing file used: "<<jetSmearing_PtFile<<"\n"<<jetSmearing_MCFile<<"\n";
