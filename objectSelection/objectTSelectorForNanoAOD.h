@@ -140,6 +140,7 @@ public :
    Long64_t eventsPassed = 0;
    Long64_t eventsPassedHLT = 0;
    Long64_t eventsPassedJSON = 0;
+   Long64_t eventsPassedMETFilters = 0;
    Long64_t tausT_total = 0;
    Long64_t tausL_total = 0;
    Long64_t tausF_total = 0;

@@ -157,7 +157,16 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     //HLT
     if ( HLTSelection){
-        if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
+        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+
+            if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
+
+        }
+        else if (era.CompareTo("2018")==0) {
+            if ( !(*HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1) ) return kFALSE;
+
+        }
+        
     }
     copyHLT( isdata, dataSet );
     eventsPassedHLT++;
@@ -358,7 +367,7 @@ void objectTSelectorForNanoAOD::Terminate()
     Info("Terminate", "passed JSON %lld events", eventsPassedJSON);
     Info("Terminate", "passed MET filters %lld events", eventsPassedMETFilters);
     Info("Terminate", "passed HLT %lld events", eventsPassedHLT);
-    Info("Terminate", "passed %lld events", eventsPassed);
+    Info("Terminate", "passed preselection %lld events", eventsPassed);
     Info("Terminate", "output file here: %s", outputfile->GetName());
 ///////////////////////////////
 
