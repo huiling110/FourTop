@@ -174,9 +174,12 @@ public :
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
     Int_t HLT_IsoMu24_ ;
     Int_t HLT_IsoMu27_ ;
-    //2018
+    //2018 MC and data B, C, D
     Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
     Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    //2018 data A
+    Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     std::vector<TLorentzVector> muonsL; std::vector<Int_t> muonsL_index;
     std::vector<TLorentzVector> muonsF; std::vector<Int_t> muonsF_index;
     std::vector<TLorentzVector> muonsT; std::vector<Int_t> muonsT_index;
@@ -1206,10 +1209,13 @@ public :
    TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "Flag_goodVertices"}; //read fake branches in header
    
-   //TRIGGERS FOR 2018  
+   //TRIGGERS FOR 2018 MC and data B, C, D  
    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "Flag_goodVertices"};
-   
+   //TRIGGERS FOR 2018 data A
+   TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};
+
 //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};
