@@ -55,6 +55,11 @@ void EYandSP_usingClass_v3(){
 
     vector<TH1D*>  groupedBgsAndSignal;
 
+    //testing
+    TH1D* ttttH = allProcesses[0].getChannelHist( ES1tau1e  ,weight, variablelist[0], bin[0], Min[0], Max[0] );
+    ttttH->Print();
+
+
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
 for (UInt_t  cha=3; cha<4;cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
