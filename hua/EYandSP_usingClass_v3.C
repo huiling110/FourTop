@@ -27,7 +27,7 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variabl
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi );
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era );
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
@@ -35,13 +35,8 @@ void EYandSP_usingClass_v3(){
     TStopwatch t;
     t.Start();
 
-    // Bool_t ifSP = false;
-    // Bool_t ifSP = true;
-    Bool_t ifDraw = false;
-    // Bool_t ifDraw = true;
-    // Bool_t ifEY = false;
-    Bool_t ifEY = true;
     Double_t lumi =  gLUMI_2016preVFP;
+    TString era = "2016preVFP";
     TString EYplotDir = baseDir + "results/";
 
 
@@ -77,7 +72,7 @@ for (UInt_t  cha=3; cha<4;cha++){
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
 
         // plotChannelDis( groupedBgsAndSignal, EYplotDir );
 
@@ -274,17 +269,18 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs, const Double_t lu
     cout<<"entry: "<<entries<<"\n";
 }
 
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi ){
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era ){
 
     TCanvas *c = new TCanvas("c", "c");
     c->SetCanvasSize(300, 1000);
     c->SetWindowSize(400, 700);
 
     TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
-    TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
+    TText* tt1 = pt->AddText( era +": " + channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     for( UInt_t i = 0; i<groupedBgsAndSignal.size(); i++){
-        addTextToPT( 0, pt, groupedBgsAndSignal[i], lumi );
+        // addTextToPT( 0, pt, groupedBgsAndSignal[i], lumi );
+        addTextToPT( 0, pt, groupedBgsAndSignal[i], lumiMap[era]);
     }
     pt->Draw();
 
@@ -293,7 +289,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
     TText* t20 = pt2->AddText( "scaled to LUMI:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
-        addTextToPT( 1, pt2, groupedBgsAndSignal[j], lumi );
+        addTextToPT( 1, pt2, groupedBgsAndSignal[j], lumiMap[era] );
     }
     pt2->Draw();
 
@@ -307,7 +303,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
 
 
 
-    c->SaveAs( EYplotDir+"EY"+channel+"_new.png");
+    c->SaveAs( EYplotDir+"EY_"+ era +"_" + channel+"_new.png");
 
 }
 

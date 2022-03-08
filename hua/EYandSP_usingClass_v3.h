@@ -31,6 +31,11 @@ const Double_t LUMI = 35900; //pb-1
 const Double_t gLUMI_2016preVFP = 19520;//19.52 fb
 const Double_t gLUMI_2016postVFP = 16810;
 //?where to get the more precise LUMI?
+std::map<TString, Double_t> lumiMap = {
+    {"2016preVFP", 19520},
+    {"2016postVFP", 16810},
+};
+
 
 
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
