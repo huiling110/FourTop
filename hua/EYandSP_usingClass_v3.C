@@ -27,11 +27,10 @@ void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variabl
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel );
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi );
 void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
-// using  std::cout; 
 void EYandSP_usingClass_v3(){ 
     TStopwatch t;
     t.Start();
@@ -42,6 +41,7 @@ void EYandSP_usingClass_v3(){
     // Bool_t ifDraw = true;
     // Bool_t ifEY = false;
     Bool_t ifEY = true;
+    Double_t lumi =  gLUMI_2016preVFP;
     TString EYplotDir = baseDir + "results/";
 
 
@@ -52,14 +52,11 @@ void EYandSP_usingClass_v3(){
     vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
     vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
-// vector<TH1D*> allHistos;
-    // TH1D* h_background;
-    // TH1D* h_bg;
 
     vector<TH1D*>  groupedBgsAndSignal;
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=0; cha<1; cha++){
+for (UInt_t  cha=3; cha<4;cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     // std::map<Double_t, TString> mymap;
@@ -75,7 +72,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha] );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi );
 
         // plotChannelDis( groupedBgsAndSignal, EYplotDir );
 
@@ -119,7 +116,6 @@ for (UInt_t  cha=0; cha<1; cha++){
     //     }
     // }
 
-	//how do we exactly include SYST in our histograms?
 
 }//end of loop of all channels
     
@@ -257,11 +253,11 @@ void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vect
 
 
 
-void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
+void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs, const Double_t lumi ){
     Double_t EY = -99;
     if( type ==0 ) EY = bgs->GetEntries();
-    if( type ==1 ) EY = bgs->Integral()*LUMI;
-    if( type ==2 ) EY = bgs->Integral()*LUMI;
+    if( type ==1 ) EY = bgs->Integral()*lumi;
+    // if( type ==2 ) EY = bgs->Integral()*LUMI;
 
     TString entries;
     TString bgsName = bgs->GetName();
@@ -273,7 +269,7 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs ){
     cout<<"entry: "<<entries<<"\n";
 }
 
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel ){
+void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi ){
 
     TCanvas *c = new TCanvas("c", "c");
     c->SetCanvasSize(300, 1000);
@@ -283,26 +279,26 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     TText* tt1 = pt->AddText( channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     for( UInt_t i = 0; i<groupedBgsAndSignal.size(); i++){
-        addTextToPT( 0, pt, groupedBgsAndSignal[i] );
+        addTextToPT( 0, pt, groupedBgsAndSignal[i], lumi );
     }
     pt->Draw();
 
 
     TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
     TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
-    TText* t20 = pt2->AddText( "weighted:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
+    TText* t20 = pt2->AddText( "scaled to LUMI:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
-        addTextToPT( 1, pt2, groupedBgsAndSignal[j] );
+        addTextToPT( 1, pt2, groupedBgsAndSignal[j], lumi );
     }
     pt2->Draw();
 
-    TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
-    TText* tt3 = pt3->AddText( channel ); tt3->SetTextSize( 0.065);
-    TText* t3 = pt3->AddText( "scaled to LUMI:"); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
-    for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
-        addTextToPT( 2, pt3, groupedBgsAndSignal[j] );
-    }
-    pt3->Draw();
+    // TPaveText *pt3 = new TPaveText(.05,.39,.95,.12, "NDC");
+    // TText* tt3 = pt3->AddText( channel ); tt3->SetTextSize( 0.065);
+    // TText* t3 = pt3->AddText( "scaled to LUMI:"); t3->SetTextAlign(11); t3->SetTextSize( 0.055);
+    // for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
+    //     addTextToPT( 2, pt3, groupedBgsAndSignal[j] );
+    // }
+    // pt3->Draw();
 
 
 

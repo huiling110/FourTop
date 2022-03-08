@@ -15,7 +15,6 @@
 #include "TCut.h"
 #include "TPRegexp.h"
 
-#include <iostream>
 
 
 
@@ -27,19 +26,11 @@
 
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromv7/";
 
-
-
-
-
-// TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v2Resubmitv1/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/v46_v3addBtagHLTweights/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1/";
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
 const Double_t gLUMI_2016preVFP = 19520;//19.52 fb
 const Double_t gLUMI_2016postVFP = 16810;
 //?where to get the more precise LUMI?
-Double_t separationPower(TH1D* h1, TH1D* h2);
 
 
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
@@ -180,7 +171,8 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
     // addedHist->ResetStats();
     TH1D::SetDefaultSumw2();
     for(UInt_t j = fromProcess; j < toProcess; j++){
-        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
+        // addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  LUMI*allProcesses[j].getScale() );
+        addedHist->Add( allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax),  allProcesses[j].getScale() );
         // TH1D* temp = allProcesses[j].getChannelHist(cut,weight, branchName, binNum, binMin, binMax);
         // temp->Scale( LUMI*allProcesses[j].getScale() );
         // addedHist->Add( temp,1   );
