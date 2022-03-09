@@ -96,7 +96,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"tttt", "tttt"},
 
          //ttbar background    
-         {"ttbar-FH", "ttbar_0l"},//broken
+         {"ttbar-FH", "ttbar_0l"},
          {"ttbar-SL", "ttbar_1l"},
          {"ttbar-DL", "ttbar_2l"},
 
@@ -132,7 +132,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"tttt", "tttt"},
 
          //ttbar background    
-         {"ttbar-FH", "ttbar_0l"},//broken
+         {"ttbar-FH", "ttbar_0l"},
          {"ttbar-SL", "ttbar_1l"},
          {"ttbar-DL", "ttbar_2l"},
 
@@ -168,7 +168,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"tttt", "tttt"},
 
          //ttbar background    
-         {"ttbar-FH", "ttbar_0l"},//broken
+         {"ttbar-FH", "ttbar_0l"},
          {"ttbar-SL", "ttbar_1l"},
          {"ttbar-DL", "ttbar_2l"},
 
