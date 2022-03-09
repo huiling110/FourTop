@@ -53,9 +53,9 @@ void EYandSP_usingClass_v3(){
     //testing
 
 
-// for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=2; cha<4;cha++){
-for (UInt_t  cha=0; cha<1; cha++){
+for (UInt_t  cha=0; cha<channelName.size(); cha++){
+// for (UInt_t  cha=2; cha<3;cha++){
+// for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     // std::map<Double_t, TString> mymap;
 
@@ -106,7 +106,7 @@ for (UInt_t  cha=0; cha<1; cha++){
         */
     }//end of loop of all variables
 
-
+    groupedBgsAndSignal.clear();
 
     // if ( ifSP ){
     //     for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
