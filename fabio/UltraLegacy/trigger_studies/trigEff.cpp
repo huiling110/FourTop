@@ -12,14 +12,15 @@
 #include <TSystem.h> // for gSystem
 //tools for b tagging SFs implementation
 #include "../tools/BTagCalibrationStandalone.cpp"
-#include "../tools/evalEventSF.C"
+#include "../tools/evalEventSF_fixedWP.C"
+#include "../tools/debug.cpp"
 //tools for DeepTau SFs implementation
 #include "../../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #define NBINSX 9
 #define NBINSY 8
 //using namespace std;
 
-void trigEff(string year, string dir) {
+void trigEff(string year, string analyzer, string dir) {
 
  gBenchmark->Start("running time");
  gROOT->ProcessLine(".L Loader.C+");
@@ -52,72 +53,72 @@ void trigEff(string year, string dir) {
  TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(year),"DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
 
  //////////////////////////////////////////////////
+ ////////// LOAD B TAGGING EFFICIENCIES ///////////
+ //////////////////////////////////////////////////
+ TFile* input_btagEff = new TFile( TString(btagEff_files[year]), "READ" );
+ TEfficiency * btagEff_b_tttt = (TEfficiency*)input_btagEff->Get("btagEff_b_tttt");
+ TEfficiency * btagEff_c_tttt = (TEfficiency*)input_btagEff->Get("btagEff_c_tttt");
+ TEfficiency * btagEff_udsg_tttt = (TEfficiency*)input_btagEff->Get("btagEff_udsg_tttt");
+ TEfficiency * btagEff_b_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_b_ttbar");
+ TEfficiency * btagEff_c_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_c_ttbar");
+ TEfficiency * btagEff_udsg_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ttbar");
+ TEfficiency * btagEff_b_QCD = (TEfficiency*)input_btagEff->Get("btagEff_b_QCD");
+ TEfficiency * btagEff_c_QCD = (TEfficiency*)input_btagEff->Get("btagEff_c_QCD");
+ TEfficiency * btagEff_udsg_QCD = (TEfficiency*)input_btagEff->Get("btagEff_udsg_QCD");
+ TEfficiency * btagEff_b_ttX = (TEfficiency*)input_btagEff->Get("btagEff_b_ttX");
+ TEfficiency * btagEff_c_ttX = (TEfficiency*)input_btagEff->Get("btagEff_c_ttX");
+ TEfficiency * btagEff_udsg_ttX = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ttX");
+ TEfficiency * btagEff_b_ST = (TEfficiency*)input_btagEff->Get("btagEff_b_ST");
+ TEfficiency * btagEff_c_ST = (TEfficiency*)input_btagEff->Get("btagEff_c_ST");
+ TEfficiency * btagEff_udsg_ST = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ST");
+ btagEff_b_tttt->SetDirectory(nullptr);
+ btagEff_c_tttt->SetDirectory(nullptr);
+ btagEff_udsg_tttt->SetDirectory(nullptr);
+ btagEff_b_ttbar->SetDirectory(nullptr);
+ btagEff_c_ttbar->SetDirectory(nullptr);
+ btagEff_udsg_ttbar->SetDirectory(nullptr);
+ btagEff_b_QCD->SetDirectory(nullptr);
+ btagEff_c_QCD->SetDirectory(nullptr);
+ btagEff_udsg_QCD->SetDirectory(nullptr);
+ btagEff_b_ttX->SetDirectory(nullptr);
+ btagEff_c_ttX->SetDirectory(nullptr);
+ btagEff_udsg_ttX->SetDirectory(nullptr);
+ btagEff_b_ST->SetDirectory(nullptr);
+ btagEff_c_ST->SetDirectory(nullptr);
+ btagEff_udsg_ST->SetDirectory(nullptr);
+ input_btagEff->Close();
+ delete input_btagEff;
+ //////////////////////////////////////////////////
  ///////// SET UP B-TAGGING SCALE FACTORS /////////
  //////////////////////////////////////////////////
   
  // set up calibration + reader
  cout << "Loading the .csv file..." << endl;
 
- std::string inputCSVfile = BTVSF_files[year];
- const std::string tagger = "DeepJet";   
+ std::string inputCSVfile = BTVSF_files_fixedWP[year];
+ const std::string tagger = "DeepJet";
  std::string measType = "iterativefit";
+ std::string measTypeIncl = "incl";
+ std::string measTypeComb = "comb";
  std::string sysType = "central";
- std::string sysTypejesUp = "up_jes";
- std::string sysTypejesDown = "down_jes";
- /*
- std::string sysTypejesEC2_2016Up = "up_jesEC2_2016";
- std::string sysTypejesEC2_2016Down = "down_jesEC2_2016";
- std::string sysTypejesEC2Up = "up_jesEC2";
- std::string sysTypejesEC2Down = "down_jesEC2";
- std::string sysTypejesBBEC1Up = "up_jesBBEC1";
- std::string sysTypejesBBEC1Down = "down_jesBBEC1";
- std::string sysTypejesAbsoluteUp = "up_jesAbsolute";
- std::string sysTypejesAbsoluteDown = "down_jesAbsolute";
- std::string sysTypejesAbsolute_2016Up = "up_jesAbsolute_2016";
- std::string sysTypejesAbsolute_2016Down = "down_jesAbsolute_2016";
- std::string sysTypejesHFUp = "up_jesHF";
- std::string sysTypejesHFDown = "down_jesHF";
- std::string sysTypejesFlavorQCDUp = "up_jesFlavorQCD";
- std::string sysTypejesFlavorQCDDown = "down_jesFlavorQCD";
- std::string sysTypejesBBEC1_2016Up = "up_jesBBEC1_2016";
- std::string sysTypejesBBEC1_2016Down = "down_jesBBEC1_2016";
- std::string sysTypejesRelativeBalUp = "up_jesRelativeBal";
- std::string sysTypejesRelativeBalDown = "down_jesRelativeBal";
- std::string sysTypejesHF_2016Up = "up_jesHF_2016";
- std::string sysTypejesHF_2016Down = "down_jesHF_2016";
- std::string sysTypejesRelativeSample_2016Up = "up_jesRelativeSample_2016";
- std::string sysTypejesRelativeSample_2016Down = "down_jesRelativeSample_2016";
- */
- std::string sysTypeHFUp = "up_hf";
- std::string sysTypeHFDown = "down_hf";
- std::string sysTypeLFUp = "up_lf";
- std::string sysTypeLFDown = "down_lf";
- std::string sysTypehfstats1Up = "up_hfstats1";
- std::string sysTypehfstats1Down = "down_hfstats1";
- std::string sysTypehfstats2Up = "up_hfstats2";
- std::string sysTypehfstats2Down = "down_hfstats2";
- std::string sysTypelfstats1Up = "up_lfstats1";
- std::string sysTypelfstats1Down = "down_lfstats1";
- std::string sysTypelfstats2Up = "up_lfstats2";
- std::string sysTypelfstats2Down = "down_lfstats2";
- std::string sysTypecfErr1Up = "up_cferr1";
- std::string sysTypecfErr1Down = "down_cferr1";
- std::string sysTypecfErr2Up = "up_cferr2";
- std::string sysTypecfErr2Down = "down_cferr2";
- BTagCalibration calib(tagger, inputCSVfile);
- BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown,/* sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, */sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
- CSVreader.load(calib, BTagEntry::FLAV_B, measType);
- CSVreader.load(calib, BTagEntry::FLAV_C, measType);
- CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
+ std::string sysTypecorrelatedUp = "up_correlated";
+ std::string sysTypecorrelatedDown = "down_correlated";
+ std::string sysTypeuncorrelatedUp = "up_uncorrelated";
+ std::string sysTypeuncorrelatedDown = "down_uncorrelated";
  
- cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
+ BTagCalibration calib(tagger, inputCSVfile);
+ BTagCalibrationReader CSVreader(BTagEntry::OP_MEDIUM, sysType, {sysTypecorrelatedUp, sysTypecorrelatedDown, sysTypeuncorrelatedUp, sysTypeuncorrelatedDown});
+ CSVreader.load(calib, BTagEntry::FLAV_B, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_C, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_UDSG, measTypeIncl);
+ 
+ cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measTypeComb << "/" << measTypeIncl << ";" << endl;
 	
  //Float_t binsX[NB  INSX+1] = {0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1400, 1800, 2100, 3000};
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
  Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
 
  TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" ); 
-
  map<string, string>::iterator file_it = file[year].begin();
 
 while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
@@ -127,8 +128,17 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     //if (!(file_it->first.find(tttt) !=std::string::npos)) continue;
     string data = "data";
     TString input_dir;
-    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
-    else input_dir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/" + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
+    TString base_dir;
+    if (analyzer == "fabio") base_dir = TString("/publicfs/cms/user/fabioiemmi/TauOfTTTT_NanoAOD/");
+    else if (analyzer == "huiling") base_dir = TString("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/");
+    else {
+
+        std::cout << "*** ERROR: The analyzer name is invalid. Exiting. ***" << endl;
+        return;
+
+    }
+    if (!(file_it->first.find(data) !=std::string::npos)) input_dir = base_dir + TString(year) + "/" + TString(dir) + "/mc/" + TString(file_it->second) + "/";
+    else input_dir = base_dir + TString(year) + "/" + TString(dir) + "/data/" + TString(file_it->second) + "/";
     cout << "Reading process " << input_dir << "..." << endl;
     if (gSystem->AccessPathName(input_dir + "outTree_0.root")) {
 
@@ -288,6 +298,9 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
     vector<int> *mytausT_genPartFlav = {};
     mychain.SetBranchAddress("tausT_genPartFlav", &mytausT_genPartFlav);
+
+    int mygenTtbarId = 0;
+    mychain.SetBranchAddress("genTtbarId_", &mygenTtbarId);
     
     vector<TLorentzVector> *myleptonsMVAT = {}; 
     mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
@@ -318,7 +331,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
         //get i-th entry in tree
         mychain.GetEntry( ievent );
         if (!(mygenEvtWeight > 0)) continue; //ignore negative-weighted events when dealing with TEfficiencies
-
+        
         /////////////////////////////////////////////////////////////////////
         ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
         /////////////////////////////////////////////////////////////////////
@@ -401,7 +414,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             }//end is gen2tau2L
 
         }//end is tttt MC
- 
+
         //compute HT   
         float HT = 0.0;
         bool jetptcut = false;
@@ -432,7 +445,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float muonIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                for (int i = 0; i < mymuonsT->size(); i++) {
+                    Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(mymuonsT->at(i).Eta()));
+                    Int_t biny = MuonIDSF->GetYaxis()->FindBin(mymuonsT->at(i).Pt());
+                    muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+                }
                 if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
@@ -454,35 +471,49 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
                 }
                 if (tauIDSF == 0) tauIDSF = 1.0;
             
-            }
+            }             
             
             //Get b tagging scale factor
-            double * mybtagWeight;
-            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
-                
+            Double_t mybtagWeight;
+            if ( file_it->first.find("tttt") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_tttt, btagEff_c_tttt, btagEff_udsg_tttt);
+            if ( file_it->first.find("ttbar") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttbar, btagEff_c_ttbar, btagEff_udsg_ttbar);
+            if ( file_it->first.find("QCD") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_QCD, btagEff_c_QCD, btagEff_udsg_QCD);
+            if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttX, btagEff_c_ttX, btagEff_udsg_ttX);
+            if ( file_it->first.find("st_") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ST, btagEff_c_ST, btagEff_udsg_ST);
+            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight = 1.0; // if reading data, set b tagging SF to 1
+            
+            //Get ttbb correction
+            Float_t ttbbWeight;
+            if ( file_it->first.find("ttbar") !=std::string::npos ) {
+
+                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2;
+                else ttbbWeight = 0.9992;
+            
+            }
+            else ttbbWeight = 1.0;
+
             std::string tttt = "tttt";
             if (file_it->first.find(tttt) !=std::string::npos) {
              
-                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                if (isSignalTrig) h_HT_signal->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                if (isSignalTrig) h_njets_signal->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 	 
             }
 
             if (isReferenceTrig) {
 
-                h_HT_nocat->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_HT_nocat->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                h_njets_nocat->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                h_njetsvsHT_nocat->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                 if (myjetsL->size() >= 6) {
    
-                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_HT_nocat_njets->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
      
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                     }
 
@@ -490,11 +521,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
                 if (HT > 500) {
 
-                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_njets_nocat_HT->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                     if(mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_njets_nocat_HT_mupt25->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 	   
                     }
                     
@@ -502,17 +533,17 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
                 if(isSignalTrig) {
 
-                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_HT_nocat_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                    h_njets_nocat_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                    h_njetsvsHT_nocat_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                     if (myjetsL->size() >= 6) {
 
-                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_HT_nocat_njets_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                         if (mymuonsT->at(0).Pt() > 25) {
            
-                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                            h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                         }
 
@@ -520,11 +551,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
      
                     if (HT > 500) {
 
-                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_njets_nocat_HT_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                         if (mymuonsT->at(0).Pt() > 25) {
 
-                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]); 
+                            h_njets_nocat_HT_mupt25_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight); 
 
                         }
 
@@ -546,7 +577,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             float muonIDSF = 1.0;
             if (!(file_it->first.find(data) !=std::string::npos)) { //read SFs only if MC process
                 
-                for (int i = 0; i < mymuonsT->size(); i++) muonIDSF *= MuonIDSF->GetBinContent(MuonIDSF->FindBin(fabs(mymuonsT->at(i).Eta())), MuonIDSF->FindBin(mymuonsT->at(i).Pt()));
+                for (int i = 0; i < mymuonsT->size(); i++) {
+                    Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(mymuonsT->at(i).Eta()));
+                    Int_t biny = MuonIDSF->GetYaxis()->FindBin(mymuonsT->at(i).Pt());
+                    muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+                }
                 if (muonIDSF == 0) muonIDSF = 1.0;
 
             }
@@ -571,21 +606,35 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             }
             
             //Get b tagging scale factor
-            double * mybtagWeight;
-            mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
+            Double_t mybtagWeight;
+            if ( file_it->first.find("tttt") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_tttt, btagEff_c_tttt, btagEff_udsg_tttt);
+            if ( file_it->first.find("ttbar") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttbar, btagEff_c_ttbar, btagEff_udsg_ttbar);
+            if ( file_it->first.find("QCD") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_QCD, btagEff_c_QCD, btagEff_udsg_QCD);
+            if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttX, btagEff_c_ttX, btagEff_udsg_ttX);
+            if ( file_it->first.find("st_") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ST, btagEff_c_ST, btagEff_udsg_ST);
+            if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight = 1.0; // if reading data, set b tagging SF to 1
             
-            h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+            //Get ttbb correction
+            Float_t ttbbWeight;
+            if ( file_it->first.find("ttbar") !=std::string::npos ) {
+
+                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2;
+                else ttbbWeight = 0.9992;
+            
+            }
+            else ttbbWeight = 1.0;
+
+            h_HT_nocat_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+            h_njets_nocat_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+            h_njetsvsHT_nocat_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
    
             if (myjetsL->size() >= 6) {
                 
-                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_HT_nocat_njets_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                    if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                     
                 }
                 
@@ -593,11 +642,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
             if (HT > 500) {
 
-                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_njets_nocat_HT_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                 if (mymuonsT->at(0).Pt() > 25) {
 
-                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_njets_nocat_HT_mupt25_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                    if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
        
                 }
                 
@@ -607,17 +656,17 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
             if(isSignalTrig) {
 
-                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                h_HT_nocat_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                h_njets_nocat_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                h_njetsvsHT_nocat_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                 if (myjetsL->size() >= 6){
 
-                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_HT_nocat_njets_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
 
                     }
                     
@@ -625,11 +674,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
      
                 if (HT > 500) {
 
-                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                    h_njets_nocat_HT_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                     if (mymuonsT->at(0).Pt() > 25) {
 
-                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
-                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight[0]);
+                        h_njets_nocat_HT_mupt25_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (jetptcut) h_njets_nocat_HT_mupt25_jetpt35_truth_aft->Fill(myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
          
                     }
 
@@ -764,6 +813,21 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     }//end loop over files
 
  delete MuonIDSF; 
+ delete btagEff_b_tttt;
+ delete btagEff_c_tttt;
+ delete btagEff_udsg_tttt;
+ delete btagEff_b_ttbar;
+ delete btagEff_c_ttbar;
+ delete btagEff_udsg_ttbar;
+ delete btagEff_b_QCD;
+ delete btagEff_c_QCD;
+ delete btagEff_udsg_QCD;
+ delete btagEff_b_ttX;
+ delete btagEff_c_ttX;
+ delete btagEff_udsg_ttX;
+ delete btagEff_b_ST;
+ delete btagEff_c_ST;
+ delete btagEff_udsg_ST;
  outputfile->Close();
  delete outputfile;
 

@@ -21,7 +21,7 @@
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
-
+#include <fstream>
 // Headers needed by this particular selector
 #include <vector>
 #include <TRandom3.h>
@@ -139,6 +139,8 @@ public :
    Long64_t   fProcessed = 0;
    Long64_t eventsPassed = 0;
    Long64_t eventsPassedHLT = 0;
+   Long64_t eventsPassedJSON = 0;
+   Long64_t eventsPassedMETFilters = 0;
    Long64_t tausT_total = 0;
    Long64_t tausL_total = 0;
    Long64_t tausF_total = 0;
@@ -155,6 +157,7 @@ public :
    //branches in output trees
    Int_t PV_npvs_;
    Int_t PV_npvsGood_;
+   Int_t genTtbarId_;
    Double_t genWeight_allEvents;
 
    Int_t    Flag_goodVertices_ ;
@@ -164,69 +167,22 @@ public :
    Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter_ ;
    Int_t    Flag_BadPFMuonFilter_ ;
    Int_t    Flag_eeBadScFilter_ ;
-    //HLT
+   //HLT   
+   //2016   
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
 	Int_t HLT_PFJet450_;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
-    Int_t HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ ;
-    Int_t HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_ ;
-    // Int_t HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_ ;
-    // Int_t HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg_ ;
-    // Int_t HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg_ ;
-    // Int_t HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg_ ;
-    // Int_t HLT_DoubleMediumChargedIsoPFTauHPS35_Trk1_eta2p1_Reg_ ;//this Int_t HLT doesn't exist in ntuple
- 
-    Int_t HLT_Ele27_eta2p1_WPTight_Gsf_ ;
-    Int_t HLT_Ele27_eta2p1_WPLoose_Gsf_ ;
-    Int_t HLT_Ele27_WPTight_Gsf_ ;
-    Int_t HLT_IsoMu22_ ;
-    Int_t HLT_Ele25_eta2p1_WPTight_Gsf_ ;
-    Int_t HLT_IsoTkMu22_ ;
     Int_t HLT_IsoMu24_ ;
-    Int_t HLT_IsoTkMu24_ ;
-    Int_t HLT_IsoMu22_eta2p1_ ;
-    Int_t HLT_IsoTkMu22_eta2p1_ ;
-    Int_t HLT_Mu50_ ;
-    Int_t HLT_TkMu50_ ;
-    Int_t HLT_Ele32_WPTight_Gsf_ ;
-    // Int_t HLT_Ele35_WPTight_Gsf_ ;
     Int_t HLT_IsoMu27_ ;
-
-    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_ ;
-    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_ ;
-    Int_t HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_ ;
-    // Int_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_ ;
-    // Int_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ ;
-    Int_t HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_ ;
-    // Int_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_ ;
-    // Int_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_ ;
-
-    Int_t HLT_DoubleEle24_22_eta2p1_WPLoose_Gsf_ ;
-    Int_t HLT_DoubleEle33_CaloIdL_MW_ ;
-    Int_t HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_ ;
-    Int_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ ;
-    Int_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ ;
-    Int_t HLT_DoubleMu33NoFiltersNoVtx_ ;
-    Int_t HLT_DoubleMu23NoFiltersNoVtxDisplaced_ ;
-    Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_ ;
-    // Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ ;
-    Int_t HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_ ;
-    Int_t HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_ ;
-   //  Int_t HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_ ;
-   //  Int_t HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ ;
-   //  Int_t HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_ ;
-   //  Int_t HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_ ;
-   //  Int_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ ;
-   //  Int_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ ;
-    Int_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_ ;
-    Int_t HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ ;
-
-    Int_t HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_ ;
-   //  Int_t HLT_Mu8_DiEle12_CaloIdL_TrackIdL_ ;
-    Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_ ;
-    Int_t HLT_TripleMu_12_10_5_ ;
-    Int_t HLT_DiMu9_Ele9_CaloIdL_TrackIdL_ ;
-
+    //2018 MC and data B, C, D
+    Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    //2018 data A
+    Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
+    Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    
     std::vector<TLorentzVector> muonsL; std::vector<Int_t> muonsL_index;
     std::vector<TLorentzVector> muonsF; std::vector<Int_t> muonsF_index;
     std::vector<TLorentzVector> muonsT; std::vector<Int_t> muonsT_index;
@@ -907,7 +863,7 @@ public :
 //    TTreeReaderArray<Int_t> TrigObj_l1iso = {fReader, "TrigObj_l1iso"};
 //    TTreeReaderArray<Int_t> TrigObj_l1charge = {fReader, "TrigObj_l1charge"};
 //    TTreeReaderArray<Int_t> TrigObj_filterBits = {fReader, "TrigObj_filterBits"};
-//    TTreeReaderValue<Int_t> genTtbarId = {fReader, "genTtbarId"};
+   TTreeReaderValue<Int_t> genTtbarId = {fReader, "PV_npvs"};
 //    TTreeReaderValue<UInt_t> nOtherPV = {fReader, "nOtherPV"};
 //    TTreeReaderArray<Float_t> OtherPV_z = {fReader, "OtherPV_z"};
 //    TTreeReaderValue<Float_t> PV_ndof = {fReader, "PV_ndof"};
@@ -1248,6 +1204,22 @@ public :
    TTreeReaderValue<Bool_t> Flag_trkPOG_logErrorTooManyClusters = {fReader, "Flag_trkPOG_logErrorTooManyClusters"};
    TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
    TTreeReaderValue<Bool_t> L1Reco_step = {fReader, "L1Reco_step"};
+
+   //TRIGGERS FOR 2016
+   TTreeReaderValue<Bool_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFJet450 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "Flag_goodVertices"}; //read fake branches in header
+   
+   //TRIGGERS FOR 2018 MC and data B, C, D  
+   TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "Flag_goodVertices"};
+   //TRIGGERS FOR 2018 data A
+   TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};
+   //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
+   TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};
@@ -1275,19 +1247,19 @@ public :
    // TTreeReaderValue<Bool_t> HLT_DoubleEle33_CaloIdL_MW = {fReader, "HLT_DoubleEle33_CaloIdL_MW"};
    // TTreeReaderValue<Bool_t> HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW = {fReader, "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleEle33_CaloIdL_GsfTrkIdVL = {fReader, "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL"};
-   TTreeReaderValue<Bool_t> HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = {fReader, "Flag_goodVertices"};//tau dataset
+   //TTreeReaderValue<Bool_t> HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg = {fReader, "Flag_goodVertices"};//tau dataset
 //    TTreeReaderValue<Bool_t> HLT_DoubleTightCombinedIsoPFTau35_Trk1_eta2p1_Reg = {fReader, "HLT_DoubleTightCombinedIsoPFTau35_Trk1_eta2p1_Reg"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg = {fReader, "HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1_Reg = {fReader, "HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1_Reg"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1 = {fReader, "HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1 = {fReader, "HLT_DoubleTightCombinedIsoPFTau40_Trk1_eta2p1"};
-   TTreeReaderValue<Bool_t> HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg = {fReader, "HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1 = {fReader, "HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleEle37_Ele27_CaloIdL_GsfTrkIdVL = {fReader, "HLT_DoubleEle37_Ele27_CaloIdL_GsfTrkIdVL"};
-   TTreeReaderValue<Bool_t> HLT_DoubleMu33NoFiltersNoVtx = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_DoubleMu33NoFiltersNoVtx = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMu38NoFiltersNoVtx = {fReader, "HLT_DoubleMu38NoFiltersNoVtx"};
-   TTreeReaderValue<Bool_t> HLT_DoubleMu23NoFiltersNoVtxDisplaced = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_DoubleMu23NoFiltersNoVtxDisplaced = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMu28NoFiltersNoVtxDisplaced = {fReader, "HLT_DoubleMu28NoFiltersNoVtxDisplaced"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMu0 = {fReader, "HLT_DoubleMu0"};
 //    TTreeReaderValue<Bool_t> HLT_DoubleMu4_3_Bs = {fReader, "HLT_DoubleMu4_3_Bs"};
@@ -1320,9 +1292,9 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_Ele23_WPLoose_Gsf = {fReader, "HLT_Ele23_WPLoose_Gsf"};
 //    TTreeReaderValue<Bool_t> HLT_Ele23_WPLoose_Gsf_WHbbBoost = {fReader, "HLT_Ele23_WPLoose_Gsf_WHbbBoost"};
 //    TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf = {fReader, "HLT_Ele24_eta2p1_WPLoose_Gsf"};
-   TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_Ele25_WPTight_Gsf = {fReader, "HLT_Ele25_WPTight_Gsf"};
 //    TTreeReaderValue<Bool_t> HLT_Ele25_eta2p1_WPLoose_Gsf = {fReader, "HLT_Ele25_eta2p1_WPLoose_Gsf"};
    // TTreeReaderValue<Bool_t> HLT_Ele25_eta2p1_WPTight_Gsf = {fReader, "HLT_Ele25_eta2p1_WPTight_Gsf"};
@@ -1371,7 +1343,7 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_DoubleIsoMu17_eta2p1_noDzCut = {fReader, "HLT_DoubleIsoMu17_eta2p1_noDzCut"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu18 = {fReader, "HLT_IsoMu18"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_LooseIsoPFTau20 = {fReader, "HLT_IsoMu19_eta2p1_LooseIsoPFTau20"};
-   TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg = {fReader, "HLT_IsoMu19_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_LooseCombinedIsoPFTau20 = {fReader, "HLT_IsoMu19_eta2p1_LooseCombinedIsoPFTau20"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu19_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg = {fReader, "HLT_IsoMu19_eta2p1_MediumCombinedIsoPFTau32_Trk1_eta2p1_Reg"};
@@ -1382,15 +1354,13 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1 = {fReader, "HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu21_eta2p1_LooseIsoPFTau50_Trk30_eta2p1_SingleL1 = {fReader, "HLT_IsoMu21_eta2p1_LooseIsoPFTau50_Trk30_eta2p1_SingleL1"};
 //    TTreeReaderValue<Bool_t> HLT_IsoMu21_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg = {fReader, "HLT_IsoMu21_eta2p1_MediumIsoPFTau32_Trk1_eta2p1_Reg"};
-   TTreeReaderValue<Bool_t> HLT_IsoMu22 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_IsoMu22_eta2p1 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoMu22 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoMu22_eta2p1 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_IsoTkMu18 = {fReader, "HLT_IsoTkMu18"};
 //    TTreeReaderValue<Bool_t> HLT_IsoTkMu20 = {fReader, "HLT_IsoTkMu20"};
-   TTreeReaderValue<Bool_t> HLT_IsoTkMu22 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_IsoTkMu22_eta2p1 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_IsoTkMu24 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoTkMu22 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoTkMu22_eta2p1 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_IsoTkMu24 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_IsoTkMu27 = {fReader, "HLT_IsoTkMu27"};
 //    TTreeReaderValue<Bool_t> HLT_JetE30_NoBPTX3BX = {fReader, "HLT_JetE30_NoBPTX3BX"};
 //    TTreeReaderValue<Bool_t> HLT_JetE30_NoBPTX = {fReader, "HLT_JetE30_NoBPTX"};
@@ -1425,10 +1395,10 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_Mu20_Mu10_SameSign = {fReader, "HLT_Mu20_Mu10_SameSign"};
 //    TTreeReaderValue<Bool_t> HLT_Mu20_Mu10_SameSign_DZ = {fReader, "HLT_Mu20_Mu10_SameSign_DZ"};
 //    TTreeReaderValue<Bool_t> HLT_Mu17_TkMu8_DZ = {fReader, "HLT_Mu17_TkMu8_DZ"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_Mu25_TkMu0_dEta18_Onia = {fReader, "HLT_Mu25_TkMu0_dEta18_Onia"};
 //    TTreeReaderValue<Bool_t> HLT_Mu27_TkMu8 = {fReader, "HLT_Mu27_TkMu8"};
 //    TTreeReaderValue<Bool_t> HLT_Mu30_TkMu11 = {fReader, "HLT_Mu30_TkMu11"};
@@ -1445,8 +1415,8 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_Mu27 = {fReader, "HLT_Mu27"};
 //    TTreeReaderValue<Bool_t> HLT_TkMu27 = {fReader, "HLT_TkMu27"};
 //    TTreeReaderValue<Bool_t> HLT_Mu45_eta2p1 = {fReader, "HLT_Mu45_eta2p1"};
-   TTreeReaderValue<Bool_t> HLT_Mu50 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_TkMu50 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_Mu50 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_TkMu50 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_Mu38NoFiltersNoVtx_Photon38_CaloIdL = {fReader, "HLT_Mu38NoFiltersNoVtx_Photon38_CaloIdL"};
 //    TTreeReaderValue<Bool_t> HLT_Mu42NoFiltersNoVtx_Photon42_CaloIdL = {fReader, "HLT_Mu42NoFiltersNoVtx_Photon42_CaloIdL"};
 //    TTreeReaderValue<Bool_t> HLT_Mu28NoFiltersNoVtxDisplaced_Photon28_CaloIdL = {fReader, "HLT_Mu28NoFiltersNoVtxDisplaced_Photon28_CaloIdL"};
@@ -1496,7 +1466,6 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_PFJet260 = {fReader, "HLT_PFJet260"};
 //    TTreeReaderValue<Bool_t> HLT_PFJet320 = {fReader, "HLT_PFJet320"};
 //    TTreeReaderValue<Bool_t> HLT_PFJet400 = {fReader, "HLT_PFJet400"};
-   TTreeReaderValue<Bool_t> HLT_PFJet450 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_PFJet500 = {fReader, "HLT_PFJet500"};
 //    TTreeReaderValue<Bool_t> HLT_DiPFJetAve40 = {fReader, "HLT_DiPFJetAve40"};
 //    TTreeReaderValue<Bool_t> HLT_DiPFJetAve60 = {fReader, "HLT_DiPFJetAve60"};
@@ -1638,7 +1607,7 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_Mu17_Photon35_CaloIdL_L1ISO = {fReader, "HLT_Mu17_Photon35_CaloIdL_L1ISO"};
    // TTreeReaderValue<Bool_t> HLT_DiMu9_Ele9_CaloIdL_TrackIdL = {fReader, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL"};
 //    TTreeReaderValue<Bool_t> HLT_TripleMu_5_3_3 = {fReader, "HLT_TripleMu_5_3_3"};
-   TTreeReaderValue<Bool_t> HLT_TripleMu_12_10_5 = {fReader, "Flag_goodVertices"};
+   //TTreeReaderValue<Bool_t> HLT_TripleMu_12_10_5 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLT_Mu3er_PFHT140_PFMET125 = {fReader, "HLT_Mu3er_PFHT140_PFMET125"};
 //    TTreeReaderValue<Bool_t> HLT_Mu6_PFHT200_PFMET80_BTagCSV_p067 = {fReader, "HLT_Mu6_PFHT200_PFMET80_BTagCSV_p067"};
 //    TTreeReaderValue<Bool_t> HLT_Mu6_PFHT200_PFMET100 = {fReader, "HLT_Mu6_PFHT200_PFMET100"};
@@ -1766,8 +1735,8 @@ public :
 //    TTreeReaderValue<Bool_t> HLT_Ele23_CaloIdM_TrackIdM_PFJet30 = {fReader, "HLT_Ele23_CaloIdM_TrackIdM_PFJet30"};
 //    TTreeReaderValue<Bool_t> HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140 = {fReader, "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140"};
 //    TTreeReaderValue<Bool_t> HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165 = {fReader, "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165"};
-   TTreeReaderValue<Bool_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "Flag_goodVertices"};
+   
+   
 //    TTreeReaderValue<Bool_t> HLT_PFHT400_SixJet30 = {fReader, "HLT_PFHT400_SixJet30"};
 //    TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40 = {fReader, "HLT_PFHT450_SixJet40"};
 //    TTreeReaderValue<Bool_t> HLT_Ele115_CaloIdVT_GsfTrkIdT = {fReader, "HLT_Ele115_CaloIdVT_GsfTrkIdT"};

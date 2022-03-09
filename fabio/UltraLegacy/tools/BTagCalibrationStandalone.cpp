@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <sstream>
 
-
 BTagEntry::Parameters::Parameters(
   OperatingPoint op,
   std::string measurement_type,
@@ -40,13 +39,28 @@ BTagEntry::BTagEntry(const std::string &csvLine)
   std::stringstream buff(csvLine);
   std::vector<std::string> vec;
   std::string token;
+  std::string pow;
+  bool pow_found = false;
   while (std::getline(buff, token, ","[0])) {
     token = BTagEntry::trimStr(token);
     if (token.empty()) {
       continue;
     }
+    ////////////////// pow operator contains a comma, which spoils the tokens. Take care of it
+    if (pow_found == true) {
+        vec.push_back(pow+token);
+        pow_found = false;
+        continue;
+    }
+    if (token.find("pow") != std::string::npos) {
+        pow = token+",";
+        pow_found = true;
+        continue;
+    }
+    //////////////////
     vec.push_back(token);
   }
+
   if (vec.size() != 11) {
 std::cerr << "ERROR in BTagCalibration: "
           << "Invalid csv line; num tokens != 11: "
@@ -76,43 +90,28 @@ throw std::exception();
   // Change by Fabio
   // unsigned op = stoi(vec[0]);
   // Map UL operatingPoint values to pre-UL values so that the script can run on UL files too
-  unsigned op = 4; //give incorrect value as default, code should stop if for some reason not entering in any of the following ifs
-  std::map<std::string, int> OPmap = {
-      
-      {"loose", 0},
-      {"medium", 1},
-      {"tight", 2},
-      {"shape", 3},
-
-  };
-  op = OPmap[vec[0]];
-  
-if (op > 3) {
+  unsigned op;
+  if( !OPmap.count(vec[0]) ) {
 std::cerr << "ERROR in BTagCalibration: "
-          << "Invalid csv line; OperatingPoint > 3: "
+          << "Invalid csv line; OperatingPoint '" << vec[0] << "' not found in OPmap. Line throwing error: "
           << csvLine;
 throw std::exception();
   }
+  op = OPmap.find(vec[0])->second; //note: something like op = OPmap[vec[0]] is inserting new keys in the map if for some reason those keys do not exist before. To be avoided! 
 
   // Change by Fabio
   // unsigned jf = stoi(vec[3]);
   // Map UL jet flavor values to pre-UL values so that the script can run on UL files too
-  unsigned jf = 3; //give incorrect value as default, code should stop if for some reason not entering in any of the following ifs
-  std::map<int, int> JFmap = {
-      
-      {5, 0},
-      {4, 1},
-      {0, 2},
-
-  };
-  jf = JFmap[stoi(vec[3])];
-
-  if (jf > 2) {
+  unsigned jf;
+  
+  if ( !JFmap.count(stoi(vec[3])) ) {
 std::cerr << "ERROR in BTagCalibration: "
-          << "Invalid csv line; JetFlavor > 2: "
+          << "Invalid csv line; JetFlavor '" << stoi(vec[3]) << "' not found in JFmap. Line throwing error: "
           << csvLine;
 throw std::exception();
   }
+  jf = JFmap.find(stoi(vec[3]))->second;
+  
   params = BTagEntry::Parameters(
     BTagEntry::OperatingPoint(op),
     vec[1],
