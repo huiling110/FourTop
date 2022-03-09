@@ -41,6 +41,53 @@ std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
 
 };
 
+map<string, map<string, double>> non_ttbb_SF = {
+
+    {"UL2016_preVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2016_postVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2017",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2018",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+};
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
