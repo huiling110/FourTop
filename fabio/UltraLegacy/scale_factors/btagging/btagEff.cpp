@@ -63,8 +63,7 @@ void btagEff(string year, string analyzer, string dir) {
  Float_t binsX[NBINSX+1] = {0.0,0.8,1.6,2.4};
  Float_t binsY[NBINSY+1] = {20.,30.,50.,70.,100.,140.,300.,600.,1000};
 
- //TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" );
- TFile *outputfile = new TFile( "asd.root", "RECREATE" );
+ TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" );
  
     TH2::AddDirectory(kFALSE); 
     TH2F * h_btagEff_den_b_tttt = new TH2F ("h_btagEff_den_b_tttt", "h_btagEff_den_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
