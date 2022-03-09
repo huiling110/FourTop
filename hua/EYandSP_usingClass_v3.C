@@ -51,13 +51,11 @@ void EYandSP_usingClass_v3(){
     vector<TH1D*>  groupedBgsAndSignal;
 
     //testing
-    TH1D* ttttH = allProcesses[0].getChannelHist( ES1tau1e  ,weight, variablelist[0], bin[0], Min[0], Max[0] );
-    ttttH->Print();
 
 
 // for (UInt_t  cha=0; cha<channelName.size(); cha++){
-for (UInt_t  cha=3; cha<4;cha++){
-// for (UInt_t  cha=0; cha<1; cha++){
+// for (UInt_t  cha=2; cha<4;cha++){
+for (UInt_t  cha=0; cha<1; cha++){
     cout<<channelName[cha]<<endl;
     // std::map<Double_t, TString> mymap;
 
@@ -76,12 +74,12 @@ for (UInt_t  cha=3; cha<4;cha++){
 
         // plotChannelDis( groupedBgsAndSignal, EYplotDir );
 
-        for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
-            groupedBgsAndSignal[p]->Print();
-            cout<<"integral: "<<groupedBgsAndSignal[p]->Integral()<<"\n";
-            cout<<"entries: "<<groupedBgsAndSignal[p]->GetEntries()<<"\n";
-            delete groupedBgsAndSignal[p];
-        }
+        // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
+        //     groupedBgsAndSignal[p]->Print();
+        //     cout<<"integral: "<<groupedBgsAndSignal[p]->Integral()<<"\n";
+        //     cout<<"entries: "<<groupedBgsAndSignal[p]->GetEntries()<<"\n";
+        //     delete groupedBgsAndSignal[p];
+        // }
 
 
 
@@ -266,7 +264,7 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs, const Double_t lu
     TText *t1 = pt->AddText( entries );
     t1->SetTextAlign(12);
     t1->SetTextSize( 0.055);
-    cout<<"entry: "<<entries<<"\n";
+    // cout<<"entry: "<<entries<<"\n";
 }
 
 void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era ){
@@ -275,7 +273,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     c->SetCanvasSize(300, 1000);
     c->SetWindowSize(400, 700);
 
-    TPaveText *pt = new TPaveText(.05,.99,.95,.72, "NDC");// the position relative to cavas, first is the left down point
+    TPaveText *pt = new TPaveText(.05,.90,.95,.55, "NDC");// the position relative to cavas, first is the left down point
     TText* tt1 = pt->AddText( era +": " + channel ); tt1->SetTextSize( 0.065);
     TText* t0 = pt->AddText( " raw entries:"); t0->SetTextAlign(11); t0->SetTextSize( 0.055);
     for( UInt_t i = 0; i<groupedBgsAndSignal.size(); i++){
@@ -285,8 +283,8 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
     pt->Draw();
 
 
-    TPaveText *pt2 = new TPaveText(.05,.69,.95,.42, "NDC");
-    TText* tt2 = pt2->AddText( channel ); tt2->SetTextSize( 0.065);
+    TPaveText *pt2 = new TPaveText(.05,.45,.95,.1, "NDC");
+    TText* tt2 = pt2->AddText( era +": " +  channel ); tt2->SetTextSize( 0.065);
     TText* t20 = pt2->AddText( "scaled to LUMI:"); t20->SetTextAlign(11); t20->SetTextSize( 0.055);
     for( UInt_t j = 0; j<groupedBgsAndSignal.size(); j++){
         addTextToPT( 1, pt2, groupedBgsAndSignal[j], lumiMap[era] );
@@ -303,7 +301,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
 
 
 
-    c->SaveAs( EYplotDir+"EY_"+ era +"_" + channel+"_new.png");
+    c->SaveAs( EYplotDir+"EY_"+ era +"_" + channel+".png");
 
 }
 
