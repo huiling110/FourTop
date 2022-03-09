@@ -18,10 +18,7 @@ rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
-    # jobVersionName = 'v5_preselectionHLTMet'
-    # jobVersionName = 'v6_noHLTSelection_addedMulitjetForSingleMu'
-    # jobVersionName = 'v4_onlyMETandPreselectionNoHLT_FixedBugForData'
-    jobVersionName ='v7_preselectionAddingTausL'
+    jobVersionName ='v8_preselectionAddingTausL'
     onlyMC = True
     # onlyMC = False
     era = '2016'
