@@ -49,12 +49,60 @@ std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
 
 };
 
+map<string, map<string, double>> non_ttbb_SF = {
+
+    {"UL2016_preVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2016_postVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2017",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2018",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+};
+
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
          
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -71,11 +119,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},
@@ -97,7 +145,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
     {"UL2016_postVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
 
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -114,11 +162,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},

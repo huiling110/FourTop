@@ -118,7 +118,7 @@ void trigEff(string year, string analyzer, string dir) {
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
  Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
 
- TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" ); 
+ TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" );
  map<string, string>::iterator file_it = file[year].begin();
 
 while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
@@ -486,8 +486,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             Float_t ttbbWeight;
             if ( file_it->first.find("ttbar") !=std::string::npos ) {
 
-                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2;
-                else ttbbWeight = 0.9992;
+                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2; // if ttbb, scale up by 1.2
+                else ttbbWeight = non_ttbb_SF[year][file_it->first]; //if not, scale down by ttbar-process dependent factor
             
             }
             else ttbbWeight = 1.0;
