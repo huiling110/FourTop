@@ -105,7 +105,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 ///////////////////////////////////////
    fProcessed++;
-
+   TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
     //test
 
     //allEvents new tree
@@ -173,13 +173,34 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
                 if (dataSet.Contains("2018a")) {
 
-                    if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1) ) return kFALSE;
-                    
-                }
-                else {
+                    if (option.Contains("_27") || option.Contains("_48") || option.Contains("_56") || option.Contains("_57") || option.Contains("_63") || option.Contains("_69")) {
 
-                    if ( !(*HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1) ) return kFALSE;
+                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1) ) return kFALSE;
+                    
+                    }//end runs with CSV b tag instead of deepCSV btag
+                    
+                    else {
+
+                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1) ) return kFALSE;
+                    
+                    }
+                    
+                }// end 2018A
                 
+                else { //2018 B, C and D
+
+                    if ( dataSet.Contains("2018b") && option.Contains("_26") ) {
+                        
+                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1) ) return kFALSE;
+
+                    }//end some runs with same triggers of 2018 A
+
+                    else {
+                        //std::cout << *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 << " " << *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 << std::endl;
+                        if ( !(*HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1) ) return kFALSE;
+
+                    }
+                    
                 }
             
             }
@@ -580,6 +601,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
        tree->Branch( "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
        tree->Branch( "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_/I");
        tree->Branch( "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
+       tree->Branch( "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_, "&HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_/I");
        tree->Branch( "HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
        tree->Branch( "HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
 
@@ -856,6 +878,7 @@ void objectTSelectorForNanoAOD::selectGenMuons( std::vector<TLorentzVector> &gen
 }
 
 void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dataset ){
+    TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
    if( !isdata ){
          //HLT for MC
        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
@@ -902,7 +925,7 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
 
        }
    }else if( dataSet.Contains("singleMu")){
-        // HLT_PFHT450_SixJet40_BTagCSV_p056_ = -99;
+
        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
            
            HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
@@ -915,15 +938,37 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
            
            if (dataSet.Contains("2018a")) {
 
-               HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
-               HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
+               if (option.Contains("_27") || option.Contains("_48") || option.Contains("_56") || option.Contains("_57") || option.Contains("_63") || option.Contains("_69")) {
 
-           }
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
+                   HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
+               
+               } // end runs with CSV instad of deepCSV
+               else {
+
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
+                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
+
+               }
+               
+           }// end 2018 A
            else {
 
-               HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
-               HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
+               if ( dataSet.Contains("2018b") && option.Contains("_26") ) {
 
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
+                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
+
+               }
+
+               else{
+
+                   HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
+                   HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
+
+
+               }
+               
            }
            
            HLT_IsoMu24_ = *HLT_IsoMu24;
@@ -1150,6 +1195,7 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
 
 void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, const TString dataset ){
     //overriding for MC files
+    TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
    if( !isdata ){
        std::cout<<"running over: MC"<<"\n";
         GenJet_eta = {fReader, "GenJet_eta"};
@@ -1225,14 +1271,36 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
            
            if (dataSet.Contains("2018a")) {
 
-               HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-               HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+               if (option.Contains("_27") || option.Contains("_48") || option.Contains("_56") || option.Contains("_57") || option.Contains("_63") || option.Contains("_69")) {
 
-           }
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+                   HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+
+               }// end runs with CSV instad of deepCSV
+
+               else {
+
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+
+               }
+
+           }//end 2018 A
            else {
 
-               HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
-               HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+               if ( dataSet.Contains("2018b") && option.Contains("_26") ) {
+
+                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+
+               }
+
+               else {
+                   
+                   HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
+                   HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+
+               }
             
            }
            

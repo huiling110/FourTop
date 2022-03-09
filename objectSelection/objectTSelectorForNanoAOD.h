@@ -180,6 +180,9 @@ public :
     //2018 data A
     Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
     Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
+    Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    
     std::vector<TLorentzVector> muonsL; std::vector<Int_t> muonsL_index;
     std::vector<TLorentzVector> muonsF; std::vector<Int_t> muonsF_index;
     std::vector<TLorentzVector> muonsT; std::vector<Int_t> muonsT_index;
@@ -1215,7 +1218,8 @@ public :
    //TRIGGERS FOR 2018 data A
    TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};
-
+   //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
+   TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
 //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};
