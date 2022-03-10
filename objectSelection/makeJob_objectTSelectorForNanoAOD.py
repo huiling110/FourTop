@@ -21,8 +21,8 @@ def main():
     jobVersionName ='v8_preselectionAddingTausL'
     onlyMC = True
     # onlyMC = False
-    era = '2016'
-    # era = '2016APV'
+    # era = '2016'
+    era = '2016APV'
     eventSelection = '7'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
