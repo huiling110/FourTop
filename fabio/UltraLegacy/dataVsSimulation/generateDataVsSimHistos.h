@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
+string MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
 map<string, string> MUOSF_files = { //MAP OF INPUT MUO SCALE FACTOR FILES                                                                                                                                                            
 
     {"UL2016_preVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_preVFP_ID.root"},
@@ -16,7 +16,7 @@ map<string, string> MUOSF_files = { //MAP OF INPUT MUO SCALE FACTOR FILES
 
 };
 
-string EGammaSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
+string EGammaSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
 map<string, string> EGammaSF_files = { //MAP OF INPUT EGamma SCALE FACTOR FILES                                                                                                                                                            
 
     {"UL2016_preVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
@@ -26,13 +26,31 @@ map<string, string> EGammaSF_files = { //MAP OF INPUT EGamma SCALE FACTOR FILES
 
 };
 
-string BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_2_20_UL/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
-map<string, string> BTVSF_files = { //MAP OF INPUT BTV SCALE FACTOR FILES
+string BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
+map<string, string> BTVSF_files_reshaping = { //MAP OF INPUT BTV SCALE FACTOR FILES
 
     {"UL2016_preVFP", BTVSF_dir + "reshaping_deepJet_106XUL16preVFP_v2_dropLines.csv"},
     {"UL2016_postVFP", BTVSF_dir + "reshaping_deepJet_106XUL16postVFP_v3_dropLines.csv"},
     {"UL2017", BTVSF_dir + "reshaping_deepJet_106XUL17_v3_dropLines.csv"},
     {"UL2018", BTVSF_dir + "reshaping_deepJet_106XUL18_v2_dropLines.csv"},
+
+};
+
+map<string, string> BTVSF_files_fixedWP = { //MAP OF INPUT BTV SCALE FACTOR FILES
+
+    {"UL2016_preVFP", BTVSF_dir + "wp_deepJet_106XUL16preVFP_v2.csv"},
+    {"UL2016_postVFP", BTVSF_dir + "wp_deepJet_106XUL16postVFP_v3.csv"},
+    {"UL2017", BTVSF_dir + "wp_deepJet_106XUL17_v3.csv"},
+    {"UL2018", BTVSF_dir + "wp_deepJet_106XUL18_v2.csv"},
+
+};
+
+map<string, string> btagEff_files = { //MAP OF INPUT B TAG EFFICIENCY FILES
+
+    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_preVFP.root"},
+    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_postVFP.root"},
+    {"UL2017", BTVSF_dir + "efficiencies/btagEfficiencies_UL2017.root"},
+    {"UL2018", BTVSF_dir + "efficiencies/btagEfficiencies_UL2018.root"},
 
 };
 
@@ -44,6 +62,54 @@ std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
     {"UL2018", 0.2783},
 
 };
+
+map<string, map<string, double>> non_ttbb_SF = {
+
+    {"UL2016_preVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2016_postVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2017",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2018",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+};
+
 
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
