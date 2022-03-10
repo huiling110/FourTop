@@ -23,12 +23,11 @@
 
 
 
-void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut );
 void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
 void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era );
-void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
+void writeHistToFile( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
  
 
 void EYandSP_usingClass_v3(){ 
@@ -43,7 +42,6 @@ void EYandSP_usingClass_v3(){
     vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
     variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
  
-  //apply selection cuts here
     vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
     vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
@@ -53,26 +51,26 @@ void EYandSP_usingClass_v3(){
     //testing
 
 
-for (UInt_t  cha=0; cha<channelName.size(); cha++){
+// for (UInt_t  cha=0; cha<channelName.size(); cha++){
 // for (UInt_t  cha=2; cha<3;cha++){
 // for (UInt_t  cha=0; cha<1; cha++){
-    cout<<channelName[cha]<<endl;
-    // std::map<Double_t, TString> mymap;
+    // cout<<channelName[cha]<<endl;
+for ( auto const& cha : channelCutMap  ){
+    std::cout<<cha.first<<":"<<cha.second<<"\n";
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
     // for(UInt_t i=0; i<variablelist.size(); i++){
   	    TString iVariable = variablelist[i];
-        // h_bg = getBackHist( allProcesses, channelCut[cha], weight );
-        // cout<<"new bg: "<<h_bg->GetEntries();
 
 
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
-        getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        writeHistToFile( groupedBgsAndSignal, EYplotDir );
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
+        // drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
 
-        // plotChannelDis( groupedBgsAndSignal, EYplotDir );
 
         // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
         //     groupedBgsAndSignal[p]->Print();
@@ -129,106 +127,17 @@ for (UInt_t  cha=0; cha<channelName.size(); cha++){
 
 
 
-void plotChannelDis( const vector<TH1D*> groupedBgsAndSignal, TString plotDir ){
-    TFile* plotFile = new TFile( plotDir+"dis.root", "RECREATE" );
+void writeHistToFile( const vector<TH1D*> groupedBgsAndSignal, TString plotDir ){
+    // gSystem->Exec("mkdir " + plotDir);
+    TFile* plotFile = new TFile( plotDir+"DisForAll.root", "RECREATE" );
     for ( UInt_t i=0; i<groupedBgsAndSignal.size(); i++ ){
         groupedBgsAndSignal[i]->Write();
     }
-    // cout<<"writen file: "<<
+    std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
     plotFile->Close();
 
 }
 
-void getAllHitos( vector<TH1D*> &allHistos, TH1D* &h_background, TString variable, Int_t bin, Double_t mini, Double_t maxi, TCut weight, TCut channelcut ){
-    TH1D* TTTT_h ;//1
-    TH1D* TTTo2L2Nu_h ; TH1D* TTToHadronic_h ; TH1D* TTToSemiLeptonic_h ;
-    TH1D* TTGJets_h ;TH1D* ttZJets_h ; TH1D* ttWJets_h ;TH1D* ttH_h ; 
-    TH1D* WZ_h ; TH1D* WW_h ; TH1D* ZZ_h ;TH1D* WGJets_h ;TH1D* ZGJetsToLLG_h ;//6
-    TH1D* WWW_h ; TH1D* WWZ_h ; TH1D* WWG_h ; TH1D* ZZZ_h ; TH1D* WZZ_h ; TH1D* WZG_h ; TH1D* WGG_h ; TH1D* ZGGJets_h ;//8
-    TH1D* WJetsToLNu_h ; TH1D* DYJetsToTauTau_h ;//2
-    TH1D* tZq_ll_h ;TH1D* tZq_nunu_h;  TH1D* ST_tW_antitop_h ; TH1D* ST_tW_top_h ; TH1D* TGJets_h ;TH1D* THW_h ; TH1D* THQ_h ;//6
-    TH1D* QCD_HT200to300_h; TH1D* QCD_HT300to500_h; TH1D* QCD_HT500to700_h; TH1D* QCD_HT700to1000_h;  TH1D* QCD_HT1000to1500_h; TH1D* QCD_HT1500to2000_h; TH1D* QCD_HT2000toInf_h;
-    TH1D* VHToNonbb_h ; TH1D* ZHToTauTau_h ; TH1D* ZH_HToBB_ZToLL_h ; TH1D* GluGluHToZZTo4L_h ; TH1D* GluGluHToBB_h ; TH1D* GluGluHToGG_h ; TH1D* GluGluHToMuMu_h ; TH1D* GluGluHToTauTau_h ; TH1D* GluGluHToWWTo2L2Nu_h ; TH1D* GluGluHToWWToLNuQQ_h ; TH1D* VBFHToWWTo2L2Nu_h ; TH1D* VBFHToTauTau_h ; TH1D* VBFHToMuMu_h ; TH1D* VBFHToGG_h ; 
-
-     TTTT_h = new TH1D("TTTT", variable,bin,mini,maxi);//1
-     TTTo2L2Nu_h = new TH1D( "TTTo2L2Nu", variable,bin,mini,maxi);  TTToHadronic_h = new TH1D( "TTToHadronic",variable,bin,mini,maxi);  TTToSemiLeptonic_h = new TH1D( "TTToSemiLeptonic",variable,bin,mini,maxi);
-     TTGJets_h = new TH1D( "TTGJets",variable,bin,mini,maxi); ttZJets_h = new TH1D( "ttZJets",variable,bin,mini,maxi);  ttWJets_h = new TH1D( "ttWJets",variable,bin,mini,maxi); ttH_h = new TH1D( "ttH",variable,bin,mini,maxi); /* ttbb_h = new TH1D( "ttbb",variable,bin,mini,maxi);*/ //6
-     WZ_h = new TH1D( "WZ",variable,bin,mini,maxi);  WW_h = new TH1D( "WW",variable,bin,mini,maxi);  ZZ_h = new TH1D( "ZZ",variable,bin,mini,maxi); WGJets_h = new TH1D( "WGJets",variable,bin,mini,maxi); ZGJetsToLLG_h = new TH1D( "ZGJetsToLLG",variable,bin,mini,maxi);//6
-     WWW_h = new TH1D( "WWW",variable,bin,mini,maxi);  WWZ_h = new TH1D( "WWZ",variable,bin,mini,maxi);  WWG_h = new TH1D( "WWG",variable,bin,mini,maxi);  ZZZ_h = new TH1D( "ZZZ",variable,bin,mini,maxi);  WZZ_h = new TH1D( "WZZ",variable,bin,mini,maxi);  WZG_h = new TH1D( "WZG",variable,bin,mini,maxi);  WGG_h = new TH1D( "WGG",variable,bin,mini,maxi);  ZGGJets_h = new TH1D( "ZGGJets",variable,bin,mini,maxi);//8
-     WJetsToLNu_h = new TH1D( "WJetsToLNu",variable,bin,mini,maxi);  DYJetsToTauTau_h = new TH1D( "DYJetsToTauTau",variable,bin,mini,maxi);//2
-     tZq_ll_h = new TH1D( "tZq_ll",variable,bin,mini,maxi);  tZq_nunu_h =  new TH1D( "tZq_nunu", variable,bin,mini,maxi); ST_tW_antitop_h = new TH1D( "ST_tW_antitop",variable,bin,mini,maxi);  ST_tW_top_h = new TH1D( "ST_tW_top",variable,bin,mini,maxi);  TGJets_h = new TH1D( "TGJets",variable,bin,mini,maxi); THW_h = new TH1D( "THW",variable,bin,mini,maxi);  THQ_h = new TH1D( "THQ",variable,bin,mini,maxi);//6
-     QCD_HT200to300_h = new TH1D( "QCD_HT200to300",variable,bin,mini,maxi); QCD_HT300to500_h = new TH1D( "QCD_HT300to500",variable,bin,mini,maxi); QCD_HT500to700_h = new TH1D( "QCD_HT500to700",variable,bin,mini,maxi); QCD_HT700to1000_h = new TH1D( "QCD_HT700to1000",variable,bin,mini,maxi); QCD_HT1000to1500_h = new TH1D( "QCD_HT1000to1500",variable,bin,mini,maxi); QCD_HT1500to2000_h = new TH1D( "QCD_HT1500to2000",variable,bin,mini,maxi); QCD_HT2000toInf_h = new TH1D( "QCD_HT2000toInf",variable,bin,mini,maxi);
-
-    allHistos.clear();
-    allHistos = {
-        TTTT_h, //0
-        TTTo2L2Nu_h, TTToHadronic_h, TTToSemiLeptonic_h, //3
-        TTGJets_h, ttZJets_h,ttWJets_h, ttH_h, //7
-        WZ_h, WW_h, ZZ_h, WGJets_h, ZGJetsToLLG_h, //12
-        WWW_h, WWZ_h, WWG_h, ZZZ_h, WZZ_h, WZG_h, WGG_h, ZGGJets_h,//20
-        WJetsToLNu_h, DYJetsToTauTau_h,//22
-        tZq_ll_h, tZq_nunu_h, ST_tW_antitop_h, ST_tW_top_h,//26
-        TGJets_h, THW_h, THQ_h, //29
-        QCD_HT200to300_h, QCD_HT300to500_h, QCD_HT500to700_h, QCD_HT700to1000_h, QCD_HT1000to1500_h, QCD_HT1500to2000_h, QCD_HT2000toInf_h,
-    };
-
-    // TH1::SetDefaultSumw2();// TH1::Sumw2 to force the storage and computation of the sum of the square of weights per bin.umw2 has been called, the error per bin is computed as the sqrt(sum of squares of weights), otherwise the error is set equal to the sqrt(bin content)
-    h_background = new TH1D("BG", variable, bin, mini, maxi);
-
-    TString hname ;
-    Double_t scale;
-    Double_t sumGenWeights = -99;
-    for(UInt_t j = 0; j < allHistos.size(); j++){
-    // for(UInt_t j = 0; j < 1; j++){
-    // for(UInt_t j = 0; j < 4; j++){
-        hname = allHistos[j]->GetName();
-        
-        // allProcesses[j].getEventTree()->Project( hname, plot, weight*(channelCut[cha]+MetFilters+trigger));
-        // allProcesses[j].getEventTree()->Project( hname, variable, weight*(channelCut[cha]));
-        allProcesses[j].getEventTree()->Project( hname, variable, weight*(channelcut));
-        // allHistos[j]->Print();
-        // if ( i==0 ){
-            // cout<<allHistos[j]->GetName()<<":"<<endl;
-            // cout<<allHistos[j]->GetName()<<":"<<"  ";
-            // cout<<"raw entries = "<<allHistos[j]->GetEntries()<<"  ";
-            // cout<<"weighted = "<<allHistos[j]->Integral()<<"  ";
-        // }
-        sumGenWeights = allProcesses[j].getGenWeightSum();
-        scale = LUMI* allProcesses[j].getSigma()/sumGenWeights;
-        // allHistos[j]->Scale(scale);
-        // if ( i ==0){
-            // cout<<"sumGenWeights = "<<sumGenWeights<<"  ";
-            // cout<<"event yield = "<<allHistos[j]->Integral()<<endl;
-            // cout<<"\n";
-        // }
-        // if(j > 0) h_background->Add((allHistos[j]),1);
-        if(j > 0) h_background->Add((allHistos[j]),scale);
-    }
-
-}
-
-
-void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background ){
-    cout<<"Raw entries:"<<endl;
-    cout<<"TTTT         = "<<allHistos[0]->GetEntries()  <<endl;
-
-    cout<<"Total BKG    = "<<h_background->GetEntries()<<endl;
-    cout<<"\n";
-
-    //does Integral include weight?//I think they do
-    cout<<"Weighted:"<<endl;
-    cout<<"TTTT         = "<<allHistos[0]->Integral()<<endl;
-//
-    cout<<"Total BKG    = "<<h_background->Integral()<<endl;
-    cout<<"\n";
-
-    cout<<"Event yield:"<<endl;
-    cout<<"TTTT         = "<<allHistos[0]->Integral()*LUMI* allProcesses[0].getScale()<<endl;
-    cout<<"scale = "<<allProcesses[0].getScale()*LUMI<<endl;
-
-    cout<<"Total BKG    = "<<h_background->Integral()<<endl;
-    cout<<"\n";
-}
 
 
 void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  vector<Process> &allProcesses  ){

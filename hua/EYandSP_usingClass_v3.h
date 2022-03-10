@@ -24,7 +24,7 @@
     //   gROOT->ProcessLine(".L Process_Class.C++");
 // }
 
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromv7/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
 
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
@@ -62,10 +62,16 @@ const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
 const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
-
-
-// std::map<Int_t, TCut> channelCutMap;
-// channelCutMap.insert( pair<In_t, TCut>( 1, ES1tau1l) );
+std::map<TString, TCut> channelCutMap = {
+    {"1tau0l", ES1tau0l},
+    {"1tau1e", ES1tau1e},
+    {"1tau1m", ES1tau1m},
+    {"1tau1l", ES1tau1l},
+    {"1tau2os", ES1tau2os},
+    {"1tau2ss", ES1tau2ss},
+    {"1tau2l", ES1tau2l},
+    {"2tau0l", ES2tau0l}, 
+};
 
 
 std::map<TString, Double_t> crossSectionMap = {
