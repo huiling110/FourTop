@@ -12,6 +12,7 @@
 //tools for b tagging SFs implementation
 #include "../tools/BTagCalibrationStandalone.cpp"
 #include "../tools/evalEventSF.C"
+#include "../tools/evalEventSF_fixedWP.C"
 //tools for DeepTau SFs implementation
 #include "../../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 #include "../tools/debug.cpp"
@@ -54,66 +55,69 @@ gROOT->ProcessLine(".L Loader.C+");
  TauIDSFTool VSjetIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSjet","Medium", false, false, true);
  TauIDSFTool VSeIDTool = TauIDSFTool(year,"DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
  TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(year),"DeepTau2017v2p1VSmu","VLoose", false, false, false); //No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
+ 
+ //////////////////////////////////////////////////
+ ////////// LOAD B TAGGING EFFICIENCIES ///////////
+ //////////////////////////////////////////////////
+ TFile* input_btagEff = new TFile( TString(btagEff_files[year]), "READ" );
+ TEfficiency * btagEff_b_tttt = (TEfficiency*)input_btagEff->Get("btagEff_b_tttt");
+ TEfficiency * btagEff_c_tttt = (TEfficiency*)input_btagEff->Get("btagEff_c_tttt");
+ TEfficiency * btagEff_udsg_tttt = (TEfficiency*)input_btagEff->Get("btagEff_udsg_tttt");
+ TEfficiency * btagEff_b_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_b_ttbar");
+ TEfficiency * btagEff_c_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_c_ttbar");
+ TEfficiency * btagEff_udsg_ttbar = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ttbar");
+ TEfficiency * btagEff_b_QCD = (TEfficiency*)input_btagEff->Get("btagEff_b_QCD");
+ TEfficiency * btagEff_c_QCD = (TEfficiency*)input_btagEff->Get("btagEff_c_QCD");
+ TEfficiency * btagEff_udsg_QCD = (TEfficiency*)input_btagEff->Get("btagEff_udsg_QCD");
+ TEfficiency * btagEff_b_ttX = (TEfficiency*)input_btagEff->Get("btagEff_b_ttX");
+ TEfficiency * btagEff_c_ttX = (TEfficiency*)input_btagEff->Get("btagEff_c_ttX");
+ TEfficiency * btagEff_udsg_ttX = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ttX");
+ TEfficiency * btagEff_b_ST = (TEfficiency*)input_btagEff->Get("btagEff_b_ST");
+ TEfficiency * btagEff_c_ST = (TEfficiency*)input_btagEff->Get("btagEff_c_ST");
+ TEfficiency * btagEff_udsg_ST = (TEfficiency*)input_btagEff->Get("btagEff_udsg_ST");
+ btagEff_b_tttt->SetDirectory(nullptr);
+ btagEff_c_tttt->SetDirectory(nullptr);
+ btagEff_udsg_tttt->SetDirectory(nullptr);
+ btagEff_b_ttbar->SetDirectory(nullptr);
+ btagEff_c_ttbar->SetDirectory(nullptr);
+ btagEff_udsg_ttbar->SetDirectory(nullptr);
+ btagEff_b_QCD->SetDirectory(nullptr);
+ btagEff_c_QCD->SetDirectory(nullptr);
+ btagEff_udsg_QCD->SetDirectory(nullptr);
+ btagEff_b_ttX->SetDirectory(nullptr);
+ btagEff_c_ttX->SetDirectory(nullptr);
+ btagEff_udsg_ttX->SetDirectory(nullptr);
+ btagEff_b_ST->SetDirectory(nullptr);
+ btagEff_c_ST->SetDirectory(nullptr);
+ btagEff_udsg_ST->SetDirectory(nullptr);
+ input_btagEff->Close();
+ delete input_btagEff;
  //////////////////////////////////////////////////
  ///////// SET UP B-TAGGING SCALE FACTORS /////////
  //////////////////////////////////////////////////
-
+  
  // set up calibration + reader
  cout << "Loading the .csv file..." << endl;
 
- std::string inputCSVfile = BTVSF_files[year];
- const std::string tagger = "DeepJet";   
+ std::string inputCSVfile = BTVSF_files_fixedWP[year];
+ const std::string tagger = "DeepJet";
  std::string measType = "iterativefit";
+ std::string measTypeIncl = "incl";
+ std::string measTypeComb = "comb";
  std::string sysType = "central";
- std::string sysTypejesUp = "up_jes";
- std::string sysTypejesDown = "down_jes";
- /*
- std::string sysTypejesEC2_2016Up = "up_jesEC2_2016";
- std::string sysTypejesEC2_2016Down = "down_jesEC2_2016";
- std::string sysTypejesEC2Up = "up_jesEC2";
- std::string sysTypejesEC2Down = "down_jesEC2";
- std::string sysTypejesBBEC1Up = "up_jesBBEC1";
- std::string sysTypejesBBEC1Down = "down_jesBBEC1";
- std::string sysTypejesAbsoluteUp = "up_jesAbsolute";
- std::string sysTypejesAbsoluteDown = "down_jesAbsolute";
- std::string sysTypejesAbsolute_2016Up = "up_jesAbsolute_2016";
- std::string sysTypejesAbsolute_2016Down = "down_jesAbsolute_2016";
- std::string sysTypejesHFUp = "up_jesHF";
- std::string sysTypejesHFDown = "down_jesHF";
- std::string sysTypejesFlavorQCDUp = "up_jesFlavorQCD";
- std::string sysTypejesFlavorQCDDown = "down_jesFlavorQCD";
- std::string sysTypejesBBEC1_2016Up = "up_jesBBEC1_2016";
- std::string sysTypejesBBEC1_2016Down = "down_jesBBEC1_2016";
- std::string sysTypejesRelativeBalUp = "up_jesRelativeBal";
- std::string sysTypejesRelativeBalDown = "down_jesRelativeBal";
- std::string sysTypejesHF_2016Up = "up_jesHF_2016";
- std::string sysTypejesHF_2016Down = "down_jesHF_2016";
- std::string sysTypejesRelativeSample_2016Up = "up_jesRelativeSample_2016";
- std::string sysTypejesRelativeSample_2016Down = "down_jesRelativeSample_2016";
- */
- std::string sysTypeHFUp = "up_hf";
- std::string sysTypeHFDown = "down_hf";
- std::string sysTypeLFUp = "up_lf";
- std::string sysTypeLFDown = "down_lf";
- std::string sysTypehfstats1Up = "up_hfstats1";
- std::string sysTypehfstats1Down = "down_hfstats1";
- std::string sysTypehfstats2Up = "up_hfstats2";
- std::string sysTypehfstats2Down = "down_hfstats2";
- std::string sysTypelfstats1Up = "up_lfstats1";
- std::string sysTypelfstats1Down = "down_lfstats1";
- std::string sysTypelfstats2Up = "up_lfstats2";
- std::string sysTypelfstats2Down = "down_lfstats2";
- std::string sysTypecfErr1Up = "up_cferr1";
- std::string sysTypecfErr1Down = "down_cferr1";
- std::string sysTypecfErr2Up = "up_cferr2";
- std::string sysTypecfErr2Down = "down_cferr2";
+ std::string sysTypecorrelatedUp = "up_correlated";
+ std::string sysTypecorrelatedDown = "down_correlated";
+ std::string sysTypeuncorrelatedUp = "up_uncorrelated";
+ std::string sysTypeuncorrelatedDown = "down_uncorrelated";
+ 
  BTagCalibration calib(tagger, inputCSVfile);
- BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypejesUp, sysTypejesDown,/* sysTypejesEC2_2016Up, sysTypejesEC2_2016Down, sysTypejesEC2Up, sysTypejesEC2Down, sysTypejesBBEC1Up, sysTypejesBBEC1Down, sysTypejesAbsoluteUp, sysTypejesAbsoluteDown, sysTypejesAbsolute_2016Up, sysTypejesAbsolute_2016Down, sysTypejesHFUp, sysTypejesHFDown, sysTypejesFlavorQCDUp, sysTypejesFlavorQCDDown, sysTypejesBBEC1_2016Up, sysTypejesBBEC1_2016Down, sysTypejesRelativeBalUp, sysTypejesRelativeBalDown, sysTypejesHF_2016Up, sysTypejesHF_2016Down, sysTypejesRelativeSample_2016Up, sysTypejesRelativeSample_2016Down, */sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
- CSVreader.load(calib, BTagEntry::FLAV_B, measType);
- CSVreader.load(calib, BTagEntry::FLAV_C, measType);
- CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
+ BTagCalibrationReader CSVreader(BTagEntry::OP_MEDIUM, sysType, {sysTypecorrelatedUp, sysTypecorrelatedDown, sysTypeuncorrelatedUp, sysTypeuncorrelatedDown});
+ CSVreader.load(calib, BTagEntry::FLAV_B, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_C, measTypeComb);
+ CSVreader.load(calib, BTagEntry::FLAV_UDSG, measTypeIncl);
+ 
+ cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measTypeComb << "/" << measTypeIncl << ";" << endl;
 
- cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << endl;
 
  map<string, string>::iterator file_it = file[year].begin();
 
@@ -327,10 +331,13 @@ gROOT->ProcessLine(".L Loader.C+");
 		double myMET = 0;
 		mychain.SetBranchAddress("Met_pt", &myMET);
 
+        int mygenTtbarId = 0;
+        mychain.SetBranchAddress("genTtbarId_", &mygenTtbarId);
+
 		Long64_t nevents = mychain.GetEntries();
 
 		for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-			//if (ievent > 100) break;
+			if (ievent > 100) break;
 			if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
 			//get i-th entry in tree
 			mychain.GetEntry( ievent );
@@ -407,10 +414,23 @@ gROOT->ProcessLine(".L Loader.C+");
 
                 }
 
-                //Get b tagging scale factor
-                double * mybtagWeight;
-                mybtagWeight = evalEventSF(myjetsL, myjets_flavor, myjets_btags, CSVreader);
-                if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight[0] = 1.0; // if reading data, set b tagging SF to 1
+                Double_t mybtagWeight;
+                if ( file_it->first.find("tttt") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_tttt, btagEff_c_tttt, btagEff_udsg_tttt);
+                if ( file_it->first.find("  ttbar") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttbar, btagEff_c_ttbar, btagEff_udsg_ttbar);
+                if ( file_it->first.find("QCD") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_QCD, btagEff_c_QCD, btagEff_udsg_QCD);
+                if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ttX, btagEff_c_ttX, btagEff_udsg_ttX);
+                if ( file_it->first.find("st_") !=std::string::npos ) mybtagWeight = evalEventSF_fixedWP(sysType, myjetsL, myjets_flavor, myjets_btags, DeepJetM[year], CSVreader, btagEff_b_ST, btagEff_c_ST, btagEff_udsg_ST);
+                if ( file_it->first.find(data) !=std::string::npos ) mybtagWeight = 1.0; // if reading data, set b tagging SF to 1
+            
+                //Get ttbb correction   
+                Float_t ttbbWeight;
+                if ( file_it->first.find("ttbar") !=std::string::npos ) {
+
+                    if (mygenTtbarId%100 > 50) ttbbWeight = 1.2; // if ttbb, scale up by 1.2
+                    else ttbbWeight = non_ttbb_SF[year][file_it->first]; //if not, scale down by ttbar-process dependent factor
+            
+                }
+                else ttbbWeight = 1.0;
                 //Get trigger scale factor
                 //double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
                 //if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
