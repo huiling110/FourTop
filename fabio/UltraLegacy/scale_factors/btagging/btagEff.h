@@ -194,11 +194,10 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"st_tW_top", "st_tW_top"},
          {"st_tW_antitop", "st_tW_antitop"},
          {"st_tZq", "st_tZq"},
-
+         
      }
     }, //UL2018
 
 };
 
-void writeTEfficiency(TH1F* hBef, TH1F* hAFt, TString name);
-void writeTEfficiency2D(TH2F* hBef, TH2F* hAFt, TString name);
+void writeTEfficiency2D(TH2F* hBef, TH2F* hAFt, map<string, string>::iterator file_it, TString name);

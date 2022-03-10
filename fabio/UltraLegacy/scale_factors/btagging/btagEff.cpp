@@ -64,44 +64,6 @@ void btagEff(string year, string analyzer, string dir) {
  Float_t binsY[NBINSY+1] = {20.,30.,50.,70.,100.,140.,300.,600.,1000};
 
  TFile *outputfile = new TFile( "btagEff_output_" + TString(year) + ".root", "RECREATE" );
- 
-    TH2::AddDirectory(kFALSE); 
-    TH2F * h_btagEff_den_b_tttt = new TH2F ("h_btagEff_den_b_tttt", "h_btagEff_den_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_b_tttt = new TH2F ("h_btagEff_num_b_tttt", "h_btagEff_num_b_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_c_tttt = new TH2F ("h_btagEff_den_c_tttt", "h_btagEff_den_c_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_c_tttt = new TH2F ("h_btagEff_num_c_tttt", "h_btagEff_num_c_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_udsg_tttt = new TH2F ("h_btagEff_den_udsg_tttt", "h_btagEff_den_udsg_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_udsg_tttt = new TH2F ("h_btagEff_num_udsg_tttt", "h_btagEff_num_udsg_tttt; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    
-    TH2F * h_btagEff_den_b_ttbar = new TH2F ("h_btagEff_den_b_ttbar", "h_btagEff_den_b_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_b_ttbar = new TH2F ("h_btagEff_num_b_ttbar", "h_btagEff_num_b_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_c_ttbar = new TH2F ("h_btagEff_den_c_ttbar", "h_btagEff_den_c_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_c_ttbar = new TH2F ("h_btagEff_num_c_ttbar", "h_btagEff_num_c_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_udsg_ttbar = new TH2F ("h_btagEff_den_udsg_ttbar", "h_btagEff_den_udsg_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_udsg_ttbar = new TH2F ("h_btagEff_num_udsg_ttbar", "h_btagEff_num_udsg_ttbar; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-
-    TH2F * h_btagEff_den_b_QCD = new TH2F ("h_btagEff_den_b_QCD", "h_btagEff_den_b_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_b_QCD = new TH2F ("h_btagEff_num_b_QCD", "h_btagEff_num_b_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_c_QCD = new TH2F ("h_btagEff_den_c_QCD", "h_btagEff_den_c_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_c_QCD = new TH2F ("h_btagEff_num_c_QCD", "h_btagEff_num_c_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_udsg_QCD = new TH2F ("h_btagEff_den_udsg_QCD", "h_btagEff_den_udsg_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_udsg_QCD = new TH2F ("h_btagEff_num_udsg_QCD", "h_btagEff_num_udsg_QCD; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    
-    TH2F * h_btagEff_den_b_ttX = new TH2F ("h_btagEff_den_b_ttX", "h_btagEff_den_b_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_b_ttX = new TH2F ("h_btagEff_num_b_ttX", "h_btagEff_num_b_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_c_ttX = new TH2F ("h_btagEff_den_c_ttX", "h_btagEff_den_c_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_c_ttX = new TH2F ("h_btagEff_num_c_ttX", "h_btagEff_num_c_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_udsg_ttX = new TH2F ("h_btagEff_den_udsg_ttX", "h_btagEff_den_udsg_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_udsg_ttX = new TH2F ("h_btagEff_num_udsg_ttX", "h_btagEff_num_udsg_ttX; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    
-    TH2F * h_btagEff_den_b_ST = new TH2F ("h_btagEff_den_b_ST", "h_btagEff_den_b_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_b_ST = new TH2F ("h_btagEff_num_b_ST", "h_btagEff_num_b_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_c_ST = new TH2F ("h_btagEff_den_c_ST", "h_btagEff_den_c_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_c_ST = new TH2F ("h_btagEff_num_c_ST", "h_btagEff_num_c_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_den_udsg_ST = new TH2F ("h_btagEff_den_udsg_ST", "h_btagEff_den_udsg_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2F * h_btagEff_num_udsg_ST = new TH2F ("h_btagEff_num_udsg_ST", "h_btagEff_num_udsg_ST; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
-    TH2::AddDirectory(kTRUE); 
-
  map<string, string>::iterator file_it = file[year].begin();
 
 while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
@@ -125,11 +87,35 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
         std::cout << "*** ERROR: file you are trying to read does not exist. Exiting. ***" << endl;
         return;
     }
+
+     
+    TH2::AddDirectory(kFALSE); 
+    TH2F * h_btagEff_den_b = new TH2F ("h_btagEff_den_b", "h_btagEff_den_b; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2F * h_btagEff_num_b = new TH2F ("h_btagEff_num_b", "h_btagEff_num_b; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2F * h_btagEff_den_c = new TH2F ("h_btagEff_den_c", "h_btagEff_den_c; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2F * h_btagEff_num_c = new TH2F ("h_btagEff_num_c", "h_btagEff_num_c; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2F * h_btagEff_den_udsg = new TH2F ("h_btagEff_den_udsg", "h_btagEff_den_udsg; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2F * h_btagEff_num_udsg = new TH2F ("h_btagEff_num_udsg", "h_btagEff_num_udsg; p_{T} [GeV]; #eta", NBINSX, binsX, NBINSY, binsY );
+    TH2::AddDirectory(kTRUE);
+
     TChain mychain("tree");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain.Add(input_dir + "outTree*.root"); 
     else mychain.Add(input_dir + "outTree*.root");
     TChain mychain2("allevents");
     if (!(file_it->first.find(data) !=std::string::npos)) mychain2.Add(input_dir + "outTree*.root");
+
+    cout << "Computing the sum of gen event weights..." << endl;
+    TH1::StatOverflows(kTRUE);
+    TH1D * genEvtWeights = new TH1D("genEvtWeights", "genEvtWeights", 10, -10, 10 );
+    double gen_sum_of_weights = 0.0;
+    if (!(file_it->first.find(data) !=std::string::npos)) {
+    mychain2.Project(genEvtWeights->GetName(), "genWeight_allEvents");
+    cout << "genEvtWeights->GetMean(): " << genEvtWeights->GetMean() << endl;
+    cout << "genEvtWeights->GetEntries(): " << genEvtWeights->GetEntries() << endl; 
+    gen_sum_of_weights = genEvtWeights->GetMean()*genEvtWeights->GetEntries();
+    cout << gen_sum_of_weights << endl;
+    }
+    TH1::StatOverflows(kFALSE);
 
     double mygenEvtWeight = 1;
     double myPUWeight = 1;
@@ -242,63 +228,58 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             for (unsigned int i = 0; i < myjetsL->size(); i++) {
                 if (fabs(myjets_flavor->at(i))==5) { // b jets
                     
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_b_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_b_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_b_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_b_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_b_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                    h_btagEff_den_b->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
 
                     if (myjets_btags->at(i) > DeepJetM[year]) {
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_b_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_b_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_b_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_b_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_b_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                        h_btagEff_num_b->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
 
                     }
                 }// end b flavor
 
                 else if (fabs(myjets_flavor->at(i))==4) { // c jets
 
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_c_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_c_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_c_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_c_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_c_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-
+                    h_btagEff_den_c->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                    
                     if (myjets_btags->at(i) > DeepJetM[year]) {
 
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_c_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_c_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_c_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_c_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_c_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                        h_btagEff_num_c->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
 
                     }
                 }//end c flavor
 
                 else { // light jets
                     
-                    if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_den_udsg_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_den_udsg_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_den_udsg_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_den_udsg_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                    if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_den_udsg_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                    h_btagEff_den_udsg->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                    
                     if (myjets_btags->at(i) > DeepJetM[year]) {
-                        if ( file_it->first.find("tttt") !=std::string::npos ) h_btagEff_num_udsg_tttt->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("ttbar") !=std::string::npos ) h_btagEff_num_udsg_ttbar->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("QCD") !=std::string::npos ) h_btagEff_num_udsg_QCD->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("+jets") !=std::string::npos || file_it->first.find("ttH") !=std::string::npos ) h_btagEff_num_udsg_ttX->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
-                        if ( file_it->first.find("st_") !=std::string::npos ) h_btagEff_num_udsg_ST->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                        h_btagEff_num_udsg->Fill(fabs(myjetsL->at(i).Eta()), myjetsL->at(i).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * eleIDSF * muonIDSF * ttbbWeight);
+                        
                     }
 
                 }//end light flavor
             
             }// end loop over jets
 
-  
     }//end loop over events
 
+    TH1D * totalWeight = new TH1D("totalWeight", "totalWeight", 1, -0.5, 0.5);
+    TH1::AddDirectory(kFALSE);
+    if (!(file_it->first.find(data) !=std::string::npos)) {  
+        totalWeight->Fill(0.0, gen_sum_of_weights);
+    }
+    TH1::AddDirectory(kTRUE);
+
+    outputfile->cd();
+
+    writeTEfficiency2D(h_btagEff_den_b, h_btagEff_num_b, file_it, "btagEff_b_");
+    writeTEfficiency2D(h_btagEff_den_c, h_btagEff_num_c, file_it, "btagEff_c_");
+    writeTEfficiency2D(h_btagEff_den_udsg, h_btagEff_num_udsg, file_it, "btagEff_udsg_");
+
+    std::string hTotalWeightName(totalWeight->GetName());
+    hTotalWeightName.append("_");
+    hTotalWeightName.append(file_it->first);
+    totalWeight->Write(hTotalWeightName.c_str());
+    
     delete myjetsL;
     delete myjets_flavor;
     delete myjets_btags;
@@ -309,71 +290,22 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     delete mytausT_genPartFlav;
     delete myleptonsMVAT;
     
+    delete h_btagEff_den_b;
+    delete h_btagEff_num_b;
+    delete h_btagEff_den_c;
+    delete h_btagEff_num_c;
+    delete h_btagEff_den_udsg;
+    delete h_btagEff_num_udsg;
+   
+    delete genEvtWeights;
+    delete totalWeight;
+    
     mychain.Reset();
     mychain2.Reset();
 
     file_it++;
 
-    }//end loop over files
-
- outputfile->cd();
-
- writeTEfficiency2D(h_btagEff_den_b_tttt, h_btagEff_num_b_tttt, "btagEff_b_tttt");
- writeTEfficiency2D(h_btagEff_den_c_tttt, h_btagEff_num_c_tttt, "btagEff_c_tttt");
- writeTEfficiency2D(h_btagEff_den_udsg_tttt, h_btagEff_num_udsg_tttt, "btagEff_udsg_tttt");
-    
- writeTEfficiency2D(h_btagEff_den_b_ttbar, h_btagEff_num_b_ttbar, "btagEff_b_ttbar");
- writeTEfficiency2D(h_btagEff_den_c_ttbar, h_btagEff_num_c_ttbar, "btagEff_c_ttbar");
- writeTEfficiency2D(h_btagEff_den_udsg_ttbar, h_btagEff_num_udsg_ttbar, "btagEff_udsg_ttbar");
-
- writeTEfficiency2D(h_btagEff_den_b_QCD, h_btagEff_num_b_QCD, "btagEff_b_QCD");
- writeTEfficiency2D(h_btagEff_den_c_QCD, h_btagEff_num_c_QCD, "btagEff_c_QCD");
- writeTEfficiency2D(h_btagEff_den_udsg_QCD, h_btagEff_num_udsg_QCD, "btagEff_udsg_QCD");
-    
- writeTEfficiency2D(h_btagEff_den_b_ttX, h_btagEff_num_b_ttX, "btagEff_b_ttX");
- writeTEfficiency2D(h_btagEff_den_c_ttX, h_btagEff_num_c_ttX, "btagEff_c_ttX");
- writeTEfficiency2D(h_btagEff_den_udsg_ttX, h_btagEff_num_udsg_ttX, "btagEff_udsg_ttX");
-    
- writeTEfficiency2D(h_btagEff_den_b_ST, h_btagEff_num_b_ST, "btagEff_b_ST");
- writeTEfficiency2D(h_btagEff_den_c_ST, h_btagEff_num_c_ST, "btagEff_c_ST");
- writeTEfficiency2D(h_btagEff_den_udsg_ST, h_btagEff_num_udsg_ST, "btagEff_udsg_ST");
-    
- 
- delete h_btagEff_den_b_tttt;
- delete h_btagEff_num_b_tttt;
- delete h_btagEff_den_c_tttt;
- delete h_btagEff_num_c_tttt;
- delete h_btagEff_den_udsg_tttt;
- delete h_btagEff_num_udsg_tttt;
-
- delete h_btagEff_den_b_ttbar;
- delete h_btagEff_num_b_ttbar;
- delete h_btagEff_den_c_ttbar;
- delete h_btagEff_num_c_ttbar;
- delete h_btagEff_den_udsg_ttbar;
- delete h_btagEff_num_udsg_ttbar;
-
- delete h_btagEff_den_b_QCD;
- delete h_btagEff_num_b_QCD;
- delete h_btagEff_den_c_QCD;
- delete h_btagEff_num_c_QCD;
- delete h_btagEff_den_udsg_QCD;
- delete h_btagEff_num_udsg_QCD;
-
- delete h_btagEff_den_b_ttX;
- delete h_btagEff_num_b_ttX;
- delete h_btagEff_den_c_ttX;
- delete h_btagEff_num_c_ttX;
- delete h_btagEff_den_udsg_ttX;
- delete h_btagEff_num_udsg_ttX;
-
- delete h_btagEff_den_b_ST;
- delete h_btagEff_num_b_ST;
- delete h_btagEff_den_c_ST;
- delete h_btagEff_num_c_ST;
- delete h_btagEff_den_udsg_ST;
- delete h_btagEff_num_udsg_ST;
-
+    }//end loop over files     
  
  delete MuonIDSF; 
  delete EleIDSF;
@@ -384,38 +316,22 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
 }//end
 
-
-
-void writeTEfficiency(TH1F* hBef, TH1F* hAft, TString name) {
+void writeTEfficiency2D(TH2F* hBef, TH2F* hAft, map<string, string>::iterator file_it, TString name) {
 
     std::string hBefName(hBef->GetName());
+    hBefName.append("_");
+    hBefName.append(file_it->first);
     std::string hAftName(hAft->GetName());
+    hAftName.append("_");
+    hAftName.append(file_it->first);
     hBef->Write(hBefName.c_str());
     hAft->Write(hAftName.c_str());
-
-    TEfficiency *TEff = 0;
-    if(TEfficiency::CheckConsistency(*hAft, *hBef)){
-        
-        TEff = new TEfficiency(*hAft, *hBef);
-        TEff->Write(name);
-        delete TEff;
-    
-    }
-
-}
-
-void writeTEfficiency2D(TH2F* hBef, TH2F* hAft, TString name) {
-
-    std::string hBefName(hBef->GetName());
-    std::string hAftName(hAft->GetName());
-    hBef->Write(hBefName.c_str());
-    hAft->Write(hAftName.c_str());
-  
+ 
     TEfficiency *TEff = 0;
     if(TEfficiency::CheckConsistency(*hAft, *hBef)){
             
         TEff = new TEfficiency(*hAft, *hBef);
-        TEff->Write(name);
+        TEff->Write(name+file_it->first);
         delete TEff;
 
     }
