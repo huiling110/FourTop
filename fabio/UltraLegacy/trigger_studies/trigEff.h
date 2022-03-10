@@ -33,10 +33,10 @@ map<string, string> BTVSF_files_fixedWP = { //MAP OF INPUT BTV SCALE FACTOR FILE
 
 map<string, string> btagEff_files = { //MAP OF INPUT B TAG EFFICIENCY FILES
 
-    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_preVFP.root"},
-    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_postVFP.root"},
-    {"UL2017", BTVSF_dir + "efficiencies/btagEff_output_UL2017.root"},
-    {"UL2018", BTVSF_dir + "efficiencies/btagEff_output_UL2018.root"},
+    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_preVFP.root"},
+    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_postVFP.root"},
+    {"UL2017", BTVSF_dir + "efficiencies/btagEfficiencies_UL2017.root"},
+    {"UL2018", BTVSF_dir + "efficiencies/btagEfficiencies_UL2018"},
 
 };
 
