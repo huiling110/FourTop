@@ -54,6 +54,16 @@ map<string, string> btagEff_files = { //MAP OF INPUT B TAG EFFICIENCY FILES
 
 };
 
+string TRGSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/trigger/";
+map<string, string> TRGSF_files = { //MAP OF INPUT TRG SCALE FACTOR FILES
+
+    {"UL2016_preVFP", TRGSF_dir + "TriggerSF_2D_UL2016_preVFP.root"},
+    {"UL2016_postVFP", TRGSF_dir + "TriggerSF_2D_UL2016_postVFP.root"},
+    {"UL2017", TRGSF_dir + "proxy.root"},
+    {"UL2018", TRGSF_dir + "proxy.rootv"},
+
+};
+
 std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
 
     {"UL2016_postVFP", 0.2489},
@@ -117,7 +127,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
      {   //signal
          
          {"tttt", "tttt"},
-
+         
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
          {"ttbar-SL", "ttbar_1l"},
