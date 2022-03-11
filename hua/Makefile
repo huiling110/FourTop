@@ -3,8 +3,9 @@
 PROGRAM = EYandSP_usingClass_v3
 
 
-HDRS = EYandSP_usingClass_v3.h\
-	Process_Class.h\
+# HDRS = EYandSP_usingClass_v3.h\
+# 	Process_Class.h\
+HDRS = Process_Class.h\
  
 OBJS = EYandSP_usingClass_v3.o\
 		Process_Class.o\
