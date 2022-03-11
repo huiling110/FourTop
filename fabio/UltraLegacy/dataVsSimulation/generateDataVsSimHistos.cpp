@@ -368,8 +368,16 @@ gROOT->ProcessLine(".L Loader.C+");
 			bool is2tau1L = (mytausT->size()==2 && myleptonsMVAT->size() == 1 &&  myjetsL->size()>=4 && mybjetsM->size()>=2);
 			bool is2tau2L = (mytausT->size()==2 && (myelesMVAT->size()+mymuonsT->size())==2 && myjetsL->size()>=2 && mybjetsM->size()>=2);
             bool is2tauXL = (is2tau1L || is2tau2L);
-			
-			if (HT > 400) {
+
+            Float_t HTcut = 1000000.0;
+			if (TString(year).Contains("2016")) HTcut = 400.0;
+            else {
+
+                cout << "*** ERROR. You did not set up an HT cut for this year. Exiting." << endl;
+                return;
+            
+            }
+			if (HT > HTcut) {
 
                 //////////////////////////////////////////////////////////////////
                 /////////////////////////////////////////////////////////////////
