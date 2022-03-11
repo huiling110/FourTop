@@ -23,11 +23,11 @@
 
 
 
-void printEventYield( const vector<TH1D*> &allHistos, const TH1D* h_background );
-void drawHistos( const vector<TH1D*> &allHistos, const TH1D* h_background );
+void printEventYield( const std::vector<TH1D*> &allHistos, const TH1D* h_background );
+void drawHistos( const std::vector<TH1D*> &allHistos, const TH1D* h_background );
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era );
-void writeHistToFile( const vector<TH1D*> groupedBgsAndSignal, TString plotDir );
+void drawEventYield( const std::vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era );
+void writeHistToFile( const std::vector<TH1D*> groupedBgsAndSignal, TString plotDir, TString channelName );
  
 
 void EYandSP_usingClass_v3(){ 
@@ -39,24 +39,25 @@ void EYandSP_usingClass_v3(){
     TString EYplotDir = baseDir + "results/";
 
 
-    vector<TString> variablelist;                vector<Int_t> bin;      vector<Double_t> Min;      vector<Double_t> Max;     vector<TString> axis;
+    std::vector<TString> variablelist;                std::vector<Int_t> bin;      std::vector<Double_t> Min;      std::vector<Double_t> Max;     std::vector<TString> axis;
     variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
  
-    vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
-    vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
+    // std::vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
+    // std::vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
 
 
-    vector<TH1D*>  groupedBgsAndSignal;
+    std::vector<TH1D*>  groupedBgsAndSignal;
 
     //testing
 
 
-// for (UInt_t  cha=0; cha<channelName.size(); cha++){
-// for (UInt_t  cha=2; cha<3;cha++){
-// for (UInt_t  cha=0; cha<1; cha++){
-    // cout<<channelName[cha]<<endl;
+    TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
 for ( auto const& cha : channelCutMap  ){
+// for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
+    // std::cout<<cha->first<<":"<<cha->second<<"\n";
     std::cout<<cha.first<<":"<<cha.second<<"\n";
+
+    if ( cha.first=="1tau1e" ) break;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
@@ -66,8 +67,8 @@ for ( auto const& cha : channelCutMap  ){
 
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        writeHistToFile( groupedBgsAndSignal, EYplotDir );
+        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
         // drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
 
@@ -114,6 +115,8 @@ for ( auto const& cha : channelCutMap  ){
 
 
 }//end of loop of all channels
+    std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
+    plotFile->Close();
     
 
     t.Stop();
@@ -127,20 +130,18 @@ for ( auto const& cha : channelCutMap  ){
 
 
 
-void writeHistToFile( const vector<TH1D*> groupedBgsAndSignal, TString plotDir ){
+void writeHistToFile( const std::vector<TH1D*> groupedBgsAndSignal, TString plotDir, TString channelName ){
     // gSystem->Exec("mkdir " + plotDir);
-    TFile* plotFile = new TFile( plotDir+"DisForAll.root", "RECREATE" );
+    // TFile* plotFile = new TFile( plotDir+"DisForEY_"+ channelName + ".root", "RECREATE" );
     for ( UInt_t i=0; i<groupedBgsAndSignal.size(); i++ ){
         groupedBgsAndSignal[i]->Write();
     }
-    std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
-    plotFile->Close();
 
 }
 
 
 
-void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  vector<Process> &allProcesses  ){
+void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const std::vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  std::vector<Process> &allProcesses  ){
     Double_t EY = 0;
     for ( Int_t start=startIndex; start<(startIndex+subprocessNum); start++ ){
         if ( sumType==0 ) EY = EY + allHistos[start]->GetEntries();
@@ -176,7 +177,7 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs, const Double_t lu
     // cout<<"entry: "<<entries<<"\n";
 }
 
-void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era ){
+void drawEventYield( const std::vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era ){
 
     TCanvas *c = new TCanvas("c", "c");
     c->SetCanvasSize(300, 1000);
@@ -214,7 +215,7 @@ void drawEventYield( const vector<TH1D*> &groupedBgsAndSignal, const TString EYp
 
 }
 
-void drawHistos( const vector<TH1D*> &allHistos, TH1D* h_background , TString variable){
+void drawHistos( const std::vector<TH1D*> &allHistos, TH1D* h_background , TString variable){
 
     TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
     TPad *c1_2 = new TPad("c1_2", "newpad",0.02,0.10,0.99,0.90);// bottom left point(),

@@ -18,7 +18,8 @@
 
 
 
-#include "Process_Class.C"
+// #include "Process_Class.C"
+#include "Process_Class.h"
 
 // if (!TClass::GetDict("Process_Class")) {
     //   gROOT->ProcessLine(".L Process_Class.C++");
@@ -70,7 +71,12 @@ std::map<TString, TCut> channelCutMap = {
     {"1tau2os", ES1tau2os},
     {"1tau2ss", ES1tau2ss},
     {"1tau2l", ES1tau2l},
-    {"2tau0l", ES2tau0l}, 
+    {"2tau0l", ES2tau0l},
+    {"2tau1e", ES2tau1e},
+    {"2tau1m", ES2tau1m},
+    {"2tau1l", ES2tau1l},
+    {"2tau2l", ES2tau2l},
+    {"2tauXl", ES2tauXl}, 
 };
 
 
@@ -82,8 +88,66 @@ std::map<TString, Double_t> crossSectionMap = {
 } ;
 
 
-#include "eventYieldCal.C"
 
+Process TTTT{ baseDir+"tttt.root", crossSectionMap["tttt"]};
+Process TTTo2L2Nu{ baseDir+"ttbar_2l.root", crossSectionMap["ttbar_2l"]};
+Process TTToHadronic{ baseDir+"ttbar_0l.root", crossSectionMap["ttbar_0l"]};
+Process TTToSemiLeptonic{ baseDir+"ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTGJets{baseDir+"ttG.root", 4.62 };//3.773
+Process ttZJets{baseDir+"ttZ.root",  0.783};//0.6559
+Process ttWJets{baseDir+"ttW.root", 0.611 };//0.2014 changed to 611
+Process ttH_bb{baseDir + "ttH_bb.root", 0.2897}; // 0.2897
+Process ttH_nonbb{baseDir + "ttH_nonbb.root", 0.209}; // 0.209
+// VV
+Process WZ{baseDir+"wz.root", 2.343 };
+Process WW{baseDir+"ww.root", 6.430 };
+Process ZZ{baseDir+"zz.root", 1.016 };//ZZ
+// Process WGJets{baseDir+".root", 1.269 };//???
+// Process ZGJetsToLLG{baseDir+".root", 0.1319 };//???
+//VVV
+// Process WWW{baseDir+".root", 0.2086 };//???
+// Process WWZ{baseDir+".root", 0.1651 };//???
+// Process WWG{baseDir+".root", 0.0435  };//???
+// Process ZZZ{baseDir+".root", 0.01398 };//???
+// Process WZZ{baseDir+".root", 0.05565 };//???
+// Process WZG{baseDir+".root", 0.04123 };//???
+// Process WGG{baseDir+".root", 1.819 };//???
+// Process ZGGJets{baseDir+".root", 0.3717 };//???
+//
+// Process WJetsToLNu{baseDir+".root", 50300 };//???
+// Process DYJetsToTauTau{baseDir+".root", 1983 };//???
+//Single Top
+Process tZq_ll{baseDir+"st_tZq.root", 0.07358 };
+// Process tZq_nunu{baseDir+".root", 0.1379 };//???
+Process ST_tW_antitop{baseDir+"st_tW_antitop.root", 35.85 };//38.06
+Process ST_tW_top{baseDir+"st_tW_top.root", 35.85 };//38.09
+//TX
+// Process TGJets{baseDir+".root", 2.967 };//???
+// // Process THW{baseDir+".root", 0.1467 };//???
+// Process THQ{baseDir+".root", 0.8816 };//???
+
+//QCD
+Process QCD_HT50to100{baseDir + "qcd_50to100.root", 2.466e+08}; // 50-100  //2.466e+08 +- 2.190e+05 pb
+Process QCD_HT100to200{baseDir + "qcd_100to200.root", 2.801e+07}; // 100to200  //2.801e+07 +- 2.608e+04 pb
+Process QCD_HT200to300{baseDir+"qcd_200to300.root", 1.721e+6 }; // 1.710e+06 +- 1.626e+03 pb
+Process QCD_HT300to500{baseDir+"qcd_300to500.root",  3.479e+05}; // 3.473e+05 +- 3.327e+02 pb
+Process QCD_HT500to700{baseDir+"qcd_500to700.root",  3.206e+04}; // 3.220e+04 +- 3.100e+01 pb
+Process QCD_HT700to1000{baseDir+"qcd_700to1000.root",  6.827e+03};  // 6.839e+03 +- 6.602e+00 pb
+Process QCD_HT1000to1500{baseDir+"qcd_1000to1500.root",  1.207e+03}; // 1.207e+03 +- 1.167e+00 pb
+Process QCD_HT1500to2000{baseDir+"qcd_1500to2000.root",  1.20e+02}; // 1.201e+02 +- 1.160e-01 pb
+Process QCD_HT2000toInf{baseDir+"qcd_2000toInf.root",  2.525e+01 }; // 2.524e+01 +- 2.436e-02 pb
+
+
+
+
+std::vector<Process> allProcesses = {
+    TTTT, //0
+    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
+    TTGJets, ttZJets,ttWJets, ttH_bb, ttH_nonbb, //8
+    WZ, WW, ZZ,  //11
+    tZq_ll,  ST_tW_antitop, ST_tW_top,//14
+    QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf,//23
+};
 
 
 
@@ -155,7 +219,7 @@ Process QCD_HT2000toInf(baseDir+"QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-
 // Process VBFHToMuMu(baseDir+"VBFHToMuMu_M-125_TuneCP5_PSweights_13TeV_powheg_pythia8.root", 0.000823 );
 // Process VBFHToGG(baseDir+"VBFHToGG_M125_13TeV_amcatnlo_pythia8_v2.root", 3.992 );
 
-vector<Process> allProcesses = {
+std::vector<Process> allProcesses = {
     TTTT, //0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic, //3
     TTGJets, ttZJets,ttWJets, ttH, //7
@@ -169,7 +233,7 @@ vector<Process> allProcesses = {
 
 */
 
-TH1D* getBackHist(  vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
+TH1D* getBackHist(  std::vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
     TH1D* bg = new TH1D( "bg", "bg", 40, 0, 40);
     for(UInt_t j = 1; j < allProcesses.size(); j++){
         if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
@@ -195,7 +259,7 @@ TH1D* addHistChannel( const TCut cut, const TCut weight, TString branchName, con
 
 }
 
-void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+void getBgsAndSignalHist( std::vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
 
     TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT_"+branch );
     TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT_"+branch);
@@ -224,16 +288,16 @@ void getBgsAndSignalHist( vector<TH1D*> &groupedBGsAndSignal , const TCut channe
 
     // delete TTTT, TT;
 }
-void getBgsAndSignalHist_Nano( vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
+void getBgsAndSignalHist_Nano( std::vector<TH1D*> &groupedBGsAndSignal , const TCut channelCut, const TString channelName, const TCut weight, const TString branch, const Int_t binNum, const Double_t binMin, const Double_t binMax ){
 
-    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, "TTTT_"+branch );
-    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, "TT_"+branch);
-    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 9, "TTX_"+branch );
-    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 9, 12, "VV_"+branch );
-    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 12, 15, "SingleTop_"+branch );
-    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 15, 24, "QCD_"+branch);
+    TH1D*  TTTT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 0, 1, channelName +"_TTTT_"+branch );
+    TH1D* TT = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 4, channelName +"_TT_"+branch);
+    TH1D* TTX = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 4, 9, channelName +"_TTX_"+branch );
+    TH1D* VV = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 9, 12, channelName + "_VV_"+branch );
+    TH1D*  SingleTop = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 12, 15, channelName + "_SingleTop_"+branch );
+    TH1D*  QCD = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 15, 24, channelName +"_QCD_"+branch);
 
-    TH1D*  allBg = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 24, "allBg_"+branch);
+    TH1D*  allBg = addHistChannel( channelCut, weight, branch, binNum, binMin, binMax, 1, 24, channelName +"_allBg_"+branch);
 
     groupedBGsAndSignal.push_back( TTTT );
     groupedBGsAndSignal.push_back( TT );
