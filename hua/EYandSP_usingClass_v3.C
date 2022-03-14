@@ -57,7 +57,7 @@ for ( auto const& cha : channelCutMap  ){
     // std::cout<<cha->first<<":"<<cha->second<<"\n";
     std::cout<<cha.first<<":"<<cha.second<<"\n";
 
-    if ( cha.first=="1tau1e" ) break;
+    // if ( cha.first=="1tau1e" ) break;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
@@ -65,12 +65,11 @@ for ( auto const& cha : channelCutMap  ){
   	    TString iVariable = variablelist[i];
 
 
-        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], weight, iVariable, bin[i], Min[i], Max[i] );
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
         writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
-        // drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
 
 
         // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
@@ -99,8 +98,6 @@ for ( auto const& cha : channelCutMap  ){
              delete (allHistos[j]);
         }
 
-        delete h_background;//put delete in the last
-        delete h_bg;
 
         */
     }//end of loop of all variables
@@ -212,6 +209,7 @@ void drawEventYield( const std::vector<TH1D*> &groupedBgsAndSignal, const TStrin
 
 
     c->SaveAs( EYplotDir+"EY_"+ era +"_" + channel+".png");
+    std::cout<<"plots here: "<<EYplotDir+"EY_"+ era +"_" + channel+".png"<<"\n";
 
 }
 
