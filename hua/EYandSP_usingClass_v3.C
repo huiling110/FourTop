@@ -69,7 +69,7 @@ for ( auto const& cha : channelCutMap  ){
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
         writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, channelName[cha], lumi, era );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumi, era );
 
 
         // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
