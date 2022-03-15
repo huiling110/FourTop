@@ -76,7 +76,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2
-        const Int_t channel = 1,
+      //   const Int_t channel = 1,
+      const TString channel = "1tau1l";
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
@@ -112,34 +113,35 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     }
     cout<<"csvListName: "<< csvListName<<"\n";
 
-    TCut cutForSandB;
-    // switch( channel){
-    if (channel == 1){
-            cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
-            // outDir = outDir + "1tau1l/";
-            outfile = "1tau1l_" + csvListName;
-    }
-    if (channel == 2){
-            cout<<"channel 2"<<"\n";
-            cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-            outfile = "1tau2os_" + csvListName;
-    }
-    if ( channel==3 ){
-        cout<<"channel 3: 2tau1l"<<"\n";
-        cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
-        outfile = "2tau1l_" + csvListName;
-    }
-    if ( channel==4 ){
-        cout<<"channel 4"<<"\n";
-            cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-        outfile = "1tau2l_" + csvListName;
-    }
-    if ( channel==5 ){
-        cout<<"channel 5: 2tauXl\n";
-        cutForSandB = ES2tauXl;
-        outfile = "2tauXl_" + csvListName;
+    TCut cutForSandB = channelCutMap[channel];
+    outfile = channel + csvListName;
+
+   //  if (channel == 1){
+   //          cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
+   //          // outDir = outDir + "1tau1l/";
+   //          outfile = "1tau1l_" + csvListName;
+   //  }
+   //  if (channel == 2){
+   //          cout<<"channel 2"<<"\n";
+   //          cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
+   //          outfile = "1tau2os_" + csvListName;
+   //  }
+   //  if ( channel==3 ){
+   //      cout<<"channel 3: 2tau1l"<<"\n";
+   //      cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
+   //      outfile = "2tau1l_" + csvListName;
+   //  }
+   //  if ( channel==4 ){
+   //      cout<<"channel 4"<<"\n";
+   //          cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
+   //      outfile = "1tau2l_" + csvListName;
+   //  }
+   //  if ( channel==5 ){
+   //      cout<<"channel 5: 2tauXl\n";
+   //      cutForSandB = ES2tauXl;
+   //      outfile = "2tauXl_" + csvListName;
             
-    }
+   //  }
     cout<<channel<<": "<<cutForSandB<<endl;
 
    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
