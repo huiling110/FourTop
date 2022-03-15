@@ -93,8 +93,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t istest = false;
-   // Bool_t istest = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
@@ -380,9 +380,13 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    // global event weights per tree (see below for setting event-wise weights)
    // You can add an arbitrary number of signal or background trees
-    // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getSigma()/TTTT.getGenWeightSum() );
     dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
+    //???can we add multiple signal trees?
     for ( UInt_t p=1; p<allProcesses.size(); p++){
+       if ( allProcesses[p].getEventTree()->GetEntries()==0 ){
+          std::cout<<allProcesses[p].getProcessName()<<"\n";
+          continue;
+       }
         dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
     }
 
