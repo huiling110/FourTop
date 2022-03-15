@@ -77,7 +77,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2
       //   const Int_t channel = 1,
-      const TString channel = "1tau1l";
+      const TString channel = "1tau1l",
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
@@ -115,39 +115,12 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
     TCut cutForSandB = channelCutMap[channel];
     outfile = channel + csvListName;
-
-   //  if (channel == 1){
-   //          cutForSandB =  "tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400";//1tau1l
-   //          // outDir = outDir + "1tau1l/";
-   //          outfile = "1tau1l_" + csvListName;
-   //  }
-   //  if (channel == 2){
-   //          cout<<"channel 2"<<"\n";
-   //          cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";//ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-   //          outfile = "1tau2os_" + csvListName;
-   //  }
-   //  if ( channel==3 ){
-   //      cout<<"channel 3: 2tau1l"<<"\n";
-   //      cutForSandB = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ; 
-   //      outfile = "2tau1l_" + csvListName;
-   //  }
-   //  if ( channel==4 ){
-   //      cout<<"channel 4"<<"\n";
-   //          cutForSandB = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400";
-   //      outfile = "1tau2l_" + csvListName;
-   //  }
-   //  if ( channel==5 ){
-   //      cout<<"channel 5: 2tauXl\n";
-   //      cutForSandB = ES2tauXl;
-   //      outfile = "2tauXl_" + csvListName;
-            
-   //  }
-    cout<<channel<<": "<<cutForSandB<<endl;
+   std::cout<<channel<<": "<<cutForSandB<<endl;
 
    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
-   cout<<"allSignalEvents: "<< allSignal<<"\n";
+   std::cout<<"allSignalEvents: "<< allSignal<<"\n";
    Double_t allBg = getAllBgEntries( cutForSandB, weight );
-   cout<<"allBgEvents: "<<allBg<<"\n";
+   std::cout<<"allBgEvents: "<<allBg<<"\n";
 
 
 
@@ -356,6 +329,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
             //not sure what is wrong with this branch. //Variable muonsT_number is constant.
             //because after the cut the branch is 0
+            if ( branchName.Contains( "jets_HTDividedByMet") || branchName.Contains( "jets_MHTDividedByMet") ) continue;
+            if ( branchName.Contains( "toptagger" )) continue;
+            if ( branchName.Contains( "Met")) continue;
+            if ( branchName.Contains( "weight") ) continue;
             cout<<branchName<<endl;
             branchNames.push_back( branchName );
             if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
