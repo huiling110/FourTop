@@ -71,12 +71,11 @@
 #include "../EYandSP_usingClass_v3.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-        TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/test/",
-        // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/",
+      //   TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/test/",
+      TString outputDir = "output/",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
-        // const Int_t channel = 2
-      //   const Int_t channel = 1,
+        // const Int_t channel = 2      //   const Int_t channel = 1,
       const TString channel = "1tau1l",
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
@@ -94,13 +93,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+   // Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
-
-
 
    // Apply additional cuts on the signal and background samples (can be different)
     TString csvListName;
@@ -238,7 +235,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
    TString outfileName;
    if ( istest ){
-       outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/";
+      //  outDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/test/";
+      outDir = "output/";
        outfile = "TMVA_test";
        outfileName = outDir + outfile + ".root";
    }else{
@@ -279,15 +277,13 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // }
    
 
-   //???not sure of weightdir?can not run if I added it
 
    // Define the input variables that shall be used for the MVA training
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );//’F’ indicates any floating point type, i.e., float and double
         //
- 
-    //variableListCsv
+     //variableListCsv
     if ( !forVariables ){
         ifstream fin( variableListCsv);
         string line ;
@@ -342,9 +338,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 
     // dataloader->AddVariable( "jets_bScore", 'F' );
-    // dataloader->AddVariable( "jets_4largestBscoreSum", 'F' );
-    // dataloader->AddVariable( "bjetsM_num", 'F' );
-    // dataloader->AddVariable( "toptagger_transMass", 'F' );
 
 
 
@@ -359,15 +352,23 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    // global event weights per tree (see below for setting event-wise weights)
    // You can add an arbitrary number of signal or background trees
-    dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
+    // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
+    dataloader->AddSignalTree      ( TTTT.getEventTree() , gLUMI_2016preVFP* TTTT.getScale() );
     //???can we add multiple signal trees?
     for ( UInt_t p=1; p<allProcesses.size(); p++){
        if ( allProcesses[p].getEventTree()->GetEntries()==0 ){
-          std::cout<<allProcesses[p].getProcessName()<<"\n";
+          std::cout<<"empty process: "<<allProcesses[p].getProcessName()<<"\n";
           continue;
        }
-        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), LUMI*allProcesses[p].getSigma()/allProcesses[p].getGenWeightSum() );
+        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), gLUMI_2016preVFP*allProcesses[p].getScale() );
     }
+	for ( UInt_t p=0; p<allProcesses_2016post.size(); p++){
+		if ( p==0 ){
+			dataloader->AddSignalTree( allProcesses_2016post[p].getEventTree(), gLUMI_2016postVFP*allProcesses_2016post[p].getScale() );
+		}else{
+			dataloader->AddBackgroundTree  ( allProcesses_2016post[p].getEventTree(), gLUMI_2016postVFP*allProcesses_2016post[p].getScale() );
+		}
+	}
 
    // To give different trees for training and testing, do as follows:
    //
@@ -412,8 +413,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // Set individual event weights (the variables must exist in the original TTree)
   // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
    // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight");
-   dataloader->SetBackgroundWeightExpression( "EVENT_genWeight*EVENT_prefireWeight*PUWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight" );
+   // dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight");
+   // dataloader->SetBackgroundWeightExpression( "EVENT_genWeight*EVENT_prefireWeight*PUWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight" );
+   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight");
+   dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight");
 
 
    // Tell the dataloader how to use the training and testing events
