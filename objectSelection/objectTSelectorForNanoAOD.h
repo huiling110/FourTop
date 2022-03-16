@@ -176,12 +176,18 @@ public :
     Int_t HLT_IsoMu27_ ;
     //2018 MC and data B, C, D
     Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    Int_t HLT_PFHT400_SixPFJet32_;
     Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    Int_t HLT_PFHT450_SixPFJet36_;
     //2018 data A
     Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
     Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
     Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    //2018 all
+    Int_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
+    Int_t HLT_PFHT1050_;
+    Int_t HLT_PFJet500_;
     
     std::vector<TLorentzVector> muonsL; std::vector<Int_t> muonsL_index;
     std::vector<TLorentzVector> muonsF; std::vector<Int_t> muonsF_index;
@@ -1215,12 +1221,18 @@ public :
    //TRIGGERS FOR 2018 MC and data B, C, D  
    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36 = {fReader, "Flag_goodVertices"};
    //TRIGGERS FOR 2018 data A
    TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};
    //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
-//    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
+   //2018 all
+   TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT1050 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFJet500 = {fReader, "Flag_goodVertices"};
+   //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFHT750_TrimMass50 = {fReader, "HLT_AK8PFHT750_TrimMass50"};
