@@ -46,7 +46,7 @@ def main():
     writeListListToFile( vListList, vListDir)
 
     #plot variable list
-    SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
+    SPDic = plotVariablesAndSP.plotVariablesAndSP(TMVAlog )
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
 def generateAllVariablesLog( outputDir , channelName, channel ):
