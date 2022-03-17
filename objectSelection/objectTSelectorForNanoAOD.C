@@ -46,7 +46,8 @@ void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
    TString option = GetOption();
 }
 
-void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
+// void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
+void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
 {
    // The SlaveBegin() function is called after the Begin() function.
    // When running with PROOF SlaveBegin() is called on each slave server.
@@ -56,6 +57,13 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
    std::cout<<"option in TSelector : "<<option<<"\n";
    getOptionFromRunMacro( option );
 
+
+    TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
+    fChain->Project( "runHist", "run" );
+    std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
+    std::cout<<"Min in run: "<<runHist->GetMinimum()<<"\n";
+    std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
+    delete runHist;
     intializaTreeBranches( isdata, dataSet );
    
     TString jsonInFile = GoldenJSONs[era];
