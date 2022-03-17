@@ -61,9 +61,13 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
     TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
     fChain->Project( "runHist", "run" );
     std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
-    std::cout<<"Min in run: "<<runHist->GetMinimum()<<"\n";
-    std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
+    // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
+    // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
+    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
+    runRange[0]= runHist->GetXaxis()->GetXmin();
+    runRange[1]= runHist->GetXaxis()->GetXmax();
     delete runHist;
+    std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
     intializaTreeBranches( isdata, dataSet );
    
     TString jsonInFile = GoldenJSONs[era];

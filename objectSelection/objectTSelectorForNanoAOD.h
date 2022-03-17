@@ -59,6 +59,7 @@ public :
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    TString dataSet;
+   Double_t runRange[2];
 
 //???year handdling
    TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
