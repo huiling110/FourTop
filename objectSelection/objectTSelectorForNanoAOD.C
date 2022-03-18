@@ -48,6 +48,7 @@ void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
 
 // void objectTSelectorForNanoAOD::SlaveBegin(TTree * /*tree*/)
 void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
+// void objectTSelectorForNanoAOD::SlaveBegin(TTree * fReader)
 {
    // The SlaveBegin() function is called after the Begin() function.
    // When running with PROOF SlaveBegin() is called on each slave server.
@@ -58,16 +59,35 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
    getOptionFromRunMacro( option );
 
 
-    TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
-    fChain->Project( "runHist", "run" );
-    std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
-    // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
-    // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
-    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
-    runRange[0]= runHist->GetXaxis()->GetXmin();
-    runRange[1]= runHist->GetXaxis()->GetXmax();
-    delete runHist;
-    std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
+
+    // getRunRange( TTree* fChain );
+    UInt_t runMin = 400000;
+    /*
+    Int_t count = 0;
+    while (fReader.Next()) {
+        std::cout<<"inside fReader loop"<<"\n";
+        if ( *run<runMin ){
+            runMin = *run;
+        }
+        if (count<10){
+            std::cout<<*run<<"\n";
+        }
+        count++;
+    }
+    */
+    fChain->SetBranchStatus("*", false);
+    fChain->SetBranchStatus("run", true);
+    UInt_t runInBegin;
+    fChain->SetBranchAddress( "run", &runInBegin );
+    for (int iEntry = 0; fChain->LoadTree(iEntry) >= 0; ++iEntry) {
+        // Load the data for the given tree entry
+        fChain->GetEntry(iEntry);
+        if( runInBegin< runMin ){
+            runMin = runInBegin;
+        }
+    }
+    std::cout<<"runMin: "<<runMin<<"\n";
+
     intializaTreeBranches( isdata, dataSet );
    
     TString jsonInFile = GoldenJSONs[era];
@@ -1205,6 +1225,27 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
    std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
 }
 
+// void objectTSelectorForNanoAOD::getRunRange(  ){
+    /*
+    TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
+    fChain->Project( "runHist", "run" );
+    std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
+    // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
+    // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
+    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
+    // runRange[0]= runHist->GetXaxis()->GetXmin();
+    // runRange[1]= runHist->GetXaxis()->GetXmax();
+    // runRange[0] =  runHist->FindFirstBinAbove();
+    //histogram can not give us the accurate run range
+    delete runHist;
+    */
+
+
+    // std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
+
+// }
+
+
 void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, const TString dataset ){
     //overriding for MC files
     TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
@@ -1244,6 +1285,10 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
              HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
 
          }
+//    }else{//data
+//         std::cout<<"running over: "<<dataSet<<"\n";
+
+//    }     
    }else if( dataSet.Contains("jetHT") ){
         std::cout<<"running over: "<<dataSet<<"\n";
         if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
@@ -1322,7 +1367,6 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          }
         
    }
-
 }
 
 
