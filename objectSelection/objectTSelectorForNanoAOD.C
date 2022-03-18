@@ -60,21 +60,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
 
 
 
-    // getRunRange( TTree* fChain );
+    // getRunRange( fChain );
     UInt_t runMin = 400000;
-    /*
-    Int_t count = 0;
-    while (fReader.Next()) {
-        std::cout<<"inside fReader loop"<<"\n";
-        if ( *run<runMin ){
-            runMin = *run;
-        }
-        if (count<10){
-            std::cout<<*run<<"\n";
-        }
-        count++;
-    }
-    */
+    UInt_t runMax = 1;
     fChain->SetBranchStatus("*", false);
     fChain->SetBranchStatus("run", true);
     UInt_t runInBegin;
@@ -85,9 +73,13 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
         if( runInBegin< runMin ){
             runMin = runInBegin;
         }
+        if ( runInBegin > runMax ){
+            runMax = runInBegin;
+        }
     }
-    std::cout<<"runMin: "<<runMin<<"\n";
-
+    runRange[0] = runMin;
+    runRange[1] = runMax;
+    std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
     intializaTreeBranches( isdata, dataSet );
    
     TString jsonInFile = GoldenJSONs[era];
@@ -1225,7 +1217,7 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
    std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
 }
 
-// void objectTSelectorForNanoAOD::getRunRange(  ){
+// void objectTSelectorForNanoAOD::getRunRange( TTree* fChain ){
     /*
     TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
     fChain->Project( "runHist", "run" );
@@ -1238,11 +1230,30 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
     // runRange[0] =  runHist->FindFirstBinAbove();
     //histogram can not give us the accurate run range
     delete runHist;
+
+    UInt_t runMin = 400000;
+    UInt_t runMax = 1;
+    fChain->SetBranchStatus("*", false);
+    fChain->SetBranchStatus("run", true);
+    UInt_t runInBegin;
+    fChain->SetBranchAddress( "run", &runInBegin );
+    for (int iEntry = 0; fChain->LoadTree(iEntry) >= 0; ++iEntry) {
+        // Load the data for the given tree entry
+        fChain->GetEntry(iEntry);
+        if( runInBegin< runMin ){
+            runMin = runInBegin;
+        }
+        if ( runInBegin > runMax ){
+            runMax = runInBegin;
+        }
+    }
+    runRange[0] = runMin;
+    runRange[1] = runMax;
+    std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
+
     */
 
-
-    // std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
-
+// 
 // }
 
 
