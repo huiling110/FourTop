@@ -67,8 +67,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
     // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
     // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
     // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
-    // runRange[0]= runHist->GetXaxis()->GetXmin();
-    // runRange[1]= runHist->GetXaxis()->GetXmax();
     runRange[0] =  272760 - 1 +runHist->FindFirstBinAbove();
     runRange[1] = 272760-1 + runHist->FindLastBinAbove();
     //histogram can not give us the accurate run range

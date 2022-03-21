@@ -27,7 +27,6 @@ for iDir in inputDir:
             shell=True,
             # capture_output=True,
             # text=True,
-                #  stdout=subprocess.PIPE,
             bufsize=1,
             # universal_newlines=True
             )
