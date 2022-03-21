@@ -183,6 +183,13 @@ public :
     Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
     Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+
+   //2018
+   // Bool_t HLT_PFHT1050_ ;
+   Int_t HLT_PFHT1050_ ;//not using bool because we need default -99 value to indicat a filling
+
+
+
     
     std::vector<TLorentzVector> muonsL; std::vector<Int_t> muonsL_index;
     std::vector<TLorentzVector> muonsF; std::vector<Int_t> muonsF_index;
@@ -275,6 +282,7 @@ public :
      void intializaTreeBranches( const Bool_t isdata, const TString dataset );
 
      void copyHLT( const Bool_t isdata, const TString dataset );
+     void copyHLT_new( const Bool_t isdata, const TString dataset );
 	 void copyFlags();
 	 void initializeBrancheValues();
     void setupInputFile( const Bool_t isdata );
@@ -1222,6 +1230,10 @@ public :
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};
    //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
+
+   TTreeReaderValue<Bool_t> HLT_PFHT1050 = {fReader, "Flag_goodVertices"};
+
+
 //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 //    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};

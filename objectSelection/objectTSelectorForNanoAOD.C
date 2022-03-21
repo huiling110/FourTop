@@ -61,6 +61,19 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
 
 
     // getRunRange( fChain );
+    TH1F* runHist = new TH1F( "runHist", "runHist",  52412, 272760,  325172 );  //324581 range from 2016run to 2018
+    fChain->Project( "runHist", "run" );
+    std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
+    // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
+    // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
+    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
+    // runRange[0]= runHist->GetXaxis()->GetXmin();
+    // runRange[1]= runHist->GetXaxis()->GetXmax();
+    runRange[0] =  272760 - 1 +runHist->FindFirstBinAbove();
+    runRange[1] = 272760-1 + runHist->FindLastBinAbove();
+    //histogram can not give us the accurate run range
+    delete runHist;
+    /*
     UInt_t runMin = 400000;
     UInt_t runMax = 1;
     // fChain->SetBranchStatus("*", false);
@@ -79,6 +92,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
     }
     runRange[0] = runMin;
     runRange[1] = runMax;
+    */
     std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
     intializaTreeBranches( isdata, dataSet );
    
@@ -180,6 +194,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     
 
     //HLT
+    /*
     if ( HLTSelection){
         if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
 
@@ -232,10 +247,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         }
         
     }
-    copyHLT( isdata, dataSet );
+    */
     eventsPassedHLT++;
-
     initializeBrancheValues();
+
+    copyHLT_new( isdata, dataSet );
+
 
     //Compute the per-event PU weight
     if ( !isdata ){
@@ -610,7 +627,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
    tree->Branch( "Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
    
-   if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) { //trigger paths for 2016
+//    if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) { //trigger paths for 2016
 
        tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
        tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
@@ -618,18 +635,19 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
        tree->Branch( "HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
        tree->Branch( "HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
 
-   }
-   if (era.CompareTo("2018")==0) { //trigger paths for 2018
+//    }
+//    if (era.CompareTo("2018")==0) { //trigger paths for 2018
 
        tree->Branch( "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
        tree->Branch( "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
        tree->Branch( "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_/I");
        tree->Branch( "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
-       tree->Branch( "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_, "&HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_/I");
-       tree->Branch( "HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
-       tree->Branch( "HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
+       tree->Branch( "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_/I");
 
-   }
+        // tree->Branch( "", &, "/O");
+        tree->Branch( "HLT_PFHT1050_", &HLT_PFHT1050_, "HLT_PFHT1050_/I");
+
+//    }
 /*}}}*/
 }
 
@@ -1001,6 +1019,14 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
        }
    }
 }
+void objectTSelectorForNanoAOD::copyHLT_new(  const Bool_t isdata, const TString dataset ){
+
+        if ( runRange[0] >= 315257 && runRange[1]<=325172  ){ //2018
+            HLT_PFHT1050_ = *HLT_PFHT1050 ;//297050	306460; 315257	325172
+        }
+
+}
+
 
 void objectTSelectorForNanoAOD::copyFlags(){
     Flag_goodVertices_ = *Flag_goodVertices;
@@ -1064,6 +1090,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     PUWeight_Up = -99;
     PUWeight_Down = -99;
     EVENT_genWeight_ = -99;
+
+    HLT_PFHT1050_ = -99;
 
 }
 
@@ -1296,10 +1324,15 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
              HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
 
          }
-//    }else{//data
-//         std::cout<<"running over: "<<dataSet<<"\n";
+   }else{//data
+        std::cout<<"running over: "<<dataSet<<"\n";
 
-//    }     
+        if ( runRange[0] >= 315257 && runRange[1]<=325172  ){ //2018
+            HLT_PFHT1050 = { fReader, "HLT_PFHT1050"};//297050	306460; 315257	325172
+        }
+
+   }
+/*     
    }else if( dataSet.Contains("jetHT") ){
         std::cout<<"running over: "<<dataSet<<"\n";
         if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
@@ -1378,6 +1411,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          }
         
    }
+   */
 }
 
 
