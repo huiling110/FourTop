@@ -63,7 +63,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
     // getRunRange( fChain );
     UInt_t runMin = 400000;
     UInt_t runMax = 1;
-    fChain->SetBranchStatus("*", false);
+    // fChain->SetBranchStatus("*", false);
     fChain->SetBranchStatus("run", true);
     UInt_t runInBegin;
     fChain->SetBranchAddress( "run", &runInBegin );
