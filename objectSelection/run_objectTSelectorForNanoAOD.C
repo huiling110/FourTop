@@ -22,8 +22,8 @@ void run_objectTSelectorForNanoAOD(
     TString singleFileName = "outTree_1.root",
    // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     // TString eventSelectionBit = "7",  
-    TString eventSelectionBit = "5",  
-    // TString eventSelectionBit = "0",  
+    // TString eventSelectionBit = "5",  
+    TString eventSelectionBit = "0",  
     // Bool_t ishuiling = false
     Bool_t ishuiling = true
     )
