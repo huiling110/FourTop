@@ -10,7 +10,8 @@ def main():
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v4_onlyMETandPreselectionNoHLT_FixedBugForData/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v5_preselectionHLTMet/mc/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v6_noHLTSelection_addedMulitjetForSingleMu/mc/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v0_testing/data/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v0_testing/data/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v1_testing/data/'
 
     allProcesses = os.listdir( logDir )
 

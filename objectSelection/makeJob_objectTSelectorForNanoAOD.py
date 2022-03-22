@@ -19,7 +19,7 @@ inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     # jobVersionName ='v8_preselectionAddingTausL'
-    jobVersionName ='v0_testing/'
+    jobVersionName ='v1_testing/'
     # onlyMC = True
     onlyMC = False
     # era = '2016'
