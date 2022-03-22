@@ -175,18 +175,16 @@ public :
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
     Int_t HLT_IsoMu24_ ;
     Int_t HLT_IsoMu27_ ;
-    //2018 MC and data B, C, D
-    Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
-    Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
-    //2018 data A
-    Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
-    Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
-    //2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
-    Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
 
    //2018
    // Bool_t HLT_PFHT1050_ ;
    Int_t HLT_PFHT1050_ ;//not using bool because we need default -99 value to indicat a filling
+   Int_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
+   Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+   Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+   Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+   Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+   Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
 
 
 
@@ -1232,6 +1230,8 @@ public :
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
 
    TTreeReaderValue<Bool_t> HLT_PFHT1050 = {fReader, "Flag_goodVertices"};
+   // TTreeReaderValue<Bool_t>  = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
 
 
 //    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
