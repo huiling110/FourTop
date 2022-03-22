@@ -1018,10 +1018,14 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
    }
 }
 void objectTSelectorForNanoAOD::copyHLT_new(  const Bool_t isdata, const TString dataset ){
+    if ( !isdata){
+
+    }else{
 
         if ( runRange[0] >= 315257 && runRange[1]<=325172  ){ //2018
             HLT_PFHT1050_ = *HLT_PFHT1050 ;//297050	306460; 315257	325172
         }
+    }
 
 }
 
@@ -1305,6 +1309,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          Tau_genPartFlav = {fReader, "Tau_genPartFlav"};
          genTtbarId = {fReader, "genTtbarId"};
          //HLT for MC
+
          if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
            
              HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
@@ -1320,6 +1325,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
              HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
              HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
              HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
+        HLT_PFHT1050 = { fReader, "HLT_PFHT1050"};//297050	306460; 315257	325172
 
          }
    }else{//data

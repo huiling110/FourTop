@@ -7,13 +7,13 @@ inputDir = [
     
     '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/',
     '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/',
-    '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/',
-    '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C/',
-    '/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016G/',
-    #
-    '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/',
-    '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018c/',
-    '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018a/',
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/',
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C/',
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016G/',
+    # #
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/',
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018c/',
+    # '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018a/',
     '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/',
 ]
 outputDir = 'output/'
