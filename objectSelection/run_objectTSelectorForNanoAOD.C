@@ -85,11 +85,11 @@ void run_objectTSelectorForNanoAOD(
 
     TStopwatch t;
     t.Start();
-    if ( istest )  {
+    // if ( istest )  {
         chain.Process( selection + "+", option, eventNum );
-    }else  { 
-        chain.Process(selection + "+", option);
-    }
+    // }else  { 
+        // chain.Process(selection + "+", option);
+    // }
     t.Stop();
     t.Print();
 }

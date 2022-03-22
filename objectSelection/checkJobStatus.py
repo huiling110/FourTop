@@ -9,7 +9,8 @@ import csv
 def main():
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v4_onlyMETandPreselectionNoHLT_FixedBugForData/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v5_preselectionHLTMet/mc/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v6_noHLTSelection_addedMulitjetForSingleMu/mc/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v6_noHLTSelection_addedMulitjetForSingleMu/mc/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v0_testing/data/'
 
     allProcesses = os.listdir( logDir )
 
@@ -40,6 +41,15 @@ def checkErrLog( errLog ):
                 findTerminate = True
     if  not findTerminate:
         print( errLog , ': job not done' )
+
+        #checking runRange
+        loglog = errLog.replace( 'err', 'log' )
+        with open( loglog ) as logfile:
+            llines = logfile.readlines()
+            for iline in llines:
+                if 'runRange' in iline:
+                    print( 'openning log file:', loglog )
+                    print( iline )
                 
 
 if __name__ == "__main__":

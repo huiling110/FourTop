@@ -18,11 +18,13 @@ rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
-    jobVersionName ='v8_preselectionAddingTausL'
-    onlyMC = True
-    # onlyMC = False
+    # jobVersionName ='v8_preselectionAddingTausL'
+    jobVersionName ='v0_testing/'
+    # onlyMC = True
+    onlyMC = False
     # era = '2016'
-    era = '2016APV'
+    # era = '2016APV'
+    era = '2018'
     eventSelection = '7'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
