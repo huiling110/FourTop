@@ -168,6 +168,8 @@ public :
    Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter_ ;
    Int_t    Flag_BadPFMuonFilter_ ;
    Int_t    Flag_eeBadScFilter_ ;
+
+   UInt_t run_;
    //HLT   
    //2016   
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;

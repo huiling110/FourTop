@@ -168,6 +168,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //!!!very important to give value to default values to variables for each event!!!
     initializeBrancheValues();
 
+    run_ = *run;
     copyHLT_new( isdata, dataSet );
 
 
@@ -529,9 +530,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
    //CHANGE HERE TO RUN ON DATA
    
-//    if ( !isdata ){
        tree->Branch( "EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D" );
-//    }
 
    tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
    tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
@@ -544,7 +543,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
    tree->Branch( "Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
    
-//    if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) { //trigger paths for 2016
+        tree->Branch( "run_", &run_, "run_/i");//i : a 32 bit unsigned integer (UInt_t)
 
        tree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
        tree->Branch( "HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
@@ -552,8 +551,6 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
        tree->Branch( "HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
        tree->Branch( "HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
 
-//    }
-//    if (era.CompareTo("2018")==0) { //trigger paths for 2018
         //2018////////////
         // tree->Branch( "", &, "/I");
         tree->Branch( "HLT_PFHT1050_", &HLT_PFHT1050_, "HLT_PFHT1050_/I");
@@ -564,8 +561,6 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
         tree->Branch( "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
         tree->Branch( "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
 
-//    }
-/*}}}*/
 }
 
 void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &SelectedMuons,   std::vector<Int_t> &SelectedMuonsIndex,const Int_t type) { 
@@ -929,6 +924,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     PUWeight_Up = -99;
     PUWeight_Down = -99;
     EVENT_genWeight_ = -99;
+
+
+    run_ = 0;
 
     //2018
     HLT_PFHT1050_ = -99;
