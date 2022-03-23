@@ -279,7 +279,6 @@ public :
      void getRunRange( TTree* fChain );
      void intializaTreeBranches( const Bool_t isdata, const TString dataset );
 
-     void copyHLT( const Bool_t isdata, const TString dataset );
      void copyHLT_new( const Bool_t isdata, const TString dataset );
 	 void copyFlags();
 	 void initializeBrancheValues();
