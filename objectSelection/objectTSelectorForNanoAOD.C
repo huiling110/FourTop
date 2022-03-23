@@ -166,6 +166,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     
 
     //HLT
+    if (HLTSelection){
+        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+            // std::cout<<"HLT selection for 2016"<<"\n";
+            if( !( *HLT_PFHT450_SixJet40_BTagCSV_p056==1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450==1  )  ) return kFALSE;
+        }
+    }
     eventsPassedHLT++;
     //!!!very important to give value to default values to variables for each event!!!
     initializeBrancheValues();
