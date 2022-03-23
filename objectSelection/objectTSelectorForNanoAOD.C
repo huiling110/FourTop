@@ -62,36 +62,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
 
 
 
-    // getRunRange( fChain );
-    TH1F* runHist = new TH1F( "runHist", "runHist",  52412, 272760,  325172 );  //324581 range from 2016run to 2018
-    fChain->Project( "runHist", "run" );
-    std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
-    // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
-    // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
-    runRange[0] =  272760 - 1 +runHist->FindFirstBinAbove();
-    runRange[1] = 272760-1 + runHist->FindLastBinAbove();
-    //histogram can not give us the accurate run range
-    delete runHist;
-    /*
-    UInt_t runMin = 400000;
-    UInt_t runMax = 1;
-    // fChain->SetBranchStatus("*", false);
-    fChain->SetBranchStatus("run", true);
-    UInt_t runInBegin;
-    fChain->SetBranchAddress( "run", &runInBegin );
-    for (int iEntry = 0; fChain->LoadTree(iEntry) >= 0; ++iEntry) {
-        // Load the data for the given tree entry
-        fChain->GetEntry(iEntry);
-        if( runInBegin< runMin ){
-            runMin = runInBegin;
-        }
-        if ( runInBegin > runMax ){
-            runMax = runInBegin;
-        }
-    }
-    runRange[0] = runMin;
-    runRange[1] = runMax;
-    */
+    getRunRange( fChain );
     std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
     intializaTreeBranches( isdata, dataSet );
    
@@ -1120,23 +1091,20 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
    std::cout<<"outputFileName: "<<outputfile->GetName()<<"\n";
 }
 
-// void objectTSelectorForNanoAOD::getRunRange( TTree* fChain ){
-    /*
-    TH1F* runHist = new TH1F( "runHist", "runHist",  100, 272760,  324590 );  //324581 range from 2016run to 2018
+void objectTSelectorForNanoAOD::getRunRange( TTree* fChain ){
+    TH1F* runHist = new TH1F( "runHist", "runHist",  52412, 272760,  325172 );  //324581 range from 2016run to 2018
     fChain->Project( "runHist", "run" );
     std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
     // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
     // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
-    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
-    // runRange[0]= runHist->GetXaxis()->GetXmin();
-    // runRange[1]= runHist->GetXaxis()->GetXmax();
-    // runRange[0] =  runHist->FindFirstBinAbove();
+    runRange[0] =  272760 - 1 +runHist->FindFirstBinAbove();
+    runRange[1] = 272760-1 + runHist->FindLastBinAbove();
     //histogram can not give us the accurate run range
     delete runHist;
-
+    /*
     UInt_t runMin = 400000;
     UInt_t runMax = 1;
-    fChain->SetBranchStatus("*", false);
+    // fChain->SetBranchStatus("*", false);
     fChain->SetBranchStatus("run", true);
     UInt_t runInBegin;
     fChain->SetBranchAddress( "run", &runInBegin );
@@ -1152,12 +1120,10 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro( const TString option ){
     }
     runRange[0] = runMin;
     runRange[1] = runMax;
-    std::cout<<"runRange: "<<runRange[0]<<":"<<runRange[1]<<"\n";
-
     */
 
 // 
-// }
+}
 
 
 void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, const TString dataset ){
