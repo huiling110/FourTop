@@ -33,10 +33,10 @@ map<string, string> BTVSF_files_fixedWP = { //MAP OF INPUT BTV SCALE FACTOR FILE
 
 map<string, string> btagEff_files = { //MAP OF INPUT B TAG EFFICIENCY FILES
 
-    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_preVFP.root"},
-    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEff_output_UL2016_postVFP.root"},
-    {"UL2017", BTVSF_dir + "efficiencies/btagEff_output_UL2017.root"},
-    {"UL2018", BTVSF_dir + "efficiencies/btagEff_output_UL2018.root"},
+    {"UL2016_preVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_preVFP.root"},
+    {"UL2016_postVFP", BTVSF_dir + "efficiencies/btagEfficiencies_UL2016_postVFP.root"},
+    {"UL2017", BTVSF_dir + "efficiencies/btagEfficiencies_UL2017.root"},
+    {"UL2018", BTVSF_dir + "efficiencies/btagEfficiencies_UL2018.root"},
 
 };
 
@@ -49,12 +49,60 @@ std::map<TString, double> DeepJetM = { //std::map of medium WPs for DeepJet
 
 };
 
+map<string, map<string, double>> non_ttbb_SF = {
+
+    {"UL2016_preVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2016_postVFP",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2017",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+
+    {"UL2018",
+     
+     {
+         {"ttbar-FH", 0.994991},
+         {"ttbar-SL", 0.995413},
+         {"ttbar-DL", 0.995811},
+     
+     }
+     
+    },
+};
+
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
          
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -71,11 +119,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},
@@ -97,7 +145,7 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
     {"UL2016_postVFP", 
      {   //signal
          
-         {"tttt", "tttt"}, //broken
+         {"tttt", "tttt"},
 
          //ttbar background    
          {"ttbar-FH", "ttbar_0l"},//broken
@@ -114,11 +162,11 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"QCD_HT2000toInf", "qcd_2000toInf"},
 
          //tt+X background   
-         {"ttW+jets", "ttW"}, //broken   
-         {"ttZ+jets", "ttZ"}, //broken   
-         {"ttG+jets", "ttG"}, //broken   
-         {"ttH_bb", "ttH_bb"}, //broken  
-         {"ttH_nonbb", "ttH_nonbb"}, //broken    
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
 
          //single-top background 
          {"st_tchan", "st_tchan"},
@@ -133,6 +181,47 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
         
      }
     }, //UL2016_postVFP
+
+    
+    {"UL2018", 
+     {   //signal
+         
+         {"tttt", "tttt"},
+
+         //ttbar background    
+         {"ttbar-FH", "ttbar_0l"},//broken
+         {"ttbar-SL", "ttbar_1l"},
+         {"ttbar-DL", "ttbar_2l"},
+
+         //QCD background    
+         {"QCD_HT200to300", "qcd_200to300"},
+         {"QCD_HT300to500", "qcd_300to500"},
+         {"QCD_HT500to700", "qcd_500to700"},
+         {"QCD_HT700to1000", "qcd_700to1000"},
+         {"QCD_HT1000to1500", "qcd_1000to1500"},
+         {"QCD_HT1500to2000", "qcd_1500to2000"},
+         {"QCD_HT2000toInf", "qcd_2000toInf"},
+
+         //tt+X background   
+         {"ttW+jets", "ttW"},   
+         {"ttZ+jets", "ttZ"},   
+         {"ttG+jets", "ttG"},   
+         {"ttH_bb", "ttH_bb"},  
+         {"ttH_nonbb", "ttH_nonbb"},    
+
+         //single-top background 
+         {"st_tchan", "st_tchan"},
+         {"st_antitchan", "st_antitchan"},
+         {"st_tW_top", "st_tW_top"},
+         {"st_tW_antitop", "st_tW_antitop"},
+         {"st_tZq", "st_tZq"},
+
+         {"data_singleMuon_eraB", "singleMu_2018b"},    
+         {"data_singleMuon_eraC", "singleMu_2018c"},    
+         {"data_singleMuon_eraD", "singleMu_2018d"},    
+        
+     }
+    }, //UL2018
 
 };
 

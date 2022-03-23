@@ -325,6 +325,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if ( !( tausL.size()>0)) return kFALSE;
 		if ( !( jets.size()>4))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
+        //if ( !( bjetsL.size()>2)) return kFALSE;
     }
 
 

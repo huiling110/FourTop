@@ -1224,6 +1224,8 @@ public :
    //TRIGGERS FOR 2018 MC and data B, C, D  
    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36 = {fReader, "Flag_goodVertices"};
    //TRIGGERS FOR 2018 data A
    TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "Flag_goodVertices"};

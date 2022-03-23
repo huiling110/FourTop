@@ -118,7 +118,9 @@ void trigEff(string year, string analyzer, string dir) {
  Float_t binsX[NBINSX+1] = {0, 100, 200, 300, 400, 500, 600, 800, 1100, 1500};
  Float_t binsY[NBINSY+1] = {2, 4, 5, 6, 7, 8, 9, 11, 13};
 
- TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" ); 
+ TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + ".root", "RECREATE" );
+ //TFile *outputfile = new TFile( "trigEff_output_" + TString(year) + "_3bjetsLinPresel.root", "RECREATE" );
+ //TFile *outputfile = new TFile( "asd.root", "RECREATE" );
  map<string, string>::iterator file_it = file[year].begin();
 
 while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
@@ -166,6 +168,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_HT_nocat_njets_mupt25 = new TH1F("h_HT_nocat_njets_mupt25", "h_HT_nocat_njets_mupt25; H_{T} [GeV];", NBINSX, binsX);
     //same line as before, but asking for jet pt requirement
     TH1F * h_HT_nocat_njets_mupt25_jetpt35 = new TH1F("h_HT_nocat_njets_mupt25_jetpt35", "h_HT_nocat_njets_mupt25_jetpt35; H_{T} [GeV];", NBINSX, binsX);
+    //same line as before, but asking for 6th jet pt > 40
+    TH1F * h_HT_nocat_njets_mupt25_6thjetpt40 = new TH1F("h_HT_nocat_njets_mupt25_6thjetpt40", "h_HT_nocat_njets_mupt25_6thjetpt40; H_{T} [GeV];", NBINSX, binsX);
     //vs Njets  
     TH1F * h_njets_nocat = new TH1F("h_njets_nocat", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
     //same as line before, but asking for HT requirement
@@ -176,6 +180,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_njets_nocat_HT_mupt25_jetpt35 = new TH1F("h_njets_nocat_HT_mupt25_jetpt35", "h_njets_nocat_HT_mupt25_jetpt35; Jet multiplicity;", 15, 0, 15);
     //2D distribution njets vs HT
     TH2F * h_njetsvsHT_nocat = new TH2F ("h_njetsvsHT_nocat", "h_njetsvsHT_nocat; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
+    //2D distribution njets vs HT with n jets and 6th jet pt > 40 cuts
+    TH2F * h_njetsvsHT_nocat_njets_6thjetpt40 = new TH2F ("h_njetsvsHT_nocat_njets_6thjetpt40", "h_njetsvsHT_nocat_njets_6thjetpt40; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
     //after signal trigger
     //vs HT
     TH1F * h_HT_nocat_aft = new TH1F("h_HT_nocat_aft", "h_HT_nocat; H_{T} [GeV];", NBINSX, binsX);
@@ -185,6 +191,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_HT_nocat_njets_mupt25_aft = new TH1F("h_HT_nocat_njets_mupt25_aft", "h_HT_nocat_njets_mupt25_aft; H_{T} [GeV];", NBINSX, binsX);
     //same line as before, but asking for jet pt requirement
     TH1F * h_HT_nocat_njets_mupt25_jetpt35_aft = new TH1F("h_HT_nocat_njets_mupt25_jetpt35_aft", "h_HT_nocat_njets_mupt25_jetpt35_aft; H_{T} [GeV];", NBINSX, binsX);
+    //same line as before, but asking for 6th jet pt > 40
+    TH1F * h_HT_nocat_njets_mupt25_6thjetpt40_aft = new TH1F("h_HT_nocat_njets_mupt25_6thjetpt40_aft", "h_HT_nocat_njets_mupt25_6thjetpt40_aft; H_{T} [GeV];", NBINSX, binsX);
     //vs Njets
     TH1F * h_njets_nocat_aft = new TH1F("h_njets_nocat_aft", "h_njets_nocat_aft; Jet multiplicity;", 15, 0, 15);
     //same as line before, but asking for HT requirement
@@ -195,6 +203,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_njets_nocat_HT_mupt25_jetpt35_aft = new TH1F("h_njets_nocat_HT_mupt25_jetpt35_aft", "h_njets_nocat_HT_mupt25_jetpt35_aft; Jet multiplicity;", 15, 0, 15);
     //2D distribution njets vs HT
     TH2F * h_njetsvsHT_nocat_aft = new TH2F ("h_njetsvsHT_nocat_aft", "h_njetsvsHT_nocat_aft; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
+    //2D distribution njets vs HT with n jets and 6th jet pt > 40 cuts
+    TH2F * h_njetsvsHT_nocat_njets_6thjetpt40_aft = new TH2F ("h_njetsvsHT_nocat_njets_6thjetpt40_aft", "h_njetsvsHT_nocat_njets_6thjetpt40_aft; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
 
     //histograms: truth
     //before signal trigger
@@ -206,6 +216,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_HT_nocat_njets_mupt25_truth = new TH1F("h_HT_nocat_njets_mupt25_truth", "h_HT_nocat_njets_mupt25_truth; H_{T} [GeV];", NBINSX, binsX);
     //same as line before, but asking for jet pt requirement
     TH1F * h_HT_nocat_njets_mupt25_jetpt35_truth = new TH1F("h_HT_nocat_njets_mupt25_jetpt35_truth", "h_HT_nocat_njets_mupt25_jetpt35_truth; H_{T} [GeV];", NBINSX, binsX);
+    //same line as before, but asking for 6th jet pt > 40
+    TH1F * h_HT_nocat_njets_mupt25_6thjetpt40_truth = new TH1F("h_HT_nocat_njets_mupt25_6thjetpt40_truth", "h_HT_nocat_njets_mupt25_6thjetpt40_truth; H_{T} [GeV];", NBINSX, binsX);
     //vs Njets
     TH1F * h_njets_nocat_truth = new TH1F("h_njets_nocat_truth", "h_njets_nocat; Jet multiplicity;", 15, 0, 15);
     //same as line before, but asking for HT requirement
@@ -216,6 +228,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_njets_nocat_HT_mupt25_jetpt35_truth = new TH1F("h_njets_nocat_HT_mupt25_jetpt35_truth", "h_njets_nocat_HT_mupt25_jetpt35_truth; Jet multiplicity;", 15, 0, 15);
     //2D distribution njets vs HT
     TH2F * h_njetsvsHT_nocat_truth = new TH2F ("h_njetsvsHT_nocat_truth", "h_njetsvsHT_nocat_truth; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
+    //2D distribution njets vs HT with n jets and 6th jet pt > 40 cuts
+    TH2F * h_njetsvsHT_nocat_njets_6thjetpt40_truth = new TH2F ("h_njetsvsHT_nocat_njets_6thjetpt40_truth", "h_njetsvsHT_nocat_njets_6thjetpt40_truth; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
     //after signal trigger
     //vs HT
     TH1F * h_HT_nocat_truth_aft = new TH1F("h_HT_nocat_truth_aft", "h_HT_nocat; H_{T} [GeV];", NBINSX, binsX);
@@ -225,7 +239,9 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_HT_nocat_njets_mupt25_truth_aft = new TH1F("h_HT_nocat_njets_mupt25_truth_aft", "h_HT_nocat_njets_mupt25_truth_aft; H_{T} [GeV];", NBINSX, binsX);
     //same as line before, but asking for jet pt requirement
     TH1F * h_HT_nocat_njets_mupt25_jetpt35_truth_aft = new TH1F("h_HT_nocat_njets_mupt25_jetpt35_truth_aft", "h_HT_nocat_njets_mupt25_jetpt35_truth_aft; H_{T} [GeV];", NBINSX, binsX);
-    //vs Njets
+    //same line as before, but asking for 6th jet pt > 40
+    TH1F * h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft = new TH1F("h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft", "h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft; H_{T} [GeV];", NBINSX, binsX);
+//vs Njets
     TH1F * h_njets_nocat_truth_aft = new TH1F("h_njets_nocat_truth_aft", "h_njets_nocat_aft; Jet multiplicity;", 15, 0, 15);
     //same as line before, but asking for HT requirement
     TH1F * h_njets_nocat_HT_truth_aft = new TH1F("h_njets_nocat_HT_truth_aft", "h_njets_nocat_HT_truth_aft; Jet multiplicity;", 15, 0, 15);
@@ -235,6 +251,9 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     TH1F * h_njets_nocat_HT_mupt25_jetpt35_truth_aft = new TH1F("h_njets_nocat_HT_mupt25_jetpt35_truth_aft", "h_njets_nocat_HT_mupt25_jetpt35_truth_aft; Jet multiplicity;", 15, 0, 15);
     //2D distribution njets vs HT
     TH2F * h_njetsvsHT_nocat_truth_aft = new TH2F ("h_njetsvsHT_nocat_truth_aft", "h_njetsvsHT_nocat_truth_aft; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
+    //2D distribution njets vs HT with n jets and 6th jet pt > 40 cuts
+    TH2F * h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft = new TH2F ("h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft", "h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft; H_{T} [GeV]; Jet multiplicity", NBINSX, binsX, NBINSY, binsY );
+
     TH1::AddDirectory(kTRUE); 
 
     TChain mychain("tree");
@@ -306,11 +325,38 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
 
     // multijet triggers
+    //2016
     int myHLT_PFHT450_SixJet40_BTagCSV_p056 = 0;
-    mychain.SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056_", &myHLT_PFHT450_SixJet40_BTagCSV_p056);
-
     int myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = 0;
-    mychain.SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);
+    //2018
+    int myHLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = 0;
+    int myHLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = 0;
+    int myHLT_PFHT400_SixPFJet32 = 0;
+    int myHLT_PFHT450_SixPFJet36 = 0;
+    int myHLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = 0;
+    int myHLT_PFHT1050;
+    int myHLT_PFJet500;
+    //HLT_PFJet450 to recover eff in 2016 data
+    int myHLT_PFJet450 = 0;
+    
+    if (TString(year).Contains("2016")) {
+    
+        mychain.SetBranchAddress("HLT_PFHT450_SixJet40_BTagCSV_p056_", &myHLT_PFHT450_SixJet40_BTagCSV_p056);
+        mychain.SetBranchAddress("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056);    
+        mychain.SetBranchAddress("HLT_PFJet450_", &myHLT_PFJet450);
+    
+    }
+
+    else if (TString(year).Contains("2018")) {
+
+        mychain.SetBranchAddress("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &myHLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59);
+        mychain.SetBranchAddress("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &myHLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94);
+        mychain.SetBranchAddress("HLT_PFHT450_SixPFJet36_", &myHLT_PFHT450_SixPFJet36);
+        mychain.SetBranchAddress("HLT_PFHT400_SixPFJet32_", &myHLT_PFHT400_SixPFJet32);
+        mychain.SetBranchAddress("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_", &myHLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5);
+        mychain.SetBranchAddress("HLT_PFHT1050_", &myHLT_PFHT1050);
+        mychain.SetBranchAddress("HLT_PFJet500_", &myHLT_PFJet500);
+    }
 
     //reference triggers
     int myHLT_IsoMu24 = 0;
@@ -318,15 +364,11 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
     int myHLT_IsoMu27 = 0;
     mychain.SetBranchAddress("HLT_IsoMu27_", &myHLT_IsoMu27);
-
-    //HLT_PFJet450 to recover eff in data
-    int myHLT_PFJet450 = 0;
-    mychain.SetBranchAddress("HLT_PFJet450_", &myHLT_PFJet450);
-
     Long64_t nevents = mychain.GetEntries();
 
     for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-        //if (ievent > 100) break;
+
+        if (ievent > 5000000) break;
         if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
         //get i-th entry in tree
         mychain.GetEntry( ievent );
@@ -335,8 +377,12 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
         /////////////////////////////////////////////////////////////////////
         ///////////////////// DEFINE TRIGGER CUTS ///////////////////////////
         /////////////////////////////////////////////////////////////////////
-
-        bool isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
+        bool isSignalTrig;
+        if (TString(year).Contains("2016")) isSignalTrig = (myHLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || myHLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || myHLT_PFJet450 == 1);
+        //else if (TString(year).Contains("2018")) isSignalTrig = (myHLT_PFHT450_SixPFJet36 == 1 || myHLT_PFHT400_SixPFJet32 == 1 || myHLT_PFJet500 == 1);
+        else if (TString(year).Contains("2018")) isSignalTrig = (myHLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || myHLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || myHLT_PFJet500 == 1);
+        //else if (TString(year).Contains("2018")) isSignalTrig = (myHLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || myHLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1) || myHLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 == 1 || myHLT_PFHT1050 == 1;
+        
         bool isReferenceTrig = (myHLT_IsoMu24 == 1 || myHLT_IsoMu27 == 1);
 
         std::string sig = "tttt";
@@ -486,8 +532,8 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
             Float_t ttbbWeight;
             if ( file_it->first.find("ttbar") !=std::string::npos ) {
 
-                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2;
-                else ttbbWeight = 0.9992;
+                if (mygenTtbarId%100 > 50) ttbbWeight = 1.2; // if ttbb, scale up by 1.2
+                else ttbbWeight = non_ttbb_SF[year][file_it->first]; //if not, scale down by ttbar-process dependent factor
             
             }
             else ttbbWeight = 1.0;
@@ -514,6 +560,12 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
                         h_HT_nocat_njets_mupt25->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                         if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (myjetsL->at(5).Pt() > 40) {
+
+                            h_HT_nocat_njets_mupt25_6thjetpt40->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            h_njetsvsHT_nocat_njets_6thjetpt40->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            
+                        }
 
                     }
 
@@ -544,7 +596,13 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
            
                             h_HT_nocat_njets_mupt25_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                             if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            if (myjetsL->at(5).Pt() > 40) {
 
+                            h_HT_nocat_njets_mupt25_6thjetpt40_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            h_njetsvsHT_nocat_njets_6thjetpt40_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            
+                            }
+                            
                         }
 
                     }
@@ -635,7 +693,13 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
                     h_HT_nocat_njets_mupt25_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                     if(jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
-                    
+                    if (myjetsL->at(5).Pt() > 40) {
+
+                        h_HT_nocat_njets_mupt25_6thjetpt40_truth->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        h_njetsvsHT_nocat_njets_6thjetpt40_truth->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            
+                    }
+
                 }
                 
             }
@@ -667,6 +731,12 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
                         h_HT_nocat_njets_mupt25_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
                         if (jetptcut) h_HT_nocat_njets_mupt25_jetpt35_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                        if (myjetsL->at(5).Pt() > 40) {
+
+                            h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft->Fill(HT, mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft->Fill(HT, myjetsL->size(), mygenEvtWeight*myPUWeight*myprefireWeight*muonIDSF*tauIDSF*mybtagWeight*ttbbWeight);
+                            
+                        }
 
                     }
                     
@@ -720,11 +790,17 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     writeTEfficiency(h_HT_nocat_njets_mupt25_jetpt35, h_HT_nocat_njets_mupt25_jetpt35_aft, file_it, "e_HT_nocat_njets_mupt25_jetpt35_");
     if (!(file_it->first.find(data) !=std::string::npos)) writeTEfficiency(h_HT_nocat_njets_mupt25_jetpt35_truth, h_HT_nocat_njets_mupt25_jetpt35_truth_aft, file_it, "e_HT_nocat_njets_mupt25_jetpt35_truth_");
 
+    writeTEfficiency(h_HT_nocat_njets_mupt25_6thjetpt40, h_HT_nocat_njets_mupt25_6thjetpt40_aft, file_it, "e_HT_nocat_njets_mupt25_6thjetpt40_");
+    if (!(file_it->first.find(data) !=std::string::npos)) writeTEfficiency(h_HT_nocat_njets_mupt25_6thjetpt40_truth, h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft, file_it, "e_HT_nocat_njets_mupt25_6thjetpt40_truth_");
+
     writeTEfficiency(h_njets_nocat_HT_mupt25_jetpt35, h_njets_nocat_HT_mupt25_jetpt35_aft, file_it, "e_njets_nocat_HT_mupt25_jetpt35_");
     if (!(file_it->first.find(data) !=std::string::npos)) writeTEfficiency(h_njets_nocat_HT_mupt25_jetpt35_truth, h_njets_nocat_HT_mupt25_jetpt35_truth_aft, file_it, "e_njets_nocat_HT_mupt25_jetpt35_truth_");
 
     writeTEfficiency2D(h_njetsvsHT_nocat, h_njetsvsHT_nocat_aft, file_it, "e_njetsvsHT_nocat_");
     if (!(file_it->first.find(data) !=std::string::npos)) writeTEfficiency2D(h_njetsvsHT_nocat_truth, h_njetsvsHT_nocat_truth_aft, file_it, "e_njetsvsHT_nocat_truth_");
+
+    writeTEfficiency2D(h_njetsvsHT_nocat_njets_6thjetpt40, h_njetsvsHT_nocat_njets_6thjetpt40_aft, file_it, "e_njetsvsHT_nocat_njets_6thjetpt40_");
+    if (!(file_it->first.find(data) !=std::string::npos)) writeTEfficiency2D(h_njetsvsHT_nocat_njets_6thjetpt40_truth, h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft, file_it, "e_njetsvsHT_nocat_njets_6thjetpt40_truth_");
 
     if (!(file_it->first.find(data) !=std::string::npos)) {
     
@@ -754,8 +830,10 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     delete h_HT_nocat_njets_mupt25;
     delete h_njets_nocat_HT_mupt25;
     delete h_HT_nocat_njets_mupt25_jetpt35;
+    delete h_HT_nocat_njets_mupt25_6thjetpt40;
     delete h_njets_nocat_HT_mupt25_jetpt35;
     delete h_njetsvsHT_nocat;
+    delete h_njetsvsHT_nocat_njets_6thjetpt40;
     delete h_HT_nocat_aft;
     delete h_njets_nocat_aft;
     delete h_HT_nocat_njets_aft;
@@ -763,8 +841,10 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     delete h_HT_nocat_njets_mupt25_aft;
     delete h_njets_nocat_HT_mupt25_aft;
     delete h_HT_nocat_njets_mupt25_jetpt35_aft;
+    delete h_HT_nocat_njets_mupt25_6thjetpt40_aft;
     delete h_njets_nocat_HT_mupt25_jetpt35_aft;
     delete h_njetsvsHT_nocat_aft;
+    delete h_njetsvsHT_nocat_njets_6thjetpt40_aft;
     delete h_HT_nocat_truth;
     delete h_njets_nocat_truth;
     delete h_HT_nocat_njets_truth;
@@ -772,8 +852,10 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     delete h_HT_nocat_njets_mupt25_truth;
     delete h_njets_nocat_HT_mupt25_truth;
     delete h_HT_nocat_njets_mupt25_jetpt35_truth;
+    delete h_HT_nocat_njets_mupt25_6thjetpt40_truth;
     delete h_njets_nocat_HT_mupt25_jetpt35_truth;
     delete h_njetsvsHT_nocat_truth;
+    delete h_njetsvsHT_nocat_njets_6thjetpt40_truth;
     delete h_HT_nocat_truth_aft;
     delete h_njets_nocat_truth_aft;
     delete h_HT_nocat_njets_truth_aft;
@@ -781,8 +863,10 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     delete h_HT_nocat_njets_mupt25_truth_aft;
     delete h_njets_nocat_HT_mupt25_truth_aft;
     delete h_HT_nocat_njets_mupt25_jetpt35_truth_aft;
+    delete h_HT_nocat_njets_mupt25_6thjetpt40_truth_aft;
     delete h_njets_nocat_HT_mupt25_jetpt35_truth_aft;
     delete h_njetsvsHT_nocat_truth_aft;
+    delete h_njetsvsHT_nocat_njets_6thjetpt40_truth_aft;
     delete genEvtWeights;
     delete totalWeight;
     delete h_HT_signal;
