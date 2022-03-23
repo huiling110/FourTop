@@ -68,7 +68,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
     std::cout<<"tree Name: "<<fChain->GetName()<<"\n";
     // std::cout<<"Min in runHist: "<<runHist->GetMinimum()<<"\n";//GetMaximum returns the maximum along Y, not along X
     // std::cout<<"run entries:"<<runHist->GetEntries()<<"\n";
-    // runHist->GetMinimumAndMaximum( runRange[0], runRange[1]);
     runRange[0] =  272760 - 1 +runHist->FindFirstBinAbove();
     runRange[1] = 272760-1 + runHist->FindLastBinAbove();
     //histogram can not give us the accurate run range
@@ -194,60 +193,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     
 
     //HLT
-    /*
-    if ( HLTSelection){
-        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
-
-            if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 ||*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1 || *HLT_PFJet450 == 1) ) return kFALSE;
-
-        }
-        else if (era.CompareTo("2018")==0) {
-
-            if ( !isdata ) { //Trigger selection for 2018 MC
-
-                if ( !(*HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1) ) return kFALSE;
-
-            }
-            else { //Trigger selection for 2018 data
-
-                if (dataSet.Contains("2018a")) {
-
-                    if (option.Contains("_27") || option.Contains("_48") || option.Contains("_56") || option.Contains("_57") || option.Contains("_63") || option.Contains("_69")) {
-
-                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1) ) return kFALSE;
-                    
-                    }//end runs with CSV b tag instead of deepCSV btag
-                    
-                    else {
-
-                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1) ) return kFALSE;
-                    
-                    }
-                    
-                }// end 2018A
-                
-                else { //2018 B, C and D
-
-                    if ( dataSet.Contains("2018b") && option.Contains("_26") ) {
-                        
-                        if ( !(*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1) ) return kFALSE;
-
-                    }//end some runs with same triggers of 2018 A
-
-                    else {
-                        //std::cout << *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 << " " << *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 << std::endl;
-                        if ( !(*HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1) ) return kFALSE;
-
-                    }
-                    
-                }
-            
-            }
-
-        }
-        
-    }
-    */
     eventsPassedHLT++;
     //!!!very important to give value to default values to variables for each event!!!
     initializeBrancheValues();
@@ -1022,12 +967,19 @@ void objectTSelectorForNanoAOD::copyHLT(  const Bool_t isdata, const TString dat
 }
 void objectTSelectorForNanoAOD::copyHLT_new(  const Bool_t isdata, const TString dataset ){
     if ( !isdata){
+            HLT_PFHT1050_ = *HLT_PFHT1050;//297050	306460; 315257	325172
+            HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ = *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5;
+                HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
+                // HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
+                HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
+                // HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
+                HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
 
     }else{ //data
         if (  *run>=315257 && *run<=325173   ){
+            //2018
             HLT_PFHT1050_ = *HLT_PFHT1050;//297050	306460; 315257	325172
             HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ = *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5;
-            //2018
             if ( *run<315974 ){
                 HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                 HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
@@ -1342,11 +1294,19 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          }
          else if (era.CompareTo("2018")==0) {
            
-             HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
-             HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+             HLT_PFHT1050 = { fReader, "HLT_PFHT1050"};//297050	306460; 315257	325172
+             HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = { fReader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5"};
+
+            // HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = { fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};//checked
+            // HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = { fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};//checked
+            HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+
+            // HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+            HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
+
+
              HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
              HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-        HLT_PFHT1050 = { fReader, "HLT_PFHT1050"};//297050	306460; 315257	325172
 
          }
    }else{//data
@@ -1388,86 +1348,6 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
 
    
    }
-/*     
-   }else if( dataSet.Contains("jetHT") ){
-        std::cout<<"running over: "<<dataSet<<"\n";
-        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
-
-            HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-            HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-            HLT_PFJet450 = { fReader, "HLT_PFJet450"};
-
-        }
-        else if (era.CompareTo("2018")==0) {
-            
-            if (dataSet.Contains("2018a")) {
-
-                HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-                HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
-
-            }
-            else {
-
-            HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
-            HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
-            
-            }          
-         }
-        
-   }else if( dataSet.Contains("singleMu")){
-        std::cout<<"running over: "<<dataSet<<"\n";
-       if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
-
-           HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-           HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-           HLT_PFJet450 = { fReader, "HLT_PFJet450"};
-           HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-           HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-       }
-       else if (era.CompareTo("2018")==0) {
-           
-           if (dataSet.Contains("2018a")) {
-
-               if (option.Contains("_27") || option.Contains("_48") || option.Contains("_56") || option.Contains("_57") || option.Contains("_63") || option.Contains("_69")) {
-
-                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-                   HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
-
-               }// end runs with CSV instad of deepCSV
-
-               else {
-
-                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
-
-               }
-
-           }//end 2018 A
-           else {
-
-               if ( dataSet.Contains("2018b") && option.Contains("_26") ) {
-
-                   HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-                   HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
-
-               }
-
-               else {
-                   
-                   HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
-                   HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = { fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
-
-               }
-            
-           }
-           
-           HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-           HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-
-         }
-        
-   }
-   */
 }
 
 
