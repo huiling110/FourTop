@@ -163,7 +163,7 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
     Long64_t nevents = mychain.GetEntries();
 
     for ( Long64_t ievent = 0; ievent < nevents; ++ievent ) {
-        //if (ievent > 100) break;
+        if (ievent > 5000000) break;
         if ( !(ievent % 100000 ) ) cout << "ievent  =  " << ievent << endl;
         //get i-th entry in tree
         mychain.GetEntry( ievent );
