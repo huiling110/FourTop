@@ -11,7 +11,8 @@ def main():
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v5_preselectionHLTMet/mc/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v6_noHLTSelection_addedMulitjetForSingleMu/mc/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v0_testing/data/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v1_testing/data/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v1_testing/data/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v9_allSelection/mc/'
 
     allProcesses = os.listdir( logDir )
 
@@ -44,13 +45,13 @@ def checkErrLog( errLog ):
         print( errLog , ': job not done' )
 
         #checking runRange
-        loglog = errLog.replace( 'err', 'log' )
-        with open( loglog ) as logfile:
-            llines = logfile.readlines()
-            for iline in llines:
-                if 'runRange' in iline:
-                    print( 'openning log file:', loglog )
-                    print( iline )
+        # loglog = errLog.replace( 'err', 'log' )
+        # with open( loglog ) as logfile:
+        #     llines = logfile.readlines()
+        #     for iline in llines:
+        #         if 'runRange' in iline:
+        #             print( 'openning log file:', loglog )
+        #             print( iline )
                 
 
 if __name__ == "__main__":
