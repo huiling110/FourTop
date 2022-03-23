@@ -124,6 +124,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
        genWeight_allEvents = *Generator_weight;
    }
    allEvents->Fill();
+
+
+
     //good lumi selection
    if(isdata) {
        if ( _goodLumis.find(*run) == _goodLumis.end() ) return kFALSE;
@@ -138,7 +141,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
            if (!keepEvent) return kFALSE; //veto luminosity blocks not in JSON
        }
    }
-   
    eventsPassedJSON++;
    
    //MET filters
@@ -832,14 +834,28 @@ void objectTSelectorForNanoAOD::selectGenMuons( std::vector<TLorentzVector> &gen
 }
 
 void objectTSelectorForNanoAOD::copyHLT_new(  const Bool_t isdata, const TString dataset ){
+
+
+    HLT_IsoMu24_ = *HLT_IsoMu24;
+    HLT_IsoMu27_ = *HLT_IsoMu27;
+
+    if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+        HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056 ;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
+        HLT_PFJet450_ = *HLT_PFJet450;
+    }
+
+
     if ( !isdata){
-            HLT_PFHT1050_ = *HLT_PFHT1050;//297050	306460; 315257	325172
-            HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ = *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5;
+         if( era.CompareTo("2018")==0){
+                HLT_PFHT1050_ = *HLT_PFHT1050;//297050	306460; 315257	325172
+                HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ = *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5;
                 HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                 // HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
                 HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
                 // HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
                 HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
+         }
 
     }else{ //data
         if (  *run>=315257 && *run<=325173   ){
@@ -927,6 +943,14 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 
 
     run_ = 0;
+
+    HLT_PFHT450_SixJet40_BTagCSV_p056_ = -99;
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = -99;
+	HLT_PFJet450_= -99;
+    HLT_IsoMu24_ = -99;
+    HLT_IsoMu27_ = -99;
+
+
 
     //2018
     HLT_PFHT1050_ = -99;
@@ -1126,7 +1150,16 @@ void objectTSelectorForNanoAOD::getRunRange( TTree* fChain ){
 
 void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, const TString dataset ){
     //overriding for MC files
-    TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
+
+    HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
+    HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
+
+    if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+        HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+        HLT_PFJet450 = { fReader, "HLT_PFJet450"};
+    }
+
    if( !isdata ){
        std::cout<<"running over: MC"<<"\n";
         GenJet_eta = {fReader, "GenJet_eta"};
@@ -1147,16 +1180,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
          genTtbarId = {fReader, "genTtbarId"};
          //HLT for MC
 
-         if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
-           
-             HLT_PFHT450_SixJet40_BTagCSV_p056 = { fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-             HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = { fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-             HLT_PFJet450 = { fReader, "HLT_PFJet450"};
-             HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-             HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-
-         }
-         else if (era.CompareTo("2018")==0) {
+         if (era.CompareTo("2018")==0) {
            
              HLT_PFHT1050 = { fReader, "HLT_PFHT1050"};//297050	306460; 315257	325172
              HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = { fReader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5"};
@@ -1167,12 +1191,9 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
 
             // HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
             HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = { fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
-
-
-             HLT_IsoMu24 = { fReader, "HLT_IsoMu24"};
-             HLT_IsoMu27 = { fReader, "HLT_IsoMu27"};
-
          }
+
+
    }else{//data
         std::cout<<"running over: "<<dataSet<<"\n";
 

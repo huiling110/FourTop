@@ -173,8 +173,8 @@ public :
    //HLT   
    //2016   
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_ ;
-	Int_t HLT_PFJet450_;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ ;
+	 Int_t HLT_PFJet450_;
     Int_t HLT_IsoMu24_ ;
     Int_t HLT_IsoMu27_ ;
 
