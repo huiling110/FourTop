@@ -19,12 +19,12 @@ inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     # jobVersionName ='v8_preselectionAddingTausL'
-    jobVersionName ='v1_testing/'
-    # onlyMC = True
-    onlyMC = False
-    # era = '2016'
+    jobVersionName ='v9_allSelection/'
+    onlyMC = True
+    # onlyMC = False
+    era = '2016'
     # era = '2016APV'
-    era = '2018'
+    # era = '2018'
     eventSelection = '7'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
@@ -38,13 +38,18 @@ def main():
     outputDir = outputBase + eraDic[era] + '/' +jobVersionName +'/' 
     checkMakeDir( outputDir) 
     inputDirMC = inputDir + 'mc/'
+
+    jobsDir = codePath + 'jobs_seperata/'
+    if os.path.exists( jobsDir ):
+        subprocess.run('rm -fr '+ jobsDir , shell=True)
+    checkMakeDir( jobsDir)
+
     makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling )
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
             makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling )
 
-    jobsDir = codePath + 'jobs_seperata/'
     makeSubAllJobs( jobsDir )
     subprocess.run('chmod 777 '+codePath+"jobs_seperata/*sh", shell=True )
 
