@@ -114,10 +114,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     outfile = channel + csvListName;
    std::cout<<channel<<": "<<cutForSandB<<endl;
 
-//    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
-//    std::cout<<"allSignalEvents: "<< allSignal<<"\n";
-//    Double_t allBg = getAllBgEntries( cutForSandB, weight );
-//    std::cout<<"allBgEvents: "<<allBg<<"\n";
+   Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
+   std::cout<<"allSignalEvents: "<< allSignal<<"\n";
+   Double_t allBg = getAllBgEntries( cutForSandB, weight );
+   std::cout<<"allBgEvents: "<<allBg<<"\n";
 
 
 
