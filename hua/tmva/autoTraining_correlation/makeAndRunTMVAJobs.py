@@ -15,17 +15,19 @@ import generateVariableList as GV
 
 
 def main():
-    # mhannel = 1;#1 for 1tau1l
+    channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
     # channel = 4
-    channel = 5
+    # channel = 5
     #  version = 1
     version = 1
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    isApp = True
-    #  isApp = False
+    # outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/'
+    # TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
+    # isApp = True
+    isApp = False
     binNum = 11 #for App only
     channelName = GV.getNameForChannel( channel ) 
 
@@ -76,10 +78,10 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         weightDir = outputDir[:outputDir.find('AppResults')]
         weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
-        #  output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) + ')' + '\''   )
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
     else:
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ', false' ')' + '\''   )
+        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ', false' ')' + '\''   )
+        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ GV.getNameForChannel(channel) +"\""+ ', false' ')' + '\''   )
     output.close()
 
 #  def checkJob():

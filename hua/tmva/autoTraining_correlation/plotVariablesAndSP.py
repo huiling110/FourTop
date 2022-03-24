@@ -17,17 +17,19 @@ def main():
     #  TMVAlog = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/1tau2os__variables.log'
     #  TMVAlog = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/1tau1l__variables.log'
     #  TMVAlog = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/1tau2l__variables.log'
-    TMVAlog = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2tau2l__variables.log'
+    # TMVAlog = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/2tau2l__variables.log'
+    TMVAlog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_variables.log'
+    TMVAroot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_variables.root'
     SPDic = getInitListAndSP(TMVAlog )
 
-    vListList = gV.generateListList( TMVAlog )
+    vListList = gV.generateListList( TMVAlog, TMVAroot )
 
-    #  channel = 1;#1 for 1tau1l
+    channel = 1;#1 for 1tau1l
     #  channel = 2#2 for 1tau2os
-    channel = 3 # 2tau1l
+    # channel = 3 # 2tau1l
     #  channel = 4 #1tau2l
     version = 1
-    outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/'
     outputDir = gV.makeBaseDir( channel, outputDir, version )
 
     plotListListSP( vListList, outputDir, SPDic , channel )
