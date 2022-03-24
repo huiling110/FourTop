@@ -35,8 +35,9 @@ void EYandSP_usingClass_v3(){
     t.Start();
 
     Double_t lumi =  gLUMI_2016preVFP;
-    TString era = "2016preVFP";
-    TString EYplotDir = baseDir + "results/";
+    // TString era = "2016preVFP";
+    TString era = "2016post";
+    TString EYplotDir = baseDir_2016post + "results/";
 
 
     std::vector<TString> variablelist;                std::vector<Int_t> bin;      std::vector<Double_t> Min;      std::vector<Double_t> Max;     std::vector<TString> axis;
@@ -57,7 +58,7 @@ for ( auto const& cha : channelCutMap  ){
     // std::cout<<cha->first<<":"<<cha->second<<"\n";
     std::cout<<cha.first<<":"<<cha.second<<"\n";
 
-    // if ( cha.first=="1tau1e" ) break;
+    if ( cha.first=="1tau1e" ) break;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
@@ -166,6 +167,7 @@ void addTextToPT( Int_t type, TPaveText* &pt, const TH1D* bgs, const Double_t lu
 
     TString entries;
     TString bgsName = bgs->GetName();
+    bgsName.Remove( 0, bgsName.First("_")+1 );
     TString processName = bgsName.Remove( bgsName.First("_"), bgsName.Sizeof() );
     entries.Form( processName + "  = %f", EY );
     TText *t1 = pt->AddText( entries );
