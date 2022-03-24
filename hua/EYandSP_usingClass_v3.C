@@ -58,7 +58,7 @@ for ( auto const& cha : channelCutMap  ){
     // std::cout<<cha->first<<":"<<cha->second<<"\n";
     std::cout<<cha.first<<":"<<cha.second<<"\n";
 
-    if ( cha.first=="1tau1e" ) break;
+    // if ( cha.first=="1tau1e" ) break;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
