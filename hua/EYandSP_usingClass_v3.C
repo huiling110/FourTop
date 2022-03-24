@@ -34,22 +34,18 @@ void EYandSP_usingClass_v3(){
     TStopwatch t;
     t.Start();
 
-    Double_t lumi =  gLUMI_2016preVFP;
     // TString era = "2016preVFP";
-    TString era = "2016post";
+    TString era = "2016postVFP";
     TString EYplotDir = baseDir_2016post + "results/";
+    // TString EYplotDir = baseDir_2016pre + "results_tighter/";
+    // TString EYplotDir = baseDir_2016pre + "results/";
 
 
     std::vector<TString> variablelist;                std::vector<Int_t> bin;      std::vector<Double_t> Min;      std::vector<Double_t> Max;     std::vector<TString> axis;
     variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
- 
-    // std::vector<string> channelName = { "1Tau0L", "1Tau1E", "1Tau1Mu", "1Tau1L", "1Tau2OS", "1Tau2SS", "1Tau3L","2Tau0L", "2Tau1E", "2Tau1Mu", "2Tau2OS", "2Tau2SS" , "1Tau2L", "2Tau1L", "2Tau2L"  };
-    // std::vector<TCut>   channelCut   = { ES1tau0l, ES1tau1e,  ES1tau1m, ES1tau1l, ES1tau2os, ES1tau2ss, ES1tau3l, ES2tau0l, ES2tau1e, ES2tau1m, ES2tau2os, ES2tau2ss , ES1tau2l, ES2tau1l, ES2tau2l};
-
 
     std::vector<TH1D*>  groupedBgsAndSignal;
 
-    //testing
 
 
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
@@ -70,7 +66,8 @@ for ( auto const& cha : channelCutMap  ){
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
         writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumi, era );
+        // drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumi, era );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era], era );
 
 
         // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){

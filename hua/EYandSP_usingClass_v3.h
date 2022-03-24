@@ -27,6 +27,7 @@
 
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
 const TString baseDir_2016post = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
+const TString baseDir_2016pre = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v1_fromV8/";
 
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
@@ -64,6 +65,9 @@ const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>
 const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 */
 
+
+
+// /*
 const TCut preselectionForAll = "jets_HT>500  && jets_6pt>40 ";
 
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 " && preselectionForAll ;
@@ -83,7 +87,7 @@ const TCut ES1tau2l = ES1tau2os || ES1tau2ss ;
 const TCut ES2tau1l = ES2tau1e || ES2tau1m ;
 const TCut ES2tau2l = ES2tau2os || ES2tau2ss ;
 const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
-
+// */
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
 const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
@@ -95,6 +99,7 @@ std::map<TString, TCut> channelCutMap = {
     {"1tau2os", ES1tau2os},
     {"1tau2ss", ES1tau2ss},
     {"1tau2l", ES1tau2l},
+    {"1tau3l", ES1tau3l},
     {"2tau0l", ES2tau0l},
     {"2tau1e", ES2tau1e},
     {"2tau1m", ES2tau1m},
