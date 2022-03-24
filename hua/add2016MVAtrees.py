@@ -14,15 +14,21 @@ if not os.path.exists( merged_dir ):
 
 
 
-ifile = pre_dir  + 'tttt.root'
-ifile_post = post_dir + 'tttt.root'
-ifile_merged = merged_dir + 'tttt.root'
 
-icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-print( icommand )
-process = subprocess.run( icommand, shell=True )
-output = process.stdout
-print( output )
+for i in os.listdir( pre_dir ):
+
+    if os.path.isdir( pre_dir + i ):
+        continue
+
+    ifile = pre_dir  + i
+    ifile_post = post_dir + i 
+    ifile_merged = merged_dir + i
+
+    icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+    print( icommand )
+    process = subprocess.run( icommand, shell=True )
+    output = process.stdout
+    print( output )
 
 
  
