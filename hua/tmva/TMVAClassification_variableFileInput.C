@@ -80,8 +80,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
-        Bool_t forVariables = true
-        // Bool_t forVariables = false
+        // Bool_t forVariables = true
+        Bool_t forVariables = false
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -114,10 +114,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     outfile = channel + csvListName;
    std::cout<<channel<<": "<<cutForSandB<<endl;
 
-   Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
-   std::cout<<"allSignalEvents: "<< allSignal<<"\n";
-   Double_t allBg = getAllBgEntries( cutForSandB, weight );
-   std::cout<<"allBgEvents: "<<allBg<<"\n";
+//    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
+//    std::cout<<"allSignalEvents: "<< allSignal<<"\n";
+//    Double_t allBg = getAllBgEntries( cutForSandB, weight );
+//    std::cout<<"allBgEvents: "<<allBg<<"\n";
 
 
 
@@ -353,22 +353,14 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // global event weights per tree (see below for setting event-wise weights)
    // You can add an arbitrary number of signal or background trees
     // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
-    dataloader->AddSignalTree      ( TTTT.getEventTree() , gLUMI_2016preVFP* TTTT.getScale() );
-    //???can we add multiple signal trees?
+    dataloader->AddSignalTree      ( TTTT.getEventTree() , lumiMap[era_g]* TTTT.getScale() );
     for ( UInt_t p=1; p<allProcesses.size(); p++){
        if ( allProcesses[p].getEventTree()->GetEntries()==0 ){
           std::cout<<"empty process: "<<allProcesses[p].getProcessName()<<"\n";
           continue;
        }
-        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), gLUMI_2016preVFP*allProcesses[p].getScale() );
+        dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale() );
     }
-	for ( UInt_t p=0; p<allProcesses_2016post.size(); p++){
-		if ( p==0 ){
-			dataloader->AddSignalTree( allProcesses_2016post[p].getEventTree(), gLUMI_2016postVFP*allProcesses_2016post[p].getScale() );
-		}else{
-			dataloader->AddBackgroundTree  ( allProcesses_2016post[p].getEventTree(), gLUMI_2016postVFP*allProcesses_2016post[p].getScale() );
-		}
-	}
 
    // To give different trees for training and testing, do as follows:
    //

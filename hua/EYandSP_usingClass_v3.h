@@ -25,18 +25,17 @@
     //   gROOT->ProcessLine(".L Process_Class.C++");
 // }
 
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
+const TString baseDir          = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v1_fromV8/";
 const TString baseDir_2016post = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
-const TString baseDir_2016pre = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v1_fromV8/";
+const era_g = "2016";
 
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
 const Double_t LUMI = 35900; //pb-1
-const Double_t gLUMI_2016preVFP = 19520;//19.52 fb
-const Double_t gLUMI_2016postVFP = 16810;
 //?where to get the more precise LUMI?
 std::map<TString, Double_t> lumiMap = {
     {"2016preVFP", 19520},
     {"2016postVFP", 16810},
+    {"2016", 36330},
 };
 
 
@@ -217,9 +216,48 @@ std::vector<Process> allProcesses_2016post = {
     tZq_ll_2016post,  ST_tW_antitop_2016post, ST_tW_top_2016post,//14
     QCD_HT50to100_2016post, QCD_HT100to200_2016post, QCD_HT200to300_2016post, QCD_HT300to500_2016post, QCD_HT500to700_2016post, QCD_HT700to1000_2016post, QCD_HT1000to1500_2016post, QCD_HT1500to2000_2016post, QCD_HT2000toInf_2016post,//23
 };
+/*
+Process TTTT_2016pre{ baseDir_2016pre+"tttt.root", crossSectionMap["tttt"]};
+Process TTTo2L2Nu_2016pre{ baseDir_2016pre+"ttbar_2l.root", crossSectionMap["ttbar_2l"]};
+Process TTToHadronic_2016pre{ baseDir_2016pre+"ttbar_0l.root", crossSectionMap["ttbar_0l"]};
+Process TTToSemiLeptonic_2016pre{ baseDir_2016pre+"ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTGJets_2016pre{ baseDir_2016pre+"ttG.root", 4.62 };//3.773
+Process ttZJets_2016pre{ baseDir_2016pre+"ttZ.root",  0.783};//0.6559
+Process ttWJets_2016pre{ baseDir_2016pre+"ttW.root", 0.611 };//0.2014 changed to 611
+Process ttH_bb_2016pre{ baseDir_2016pre + "ttH_bb.root", 0.2897}; // 0.2897
+Process ttH_nonbb_2016pre{ baseDir_2016pre + "ttH_nonbb.root", 0.209}; // 0.209
+// VV
+Process WZ_2016pre{ baseDir_2016pre+"wz.root", 2.343 };
+Process WW_2016pre{ baseDir_2016pre+"ww.root", 6.430 };
+Process ZZ_2016pre{ baseDir_2016pre+"zz.root", 1.016 };//ZZ
+//Single Top
+Process tZq_ll_2016pre{ baseDir_2016pre+"st_tZq.root", 0.07358 };
+// Process tZq_nunu_2016pre{ baseDir_2016pre+".root", 0.1379 };//???
+Process ST_tW_antitop_2016pre{ baseDir_2016pre+"st_tW_antitop.root", 35.85 };//38.06
+Process ST_tW_top_2016pre{ baseDir_2016pre+"st_tW_top.root", 35.85 };//38.09
+
+//QCD
+Process QCD_HT50to100_2016pre{ baseDir_2016pre + "qcd_50to100.root", 2.466e+08}; // 50-100  //2.466e+08 +- 2.190e+05 pb
+Process QCD_HT100to200_2016pre{ baseDir_2016pre + "qcd_100to200.root", 2.801e+07}; // 100to200  //2.801e+07 +- 2.608e+04 pb
+Process QCD_HT200to300_2016pre{ baseDir_2016pre+"qcd_200to300.root", 1.721e+6 }; // 1.710e+06 +- 1.626e+03 pb
+Process QCD_HT300to500_2016pre{ baseDir_2016pre+"qcd_300to500.root",  3.479e+05}; // 3.473e+05 +- 3.327e+02 pb
+Process QCD_HT500to700_2016pre{ baseDir_2016pre+"qcd_500to700.root",  3.206e+04}; // 3.220e+04 +- 3.100e+01 pb
+Process QCD_HT700to1000_2016pre{ baseDir_2016pre+"qcd_700to1000.root",  6.827e+03};  // 6.839e+03 +- 6.602e+00 pb
+Process QCD_HT1000to1500_2016pre{ baseDir_2016pre+"qcd_1000to1500.root",  1.207e+03}; // 1.207e+03 +- 1.167e+00 pb
+Process QCD_HT1500to2000_2016pre{ baseDir_2016pre+"qcd_1500to2000.root",  1.20e+02}; // 1.201e+02 +- 1.160e-01 pb
+Process QCD_HT2000toInf_2016pre{ baseDir_2016pre+"qcd_2000toInf.root",  2.525e+01 }; // 2.524e+01 +- 2.436e-02 pb
+
+std::vector<Process> allProcesses_2016pre = {
+    TTTT_2016pre, //0
+    TTTo2L2Nu_2016pre, TTToHadronic_2016pre, TTToSemiLeptonic_2016pre, //3
+    TTGJets_2016pre, ttZJets_2016pre,ttWJets_2016pre, ttH_bb_2016pre, ttH_nonbb_2016pre, //8
+    WZ_2016pre, WW_2016pre, ZZ_2016pre,  //11
+    tZq_ll_2016pre,  ST_tW_antitop_2016pre, ST_tW_top_2016pre,//14
+    QCD_HT50to100_2016pre, QCD_HT100to200_2016pre, QCD_HT200to300_2016pre, QCD_HT300to500_2016pre, QCD_HT500to700_2016pre, QCD_HT700to1000_2016pre, QCD_HT1000to1500_2016pre, QCD_HT1500to2000_2016pre, QCD_HT2000toInf_2016pre,//23
+};
 
 
-
+*/
 
 
 /*
