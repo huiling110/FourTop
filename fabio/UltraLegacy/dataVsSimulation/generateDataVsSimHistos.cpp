@@ -132,13 +132,14 @@ gROOT->ProcessLine(".L Loader.C+");
  while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES ///////////////////////
    
      cout << "Reading process " << file_it->second.c_str() << "..." << endl;
-     TString filename = "Histos_" + file_it->second + "_" + TString(year) + "_newPreselNewCats.root";
-     TFile * outputfile = new TFile( filename, "RECREATE" );
+     TString filename = "Histos_" + file_it->second + "_" + TString(year) + ".root";
+     TFile * outputfile = new TFile( "rootFiles/"+filename, "RECREATE" );
     
      TH1::SetDefaultSumw2(kTRUE);
 
      TH1::AddDirectory(kFALSE);
 		//1tau0L validation region (used to validate FR method)
+        TH1F * h_jets_HT_1tau0L_CR = new TH1F("h_jets_HT_1tau0L_CR", "h_jets_HT_1tau0L_CR", 11, 400, 1500);
 		TH1F * h_jets_HT_1tau0L_VR = new TH1F("h_jets_HT_1tau0L_VR", "h_jets_HT_1tau0L_VR", 11, 400, 1500);
 		TH1F * h_jets_HT_1tau0L_SR = new TH1F("h_jets_HT_1tau0L_SR", "h_jets_HT_1tau0L_SR", 11, 400, 1500);
 
@@ -369,6 +370,7 @@ gROOT->ProcessLine(".L Loader.C+");
 
 			bool is1tau0L = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()>=2);
 			bool is1tau0L_VR = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()==1);
+            bool is1tau0L_CR = (mytausT->size()==1 && myleptonsMVAT->size()==0 && myjetsL->size()>=8 && mybjetsM->size()==0);
 			//bool is1tau1L = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myjetsL->size()>=6 && mybjetsM->size()>=2);
             bool is1tau1L = (mytausT->size()==1 && myleptonsMVAT->size() == 1 && myjetsL->size()>=7 && mybjetsM->size()>=2);
 			//bool is1tau2L = (mytausT->size()==1 && myleptonsMVAT->size()==2 && myjetsL->size()>=4 && mybjetsM->size()>=2);
@@ -480,6 +482,7 @@ gROOT->ProcessLine(".L Loader.C+");
                 //if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
 
                 if (is1tau0L_VR) h_jets_HT_1tau0L_VR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                if (is1tau0L_CR) h_jets_HT_1tau0L_CR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
 
                 if (is1tau0L) {
 
@@ -680,6 +683,7 @@ gROOT->ProcessLine(".L Loader.C+");
 		TH1::AddDirectory(kTRUE);
 
 		writeHisto(h_jets_HT_1tau0L_VR, file_it);
+        writeHisto(h_jets_HT_1tau0L_CR, file_it);
 		if (!(file_it->first.find(data) !=std::string::npos)) writeHisto(h_jets_HT_1tau0L_SR, file_it);
         writeHisto(h_taus_1pt_1tau0L, file_it);
 		writeHisto(h_jets_number_1tau0L, file_it);
