@@ -35,17 +35,17 @@ void EYandSP_usingClass_v3(){
     t.Start();
 
     // TString era = "2016preVFP";
-    TString era = "2016postVFP";
-    TString EYplotDir = baseDir_2016post + "results/";
+    // TString era = "2016postVFP";
+    TString era = "2016";
+    // TString EYplotDir = baseDir + "results/";
+    TString EYplotDir = baseDir + "results_oldCut/";
     // TString EYplotDir = baseDir_2016pre + "results_tighter/";
     // TString EYplotDir = baseDir_2016pre + "results/";
-
 
     std::vector<TString> variablelist;                std::vector<Int_t> bin;      std::vector<Double_t> Min;      std::vector<Double_t> Max;     std::vector<TString> axis;
     variablelist.push_back("jets_number");      bin.push_back(40);     Min.push_back(0);    Max.push_back(40);    axis.push_back("Number of jets");
 
     std::vector<TH1D*>  groupedBgsAndSignal;
-
 
 
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
@@ -77,27 +77,6 @@ for ( auto const& cha : channelCutMap  ){
         //     delete groupedBgsAndSignal[p];
         // }
 
-
-
-
-/*
-
-        //?for different range we have different sp, how to deal with this?
-        if ( ifSP ){
-            Double_t sp = separationPower(allHistos[0], h_background);
-            cout<<variablelist[i]<<" separation power"<<sp<<endl;
-            std::cout << '\n';
-            if(i==(variablelist.size()-1)) cout<<channelName[cha]<<endl;
-            mymap.insert(std::make_pair(sp, variablelist[i]));
-        }
-        cout<<plot<<"done"<<endl;
-
-        for(UInt_t j = 0; j < allHistos.size(); j++){
-             delete (allHistos[j]);
-        }
-
-
-        */
     }//end of loop of all variables
 
     groupedBgsAndSignal.clear();
@@ -110,6 +89,8 @@ for ( auto const& cha : channelCutMap  ){
 
 
 }//end of loop of all channels
+
+
     std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
     plotFile->Close();
     

@@ -6,26 +6,28 @@ sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/h
 import generateVariableList as GV
 
 g_allProcesses = [
-    'TTTT', #0
-    'TTTo2L2Nu', 'TTToHadronic', 'TTToSemiLeptonic', #3
-    'TTGJets', 'ttZJets', 'ttWJets', 'ttH', #7
-    'WZ', 'WW', 'ZZ', 'WGJets', 'ZGJetsToLLG', #12
-    'WWW', 'WWZ', 'WWG', 'ZZZ', 'WZZ', 'WZG', 'WGG', 'ZGGJets',#20
-    'WJetsToLNu', 'DYJetsToTauTau',#22
-    'tZq_ll', 'tZq_nunu', 'ST_tW_antitop', 'ST_tW_top',#26
-    'TGJets', 'THW', 'THQ', #29
-    'QCD_HT200to300', 'QCD_HT300to500', 'QCD_HT500to700', 'QCD_HT700to1000', 'QCD_HT1000to1500', 'QCD_HT1500to2000', 'QCD_HT2000toInf'
+    # 'TTTT', #0
+    # 'TTTo2L2Nu', 'TTToHadronic', 'TTToSemiLeptonic', #3
+    # 'TTGJets', 'ttZJets', 'ttWJets', 'ttH', #7
+    # 'WZ', 'WW', 'ZZ', 'WGJets', 'ZGJetsToLLG', #12
+    # 'WWW', 'WWZ', 'WWG', 'ZZZ', 'WZZ', 'WZG', 'WGG', 'ZGGJets',#20
+    # 'WJetsToLNu', 'DYJetsToTauTau',#22
+    # 'tZq_ll', 'tZq_nunu', 'ST_tW_antitop', 'ST_tW_top',#26
+    # 'TGJets', 'THW', 'THQ', #29
+    # 'QCD_HT200to300', 'QCD_HT300to500', 'QCD_HT500to700', 'QCD_HT700to1000', 'QCD_HT1000to1500', 'QCD_HT1500to2000', 'QCD_HT2000toInf'
+    'TTTT','//0
+    'TTTo2L2Nu','TTToHadronic','TTToSemiLeptonic',
+    'TTGJets','ttZJets', 'ttWJets','ttH_bb','ttH_nonbb',
+    'WZ','WW','ZZ',
+    'tZq_ll', 'ST_tW_antitop','ST_tW_top',
+    'QCD_HT50to100','QCD_HT100to200','QCD_HT200to300','QCD_HT300to500','QCD_HT500to700','QCD_HT700to1000','QCD_HT1000to1500','QCD_HT1500to2000','QCD_HT2000toInf',
 ]
 g_allSumProcesses = [
     'TTTT', #0
     'TT',
     'TTX',
     'VV',
-    'VVV',
-    'WJets',
-    'DY',
     'SingleTop',
-    'TX',
     'QCD',
 ]
 
@@ -34,8 +36,10 @@ def main():
     #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins_ReSumWithW2/'
+    TMVAppDir = ''
+
     # channel = 4 #1tau2l
     # channel = 5
     channel = 1
@@ -59,25 +63,38 @@ def getNonEmptyList( allList, emptyList ):
             nonEmptyList.append(en)
     return nonEmptyList
 
+# def checkEmptyProcessForSum( emptyList ):
+#     emptyListSum=[]
+#     if  'TTTo2L2Nu' in emptyList and 'TTToHadronic' in emptyList and  'TTToSemiLeptonic' in emptyList:
+#         emptyListSum.append( 'TT' )
+#     if 'TTGJets' in emptyList and 'ttZJets' in emptyList and 'ttWJets' in emptyList and 'ttH' in emptyList:
+#         emptyListSum.append( 'TTX')
+#     if 'WZ' in emptyList and 'WW' in emptyList and 'ZZ' in emptyList and 'WGJets' in emptyList and 'ZGJetsToLLG' in emptyList:
+#         emptyListSum.append( 'VV' )
+#     if 'WWW' in emptyList and 'WWZ' in emptyList and 'WWG' in emptyList and 'ZZZ' in emptyList and 'WZZ' in emptyList and 'WZG' in emptyList and 'WGG' in emptyList and 'ZGGJets' in emptyList:
+#         emptyListSum.append( 'VVV' )
+#     if 'WJetsToLNu' in emptyList: 
+#         emptyListSum.append( 'WJets' )
+#     if 'DYJetsToTauTau' in emptyList:
+#         emptyListSum.append( 'DY' )
+#     if 'tZq_ll' in emptyList and 'tZq_nunu' in emptyList and 'ST_tW_antitop' in emptyList and 'ST_tW_top' in emptyList:
+#         emptyListSum.append( 'SingleTop' )
+#     if 'TGJets' in emptyList and 'THW' in emptyList and 'THQ' in emptyList:
+#         emptyListSum.append( 'TX' )
+#     if 'QCD_HT200to300' in emptyList and 'QCD_HT300to500' in emptyList and 'QCD_HT500to700' in emptyList and 'QCD_HT700to1000' in emptyList and 'QCD_HT1000to1500' in emptyList and 'QCD_HT1500to2000' in emptyList and 'QCD_HT2000toInf' in emptyList:
+#         emptyListSum.append( 'QCD' )
+#     print( 'summedEmptyList: ', emptyListSum)
+#     return emptyListSum
+
 def checkEmptyProcessForSum( emptyList ):
     emptyListSum=[]
     if  'TTTo2L2Nu' in emptyList and 'TTToHadronic' in emptyList and  'TTToSemiLeptonic' in emptyList:
         emptyListSum.append( 'TT' )
-    if 'TTGJets' in emptyList and 'ttZJets' in emptyList and 'ttWJets' in emptyList and 'ttH' in emptyList:
-        emptyListSum.append( 'TTX')
-    if 'WZ' in emptyList and 'WW' in emptyList and 'ZZ' in emptyList and 'WGJets' in emptyList and 'ZGJetsToLLG' in emptyList:
+    if 'WZ' in emptyList and 'WW' in emptyList and 'ZZ' in emptyList in emptyList:
         emptyListSum.append( 'VV' )
-    if 'WWW' in emptyList and 'WWZ' in emptyList and 'WWG' in emptyList and 'ZZZ' in emptyList and 'WZZ' in emptyList and 'WZG' in emptyList and 'WGG' in emptyList and 'ZGGJets' in emptyList:
-        emptyListSum.append( 'VVV' )
-    if 'WJetsToLNu' in emptyList: 
-        emptyListSum.append( 'WJets' )
-    if 'DYJetsToTauTau' in emptyList:
-        emptyListSum.append( 'DY' )
-    if 'tZq_ll' in emptyList and 'tZq_nunu' in emptyList and 'ST_tW_antitop' in emptyList and 'ST_tW_top' in emptyList:
+    if 'tZq_ll' in emptyList in emptyList and 'ST_tW_antitop' in emptyList and 'ST_tW_top' in emptyList:
         emptyListSum.append( 'SingleTop' )
-    if 'TGJets' in emptyList and 'THW' in emptyList and 'THQ' in emptyList:
-        emptyListSum.append( 'TX' )
-    if 'QCD_HT200to300' in emptyList and 'QCD_HT300to500' in emptyList and 'QCD_HT500to700' in emptyList and 'QCD_HT700to1000' in emptyList and 'QCD_HT1000to1500' in emptyList and 'QCD_HT1500to2000' in emptyList and 'QCD_HT2000toInf' in emptyList:
+    if 'QCD_HT50To100' in emptyList and 'QCDHT100To200' in emptyList and 'QCD_HT200to300' in emptyList and 'QCD_HT300to500' in emptyList and 'QCD_HT500to700' in emptyList and 'QCD_HT700to1000' in emptyList and 'QCD_HT1000to1500' in emptyList and 'QCD_HT1500to2000' in emptyList and 'QCD_HT2000toInf' in emptyList:
         emptyListSum.append( 'QCD' )
     print( 'summedEmptyList: ', emptyListSum)
     return emptyListSum

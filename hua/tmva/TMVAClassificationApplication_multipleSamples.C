@@ -27,7 +27,6 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
-// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
 #include "../EYandSP_usingClass_v3.h"
 
 using namespace TMVA;
@@ -56,6 +55,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    // Float_t jets_bScore, jets_7pt, toptagger_HT, bjetsM_invariantMass, jets_6pt, jets_transMass, jets_rationHT_4toRest, nonbjetsM_4pt, bjetsM_minDeltaR, toptagger_3pt, toptagger_MHT;
    //???type has to be Float_t
 
+    std::cout<<"reading varibleList: "<<variableListCsv<<"\n";
     ifstream fin( variableListCsv);
     string line ;
     TString ivariable;
@@ -67,6 +67,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
     while ( getline( fin, line ) ){
         ivariable = line;
         if( line.size()>0)  {
+            std::cout<<ivariable<<"\n";
             variablesName.push_back( ivariable);
             variablesForReader.push_back( 0.0 );
             variablesOrigin.push_back( 0.0);
@@ -75,6 +76,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
     fin.close();
     UInt_t variableNum = variablesName.size();
     for ( UInt_t v = 0; v<variableNum; v++ ){
+        std::cout<<variablesName[v]<<"\n";
         reader->AddVariable( variablesName[v], &variablesForReader[v] );
 
     }
@@ -212,16 +214,17 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
 void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
-        TString outputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/outputFile/",
+        TString outputDir = "output/",
         // TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
        // TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
-        TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
-        TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/dataset/1tau1l_varibleList_11_weight/",
+      //   TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
+      TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/variableList/varibleList_10.csv",
+        TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/dataset/1tau1lvaribleList_10_weight/",
         // const Int_t channel = 3//2tau1l
         const Int_t channel = 1,//1tau1l
         // const Int_t channel = 4//1tau2l
         // const Int_t channel = 5,//2tauXl
-        const  Int_t binNum = 100
+        const  Int_t binNum = 11
 
         )
 {
@@ -242,9 +245,6 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    // ---------------------------------------------------------------
    // Use["Plugin"]          = 0;
    Use["Category"]        = 0;
-   // Use["SVM_Gauss"]       = 0;
-   // Use["SVM_Poly"]        = 0;
-   // Use["SVM_Lin"]         = 0;
 
    std::cout << std::endl;
    std::cout << "==> Start TMVAClassificationApplication" << std::endl;
@@ -271,17 +271,14 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    }
 
    // --------------------------------------------------------------------------------------------------
-
-   // UInt_t binNum = 100;
-    // UInt_t binNum = 11;
-
    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.8, 0.8 );//for combine
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0 );
     for ( UInt_t p=0; p<allProcesses.size(); p++){
     // for ( UInt_t p=0; p<1; p++){
-       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir, binNum );       
+       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir, binNum );       
+        std::cout<<__LINE__<<"\n";
        if ( p==allProcesses.size()-1 ){
-           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), LUMI*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir, binNum );
+           evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale(), data_BDT, data_BDTG, true,  channel, outputDir, variableListCsv, weightDir, binNum );
        }
     }
 
