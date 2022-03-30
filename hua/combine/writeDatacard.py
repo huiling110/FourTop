@@ -15,12 +15,12 @@ g_allProcesses = [
     # 'tZq_ll', 'tZq_nunu', 'ST_tW_antitop', 'ST_tW_top',#26
     # 'TGJets', 'THW', 'THQ', #29
     # 'QCD_HT200to300', 'QCD_HT300to500', 'QCD_HT500to700', 'QCD_HT700to1000', 'QCD_HT1000to1500', 'QCD_HT1500to2000', 'QCD_HT2000toInf'
-    'TTTT','//0
-    'TTTo2L2Nu','TTToHadronic','TTToSemiLeptonic',
-    'TTGJets','ttZJets', 'ttWJets','ttH_bb','ttH_nonbb',
-    'WZ','WW','ZZ',
-    'tZq_ll', 'ST_tW_antitop','ST_tW_top',
-    'QCD_HT50to100','QCD_HT100to200','QCD_HT200to300','QCD_HT300to500','QCD_HT500to700','QCD_HT700to1000','QCD_HT1000to1500','QCD_HT1500to2000','QCD_HT2000toInf',
+    'tttt',
+    'ttbar_2l','ttbar_0l','ttbar_0l',
+    'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',
+    'wz','ww','zz',
+    'st_tZq', 'st_tW_antitop','st_tW_top',
+    'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',
 ]
 g_allSumProcesses = [
     'TTTT', #0
@@ -32,13 +32,9 @@ g_allSumProcesses = [
 ]
 
 def main():
-    # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/'
-    #  TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults_11bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins_ReSumWithW2/'
-    TMVAppDir = ''
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/AppResults_11bins/'
 
     # channel = 4 #1tau2l
     # channel = 5

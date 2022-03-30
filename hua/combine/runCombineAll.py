@@ -8,19 +8,11 @@ import plotCombineResults as plot
 
 def main():
 
-    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/datacard/'
-    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/'
-    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/'
-    #  cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/seperateDC/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau2l_v1/AppResults_11bins/datacard/sumDC/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/datacard/sumDC/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau3l_HT/11bins/datacard/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tau0l_HT/11bins/datacard/'
-    # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/datacard/'
     # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins_ReSumWithW2/datacard/sumDC/'
     # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/combineAllchannels/addAllChannls_remove1tau3l/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/AppResults_11bins/datacard/seperateDC_10/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/AppResults_11bins/datacard//'
 
     cardToWorkspaces( cardDir )
 #
@@ -29,7 +21,7 @@ def main():
 #
     copyCombineResultsToDir( cardDir )
 
-    # plot.main( cardDir+ 'combineResults/')
+    plot.main( cardDir+ 'combineResults/')
 
 def copyCombineResultsToDir( cardDir ):
     resultsDir = cardDir+ 'combineResults/'
