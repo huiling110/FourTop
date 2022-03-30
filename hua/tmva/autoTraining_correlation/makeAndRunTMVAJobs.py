@@ -76,7 +76,8 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         #  weightDir = outputDir[:-11]
         vlistName = entry[:-4]
         weightDir = outputDir[:outputDir.find('AppResults')]
-        weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
+        # weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
+        weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
     else:
