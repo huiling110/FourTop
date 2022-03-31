@@ -14,7 +14,7 @@ g_allProcesses = [
     'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',
 ]
 g_allSumProcesses = [
-    'TTTT', #0
+    'tttt', #0
     'TT',
     'TTX',
     'VV',
@@ -80,18 +80,6 @@ def ifInEmptyList( beginIndex, endIndex , emptyList):
     
 
 
-# def checkEmptyProcessForSum( emptyList ):
-#     emptyListSum=[]
-#     if  'TTTo2L2Nu' in emptyList and 'TTToHadronic' in emptyList and  'TTToSemiLeptonic' in emptyList:
-#         emptyListSum.append( 'TT' )
-#     if 'WZ' in emptyList and 'WW' in emptyList and 'ZZ' in emptyList in emptyList:
-#         emptyListSum.append( 'VV' )
-#     if 'tZq_ll' in emptyList in emptyList and 'ST_tW_antitop' in emptyList and 'ST_tW_top' in emptyList:
-#         emptyListSum.append( 'SingleTop' )
-#     if 'QCD_HT50To100' in emptyList and 'QCDHT100To200' in emptyList and 'QCD_HT200to300' in emptyList and 'QCD_HT300to500' in emptyList and 'QCD_HT500to700' in emptyList and 'QCD_HT700to1000' in emptyList and 'QCD_HT1000to1500' in emptyList and 'QCD_HT1500to2000' in emptyList and 'QCD_HT2000toInf' in emptyList:
-#         emptyListSum.append( 'QCD' )
-#     print( 'summedEmptyList: ', emptyListSum)
-#     return emptyListSum
 
    
 def addSummedHists( TMVAppDir ):
