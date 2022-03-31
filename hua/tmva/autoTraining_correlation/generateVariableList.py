@@ -44,10 +44,10 @@ def main():
     
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channelName )
     vListList = generateListList( TMVAlog, TMVAroot )
-    writeListListToFile( vListList, vListDir)
+    # writeListListToFile( vListList, vListDir)
 
     #plot variable list
-    SPDic = plotVariablesAndSP.plotVariablesAndSP(TMVAlog )
+    SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
 def generateAllVariablesLog( outputDir , channelName, channel ):
