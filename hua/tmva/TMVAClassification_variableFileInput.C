@@ -426,11 +426,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    }else{
         dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );//60% goes to training, 1tau1l
        // if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
-       // if ( channel ==2 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=14377:nTrain_Background=4327:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2os
-       // if ( channel ==3 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=2972:nTrain_Background=2018:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//2tau1l
-       // if ( channel ==4 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=21632:nTrain_Background=5521:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//1tau2l
-                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
-                                        // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );
        //means raw entries
     // dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );
    }
