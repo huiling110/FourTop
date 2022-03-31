@@ -33,18 +33,16 @@ def main():
     # channel = 5 # 2tauXl
     version = 1
     #  version = 2 #corrected correlation removel
-    #  outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/'
-    # outputBase = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/'
 
     channelName = getNameForChannel( channel ) 
     vListDir, outputDir = checkAndMakeDir( channelName, version, outputBase )
 
-    # generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
+    generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
     
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channelName )
     vListList = generateListList( TMVAlog, TMVAroot )
-    # writeListListToFile( vListList, vListDir)
+    writeListListToFile( vListList, vListDir)
 
     #plot variable list
     SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
@@ -56,7 +54,6 @@ def generateAllVariablesLog( outputDir , channelName, channel ):
     trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true )\''.format( tmvaTraining, outputDir, channelName )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
-    #  process = subprocess.run( 'root -b -q {}'.format(tmvaTraining), shell=True, capture_output=True, text=True )
     process = subprocess.run( trainingCommand, shell=True, capture_output=True, text=True )
     output = process.stdout.strip()
     print( output )
