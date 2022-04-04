@@ -28,7 +28,7 @@ void DrawVariable(string YEAR, TString VAR, TString CAT, bool LOG, int REBIN, in
 
     while (file_it != file[YEAR].end()) {//loop over processes and get all the needed histograms
 
-        TString openname = "../Histos_" + file_it->second + "_" + TString(YEAR) + "_newPresel.root";
+        TString openname = "../rootFiles/Histos_" + file_it->second + "_" + TString(YEAR) + ".root";
         inf[i] = TFile::Open( openname );
         TString getHisto = "h_" + VAR + "_" + CAT + "_" + TString(file_it->first);
         h[i] = (TH1F*)inf[i]->Get( getHisto );
@@ -60,8 +60,8 @@ void DrawVariable(string YEAR, TString VAR, TString CAT, bool LOG, int REBIN, in
         h[i]->SetLineWidth(1);
         h[i]->SetLineColor(kBlack);
         
-        cout << "PROCESS: " << xsec_it->first << endl;
-        cout << "NUMBER OF BINS: " << h[i]->GetSize() << endl;    
+        //cout << "PROCESS: " << xsec_it->first << endl;
+        //cout << "NUMBER OF BINS: " << h[i]->GetSize() << endl;    
 
         if ( !(file_it->first.find(data) !=std::string::npos) ) {
             
@@ -74,7 +74,7 @@ void DrawVariable(string YEAR, TString VAR, TString CAT, bool LOG, int REBIN, in
       
             }
             
-            cout << "NORM FACTOR: " << norm << endl;
+            //cout << "NORM FACTOR: " << norm << endl;
             
             h[i]->Scale(lumi[YEAR]*xsec_it->second/norm);
 
@@ -183,14 +183,14 @@ void DrawVariable(string YEAR, TString VAR, TString CAT, bool LOG, int REBIN, in
     
     //add 4tops to tt+X in order for it not to appear in the stack. Will then plot scaled signal in the canvas as a separate histogram
     h_ttX->Add(h_signal); 
-    /*
+    
     if (CAT == "1tau0L") {
         
-        h_QCD->Scale(7679/h_QCD->Integral(-1,-1));
+        h_QCD->Scale(FR_yield[YEAR]/h_QCD->Integral(-1,-1));
         cout << "QCD histogram has been scaled to expected yield from fake rate method" << endl;
         
     }
-    */
+    
     TFile * inputDATAfile;
     TH1F * h_QCD_DATA;
     
