@@ -54,7 +54,9 @@ gROOT->ProcessLine(".L Loader.C+");
  //////////////////////////////////////////////////
  TFile* input_TrigSF = new TFile( TString(TRGSF_files[year]), "READ" );
  TH2F * TriggerSF = (TH2F*)input_TrigSF->Get("SF_njetsVsHT_"+TString(year));
+ TH2F * TriggerSFunc = (TH2F*)input_TrigSF->Get("SF_njetsVsHTerrors_"+TString(year));
  TriggerSF->SetDirectory(nullptr);
+ TriggerSFunc->SetDirectory(nullptr);
  input_TrigSF->Close();
  delete input_TrigSF;
  //////////////////////////////////////////////////
@@ -455,6 +457,7 @@ gROOT->ProcessLine(".L Loader.C+");
                     Int_t binx = TriggerSF->GetXaxis()->FindBin(HT);
                     Int_t biny = TriggerSF->GetYaxis()->FindBin(myjetsL->size());
                     if (myjetsL->size() > 11 ) triggerSF = 1.0;
+                    else if ( TriggerSFunc->GetBinContent(binx, biny)/TriggerSF->GetBinContent(binx, biny) > 0.50 ) triggerSF = 1.0;
                     else triggerSF = TriggerSF->GetBinContent(binx, biny); 
                     if (triggerSF == 0) triggerSF = 1.0;
 
@@ -477,27 +480,24 @@ gROOT->ProcessLine(".L Loader.C+");
             
                 }
                 else ttbbWeight = 1.0;
-                //Get trigger scale factor
-                //double mytriggerWeight = triggerSF->GetBinContent(triggerSF->FindBin(HT, myjetsL->size()));
-                //if (mytriggerWeight == 0.0) mytriggerWeight = 1.0; //correct if HT, njets out of range
 
-                if (is1tau0L_VR) h_jets_HT_1tau0L_VR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                if (is1tau0L_CR) h_jets_HT_1tau0L_CR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                if (is1tau0L_VR) h_jets_HT_1tau0L_VR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                if (is1tau0L_CR) h_jets_HT_1tau0L_CR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
 
                 if (is1tau0L) {
 
-                    h_jets_HT_1tau0L_SR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_taus_1pt_1tau0L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_number_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_bjetsM_number_1tau0L->Fill(mybjetsM->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_bScore_1tau0L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                    h_jets_HT_1tau0L_SR->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_taus_1pt_1tau0L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_number_1tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_bjetsM_number_1tau0L->Fill(mybjetsM->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_bScore_1tau0L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
                     int countjet = 0;
                     for (int i = 0; i < myjetsL->size(); i++) {
 
                         if (myjets_btags->at(i) > DeepJetM[TString(year)]) { //deepJet M WP
 
-                            if (countjet == 0) h_bjetsM_1score_1tau0L->Fill(myjets_btags->at(i), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                            else h_bjetsM_2score_1tau0L->Fill(myjets_btags->at(i), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                            if (countjet == 0) h_bjetsM_1score_1tau0L->Fill(myjets_btags->at(i), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                            else h_bjetsM_2score_1tau0L->Fill(myjets_btags->at(i), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
                             countjet += 1;
                             if (countjet >= 2) break;
 
@@ -507,161 +507,161 @@ gROOT->ProcessLine(".L Loader.C+");
 
                     double sphericity, aplanarity;
                     SphericityAplanarityCal(myjetsL, sphericity, aplanarity);
-                    h_jets_aplanarity_1tau0L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_sphericity_1tau0L->Fill(sphericity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_ratioHT_4toRest_1tau0L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_transMass_1tau0L->Fill(MTCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_bjetsM_minDeltaR_1tau0L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                    h_jets_aplanarity_1tau0L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_sphericity_1tau0L->Fill(sphericity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_1tau0L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_transMass_1tau0L->Fill(MTCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_bjetsM_minDeltaR_1tau0L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
 
                 }
 
                 if(is1tau1L) {
 
-                    h_jets_bScore_1tau1L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_1tau1L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double jets_7pt;
                     if (myjetsL->size() >= 7) jets_7pt = myjetsL->at(6).Pt();
                     else jets_7pt = -99.0;
-                    h_jets_7pt_1tau1L->Fill(jets_7pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_toptagger_HT_1tau1L->Fill(HTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_invariantMass_1tau1L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_6pt_1tau1L->Fill(myjetsL->at(5).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_transMass_1tau1L->Fill(MTCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_ratioHT_4toRest_1tau1L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_7pt_1tau1L->Fill(jets_7pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_HT_1tau1L->Fill(HTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_invariantMass_1tau1L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_6pt_1tau1L->Fill(myjetsL->at(5).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_transMass_1tau1L->Fill(MTCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_1tau1L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double nonbjetsM_4pt;
                     if (mynonbjetsM->size() >= 4) nonbjetsM_4pt = mynonbjetsM->at(3).Pt();
                     else nonbjetsM_4pt = -99.0;
-                    h_nonbjetsM_4pt_1tau1L->Fill(nonbjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_minDeltaR_1tau1L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_nonbjetsM_4pt_1tau1L->Fill(nonbjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_minDeltaR_1tau1L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double toptagger_3pt;
                     if (myresolvedTops->size() >=3) toptagger_3pt = myresolvedTops->at(2).Pt();
                     else toptagger_3pt = -99.0;
-                    h_toptagger_3pt_1tau1L->Fill(toptagger_3pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_toptagger_MHT_1tau1L->Fill(SysPtCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_leptonsMVAL_number_1tau1L->Fill(myleptonsMVAL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_taus_1pt_1tau1L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_3pt_1tau1L->Fill(toptagger_3pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_MHT_1tau1L->Fill(SysPtCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_leptonsMVAL_number_1tau1L->Fill(myleptonsMVAL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_taus_1pt_1tau1L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                 }
 
                 if (is1tau2L) {
                     
-                    h_jets_bScore_1tau2L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_1tau2L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double bjetsM_3pt;
                     if (mybjetsM->size() >= 3) bjetsM_3pt = mybjetsM->at(2).Pt();
                     else bjetsM_3pt = -99.0;
-                    h_bjetsM_3pt_1tau2L->Fill(bjetsM_3pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_number_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_ratioHT_4toRest_1tau2L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_toptagger_transMass_1tau2L->Fill(MTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_invariantMass_1tau2L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_minDeltaR_1tau2L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_3pt_1tau2L->Fill(bjetsM_3pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_number_1tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_1tau2L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_transMass_1tau2L->Fill(MTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_invariantMass_1tau2L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_minDeltaR_1tau2L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double bjetsM_4pt;
                     if (mybjetsM->size() >= 4) bjetsM_4pt = mybjetsM->at(3).Pt();
                     else bjetsM_4pt = -99.0;
-                    h_bjetsM_4pt_1tau2L->Fill(bjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_HT_1tau2L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_4pt_1tau2L->Fill(myjetsL->at(3).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_4pt_1tau2L->Fill(bjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_HT_1tau2L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_4pt_1tau2L->Fill(myjetsL->at(3).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double sphericity, aplanarity;
                     SphericityAplanarityCal(myjetsL, sphericity, aplanarity);
-                    h_jets_aplanarity_1tau2L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_aplanarity_1tau2L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double toptagger_1pt;
                     if (myresolvedTops->size() >=1) toptagger_1pt = myresolvedTops->at(0).Pt();
                     else toptagger_1pt = -99.0;
-                    h_toptagger_1pt_1tau2L->Fill(toptagger_1pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_tausF_MHT_1tau2L->Fill(SysPtCalculator(mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_tausF_minDeltaR_1tau2L->Fill(MinDeltaRCal(myjetsL, mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_minDeltaR_1tau2L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_taus_1pt_1tau2L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_1pt_1tau2L->Fill(toptagger_1pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_tausF_MHT_1tau2L->Fill(SysPtCalculator(mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_tausF_minDeltaR_1tau2L->Fill(MinDeltaRCal(myjetsL, mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_minDeltaR_1tau2L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_taus_1pt_1tau2L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
 
                 }
 
                 if (is1tau3L) {
 
-                    h_jets_HT_1tau3L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_taus_1pt_1tau3L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_bScore_1tau3L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_number_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_ratioHT_4toRest_1tau3L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_1pt_1tau3L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_HT_1tau3L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_taus_1pt_1tau3L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_1tau3L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_number_1tau3L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_1tau3L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_1pt_1tau3L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double sphericity, aplanarity;
                     SphericityAplanarityCal(myjetsL, sphericity, aplanarity);
-                    h_jets_aplanarity_1tau3L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_minDeltaR_1tau3L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_aplanarity_1tau3L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_minDeltaR_1tau3L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                 }
 
                 if (is2tau0L) {
 
-                    h_jets_HT_2tau0L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_taus_1pt_2tau0L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_bScore_2tau0L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_number_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_ratioHT_4toRest_2tau0L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_1pt_2tau0L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                    h_jets_HT_2tau0L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_taus_1pt_2tau0L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_bScore_2tau0L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_number_2tau0L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_2tau0L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_1pt_2tau0L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
                     double sphericity, aplanarity;
                     SphericityAplanarityCal(myjetsL, sphericity, aplanarity);
-                    h_jets_aplanarity_2tau0L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
-                    h_jets_minDeltaR_2tau0L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * mybtagWeight);
+                    h_jets_aplanarity_2tau0L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
+                    h_jets_minDeltaR_2tau0L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * mybtagWeight);
 
                 }
 
                 if (is2tau1L) {
 
-                    h_jets_HTDividedByMET_2tau1L->Fill(HT/myMET, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_tausT_MHT_2tau1L->Fill(SysPtCalculator(mytausT), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_bScore_2tau1L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_HTDividedByMET_2tau1L->Fill(HT/myMET, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_tausT_MHT_2tau1L->Fill(SysPtCalculator(mytausT), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_2tau1L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double jets_6pt;
                     if (myjetsL->size() >= 6) jets_6pt = myjetsL->at(5).Pt();
                     else jets_6pt = -99.0;
-                    h_jets_6pt_2tau1L->Fill(jets_6pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_minDeltaR_2tau1L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_ratioHT_4toRest_2tau1L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_toptagger_invariantMass_2tau1L->Fill(InvariantMassCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_invariantMass_2tau1L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_4pt_2tau1L->Fill(myjetsL->at(3).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_6pt_2tau1L->Fill(jets_6pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_minDeltaR_2tau1L->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_2tau1L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_invariantMass_2tau1L->Fill(InvariantMassCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_invariantMass_2tau1L->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_4pt_2tau1L->Fill(myjetsL->at(3).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double toptagger_1pt;
                     if (myresolvedTops->size() >=1) toptagger_1pt = myresolvedTops->at(0).Pt();
                     else toptagger_1pt = -99.0;
-                    h_toptagger_1pt_2tau1L->Fill(toptagger_1pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_tausF_minDeltaR_2tau1L->Fill(MinDeltaRCal(myjetsL, mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_minDeltaR_2tau1L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_average_DeltaR_2tau1L->Fill(AverageDeltaRCal(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    //h_tausL_HT_2tau1L->Fill(HTCalculator(mytausL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_taus_1pt_2tau1L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_1pt_2tau1L->Fill(toptagger_1pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_tausF_minDeltaR_2tau1L->Fill(MinDeltaRCal(myjetsL, mytausF), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_minDeltaR_2tau1L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_average_DeltaR_2tau1L->Fill(AverageDeltaRCal(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    //h_tausL_HT_2tau1L->Fill(HTCalculator(mytausL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_taus_1pt_2tau1L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                 }
 
                 if (is2tau2L) {
 
-                    h_jets_HT_2tau2L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_taus_1pt_2tau2L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_bScore_2tau2L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_number_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_ratioHT_4toRest_2tau2L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_1pt_2tau2L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_HT_2tau2L->Fill(HT, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_taus_1pt_2tau2L->Fill(mytausT->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_2tau2L->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_number_2tau2L->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_ratioHT_4toRest_2tau2L->Fill(ratioHT_4toRestCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_1pt_2tau2L->Fill(myjetsL->at(0).Pt(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double sphericity, aplanarity;
                     SphericityAplanarityCal(myjetsL, sphericity, aplanarity);
-                    h_jets_aplanarity_2tau2L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_minDeltaR_2tau2L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_aplanarity_2tau2L->Fill(aplanarity, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_minDeltaR_2tau2L->Fill(MinDeltaRSingleCalculator(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
 
                 }
 
                 if (is2tauXL) {
 
-                    h_jets_bScore_2tauXL->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_4largestBScoreSum_2tauXL->Fill(bscoreSumOf4largestCal(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_leptonsMVAL_transMass_2tauXL->Fill(TransMassCal(myleptonsMVAL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_number_2tauXL->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_invariantMass_2tauXL->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    //h_tausL_leptonsT_invariantMass_2tauXL->Fill(InvariantMass2SysCal(mytausL, myleptonsMVAT), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_jets_transMass_2tauXL->Fill(TransMassCal(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_bScore_2tauXL->Fill(bTagScoreAllJetsCalculator(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_4largestBScoreSum_2tauXL->Fill(bscoreSumOf4largestCal(myjets_btags), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_leptonsMVAL_transMass_2tauXL->Fill(TransMassCal(myleptonsMVAL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_number_2tauXL->Fill(myjetsL->size(), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_invariantMass_2tauXL->Fill(InvariantMassCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    //h_tausL_leptonsT_invariantMass_2tauXL->Fill(InvariantMass2SysCal(mytausL, myleptonsMVAT), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_transMass_2tauXL->Fill(TransMassCal(myjetsL), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double jets_6pt;
                     if (myjetsL->size() >= 6) jets_6pt = myjetsL->at(5).Pt();
                     else jets_6pt = -99.0;
-                    h_jets_6pt_2tauXL->Fill(jets_6pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_toptagger_transMass_2tauXL->Fill(MTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_bjetsM_minDeltaR_2tauXL->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_jets_6pt_2tauXL->Fill(jets_6pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_toptagger_transMass_2tauXL->Fill(MTCalculator(myresolvedTops), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_bjetsM_minDeltaR_2tauXL->Fill(MinDeltaRSingleCalculator(mybjetsM), mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
                     double nonbjetsM_4pt;
                     if (mynonbjetsM->size() >= 4) nonbjetsM_4pt = mynonbjetsM->at(3).Pt();
                     else nonbjetsM_4pt = -99.0;
-                    h_nonbjetsM_4pt_2tauXL->Fill(nonbjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
-                    h_Met_pt_2tauXL->Fill(myMET, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF /** triggerSF*/ * eleIDSF * muonIDSF * mybtagWeight);
+                    h_nonbjetsM_4pt_2tauXL->Fill(nonbjetsM_4pt, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
+                    h_Met_pt_2tauXL->Fill(myMET, mygenEvtWeight * myPUWeight * myprefireWeight * tauIDSF * triggerSF * eleIDSF * muonIDSF * mybtagWeight);
 
                 }
 				
