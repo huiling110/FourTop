@@ -274,7 +274,6 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.8, 0.8 );//for combine
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0 );
     for ( UInt_t p=0; p<allProcesses.size(); p++){
-    // for ( UInt_t p=0; p<1; p++){
        evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir, binNum );       
         std::cout<<__LINE__<<"\n";
        if ( p==allProcesses.size()-1 ){

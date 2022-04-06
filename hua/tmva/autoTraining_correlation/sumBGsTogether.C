@@ -15,16 +15,14 @@ TH1D* getHist( const TString histName, TFile* input ){
 
 
 void sumBGsTogether( 
-        TString inputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/TMVApp_2tauXl_12var_forCombine.root"
+        // TString inputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/TMVApp_2tauXl_12var_forCombine.root"
+        TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_10var_forCombine.root"
         ){
     using std::cout;
-    // TFile* input = TFile::Open( inputName, "READ");
     TFile* input = TFile::Open( inputName, "UPDATE");
 
     TH1::SetDefaultSumw2();
     TH1D* TTTo2L2Nu = getHist( "TTTo2L2Nu", input );
-    // TH1D* TTToHadronic = getHist( "TTToHadronic", input );
-    // TH1D* TTToSemiLeptonic = getHist( "TTToSemiLeptonic", input );
     // TTTo2L2Nu->Print();
 
     Int_t binNum = TTTo2L2Nu->GetXaxis()->GetNbins();
@@ -78,9 +76,11 @@ void sumBGsTogether(
             SingleTop_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<30 ){
             cout<<"adding TX:\n";
+            cout<<"processName = "<<iprocessName<<"\n";
             TX_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<36 ){
             cout<<"adding QCD:\n";
+            cout<<"processName = "<<iprocessName<<"\n";
             QCD_MVA_BDT->Add( iHist, 1.0 );
         }
         
@@ -98,7 +98,6 @@ void sumBGsTogether(
 
 
 
-    // TFile* outfile = new TFile( )
     input->Write();
     input->Close();
 

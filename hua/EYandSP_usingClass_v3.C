@@ -37,8 +37,8 @@ void EYandSP_usingClass_v3(){
     // TString era = "2016preVFP";
     // TString era = "2016postVFP";
     TString era = "2016";
-    // TString EYplotDir = baseDir + "results/";
-    TString EYplotDir = baseDir + "results_oldCut/";
+    TString EYplotDir = baseDir + "results/";
+    // TString EYplotDir = baseDir + "results_oldCut/";
     // TString EYplotDir = baseDir_2016pre + "results_tighter/";
     // TString EYplotDir = baseDir_2016pre + "results/";
 
@@ -66,8 +66,7 @@ for ( auto const& cha : channelCutMap  ){
         getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
         writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
-        // drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumi, era );
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era], era );
+        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );
 
 
         // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
