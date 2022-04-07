@@ -39,7 +39,7 @@ void writeHistToFile( const TH1F* hist, TString outFile ){
    target->Close();
    std::cout <<"Hist saved in: "<<target->GetName()<< std::endl;
 }
-void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, Int_t channel, TString outputDir, TString variableListCsv, TString weightDir, const Int_t binNum  ){
+void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* theTree, Double_t processScale, TH1F* &data_BDT, TH1F* data_BDTG, Bool_t writeData, TString channel, TString outputDir, TString variableListCsv, TString weightDir, const Int_t binNum  ){
    // Create the Reader object
    
     cout<<"\n";
@@ -99,9 +99,6 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    }
 
    // Book output histograms
-   // UInt_t binNum = 100;
-   // UInt_t binNum = 11;
-
    if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           binNum, -0.8, 0.8 );
    if (Use["BDTG"])          histBdtG    = new TH1F( processName+"_MVA_BDTG",          "MVA_BDTG",          binNum, -1.0, 1.0 );
 
@@ -121,12 +118,13 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    //for selection
    // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
-   Double_t jets_HT;
+   Double_t jets_HT, jets_6pt;
    theTree->SetBranchAddress( "tausT_number",     &tausT_number );
    theTree->SetBranchAddress( "leptonsMVAT_number",     &leptonsMVAT_number );
    theTree->SetBranchAddress( "jets_number",     &jets_number );
    theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
    theTree->SetBranchAddress( "jets_HT",     &jets_HT );
+   theTree->SetBranchAddress( "jets_6pt",    &jets_6pt );
    Double_t EVENT_genWeight, EVENT_prefireWeight, PUWeight, btagEfficiency_weight, HLTefficiency_weight;
    theTree->SetBranchAddress( "EVENT_genWeight",     &EVENT_genWeight );
    theTree->SetBranchAddress( "EVENT_prefireWeight",     &EVENT_prefireWeight );
@@ -161,23 +159,38 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
       }
       // cout<<"\n";
       //channel selection
-      if (channel==1){
-         if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
+      if ( !(jets_HT>500  && jets_6pt>40) ) continue;
+      if ( channel.CompareTo( "1tau1l")==0 ){
+         //Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
+         // std::cout<<"event selection for channel: "<<channel<<"\n";
+         if ( !(tausT_number==1 && leptonsMVAT_number==1 &&  jets_number>=7 && bjetsM_num>=2) ) continue;
+      }else if( channel.CompareTo( "1tau2l")==0 ){
+         if ( !(tausT_number==1 && leptonsMVAT_number==2  && jets_number>=6 && bjetsM_num>=2) ) continue;
       }
-      if ( channel==4){//1tau2l
-         if ( !(tausT_number==1 && leptonsMVAT_number==2&& jets_number>=4 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
-      } 
-      if ( channel==5){//2tauXl
-         if ( !(tausT_number==2&&bjetsM_num>=2&&jets_HT>400 && (  (leptonsMVAT_number==0&&jets_number>=6)||(leptonsMVAT_number==1&& jets_number>=4)||(leptonsMVAT_number==2&&jets_number>=2)      ) ))  continue;
+      
+      
+      else{
+         std::cout<<"no event selection for channel\n";
       }
+      // if (channel==1){
+      //    if ( !(tausT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
+      // }
+      // if ( channel==4){//1tau2l
+      //    if ( !(tausT_number==1 && leptonsMVAT_number==2&& jets_number>=4 && bjetsM_num>=2 && jets_HT>400) ) continue; //1tau1l
+      // } 
+      // if ( channel==5){//2tauXl
+      //    if ( !(tausT_number==2&&bjetsM_num>=2&&jets_HT>400 && (  (leptonsMVAT_number==0&&jets_number>=6)||(leptonsMVAT_number==1&& jets_number>=4)||(leptonsMVAT_number==2&&jets_number>=2)      ) ))  continue;
+      // }
 
 
       // Return the MVA outputs and fill into histograms
         Double_t eventWeight = EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight;
+        Double_t basicWeight = EVENT_genWeight*EVENT_prefireWeight*PUWeight;
 
-      // if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method") *eventWeight );
-      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), eventWeight );
-      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"), eventWeight );
+      // if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), eventWeight );
+      // if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"), eventWeight );
+      if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), basicWeight );
+      if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"), basicWeight );
 
    }
 
@@ -195,13 +208,9 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
    *data_BDTG = *data_BDTG + *histBdtG;
 
    TString s_channel;
-   if ( channel==1 )       s_channel = "1tau1l";
-   if ( channel==4 )  s_channel = "1tau2l";
-   if ( channel==5 )  s_channel = "2tauXl";
    TString s_variableNum = std::to_string(variableNum);
    // TString outFileName = "TMVApp_" + s_channel + "_forCombine.root";
-   TString outFileName = outputDir + "TMVApp_" + s_channel + "_"+ s_variableNum + "var_forCombine.root";
-   // TString outFileName = "TMVApp_" + s_channel + "_forCombineTest1000.root";
+   TString outFileName = outputDir + "TMVApp_" + channel + "_"+ s_variableNum + "var_forCombine.root";
    writeHistToFile( histBdt, outFileName );
    writeHistToFile( histBdtG, outFileName );
    if ( writeData )  {
@@ -221,9 +230,10 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
       TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/variableList/varibleList_10.csv",
         TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/dataset/1tau1lvaribleList_10_weight/",
         // const Int_t channel = 3//2tau1l
-        const Int_t channel = 1,//1tau1l
+      //   const Int_t channel = 1,//1tau1l
         // const Int_t channel = 4//1tau2l
         // const Int_t channel = 5,//2tauXl
+        const TString channel = "1tau1l",
         const  Int_t binNum = 11
 
         )
