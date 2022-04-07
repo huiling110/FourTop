@@ -78,7 +78,8 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         # weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
         weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
+        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
+        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ '\"'+GV.getNameForChannel(channel)+'\"'  +',' +str(binNum) + ')' + '\''   )
     else:
         # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ', false' ')' + '\''   )
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ GV.getNameForChannel(channel) +"\""+ ', false' ')' + '\''   )
