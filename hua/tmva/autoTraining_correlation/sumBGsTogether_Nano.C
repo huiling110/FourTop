@@ -39,6 +39,7 @@ void sumBGsTogether_Nano(
     for( UInt_t p=0; p<allProcesses.size(); p++){
         TString iprocessName = allProcesses[p].getProcessName();
         iHist = getHist( iprocessName, input );
+        if (p==0) continue;
         if( 0<p && p<4 ){
             cout<<"adding TT:"<<"\n";
             cout<<"processName = "<<allProcesses[p].getProcessName()<<"\n";
@@ -57,6 +58,7 @@ void sumBGsTogether_Nano(
             SingleTop_MVA_BDT->Add( iHist, 1.0 );
         }else if( p<24 ){
             cout<<"adding QCD:\n";
+            cout<<"processName = "<<iprocessName<<"\n";
             QCD_MVA_BDT->Add( iHist, 1.0 );
         }
         
