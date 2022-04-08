@@ -19,8 +19,6 @@ import csv
 import plotVariablesAndSP
 
 
-#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables.log"):
-#  def main(  TMVAlog = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/1tau2l__variables.log"):
 def main():
     #  TMVADir =  "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/"
     
@@ -31,8 +29,8 @@ def main():
     #  channel =3 # 2tau1l
     #  channel =4# 1tau2l
     # channel = 5 # 2tauXl
-    version = 1
-    #  version = 2 #corrected correlation removel
+    # version = 1
+    version = 2 #corrected correlation removel
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/'
 
     channelName = getNameForChannel( channel ) 

@@ -31,14 +31,14 @@ def main():
     channel = 1
     addSummedHists( TMVAppDir )
 
-    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    # emptyListSum = checkEmptyProcessForSum( emptyList )
-    # listForCombine = getNonEmptyList( g_allProcesses, emptyList )
-    # listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
+    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    emptyListSum = checkEmptyProcessForSum( emptyList )
+    listForCombine = getNonEmptyList( g_allProcesses, emptyList )
+    listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
 
-    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
 
-    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    writeDatacards( TMVAppDir, listForCombine, False, 10 )
   
 
 
