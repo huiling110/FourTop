@@ -86,6 +86,7 @@ Double_t AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets)
 Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) ;
 
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) ;
+Double_t bScoreMultiCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags);
 
 
 void SpheriltyAplanarityCal( const TTreeReaderArray<TLorentzVector>&  SelectedJets, Double_t& Spher, Double_t& Apla );

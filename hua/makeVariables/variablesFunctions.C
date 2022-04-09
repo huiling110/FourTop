@@ -275,6 +275,15 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
   return initB;
 }
 
+Double_t bScoreMultiCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
+  Double_t initB = 0;
+  for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j) {
+    initB = initB*SelectedJetsBTags[j];
+  }
+  return initB;
+
+}
+
 void SpheriltyAplanarityCal( const TTreeReaderArray<TLorentzVector>&  SelectedJets, Double_t& Spher, Double_t& Apla ){
     
     //AK8 jets
