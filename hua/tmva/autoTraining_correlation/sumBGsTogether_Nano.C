@@ -56,7 +56,7 @@ void sumBGsTogether_Nano(
             cout<<"adding SingleTop:\n";
             cout<<"processName = "<<iprocessName<<"\n";
             SingleTop_MVA_BDT->Add( iHist, 1.0 );
-        }else if( p<24 ){
+        }else{
             cout<<"adding QCD:\n";
             cout<<"processName = "<<iprocessName<<"\n";
             QCD_MVA_BDT->Add( iHist, 1.0 );

@@ -6,12 +6,12 @@ sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/h
 import generateVariableList as GV
 
 g_allProcesses = [
-    'tttt',
-    'ttbar_2l','ttbar_0l','ttbar_0l',
-    'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',
-    'wz','ww','zz',
-    'st_tZq', 'st_tW_antitop','st_tW_top',
-    'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',
+    'tttt', #0
+    'ttbar_2l','ttbar_0l','ttbar_0l',#3
+    'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',#9
+    'wz','ww','zz',#12
+    'st_tZq', 'st_tW_antitop','st_tW_top',#15
+    'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',#24
 ]
 g_allSumProcesses = [
     'tttt', #0
@@ -24,12 +24,13 @@ g_allSumProcesses = [
 
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins_ReSumWithW2/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v1/AppResults_11bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v1/AppResults_11bins/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v2/AppResults_11bins/'
 
     # channel = 4 #1tau2l
     # channel = 5
     channel = 1
-    addSummedHists( TMVAppDir )
+    # addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     emptyListSum = checkEmptyProcessForSum( emptyList )
@@ -53,13 +54,13 @@ def checkEmptyProcessForSum( emptyList ):
     emptyListSum=[]
     if ifInEmptyList( 1,3, emptyList ):
         emptyListSum.apppend( 'TT')
-    if ifInEmptyList( 4, 8, emptyList ):
+    if ifInEmptyList( 4, 9, emptyList ):
         emptyListSum.append( 'TTX' )
-    if ifInEmptyList( 9, 11, emptyList ):
+    if ifInEmptyList( 10, 12, emptyList ):
         emptyListSum.append( 'VV' )
-    if ifInEmptyList( 12, 14, emptyList ):
+    if ifInEmptyList( 13, 15, emptyList ):
         emptyListSum.append( 'SingleTop' )
-    if ifInEmptyList( 15, 23, emptyList ):
+    if ifInEmptyList( 16, 24, emptyList ):
         emptyListSum.append( 'QCD')
     print( 'summedEmptyList: ', emptyListSum)
     return emptyListSum
@@ -183,8 +184,8 @@ def checkEmptyProcess( fileDir, channel ):
         print(i.GetName())
         iHistName = i.GetName()
         iProcessName = iHistName[:iHistName.find('MVA')-1]
+        # print( iProcessName )
         iHist = iFile.Get(iHistName)
-        #  if iHist.GetEntries()==0:
         if iHist.Integral()<=0:
             emptyProcesses.append( iProcessName )
     emptyProcesses = list( dict.fromkeys(emptyProcesses) )
