@@ -3,16 +3,13 @@
 import os
 import subprocess
 
-pre_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v1_fromV9/'
-post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV9/' 
-merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1_fromV9/'
+pre_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v2Add2Variables_fromV9/'
+post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v2Add2Variables_fromV9/' 
+merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2Add2Variables_fromV9/'
 
 
 if not os.path.exists( merged_dir ):
     os.mkdir( merged_dir )
-
-
-
 
 
 for i in os.listdir( pre_dir ):

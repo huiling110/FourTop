@@ -84,6 +84,8 @@ Double_t MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) ;
 Double_t AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) ;
 
 Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) ;
+Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags);
+
 
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) ;
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags);

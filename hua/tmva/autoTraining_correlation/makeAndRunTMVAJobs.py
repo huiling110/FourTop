@@ -22,16 +22,17 @@ def main():
     # channel = 5
     #  version = 1
     version = 2
-    # outputDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
-    isApp = True
-    # isApp = False
+    # isApp = True
+    isApp = False
     binNum = 11 #for App only
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum )
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum )
+    
+    #???add features of submitting jobs and reporting job status and check job results
 
 
 

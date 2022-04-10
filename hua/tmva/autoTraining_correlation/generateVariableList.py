@@ -24,6 +24,7 @@ def main():
     
     #the first line identifies each piece of datain other words, the name of a data column
     
+    #?want to change channel to string so that its more clear to user
     channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
@@ -31,7 +32,7 @@ def main():
     # channel = 5 # 2tauXl
     # version = 1
     version = 2 #corrected correlation removel
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
 
     channelName = getNameForChannel( channel ) 
     vListDir, outputDir = checkAndMakeDir( channelName, version, outputBase )
