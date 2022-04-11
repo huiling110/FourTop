@@ -25,7 +25,8 @@ g_allSumProcesses = [
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v2/AppResults_11bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_11bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_11bins/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_changeBDTrange_11bins/'
 
     # channel = 4 #1tau2l
     # channel = 5

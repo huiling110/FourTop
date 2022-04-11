@@ -12,8 +12,11 @@ void drawTemplates( TH1D* & templates, TString outDir ){
 
 
 void checkTemplatesForCombine(){
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_11bins/templatePlots/";
-    TString inputFile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9//1tau1l_v2/AppResults_11bins/TMVApp_1tau1l_11var_forCombine.root";
+    // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_11bins/templatePlots/";
+    // TString inputFile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9//1tau1l_v2/AppResults_11bins/TMVApp_1tau1l_11var_forCombine.root";
+    TString inputFile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_changeBDTrange_11bins/TMVApp_1tau1l_10var_forCombine.root";
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_changeBDTrange_11bins/templatesPlots/";
+
     TFile *file = TFile::Open( inputFile );
 
     TH1D* tttt = getHist( "tttt", file );

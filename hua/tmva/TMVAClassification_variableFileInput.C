@@ -76,10 +76,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2      //   const Int_t channel = 1,
-      const TString channel = "1tau1l",
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
+      // const TString channel = "1tau1l",
+      const TString channel = "1tau2l",
         Bool_t forVariables = true
         // Bool_t forVariables = false
         )

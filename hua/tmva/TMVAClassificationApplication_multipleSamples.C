@@ -167,6 +167,19 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
          if ( !(tausT_number==1 && leptonsMVAT_number==1 &&  jets_number>=7 && bjetsM_num>=2) ) continue;
       }else if( channel.CompareTo( "1tau2l")==0 ){
          if ( !(tausT_number==1 && leptonsMVAT_number==2  && jets_number>=6 && bjetsM_num>=2) ) continue;
+      }else if( channel.CompareTo( "2tauXl")==0 ){
+         //tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=7 && bjetsM_num>=2 //2tau0l
+         //tausT_number==2 && leptonsMVAT_number==1 && jets_number>=6 && bjetsM_num>=2
+         //tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2
+         if( 
+            !(
+              (tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=7 && bjetsM_num>=2 ) ||
+              (tausT_number==2 && leptonsMVAT_number==1 && jets_number>=6 && bjetsM_num>=2 )  ||
+              (tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2)
+            )
+         ) continue;
+
+
       }
       
       
