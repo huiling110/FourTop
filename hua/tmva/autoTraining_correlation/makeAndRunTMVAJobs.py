@@ -26,11 +26,13 @@ def main():
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
     isApp = True
     # isApp = False
+    # appFolderName = 'AppResults'
+    appFolderName = 'AppResults_changeBDTrange'
     binNum = 11 #for App only
     channelName = GV.getNameForChannel( channel ) 
 
-    vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum )
-    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum )
+    vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
+    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
     #???add features of submitting jobs and reporting job status and check job results
 
@@ -38,7 +40,7 @@ def main():
 
 
 
-def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum ):
+def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName ):
     jobDir = ''
     subAllscriptName = ''
     if isApp:
@@ -56,7 +58,7 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum ):
         print( entry)
         #  iJob = 'JobScript/'+  entryName + ".sh"
         iJob = jobDir +  entryName + ".sh"
-        makeSingleTMVAJob( vlistDir, entry, channel, iJob, TMVACodeDir, outputDir, isApp, binNum )
+        makeSingleTMVAJob( vlistDir, entry, channel, iJob, TMVACodeDir, outputDir, isApp, binNum, appFolderName )
 
         logFile = outputDir +   "log/" + entryName + ".log"
         errFile = outputDir +  "log/" + entryName +".err"
@@ -65,7 +67,7 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum ):
     os.popen('chmod 777 ' + TMVACodeDir + 'autoTraining_correlation/'+ subAllscriptName )
 
     
-def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDir, isApp, binNum ):
+def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDir, isApp, binNum, appFolderName ):
     listCsv = vlistDir + entry
     output = open( jobName ,'wt')
     output.write( '#!/bin/bash' + '\n')
@@ -73,10 +75,10 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
     output.write( 'source /cvmfs/sft.cern.ch/lcg/releases/LCG_98python3/ROOT/v6.22.00/x86_64-centos7-gcc8-opt/ROOT-env.sh' + '\n' )
     output.write( 'cd '+ TMVACodeDir + '\n')
     if isApp:
-        #  weightDir = outputDir[:-11]
         vlistName = entry[:-4]
-        weightDir = outputDir[:outputDir.find('AppResults')]
-        # weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + '_' + vlistName + '_weight/'
+        # weightDir = outputDir[:outputDir.find('AppResults')]
+        weightDir = outputDir[:outputDir.find( appFolderName )]
+        
         weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
         # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
@@ -94,12 +96,12 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
 
 
 
-def checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum ):
+def checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum , appFolderName ):
     outputDir = GV.makeBaseDir(channelName, version, outputDir )
     vListDir = outputDir + 'variableList/'
     if isApp:
-        #  outputDir = outputDir + 'AppResults/'
-        outputDir = outputDir + 'AppResults_' + str(binNum) +'bins/'
+        # outputDir = outputDir + 'AppResults_' + str(binNum) +'bins/'
+        outputDir = outputDir + appFolderName + '_' + str(binNum) +'bins/'
         if not os.path.exists(outputDir ):
             os.mkdir( outputDir )
     print( 'outputDir: ', outputDir)
