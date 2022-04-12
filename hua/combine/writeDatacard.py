@@ -29,9 +29,10 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/AppResults_changeBDTrange_11bins/'
     TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau2l_v1/AppResults_11bins/'
 
-    channel = 4 #1tau2l
+    # channel = 4 #1tau2l
     # channel = 5
     # channel = 1
+    channel = '2tauXl'
     addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
@@ -174,10 +175,8 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
 def checkEmptyProcess( fileDir, channel ):
     #  fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
     rootF = ""
-    channelName = GV.getNameForChannel( channel )
-    rootF = 'TMVApp_' + channelName + '_10var_forCombine.root'
-    #  if channel==1 :
-        #  rootF = 'TMVApp_1tau1l_10var_forCombine.root'
+    # channelName = GV.getNameForChannel( channel )
+    rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
     
     emptyProcesses = []
     iFile = ROOT.TFile( fileDir+rootF)
