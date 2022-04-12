@@ -302,9 +302,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                 }
                 // cout<<"ivariable:"<<ivariable<<endl;
             }   
-            if ( ivariable.Contains("leptonsTMVA_minDeltaR")==0 )  {
                dataloader->AddVariable( line, 'F');
-            } 
             num = num+1;
         }
         fin.close();
@@ -331,7 +329,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains( "toptagger" )) continue;
             if ( branchName.Contains( "Met")) continue;
             if ( branchName.Contains( "weight") ) continue;
-            cout<<branchName<<endl;
+			if ( channel.CompareTo( "2tau0l")==0 && branchName.Contains("leptonsTMVA_minDeltaR") && branchName.Contains("elesMVAF")  )  continue;
+			
+            cout<<"variables forvaribles training: "<<branchName<<endl;
             branchNames.push_back( branchName );
             if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
             else dataloader->AddVariable( branchName, 'F' );
@@ -339,7 +339,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     }
 
 
-    // dataloader->AddVariable( "jets_bScore", 'F' );
 
 
 

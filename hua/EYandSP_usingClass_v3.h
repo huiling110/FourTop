@@ -5,6 +5,11 @@
  * Last Modified Date: 03.10.2021
  * Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
  */
+
+#ifndef EYANDSP_USINGCLASS_V3
+#define EYANDSP_USINGCLASS_V3
+
+
 #include "TH1.h"
 #include "TFile.h"
 #include "TTree.h"
@@ -349,3 +354,4 @@ Double_t getAllBgEntries( const TCut cut, const TCut weight ){
 
                                                    
 
+#endif

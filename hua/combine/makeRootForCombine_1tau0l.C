@@ -8,6 +8,7 @@
 
 #include "../EYandSP_usingClass_v3.h"
 
+#include "checkTemplatesForCombine.C"
 
 void makeRootForCombine_1tau0l(){
     // TString inputQCD = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/QCDshapes_corrected.root";
@@ -62,6 +63,10 @@ void makeRootForCombine_1tau0l(){
     // my_QCD_HT->Write();
     output->Write();
     output->Close();
+
+
+    TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/";
+    drawTemplates( TT, outFolder );
 
 
 
