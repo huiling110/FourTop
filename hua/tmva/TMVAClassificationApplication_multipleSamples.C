@@ -178,8 +178,8 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
               (tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2)
             )
          ) continue;
-
-
+      }else if( channel.CompareTo( "2tau0l" )==0 ){
+         if( !(tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=7 && bjetsM_num>=2 ) ) continue;
       }
       
       
