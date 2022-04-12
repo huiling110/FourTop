@@ -95,8 +95,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   // Bool_t istest = false;
-   Bool_t istest = true;
+   Bool_t istest = false;
+//    Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
