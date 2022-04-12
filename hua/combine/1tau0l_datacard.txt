@@ -2,13 +2,13 @@ imax *
 jmax *
 kmax *
 --------------------------------------------------------------------------------
-shapes * *  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/dataDriven_1tau0l_forCombine.root  $PROCESS_HT
-bin          SR_1tau0l
+shapes * *  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau1l_HT/HT_2tau1l_forCombine.root  $PROCESS_HT
+bin          SR_2tau1l
 observation  -1
 --------------------------------------------------------------------------------
-bin       SR_1tau0l         SR_1tau0l         SR_1tau0l         SR_1tau0l         SR_1tau0l         SR_1tau0l         
-process   TTTT              TT                TTX               VV                SingleTop         QCD               
-process   0                 1                 2                 3                 4                5                
-rate      -1                -1                -1                -1                -1               -1                
+bin       SR_2tau1l         SR_2tau1l         SR_2tau1l          SR_2tau1l                 
+process   TTTT              TT                TTX                SingleTop                     
+process   0                 1                 2                  3                          
+rate      -1                -1                -1                 -1                           
 -------------------------------------------------------------------------------
-SR_1tau0l   autoMCStats  10
+SR_2tau1l   autoMCStats  10

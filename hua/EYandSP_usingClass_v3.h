@@ -114,6 +114,7 @@ std::map<TString, TCut> channelCutMap = {
     {"2tau1l", ES2tau1l},
     {"2tau2l", ES2tau2l},
     {"2tauXl", ES2tauXl}, 
+    {"2tau1_2l", ES2tau1_2l},
 };
 
 
