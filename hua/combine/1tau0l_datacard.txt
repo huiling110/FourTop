@@ -2,7 +2,7 @@ imax *
 jmax *
 kmax *
 --------------------------------------------------------------------------------
-shapes * *  /publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/dataDriven_1tau0l_forCombine.root  $PROCESS_HT
+shapes * *  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/dataDriven_1tau0l_forCombine.root  $PROCESS_HT
 bin          SR_1tau0l
 observation  -1
 --------------------------------------------------------------------------------
