@@ -40,12 +40,14 @@ void makeRootForCombine_1tau0l(){
     Int_t binNum = QCD_HT->GetXaxis()->GetNbins();
     Double_t binMin = QCD_HT->GetXaxis()->GetXmin();
     Double_t binMax = QCD_HT->GetXaxis()->GetXmax();
-    TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4, "TT_HT");
+    // TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4, "TT_HT");//!!addHistChannel has no Lumi
+    TH1D* TT = addHistChannel( ES1tau0l, basicWeight, "jets_HT", binNum, binMin, binMax, 1, 4, "TT_HT");
+    TT->Scale(lumiMap[era_g]);
     TT->Print();
-    TT->Write();
-
-    TH1D* TTX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 9, "TTX_HT" );
-    // ttX->Print();
+    // TT->Write();
+/*
+    // TH1D* TTX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 9, "TTX_HT" );
+    TH1D* TTX = addHistChannel( ES1tau0l, basicWeight, "jets_HT", binNum, binMin, binMax, 4, 9, "TTX_HT" );
 
     TH1D* VV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 9, 12, "VV_HT" );
 
@@ -60,17 +62,16 @@ void makeRootForCombine_1tau0l(){
     allBgs->Add(my_QCD_HT);
     cout << "allBGs after QCD = " << allBgs->Integral();
 
-    // my_QCD_HT->Write();
-    output->Write();
-    output->Close();
 
 
-    TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/";
+    TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/templatesPlots/";
     drawTemplates( TT, outFolder );
 
 
 
-
+    output->Write();
+    output->Close();
+*/
 
 
 }

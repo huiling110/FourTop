@@ -96,6 +96,7 @@ const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut ES2tau1_2l = ES2tau1l || ES2tau2l;
 // */
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
+//???weight is probmatic
 const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
 std::map<TString, TCut> channelCutMap = {

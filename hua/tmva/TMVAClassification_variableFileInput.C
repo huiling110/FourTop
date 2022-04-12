@@ -329,7 +329,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains( "toptagger" )) continue;
             if ( branchName.Contains( "Met")) continue;
             if ( branchName.Contains( "weight") ) continue;
-			if ( channel.CompareTo( "2tau0l")==0 && branchName.Contains("leptonsTMVA_minDeltaR") && branchName.Contains("elesMVAF")  )  continue;
+			if ( channel.CompareTo( "2tau0l")==0 &&( branchName.Contains("leptonsTMVA_minDeltaR") ||branchName.Contains("elesMVAF") || branchName.Contains("leptonsTMVA") ) )  continue;
 			
             cout<<"variables forvaribles training: "<<branchName<<endl;
             branchNames.push_back( branchName );
