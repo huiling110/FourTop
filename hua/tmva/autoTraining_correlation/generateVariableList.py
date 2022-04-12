@@ -30,6 +30,7 @@ def main():
     #  channel =3 # 2tau1l
     # channel =4# 1tau2l
     channel = 5 # 2tauXl
+    # channel = 6 #2tau0l
     # version = 1
     version = 1#corrected correlation removel
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
@@ -49,7 +50,6 @@ def main():
 
 def generateAllVariablesLog( outputDir , channelName, channel ):
     tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
-    # trainingCommand = 'root -b -q \'{}( \"\", \"{}\", \"\", {}, true )\''.format( tmvaTraining, outputDir, channel )
     trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true )\''.format( tmvaTraining, outputDir, channelName )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
@@ -99,7 +99,6 @@ def removephieta( initialList ):
 
     return initialList
 
-#  def checkAndMakeDir( channel, outputDir, version ):
 def checkAndMakeDir( channelName, version, outputDir ):
     outputDir = makeBaseDir( channelName, version, outputDir )
     vListDir = outputDir + 'variableList/'
@@ -129,6 +128,8 @@ def getNameForChannel( channel ):
         channelName = '1tau2l' 
     if channel == 5:
         channelName = '2tauXl'
+    if channel == 6:
+        channelName = '2tau0l'
 
     return channelName
 

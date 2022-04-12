@@ -118,12 +118,13 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 
    //for selection
    // Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
-   Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num;
+   Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS;
    Double_t jets_HT, jets_6pt;
    theTree->SetBranchAddress( "tausT_number",     &tausT_number );
    theTree->SetBranchAddress( "leptonsMVAT_number",     &leptonsMVAT_number );
    theTree->SetBranchAddress( "jets_number",     &jets_number );
    theTree->SetBranchAddress( "bjetsM_num",     &bjetsM_num );
+   theTree->SetBranchAddress( "leptonsMVAT_2OS", &leptonsMVAT_2OS );
    theTree->SetBranchAddress( "jets_HT",     &jets_HT );
    theTree->SetBranchAddress( "jets_6pt",    &jets_6pt );
    Double_t EVENT_genWeight, EVENT_prefireWeight, PUWeight, btagEfficiency_weight, HLTefficiency_weight;

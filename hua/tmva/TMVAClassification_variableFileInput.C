@@ -80,7 +80,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
       // const TString channel = "1tau1l",
-      const TString channel = "1tau2l",
+      // const TString channel = "1tau2l",
+      const TString channel = "2tau0l",
         Bool_t forVariables = true
         // Bool_t forVariables = false
         )
@@ -94,8 +95,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t istest = false;
-//    Bool_t istest = true;
+   // Bool_t istest = false;
+   Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
@@ -129,7 +130,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    std::map<std::string,int> Use;
 
    // Cut optimisation
-   // Use["Cuts"]            = 0;
    if ( forVariables )  {
        Use["Cuts"]  = 1;
        Use["CutsSA"]  = 0;
@@ -297,13 +297,14 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                 // cout<<"line: "<<line;
                 if( line.size()>0)  {
                     // dataloader->AddVariable( ivariable, 'F');
-                    // variables.push_back( line);
                     variables.push_back( ivariable);
 
                 }
                 // cout<<"ivariable:"<<ivariable<<endl;
-            }      
-            dataloader->AddVariable( line, 'F');
+            }   
+            if ( ivariable.Contains("leptonsTMVA_minDeltaR")==0 )  {
+               dataloader->AddVariable( line, 'F');
+            } 
             num = num+1;
         }
         fin.close();

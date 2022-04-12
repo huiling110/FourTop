@@ -6,11 +6,12 @@
  * @desc [description]
  */
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/EYandSP_usingClass_v3.h"
+#include "../EYandSP_usingClass_v3.h"
 
 
 void makeRootForCombine_1tau0l(){
-    TString inputQCD = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/QCDshapes_corrected.root";
+    // TString inputQCD = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/QCDshapes_corrected.root";
+    TString inputQCD = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/QCDshapes_corrected_UL2016.root";
     TFile *QCDfile = new TFile( inputQCD, "READ" );
     TH1D *QCD_HT = (TH1D*)QCDfile->Get( "h_QCD_HT_SR_DATAcorrected" );
     // QCDfile->Close();
@@ -18,15 +19,18 @@ void makeRootForCombine_1tau0l(){
     cout<<QCD_HT->Integral()<<"\n";
     cout<<QCD_HT->GetEntries()<<"\n";
 
+
     //output file for combine
-    TString outputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/dataDriven_1tau0l_forCombine.root";
+    // TString outputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/dataDriven_1tau0l_forCombine.root";
+    TString outputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/dataDriven_1tau0l_forCombine.root";
     TFile *output = new TFile( outputName, "RECREATE" );
 
     //scale to  7679, scale it to the QCD event yield that Fabio estimated by using the fake rate method
+    Double_t qcdYield =  5617;
     TH1D* my_QCD_HT = (TH1D*)QCD_HT->Clone();
-    // QCDfile->Close();
     my_QCD_HT->Print();
-    my_QCD_HT->Scale( 7679/my_QCD_HT->Integral() );
+    // my_QCD_HT->Scale( 7679/my_QCD_HT->Integral() );
+    my_QCD_HT->Scale(  qcdYield/my_QCD_HT->Integral() );//2016nano
     my_QCD_HT->SetName( "QCD_HT" );
     cout<<my_QCD_HT->GetName()<<"\n"; 
     cout<<"interal after scaling: "<<my_QCD_HT->Integral()<<"\n";
@@ -35,32 +39,21 @@ void makeRootForCombine_1tau0l(){
     Int_t binNum = QCD_HT->GetXaxis()->GetNbins();
     Double_t binMin = QCD_HT->GetXaxis()->GetXmin();
     Double_t binMax = QCD_HT->GetXaxis()->GetXmax();
-    // TH1D* TT = TTTo2L2Nu.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax );
-    // TT->Add( TTToHadronic.getChannelHist( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax ) );
-    // TT->Add( TTToSemiLeptonic.getChannelHist( ES1tau0l, weight,"jets_HT", binNum, binMin, binMax ) );
     TH1D* TT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 4, "TT_HT");
     TT->Print();
     TT->Write();
 
-    TH1D* TTX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 8, "TTX_HT" );
+    TH1D* TTX = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 4, 9, "TTX_HT" );
     // ttX->Print();
 
-    TH1D* VV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 8, 13, "VV_HT" );
+    TH1D* VV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 9, 12, "VV_HT" );
 
-    TH1D* VVV = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 13, 21, "VVV_HT" );
+    TH1D*  SingleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 12, 15, "SingleTop_HT" );
 
-    TH1D* WJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 21, 22, "WJets_HT" );
-
-    TH1D* DYJets = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 22, 23, "DYJets_HT" );
-    TH1D*  SingleTop = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 23, 27, "SingleTop_HT" );
-
-    TH1D*  TX= addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 27, 30, "TX_HT" );
-
-    
     TH1D*  TTTT = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
-    TH1D* data_obs = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 30, "data_obs_HT" );
+    TH1D* data_obs = addHistChannel( ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 0, 24, "data_obs_HT" );
     //QCD starts from index 30
-    TH1D *allBgs = addHistChannel(ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 30, "allBgs_HT");
+    TH1D *allBgs = addHistChannel(ES1tau0l, weight, "jets_HT", binNum, binMin, binMax, 1, 15, "allBgs_HT");
     cout << "allBGs before QCD = " << allBgs->Integral();
     allBgs->SetDefaultSumw2();
     allBgs->Add(my_QCD_HT);
@@ -70,7 +63,6 @@ void makeRootForCombine_1tau0l(){
     output->Write();
     output->Close();
 
-    
 
 
 
