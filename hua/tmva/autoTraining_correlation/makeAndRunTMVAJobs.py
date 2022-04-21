@@ -27,8 +27,8 @@ def main():
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
     isApp = True
     # isApp = False
-    appFolderName = 'AppResults'
-    # appFolderName = 'AppResults_changeBDTrange'
+    # appFolderName = 'AppResults'
+    appFolderName = 'AppResults_resubmit'
     binNum = 11 #for App only
     channelName = GV.getNameForChannel( channel ) 
 

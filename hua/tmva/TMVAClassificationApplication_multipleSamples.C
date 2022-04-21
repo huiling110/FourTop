@@ -239,10 +239,7 @@ void evaluateMVA( std::map<std::string,int> Use, TString processName, TTree* the
 void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
         // TString outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/",
         TString outputDir = "output/",
-        // TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/variableList/varibleList_11.csv",
-       // TString weightDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/dataset/1tau1l_varibleList_11_weight/",
-      //   TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/variableList/varibleList_11.csv",
-      TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/variableList/varibleList_10.csv",
+       TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/variableList/varibleList_10.csv",
         TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/dataset/1tau1lvaribleList_10_weight/",
         // const Int_t channel = 3//2tau1l
       //   const Int_t channel = 1,//1tau1l
@@ -296,8 +293,9 @@ void TMVAClassificationApplication_multipleSamples( TString myMethodList = "",
    }
 
    // --------------------------------------------------------------------------------------------------
-   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.8, 0.8 );//for combine
+//    TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.8, 0.8 );//for combine
    TH1F* data_BDTG = new TH1F( "data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0 );
+   TH1F* data_BDT = new TH1F( "data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.2, 0.4 );//for combine
     for ( UInt_t p=0; p<allProcesses.size(); p++){
        evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale(), data_BDT, data_BDTG, false,  channel, outputDir, variableListCsv, weightDir, binNum );       
         std::cout<<__LINE__<<"\n";
