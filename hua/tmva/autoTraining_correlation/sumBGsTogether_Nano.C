@@ -15,8 +15,8 @@ TH1D* getHist( const TString histName, TFile* input ){
 
 
 void sumBGsTogether_Nano( 
-        // TString inputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tauXl_v1/AppResults_11bins/TMVApp_2tauXl_12var_forCombine.root"
-        TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_10var_forCombine.root"
+        // TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_10var_forCombine.root"
+        TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/TMVApp_1tau1l_10var_forCombine.root"
         ){
     using std::cout;
     // TFile* input = TFile::Open( inputName, "READ");
