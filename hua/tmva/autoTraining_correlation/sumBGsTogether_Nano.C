@@ -7,8 +7,14 @@
  */
 #include "../../EYandSP_usingClass_v3.h" 
 
-TH1D* getHist( const TString histName, TFile* input ){
-    TH1D* temp = (TH1D*)input->Get( histName + "_MVA_BDT");
+TH1D* getHist( const TString histName, TFile* input, Bool_t isMVA ){
+    TH1D* temp;
+    if ( isMVA){
+
+        temp = (TH1D*)input->Get( histName + "_MVA_BDT");
+    } else{
+        temp = (TH1D*)input->Get( histName + "_HT");
+    }
     temp->Sumw2();
     return temp;
 }
@@ -23,7 +29,7 @@ void sumBGsTogether_Nano(
     TFile* input = TFile::Open( inputName, "UPDATE");
 
     TH1::SetDefaultSumw2();
-    TH1D* TTTo2L2Nu = getHist( "ttbar_2l", input );
+    TH1D* TTTo2L2Nu = getHist( "ttbar_2l", input, true );
     // TTTo2L2Nu->Print();
 
     Int_t binNum = TTTo2L2Nu->GetXaxis()->GetNbins();
@@ -39,7 +45,7 @@ void sumBGsTogether_Nano(
     TH1D* iHist ;
     for( UInt_t p=0; p<allProcesses.size(); p++){
         TString iprocessName = allProcesses[p].getProcessName();
-        iHist = getHist( iprocessName, input );
+        iHist = getHist( iprocessName, input , true);
         if (p==0) continue;
         if( 0<p && p<4 ){
             cout<<"adding TT:"<<"\n";
