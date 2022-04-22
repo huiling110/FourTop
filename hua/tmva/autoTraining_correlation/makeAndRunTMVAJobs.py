@@ -15,21 +15,22 @@ import generateVariableList as GV
 
 
 def main():
-    # channel = 1;#1 for 1tau1l
+    channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
     # channel = 4 #1tau2l
     # channel = 5 #2tauXl
-    channel = 6 #2tau0l
+    # channel = 6 #2tau0l
     #  version = 1
-    version = 1
+    version = 3
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
     isApp = True
     # isApp = False
     # appFolderName = 'AppResults'
     appFolderName = 'AppResults_resubmit'
-    binNum = 11 #for App only
+    # binNum = 11 #for App only
+    binNum = 20 #for App only
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )

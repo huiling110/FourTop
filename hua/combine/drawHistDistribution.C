@@ -15,7 +15,6 @@ void drawHistDistribution(
     TCanvas *c1 = new TCanvas( "c1", "HT distribution");
     TTTT->Draw();
     allBgs->Draw("same");
-    // c1->SaveAs("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/2tau0l_HT/11bins/histPlots/HT_distribution.png");
     TString outFileName = inputFile.ReplaceAll( ".root", "_HTshape.png");
     c1->SaveAs( outFileName );
 }

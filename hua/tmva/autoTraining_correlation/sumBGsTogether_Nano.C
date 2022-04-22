@@ -35,6 +35,7 @@ void sumBGsTogether_Nano(
     TH1D* VV_MVA_BDT = new TH1D( "VV_MVA_BDT", "VV_MVA_BDT", binNum, binMin, binMax );
     TH1D* SingleTop_MVA_BDT = new TH1D( "SingleTop_MVA_BDT", "SingleTop_MVA_BDT", binNum, binMin, binMax );
     TH1D* QCD_MVA_BDT = new TH1D( "QCD_MVA_BDT", "QCD_MVA_BDT", binNum, binMin, binMax );
+
     TH1D* iHist ;
     for( UInt_t p=0; p<allProcesses.size(); p++){
         TString iprocessName = allProcesses[p].getProcessName();
