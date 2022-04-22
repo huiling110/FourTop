@@ -35,7 +35,7 @@ void sumBGsTogether_Nano(
     TH1D* VV_MVA_BDT = new TH1D( "VV_MVA_BDT", "VV_MVA_BDT", binNum, binMin, binMax );
     TH1D* SingleTop_MVA_BDT = new TH1D( "SingleTop_MVA_BDT", "SingleTop_MVA_BDT", binNum, binMin, binMax );
     TH1D* QCD_MVA_BDT = new TH1D( "QCD_MVA_BDT", "QCD_MVA_BDT", binNum, binMin, binMax );
-
+    TH1D* allBgs_MVA_BDT = new TH1D( "allBgs_MVA_BDT", "allBgs_MVA_BDT", binNum, binMin, binMax );
     TH1D* iHist ;
     for( UInt_t p=0; p<allProcesses.size(); p++){
         TString iprocessName = allProcesses[p].getProcessName();
@@ -62,6 +62,7 @@ void sumBGsTogether_Nano(
             cout<<"processName = "<<iprocessName<<"\n";
             QCD_MVA_BDT->Add( iHist, 1.0 );
         }
+        allBgs_MVA_BDT->Add( iHist, 1.0 );
         
        delete iHist; 
     }
@@ -70,6 +71,7 @@ void sumBGsTogether_Nano(
     VV_MVA_BDT->Print();
     SingleTop_MVA_BDT->Print();
     QCD_MVA_BDT->Print();
+    allBgs_MVA_BDT->Print();
 
 
 
