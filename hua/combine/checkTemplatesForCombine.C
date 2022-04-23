@@ -2,12 +2,16 @@
 #include "../tmva/autoTraining_correlation/sumBGsTogether_Nano.C"
 
 // void drawTemplates( TH1D* & templates, TString outDir ){
-void drawTemplates( TH1D* & templates, TString inputFile ){
+void drawTemplates( TH1D* & templates, TString outDir,  TString iFile ){
     TString name = templates->GetName();
+    TString title = templates->GetTitle();
+    iFile.ReplaceAll( "TMVApp_", "");
+    iFile.ReplaceAll(".root", "");
+    templates->SetTitle( title+  "(" +   iFile     +")");
+    cout<<"histTitle:"<<templates->GetTitle()<<"\n";
     TCanvas* c = new TCanvas( name, name, 800, 600 );
     templates->Draw();
-    inputFile.ReplaceAll(".root", "");
-    TString plotName =  inputFile + name + ".png"; 
+    TString plotName =  outDir + iFile + "_" + name + ".png"; 
     // c->SaveAs( outDir+name+".png");
     c->SaveAs( plotName );
     cout<<c->GetName()<<"saved"<<"\n";
@@ -15,10 +19,14 @@ void drawTemplates( TH1D* & templates, TString inputFile ){
 }
 
 
-void checkTemplatesForCombine(){
+void checkTemplatesForCombine(
     // TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_11bins/";
-    TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/";
-    TString iFile = "TMVApp_1tau1l_10var_forCombine.root";
+    // TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/";
+    TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/",
+    TString iFile = "TMVApp_1tau1l_10var_forCombine.root"
+
+){
+
     TString inputFile = inputTemplateFileFolder + iFile;
     TString outDir = inputTemplateFileFolder + "templatesPlots/";
     Bool_t isMVA = true;
@@ -29,7 +37,6 @@ void checkTemplatesForCombine(){
     tttt->Print();
     cout<<"Intergal tttt: "<<tttt->Integral()<<"\n";
     cout<<"bin num: "<<tttt->GetNbinsX()<<"\n";
-    drawTemplates( tttt, outDir );
 
     TH1D* ttbar_2l = getHist( "ttbar_2l", file, isMVA );
     ttbar_2l->Print();
@@ -43,11 +50,12 @@ void checkTemplatesForCombine(){
     TH1D* VV = getHist( "VV", file , isMVA );
     TH1D* SingleTop = getHist( "SingleTop", file, isMVA );
 
-    TString forOutFile = outDir + iFile;
-    drawTemplates( TT, forOutFile );
-    drawTemplates( TTX, forOutFile );
-    drawTemplates( VV, forOutFile );
-    drawTemplates( SingleTop, forOutFile );
+
+    drawTemplates( tttt, outDir, iFile );
+    drawTemplates( TT, outDir, iFile );
+    drawTemplates( TTX, outDir, iFile );
+    drawTemplates( VV, outDir, iFile );
+    drawTemplates( SingleTop, outDir, iFile );
 
     //draw s and b shape
     TString histPost = "_HT";
@@ -64,6 +72,7 @@ void checkTemplatesForCombine(){
     tttt->Draw();
     allBgs->Draw("same");
 
+    TString forOutFile = outDir + iFile;
     TString outFileName ;
     if (!isMVA){
         outFileName = forOutFile.ReplaceAll( ".root", "_HTshape.png");

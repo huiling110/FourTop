@@ -28,21 +28,22 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau2l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau0l_v1/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_11bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/'
 
     # channel = '2tau0l'
     channel = '1tau1l'
     addSummedHists( TMVAppDir )
 
-    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    emptyListSum = checkEmptyProcessForSum( emptyList )
-    listForCombine = getNonEmptyList( g_allProcesses, emptyList )
-    listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
+    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    # emptyListSum = checkEmptyProcessForSum( emptyList )
+    # listForCombine = getNonEmptyList( g_allProcesses, emptyList )
+    # listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
 
-    writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
   
 
 
