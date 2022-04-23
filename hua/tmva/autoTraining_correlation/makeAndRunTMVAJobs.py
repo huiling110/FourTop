@@ -15,12 +15,6 @@ import generateVariableList as GV
 
 
 def main():
-    # channel = 1;#1 for 1tau1l
-    #  channel = 2;#2 for 1tau2os
-    #  channel =3 # 2tau1l
-    # channel = 4 #1tau2l
-    # channel = 5 #2tauXl
-    # channel = 6 #2tau0l
     channel = '1tau1l'
     version = 1
     # version = 3
