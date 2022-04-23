@@ -10,13 +10,16 @@
 void variables( 
       //   TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v2/2tau1l_varibleList_50.root",
     TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/1tau1lvaribleList_50.root",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/results/variableDistribution/",
         TString title = "TMVA Input Variables",
         Bool_t isRegression = kFALSE, Bool_t useTMVAStyle = kTRUE )
 {
         // TString dirName = "InputVariables_Id",
         TString dirName = "dataset/InputVariables_Id";
    TString outfname = dirName;
-   outfname.ToLower(); outfname.ReplaceAll( "input", ""  );
+   outfname.ToLower(); 
+//    outfname.ReplaceAll( "input", ""  );
+   outfname.ReplaceAll( "dataset/", "" );
 
    // set style and remove existing canvas'
    TMVAGlob::Initialize( useTMVAStyle );
@@ -177,7 +180,7 @@ void variables(
       // save canvas to file
       if (countPad%noPadPerCanv==0) {
          // TString fname = Form( "1tau0l_Allvariables/%s_c%i", outfname.Data(), countCanvas );
-         TString fname = Form( "1tau0l_Allvariables/%s_c%i", outfname.Data(), countCanvas );
+         TString fname = Form( "%s%s_c%i", outDir.Data(), outfname.Data(), countCanvas );
          TMVAGlob::plot_logo();
          TMVAGlob::imgconv( canv, fname );
          createNewFig = kFALSE;
@@ -188,7 +191,8 @@ void variables(
    }
    
    if (createNewFig) {
-      TString fname = Form( "1tau0l_Allvariables/%s_c%i", outfname.Data(), countCanvas );
+    //   TString fname = Form( "1tau0l_Allvariables/%s_c%i", outfname.Data(), countCanvas );
+         TString fname = Form( "%s%s_c%i", outDir.Data(), outfname.Data(), countCanvas );
       TMVAGlob::plot_logo();
       TMVAGlob::imgconv( canv, fname );
       createNewFig = kFALSE;
