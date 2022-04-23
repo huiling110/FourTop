@@ -15,25 +15,29 @@ import generateVariableList as GV
 
 
 def main():
-    channel = 1;#1 for 1tau1l
+    # channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
     # channel = 4 #1tau2l
     # channel = 5 #2tauXl
     # channel = 6 #2tau0l
-    #  version = 1
-    version = 3
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
-    isApp = True
-    # isApp = False
-    # appFolderName = 'AppResults'
-    appFolderName = 'AppResults_resubmit'
+    channel = '1tau1l'
+    version = 1
+    # version = 3
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
+    # isApp = True
+    isApp = False
+    appFolderName = 'AppResults'
+    # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
     binNum = 30#for App only
-    channelName = GV.getNameForChannel( channel ) 
+    # channelName = GV.getNameForChannel( channel ) 
+    
+    
 
-    vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
+    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
+    vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
     #???add features of submitting jobs and reporting job status and check job results
@@ -64,7 +68,6 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, ap
 
         logFile = outputDir +   "log/" + entryName + ".log"
         errFile = outputDir +  "log/" + entryName +".err"
-        # subAllscript.write( "hep_sub -mem 8000 "+  iJob  + " -o " + logFile + " -e " + errFile + '\n')
         subAllscript.write( "hep_sub -mem 4000 "+  iJob  + " -o " + logFile + " -e " + errFile + '\n')
     os.popen('chmod 777 '+ TMVACodeDir + 'autoTraining_correlation/' + jobDir + "*sh")
     os.popen('chmod 777 ' + TMVACodeDir + 'autoTraining_correlation/'+ subAllscriptName )
@@ -82,13 +85,13 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         # weightDir = outputDir[:outputDir.find('AppResults')]
         weightDir = outputDir[:outputDir.find( appFolderName )]
         
-        weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + vlistName + '_weight/'
+        # weightDir = weightDir + 'dataset/'+ GV.getNameForChannel( channel ) + vlistName + '_weight/'
+        weightDir = weightDir + 'dataset/'+ channel + vlistName + '_weight/'
         print( 'weightDir :', weightDir)
-        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ str(channel) +',' +str(binNum) + ')' + '\''   )
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ '\"'+GV.getNameForChannel(channel)+'\"'  +',' +str(binNum) + ')' + '\''   )
+        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ '\"'+ channel +'\"'  +',' +str(binNum) + ')' + '\''   )
     else:
-        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + str(channel) + ', false' ')' + '\''   )
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ GV.getNameForChannel(channel) +"\""+ ', false' ')' + '\''   )
+        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ channel +"\""+ ', false' ')' + '\''   )
+        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ channel +"\""+ ', false,  false )' + '\''   )
     output.close()
 
 #  def checkJob():
