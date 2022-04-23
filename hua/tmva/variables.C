@@ -1,4 +1,5 @@
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
+#include "tmvaglob.h"
 
 // this macro plots the distributions of the different input variables
 // used in TMVA (e.g. running TMVAnalysis.C).  Signal and Background are overlayed.

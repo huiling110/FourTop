@@ -20,6 +20,8 @@ def main( ):
     #  plotSigOnly = True
     plotSigOnly = False
 
+    # plotInputVariables( TMVAFileDir + '')
+
     if plotSigOnly:
         plotSigOnlyC = 'true'
     else:

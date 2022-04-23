@@ -71,19 +71,20 @@
 #include "../EYandSP_usingClass_v3.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-      // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/",
-      TString outputDir = "output/",
-        TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
+    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/",
+    TString outputDir = "output/",
+    TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
         // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
         // const Int_t channel = 2      //   const Int_t channel = 1,
         // const Int_t channel = 3,//2tau1l
         // const Int_t channel = 4//1tau2l
       //   const Int_t channel = 5, //2tauXl
-      // const TString channel = "1tau1l",
+      const TString channel = "1tau1l",
       // const TString channel = "1tau2l",
-      const TString channel = "2tau0l",
-        Bool_t forVariables = true
-        // Bool_t forVariables = false
+    //   const TString channel = "2tau0l",
+        // Bool_t forVariables = true
+        Bool_t forVariables = false,
+        Bool_t istest = true
         )
 {
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
@@ -95,8 +96,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   Bool_t istest = false;
-//    Bool_t istest = true;
    TString outDir = outputDir;
    TString outfile ;
    // This loads the library
@@ -269,13 +268,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-      // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 30;
-   // if ( !istest ){
-       // (TMVA::gConfig().GetIONames()).fOptionsReferenceFileDir = outDir ;
-   // if ( istest ){
+      (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 100;
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
-   // }
    
 
 

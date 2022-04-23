@@ -24,10 +24,11 @@ def main():
 
     vListList = gV.generateListList( TMVAlog, TMVAroot )
 
-    channel = 1;#1 for 1tau1l
+    # channel = 1;#1 for 1tau1l
     #  channel = 2#2 for 1tau2os
     # channel = 3 # 2tau1l
-    #  channel = 4 #1tau2l
+    #  channel = 4 #1tau2
+    channel = '1tau1l'
     version = 1
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/'
     outputDir = gV.makeBaseDir( channel, outputDir, version )
@@ -44,18 +45,20 @@ def plotListSP( ilist, SPDic , channel, outputDir ):
     c1 = ROOT.TCanvas( 'c1', 'c1', 330, 800 )
 
     pt = ROOT.TPaveText(.05,.99,.95,.05,);# the position relative to cavas, first is the left down point
-    if channel == 1:
-        t1 = pt.AddText( "1tau1l")
-        t1.SetTextSize( 0.06)
-    if channel == 2:
-        t2 = pt.AddText( "1tau2os")
-        t2.SetTextSize( 0.06)
-    if channel == 3:
-        t2 = pt.AddText( "2tau1l")
-        t2.SetTextSize( 0.06)
-    if channel == 4:
-        t2 = pt.AddText( "1tau2l")
-        t2.SetTextSize( 0.06)
+    # if channel == 1:
+    #     t1 = pt.AddText( "1tau1l")
+    #     t1.SetTextSize( 0.06)
+    # if channel == 2:
+    #     t2 = pt.AddText( "1tau2os")
+    #     t2.SetTextSize( 0.06)
+    # if channel == 3:
+    #     t2 = pt.AddText( "2tau1l")
+    #     t2.SetTextSize( 0.06)
+    # if channel == 4:
+    #     t2 = pt.AddText( "1tau2l")
+    #     t2.SetTextSize( 0.06)
+    t2 = pt.AddText( channel )
+    t2.SetTextSize( 0.06)
     
     ivariable = 1
     for i in ilist:

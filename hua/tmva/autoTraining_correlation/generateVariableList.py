@@ -20,27 +20,25 @@ import plotVariablesAndSP
 
 
 def main():
-    #  TMVADir =  "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/"
-    
     #the first line identifies each piece of datain other words, the name of a data column
-    
     #?want to change channel to string so that its more clear to user
     # channel = 1;#1 for 1tau1l
     #  channel = 2;#2 for 1tau2os
     #  channel =3 # 2tau1l
     # channel =4# 1tau2l
     # channel = 5 # 2tauXl
-    channel = 6 #2tau0l
+    # channel = 6 #2tau0l
+    channel = '1tau1l'
     # version = 1
-    version = 1#corrected correlation removel
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
+    version = 1
+    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
 
-    channelName = getNameForChannel( channel ) 
-    vListDir, outputDir = checkAndMakeDir( channelName, version, outputBase )
+    vListDir, outputDir = checkAndMakeDir( channel, version, outputBase )
 
-    generateAllVariablesLog( outputDir, channelName, channel )#just to get the SP of all variables
+    generateAllVariablesLog( outputDir, channel )#just to get the SP of all variables
     
-    TMVAlog, TMVAroot = getTMVAlog( outputDir, channelName )
+    TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
     vListList = generateListList( TMVAlog, TMVAroot )
     writeListListToFile( vListList, vListDir)
 
@@ -48,16 +46,17 @@ def main():
     SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
-def generateAllVariablesLog( outputDir , channelName, channel ):
+def generateAllVariablesLog( outputDir , channel ):
     tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
-    trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true )\''.format( tmvaTraining, outputDir, channelName )
+    # trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true )\''.format( tmvaTraining, outputDir, channel )
+    trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true , false )\''.format( tmvaTraining, outputDir, channel )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
     process = subprocess.run( trainingCommand, shell=True, capture_output=True, text=True )
     output = process.stdout.strip()
     print( output )
 
-    with open( outputDir+'{}__variables.log'.format(channelName), 'w') as logFile:
+    with open( outputDir+'{}__variables.log'.format(channel), 'w') as logFile:
         logFile.writelines( output )
 
 
