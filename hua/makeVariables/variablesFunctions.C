@@ -275,7 +275,8 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t>& SelectedJets
     reverse(jetsBtags.begin(),jetsBtags.end());
     Double_t sum = 1;
     if(SelectedJetsBTags.GetSize()>3) {
-        sum = jetsBtags[0]*jetsBtags[1]*jetsBtags[2]*jetsBtags[3];
+        // sum = jetsBtags[0]*jetsBtags[1]*jetsBtags[2]*jetsBtags[3];
+        sum = TMath::Sqrt( jetsBtags[0]*jetsBtags[1]*jetsBtags[2]*jetsBtags[3] );
     }
     else{
         sum =  -99;
