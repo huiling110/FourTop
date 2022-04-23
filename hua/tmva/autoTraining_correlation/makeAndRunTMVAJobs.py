@@ -30,7 +30,7 @@ def main():
     # appFolderName = 'AppResults'
     appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
-    binNum = 80 #for App only
+    binNum = 30#for App only
     channelName = GV.getNameForChannel( channel ) 
 
     vListDir, outputDir = checkMakeDir( channelName, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )

@@ -2,8 +2,19 @@
 import os
 import subprocess
 
+
 def main():
-    inputTemplateFileFolder = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/'
+    # inputTemplateFileFolder = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/'
+    # inputTemplateFileFolder = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/'
+    inputTemplateFileFolder = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/'
+    # inputTemplateFileFolder = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_11bins/'
+    
+    plotDir = inputTemplateFileFolder + 'templatesPlots/'
+    if not os.path.exists( plotDir ):
+        os.mkdir( plotDir  )
+
+    
+    
     for ifile in os.listdir( inputTemplateFileFolder ):
         if '.root' in  ifile:
             command = 'root -q -b \'checkTemplatesForCombine.C( \"{}\", \"{}\" )\' '.format( inputTemplateFileFolder, ifile )

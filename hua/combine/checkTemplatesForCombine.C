@@ -62,7 +62,7 @@ void checkTemplatesForCombine(
     if ( isMVA ) histPost = "_MVA_BDT";
     tttt->Scale(  1 / tttt->Integral() );
     tttt->SetLineColor(kRed);
-    tttt->SetMaximum(0.4);
+    tttt->SetMaximum(0.15);
     // TH1D *allBgs = (TH1D *)input->Get("allBgs" + histPost );
     TH1D* allBgs = getHist( "allBgs", file, isMVA );
     allBgs->Scale(1 / allBgs->Integral());
