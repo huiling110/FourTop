@@ -24,6 +24,7 @@ def main():
     #?want to change channel to string so that its more clear to user
     channel = '1tau1l'
     # version = 1
+    # version = 2
     version = 3
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
@@ -31,7 +32,7 @@ def main():
 
     vListDir, outputDir = checkAndMakeDir( channel, version, outputBase )
 
-    generateAllVariablesLog( outputDir, channel )#just to get the SP of all variables
+    # generateAllVariablesLog( outputDir, channel )#just to get the SP of all variables
     
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
     vListList = generateListList( TMVAlog, TMVAroot )
