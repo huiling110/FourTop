@@ -34,7 +34,8 @@
 // const TString baseDir_2016post = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v1_fromV8/";
 // const TString baseDir          = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1_fromV9/";
 // const TString baseDir          = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2Add2Variables_fromV9/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3correctBjetsvariable_fromV9/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3correctBjetsvariable_fromV9/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4modifiedMinDeltaR_fromV9/";
 const TString era_g = "2016";
 // std::cout<<"baseDir : "<<baseDir<<"\n";
 

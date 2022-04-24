@@ -70,20 +70,22 @@
 
 #include "../EYandSP_usingClass_v3.h"
 
+
+
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-    //  TString outputDir = "output/",
+     TString outputDir = "output/",
    //  TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/",
-    TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
+    // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
    //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
       const TString channel = "1tau1l",
       // const TString channel = "1tau2l",
     //   const TString channel = "2tau0l",
-        // Bool_t forVariables = true,
-        Bool_t forVariables = false,
-      //   Bool_t istest = true
-        Bool_t istest = false
+        Bool_t forVariables = true,
+        // Bool_t forVariables = false,
+        Bool_t istest = true
+        // Bool_t istest = false
         )
 {
     std::cout<<"baseDir : "<<baseDir<<"\n";
@@ -310,30 +312,48 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
         TString branchName;
         UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
         cout<<"number of branches: "<<nbr<<endl;
+		Int_t chosenVariable = 0;
         for ( UInt_t i=0; i<nbr; i++){
             branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
             if ( branchName.Contains( "Flag") )  continue;
             if ( branchName.Contains( "HLT"))    continue;
             if ( branchName.Contains( "Weight"))  continue;
-            if ( branchName.Contains( "tausT_number") || branchName.Contains( "muonsT_number") || branchName.Contains( "elesMVAT_number")  ) continue;
-            if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
-            if ( branchName.Contains( "tausT_minDeltaR")) continue;
-            if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
+            if ( branchName.Contains( "weight") ) continue;
+
+            if ( branchName.Contains( "toptagger" )) continue;
+            if ( branchName.Contains( "Met")) continue;
+
+            // if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
+            // if ( branchName.Contains( "tausL")|| branchName.Contains( "tausF") ) continue;
+            // if (   branchName.Contains("tausL_2pt")||branchName.Contains("tausL_3pt")||branchName.Contains("tausM_minDeltaR") ) continue;
+            // if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
             //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
             //not sure what is wrong with this branch. //Variable muonsT_number is constant.
             //because after the cut the branch is 0
-            if ( branchName.Contains( "jets_HTDividedByMet") || branchName.Contains( "jets_MHTDividedByMet") ) continue;
-            if ( branchName.Contains( "toptagger" )) continue;
-            if ( branchName.Contains( "Met")) continue;
-            if ( branchName.Contains( "weight") ) continue;
-			   if ( channel.CompareTo( "2tau0l")==0 &&( branchName.Contains("leptonsTMVA_minDeltaR") ||branchName.Contains("elesMVAF") || branchName.Contains("leptonsTMVA") ) )  continue;
-            if ( channel.CompareTo( "1tau1l")==0 && ( branchName.Contains("jets_8pt")||branchName.Contains("jets_9pt")||branchName.Contains("jets_10pt")||branchName.Contains("jets_11pt")||branchName.Contains("bjetsM_3pt")||branchName.Contains("bjetsM_4pt")||branchName.Contains("nonbjetsM_4pt")  )||branchName.Contains("bjetsL")||branchName.Contains("bjetsT")   )  continue;
+            // if ( branchName.Contains( "jets_HTDividedByMet") || branchName.Contains( "jets_MHTDividedByMet") ) continue;
+
+			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
+
+
+			if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
+			if ( branchName.Contains("muons")&&  ( !(branchName.Contains("muonsT_1"))  )   )  continue;//1mu
+			if ( branchName.Contains("elesMVA")  ) continue;
+			if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
+			if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
+			if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
+			if ( branchName.Contains("nonbjetsM_4")   )  continue; 
+
+
+			// if ( channel.CompareTo( "2tau0l")==0 &&( branchName.Contains("leptonsTMVA_minDeltaR") ||branchName.Contains("elesMVAF") || branchName.Contains("leptonsTMVA") ) )  continue;
+            // if ( channel.CompareTo( "1tau1l")==0 && ( ||branchName.Contains("bjetsM_minDeltaR") ||  )|| ||branchName.Contains( "tausT_minDeltaR") ||branchName.Contains("tausF_invariantMass")||branchName.Contains("tausT_invariantMass")||branchName.Contains("tausL_invariantMass") )  continue;
 			
+			chosenVariable = chosenVariable+1;
             cout<<"variables forvaribles training: "<<branchName<<endl;
             branchNames.push_back( branchName );
             if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
             else dataloader->AddVariable( branchName, 'F' );
         }
+		std::cout<<"chosenVariable: "<<chosenVariable<<"\n";
     }
 
 
