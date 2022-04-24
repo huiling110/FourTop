@@ -71,16 +71,19 @@
 #include "../EYandSP_usingClass_v3.h"
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/",
-    TString outputDir = "output/",
+    //  TString outputDir = "output/",
+   //  TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/",
+    TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
    //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
-   TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/varibleList_10.csv",
+   // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
+   TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
       const TString channel = "1tau1l",
       // const TString channel = "1tau2l",
     //   const TString channel = "2tau0l",
         // Bool_t forVariables = true,
         Bool_t forVariables = false,
-        Bool_t istest = true
+      //   Bool_t istest = true
+        Bool_t istest = false
         )
 {
     std::cout<<"baseDir : "<<baseDir<<"\n";
@@ -266,7 +269,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-   (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
+   // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
+   (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 40;
    TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 100 ;
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
@@ -622,7 +626,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    if (Use["BDT"])  // Adaptive Boost
       factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDT",
-                           "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
+                           // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
+                           "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20:NegWeightTreatment=IgnoreNegWeightsInTraining" );
 
    if (Use["BDTB"]) // Bagging

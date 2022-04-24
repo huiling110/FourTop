@@ -17,7 +17,8 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau2l_v1/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau0l_v1/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/'
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
     plotSigOnly = False
@@ -25,7 +26,7 @@ def main( ):
     channel = TMVAFileDir[-10:-4]
     print('channel: ', channel)
     fileForVaribles = channel + 'varibleList_50.root'
-    plotInputVariables( TMVAFileDir , fileForVaribles )
+    # plotInputVariables( TMVAFileDir , fileForVaribles )
 
     if plotSigOnly:
         plotSigOnlyC = 'true'
@@ -42,6 +43,7 @@ def main( ):
         if os.path.isfile( TMVAFileDir+entry ):
             #  continue
             if  'varibleList' in entry:
+            # if  '.root' in entry:
                 #  print( entry )
                 # command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
