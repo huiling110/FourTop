@@ -215,21 +215,24 @@ Double_t MinDeltaRCal(const TTreeReaderArray<TLorentzVector>& Jets,
   return min_deltaR;
 }
 Double_t MinDeltaRSingleCal(const TTreeReaderArray<TLorentzVector>& Jets) {
-  Double_t min = 10;
-  Double_t min_2 = 10;
-  Double_t min_3 = 10;
-  Double_t min_1 = 10;
-  for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
-    for (UInt_t k = j + 1; k < Jets.GetSize(); ++k) {
-      min_1 = Jets[j].DeltaR(Jets[k]);
-      if (min_1 < min)
-        min = min_1;
+    Double_t min = 10;
+    // Double_t min_2 = 10;
+    Double_t min_3 = 10;
+    Double_t min_1 = 10;
+    for (UInt_t j = 0; j < Jets.GetSize(); ++j) {
+        if ( Jets.GetSize()<3 ){
+            min_3 = -99.;
+            break;
+        }
+        for (UInt_t k = j + 1; k < Jets.GetSize(); ++k) {
+            min_1 = Jets[j].DeltaR(Jets[k]);
+            if (min_1 < min) { min = min_1; }
+        }
+        // min_2 = min;
+        // if (min_2 < min_3) {min_3 = min_2;}
+        if (min < min_3 ) {min_3 = min;}
     }
-    min_2 = min;
-    if (min_2 < min_3)
-      min_3 = min_2;
-  }
-  return min_3;
+    return min_3;
 }
 
 Double_t AverageDeltaRCal(const TTreeReaderArray<TLorentzVector>&  SelectedJets) {

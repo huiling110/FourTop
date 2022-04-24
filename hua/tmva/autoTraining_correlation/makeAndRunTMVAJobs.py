@@ -16,8 +16,8 @@ import generateVariableList as GV
 
 def main():
     channel = '1tau1l'
-    version = 1
-    # version = 3
+    # version = 1
+    version = 2 
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
     isApp = True
@@ -25,7 +25,7 @@ def main():
     appFolderName = 'AppResults'
     # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
-    binNum = 30#for App only
+    binNum = 40#for App only
     
     
 
@@ -34,6 +34,8 @@ def main():
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
     #???add features of submitting jobs and reporting job status and check job results
+    # submitJobs()
+
 
 
 
