@@ -8,9 +8,10 @@
 //        - normal/decorrelated/PCA
 //        - use of TMVA plotting TStyle
 void variables( 
-      //   TString fin = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v2/2tau1l_varibleList_50.root",
-    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/1tau1lvaribleList_50.root",
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/results/variableDistribution/",
+   //  TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/1tau1lvaribleList_50.root",
+   //  TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/results/variableDistribution/",
+    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/1tau1lvaribleList_50.root",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/results/variableDistribution/",
         TString title = "TMVA Input Variables",
         Bool_t isRegression = kFALSE, Bool_t useTMVAStyle = kTRUE )
 {
@@ -87,6 +88,8 @@ void variables(
       if (!cl->InheritsFrom("TH1")) continue;
       TH1 *sig = (TH1*)key->ReadObj();
       TString hname(sig->GetName());
+      // cout<<"hist entries: "<<sig->GetEntries()<<"\n";
+      //hist entry is the training sample
 
       // create new canvas
       if (countPad%noPadPerCanv==0) {

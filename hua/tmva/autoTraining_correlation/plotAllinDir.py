@@ -15,12 +15,17 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV9/1tau1l_v1/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v2/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau2l_v1/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau0l_v1/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau0l_v1/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/'
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
     plotSigOnly = False
 
-    # plotInputVariables( TMVAFileDir + '')
+    channel = TMVAFileDir[-10:-4]
+    print('channel: ', channel)
+    fileForVaribles = channel + 'varibleList_50.root'
+    plotInputVariables( TMVAFileDir , fileForVaribles )
 
     if plotSigOnly:
         plotSigOnlyC = 'true'
@@ -36,26 +41,25 @@ def main( ):
         #  print( entry )
         if os.path.isfile( TMVAFileDir+entry ):
             #  continue
-            #  if entry.find( 'varibleList'):
             if  'varibleList' in entry:
                 #  print( entry )
-                #  command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\" )\''
-                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
+                # command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
+                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
                 process = subprocess.run( [command], 
                         shell=True,
                         capture_output=True,
                         text=True,
                          #  stdout=subprocess.PIPE,
-                        bufsize=1,
+                        # bufsize=1,
                         universal_newlines=True
                         )
                 # we’re invoking a shell at the start of the execution of our subprocess, and the command argument is interpreted directly by the shell
                 #  output = process.stdout.strip()
                 output = process.stdout
                 print( output)
-                #  for line in output:
                 findNum = 1
+                # for line in output:
                 for line in output.split(os.linesep):
                     if 'BDT_sigMax' in line:
                         #  print( line )
@@ -81,7 +85,6 @@ def main( ):
     print( len(sig_BDT), sig_BDT )
     print( len(sig_BDTG), sig_BDTG )
 
-    #  print( len(variableNum_BDT),variableNum_BDT )
 
     #plot sig
     logDir = TMVAFileDir + 'log/'
@@ -91,7 +94,21 @@ def main( ):
     #plot AUC
     if not plotSigOnly:
         plotAUC.getAUCToTGragh( logDir )
+        
+    
 
+def plotInputVariables( TMVAFileDir, fileForVariables ):
+    outForVariables = TMVAFileDir + 'results/variableDistribution/'
+    if not os.path.exists( outForVariables ):
+        os.mkdir( outForVariables )
+    # command = 'root -q -b \'../variables.C( \"{}\",  \"{}\", \"TMVA Input Variables\", kFALSE, kTRUE      )\'  '.format( TMVAFileDir+fileForVariables, outForVariables ) 
+    codeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
+    command = 'root -q -b \'{}variables.C( \"{}\",  \"{}\", \"TMVA Input Variables\", kFALSE, kTRUE      )\'  '.format( codeDir, TMVAFileDir+fileForVariables, outForVariables ) 
+    print( command )
+    process = subprocess.run( command, shell=True)   
+    print( process.stdout )
+    
+    
 
 
 if __name__ == '__main__':
