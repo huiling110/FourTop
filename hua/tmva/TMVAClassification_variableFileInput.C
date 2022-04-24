@@ -73,16 +73,18 @@
 int TMVAClassification_variableFileInput( TString myMethodList = "",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/",
     TString outputDir = "output/",
-    TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
-        // string variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/testList.csv",
+   //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
+   TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/varibleList_10.csv",
       const TString channel = "1tau1l",
       // const TString channel = "1tau2l",
     //   const TString channel = "2tau0l",
-        // Bool_t forVariables = true
+        // Bool_t forVariables = true,
         Bool_t forVariables = false,
         Bool_t istest = true
         )
 {
+    std::cout<<"baseDir : "<<baseDir<<"\n";
+
    // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
    // if you use your private .rootrc, or run from a different directory, please copy the
    // corresponding lines from .rootrc
@@ -264,7 +266,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-      (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 100;
+   (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
+   TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 100 ;
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
    
@@ -313,7 +316,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains( "tausT_minDeltaR")) continue;
             if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
             //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
-            if ( branchName.Contains( "toptagger_scoreAllTops")) continue; //???constant.
             //not sure what is wrong with this branch. //Variable muonsT_number is constant.
             //because after the cut the branch is 0
             if ( branchName.Contains( "jets_HTDividedByMet") || branchName.Contains( "jets_MHTDividedByMet") ) continue;

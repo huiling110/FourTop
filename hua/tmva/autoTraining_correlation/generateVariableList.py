@@ -48,7 +48,6 @@ def main():
 
 def generateAllVariablesLog( outputDir , channel ):
     tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
-    # trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true )\''.format( tmvaTraining, outputDir, channel )
     trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true , false )\''.format( tmvaTraining, outputDir, channel )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
