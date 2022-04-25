@@ -95,7 +95,8 @@ def getInitListAndSP( TMVAlog ):
             if len(irow)>0:
                 if irow[0] == "IdTransformation         ":
                     #  print(irow[1])
-                    SPline = linecount+2
+                    # SPline = linecount+2
+                    SPline = linecount+3
             if (linecount == SPline and not(linecount == 0) ):
                 #  print(irow)
                 if len(irow)>3:
@@ -104,6 +105,8 @@ def getInitListAndSP( TMVAlog ):
                         #  print(irow)
                         variable1 = irow[2].replace( " ", "")
                         SP = irow[3].replace( " ", "")
+                        
+                        print( "SP : ", SP )
                         SP = float(SP)
                         print( "SP : ", SP )
                         #  print( 'variable1', variable1 )

@@ -7,6 +7,7 @@
 # Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
 
+from imp import init_builtin
 import sys
 import os
 import subprocess
@@ -62,6 +63,10 @@ def getTMVAlog( outputDir, channelName ):
 
 def generateListList( TMVAlog, TMVAroot ):
     initialVariableList = getInitList( TMVAlog )
+    print('initialList:', len(initialVariableList), initialVariableList )
+    # initialVariableList.remove('Variable') 
+    print('initialList:', len(initialVariableList), initialVariableList )
+        
 
     removedPhiEtaList = removephieta( initialVariableList )
 
@@ -91,7 +96,7 @@ def removephieta( initialList ):
     print( 'list after remove phieta: ', len( removedList), removedList )
     return removedList
 
-    return initialList
+    # return initialList
 
 def checkAndMakeDir( channelName, version, outputDir ):
     outputDir = makeBaseDir( channelName, version, outputDir )
@@ -143,7 +148,8 @@ def getInitList( TMVAlog ):
             if len(irow)>0:
                 if irow[0] == "IdTransformation         ":
                     #  print(irow[1])
-                    SPline = linecount+2
+                    # SPline = linecount+2
+                    SPline = linecount+3
             if (linecount == SPline and not(linecount == 0) ):
                 #  print(irow)
                 if len(irow)>3:
