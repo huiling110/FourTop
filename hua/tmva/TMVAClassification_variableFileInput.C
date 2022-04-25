@@ -336,6 +336,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
          if ( branchName.Contains("muonsT")||branchName.Contains("muonsF")||branchName.Contains("muonsL") ) continue;
             if ( branchName.Contains("elesMVA")  ) continue;
+			if ( branchName.Contains("leptonsMVAT_2OS")|| branchName.Contains("leptonsMVAT_2SS")) continue;
             if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
 
          if ( channel.CompareTo("1tau1l")==0 ){
@@ -350,16 +351,15 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains("nonbjetsM_4")   )  continue; 
 
          }else if( channel.CompareTo("1tau2l")==0 ){
-            // if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")||branchName.Contains("tauL_2")))  )  continue;
-            // if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")||branchName.Contains("tauF_2")))  )  continue;
-            // if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")||branchName.Contains("tauT_2")))  )  continue;
-			std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR"};
+			std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR", "tau._2", "tau._3" };
 			if (  vectorInBranch( branchName, tauVariablesToAvoid ) ) continue;
 
+			std::vector<TRegexp> leptonVarToAvoid = { "leptonsMVAT_2OS", "leptonsMVAT_3" };
+			if ( vectorInBranch( branchName, leptonVarToAvoid )) continue;
 
-            // if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
-            if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")||branchName.Contains("leptonsMVAT_2")||branchName.Contains("leptonsMVAF_2")||branchName.Contains("leptonsMVAL_2")) )   )  continue; //1l
-            if ( branchName.Contains("jets_7")|| branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
+			std::vector<TRegexp> jetsVarToAvoid = { "jets_7", "jets_8", "jets_9", "jets_10", "jets_11" };
+			if ( vectorInBranch( branchName, jetsVarToAvoid )) continue;
+
             if ( branchName.Contains("nonbjetsM_4")   )  continue; 
 
 
@@ -368,7 +368,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
          //probematic branches
          if ( branchName.Contains("jets_bScoreMultiply") )  continue;
          if ( branchName.Contains("bjetsM_minDeltaR") )  continue; //bjetsM_minDeltaR
-		 if ( branchName.Contains("tausF_leptonsT_transMass")) continue;
+		 if ( branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") ||branchName.Contains("tausT_leptonsT_transMass")) continue;
 
 
 
@@ -673,8 +673,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    if (Use["BDT"])  // Adaptive Boost
       factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDT",
-                           // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
-                           "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
+                           "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
+                           // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20:NegWeightTreatment=IgnoreNegWeightsInTraining" );
 
    if (Use["BDTB"]) // Bagging
