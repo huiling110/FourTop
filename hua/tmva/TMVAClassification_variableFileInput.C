@@ -326,7 +326,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
          if ( branchName.Contains("muonsT")||branchName.Contains("muonsF")||branchName.Contains("muonsL") ) continue;
-         if ( branchName.Contains("tausL")&&( !(branchName.Contains("tausL_1"))) ) continue;
+         if ( branchName.Contains("tausL")&&( !(branchName.Contains("tauL_1"))) ) continue;
          if ( branchName.Contains("tausF")&&( !(branchName.Contains("tausF_1"))) ) continue;
 
 
