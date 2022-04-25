@@ -80,22 +80,22 @@ Bool_t vectorInBranch( TString branchName, std::vector<TRegexp> & variableList )
 	}
 	return anyIn;
 }
-
+///???root interpretation running locally a bit slow
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-     TString outputDir = "output/",
+    TString outputDir = "output/",
    //  TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/",
     // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
    //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
     //   const TString channel = "1tau1l",
-      const TString channel = "1tau2l",
+    const TString channel = "1tau2l",
     //   const TString channel = "2tau0l",
-        Bool_t forVariables = true,
+    Bool_t forVariables = true,
         // Bool_t forVariables = false,
-        Bool_t istest = true
-        // Bool_t istest = false
-        )
+   //  Bool_t istest = true
+        Bool_t istest = false
+    )
 {
     std::cout<<"baseDir : "<<baseDir<<"\n";
 
@@ -325,20 +325,20 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 		Int_t chosenVariable = 0;
         for ( UInt_t i=0; i<nbr; i++){
             branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
-            if ( branchName.Contains( "Flag") )  continue;
-            if ( branchName.Contains( "HLT"))    continue;
-            if ( branchName.Contains( "Weight"))  continue;
-            if ( branchName.Contains( "weight") ) continue;
 
-            if ( branchName.Contains( "toptagger" )) continue;
-            if ( branchName.Contains( "Met")) continue;
-
-
-			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
-         if ( branchName.Contains("muonsT")||branchName.Contains("muonsF")||branchName.Contains("muonsL") ) continue;
-            if ( branchName.Contains("elesMVA")  ) continue;
-			if ( branchName.Contains("leptonsMVAT_2OS")|| branchName.Contains("leptonsMVAT_2SS")) continue;
-            if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
+			std::vector<TRegexp> commanVarToAvoid = {
+				"Flag", "HLT", "Weight","weight", 
+				"toptagger",
+				"Met",//???
+				"bjetsT",
+				"muons",
+				"elesMVA",
+				"leptonsMVAT_2OS", "leptonsMVAT_2SS" ,"leptonsMVAT_number",
+				"bjetsM_3", "bjetsM_4",
+				"nonbjetsM_4",
+				"tausT_number",
+			};
+			if ( vectorInBranch( branchName, commanVarToAvoid )) continue;
 
          if ( channel.CompareTo("1tau1l")==0 ){
             if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
@@ -349,7 +349,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 			//???might miss some combination channels???
             if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
             if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
-            if ( branchName.Contains("nonbjetsM_4")   )  continue; 
 
          }else if( channel.CompareTo("1tau2l")==0 ){
 			std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR", "tau._2", "tau._3" };
@@ -360,8 +359,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 			std::vector<TRegexp> jetsVarToAvoid = { "jets_7", "jets_8", "jets_9", "jets_10", "jets_11" };
 			if ( vectorInBranch( branchName, jetsVarToAvoid )) continue;
-
-            if ( branchName.Contains("nonbjetsM_4")   )  continue; 
 
 
 		 }
