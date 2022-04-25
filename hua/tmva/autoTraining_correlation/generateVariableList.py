@@ -25,8 +25,8 @@ def main():
     #?want to change channel to string so that its more clear to user
     # channel = '1tau1l'
     channel = '1tau2l'
-    version = 1
-    # version = 2
+    # version = 1
+    version = 2
     # version = 4
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
@@ -64,16 +64,17 @@ def getTMVAlog( outputDir, channelName ):
 
 def generateListList( TMVAlog, TMVAroot ):
     initialVariableList = getInitList( TMVAlog )
-    print('initialList:', len(initialVariableList), initialVariableList )
+    # print('initialList:', len(initialVariableList), initialVariableList )
     # initialVariableList.remove('Variable') 
-    print('initialList:', len(initialVariableList), initialVariableList )
+    # print('initialList:', len(initialVariableList), initialVariableList )
         
 
     removedPhiEtaList = removephieta( initialVariableList )
 
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
-    leading50List = leadingNList( removedPhiEtaList, 50 )
-    #  print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
+    # leading50List = leadingNList( removedPhiEtaList, 50 )
+    leading50List = leadingNList( removedPhiEtaList, 40 )
+     print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
     print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
     print( '\n')
