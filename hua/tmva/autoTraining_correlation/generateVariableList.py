@@ -26,14 +26,14 @@ def main():
     channel = '1tau1l'
     # version = 1
     # version = 2
-    version = 3
+    version = 4
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
 
     vListDir, outputDir = checkAndMakeDir( channel, version, outputBase )
 
-    # generateAllVariablesLog( outputDir, channel )#just to get the SP of all variables
+    generateAllVariablesLog( outputDir, channel )#just to get the SP of all variables
     
     TMVAlog, TMVAroot = getTMVAlog( outputDir, channel )
     vListList = generateListList( TMVAlog, TMVAroot )
