@@ -280,9 +280,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // (please check "src/Config.h" to see all available global options)
    //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-   // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
-   (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 40;
-   TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 100 ;
+   (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
+   // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 40;
+   // TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 100 ;
+   TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30 ;
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  outfile + "_weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; //If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
    

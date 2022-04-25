@@ -74,7 +74,7 @@ def generateListList( TMVAlog, TMVAroot ):
     #  print( 'initialVariableList: ', len(initialVariableList), initialVariableList)
     # leading50List = leadingNList( removedPhiEtaList, 50 )
     leading50List = leadingNList( removedPhiEtaList, 40 )
-     print( '50 leadingList:\n', len(leading50List),  str(leading50List),'\n')
+    print( '40 leadingList:\n', len(leading50List),  str(leading50List),'\n')
     removeBjetTL_list = removeBjetTL( leading50List )
     print( 'removeBjets list: ', len(removeBjetTL_list), removeBjetTL_list )
     print( '\n')
