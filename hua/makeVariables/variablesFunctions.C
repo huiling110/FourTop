@@ -299,9 +299,9 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t>& SelectedJetsBTags) {
   Double_t initB = 1;
   for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j) {
-    initB = initB*SelectedJetsBTags[j];
+    initB =  initB*SelectedJetsBTags[j];
   }
-  return initB;
+  return TMath::Sqrt(initB);
 
 }
 
