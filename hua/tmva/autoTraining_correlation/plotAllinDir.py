@@ -31,8 +31,8 @@ def main( ):
     channel = TMVAFileDir[-10:-4]
     print('channel: ', channel)
     # fileForVaribles = channel + 'varibleList_50.root'
-    fileForVaribles = channel + 'varibleList_37.root'
-    plotInputVariables( TMVAFileDir , fileForVaribles )
+    fileForVaribles = channel + 'varibleList_35.root'
+    # plotInputVariables( TMVAFileDir , fileForVaribles )
 
     if plotSigOnly:
         plotSigOnlyC = 'true'
@@ -51,7 +51,6 @@ def main( ):
             if  'varibleList' in entry:
             # if  '.root' in entry:
                 #  print( entry )
-                # command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
                 process = subprocess.run( [command], 
@@ -62,8 +61,6 @@ def main( ):
                         # bufsize=1,
                         universal_newlines=True
                         )
-                # we’re invoking a shell at the start of the execution of our subprocess, and the command argument is interpreted directly by the shell
-                #  output = process.stdout.strip()
                 output = process.stdout
                 print( output)
                 findNum = 1

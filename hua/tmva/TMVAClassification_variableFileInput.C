@@ -70,7 +70,16 @@
 
 #include "../EYandSP_usingClass_v3.h"
 
-
+Bool_t vectorInBranch( TString branchName, std::vector<TRegexp> & variableList ){
+	Bool_t anyIn = false;
+	for ( UInt_t i=0; i<variableList.size(); i++){
+		if( branchName.Contains( variableList[i]) ) {
+			anyIn = true;
+			break;
+		}
+	}
+	return anyIn;
+}
 
 int TMVAClassification_variableFileInput( TString myMethodList = "",
      TString outputDir = "output/",
@@ -79,8 +88,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
-      const TString channel = "1tau1l",
-      // const TString channel = "1tau2l",
+    //   const TString channel = "1tau1l",
+      const TString channel = "1tau2l",
     //   const TString channel = "2tau0l",
         Bool_t forVariables = true,
         // Bool_t forVariables = false,
@@ -326,24 +335,41 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
          if ( branchName.Contains("muonsT")||branchName.Contains("muonsF")||branchName.Contains("muonsL") ) continue;
-         // if ( branchName.Contains("tausL")&&( !(branchName.Contains("tausL_1"))) ) continue;
-         // if ( branchName.Contains("tausF")&&( !(branchName.Contains("tausF_1"))) ) continue;
-         if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
-         if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")))  )  continue;
-         if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")))  )  continue;
+            if ( branchName.Contains("elesMVA")  ) continue;
+            if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
+
+         if ( channel.CompareTo("1tau1l")==0 ){
+            if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
+            if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")))  )  continue;
+            if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")))  )  continue;
+
+            if ( branchName.Contains("taus") &&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
+			//???might miss some combination channels???
+            if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
+            if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
+            if ( branchName.Contains("nonbjetsM_4")   )  continue; 
+
+         }else if( channel.CompareTo("1tau2l")==0 ){
+            // if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")||branchName.Contains("tauL_2")))  )  continue;
+            // if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")||branchName.Contains("tauF_2")))  )  continue;
+            // if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")||branchName.Contains("tauT_2")))  )  continue;
+			std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR"};
+			if (  vectorInBranch( branchName, tauVariablesToAvoid ) ) continue;
 
 
-			if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
-			if ( branchName.Contains("muons")&&  ( !(branchName.Contains("muonsT_1"))  )   )  continue;//1mu
-			if ( branchName.Contains("elesMVA")  ) continue;
-			if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
-			if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
-			if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
-			if ( branchName.Contains("nonbjetsM_4")   )  continue; 
+            // if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
+            if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")||branchName.Contains("leptonsMVAT_2")||branchName.Contains("leptonsMVAF_2")||branchName.Contains("leptonsMVAL_2")) )   )  continue; //1l
+            if ( branchName.Contains("jets_7")|| branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
+            if ( branchName.Contains("nonbjetsM_4")   )  continue; 
+
+
+		 }
 
          //probematic branches
          if ( branchName.Contains("jets_bScoreMultiply") )  continue;
          if ( branchName.Contains("bjetsM_minDeltaR") )  continue; //bjetsM_minDeltaR
+		 if ( branchName.Contains("tausF_leptonsT_transMass")) continue;
+
 
 
 			
