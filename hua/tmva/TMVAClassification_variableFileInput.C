@@ -323,16 +323,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             if ( branchName.Contains( "toptagger" )) continue;
             if ( branchName.Contains( "Met")) continue;
 
-            // if ( branchName.Contains( "muonsT") || branchName.Contains( "leptonsMVAT") || branchName.Contains( "tausF_leptonsT_chargeSum")) continue;//0 muon in 1tau1e channel
-            // if ( branchName.Contains( "tausL")|| branchName.Contains( "tausF") ) continue;
-            // if (   branchName.Contains("tausL_2pt")||branchName.Contains("tausL_3pt")||branchName.Contains("tausM_minDeltaR") ) continue;
-            // if ( branchName.Contains( "tausF_leptonsT_transMass") ||  branchName.Contains( "tausL_leptonsT_transMass") || branchName.Contains( "tausT_leptonsT_transMass") ) continue;
-            //???Dataset[dataset] : Input expression resolves to indeterminate value (NaN): tausF_leptonsT_transMass (6724074 times)
-            //not sure what is wrong with this branch. //Variable muonsT_number is constant.
-            //because after the cut the branch is 0
-            // if ( branchName.Contains( "jets_HTDividedByMet") || branchName.Contains( "jets_MHTDividedByMet") ) continue;
 
 			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
+         if ( branchName.Contains("mounsT")||branchName.Contains("mounsF")||branchName.Contains("mounsL") ) continue;
 
 
 			if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
@@ -343,9 +336,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 			if ( branchName.Contains("bjetsM_3")||branchName.Contains("bjetsM_4") )  continue; //>=2 bjetsM
 			if ( branchName.Contains("nonbjetsM_4")   )  continue; 
 
+         //probematic branches
+         if ( branchName.Contains("jets_bScoreMultiply") )  continue;
+         if ( branchName.Contains("bjetsM _minDeltaR") )  continue;
 
-			// if ( channel.CompareTo( "2tau0l")==0 &&( branchName.Contains("leptonsTMVA_minDeltaR") ||branchName.Contains("elesMVAF") || branchName.Contains("leptonsTMVA") ) )  continue;
-            // if ( channel.CompareTo( "1tau1l")==0 && ( ||branchName.Contains("bjetsM_minDeltaR") ||  )|| ||branchName.Contains( "tausT_minDeltaR") ||branchName.Contains("tausF_invariantMass")||branchName.Contains("tausT_invariantMass")||branchName.Contains("tausL_invariantMass") )  continue;
+
 			
 			chosenVariable = chosenVariable+1;
             cout<<"variables forvaribles training: "<<branchName<<endl;
