@@ -326,8 +326,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 			if ( branchName.Contains("bjetsL")||branchName.Contains("bjetsT") ) continue;
          if ( branchName.Contains("muonsT")||branchName.Contains("muonsF")||branchName.Contains("muonsL") ) continue;
-         if ( branchName.Contains("tausL")&&( !(branchName.Contains("tauL_1"))) ) continue;
-         if ( branchName.Contains("tausF")&&( !(branchName.Contains("tausF_1"))) ) continue;
+         // if ( branchName.Contains("tausL")&&( !(branchName.Contains("tausL_1"))) ) continue;
+         // if ( branchName.Contains("tausF")&&( !(branchName.Contains("tausF_1"))) ) continue;
+         if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
+         if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")))  )  continue;
+         if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")))  )  continue;
 
 
 			if ( branchName.Contains("taus")&&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
