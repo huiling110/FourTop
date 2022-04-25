@@ -330,11 +330,10 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 				"Flag", "HLT", "Weight","weight", 
 				"toptagger",
 				"Met",//???
-				"bjetsT",
 				"muons",
 				"elesMVA",
 				"leptonsMVAT_2OS", "leptonsMVAT_2SS" ,"leptonsMVAT_number",
-				"bjetsM_3", "bjetsM_4",
+				"bjets._3", "bjets._4", "bjetsM_number",
 				"nonbjetsM_4",
 				"tausT_number",
 			};
@@ -359,6 +358,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
 			std::vector<TRegexp> jetsVarToAvoid = { "jets_7", "jets_8", "jets_9", "jets_10", "jets_11" };
 			if ( vectorInBranch( branchName, jetsVarToAvoid )) continue;
+
+         std::vector<TRegexp> mismodeled = { "phi", "eta", "minDeltaR"};
+         if ( vectorInBranch( branchName, mismodeled )) continue;
 
 
 		 }
