@@ -21,8 +21,8 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
-    isApp = True
-    # isApp = False
+    # isApp = True
+    isApp = False
     appFolderName = 'AppResults'
     # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
