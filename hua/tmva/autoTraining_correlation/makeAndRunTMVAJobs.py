@@ -17,7 +17,7 @@ import generateVariableList as GV
 def main():
     # channel = '1tau1l'
     channel = '1tau2l'
-    version = 1
+    version = 2
     # version = 4 
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
