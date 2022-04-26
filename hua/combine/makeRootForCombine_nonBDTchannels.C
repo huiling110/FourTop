@@ -10,7 +10,7 @@
 
 #include "checkTemplatesForCombine.C"
 
-void makeRootForCombine_2tau1l(
+void makeRootForCombine_nonBDTchannels(
     const TString channel = "2tau0l",
     TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/"
 ){
@@ -24,6 +24,7 @@ void makeRootForCombine_2tau1l(
 
     
     Int_t binNum = 11;
+    // Int_t binNum = 30;
     Double_t binMin = 400;
     Double_t binMax = 1500;
     //!!!addHistChannel has no Lumi
@@ -44,7 +45,8 @@ void makeRootForCombine_2tau1l(
     TH1D* QCD = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 15, 24, "QCD_HT" );
     QCD->Scale(lumiMap[era_g]);
 
-    TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
+    // TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
+    TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "tttt_HT" );
     TTTT->Scale(lumiMap[era_g]);
     TH1D* data_obs = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 24, "data_obs_HT" );
     data_obs->Scale(lumiMap[era_g]);
@@ -58,13 +60,13 @@ void makeRootForCombine_2tau1l(
 
 
     // TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau1l_HT/templatesPlots/";
-    TString outFolder = outDir + "templatesPlots/";
-    drawTemplates( TT, outFolder, channel );
-    drawTemplates( TTX, outFolder , channel);
-    drawTemplates( VV, outFolder, channel );
-    drawTemplates( SingleTop, outFolder, channel );
-    drawTemplates( TTTT, outFolder, channel );
-    drawTemplates( QCD, outFolder, channel );
+    // TString outFolder = outDir + "templatesPlots/";
+    // drawTemplates( TT, outFolder, channel );
+    // drawTemplates( TTX, outFolder , channel);
+    // drawTemplates( VV, outFolder, channel );
+    // drawTemplates( SingleTop, outFolder, channel );
+    // drawTemplates( TTTT, outFolder, channel );
+    // drawTemplates( QCD, outFolder, channel );
 
 
 

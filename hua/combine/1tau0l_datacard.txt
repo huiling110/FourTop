@@ -2,13 +2,13 @@ imax *
 jmax *
 kmax *
 --------------------------------------------------------------------------------
-shapes * *  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau1l_HT/HT_2tau1l_forCombine.root  $PROCESS_HT
-bin          SR_2tau1l
+shapes * *  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/HT_2tau0l_forCombine.root  $PROCESS_HT
+bin          SR_2tau0l
 observation  -1
 --------------------------------------------------------------------------------
-bin       SR_2tau1l         SR_2tau1l         SR_2tau1l          SR_2tau1l                 
-process   TTTT              TT                TTX                SingleTop                     
-process   0                 1                 2                  3                          
-rate      -1                -1                -1                 -1                           
+bin       SR_2tau0l         SR_2tau0l         SR_2tau0l          SR_2tau0l    SR_2tau0l                 
+process   tttt              TT                TTX                SingleTop    QCD              
+process   0                 1                 2                  3             4             
+rate      -1                -1                -1                 -1            -1               
 -------------------------------------------------------------------------------
-SR_2tau1l   autoMCStats  10
+SR_2tau0l   autoMCStats  10

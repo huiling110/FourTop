@@ -18,18 +18,23 @@ void drawTemplates( TH1D* & templates, TString outDir,  TString iFile ){
     delete c;
 }
 
+// void drawSBshape( )
+
 
 void checkTemplatesForCombine(
     // TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_11bins/";
     // TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/";
-    TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/",
-    TString iFile = "TMVApp_1tau1l_10var_forCombine.root"
+    // TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/",
+    // TString iFile = "TMVApp_1tau1l_10var_forCombine.root",
+    TString inputTemplateFileFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/",
+    TString iFile = "HT_2tau0l_forCombine.root",
+    // Bool_t isMVA = true;
+    Bool_t isMVA = false
 
 ){
 
     TString inputFile = inputTemplateFileFolder + iFile;
     TString outDir = inputTemplateFileFolder + "templatesPlots/";
-    Bool_t isMVA = true;
 
     TFile *file = TFile::Open( inputFile );
 
@@ -38,8 +43,6 @@ void checkTemplatesForCombine(
     cout<<"Intergal tttt: "<<tttt->Integral()<<"\n";
     cout<<"bin num: "<<tttt->GetNbinsX()<<"\n";
 
-    TH1D* ttbar_2l = getHist( "ttbar_2l", file, isMVA );
-    ttbar_2l->Print();
     TH1D* QCD = getHist( "QCD", file, isMVA );
     QCD->Print();
     TH1D* data = getHist( "data_obs", file, isMVA );
@@ -56,13 +59,15 @@ void checkTemplatesForCombine(
     drawTemplates( TTX, outDir, iFile );
     drawTemplates( VV, outDir, iFile );
     drawTemplates( SingleTop, outDir, iFile );
+    drawTemplates( QCD, outDir, iFile );
 
     //draw s and b shape
     TString histPost = "_HT";
     if ( isMVA ) histPost = "_MVA_BDT";
     tttt->Scale(  1 / tttt->Integral() );
     tttt->SetLineColor(kRed);
-    tttt->SetMaximum(0.15);
+    // tttt->SetMaximum(0.15);
+    tttt->SetMaximum( tttt->GetMaximum()+0.05);
     // TH1D *allBgs = (TH1D *)input->Get("allBgs" + histPost );
     TH1D* allBgs = getHist( "allBgs", file, isMVA );
     allBgs->Scale(1 / allBgs->Integral());
