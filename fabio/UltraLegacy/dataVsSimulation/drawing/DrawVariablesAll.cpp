@@ -1,17 +1,24 @@
-#include "DrawVariable.cpp"
+//#include "DrawVariable.cpp"
+#include "DrawVariable_merge2016.cpp"
 
 void DrawVariablesAll(bool PRINT) {
 
+    //DrawVariable_merge2016("UL2016", "jets_HT","1tau0L_VR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
+    
     //event variables
-
-//     DrawVariable("jets_HT","1tau0L_VR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
+    //DrawVariable("UL2016_preVFP", "jets_HT","1tau0L_CR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
+    //DrawVariable("UL2016_postVFP", "jets_HT","1tau0L_CR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
+//    DrawVariable("UL2016_preVFP", "jets_HT","1tau0L_VR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_HT","1tau0L_SR",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_HT","1tau3L",false,1,10,300,1500,"H_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_HT","2tau0L",false,1,500,300,1500,"H_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_HT","2tau2L",false,1,50,300,1500,"H_{T} [GeV]",false,505,PRINT);
 //     
 //     //1tau0L
-//     DrawVariable("UL2016_preVFP", "taus_1pt","1tau0L",false,2,500,0,200,"Leading #tau p_{T} [GeV]",false,505,PRINT);
+    DrawVariable_merge2016("UL2016_preVFP", "taus_1pt","1tau0L",false,2,500,0,200,"Leading #tau p_{T} [GeV]",false,505,PRINT);
+    DrawVariable_merge2016("UL2016_preVFP", "jets_HT","1tau0L_VR",false,1,500,0,200,"H_{T} [GeV]",false,505,PRINT);
+    //DrawVariable_merge2016("UL2016_preVFP", "jets_HT","1tau0L_CR",false,1,500,0,200,"H_{T} [GeV]",false,505,PRINT);
+    //DrawVariable("UL2016_postVFP", "taus_1pt","1tau0L",false,2,500,0,200,"Leading #tau p_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_number","1tau0L",false,1,500,7,15,"Jet multiplicity",false,505,PRINT);
 //     DrawVariable("bjetsM_number","1tau0L",false,1,500,1,10,"b jet multiplicity",false,505,PRINT);
 //     DrawVariable("jets_bScore","1tau0L",false,4,500,0,5,"Sum of b tag score for all jets",false,505,PRINT);
@@ -24,7 +31,7 @@ void DrawVariablesAll(bool PRINT) {
 //     DrawVariable("bjetsM_minDeltaR","1tau0L",false,2,500,0,5,"min #DeltaR (b jet, b jet)",false,505,PRINT);
 //     
 //     //1tau1L
-    DrawVariable("UL2016_preVFP", "taus_1pt","1tau1L",false,2,100,0,200,"Leading #tau p_{T} [GeV]",false,505,PRINT);
+//      DrawVariable("UL2016_preVFP", "taus_1pt","1tau1L",false,2,100,0,200,"Leading #tau p_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("jets_bScore","1tau1L",false,2,100,0,5,"Sum of b tag score for all jets",false,505,PRINT);
 //     DrawVariable("jets_7pt","1tau1L",false,1,100,0,120,"7th jet p_{T} [GeV]",false,505,PRINT);
 //     DrawVariable("toptagger_HT","1tau1L",false,4,100,250,1000,"Resolved tops H_{T} [GeV]",false,505,PRINT);
