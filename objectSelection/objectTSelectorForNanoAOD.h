@@ -181,6 +181,7 @@ public :
    //2018
    // Bool_t HLT_PFHT1050_ ;
    Int_t HLT_PFHT1050_ ;//not using bool because we need default -99 value to indicat a filling
+   Int_t HLT_PFJet500_;
    Int_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
    Int_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
    Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
@@ -1233,6 +1234,7 @@ public :
    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
 
    TTreeReaderValue<Bool_t> HLT_PFHT1050 = {fReader, "Flag_goodVertices"};
+   TTreeReaderValue<Bool_t> HLT_PFJet500 = {fReader, "Flag_goodVertices"};
    // TTreeReaderValue<Bool_t>  = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
 

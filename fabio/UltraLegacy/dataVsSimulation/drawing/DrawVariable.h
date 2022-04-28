@@ -14,6 +14,7 @@ map <string, double> lumi = {
     {"UL2018", 59830.0},
 
 };
+
 map<string, map<string, string>> file = { //MAP OF INPUT FILES
 
     {"UL2016_preVFP", 
@@ -225,5 +226,14 @@ map<string, map<string,float>> xsec = {
         
      }
     }, //UL2018
+
+};
+
+map <string, int> FR_yield = {
+
+    {"UL2016_preVFP", 3251},
+    {"UL2016_postVFP", 2388},
+    {"UL2017", 1000000000},
+    {"UL2018", 1000000000},
 
 };

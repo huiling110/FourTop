@@ -320,6 +320,9 @@ while (file_it != file[year].end()) { //////////////////////// LOOP OVER FILES /
 
     int mygenTtbarId = 0;
     mychain.SetBranchAddress("genTtbarId_", &mygenTtbarId);
+
+    int myrunNo = 0;
+    mychain.SetBranchAddress("run_", &myrunNo);
     
     vector<TLorentzVector> *myleptonsMVAT = {}; 
     mychain.SetBranchAddress("leptonsMVAT", &myleptonsMVAT);
