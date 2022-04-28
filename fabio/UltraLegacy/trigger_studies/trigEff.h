@@ -216,7 +216,8 @@ map<string, map<string, string>> file = { //MAP OF INPUT FILES
          {"st_tW_antitop", "st_tW_antitop"},
          {"st_tZq", "st_tZq"},
 
-         {"data_singleMuon_eraB", "singleMu_2018b"},    
+         {"data_singleMuon_eraA", "singleMu_2018a"},
+         {"data_singleMuon_eraB", "singleMu_2018b"},
          {"data_singleMuon_eraC", "singleMu_2018c"},    
          {"data_singleMuon_eraD", "singleMu_2018d"},    
         
