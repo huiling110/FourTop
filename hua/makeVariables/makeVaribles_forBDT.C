@@ -34,16 +34,16 @@
 #include "inputFileClass.C"
 
 
-Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF  ){
-	Double_t muonIDSF = 1.0;	
-	for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
-		Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(muonsT.At(i).Eta()));
-		Int_t biny = MuonIDSF->GetYaxis()->FindBin(muonsT.At(i).Pt());
-		muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
-	}
-	if (muonIDSF == 0) muonIDSF = 1.0;
-	return muonIDSF;
-}
+// Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF  ){
+// 	Double_t muonIDSF = 1.0;	
+// 	for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
+// 		Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(muonsT.At(i).Eta()));
+// 		Int_t biny = MuonIDSF->GetYaxis()->FindBin(muonsT.At(i).Pt());
+// 		muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+// 	}
+// 	if (muonIDSF == 0) muonIDSF = 1.0;
+// 	return muonIDSF;
+// }
 
 
 
@@ -552,22 +552,22 @@ void makeVaribles_forBDT::Terminate()
 }
 
 
-void makeVaribles_forBDT::initializeInputFiles( const TString era ){
-    //muon ID 
-    TFile* input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
-    // input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
-    // input_MuonIDSF->Print();
-	MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
-	// TH2D* MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
-	MuonIDSF->Print();
-    // MuonIDSF = temp->Clone();
-	MuonIDSF->SetDirectory(nullptr);
-	input_MuonIDSF->Close();
-	delete input_MuonIDSF;
-    // delete temp;
-	// MuonIDSF->Print();
+// void makeVaribles_forBDT::initializeInputFiles( const TString era ){
+//     //muon ID 
+//     TFile* input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
+//     // input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
+//     // input_MuonIDSF->Print();
+// 	MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
+// 	// TH2D* MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
+// 	MuonIDSF->Print();
+//     // MuonIDSF = temp->Clone();
+// 	MuonIDSF->SetDirectory(nullptr);
+// 	input_MuonIDSF->Close();
+// 	delete input_MuonIDSF;
+//     // delete temp;
+// 	// MuonIDSF->Print();
 
-}
+// }
 
 void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches ){
    if ( wantFilterHLTBranches ){
