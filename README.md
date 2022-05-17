@@ -1,12 +1,10 @@
 # Instructon for implemention
 * install 
-  * export SCRAM_ARCH=slc7_amd64_gcc700
-  * cmsrel CMSSW_10_2_20_UL
-  * cd CMSSW_10_2_20_UL/src
+  * export SCRAM_ARCH=slc7_amd64_gcc820
+  * cmsrel CMSSW_10_6_27
+  * cd CMSSW_10_6_27/src
   * git clone git@github.com:huiling110/FourTop.git 
   * cd FourTop
-  * git checkout  TauOfTTTT_SimplifyPlotter
-  * cmsenv
  * run
    * cmsenv
    * cd objectSelection
