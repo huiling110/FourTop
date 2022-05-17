@@ -32,8 +32,8 @@ void run_makeVaribles_forBDT(
     if ( istest ){
         // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
         outputDir = "output/";
-        chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        // chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 
@@ -44,7 +44,6 @@ void run_makeVaribles_forBDT(
         TFile* file = TFile::Open(  outputDir + outputFileName , "UPDATE");
         // cout<<"file opened :"<<file->GetName();
         TChain chain2( "allevents");
-        // chain2.Add(inputFile + "v3*.root" );
         chain2.Add(inputFile + "outTree*.root" );
         cout<<"entries in allevent tree: "<<chain2.GetEntries()<<endl;
         // chain2.ls();

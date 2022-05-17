@@ -42,7 +42,7 @@ public :
    TTree *newtree;
    // TH1D  *h_genWeight ;
 
-   // TH2D* MuonIDSF;
+   TH2D* MuonIDSF;
    //  TFile* input_MuonIDSF;
 
 
