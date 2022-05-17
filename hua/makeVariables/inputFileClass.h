@@ -1,13 +1,14 @@
 #include "TString.h"
+#include <map>
 
 // struct yearFileMap{
 //     TString muonSFFiles;
 //     TString eGammaSFFiles;
-// }
+// o
 
 
 // TString MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
-TString MUOSF_dir = "../../fabio/UltraLegacy/scale_factors/muons/";
+const TString MUOSF_dir = "../../fabio/UltraLegacy/scale_factors/muons/";
 std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR FILES                                                                                                                                                            
 
     {"UL2016_preVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_preVFP_ID.root"},
