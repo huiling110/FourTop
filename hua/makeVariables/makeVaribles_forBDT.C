@@ -34,6 +34,8 @@
 #include <TVectorD.h>
 
 #include "weightCal.h"
+// #include "../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+//???need change
 
 
 
@@ -510,10 +512,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      PUWeight = *PUWeight_;
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
     //  btagEfficiency_weight = allBtagSF[0];
+    //  btagEfficiency_weight = calBTagSF( );
      HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc ); 
     muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF );
 	// EleIDSF->Print();
     eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
+	tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );
 
 
 
@@ -581,6 +585,9 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	input_TrigSF->Close();
 	delete input_TrigSF;
 
+	//btag
+
+
 
 
 }
@@ -608,6 +615,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "HLTefficiency_weight",  &HLTefficiency_weight, "HLTefficiency_weight/D");
    newtree->Branch( "muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
    newtree->Branch( "eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight, "eleMVAT_IDSF_weight/D");
+   newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
+//    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
@@ -931,6 +940,7 @@ void makeVaribles_forBDT::InitializeBranches()
     HLTefficiency_weight = -99;
 	  muonIDSF_weight = -99;
 	  eleMVAT_IDSF_weight = -99;
+	  tauT_IDSF_weight = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;
