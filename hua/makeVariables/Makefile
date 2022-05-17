@@ -6,9 +6,11 @@ PROGRAM = makeVaribles_forBDT
 
 HDRS = makeVaribles_forBDT.h\
 	variablesFunctions.h\
+	weightCal.h\
  
 OBJS = makeVaribles_forBDT.o\
 		variablesFunctions.o\
+		weightCal.o\
         dict_$(PROGRAM).o\
 
 #-----------------------------------------------------------------------------
