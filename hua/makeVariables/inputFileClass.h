@@ -9,8 +9,7 @@
 
 // TString MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
 const TString MUOSF_dir = "../../fabio/UltraLegacy/scale_factors/muons/";
-std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR FILES                                                                                                                                                            
-
+std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR FILES                                                                                                                                                          
     {"UL2016_preVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_preVFP_ID.root"},
     {"UL2016_postVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_postVFP_ID.root"},
     {"UL2017", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root"},
@@ -18,15 +17,13 @@ std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR 
 
 };
 
-// TString EGammaSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/electrons/";
-// std::map<TString, TString> EGammaSF_files = { //std::map OF INPUT EGamma SCALE FACTOR FILES                                                                                                                                                            
-
-//     {"UL2016_preVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
-//     {"UL2016_postVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_postVFP_EGM2D.root"},
-//     {"UL2017", EGammaSF_dir + "egammaEffi.txt_EGM2D_MVA90noIso_UL17.root"},
-//     {"UL2018", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
-
-// };
+const TString EGammaSF_dir = "../../fabio/UltraLegacy/scale_factors/electrons/";
+std::map<TString, TString> EGammaSF_files = { //std::map OF INPUT EGamma SCALE FACTOR FILES                                                                                                                                                          
+    {"UL2016_preVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_preVFP_EGM2D.root"},
+    {"UL2016_postVFP", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_postVFP_EGM2D.root"},
+    {"UL2017", EGammaSF_dir + "egammaEffi.txt_EGM2D_MVA90noIso_UL17.root"},
+    {"UL2018", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
+};
 
 // TString BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
 // std::map<TString, TString> BTVSF_files_reshaping = { //std::map OF INPUT BTV SCALE FACTOR FILES
@@ -56,12 +53,10 @@ std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR 
 
 // };
 
-// TString TRGSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/trigger/";
-// std::map<TString, TString> TRGSF_files = { //std::map OF INPUT TRG SCALE FACTOR FILES
-
-//     {"UL2016_preVFP", TRGSF_dir + "TriggerSF_2D_UL2016_preVFP.root"},
-//     {"UL2016_postVFP", TRGSF_dir + "TriggerSF_2D_UL2016_postVFP.root"},
-//     {"UL2017", TRGSF_dir + "proxy.root"},
-//     {"UL2018", TRGSF_dir + "proxy.rootv"},
-
-// };
+TString TRGSF_dir = "../../fabio/UltraLegacy/scale_factors/trigger/";
+std::map<TString, TString> TRGSF_files = { //std::map OF INPUT TRG SCALE FACTOR FILES
+    {"UL2016_preVFP", TRGSF_dir + "TriggerSF_2D_UL2016_preVFP.root"},
+    {"UL2016_postVFP", TRGSF_dir + "TriggerSF_2D_UL2016_postVFP.root"},
+    {"UL2017", TRGSF_dir + "proxy.root"},
+    {"UL2018", TRGSF_dir + "proxy.rootv"},
+};

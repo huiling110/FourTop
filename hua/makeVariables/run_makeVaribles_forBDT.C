@@ -30,7 +30,6 @@ void run_makeVaribles_forBDT(
 
     
     if ( istest ){
-        // outputDir = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/forMVA/test/";
         outputDir = "output/";
         // chain.Process( selection + "+", outputDir + outputFileName, 10000);
         chain.Process( selection + "+", outputDir + outputFileName, 1000);

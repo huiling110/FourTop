@@ -510,8 +510,14 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      PUWeight = *PUWeight_;
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
     //  btagEfficiency_weight = allBtagSF[0];
-    //  HLTefficiency_weight = getHLTweight( jets_HT, jets_number ); 
+     HLTefficiency_weight = getHLTweight( jets_HT, jets ); 
     muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF );
+	// EleIDSF->Print();
+    eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
+
+
+
+
 
       if ( preselection ){
           if ( !( jets_HT > 400 ))     return kFALSE;
@@ -558,6 +564,25 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	input_MuonIDSF->Close();
 	delete input_MuonIDSF;
 
+	//eGamma
+	TFile* input_EleIDSF = new TFile( TString(EGammaSF_files[era]), "READ" );
+	EleIDSF = (TH2D*)input_EleIDSF->Get("EGamma_SF2D");
+	EleIDSF->SetDirectory(nullptr);
+	input_EleIDSF->Close();
+	delete input_EleIDSF;
+	EleIDSF->Print();
+
+	//trigger
+	TFile* input_TrigSF = new TFile( TString(TRGSF_files[era]), "READ" );
+	TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+era);
+	TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+era);
+	TriggerSF->SetDirectory(nullptr);
+	TriggerSFunc->SetDirectory(nullptr);
+	input_TrigSF->Close();
+	delete input_TrigSF;
+
+
+
 }
 
 void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches ){
@@ -582,7 +607,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
    newtree->Branch( "HLTefficiency_weight",  &HLTefficiency_weight, "HLTefficiency_weight/D");
    newtree->Branch( "muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
-//    newtree->Branch( "", &, "/D");
+   newtree->Branch( "eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight, "eleMVAT_IDSF_weight/D");
 //    newtree->Branch( "", &, "/D");
 
    newtree->Branch( "Met_pt_", &Met_pt_, "Met_pt_/D");
@@ -904,7 +929,8 @@ void makeVaribles_forBDT::InitializeBranches()
     PUWeight = -99;
     btagEfficiency_weight = -99;
     HLTefficiency_weight = -99;
-	muonIDSF_weight = -99;
+	  muonIDSF_weight = -99;
+	  eleMVAT_IDSF_weight = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;

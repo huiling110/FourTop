@@ -43,7 +43,9 @@ public :
    // TH1D  *h_genWeight ;
 
    TH2D* MuonIDSF;
-   //  TFile* input_MuonIDSF;
+   TH2D* EleIDSF;
+   TH2D* TriggerSF;
+   TH2D* TriggerSFunc;
 
 
 
@@ -73,6 +75,7 @@ public :
     Double_t   btagEfficiency_weight;
     Double_t HLTefficiency_weight;
    Double_t muonIDSF_weight;
+   Double_t eleMVAT_IDSF_weight;
 
 
 
