@@ -156,7 +156,7 @@ public :
     Double_t  jets_HT= -99;
     Double_t  jets_invariantMass= -99;
     Double_t  jets_transMass= -99;
-    Double_t  jetL_minDeltaR= -99;
+    Double_t  jets_minDeltaR= -99;
     Double_t  jets_centrality= -99;
     Double_t  jets_bScore= -99;
     Double_t  jets_bScoreMultiply = -99;

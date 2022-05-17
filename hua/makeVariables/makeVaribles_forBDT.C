@@ -241,7 +241,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       jets_HT = HTcalculator(jets);
       jets_invariantMass = InvariantMassCalculator(jets);
       jets_transMass = TransMassCal(jets);
-      jetL_minDeltaR = MinDeltaRSingleCal(jets);
+      jets_minDeltaR = MinDeltaRSingleCal(jets);
       jets_centrality = jets_HT / jets_invariantMass;
       jets_bScore = BScoreAllJetsCal( jets_btags );//sum of btags
       jets_bScoreMultiply = bScoreMultiCal( jets_btags );
@@ -518,6 +518,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// EleIDSF->Print();
     eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
 	tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );
+	//??? all 1
 
 
 
@@ -714,7 +715,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
   newtree->Branch("jets_invariantMass", &jets_invariantMass,
                   "jets_invariantMass/D");
   newtree->Branch("jets_transMass", &jets_transMass, "jets_transMass/D");
-  newtree->Branch("jetL_minDeltaR", &jetL_minDeltaR, "jetL_minDeltaR/D");
+  newtree->Branch("jets_minDeltaR", &jets_minDeltaR, "jets_minDeltaR/D");
   newtree->Branch("jets_centrality", &jets_centrality, "jets_centrality/D");
   newtree->Branch("jets_bScore", &jets_bScore, "jets_bScore/D");
   newtree->Branch("jets_bScoreMultiply",  &jets_bScoreMultiply, "jets_bScoreMultiply/D");
@@ -1019,7 +1020,7 @@ void makeVaribles_forBDT::InitializeBranches()
       jets_HT= -99;
       jets_invariantMass= -99;
       jets_transMass= -99;
-      jetL_minDeltaR= -99;
+      jets_minDeltaR= -99;
       jets_centrality= -99;
       jets_bScore= -99;
       jets_bScoreMultiply = -99;
