@@ -510,7 +510,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      PUWeight = *PUWeight_;
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
     //  btagEfficiency_weight = allBtagSF[0];
-     HLTefficiency_weight = getHLTweight( jets_HT, jets ); 
+     HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc ); 
     muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF );
 	// EleIDSF->Print();
     eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
