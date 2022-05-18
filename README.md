@@ -48,6 +48,15 @@
        
     * if you want to change the shared code and expriment you'd better make another branch out of it and do it in the expriment branch.
     * if you want to submit jobs and git tag of the job version you should definitely do it in Fabio's branch and later merge Fabio branch to master.
+
+
+    *tips for git
+      * never push to master branch!!!
+      * before push to your own branch better ask Huiling for merging instructions(git push origin yourbranch)
+      * be very cautious when you push!
+      * never work on master branch! after git clone the master or git pull the master, always git checkout to yourown branch and work there. 
+      
+       
   
       
      
