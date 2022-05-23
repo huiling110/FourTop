@@ -8,6 +8,7 @@
  * run
    * cmsenv
    * cd objectSelection
+   * mkdir output
    * make clean
    * make  (complie objectTSelectorForNano )
    * root -b -q run_objectTSelectorForNanoAOD.C
@@ -50,7 +51,7 @@
     * if you want to submit jobs and git tag of the job version you should definitely do it in Fabio's branch and later merge Fabio branch to master.
 
 
-    *tips for git
+    * tips for git
       * never push to master branch!!!
       * before push to your own branch better ask Huiling for merging instructions(git push origin yourbranch)
       * be very cautious when you push!
