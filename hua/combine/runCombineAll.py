@@ -22,7 +22,8 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/AppResults_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/datacard/'
-    cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/combine/combination/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/datacard_error_L/'
+    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/combine/combination/'
 
     cardToWorkspaces( cardDir )
 #
@@ -31,14 +32,15 @@ def main():
 #
     copyCombineResultsToDir( cardDir )
 
-    plot.main( cardDir+ 'combineResults/')
+    # plot.main( cardDir+ 'combineResults/')
 
 def copyCombineResultsToDir( cardDir ):
     resultsDir = cardDir+ 'combineResults/'
     print( 'combineResultsDir', resultsDir )
     if not os.path.exists( resultsDir ):
         os.mkdir( resultsDir )
-    command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir  )
+    # command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir  )
+    command = 'mv higgsCombine*root {}'.format( resultsDir  )
     process = subprocess.Popen( command, shell=True )
     out = process.communicate()
 
