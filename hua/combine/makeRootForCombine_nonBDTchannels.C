@@ -11,13 +11,15 @@
 #include "checkTemplatesForCombine.C"
 
 void makeRootForCombine_nonBDTchannels(
-    const TString channel = "2tau0l",
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/"
+    // const TString channel = "2tau0l",
+    // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/"
+    const TString channel = "1tau10l",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/"
 ){
 
+    const TCut weight_prefireUp = "EVENT_genWeight*EVENT_prefireWeight*PUWeight"
 
     //output file for combine
-    // TString outputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/2tau1l_HT/HT_2tau1l_forCombine.root";
     TString outputName = outDir + "HT_" + channel + "_forCombine.root";
     TFile *output = new TFile( outputName, "RECREATE" );
 
@@ -42,14 +44,15 @@ void makeRootForCombine_nonBDTchannels(
     TH1D*  SingleTop = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 12, 15, "SingleTop_HT" );
     SingleTop->Scale(lumiMap[era_g]);
 
-    TH1D* QCD = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 15, 24, "QCD_HT" );
-    QCD->Scale(lumiMap[era_g]);
+    // TH1D* QCD = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 15, 24, "QCD_HT" );
+    // QCD->Scale(lumiMap[era_g]);
 
     // TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
     TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "tttt_HT" );
     TTTT->Scale(lumiMap[era_g]);
     TH1D* data_obs = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 24, "data_obs_HT" );
     data_obs->Scale(lumiMap[era_g]);
+    // TH1D *allBgs = addHistChannel(channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 1, 24, "allBgs_HT");
     TH1D *allBgs = addHistChannel(channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 1, 24, "allBgs_HT");
     allBgs->Scale(lumiMap[era_g]);
     // cout << "allBGs before QCD = " << allBgs->Integral();
