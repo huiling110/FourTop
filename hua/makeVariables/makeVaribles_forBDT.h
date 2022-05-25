@@ -72,6 +72,8 @@ public :
     Double_t   EVENT_prefireWeight;
     Double_t   EVENT_genWeight;
     Double_t   PUWeight;
+    Double_t   PUWeight_up;
+    Double_t   PUWeight_do;
     Double_t   btagEfficiency_weight;
     Double_t HLTefficiency_weight;
    Double_t muonIDSF_weight;
@@ -396,6 +398,8 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
    TTreeReaderValue<Double_t> EVENT_genWeight_ = {fReader, "EVENT_genWeight_"};
    TTreeReaderValue<Double_t> PUWeight_ = {fReader, "PUWeight_"};
+   TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};
+   TTreeReaderValue<Double_t> PUWeight_Up = {fReader, "PUWeight_Up"};
    TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
    // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
    // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
