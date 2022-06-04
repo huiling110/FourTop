@@ -77,6 +77,8 @@ public :
     Double_t   btagEfficiency_weight;
     Double_t HLTefficiency_weight;
    Double_t muonIDSF_weight;
+   Double_t muonIDSF_weight_up;
+   Double_t muonIDSF_weight_down;
    Double_t eleMVAT_IDSF_weight;
    Double_t tauT_IDSF_weight;
 

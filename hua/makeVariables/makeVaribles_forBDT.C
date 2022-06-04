@@ -516,7 +516,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //  btagEfficiency_weight = allBtagSF[0];
     //  btagEfficiency_weight = calBTagSF( );
     HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc ); 
-    muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF );
+    muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF, 0 );
+    muonIDSF_weight_up = calMuonIDSF( muonsT, MuonIDSF, 1 );
+    muonIDSF_weight_down = calMuonIDSF( muonsT, MuonIDSF, 2 );
+
 	// EleIDSF->Print();
     eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//???//??? all 1
@@ -618,6 +621,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
    newtree->Branch( "HLTefficiency_weight",  &HLTefficiency_weight, "HLTefficiency_weight/D");
    newtree->Branch( "muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
+   newtree->Branch( "muonIDSF_weight_up", &muonIDSF_weight_up, "muonIDSF_weight_up/D");
+   newtree->Branch( "muonIDSF_weight_down", &muonIDSF_weight_down, "muonIDSF_weight_down/D");
    newtree->Branch( "eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight, "eleMVAT_IDSF_weight/D");
    newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
 //    newtree->Branch( "", &, "/D");
@@ -945,6 +950,8 @@ void makeVaribles_forBDT::InitializeBranches()
     btagEfficiency_weight = -99;
     HLTefficiency_weight = -99;
 	  muonIDSF_weight = -99;
+	  muonIDSF_weight_up = -99;
+	  muonIDSF_weight_down = -99;
 	  eleMVAT_IDSF_weight = -99;
 	  tauT_IDSF_weight = -99;
 

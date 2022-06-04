@@ -2,12 +2,25 @@
 #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 
 
-Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF  ){
+Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type   ){
 	Double_t muonIDSF = 1.0;	
 	for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
 		Int_t binx = MuonIDSF->GetXaxis()->FindBin(fabs(muonsT.At(i).Eta()));
 		Int_t biny = MuonIDSF->GetYaxis()->FindBin(muonsT.At(i).Pt());
-		muonIDSF *= MuonIDSF->GetBinContent(binx, biny);
+		Double_t iMuonSF = MuonIDSF->GetBinContent(binx, biny);
+		// Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinErrorUp(binx, biny);
+		// Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinErrorLow(binx, biny);
+		Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinError(binx, biny);
+		Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinError(binx, biny);
+		//??? not sure
+		// std::cout<<"muon down: "<<MuonIDSF->GetBinErrorLow(binx, biny);
+		if( type==0 ){
+			muonIDSF *= iMuonSF;
+		} else if( type==1 ){
+			muonIDSF *= iMuonSF_up;
+		}else if ( type==2 ){
+			muonIDSF *= iMuonSF_down;
+		}
 	}
 	if (muonIDSF == 0) muonIDSF = 1.0;
 	return muonIDSF;
