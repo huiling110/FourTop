@@ -7,15 +7,27 @@
 // o
 
 
-// TString MUOSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/muons/";
 const TString MUOSF_dir = "../../fabio/UltraLegacy/scale_factors/muons/";
+const TString muonSF_base = "../../data_rootFiles/muon/muonefficiencies/Run2/UL/";
 std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR FILES                                                                                                                                                          
     {"UL2016_preVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_preVFP_ID.root"},
     {"UL2016_postVFP", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2016_UL_postVFP_ID.root"},
     {"UL2017", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root"},
     {"UL2018", MUOSF_dir + "Efficiencies_muon_generalTracks_Z_Run2018_UL_ID.root"},
-
 };
+std::map<TString, TString> muonSF_tracker = {
+    {"UL2016_preVFP", muonSF_base+"2016_preVFP/Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root" },
+    {"UL2016_postVFP", muonSF_base+"2016_postVFP/Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root" },
+    {"UL2017", muonSF_base+"2017/Efficiency_muon_generalTracks_Run2017_UL_trackerMuon.root" },
+    {"UL2018", muonSF_base+"2018/Efficiency_muon_generalTracks_Run2018_UL_trackerMuon.root" },
+};
+std::map<TString, TString> muonSF_iso = {
+    {"UL2016_preVFP", muonSF_base+"2016_preVFP/2016_preVFP_Z/Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ISO.root"},
+    {"UL2016_postVFP", muonSF_base+"2016_postVFP/2016_postVFP_Z/Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ISO.root"},
+    {"UL2017", muonSF_base+"2017/2017_Z/Efficiencies_muon_generalTracks_Z_Run2017_UL_ISO.root"},
+    {"UL2018", muonSF_base+"2018/2018_Z/Efficiencies_muon_generalTracks_Z_Run2018_UL_ISO.root"},
+};
+
 
 const TString EGammaSF_dir = "../../fabio/UltraLegacy/scale_factors/electrons/";
 std::map<TString, TString> EGammaSF_files = { //std::map OF INPUT EGamma SCALE FACTOR FILES                                                                                                                                                          

@@ -516,12 +516,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //  btagEfficiency_weight = allBtagSF[0];
     //  btagEfficiency_weight = calBTagSF( );
     HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc ); 
-    muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF, 0 );
-    muonIDSF_weight_up = calMuonIDSF( muonsT, MuonIDSF, 1 );
-    muonIDSF_weight_down = calMuonIDSF( muonsT, MuonIDSF, 2 );
+    muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF, 0, kTRUE );
+    muonIDSF_weight_up = calMuonIDSF( muonsT, MuonIDSF, 1, kTRUE );
+    muonIDSF_weight_down = calMuonIDSF( muonsT, MuonIDSF, 2, kTRUE );
+    // mounTrackerSF_weight = calMuonIDSF( muonsT, muonTrackerSF_hist, 0 );
+    //???tracker file has some problems
 
 	// EleIDSF->Print();
     eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
+    eleMVAT_IDSF_weight_backup = calMuonIDSF( eleMVAT, EleIDSF, 0, kFALSE );
+	eleMVAT_IDSF_weight_up = calMuonIDSF( eleMVAT, EleIDSF, 1, kFALSE );
+    eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
+
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//???//??? all 1
 
 
@@ -568,10 +574,21 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
 	// TH2D* MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
 	MuonIDSF->Print();
-    // MuonIDSF = temp->Clone();
 	MuonIDSF->SetDirectory(nullptr);
 	input_MuonIDSF->Close();
 	delete input_MuonIDSF;
+
+	//muon traker
+	TFile* muonTracerSF_file = new TFile( muonSF_tracker[era], "READ");
+	muonTrackerSF_hist = (TH2D*)muonTracerSF_file->Get("NUM_TrackerMuons_DEN_genTracks");
+	muonTrackerSF_hist->Print();
+	MuonIDSF->SetDirectory(nullptr);
+	muonTracerSF_file->Close();
+	delete muonTracerSF_file;
+  //muon ISO
+  // TFile* muonIsoSF_file = new TFlie( muonSF_iso[era], "READ");
+  // muonIsoSF_hist = (TH2D*)muonIsoSF_file->Get()
+
 
 	//eGamma
 	TFile* input_EleIDSF = new TFile( TString(EGammaSF_files[era]), "READ" );
@@ -623,7 +640,12 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
    newtree->Branch( "muonIDSF_weight_up", &muonIDSF_weight_up, "muonIDSF_weight_up/D");
    newtree->Branch( "muonIDSF_weight_down", &muonIDSF_weight_down, "muonIDSF_weight_down/D");
+   newtree->Branch( "mounTrackerSF_weight", &mounTrackerSF_weight, "mounTrackerSF_weight/D");
+
    newtree->Branch( "eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight, "eleMVAT_IDSF_weight/D");
+   newtree->Branch( "eleMVAT_IDSF_weight_up", &eleMVAT_IDSF_weight_up, "eleMVAT_IDSF_weight_up/D");
+   newtree->Branch( "eleMVAT_IDSF_weight_down", &eleMVAT_IDSF_weight_down, "eleMVAT_IDSF_weight_down/D");
+   newtree->Branch( "eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup, "eleMVAT_IDSF_weight_backup/D");
    newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
 //    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
@@ -952,7 +974,11 @@ void makeVaribles_forBDT::InitializeBranches()
 	  muonIDSF_weight = -99;
 	  muonIDSF_weight_up = -99;
 	  muonIDSF_weight_down = -99;
+    mounTrackerSF_weight = -99;
 	  eleMVAT_IDSF_weight = -99;
+	  eleMVAT_IDSF_weight_up = -99;
+	  eleMVAT_IDSF_weight_down = -99;
+    eleMVAT_IDSF_weight_backup = -99;
 	  tauT_IDSF_weight = -99;
 
     Met_pt_ = -99;

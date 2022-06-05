@@ -43,6 +43,7 @@ public :
    // TH1D  *h_genWeight ;
 
    TH2D* MuonIDSF;
+   TH2D* muonTrackerSF_hist;
    TH2D* EleIDSF;
    TH2D* TriggerSF;
    TH2D* TriggerSFunc;
@@ -79,7 +80,11 @@ public :
    Double_t muonIDSF_weight;
    Double_t muonIDSF_weight_up;
    Double_t muonIDSF_weight_down;
+   Double_t mounTrackerSF_weight;
    Double_t eleMVAT_IDSF_weight;
+   Double_t eleMVAT_IDSF_weight_up;
+   Double_t eleMVAT_IDSF_weight_down;
+   Double_t eleMVAT_IDSF_weight_backup;
    Double_t tauT_IDSF_weight;
 
 
