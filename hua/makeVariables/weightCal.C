@@ -1,5 +1,7 @@
 #include "weightCal.h"
-#include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+// #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
+// #include "../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 
 
 Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon  ){
