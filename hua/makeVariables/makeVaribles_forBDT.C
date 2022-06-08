@@ -36,7 +36,8 @@
 #include "weightCal.h"
 // #include "../../TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 //???need change
-
+// #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
+//???not sure how to use class from cmssw
 
 
 
