@@ -705,6 +705,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
                      Tau_mass.At(j));
     tau *= tauESFactors.at(j); //apply TES correction
     tau *= tauFESFactors.at(j); //apply FES correction
+    //???is is correct to apply in vector?
+    // do we require gennuine electron? we do, in the TES class
     SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));

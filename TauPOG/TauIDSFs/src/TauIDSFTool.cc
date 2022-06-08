@@ -244,6 +244,7 @@ TauESTool::TauESTool(const std::string& year, const std::string& id): ID(id){
 }
 
 float TauESTool::getTES(double pt, int dm, int genmatch, const std::string& unc){
+	//???modified from python, need checking
 
     if (genmatch==5 && std::count(DMs.begin(),DMs.end(),dm)) {
 
@@ -304,6 +305,7 @@ TauFESTool::TauFESTool(const std::string& year, const std::string& id): ID(id){
 }
 
 float TauFESTool::getFES(double eta, int dm, int genmatch, const std::string& unc){
+	//???modified from python, need checking
 
     if (std::count(DMs.begin(),DMs.end(),dm) && std::count(genmatches.begin(),genmatches.end(),genmatch)) {
         
