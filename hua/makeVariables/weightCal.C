@@ -2,6 +2,7 @@
 // #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 // #include "../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 #include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+#include "../../correctionlib/include/correction.h"
 
 
 Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon  ){
@@ -43,7 +44,7 @@ Double_t calEleMVA_IDSF( const TTreeReaderArray<TLorentzVector>& elesMVAT, const
 	return eleIDSF;
 }
 
-Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
+Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era, const std::string& unc_jet, const std::string& unc_e, const std::string& unc_mu){
 	// TauIDSFTool VSjetIDTool = TauIDSFTool(era,"DeepTau2017v2p1VSjet","Medium", false, false, true);
 	TauIDSFTool VSjetIDTool = TauIDSFTool(era.Data(),"DeepTau2017v2p1VSjet","Medium", false, false, true);
 	TauIDSFTool VSeIDTool = TauIDSFTool(era.Data(),"DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
@@ -51,9 +52,9 @@ Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTr
 
 	Double_t tauIDSF = 1.0;
 	for (UInt_t i = 0; i < tausT.GetSize(); i ++) {
-		Double_t VSjetSF = VSjetIDTool.getSFvsPT( tausT.At(i).Pt(), tausT_genPartFlav.At(i), "");
-		Double_t VSeSF = VSeIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), "");
-		Double_t VSmuSF = VSmuIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), "");
+		Double_t VSjetSF = VSjetIDTool.getSFvsPT( tausT.At(i).Pt(), tausT_genPartFlav.At(i), unc_jet);
+		Double_t VSeSF = VSeIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_e);
+		Double_t VSmuSF = VSmuIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_mu);
 
 		tauIDSF *= VSjetSF;
 		tauIDSF *= VSeSF;

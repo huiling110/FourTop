@@ -24,6 +24,9 @@ ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
+CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
+CORRECTIONLIB_LIB = $(shell correction --ldflags)
+
 # Directories
 HEADRDIR = .
 
@@ -32,6 +35,7 @@ HEADRDIR = .
 
 CXX = g++
 CXXFLAGS = -O3 -Wall -fPIC -g -std=c++11
+# CXXFLAGS = -O3 -Wall -fPIC -g 
 LD = g++
 LDFLAGS = -O3 -Wall -g 
 SOFLAGS = -shared
@@ -39,7 +43,9 @@ ARCHFLAGS =
 
 #
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
+CXXFLAGS += $(CORRECTIONLIB_FLAGS)
 LIBS = $(ROOTLIBS)
+LIBS += $(CORRECTIONLIB_LIB)
 GLIBS = $(ROOTGLIBS)
 
 
@@ -48,7 +54,8 @@ GLIBS = $(ROOTGLIBS)
  
 $(PROGRAM).so: $(OBJS)
 	@echo "Linking $(PROGRAM).so ..."
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
+# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(LIBS) -o$(PROGRAM).so
 	@echo "linking done"
 
 dict_$(PROGRAM).C: $(HDRS)
