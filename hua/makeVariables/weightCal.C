@@ -88,5 +88,14 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());
     }
+	auto corr_vsjet = cset.at("DeepTau2017v2p1VSjet");
+	for (UInt_t i = 0; i < tausT.GetSize(); i ++) {
+		Double_t pt = tausT.At(i).Pt();
+		Double_t 
+		Double_t sf_vsJet = corr_vsjet->evaluate( { pt, , "tight", "nom", "pt"})
+		//corr1.evaluate(pt,dm,1,wp,"nom","pt")
+	}
+
+
 	return sf;
 }
