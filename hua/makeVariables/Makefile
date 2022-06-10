@@ -34,7 +34,8 @@ HEADRDIR = .
 # no exceptions: -fno-exceptions
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -fPIC -g -std=c++11
+# CXX = /cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/gcc/7.0.0-omkpbe2/bin/g++
+CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
 # CXXFLAGS = -O3 -Wall -fPIC -g 
 LD = g++
 LDFLAGS = -O3 -Wall -g 
