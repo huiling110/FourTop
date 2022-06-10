@@ -530,13 +530,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
 
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//???//??? all 1
+    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_genPartFlav, era );
 
-
-
-
-
-      if ( preselection ){
-          if ( !( jets_HT > 400 ))     return kFALSE;
+    if (preselection)
+    {
+      if (!(jets_HT > 400))
+        return kFALSE;
       }
 
     newtree->Fill();
@@ -648,6 +647,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "eleMVAT_IDSF_weight_down", &eleMVAT_IDSF_weight_down, "eleMVAT_IDSF_weight_down/D");
    newtree->Branch( "eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup, "eleMVAT_IDSF_weight_backup/D");
    newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
+   newtree->Branch( "tauT_IDSF_weight_new", &tauT_IDSF_weight_new, "tauT_IDSF_weight_new/D");
 //    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
 
@@ -981,6 +981,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	  eleMVAT_IDSF_weight_down = -99;
     eleMVAT_IDSF_weight_backup = -99;
 	  tauT_IDSF_weight = -99;
+	  tauT_IDSF_weight_new = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;

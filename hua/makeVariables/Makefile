@@ -25,7 +25,7 @@ ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
 CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
-CORRECTIONLIB_LIB = $(shell correction --ldflags)
+CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 
 # Directories
 HEADRDIR = .
@@ -55,8 +55,8 @@ GLIBS = $(ROOTGLIBS)
  
 $(PROGRAM).so: $(OBJS)
 	@echo "Linking $(PROGRAM).so ..."
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
-# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(LIBS) -o$(PROGRAM).so
+# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(LIBS) -o$(PROGRAM).so
 	@echo "linking done"
 
 dict_$(PROGRAM).C: $(HDRS)
