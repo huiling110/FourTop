@@ -2,7 +2,7 @@
 // #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 // #include "../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 #include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
-// #include "correction.h"
+#include "correction.h"
 
 
 Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon  ){
@@ -74,3 +74,5 @@ Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVe
 	if (triggerSF == 0) triggerSF = 1.0;
 	return triggerSF;
 }
+
+// Double_t 
