@@ -530,7 +530,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
 
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//???//??? all 1
-    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_genPartFlav, era );
+    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, era );
 
     if (preselection)
     {

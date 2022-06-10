@@ -77,25 +77,26 @@ Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVe
 	return triggerSF;
 }
 
-Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
+Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
 	//read from official json file
 	//syst='nom', 'up' or  'down'.
 	Double_t sf = 1.0;
-	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2018_ReReco/tau.json.gz" ;
 	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
-	// auto cset = CorrectionSet::from_file(tauSF_json.Data());
-	auto cset = CorrectionSet::from_file( "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json");
+	auto cset = CorrectionSet::from_file(tauSF_json.Data());
+	// auto cset = CorrectionSet::from_file( "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json");
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());
     }
-	auto corr_vsjet = cset.at("DeepTau2017v2p1VSjet");
+	auto corr_vsjet = cset->at("DeepTau2017v2p1VSjet");
 	for (UInt_t i = 0; i < tausT.GetSize(); i ++) {
-		Double_t pt = tausT.At(i).Pt();
-		Double_t 
-		Double_t sf_vsJet = corr_vsjet->evaluate( { pt, , "tight", "nom", "pt"})
-		//corr1.evaluate(pt,dm,1,wp,"nom","pt")
+		Double_t ipt = tausT.At(i).Pt();
+		Int_t idecayMode = tausT_decayMode.At(i);
+		Int_t igenMatch = tausT_genPartFlav.At(i);
+		Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "nom", "pt"});
+		//???not sure if is should be 5 or the genmatch of the tau
+		// corr1.evaluate(pt,dm,1,wp,"nom","pt")
+		sf *= sf_vsJet;
 	}
-
 
 	return sf;
 }

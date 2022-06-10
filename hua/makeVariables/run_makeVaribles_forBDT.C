@@ -22,7 +22,7 @@ void run_makeVaribles_forBDT(
     TChain chain( "tree");
 
     chain.Add(inputFile + "outTree*.root" );
-    cout<<"entries in tree: "<<chain.GetEntries()<<endl;
+    // cout<<"entries in tree: "<<chain.GetEntries()<<endl;
 
     TString outputFileName = inputDir + ".root";
 

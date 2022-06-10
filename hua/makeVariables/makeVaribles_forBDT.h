@@ -375,6 +375,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderArray<Int_t> tausL_index = {fReader, "tausL_index"};
    TTreeReaderArray<Int_t> tausF_index = {fReader, "tausF_index"};
    TTreeReaderArray<Int_t> tausT_index = {fReader, "tausT_index"};
+   TTreeReaderArray<Int_t> tausT_decayMode = {fReader, "tausT_decayMode"};
    TTreeReaderArray<TLorentzVector> jets = {fReader, "jets"};
    TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
    TTreeReaderArray<Int_t> jets_flavour = {fReader, "jets_flavour"};
