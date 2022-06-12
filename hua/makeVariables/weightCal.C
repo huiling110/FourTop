@@ -82,20 +82,21 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 	//read from official json file
 	//syst='nom', 'up' or  'down'.
 	Double_t sf = 1.0;
-	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
-	// auto cset = CorrectionSet::from_file(tauSF_json.Data());
-	// for (auto& corr : *cse {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
 	auto corr_vsjet = cset->at("DeepTau2017v2p1VSjet");
-	for (UInt_t i = 0; i < tausT.GetSize(); i ++) {
+	auto corr_vsmu = cset->at("DeepTau2017v2p1VSmu");
+	auto corr_vsele = cset->at("DeepTau2017v2p1VSe");
+	for (UInt_t i = 0; i < tausT.GetSize(); i++)
+	{
 		Double_t ipt = tausT.At(i).Pt();
 		Int_t idecayMode = tausT_decayMode.At(i);
 		Int_t igenMatch = tausT_genPartFlav.At(i);
-		Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "nom", "pt"});
-		//???not sure if is should be 5 or the genmatch of the tau
-		// corr1.evaluate(pt,dm,1,wp,"nom","pt")
+		Double_t ieta = tausT.At(i).Eta();
+		Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "nom", "pt"});//???not sure if is should be 5 or the genmatch of the tau
+		Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", "nom"});
+		Double_t sf_vsele = corr_vsele->evaluate({ieta, igenMatch,  "VVLoose", "nom"});//no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
 		sf *= sf_vsJet;
+		sf *= sf_vsmu;
+		sf *= sf_vsele;
 	}
 
 	return sf;
