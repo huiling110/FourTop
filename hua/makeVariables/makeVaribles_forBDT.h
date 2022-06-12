@@ -24,6 +24,7 @@
 #include "variablesFunctions.h"
 // #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/btagWeightCal.h"
 
+#include "correction.h"
 
 
 class makeVaribles_forBDT : public TSelector {
@@ -47,6 +48,8 @@ public :
    TH2D* EleIDSF;
    TH2D* TriggerSF;
    TH2D* TriggerSFunc;
+
+   std::unique_ptr<correction::CorrectionSet> cset;
 
 
 

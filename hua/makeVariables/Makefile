@@ -61,7 +61,8 @@ $(PROGRAM).so: $(OBJS)
 
 dict_$(PROGRAM).C: $(HDRS)
 	@echo "Generating dictionary ..."
-	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(HDRS) Linkdef.h 
+# rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(HDRS) Linkdef.h 
+	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
 
 clean:
 	@rm -f $(OBJS) $(PROGRAM).so dict_*
