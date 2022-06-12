@@ -529,8 +529,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	eleMVAT_IDSF_weight_up = calMuonIDSF( eleMVAT, EleIDSF, 1, kFALSE );
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
 
-	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//???//??? all 1
-    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, era );
+	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//
+    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get() );
 
     if (preselection)
     {
@@ -608,6 +608,11 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	delete input_TrigSF;
 
 	//btag
+
+	//new SF files from 
+	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
+	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
+
 
 
 

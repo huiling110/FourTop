@@ -2,7 +2,7 @@
 // #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 // #include "../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 #include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
-#include "correction.h"
+// #include "correction.h"
 
 using namespace correction;
 
@@ -77,13 +77,13 @@ Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVe
 	return triggerSF;
 }
 
-Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
+// Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
+Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, correction::CorrectionSet* cset ){
 	//read from official json file
 	//syst='nom', 'up' or  'down'.
 	Double_t sf = 1.0;
-	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
-	auto cset = CorrectionSet::from_file(tauSF_json.Data());
-	// auto cset = CorrectionSet::from_file( "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json");
+	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
+	// auto cset = CorrectionSet::from_file(tauSF_json.Data());
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());
     }
