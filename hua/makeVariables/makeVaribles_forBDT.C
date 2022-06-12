@@ -614,18 +614,14 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	delete input_TrigSF;
 
 	//btag
-
 	//new SF files from 
 	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());
     }
-
-
-
-
-
+	// std::string JES_json = "JME/2016preVFP_UL/jet_jerc.json";
+	// cset_JES = correction::CorrectionSet::from_file(JES_json);
 }
 
 void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches ){

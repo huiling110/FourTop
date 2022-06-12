@@ -50,12 +50,7 @@ public :
    TH2D* TriggerSFunc;
 
    std::unique_ptr<correction::CorrectionSet> cset;
-
-
-
-
-
-
+   std::unique_ptr<correction::CorrectionSet> cset_JES;
 
    //branches in the newtree
    //same order as initialize 

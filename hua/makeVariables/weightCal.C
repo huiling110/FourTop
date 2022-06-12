@@ -97,6 +97,13 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 		sf *= sf_vsmu;
 		sf *= sf_vsele;
 	}
-
 	return sf;
 }
+
+// Double_t calJES_new(const TTreeReaderArray<TLorentzVector>& jets ){
+// 	//https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/JME
+// 	for (UInt_t i=0; i<jets.GetSize(); i++){
+
+// 	}
+
+// }
