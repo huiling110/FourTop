@@ -84,9 +84,9 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 	Double_t sf = 1.0;
 	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	// auto cset = CorrectionSet::from_file(tauSF_json.Data());
-	for (auto& corr : *cset) {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
+	// for (auto& corr : *cse {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
 	auto corr_vsjet = cset->at("DeepTau2017v2p1VSjet");
 	for (UInt_t i = 0; i < tausT.GetSize(); i ++) {
 		Double_t ipt = tausT.At(i).Pt();

@@ -612,6 +612,9 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	//new SF files from 
 	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
+	for (auto& corr : *cset) {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
 
 
 
