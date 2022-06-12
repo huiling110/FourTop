@@ -535,6 +535,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tauT_IDSF_weight_new_vsjetDown = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
     tauT_IDSF_weight_new_vsmuUp = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" );
     tauT_IDSF_weight_new_vsmuDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" );
+    tauT_IDSF_weight_new_vseleUp = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up" );
+    tauT_IDSF_weight_new_vseleDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
 
 	if (preselection)
     {
@@ -664,6 +666,9 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "tauT_IDSF_weight_new_vsjetDown", &tauT_IDSF_weight_new_vsjetDown, "tauT_IDSF_weight_new_vsjetDown/D");
    newtree->Branch( "tauT_IDSF_weight_new_vsmuUp", &tauT_IDSF_weight_new_vsmuUp, "tauT_IDSF_weight_new_vsmuUp/D");
    newtree->Branch( "tauT_IDSF_weight_new_vsmuDown", &tauT_IDSF_weight_new_vsmuDown, "tauT_IDSF_weight_new_vsmuDown/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vseleUp", &tauT_IDSF_weight_new_vseleUp, "tauT_IDSF_weight_new_vseleUp/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vseleDown", &tauT_IDSF_weight_new_vseleDown, "tauT_IDSF_weight_new_vseleDown/D");
+
 //    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
 

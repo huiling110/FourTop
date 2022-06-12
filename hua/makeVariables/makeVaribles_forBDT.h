@@ -94,6 +94,8 @@ public :
    Double_t tauT_IDSF_weight_new_vsjetDown;
    Double_t tauT_IDSF_weight_new_vsmuUp;
    Double_t tauT_IDSF_weight_new_vsmuDown;
+   Double_t tauT_IDSF_weight_new_vseleUp;
+   Double_t tauT_IDSF_weight_new_vseleDown;
 
 
 
