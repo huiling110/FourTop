@@ -90,6 +90,10 @@ public :
    Double_t eleMVAT_IDSF_weight_backup;
    Double_t tauT_IDSF_weight;
    Double_t tauT_IDSF_weight_new;
+   Double_t tauT_IDSF_weight_new_vsjetUp;
+   Double_t tauT_IDSF_weight_new_vsjetDown;
+   Double_t tauT_IDSF_weight_new_vsmuUp;
+   Double_t tauT_IDSF_weight_new_vsmuDown;
 
 
 

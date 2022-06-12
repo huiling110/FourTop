@@ -530,9 +530,13 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
 
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//
-    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get() );
+    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom" );
+	tauT_IDSF_weight_new_vsjetUp = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom");
+	tauT_IDSF_weight_new_vsjetDown = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
+    tauT_IDSF_weight_new_vsmuUp = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" );
+    tauT_IDSF_weight_new_vsmuDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" );
 
-    if (preselection)
+	if (preselection)
     {
       if (!(jets_HT > 400))
         return kFALSE;
@@ -656,6 +660,10 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup, "eleMVAT_IDSF_weight_backup/D");
    newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
    newtree->Branch( "tauT_IDSF_weight_new", &tauT_IDSF_weight_new, "tauT_IDSF_weight_new/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsjetUp", &tauT_IDSF_weight_new_vsjetUp, "tauT_IDSF_weight_new_vsjetUp/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsjetDown", &tauT_IDSF_weight_new_vsjetDown, "tauT_IDSF_weight_new_vsjetDown/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsmuUp", &tauT_IDSF_weight_new_vsmuUp, "tauT_IDSF_weight_new_vsmuUp/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsmuDown", &tauT_IDSF_weight_new_vsmuDown, "tauT_IDSF_weight_new_vsmuDown/D");
 //    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
 
@@ -990,6 +998,8 @@ void makeVaribles_forBDT::InitializeBranches()
     eleMVAT_IDSF_weight_backup = -99;
 	  tauT_IDSF_weight = -99;
 	  tauT_IDSF_weight_new = -99;
+	  tauT_IDSF_weight_new_vsjetUp = -99;
+	  tauT_IDSF_weight_new_vsjetDown = -99;
 
     Met_pt_ = -99;
     Met_phi_ = -99;

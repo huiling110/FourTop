@@ -77,8 +77,7 @@ Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVe
 	return triggerSF;
 }
 
-// Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era){
-Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, correction::CorrectionSet* cset ){
+Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, correction::CorrectionSet* cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele ){
 	//read from official json file
 	//syst='nom', 'up' or  'down'.
 	Double_t sf = 1.0;
@@ -91,9 +90,9 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 		Int_t idecayMode = tausT_decayMode.At(i);
 		Int_t igenMatch = tausT_genPartFlav.At(i);
 		Double_t ieta = tausT.At(i).Eta();
-		Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "nom", "pt"});//???not sure if is should be 5 or the genmatch of the tau
-		Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", "nom"});
-		Double_t sf_vsele = corr_vsele->evaluate({ieta, igenMatch,  "VVLoose", "nom"});//no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+		Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"});//???not sure if is should be 5 or the genmatch of the tau
+		Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu });
+		Double_t sf_vsele = corr_vsele->evaluate({ieta, igenMatch,  "VVLoose", syst_vsele});//no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
 		sf *= sf_vsJet;
 		sf *= sf_vsmu;
 		sf *= sf_vsele;
