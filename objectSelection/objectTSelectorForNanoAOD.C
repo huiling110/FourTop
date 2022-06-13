@@ -253,7 +253,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bool deepJet = true;
     // bool SysJes = 0; bool SysJer=0;
     calJetSmearFactors(  isdata );
-    // calJER_SF(isdata, JER_SF_new);
+    calJER_SF(isdata, JER_SF_new);
     SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
     // SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
     // SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
@@ -989,7 +989,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata ){
 
     //jer files
-    std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/UL16preVFP_jmar.json";
+    // std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/UL16preVFP_jmar.json";
+    std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
+    //same file for JER and JES
     cset_jerSF = correction::CorrectionSet::from_file(jer_file);
 	for (auto& corr : *cset_jerSF) {
         printf("Jer Correction : %s\n", corr.first.c_str());
@@ -1309,21 +1311,23 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     //https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     TString jerSFName = "Summer20UL16_JRV3_MC";
     //  Summer19UL17_JRV2_MC.db ,, Summer19UL18_JRV2_MC.db
-    TString input = jerSFName + "_ScaleFactor_" + "AK4PFchs";
+    // TString input = jerSFName + "_ScaleFactor_" + "AK4PFchs";
+    TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     auto corr_jerSF = cset_jerSF->at(input.Data());
 
     Double_t iSF = 1.0;
-    for (UInt_t i = 0; i < *nJet; i++)
-    {
-        //not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
-        if ( !isdata ){
-            iSF = corr_jerSF->evaluate( {Jet_eta.At(i), "nom"});
-        }else{
-            iSF = 1.0;
-        }
-        std::cout << "jer: " << iSF << "\n";
-        jer_sf.push_back(iSF);
-    }
+    // for (UInt_t i = 0; i < *nJet; i++)
+    // {
+        // std::cout << "jetpt: " << Jet_eta.At(i) << "\n";
+        // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+        // if ( !isdata ){
+        //     iSF = corr_jerSF->evaluate( {Jet_eta.At(i), "nom"});
+        // }else{
+        //     iSF = 1.0;
+        // }
+        // std::cout << "jer: " << iSF << "\n";
+        // jer_sf.push_back(iSF);
+    // }
 }
 
 
