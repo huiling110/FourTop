@@ -719,7 +719,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 
 
 void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
-                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;
