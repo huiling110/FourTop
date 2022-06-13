@@ -195,7 +195,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     PV_npvsGood_ = *PV_npvsGood;
     if ( !isdata )genTtbarId_ = *genTtbarId;
 
-    calJetSmearFactors(  isdata );
     
 
 
@@ -252,6 +251,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     bool deepJet = true;
     bool SysJes = 0; bool SysJer=0;
+    calJetSmearFactors(  isdata );
     SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
     SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
     SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
@@ -722,7 +722,7 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
                 std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
-    Double_t MostForwardJetEta =-99;/*{{{*/
+    Double_t MostForwardJetEta =-99;
     Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
@@ -819,8 +819,15 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         }
     }
 
-} 
-/*}}}*/
+}
+
+
+
+
+
+
+
+
 void objectTSelectorForNanoAOD::selectGenTaus( std::vector<TLorentzVector> &genTaus ){
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j) {
         if(!(abs(GenPart_genPartIdxMother.At(j))==24 && abs(GenPart_pdgId.At(j))==15)) continue;//tau:15; top:6;W:
@@ -1280,6 +1287,10 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 
     }
     delete matchingIndices;
+
+}
+
+void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata ){
 
 }
 

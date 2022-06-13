@@ -290,6 +290,7 @@ public :
     void setupInputFile( const Bool_t isdata );
     void getOptionFromRunMacro( const TString option ); 
     void calJetSmearFactors( const Bool_t isdata );
+    void calJER_SF( const Bool_t isdata );
     void setupTauSFTool( const Bool_t isdata);
    void calTauSF( const Bool_t isdata );
 
