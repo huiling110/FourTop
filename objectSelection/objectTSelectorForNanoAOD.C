@@ -1316,18 +1316,17 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     auto corr_jerSF = cset_jerSF->at(input.Data());
 
     Double_t iSF = 1.0;
-    // for (UInt_t i = 0; i < *nJet; i++)
-    // {
-        // std::cout << "jetpt: " << Jet_eta.At(i) << "\n";
-        // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
-        // if ( !isdata ){
-        //     iSF = corr_jerSF->evaluate( {Jet_eta.At(i), "nom"});
-        // }else{
-        //     iSF = 1.0;
-        // }
-        // std::cout << "jer: " << iSF << "\n";
-        // jer_sf.push_back(iSF);
-    // }
+    for (UInt_t i = 0; i < *nJet; i++)
+    {
+        //not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+        if ( !isdata ){
+            iSF = corr_jerSF->evaluate( {Jet_eta.At(i), "nom"});
+        }else{
+            iSF = 1.0;
+        }
+        std::cout << "iJERSF: " << iSF << "\n";
+        jer_sf.push_back(iSF);
+    }
 }
 
 
