@@ -64,6 +64,13 @@ public :
    TString dataSet;
    Double_t runRange[2];
 
+
+
+   //files
+    std::unique_ptr<correction::CorrectionSet> cset_jerSF ;
+
+
+
    TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
    TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
@@ -262,6 +269,12 @@ public :
     std::vector<Float_t> tauFESFactorsUp;
     std::vector<Float_t> tauFESFactorsDown;
 
+	//non tree branch variables
+	std::vector<Double_t> JER_SF_new;
+	std::vector<Double_t> JER_SF_new_up;
+	std::vector<Double_t> JER_SF_new_down;
+
+
     //weight
     Double_t EVENT_prefireWeight_;
     Double_t PUWeight_;
@@ -273,7 +286,8 @@ public :
      void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
      void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauTESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(std::vector<TLorentzVector> &SelectedTops);
-     void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
+    //  void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
+     void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
      void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
      void selectGenTaus( std::vector<TLorentzVector> &genTaus );
      void selectGenEles( std::vector<TLorentzVector> &genEles );
@@ -294,11 +308,7 @@ public :
     void setupTauSFTool( const Bool_t isdata);
    void calTauSF( const Bool_t isdata );
 
-
-
-
-
-
+   void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf);
 
 
 

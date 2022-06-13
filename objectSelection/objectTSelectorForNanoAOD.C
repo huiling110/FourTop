@@ -126,6 +126,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
    allEvents->Fill();
 
 
+    //!!!branch variable intialization to prevent them from get values from last event
 
     //good lumi selection
     /*
@@ -250,34 +251,35 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
-    bool SysJes = 0; bool SysJer=0;
+    // bool SysJes = 0; bool SysJer=0;
     calJetSmearFactors(  isdata );
-    SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-    SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
-    SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
+    calJER_SF(isdata, JER_SF_new);
+    SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, o leptonsMVAL, tausL);
+    // SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
+    // SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
     // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
-    SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
-    SelectJets(11, deepJet, jetSmearingFactorsUp, bjetsL_smearedUp, bjetsL_btags_smearedUp, bjetsL_index_smearedUp, bjetsL_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
-    SelectJets(11, deepJet, jetSmearingFactorsDown, bjetsL_smearedDown, bjetsL_btags_smearedDown, bjetsL_index_smearedDown, bjetsL_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
-    sort( bjetsL.begin(), bjetsL.end(), compEle);
-    sort( bjetsL_smearedUp.begin(), bjetsL_smearedUp.end(), compEle);
-    sort( bjetsL_smearedDown.begin(), bjetsL_smearedDown.end(), compEle);
-    SelectJets(12, deepJet, jetSmearingFactors, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
-    SelectJets(12, deepJet, jetSmearingFactorsUp, bjetsM_smearedUp, bjetsM_btags_smearedUp, bjetsM_index_smearedUp, bjetsM_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
-    SelectJets(12, deepJet, jetSmearingFactorsDown, bjetsM_smearedDown, bjetsM_btags_smearedDown, bjetsM_index_smearedDown, bjetsM_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
-    sort( bjetsM.begin(), bjetsM.end(), compEle);
-    sort( bjetsM_smearedUp.begin(), bjetsM_smearedUp.end(), compEle);
-    sort( bjetsM_smearedDown.begin(), bjetsM_smearedDown.end(), compEle);
-    SelectJets(13, deepJet, jetSmearingFactors, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-    SelectJets(13, deepJet, jetSmearingFactorsUp, bjetsT_smearedUp, bjetsT_btags_smearedUp, bjetsT_index_smearedUp, bjetsT_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
-    SelectJets(13, deepJet, jetSmearingFactorsDown, bjetsT_smearedDown, bjetsT_btags_smearedDown, bjetsT_index_smearedDown, bjetsT_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
-    sort( bjetsT.begin(), bjetsT.end(), compEle);
-    sort( bjetsT_smearedUp.begin(), bjetsT_smearedUp.end(), compEle);
-    sort( bjetsT_smearedDown.begin(), bjetsT_smearedDown.end(), compEle);
-    SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
-    sort( forwardJets.begin(), forwardJets.end(), compEle);
+    // SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
+    // SelectJets(11, deepJet, jetSmearingFactorsUp, bjetsL_smearedUp, bjetsL_btags_smearedUp, bjetsL_index_smearedUp, bjetsL_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    // SelectJets(11, deepJet, jetSmearingFactorsDown, bjetsL_smearedDown, bjetsL_btags_smearedDown, bjetsL_index_smearedDown, bjetsL_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
+    // sort( bjetsL.begin(), bjetsL.end(), compEle);
+    // sort( bjetsL_smearedUp.begin(), bjetsL_smearedUp.end(), compEle);
+    // sort( bjetsL_smearedDown.begin(), bjetsL_smearedDown.end(), compEle);
+    // SelectJets(12, deepJet, jetSmearingFactors, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  SysJes, SysJer, leptonsMVAL, tausL);
+    // SelectJets(12, deepJet, jetSmearingFactorsUp, bjetsM_smearedUp, bjetsM_btags_smearedUp, bjetsM_index_smearedUp, bjetsM_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    // SelectJets(12, deepJet, jetSmearingFactorsDown, bjetsM_smearedDown, bjetsM_btags_smearedDown, bjetsM_index_smearedDown, bjetsM_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
+    // sort( bjetsM.begin(), bjetsM.end(), compEle);
+    // sort( bjetsM_smearedUp.begin(), bjetsM_smearedUp.end(), compEle);
+    // sort( bjetsM_smearedDown.begin(), bjetsM_smearedDown.end(), compEle);
+    // SelectJets(13, deepJet, jetSmearingFactors, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, SysJes, SysJer, leptonsMVAL, tausL);
+    // SelectJets(13, deepJet, jetSmearingFactorsUp, bjetsT_smearedUp, bjetsT_btags_smearedUp, bjetsT_index_smearedUp, bjetsT_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
+    // SelectJets(13, deepJet, jetSmearingFactorsDown, bjetsT_smearedDown, bjetsT_btags_smearedDown, bjetsT_index_smearedDown, bjetsT_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
+    // sort( bjetsT.begin(), bjetsT.end(), compEle);
+    // sort( bjetsT_smearedUp.begin(), bjetsT_smearedUp.end(), compEle);
+    // sort( bjetsT_smearedDown.begin(), bjetsT_smearedDown.end(), compEle);
+    // SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
+    // sort( forwardJets.begin(), forwardJets.end(), compEle);
     // matchingIndices.clear();
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
@@ -719,7 +721,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 
 
 void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
-                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  /*, bool &deltaPhiJetMet*/) {
+                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  ) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;
@@ -1290,8 +1292,13 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 
 }
 
-void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata ){
+void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf  ){
 
+    std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/UL16preVFP_jmar.json";
+    cset_jerSF = correction::CorrectionSet::from_file(jer_file);
+	for (auto& corr : *cset_jerSF) {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
 }
 
 
