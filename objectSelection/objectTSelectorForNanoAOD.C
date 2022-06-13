@@ -251,9 +251,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
-    // bool SysJes = 0; bool SysJer=0;
     calJetSmearFactors(  isdata );
-    calJER_SF(isdata, JER_SF_new);
+
+    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down);
+
     SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
     // SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
     // SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
@@ -281,9 +282,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, SysJes,  SysJer,  leptonsMVAL, tausL);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
     // matchingIndices.clear();
-    jetSmearingFactors.clear();
-    jetSmearingFactorsUp.clear();
-    jetSmearingFactorsDown.clear();
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -1306,7 +1304,7 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 
 }
 
-void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf  ){
+void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down  ){
     //https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     //https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     TString jerSFName = "Summer20UL16_JRV3_MC";
@@ -1315,17 +1313,39 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     auto corr_jerSF = cset_jerSF->at(input.Data());
 
+    // TString jesSFName = "Summer19UL16APV_V7_MC";
+    // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
+    // TString jesSFName_MC_L1 = "Summer19UL16APV_V7_MC_L1FastJet_AK4PFchs";
+    // auto corr_jesSF_L1 = cset_jerSF->at(jesSFName_MC_L1.Data());
+
+    TString unc = "Summer19UL16APV_V7_MC_Total_AK4PFchs";
+    auto corr_jesUncer = cset_jerSF->at(unc.Data());
+
     Double_t iSF = 1.0;
+    Double_t iSF_up = 1.0;
+    Double_t iSF_down = 1.0;
+    Double_t iSF_JES = 1.0;
+    Double_t iSF_JESuncer = 0.0;
     for (UInt_t i = 0; i < *nJet; i++)
     {
-        //not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+        Double_t ieta = Jet_eta.At(i);
+        Double_t ipt = Jet_pt.At(i);
+        // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
         if ( !isdata ){
             iSF = corr_jerSF->evaluate( {Jet_eta.At(i), "nom"});
-        }else{
-            iSF = 1.0;
+            iSF_up = corr_jerSF->evaluate( {Jet_eta.At(i), "up"});
+            iSF_down = corr_jerSF->evaluate( {Jet_eta.At(i), "down"});
+
+            // iSF_JES = corr_jesSF_L1->evaluate({ieta, ipt, "nom"});
+            // iSF_JES = corr_jesSF_L1->evaluate({ Jet_area.At(i), ieta, ipt, 0.0 });
+            iSF_JESuncer = corr_jesUncer->evaluate({ieta, ipt} );
         }
-        std::cout << "iJERSF: " << iSF << "\n";
+        // std::cout << "iJERSF: " << iSF << "\n";
+        // std::cout << "iSF_JES" << iSF_JES << "\n";
+        std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
         jer_sf.push_back(iSF);
+        jer_sf_up.push_back(iSF_up);
+        jer_sf_down.push_back(iSF_down);
     }
 }
 

@@ -273,9 +273,13 @@ public :
 	std::vector<Double_t> JER_SF_new;
 	std::vector<Double_t> JER_SF_new_up;
 	std::vector<Double_t> JER_SF_new_down;
+	std::vector<Double_t> JES_SF;
+	std::vector<Double_t> JES_SF_up;
+	std::vector<Double_t> JES_SF_down;
+	// std::vector<Double_t> JES_SF_data;
 
 
-    //weight
+	//weight
     Double_t EVENT_prefireWeight_;
     Double_t PUWeight_;
     Double_t PUWeight_Up;
@@ -304,7 +308,7 @@ public :
     void setupInputFile( const Bool_t isdata );
     void getOptionFromRunMacro( const TString option ); 
     void calJetSmearFactors( const Bool_t isdata );
-    void calJER_SF( const Bool_t isdata );
+    void calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down );
     void setupTauSFTool( const Bool_t isdata);
    void calTauSF( const Bool_t isdata );
 
