@@ -176,7 +176,7 @@ Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Floa
     }
     return smearFactor;
 }
-
+/*
 void readJSON( const Bool_t isdata, const TString jsonInFile, std::map<Int_t,std::vector<Int_t> >&  _goodLumis ){
    if (isdata) {// deal with Lumi JSONs only if reading data
     //    TString jsonInFile = GoldenJSONs[era];
@@ -222,4 +222,5 @@ void readJSON( const Bool_t isdata, const TString jsonInFile, std::map<Int_t,std
    }  
 
 }
+*/
 /////////////////////////

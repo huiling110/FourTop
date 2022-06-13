@@ -32,6 +32,8 @@
 #include "../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 //seem enough to only include the header
 
+#include "correction.h"
+
 class objectTSelectorForNanoAOD : public TSelector {
 public :
    TTreeReader     fReader;  //!the tree reader
