@@ -231,21 +231,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // SelectTaus( tausF, tauESFactors, tauFESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
     // SelectTaus( tausT, tauESFactors, tauFESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
     // //Up TES
-    // SelectTaus( tausL_TESUp, tauESFactorsUp, tauFESFactors, tausL_TESUp_index, tausL_TESUp_decayMode, tausL_TESUp_genPartFlav, 1, leptonsMVAL); sort( tausL_TESUp.begin(), tausL_TESUp.end(), compEle);
-    // SelectTaus( tausF_TESUp, tauESFactorsUp, tauFESFactors, tausF_TESUp_index, tausF_TESUp_decayMode, tausF_TESUp_genPartFlav, 2, leptonsMVAL); sort( tausF_TESUp.begin(), tausF_TESUp.end(), compEle);
-    // SelectTaus( tausT_TESUp, tauESFactorsUp, tauFESFactors, tausT_TESUp_index, tausT_TESUp_decayMode, tausT_TESUp_genPartFlav, 3, leptonsMVAL); sort( tausT_TESUp.begin(), tausT_TESUp.end(), compEle);
     // //Down TES
-    // SelectTaus( tausL_TESDown, tauESFactorsDown, tauFESFactors, tausL_TESDown_index, tausL_TESDown_decayMode, tausL_TESDown_genPartFlav, 1, leptonsMVAL); sort( tausL_TESDown.begin(), tausL_TESDown.end(), compEle);
-    // SelectTaus( tausF_TESDown, tauESFactorsDown, tauFESFactors, tausF_TESDown_index, tausF_TESDown_decayMode, tausF_TESDown_genPartFlav, 2, leptonsMVAL); sort( tausF_TESDown.begin(), tausF_TESDown.end(), compEle);
-    // SelectTaus( tausT_TESDown, tauESFactorsDown, tauFESFactors, tausT_TESDown_index, tausT_TESDown_decayMode, tausT_TESDown_genPartFlav, 3, leptonsMVAL); sort( tausT_TESDown.begin(), tausT_TESDown.end(), compEle);
     // //Up FES
-    // SelectTaus( tausL_FESUp, tauESFactors, tauFESFactorsUp, tausL_FESUp_index, tausL_FESUp_decayMode, tausL_FESUp_genPartFlav, 1, leptonsMVAL); sort( tausL_FESUp.begin(), tausL_FESUp.end(), compEle);
-    // SelectTaus( tausF_FESUp, tauESFactors, tauFESFactorsUp, tausF_FESUp_index, tausF_FESUp_decayMode, tausF_FESUp_genPartFlav, 2, leptonsMVAL); sort( tausF_FESUp.begin(), tausF_FESUp.end(), compEle);
-    // SelectTaus( tausT_FESUp, tauESFactors, tauFESFactorsUp, tausT_FESUp_index, tausT_FESUp_decayMode, tausT_FESUp_genPartFlav, 3, leptonsMVAL); sort( tausT_FESUp.begin(), tausT_FESUp.end(), compEle);
     // //Down FES
-    // SelectTaus( tausL_FESDown, tauESFactors, tauFESFactorsDown, tausL_FESDown_index, tausL_FESDown_decayMode, tausL_FESDown_genPartFlav, 1, leptonsMVAL); sort( tausL_FESDown.begin(), tausL_FESDown.end(), compEle);
-    // SelectTaus( tausF_FESDown, tauESFactors, tauFESFactorsDown, tausF_FESDown_index, tausF_FESDown_decayMode, tausF_FESDown_genPartFlav, 2, leptonsMVAL); sort( tausF_FESDown.begin(), tausF_FESDown.end(), compEle);
-    // SelectTaus( tausT_FESDown, tauESFactors, tauFESFactorsDown, tausT_FESDown_index, tausT_FESDown_decayMode, tausT_FESDown_genPartFlav, 3, leptonsMVAL); sort( tausT_FESDown.begin(), tausT_FESDown.end(), compEle);
     // //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -1365,9 +1353,9 @@ void objectTSelectorForNanoAOD::calTauSF_new( ){
                 iTES_sf_up = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "up"} );
                 iTES_sf_down = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "down"} );
             }
-            std::cout << "iTES_sf: " << iTES_sf << "\n";
-            std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
-            std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";
+            // std::cout << "iTES_sf: " << iTES_sf << "\n";
+            // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
+            // std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";
         }
         taus_TES.push_back(iTES_sf);
         taus_TES_up.push_back(iTES_sf_up);
