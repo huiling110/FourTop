@@ -80,7 +80,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree * fChain)
 
    makeBranch( tree );
 
-    setupInputFile( isdata );
+    setupInputFile();
     // setupTauSFTool( isdata );
 
 
@@ -227,9 +227,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //nominal taus
     // calTauSF( isdata );
     calTauSF_new();
-    SelectTaus( tausL, tausL_TESup, tausL_TESdown, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
-    // SelectTaus( tausF, tauESFactors, tauFESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
-    // SelectTaus( tausT, tauESFactors, tauFESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
+    SelectTaus( tausL, tausL_TESup, tausL_TESdown, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL);
+    // sort( tausL.begin(), tausL.end(), compEle);
+    SelectTaus( tausF, tausF_TESup, tausF_TESdown, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); 
+    //sort( tausF.begin(), tausF.end(), compEle);
+    SelectTaus( tausT, tausT_TESup, tausT_TESdown, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); 
+    //sort( tausT.begin(), tausT.end(), compEle);
     // //Up TES
     // //Down TES
     // //Up FES
@@ -237,15 +240,14 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
-	
-	
-	
-	
 	tausL_total = tausL_total + tausL.size();
+	
+	
+	
+	
 
     bool deepJet = true;
     // calJetSmearFactors(  isdata );
-
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get() );
     // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
 
@@ -980,14 +982,17 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 }
 
 // void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata, correction::CorrectionSet* cset_jerSF ){
-void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata ){
+void objectTSelectorForNanoAOD::setupInputFile(  ){
+
+    std::map<TString, std::array<TString, 2>> json_map = {
+        {"2016preVFP", { "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json", "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" } }
+    };
 
     //jec files
-    // std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/UL16preVFP_jmar.json";
     std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
     //same file for JER and JES
-    // *cset_jerSF = *correction::CorrectionSet::from_file(jer_file);
-    cset_jerSF = correction::CorrectionSet::from_file(jer_file);
+    // cset_jerSF = correction::CorrectionSet::from_file(jer_file);
+    cset_jerSF = correction::CorrectionSet::from_file(json_map[era].at(0).Data() );
 	for (auto& corr : *cset_jerSF) {
         printf("JEC Correction : %s\n", corr.first.c_str());
     }

@@ -319,7 +319,7 @@ public :
      void copyHLT_new( const Bool_t isdata, const TString dataset );
 	 void copyFlags();
 	 void initializeBrancheValues();
-    void setupInputFile( const Bool_t isdata );
+    void setupInputFile( );
     void getOptionFromRunMacro( const TString option ); 
     void calJetSmearFactors( const Bool_t isdata );
     void calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down );
