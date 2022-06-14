@@ -226,7 +226,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     //nominal taus
     // calTauSF( isdata );
-    // calTauSF_new();
+    calTauSF_new();
     // SelectTaus( tausL, tauESFactors, tauFESFactors, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL); sort( tausL.begin(), tausL.end(), compEle);
     // SelectTaus( tausF, tauESFactors, tauFESFactors, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); sort( tausF.begin(), tausF.end(), compEle);
     // SelectTaus( tausT, tauESFactors, tauFESFactors, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); sort( tausT.begin(), tausT.end(), compEle);
@@ -1348,7 +1348,15 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
 }
 
 void objectTSelectorForNanoAOD::calTauSF_new( ){
+    //https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
+    auto corr_tauES = cset_tauSF->at("tau_energy_scale");
+    //???i assume it contains the correction to genuine tau and genuine electrons?
 
+    for (UInt_t i = 0; i < *nTau; i++) {
+        //corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
+        Double_t iTES_sf = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "nom"} );
+        std::cout << "iTES_sf: " << iTES_sf << "\n";
+    }
 }
 
 /*
