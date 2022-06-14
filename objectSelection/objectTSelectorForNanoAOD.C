@@ -1315,11 +1315,11 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down, correction::CorrectionSet* cset_jerSF  ){
     //https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     //https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-    // #include "inputMap.h"
-    TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
+    #include "inputMap.h"
+    // TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     // TString input = JER_SF_map[era] ;
-    auto corr_jerSF = cset_jerSF->at(input.Data());
-    // auto corr_jerSF = cset_jerSF->at( JER_SF_map[era]  );
+    // auto corr_jerSF = cset_jerSF->at(input.Data());
+    auto corr_jerSF = cset_jerSF->at( corr_SF_map[era].Data()  );
 
     // TString jesSFName = "Summer19UL16APV_V7_MC";
     // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
