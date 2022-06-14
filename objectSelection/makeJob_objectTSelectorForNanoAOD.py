@@ -13,13 +13,14 @@ eraDic = {
 }
 
 
-codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/objectSelection/"
+codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/"
 rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 def main():
     # jobVersionName ='v8_preselectionAddingTausL'
-    jobVersionName ='v9_allSelection/'
+    # jobVersionName ='v9_allSelection/'
+    jobVersionName = 'v10_JECandTESadded/'
     onlyMC = True
     # onlyMC = False
     # era = '2016'
