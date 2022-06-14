@@ -271,7 +271,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // sort( bjetsM.begin(), bjetsM.end(), compEle);
     SelectJets(13, deepJet, bjetsT, bjetsT_JERup, bjetsT_JERdown, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL);
     // sort( bjetsT.begin(), bjetsT.end(), compEle);
-    // SelectJets(2, deepJet, jetSmearingFactors, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL);
+    SelectJets(2, deepJet,  forwardJets, forwardJets_JERup, forwardJets_JERdown, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
@@ -484,6 +484,8 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
    tree->Branch( "forwardJets", &forwardJets );
+   tree->Branch( "forwardJets_JERup", &forwardJets_JERup );
+   tree->Branch( "forwardJets_JERdown", &forwardJets_JERdown );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_flavour", &forwardJets_flavour );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
@@ -690,8 +692,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet,  std::vector<TLorentzVector> &SelectedJets,  std::vector<TLorentzVector> &  jets_JERup,  std::vector<TLorentzVector> & jets_JERdown, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  ) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
-    Double_t MostForwardJetEta =-99;
-    Double_t MostForwardJetPt = -99;
+    // Double_t MostForwardJetEta =-99;
+    // Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
         // Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
@@ -737,8 +739,8 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         if (jetType == 0) { // normal jet
             if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
                 MaxMostForwardJetEta = fabs(Jet_eta.At(j));
-                    MostForwardJetEta = Jet_eta.At(j);
-                    MostForwardJetPt = jetpt;//a branch in new tree
+                    // Double_t MostForwardJetEta = Jet_eta.At(j);
+                    // Double_t MostForwardJetPt = jetpt;//a branch in new tree
             } // MostForwardJetEta branch in new tree and SB.
             if (!(fabs(Jet_eta.At(j)) < 2.4))
                 continue;
@@ -931,7 +933,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     bjetsT_index.clear();
     bjetsT_flavour.clear();
     bjetsT_btags.clear();
-    forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
+    forwardJets.clear();  forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
+    forwardJets_JERup.clear(); forwardJets_JERdown.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
     nonbjetsT.clear();
@@ -1259,7 +1262,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const Bool_t isdata, cons
    }
 }
 
-
+/*
 void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
     std::vector<Int_t>* matchingIndices   { new std::vector<Int_t>} ;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
@@ -1290,6 +1293,7 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
     delete matchingIndices;
 
 }
+*/
 
 void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down, correction::CorrectionSet* cset_jerSF  ){
     //https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py

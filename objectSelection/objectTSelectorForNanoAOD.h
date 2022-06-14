@@ -249,8 +249,10 @@ public :
 	std::vector<Double_t> bjetsM_btags;
 	std::vector<TLorentzVector> bjetsT; std::vector<TLorentzVector> bjetsT_JERup; std::vector<TLorentzVector> bjetsT_JERdown; std::vector<Int_t> bjetsT_index; std::vector<Int_t> bjetsT_flavour; std::vector<Double_t> bjetsT_btags;
     std::vector<TLorentzVector> forwardJets; std::vector<Int_t> forwardJets_index; std::vector<Int_t> forwardJets_flavour; std::vector<Double_t> forwardJets_btags;
-    std::vector<TLorentzVector>  nonbjetsL;
-    std::vector<TLorentzVector>  nonbjetsM;
+	std::vector<TLorentzVector> forwardJets_JERup;
+	std::vector<TLorentzVector> forwardJets_JERdown;
+	std::vector<TLorentzVector> nonbjetsL;
+	std::vector<TLorentzVector>  nonbjetsM;
     std::vector<TLorentzVector>  nonbjetsT;
     // std::vector<TLorentzVector> ; std::vector<Int_t> ;
     // std::vector<TLorentzVector> ; std::vector<Int_t> ;
