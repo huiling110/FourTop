@@ -251,19 +251,15 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
-    calJetSmearFactors(  isdata );
+    // calJetSmearFactors(  isdata );
 
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down);
 
-    SelectJets(0, deepJet, jetSmearingFactors, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
-    // SelectJets(0, deepJet, jetSmearingFactorsUp, jets_smearedUp, jets_btags_smearedUp, jets_index_smearedUp, jets_flavour_smearedUp, SysJes, SysJer, leptonsMVAL, tausL);
-    // SelectJets(0, deepJet, jetSmearingFactorsDown, jets_smearedDown, jets_btags_smearedDown, jets_index_smearedDown, jets_flavour_smearedDown, SysJes, SysJer, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jets, jets_JERup, jets_JERdown, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
-    // sort( jets.begin(), jets.end(), compEle);
+    sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
     // SelectJets(11, deepJet, jetSmearingFactors, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, SysJes, SysJer,  leptonsMVAL, tausL);
-    // SelectJets(11, deepJet, jetSmearingFactorsUp, bjetsL_smearedUp, bjetsL_btags_smearedUp, bjetsL_index_smearedUp, bjetsL_flavour_smearedUp, SysJes, SysJer,  leptonsMVAL, tausL);
-    // SelectJets(11, deepJet, jetSmearingFactorsDown, bjetsL_smearedDown, bjetsL_btags_smearedDown, bjetsL_index_smearedDown, bjetsL_flavour_smearedDown, SysJes, SysJer,  leptonsMVAL, tausL);
     // sort( bjetsL.begin(), bjetsL.end(), compEle);
     // sort( bjetsL_smearedUp.begin(), bjetsL_smearedUp.end(), compEle);
     // sort( bjetsL_smearedDown.begin(), bjetsL_smearedDown.end(), compEle);
@@ -467,16 +463,19 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "tausT_FESDown_genPartFlav", &tausT_FESDown_genPartFlav );
 
    tree->Branch( "jets", &jets );
-   tree->Branch( "jets_index", &jets_index );
+   tree->Branch("jets_JERup", &jets_JERup);
+   tree->Branch("jets_JERdown", &jets_JERdown);
+   tree->Branch("jets_JESuncer", &jets_JESuncer);
+   tree->Branch("jets_index", &jets_index);
    tree->Branch( "jets_flavour", &jets_flavour );
    tree->Branch( "jets_btags", &jets_btags );
-   tree->Branch( "jets_smearedUp", &jets_smearedUp );
-   tree->Branch( "jets_index_smearedUp", &jets_index_smearedUp );
-   tree->Branch( "jets_flavour_smearedUp", &jets_flavour_smearedUp );
-   tree->Branch( "jets_btags_smearedUp", &jets_btags_smearedUp );
-   tree->Branch( "jets_smearedDown", &jets_smearedDown );
-   tree->Branch( "jets_index_smearedDown", &jets_index_smearedDown );
-   tree->Branch( "jets_flavour_smearedDown", &jets_flavour_smearedDown );
+//    tree->Branch( "jets_smearedUp", &jets_smearedUp );
+//    tree->Branch( "jets_index_smearedUp", &jets_index_smearedUp );
+//    tree->Branch( "jets_flavour_smearedUp", &jets_flavour_smearedUp );
+//    tree->Branch( "jets_btags_smearedUp", &jets_btags_smearedUp );
+//    tree->Branch( "jets_smearedDown", &jets_smearedDown );
+//    tree->Branch( "jets_index_smearedDown", &jets_index_smearedDown );
+//    tree->Branch( "jets_flavour_smearedDown", &jets_flavour_smearedDown );
    tree->Branch( "jets_btags_smearedDown", &jets_btags_smearedDown );
    tree->Branch( "bjetsL", &bjetsL );
    tree->Branch( "bjetsL_index", &bjetsL_index );
@@ -718,15 +717,15 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets,
-                std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  ) {
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet,  std::vector<TLorentzVector> &SelectedJets,  std::vector<TLorentzVector> &  jets_JERup,  std::vector<TLorentzVector> & jets_JERdown, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  ) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MostForwardJetEta =-99;
     Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-        Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
+        // Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
+        Double_t jetpt = Jet_pt[j]*JER_SF_new.at(j);
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
@@ -802,15 +801,23 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         }
         
         TLorentzVector jet_prov;
-        jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j),
-                Jet_mass.At(j));
+        jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
         TLorentzVector jet;
-        jet.SetPxPyPzE(jet_prov.Px() * jetSmearingFactors.at(j), jet_prov.Py() * jetSmearingFactors.at(j), jet_prov.Pz() * jetSmearingFactors.at(j), jet_prov.E() * jetSmearingFactors.at(j));
-        //?is this  step necessary?
-        //???why do this?
+        // jet.SetPxPyPzE(jet_prov.Px() * jetSmearingFactors.at(j), jet_prov.Py() * jetSmearingFactors.at(j), jet_prov.Pz() * jetSmearingFactors.at(j), jet_prov.E() * jetSmearingFactors.at(j));
+        jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
         SelectedJets.push_back(jet);
+
+        TLorentzVector ijet_JERup;
+        Double_t iJER_up = JER_SF_new_up.at(j);
+        ijet_JERup.SetPxPyPzE(jet_prov.Px() * iJER_up, jet_prov.Py() * iJER_up, jet_prov.Pz() * iJER_up, jet_prov.E() * iJER_up);
+        jets_JERup.push_back( ijet_JERup );
+        TLorentzVector ijet_JERdown;
+        Double_t iJER_down = JER_SF_new_down.at(j);
+        ijet_JERdown.SetPxPyPzE(jet_prov.Px() * iJER_down, jet_prov.Py() * iJER_down, jet_prov.Pz() * iJER_down, jet_prov.E() * iJER_down);
+        jets_JERdown.push_back( ijet_JERdown );
+
         SelectedJetsIndex.push_back(j);
-		//CHANGE HERE TO RUN ON DATA
+        //CHANGE HERE TO RUN ON DATA
 		SelectedJetsFlavor.push_back(Jet_hadronFlavour.At(j));
         if (deepJet) {
             SelectedJetsBTags.push_back(Jet_btagDeepFlavB.At(j));
@@ -935,22 +942,26 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tausL_FESDown.clear(); tausL_FESDown_index.clear(); tausL_FESDown_genPartFlav.clear(); tausL_FESDown_decayMode.clear();
     tausF_FESDown.clear(); tausF_FESDown_index.clear(); tausF_FESDown_genPartFlav.clear(); tausF_FESDown_decayMode.clear();
     tausT_FESDown.clear(); tausT_FESDown_index.clear(); tausT_FESDown_genPartFlav.clear(); tausT_FESDown_decayMode.clear();
-    jets.clear(); jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
-    jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
-    jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
-    bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
-    bjetsL_smearedUp.clear(); bjetsL_index_smearedUp.clear(); bjetsL_flavour_smearedUp.clear(); bjetsL_btags_smearedUp.clear();
-    bjetsL_smearedDown.clear(); bjetsL_index_smearedDown.clear(); bjetsL_flavour_smearedDown.clear(); bjetsL_btags_smearedDown.clear();
-    bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
-    bjetsM_smearedUp.clear(); bjetsM_index_smearedUp.clear(); bjetsM_flavour_smearedUp.clear(); bjetsM_btags_smearedUp.clear();
-    bjetsM_smearedDown.clear(); bjetsM_index_smearedDown.clear(); bjetsM_flavour_smearedDown.clear(); bjetsM_btags_smearedDown.clear();
-    bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
-    bjetsT_smearedUp.clear(); bjetsT_index_smearedUp.clear(); bjetsT_flavour_smearedUp.clear(); bjetsT_btags_smearedUp.clear();
-    bjetsT_smearedDown.clear(); bjetsT_index_smearedDown.clear(); bjetsT_flavour_smearedDown.clear(); bjetsT_btags_smearedDown.clear();
+
+    jets.clear();   jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
+    jets_JERup.clear(); jets_JERdown.clear();
+    jets_JESuncer.clear();
+    // jets_smearedUp.clear(); jets_index_smearedUp.clear(); jets_flavour_smearedUp.clear(); jets_btags_smearedUp.clear();
+    // jets_smearedDown.clear(); jets_index_smearedDown.clear(); jets_flavour_smearedDown.clear(); jets_btags_smearedDown.clear();
+    // bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear();
+    // bjetsL_smearedUp.clear(); bjetsL_index_smearedUp.clear(); bjetsL_flavour_smearedUp.clear(); bjetsL_btags_smearedUp.clear();
+    // bjetsL_smearedDown.clear(); bjetsL_index_smearedDown.clear(); bjetsL_flavour_smearedDown.clear(); bjetsL_btags_smearedDown.clear();
+    // bjetsM.clear(); bjetsM_index.clear(); bjetsM_flavour.clear(); bjetsM_btags.clear();
+    // bjetsM_smearedUp.clear(); bjetsM_index_smearedUp.clear(); bjetsM_flavour_smearedUp.clear(); bjetsM_btags_smearedUp.clear();
+    // bjetsM_smearedDown.clear(); bjetsM_index_smearedDown.clear(); bjetsM_flavour_smearedDown.clear(); bjetsM_btags_smearedDown.clear();
+    // bjetsT.clear(); bjetsT_index.clear(); bjetsT_flavour.clear(); bjetsT_btags.clear();
+    // bjetsT_smearedUp.clear(); bjetsT_index_smearedUp.clear(); bjetsT_flavour_smearedUp.clear(); bjetsT_btags_smearedUp.clear();
+    // bjetsT_smearedDown.clear(); bjetsT_index_smearedDown.clear(); bjetsT_flavour_smearedDown.clear(); bjetsT_btags_smearedDown.clear();
     forwardJets.clear(); forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
     nonbjetsT.clear();
+
     patElectron_charge_.clear();
     Tau_charge_.clear();
     Muon_charge_.clear();
@@ -1307,11 +1318,11 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down  ){
     //https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     //https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-    TString jerSFName = "Summer20UL16_JRV3_MC";
-    //  Summer19UL17_JRV2_MC.db ,, Summer19UL18_JRV2_MC.db
-    // TString input = jerSFName + "_ScaleFactor_" + "AK4PFchs";
+    // #include "inputMap.h"
     TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
+    // TString input = JER_SF_map[era] ;
     auto corr_jerSF = cset_jerSF->at(input.Data());
+    // auto corr_jerSF = cset_jerSF->at( JER_SF_map[era]  );
 
     // TString jesSFName = "Summer19UL16APV_V7_MC";
     // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
@@ -1324,7 +1335,6 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     Double_t iSF = 1.0;
     Double_t iSF_up = 1.0;
     Double_t iSF_down = 1.0;
-    Double_t iSF_JES = 1.0;
     Double_t iSF_JESuncer = 0.0;
     for (UInt_t i = 0; i < *nJet; i++)
     {
@@ -1341,11 +1351,11 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
             iSF_JESuncer = corr_jesUncer->evaluate({ieta, ipt} );
         }
         // std::cout << "iJERSF: " << iSF << "\n";
-        // std::cout << "iSF_JES" << iSF_JES << "\n";
-        std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
+        // std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
         jer_sf.push_back(iSF);
         jer_sf_up.push_back(iSF_up);
         jer_sf_down.push_back(iSF_down);
+        jets_JESuncer.push_back(iSF_JESuncer);
     }
 }
 

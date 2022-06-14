@@ -62,19 +62,19 @@ public :
    //CHANGE HERE TO RUN ON DATA
    Bool_t isdata = false;
    TString dataSet;
+   TString era = "2016postVFP";
    Double_t runRange[2];
 
 
 
    //files
-    std::unique_ptr<correction::CorrectionSet> cset_jerSF ;
+    static std::unique_ptr<correction::CorrectionSet> cset_jerSF ;
 
 
 
    TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
    TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
-   TString era = "2016postVFP";
    std::map<TString, double> DeepJetL = { //std::map of loose WPs for DeepJet
 
        {"2016postVFP", 0.0480},
@@ -228,10 +228,16 @@ public :
     std::vector<TLorentzVector> tausL_FESDown; std::vector<Int_t> tausL_FESDown_index; std::vector<Int_t> tausL_FESDown_decayMode; std::vector<Int_t> tausL_FESDown_genPartFlav;
     std::vector<TLorentzVector> tausF_FESDown; std::vector<Int_t> tausF_FESDown_index; std::vector<Int_t> tausF_FESDown_decayMode; std::vector<Int_t> tausF_FESDown_genPartFlav;
     std::vector<TLorentzVector> tausT_FESDown; std::vector<Int_t> tausT_FESDown_index; std::vector<Int_t> tausT_FESDown_decayMode; std::vector<Int_t> tausT_FESDown_genPartFlav;
+
     std::vector<TLorentzVector> jets; std::vector<Int_t> jets_index; std::vector<Int_t> jets_flavour;  std::vector<Double_t> jets_btags;
-    std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
-    std::vector<TLorentzVector> jets_smearedDown; std::vector<Int_t> jets_index_smearedDown; std::vector<Int_t> jets_flavour_smearedDown;  std::vector<Double_t> jets_btags_smearedDown;
-    std::vector<TLorentzVector> bjetsL; std::vector<Int_t> bjetsL_index; std::vector<Int_t> bjetsL_flavour; std::vector<Double_t> bjetsL_btags;
+	std::vector<TLorentzVector> jets_JERup;
+	std::vector<TLorentzVector> jets_JERdown;
+	std::vector<Double_t> jets_JESuncer;
+
+	 std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
+	 std::vector<TLorentzVector> jets_smearedDown; std::vector<Int_t> jets_index_smearedDown; std::vector<Int_t> jets_flavour_smearedDown;  std::vector<Double_t> jets_btags_smearedDown;
+
+	std::vector<TLorentzVector> bjetsL; std::vector<Int_t> bjetsL_index; std::vector<Int_t> bjetsL_flavour; std::vector<Double_t> bjetsL_btags;
     std::vector<TLorentzVector> bjetsL_smearedUp; std::vector<Int_t> bjetsL_index_smearedUp; std::vector<Int_t> bjetsL_flavour_smearedUp; std::vector<Double_t> bjetsL_btags_smearedUp;
     std::vector<TLorentzVector> bjetsL_smearedDown; std::vector<Int_t> bjetsL_index_smearedDown; std::vector<Int_t> bjetsL_flavour_smearedDown; std::vector<Double_t> bjetsL_btags_smearedDown;
     std::vector<TLorentzVector> bjetsM; std::vector<Int_t> bjetsM_index; std::vector<Int_t> bjetsM_flavour; std::vector<Double_t> bjetsM_btags;
@@ -273,9 +279,9 @@ public :
 	std::vector<Double_t> JER_SF_new;
 	std::vector<Double_t> JER_SF_new_up;
 	std::vector<Double_t> JER_SF_new_down;
-	std::vector<Double_t> JES_SF;
-	std::vector<Double_t> JES_SF_up;
-	std::vector<Double_t> JES_SF_down;
+	// std::vector<Double_t> JES_SF;
+	// std::vector<Double_t> JES_SF_up;
+	// std::vector<Double_t> JES_SF_down;
 	// std::vector<Double_t> JES_SF_data;
 
 
@@ -291,9 +297,9 @@ public :
      void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauTESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
      void SelectTops(std::vector<TLorentzVector> &SelectedTops);
     //  void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
-     void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
-     void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
-     void selectGenTaus( std::vector<TLorentzVector> &genTaus );
+	 void SelectJets(const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<TLorentzVector> &jets_JERup, std::vector<TLorentzVector> &jets_JERdown, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL);
+	 void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
+	 void selectGenTaus( std::vector<TLorentzVector> &genTaus );
      void selectGenEles( std::vector<TLorentzVector> &genEles );
      void selectGenMuons( std::vector<TLorentzVector> &genMuons );
      void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex,const Int_t type);
