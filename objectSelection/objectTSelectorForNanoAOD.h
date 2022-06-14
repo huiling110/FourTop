@@ -237,15 +237,17 @@ public :
 	 std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
 	 std::vector<TLorentzVector> jets_smearedDown; std::vector<Int_t> jets_index_smearedDown; std::vector<Int_t> jets_flavour_smearedDown;  std::vector<Double_t> jets_btags_smearedDown;
 
-	std::vector<TLorentzVector> bjetsL; std::vector<Int_t> bjetsL_index; std::vector<Int_t> bjetsL_flavour; std::vector<Double_t> bjetsL_btags;
-    std::vector<TLorentzVector> bjetsL_smearedUp; std::vector<Int_t> bjetsL_index_smearedUp; std::vector<Int_t> bjetsL_flavour_smearedUp; std::vector<Double_t> bjetsL_btags_smearedUp;
-    std::vector<TLorentzVector> bjetsL_smearedDown; std::vector<Int_t> bjetsL_index_smearedDown; std::vector<Int_t> bjetsL_flavour_smearedDown; std::vector<Double_t> bjetsL_btags_smearedDown;
-    std::vector<TLorentzVector> bjetsM; std::vector<Int_t> bjetsM_index; std::vector<Int_t> bjetsM_flavour; std::vector<Double_t> bjetsM_btags;
-    std::vector<TLorentzVector> bjetsM_smearedUp; std::vector<Int_t> bjetsM_index_smearedUp; std::vector<Int_t> bjetsM_flavour_smearedUp; std::vector<Double_t> bjetsM_btags_smearedUp;
-    std::vector<TLorentzVector> bjetsM_smearedDown; std::vector<Int_t> bjetsM_index_smearedDown; std::vector<Int_t> bjetsM_flavour_smearedDown; std::vector<Double_t> bjetsM_btags_smearedDown;
-    std::vector<TLorentzVector> bjetsT; std::vector<Int_t> bjetsT_index; std::vector<Int_t> bjetsT_flavour; std::vector<Double_t> bjetsT_btags;
-    std::vector<TLorentzVector> bjetsT_smearedUp; std::vector<Int_t> bjetsT_index_smearedUp; std::vector<Int_t> bjetsT_flavour_smearedUp; std::vector<Double_t> bjetsT_btags_smearedUp;
-    std::vector<TLorentzVector> bjetsT_smearedDown; std::vector<Int_t> bjetsT_index_smearedDown; std::vector<Int_t> bjetsT_flavour_smearedDown; std::vector<Double_t> bjetsT_btags_smearedDown;
+	std::vector<TLorentzVector> bjetsL; std::vector<TLorentzVector> bjetsL_JERup;
+	std::vector<TLorentzVector> bjetsL_JERdown;
+	std::vector<Int_t> bjetsL_index;
+	std::vector<Int_t> bjetsL_flavour;
+	std::vector<Double_t> bjetsL_btags;
+	std::vector<TLorentzVector> bjetsM; std::vector<TLorentzVector> bjetsM_JERup;
+	std::vector<TLorentzVector> bjetsM_JERdown;
+	std::vector<Int_t> bjetsM_index;
+	std::vector<Int_t> bjetsM_flavour;
+	std::vector<Double_t> bjetsM_btags;
+	std::vector<TLorentzVector> bjetsT; std::vector<TLorentzVector> bjetsT_JERup; std::vector<TLorentzVector> bjetsT_JERdown; std::vector<Int_t> bjetsT_index; std::vector<Int_t> bjetsT_flavour; std::vector<Double_t> bjetsT_btags;
     std::vector<TLorentzVector> forwardJets; std::vector<Int_t> forwardJets_index; std::vector<Int_t> forwardJets_flavour; std::vector<Double_t> forwardJets_btags;
     std::vector<TLorentzVector>  nonbjetsL;
     std::vector<TLorentzVector>  nonbjetsM;
