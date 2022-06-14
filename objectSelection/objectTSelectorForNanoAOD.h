@@ -29,7 +29,7 @@
 #include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
-#include "../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+// #include "../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 //seem enough to only include the header
 
 #include "correction.h"
@@ -72,8 +72,8 @@ public :
 
 
 
-   TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
-   TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
+//    TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
+//    TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
    // Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
    std::map<TString, double> DeepJetL = { //std::map of loose WPs for DeepJet
 
