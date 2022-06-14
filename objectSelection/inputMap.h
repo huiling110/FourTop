@@ -2,12 +2,13 @@
 #include <map>
 #include <string>
 
-std::map<TString, TString> corr_SF_map = {
+std::map<TString, std::array<TString,2>> corr_SF_map = {
     //  Summer19UL17_JRV2_MC.db ,, Summer19UL18_JRV2_MC.db
-    {"2016preVFP", "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs"},
-    {"2016postVFP", "Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs"},
-    {"2017", "Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs"},
-    {"2018", "Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs"},
+    //array[0]: JERSF, array[1]: JECuncertainty_MC, array[2]:JECuncertainty_data
+    {"2016preVFP", {"Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16APV_V7_MC_Total_AK4PFchs"}  },
+    {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs"}  },
+    {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs"} },
+    {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs"} },
 };
 
 

@@ -1319,15 +1319,17 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     // TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     // TString input = JER_SF_map[era] ;
     // auto corr_jerSF = cset_jerSF->at(input.Data());
-    auto corr_jerSF = cset_jerSF->at( corr_SF_map[era].Data()  );
+    auto corr_jerSF = cset_jerSF->at( corr_SF_map[era].at(0).Data()  );
 
     // TString jesSFName = "Summer19UL16APV_V7_MC";
     // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
     // TString jesSFName_MC_L1 = "Summer19UL16APV_V7_MC_L1FastJet_AK4PFchs";
     // auto corr_jesSF_L1 = cset_jerSF->at(jesSFName_MC_L1.Data());
 
-    TString unc = "Summer19UL16APV_V7_MC_Total_AK4PFchs";
-    auto corr_jesUncer = cset_jerSF->at(unc.Data());
+    //???not sure how to get the JEC uncertainty for data yet?
+    // TString unc = "Summer19UL16APV_V7_MC_Total_AK4PFchs";
+    // auto corr_jesUncer = cset_jerSF->at(unc.Data());
+    auto corr_jesUncer = cset_jerSF->at( corr_SF_map[era].at(1).Data() );
 
     Double_t iSF = 1.0;
     Double_t iSF_up = 1.0;
