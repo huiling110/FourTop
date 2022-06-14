@@ -985,20 +985,25 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 void objectTSelectorForNanoAOD::setupInputFile(  ){
 
     std::map<TString, std::array<TString, 2>> json_map = {
-        {"2016preVFP", { "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json", "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" } }
+        {"2016preVFP", { "JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json" } },
+        {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json"} },
+        {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json"} },
+        {"2018", {"JME/2018_UL/jet_jerc.json/", "TAU/2018_UL/tau.json"} },
     };
 
     //jec files
+    TString jsonBase = "../../jsonpog-integration/POG/";
     std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
     //same file for JER and JES
     // cset_jerSF = correction::CorrectionSet::from_file(jer_file);
-    cset_jerSF = correction::CorrectionSet::from_file(json_map[era].at(0).Data() );
+    cset_jerSF = correction::CorrectionSet::from_file( (jsonBase + json_map[era].at(0)).Data() );
 	for (auto& corr : *cset_jerSF) {
         printf("JEC Correction : %s\n", corr.first.c_str());
     }
 
-	TString tauSF_json = "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
-	cset_tauSF = correction::CorrectionSet::from_file(tauSF_json.Data());
+	// TString tauSF_json = "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
+	// cset_tauSF = correction::CorrectionSet::from_file(tauSF_json.Data());
+	cset_tauSF = correction::CorrectionSet::from_file( (jsonBase + json_map[era].at(1)).Data() );
 	for (auto& corr : *cset_tauSF) {
         printf("tauSF Correction: %s\n", corr.first.c_str());
     }
