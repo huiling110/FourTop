@@ -69,6 +69,7 @@ public :
 
    //files
     std::unique_ptr<correction::CorrectionSet> cset_jerSF ;
+    std::unique_ptr<correction::CorrectionSet> cset_tauSF ;
 
 
 
@@ -283,11 +284,7 @@ public :
 	std::vector<Double_t> JER_SF_new;
 	std::vector<Double_t> JER_SF_new_up;
 	std::vector<Double_t> JER_SF_new_down;
-	// std::vector<Double_t> JES_SF;
-	// std::vector<Double_t> JES_SF_up;
-	// std::vector<Double_t> JES_SF_down;
-	// std::vector<Double_t> JES_SF_data;
-
+	// std::vector<Double_t> taus_;
 
 	//weight
     Double_t EVENT_prefireWeight_;
@@ -320,7 +317,8 @@ public :
     void calJetSmearFactors( const Bool_t isdata );
     void calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down );
     void setupTauSFTool( const Bool_t isdata);
-   void calTauSF( const Bool_t isdata );
+//    void calTauSF( const Bool_t isdata );
+   void calTauSF_new(  );
 
    void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet* cset_jerSF);
 
