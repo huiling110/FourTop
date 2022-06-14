@@ -983,13 +983,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 
 // void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata, correction::CorrectionSet* cset_jerSF ){
 void objectTSelectorForNanoAOD::setupInputFile(  ){
-
-    std::map<TString, std::array<TString, 2>> json_map = {
-        {"2016preVFP", { "JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json" } },
-        {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json"} },
-        {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json"} },
-        {"2018", {"JME/2018_UL/jet_jerc.json/", "TAU/2018_UL/tau.json"} },
-    };
+    #include "inputMap.h"
 
     //jec files
     TString jsonBase = "../../jsonpog-integration/POG/";

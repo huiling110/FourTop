@@ -9,3 +9,11 @@ std::map<TString, std::string> JER_SF_map = {
     {"2017", "Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs"},
     {"2018", "Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs"},
 };
+
+
+std::map<TString, std::array<TString, 2>> json_map = {
+    {"2016preVFP", { "JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json" } },
+    {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json"} },
+    {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json"} },
+    {"2018", {"JME/2018_UL/jet_jerc.json/", "TAU/2018_UL/tau.json"} },
+};
