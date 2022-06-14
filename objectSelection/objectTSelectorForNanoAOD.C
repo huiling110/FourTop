@@ -899,6 +899,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
+
+    taus_TES.clear(); taus_TES_up.clear(); taus_TES_down.clear();
     tausL.clear(); tausL_index.clear(); tausL_genPartFlav.clear(); tausL_decayMode.clear();
     tausF.clear(); tausF_index.clear(); tausF_genPartFlav.clear(); tausF_decayMode.clear();
     tausT.clear(); tausT_index.clear(); tausT_genPartFlav.clear(); tausT_decayMode.clear();
@@ -1351,12 +1353,27 @@ void objectTSelectorForNanoAOD::calTauSF_new( ){
     //https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
     //???i assume it contains the correction to genuine tau and genuine electrons?
-
+    Double_t iTES_sf = 1.0;
+    Double_t iTES_sf_up = 1.0;
+    Double_t iTES_sf_down = 1.0;
     for (UInt_t i = 0; i < *nTau; i++) {
-        //corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
-        Double_t iTES_sf = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "nom"} );
-        std::cout << "iTES_sf: " << iTES_sf << "\n";
+        if(!isdata){
+            //corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
+            //no sf for decaymode 5 and 6
+            if( !(Tau_decayMode.At(i)==5 || Tau_decayMode.At(i)==6) ){
+                iTES_sf = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "nom"} );
+                iTES_sf_up = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "up"} );
+                iTES_sf_down = corr_tauES->evaluate( {Tau_pt.At(i), Tau_eta.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "DeepTau2017v2p1", "down"} );
+            }
+            std::cout << "iTES_sf: " << iTES_sf << "\n";
+            std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
+            std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";
+        }
+        taus_TES.push_back(iTES_sf);
+        taus_TES_up.push_back(iTES_sf_up);
+        taus_TES_down.push_back(iTES_sf_down);
     }
+
 }
 
 /*

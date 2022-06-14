@@ -284,7 +284,10 @@ public :
 	std::vector<Double_t> JER_SF_new;
 	std::vector<Double_t> JER_SF_new_up;
 	std::vector<Double_t> JER_SF_new_down;
-	// std::vector<Double_t> taus_;
+	std::vector<Double_t> taus_TES;
+	std::vector<Double_t> taus_TES_up;
+	std::vector<Double_t> taus_TES_down;
+
 
 	//weight
     Double_t EVENT_prefireWeight_;
