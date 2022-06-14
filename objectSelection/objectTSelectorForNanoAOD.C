@@ -253,7 +253,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bool deepJet = true;
     // calJetSmearFactors(  isdata );
 
-    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down);
+    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get() );
 
     SelectJets(0, deepJet, jets, jets_JERup, jets_JERdown, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
     // tprintElements( jets_btags, jets );
@@ -1315,7 +1315,7 @@ void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
 
 }
 
-void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down  ){
+void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down, correction::CorrectionSet* cset_jerSF  ){
     //https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     //https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     // #include "inputMap.h"
