@@ -252,12 +252,15 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
 
     SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
-    // SelectJets(11, deepJet, bjetsL, bjetsL_JERup, bjetsL_JERdown, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL);
+    // SelectJets(0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
+    // SelectJets(0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
     // std::cout << "jets size" << jets.size() << "\n";
-    // printElements( jets_btags, jets );
-    // sort( jets.begin(), jets.end(), compEle);
+    printElements( jets_btags, jets );
+    // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
+    // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
     // pt are sorted in MINIAOD
+    // sort( jets.begin(), jets.end(), compEle);
+    // SelectJets(11, deepJet, bjetsL, bjetsL_JERup, bjetsL_JERdown, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL);
     // sort( bjetsL.begin(), bjetsL.end(), compEle);
     // SelectJets(12, deepJet, bjetsM, bjetsM_JERup, bjetsM_JERdown, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL);
     // sort( bjetsM.begin(), bjetsM.end(), compEle);
@@ -466,6 +469,10 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch("jets_index_JECup", &jets_index_JECup);
    tree->Branch( "jets_flavour_JECup", &jets_flavour_JECup );
    tree->Branch( "jets_btags_JECup", &jets_btags_JECup );
+   tree->Branch( "jets_JECdown", &jets_JECdown );
+   tree->Branch("jets_index_JECdown", &jets_index_JECdown);
+   tree->Branch( "jets_flavour_JECdown", &jets_flavour_JECdown );
+   tree->Branch( "jets_btags_JECdown", &jets_btags_JECdown );
    tree->Branch( "bjetsL", &bjetsL );
 // //    tree->Branch( "bjetsL_JERup", &bjetsL_JERup );
 //    tree->Branch( "bjetsL_JERdown", &bjetsL_JERdown );
@@ -702,6 +709,8 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
         Double_t jetpt = Jet_pt[j]*JER_SF_new.at(j);
+        Double_t ijetMass = Jet_mass[j]*JER_SF_new.at(j);
+        //maybe scaling only changes pt and mass? yes!
         switch (sysJEC)
         {
         case 0:
@@ -709,9 +718,12 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
             break;
         case 1:
             jetpt = jetpt * (1 + jets_JESuncer[j]);
+            ijetMass *= (1 + jets_JESuncer[j] ) ;
             break;
-        case 3:
+        case 2:
             jetpt *= (1 - jets_JESuncer[j]);
+            ijetMass *= (1 - jets_JESuncer[j] ) ;
+            break;
         default:
             break;
         }
@@ -789,20 +801,16 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         }
         
         TLorentzVector jet_prov;
-        jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
-        TLorentzVector jet;
-        // jet.SetPxPyPzE(jet_prov.Px() * jetSmearingFactors.at(j), jet_prov.Py() * jetSmearingFactors.at(j), jet_prov.Pz() * jetSmearingFactors.at(j), jet_prov.E() * jetSmearingFactors.at(j));
-        jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
-        SelectedJets.push_back(jet);
-
-        TLorentzVector ijet_JERup;
-        Double_t iJER_up = JER_SF_new_up.at(j);
-        ijet_JERup.SetPxPyPzE(jet_prov.Px() * iJER_up, jet_prov.Py() * iJER_up, jet_prov.Pz() * iJER_up, jet_prov.E() * iJER_up);
-        jets_JERup.push_back( ijet_JERup );
-        TLorentzVector ijet_JERdown;
-        Double_t iJER_down = JER_SF_new_down.at(j);
-        ijet_JERdown.SetPxPyPzE(jet_prov.Px() * iJER_down, jet_prov.Py() * iJER_down, jet_prov.Pz() * iJER_down, jet_prov.E() * iJER_down);
-        jets_JERdown.push_back( ijet_JERdown );
+        // jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
+        jet_prov.SetPtEtaPhiM( jetpt, Jet_eta.At(j), Jet_phi.At(j), ijetMass );
+        // TLorentzVector jet;
+        // jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
+        // TLorentzVector jet_scaled = JER_SF_new[j]*jet_prov;
+        // SelectedJets.push_back(jet);
+        SelectedJets.push_back( JER_SF_new[j]* jet_prov);
+        // std::cout<<"jet : "<<jet_prov.Pt()<<", "<<jet_prov.Eta()<<", "<<jet_prov.Phi()<<","<<jet_prov.M()<<"\n";
+        // std::cout<<"jet scale manually: "<<jet.Pt()<<", "<<jet.Eta()<<", "<<jet.Phi()<<","<<jet.M()<<"\n";
+        // std::cout<<"jet scale: "<<jet_scaled.Pt()<<", "<<jet_scaled.Eta()<<", "<<jet_scaled.Phi()<<", "<<jet_scaled.M()<<"\n";
 
         SelectedJetsIndex.push_back(j);
         //CHANGE HERE TO RUN ON DATA
@@ -939,6 +947,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
 
     jets.clear();   jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
     jets_JECup.clear();   jets_index_JECup.clear(); jets_flavour_JECup.clear(); jets_btags_JECup.clear();
+    jets_JECdown.clear();   jets_index_JECdown.clear(); jets_flavour_JECdown.clear(); jets_btags_JECdown.clear();
     // jets_JERup.clear(); jets_JERdown.clear();
     jets_JESuncer.clear();
     JER_SF_new.clear(); JER_SF_new_up.clear();

@@ -240,6 +240,7 @@ public :
     std::vector<TLorentzVector> jets_JECup;//JEC may includes JER
    std::vector<TLorentzVector> jets_JECdown;//JEC may includes JER 
    std::vector<Int_t> jets_index_JECup; std::vector<Int_t> jets_flavour_JECup;  std::vector<Double_t> jets_btags_JECup;
+   std::vector<Int_t> jets_index_JECdown; std::vector<Int_t> jets_flavour_JECdown;  std::vector<Double_t> jets_btags_JECdown;
 	std::vector<Double_t> jets_JESuncer;
 	
 
