@@ -237,9 +237,10 @@ public :
     std::vector<TLorentzVector> jets; std::vector<Int_t> jets_index; std::vector<Int_t> jets_flavour;  std::vector<Double_t> jets_btags;
 	std::vector<TLorentzVector> jets_JERup;
 	std::vector<TLorentzVector> jets_JERdown;
-	std::vector<Double_t> jets_JESuncer;
     std::vector<TLorentzVector> jets_JECup;//JEC may includes JER
-    std::vector<TLorentzVector> jets_JECdown;//JEC may includes JER
+   std::vector<TLorentzVector> jets_JECdown;//JEC may includes JER 
+   std::vector<Int_t> jets_index_JECup; std::vector<Int_t> jets_flavour_JECup;  std::vector<Double_t> jets_btags_JECup;
+	std::vector<Double_t> jets_JESuncer;
 	
 
 	 std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
