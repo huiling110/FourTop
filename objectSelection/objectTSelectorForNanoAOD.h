@@ -238,6 +238,9 @@ public :
 	std::vector<TLorentzVector> jets_JERup;
 	std::vector<TLorentzVector> jets_JERdown;
 	std::vector<Double_t> jets_JESuncer;
+    std::vector<TLorentzVector> jets_JECup;//JEC may includes JER
+    std::vector<TLorentzVector> jets_JECdown;//JEC may includes JER
+	
 
 	 std::vector<TLorentzVector> jets_smearedUp; std::vector<Int_t> jets_index_smearedUp; std::vector<Int_t> jets_flavour_smearedUp;  std::vector<Double_t> jets_btags_smearedUp;
 	 std::vector<TLorentzVector> jets_smearedDown; std::vector<Int_t> jets_index_smearedDown; std::vector<Int_t> jets_flavour_smearedDown;  std::vector<Double_t> jets_btags_smearedDown;
@@ -303,28 +306,27 @@ public :
     //functions I added
      void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
    void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<TLorentzVector>& taus_TESup, std::vector<TLorentzVector>& taus_TES_down,  std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
-     void SelectTops(std::vector<TLorentzVector> &SelectedTops);
-    //  void SelectJets(const Int_t jetType, const bool deepJet, std::vector<Float_t> jetSmearingFactors, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t>  &SelectedJetsIndex, std::vector<Int_t>  &SelectedJetsFlavour, const Int_t SysJes, const Int_t SysJer, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL );
-	 void SelectJets(const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<TLorentzVector> &jets_JERup, std::vector<TLorentzVector> &jets_JERdown, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL);
-	 void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
-	 void selectGenTaus( std::vector<TLorentzVector> &genTaus );
-     void selectGenEles( std::vector<TLorentzVector> &genEles );
-     void selectGenMuons( std::vector<TLorentzVector> &genMuons );
-     void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex,const Int_t type);
+   void SelectJets(const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL, const Int_t sysJEC);
+   void SelectTops(std::vector<TLorentzVector> &SelectedTops);
+   void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
+   void selectGenTaus(std::vector<TLorentzVector> &genTaus);
+   void selectGenEles(std::vector<TLorentzVector> &genEles);
+   void selectGenMuons(std::vector<TLorentzVector> &genMuons);
+   void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
 
-     void makeBranch( TTree*  tree );
-     void getRunRange( TTree* fChain );
-     void intializaTreeBranches( const Bool_t isdata, const TString dataset );
+   void makeBranch(TTree *tree);
+   void getRunRange(TTree *fChain);
+   void intializaTreeBranches(const Bool_t isdata, const TString dataset);
 
-     void copyHLT_new( const Bool_t isdata, const TString dataset );
-	 void copyFlags();
-	 void initializeBrancheValues();
-    void setupInputFile( );
-    void getOptionFromRunMacro( const TString option ); 
-    void calJetSmearFactors( const Bool_t isdata );
-    void calJER_SF( const Bool_t isdata, std::vector<Double_t>&  jer_sf, std::vector<Double_t>& jer_sf_up, std::vector<Double_t>& jer_sf_down );
-    void setupTauSFTool( const Bool_t isdata);
-//    void calTauSF( const Bool_t isdata );
+   void copyHLT_new(const Bool_t isdata, const TString dataset);
+   void copyFlags();
+   void initializeBrancheValues();
+   void setupInputFile();
+   void getOptionFromRunMacro(const TString option);
+   void calJetSmearFactors(const Bool_t isdata);
+   void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down);
+   void setupTauSFTool(const Bool_t isdata);
+   //    void calTauSF( const Bool_t isdata );
    void calTauSF_new(  );
 
    void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet* cset_jerSF);

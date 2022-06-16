@@ -251,18 +251,18 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get() );
     // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
 
-    SelectJets(0, deepJet, jets, jets_JERup, jets_JERdown, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL);
+    SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     // std::cout << "jets size" << jets.size() << "\n";
     // tprintElements( jets_btags, jets );
-    sort( jets.begin(), jets.end(), compEle);
+    // sort( jets.begin(), jets.end(), compEle);
     // pt are sorted in MINIAOD
-    SelectJets(11, deepJet, bjetsL, bjetsL_JERup, bjetsL_JERdown, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL);
+    // SelectJets(11, deepJet, bjetsL, bjetsL_JERup, bjetsL_JERdown, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL);
     // sort( bjetsL.begin(), bjetsL.end(), compEle);
-    SelectJets(12, deepJet, bjetsM, bjetsM_JERup, bjetsM_JERdown, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL);
+    // SelectJets(12, deepJet, bjetsM, bjetsM_JERup, bjetsM_JERdown, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL);
     // sort( bjetsM.begin(), bjetsM.end(), compEle);
-    SelectJets(13, deepJet, bjetsT, bjetsT_JERup, bjetsT_JERdown, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL);
+    // SelectJets(13, deepJet, bjetsT, bjetsT_JERup, bjetsT_JERdown, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL);
     // sort( bjetsT.begin(), bjetsT.end(), compEle);
-    SelectJets(2, deepJet,  forwardJets, forwardJets_JERup, forwardJets_JERdown, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL);
+    // SelectJets(2, deepJet,  forwardJets, forwardJets_JERup, forwardJets_JERdown, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
@@ -692,15 +692,26 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 }/*}}}*/
 
 
-void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet,  std::vector<TLorentzVector> &SelectedJets,  std::vector<TLorentzVector> &  jets_JERup,  std::vector<TLorentzVector> & jets_JERdown, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL  ) {
+void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJet,  std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor,  const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL,  const Int_t sysJEC  ) {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
-    // Double_t MostForwardJetEta =-99;
-    // Double_t MostForwardJetPt = -99;
     Double_t MaxMostForwardJetEta = -99; 
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j) {
-        // Double_t jetpt = Jet_pt[j]*jetSmearingFactors.at(j);
         Double_t jetpt = Jet_pt[j]*JER_SF_new.at(j);
+        switch (sysJEC)
+        {
+        case 0:
+            jetpt = jetpt;
+            break;
+        case 1:
+            jetpt = jetpt * (1 + jets_JESuncer[j]);
+            break;
+        case 3:
+            jetpt *= (1 - jets_JESuncer[j]);
+        default:
+            break;
+        }
+        //here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))       continue;
         if (!(fabs(Jet_eta.At(j)) < 5.0))   continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
@@ -742,8 +753,6 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         if (jetType == 0) { // normal jet
             if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta) {
                 MaxMostForwardJetEta = fabs(Jet_eta.At(j));
-                    // Double_t MostForwardJetEta = Jet_eta.At(j);
-                    // Double_t MostForwardJetPt = jetpt;//a branch in new tree
             } // MostForwardJetEta branch in new tree and SB.
             if (!(fabs(Jet_eta.At(j)) < 2.4))
                 continue;
@@ -1329,9 +1338,11 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     // auto corr_jesSF_L1 = cset_jerSF->at(jesSFName_MC_L1.Data());
 
     //???not sure how to get the JEC uncertainty for data yet?
+    //https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
     // TString unc = "Summer19UL16APV_V7_MC_Total_AK4PFchs";
     // auto corr_jesUncer = cset_jerSF->at(unc.Data());
     auto corr_jesUncer = cset_jerSF->at( corr_SF_map[era].at(1).Data() );
+    //???does the MC_Total include the JER uncertainty?
 
     Double_t iSF = 1.0;
     Double_t iSF_up = 1.0;
