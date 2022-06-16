@@ -250,23 +250,19 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // calJetSmearFactors(  isdata );
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get() );
     // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
-
     SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
-    // SelectJets(0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
-    // SelectJets(0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
+    SelectJets(0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
+    SelectJets(0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
     // std::cout << "jets size" << jets.size() << "\n";
-    printElements( jets_btags, jets );
+    // printElements( jets_btags, jets );
     // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
     // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
     // pt are sorted in MINIAOD
     // sort( jets.begin(), jets.end(), compEle);
-    // SelectJets(11, deepJet, bjetsL, bjetsL_JERup, bjetsL_JERdown, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL);
-    // sort( bjetsL.begin(), bjetsL.end(), compEle);
-    // SelectJets(12, deepJet, bjetsM, bjetsM_JERup, bjetsM_JERdown, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL);
-    // sort( bjetsM.begin(), bjetsM.end(), compEle);
-    // SelectJets(13, deepJet, bjetsT, bjetsT_JERup, bjetsT_JERdown, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL);
-    // sort( bjetsT.begin(), bjetsT.end(), compEle);
-    // SelectJets(2, deepJet,  forwardJets, forwardJets_JERup, forwardJets_JERdown, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL);
+    SelectJets(11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
+    SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL, 0);
+    SelectJets(13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
+    SelectJets(2, deepJet,  forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL, 0);
     // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
