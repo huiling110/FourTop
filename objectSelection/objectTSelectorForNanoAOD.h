@@ -258,15 +258,6 @@ public :
     std::vector<TLorentzVector> genTaus; 
     std::vector<TLorentzVector> genEles;
     std::vector<TLorentzVector> genMuons;
-    std::vector<Float_t> jetSmearingFactors;
-    std::vector<Float_t> jetSmearingFactorsUp;
-    std::vector<Float_t> jetSmearingFactorsDown;
-    std::vector<Float_t> tauESFactors;
-    std::vector<Float_t> tauESFactorsUp;
-    std::vector<Float_t> tauESFactorsDown;
-    std::vector<Float_t> tauFESFactors;
-    std::vector<Float_t> tauFESFactorsUp;
-    std::vector<Float_t> tauFESFactorsDown;
 
 	//non tree branch variables
 	std::vector<Double_t> JER_SF_new;
