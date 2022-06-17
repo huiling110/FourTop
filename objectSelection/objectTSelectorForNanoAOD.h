@@ -307,7 +307,7 @@ public :
 
     //functions I added
      void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-   void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<TLorentzVector>& taus_TESup, std::vector<TLorentzVector>& taus_TES_down,  std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL);
+   void SelectTaus(std::vector<TLorentzVector> &SelectedTaus,  std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL, const Int_t sysTES) {
    void SelectJets(const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL, const Int_t sysJEC);
    void SelectTops(std::vector<TLorentzVector> &SelectedTops);
    void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);

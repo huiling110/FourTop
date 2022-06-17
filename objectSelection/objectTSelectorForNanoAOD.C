@@ -226,12 +226,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     //nominal taus
     // calTauSF( isdata );
-    calTauSF_new();
-    SelectTaus( tausL, tausL_TESup, tausL_TESdown, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL);
-    // sort( tausL.begin(), tausL.end(), compEle);
-    SelectTaus( tausF, tausF_TESup, tausF_TESdown, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); 
-    //sort( tausF.begin(), tausF.end(), compEle);
-    SelectTaus( tausT, tausT_TESup, tausT_TESdown, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); 
+    calTauSF_new(); //calculate taus_TES_up  taus_TES_down
+    SelectTaus( tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, 0);
+    // SelectTaus( tausF, tausF_TESup, tausF_TESdown, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); 
+    // SelectTaus( tausT, tausT_TESup, tausT_TESdown, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); 
     //sort( tausT.begin(), tausT.end(), compEle);
     // //Up TES
     // //Down TES
@@ -263,7 +261,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectJets(12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour,  leptonsMVAL, tausL, 0);
     SelectJets(13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
     SelectJets(2, deepJet,  forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour,  leptonsMVAL, tausL, 0);
-    // sort( forwardJets.begin(), forwardJets.end(), compEle);
 
     jetsSubstructBjets( nonbjetsL,jets, bjetsL );
     jetsSubstructBjets( nonbjetsM, jets, bjetsM );
@@ -640,15 +637,35 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
 /*}}}*/
 
 
-// void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Float_t> tauESFactors, std::vector<Float_t> tauFESFactors, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
-void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<TLorentzVector>& taus_TESup, std::vector<TLorentzVector>& taus_TESdown,  std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL) {
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus,  std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL, const Int_t sysTES) {
   // this is tau ID in ttH
   // 1:loose;2:fakeble;3:tight
   
-  for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
+//   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
+for (UInt_t j = 0; j < *nTau; ++j) {
+	Double_t itau_pt = Tau_pt.At(j);
+	Double_t itau_mass = Tau_mass.At(j);
+	switch (sysTES)
+	{
+	case 0:
+		itau_pt *= taus_TES[j];
+		itau_mass *= taus_TES[j];
+		break;
+	case 1:
+		itau_pt *= taus_TES_up[j];
+		itau_mass *= taus_TES_up[j];
+		break;
+	case 2:
+		itau_pt *= taus_TES_down[j];
+		itau_mass *= taus_TES_down[j];
+		break;
+	default:
+		std::cout << "tau pt and mass not corrected!!!"
+				  << "\n";
+		break;
+	}
       
-    // if (!(Tau_pt.At(j)*tauESFactors.at(j)*tauFESFactors.at(j) > 20))     continue;
-    if (!(Tau_pt.At(j)*taus_TES.at(j) > 20))     continue;
+    if (!(itau_pt > 20) )     continue;
     if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))      continue;
     if (!( TMath::Abs(Tau_dz.At(j)) < 0.2) )      continue; 
     //???why no dxy requirement?
@@ -681,17 +698,9 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
     }
     //?need err handling
     TLorentzVector tau;
-    tau.SetPtEtaPhiM(Tau_pt.At(j), Tau_eta.At(j), Tau_phi.At(j), Tau_mass.At(j));
-    // tau *= tauESFactors.at(j); //apply TES correction
-    // tau *= tauFESFactors.at(j); //apply FES correction
-    TLorentzVector itau  = taus_TES.at(j)*tau;
-    
- 
-    //???is is correct to apply in vector?
-    // do we require gennuine electron? we do, in the TES class
-    SelectedTaus.push_back(itau);
-    taus_TESup.push_back(tau*taus_TES_up.at(j));
-    taus_TESdown.push_back(tau*taus_TES_down.at(j));
+    tau.SetPtEtaPhiM(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass);//here the pt and mass are already corrected
+    // TLorentzVector itau  = taus_TES.at(j)*tau;
+    SelectedTaus.push_back(tau);
     SelectedTausIndex.push_back(j);
     SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
     SelectedTausGenPartFlav.push_back(Tau_genPartFlav.At(j));
@@ -1343,7 +1352,6 @@ void objectTSelectorForNanoAOD::calJER_SF( const Bool_t isdata, std::vector<Doub
     // TString input = JER_SF_map[era] ;
     // auto corr_jerSF = cset_jerSF->at(input.Data());
     auto corr_jerSF = cset_jerSF->at( corr_SF_map[era].at(0).Data()  );
-
     // TString jesSFName = "Summer19UL16APV_V7_MC";
     // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
     // TString jesSFName_MC_L1 = "Summer19UL16APV_V7_MC_L1FastJet_AK4PFchs";
