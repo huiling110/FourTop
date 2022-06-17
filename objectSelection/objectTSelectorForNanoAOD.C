@@ -410,8 +410,6 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
 
 
    tree->Branch( "jets", &jets );
-//    tree->Branch("jets_JERup", &jets_JERup);
-//    tree->Branch("jets_JERdown", &jets_JERdown);
    tree->Branch("jets_JESuncer", &jets_JESuncer);
    tree->Branch("jets_index", &jets_index);
    tree->Branch( "jets_flavour", &jets_flavour );
@@ -425,26 +423,17 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "jets_flavour_JECdown", &jets_flavour_JECdown );
    tree->Branch( "jets_btags_JECdown", &jets_btags_JECdown );
    tree->Branch( "bjetsL", &bjetsL );
-// //    tree->Branch( "bjetsL_JERup", &bjetsL_JERup );
-//    tree->Branch( "bjetsL_JERdown", &bjetsL_JERdown );
    tree->Branch( "bjetsL_index", &bjetsL_index );
    tree->Branch( "bjetsL_flavour", &bjetsL_flavour );
    tree->Branch( "bjetsL_btags", &bjetsL_btags );
    tree->Branch( "bjetsM", &bjetsM );
-//    tree->Branch( "bjetsM_JERup", &bjetsM_JERup );
-//    tree->Branch( "bjetsM_JERdown", &bjetsM_JERdown );
    tree->Branch( "bjetsM_index", &bjetsM_index );
    tree->Branch( "bjetsM_flavour", &bjetsM_flavour );
    tree->Branch( "bjetsM_btags", &bjetsM_btags );
    tree->Branch( "bjetsT", &bjetsT );
-   tree->Branch( "bjetsT_JERup", &bjetsT_JERup );
-//    tree->Branch( "bjetsT_JERdown", &bjetsT_JERdown );
-//    tree->Branch( "bjetsT_index", &bjetsT_index );
    tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
    tree->Branch( "forwardJets", &forwardJets );
-   tree->Branch( "forwardJets_JERup", &forwardJets_JERup );
-   tree->Branch( "forwardJets_JERdown", &forwardJets_JERdown );
    tree->Branch( "forwardJets_index", &forwardJets_index );
    tree->Branch( "forwardJets_flavour", &forwardJets_flavour );
    tree->Branch( "forwardJets_btags", &forwardJets_btags );
@@ -456,11 +445,9 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "Muon_charge_", &Muon_charge_ );
    //CHANGE HERE TO RUN ON DATA
    
-//    if ( !isdata ){
        tree->Branch( "genTaus", &genTaus );
        tree->Branch( "genEles", &genEles );
        tree->Branch( "genMuons", &genMuons );
-//    }
    
    tree->Branch( "Met_pt", &Met_pt, "Met_pt/D" );
    tree->Branch( "Met_phi", &Met_phi, "Met_phi/D" );
@@ -898,27 +885,19 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     jets.clear();   jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
     jets_JECup.clear();   jets_index_JECup.clear(); jets_flavour_JECup.clear(); jets_btags_JECup.clear();
     jets_JECdown.clear();   jets_index_JECdown.clear(); jets_flavour_JECdown.clear(); jets_btags_JECdown.clear();
-    // jets_JERup.clear(); jets_JERdown.clear();
     jets_JESuncer.clear();
     JER_SF_new.clear(); JER_SF_new_up.clear();
     JER_SF_new_down.clear();
     bjetsL.clear(); bjetsL_index.clear(); bjetsL_flavour.clear(); bjetsL_btags.clear(); 
-    // bjetsL_JERdown.clear();
-    // bjetsL_JERup.clear();
     bjetsM.clear();
-    //  bjetsM_JERup.clear();
-    // bjetsM_JERdown.clear();
     bjetsM_index.clear();
     bjetsM_flavour.clear();
     bjetsM_btags.clear();
     bjetsT.clear();
-    //  bjetsT_JERup.clear();
-    // bjetsT_JERdown.clear();
     bjetsT_index.clear();
     bjetsT_flavour.clear();
     bjetsT_btags.clear();
     forwardJets.clear();  forwardJets_index.clear(); forwardJets_flavour.clear(); forwardJets_btags.clear();
-    forwardJets_JERup.clear(); forwardJets_JERdown.clear();
     nonbjetsL.clear();
     nonbjetsM.clear();
     nonbjetsT.clear();
