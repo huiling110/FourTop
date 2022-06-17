@@ -217,22 +217,9 @@ public :
     std::vector<TLorentzVector> tausL; std::vector<Int_t> tausL_index; std::vector<Int_t> tausL_decayMode; std::vector<Int_t> tausL_genPartFlav;
     std::vector<TLorentzVector> tausF; std::vector<Int_t> tausF_index; std::vector<Int_t> tausF_decayMode;std::vector<Int_t> tausF_genPartFlav;
     std::vector<TLorentzVector> tausT; std::vector<Int_t> tausT_index; std::vector<Int_t> tausT_decayMode; std::vector<Int_t> tausT_genPartFlav;
-	std::vector<TLorentzVector> tausL_TESup; std::vector<TLorentzVector> tausL_TESdown;
-	std::vector<TLorentzVector> tausF_TESup; std::vector<TLorentzVector> tausF_TESdown;
-	std::vector<TLorentzVector> tausT_TESup; std::vector<TLorentzVector> tausT_TESdown;
+    std::vector<TLorentzVector> tausT_TESup; std::vector<Int_t> tausT_index_TESup; std::vector<Int_t> tausT_decayMode_TESup; std::vector<Int_t> tausT_genPartFlav_TESup;
+    std::vector<TLorentzVector> tausT_TESdown; std::vector<Int_t> tausT_index_TESdown; std::vector<Int_t> tausT_decayMode_TESdown; std::vector<Int_t> tausT_genPartFlav_TESdown;
 
-    // std::vector<TLorentzVector> tausL_TESUp; std::vector<Int_t> tausL_TESUp_index; std::vector<Int_t> tausL_TESUp_decayMode; std::vector<Int_t> tausL_TESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausF_TESUp; std::vector<Int_t> tausF_TESUp_index; std::vector<Int_t> tausF_TESUp_decayMode; std::vector<Int_t> tausF_TESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausT_TESUp; std::vector<Int_t> tausT_TESUp_index; std::vector<Int_t> tausT_TESUp_decayMode; std::vector<Int_t> tausT_TESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausL_TESDown; std::vector<Int_t> tausL_TESDown_index; std::vector<Int_t> tausL_TESDown_decayMode; std::vector<Int_t> tausL_TESDown_genPartFlav;
-    // std::vector<TLorentzVector> tausF_TESDown; std::vector<Int_t> tausF_TESDown_index; std::vector<Int_t> tausF_TESDown_decayMode; std::vector<Int_t> tausF_TESDown_genPartFlav;
-    // std::vector<TLorentzVector> tausT_TESDown; std::vector<Int_t> tausT_TESDown_index; std::vector<Int_t> tausT_TESDown_decayMode; std::vector<Int_t> tausT_TESDown_genPartFlav;
-    // std::vector<TLorentzVector> tausL_FESUp; std::vector<Int_t> tausL_FESUp_index; std::vector<Int_t> tausL_FESUp_decayMode; std::vector<Int_t> tausL_FESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausF_FESUp; std::vector<Int_t> tausF_FESUp_index; std::vector<Int_t> tausF_FESUp_decayMode; std::vector<Int_t> tausF_FESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausT_FESUp; std::vector<Int_t> tausT_FESUp_index; std::vector<Int_t> tausT_FESUp_decayMode; std::vector<Int_t> tausT_FESUp_genPartFlav;
-    // std::vector<TLorentzVector> tausL_FESDown; std::vector<Int_t> tausL_FESDown_index; std::vector<Int_t> tausL_FESDown_decayMode; std::vector<Int_t> tausL_FESDown_genPartFlav;
-    // std::vector<TLorentzVector> tausF_FESDown; std::vector<Int_t> tausF_FESDown_index; std::vector<Int_t> tausF_FESDown_decayMode; std::vector<Int_t> tausF_FESDown_genPartFlav;
-    // std::vector<TLorentzVector> tausT_FESDown; std::vector<Int_t> tausT_FESDown_index; std::vector<Int_t> tausT_FESDown_decayMode; std::vector<Int_t> tausT_FESDown_genPartFlav;
 
     std::vector<TLorentzVector> jets; std::vector<Int_t> jets_index; std::vector<Int_t> jets_flavour;  std::vector<Double_t> jets_btags;
 	std::vector<TLorentzVector> jets_JERup;

@@ -227,14 +227,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //nominal taus
     // calTauSF( isdata );
     calTauSF_new(); //calculate taus_TES_up  taus_TES_down
-    SelectTaus( tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, 0);
-    // SelectTaus( tausF, tausF_TESup, tausF_TESdown, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL); 
-    // SelectTaus( tausT, tausT_TESup, tausT_TESdown, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL); 
+    SelectTaus( tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, 0 );
+    SelectTaus( tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL, 0 ); 
+    SelectTaus( tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL, 0 ); 
+    SelectTaus( tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 0 ); 
+    SelectTaus( tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 0 ); 
     //sort( tausT.begin(), tausT.end(), compEle);
-    // //Up TES
-    // //Down TES
-    // //Up FES
-    // //Down FES
     // //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -384,15 +382,10 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "leptonsMVAF", &leptonsMVAF );
    tree->Branch( "leptonsMVAT", &leptonsMVAT );
    tree->Branch( "leptonsMVAL", &leptonsMVAL );
+
    tree->Branch( "tausL", &tausL );
-   tree->Branch( "tausL_TESup", &tausL_TESup );
-   tree->Branch( "tausL_TESdown", &tausL_TESdown );
    tree->Branch( "tausF", &tausF );
-   tree->Branch( "tausF_TESup", &tausF_TESup );
-   tree->Branch( "tausF_TESdown", &tausF_TESdown );
    tree->Branch( "tausT", &tausT );
-   tree->Branch( "tausT_TESdown", &tausT_TESdown );
-   tree->Branch( "tausT_TESup", &tausT_TESup );
    tree->Branch( "tausL_index", &tausL_index );
    tree->Branch( "tausF_index", &tausF_index );
    tree->Branch( "tausT_index", &tausT_index );
@@ -402,54 +395,19 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "tausL_genPartFlav", &tausL_genPartFlav );
    tree->Branch( "tausF_genPartFlav", &tausF_genPartFlav );
    tree->Branch( "tausT_genPartFlav", &tausT_genPartFlav );
-//    tree->Branch( "tausL_TESUp", &tausL_TESUp );
-//    tree->Branch( "tausF_TESUp", &tausF_TESUp );
-//    tree->Branch( "tausT_TESUp", &tausT_TESUp );
-//    tree->Branch( "tausL_TESUp_index", &tausL_TESUp_index );
-//    tree->Branch( "tausF_TESUp_index", &tausF_TESUp_index );
-//    tree->Branch( "tausT_TESUp_index", &tausT_TESUp_index );
-//    tree->Branch( "tausL_TESUp_decayMode", &tausL_TESUp_decayMode );
-   //tree->Branch( "tausF_TESUp_decayMode", &tausF_TESUp_decayMode );
-//    tree->Branch( "tausT_TESUp_decayMode", &tausT_TESUp_decayMode );
-   //tree->Branch( "tausL_TESUp_genPartFlav", &tausL_TESUp_genPartFlav );
-   //tree->Branch( "tausF_TESUp_genPartFlav", &tausF_TESUp_genPartFlav );
-//    tree->Branch( "tausT_TESUp_genPartFlav", &tausT_TESUp_genPartFlav );
-   //tree->Branch( "tausL_TESDown", &tausL_TESDown );
-   //tree->Branch( "tausF_TESDown", &tausF_TESDown );
-//    tree->Branch( "tausT_TESDown", &tausT_TESDown );
-   //tree->Branch( "tausL_TESDown_index", &tausL_TESDown_index );
-   //tree->Branch( "tausF_TESDown_index", &tausF_TESDown_index );
-//    tree->Branch( "tausT_TESDown_index", &tausT_TESDown_index );
-   //tree->Branch( "tausL_TESDown_decayMode", &tausL_TESDown_decayMode );
-   //tree->Branch( "tausF_TESDown_decayMode", &tausF_TESDown_decayMode );
-//    tree->Branch( "tausT_TESDown_decayMode", &tausT_TESDown_decayMode );
-   //tree->Branch( "tausL_TESDown_genPartFlav", &tausL_TESDown_genPartFlav );
-   //tree->Branch( "tausF_TESDown_genPartFlav", &tausF_TESDown_genPartFlav );
-//    tree->Branch( "tausT_TESDown_genPartFlav", &tausT_TESDown_genPartFlav );
-   //tree->Branch( "tausL_FESUp", &tausL_FESUp );
-   //tree->Branch( "tausF_FESUp", &tausF_FESUp );
-//    tree->Branch( "tausT_FESUp", &tausT_FESUp );
-   //tree->Branch( "tausL_FESUp_index", &tausL_FESUp_index );
-   //tree->Branch( "tausF_FESUp_index", &tausF_FESUp_index );
-//    tree->Branch( "tausT_FESUp_index", &tausT_FESUp_index );
-   //tree->Branch( "tausL_FESUp_decayMode", &tausL_FESUp_decayMode );
-   //tree->Branch( "tausF_FESUp_decayMode", &tausF_FESUp_decayMode );
-//    tree->Branch( "tausT_FESUp_decayMode", &tausT_FESUp_decayMode );
-   //tree->Branch( "tausL_FESUp_genPartFlav", &tausL_FESUp_genPartFlav );
-   //tree->Branch( "tausF_FESUp_genPartFlav", &tausF_FESUp_genPartFlav );
-//    tree->Branch( "tausT_FESUp_genPartFlav", &tausT_FESUp_genPartFlav );
-   //tree->Branch( "tausL_FESDown", &tausL_FESDown );
-   //tree->Branch( "tausF_FESDown", &tausF_FESDown );
-//    tree->Branch( "tausT_FESDown", &tausT_FESDown );
-   //tree->Branch( "tausL_FESDown_index", &tausL_FESDown_index );
-   //tree->Branch( "tausF_FESDown_index", &tausF_FESDown_index );
-//    tree->Branch( "tausT_FESDown_index", &tausT_FESDown_index );
-   //tree->Branch( "tausL_FESDown_decayMode", &tausL_FESDown_decayMode );
-   //tree->Branch( "tausF_FESDown_decayMode", &tausF_FESDown_decayMode );
-//    tree->Branch( "tausT_FESDown_decayMode", &tausT_FESDown_decayMode );
-   //tree->Branch( "tausL_FESDown_genPartFlav", &tausL_FESDown_genPartFlav );
-   //tree->Branch( "tausF_FESDown_genPartFlav", &tausF_FESDown_genPartFlav );
-//    tree->Branch( "tausT_FESDown_genPartFlav", &tausT_FESDown_genPartFlav );
+   tree->Branch( "tausT_TESup", &tausT_TESup );
+   tree->Branch( "tausT_index_TESup", &tausT_index_TESup );
+   tree->Branch( "tausT_decayMode_TESup", &tausT_decayMode_TESup );
+   tree->Branch( "tausT_genPartFlav_TESup", &tausT_genPartFlav_TESup );
+   tree->Branch( "tausT_TESdown", &tausT_TESdown );
+   tree->Branch( "tausT_index_TESdown", &tausT_index_TESdown );
+   tree->Branch( "tausT_decayMode_TESdown", &tausT_decayMode_TESdown );
+   tree->Branch( "tausT_genPartFlav_TESdown", &tausT_genPartFlav_TESdown );
+
+
+
+
+
 
    tree->Branch( "jets", &jets );
 //    tree->Branch("jets_JERup", &jets_JERup);
@@ -932,23 +890,10 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     tausL.clear(); tausL_index.clear(); tausL_genPartFlav.clear(); tausL_decayMode.clear();
     tausF.clear(); tausF_index.clear(); tausF_genPartFlav.clear(); tausF_decayMode.clear();
     tausT.clear(); tausT_index.clear(); tausT_genPartFlav.clear(); tausT_decayMode.clear();
-    tausL_TESup.clear(); tausL_TESdown.clear();
-    tausF_TESup.clear(); tausF_TESdown.clear();
-    tausT_TESup.clear(); tausT_TESdown.clear();
+    tausT_TESup.clear(); tausT_index_TESup.clear(); tausT_genPartFlav_TESup.clear(); tausT_decayMode_TESup.clear();
+    tausT_TESdown.clear(); tausT_index_TESdown.clear(); tausT_genPartFlav_TESdown.clear(); tausT_decayMode_TESdown.clear();
     
     
-    // tausL_TESUp.clear(); tausL_TESUp_index.clear(); tausL_TESUp_genPartFlav.clear(); tausL_TESUp_decayMode.clear();
-    // tausF_TESUp.clear(); tausF_TESUp_index.clear(); tausF_TESUp_genPartFlav.clear(); tausF_TESUp_decayMode.clear();
-    // tausT_TESUp.clear(); tausT_TESUp_index.clear(); tausT_TESUp_genPartFlav.clear(); tausT_TESUp_decayMode.clear();
-    // tausL_TESDown.clear(); tausL_TESDown_index.clear(); tausL_TESDown_genPartFlav.clear(); tausL_TESDown_decayMode.clear();
-    // tausF_TESDown.clear(); tausF_TESDown_index.clear(); tausF_TESDown_genPartFlav.clear(); tausF_TESDown_decayMode.clear();
-    // tausT_TESDown.clear(); tausT_TESDown_index.clear(); tausT_TESDown_genPartFlav.clear(); tausT_TESDown_decayMode.clear();
-    // tausL_FESUp.clear(); tausL_FESUp_index.clear(); tausL_FESUp_genPartFlav.clear(); tausL_FESUp_decayMode.clear();
-    // tausF_FESUp.clear(); tausF_FESUp_index.clear(); tausF_FESUp_genPartFlav.clear(); tausF_FESUp_decayMode.clear();
-    // tausT_FESUp.clear(); tausT_FESUp_index.clear(); tausT_FESUp_genPartFlav.clear(); tausT_FESUp_decayMode.clear();
-    // tausL_FESDown.clear(); tausL_FESDown_index.clear(); tausL_FESDown_genPartFlav.clear(); tausL_FESDown_decayMode.clear();
-    // tausF_FESDown.clear(); tausF_FESDown_index.clear(); tausF_FESDown_genPartFlav.clear(); tausF_FESDown_decayMode.clear();
-    // tausT_FESDown.clear(); tausT_FESDown_index.clear(); tausT_FESDown_genPartFlav.clear(); tausT_FESDown_decayMode.clear();
 
     jets.clear();   jets_index.clear(); jets_flavour.clear(); jets_btags.clear();
     jets_JECup.clear();   jets_index_JECup.clear(); jets_flavour_JECup.clear(); jets_btags_JECup.clear();
