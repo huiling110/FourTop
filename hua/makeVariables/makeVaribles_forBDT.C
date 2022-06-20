@@ -237,8 +237,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
 	//for jets JEC
-    //   jets_HT_JECup = HTcalculator(jets_JECup);
-    //   jets_number_JECup = jets_JECup.GetSize();
+      jets_HT_JECup = HTcalculator(jets_JECup);
+      jets_HT_JECdown = HTcalculator(jets_JECdown);
+      jets_number_JECup = jets_JECup.GetSize();
+      jets_number_JECdown = jets_JECdown.GetSize();
 
       //jets
       jets_number = jets.GetSize();
@@ -761,6 +763,9 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    //
    //
   newtree->Branch("jets_HT_JECup", &jets_HT_JECup, "jets_HT_JECup/D");
+  newtree->Branch("jets_HT_JECdown", &jets_HT_JECdown, "jets_HT_JECdown/D");
+   newtree->Branch( "jets_number_JECup", &jets_number_JECup, "jets_number_JECup/D");
+   newtree->Branch( "jets_number_JECdown", &jets_number_JECdown, "jets_number_JECdown/D");
 
   newtree->Branch("jets_number", &jets_number, "jets_number/I");
   newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
@@ -1079,6 +1084,9 @@ void makeVaribles_forBDT::InitializeBranches()
      tauL_3phi = -99;
 
 	 jets_HT_JECup = -99.;
+	 jets_HT_JECdown = -99.;
+	 jets_number_JECup = -99.;
+	 jets_number_JECdown = -99.;
 
 	 jets_number = -99;
 	 jets_MHT = -99;
