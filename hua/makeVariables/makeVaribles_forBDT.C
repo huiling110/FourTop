@@ -190,6 +190,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         leptonsMVAT_3phi = fabs(leptonsMVAT[2].Phi());
       }
 
+		//tau TES sys
+		tausT_number_TESup = tausT_TESup.GetSize();
+		tausT_number_TESdown = tausT_TESdown.GetSize();
 
       // hadronic tau selection
       tausL_number = tausL.GetSize();
@@ -720,6 +723,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
                   "leptonsMVAT_3eta/D");
   newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
 
+  newtree->Branch("tausT_number_TESup", &tausT_number_TESup, "tausT_number_TESup/I");
+  newtree->Branch("tausT_number_TESdown", &tausT_number_TESdown, "tausT_number_TESdown/I");
   newtree->Branch("tausL_number", &tausL_number, "tausL_number/I");
   newtree->Branch("tausF_number", &tausF_number, "tausF_number/I");
   newtree->Branch("tausT_number", &tausT_number, "tausT_number/I");
@@ -1048,6 +1053,7 @@ void makeVaribles_forBDT::InitializeBranches()
      leptonsMVAT_3eta = -99;
      leptonsMVAT_3phi = -99;
 
+     tausT_number_TESup=-99;
      tausL_number=-99;
      tausF_number=-99;
      tausT_number=-99;
