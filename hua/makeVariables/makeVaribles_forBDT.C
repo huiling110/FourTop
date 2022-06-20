@@ -237,7 +237,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       }
 
 	//for jets JEC
-      jets_HT_JECup = HTcalculator(jets_JECup);
+    //   jets_HT_JECup = HTcalculator(jets_JECup);
     //   jets_number_JECup = jets_JECup.GetSize();
 
       //jets

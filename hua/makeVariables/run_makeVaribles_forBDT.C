@@ -3,7 +3,7 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v9_allSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v9_allSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v10_JECandTESadded/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v11_JECandTESInObjectSelectinLevel/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v11_JECandTESInObjectSelectinLevel/mc/",
 
     TString inputDir = "tttt",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/")
@@ -23,7 +23,7 @@ void run_makeVaribles_forBDT(
     TChain chain( "tree");
 
     chain.Add(inputFile + "outTree*.root" );
-    // cout<<"entries in tree: "<<chain.GetEntries()<<endl;
+    cout<<"entries in tree: "<<chain.GetEntries()<<endl;
 
     TString outputFileName = inputDir + ".root";
 

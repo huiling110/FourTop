@@ -431,6 +431,7 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "bjetsM_flavour", &bjetsM_flavour );
    tree->Branch( "bjetsM_btags", &bjetsM_btags );
    tree->Branch( "bjetsT", &bjetsT );
+   tree->Branch( "bjetsT_index", &bjetsT_index );
    tree->Branch( "bjetsT_flavour", &bjetsT_flavour );
    tree->Branch( "bjetsT_btags", &bjetsT_btags );
    tree->Branch( "forwardJets", &forwardJets );
