@@ -236,6 +236,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         tauL_3phi = fabs(tausL[2].Phi());
       }
 
+	//for jets JEC
+      jets_HT_JECup = HTcalculator(jets_JECup);
+    //   jets_number_JECup = jets_JECup.GetSize();
+
       //jets
       jets_number = jets.GetSize();
       jets_MHT =  MHTcalculator(jets); // 900;return the pt sum of,vetctor sum
@@ -756,7 +760,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    //
    //
    //
-   
+  newtree->Branch("jets_HT_JECup", &jets_HT_JECup, "jets_HT_JECup/D");
+
   newtree->Branch("jets_number", &jets_number, "jets_number/I");
   newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
   newtree->Branch("jets_MHT", &jets_MHT, "jets_MHT/D");
@@ -1073,24 +1078,25 @@ void makeVaribles_forBDT::InitializeBranches()
      tauL_3eta = -99;
      tauL_3phi = -99;
 
+	 jets_HT_JECup = -99.;
 
-      jets_number= -99;
-      jets_MHT= -99;
-      jets_HT= -99;
-      jets_invariantMass= -99;
-      jets_transMass= -99;
-      jets_minDeltaR= -99;
-      jets_centrality= -99;
-      jets_bScore= -99;
-      jets_bScoreMultiply = -99;
-      jets_average_deltaR= -99;
-      jets_4largestBscoreSum= -99;
-      jets_4largestBscoreMulti = -99;
-      jets_leading2invariantMass = -99;
-      jets_rationHT_4toRest = -99;
-      jets_HTDividedByMet= -99;
-      MetDividedByHT= -99;
-      jets_MHTDividedByMet= -99;
+	 jets_number = -99;
+	 jets_MHT = -99;
+	 jets_HT = -99;
+	 jets_invariantMass = -99;
+	 jets_transMass = -99;
+	 jets_minDeltaR = -99;
+	 jets_centrality = -99;
+	 jets_bScore = -99;
+	 jets_bScoreMultiply = -99;
+	 jets_average_deltaR = -99;
+	 jets_4largestBscoreSum = -99;
+	 jets_4largestBscoreMulti = -99;
+	 jets_leading2invariantMass = -99;
+	 jets_rationHT_4toRest = -99;
+	 jets_HTDividedByMet = -99;
+	 MetDividedByHT = -99;
+	 jets_MHTDividedByMet = -99;
      jets_leptonsMVAT_minDeltaR= -99;
      jets_tausF_minDeltaR= -99;
      jets_spherilty = -99;

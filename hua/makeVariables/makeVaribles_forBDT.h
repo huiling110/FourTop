@@ -168,6 +168,7 @@ public :
     Int_t  jets_number= -99;
     Double_t  jets_MHT= -99;
     Double_t  jets_HT= -99;
+    Double_t  jets_HT_JECup = -99;
     Double_t  jets_invariantMass= -99;
     Double_t  jets_transMass= -99;
     Double_t  jets_minDeltaR= -99;
@@ -384,6 +385,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
    TTreeReaderArray<Int_t> jets_flavour = {fReader, "jets_flavour"};
    TTreeReaderArray<Double_t> jets_btags = {fReader, "jets_btags"};
+   TTreeReaderArray<TLorentzVector> jets_JECup = {fReader, "jets_JECup"};
    TTreeReaderArray<TLorentzVector> bjetsL = {fReader, "bjetsL"};
    TTreeReaderArray<Int_t> bjetsL_index = {fReader, "bjetsL_index"};
    TTreeReaderArray<Double_t> bjetsL_btags = {fReader, "bjetsL_btags"};
