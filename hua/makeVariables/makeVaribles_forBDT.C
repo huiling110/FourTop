@@ -615,8 +615,10 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 
 	//trigger
 	TFile* input_TrigSF = new TFile( TString(TRGSF_files[era]), "READ" );
-	TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+era);
-	TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+era);
+	// TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+era);
+	// TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+era);
+	TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+ map_era[era]);
+	TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+ map_era[era] );
 	TriggerSF->SetDirectory(nullptr);
 	TriggerSFunc->SetDirectory(nullptr);
 	input_TrigSF->Close();
@@ -624,7 +626,10 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 
 	//btag
 	//new SF files from 
-	TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
+	#include "../../objectSelection/inputMap.h"
+	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
+	TString base = "../../../jsonpog-integration/POG/";
+	TString tauSF_json = base  + json_map[era].at(1) ;
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());

@@ -38,7 +38,8 @@ public :
    Bool_t wantFilterHLTBranches = true;
    Bool_t preselection = false;
    Long64_t   fProcessed = 0;
-   TString era = "UL2016_preVFP";
+   // TString era = "UL2016_preVFP";
+   TString era = "2016preVFP";
    TFile *outputfile;
    TTree *newtree;
    // TH1D  *h_genWeight ;
