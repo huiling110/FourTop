@@ -3,11 +3,11 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v9_allSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v9_allSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v10_JECandTESadded/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v11_JECandTESInObjectSelectinLevel/mc/",
-    TString inputBase = "../../objectSelection/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v11_addedMissingBranch/mc/",
+    // TString inputBase = "../../objectSelection/",
 
-    // TString inputDir = "tttt",
-    TString inputDir = "output/",
+    TString inputDir = "tttt",
+    // TString inputDir = "output/",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/")
 {
     
