@@ -36,11 +36,12 @@
 // const TString baseDir          = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2Add2Variables_fromV9/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3correctBjetsvariable_fromV9/";
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4modifiedMinDeltaR_fromV9/";
-const TString era_g = "2016";
+// const TString era_g = "2016";
+const TString era_g = "2016preVFP";
 // std::cout<<"baseDir : "<<baseDir<<"\n";
 
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
-const Double_t LUMI = 35900; //pb-1
+// const Double_t LUMI = 35900; //pb-1
 //?where to get the more precise LUMI?
 std::map<TString, Double_t> lumiMap = {
     {"2016preVFP", 19520},
@@ -53,26 +54,6 @@ std::map<TString, Double_t> lumiMap = {
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 // const TCut trigger = "HLT_PFHT450_SixJet40_BTagCSV_p056==1 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056==1";
 
-//???we can do a mapping of channel number with cut here
-/*
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=6 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-
-const TCut ES1tau1l = ES1tau1e||ES1tau1m;
-const TCut ES1tau2l = "tausT_number==1 && leptonsMVAT_number==2 &&  jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau1l = "tausT_number==2 && leptonsMVAT_number==1 && jets_number>=4 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tau2l = "tausT_number==2 && leptonsMVAT_number==2 &&  jets_number>=2 && bjetsM_num>=2 && jets_HT>400" ;
-const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
-*/
 
 
 
