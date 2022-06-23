@@ -34,9 +34,9 @@ void EYandSP_usingClass_v3(){
     TStopwatch t;
     t.Start();
 
-    // TString era = "2016preVFP";
+    TString era = "2016preVFP";
     // TString era = "2016postVFP";
-    TString era = "2016";
+    // TString era = "2016";
     TString EYplotDir = baseDir + "results/";
     // TString EYplotDir = baseDir + "results_oldCut/";
     // TString EYplotDir = baseDir_2016pre + "results_tighter/";
@@ -51,11 +51,11 @@ void EYandSP_usingClass_v3(){
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
 for ( auto const& cha : channelCutMap  ){
 // for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
-    // std::cout<<cha->first<<":"<<cha->second<<"\n";
+    if ( !(cha.first=="1tau0l")   )  continue;
     std::cout<<cha.first<<":"<<cha.second<<"\n";
 
     // if ( cha.first=="1tau1e" ) break;
-    if ( !(cha.first=="2tau1_2l") ) continue;
+    // if ( !(cha.first=="2tau1_2l") ) continue;
 
     //loop variableList
     for(UInt_t i=0; i<1; i++){
