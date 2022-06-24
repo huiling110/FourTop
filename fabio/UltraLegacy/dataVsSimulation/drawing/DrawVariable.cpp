@@ -424,6 +424,7 @@ void DrawVariable(string YEAR, TString VAR, TString CAT, bool LOG, int REBIN, in
     hunc->SetMarkerSize(0);
     
     for (int i = 0; i < hunc->GetSize() - 2; i++) {
+        //GetSize() bins + Underflow + Overflow
         hunc->SetBinContent(i+1, 1);
         if (hBkg->GetBinContent(i+1) > 0) hunc->SetBinError(i+1, htotal->GetBinError(i+1)/hBkg->GetBinContent(i+1));
         else hunc->SetBinError(i+1, 0);

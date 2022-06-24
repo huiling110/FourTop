@@ -272,6 +272,8 @@ public :
 
 	//weight
     Double_t EVENT_prefireWeight_;
+    Double_t EVENT_prefireWeight_up;
+    Double_t EVENT_prefireWeight_down;
     Double_t PUWeight_;
     Double_t PUWeight_Up;
     Double_t PUWeight_Down;
@@ -609,7 +611,7 @@ public :
    TTreeReaderArray<Int_t> Jet_nMuons = {fReader, "Jet_nMuons"};
    TTreeReaderArray<Int_t> Jet_puId = {fReader, "Jet_puId"};
    TTreeReaderArray<UChar_t> Jet_nConstituents = {fReader, "Jet_nConstituents"};
-//    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
+   TTreeReaderValue<Float_t> L1PreFiringWeight_Dn = {fReader, "L1PreFiringWeight_Dn"};
 //    TTreeReaderValue<Float_t> L1PreFiringWeight_ECAL_Dn = {fReader, "L1PreFiringWeight_ECAL_Dn"};
 //    TTreeReaderValue<Float_t> L1PreFiringWeight_ECAL_Nom = {fReader, "L1PreFiringWeight_ECAL_Nom"};
 //    TTreeReaderValue<Float_t> L1PreFiringWeight_ECAL_Up = {fReader, "L1PreFiringWeight_ECAL_Up"};
@@ -619,7 +621,7 @@ public :
 //    TTreeReaderValue<Float_t> L1PreFiringWeight_Muon_SystDn = {fReader, "L1PreFiringWeight_Muon_SystDn"};
 //    TTreeReaderValue<Float_t> L1PreFiringWeight_Muon_SystUp = {fReader, "L1PreFiringWeight_Muon_SystUp"};
    TTreeReaderValue<Float_t> L1PreFiringWeight_Nom = {fReader, "L1PreFiringWeight_Nom"};
-//    TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
+   TTreeReaderValue<Float_t> L1PreFiringWeight_Up = {fReader, "L1PreFiringWeight_Up"};
 //    TTreeReaderValue<Float_t> LHE_HT = {fReader, "LHE_HT"};
 //    TTreeReaderValue<Float_t> LHE_HTIncoming = {fReader, "LHE_HTIncoming"};
 //    TTreeReaderValue<Float_t> LHE_Vpt = {fReader, "LHE_Vpt"};

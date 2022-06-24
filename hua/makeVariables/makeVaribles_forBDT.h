@@ -42,6 +42,7 @@ public :
    Long64_t   fProcessed = 0;
    Long64_t fPassingMetFilters = 0;
    Long64_t fPassingHLT = 0;
+   Long64_t fPassingPreselection = 0;
    // TString era = "UL2016_preVFP";
    TString era = "2016preVFP";
    TFile *outputfile;
