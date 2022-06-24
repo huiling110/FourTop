@@ -1,8 +1,8 @@
 # Instructon for implemention
 * install 
-  * export SCRAM_ARCH=slc7_amd64_gcc820
-  * cmsrel CMSSW_10_6_27
-  * cd CMSSW_10_6_27/src
+  * export SCRAM_ARCH=slc7_amd64_gcc900
+  * cmsrel CMSSW_12_2_4
+  * cd CMSSW_12_2_4/src
   * git clone ssh://git@gitlab.cern.ch:7999/cms-nanoAOD/jsonpog-integration.git
   * git clone git@github.com:huiling110/FourTop.git 
   * cd FourTop
