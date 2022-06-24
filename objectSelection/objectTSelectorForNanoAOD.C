@@ -157,7 +157,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))        return kFALSE; // a branch in Tree
         if (!(*Flag_BadPFMuonFilter == 1))      return kFALSE;
         if (!(*Flag_BadPFMuonDzFilter == 1))      return kFALSE;
-        if (!(*Flag_eeBadScFilter == 1))      return kFALSE;
         // if ( era == "2017" || era == "2018" ){
             if(!(*Flag_ecalBadCalibFilter==1))  return kFALSE;//for UL 2016 has this flag too
         // }
@@ -471,6 +470,8 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "Flag_HBHENoiseIsoFilter_", &Flag_HBHENoiseIsoFilter_, "Flag_HBHENoiseIsoFilter_/I");
    tree->Branch( "Flag_EcalDeadCellTriggerPrimitiveFilter_", &Flag_EcalDeadCellTriggerPrimitiveFilter_, "Flag_EcalDeadCellTriggerPrimitiveFilter_/I");
    tree->Branch( "Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
+    tree->Branch( "Flag_BadPFMuonDzFilter_", &Flag_BadPFMuonDzFilter_, "Flag_BadPFMuonDzFilter_/I");
+    tree->Branch( "Flag_ecalBadCalibFilter", &Flag_ecalBadCalibFilter, "Flag_ecalBadCalibFilter/I");
    tree->Branch( "Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
    
         tree->Branch( "run_", &run_, "run_/i");//i : a 32 bit unsigned integer (UInt_t)
@@ -859,6 +860,8 @@ void objectTSelectorForNanoAOD::copyFlags(){
     Flag_HBHENoiseIsoFilter_ = *Flag_HBHENoiseIsoFilter;
     Flag_EcalDeadCellTriggerPrimitiveFilter_ = *Flag_EcalDeadCellTriggerPrimitiveFilter;
     Flag_BadPFMuonFilter_ = *Flag_BadPFMuonFilter;
+    Flag_BadPFMuonDzFilter_ = *Flag_BadPFMuonDzFilter;
+    Flag_ecalBadCalibFilter_ = *Flag_ecalBadCalibFilter;
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 
 }

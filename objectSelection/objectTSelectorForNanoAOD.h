@@ -177,6 +177,8 @@ public :
    Int_t    Flag_HBHENoiseIsoFilter_ ;
    Int_t    Flag_EcalDeadCellTriggerPrimitiveFilter_ ;
    Int_t    Flag_BadPFMuonFilter_ ;
+   Int_t  Flag_BadPFMuonDzFilter_;
+   Int_t Flag_ecalBadCalibFilter_;
    Int_t    Flag_eeBadScFilter_ ;
 
    UInt_t run_;
