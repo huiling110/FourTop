@@ -118,9 +118,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
             if( !( *HLT_PFHT450_SixJet40_BTagCSV_p056_==1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1 || *HLT_PFJet450_==1  )  ) return kFALSE;
         }
 	}
-	// std::cout<<*HLT_PFHT450_SixJet40_BTagCSV_p056_<<" ";
-	std::cout<<*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_<<"\n";
-	std::cout<<*HLT_PFJet450_<<"\n";
 
 	fPassingHLT++;
 
