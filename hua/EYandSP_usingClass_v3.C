@@ -34,9 +34,9 @@ void EYandSP_usingClass_v3(){
     TStopwatch t;
     t.Start();
 
-    TString era = "2016preVFP";
+    // TString era = "2016preVFP";
     // TString era = "2016postVFP";
-    // TString era = "2016";
+    TString era = "2016";
     TString EYplotDir = baseDir + "results/";
     // TString EYplotDir = baseDir + "results_oldCut/";
     // TString EYplotDir = baseDir_2016pre + "results_tighter/";
@@ -62,9 +62,10 @@ for ( auto const& cha : channelCutMap  ){
     // for(UInt_t i=0; i<variablelist.size(); i++){
   	    TString iVariable = variablelist[i];
 
-
+        TCut cut = cha.second && HLT_2016;
         // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cut, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
         writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
         drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );

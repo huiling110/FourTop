@@ -37,7 +37,10 @@ public :
     // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
    Bool_t wantFilterHLTBranches = true;
    Bool_t preselection = false;
+   Bool_t HLTSelection = false;
    Long64_t   fProcessed = 0;
+   Long64_t fPassingMetFilters = 0;
+   Long64_t fPassingHLT = 0;
    // TString era = "UL2016_preVFP";
    TString era = "2016preVFP";
    TFile *outputfile;

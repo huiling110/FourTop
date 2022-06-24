@@ -112,6 +112,18 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         HLT_PFJet450 = *HLT_PFJet450_;
     }
 
+	if ( HLTSelection ){
+		if ( fProcessed==1 ) std::cout<<"doing HTL selection\n";
+        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+            if( !( *HLT_PFHT450_SixJet40_BTagCSV_p056_==1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1 || *HLT_PFJet450_==1  )  ) return kFALSE;
+        }
+	}
+	// std::cout<<*HLT_PFHT450_SixJet40_BTagCSV_p056_<<" ";
+	std::cout<<*HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_<<"\n";
+	std::cout<<*HLT_PFJet450_<<"\n";
+
+	fPassingHLT++;
+
 
 
 
@@ -549,9 +561,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	if (preselection)
     {
-      if (!(jets_HT > 400))
-        return kFALSE;
-      }
+    //   if (!(jets_HT > 400))  return kFALSE;
+      	if (!(jets_HT>500  && jets_6pt>40))  return kFALSE;
+    }
 
     newtree->Fill();
 
@@ -575,6 +587,7 @@ void makeVaribles_forBDT::Terminate()
    outputfile->Close();
 
    Info("Terminate", "processed %lld events", fProcessed);
+   Info("Terminate", "passing HLT events: %lld", fPassingHLT );
    Info("Terminate", "output file here: %s", outputfile->GetName());
 
 }
@@ -624,7 +637,6 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	input_TrigSF->Close();
 	delete input_TrigSF;
 
-	//btag
 	//new SF files from 
 	#include "../../objectSelection/inputMap.h"
 	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;

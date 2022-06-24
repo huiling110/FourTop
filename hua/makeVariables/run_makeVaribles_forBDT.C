@@ -6,9 +6,13 @@ void run_makeVaribles_forBDT(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v12_addedMissingBranch/mc/",
     // TString inputBase = "../../objectSelection/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
+    TString inputDir = "ttbar_2l",
     // TString inputDir = "output/",
-    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/")
+    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
+    const TString eventSelectionBit = "7"  
+    // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
+    )
 {
     
     gROOT->ProcessLine( ".L makeVaribles_forBDT.so");
