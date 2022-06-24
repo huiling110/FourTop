@@ -186,7 +186,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //Compute the per-event PU weight
     if ( !isdata ){
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0) {
-            PUWeight_ = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
+            PUWeight = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
             PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
             PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
         }
@@ -293,10 +293,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     EVENT_prefireWeight_ = *L1PreFiringWeight_Nom;
-    EVENT_prefireWeight_up = *L1PreFiringWeight_Up;
-    EVENT_prefireWeight_down = *L1PreFiringWeight_Dn;
+    EVENT_prefireWeight_up_ = *L1PreFiringWeight_Up;
+    EVENT_prefireWeight_down_ = *L1PreFiringWeight_Dn;
 
-o
+
 	if ( !isdata ){
         EVENT_genWeight_ = *genWeight;
     }
@@ -456,9 +456,9 @@ void objectTSelectorForNanoAOD::makeBranch( TTree* tree ){
    tree->Branch( "tops_toptagger", &tops_toptagger);
 
    tree->Branch( "EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D" );
-   tree->Branch( "EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D" );
-   tree->Branch( "EVENT_prefireWeight_down", &EVENT_prefireWeight_down, "EVENT_prefireWeight_down/D" );
-   tree->Branch( "PUWeight_", &PUWeight_, "PUWeight_/D");
+   tree->Branch( "EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_, "EVENT_prefireWeight_up_/D" );
+   tree->Branch( "EVENT_prefireWeight_down_", &EVENT_prefireWeight_down_, "EVENT_prefireWeight_down_/D" );
+   tree->Branch( "PUWeight", &PUWeight, "PUWeight/D");
    tree->Branch( "PUWeight_Up", &PUWeight_Up, "PUWeight_Up/D");
    tree->Branch( "PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
    //CHANGE HERE TO RUN ON DATA
@@ -915,9 +915,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues(){
     Muon_charge_.clear();
     tops_toptagger.clear();
     EVENT_prefireWeight_ = -99;
-    EVENT_prefireWeight_up = -99;
-    EVENT_prefireWeight_down = -99;
-    PUWeight_ = -99;
+    EVENT_prefireWeight_up_ = -99;
+    EVENT_prefireWeight_down_ = -99;
+    PUWeight = -99;
     PUWeight_Up = -99;
     PUWeight_Down = -99;
     EVENT_genWeight_ = -99;

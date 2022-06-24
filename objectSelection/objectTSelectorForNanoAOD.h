@@ -272,9 +272,9 @@ public :
 
 	//weight
     Double_t EVENT_prefireWeight_;
-    Double_t EVENT_prefireWeight_up;
-    Double_t EVENT_prefireWeight_down;
-    Double_t PUWeight_;
+    Double_t EVENT_prefireWeight_up_;
+    Double_t EVENT_prefireWeight_down_;
+    Double_t PUWeight;
     Double_t PUWeight_Up;
     Double_t PUWeight_Down;
     Double_t EVENT_genWeight_;
