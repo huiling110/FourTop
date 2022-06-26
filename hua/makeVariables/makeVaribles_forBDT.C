@@ -48,11 +48,11 @@
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
-   // The Begin() function is called at the start of the query.
-   // When running with PROOF Begin() is only called on the client.
-   // The tree argument is deprecated (on PROOF 0 is passed).
+    // The Begin() function is called at the start of the query.
+    // When running with PROOF Begin() is only called on the client.
+    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TString option = GetOption();
+    TString option = GetOption();
 }
 
 void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
@@ -93,8 +93,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    // The return value is currently not used.
 
    // fReader.SetEntry(entry);
-   fReader.SetLocalEntry(entry);
+    fReader.SetLocalEntry(entry);
     fProcessed++;
+	fProcessed_genWeight += *EVENT_genWeight_ ;
+	// std::cout<<"genWeight: "<<*EVENT_genWeight_<<"\n";
 
     //initialize
     InitializeBranches();
@@ -120,6 +122,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	}
 
 	fPassingHLT++;
+	fPassingHLT_genWeight += *EVENT_genWeight_;
 
 
 
@@ -528,7 +531,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;
      EVENT_genWeight = *EVENT_genWeight_;
-     PUWeight = *PUWeight_;
+     PUWeight_ = *PUWeight;
      PUWeight_do = *PUWeight_Down;
      PUWeight_up = *PUWeight_Up;
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
@@ -585,8 +588,8 @@ void makeVaribles_forBDT::Terminate()
    outputfile->Write();
    outputfile->Close();
 
-   Info("Terminate", "processed %lld events", fProcessed);
-   Info("Terminate", "passing HLT events: %lld", fPassingHLT );
+   Info("Terminate", "processed %lld events; genWeighted events: %lld", fProcessed, fProcessed_genWeight );
+   Info("Terminate", "passing HLT events: %lld; genWeighted events: %lld", fPassingHLT, fPassingHLT_genWeight );
    Info("Terminate", "passing baselineselection: %lld", fPassingPreselection );
    Info("Terminate", "output file here: %s", outputfile->GetName());
 
@@ -668,7 +671,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
-   newtree->Branch( "PUWeight",  &PUWeight,  "PUWeight/D");
+   newtree->Branch( "PUWeight_",  &PUWeight_,  "PUWeight_/D");
    newtree->Branch( "PUWeight_up",  &PUWeight_up,  "PUWeight_up/D");
    newtree->Branch( "PUWeight_do",  &PUWeight_do,  "PUWeight_do/D");
    newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
@@ -1016,7 +1019,7 @@ void makeVaribles_forBDT::InitializeBranches()
 {
     EVENT_prefireWeight  = -99;
     EVENT_genWeight = -99;
-    PUWeight = -99;
+    PUWeight_ = -99;
     PUWeight_do = -99;
     PUWeight_up = -99;
     btagEfficiency_weight = -99;

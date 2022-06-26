@@ -29,8 +29,8 @@
 
 class makeVaribles_forBDT : public TSelector {
 public :
-   TTreeReader     fReader;  //!the tree reader
-   TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
+    TTreeReader      fReader;  //!the tree reader
+    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //add
    //  BTagCalibrationReader CSVreader;
@@ -40,9 +40,12 @@ public :
    Bool_t baselineselection = true;
    Bool_t HLTSelection = true;
    Long64_t   fProcessed = 0;
+   Long64_t fProcessed_genWeight = 0;
    Long64_t fPassingMetFilters = 0;
    Long64_t fPassingHLT = 0;
+   Long64_t fPassingHLT_genWeight = 0 ;
    Long64_t fPassingPreselection = 0;
+   TString fprocessName;
    // TString era = "UL2016_preVFP";
    TString era = "2016preVFP";
    TFile *outputfile;
@@ -76,7 +79,7 @@ public :
    
     Double_t   EVENT_prefireWeight;
     Double_t   EVENT_genWeight;
-    Double_t   PUWeight;
+    Double_t   PUWeight_;
     Double_t   PUWeight_up;
     Double_t   PUWeight_do;
     Double_t   btagEfficiency_weight;
@@ -430,7 +433,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderArray<TLorentzVector> tops_toptagger = {fReader, "tops_toptagger"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
    TTreeReaderValue<Double_t> EVENT_genWeight_ = {fReader, "EVENT_genWeight_"};
-   TTreeReaderValue<Double_t> PUWeight_ = {fReader, "PUWeight_"};
+   TTreeReaderValue<Double_t> PUWeight = {fReader, "PUWeight"};
    TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};
    TTreeReaderValue<Double_t> PUWeight_Up = {fReader, "PUWeight_Up"};
    TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
