@@ -8,8 +8,8 @@ void run_makeVaribles_forBDT(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v15_0selection//mc/",
     // TString inputBase = "../../objectSelection/",
 
-    TString inputDir = "tttt",
-    // TString inputDir = "ttbar_2l",
+    // TString inputDir = "tttt",
+    TString inputDir = "ttbar_2l",
     // TString inputDir = "output/",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
     const TString eventSelectionBit = "7"  
@@ -40,8 +40,8 @@ void run_makeVaribles_forBDT(
     
     if ( istest ){
         outputDir = "output/";
-        chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        // chain.Process( selection + "+", outputDir + outputFileName, 1000);
+        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
+        chain.Process( selection + "+", outputDir + outputFileName, 1000);
     }
     else chain.Process( selection + "+", outputDir + outputFileName);
 

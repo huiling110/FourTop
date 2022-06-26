@@ -78,6 +78,8 @@ public :
    
    
     Double_t   EVENT_prefireWeight;
+    Double_t   EVENT_prefireWeight_up;
+    Double_t   EVENT_prefireWeight_down;
     Double_t   EVENT_genWeight;
     Double_t   PUWeight_;
     Double_t   PUWeight_up;
@@ -432,6 +434,8 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    TTreeReaderValue<Double_t> Met_phi = {fReader, "Met_phi"};
    TTreeReaderArray<TLorentzVector> tops_toptagger = {fReader, "tops_toptagger"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
+   TTreeReaderValue<Double_t> EVENT_prefireWeight_up_ = {fReader, "EVENT_prefireWeight_up_"};
+   TTreeReaderValue<Double_t> EVENT_prefireWeight_down_ = {fReader, "EVENT_prefireWeight_down_"};
    TTreeReaderValue<Double_t> EVENT_genWeight_ = {fReader, "EVENT_genWeight_"};
    TTreeReaderValue<Double_t> PUWeight = {fReader, "PUWeight"};
    TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};

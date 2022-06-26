@@ -530,6 +530,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;
+     EVENT_prefireWeight_up = *EVENT_prefireWeight_up_;
+     EVENT_prefireWeight_down = *EVENT_prefireWeight_down_;
      EVENT_genWeight = *EVENT_genWeight_;
      PUWeight_ = *PUWeight;
      PUWeight_do = *PUWeight_Down;
@@ -670,6 +672,8 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    }
    
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
+   newtree->Branch( "EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");
+   newtree->Branch( "EVENT_prefireWeight_down", &EVENT_prefireWeight_down, "EVENT_prefireWeight_down/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
    newtree->Branch( "PUWeight_",  &PUWeight_,  "PUWeight_/D");
    newtree->Branch( "PUWeight_up",  &PUWeight_up,  "PUWeight_up/D");
@@ -1018,6 +1022,8 @@ void makeVaribles_forBDT::initializeBReader(){
 void makeVaribles_forBDT::InitializeBranches()
 {
     EVENT_prefireWeight  = -99;
+    EVENT_prefireWeight_up  = -99;
+    EVENT_prefireWeight_down  = -99;
     EVENT_genWeight = -99;
     PUWeight_ = -99;
     PUWeight_do = -99;
