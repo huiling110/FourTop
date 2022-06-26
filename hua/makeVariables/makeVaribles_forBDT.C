@@ -69,6 +69,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree = new TTree( "newtree", "tree for BDT");
 
+   h_intial_jetNumber = new TH1D( "jets number initial", "jets number initial", 40, 0, 40 );
+
    makeBranchForTree( newtree, wantFilterHLTBranches);
     // initializeBReader();
     initializeInputFiles( era );
@@ -96,7 +98,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     fReader.SetLocalEntry(entry);
     fProcessed++;
 	fProcessed_genWeight += *EVENT_genWeight_ ;
+	// fProcessed_basicWeight + = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up);
 	// std::cout<<"genWeight: "<<*EVENT_genWeight_<<"\n";
+
+	h_intial_jetNumber->Fill(jets.GetSize(), (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up) );
 
     //initialize
     InitializeBranches();
@@ -590,8 +595,8 @@ void makeVaribles_forBDT::Terminate()
    outputfile->Write();
    outputfile->Close();
 
-   Info("Terminate", "processed %lld events; genWeighted events: %lld", fProcessed, fProcessed_genWeight );
-   Info("Terminate", "passing HLT events: %lld; genWeighted events: %lld", fPassingHLT, fPassingHLT_genWeight );
+   Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight );
+   Info("Terminate", "passing HLT events: %lld; genWeighted events: %lf", fPassingHLT, fPassingHLT_genWeight );
    Info("Terminate", "passing baselineselection: %lld", fPassingPreselection );
    Info("Terminate", "output file here: %s", outputfile->GetName());
 

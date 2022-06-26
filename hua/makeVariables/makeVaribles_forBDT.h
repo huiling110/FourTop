@@ -40,17 +40,18 @@ public :
    Bool_t baselineselection = true;
    Bool_t HLTSelection = true;
    Long64_t   fProcessed = 0;
-   Long64_t fProcessed_genWeight = 0;
+   Double_t fProcessed_genWeight = 0;
    Long64_t fPassingMetFilters = 0;
    Long64_t fPassingHLT = 0;
-   Long64_t fPassingHLT_genWeight = 0 ;
+   Double_t fPassingHLT_genWeight = 0 ;
    Long64_t fPassingPreselection = 0;
-   TString fprocessName;
+//    TString fprocessName;
    // TString era = "UL2016_preVFP";
    TString era = "2016preVFP";
    TFile *outputfile;
    TTree *newtree;
    // TH1D  *h_genWeight ;
+   TH1D* h_intial_jetNumber;
 
    TH2D* MuonIDSF;
    TH2D* muonTrackerSF_hist;
