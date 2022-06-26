@@ -81,9 +81,9 @@ public :
     Double_t   EVENT_prefireWeight_up;
     Double_t   EVENT_prefireWeight_down;
     Double_t   EVENT_genWeight;
-    Double_t   PUWeight_;
-    Double_t   PUWeight_up;
-    Double_t   PUWeight_do;
+    Double_t   PUweight;
+    Double_t   PUweight_up;
+    Double_t   PUweight_down;
     Double_t   btagEfficiency_weight;
     Double_t HLTefficiency_weight;
    Double_t muonIDSF_weight;
@@ -96,12 +96,12 @@ public :
    Double_t eleMVAT_IDSF_weight_backup;
    Double_t tauT_IDSF_weight;
    Double_t tauT_IDSF_weight_new;
-   Double_t tauT_IDSF_weight_new_vsjetUp;
-   Double_t tauT_IDSF_weight_new_vsjetDown;
-   Double_t tauT_IDSF_weight_new_vsmuUp;
-   Double_t tauT_IDSF_weight_new_vsmuDown;
-   Double_t tauT_IDSF_weight_new_vseleUp;
-   Double_t tauT_IDSF_weight_new_vseleDown;
+   Double_t tauT_IDSF_weight_new_vsjet_up;
+   Double_t tauT_IDSF_weight_new_vsjet_down;
+   Double_t tauT_IDSF_weight_new_vsmu_up;
+   Double_t tauT_IDSF_weight_new_vsmu_down;
+   Double_t tauT_IDSF_weight_new_vsele_up;
+   Double_t tauT_IDSF_weight_new_vsele_down;
 
 
 

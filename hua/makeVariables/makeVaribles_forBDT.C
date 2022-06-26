@@ -533,9 +533,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
      EVENT_prefireWeight_up = *EVENT_prefireWeight_up_;
      EVENT_prefireWeight_down = *EVENT_prefireWeight_down_;
      EVENT_genWeight = *EVENT_genWeight_;
-     PUWeight_ = *PUWeight;
-     PUWeight_do = *PUWeight_Down;
-     PUWeight_up = *PUWeight_Up;
+     PUweight = *PUWeight;
+     PUweight_down = *PUWeight_Down;
+     PUweight_up = *PUWeight_Up;
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
     //  btagEfficiency_weight = allBtagSF[0];
     //  btagEfficiency_weight = calBTagSF( );
@@ -554,12 +554,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//
     tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom" );
-	tauT_IDSF_weight_new_vsjetUp = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom");
-	tauT_IDSF_weight_new_vsjetDown = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
-    tauT_IDSF_weight_new_vsmuUp = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" );
-    tauT_IDSF_weight_new_vsmuDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" );
-    tauT_IDSF_weight_new_vseleUp = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up" );
-    tauT_IDSF_weight_new_vseleDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
+	tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom");
+	tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
+    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" );
+    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" );
+    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up" );
+    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
 	//copy weight from
 
 	if (baselineselection)
@@ -675,9 +675,9 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");
    newtree->Branch( "EVENT_prefireWeight_down", &EVENT_prefireWeight_down, "EVENT_prefireWeight_down/D");
    newtree->Branch( "EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
-   newtree->Branch( "PUWeight_",  &PUWeight_,  "PUWeight_/D");
-   newtree->Branch( "PUWeight_up",  &PUWeight_up,  "PUWeight_up/D");
-   newtree->Branch( "PUWeight_do",  &PUWeight_do,  "PUWeight_do/D");
+   newtree->Branch( "PUweight",  &PUweight,  "PUweight/D");
+   newtree->Branch( "PUweight_up",  &PUweight_up,  "PUweight_up/D");
+   newtree->Branch( "PUweight_down",  &PUweight_down,  "PUweight_down/D");
    newtree->Branch( "btagEfficiency_weight",  &btagEfficiency_weight,  "btagEfficiency_weight/D");
    newtree->Branch( "HLTefficiency_weight",  &HLTefficiency_weight, "HLTefficiency_weight/D");
    newtree->Branch( "muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
@@ -691,12 +691,12 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
    newtree->Branch( "eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup, "eleMVAT_IDSF_weight_backup/D");
    newtree->Branch( "tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
    newtree->Branch( "tauT_IDSF_weight_new", &tauT_IDSF_weight_new, "tauT_IDSF_weight_new/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vsjetUp", &tauT_IDSF_weight_new_vsjetUp, "tauT_IDSF_weight_new_vsjetUp/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vsjetDown", &tauT_IDSF_weight_new_vsjetDown, "tauT_IDSF_weight_new_vsjetDown/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vsmuUp", &tauT_IDSF_weight_new_vsmuUp, "tauT_IDSF_weight_new_vsmuUp/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vsmuDown", &tauT_IDSF_weight_new_vsmuDown, "tauT_IDSF_weight_new_vsmuDown/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vseleUp", &tauT_IDSF_weight_new_vseleUp, "tauT_IDSF_weight_new_vseleUp/D");
-   newtree->Branch( "tauT_IDSF_weight_new_vseleDown", &tauT_IDSF_weight_new_vseleDown, "tauT_IDSF_weight_new_vseleDown/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up, "tauT_IDSF_weight_new_vsjet_up/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsjet_down", &tauT_IDSF_weight_new_vsjet_down, "tauT_IDSF_weight_new_vsjet_down/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsmu_up", &tauT_IDSF_weight_new_vsmu_up, "tauT_IDSF_weight_new_vsmu_up/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsmu_down", &tauT_IDSF_weight_new_vsmu_down, "tauT_IDSF_weight_new_vsmu_down/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up, "tauT_IDSF_weight_new_vsele_up/D");
+   newtree->Branch( "tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down, "tauT_IDSF_weight_new_vsele_down/D");
 
 //    newtree->Branch( "", &, "/D");
 //    newtree->Branch( "", &, "/D");
@@ -1025,9 +1025,9 @@ void makeVaribles_forBDT::InitializeBranches()
     EVENT_prefireWeight_up  = -99;
     EVENT_prefireWeight_down  = -99;
     EVENT_genWeight = -99;
-    PUWeight_ = -99;
-    PUWeight_do = -99;
-    PUWeight_up = -99;
+    PUweight = -99;
+    PUweight_down = -99;
+    PUweight_up = -99;
     btagEfficiency_weight = -99;
     HLTefficiency_weight = -99;
 	  muonIDSF_weight = -99;
@@ -1040,8 +1040,13 @@ void makeVaribles_forBDT::InitializeBranches()
     eleMVAT_IDSF_weight_backup = -99;
 	  tauT_IDSF_weight = -99;
 	  tauT_IDSF_weight_new = -99;
-	  tauT_IDSF_weight_new_vsjetUp = -99;
-	  tauT_IDSF_weight_new_vsjetDown = -99;
+	  tauT_IDSF_weight_new_vsjet_up = -99;
+	  tauT_IDSF_weight_new_vsjet_down = -99;
+	  tauT_IDSF_weight_new_vsmu_up = -99;
+	  tauT_IDSF_weight_new_vsmu_down = -99;
+	  tauT_IDSF_weight_new_vsele_up = -99;
+	  tauT_IDSF_weight_new_vsele_down = -99;
+
 
     Met_pt_ = -99;
     Met_phi_ = -99;
