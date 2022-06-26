@@ -557,7 +557,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     tauT_IDSF_weight_new_vseleDown = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
 	//copy weight from
 
-	if (preselection)
+	if (baselineselection)
     {
     //   if (!(jets_HT > 400))  return kFALSE;
       	if (!(jets_HT>500  && jets_6pt>40))  return kFALSE;
@@ -587,7 +587,7 @@ void makeVaribles_forBDT::Terminate()
 
    Info("Terminate", "processed %lld events", fProcessed);
    Info("Terminate", "passing HLT events: %lld", fPassingHLT );
-   Info("Terminate", "passing preselection: %lld", fPassingPreselection );
+   Info("Terminate", "passing baselineselection: %lld", fPassingPreselection );
    Info("Terminate", "output file here: %s", outputfile->GetName());
 
 }
