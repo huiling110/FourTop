@@ -10,14 +10,17 @@
 
 #include "checkTemplatesForCombine.C"
 
+void getQCDfromDataDriven()
+
 void makeRootForCombine_nonBDTchannels(
     // const TString channel = "2tau0l",
     // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/"
-    const TString channel = "1tau10l",
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/"
+    const TString channel = "1tau0l",
+    // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/"
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v0preselection_fromV14/1tau0l_HT/"
 ){
 
-    const TCut weight_prefireUp = "EVENT_genWeight*EVENT_prefireWeight*PUWeight"
+    const TCut weight_prefireUp = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 
     //output file for combine
     TString outputName = outDir + "HT_" + channel + "_forCombine.root";
@@ -50,6 +53,7 @@ void makeRootForCombine_nonBDTchannels(
     // TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
     TH1D*  TTTT = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "tttt_HT" );
     TTTT->Scale(lumiMap[era_g]);
+    TTTT->Print();
     TH1D* data_obs = addHistChannel( channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 0, 24, "data_obs_HT" );
     data_obs->Scale(lumiMap[era_g]);
     // TH1D *allBgs = addHistChannel(channelCutMap[channel], basicWeight, "jets_HT", binNum, binMin, binMax, 1, 24, "allBgs_HT");

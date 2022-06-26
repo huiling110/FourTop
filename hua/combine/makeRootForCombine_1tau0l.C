@@ -23,7 +23,8 @@ void makeRootForCombine_1tau0l(){
 
     //output file for combine
     // TString outputName = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau0l_v1/11bins/dataDriven_1tau0l_forCombine.root";
-    TString outputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/dataDriven_1tau0l_forCombine.root";
+    // TString outputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/dataDriven_1tau0l_forCombine.root";
+    TString outputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v0preselection_fromV14/1tau0l_HT/dataDriven_1tau0l_forCombine.root";
     TFile *output = new TFile( outputName, "RECREATE" );
 
     //scale to  7679, scale it to the QCD event yield that Fabio estimated by using the fake rate method
@@ -56,8 +57,13 @@ void makeRootForCombine_1tau0l(){
 
     TH1D*  TTTT = addHistChannel( ES1tau0l, basicWeight, "jets_HT", binNum, binMin, binMax, 0, 1, "TTTT_HT" );
     TTTT->Scale(lumiMap[era_g]);
+
+
+
     TH1D* data_obs = addHistChannel( ES1tau0l, basicWeight, "jets_HT", binNum, binMin, binMax, 0, 24, "data_obs_HT" );
     data_obs->Scale(lumiMap[era_g]);
+    data_obs->Add( my_QCD_HT);
+    data_obs->Print();
     //QCD starts from index 30
     TH1D *allBgs = addHistChannel(ES1tau0l, basicWeight, "jets_HT", binNum, binMin, binMax, 1, 15, "allBgs_HT");
     allBgs->Scale(lumiMap[era_g]);
@@ -68,13 +74,14 @@ void makeRootForCombine_1tau0l(){
 
 
 
-    TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/templatesPlots/";
-    drawTemplates( TT, outFolder );
-    drawTemplates( TTX, outFolder );
-    drawTemplates( VV, outFolder );
-    drawTemplates( SingleTop, outFolder );
-    drawTemplates( TTTT, outFolder );
-    drawTemplates( my_QCD_HT, outFolder );
+    // TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/templatesPlots/";
+    // TString outFolder = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v0preselection_fromV14/1tau0l_HT/templatesPlots/";
+    // drawTemplates( TT, outFolder );
+    // drawTemplates( TTX, outFolder );
+    // drawTemplates( VV, outFolder );
+    // drawTemplates( SingleTop, outFolder );
+    // drawTemplates( TTTT, outFolder );
+    // drawTemplates( my_QCD_HT, outFolder );
 
 
 

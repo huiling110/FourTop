@@ -24,14 +24,15 @@ def main():
     # jobVersionName = 'v11_JECandTESInObjectSelectinLevel/'
     # jobVersionName = 'v12_addedMissingBranch/'
     # jobVersionName = 'v13_addedMissingFilterBranches/'
-    jobVersionName = 'v14_MetFilterHLTSelection/'
+    # jobVersionName = 'v14_MetFilterHLTSelection/'
+    jobVersionName = 'v15_0selection/'
     onlyMC = True
     # onlyMC = False
-    # era = '2016'
-    era = '2016APV'
+    era = '2016'
+    # era = '2016APV'
     # era = '2018'
-    # eventSelection = '0'
-    eventSelection = '3'
+    eventSelection = '0'
+    # eventSelection = '3'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     dataList = [ 'jetHT', 'singleMu'] 
