@@ -52,6 +52,8 @@ public :
    TTree *newtree;
    // TH1D  *h_genWeight ;
    TH1D* h_intial_jetNumber;
+   TH1D* h_HLT_jetNumber;
+   TH1D* h_baseline_jetNumber;
 
    TH2D* MuonIDSF;
    TH2D* muonTrackerSF_hist;

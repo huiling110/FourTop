@@ -69,7 +69,9 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    newtree = new TTree( "newtree", "tree for BDT");
 
-   h_intial_jetNumber = new TH1D( "jets number initial", "jets number initial", 40, 0, 40 );
+   h_intial_jetNumber = new TH1D( "jetsNumber_initial", "jets number initial", 40, 0, 40 );
+   h_HLT_jetNumber = new TH1D( "jetsNumber_HLT", "jets number after HLT", 40, 0, 40 );
+   h_baseline_jetNumber = new TH1D( "jetsNumber_baseline", "jets number after baseline", 40, 0, 40 );
 
    makeBranchForTree( newtree, wantFilterHLTBranches);
     // initializeBReader();
@@ -128,6 +130,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	fPassingHLT++;
 	fPassingHLT_genWeight += *EVENT_genWeight_;
+	h_HLT_jetNumber->Fill(jets.GetSize(), (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up) );
+
 
 
 
@@ -573,6 +577,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       	if (!(jets_HT>500  && jets_6pt>40))  return kFALSE;
     }
 	fPassingPreselection++;
+	h_baseline_jetNumber->Fill(jets.GetSize(), (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up) );
+
 
     newtree->Fill();
 
