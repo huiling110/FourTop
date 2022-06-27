@@ -99,6 +99,7 @@ void writeHist::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
+   // hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
    hist_jetsNumber->Print();
 
    // Info("Terminate", "processed %lld events", fProcessed);
