@@ -46,6 +46,9 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
    TString option = GetOption();
 
+   hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
+
+
 }
 
 Bool_t writeHist::Process(Long64_t entry)
@@ -68,6 +71,17 @@ Bool_t writeHist::Process(Long64_t entry)
 
    fReader.SetLocalEntry(entry);
 
+   if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
+
+   Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
+   hist_jetsNumber->Fill( *jets_number, basicWeight );
+
+
+
+
+
+
+
    return kTRUE;
 }
 
@@ -84,5 +98,9 @@ void writeHist::Terminate()
    // The Terminate() function is the last function to be called during
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
+
+   hist_jetsNumber->Print();
+
+   // Info("Terminate", "processed %lld events", fProcessed);
 
 }
