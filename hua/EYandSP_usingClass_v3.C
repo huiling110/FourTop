@@ -52,24 +52,18 @@ void EYandSP_usingClass_v3(){
 
     std::vector<TH1D*>  groupedBgsAndSignal;
 
-    TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
-
-    //csv file for latex beamer to read
-    // TString csvFile = EYplotDir + "eventYield.csv";
-    // fstream csvfs;
-    // csvfs.open( csvFile.Data(), ios::out );
-    // std::cout<<"opened "<<csvFile.Data()<<"\n";
-
+    // TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
+    TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "UPDATE" );
 
 
     // for ( auto const& cha : channelCutMap  ){
     for ( auto const& cha : regions_1tau0l  ){
     // for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
         // if ( !(cha.first=="1tau0l")   )  continue;
+        if ( cha.first=="SR1tau0l"||cha.first=="CR1tau0l"||cha.first=="VR1tau0l"||cha.first=="CR21tau0l"||cha.first=="CR31tau0l" ) continue;
         std::cout<<cha.first<<":"<<cha.second<<"\n";
 
         // if ( cha.first=="1tau1e" ) break;
-        // if ( !(cha.first=="2tau1_2l") ) continue;
 
         //loop variableList
         for(UInt_t i=0; i<1; i++){

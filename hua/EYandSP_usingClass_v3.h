@@ -108,11 +108,15 @@ std::map<TString, TCut> channelCutMap = {
 const TCut CR_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number>=8 && bjetsM_num==0 ";
 const TCut VR_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number>=8 && bjetsM_num==1 ";
 const TCut CR2_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number<8 && bjetsM_num>=2";
+const TCut CR3_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number<7 && bjetsM_num>=2 ";
+const TCut CR4_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number==7 && bjetsM_num>=2 ";
 std::map<TString, TCut> regions_1tau0l = {
     {"SR1tau0l", ES1tau0l},
     {"CR1tau0l", CR_1tau0l},
     {"VR1tau0l", VR_1tau0l},
     {"CR21tau0l", CR2_1tau0l },
+    {"CR31tau0l", CR3_1tau0l },
+    {"CR41tau0l", CR4_1tau0l },
 };
 
 

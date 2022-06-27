@@ -3,7 +3,7 @@ import ROOT
 import csv
 
 # regionsList = [  '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2' ]
-regionsList = [ 'SR1tau0l', 'CR1tau0l', 'VR1tau0l', 'CR21tau0l' ]
+regionsList = [ 'SR1tau0l', 'CR1tau0l', 'VR1tau0l', 'CR21tau0l', 'CR31tau0l', 'CR41tau0l' ]
 bgsAndSignalNameList = [ 'TTTT', 'TT', 'TTX', 'VV', 'SingleTop', 'QCD', 'allBg' ]
 variable = 'jets_number'
 
