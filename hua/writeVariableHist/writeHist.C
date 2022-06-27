@@ -36,6 +36,7 @@ void writeHist::Begin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+   std::cout<<"option in writeHist: "<<option<<"\n";
 }
 
 void writeHist::SlaveBegin(TTree * /*tree*/)
@@ -45,6 +46,10 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+
+   m_genWeightSum = std::stod(option.Data());
+   std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
+   //???maybe there is lose of accuracy due to convertion
 
    hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
@@ -99,7 +104,7 @@ void writeHist::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-   // hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
+   hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
    hist_jetsNumber->Print();
 
    // Info("Terminate", "processed %lld events", fProcessed);

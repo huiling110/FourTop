@@ -26,6 +26,7 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //my member variables
+   Double_t m_genWeightSum;
    TH1D* hist_jetsNumber;
 
 
