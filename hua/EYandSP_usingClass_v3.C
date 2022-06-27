@@ -21,6 +21,7 @@
 #include "TStopwatch.h"
 #include "TPaveText.h"
 
+#include <fstream>
 
 
 void printEventYield( const std::vector<TH1D*> &allHistos, const TH1D* h_background );
@@ -47,11 +48,16 @@ void EYandSP_usingClass_v3(){
 
     std::vector<TH1D*>  groupedBgsAndSignal;
 
-
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
-    for ( auto const& cha : channelCutMap  ){
+
+    TString csvFile = EYplotDir + "eventYield.csv";
+
+
+
+    // for ( auto const& cha : channelCutMap  ){
+    for ( auto const& cha : regions_1tau0l  ){
     // for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
-        if ( !(cha.first=="1tau0l")   )  continue;
+        // if ( !(cha.first=="1tau0l")   )  continue;
         std::cout<<cha.first<<":"<<cha.second<<"\n";
 
         // if ( cha.first=="1tau1e" ) break;
@@ -82,11 +88,6 @@ void EYandSP_usingClass_v3(){
 
         groupedBgsAndSignal.clear();
 
-        // if ( ifSP ){
-        //     for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
-        //         std::cout <<  rit->second << " = "<< rit->first << endl;
-        //     }
-        // }
 
 
     }//end of loop of all channels
