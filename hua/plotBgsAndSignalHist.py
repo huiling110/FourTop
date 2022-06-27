@@ -16,7 +16,10 @@ print(regionsList)
 csvWriter.writerow( csvField )
 
 inputFile = ROOT.TFile( baseDir+'DisForEY.root', 'READ')
-inputFile.ls()
+# inputFile.ls()
+
+g_lumi2016 = 36330
+
 for iProcess in bgsAndSignalNameList:
     print( iProcess )
     iProcessEYList = []
@@ -25,7 +28,8 @@ for iProcess in bgsAndSignalNameList:
         # print(iHistName)
         iHist = inputFile.Get( iHistName )
         iHist.Print()
-        iProcessEYList.append( iHist.Integral() )
+        # iProcessEYList.append(  '{}({})'.format( iHist.Integral()*g_lumi2016, iHist.GetEntries() ) )
+        iProcessEYList.append(  '{:.2f}({:.2f})'.format( iHist.Integral()*g_lumi2016, iHist.GetEntries() ) )
     iProcessEYList.insert(0, iProcess)
     csvWriter.writerow( iProcessEYList  )
 
