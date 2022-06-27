@@ -28,7 +28,7 @@ std::map<TString, TString> MUOSF_files = { //std::map OF INPUT MUO SCALE FACTOR 
 };
 std::map<TString, TString> muonSF_tracker = {
     {"2016preVFP", muonSF_base+"2016_preVFP/Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root" },
-    {"2016postVFP", muonSF_base+"2016_postVFP/Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root" },
+    {"2016postVFP", muonSF_base+"2016_postVFP/Efficiency_muon_generalTracks_Run2016postVFP_UL_trackerMuon.root" },
     {"2017", muonSF_base+"2017/Efficiency_muon_generalTracks_Run2017_UL_trackerMuon.root" },
     {"2018", muonSF_base+"2018/Efficiency_muon_generalTracks_Run2018_UL_trackerMuon.root" },
 };
