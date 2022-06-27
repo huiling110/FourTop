@@ -29,7 +29,11 @@ void drawHistos( const std::vector<TH1D*> &allHistos, const TH1D* h_background )
 void addTextToPT( Int_t type, TPaveText* &pt, TH1D* &bgs );
 void drawEventYield( const std::vector<TH1D*> &groupedBgsAndSignal, const TString EYplotDir, TString channel, const Double_t lumi, TString era );
 void writeHistToFile( const std::vector<TH1D*> groupedBgsAndSignal, TString plotDir, TString channelName );
- 
+
+// void writeToCsv( std::vectro<TH1D*> groupedBGsAndSignal  ){
+
+// }
+
 
 void EYandSP_usingClass_v3(){ 
     TStopwatch t;
@@ -50,7 +54,11 @@ void EYandSP_usingClass_v3(){
 
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
 
+    //csv file for latex beamer to read
     TString csvFile = EYplotDir + "eventYield.csv";
+    fstream csvfs;
+    csvfs.open( csvFile.Data(), ios::out );
+    std::cout<<"opened "<<csvFile.Data()<<"\n";
 
 
 
@@ -76,6 +84,12 @@ void EYandSP_usingClass_v3(){
 
             drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );
 
+            // writeToCsv(  groupedBGsAndSignal );
+            for ( UInt_t k=0; k<groupedBgsAndSignal.size(); k++){
+                csvfs<<groupedBgsAndSignal[k]->GetName()<<",";
+            }
+
+
 
             // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
             //     groupedBgsAndSignal[p]->Print();
@@ -95,6 +109,7 @@ void EYandSP_usingClass_v3(){
 
     std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
     plotFile->Close();
+    csvfs.close();
     
 
     t.Stop();
