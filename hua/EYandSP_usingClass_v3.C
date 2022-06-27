@@ -49,47 +49,47 @@ void EYandSP_usingClass_v3(){
 
 
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
-for ( auto const& cha : channelCutMap  ){
-// for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
-    if ( !(cha.first=="1tau0l")   )  continue;
-    std::cout<<cha.first<<":"<<cha.second<<"\n";
+    for ( auto const& cha : channelCutMap  ){
+    // for ( auto cha=channelCutMap.begin(); cha!=channelCutMap.end(); ++cha  ){
+        if ( !(cha.first=="1tau0l")   )  continue;
+        std::cout<<cha.first<<":"<<cha.second<<"\n";
 
-    // if ( cha.first=="1tau1e" ) break;
-    // if ( !(cha.first=="2tau1_2l") ) continue;
+        // if ( cha.first=="1tau1e" ) break;
+        // if ( !(cha.first=="2tau1_2l") ) continue;
 
-    //loop variableList
-    for(UInt_t i=0; i<1; i++){
-    // for(UInt_t i=0; i<variablelist.size(); i++){
-  	    TString iVariable = variablelist[i];
+        //loop variableList
+        for(UInt_t i=0; i<1; i++){
+        // for(UInt_t i=0; i<variablelist.size(); i++){
+            TString iVariable = variablelist[i];
 
-        TCut cut = cha.second && HLT_2016;
-        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        // getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        getBgsAndSignalHist_Nano( groupedBgsAndSignal, cut, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
-        writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
+            TCut cut = cha.second && HLT_2016;
+            // getBgsAndSignalHist_Nano( groupedBgsAndSignal, channelCut[cha], basicWeight, iVariable, bin[i], Min[i], Max[i] );
+            // getBgsAndSignalHist_Nano( groupedBgsAndSignal, cha.second, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+            getBgsAndSignalHist_Nano( groupedBgsAndSignal, cut, cha.first, basicWeight, iVariable, bin[i], Min[i], Max[i] );
+            writeHistToFile( groupedBgsAndSignal, EYplotDir , cha.first);
 
-        drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );
+            drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );
 
 
-        // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
-        //     groupedBgsAndSignal[p]->Print();
-        //     cout<<"integral: "<<groupedBgsAndSignal[p]->Integral()<<"\n";
-        //     cout<<"entries: "<<groupedBgsAndSignal[p]->GetEntries()<<"\n";
-        //     delete groupedBgsAndSignal[p];
+            // for( UInt_t p=0; p<groupedBgsAndSignal.size(); p++){
+            //     groupedBgsAndSignal[p]->Print();
+            //     cout<<"integral: "<<groupedBgsAndSignal[p]->Integral()<<"\n";
+            //     cout<<"entries: "<<groupedBgsAndSignal[p]->GetEntries()<<"\n";
+            //     delete groupedBgsAndSignal[p];
+            // }
+
+        }//end of loop of all variables
+
+        groupedBgsAndSignal.clear();
+
+        // if ( ifSP ){
+        //     for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
+        //         std::cout <<  rit->second << " = "<< rit->first << endl;
+        //     }
         // }
 
-    }//end of loop of all variables
 
-    groupedBgsAndSignal.clear();
-
-    // if ( ifSP ){
-    //     for (auto rit = mymap.crbegin(); rit != mymap.crend(); ++rit){
-    //         std::cout <<  rit->second << " = "<< rit->first << endl;
-    //     }
-    // }
-
-
-}//end of loop of all channels
+    }//end of loop of all channels
 
 
     std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
