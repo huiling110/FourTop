@@ -38,13 +38,14 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4modifiedMinDeltaR_fromV9/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0_fromV12/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0_fromV12/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0baselineSelection_fromV15/";
 const TString era_g = "2016";
 // const TString era_g = "2016preVFP";
 // std::cout<<"baseDir : "<<baseDir<<"\n";
 
 //Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
-const Double_t LUMI = 35900; //pb-1
+// const Double_t LUMI = 35900; //pb-1
 //?where to get the more precise LUMI?
 std::map<TString, Double_t> lumiMap = {
     {"2016preVFP", 19520},
@@ -61,19 +62,19 @@ const TCut HLT_2016 = "HLT_PFHT450_SixJet40_BTagCSV_p056 || HLT_PFHT400_SixJet30
 
 
 // /*
-const TCut preselectionForAll = "jets_HT>500  && jets_6pt>40 ";
+const TCut baselineSelection = "jets_HT>500  && jets_6pt>40 ";
 
-const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 " && preselectionForAll ;
-const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=7 && bjetsM_num>=2" && preselectionForAll ;
-const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=7 && bjetsM_num>=2" && preselectionForAll ;
-const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=6 && bjetsM_num>=2" && preselectionForAll ;
-const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 && jets_number>=6 && bjetsM_num>=2 " && preselectionForAll ;
-const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2 " && preselectionForAll ;
-const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=7 && bjetsM_num>=2 " && preselectionForAll ;
+const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 " && baselineSelection ;
+const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=7 && bjetsM_num>=2" && baselineSelection ;
+const TCut ES1tau1m = "tausT_number==1 && muonsT_number==1 && leptonsMVAT_number==1&& jets_number>=7 && bjetsM_num>=2" && baselineSelection ;
+const TCut ES1tau2os = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=6 && bjetsM_num>=2" && baselineSelection ;
+const TCut ES1tau2ss = "tausT_number==1 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 && jets_number>=6 && bjetsM_num>=2 " && baselineSelection ;
+const TCut ES1tau3l = "tausT_number==1 && leptonsMVAT_number==3 &&  jets_number>=2 && bjetsM_num>=2 " && baselineSelection ;
+const TCut ES2tau0l = "tausT_number==2 && leptonsMVAT_number==0 &&  jets_number>=7 && bjetsM_num>=2 " && baselineSelection ;
 const TCut ES2tau1e = "tausT_number==2 && elesMVAT_number==1 && leptonsMVAT_number==1 && jets_number>=6 && bjetsM_num>=2 " ;
-const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 " && preselectionForAll ;
-const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 " && preselectionForAll ;
-const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 " && preselectionForAll ;
+const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number==1 &&  jets_number>=6 && bjetsM_num>=2 " && baselineSelection ;
+const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 " && baselineSelection ;
+const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 " && baselineSelection ;
 
 const TCut ES1tau1l = ES1tau1e||ES1tau1m;
 const TCut ES1tau2l = ES1tau2os || ES1tau2ss ;
@@ -83,8 +84,7 @@ const TCut ES2tauXl = ES2tau0l||ES2tau1l||ES2tau2l;
 const TCut ES2tau1_2l = ES2tau1l || ES2tau2l;
 // */
 const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight";
-//???weight is probmatic
-const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
+const TCut basicWeight = "EVENT_genWeight*EVENT_prefireWeight*PUweight";
 
 std::map<TString, TCut> channelCutMap = {
     {"1tau0l", ES1tau0l},
@@ -178,10 +178,11 @@ std::vector<Process> allProcesses = {
 
 
 
-TH1D* getBackHist(  std::vector<Process>& allProcesses,  const TCut cut, const TCut weight ){
+TH1D* getBackHist(  std::vector<Process>& allProcesses,  const TCut cut, const TCut weight, TString era  ){
     TH1D* bg = new TH1D( "bg", "bg", 40, 0, 40);
     for(UInt_t j = 1; j < allProcesses.size(); j++){
-        if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
+        // if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
+        if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , lumiMap[era]*allProcesses[j].getScale() );
     }
     return bg;
 }

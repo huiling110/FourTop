@@ -118,12 +118,12 @@ void writeHistToFile( const std::vector<TH1D*> groupedBgsAndSignal, TString plot
 
 
 
-void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const std::vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  std::vector<Process> &allProcesses  ){
+void addTextToPT( Int_t sumType, TPaveText* &pt, TString processName, const std::vector<TH1D*> &allHistos, Int_t startIndex, Int_t subprocessNum ,  std::vector<Process> &allProcesses, Double_t lumi  ){
     Double_t EY = 0;
     for ( Int_t start=startIndex; start<(startIndex+subprocessNum); start++ ){
         if ( sumType==0 ) EY = EY + allHistos[start]->GetEntries();
         if ( sumType==1 ) EY = EY + allHistos[start]->Integral();
-        if ( sumType==2 ) EY = EY + ( LUMI*allHistos[start]->Integral()*allProcesses[start].getScale() );
+        if ( sumType==2 ) EY = EY + ( lumi*allHistos[start]->Integral()*allProcesses[start].getScale() );
     }
     TString entries;
     entries.Form( processName + "  = %f", EY );
