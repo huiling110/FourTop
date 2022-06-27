@@ -55,10 +55,10 @@ void EYandSP_usingClass_v3(){
     TFile* plotFile = new TFile( EYplotDir+"DisForEY.root", "RECREATE" );
 
     //csv file for latex beamer to read
-    TString csvFile = EYplotDir + "eventYield.csv";
-    fstream csvfs;
-    csvfs.open( csvFile.Data(), ios::out );
-    std::cout<<"opened "<<csvFile.Data()<<"\n";
+    // TString csvFile = EYplotDir + "eventYield.csv";
+    // fstream csvfs;
+    // csvfs.open( csvFile.Data(), ios::out );
+    // std::cout<<"opened "<<csvFile.Data()<<"\n";
 
 
 
@@ -85,9 +85,9 @@ void EYandSP_usingClass_v3(){
             drawEventYield(  groupedBgsAndSignal, EYplotDir, cha.first, lumiMap[era_g], era_g );
 
             // writeToCsv(  groupedBGsAndSignal );
-            for ( UInt_t k=0; k<groupedBgsAndSignal.size(); k++){
-                csvfs<<groupedBgsAndSignal[k]->GetName()<<",";
-            }
+            // for ( UInt_t k=0; k<groupedBgsAndSignal.size(); k++){
+            //     csvfs<<groupedBgsAndSignal[k]->GetName()<<",";
+            // }
 
 
 
@@ -109,7 +109,7 @@ void EYandSP_usingClass_v3(){
 
     std::cout<<"writen output file: "<<plotFile->GetName()<<"\n";
     plotFile->Close();
-    csvfs.close();
+    // csvfs.close();
     
 
     t.Stop();

@@ -39,7 +39,7 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0_fromV12/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0_fromV12/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0baselineSelection_fromV15/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/";
 const TString era_g = "2016";
 // const TString era_g = "2016preVFP";
 // std::cout<<"baseDir : "<<baseDir<<"\n";
@@ -109,9 +109,10 @@ const TCut CR_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number>
 const TCut VR_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number>=8 && bjetsM_num==1 ";
 const TCut CR2_1tau0l = "tausT_number==1 && leptonsMVAT_number==0 && jets_number<8 && bjetsM_num>=2";
 std::map<TString, TCut> regions_1tau0l = {
-    {"1tau0lSR", ES1tau0l},
-    {"1tau0lCR", CR_1tau0l},
-    {"1tau0lVR", VR_1tau0l},
+    {"SR1tau0l", ES1tau0l},
+    {"CR1tau0l", CR_1tau0l},
+    {"VR1tau0l", VR_1tau0l},
+    {"CR21tau0l", CR2_1tau0l },
 };
 
 
