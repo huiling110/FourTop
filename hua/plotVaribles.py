@@ -62,6 +62,8 @@ def extractHistograms( dir, variablesToCheck):
         print('sampleName under dir: ', sampleName )
 
         if sampleName in samples:
+            #???missing something here compared to Duncan's code
+
             inFile = TFile( os.path.join(dir+inFileName), "READ" )
             for key in inFile.GetListOfKeys():
                 print( 'key in iSample: ', key )
@@ -69,6 +71,15 @@ def extractHistograms( dir, variablesToCheck):
                 #???need to tune this hist name 
                 varName = key.GetName().split(sampleName)[1][1:]
                 print('varName: ', varName )
+
+                if not varName in variablesToCheck: continue#only check 
+                if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
+                    #for nominal hists
+                    if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
+                        #nominalHist[varName].keys() is summed hists
+                        nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
+                        nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
+
 
 
 
