@@ -28,7 +28,7 @@ public :
    //my member variables
    Double_t m_genWeightSum;
    TString m_outputFolder;
-   TString processName;
+   TString m_processName;
    // std::vector<TString> m_options;
    TFile* outputFile;
    TH1D* hist_jetsNumber;

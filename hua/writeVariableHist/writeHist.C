@@ -60,16 +60,28 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
-   TString option = GetOption();
-   std::cout<<"option in writeHist: "<<option<<"\n";
+    TString option = GetOption();
+    std::cout<<"option in writeHist: "<<option<<"\n";
 
-   m_genWeightSum = std::stod(option.Data());
-   std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
-   //???maybe there is lose of accuracy due to convertion
+	//this part could be in a function for multiple uses
+    TString option1 = option(0, option.First(":"));
+    TString temp = option;
+    TString option2 = temp.Remove(0, option.First(":")+1);
+    option2 = option2(0, option2.First(":"));
+    TString option3 = temp.Remove(0, temp.First(":")+1);
+    option3 = option3(0, option3.First(":"));
 
-   // outputFile = new TFile();
+	m_outputFolder = option2;
+	m_processName = option3;
 
-   hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
+
+    m_genWeightSum = std::stod(option1.Data());
+    std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
+    //???maybe there is lose of accuracy due to convertion
+
+    // outputFile = new TFile();
+
+    hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
 
 }
