@@ -24,14 +24,32 @@ histoGramPerSample = {
     'qcd_2000toInf':'qcd',
 }
 
+colourPerSample = {
+    'tttt':kRed-2,
+    'tt': kRed-4,
+    'qcd': kOrange,
+    # 'ttbar_1l': kRed-4,
+    # 'ttbar_2l': kRed-4,
+    # 'qcd_50to100':kOrange,
+    # 'qcd_100to200':kOrange,
+    # 'qcd_200to300':kOrange,
+    # 'qcd_300to500':kOrange,
+    # 'qcd_500to700':kOrange,
+    # 'qcd_700to1000':kOrange,
+    # 'qcd_1000to1500':kOrange,
+    # 'qcd_1500to2000':kOrange,
+    # 'qcd_2000toInf':kOrange,
+}
+
 samples = [
     'tttt', 
     'ttbar_0l','ttbar_1l',
     'qcd_2000toInf'
 ]
 
+legendOrder = ['tttt', 'tt', 'qcd']
 
-
+includeDataInStack = False
 
 
 
@@ -41,10 +59,16 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
     variables = [ 'jets_HT', 'jets_number']
 
+
     nom, systs = extractHistograms( inputDir, variables )
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
 
+    plotDir = inputDir+'results/'
+    if not os.path.exists( plotDir ):
+        os.mkdir( plotDir )
+    for variable in variables:        
+        makeStackPlot(nom[variable],systs[variable],variable,"1tau0lSR", plotDir )
 
 
 def extractHistograms( dir, variablesToCheck):
@@ -91,10 +115,59 @@ def extractHistograms( dir, variablesToCheck):
     return (nominalHists,systematicHists)
 
 
+def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
+    #name is variable name
+    stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
+    canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
+    leggy = TLegend(0.8,0.6,0.95,0.9)
+    leggy.SetFillStyle(1001)
+    leggy.SetBorderSize(1)
+    leggy.SetFillColor(0)
+    leggy.SetLineColor(0)
+    leggy.SetShadowColor(0)
+    leggy.SetFillColor(kWhite)
+
+    canvy.cd()
+    if includeDataInStack: canvy.SetBottomMargin(0.3)
+
+    #???no dataHist
+    # sumHist = nominal[nominal.keys()[0]].Clone()
+    keyList = list(nominal.keys())
+    sumHist = nominal[keyList[0]].Clone()
+    sumHist.Reset()
+    #???no systsUp systsDown
+
+    for i in nominal.keys():
+        #missing
+        nominal[i].SetFillColor(colourPerSample[i])
+        nominal[i].SetLineColor(kBlack)
+        nominal[i].SetLineWidth(1)
+        sumHist.Add(nominal[i])
+
+    if "data" in nominal.keys():
+        leggy.AddEntry(nominal['data'],"Data","p")
+    for entry in legendOrder:
+        leggy.AddEntry(nominal[entry],entry,"f")
+    # leggy.AddEntry(assymErrorPlot,"Systs","f")
+
+    legendOrder.reverse()
+    for entry in legendOrder:
+    # legendOrder = ["tW","wPlusJets","ttbar","qcd","VV","zPlusJets","singleTop"]
+        stack.Add(nominal[entry])
+    legendOrder.reverse()
+
+    maxi = stack.GetMaximum()
+    # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
+    stack.SetMaximum(maxi)
+    stack.Draw("hist")
 
 
+    leggy.Draw()
 
+    canvy.SaveAs(outDir+"/{2}{0}{1}.png".format(region,savePost,name))
+    # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
 
+    canvy.cd()
 
 
 
