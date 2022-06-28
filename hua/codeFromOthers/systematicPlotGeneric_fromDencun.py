@@ -35,8 +35,10 @@ cmsText = "CMS"
 extraText = "Preliminary"
 
 histoGramPerSample = {"tW_top":"tW","tW_antitop":"tW","sChan":"singleTop","tChan":"singleTop","zz":"VV","zPlusJetsLowMass":"zPlusJets","zPlusJetsHighMass":"zPlusJets","wz":"VV","ww":"VV","wPlusJets":"wPlusJets","ttbar":"ttbar","qcd700_1000":"qcd","qcd500_700":"qcd","qcd300_500":"qcd","qcd200_300":"qcd","qcd2000_inf":"qcd","qcd1500_2000":"qcd","qcd100_200":"qcd","qcd1000_1500":"qcd","wPlusJetsMCatNLO":"wPlusJets","tChan_top":"singleTop","tChan_antitop":"singleTop","ttbarBU":"ttbar","tW_top_nfh":"tW","tW_antitop_nfh":"tW","wPlusJetsMadgraph":"wPlusJets","wPlus0Jets":"wPlusJets","wPlus1Jets":"wPlusJets","wPlus2Jets":"wPlusJets"}
+#this is all indipendent the MC files
 
 samples = ["tW_top_nfh","tW_antitop_nfh","tChan_top","tChan_antitop","sChan","zz","zPlusJetsLowMass","zPlusJetsHighMass","wz","ww","ttbar","ttbarBU","wPlus0Jets","wPlus1Jets","wPlus2Jets"]
+#this is atually indipendent  MC process
 
 colourPerSample = {"tW_top":kGreen+2,"tW_antitop":kGreen+2,"tW_top_nfh":kGreen+2,"tW_antitop_nfh":kGreen+2,"tChan":kYellow,"zPlusJetsLowMass":kBlue,"zPlusJetsHighMass":kBlue,"wz":kPink,"ww":kPink,"zz":kPink,"wPlusJets":kTeal,"ttbar":kRed,"qcd700_1000":kGray,"qcd500_700":kGray,"qcd300_500":kGray,"qcd200_300":kGray,"qcd2000_inf":kGray,"qcd1500_2000":kGray,"qcd100_200":kGray,"qcd1000_1500":kGray,"sChan":kOrange,"VV":kPink,"qcd":kGray,"tW":kGreen+2,"zPlusJets":kBlue,"singleTop":kYellow}
 
@@ -157,6 +159,7 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
     return errors
 
 def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
+    # region is like channel or CR; name is variable
     stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
     canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
     leggy = TLegend(0.8,0.6,0.95,0.9)
@@ -213,6 +216,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
 
     legendOrder.reverse()
     for entry in legendOrder:
+    # legendOrder = ["tW","wPlusJets","ttbar","qcd","VV","zPlusJets","singleTop"]
         stack.Add(nominal[entry])
     legendOrder.reverse()
 
@@ -272,6 +276,7 @@ def extractHistograms(dir1,dir2,variablesToCheck):
     
     nominalHists = {}
     systematicHists = {}
+    # like a map
 
     for var in variablesToCheck:
         nominalHists[var] = {}
@@ -286,6 +291,7 @@ def extractHistograms(dir1,dir2,variablesToCheck):
                 for var in nominalHists.keys():
                     systematicHists[var][histoGramPerSample[sampleName]] = {}
             for key in inFile.GetListOfKeys():
+
                 varName = key.GetName().split(sampleName)[0][:-1]
                 if not varName in variablesToCheck: continue
                 if "{0}_{1}".format(varName,sampleName) == key.GetName():
