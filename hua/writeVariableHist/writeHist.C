@@ -44,7 +44,7 @@
 void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName ){
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
 	for (UInt_t i=0; i<regions.size(); i++){
-		std::cout<<regions[i]<<"\n";
+		// 1250015d::co12<<regions[i]<<"\n";
 		TString iHistName =  regions[i]+"_"+ m_processName +"_" + variable;
 		TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin );
 		histsVariable.push_back( temp );
@@ -90,7 +90,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
     outputFile = new TFile( m_outputFolder+"results/"+m_processName+ "_variableHists.root", "RECREATE" );
 
-    hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
+    hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 
 /*
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
@@ -103,8 +103,9 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 		jetsNumber_hists.push_back( temp );
 	}
 */
-	push_backHists( "jets_number", 40, 0, 40, jetsNumber_hists, m_processName );
-	push_backHists( "jets_HT", 100, 0, 2000, jets_HT_hists, m_processName );
+	push_backHists( "jets_number", 12, 0, 12, jetsNumber_hists, m_processName );
+	push_backHists( "jets_HT", 100, 500, 1500, jets_HT_hists, m_processName );
+	// push_backHists
 
 }
 
@@ -197,9 +198,9 @@ void writeHist::Terminate()
 		std::cout<<j<<"\n";
 		jetsNumber_hists[j]->Scale( processScale );
 		jetsNumber_hists[j]->Print();
-		jetsNumber_hists[j]->Write();
+		// jetsNumber_hists[j]1250015Write12;
 		jets_HT_hists[j]->Scale( processScale );
-		jets_HT_hists[j]->Write();
+		// jets_HT_hists[j]->Write();
 		jets_HT_hists[j]->Print();
 		// delete jetsNumber_hists[0];
 	}

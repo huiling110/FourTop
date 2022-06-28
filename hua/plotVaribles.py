@@ -6,6 +6,20 @@ from ROOT import *
 from setTDRStyle import setTDRStyle
 
 setTDRStyle()
+latex = TLatex()
+latex.SetNDC()
+latex.SetTextAlign(31)
+
+cmsTextFont = 61
+extraTextFont = 52
+
+latex2 = TLatex();
+latex2.SetNDC();
+latex2.SetTextSize(0.04);
+latex2.SetTextAlign(31);
+
+cmsText = "CMS"
+extraText = "Preliminary"
 
 
 histoGramPerSample = {
@@ -88,7 +102,7 @@ def extractHistograms( dir, variablesToCheck):
 
             inFile = TFile( os.path.join(dir+inFileName), "READ" )
             for key in inFile.GetListOfKeys():
-                # print( 'key in iSample: ', key )
+                print( 'key in iSample: ', key )
                 if key.GetName()=='jetsNumber': continue
                 #???need to tune this hist name 
                 varName = key.GetName().split(sampleName)[1][1:]
