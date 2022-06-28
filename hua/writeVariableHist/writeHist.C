@@ -45,7 +45,7 @@ void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t m
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
 	for (UInt_t i=0; i<regions.size(); i++){
 		std::cout<<regions[i]<<"\n";
-		TString iHistName =  regions[i]+"_"+ m_processName +"_" + "jets_number";
+		TString iHistName =  regions[i]+"_"+ m_processName +"_" + variable;
 		TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin );
 		histsVariable.push_back( temp );
 	}
@@ -104,6 +104,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	}
 */
 	push_backHists( "jets_number", 40, 0, 40, jetsNumber_hists, m_processName );
+	push_backHists( "jets_HT", 100, 0, 2000, jets_HT_hists, m_processName );
 
 }
 
@@ -134,27 +135,33 @@ Bool_t writeHist::Process(Long64_t entry)
         hist_jetsNumber->Fill( *jets_number, basicWeight );
 
 		jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[0]->Fill( *jets_HT, basicWeight );
 
     }
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=1 ){
 		//1tau0lCR
 		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
 		//1tau0lVR
 		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[2]->Fill( *jets_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2){
 		//1tau0lCR2
 		jetsNumber_hists[3]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[3]->Fill( *jets_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<7 && *bjetsM_num>=2){
 		//1tau0lCR3
 		jetsNumber_hists[4]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[4]->Fill( *jets_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2){
 		//1tau0lCR4
 		jetsNumber_hists[5]->Fill( *jets_number, basicWeight );
+		jets_HT_hists[5]->Fill( *jets_HT, basicWeight );
 	}
 
 
@@ -191,6 +198,9 @@ void writeHist::Terminate()
 		jetsNumber_hists[j]->Scale( processScale );
 		jetsNumber_hists[j]->Print();
 		jetsNumber_hists[j]->Write();
+		jets_HT_hists[j]->Scale( processScale );
+		jets_HT_hists[j]->Write();
+		jets_HT_hists[j]->Print();
 		// delete jetsNumber_hists[0];
 	}
 	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
