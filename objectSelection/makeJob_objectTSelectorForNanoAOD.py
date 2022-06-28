@@ -29,8 +29,8 @@ def main():
     jobVersionName = 'v16_HLTselection/'
     # onlyMC = True
     onlyMC = False
-    # era = '2016'
-    era = '2016APV'
+    era = '2016'
+    # era = '2016APV'
     # era = '2018'
     # eventSelection = '0'
     eventSelection = '3'
