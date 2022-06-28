@@ -79,7 +79,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
     //???maybe there is lose of accuracy due to convertion
 
-    // outputFile = new TFile();
+    outputFile = new TFile( m_outputFolder+"results/"+m_processName+ "_variableHists.root", "RECREATE" );
 
     hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
@@ -137,9 +137,11 @@ void writeHist::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-   hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
-   hist_jetsNumber->Print();
+    hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
+    hist_jetsNumber->Print();
 
-   // Info("Terminate", "processed %lld events", fProcessed);
+	outputFile->Write();
+	outputFile->Close();
+    Info("Terminate", "outputFile here:%s", outputFile->GetName());
 
 }

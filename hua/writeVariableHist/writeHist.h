@@ -31,7 +31,14 @@ public :
    TString m_processName;
    // std::vector<TString> m_options;
    TFile* outputFile;
-   TH1D* hist_jetsNumber;
+   TH1D* hist_jetsNumber;//for event count
+
+   //hist name: region_prcess_variable
+   //variables to be writen to hists
+
+   //regions to consider
+
+
 
 
    // Readers to access the data (delete the ones you do not need).
