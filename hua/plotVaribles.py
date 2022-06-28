@@ -42,7 +42,8 @@ def main():
     variables = [ 'jets_HT', 'jets_number']
 
     nom, systs = extractHistograms( inputDir, variables )
-    # a map to a map to a map
+    #nom[var].key() is actually summed processes
+    print('nom: ', nom)
 
 
 
@@ -79,12 +80,16 @@ def extractHistograms( dir, variablesToCheck):
                         #nominalHist[varName].keys() is summed hists
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
+                    else:
+                        nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
+                # else: #systematic uncertainties
+                #???
 
 
-
-
+            inFile.Close()
 
     return (nominalHists,systematicHists)
+
 
 
 
