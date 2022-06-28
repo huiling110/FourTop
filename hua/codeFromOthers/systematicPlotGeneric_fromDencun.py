@@ -290,6 +290,7 @@ def extractHistograms(dir1,dir2,variablesToCheck):
         if sampleName in samples: # This checks that it is a MC sample
             #you only get the MC in samples list
             if histoGramPerSample[sampleName] not in nominalHists[nominalHists.keys()[0]].keys():
+            # in all process
                 for var in nominalHists.keys():
                     systematicHists[var][histoGramPerSample[sampleName]] = {}
             for key in inFile.GetListOfKeys():

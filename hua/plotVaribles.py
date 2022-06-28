@@ -50,6 +50,8 @@ def extractHistograms( dir, variablesToCheck):
     nominalHists = {}
     systematicHists = {}
 
+    myRegion = '1tau0lSR'
+
     for var in variablesToCheck:
         nominalHists[var] = {}
         systematicHists[var] = {}
@@ -58,6 +60,16 @@ def extractHistograms( dir, variablesToCheck):
     for inFileName in os.listdir( dir ):
         sampleName = inFileName.split('_variableHist')[0]
         print('sampleName under dir: ', sampleName )
+
+        if sampleName in samples:
+            inFile = TFile( os.path.join(dir+inFileName), "READ" )
+            for key in inFile.GetListOfKeys():
+                print( 'key in iSample: ', key )
+                if key.GetName()=='jetsNumber': continue
+                #???need to tune this hist name 
+                varName = key.GetName().split(sampleName)[1][1:]
+                print('varName: ', varName )
+
 
 
 
