@@ -29,6 +29,22 @@
 #include <TH2.h>
 #include <TStyle.h>
 
+// void getvOptionFromRunMacro( const TString option, std::vector<TString>& m_options ){
+//    TString option1 = option(0, option.First(":"));
+//     TString temp = option;
+//     TString option2 = temp.Remove(0, option.First(":")+1);
+//     option2 = option2(0, option2.First(":"));
+   //  TString option3 = temp.Remove(0, temp.First(":")+1);
+   //  option3 = option3(0, option3.First(":"));
+   //  TString option4 = temp.Remove(0, temp.First(":")+1 );
+   //  option4 = option4(0, option4.First(":"));
+   //  TString option5 = temp.Remove(0, temp.First(":")+1 );
+// }
+
+
+
+
+
 void writeHist::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
@@ -36,7 +52,6 @@ void writeHist::Begin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
-   std::cout<<"option in writeHist: "<<option<<"\n";
 }
 
 void writeHist::SlaveBegin(TTree * /*tree*/)
@@ -46,10 +61,13 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
    // The tree argument is deprecated (on PROOF 0 is passed).
 
    TString option = GetOption();
+   std::cout<<"option in writeHist: "<<option<<"\n";
 
    m_genWeightSum = std::stod(option.Data());
    std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
    //???maybe there is lose of accuracy due to convertion
+
+   // outputFile = new TFile();
 
    hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
@@ -76,10 +94,13 @@ Bool_t writeHist::Process(Long64_t entry)
 
    fReader.SetLocalEntry(entry);
 
-   if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
-
    Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
-   hist_jetsNumber->Fill( *jets_number, basicWeight );
+   // if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
+   if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
+      hist_jetsNumber->Fill( *jets_number, basicWeight );
+
+   } ;
+
 
 
 
