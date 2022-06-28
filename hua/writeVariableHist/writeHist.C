@@ -83,6 +83,19 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
     hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
+    std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0l_CR2", "1tau0lCR3", "1tau0lCR4" };
+
+   //hist name: region_prcess_variable
+	for (UInt_t i=0; i<regions.size(); i++){
+		std::cout<<regions[i]<<"\n";
+		TString iHistName =  regions[i]+"_"+ m_processName +"_" + "jets_number";
+		// TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), 40, 0, 40  );
+		TH1D* temp = new TH1D();
+		temp->SetName( iHistName.Data() );
+		jetsNumber_hists.push_back( temp );
+	}
+	// jetsNumber_hists.push_back(hist_jetsNumber);
+
 
 }
 
@@ -104,12 +117,13 @@ Bool_t writeHist::Process(Long64_t entry)
    //
    // The return value is currently not used.
 
-   fReader.SetLocalEntry(entry);
+    fReader.SetLocalEntry(entry);
 
-   Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
-   // if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
-   if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
-      hist_jetsNumber->Fill( *jets_number, basicWeight );
+    Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
+    // if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
+    if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
+		//1tau0l SR
+        hist_jetsNumber->Fill( *jets_number, basicWeight );
 
    } ;
 
