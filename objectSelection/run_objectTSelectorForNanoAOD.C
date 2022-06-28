@@ -24,8 +24,7 @@ void run_objectTSelectorForNanoAOD(
     // TString eventSelectionBit = "0",  
     // Bool_t ishuiling = false
     Bool_t ishuiling = true
-    )
-{
+    
     // gROOT->ProcessLine(".L Loader.C+");
     gROOT->ProcessLine( ".L objectTSelectorForNanoAOD.so");
 
