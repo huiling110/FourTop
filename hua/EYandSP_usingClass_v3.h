@@ -22,7 +22,7 @@
 
 
 
-
+#include "crossSectionMap.h"
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
@@ -120,12 +120,6 @@ std::map<TString, TCut> regions_1tau0l = {
 };
 
 
-std::map<TString, Double_t> crossSectionMap = {
-    {"tttt", 0.01197},
-    {"ttbar_2l", 88.29},
-    {"ttbar_0l", 377.96},
-    {"ttbar_1l", 365.34},
-} ;
 
 
 

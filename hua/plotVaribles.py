@@ -103,7 +103,7 @@ def extractHistograms( dir, variablesToCheck):
             inFile = TFile( os.path.join(dir+inFileName), "READ" )
             for key in inFile.GetListOfKeys():
                 print( 'key in iSample: ', key )
-                if key.GetName()=='jetsNumber': continue
+                if 'forYieldCount' in  key.GetName(): continue
                 #???need to tune this hist name 
                 varName = key.GetName().split(sampleName)[1][1:]
                 # print('varName: ', varName )

@@ -204,7 +204,8 @@ void writeHist::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-	Double_t processScale  = (36330*0.01197)/ m_genWeightSum;
+	// Double_t processScale  = (36330*0.01197)/ m_genWeightSum;
+	Double_t processScale  = (36330*)/ m_genWeightSum;
 
     hist_jetsNumber->Scale( processScale  );
     hist_jetsNumber->Print();
