@@ -299,6 +299,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 	if ( !isdata ){
         EVENT_genWeight_ = *genWeight;
+    }else{
+        EVENT_genWeight_ = 1;
     }
 	
     //preSelection
@@ -308,6 +310,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if ( !( bjetsL.size()>1)) return kFALSE;
         //if ( !( bjetsL.size()>2)) return kFALSE;
     }
+
+    // if ( ifBlinded ){
+        
+    // }
 
 
 
