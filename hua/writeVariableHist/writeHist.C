@@ -103,9 +103,12 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 		jetsNumber_hists.push_back( temp );
 	}
 */
-	push_backHists( "jets_number", 12, 0, 12, jetsNumber_hists, m_processName );
+	// push_backHists()
+	push_backHists( "jets_number", 10, 6, 15, jetsNumber_hists, m_processName );
 	push_backHists( "jets_HT", 100, 500, 1500, jets_HT_hists, m_processName );
-	// push_backHists
+	push_backHists( "jets_bScore", 100, 0, 5, jets_bScore_hists, m_processName );
+	push_backHists( "tausT_HT", 100, 30, 300, tausT_HT_hists, m_processName );
+
 
 }
 
@@ -137,32 +140,44 @@ Bool_t writeHist::Process(Long64_t entry)
 
 		jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[0]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[0]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[0]->Fill( *tausT_HT, basicWeight );
 
     }
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=1 ){
 		//1tau0lCR
 		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[1]->Fill( *tausT_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
 		//1tau0lVR
 		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[2]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[2]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[2]->Fill( *tausT_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2){
 		//1tau0lCR2
 		jetsNumber_hists[3]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[3]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[3]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[3]->Fill( *tausT_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<7 && *bjetsM_num>=2){
 		//1tau0lCR3
 		jetsNumber_hists[4]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[4]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[4]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[4]->Fill( *tausT_HT, basicWeight );
 	}
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2){
 		//1tau0lCR4
 		jetsNumber_hists[5]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[5]->Fill( *jets_HT, basicWeight );
+		jets_bScore_hists[5]->Fill( *jets_bScore, basicWeight );
+		tausT_HT_hists[5]->Fill( *tausT_HT, basicWeight );
 	}
 
 
@@ -202,6 +217,8 @@ void writeHist::Terminate()
 		jets_HT_hists[j]->Scale( processScale );
 		// jets_HT_hists[j]->Write();
 		jets_HT_hists[j]->Print();
+		jets_bScore_hists[j]->Scale( processScale );
+		tausT_HT_hists[j]->Scale( processScale );
 		// delete jetsNumber_hists[0];
 	}
 	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";

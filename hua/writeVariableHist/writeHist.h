@@ -34,6 +34,8 @@ public :
    TH1D* hist_jetsNumber;//for event count
    std::vector<TH1D*> jetsNumber_hists;
    std::vector<TH1D*> jets_HT_hists;
+   std::vector<TH1D*> jets_bScore_hists;
+   std::vector<TH1D*> tausT_HT_hists;
 
    //variables to be writen to hists
 
