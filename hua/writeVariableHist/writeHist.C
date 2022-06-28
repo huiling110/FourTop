@@ -158,7 +158,12 @@ void writeHist::Terminate()
     hist_jetsNumber->Scale( processScale  );
     hist_jetsNumber->Print();
 
-	jetsNumber_hists->Scale( processScale );
+	jetsNumber_hists[0]->Scale( processScale );
+	// jetsNumber_hists[0]->
+	std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
+	// jetsNumber_hists[0]->GetXaxis()->SetRange( jetsNumberI_hists[0]->GetXaxis()->GetXmin() , jetsNumber_hists[0]->GetXaxis()->GetXmax());
+	jetsNumber_hists[0]->GetXaxis()->SetRange( 1, jetsNumber_hists[0]->GetNbinsX()+1 ) ;
+	jetsNumber_hists[0]->Write();
 	jetsNumber_hists[0]->Print();
 
 	outputFile->Write();
