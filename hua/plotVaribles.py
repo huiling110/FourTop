@@ -1,3 +1,5 @@
+import os,sys,math
+
 
 from ROOT import *
 
@@ -36,14 +38,15 @@ samples = [
 
 def main():
 
-
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
     variables = [ 'jets_HT', 'jets_number']
 
-    # nom, systs = extractHistograms()
+    nom, systs = extractHistograms( inputDir, variables )
+    # a map to a map to a map
 
 
 
-def extractHistograms( variablesToCheck):
+def extractHistograms( dir, variablesToCheck):
     nominalHists = {}
     systematicHists = {}
 
@@ -52,8 +55,19 @@ def extractHistograms( variablesToCheck):
         systematicHists[var] = {}
     #nominalHists[varName][histoGramPerSample[sampleName]]
 
+    for inFileName in os.listdir( dir ):
+        sampleName = inFileName.split('_variableHist')[0]
+        print('sampleName under dir: ', sampleName )
+
+
 
     return (nominalHists,systematicHists)
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

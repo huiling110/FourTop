@@ -180,6 +180,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     systsDown = nominal[nominal.keys()[0]].Clone("systsDown")
     systsDown.Reset()
     for i in nominal.keys():
+        #loop all MC and data hists
         if i == "data":
             dataHist = nominal["data"]
             dataHist.SetMarkerStyle(20)
@@ -287,6 +288,7 @@ def extractHistograms(dir1,dir2,variablesToCheck):
         sampleName = inFileName.split("output_")[-1].split(".root")[0]
         print sampleName
         if sampleName in samples: # This checks that it is a MC sample
+            #you only get the MC in samples list
             if histoGramPerSample[sampleName] not in nominalHists[nominalHists.keys()[0]].keys():
                 for var in nominalHists.keys():
                     systematicHists[var][histoGramPerSample[sampleName]] = {}
@@ -296,7 +298,9 @@ def extractHistograms(dir1,dir2,variablesToCheck):
                 if not varName in variablesToCheck: continue
                 if "{0}_{1}".format(varName,sampleName) == key.GetName():
                     if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
+                        # it means not in the all MC samples
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get(key.GetName()).Clone()
+                        #map to a histogram?
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
                     else:
                         nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
