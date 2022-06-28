@@ -83,15 +83,14 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
     hist_jetsNumber = new TH1D( "jetsNumber", "number of jets", 40, 0, 40 );
 
-    std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0l_CR2", "1tau0lCR3", "1tau0lCR4" };
+    std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
 
    //hist name: region_prcess_variable
 	for (UInt_t i=0; i<regions.size(); i++){
 		std::cout<<regions[i]<<"\n";
 		TString iHistName =  regions[i]+"_"+ m_processName +"_" + "jets_number";
-		// TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), 40, 0, 40  );
-		TH1D* temp = new TH1D();
-		temp->SetName( iHistName.Data() );
+		TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), 40, 0, 40 );
+		// temp->SetName( iHistName.Data() );
 		jetsNumber_hists.push_back( temp );
 	}
 	// jetsNumber_hists.push_back(hist_jetsNumber);
@@ -127,7 +126,27 @@ Bool_t writeHist::Process(Long64_t entry)
 
 		jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
 
-   } ;
+    }
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=1 ){
+		//1tau0lCR
+		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
+	}
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
+		//1tau0lVR
+		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );
+	}
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2){
+		//1tau0lCR2
+		jetsNumber_hists[3]->Fill( *jets_number, basicWeight );
+	}
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<7 && *bjetsM_num>=2){
+		//1tau0lCR3
+		jetsNumber_hists[4]->Fill( *jets_number, basicWeight );
+	}
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2){
+		//1tau0lCR4
+		jetsNumber_hists[5]->Fill( *jets_number, basicWeight );
+	}
 
 
 
@@ -158,13 +177,16 @@ void writeHist::Terminate()
     hist_jetsNumber->Scale( processScale  );
     hist_jetsNumber->Print();
 
-	jetsNumber_hists[0]->Scale( processScale );
-	// jetsNumber_hists[0]->
-	std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
-	// jetsNumber_hists[0]->GetXaxis()->SetRange( jetsNumberI_hists[0]->GetXaxis()->GetXmin() , jetsNumber_hists[0]->GetXaxis()->GetXmax());
-	jetsNumber_hists[0]->GetXaxis()->SetRange( 1, jetsNumber_hists[0]->GetNbinsX()+1 ) ;
-	jetsNumber_hists[0]->Write();
-	jetsNumber_hists[0]->Print();
+	for( UInt_t j=0; j<jetsNumber_hists.size(); j++ ){
+		std::cout<<j<<"\n";
+		jetsNumber_hists[j]->Scale( processScale );
+		jetsNumber_hists[j]->Print();
+		jetsNumber_hists[j]->Write();
+		// delete jetsNumber_hists[0];
+	}
+	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
+	// jetsNumber_hists[0]->GetXaxis()->SetRange( 1, jetsNumber_hists[0]->GetNbinsX()+1 ) ;
+   // std::cout<<jetsNumber_hists[0]->GetNbinsX()<<"\n";
 
 	outputFile->Write();
 	outputFile->Close();
