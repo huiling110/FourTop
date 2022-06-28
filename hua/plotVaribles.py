@@ -28,23 +28,20 @@ colourPerSample = {
     'tttt':kRed-2,
     'tt': kRed-4,
     'qcd': kOrange,
-    # 'ttbar_1l': kRed-4,
-    # 'ttbar_2l': kRed-4,
-    # 'qcd_50to100':kOrange,
-    # 'qcd_100to200':kOrange,
-    # 'qcd_200to300':kOrange,
-    # 'qcd_300to500':kOrange,
-    # 'qcd_500to700':kOrange,
-    # 'qcd_700to1000':kOrange,
-    # 'qcd_1000to1500':kOrange,
-    # 'qcd_1500to2000':kOrange,
-    # 'qcd_2000toInf':kOrange,
 }
 
 samples = [
     'tttt', 
-    'ttbar_0l','ttbar_1l',
-    'qcd_2000toInf'
+    'ttbar_0l','ttbar_0l', 'ttbar_1l',
+    'qcd_50to100',
+    'qcd_100to200',
+    'qcd_200to300',
+    'qcd_300to500',
+    'qcd_500to700',
+    'qcd_700to1000',
+    'qcd_1000to1500',
+    'qcd_1500to2000',
+    'qcd_2000toInf',
 ]
 
 legendOrder = ['tttt', 'tt', 'qcd']
@@ -64,7 +61,7 @@ def main():
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
 
-    plotDir = inputDir+'results/'
+    plotDir = inputDir+'results'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     for variable in variables:        
@@ -91,12 +88,13 @@ def extractHistograms( dir, variablesToCheck):
 
             inFile = TFile( os.path.join(dir+inFileName), "READ" )
             for key in inFile.GetListOfKeys():
-                print( 'key in iSample: ', key )
+                # print( 'key in iSample: ', key )
                 if key.GetName()=='jetsNumber': continue
                 #???need to tune this hist name 
                 varName = key.GetName().split(sampleName)[1][1:]
-                print('varName: ', varName )
+                # print('varName: ', varName )
 
+                if not myRegion in key.GetName(): continue
                 if not varName in variablesToCheck: continue#only check 
                 if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
                     #for nominal hists
@@ -104,8 +102,10 @@ def extractHistograms( dir, variablesToCheck):
                         #nominalHist[varName].keys() is summed hists
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
+                        print('get hist: ', key.GetName() )
                     else:
                         nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
+                        print('add hist: ', key.GetName() )
                 # else: #systematic uncertainties
                 #???
 
@@ -154,7 +154,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     for entry in legendOrder:
     # legendOrder = ["tW","wPlusJets","ttbar","qcd","VV","zPlusJets","singleTop"]
         stack.Add(nominal[entry])
+        print( 'ientry integral: ', nominal[entry].Integral() )
     legendOrder.reverse()
+
 
     maxi = stack.GetMaximum()
     # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
