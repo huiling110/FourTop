@@ -125,6 +125,8 @@ Bool_t writeHist::Process(Long64_t entry)
 		//1tau0l SR
         hist_jetsNumber->Fill( *jets_number, basicWeight );
 
+		jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
+
    } ;
 
 
@@ -151,8 +153,13 @@ void writeHist::Terminate()
    // a query. It always runs on the client, it can be used to present
    // the results graphically or save the results to file.
 
-    hist_jetsNumber->Scale( (36330*0.01197)/ m_genWeightSum );
+	Double_t processScale  = (36330*0.01197)/ m_genWeightSum;
+
+    hist_jetsNumber->Scale( processScale  );
     hist_jetsNumber->Print();
+
+	jetsNumber_hists->Scale( processScale );
+	jetsNumber_hists[0]->Print();
 
 	outputFile->Write();
 	outputFile->Close();
