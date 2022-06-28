@@ -99,7 +99,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    // fReader.SetEntry(entry);
     fReader.SetLocalEntry(entry);
     fProcessed++;
-	fProcessed_genWeight += *EVENT_genWeight_ ;
+	  fProcessed_genWeight += *EVENT_genWeight_ ;
 	// fProcessed_basicWeight + = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up);
 	// std::cout<<"genWeight: "<<*EVENT_genWeight_<<"\n";
 
@@ -131,7 +131,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fPassingHLT++;
 	fPassingHLT_genWeight += *EVENT_genWeight_;
 	h_HLT_jetNumber->Fill(jets.GetSize(), (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up) );
-
 
 
 
@@ -536,6 +535,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         toptagger_3phi = fabs(tops_toptagger[2].Phi());
       }
 
+	std::cout<<__LINE__<<"\n";
 
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;

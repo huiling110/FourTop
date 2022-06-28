@@ -46,9 +46,9 @@ public :
    Double_t fPassingHLT_genWeight = 0 ;
    Long64_t fPassingPreselection = 0;
 //    TString fprocessName;
-   // TString era = "UL2016_preVFP";
 //    TString era = "2016preVFP";
     TString era = "2016postVFP";
+    TString isData = false;
    TFile *outputfile;
    TTree *newtree;
    // TH1D  *h_genWeight ;
