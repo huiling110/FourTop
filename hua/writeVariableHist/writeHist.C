@@ -88,7 +88,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
     //???maybe there is lose of accuracy due to convertion
 
-    outputFile = new TFile( m_outputFolder+"results/"+m_processName+ "_variableHists.root", "RECREATE" );
+    outputFile = new TFile( m_outputFolder+"variableHists/"+m_processName+ "_variableHists.root", "RECREATE" );
 
     hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 
