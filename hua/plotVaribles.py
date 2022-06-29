@@ -95,7 +95,9 @@ def main():
 
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
-    myRegion = '1tau0lSR'
+    # myRegion = '1tau0lSR'
+    # myRegion = '1tau0lCR'
+    myRegion = '1tau0lVR'
 
 
     nom, systs = extractHistograms( inputDir, variables, myRegion )
@@ -106,7 +108,7 @@ def main():
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     for variable in variables:        
-        makeStackPlot(nom[variable],systs[variable],variable,"1tau0lSR", plotDir )
+        makeStackPlot(nom[variable],systs[variable],variable,myRegion, plotDir )
 
 
 def extractHistograms( dir, variablesToCheck , myRegion):
