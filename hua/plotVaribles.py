@@ -95,9 +95,10 @@ def main():
 
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    myRegion = '1tau0lSR'
 
 
-    nom, systs = extractHistograms( inputDir, variables )
+    nom, systs = extractHistograms( inputDir, variables, myRegion )
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
 
@@ -108,11 +109,11 @@ def main():
         makeStackPlot(nom[variable],systs[variable],variable,"1tau0lSR", plotDir )
 
 
-def extractHistograms( dir, variablesToCheck):
+def extractHistograms( dir, variablesToCheck , myRegion):
     nominalHists = {}
     systematicHists = {}
 
-    myRegion = '1tau0lSR'
+    # myRegion = '1tau0lSR'
 
     for var in variablesToCheck:
         nominalHists[var] = {}
