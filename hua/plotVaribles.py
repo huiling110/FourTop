@@ -36,12 +36,27 @@ histoGramPerSample = {
     'qcd_1000to1500':'qcd',
     'qcd_1500to2000':'qcd',
     'qcd_2000toInf':'qcd',
+
+    "ttG":"ttX",
+    "ttZ":"ttX",  
+    "ttW":"ttX",
+    "ttH_bb": "ttX", 
+    "ttH_nonbb": "ttX", 
+    "wz":"VV",
+    "ww":"VV",
+    "zz":"VV",
+    "st_tZq":"singleTop",
+    "st_tW_antitop":"singleTop",
+    "st_tW_top":"singleTop",
 }
 
 colourPerSample = {
     'tttt':kPink-9,
     'tt': kRed-4,
     'qcd': kOrange,
+    'ttX': kPink-4,
+    'singleTop': kPink+5,
+    'VV': kYellow,
 }
 
 samples = [
@@ -56,9 +71,20 @@ samples = [
     'qcd_1000to1500',
     'qcd_1500to2000',
     'qcd_2000toInf',
+    "ttG",
+    "ttZ",  
+    "ttW",
+    "ttH_bb", 
+    "ttH_nonbb", 
+    "wz",
+    "ww",
+    "zz",
+    "st_tZq",
+    "st_tW_antitop",
+    "st_tW_top",
 ]
 
-legendOrder = ['tttt', 'tt', 'qcd']
+legendOrder = ['tttt', 'tt', 'qcd', 'ttX', 'singleTop', 'VV']
 
 includeDataInStack = False
 
@@ -68,7 +94,7 @@ includeDataInStack = False
 def main():
 
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
-    variables = [ 'jets_HT', 'jets_number']
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
 
 
     nom, systs = extractHistograms( inputDir, variables )
@@ -157,11 +183,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
+        nominal[i].GetXaxis().SetTitle(name)
         sumHist.Add(nominal[i])
 
     if "data" in nominal.keys():
         leggy.AddEntry(nominal['data'],"Data","p")
     for entry in legendOrder:
+        if entry=='tttt': continue
         leggy.AddEntry(nominal[entry],entry,"f")
     # leggy.AddEntry(assymErrorPlot,"Systs","f")
 
@@ -176,14 +204,22 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     maxi = stack.GetMaximum()
     # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
     stack.SetMaximum(maxi)
+    # stack.GetXaxis().SetTitle(name)
     stack.Draw("hist")
 
     #scale tttt
     signal = nominal['tttt'].Clone()
     signal.Scale(1000)
-    signal.SetLineColor(kPink-9)
+    # signal.SetLineColor(kPink-9)
+    signal.SetLineColor(kBlue)
+    signal.SetLineStyle(kSolid)
+    signal.SetLineWidth(4)
+    signal.SetFillStyle(3335)
+    signal.SetFillColor(kBlue)
+    leggy.AddEntry( signal, 'tttt', 'l')
+    # signal.GetXaxis().SetTitle(name)
     # signal.Print()
-    signal.Draw("same")
+    signal.Draw("SAME HIST ")
 
 
     leggy.Draw()
