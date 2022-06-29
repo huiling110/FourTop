@@ -39,7 +39,7 @@ histoGramPerSample = {
 }
 
 colourPerSample = {
-    'tttt':kRed-2,
+    'tttt':kPink-9,
     'tt': kRed-4,
     'qcd': kOrange,
 }
@@ -95,14 +95,14 @@ def extractHistograms( dir, variablesToCheck):
 
     for inFileName in os.listdir( dir ):
         sampleName = inFileName.split('_variableHist')[0]
-        print('sampleName under dir: ', sampleName )
+        # print('sampleName under dir: ', sampleName )
 
         if sampleName in samples:
             #???missing something here compared to Duncan's code
 
             inFile = TFile( os.path.join(dir+inFileName), "READ" )
             for key in inFile.GetListOfKeys():
-                print( 'key in iSample: ', key )
+                # print( 'key in iSample: ', key )
                 if 'forYieldCount' in  key.GetName(): continue
                 #???need to tune this hist name 
                 varName = key.GetName().split(sampleName)[1][1:]
@@ -116,10 +116,10 @@ def extractHistograms( dir, variablesToCheck):
                         #nominalHist[varName].keys() is summed hists
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
-                        print('get hist: ', key.GetName() )
+                        # print('get hist: ', key.GetName() )
                     else:
                         nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
-                        print('add hist: ', key.GetName() )
+                        # print('add hist: ', key.GetName() )
                 # else: #systematic uncertainties
                 #???
 
@@ -152,6 +152,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     #???no systsUp systsDown
 
     for i in nominal.keys():
+        print('ikey: ', i)
         #missing
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
@@ -166,9 +167,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
 
     legendOrder.reverse()
     for entry in legendOrder:
-    # legendOrder = ["tW","wPlusJets","ttbar","qcd","VV","zPlusJets","singleTop"]
+        if entry=='tttt': continue
         stack.Add(nominal[entry])
-        print( 'ientry integral: ', nominal[entry].Integral() )
+        # print( 'ientry integral: ', nominal[entry].Integral() )
     legendOrder.reverse()
 
 
@@ -176,6 +177,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
     stack.SetMaximum(maxi)
     stack.Draw("hist")
+
+    #scale tttt
+    signal = nominal['tttt'].Clone()
+    signal.Scale(1000)
+    signal.Print()
+    signal.Draw("same")
 
 
     leggy.Draw()
