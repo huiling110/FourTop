@@ -181,7 +181,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     #scale tttt
     signal = nominal['tttt'].Clone()
     signal.Scale(1000)
-    signal.Print()
+    signal.SetLineColor(kPink-9)
+    # signal.Print()
     signal.Draw("same")
 
 
