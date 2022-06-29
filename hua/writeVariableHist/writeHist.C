@@ -144,7 +144,7 @@ Bool_t writeHist::Process(Long64_t entry)
 		tausT_HT_hists[0]->Fill( *tausT_HT, basicWeight );
 
     }
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=1 ){
+	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
 		//1tau0lCR
 		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
