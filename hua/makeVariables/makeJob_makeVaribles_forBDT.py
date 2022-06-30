@@ -50,6 +50,7 @@ def main():
             inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/ata/']
             inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
 
+    subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
@@ -60,6 +61,7 @@ def main():
             iDir = inOutDirMap[iera][key]
             print( iDir )
             generateJobsForDir( iDir, iera+'_'+key, selectionBit )
+            subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
 
 
 def generateJobsForDir( inOutList, dirKind, selectionBit ):
