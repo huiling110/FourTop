@@ -6,30 +6,32 @@
 
 using namespace correction;
 
-Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon  ){
-	Double_t muonIDSF = 1.0;	
-	for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
-		Int_t binx;
-		if ( isMuon ){
-			binx = MuonIDSF->GetXaxis()->FindBin(fabs(muonsT.At(i).Eta()));//fabs for muons, no abs for electron
-		}else{
-			binx = MuonIDSF->GetXaxis()->FindBin((muonsT.At(i).Eta()));//fabs for muons, no abs for electron
+Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData  ){
+	Double_t muonIDSF = 1.0;
+	if ( !isData )	{
+		for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
+			Int_t binx;
+			if ( isMuon ){
+				binx = MuonIDSF->GetXaxis()->FindBin(fabs(muonsT.At(i).Eta()));//fabs for muons, no abs for electron
+			}else{
+				binx = MuonIDSF->GetXaxis()->FindBin((muonsT.At(i).Eta()));//fabs for muons, no abs for electron
+			}
+			Int_t biny = MuonIDSF->GetYaxis()->FindBin(muonsT.At(i).Pt());
+			Double_t iMuonSF = MuonIDSF->GetBinContent(binx, biny);
+			// Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinErrorUp(binx, biny);
+			// Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinErrorLow(binx, biny);
+			Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinError(binx, biny);
+			Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinError(binx, biny);
+			if( type==0 ){
+				muonIDSF *= iMuonSF;
+			} else if( type==1 ){
+				muonIDSF *= iMuonSF_up;
+			}else if ( type==2 ){
+				muonIDSF *= iMuonSF_down;
+			}
 		}
-		Int_t biny = MuonIDSF->GetYaxis()->FindBin(muonsT.At(i).Pt());
-		Double_t iMuonSF = MuonIDSF->GetBinContent(binx, biny);
-		// Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinErrorUp(binx, biny);
-		// Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinErrorLow(binx, biny);
-		Double_t iMuonSF_up = iMuonSF+ MuonIDSF->GetBinError(binx, biny);
-		Double_t iMuonSF_down = iMuonSF-MuonIDSF->GetBinError(binx, biny);
-		if( type==0 ){
-			muonIDSF *= iMuonSF;
-		} else if( type==1 ){
-			muonIDSF *= iMuonSF_up;
-		}else if ( type==2 ){
-			muonIDSF *= iMuonSF_down;
-		}
+		if (muonIDSF == 0) muonIDSF = 1.0;
 	}
-	if (muonIDSF == 0) muonIDSF = 1.0;
 	return muonIDSF;
 }
 
