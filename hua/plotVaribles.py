@@ -96,8 +96,8 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
     # myRegion = '1tau0lSR'
-    # myRegion = '1tau0lCR'
-    myRegion = '1tau0lVR'
+    myRegion = '1tau0lCR'
+    # myRegion = '1tau0lVR'
 
 
     nom, systs = extractHistograms( inputDir, variables, myRegion )
