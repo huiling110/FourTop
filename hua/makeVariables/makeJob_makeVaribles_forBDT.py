@@ -24,16 +24,16 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v6addWeightUpdown_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0baselineSelection_fromV15/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v0baselineSelection_fromV15/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v16_HLTselection/mc/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineSelection_fromV16/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v16_HLTselection/mc/'
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineSelection_fromV16/mc/'
 
 
     inVersion = 'v16_HLTselection'
     outVersion = 'v0baseline'
     justMC = False
     year = '2016'
-    dataSet = 'jetHT'
     selectionBit = '7'
+    # dataSet = 'jetHT'
 
 
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
@@ -62,6 +62,16 @@ def main():
             print( iDir )
             generateJobsForDir( iDir, iera+'_'+key, selectionBit )
             subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
+    print( 'sub all jobs using: subAllofAll.sh')
+    subAllofAll.close()
+
+    #change mod
+    # subprocess.run()
+
+
+
+
+
 
 
 def generateJobsForDir( inOutList, dirKind, selectionBit ):
@@ -83,6 +93,9 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
         subDirJobs.write( 'hep_sub '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+
+    subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
+    subprocess.run( 'chmod 777 ' + dirKind+'_subAll.sh', shell = True)
 
 
 def writeIjob( parameterList, processJob ):
