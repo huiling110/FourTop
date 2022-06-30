@@ -50,7 +50,7 @@ void run_makeVaribles_forBDT(
 
     TString selection = "makeVaribles_forBDT.C";
 
-    TString option = outputDir+outputFileName + ":" + era +":";
+    TString option = outputDir+outputFileName + ":" + era +":" + eventSelectionBit + ":";
     cout<<"option in run: "<<option<<"\n";
 
     if ( istest ){

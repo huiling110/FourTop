@@ -68,6 +68,10 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    option.Remove( 0, option.First(":")+1 );
    m_era = option( 0, option.First(":"));
    std::cout<<"m_era: "<<m_era<<"\n";
+   option.Remove( 0, option.First(":")+1 );
+   TString selectionBit = option( 0, option.First(":"));
+   m_selectionBit = std::stoi( selectionBit.Data() );
+   std::cout<<"m_selectionBit: "<<m_selectionBit<<"\n"; 
 
 
    outputfile = new TFile( outFileName, "RECREiATE");
@@ -81,7 +85,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    makeBranchForTree( );
     // initializeBReader();
-    initializeInputFiles( m_era );
+    initializeInputFiles( m_era );// for now I intialize for data too
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -114,18 +118,16 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //initialize
     InitializeBranches();
 
-    // if ( wantFilterHLTBranches ){
-        Flag_goodVertices = *Flag_goodVertices_;
-        Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
-        Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;
-        Flag_HBHENoiseIsoFilter = *Flag_HBHENoiseIsoFilter_;
-        Flag_EcalDeadCellTriggerPrimitiveFilter = *Flag_EcalDeadCellTriggerPrimitiveFilter_;
-        Flag_BadPFMuonFilter = *Flag_BadPFMuonFilter_;
-        Flag_eeBadScFilter = *Flag_eeBadScFilter_;
-        HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
-        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
-        HLT_PFJet450 = *HLT_PFJet450_;
-    // }
+	Flag_goodVertices = *Flag_goodVertices_;
+	Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
+	Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;
+	Flag_HBHENoiseIsoFilter = *Flag_HBHENoiseIsoFilter_;
+	Flag_EcalDeadCellTriggerPrimitiveFilter = *Flag_EcalDeadCellTriggerPrimitiveFilter_;
+	Flag_BadPFMuonFilter = *Flag_BadPFMuonFilter_;
+	Flag_eeBadScFilter = *Flag_eeBadScFilter_;
+	HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
+	HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+	HLT_PFJet450 = *HLT_PFJet450_;
 
 	if ( HLTSelection ){
 		if ( fProcessed==1 ) std::cout<<"doing HTL selection\n";
