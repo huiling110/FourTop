@@ -38,7 +38,7 @@ public :
     Int_t m_selectionBit;
    Bool_t MetFilters = true;
    Bool_t baselineselection = true;
-   Bool_t HLTSelection = true;
+   Bool_t HLTSelection ;
    Long64_t   fProcessed = 0;
    Double_t fProcessed_genWeight = 0;
    Long64_t fPassingMetFilters = 0;

@@ -16,7 +16,7 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "output/",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
     const TString eventSelectionBit = "7"  
-    // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
+    // 1 for MetFilters, 2 for HLTSelection, 4 for baseline. so 7 if all selection; 0 if no selection 
     )
 {
     //get era from inputBase

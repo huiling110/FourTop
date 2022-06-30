@@ -73,6 +73,9 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    m_selectionBit = std::stoi( selectionBit.Data() );
    std::cout<<"m_selectionBit: "<<m_selectionBit<<"\n"; 
 
+	//initialize selection level
+	// switch()
+
 
    outputfile = new TFile( outFileName, "RECREiATE");
    std::cout<<outputfile->GetName()<<"\n";
