@@ -38,19 +38,23 @@ def main():
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
 
-    inputDirMap = {}
+    inOutDirMap = {}
     #python dict
     if year=='2016':
-        inputDirMap ['2016postVFP'] = {}
-        inputDirMap ['2016preVFP'] = {}
-        inputDirMap['2016preVFP']['mc']= inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/'  
-        inputDirMap['2016postVFP']['mc'] = inputBase + 'UL2016_postVFP/' + inVersion + '/mc/'
+        inOutDirMap ['2016postVFP'] = {}
+        inOutDirMap ['2016preVFP'] = {}
+        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + 'mc/' ]  
+        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + 'mc/']
         if not justMC:
-            inputDirMap['2016preVFP'] ['data']= inputBase + 'UL2016_preVFP/'+ inVersion + '/data/'  
-            inputDirMap['2016postVFP']['data'] = inputBase + 'UL2016_postVFP/' + inVersion + '/data/'
+            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + 'data/']
+            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + 'data/']
 
-    for iera in inputDirMap.keys():
+    for iera in inOutDirMap.keys():
         print(iera)
+        for key in inOutDirMap[iera].keys():
+            iDir = inOutDirMap[iera][key]
+            print( iDir )
+            # generateJobsForDir( iDir, )
 
 
 
