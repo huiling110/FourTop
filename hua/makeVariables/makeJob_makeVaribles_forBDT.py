@@ -33,6 +33,7 @@ def main():
     justMC = False
     year = '2016'
     dataSet = 'jetHT'
+    selectionBit = '7'
 
 
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
@@ -43,23 +44,54 @@ def main():
     if year=='2016':
         inOutDirMap ['2016postVFP'] = {}
         inOutDirMap ['2016preVFP'] = {}
-        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + 'mc/' ]  
-        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + 'mc/']
+        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
+        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
         if not justMC:
-            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + 'data/']
-            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + 'data/']
+            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/ata/']
+            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
 
     for iera in inOutDirMap.keys():
         print(iera)
+        if not os.path.exists( outputBase + iera +'/' ):
+            os.mkdir( outputBase + iera +'/'  )
+        if not os.path.exists( outputBase+iera+'/'+ outVersion+'_'+inVersion):
+            os.mkdir( outputBase+iera+'/' +outVersion+'_'+inVersion)
         for key in inOutDirMap[iera].keys():
             iDir = inOutDirMap[iera][key]
             print( iDir )
-            # generateJobsForDir( iDir, )
+            generateJobsForDir( iDir, iera+'_'+key, selectionBit )
 
 
+def generateJobsForDir( inOutList, dirKind, selectionBit ):
+    subDirJobs = open( dirKind+'_subAll.sh', 'w' )
+    jobsDir = dirKind + '_jobs/'
+    if not os.path.exists( jobsDir ):
+        os.mkdir( jobsDir )
+    if not os.path.exists( inOutList[1] ):
+        os.mkdir ( inOutList[1] )
 
-#     Jobsuvbmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables'
-#     rootplizer = "run_makeVaribles_forBDT.C"
+    for entry in os.listdir(inOutList[0] ):
+        # processJob = 'Jobsubmit_seperate/'+  entry + ".sh"
+        processJob = jobsDir +  entry + ".sh"
+        iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
+        writeIjob( iParametersList, processJob )
+
+        if not os.path.exists(inOutList[1] +"log/" ):
+            os.mkdir( inOutList[1]  +"log/")
+        logFile = inOutList[1] +   "log/" + entry + ".log"
+        errFile = inOutList[1] +  "log/" + entry +".err"
+        subDirJobs.write( 'hep_sub '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+
+
+def writeIjob( parameterList, processJob ):
+    subFile  = open ( processJob ,"w")
+    subFile.write( "#!/bin/bash\n")
+    subFile.write("/bin/hostname\n")
+    subFile.write("cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables\n")
+    command = 'root -b -l -q \'run_makeVaribles_forBDT.C(false, \"{}\", \"{}\", \"{}\", \"{}\"   )\' '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    subFile.write(command )
+    subFile.close()
+
 #     subAllFile = Jobsubmitpath+"/subAllProcess.sh"
 #     if os.path.exists(subAllFile):
 #         os.popen('rm -fr '+subAllFile)
@@ -73,16 +105,6 @@ def main():
 #     print >> subAllProcessName, "#!/bin/bash"
 #     print >> subAllProcessName, "cd "+Jobsubmitpath
 
-#     for entry in os.listdir(inputDir ):
-#         #  if entry
-#         processJob = 'Jobsubmit_seperate/'+  entry + ".sh"
-#         prepareCshJob( entry, processJob )
-
-#         if not os.path.exists(outputDir +"/log/" ):
-#             os.mkdir( outputDir  +"/log/")
-#         logFile = outputDir +   "log/" + entry + ".log"
-#         errFile = outputDir +  "log/" + entry +".err"
-#         print >> subAllProcessName, "hep_sub "+  processJob  + " -o " + logFile + " -e " + errFile
 
 
 # os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_seperate/*sh")
@@ -90,13 +112,6 @@ def main():
 
 
 
-# def prepareCshJob(inputFile,shFile ):
-#     subFile  = file(shFile,"w")
-#     print >> subFile, "#!/bin/bash"
-#     print >> subFile, "/bin/hostname"
-#     print >> subFile, "cd "+Jobsubmitpath
-#     print >> subFile, "root -l -b -q "+"\'"+rootplizer+"(false,\"" + inputDir+"\","     +"\""+inputFile+"\","+"\""+outputDir+ "\""  + ")"+ "\'"
-#     print shFile
 
 
 
