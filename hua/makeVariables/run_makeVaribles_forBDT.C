@@ -19,7 +19,17 @@ void run_makeVaribles_forBDT(
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     )
 {
-    
+    //get era from inputBase
+    TString sub = inputBase( inputBase.Index("NanoAOD")+8, inputBase.Length());
+    TString era = sub(0, sub.First("/") );
+    cout<<era<<"\n";
+    era.Remove( era.Index("UL"), 2  );
+    era.Remove( era.Index("_") , 1 );
+    cout<<"era in run"<<era<<"\n";
+   
+
+
+/*
     gROOT->ProcessLine( ".L makeVaribles_forBDT.so");
     
     Bool_t ifMergeAllevent = false;
@@ -65,6 +75,6 @@ void run_makeVaribles_forBDT(
         // file->Close();
     }
 
-
+*/
 }
  
