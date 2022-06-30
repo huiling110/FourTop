@@ -35,10 +35,10 @@ public :
    //add
    //  BTagCalibrationReader CSVreader;
     // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
-    Int_t m_selectionBit;
-   Bool_t MetFilters = true;
-   Bool_t baselineselection = true;
-   Bool_t HLTSelection ;
+    // Int_t m_selectionBit;
+   Bool_t m_MetFilters = false;
+   Bool_t m_baselineSelection = false;
+   Bool_t m_HLTSelection = false ;
    Long64_t   fProcessed = 0;
    Double_t fProcessed_genWeight = 0;
    Long64_t fPassingMetFilters = 0;

@@ -70,23 +70,57 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    std::cout<<"m_era: "<<m_era<<"\n";
    option.Remove( 0, option.First(":")+1 );
    TString selectionBit = option( 0, option.First(":"));
-   m_selectionBit = std::stoi( selectionBit.Data() );
-   std::cout<<"m_selectionBit: "<<m_selectionBit<<"\n"; 
+   Int_t selectionBitInt = std::stoi( selectionBit.Data() );
+   std::cout<<"selectionBit: "<<selectionBitInt<<"\n"; 
 
 	//initialize selection level
-	// switch()
+	//???should make this an function and then a library to be easily used by other codes
+	switch ( selectionBitInt )
+	{
+	case 0 :
+		m_MetFilters = 0;
+		m_HLTSelection = 0;
+		m_baselineSelection = 0;
+		break;
+	case 1:
+		m_MetFilters = 1;
+		break;
+	case 2:
+		m_HLTSelection = 1;
+		break;
+	case 3:
+		m_MetFilters =  1;
+		m_HLTSelection = 1;
+		break;
+	case 4:
+		m_baselineSelection = 1;
+		break;
+	case 5:
+		m_MetFilters = 1;
+		m_baselineSelection = 1;
+		break;
+	case 6:
+		m_HLTSelection = 1;
+		m_baselineSelection = 1;
+	case 7:
+		m_MetFilters = 1;
+		m_HLTSelection = 1;
+		m_baselineSelection = 1;
+	default:
+		break;
+	}
+	std::cout << "m_MetFilters:m_HLTSelection:m_baselineSelection: " << m_MetFilters << m_HLTSelection << m_baselineSelection << "\n";
 
+	outputfile = new TFile(outFileName, "RECREiATE");
+	std::cout << outputfile->GetName() << "\n";
 
-   outputfile = new TFile( outFileName, "RECREiATE");
-   std::cout<<outputfile->GetName()<<"\n";
+	newtree = new TTree("newtree", "tree for BDT");
 
-   newtree = new TTree( "newtree", "tree for BDT");
+	h_intial_jetNumber = new TH1D("jetsNumber_initial", "jets number initial", 40, 0, 40);
+	h_HLT_jetNumber = new TH1D("jetsNumber_HLT", "jets number after HLT", 40, 0, 40);
+	h_baseline_jetNumber = new TH1D("jetsNumber_baseline", "jets number after baseline", 40, 0, 40);
 
-   h_intial_jetNumber = new TH1D( "jetsNumber_initial", "jets number initial", 40, 0, 40 );
-   h_HLT_jetNumber = new TH1D( "jetsNumber_HLT", "jets number after HLT", 40, 0, 40 );
-   h_baseline_jetNumber = new TH1D( "jetsNumber_baseline", "jets number after baseline", 40, 0, 40 );
-
-   makeBranchForTree( );
+	makeBranchForTree();
     // initializeBReader();
     initializeInputFiles( m_era );// for now I intialize for data too
 }
@@ -132,7 +166,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
 	HLT_PFJet450 = *HLT_PFJet450_;
 
-	if ( HLTSelection ){
+	if ( m_HLTSelection ){
 		if ( fProcessed==1 ) std::cout<<"doing HTL selection\n";
         if (m_era.CompareTo("2016preVFP")==0 || m_era.CompareTo("2016postVFP")==0) {
             if( !( *HLT_PFHT450_SixJet40_BTagCSV_p056_==1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1 || *HLT_PFJet450_==1  )  ) return kFALSE;
@@ -582,7 +616,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
 	//copy weight from
 
-	if (baselineselection)
+	if (m_baselineSelection)
     {
     //   if (!(jets_HT > 400))  return kFALSE;
       	if (!(jets_HT>500  && jets_6pt>40))  return kFALSE;
@@ -614,7 +648,7 @@ void makeVaribles_forBDT::Terminate()
 
    Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight );
    Info("Terminate", "passing HLT events: %lld; genWeighted events: %lf", fPassingHLT, fPassingHLT_genWeight );
-   Info("Terminate", "passing baselineselection: %lld", fPassingPreselection );
+   Info("Terminate", "passing m_baselineSelection: %lld", fPassingPreselection );
    Info("Terminate", "output file here: %s", outputfile->GetName());
 
 }
