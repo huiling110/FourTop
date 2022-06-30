@@ -600,19 +600,19 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //???tracker file has some problems
 
 	// EleIDSF->Print();
-    eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
+    // eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
     eleMVAT_IDSF_weight_backup = calMuonIDSF( eleMVAT, EleIDSF, 0, kFALSE, m_isData );
 	eleMVAT_IDSF_weight_up = calMuonIDSF( eleMVAT, EleIDSF, 1, kFALSE, m_isData );
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false, m_isData );
 
 	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
-    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom" );
-	tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom");
-	tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
-    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" );
-    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" );
-    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up" );
-    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" );
+    tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom" , m_isData );
+	tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData );
+	tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData );
+    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom" , m_isData );
+    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom" , m_isData );
+    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up" , m_isData );
+    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down" , m_isData );
 	//copy weight from
 
 	if (m_baselineSelection)
