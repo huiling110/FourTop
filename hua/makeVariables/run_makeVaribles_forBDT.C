@@ -25,16 +25,16 @@ void run_makeVaribles_forBDT(
     cout<<era<<"\n";
     era.Remove( era.Index("UL"), 2  );
     era.Remove( era.Index("_") , 1 );
-    cout<<"era in run"<<era<<"\n";
+    cout<<"era in run: "<<era<<"\n";
    
 
-
-/*
     gROOT->ProcessLine( ".L makeVaribles_forBDT.so");
     
     Bool_t ifMergeAllevent = false;
     if ( !istest){
         ifMergeAllevent = true;
+    }else{
+        outputDir = "output/";
     }
    
 
@@ -50,14 +50,13 @@ void run_makeVaribles_forBDT(
 
     TString selection = "makeVaribles_forBDT.C";
 
-    
+    TString option = outputDir+outputFileName + ":" + era +":";
+    cout<<"option in run: "<<option<<"\n";
+
     if ( istest ){
-        outputDir = "output/";
-        // chain.Process( selection + "+", outputDir + outputFileName, 10000);
-        // chain.Process( selection + "+", outputDir + outputFileName, 1000);
-        chain.Process( selection + "+", outputDir + outputFileName, 100);
+        chain.Process( selection + "+", option, 100);
     }
-    else chain.Process( selection + "+", outputDir + outputFileName);
+    else chain.Process( selection + "+", option);
 
 
     if ( ifMergeAllevent){
@@ -75,6 +74,5 @@ void run_makeVaribles_forBDT(
         // file->Close();
     }
 
-*/
 }
  

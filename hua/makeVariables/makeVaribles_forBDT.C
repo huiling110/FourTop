@@ -61,10 +61,16 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    // When running with PROOF SlaveBegin() is called on each slave server.
    // The tree argument is deprecated (on PROOF 0 is passed).
 
+	//get option from run macro
    TString option = GetOption();
+   TString outFileName = option(0,option.First(":"));
+   std::cout<<"outFileName: "<<outFileName<<"\n";
+   option.Remove( 0, option.First(":")+1 );
+   m_era = option( 0, option.First(":"));
+   std::cout<<"m_era: "<<m_era<<"\n";
 
-   TString outFileName = option;
-   outputfile = new TFile( outFileName, "RECREATE");
+
+   outputfile = new TFile( outFileName, "RECREiATE");
    std::cout<<outputfile->GetName()<<"\n";
 
    newtree = new TTree( "newtree", "tree for BDT");
@@ -75,7 +81,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
    makeBranchForTree( );
     // initializeBReader();
-    initializeInputFiles( era );
+    initializeInputFiles( m_era );
 }
 
 Bool_t makeVaribles_forBDT::Process(Long64_t entry)
@@ -99,7 +105,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
    // fReader.SetEntry(entry);
     fReader.SetLocalEntry(entry);
     fProcessed++;
-	  fProcessed_genWeight += *EVENT_genWeight_ ;
+	fProcessed_genWeight += *EVENT_genWeight_ ;
 	// fProcessed_basicWeight + = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight_Up);
 	// std::cout<<"genWeight: "<<*EVENT_genWeight_<<"\n";
 
@@ -123,7 +129,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	if ( HLTSelection ){
 		if ( fProcessed==1 ) std::cout<<"doing HTL selection\n";
-        if (era.CompareTo("2016preVFP")==0 || era.CompareTo("2016postVFP")==0) {
+        if (m_era.CompareTo("2016preVFP")==0 || m_era.CompareTo("2016postVFP")==0) {
             if( !( *HLT_PFHT450_SixJet40_BTagCSV_p056_==1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_==1 || *HLT_PFJet450_==1  )  ) return kFALSE;
         }
 	}
@@ -535,7 +541,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         toptagger_3phi = fabs(tops_toptagger[2].Phi());
       }
 
-	std::cout<<__LINE__<<"\n";
+	// std::cout<<__LINE__<<"\n";
 
      //weights
      EVENT_prefireWeight = *EVENT_prefireWeight_;
@@ -561,7 +567,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	eleMVAT_IDSF_weight_up = calMuonIDSF( eleMVAT, EleIDSF, 1, kFALSE );
     eleMVAT_IDSF_weight_down = calMuonIDSF( eleMVAT, EleIDSF, 2, false );
 
-	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, era );//
+	  // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new( tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom" );
 	tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom");
 	tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom");
@@ -609,11 +615,11 @@ void makeVaribles_forBDT::Terminate()
 }
 
 
-void makeVaribles_forBDT::initializeInputFiles( const TString era ){
+void makeVaribles_forBDT::initializeInputFiles( const TString m_era ){
 #include "inputFileClass.h"
     //muon ID 
-    TFile* input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
-    // input_MuonIDSF = new TFile( MUOSF_files[era], "READ" );
+    TFile* input_MuonIDSF = new TFile( MUOSF_files[m_era], "READ" );
+    // input_MuonIDSF = new TFile( MUOSF_files[m_era], "READ" );
     // input_MuonIDSF->Print();
 	MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
 	// TH2D* MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
@@ -623,19 +629,19 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	delete input_MuonIDSF;
 
 	//muon traker
-	TFile* muonTracerSF_file = new TFile( muonSF_tracker[era], "READ");
+	TFile* muonTracerSF_file = new TFile( muonSF_tracker[m_era], "READ");
 	muonTrackerSF_hist = (TH2D*)muonTracerSF_file->Get("NUM_TrackerMuons_DEN_genTracks");
 	muonTrackerSF_hist->Print();
 	MuonIDSF->SetDirectory(nullptr);
 	muonTracerSF_file->Close();
 	delete muonTracerSF_file;
   //muon ISO
-  // TFile* muonIsoSF_file = new TFlie( muonSF_iso[era], "READ");
+  // TFile* muonIsoSF_file = new TFlie( muonSF_iso[m_era], "READ");
   // muonIsoSF_hist = (TH2D*)muonIsoSF_file->Get()
 
 
 	//eGamma
-	TFile* input_EleIDSF = new TFile( TString(EGammaSF_files[era]), "READ" );
+	TFile* input_EleIDSF = new TFile( TString(EGammaSF_files[m_era]), "READ" );
 	EleIDSF = (TH2D*)input_EleIDSF->Get("EGamma_SF2D");
 	EleIDSF->SetDirectory(nullptr);
 	input_EleIDSF->Close();
@@ -643,11 +649,11 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	EleIDSF->Print();
 
 	//trigger
-	TFile* input_TrigSF = new TFile( TString(TRGSF_files[era]), "READ" );
-	// TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+era);
-	// TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+era);
-	TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+ map_era[era]);
-	TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+ map_era[era] );
+	TFile* input_TrigSF = new TFile( TString(TRGSF_files[m_era]), "READ" );
+	// TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+m_era);
+	// TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+m_era);
+	TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+ map_era[m_era]);
+	TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+ map_era[m_era] );
 	TriggerSF->SetDirectory(nullptr);
 	TriggerSFunc->SetDirectory(nullptr);
 	input_TrigSF->Close();
@@ -657,7 +663,7 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	#include "../../objectSelection/inputMap.h"
 	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	TString base = "../../../jsonpog-integration/POG/";
-	TString tauSF_json = base  + json_map[era].at(1) ;
+	TString tauSF_json = base  + json_map[m_era].at(1) ;
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
 	for (auto& corr : *cset) {
         printf("Correction: %s\n", corr.first.c_str());

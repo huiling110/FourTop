@@ -47,7 +47,7 @@ public :
    Long64_t fPassingPreselection = 0;
 //    TString fprocessName;
 //    TString era = "2016preVFP";
-    TString era = "2016postVFP";
+    TString m_era = "2016postVFP";
     TString m_isData = false;
    TFile *outputfile;
    TTree *newtree;
