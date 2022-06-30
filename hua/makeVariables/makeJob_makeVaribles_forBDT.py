@@ -66,7 +66,7 @@ def main():
     subAllofAll.close()
 
     #change mod
-    # subprocess.run()
+    subprocess.run( 'chmod 777 subAllofAll.sh', shell=True )
 
 
 
@@ -76,6 +76,8 @@ def main():
 
 def generateJobsForDir( inOutList, dirKind, selectionBit ):
     subDirJobs = open( dirKind+'_subAll.sh', 'w' )
+    subDirJobs.write( '#!/bin/bash\n' )
+    subDirJobs.write( 'cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/\n')
     jobsDir = dirKind + '_jobs/'
     if not os.path.exists( jobsDir ):
         os.mkdir( jobsDir )
@@ -92,7 +94,8 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
             os.mkdir( inOutList[1]  +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        subDirJobs.write( 'hep_sub -mem 4000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        # subDirJobs.write( 'hep_sub -mem 4000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
     subprocess.run( 'chmod 777 ' + dirKind+'_subAll.sh', shell = True)
