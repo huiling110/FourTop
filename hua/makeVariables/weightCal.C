@@ -65,15 +65,19 @@ Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTr
 	return tauIDSF;
 }
 
-Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVector>& jets, const TH2D* TriggerSF, const TH2D* TriggerSFunc  ){
+Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVector>& jets, const TH2D* TriggerSF, const TH2D* TriggerSFunc, Bool_t isData  ){
 	Double_t triggerSF = 1.0;
-	Int_t binx = TriggerSF->GetXaxis()->FindBin(jets_HT);
-	Int_t biny = TriggerSF->GetYaxis()->FindBin(jets.GetSize());
-	if (jets.GetSize() > 11 ) triggerSF = 1.0;
-	else if ( TriggerSFunc->GetBinContent(binx, biny)/TriggerSF->GetBinContent(binx, biny) > 0.50 ) triggerSF = 1.0;
-	//???is this setting resonable?
-	else triggerSF = TriggerSF->GetBinContent(binx, biny); 
-	if (triggerSF == 0) triggerSF = 1.0;
+	if ( isData ){
+		Int_t binx = TriggerSF->GetXaxis()->FindBin(jets_HT);
+		Int_t biny = TriggerSF->GetYaxis()->FindBin(jets.GetSize());
+		if (jets.GetSize() > 11 ) triggerSF = 1.0;
+		else if ( TriggerSFunc->GetBinContent(binx, biny)/TriggerSF->GetBinContent(binx, biny) > 0.50 ) triggerSF = 1.0;
+		//???is this setting resonable?
+		else triggerSF = TriggerSF->GetBinContent(binx, biny); 
+		if (triggerSF == 0) triggerSF = 1.0;
+	}else{
+		triggerSF = 1.0;
+	}
 	return triggerSF;
 }
 

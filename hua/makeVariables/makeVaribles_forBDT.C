@@ -287,7 +287,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
       tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
 
-      // sort(tausL.begin(), tausL.end(), comparePt);
       if (tausL_number > 0) {
         tauL_1pt = tausL[0].Pt();
         tauL_1eta = fabs(tausL[0].Eta());
@@ -374,7 +373,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
       if (jets_number > 6) {
         jets_7pt = jets[6].Pt();
         jets_7eta = fabs(jets[6].Eta());
-        jetL_7phi = fabs(jets[6].Phi());
+        jets_7phi = fabs(jets[6].Phi());
         //???
       }
       if (jets_number > 7) {
@@ -593,7 +592,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
     //  btagEfficiency_weight = allBtagSF[0];
     //  btagEfficiency_weight = calBTagSF( );
-    HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc ); 
+    HLTefficiency_weight = getHLTweight( jets_HT, jets, TriggerSF, TriggerSFunc, m_isData ); 
     muonIDSF_weight = calMuonIDSF( muonsT, MuonIDSF, 0, kTRUE );
     muonIDSF_weight_up = calMuonIDSF( muonsT, MuonIDSF, 1, kTRUE );
     muonIDSF_weight_down = calMuonIDSF( muonsT, MuonIDSF, 2, kTRUE );
@@ -897,7 +896,7 @@ void makeVaribles_forBDT::makeBranchForTree( /*TTree* newtree*/){
   newtree->Branch("jets_6phi", &jets_6phi, "jets_6phi/D");
   newtree->Branch("jets_7pt", &jets_7pt, "jets_7pt/D");
   newtree->Branch("jets_7eta", &jets_7eta, "jets_7eta/D");
-  newtree->Branch("jetL_7phi", &jetL_7phi, "jetL_7phi/D");
+  newtree->Branch("jets_7phi", &jets_7phi, "jets_7phi/D");
   newtree->Branch("jets_8pt", &jets_8pt, "jets_8pt/D");
   newtree->Branch("jets_8eta", &jets_8eta, "jets_8eta/D");
   newtree->Branch("jets_8phi", &jets_8phi, "jets_8phi/D");
@@ -1222,7 +1221,7 @@ void makeVaribles_forBDT::InitializeBranches()
      jets_6phi = -99;
      jets_7pt = -99;
      jets_7eta = -99;
-     jetL_7phi = -99;
+     jets_7phi = -99;
      jets_8pt = -99;
      jets_8eta = -99;
      jets_8phi = -99;

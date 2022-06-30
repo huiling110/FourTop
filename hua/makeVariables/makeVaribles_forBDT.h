@@ -229,7 +229,7 @@ public :
     Double_t     jets_6phi = -99;
     Double_t     jets_7pt = -99;
     Double_t     jets_7eta = -99;
-    Double_t     jetL_7phi = -99;
+    Double_t     jets_7phi = -99;
     Double_t     jets_8pt = -99;
     Double_t     jets_8eta = -99;
     Double_t     jets_8phi = -99;
