@@ -35,7 +35,7 @@ public :
    //add
    //  BTagCalibrationReader CSVreader;
     // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
-   Bool_t wantFilterHLTBranches = true;
+//    Bool_t wantFilterHLTBranches = true;
    Bool_t MetFilters = true;
    Bool_t baselineselection = true;
    Bool_t HLTSelection = true;
@@ -48,7 +48,7 @@ public :
 //    TString fprocessName;
 //    TString era = "2016preVFP";
     TString era = "2016postVFP";
-    TString isData = false;
+    TString m_isData = false;
    TFile *outputfile;
    TTree *newtree;
    // TH1D  *h_genWeight ;
@@ -520,7 +520,7 @@ TTreeReaderValue<Int_t>      HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
    virtual void    Terminate();
     void InitializeBranches();
     void initializeBReader();;
-    void makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches);
+    void makeBranchForTree( );
     void initializeInputFiles(  const TString era );
    ClassDef(makeVaribles_forBDT,0);
 

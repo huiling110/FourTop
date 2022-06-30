@@ -73,7 +73,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
    h_HLT_jetNumber = new TH1D( "jetsNumber_HLT", "jets number after HLT", 40, 0, 40 );
    h_baseline_jetNumber = new TH1D( "jetsNumber_baseline", "jets number after baseline", 40, 0, 40 );
 
-   makeBranchForTree( newtree, wantFilterHLTBranches);
+   makeBranchForTree( );
     // initializeBReader();
     initializeInputFiles( era );
 }
@@ -108,7 +108,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //initialize
     InitializeBranches();
 
-    if ( wantFilterHLTBranches ){
+    // if ( wantFilterHLTBranches ){
         Flag_goodVertices = *Flag_goodVertices_;
         Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
         Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;
@@ -119,7 +119,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
         HLT_PFJet450 = *HLT_PFJet450_;
-    }
+    // }
 
 	if ( HLTSelection ){
 		if ( fProcessed==1 ) std::cout<<"doing HTL selection\n";
@@ -666,8 +666,8 @@ void makeVaribles_forBDT::initializeInputFiles( const TString era ){
 	// cset_JES = correction::CorrectionSet::from_file(JES_json);
 }
 
-void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHLTBranches ){
-   if ( wantFilterHLTBranches ){
+void makeVaribles_forBDT::makeBranchForTree( /*TTree* newtree*/){
+//    if ( wantFilterHLTBranches ){
        newtree->Branch( "Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
        newtree->Branch( "Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
        newtree->Branch( "Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter, "Flag_HBHENoiseFilter/I");
@@ -680,7 +680,7 @@ void makeVaribles_forBDT::makeBranchForTree( TTree* newtree, Bool_t wantFilterHL
         newtree->Branch( "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
        newtree->Branch( "HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
 
-   }
+//    }
    
    newtree->Branch( "EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
    newtree->Branch( "EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");
