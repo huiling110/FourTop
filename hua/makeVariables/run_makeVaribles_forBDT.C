@@ -55,6 +55,7 @@ void run_makeVaribles_forBDT(
 
     if ( istest ){
         chain.Process( selection + "+", option, 100);
+        chain.Process( selection + "+", option, 1000);
     }
     else chain.Process( selection + "+", option);
 
