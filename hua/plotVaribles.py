@@ -108,7 +108,7 @@ def main():
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     for variable in variables:        
-        makeStackPlot(nom[variable],systs[variable],variable,myRegion, plotDir )
+        makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir )
 
 
 def extractHistograms( dir, variablesToCheck , myRegion):
@@ -158,7 +158,7 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     return (nominalHists,systematicHists)
 
 
-def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
+def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir,savePost = ""):
     #name is variable name
     stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
     canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
