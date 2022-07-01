@@ -94,7 +94,8 @@ includeDataInStack = False
 
 def main():
 
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/variableHists/'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
@@ -105,11 +106,11 @@ def main():
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
 
-    plotDir = inputDir+'results'
+    plotDir = inputDir+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     for variable in variables:        
-        makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir )
+        makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
 
 
 def extractHistograms( dir, variablesToCheck , myRegion):
@@ -168,7 +169,7 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     return (nominalHists,systematicHists)
 
 
-def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir,savePost = ""):
+def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""):
     #name is variable name
     stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
     canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
@@ -237,8 +238,8 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir,savePost = ""):
 
     leggy.Draw()
 
-    canvy.SaveAs(outDir+"/{2}{0}{1}.png".format(region,savePost,name))
-    # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
+    # canvy.SaveAs(outDir+"{2}{0}{1}.png".format(region,savePost,name))
+    canvy.SaveAs( outDir+"{}_{}_{}.png".format(region,name, plotNameEtra) )
 
     canvy.cd()
 
@@ -373,13 +374,12 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
             eyl.append(systDown.GetBinContent(i)/totalMC.GetBinContent(i))
             eyh.append(systUp.GetBinContent(i)/totalMC.GetBinContent(i))
             #???can you simply divide error like this? i think it's wrong
-    print
-    print x
-    print y
-    print exl
-    print exh
-    print eyl
-    print eyh
+    print(x)
+    print(y)
+    print(exl)
+    print(exh)
+    print(eyl)
+    print(eyh)
     errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
     return errors
 
