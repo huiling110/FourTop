@@ -13,7 +13,7 @@ import subprocess
 # post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v4modifiedMinDeltaR_fromV9/' 
 # merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4modifiedMinDeltaR_fromV9/'
 version = 'v0baseline_v16_HLTselection/'
-ifJustMC = True
+ifJustMC = False
 
 # pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/'
 # post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/'
@@ -34,6 +34,10 @@ mergedDirDict = {}
 preDirDict['mc'] = pre_dir + 'mc/'
 postDirDict['mc'] = post_dir + 'mc/'
 mergedDirDict ['mc']= merged_dir + 'mc/'
+if not ifJustMC:
+    preDirDict['data'] = pre_dir + 'data/'
+    postDirDict['data'] = post_dir + 'data/'
+    mergedDirDict['data'] = merged_dir + 'data/'
 
 
 for ikey in preDirDict.keys():

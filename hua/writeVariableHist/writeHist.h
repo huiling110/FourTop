@@ -26,6 +26,7 @@ public :
    TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
    //my member variables
+   Bool_t isData;
    Double_t m_genWeightSum;
    TString m_outputFolder;
    TString m_processName;

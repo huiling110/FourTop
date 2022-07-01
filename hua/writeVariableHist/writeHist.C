@@ -41,7 +41,7 @@
    //  TString option5 = temp.Remove(0, temp.First(":")+1 );
 // }
 
-void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName ){
+void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName, Bool_t isData ){
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
 	for (UInt_t i=0; i<regions.size(); i++){
 		// 1250015d::co12<<regions[i]<<"\n";
@@ -92,17 +92,6 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
     hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 
-/*
-    std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
-   //hist name: region_prcess_variable
-	for (UInt_t i=0; i<regions.size(); i++){
-		std::cout<<regions[i]<<"\n";
-		TString iHistName =  regions[i]+"_"+ m_processName +"_" + "jets_number";
-		TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), 40, 0, 40 );
-		// temp->SetName( iHistName.Data() );
-		jetsNumber_hists.push_back( temp );
-	}
-*/
 	// push_backHists()
 	push_backHists( "jets_number", 10, 6, 15, jetsNumber_hists, m_processName );
 	push_backHists( "jets_HT", 100, 500, 1500, jets_HT_hists, m_processName );
