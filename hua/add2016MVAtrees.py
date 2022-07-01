@@ -3,15 +3,15 @@
 import os
 import subprocess
 
-# pre_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v2Add2Variables_fromV9/'
-# post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v2Add2Variables_fromV9/' 
-# merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2Add2Variables_fromV9/'
-# pre_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v3correctBjetsvariable_fromV9/'
-# post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v3correctBjetsvariable_fromV9/' 
-# merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3correctBjetsvariable_fromV9/'
-# pre_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v4modifiedMinDeltaR_fromV9/'
-# post_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v4modifiedMinDeltaR_fromV9/' 
-# merged_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4modifiedMinDeltaR_fromV9/'
+
+def copyData( dir ):
+    for ifile in os.listdir( dir ):
+        copyCom = 'cp {} {}'.format( dir+ifile, mergedDirDict['data']  )
+        print( copyCom )
+        process = subprocess.run( copyCom, shell=True )
+        output = process.stdout
+        print( output )
+
 version = 'v0baseline_v16_HLTselection/'
 ifJustMC = False
 
@@ -40,24 +40,32 @@ if not ifJustMC:
     mergedDirDict['data'] = merged_dir + 'data/'
 
 
-for ikey in preDirDict.keys():
-    print( ikey )
-    if not os.path.exists( mergedDirDict[ikey] ):
-        os.mkdir( mergedDirDict[ikey] )
-    for i in os.listdir( preDirDict[ikey] ):
+#for MC we should haddd to add
+# for ikey in preDirDict.keys():
+#     if not ikey == 'mc': continue
+#     print( ikey )
+#     if not os.path.exists( mergedDirDict[ikey] ):
+#         os.mkdir( mergedDirDict[ikey] )
+#     for i in os.listdir( preDirDict[ikey] ):
+#         if os.path.isdir( preDirDict[ikey] + i ):
+#             continue
 
-        if os.path.isdir( preDirDict[ikey] + i ):
-            continue
+#         ifile = preDirDict[ikey]  + i
+#         ifile_post = postDirDict[ikey] + i 
+#         ifile_merged = mergedDirDict[ikey] + i
+#         icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+#         print( icommand )
+#         process = subprocess.run( icommand, shell=True )
+#         output = process.stdout
+#         print( output )
 
-        ifile = preDirDict[ikey]  + i
-        ifile_post = postDirDict[ikey] + i 
-        ifile_merged = mergedDirDict[ikey] + i
 
-        icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-        print( icommand )
-        process = subprocess.run( icommand, shell=True )
-        output = process.stdout
-        print( output )
+
+#for data
+# copyData( preDirDict['data'])
+copyData( postDirDict['data'])
+
+
 
 
  
