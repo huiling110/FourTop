@@ -4,6 +4,7 @@ import os,sys,math
 from ROOT import *
 
 from setTDRStyle import setTDRStyle
+from array import array
 
 setTDRStyle()
 latex = TLatex()
@@ -115,8 +116,6 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     nominalHists = {}
     systematicHists = {}
 
-    # myRegion = '1tau0lSR'
-
     for var in variablesToCheck:
         nominalHists[var] = {}
         systematicHists[var] = {}
@@ -146,12 +145,23 @@ def extractHistograms( dir, variablesToCheck , myRegion):
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
                         # print('get hist: ', key.GetName() )
-                    else:
+                    else: #add grouped mc bg together
                         nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
                         # print('add hist: ', key.GetName() )
-                # else: #systematic uncertainties
-                #???
+                else: #systematic uncertainties
+                    if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
+                    systName = key.GetName().split("{0}_".format(sampleName))[-1]
+                    #depends on how I name my syst histgram
+                    if systName in systematicHists[varName][histoGramPerSample[sampleName]].keys():
+    #                    print sampleName,varName,systName, systematicHists[varName][histoGramPerSample[sampleName]][systName]
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName].Add(inFile.Get(key.GetName()))
+                    else:
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName] = inFile.Get(key.GetName()).Clone()
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName].SetDirectory(0)
+            # for syst in ["JER","JES"]:
+            #JER and JES in a different files, good idea!
 
+        else: # Now do data stuff
 
             inFile.Close()
 
@@ -231,6 +241,150 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir,savePost = ""):
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
 
     canvy.cd()
+
+def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
+    #name is variable name
+    stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
+    canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
+    leggy = TLegend(0.8,0.6,0.95,0.9)
+    leggy.SetFillStyle(1001)
+    leggy.SetBorderSize(1)
+    leggy.SetFillColor(0)
+    leggy.SetLineColor(0)
+    leggy.SetShadowColor(0)
+    leggy.SetFillColor(kWhite)
+
+    canvy.cd()
+    if includeDataInStack: canvy.SetBottomMargin(0.3)
+
+    #???no dataHist
+    # sumHist = nominal[nominal.keys()[0]].Clone()
+    keyList = list(nominal.keys())
+    #the base hist for adding
+    sumHist = nominal[keyList[0]].Clone()
+    sumHist.Reset()
+    systsUp = nominal[keyList[0]].Clone("systsUp")
+    systsUp.Reset()
+    systsDown = nominal[keyList[0]].Clone("systsDown")
+    systsDown.Reset()
+
+    for i in nominal.keys():
+        print('ikey: ', i)
+        if i == "data":
+            dataHist = nominal["data"]
+            dataHist.SetMarkerStyle(20)
+            dataHist.SetMarkerSize(1.2)
+            dataHist.SetMarkerColor(kBlack)
+            continue
+        nominal[i].SetFillColor(colourPerSample[i])
+        nominal[i].SetLineColor(kBlack)
+        nominal[i].SetLineWidth(1)
+        nominal[i].GetXaxis().SetTitle(name)
+        sumHist.Add(nominal[i]) #sumHist is bg+signal
+        # if i == "qcd": continue #special treatment to data driven bg
+        #???need systsUp and systsDown calculation
+
+    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
+
+    assymErrorPlot.SetFillStyle(3013)
+    assymErrorPlot.SetFillColor(14)
+
+
+
+    if "data" in nominal.keys():
+        leggy.AddEntry(nominal['data'],"Data","p")
+    for entry in legendOrder:
+        leggy.AddEntry(nominal[entry],entry,"f")
+    leggy.AddEntry(assymErrorPlot,"Systs","f")
+
+    legendOrder.reverse()
+    for entry in legendOrder:
+        stack.Add(nominal[entry])
+        # print( 'ientry integral: ', nominal[entry].Integral() )
+    legendOrder.reverse()
+
+
+    maxi = stack.GetMaximum()
+    if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
+    stack.SetMaximum(maxi)
+    stack.Draw("hist")
+
+    if includeDataInStack: dataHist.Draw("e1x0 same")
+
+    assymErrorPlot.Draw("e2 SAME")
+
+    if includeDataInStack:
+        ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
+        ratioCanvy.SetTopMargin(0.7)
+        ratioCanvy.SetFillColor(0)
+        ratioCanvy.SetFillStyle(0)
+        ratioCanvy.SetGridy(1)
+        ratioCanvy.Draw()
+        ratioCanvy.cd(0)
+        SetOwnership(ratioCanvy,False)
+
+        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
+        sumHistoData.Sumw2()
+        sumHistoData.Divide(sumHist)
+
+        sumHistoData.GetYaxis().SetTitle("Data/MC")
+        sumHistoData.GetYaxis().SetTitleOffset(1.3)
+        ratioCanvy.cd()
+        SetOwnership(sumHistoData,False)
+        sumHistoData.SetMinimum(0.8)
+        sumHistoData.SetMaximum(1.2)
+        sumHistoData.GetXaxis().SetTitleOffset(1.2)
+        sumHistoData.GetXaxis().SetLabelSize(0.04)
+        sumHistoData.GetYaxis().SetNdivisions(6)
+        sumHistoData.GetYaxis().SetTitleSize(0.03)
+        sumHistoData.Draw("E1X0")
+        assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
+
+        assymErrorPlotRatio.SetFillStyle(3013)
+        assymErrorPlotRatio.SetFillColor(14) 
+        assymErrorPlotRatio.Draw("e2 same")
+    leggy.Draw()
+
+    canvy.SaveAs(outDir+"/{2}{0}{1}.png".format(region,savePost,name))
+    # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
+
+    canvy.cd()
+
+
+def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
+    # for the data/mc ratio
+    x = array('d',[])
+    y = array('d',[])
+    exl = array('d',[])
+    exh = array('d',[])
+    eyl = array('d',[])
+    eyh = array('d',[])
+    xAxis = systUp.GetXaxis()
+    for i in range(1,xAxis.GetNbins()+1):
+        x.append(xAxis.GetBinCenter(i)) # x is the x value
+        if not isRatio: y.append(totalMC.GetBinContent(i))
+        else: y.append(1.)
+        exl.append(xAxis.GetBinCenter(i) - xAxis.GetBinLowEdge(i))
+        exh.append(xAxis.GetBinLowEdge(i)+xAxis.GetBinWidth(i)-xAxis.GetBinCenter(i))
+        if not isRatio:
+            eyl.append(systDown.GetBinContent(i))
+            eyh.append(systUp.GetBinContent(i))
+        else:
+            eyl.append(systDown.GetBinContent(i)/totalMC.GetBinContent(i))
+            eyh.append(systUp.GetBinContent(i)/totalMC.GetBinContent(i))
+            #???can you simply divide error like this? i think it's wrong
+    print
+    print x
+    print y
+    print exl
+    print exh
+    print eyl
+    print eyh
+    errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
+    return errors
+
+
+
 
 
 
