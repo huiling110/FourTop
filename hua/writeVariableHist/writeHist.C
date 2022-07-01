@@ -29,6 +29,9 @@
 #include <TH2.h>
 #include <TStyle.h>
 
+#include <assert.h>
+#include <cmath>
+
 // void getvOptionFromRunMacro( const TString option, std::vector<TString>& m_options ){
 //    TString option1 = option(0, option.First(":"));
 //     TString temp = option;
@@ -130,7 +133,10 @@ Bool_t writeHist::Process(Long64_t entry)
     fReader.SetLocalEntry(entry);
 
     Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
-    // if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
+	if ( m_isData ){
+		assert( (basicWeight-1.0)<std::epsilon ); 
+	}
+	//Expression to be evaluated. If this expression evaluates to 0, this causes an assertion failure that terminates the program.
     if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
 		//1tau0l SR
 		if ( !m_isData ){
