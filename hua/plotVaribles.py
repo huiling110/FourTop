@@ -170,6 +170,30 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     # else: # Now do data stuff
         inFile.Close()
     
+    for inFileName in os.listdir( dir['data'] ):
+        print( 'now getting data hists<<<<<<<<<<<<\n')
+        if not '.root' in inFileName: continue
+        sampleName = inFileName.split('_variableHist')[0]
+
+        inFile = TFile( os.path.join(dir['data']+inFileName), "READ" )
+        for key in inFile.GetListOfKeys():
+            if 'forYieldCount' in  key.GetName(): continue
+            ihistName = key.GetName()
+            varName = key.GetName().split(sampleName)[1][1:]
+            if not myRegion in key.GetName(): continue
+            if not varName in variablesToCheck: continue#only check 
+            for varName in variablesToCheck:
+                if not "data" in nominalHists[varName].keys():
+                    nominalHists[varName]["data"] = inFile.Get( ihistName ).Clone()
+                    nominalHists[varName]["data"].SetDirectory(0)
+                    print('get hist: ', key.GetName() )
+                    # nominalHists[varName]["qcd"] = inFileQCD.Get("{0}_{1}".format(varName,sampleName)).Clone()
+                    # nominalHists[varName]["qcd"].SetDirectory(0)
+                else:
+                    nominalHists[varName]["data"].Add(inFile.Get( ihistName ))
+                    print('add hist: ', key.GetName() )
+                    # nominalHists[varName]["qcd"].Add(inFileQCD.Get("{0}_{1}".format(varName,sampleName)))
+    print( 'done getting data hists<<<<<<<<<<<\n')
 
     return (nominalHists,systematicHists)
 
@@ -198,7 +222,7 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
 
     for i in nominal.keys():
         print('ikey: ', i)
-        #missing
+        if i=='data': continue
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
