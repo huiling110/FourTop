@@ -41,9 +41,11 @@
    //  TString option5 = temp.Remove(0, temp.First(":")+1 );
 // }
 
-void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName, Bool_t isData ){
+void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName ){
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
-	for (UInt_t i=0; i<regions.size(); i++){
+	// UInt_t startInx = 0;
+	// if ( isData ) startInx = 1;
+	for ( UInt_t i=0; i<regions.size(); i++){
 		// 1250015d::co12<<regions[i]<<"\n";
 		TString iHistName =  regions[i]+"_"+ m_processName +"_" + variable;
 		TH1D* temp = new TH1D( iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin );
@@ -73,15 +75,21 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"option in writeHist: "<<option<<"\n";
 
 	//this part could be in a function for multiple uses
+	//???better structure my project so that these commen functionality go to one include dir
     TString option1 = option(0, option.First(":"));
     TString temp = option;
-    TString option2 = temp.Remove(0, option.First(":")+1);
+    TString option2 = temp.Remove(0, temp.First(":")+1);
     option2 = option2(0, option2.First(":"));
     TString option3 = temp.Remove(0, temp.First(":")+1);
     option3 = option3(0, option3.First(":"));
+    TString option4 = temp.Remove(0, temp.First(":")+1);
+    option4 = option4(0, option4.First(":"));
+	
 
 	m_outputFolder = option2;
 	m_processName = option3;
+	m_isData = std::stoi(option4.Data());
+	std::cout<<"m_isData: "<<m_isData<<"\n";
 
 
     m_genWeightSum = std::stod(option1.Data());
@@ -125,12 +133,15 @@ Bool_t writeHist::Process(Long64_t entry)
     // if ( !(*tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) ) return kFALSE;
     if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
 		//1tau0l SR
-        hist_jetsNumber->Fill( *jets_number, basicWeight );
+		if ( !m_isData ){
+			// be blind for data in signal region
+			hist_jetsNumber->Fill( *jets_number, basicWeight );
 
-		jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[0]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[0]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[0]->Fill( *tausT_HT, basicWeight );
+			jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
+			jets_HT_hists[0]->Fill( *jets_HT, basicWeight );
+			jets_bScore_hists[0]->Fill( *jets_bScore, basicWeight );
+			tausT_HT_hists[0]->Fill( *tausT_HT, basicWeight );
+		}
 
     }
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
