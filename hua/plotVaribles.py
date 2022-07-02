@@ -102,7 +102,8 @@ def main():
     inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
 
 
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    variables = [ 'jets_HT', 'jets_number']
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
@@ -115,8 +116,9 @@ def main():
     plotDir = inputDirDict['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
-    for variable in variables:        
-        makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+    # for variable in variables:        
+        # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+        # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
 
 def extractHistograms( dir, variablesToCheck , myRegion):
@@ -170,29 +172,32 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     # else: # Now do data stuff
         inFile.Close()
     
+    print( 'now getting data hists<<<<<<<<<<<<\n')
     for inFileName in os.listdir( dir['data'] ):
-        print( 'now getting data hists<<<<<<<<<<<<\n')
+        print('\n')
         if not '.root' in inFileName: continue
-        sampleName = inFileName.split('_variableHist')[0]
-
         inFile = TFile( os.path.join(dir['data']+inFileName), "READ" )
+        print( 'openning {}\n'.format( inFileName ) )
+
+        sampleName = inFileName.split('_variableHist')[0]
         for key in inFile.GetListOfKeys():
-            if 'forYieldCount' in  key.GetName(): continue
             ihistName = key.GetName()
-            varName = key.GetName().split(sampleName)[1][1:]
-            if not myRegion in key.GetName(): continue
+            if 'forYieldCount' in  ihistName: continue
+            varName = ihistName.split(sampleName)[1][1:]
             if not varName in variablesToCheck: continue#only check 
-            for varName in variablesToCheck:
-                if not "data" in nominalHists[varName].keys():
-                    nominalHists[varName]["data"] = inFile.Get( ihistName ).Clone()
-                    nominalHists[varName]["data"].SetDirectory(0)
-                    print('get hist: ', key.GetName() )
-                    # nominalHists[varName]["qcd"] = inFileQCD.Get("{0}_{1}".format(varName,sampleName)).Clone()
-                    # nominalHists[varName]["qcd"].SetDirectory(0)
-                else:
-                    nominalHists[varName]["data"].Add(inFile.Get( ihistName ))
-                    print('add hist: ', key.GetName() )
-                    # nominalHists[varName]["qcd"].Add(inFileQCD.Get("{0}_{1}".format(varName,sampleName)))
+            iregionName = ihistName.split('_')[0]
+            if not myRegion==iregionName: continue
+            print( 'ihist:{} in {}\n'.format( ihistName, inFileName  ) )
+            if not "data" in nominalHists[varName].keys():
+                nominalHists[varName]["data"] = inFile.Get( ihistName ).Clone()
+                nominalHists[varName]["data"].SetDirectory(0)
+                print('nomMap[{}][\'data\'] get hist:{}: '.format( varName, ihistName ) )
+                # nominalHists[varName]["qcd"] = inFileQCD.Get("{0}_{1}".format(varName,sampleName)).Clone()
+                # nominalHists[varName]["qcd"].SetDirectory(0)
+            else:
+                nominalHists[varName]["data"].Add(inFile.Get( ihistName ))
+                print('nomMap[{}][\'data\'] add hist:{}: '.format( varName, ihistName ) )
+                # nominalHists[varName]["qcd"].Add(inFileQCD.Get("{0}_{1}".format(varName,sampleName)))
     print( 'done getting data hists<<<<<<<<<<<\n')
 
     return (nominalHists,systematicHists)
@@ -297,8 +302,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     systsUp.Reset()
     systsDown = nominal[keyList[0]].Clone("systsDown")
     systsDown.Reset()
+    dataHist = 0
 
     for i in nominal.keys():
+        # i is i summed MC
         print('ikey: ', i)
         if i == "data":
             dataHist = nominal["data"]
@@ -313,6 +320,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         # if i == "qcd": continue #special treatment to data driven bg
         #???need systsUp and systsDown calculation
+        tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region)
+        systsUp.Add(tempUp)
+        systsDown.Add(tempDown)
 
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
 
@@ -413,6 +423,31 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
     return errors
 
 
+def getSystVariation(nominalHist,systHists,sampleName,region):
+    
+    systHistUp = nominalHist.Clone("up")
+    systHistDown = nominalHist.Clone("down")
+    systHistUp.Reset()
+    systHistDown.Reset()
+    
+    for systHi in systHists.keys():
+        print( systHi )
+        if "bTag" in systHi: continue
+        syst = systHists[systHi].Clone()
+        syst.Add(nominalHist,-1)
+        syst.Divide(nominalHist)
+        for i in range(1,syst.GetXaxis().GetNbins()+1):
+            # print "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)),
+            print( "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)) )
+            if "up" in syst.GetName():
+                systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
+            else:
+                systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
+    for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
+        systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
+        systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
+
+    return systHistUp,systHistDown
 
 
 
