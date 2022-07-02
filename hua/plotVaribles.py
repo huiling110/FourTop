@@ -112,13 +112,16 @@ def main():
     nom, systs = extractHistograms( inputDirDict, variables, myRegion )
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
+    print('systs: ', systs )
+
 
     plotDir = inputDirDict['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
-    # for variable in variables:        
+    for variable in variables:        
+        print( systs[variable])
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
-        # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+        makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
 
 def extractHistograms( dir, variablesToCheck , myRegion):
@@ -129,6 +132,8 @@ def extractHistograms( dir, variablesToCheck , myRegion):
         nominalHists[var] = {}
         systematicHists[var] = {}
     #nominalHists[varName][histoGramPerSample[sampleName]]
+
+    # getHistsFromDir() #???need to combine the data mc into one function
 
     for inFileName in os.listdir( dir['mc'] ):
         sampleName = inFileName.split('_variableHist')[0]
@@ -201,6 +206,11 @@ def extractHistograms( dir, variablesToCheck , myRegion):
     print( 'done getting data hists<<<<<<<<<<<\n')
 
     return (nominalHists,systematicHists)
+
+# def getHistsFromDir( dir ):
+#     return ( nominalHists, systematicHists )
+
+
 
 
 def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""):
@@ -292,7 +302,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.3)
 
-    #???no dataHist
     # sumHist = nominal[nominal.keys()[0]].Clone()
     keyList = list(nominal.keys())
     #the base hist for adding
@@ -304,6 +313,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     systsDown.Reset()
     dataHist = 0
 
+    doSystmatic = True
+    if not systHists:
+        print( 'systHist empty, not including systematic uncertainty\n')
+        doSystmatic = False
+    print( 'doSystmatic: ', doSystmatic )
+
+    #here we get dataHist and add all MC for sumHist    
     for i in nominal.keys():
         # i is i summed MC
         print('ikey: ', i)
@@ -320,9 +336,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         # if i == "qcd": continue #special treatment to data driven bg
         #???need systsUp and systsDown calculation
-        tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region)
-        systsUp.Add(tempUp)
-        systsDown.Add(tempDown)
+        if doSystmatic:
+            tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region)
+            systsUp.Add(tempUp)
+            systsDown.Add(tempDown)
+        else:
+            systsUp.Add(nominal[i])
+            systsDown.Add(nominal[i])
 
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
 
@@ -424,6 +444,10 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
 
 
 def getSystVariation(nominalHist,systHists,sampleName,region):
+    # to calculate the total sysHistUp and down
+    #here the input nominalHist and systHists are for one summed process
+    # systHists include 'up' and 'down' for varias sources
+
     
     systHistUp = nominalHist.Clone("up")
     systHistDown = nominalHist.Clone("down")
@@ -431,6 +455,7 @@ def getSystVariation(nominalHist,systHists,sampleName,region):
     systHistDown.Reset()
     
     for systHi in systHists.keys():
+    #systHi is 'up' or 'down' for varias sources
         print( systHi )
         if "bTag" in systHi: continue
         syst = systHists[systHi].Clone()
