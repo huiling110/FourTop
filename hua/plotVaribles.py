@@ -87,7 +87,8 @@ samples = [
 
 legendOrder = ['tttt', 'tt', 'qcd', 'ttX', 'singleTop', 'VV']
 
-includeDataInStack = False
+# includeDataInStack = False
+includeDataInStack = True
 
 
 
@@ -369,6 +370,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     stack.SetMaximum(maxi)
     stack.Draw("hist")
 
+    dataHist.Print()
     if includeDataInStack: dataHist.Draw("e1x0 same")
 
     assymErrorPlot.Draw("e2 SAME")
@@ -403,12 +405,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         assymErrorPlotRatio.SetFillStyle(3013)
         assymErrorPlotRatio.SetFillColor(14) 
         assymErrorPlotRatio.Draw("e2 same")
+
     leggy.Draw()
 
     canvy.SaveAs(outDir+"/{2}{0}{1}.png".format(region,savePost,name))
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
 
-    canvy.cd()
+    # canvy.cd()
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
@@ -430,9 +433,14 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
             eyl.append(systDown.GetBinContent(i))
             eyh.append(systUp.GetBinContent(i))
         else:
-            eyl.append(systDown.GetBinContent(i)/totalMC.GetBinContent(i))
-            eyh.append(systUp.GetBinContent(i)/totalMC.GetBinContent(i))
+            if not totalMC.GetBinContent(i)==0 :
+                eyl.append(systDown.GetBinContent(i)/totalMC.GetBinContent(i))
+                eyh.append(systUp.GetBinContent(i)/totalMC.GetBinContent(i))
             #???can you simply divide error like this? i think it's wrong
+            else: 
+                #???set to 0 by me
+                eyl = 0
+                elh = 0
     print(x)
     print(y)
     print(exl)

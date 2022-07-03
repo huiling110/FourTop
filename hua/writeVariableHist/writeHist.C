@@ -134,8 +134,10 @@ Bool_t writeHist::Process(Long64_t entry)
 
     Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
 	if ( m_isData ){
-		assert( (basicWeight-1.0)<std::epsilon ); 
+		// assert( (basicWeight-1.0)<std::epsilon ); 
+		basicWeight = 1.0;
 	}
+	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
 	//Expression to be evaluated. If this expression evaluates to 0, this causes an assertion failure that terminates the program.
     if ( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ) {
 		//1tau0l SR
@@ -152,6 +154,7 @@ Bool_t writeHist::Process(Long64_t entry)
     }
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
 		//1tau0lCR
+		std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, basicWeight );
 		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
 		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
