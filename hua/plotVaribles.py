@@ -408,9 +408,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         SetOwnership(sumHistoData,False)
         sumHistoData.SetMinimum(0.8)
         sumHistoData.SetMaximum(1.2)
+        sumHistoData.GetXaxis().SetTitle(name)
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
-        print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetsTitle() )
+        print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.03)
         sumHistoData.Draw("E1X0")
@@ -429,7 +430,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     latex.SetTextSize(0.04*0.76)
     latex.DrawLatex(0.35, 0.95 , extraText )
     
-    latex2.DrawLatex(0.95, 0.95, canvasName );
+    latex2.DrawLatex(0.95, 0.95, '35.9 fb^{-1}(13TeV) ' );
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
