@@ -114,16 +114,21 @@ def main():
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
     print('systs: ', systs )
+    checkHists( nom['jets_HT'] )
 
 
     plotDir = inputDirDict['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
-    for variable in variables:        
-        print( systs[variable])
-        # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
-        makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+    # for variable in variables:        
+    # #     print( systs[variable])
+    #     makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+    # #     makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
+def checkHists( histsDict ):
+    for ikey in histsDict.keys():
+        print('iProcess: ', ikey )
+        histsDict[ikey].Print()
 
 def extractHistograms( dir, variablesToCheck , myRegion):
     nominalHists = {}
@@ -136,22 +141,21 @@ def extractHistograms( dir, variablesToCheck , myRegion):
 
     # getHistsFromDir() #???need to combine the data mc into one function
 
+    print('start to get mc hists<<<<<<<<<<<<<<<<<<<<<<<<<\n')
     for inFileName in os.listdir( dir['mc'] ):
         sampleName = inFileName.split('_variableHist')[0]
         # print('sampleName under dir: ', sampleName )
 
         if not sampleName in samples: continue
-            #???missing something here compared to Duncan's code
-
+        print('opening file: ', inFileName )
         inFile = TFile( os.path.join(dir['mc']+inFileName), "READ" )
         for key in inFile.GetListOfKeys():
-            # print( 'key in iSample: ', key )
+            ihistName = key.GetName()
             if 'forYieldCount' in  key.GetName(): continue
-            #???need to tune this hist name 
             varName = key.GetName().split(sampleName)[1][1:]
-            # print('varName: ', varName )
 
-            if not myRegion in key.GetName(): continue
+            iregionName = ihistName.split('_')[0]
+            if not myRegion==iregionName: continue
             if not varName in variablesToCheck: continue#only check 
             if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
                 #for nominal hists
@@ -159,10 +163,10 @@ def extractHistograms( dir, variablesToCheck , myRegion):
                     #nominalHist[varName].keys() is summed hists
                     nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
                     nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
-                    # print('get hist: ', key.GetName() )
+                    print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
                 else: #add grouped mc bg together
                     nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
-                    # print('add hist: ', key.GetName() )
+                    print('nom[{}][{}] add hist: {} '.format( varName, histoGramPerSample[sampleName], key)  )
             else: #systematic uncertainties
                 if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
                 systName = key.GetName().split("{0}_".format(sampleName))[-1]
@@ -177,7 +181,10 @@ def extractHistograms( dir, variablesToCheck , myRegion):
         #JER and JES in a different files, good idea!
     # else: # Now do data stuff
         inFile.Close()
-    
+    print('done getting mc hists<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+    print('\n')    
+
+
     print( 'now getting data hists<<<<<<<<<<<<\n')
     for inFileName in os.listdir( dir['data'] ):
         print('\n')
@@ -375,7 +382,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     stack.Draw("hist")
 
     dataHist.Print()
-    if includeDataInStack: dataHist.Draw("e1x0 same")
+    # if includeDataInStack: dataHist.Draw("e1x0 same")
+    if includeDataInStack: dataHist.Draw("e0 same")
 
     assymErrorPlot.Draw("e2 SAME")
 
@@ -446,12 +454,12 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
                 #???set to 0 by me
                 eyl = 0
                 eyh = 0
-    print(x)
-    print(y)
-    print(exl)
-    print(exh)
-    print(eyl)
-    print(eyh)
+    # print(x)
+    # print(y)
+    # print(exl)
+    # print(exh)
+    # print(eyl)
+    # print(eyh)
     errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
     return errors
 

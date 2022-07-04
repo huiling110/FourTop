@@ -154,7 +154,7 @@ Bool_t writeHist::Process(Long64_t entry)
     }
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
 		//1tau0lCR
-		std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, basicWeight );
+		// std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, basicWeight );
 		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
 		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
 		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
