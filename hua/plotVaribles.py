@@ -298,8 +298,9 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
 def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
-    canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
+    canvasName = '{}_{}'.format( region, name )
+    stack = THStack( canvasName, canvasName )
+    canvy = TCanvas( canvasName, canvasName, 1000,800)
     leggy = TLegend(0.8,0.6,0.95,0.9)
     leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
@@ -419,6 +420,15 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         assymErrorPlotRatio.Draw("e2 same")
 
     leggy.Draw()
+    latex.SetTextSize(0.04)
+    latex.SetTextFont(cmsTextFont)
+    latex.DrawLatex(0.23, 0.95, cmsText )
+    
+    latex.SetTextFont(extraTextFont)
+    latex.SetTextSize(0.04*0.76)
+    latex.DrawLatex(0.35, 0.95 , extraText )
+    
+    latex2.DrawLatex(0.95, 0.95, canvasName );
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
