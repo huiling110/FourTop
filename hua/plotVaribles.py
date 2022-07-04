@@ -103,8 +103,8 @@ def main():
     inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
 
 
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
-    # variables = [ 'jets_HT', 'jets_bScore']
+    # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    variables = [ 'jets_HT']
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
@@ -410,6 +410,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         sumHistoData.SetMaximum(1.2)
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
+        print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetsTitle() )
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.03)
         sumHistoData.Draw("E1X0")
