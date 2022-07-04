@@ -104,11 +104,20 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 
 	// push_backHists()
+	//???need to optimize this
 	push_backHists( "jets_number", 10, 6, 15, jetsNumber_hists, m_processName );
 	push_backHists( "jets_HT", 100, 500, 1500, jets_HT_hists, m_processName );
 	push_backHists( "jets_bScore", 100, 0, 5, jets_bScore_hists, m_processName );
 	push_backHists( "tausT_HT", 100, 30, 300, tausT_HT_hists, m_processName );
 
+
+	// std::vector<std::vector<TH1D*>> vectorOfVector = { jetsNumber_hists, jets_HT_hists, jets_bScore_hists, tausT_HT_hists };
+
+
+	// std::map<TString, std::vector<TH1D*>> = {
+	// 	("1tau0l_SR", hists_1tau0lSR),
+
+	// }
 
 }
 

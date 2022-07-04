@@ -103,8 +103,8 @@ def main():
     inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
 
 
-    # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
-    variables = [ 'jets_HT', 'jets_bScore']
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    # variables = [ 'jets_HT', 'jets_bScore']
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
@@ -452,8 +452,8 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
             #???can you simply divide error like this? i think it's wrong
             else: 
                 #???set to 0 by me
-                eyl = 0
-                eyh = 0
+                eyl.append(0)
+                eyh.append(0)
     # print(x)
     # print(y)
     # print(exl)
