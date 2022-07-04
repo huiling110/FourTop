@@ -85,7 +85,7 @@ samples = [
     "st_tW_top",
 ]
 
-legendOrder = ['tttt', 'tt', 'qcd', 'ttX', 'singleTop', 'VV']
+legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 
 # includeDataInStack = False
 includeDataInStack = True
@@ -104,7 +104,7 @@ def main():
 
 
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
-    variables = [ 'jets_HT', 'jets_number']
+    variables = [ 'jets_HT', 'jets_bScore']
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
@@ -114,16 +114,16 @@ def main():
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
     print('systs: ', systs )
-    checkHists( nom['jets_HT'] )
+    # checkHists( nom['jets_HT'] )
 
 
     plotDir = inputDirDict['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
-    # for variable in variables:        
-    # #     print( systs[variable])
-    #     makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
-    # #     makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+    for variable in variables:        
+    #     print( systs[variable])
+        # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+        makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
@@ -297,6 +297,7 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
 
 def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     #name is variable name
+    print( 'start plotting data/mc plot for {}'.format(name))
     stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
     canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
     leggy = TLegend(0.8,0.6,0.95,0.9)
@@ -330,7 +331,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     #here we get dataHist and add all MC for sumHist    
     for i in nominal.keys():
         # i is i summed MC
-        print('ikey: ', i)
         if i == "data":
             dataHist = nominal["data"]
             dataHist.SetMarkerStyle(20)
@@ -420,15 +420,15 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
 
     leggy.Draw()
 
-    canvy.SaveAs(outDir+"{2}{0}{1}.png".format(region,savePost,name))
+    canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
+    print( 'done plotting data/mc plot for {}\n'.format(name))
+    print('\n')
 
-    # canvy.cd()
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
-    # for the data/mc ratio
-    # I think this is the error bar in the stack for MC
+    # for the data/mc ratio or the error bar in the stack for MC
     x = array('d',[])
     y = array('d',[])
     exl = array('d',[])
