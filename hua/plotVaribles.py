@@ -337,15 +337,19 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         # if i == "qcd": continue #special treatment to data driven bg
         #???need systsUp and systsDown calculation
+            # tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region, doSystmatic )
         if doSystmatic:
-            tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region)
+            tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] )
             systsUp.Add(tempUp)
             systsDown.Add(tempDown)
-        else:
-            systsUp.Add(nominal[i])
-            systsDown.Add(nominal[i])
 
+    #add sytematic uncertainty
+    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
+
+    #get the uncertainty for stack MC
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
+    #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
+
 
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
@@ -408,7 +412,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
 
     leggy.Draw()
 
-    canvy.SaveAs(outDir+"/{2}{0}{1}.png".format(region,savePost,name))
+    canvy.SaveAs(outDir+"{2}{0}{1}.png".format(region,savePost,name))
     # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
 
     # canvy.cd()
@@ -416,6 +420,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
     # for the data/mc ratio
+    # I think this is the error bar in the stack for MC
     x = array('d',[])
     y = array('d',[])
     exl = array('d',[])
@@ -440,7 +445,7 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
             else: 
                 #???set to 0 by me
                 eyl = 0
-                elh = 0
+                eyh = 0
     print(x)
     print(y)
     print(exl)
@@ -454,9 +459,8 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
 def getSystVariation(nominalHist,systHists,sampleName,region):
     # to calculate the total sysHistUp and down
     #here the input nominalHist and systHists are for one summed process
-    # systHists include 'up' and 'down' for varias sources
-
-    
+    # systHists include 'up' and 'down' for varias sources, but it's just for one process
+    #???the calculation seems wrong
     systHistUp = nominalHist.Clone("up")
     systHistDown = nominalHist.Clone("down")
     systHistUp.Reset()
@@ -464,15 +468,16 @@ def getSystVariation(nominalHist,systHists,sampleName,region):
     
     for systHi in systHists.keys():
     #systHi is 'up' or 'down' for varias sources
+    #so this is to sum the sytstmatic variation for sources of systematic uncertainty
         print( systHi )
         if "bTag" in systHi: continue
         syst = systHists[systHi].Clone()
         syst.Add(nominalHist,-1)
         syst.Divide(nominalHist)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
-            # print "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)),
-            print( "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)) )
+            # print( "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)) )
             if "up" in syst.GetName():
+                # print( 'sytHistUp: ', systHistUp.GetBinContent() )
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
@@ -482,6 +487,42 @@ def getSystVariation(nominalHist,systHists,sampleName,region):
 
     return systHistUp,systHistDown
 
+
+def getSystVariation_my(nominalHist,systHists):
+    # to calculate the total sysHistUp and down
+    #here the input nominalHist and systHists are for one summed process
+    # systHists include 'up' and 'down' for varias sources, but it's just for one process
+    #???the calculation seems wrong
+    systHistUp = nominalHist.Clone("up")
+    systHistDown = nominalHist.Clone("down")
+    systHistUp.Reset()
+    systHistDown.Reset()
+
+    for systHi in systHists.keys():
+    #systHi is 'up' or 'down' for varias sources
+    #so this is to sum the systematic variation for sources of systematic uncertainty
+        print( systHi )
+        if "bTag" in systHi: continue
+        syst = systHists[systHi].Clone()
+        syst.Add(nominalHist,-1)
+        syst.Divide(nominalHist)
+        for i in range(1,syst.GetXaxis().GetNbins()+1):
+            if "up" in syst.GetName():
+                # print( 'sytHistUp: ', systHistUp.GetBinContent() )
+                systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
+            else:
+                systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
+    for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
+        systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
+        systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
+    return systHistUp,systHistDown
+
+
+def addStatisticUncer(sumHist, systsUp, systsDown ):
+    for i in range(1,sumHist.GetXaxis().GetNbins()+1):
+        systsUp.SetBinContent(i, math.sqrt( systsUp.GetBinContent(i)*systsUp.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+        systsDown.SetBinContent(i, math.sqrt( systsDown.GetBinContent(i)*systsDown.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+    return systsUp,systsDown
 
 
 

@@ -214,8 +214,10 @@ void writeHist::Terminate()
    // the results graphically or save the results to file.
 
 	#include "../crossSectionMap.h"
-	// Double_t processScale  = (36330*0.01197)/ m_genWeightSum;
-	Double_t processScale  = (36330* crossSectionMap[m_processName] )/ m_genWeightSum;
+	Double_t processScale = 1.0;
+	if ( !m_isData ){
+		processScale  = (36330* crossSectionMap[m_processName] )/ m_genWeightSum;
+	}
 
     hist_jetsNumber->Scale( processScale  );
     hist_jetsNumber->Print();
