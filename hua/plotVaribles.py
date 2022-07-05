@@ -99,8 +99,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/variableHists/'
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
     inputDirDict = {}
-    inputDirDict['mc'] = inputDirBase + version + '/mc/variableHists/' 
-    inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
+    # inputDirDict['mc'] = inputDirBase + version + '/mc/variableHists/' 
+    # inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
+    inputDirDict['mc'] = inputDirBase + version + '/mc/variableHists_v0basicWeight/' 
+    inputDirDict['data'] = inputDirBase + version + '/data/variableHists_v0basicWeight/' 
 
 
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
