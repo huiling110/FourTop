@@ -22,6 +22,7 @@ latex2.SetTextAlign(31);
 cmsText = "CMS"
 extraText = "Preliminary"
 
+summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop' ]
 
 histoGramPerSample = {
     'tttt':'tttt',

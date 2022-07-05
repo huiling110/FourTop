@@ -4,51 +4,45 @@ from ROOT import *
 import csv
 import os
 
-from plotVaribles import samples, histoGramPerSample
+from plotVaribles import  histoGramPerSample, summedProcessList
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/variableHists_v0basicWeight/'
     regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
 
-    # regionsList = [ 'SR1tau0l', 'CR1tau0l', 'VR1tau0l', 'CR21tau0l', 'CR31tau0l', 'CR41tau0l' ]
 
-    bgsAndSignalNameList = [ 'TTTT', 'TT', 'TTX', 'VV', 'SingleTop', 'QCD', 'allBg' ]
-    variable = 'jets_number'
 
     # baseDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/results/'
-    # csvFile = open( baseDir+'1tau0lCR_EY.csv', 'w')
-    # csvWriter = csv.writer( csvFile, delimiter=',')
 
-    # csvField = regionsList.copy()
-    # csvField.insert(0, 'process')
-    # print(regionsList)
-    # csvWriter.writerow( csvField )
-
-    # inputFile = ROOT.TFile( baseDir+'DisForEY.root', 'READ')
-    # inputFile.ls()
 
 
     sumProcessHistsDict = getSummedHists( inputDir, regionList )
     print( sumProcessHistsDict )
 
+    writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
 
 
+def writeHistsToCSV( sumProcessHistDic, outDir , regionList):
+    if not os.path.exists(outDir): os.mkdir(outDir)
+    csvFile = open( outDir+'1tau1lCR_EY.csv', 'w')
+    csvWriter = csv.writer( csvFile, delimiter=',')
 
+    csvField = list(sumProcessHistDic.keys())
+    csvField.insert(0, 'process')
+    csvWriter.writerow( csvField )
 
-# for iProcess in bgsAndSignalNameList:
-#     print( iProcess )
-#     iProcessEYList = []
-#     for iRegion in regionsList:
-#         iHistName = iRegion +'_'+ iProcess +'_'+variable
-#         iHist = inputFile.Get( iHistName )
-#         iHist.Print()
-#         iProcessEYList.append(  '{:.2f}'.format( iHist.Integral()*g_lumi2016 ) ) 
-#     iProcessEYList.insert(0, iProcess)
-#     csvWriter.writerow( iProcessEYList  )
+    # for iProcess in sumProcessHistDic[csvField[1]].keys():
+    for iProcess in summedProcessList:
+        iProcessEYList = []
+        for iRegion in regionList:
+            print( iProcess, iRegion )
+            iProcessEYList.append( '{:.2f}'.format( sumProcessHistDic[iRegion][iProcess].Integral() ) )
+        iProcessEYList.insert(0, iProcess)
+        print(iProcessEYList)
+        csvWriter.writerow( iProcessEYList  )
 
-
-# print(csvFile)
-# csvFile.close()
+    print(csvFile)
+    csvFile.close()
 
 
 
