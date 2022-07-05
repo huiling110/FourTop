@@ -34,6 +34,7 @@ public :
    // std::vector<TString> m_options;
    TFile* outputFile;
 //    TH1D* hist_jetsNumber;//for event count
+//!!!hists need to be scalec in terminate function
    std::vector<TH1D*> jetsNumber_forYieldCount_hists;
    std::vector<TH1D*> jetsNumber_hists;
    std::vector<TH1D*> jets_HT_hists;

@@ -11,6 +11,7 @@ inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_
 
 jobDir = 'jobSH/'
 Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
+# outputDir = inputDir + 'variableHists/'
 outputDir = inputDir + 'variableHists/'
 
 def main():
