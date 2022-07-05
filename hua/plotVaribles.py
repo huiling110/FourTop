@@ -108,6 +108,9 @@ def main():
     # myRegion = '1tau0lSR'
     myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
+    ifDataDrivenQCD = False
+
+    #qcd corrected only in CR and VR
 
 
     nom, systs = extractHistograms( inputDirDict, variables, myRegion )
@@ -368,7 +371,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
         leggy.AddEntry(nominal['data'],"Data","p")
     for entry in legendOrder:
         leggy.AddEntry(nominal[entry],entry,"f")
-    leggy.AddEntry(assymErrorPlot,"Systs","f")
+    leggy.AddEntry(assymErrorPlot,"totalUncer","f")
 
     legendOrder.reverse()
     for entry in legendOrder:

@@ -43,6 +43,20 @@
    //  option4 = option4(0, option4.First(":"));
    //  TString option5 = temp.Remove(0, temp.First(":")+1 );
 // }
+void writeHist::fillHistsVector( Bool_t isRegion, UInt_t vectorIndex, Double_t weight ){
+	if( isRegion ){
+		//1tau0lCR
+		// std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, weight );
+		jetsNumber_hists[vectorIndex]->Fill( *jets_number, weight );
+		jets_HT_hists[vectorIndex]->Fill( *jets_HT, weight );
+		jets_bScore_hists[vectorIndex]->Fill( *jets_bScore, weight );
+		tausT_HT_hists[vectorIndex]->Fill( *tausT_HT, weight );
+	}
+
+}
+
+
+
 
 void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName ){
     std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
@@ -161,6 +175,9 @@ Bool_t writeHist::Process(Long64_t entry)
 		}
 
     }
+	Bool_t is1tau0lCR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1;
+	fillHistsVector( is1tau0lCR, 1, basicWeight );
+	/*
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
 		//1tau0lCR
 		// std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, basicWeight );
@@ -169,6 +186,7 @@ Bool_t writeHist::Process(Long64_t entry)
 		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
 		tausT_HT_hists[1]->Fill( *tausT_HT, basicWeight );
 	}
+	*/
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
 		//1tau0lVR
 		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );

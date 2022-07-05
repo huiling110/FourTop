@@ -345,6 +345,11 @@ public :
    virtual void    SlaveTerminate();
    virtual void    Terminate();
 
+//functions I add
+	void fillHistsVector( Bool_t isRegion, UInt_t vectorIndex, Double_t weight );
+	
+
+
    ClassDef(writeHist,0);
 
 };
