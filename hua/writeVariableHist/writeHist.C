@@ -185,45 +185,6 @@ Bool_t writeHist::Process(Long64_t entry)
 	fillHistsVector( is1tau0lCR3, 4, basicWeight );
 	Bool_t is1tau0lCR4 = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2;
 	fillHistsVector( is1tau0lCR4, 5, basicWeight );
-	/*
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
-		//1tau0lCR
-		// std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, basicWeight );
-		jetsNumber_hists[1]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[1]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[1]->Fill( *tausT_HT, basicWeight );
-	}
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
-		//1tau0lVR
-		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[2]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[2]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[2]->Fill( *tausT_HT, basicWeight );
-	}
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2){
-		//1tau0lCR2
-		jetsNumber_hists[3]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[3]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[3]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[3]->Fill( *tausT_HT, basicWeight );
-	}
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<7 && *bjetsM_num>=2){
-		//1tau0lCR3
-		jetsNumber_hists[4]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[4]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[4]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[4]->Fill( *tausT_HT, basicWeight );
-	}
-	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2){
-		//1tau0lCR4
-		jetsNumber_hists[5]->Fill( *jets_number, basicWeight );
-		jets_HT_hists[5]->Fill( *jets_HT, basicWeight );
-		jets_bScore_hists[5]->Fill( *jets_bScore, basicWeight );
-		tausT_HT_hists[5]->Fill( *tausT_HT, basicWeight );
-	}
-
-	*/
 
 
 
