@@ -55,10 +55,10 @@ histoGramPerSample = {
 colourPerSample = {
     'tttt':kPink-9,
     'tt': kRed-4,
-    'qcd': kOrange,
-    'ttX': kPink-4,
-    'singleTop': kPink+5,
-    'VV': kYellow,
+    'qcd': kOrange-2,
+    'ttX': kPink+2,
+    'singleTop': kGreen-4,
+    'VV': kGreen+2,
 }
 
 samples = [
@@ -106,11 +106,12 @@ def main():
     inputDirDict['data'] = inputDirBase + version + '/data/variableHists_v0basicWeight/' 
 
 
-    # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
-    variables = [ 'jets_HT']
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    # variables = [ 'jets_HT']
     # myRegion = '1tau0lSR'
-    myRegion = '1tau0lCR'
+    # myRegion = '1tau0lCR'
     # myRegion = '1tau0lVR'
+    myRegion = '1tau1lCR3'
     ifDataDrivenQCD = False
 
     #qcd corrected only in CR and VR
