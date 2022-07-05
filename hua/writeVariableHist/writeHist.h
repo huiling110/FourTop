@@ -30,7 +30,7 @@ public :
    Double_t m_genWeightSum;
    TString m_outputFolder;
    TString m_processName;
-   TString m_version = "v0basicWeight";
+   TString m_version = "v1moreVariables";
    // std::vector<TString> m_options;
    TFile* outputFile;
 //    TH1D* hist_jetsNumber;//for event count
@@ -39,6 +39,7 @@ public :
    std::vector<TH1D*> jetsNumber_hists;
    std::vector<TH1D*> jets_HT_hists;
    std::vector<TH1D*> jets_bScore_hists;
+   std::vector<TH1D*> jets_1pt_hists;
    std::vector<TH1D*> tausT_HT_hists;
 
    //variables to be writen to hists

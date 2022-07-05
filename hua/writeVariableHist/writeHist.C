@@ -31,6 +31,7 @@
 
 #include <assert.h>
 #include <cmath>
+// #include <filesystem>
 
 // void getvOptionFromRunMacro( const TString option, std::vector<TString>& m_options ){
 //    TString option1 = option(0, option.First(":"));
@@ -51,6 +52,7 @@ void writeHist::fillHistsVector( Bool_t isRegion, UInt_t vectorIndex, Double_t w
 		jetsNumber_hists[vectorIndex]->Fill( *jets_number, weight );
 		jets_HT_hists[vectorIndex]->Fill( *jets_HT, weight );
 		jets_bScore_hists[vectorIndex]->Fill( *jets_bScore, weight );
+		jets_1pt_hists[vectorIndex]->Fill( *jets_1pt, weight );
 		tausT_HT_hists[vectorIndex]->Fill( *tausT_HT, weight );
 	}
 
@@ -114,15 +116,19 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
     //???maybe there is lose of accuracy due to convertion
 
-    // outputFile = new TFile( m_outputFolder+"variableHists/"+m_processName+ "_variableHists.root", "RECREATE" );
+	// namespace fs = std::filesystem;
+	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
+	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
+	// }
     outputFile = new TFile( m_outputFolder+"variableHists"+ "_"+m_version+"/" +m_processName+ "_variableHists.root", "RECREATE" );
 
     // hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 	push_backHists( "jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName );
 	push_backHists( "jets_number", 10, 6, 15, jetsNumber_hists, m_processName );
-	push_backHists( "jets_HT", 100, 500, 1500, jets_HT_hists, m_processName );
-	push_backHists( "jets_bScore", 100, 0, 5, jets_bScore_hists, m_processName );
-	push_backHists( "tausT_HT", 100, 30, 300, tausT_HT_hists, m_processName );
+	push_backHists( "jets_HT", 40, 500, 1500, jets_HT_hists, m_processName );
+	push_backHists( "jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName );
+	push_backHists( "jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName );
+	push_backHists( "tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName );
 
 
 	// std::vector<std::vector<TH1D*>> vectorOfVector = { jetsNumber_hists, jets_HT_hists, jets_bScore_hists, tausT_HT_hists };
@@ -238,6 +244,7 @@ void writeHist::Terminate()
 		jets_HT_hists[j]->Scale( processScale );
 		jets_HT_hists[j]->Print();
 		jets_bScore_hists[j]->Scale( processScale );
+		jets_1pt_hists[j]->Scale( processScale );
 		tausT_HT_hists[j]->Scale( processScale );
 	}
 	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
