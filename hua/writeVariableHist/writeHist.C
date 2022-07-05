@@ -60,7 +60,7 @@ void writeHist::fillHistsVector( Bool_t isRegion, UInt_t vectorIndex, Double_t w
 
 
 void push_backHists( TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D*>& histsVariable, TString m_processName ){
-    std::array<TString, 6> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4" };
+    std::array<TString, 12> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "1tau1lCR4" };
 	// UInt_t startInx = 0;
 	// if ( isData ) startInx = 1;
 	for ( UInt_t i=0; i<regions.size(); i++){
@@ -114,7 +114,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
     //???maybe there is lose of accuracy due to convertion
 
-    outputFile = new TFile( m_outputFolder+"variableHists/"+m_processName+ "_variableHists.root", "RECREATE" );
+    // outputFile = new TFile( m_outputFolder+"variableHists/"+m_processName+ "_variableHists.root", "RECREATE" );
+    outputFile = new TFile( m_outputFolder+"variableHists"+ "_"+m_version+"/" +m_processName+ "_variableHists.root", "RECREATE" );
 
     // hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 	push_backHists( "jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName );
@@ -167,9 +168,11 @@ Bool_t writeHist::Process(Long64_t entry)
 		// be blind for data in signal region
 		Bool_t is1tau0lSR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ;
 		fillHistsVector( is1tau0lSR, 0, basicWeight );
+		Bool_t is1tau1lSR = *tausT_number==1 && *leptonsMVAT_number==1 &&  *jets_number>=7 && *bjetsM_num>=2;
+		fillHistsVector( is1tau1lSR, 6, basicWeight );
 	}
 
-    // }
+    // 1tau0l CR
 	Bool_t is1tau0lCR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1;
 	fillHistsVector( is1tau0lCR, 1, basicWeight );
 	Bool_t is1tau0lVR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0;
@@ -180,6 +183,9 @@ Bool_t writeHist::Process(Long64_t entry)
 	fillHistsVector( is1tau0lCR3, 4, basicWeight );
 	Bool_t is1tau0lCR4 = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2;
 	fillHistsVector( is1tau0lCR4, 5, basicWeight );
+
+	//1tau1lCR
+
 
 
 
@@ -210,8 +216,6 @@ void writeHist::Terminate()
 		processScale  = (36330* crossSectionMap[m_processName] )/ m_genWeightSum;
 	}
 
-    // hist_jetsNumber->Scale( processScale  );
-    // hist_jetsNumber->Print();
 
 	for( UInt_t j=0; j<jetsNumber_hists.size(); j++ ){
 
@@ -220,13 +224,10 @@ void writeHist::Terminate()
 		jetsNumber_forYieldCount_hists[j]->Print();
 		jetsNumber_hists[j]->Scale( processScale );
 		jetsNumber_hists[j]->Print();
-		// jetsNumber_hists[j]1250015Write12;
 		jets_HT_hists[j]->Scale( processScale );
-		// jets_HT_hists[j]->Write();
 		jets_HT_hists[j]->Print();
 		jets_bScore_hists[j]->Scale( processScale );
 		tausT_HT_hists[j]->Scale( processScale );
-		// delete jetsNumber_hists[0];
 	}
 	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
 	// jetsNumber_hists[0]->GetXaxis()->SetRange( 1, jetsNumber_hists[0]->GetNbinsX()+1 ) ;
