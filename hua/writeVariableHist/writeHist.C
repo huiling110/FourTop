@@ -177,6 +177,14 @@ Bool_t writeHist::Process(Long64_t entry)
     }
 	Bool_t is1tau0lCR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1;
 	fillHistsVector( is1tau0lCR, 1, basicWeight );
+	Bool_t is1tau0lVR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0;
+	fillHistsVector( is1tau0lVR, 2, basicWeight );
+	Bool_t is1tau0lCR2 =  *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2;
+	fillHistsVector( is1tau0lCR2, 3, basicWeight );
+	Bool_t is1tau0lCR3 = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<7 && *bjetsM_num>=2;
+	fillHistsVector( is1tau0lCR3, 4, basicWeight );
+	Bool_t is1tau0lCR4 = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number==7 && *bjetsM_num>=2;
+	fillHistsVector( is1tau0lCR4, 5, basicWeight );
 	/*
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1 ){
 		//1tau0lCR
@@ -186,7 +194,6 @@ Bool_t writeHist::Process(Long64_t entry)
 		jets_bScore_hists[1]->Fill( *jets_bScore, basicWeight );
 		tausT_HT_hists[1]->Fill( *tausT_HT, basicWeight );
 	}
-	*/
 	if( *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0 ){
 		//1tau0lVR
 		jetsNumber_hists[2]->Fill( *jets_number, basicWeight );
@@ -216,6 +223,7 @@ Bool_t writeHist::Process(Long64_t entry)
 		tausT_HT_hists[5]->Fill( *tausT_HT, basicWeight );
 	}
 
+	*/
 
 
 
