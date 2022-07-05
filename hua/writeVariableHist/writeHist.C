@@ -165,11 +165,6 @@ Bool_t writeHist::Process(Long64_t entry)
 	//1tau0l SR
 	if ( !m_isData ){
 		// be blind for data in signal region
-		// hist_jetsNumber->Fill( *jets_number, basicWeight );
-		// jetsNumber_hists[0]->Fill( *jets_number, basicWeight );
-		// jets_HT_hists[0]->Fill( *jets_HT, basicWeight );
-		// jets_bScore_hists[0]->Fill( *jets_bScore, basicWeight );
-		// tausT_HT_hists[0]->Fill( *tausT_HT, basicWeight );
 		Bool_t is1tau0lSR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num>=2 ;
 		fillHistsVector( is1tau0lSR, 0, basicWeight );
 	}
