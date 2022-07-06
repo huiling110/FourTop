@@ -164,6 +164,7 @@ Bool_t writeHist::Process(Long64_t entry)
 	if ( *tausT_number<1 ) return kFALSE;
 
     Double_t basicWeight = (*PUweight)*(*EVENT_prefireWeight)*(*EVENT_genWeight);
+    // Double_t basicWeight = (*EVENT_genWeight);
 	if ( m_isData ){
 		// assert( (basicWeight-1.0)<std::epsilon ); 
 		basicWeight = 1.0;

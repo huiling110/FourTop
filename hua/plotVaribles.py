@@ -96,25 +96,19 @@ includeDataInStack = True
 
 def main():
     version = 'v0baseline_v16_HLTselection'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/variableHists/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/variableHists/'
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
-    inputDirDict = {}
-    # inputDirDict['mc'] = inputDirBase + version + '/mc/variableHists/' 
-    # inputDirDict['data'] = inputDirBase + version + '/data/variableHists/' 
-    inputDirDict['mc'] = inputDirBase + version + '/mc/variableHists_v0basicWeight/' 
-    inputDirDict['data'] = inputDirBase + version + '/data/variableHists_v0basicWeight/' 
-
-
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'tausT_HT']
+    histVersion = 'variableHists_v1moreVariables'
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
-    # myRegion = '1tau0lSR'
-    # myRegion = '1tau0lCR'
-    # myRegion = '1tau0lVR'
-    myRegion = '1tau1lCR3'
+    myRegion = '1tau0lCR4'
     ifDataDrivenQCD = False
 
     #qcd corrected only in CR and VR
+    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    inputDirDict = {}
+    inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
+    inputDirDict['data'] = inputDirBase + version + '/data/' + histVersion + '/' 
+
+
 
 
     nom, systs = extractHistograms( inputDirDict, variables, myRegion )

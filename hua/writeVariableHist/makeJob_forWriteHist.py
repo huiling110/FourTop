@@ -3,9 +3,10 @@ import sys
 import subprocess
 
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
-inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
-outputDir = inputDir + 'variableHists_v0basicWeight/'
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
+# outputDir = inputDir + 'variableHists_v0basicWeight/
+outputDir = inputDir + 'variableHists_v2noMCweighting/'
 
 
 
@@ -18,6 +19,7 @@ def main():
 
     if not os.path.exists( jobDir ):
         os.mkdir( jobDir )
+    if not os.path.exists( outputDir ): os.mkdir( outputDir)
 
     subAllProcess = open( 'subAllProcess.sh', 'w')
     subAllProcess.write('#!/bin/bash\n')
