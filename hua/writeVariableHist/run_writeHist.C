@@ -1,10 +1,12 @@
 
 void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/",
-    // TString inputProcess = "tttt"
-    TString inputProcess = "ttbar_1l"
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/",
+    TString inputProcess = "tttt",
+    TString version = "v0forCutFlow"
+    // TString inputProcess = "ttbar_1l"
     // TString inputProcess = "jetHT_2016C"
 )
 {
@@ -29,11 +31,12 @@ void run_writeHist(
     }
     cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
+
     TChain chain("newtree");
     chain.Add(inputFile);
 
     TString option1 = std::to_string(genWeightSumInitial);
-    TString option = option1 + ":" + inputDir + ":" + inputProcess + ":" + isData + ":";
+    TString option = option1 + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version+":";
     cout << "option in run_writeHist: " << option << "\n";
 
     TStopwatch t;
@@ -43,4 +46,13 @@ void run_writeHist(
 
     t.Stop();
     t.Print();
+
+    // TFile* outFile = new TFile( inputDir+"variableHists"+ "_"+m_version+"/" +inputProcess+ "_variableHists.root", "UPDATE"  );
+
+    // TH1D* jetsNumber_initial = (TH1D*)m_file->Get("jetsNumber_initial");
+    // jetsNumber_intial->SetName( "preChannel_"+inputProcess+"jetsNumber_initial" );
+    // m_file->Write();
+    // m_file->Close();
+
+
 }

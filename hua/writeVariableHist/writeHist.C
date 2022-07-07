@@ -104,6 +104,12 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     option3 = option3(0, option3.First(":"));
     TString option4 = temp.Remove(0, temp.First(":")+1);
     option4 = option4(0, option4.First(":"));
+	temp.Remove(0, temp.First(":")+1);
+	TString option5 = temp(0,temp.First(":"));
+	
+	
+	m_version = option5;
+	std::cout<<"m_verion: "<<m_version<<"\n";
 	
 
 	m_outputFolder = option2;
@@ -131,13 +137,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	push_backHists( "tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName );
 
 
-	// std::vector<std::vector<TH1D*>> vectorOfVector = { jetsNumber_hists, jets_HT_hists, jets_bScore_hists, tausT_HT_hists };
-
-
-	// std::map<TString, std::vector<TH1D*>> = {
-	// 	("1tau0l_SR", hists_1tau0lSR),
-
-	// }
+	
 
 }
 
