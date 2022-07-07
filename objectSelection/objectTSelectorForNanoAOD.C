@@ -117,7 +117,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //test
 
     //allEvents new tree
-   genWeight_allEvents = -99;
    //CHANGE HERE TO RUN ON DATA
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *Generator_weight );

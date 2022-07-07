@@ -8,32 +8,16 @@ import subprocess
 
 #???make the makeJobs code some functions and stuff to make it reusable
 
-#???make this code to be able to submit 2016pre and post and data all at once
 
 def main():
 
 
     #all the parameters you need to change is in this part , better not change the rest of the code.
-    # inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v9_allSelection/mc/"
-    # inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v12_addedMissingBranch/mc/"
-    # inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v14_MetFilterHLTSelection/mc/"
-    # inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v14_MetFilterHLTSelection/mc/"
-    # inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v15_0selection/mc/"
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v4modifiedMinDeltaR_fromV9/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v4modifiedMinDeltaR_fromV9/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v6addWeightUpdown_fromV9/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/v0baselineSelection_fromV15/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/v0baselineSelection_fromV15/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v16_HLTselection/mc/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineSelection_fromV16/mc/'
-
-
-    inVersion = 'v16_HLTselection'
+    inVersion = 'v17NoSelection'
     outVersion = 'v0baseline'
     justMC = False
     year = '2016'
     selectionBit = '7'
-    # dataSet = 'jetHT'
 
 
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
@@ -52,6 +36,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
+        # if iera=='2016preVFP' : continue
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )
