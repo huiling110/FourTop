@@ -48,11 +48,12 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     data = {}
     for iVar in sumProcessPerVar.keys():
         iList = []
-        for iProcess in sumProcessPerVar[iVar][region].keys():
+        # for iProcess in sumProcessPerVar[iVar][region].keys():
+        for iProcess in summedProcessList:
             iList.append( sumProcessPerVar[iVar][region][iProcess].Integral() )
         data[iVar] = iList 
-    print( data )
-    df = pd.DataFrame(data)
+    # print( data )
+    df = pd.DataFrame(data, summedProcessList )
     print( df )
 
     # for iProcess in sumProcessPerVar[firstVar][region].keys():
