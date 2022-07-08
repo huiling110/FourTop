@@ -38,12 +38,12 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     firstVar = list(sumProcessPerVar.keys())[0]
     region = list(sumProcessPerVar[firstVar].keys())[0]
 
-    csvFile = open( outDir + fileName, 'w')
-    csvWriter = csv.writer( csvFile, delimiter=',')
+    # csvFile = open( outDir + fileName, 'w')
+    # csvWriter = csv.writer( csvFile, delimiter=',')
     #first row
-    csvField = list(sumProcessPerVar.keys())
-    csvField.insert(0, 'process')
-    csvWriter.writerow( csvField )
+    # csvField = list(sumProcessPerVar.keys())
+    # csvField.insert(0, 'process')
+    # csvWriter.writerow( csvField )
 
     data = {}
     for iVar in sumProcessPerVar.keys():
@@ -54,34 +54,12 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
         data[iVar] = iList 
     # print( data )
     df = pd.DataFrame(data, summedProcessList )
-    print( df )
-    #totalMC = df.loc['tttt']+df.loc['tt']
-    # sumBg = df.iloc['tttt']+df.iloc['tt']
-    # for index in df.index:
-    #     if index=='data' or index=='tttt': continue
-    #     totalBg+= df.loc[index]
-    #print(totalMC)
-    
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
-    
     print(df)
-    
-    # print(df.su(axis=0, numeric_only=True))
 
-    # for iProcess in sumProcessPerVar[firstVar][region].keys():
-    #     print( iProcess )
-    #     iProcessEYList = [iProcess]
-    #     totalBg = []
-    #     for icollumn in sumProcessPerVar.keys():
-    #         iProcessEYList.append( '{:.2f}'.format(sumProcessPerVar[icollumn][region][iProcess].Integral() ) )
-        # print( iProcessEYList )
+    df.to_csv( outDir + fileName ) 
 
-        # csvWriter.writerow( iProcessEYList  )
-            
-    # for iVar in sumProcessPerVar.keys():
-    #     cutStep = iVar[:].split('jetsNumber_' )[1]
-    #     print( 'cutStep: ', cutStep )
 
     print( 'done writen csv file here: ', outDir+fileName )
 
