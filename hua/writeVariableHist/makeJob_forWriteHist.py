@@ -2,12 +2,15 @@ import os
 import sys
 import subprocess
 
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/'
-inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
-# outputDir = inputDir + 'variableHists_v0basicWeight/
-outputDir = inputDir + 'variableHists_v2noMCweighting/'
+#???make all job subscrison more modulized
 
+
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/'
+version = "v0forCutFlow"
+isTest = False
+outputDir = inputDir + 'variableHists' + version +'/'
 
 
 
@@ -49,7 +52,7 @@ def makeIjob( shFile, iProcess ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
-    subFile.write( 'root -q -b \'run_writeHist.C( \"{}\", \"{}\" )\' '.format( inputDir, iProcess ) )
+    subFile.write( 'root -q -b \'run_writeHist.C( \"{}\", \"{}\", \"{}\", {} )\' '.format( inputDir, iProcess, version, isTest ) )
     print( 'done writing: ', shFile)
 
 
