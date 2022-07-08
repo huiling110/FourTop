@@ -20,8 +20,6 @@ def main():
     sumProcessPerVar = {}
     for ivar in variableList:
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
-            if not os.path.exists(outputDir +"/log/" ):
-                os.mkdir( outputDir  +"/log/")
     print( sumProcessPerVar )
 
 
