@@ -259,10 +259,10 @@ void writeHist::Terminate()
     TH1D* jetsNumber_initial = (TH1D*)input->Get("jetsNumber_initial")->Clone(  "preChannel_"+m_processName+"_jetsNumber_initial" );
 	jetsNumber_initial->SetDirectory( outFileDir );
 	jetsNumber_initial->Scale( processScale );
-	TH1D* jetsNumber_HLT = (TH1D*)input->Get("jetsNumber_HLT")->Clone( "preChannle_"+m_processName+"_jetsNumber_HLT");
+	TH1D* jetsNumber_HLT = (TH1D*)input->Get("jetsNumber_HLT")->Clone( "preChannel_"+m_processName+"_jetsNumber_HLT");
 	jetsNumber_HLT->SetDirectory( outFileDir );
 	jetsNumber_HLT->Scale( processScale ); 
-	TH1D* jetsNumber_baseline = (TH1D*)input->Get("jetsNumber_baseline")->Clone( "preChannle_"+m_processName+"_jetsNumber_baseline");
+	TH1D* jetsNumber_baseline = (TH1D*)input->Get("jetsNumber_baseline")->Clone( "preChannel_"+m_processName+"_jetsNumber_baseline");
 	jetsNumber_baseline->SetDirectory( outFileDir );
 	jetsNumber_baseline->Scale( processScale ); 
 

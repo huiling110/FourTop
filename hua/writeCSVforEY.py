@@ -15,13 +15,20 @@ def main():
         'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/variableHists_v0forCutFlow/',
         'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/variableHists_v0forCutFlow/'
     }
+    variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
+
+    sumProcessPerVar = {}
+    for ivar in variableList:
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+            if not os.path.exists(outputDir +"/log/" ):
+                os.mkdir( outputDir  +"/log/")
+    print( sumProcessPerVar )
 
 
 
 
-
-    sumProcessHistsDict = getSummedHists( inputDir, regionList, 'jetsNumber_initial' )
-    print( sumProcessHistsDict )
+    # sumProcessHistsDict = getSummedHists( inputDir, regionList, 'jetsNumber_initial' )
+    # print( sumProcessHistsDict )
 
     # writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
 
