@@ -17,15 +17,25 @@ def main():
     }
     variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
 
+    #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     for ivar in variableList:
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
-
     # sumProcessHistsDict = getSummedHists( inputDir, regionList, 'jetsNumber_initial' )
     # print( sumProcessHistsDict )
 
     # writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
+    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/' )
+
+
+
+def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir ):
+    if not os.path.exists( outDir ): os.mkdir( outDir )
+    #first row
+    for iVar in sumProcessPerVar.keys():
+        cutStep = iVar[:].split('jetsNumber_' )[1]
+        print( 'cutStep: ', cutStep )
 
 
 def writeHistsToCSV( sumProcessHistDic, outDir , regionList):
