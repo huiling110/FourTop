@@ -3,6 +3,7 @@ from ROOT import *
 
 import csv
 import os
+import pandas as pd
 
 from plotVaribles import  histoGramPerSample, summedProcessList
 
@@ -26,23 +27,49 @@ def main():
     # print( sumProcessHistsDict )
 
     # writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
-    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/' )
+    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow.csv' )
 
 
 
-def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir ):
+def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     print('\n')
     print('start to write hists to csv')
     if not os.path.exists( outDir ): os.mkdir( outDir )
-    #first row
     firstVar = list(sumProcessPerVar.keys())[0]
     region = list(sumProcessPerVar[firstVar].keys())[0]
 
-    for iProcess in sumProcessPerVar[firstVar][region].keys():
-        print( iProcess )
+    csvFile = open( outDir + fileName, 'w')
+    csvWriter = csv.writer( csvFile, delimiter=',')
+    #first row
+    csvField = list(sumProcessPerVar.keys())
+    csvField.insert(0, 'process')
+    csvWriter.writerow( csvField )
+
+    data = {}
+    for iVar in sumProcessPerVar.keys():
+        iList = []
+        for iProcess in sumProcessPerVar[iVar][region].keys():
+            iList.append( sumProcessPerVar[iVar][region][iProcess].Integral() )
+        data[iVar] = iList 
+    print( data )
+    df = pd.DataFrame(data)
+    print( df )
+
+    # for iProcess in sumProcessPerVar[firstVar][region].keys():
+    #     print( iProcess )
+    #     iProcessEYList = [iProcess]
+    #     totalBg = []
+    #     for icollumn in sumProcessPerVar.keys():
+    #         iProcessEYList.append( '{:.2f}'.format(sumProcessPerVar[icollumn][region][iProcess].Integral() ) )
+        # print( iProcessEYList )
+
+        # csvWriter.writerow( iProcessEYList  )
+            
     # for iVar in sumProcessPerVar.keys():
     #     cutStep = iVar[:].split('jetsNumber_' )[1]
     #     print( 'cutStep: ', cutStep )
+
+    print( 'done writen csv file here: ', outDir+fileName )
 
 
 def writeHistsToCSV( sumProcessHistDic, outDir , regionList):
