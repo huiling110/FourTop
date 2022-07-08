@@ -50,6 +50,11 @@ histoGramPerSample = {
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
+
+    #data
+    'jetHT_2016F': 'data',
+    'jetHT_2016G': 'data',
+    'jetHT_2016H': 'data',
 }
 
 colourPerSample = {
