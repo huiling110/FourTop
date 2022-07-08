@@ -5,7 +5,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/",
     TString inputProcess = "tttt",
-    TString version = "v0forCutFlow"
+    TString version = "v0forCutFlow",
+    Bool_t isTest = kTRUE
     // TString inputProcess = "ttbar_1l"
     // TString inputProcess = "jetHT_2016C"
 )
@@ -20,9 +21,9 @@ void run_writeHist(
 
     // get genWeightSumInitial for the process
     Double_t genWeightSumInitial = 1.0;
+    TFile *m_file = new TFile(inputFile, "READ");
     if (!isData)
     {
-        TFile *m_file = new TFile(inputFile, "READ");
         TTree *alleventTree = (TTree *)m_file->Get("allevents");
         TH1D *h_genWeight = new TH1D("genWeight", "genWeight", 100, -100., 100.);
         alleventTree->Project("genWeight", "genWeight_allEvents");
@@ -47,12 +48,14 @@ void run_writeHist(
     t.Stop();
     t.Print();
 
-    // TFile* outFile = new TFile( inputDir+"variableHists"+ "_"+m_version+"/" +inputProcess+ "_variableHists.root", "UPDATE"  );
+    // TFile* outFile = new TFile( inputDir+"variableHists"+ "_"+version+"/" +inputProcess+ "_variableHists.root", "UPDATE"  );
 
-    // TH1D* jetsNumber_initial = (TH1D*)m_file->Get("jetsNumber_initial");
-    // jetsNumber_intial->SetName( "preChannel_"+inputProcess+"jetsNumber_initial" );
-    // m_file->Write();
-    // m_file->Close();
+    // TH1D* jetsNumber_initial = (TH1D*)m_file->Get("jetsNumber_initial")->Clone(  "preChannel_"+inputProcess+"jetsNumber_initial" );
+    // jetsNumber_initial->Print();
+    // jetsNumber_initial->write();
+
+    // outFile->Write();
+    // outFile->Close();
 
 
 }

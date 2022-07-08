@@ -122,6 +122,9 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     std::cout<<"m_genWeightSum: "<<m_genWeightSum<<"\n";
     //???maybe there is lose of accuracy due to convertion
 
+
+
+
 	// namespace fs = std::filesystem;
 	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
 	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
@@ -135,6 +138,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	push_backHists( "jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName );
 	push_backHists( "jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName );
 	push_backHists( "tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName );
+
+	
 
 
 	
@@ -248,10 +253,16 @@ void writeHist::Terminate()
 		jets_1pt_hists[j]->Scale( processScale );
 		tausT_HT_hists[j]->Scale( processScale );
 	}
-	// std::cout<<jetsNumber_hists[0]->GetXaxis()->GetXmin()<<"; "<<jetsNumber_hists[0]->GetXaxis()->GetXmax()<<"\n";
-	// jetsNumber_hists[0]->GetXaxis()->SetRange( 1, jetsNumber_hists[0]->GetNbinsX()+1 ) ;
-   // std::cout<<jetsNumber_hists[0]->GetNbinsX()<<"\n";
 
+	TDirectory* outFileDir = gDirectory->GetDirectory("");
+	TFile* input = new TFile( m_outputFolder+m_processName+".root", "READ" );
+    TH1D* jetsNumber_initial = (TH1D*)input->Get("jetsNumber_initial")->Clone(  "preChannel_"+m_processName+"jetsNumber_initial" );
+	jetsNumber_initial->SetDirectory( outFileDir );
+
+	input->Close();
+
+	outFileDir->cd();
+	jetsNumber_initial->Write();
 	outputFile->Write();
 	outputFile->Close();
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
