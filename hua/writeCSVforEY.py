@@ -55,6 +55,19 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     # print( data )
     df = pd.DataFrame(data, summedProcessList )
     print( df )
+    #totalMC = df.loc['tttt']+df.loc['tt']
+    # sumBg = df.iloc['tttt']+df.iloc['tt']
+    # for index in df.index:
+    #     if index=='data' or index=='tttt': continue
+    #     totalBg+= df.loc[index]
+    #print(totalMC)
+    
+    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
+    df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    
+    print(df)
+    
+    # print(df.su(axis=0, numeric_only=True))
 
     # for iProcess in sumProcessPerVar[firstVar][region].keys():
     #     print( iProcess )
