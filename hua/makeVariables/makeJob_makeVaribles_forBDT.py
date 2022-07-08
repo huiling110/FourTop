@@ -10,10 +10,8 @@ import subprocess
 
 
 def main():
-
-
     #all the parameters you need to change is in this part , better not change the rest of the code.
-    inVersion = 'v17NoSelection'
+    inVersion = 'v1baselineCorrectedDataBug'
     outVersion = 'v1baselineCorrectedDataBug'
     justMC = False
     year = '2016'
