@@ -14,7 +14,7 @@ def main():
 
     #all the parameters you need to change is in this part , better not change the rest of the code.
     inVersion = 'v17NoSelection'
-    outVersion = 'v0baseline'
+    outVersion = 'v1baselineCorrectedDataBug'
     justMC = False
     year = '2016'
     selectionBit = '7'
@@ -36,7 +36,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )

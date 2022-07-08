@@ -134,7 +134,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fProcessed++;
 	fProcessed_genWeight += *EVENT_genWeight_;
 
-	Double_t basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
+	Double_t basicWeight = 1.0;
+	if (! m_isData ){
+		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
+	}
 	h_intial_jetNumber->Fill(jets.GetSize(), basicWeight);
 
 	// initialize
