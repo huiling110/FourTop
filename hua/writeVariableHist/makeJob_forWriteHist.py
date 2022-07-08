@@ -7,11 +7,11 @@ import subprocess
 
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
-inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/'
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/'
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/'
 version = "v0forCutFlow"
 isTest = 0
-outputDir = inputDir + 'variableHists' + version +'/'
+outputDir = inputDir + 'variableHists_' + version +'/'
 
 
 
@@ -29,6 +29,8 @@ def main():
     subAllProcess.write('#!/bin/bash\n')
     subAllProcess.write('cd '+ Jobsubmitpath +'\n')
 
+    if not os.path.exists(outputDir +"/log/" ):
+        os.mkdir( outputDir  +"/log/")
     for iFile in os.listdir( inputDir ):
         if '.root' in iFile:
             iProcess = iFile.split('.root')[0]
@@ -36,8 +38,6 @@ def main():
             iJobFile = jobDir + iProcess +'.sh' 
             makeIjob( iJobFile, iProcess )  
 
-            if not os.path.exists(outputDir +"/log/" ):
-                os.mkdir( outputDir  +"/log/")
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
             subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
