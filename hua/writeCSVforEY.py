@@ -31,11 +31,18 @@ def main():
 
 
 def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir ):
+    print('\n')
+    print('start to write hists to csv')
     if not os.path.exists( outDir ): os.mkdir( outDir )
     #first row
-    for iVar in sumProcessPerVar.keys():
-        cutStep = iVar[:].split('jetsNumber_' )[1]
-        print( 'cutStep: ', cutStep )
+    firstVar = list(sumProcessPerVar.keys())[0]
+    region = list(sumProcessPerVar[firstVar].keys())[0]
+
+    for iProcess in sumProcessPerVar[firstVar][region].keys():
+        print( iProcess )
+    # for iVar in sumProcessPerVar.keys():
+    #     cutStep = iVar[:].split('jetsNumber_' )[1]
+    #     print( 'cutStep: ', cutStep )
 
 
 def writeHistsToCSV( sumProcessHistDic, outDir , regionList):
