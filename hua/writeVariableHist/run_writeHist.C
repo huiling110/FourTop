@@ -48,14 +48,6 @@ void run_writeHist(
     t.Stop();
     t.Print();
 
-    // TFile* outFile = new TFile( inputDir+"variableHists"+ "_"+version+"/" +inputProcess+ "_variableHists.root", "UPDATE"  );
-
-    // TH1D* jetsNumber_initial = (TH1D*)m_file->Get("jetsNumber_initial")->Clone(  "preChannel_"+inputProcess+"jetsNumber_initial" );
-    // jetsNumber_initial->Print();
-    // jetsNumber_initial->write();
-
-    // outFile->Write();
-    // outFile->Close();
 
 
 }
