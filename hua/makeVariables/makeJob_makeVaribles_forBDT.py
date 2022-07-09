@@ -70,6 +70,8 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
         os.mkdir ( inOutList[1] )
 
     for entry in os.listdir(inOutList[0] ):
+        if not entry in GQ.samples: continue
+        print( 'loop over: ', entry )
         
         processJob = jobsDir +  entry + ".sh"
         iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
