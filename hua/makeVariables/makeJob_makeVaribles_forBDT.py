@@ -1,10 +1,11 @@
 import sys
 import os
-import glob
-import string
 import subprocess
- #
+# import glob
+# import string
 
+ #
+import ttttGlobleQuantity as GQ
 
 #???make the makeJobs code some functions and stuff to make it reusable
 
@@ -19,7 +20,8 @@ def main():
 
 
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+    outputBase = '/scratchfs/cms/huahuil/forMVA/'
 
     inOutDirMap = {}
     #python dict
@@ -68,7 +70,7 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
         os.mkdir ( inOutList[1] )
 
     for entry in os.listdir(inOutList[0] ):
-        # processJob = 'Jobsubmit_seperate/'+  entry + ".sh"
+        
         processJob = jobsDir +  entry + ".sh"
         iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
         writeIjob( iParametersList, processJob )
@@ -93,23 +95,6 @@ def writeIjob( parameterList, processJob ):
     subFile.write(command )
     subFile.close()
 
-#     subAllFile = Jobsubmitpath+"/subAllProcess.sh"
-#     if os.path.exists(subAllFile):
-#         os.popen('rm -fr '+subAllFile)
-#     if not os.path.exists(Jobsubmitpath+"/Jobsubmit_seperate"):
-#         os.mkdir('Jobsubmit_seperate/')
-#     if not os.path.exists( outputDir):
-#         os.mkdir( outputDir )
-
-#     #better not change code after this line
-#     subAllProcessName = file(subAllFile,"w")
-#     print >> subAllProcessName, "#!/bin/bash"
-#     print >> subAllProcessName, "cd "+Jobsubmitpath
-
-
-
-# os.popen('chmod 777 '+Jobsubmitpath+"/Jobsubmit_seperate/*sh")
-# os.popen('chmod 777 '+Jobsubmitpath+"/subAllProcess.sh")
 
 
 
