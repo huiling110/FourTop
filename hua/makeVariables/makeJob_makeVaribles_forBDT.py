@@ -11,8 +11,8 @@ import subprocess
 
 def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
-    inVersion = 'v1baselineCorrectedDataBug'
-    outVersion = 'v1baselineCorrectedDataBug'
+    inVersion = 'v17NoSelection'
+    outVersion = 'v2baselineCorrectedDataBug'
     justMC = False
     year = '2016'
     selectionBit = '7'
@@ -77,7 +77,7 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
             os.mkdir( inOutList[1]  +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        subDirJobs.write( 'hep_sub -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub -mem 8000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
         # subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )

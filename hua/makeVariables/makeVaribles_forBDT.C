@@ -590,33 +590,33 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	forwardJets_num = forwardJets.GetSize();
 
-	toptagger_num = tops_toptagger.GetSize();
-	toptagger_MHT = MHTcalculator(tops_toptagger); // 900;return the pt sum of,vetctor sum
-	toptagger_HT = HTcalculator(tops_toptagger);
-	toptagger_invariantMass = InvariantMassCalculator(tops_toptagger);
-	toptagger_transMass = TransMassCal(tops_toptagger);
-	toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
+	// toptagger_num = tops_toptagger.GetSize();
+	// toptagger_MHT = MHTcalculator(tops_toptagger); // 900;return the pt sum of,vetctor sum
+	// toptagger_HT = HTcalculator(tops_toptagger);
+	// toptagger_invariantMass = InvariantMassCalculator(tops_toptagger);
+	// toptagger_transMass = TransMassCal(tops_toptagger);
+	// toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
 	// toptagger_scoreAllTops = TopScoreAllTopsCal(tops_toptagger);
-	toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
-	if (toptagger_num > 0)
-	{
-		toptagger_1pt = tops_toptagger[0].Pt();
-		toptagger_1eta = fabs(tops_toptagger[0].Eta());
-		toptagger_1phi = fabs(tops_toptagger[0].Phi());
-	}
-	if (toptagger_num > 1)
-	{
-		toptagger_2pt = tops_toptagger[1].Pt();
-		toptagger_2eta = fabs(tops_toptagger[1].Eta());
-		toptagger_2phi = fabs(tops_toptagger[1].Phi());
-		std::vector<Double_t> MinMaxDeltaRTops;
-	}
-	if (toptagger_num > 2)
-	{
-		toptagger_3pt = tops_toptagger[2].Pt();
-		toptagger_3eta = fabs(tops_toptagger[2].Eta());
-		toptagger_3phi = fabs(tops_toptagger[2].Phi());
-	}
+	// toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
+	// if (toptagger_num > 0)
+	// {
+	// 	toptagger_1pt = tops_toptagger[0].Pt();
+	// 	toptagger_1eta = fabs(tops_toptagger[0].Eta());
+	// 	toptagger_1phi = fabs(tops_toptagger[0].Phi());
+	// }
+	// if (toptagger_num > 1)
+	// {
+	// 	toptagger_2pt = tops_toptagger[1].Pt();
+	// 	toptagger_2eta = fabs(tops_toptagger[1].Eta());
+	// 	toptagger_2phi = fabs(tops_toptagger[1].Phi());
+	// 	std::vector<Double_t> MinMaxDeltaRTops;
+	// }
+	// if (toptagger_num > 2)
+	// {
+	// 	toptagger_3pt = tops_toptagger[2].Pt();
+	// 	toptagger_3eta = fabs(tops_toptagger[2].Eta());
+	// 	toptagger_3phi = fabs(tops_toptagger[2].Phi());
+	// }
 
 	// std::cout<<__LINE__<<"\n";
 
