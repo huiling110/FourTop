@@ -30,6 +30,7 @@ public :
    Double_t m_genWeightSum;
    TString m_outputFolder;
    TString m_processName;
+   TString m_era;
    // TString m_version = "v1moreVariables";
    TString m_version;
    // std::vector<TString> m_options;

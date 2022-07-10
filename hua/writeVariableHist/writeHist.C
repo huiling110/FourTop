@@ -106,6 +106,12 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
     option4 = option4(0, option4.First(":"));
 	temp.Remove(0, temp.First(":")+1);
 	TString option5 = temp(0,temp.First(":"));
+
+	temp.Remove(0, temp.First(":")+1 );
+	m_era = temp( 0, temp.First(":"));
+	std::cout<<"m_era: "<<m_era<<"\n";
+
+
 	
 	
 	m_version = option5;
@@ -236,7 +242,8 @@ void writeHist::Terminate()
 	#include "../crossSectionMap.h"
 	Double_t processScale = 1.0;
 	if ( !m_isData ){
-		processScale  = (36330* crossSectionMap[m_processName] )/ m_genWeightSum;
+		// processScale  = (36330* crossSectionMap[m_processName] )/ m_genWeightSum;
+		processScale  = ( lumiMap[m_era]* crossSectionMap[m_processName] )/ m_genWeightSum;
 	}
 
 

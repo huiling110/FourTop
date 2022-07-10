@@ -33,12 +33,18 @@ void run_writeHist(
     }
     cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
+    //get era
+    TString temp = inputDir( inputDir.Index("forMVA/")+7, inputDir.Sizeof()  );
+    // cout<<temp<<"\n";
+    TString era = temp( 0, temp.First("/"));
+    cout<<"era: "<<era<<"\n";
+
 
     TChain chain("newtree");
     chain.Add(inputFile);
 
     TString option1 = std::to_string(genWeightSumInitial);
-    TString option = option1 + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version+":";
+    TString option = option1 + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version+":" +era+":";
     cout << "option in run_writeHist: " << option << "\n";
 
     TStopwatch t;

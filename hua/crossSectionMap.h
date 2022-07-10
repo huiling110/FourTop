@@ -1,6 +1,11 @@
 #include <TString.h>
 
 
+std::map<TString, Double_t> lumiMap = {
+    {"2016preVFP", 19520},
+    {"2016postVFP", 16810},
+    {"2016", 36330},
+};
 
 std::map<TString, Double_t> crossSectionMap = {
     {"tttt", 0.01197},
@@ -30,3 +35,4 @@ std::map<TString, Double_t> crossSectionMap = {
     {"qcd_1500to2000",  1.20e+02}, // 1.201e+02 +- 1.160e-01 pb
     {"qcd_2000toInf",  2.525e+01 }, // 2.524e+01 +- 2.436e-02 pb
 } ;
+
