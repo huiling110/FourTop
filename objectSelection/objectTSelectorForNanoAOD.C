@@ -113,16 +113,21 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
 ///////////////////////////////////////
    fProcessed++;
-   TString option = GetOption(); //used to know the number of the input file and apply HLT accordingly
-    //test
 
     //allEvents new tree
-   //CHANGE HERE TO RUN ON DATA
    if ( !isdata ){
        h_genWeight->Fill( 0.0 , *Generator_weight );
        genWeight_allEvents = *Generator_weight;
    }
    allEvents->Fill();
+
+    if ( !isdata ){
+        h_forEY_initial->Fill( 0.0, *Generator_weight   );
+    }else{
+        h_forEY_initial->Fill( 0.0,  1   );
+
+    }
+
 
 
     //!!!branch variable intialization to prevent them from get values from last event

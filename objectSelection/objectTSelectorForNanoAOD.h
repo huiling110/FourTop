@@ -65,6 +65,9 @@ public :
    TString era = "2016postVFP";
    Double_t runRange[2];
 
+   TH1D* h_forEY_initial = new TH1D( "initial", "initial", 2 , -1, 1 );
+   
+
 
 
    //files
