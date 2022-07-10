@@ -3,8 +3,11 @@ import os
 import glob
 import string
 import subprocess
- #
+
+ #my own modules
 import usefulFunc as uf
+import ttttGlobleQuantity as gq
+
 
 
 eraDic = {
@@ -102,6 +105,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
 
     processNumber = 0
     for k in allProcesses:
+        if not k in gq.samples:  continue
         print(k)
         sample_k = k
         if  isData:

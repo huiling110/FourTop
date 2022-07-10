@@ -35,6 +35,12 @@ histoGramPerSample = {
     'jetHT_2016F': 'data',
     'jetHT_2016G': 'data',
     'jetHT_2016H': 'data',
+    'jetHT_2016B_v1': 'data',
+    'jetHT_2016B_v2': 'data',
+    'jetHT_2016C': 'data',
+    'jetHT_2016D': 'data',
+    'jetHT_2016E': 'data',
+    'jetHT_2016F_hipm': 'data',
 }
 
 
@@ -65,4 +71,10 @@ samples = [
     'jetHT_2016F',
     'jetHT_2016G',
     'jetHT_2016H',
+    'jetHT_2016B_v1',
+    'jetHT_2016B_v2',
+    'jetHT_2016C',
+    'jetHT_2016D',
+    'jetHT_2016E',
+    'jetHT_2016F_hipm',
 ]
