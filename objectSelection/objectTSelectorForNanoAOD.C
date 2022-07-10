@@ -330,7 +330,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         h_forEY_preSelection->Fill( 0.0, 1 );
     }
 
-
+    // std::cout<<"tausTnum: "<<tausT.size()<<"  jetsNum: "<<jets.size()<<"\n";
 
     eventsPassed++;
     tree->Fill();
