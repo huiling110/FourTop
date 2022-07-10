@@ -31,11 +31,12 @@ def main():
     # print( sumProcessHistsDict )
 
     # writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
-    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow.csv' )
+    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post.csv' )
+    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
 
 
 
-def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
+def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=False ):
     print('\n')
     print('start to write hists to csv')
     if not os.path.exists( outDir ): os.mkdir( outDir )
@@ -45,14 +46,18 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     data = {}
     for iVar in sumProcessPerVar.keys():
         iList = []
+        iListRaw = []
         # for iProcess in sumProcessPerVar[iVar][region].keys():
         for iProcess in summedProcessList:
             iList.append( sumProcessPerVar[iVar][region][iProcess].Integral() )
-        data[iVar] = iList 
+            iListRaw.append( sumProcessPerVar[iVar][region][iProcess].GetEntries() )
+        data[iVar] = iList
+        if includeRaw:  data[ iVar+'rawEntries'] = iListRaw 
     # print( data )
     df = pd.DataFrame(data, summedProcessList )
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    pd.set_option('display.float_format','{:.2f}'.format)
     print(df)
 
     df.to_csv( outDir + fileName ) 
