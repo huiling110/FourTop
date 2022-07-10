@@ -16,8 +16,8 @@ def main():
     inputDir = {
         # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/variableHists_v1forCutFlow/',
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/variableHists_v1forCutFlow/'
-        'mc': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/variableHists_v1forCutFlow/',
-        'data': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/variableHists_v1forCutFlow/',
+        'mc': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/variableHists_v2forCutFlow/',
+        'data': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/variableHists_v2forCutFlow/',
 
     }
     variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
@@ -41,13 +41,6 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName ):
     if not os.path.exists( outDir ): os.mkdir( outDir )
     firstVar = list(sumProcessPerVar.keys())[0]
     region = list(sumProcessPerVar[firstVar].keys())[0]
-
-    # csvFile = open( outDir + fileName, 'w')
-    # csvWriter = csv.writer( csvFile, delimiter=',')
-    #first row
-    # csvField = list(sumProcessPerVar.keys())
-    # csvField.insert(0, 'process')
-    # csvWriter.writerow( csvField )
 
     data = {}
     for iVar in sumProcessPerVar.keys():
