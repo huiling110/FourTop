@@ -4,6 +4,8 @@ import glob
 import string
 import subprocess
  #
+import usefulFunc as uf
+
 
 eraDic = {
     '2016':'UL2016_postVFP',
@@ -22,13 +24,13 @@ def main():
     # jobVersionName = 'v14_MetFilterHLTSelection/'
     # jobVersionName = 'v15_0selection/'
     # jobVersionName = 'v16_HLTselection/'
-    jobVersionName = 'v17NoSelection/'
+    jobVersionName = 'v18HLTSelection/'
     # onlyMC = True
     onlyMC = False
     era = '2016'
     # era = '2016APV'
     # era = '2018'
-    eventSelection = '0'
+    eventSelection = '3'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     # dataList = [ 'jetHT', 'singleMu'] 
@@ -42,13 +44,13 @@ def main():
 #better not modify anything afer this
     inputDir = inputBase + era +'/'
     outputDir = outputBase + eraDic[era] + '/' +jobVersionName +'/' 
-    checkMakeDir( outputDir) 
+    uf.checkMakeDir( outputDir) 
     inputDirMC = inputDir + 'mc/'
 
     jobsDir = codePath + 'jobs_seperata/'
     if os.path.exists( jobsDir ):
         subprocess.run('rm -fr '+ jobsDir , shell=True)
-    checkMakeDir( jobsDir)
+    uf.checkMakeDir( jobsDir)
 
     makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling )
     if not onlyMC:
@@ -86,9 +88,6 @@ def makeSubAllJobs( jobsDir ):
 
 
 
-def checkMakeDir( folder ):
-    if not os.path.exists( folder ):
-        os.mkdir( folder )
 
 def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuiling ):
     allProcesses = os.listdir( inputDir )
@@ -96,10 +95,10 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
         outputDir = outputDir + 'data/'
     else:
         outputDir = outputDir + 'mc/'
-    checkMakeDir( outputDir )
+    uf.checkMakeDir( outputDir )
 
     jobScriptsFolder = codePath + 'jobs_seperata/'
-    checkMakeDir( jobScriptsFolder )
+    uf.checkMakeDir( jobScriptsFolder )
 
     processNumber = 0
     for k in allProcesses:
@@ -127,8 +126,8 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
         sampleDir = inputDir + sample_k +'/'
         koutputDir = outputDir + k + '/'
         kOutDirLog = koutputDir + 'log/'
-        checkMakeDir( koutputDir )
-        checkMakeDir( kOutDirLog )
+        uf.checkMakeDir( koutputDir )
+        uf.checkMakeDir( kOutDirLog )
         print( 'outputDir for kprocess: ', koutputDir )
         for entry in os.listdir( sampleDir):
             if os.path.isfile(os.path.join(sampleDir, entry)):

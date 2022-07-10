@@ -58,6 +58,7 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
     df = pd.DataFrame(data, summedProcessList )
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    
 
     if includeEfficiency:
         df['HLTEff'] = df['jetsNumber_HLT']/df['jetsNumber_initial']
