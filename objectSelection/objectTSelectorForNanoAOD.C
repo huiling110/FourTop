@@ -180,6 +180,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         }
     }
     eventsPassedHLT++;
+    if ( isdata ){
+        h_forEY_HLT->Fill( 0.0 , 1 );
+    }else{
+        h_forEY_HLT->Fill( 0.0, *Generator_weight );
+    }
+
+
     //!!!very important to give value to default values to variables for each event!!!
     initializeBrancheValues();
 
@@ -312,13 +319,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if ( !( tausL.size()>0)) return kFALSE;
 		if ( !( jets.size()>5))  return kFALSE;
         if ( !( bjetsL.size()>1)) return kFALSE;
-        //if ( !( bjetsL.size()>2)) return kFALSE;
     }
+    if ( !isdata ){
+        h_forEY_preSelection->Fill( 0.0, *Generator_weight );
 
-    // if ( ifBlinded ){
-        
-    // }
-
+    }else{
+        h_forEY_preSelection->Fill( 0.0, 1 );
+    }
 
 
 
