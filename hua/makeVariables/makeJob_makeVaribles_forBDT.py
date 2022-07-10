@@ -13,7 +13,7 @@ import ttttGlobleQuantity as GQ
 def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
     inVersion = 'v17NoSelection'
-    outVersion = 'v3ClearedSomeMemoryUse'
+    outVersion = 'v4ClearedSomeMemoryUse'
     justMC = False
     year = '2016'
     selectionBit = '7'

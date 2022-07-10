@@ -61,4 +61,8 @@ samples = [
     "st_tZq",
     "st_tW_antitop",
     "st_tW_top",
+
+    'jetHT_2016F',
+    'jetHT_2016G',
+    'jetHT_2016H',
 ]
