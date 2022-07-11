@@ -261,6 +261,7 @@ void writeHist::Terminate()
 		tausT_HT_hists[j]->Scale( processScale );
 	}
 
+	//getting event count histo from input file
 	TDirectory* outFileDir = gDirectory->GetDirectory("");
 	TFile* input = new TFile( m_outputFolder+m_processName+".root", "READ" );
     TH1D* jetsNumber_initial = (TH1D*)input->Get("jetsNumber_initial")->Clone(  "preChannel_"+m_processName+"_jetsNumber_initial" );

@@ -7,20 +7,20 @@ import pandas as pd
 
 # from plotVaribles import  histoGramPerSample, summedProcessList
 from ttttGlobleQuantity import  histoGramPerSample, summedProcessList
+import usefulFunc as uf
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/variableHists_v0basicWeight/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/variableHists_v0forCutFlow/'
     # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
-    regionList = [ 'preChannel' ]
+    # regionList = [ 'preChannel' ]
     inputDir = {
-        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/variableHists_v1forCutFlow/',
-        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/variableHists_v1forCutFlow/'
-        'mc': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/variableHists_v2forCutFlow/',
-        'data': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/variableHists_v2forCutFlow/',
-
+        # 'mc': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/variableHists_v2forCutFlow/',
+        # 'data': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/variableHists_v2forCutFlow/',
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
+        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
     }
-    variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
+    # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
+    regionList = [ '1tau0lCR', '1tau0lVR']
+    variableList = ['jetsNumber_forYieldCount']
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
@@ -30,8 +30,8 @@ def main():
     # sumProcessHistsDict = getSummedHists( inputDir, regionList, 'jetsNumber_initial' )
     # print( sumProcessHistsDict )
 
-    # writeHistsToCSV( sumProcessHistsDict,  inputDir+'results/', regionList )
-    writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post.csv', False, True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lEY.csv' )
+    # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
 
 
@@ -69,31 +69,37 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
 
     df.to_csv( outDir + fileName ) 
 
-
     print( 'done writen csv file here: ', outDir+fileName )
 
 
-def writeHistsToCSV( sumProcessHistDic, outDir , regionList):
-    if not os.path.exists(outDir): os.mkdir(outDir)
-    csvFile = open( outDir+'1tau1lCR_EY.csv', 'w')
-    csvWriter = csv.writer( csvFile, delimiter=',')
+def writeHistsToCSV( sumProcessPerVal, outDir , csvName):
+    print('\n')
+    print('start to write hists to csv')
+    uf.checkMakeDir( outDir )
 
-    csvField = list(sumProcessHistDic.keys())
-    csvField.insert(0, 'process')
-    csvWriter.writerow( csvField )
+    data = {}
+    variable = list(sumProcessPerVal.keys())[0]
+    for iregion in sumProcessPerVal[variable].keys():
+        iList = []
+        for iProcess in summedProcessList:
+            iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
+        data[iregion] = iList
 
-    # for iProcess in sumProcessHistDic[csvField[1]].keys():
-    for iProcess in summedProcessList:
-        iProcessEYList = []
-        for iRegion in regionList:
-            print( iProcess, iRegion )
-            iProcessEYList.append( '{:.2f}'.format( sumProcessHistDic[iRegion][iProcess].Integral() ) )
-        iProcessEYList.insert(0, iProcess)
-        print(iProcessEYList)
-        csvWriter.writerow( iProcessEYList  )
+    df = pd.DataFrame( data, summedProcessList )
+    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
+    df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    print( df )
 
-    print(csvFile)
-    csvFile.close()
+    print( 'done writen csv file here: ', outDir+csvName )
+    # for iProcess in summedProcessList:
+    #     iProcessEYList = []
+    #     for iRegion in regionList:
+    #         print( iProcess, iRegion )
+    #         iProcessEYList.append( '{:.2f}'.format( sumProcessHistDic[iRegion][iProcess].Integral() ) )
+    #     iProcessEYList.insert(0, iProcess)
+    #     print(iProcessEYList)
+    #     csvWriter.writerow( iProcessEYList  )
+
 
 
 
