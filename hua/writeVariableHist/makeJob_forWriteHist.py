@@ -12,26 +12,42 @@ import subprocess
 # inputDir = '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/'
 # inputDir = '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/'
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/'
-inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/'
-version = "v1FixedSumgenWeight"
-isTest = 0
-outputDir = inputDir + 'variableHists_' + version +'/'
 
-
-
-jobDir = 'jobSH/'
 Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
-# outputDir = inputDir + 'variableHists/'
-
 def main():
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/'
+    version = "v2SwitchedCRVR"
+    justMC = False
+    isTest = 0
 
-    if not os.path.exists( jobDir ):
-        os.mkdir( jobDir )
-    if not os.path.exists( outputDir ): os.mkdir( outputDir)
+
+
 
     subAllProcess = open( 'subAllProcess.sh', 'w')
     subAllProcess.write('#!/bin/bash\n')
     subAllProcess.write('cd '+ Jobsubmitpath +'\n')
+    inputDirDic={}
+    inputDirDic['mc'] = inputDir + 'mc/'
+    if not justMC:
+        inputDirDic['data'] = inputDir + 'data/'
+
+    for i in inputDirDic.keys():
+        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
+
+
+
+
+def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
+
+    jobDir = 'jobSH/'
+    outputDir = inputDir + 'variableHists_' + version +'/'
+    if not os.path.exists( jobDir ):
+        os.mkdir( jobDir )
+    if not os.path.exists( outputDir ): os.mkdir( outputDir)
+
+    # subAllProcess = open( 'subAllProcess.sh', 'w')
+    # subAllProcess.write('#!/bin/bash\n')
+    # subAllProcess.write('cd '+ Jobsubmitpath +'\n')
 
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
@@ -40,7 +56,7 @@ def main():
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess )  
+            makeIjob( iJobFile, iProcess, isTest, inputDir, version )  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
@@ -53,7 +69,7 @@ def main():
 
 
 
-def makeIjob( shFile, iProcess ):
+def makeIjob( shFile, iProcess, isTest, inputDir, version ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )

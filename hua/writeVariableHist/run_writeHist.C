@@ -6,7 +6,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/",
     // TString inputDir = "/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/",
-    TString inputProcess = "ttbar_0l",
+    // TString inputProcess = "ttbar_0l",
+    TString inputProcess = "qcd_500to700",
     TString version = "vtest",
     Bool_t isTest = kTRUE
     // TString inputProcess = "ttbar_1l"

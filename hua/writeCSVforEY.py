@@ -10,19 +10,20 @@ from ttttGlobleQuantity import  histoGramPerSample, summedProcessList
 import usefulFunc as uf
 
 def main():
-    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
-    # regionList = [ 'preChannel' ]
     inputDir = {
         # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
         # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
-        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/variableHists_v1FixedSumgenWeight/',
-        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v1FixedSumgenWeight/',
+        # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/variableHists_v1FixedSumgenWeight/',
+        # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v1FixedSumgenWeight/',
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/variableHists_v2SwitchedCRVR/',
+        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v2SwitchedCRVR/',
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
-    regionList = ['initial', 'HLT', 'baseline',  '1tau0lCR']
+    regionList = ['initial', 'HLT', 'baseline',  '1tau0lCR', '1tau0lVR', '1tau0lCR2']
+    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
     variableList = ['jetsNumber_forYieldCount']
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
