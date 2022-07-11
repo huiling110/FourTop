@@ -193,9 +193,9 @@ Bool_t writeHist::Process(Long64_t entry)
 
     // std::array<TString, 11> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
     // 1tau0l CR
-	Bool_t is1tau0lCR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1;
+	Bool_t is1tau0lCR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0;
 	fillHistsVector( is1tau0lCR, 1, basicWeight );
-	Bool_t is1tau0lVR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==0;
+	Bool_t is1tau0lVR = *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number>=8 && *bjetsM_num==1;
 	fillHistsVector( is1tau0lVR, 2, basicWeight );
 	Bool_t is1tau0lCR2 =  *tausT_number==1 && *leptonsMVAT_number==0 &&  *jets_number<8 && *bjetsM_num>=2;
 	fillHistsVector( is1tau0lCR2, 3, basicWeight );
@@ -251,7 +251,7 @@ void writeHist::Terminate()
 	for( UInt_t j=0; j<jetsNumber_hists.size(); j++ ){
 
 		std::cout<<j<<"\n";
-		jetsNumber_forYieldCount_hists[j]->Print();
+		// jetsNumber_forYieldCount_hists[j]->Print();
 		jetsNumber_forYieldCount_hists[j]->Scale( processScale );
 		jetsNumber_forYieldCount_hists[j]->Print();
 		jetsNumber_hists[j]->Scale( processScale );
@@ -269,12 +269,15 @@ void writeHist::Terminate()
     TH1D* jetsNumber_initial = (TH1D*)input->Get("jetsNumber_initial")->Clone(  "initial_"+m_processName+"_jetsNumber_forYieldCount" );
 	jetsNumber_initial->SetDirectory( outFileDir );
 	jetsNumber_initial->Scale( processScale );
+	jetsNumber_initial->Print();
 	TH1D* jetsNumber_HLT = (TH1D*)input->Get("jetsNumber_HLT")->Clone( "HLT_"+m_processName+"_jetsNumber_forYieldCount");
 	jetsNumber_HLT->SetDirectory( outFileDir );
 	jetsNumber_HLT->Scale( processScale ); 
+	jetsNumber_HLT->Print();
 	TH1D* jetsNumber_baseline = (TH1D*)input->Get("jetsNumber_baseline")->Clone( "baseline_"+m_processName+"_jetsNumber_forYieldCount");
 	jetsNumber_baseline->SetDirectory( outFileDir );
 	jetsNumber_baseline->Scale( processScale ); 
+	jetsNumber_baseline->Print();
 
 	input->Close();
 

@@ -25,12 +25,12 @@ void run_writeHist(
     TFile *m_file = new TFile(inputFile, "READ");
     if (!isData)
     {
+        //to do: move this to makeVariable step
         TTree *alleventTree = (TTree *)m_file->Get("allevents");
         Double_t igen;
         alleventTree->SetBranchAddress( "genWeight_allEvents", &igen );
         genWeightSumInitial = 0.0;
         for (int iEntry = 0; alleventTree->LoadTree(iEntry) >= 0; ++iEntry) {
-   // Load the data for the given tree entry
             alleventTree->GetEntry(iEntry);
             genWeightSumInitial += igen; 
 
