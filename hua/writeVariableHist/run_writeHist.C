@@ -6,8 +6,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/",
     // TString inputDir = "/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/",
-    TString inputProcess = "tttt",
-    TString version = "v0forCutFlow",
+    TString inputProcess = "ttbar_0l",
+    TString version = "vtest",
     Bool_t isTest = kTRUE
     // TString inputProcess = "ttbar_1l"
     // TString inputProcess = "jetHT_2016C"
@@ -18,8 +18,7 @@ void run_writeHist(
     TString inputFile = inputDir + inputProcess + ".root";
 
     Bool_t isData = kFALSE;
-    if (inputDir.Contains("data"))
-        isData = kTRUE;
+    if (inputDir.Contains("data")) {isData = kTRUE;}
 
     // get genWeightSumInitial for the process
     Double_t genWeightSumInitial = 1.0;
@@ -27,10 +26,19 @@ void run_writeHist(
     if (!isData)
     {
         TTree *alleventTree = (TTree *)m_file->Get("allevents");
-        TH1D *h_genWeight = new TH1D("genWeight", "genWeight", 100, -100., 100.);
-        alleventTree->Project("genWeight", "genWeight_allEvents");
-        h_genWeight->StatOverflows(kTRUE);
-        genWeightSumInitial = h_genWeight->GetMean() * h_genWeight->GetEntries();
+        Double_t igen;
+        alleventTree->SetBranchAddress( "genWeight_allEvents", &igen );
+        genWeightSumInitial = 0.0;
+        for (int iEntry = 0; alleventTree->LoadTree(iEntry) >= 0; ++iEntry) {
+   // Load the data for the given tree entry
+            alleventTree->GetEntry(iEntry);
+            genWeightSumInitial += igen; 
+
+        }
+        // TH1D *h_genWeight = new TH1D("genWeight", "genWeight", 100, -100., 100.);
+        // alleventTree->Project("genWeight", "genWeight_allEvents");
+        // h_genWeight->StatOverflows(kTRUE);
+        // genWeightSumInitial = h_genWeight->GetMean() * h_genWeight->GetEntries();
     }
     cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 

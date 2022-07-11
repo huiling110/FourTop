@@ -15,11 +15,14 @@ def main():
     inputDir = {
         # 'mc': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/variableHists_v2forCutFlow/',
         # 'data': '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/variableHists_v2forCutFlow/',
-        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
-        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
+        # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
+        # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/variableHists_v0forCutFlow/',
+        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v0forCutFlow/',
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
-    regionList = [ '1tau0lCR', '1tau0lVR']
+    # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
+    regionList = ['initial', 'HLT', 'baseline',  '1tau0lCR']
     variableList = ['jetsNumber_forYieldCount']
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -30,7 +33,7 @@ def main():
     # sumProcessHistsDict = getSummedHists( inputDir, regionList, 'jetsNumber_initial' )
     # print( sumProcessHistsDict )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lEY.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lEYinRegions.csv' )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
 
@@ -82,23 +85,18 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName):
     for iregion in sumProcessPerVal[variable].keys():
         iList = []
         for iProcess in summedProcessList:
+            # print(iProcess)
             iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
         data[iregion] = iList
 
-    df = pd.DataFrame( data, summedProcessList )
+    df = pd.DataFrame( data, index=summedProcessList )
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    pd.set_option('display.float_format','{:.2f}'.format)
     print( df )
 
+    df.to_csv( outDir+csvName, float_format='%.2f')
     print( 'done writen csv file here: ', outDir+csvName )
-    # for iProcess in summedProcessList:
-    #     iProcessEYList = []
-    #     for iRegion in regionList:
-    #         print( iProcess, iRegion )
-    #         iProcessEYList.append( '{:.2f}'.format( sumProcessHistDic[iRegion][iProcess].Integral() ) )
-    #     iProcessEYList.insert(0, iProcess)
-    #     print(iProcessEYList)
-    #     csvWriter.writerow( iProcessEYList  )
 
 
 
