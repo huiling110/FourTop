@@ -1,13 +1,14 @@
 void run_makeVaribles_forBDT(
-    // Bool_t istest = true,
-    Bool_t istest = false,
+    Bool_t istest = true,
+    // Bool_t istest = false,
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v16_HLTselection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v16_HLTselection/data/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v17NoSelection/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v17NoSelection/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v18HLTSelection/mc/",
     // TString inputBase = "../../objectSelection/",
 
-    // TString inputDir = "tttt",
-    TString inputDir = "qcd_100to200",
+    TString inputDir = "tttt",
+    // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016D",
     // TString inputDir = "ttbar_2l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
@@ -52,7 +53,7 @@ void run_makeVaribles_forBDT(
 
     if (istest)
     {
-        chain.Process(selection + "+", option, 100);
+        // chain.Process(selection + "+", option, 100);
         chain.Process(selection + "+", option, 1000);
     }
     else

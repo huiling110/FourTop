@@ -12,16 +12,17 @@ import ttttGlobleQuantity as GQ
 
 def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
-    inVersion = 'v17NoSelection'
-    outVersion = 'v4ClearedSomeMemoryUse'
+    # inVersion = 'v17NoSelection'
+    inVersion = 'v18HLTSelection'
+    outVersion = 'v0baseline'
     justMC = False
     year = '2016'
     selectionBit = '7'
 
 
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
-    outputBase = '/scratchfs/cms/huahuil/forMVA/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+    # outputBase = '/scratchfs/cms/huahuil/forMVA/'
 
     inOutDirMap = {}
     #python dict
@@ -36,7 +37,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
+        # if iera=='2016preVFP' : continue
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )
