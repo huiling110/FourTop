@@ -22,7 +22,7 @@ def main():
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
-    regionList = ['initial', 'HLT', 'baseline',  '1tau0lCR', '1tau0lVR', '1tau0lCR2']
+    regionList = ['initial', 'HLT', 'baseline', '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2']
     # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
     variableList = ['jetsNumber_forYieldCount']
 
@@ -86,13 +86,16 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName):
     for iregion in sumProcessPerVal[variable].keys():
         iList = []
         for iProcess in summedProcessList:
-            # print(iProcess)
-            iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
+            if ('SR' in iregion) and iProcess=='data':
+                iList.append('-1')
+            else: 
+                iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
         data[iregion] = iList
 
     df = pd.DataFrame( data, index=summedProcessList )
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    df['process'] = df.index
     pd.set_option('display.float_format','{:.2f}'.format)
     print( df )
 
