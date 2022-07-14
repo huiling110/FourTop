@@ -8,32 +8,39 @@ import subprocess
 import ttttGlobleQuantity as GQ
 
 #???make the makeJobs code some functions and stuff to make it reusable
+#???make this job submisssion and checking and resubmit and addHist automatized
+
+
+# inVersion = 'v17NoSelection'
+inVersion = 'v18HLTSelection'
+outVersion = 'v0baseline'
+justMC = False
+year = '2016'
+selectionBit = '7'
+
+
+inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
+outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+# outputBase = '/scratchfs/cms/huahuil/forMVA/'
+
+inOutDirMap = {}
+#python dict
+if year=='2016':
+    inOutDirMap ['2016postVFP'] = {}
+    inOutDirMap ['2016preVFP'] = {}
+    inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
+    inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
+    if not justMC:
+        inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
+        inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
+
+
+
+
 
 
 def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
-    # inVersion = 'v17NoSelection'
-    inVersion = 'v18HLTSelection'
-    outVersion = 'v0baseline'
-    justMC = False
-    year = '2016'
-    selectionBit = '7'
-
-
-    inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
-    # outputBase = '/scratchfs/cms/huahuil/forMVA/'
-
-    inOutDirMap = {}
-    #python dict
-    if year=='2016':
-        inOutDirMap ['2016postVFP'] = {}
-        inOutDirMap ['2016preVFP'] = {}
-        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
-        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
-        if not justMC:
-            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
-            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
