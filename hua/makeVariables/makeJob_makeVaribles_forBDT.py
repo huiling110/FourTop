@@ -23,16 +23,6 @@ inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
 # outputBase = '/scratchfs/cms/huahuil/forMVA/'
 
-inOutDirMap = {}
-#python dict
-if year=='2016':
-    inOutDirMap ['2016postVFP'] = {}
-    inOutDirMap ['2016preVFP'] = {}
-    inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
-    inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
-    if not justMC:
-        inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
-        inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
 
 
 
@@ -41,6 +31,7 @@ if year=='2016':
 
 def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
+    inOutDirMap = getInOutDic( year, inputBase, outputBase, inVersion, outVersion, justMC )
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
@@ -62,6 +53,18 @@ def main():
     subprocess.run( 'chmod 777 subAllofAll.sh', shell=True )
 
 
+def getInOutDic( year, inputBase, outBase, inVersion, outVersion, justMC ):
+    inOutDirMap = {}
+#python dict
+    if year=='2016':
+        inOutDirMap ['2016postVFP'] = {}
+        inOutDirMap ['2016preVFP'] = {}
+        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
+        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
+        if not justMC:
+            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
+            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
+    return inOutDirMap
 
 
 
