@@ -7,10 +7,10 @@ void run_makeVaribles_forBDT(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v18HLTSelection/mc/",
     // TString inputBase = "../../objectSelection/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016D",
-    // TString inputDir = "ttbar_2l",
+    TString inputDir = "ttbar_0l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
     const TString eventSelectionBit = "7"
     // 1 for MetFilters, 2 for HLTSelection, 4 for baseline. so 7 if all selection; 0 if no selection
@@ -62,9 +62,10 @@ void run_makeVaribles_forBDT(
     if (ifMergeAllevent)
     {
         cout << "--------" << endl;
-        cout << "now comes to add allevents stage\n" << endl;
+        cout << "now comes to add allevents stage\n"
+             << endl;
         TFile *file = TFile::Open(outputDir + outputFileName, "UPDATE");
-        cout << "file opened :" << file->GetName()<<"\n";
+        cout << "file opened :" << file->GetName() << "\n";
 
         // add allevents tree
         TChain chain2("allevents");
@@ -73,7 +74,7 @@ void run_makeVaribles_forBDT(
         // chain2.ls();
         // chain2.Merge( file, 1000, "C" );
         chain2.Merge(file, 2000);
-        cout<<"done merging allevents trees\n";
+        cout << "done merging allevents trees\n";
         // file->Close();
     }
 }

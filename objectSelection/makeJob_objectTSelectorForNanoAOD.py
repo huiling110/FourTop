@@ -22,17 +22,17 @@ codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelecti
 rootplizer = "run_objectTSelectorForNanoAOD.C"
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
+jobVersionName = 'v19HLTSelection/'
+onlyMC = False
+era = '2016'
+# era = '2016APV'
+# era = '2018'
 def main():
     # jobVersionName = 'v13_addedMissingFilterBranches/'
     # jobVersionName = 'v14_MetFilterHLTSelection/'
     # jobVersionName = 'v15_0selection/'
     # jobVersionName = 'v16_HLTselection/'
-    jobVersionName = 'v18HLTSelection/'
     # onlyMC = True
-    onlyMC = False
-    era = '2016'
-    # era = '2016APV'
-    # era = '2018'
     eventSelection = '3'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
@@ -46,7 +46,7 @@ def main():
 ###########################################
 #better not modify anything afer this
     inputDir = inputBase + era +'/'
-    outputDir = outputBase + eraDic[era] + '/' +jobVersionName +'/' 
+    outputDir = outputBase + eraDic[era] + '/' +jobVersionName  
     uf.checkMakeDir( outputDir) 
     inputDirMC = inputDir + 'mc/'
 
