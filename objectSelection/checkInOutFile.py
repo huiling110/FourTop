@@ -5,7 +5,8 @@ import ROOT
 import pandas as pd
 
 
-from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, samples
+from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, samples, samplesCrossSection
+import usefulFunc as uf
 
 
 from makeJob_objectTSelectorForNanoAOD import inputBase, outputBase, eraDic, jobVersionName, era
@@ -20,7 +21,10 @@ def main():
     # writeGenSumToCSV( inOutListMC[1] )
 
     genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
-    # writeHistsOneFileOneProcess( inOutListMC[1] )
+    lumi = 16810
+    fileDir = outputBase + eraDic[era] + '/' +jobVersionName+'results/'
+    uf.checkMakeDir( fileDir )
+    writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
 
 
     # calCutFlow()
@@ -35,18 +39,30 @@ def getGenSumDic( inputCsv ):
 
 # de/ calCutFlow( mcDir, dataDir ):
 
-def writeHistsOneFileOneProcess( indir ):
+def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, outDir):
+    uf.checkMakeDir( outDir )
     for iPro in os.listdir( indir ):
         print( iPro )
-        iHist = ROOT.TH1D( 'initial_' + iPro + '_' + 'onlygenWeight' )
+        iRootFile = ROOT.TFile( outDir+iPro+'.root', "RECREATE")
+        iHist = ROOT.TH1D( 'initial_' + iPro + '_' + 'onlygenWeight', 'initial_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHist.SetDirectory(iRootFile)
         for ifile in os.listdir( indir+iPro ):
             if 'log' in ifile: continue
             # print( ifile )
             iRoot = ROOT.TFile( indir+iPro+ '/'+ ifile, 'READ' )
             ihist_initial = iRoot.Get( 'h_initial' )
             iHist.Add( ihist_initial )
+            # iHist.SetDirectory(iRootFile)
             iRoot.Close()
-        iHist.Scale(  )
+
+        iProScale = lumi*samplesCrossSection[iPro]/genSumDic[iPro]
+        iHist.Scale( iProScale )
+        iHist.Print()
+
+        # iHist.Write()
+        iRootFile.Write()
+        print( 'written: ', iRootFile.GetName() )
+        iRootFile.Close()
 
 
 
@@ -92,12 +108,6 @@ def checkInOutFileNumber( inOutList):
 
 
 
-# iprocess = 'ttbar_0l/'
-
-# print( os.listdir( inputDir ))
-
-# print( len( os.listdir(inputDir+iprocess)))
-# print( len( os.listdir(outputDir+iprocess)))
 
 
 
