@@ -43,6 +43,7 @@ def main():
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lEYinRegions.csv' )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
 
 
 
@@ -70,9 +71,9 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
     
 
-    if includeEfficiency:
-        df['HLTEff'] = df['jetsNumber_HLT']/df['jetsNumber_initial']
-        df['baselineEff'] = df['jetsNumber_baseline']/df['jetsNumber_HLT']
+    # if includeEfficiency:
+    #     df['HLTEff'] = df['jetsNumber_HLT']/df['jetsNumber_initial']
+    #     df['baselineEff'] = df['jetsNumber_baseline']/df['jetsNumber_HLT']
 
     pd.set_option('display.float_format','{:.2f}'.format)
     print(df)
