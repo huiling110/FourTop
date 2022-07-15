@@ -17,9 +17,9 @@ def main():
     # checkInOutFileNumber( inOutListMC )
     # checkInOutFileNumber( inOutListData )
     
-    writeGenSumToCSV( inOutListMC[1] )
+    # writeGenSumToCSV( inOutListMC[1] )
 
-    # genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
+    genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
     # writeHistsOneFileOneProcess( inOutListMC[1] )
 
 
@@ -27,7 +27,8 @@ def main():
 
 def getGenSumDic( inputCsv ):
     df = pd.read_csv( inputCsv )
-    genSumDic = df.to_dict()
+    # genSumDic = df.to_dict()
+    genSumDic = pd.Series( df['2016postVFP'].values, index=df['process'] ).to_dict()
     print( genSumDic )
     return genSumDic
 
