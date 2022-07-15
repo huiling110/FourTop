@@ -22,7 +22,8 @@ def main():
 
     genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
     lumi = 16810
-    fileDir = outputBase + eraDic[era] + '/' +jobVersionName+'results/'
+    # fileDir = outputBase + eraDic[era] + '/' +jobVersionName+'results/'
+    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
     uf.checkMakeDir( fileDir )
     writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
     writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )

@@ -21,8 +21,8 @@ def main():
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/data/variableHists_v2SwitchedCRVR/',
         # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/variableHists_v0/',
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/data/variableHists_v0/',
-        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v19HLTSelection/results/mc/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v19HLTSelection/results/data/'
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v19HLTSelection/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v19HLTSelection/data/'
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
@@ -44,6 +44,7 @@ def main():
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRaw_objectSelection.csv', True )
 
 
 
@@ -83,7 +84,7 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
     print( 'done writen csv file here: ', outDir+fileName )
 
 
-def writeHistsToCSV( sumProcessPerVal, outDir , csvName):
+def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
     print('\n')
     print('start to write hists to csv')
     uf.checkMakeDir( outDir )
@@ -96,12 +97,21 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName):
             if ('SR' in iregion) and iProcess=='data':
                 iList.append('-1')
             else: 
-                iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
+                if not isRawEntries:
+                    iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
+                else:
+                    iList.append( sumProcessPerVal[variable][iregion][iProcess].GetEntries() )
         data[iregion] = iList
 
     df = pd.DataFrame( data, index=summedProcessList )
-    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
+    # df.loc['totalBG'] = df.drop('data', 'tttt').sum(axis=0, numeric_only=True)       
+    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
+    df.loc['totalbg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+
+    df['HLTeff'] = df['HLT']/df['initial']
+    df['preeff'] = df['preSelection']/df['HLT']
+
     df['process'] = df.index
     pd.set_option('display.float_format','{:.2f}'.format)
     print( df )
