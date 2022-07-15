@@ -17,12 +17,14 @@ def main():
     # checkInOutFileNumber( inOutListMC )
     # checkInOutFileNumber( inOutListData )
     
-    writeGenSumToCSV( inOutListMC[1] )
+    # writeGenSumToCSV( inOutListMC[1] )
 
 def writeGenSumToCSV( outDir ):
+    processList = []
     genWeightDic = {}
     for iPro in os.listdir( outDir ):
         print( iPro) 
+        processList.append( iPro )
         sumHist = ROOT.TH1D( 'summedHist' , 'summedHist', 2, -1, 1 )
         for ifile in os.listdir( outDir+iPro ):
             if 'log' in ifile: continue
@@ -33,14 +35,17 @@ def writeGenSumToCSV( outDir ):
             sumHist.Add( ihist_initial )
             iRoot.Close()
         genWeightDic[iPro] = sumHist.Integral()
-        sumHist.Print()
+        # sumHist.Print()
         del sumHist
 
     print( genWeightDic )
 
-    pd.DataFrame([genWeightDic] )
+    # series = pd.Series( genWeightDic, name='2016postVFP')
 
-    print( pd )
+    df = pd.DataFrame.from_dict( genWeightDic, orient='index' , columns=['2016postVFP'])
+    df.to_csv( 'genWeightCSV/' + 'genSum_2016postVFP.csv'  )
+
+    print( df )
 
 
 
