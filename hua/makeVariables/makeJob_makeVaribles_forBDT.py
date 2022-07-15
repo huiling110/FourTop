@@ -13,10 +13,10 @@ import ttttGlobleQuantity as GQ
 
 # inVersion = 'v17NoSelection'
 inVersion = 'v19HLTSelection'
-outVersion = 'v0baseline'
+outVersion = 'v1Nobaseline'
 justMC = False
 year = '2016'
-selectionBit = '7'
+selectionBit = '3'
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'

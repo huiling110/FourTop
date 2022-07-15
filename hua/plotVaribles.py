@@ -96,19 +96,20 @@ legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 # includeDataInStack = False
 includeDataInStack = True
 
-
-
-
 def main():
-    version = 'v0baseline_v16_HLTselection'
-    histVersion = 'variableHists_v1moreVariables'
+
+    # version = 'v0baseline_v16_HLTselection'
+    version = 'v0baseline_v19HLTSelection'
+    # histVersion = 'variableHists_v1moreVariables'
+    histVersion = 'variableHists_v2baseline'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
-    myRegion = '1tau0lCR4'
+    myRegion = '1tau0lCR'
     ifDataDrivenQCD = False
 
     #qcd corrected only in CR and VR
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
     inputDirDict = {}
     inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
     inputDirDict['data'] = inputDirBase + version + '/data/' + histVersion + '/' 

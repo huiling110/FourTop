@@ -1,0 +1,21 @@
+import pandas as pd
+
+
+obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v19HLTSelection/mc/results/cutFlow_objectSelection.csv'
+R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/variableHists_v2baseline/results/1tau0lEYinRegions.csv'
+
+df1 = pd.read_csv( obCSV )
+df2 = pd.read_csv( R1tau0l )
+
+df2 = df2.join( df1['initial'] )
+df2 = df2.join( df1['HLT'])
+df2 = df2.join( df1['preSelection'])
+df2 = df2.join( df1['HLTeff'])
+
+df2['baselineEff'] = df2['baseline']/df2['HLTeff']
+
+print( df1 )
+print( df2 )
+
+df2.to_csv( R1tau0l )
+

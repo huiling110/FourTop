@@ -5,7 +5,7 @@ void run_writeHist(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
-    TString inputProcess = "ttbar_0l",
+    TString inputProcess = "tttt",
     TString version = "vtest",
     Bool_t isTest = kTRUE
     // TString inputProcess = "jetHT_2016C"
