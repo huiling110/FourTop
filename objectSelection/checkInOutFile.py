@@ -45,21 +45,28 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
         print( iPro )
         iRootFile = ROOT.TFile( outDir+iPro+'.root', "RECREATE")
         iHist = ROOT.TH1D( 'initial_' + iPro + '_' + 'onlygenWeight', 'initial_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHistHLT = ROOT.TH1D( 'HLT_' + iPro + '_' + 'onlygenWeight', 'HLT_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHistPre = ROOT.TH1D( 'preSelection_' + iPro + '_' + 'onlygenWeight', 'preSelection_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHist.SetDirectory(iRootFile)
         for ifile in os.listdir( indir+iPro ):
             if 'log' in ifile: continue
             # print( ifile )
             iRoot = ROOT.TFile( indir+iPro+ '/'+ ifile, 'READ' )
             ihist_initial = iRoot.Get( 'h_initial' )
+            ihist_HLT = iRoot.Get( 'h_afterHLT' )
+            ihist_pre = iRoot.Get( 'h_afterpreSelection')
             iHist.Add( ihist_initial )
+            iHistHLT.Add( ihist_HLT )
+            iHistPre.Add( ihist_pre)
             # iHist.SetDirectory(iRootFile)
             iRoot.Close()
 
         iProScale = lumi*samplesCrossSection[iPro]/genSumDic[iPro]
         iHist.Scale( iProScale )
+        iHistHLT.Scale( iProScale )
+        iHistPre.Scale( iProScale )
         iHist.Print()
 
-        # iHist.Write()
         iRootFile.Write()
         print( 'written: ', iRootFile.GetName() )
         iRootFile.Close()
