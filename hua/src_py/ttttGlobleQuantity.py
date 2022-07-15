@@ -46,7 +46,7 @@ histoGramPerSample = {
 
 samples = [
     'tttt', 
-    'ttbar_0l','ttbar_0l', 'ttbar_1l',
+    'ttbar_0l','ttbar_2l', 'ttbar_1l',
     'qcd_50to100',
     'qcd_100to200',
     'qcd_200to300',

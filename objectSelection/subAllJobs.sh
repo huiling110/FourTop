@@ -7,6 +7,7 @@ sh  wz.sh
 sh  qcd_1500to2000.sh
 sh  ttbar_1l.sh
 sh  st_tZq.sh
+sh  ttbar_2l.sh
 sh  st_tW_antitop.sh
 sh  qcd_50to100.sh
 sh  qcd_500to700.sh

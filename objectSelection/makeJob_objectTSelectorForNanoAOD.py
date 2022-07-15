@@ -103,7 +103,6 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
     jobScriptsFolder = codePath + 'jobs_seperata/'
     uf.checkMakeDir( jobScriptsFolder )
 
-    processNumber = 0
     for k in allProcesses:
         if not k in gq.samples:  continue
         print(k)
