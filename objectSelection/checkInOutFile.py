@@ -25,6 +25,8 @@ def main():
     fileDir = outputBase + eraDic[era] + '/' +jobVersionName+'results/'
     uf.checkMakeDir( fileDir )
     writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
+    writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+    
 
 
     # calCutFlow()
@@ -39,7 +41,7 @@ def getGenSumDic( inputCsv ):
 
 # de/ calCutFlow( mcDir, dataDir ):
 
-def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, outDir):
+def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, outDir, isData=False ):
     uf.checkMakeDir( outDir )
     for iPro in os.listdir( indir ):
         print( iPro )
@@ -61,7 +63,10 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
             # iHist.SetDirectory(iRootFile)
             iRoot.Close()
 
-        iProScale = lumi*samplesCrossSection[iPro]/genSumDic[iPro]
+        if isData: 
+            iProScale = 1.0
+        else: 
+            iProScale = lumi*samplesCrossSection[iPro]/genSumDic[iPro]
         iHist.Scale( iProScale )
         iHistHLT.Scale( iProScale )
         iHistPre.Scale( iProScale )
