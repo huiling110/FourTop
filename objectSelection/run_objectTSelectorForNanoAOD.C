@@ -3,6 +3,18 @@
 #include "TChain.h"
 #include "TROOT.h"
 
+
+int main(int argc, char const *argv[])
+{
+    /* code */
+    run_objectTSelectorForNanoAOD();
+    return 0;
+}
+
+
+
+
+
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,

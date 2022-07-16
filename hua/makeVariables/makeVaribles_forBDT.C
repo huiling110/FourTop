@@ -656,7 +656,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	if (m_baselineSelection)
 	{
-		if (!(jets_HT > 500 && jets_6pt > 40))
+		if (!(jets_HT > 500 && jets_6pt > 40&& jets_number>=6))
 			return kFALSE;
 	}
 	fPassingPreselection++;
