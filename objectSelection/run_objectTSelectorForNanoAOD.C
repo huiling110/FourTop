@@ -4,12 +4,12 @@
 #include "TROOT.h"
 
 
-int main(int argc, char const *argv[])
-{
-    /* code */
-    run_objectTSelectorForNanoAOD();
-    return 0;
-}
+// int main(int argc, char const *argv[])
+// {
+//     /* code */
+//     run_objectTSelectorForNanoAOD();
+//     return 0;
+// }
 
 
 

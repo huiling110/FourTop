@@ -263,6 +263,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // calJetSmearFactors(  isdata );
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get());
     // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
+    // std::cout << "JER_SF_new: ";
+    // for (Int_t i = 0; i < JER_SF_new.size(); i++)
+    // {
+    //     std::cout << JER_SF_new[i] << " ";
+    // }
 
     SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
