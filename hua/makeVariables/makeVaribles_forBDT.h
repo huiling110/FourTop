@@ -19,6 +19,7 @@
 // Headers needed by this particular selector
 #include "TLorentzVector.h"
 #include "TH1D.h"
+#include "TString.h"
 #include "TH2D.h"
 #include <vector>
 #include "variablesFunctions.h"
@@ -48,13 +49,12 @@ public:
     //    TString fprocessName;
     //    TString era = "2016preVFP";
     TString m_era = "2016postVFP";
-    TString m_isData = false;
+    Bool_t m_isData = false;
+    TString m_processName;
     TFile *outputfile;
     TTree *newtree;
-    // TH1D  *h_genWeight ;
-    TH1D *h_intial_jetNumber;
-    TH1D *h_HLT_jetNumber;
-    TH1D *h_baseline_jetNumber;
+    TH1D *eventCount_baseline;
+    TH1D *eventCount_mvInitial;
 
     TH2D *MuonIDSF;
     TH2D *muonTrackerSF_hist;

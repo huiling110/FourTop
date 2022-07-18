@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "env": {}
+    },
+    "tasks": [
+        {
+            "label": "makeclean",
+            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make clean)",
+            "type": "shell"
+        },
+        {
+            "label": "make",
+            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make)",
+            "type": "shell"
+        },
+        {
+            "label": "build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "makeclean",
+                "make"
+            ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cpp compilar archivo activo",
+            "command": "/usr/bin/cpp",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Tarea generada por el depurador."
+        }
+    ]
+}

@@ -1,9 +1,16 @@
-#include "TString.h"
+
+#include "TROOT.h"
 #include "TChain.h"
 #include "TFile.h"
-#include "TROOT.h"
+#include "TString.h"
 #include <iostream>
 
+// int main(int argc, char const *argv[])
+// {
+//     /* code */
+//     run_makeVaribles_forBDT();
+//     return 0;
+// }
 
 void run_makeVaribles_forBDT(
     Bool_t istest = true,
@@ -51,11 +58,11 @@ void run_makeVaribles_forBDT(
     chain.Add(inputFile + "outTree*.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
-    TString outputFileName = inputDir + ".root";
+    // TString outputFileName = ;
 
     TString selection = "makeVaribles_forBDT.C";
 
-    TString option = outputDir + outputFileName + ":" + era + ":" + eventSelectionBit + ":";
+    TString option = outputDir + ":" + inputDir + ":" + era + ":" + eventSelectionBit + ":";
     cout << "option in run: " << option << "\n";
 
     if (istest)
@@ -69,9 +76,8 @@ void run_makeVaribles_forBDT(
     if (ifMergeAllevent)
     {
         cout << "--------" << endl;
-        cout << "now comes to add allevents stage\n"
-             << endl;
-        TFile *file = TFile::Open(outputDir + outputFileName, "UPDATE");
+        cout << "now comes to add allevents stage\n";
+        TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
         cout << "file opened :" << file->GetName() << "\n";
 
         // add allevents tree

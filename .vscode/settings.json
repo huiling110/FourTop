@@ -1,0 +1,29 @@
+{
+    "files.associations": {
+        "checkEntriesT2T3.C": "cpp",
+        "EYandSP_usingClass_v3.C": "cpp",
+        "objectTSelector.C": "cpp",
+        "makeTSelector.C": "cpp",
+        "objectTSelectorForNanoAOD.C": "cpp",
+        "run_objectTSelectorForNanoAOD.C": "cpp",
+        "eventYieldCal.C": "cpp",
+        "TMVAClassification_variableFileInput.C": "cpp",
+        "makeVaribles_forBDT.C": "cpp",
+        "run_makeVaribles_forBDT.C": "cpp",
+        "sumBGsTogether.C": "cpp",
+        "variablesFunctions.C": "cpp",
+        "weightCal.C": "cpp",
+        "dict_makeVaribles_forBDT.C": "cpp",
+        "Loader.C": "cpp",
+        "makeTreeTselector.C": "cpp",
+        "ostream": "cpp",
+        "*.C": "cpp",
+        "iostream": "cpp"
+    },
+    "C_Cpp.default.includePath": [
+        "/scratchfs/cms/huahuil/python/lib/python3.6/site-packages/correctionlib-0.0.0-py3.6-linux-x86_64.egg/correctionlib/include/",
+        "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/../../../../../../../slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/include/",
+        "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/",
+        "${default}",
+    ]
+}

@@ -1,0 +1,295 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.82
+# Built for x86_64-redhat-linux-gnu
+# Copyright (C) 2010  Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+make: *** No rule to make target `all'.  Stop.
+
+
+# Make data base, printed on Wed May 18 16:35:24 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+FOURTOPSHOME = /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop
+# default
+.SHELLFLAGS := -c
+# environment
+QTDIR = /usr/lib64/qt-3.3
+# environment
+VSCODE_AGENT_FOLDER = /publicfs/cms/user/huahuil/.vscode-server
+# environment
+X509_CERT_DIR = /etc/grid-security/certificates
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+MODULEPATH = /usr/share/Modules/modulefiles:/etc/modulefiles
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 3.82
+# makefile
+CURDIR := /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /usr/bin/make
+# makefile
+MAKEFILE_LIST := 
+# environment
+SITECONFIG_PATH = /cvmfs/cms.cern.ch/SITECONF/local
+# environment
+HISTCONTROL = ignoredups
+# environment
+XDG_DATA_DIRS = /afs/ihep.ac.cn/users/h/huahuil/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+QT_PLUGIN_PATH = /usr/lib64/kde4/plugins:/usr/lib/kde4/plugins
+# environment
+LESSOPEN = ||/usr/bin/lesspipe.sh %s
+# environment
+VSCODE_CWD = /afs/ihep.ac.cn/users/h/huahuil
+# environment
+SSH_CONNECTION = 188.84.129.67 61976 202.122.33.187 22
+# environment
+PATH = /publicfs/cms/user/huahuil/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/remote-cli:/cvmfs/cms.cern.ch/common:/usr/lib64/qt-3.3/bin:/cvmfs/cms.cern.ch/common:/usr/local/bin:/usr/bin:/afs/ihep.ac.cn/soft/common/sysgroup/hep_job/bin/:/cvmfs/common.ihep.ac.cn/software/cctools:/opt/puppetlabs/bin:/usr/local/sbin:/usr/sbin:/cvmfs/common.ihep.ac.cn/software/cctools:/afs/ihep.ac.cn/soft/common/sysgroup/hep_job/bin/
+# environment
+QT_GRAPHICSSYSTEM_CHECKED = 1
+# environment
+XDG_RUNTIME_DIR = /run/user/12614
+# environment
+X509_USER_PROXY = /tmp/x509up_u12614
+# environment
+VO_CMS_SW_DIR = /cvmfs/cms.cern.ch
+# environment
+VSCODE_LOG_STACK = false
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver check-symlink
+# environment
+VO_ENMR_EU_SW_DIR = /cvmfs/wenmr.egi.eu
+# automatic
+%F = $(notdir $%)
+# environment
+KDEDIRS = /usr
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+MYPROXY_SERVER = lcg006.ihep.ac.cn
+# environment
+DPNS_HOST = ccsrm.ihep.ac.cn
+# environment
+CMS_LOCAL_SITE = /ihepbatch/gridfs1/exp_soft/cms/SITECONF/local
+# environment
+PWD = /workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/12614/vscode-ipc-6b4d7fe0-6443-453a-a1d5-9175ded66516.sock
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+HISTTIMEFORMAT = %F %T 
+# environment
+MANPATH = /cvmfs/cms.cern.ch/share/man:/cvmfs/cms.cern.ch/share/man::/opt/puppetlabs/puppet/share/man
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /afs/ihep.ac.cn/users/h/huahuil
+# environment
+BDII_LIST = lcg007.ihep.ac.cn:2170
+# environment
+GLOBUS_TCP_PORT_RANGE = 20000,25000
+# environment
+MODULESHOME = /usr/share/Modules
+# environment
+CVSROOT = :gserver:cmssw.cvs.cern.ch:/local/reps/CMSSW
+# environment
+LOGNAME = huahuil
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
++F = $(notdir $+)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+HOSTNAME = lxslc703.ihep.ac.cn
+# environment
+MAKELEVEL := 0
+# environment
+SSH_ASKPASS = /usr/libexec/openssh/gnome-ssh-askpass
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 5
+# environment
+JAVA_HOME = /usr/lib/jvm/jre-openjdk
+# environment
+XDG_SESSION_ID = 79864
+# environment
+USER = huahuil
+# environment
+QTLIB = /usr/lib64/qt-3.3/lib
+# environment
+EOS_MGM_URL = root://eos01.ihep.ac.cn
+# environment
+ATLAS_LOCAL_AREA = /ihepbatch/gridfs1/exp_soft/atlas/local_area
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+define BASH_FUNC_module()
+() {  eval `/usr/bin/modulecmd bash $*`
+}
+endef
+# default
+MAKE_COMMAND := make
+# environment
+LCG_GFAL_INFOSYS = lcg007.ihep.ac.cn:2170
+# default
+.VARIABLES := 
+# environment
+CVS_RSH = ssh
+# automatic
+*F = $(notdir $*)
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# environment
+SSH_CLIENT = 188.84.129.67 61976 22
+# environment
+MAIL = /var/spool/mail/huahuil
+# environment
+LOADEDMODULES = 
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /publicfs/cms/user/huahuil/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/helpers/browser.sh
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# default
+MAKEFILES := 
+# environment
+DPM_HOST = ccsrm.ihep.ac.cn
+# automatic
+<F = $(notdir $<)
+# environment
+VO_ATLAS_SW_DIR = /cvmfs/atlas.cern.ch/repo/sw
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# environment
+SITE_NAME = BEIJING-LCG2
+# default
+SUFFIXES := 
+# environment
+HISTSIZE = 1000
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+CMS_PATH = /cvmfs/cms.cern.ch
+# environment
+QTINC = /usr/lib64/qt-3.3/include
+# default
+.RECIPEPREFIX := 
+# makefile
+.DEFAULT_GOAL := 
+# environment
+LANG = C
+# environment
+SCRAM_ARCH = slc7_amd64_gcc820
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# variable set hash-table stats:
+# Load=100/1024=10%, Rehash=0, Collisions=9/119=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 1598436986, inode 144115242484428941): 17 files, no impossibilities.
+
+# 17 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 0 / lookups = 28 / hits = 28
+# # of strcache buffers: 1 (* 8176 B/buffer = 8176 B)
+# strcache used: total = 0 (227) / max = 0 / min = 8176 / avg = 0
+# strcache free: total = 0 (7949) / max = 0 / min = 8176 / avg = 0
+
+# strcache hash-table stats:
+# Load=25/8192=0%, Rehash=0, Collisions=1/28=4%
+# Finished Make data base on Wed May 18 16:35:24 2022
+
+ 

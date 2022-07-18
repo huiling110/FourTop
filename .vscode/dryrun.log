@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop'
+make: Leaving directory `/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

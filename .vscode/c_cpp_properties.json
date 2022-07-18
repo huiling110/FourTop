@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${default}",
+                "/scratchfs/cms/huahuil/python/lib/python3.6/site-packages/correctionlib-0.0.0-py3.6-linux-x86_64.egg/correctionlib/include/",
+                "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/../../../../../../../slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/include/",
+                "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/"
+            ],
+            "defines": [],
+            "intelliSenseMode": "${default}",
+            "compilerArgs": []
+        }
+    ],
+    "version": 4
+}

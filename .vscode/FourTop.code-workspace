@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "lldb.adapterEnv": { "LD_LIBRARY_PATH" : "/scratchfs/cms/huahuil/trash/glibc-2.18/build" },
+
+  "settings": {
+    "files.associations": {
+      "*.C": "cpp",
+      "vector": "cpp"
+    },
+    
+    // "C_Cpp.default.includePath": [
+    //   "${default}",
+    //   "/usr/include/root",
+    //   "/scratchfs/cms/huahuil/python/lib/python3.6/site-packages/correctionlib-0.0.0-py3.6-linux-x86_64.egg/correctionlib/include"
+    // ]
+  }
+//   "extensions": {
+//     "recommendations": [
+//       "albertopdrf.root-file-viewer",
+//       "ms-vscode.cpptools"
+//     ]
+//   }
+}

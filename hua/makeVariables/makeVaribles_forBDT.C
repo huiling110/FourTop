@@ -48,9 +48,13 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 	// The tree argument is deprecated (on PROOF 0 is passed).
 
 	// get option from run macro
+	// TString option = outputDir + ":" + inputDir + ":" + era + ":" + eventSelectionBit + ":";
 	TString option = GetOption();
-	TString outFileName = option(0, option.First(":"));
-	std::cout << "outFileName: " << outFileName << "\n";
+	TString outDir = option(0, option.First(":"));
+	std::cout << "outputDir: " << outDir << "\n";
+	option.Remove(0, option.First(":") + 1);
+	m_processName = option(0, option.First(":"));
+	std::cout << "m_processName: " << m_processName << "\n";
 	option.Remove(0, option.First(":") + 1);
 	m_era = option(0, option.First(":"));
 	std::cout << "m_era: " << m_era << "\n";
@@ -58,6 +62,12 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 	TString selectionBit = option(0, option.First(":"));
 	Int_t selectionBitInt = std::stoi(selectionBit.Data());
 	std::cout << "selectionBit: " << selectionBitInt << "\n";
+
+	if (m_processName.Contains("jetHT"))
+	{
+		m_isData = true;
+	}
+	std::cout << "m_isData: " << m_isData << "\n";
 
 	// initialize selection level
 	//???should make this an function and then a library to be easily used by other codes
@@ -97,14 +107,13 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 	}
 	std::cout << "m_MetFilters:m_HLTSelection:m_baselineSelection: " << m_MetFilters << m_HLTSelection << m_baselineSelection << "\n";
 
-	outputfile = new TFile(outFileName, "RECREATE");
+	outputfile = new TFile(outDir + m_processName + ".root", "RECREATE");
 	std::cout << outputfile->GetName() << "\n";
 
 	newtree = new TTree("newtree", "tree for BDT");
 
-	h_intial_jetNumber = new TH1D("jetsNumber_initial", "jets number initial", 40, 0, 40);
-	h_HLT_jetNumber = new TH1D("jetsNumber_HLT", "jets number after HLT", 40, 0, 40);
-	h_baseline_jetNumber = new TH1D("jetsNumber_baseline", "jets number after baseline", 40, 0, 40);
+	eventCount_mvInitial = new TH1D("mvInitial_" + m_processName + "forEventCount", "mvInitial_" + m_processName + "forEventCount", 2, -1, 1);
+	eventCount_baseline = new TH1D("mvBaseline_" + m_processName + "forEventCount", "mvBaseline_" + m_processName + "forEventCount", 2, -1, 1);
 
 	makeBranchForTree();
 	// initializeBReader();
@@ -135,10 +144,11 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fProcessed_genWeight += *EVENT_genWeight_;
 
 	Double_t basicWeight = 1.0;
-	if (! m_isData ){
+	if (!m_isData)
+	{
 		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
 	}
-	h_intial_jetNumber->Fill(jets.GetSize(), basicWeight);
+	eventCount_mvInitial->Fill(0.0, basicWeight);
 
 	// initialize
 	InitializeBranches();
@@ -156,18 +166,21 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	if (m_HLTSelection)
 	{
-		if (fProcessed == 1)
-			std::cout << "doing HTL selection\n";
 		if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
 		{
+			if (fProcessed == 1)
+			{
+				std::cout << "doing HTL selection\n";
+			}
 			if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056_ == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ == 1 || *HLT_PFJet450_ == 1))
+			{
 				return kFALSE;
+			}
 		}
 	}
 
 	fPassingHLT++;
 	fPassingHLT_genWeight += *EVENT_genWeight_;
-	h_HLT_jetNumber->Fill(jets.GetSize(), basicWeight);
 
 	Met_pt_ = *Met_pt;
 	Met_phi_ = *Met_phi;
@@ -656,11 +669,14 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	if (m_baselineSelection)
 	{
-		if (!(jets_HT > 500 && jets_6pt > 40&& jets_number>=6))
+		// std::cout << "doing baseline selection\n";
+		if (!(jets_HT > 500 && jets_6pt > 40 && jets_number >= 6))
+		{
 			return kFALSE;
+		}
 	}
 	fPassingPreselection++;
-	h_baseline_jetNumber->Fill(jets.GetSize(), basicWeight );
+	eventCount_baseline->Fill(0.0, basicWeight);
 
 	newtree->Fill();
 
