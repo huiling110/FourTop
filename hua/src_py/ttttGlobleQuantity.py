@@ -1,5 +1,9 @@
 
-
+lumiMap = {
+    "2016preVFP": 19520.,
+    "2016postVFP": 16810.,
+    "2016": 36330.,
+}
 
 
 summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'data' ]

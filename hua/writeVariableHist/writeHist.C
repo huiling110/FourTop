@@ -92,10 +92,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
 	// this part could be in a function for multiple uses
 	//???better structure my project so that these commen functionality go to one include dir
-	TString option1 = option(0, option.First(":"));
 	TString temp = option;
-	TString option2 = temp.Remove(0, temp.First(":") + 1);
-	option2 = option2(0, option2.First(":"));
+	TString option1 = option(0, option.First(":"));
 	TString option3 = temp.Remove(0, temp.First(":") + 1);
 	option3 = option3(0, option3.First(":"));
 	TString option4 = temp.Remove(0, temp.First(":") + 1);
@@ -110,13 +108,13 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	m_version = option5;
 	std::cout << "m_verion: " << m_version << "\n";
 
-	m_outputFolder = option2;
+	m_outputFolder = option1;
 	m_processName = option3;
 	m_isData = std::stoi(option4.Data());
 	std::cout << "m_isData: " << m_isData << "\n";
 
-	m_genWeightSum = std::stod(option1.Data());
-	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
+	// m_genWeightSum = std::stod(option1.Data());
+	// std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
 	//???maybe there is lose of accuracy due to convertion
 
 	// namespace fs = std::filesystem;
@@ -223,54 +221,52 @@ void writeHist::Terminate()
 	// The Terminate() function is the last function to be called during
 	// a query. It always runs on the client, it can be used to present
 	// the results graphically or save the results to file.
+	/*
+	#include "../crossSectionMap.h"
+		Double_t processScale = 1.0;
+		if (!m_isData)
+		{
+			std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
+			processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
+		}
+		// std::cout<<processScale<<"\n";
 
-#include "../crossSectionMap.h"
-	Double_t processScale = 1.0;
-	if (!m_isData)
-	{
-		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
-		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
-	}
-	// std::cout<<processScale<<"\n";
+		for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
+		{
 
-	for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
-	{
+			std::cout << j << "\n";
+			jetsNumber_forYieldCount_hists[j]->Scale(processScale);
+			jetsNumber_forYieldCount_hists[j]->Print();
+			onlyGenWeight_hists[j]->Scale(processScale);
+			onlyGenWeight_hists[j]->Print();
+			jetsNumber_hists[j]->Scale(processScale);
+			jets_HT_hists[j]->Scale(processScale);
+			jets_bScore_hists[j]->Scale(processScale);
+			jets_1pt_hists[j]->Scale(processScale);
+			tausT_HT_hists[j]->Scale(processScale);
+		}
 
-		std::cout << j << "\n";
-		// jetsNumber_forYieldCount_hists[j]->Print();
-		jetsNumber_forYieldCount_hists[j]->Scale(processScale);
-		jetsNumber_forYieldCount_hists[j]->Print();
-		onlyGenWeight_hists[j]->Scale(processScale);
-		onlyGenWeight_hists[j]->Print();
-		jetsNumber_hists[j]->Scale(processScale);
-		// jetsNumber_hists[j]->Print();
-		jets_HT_hists[j]->Scale(processScale);
-		// jets_HT_hists[j]->Print();
-		jets_bScore_hists[j]->Scale(processScale);
-		jets_1pt_hists[j]->Scale(processScale);
-		tausT_HT_hists[j]->Scale(processScale);
-	}
-
+		*/
 	// getting event count histo from input file
-	TDirectory *outFileDir = gDirectory->GetDirectory("");
-	TFile *input = new TFile(m_outputFolder + m_processName + ".root", "READ");
-	TH1D *jetsNumber_initial = (TH1D *)input->Get("jetsNumber_initial")->Clone("initial_" + m_processName + "_jetsNumber_forYieldCount");
-	jetsNumber_initial->SetDirectory(outFileDir);
-	jetsNumber_initial->Scale(processScale);
-	jetsNumber_initial->Print();
-	TH1D *jetsNumber_HLT = (TH1D *)input->Get("jetsNumber_HLT")->Clone("HLT_" + m_processName + "_jetsNumber_forYieldCount");
-	jetsNumber_HLT->SetDirectory(outFileDir);
-	jetsNumber_HLT->Scale(processScale);
-	jetsNumber_HLT->Print();
-	TH1D *jetsNumber_baseline = (TH1D *)input->Get("jetsNumber_baseline")->Clone("baseline_" + m_processName + "_jetsNumber_forYieldCount");
-	jetsNumber_baseline->SetDirectory(outFileDir);
-	jetsNumber_baseline->Scale(processScale);
-	jetsNumber_baseline->Print();
+	// TDirectory *outFileDir = gDirectory->GetDirectory("");
+	// TFile *input = new TFile(m_outputFolder + m_processName + ".root", "READ");
+	// TH1D *jetsNumber_initial = (TH1D *)input->Get("jetsNumber_initial")->Clone("initial_" + m_processName + "_jetsNumber_forYieldCount");
+	// jetsNumber_initial->SetDirectory(outFileDir);
+	// jetsNumber_initial->Scale(processScale);
+	// jetsNumber_initial->Print();
+	// TH1D *jetsNumber_HLT = (TH1D *)input->Get("jetsNumber_HLT")->Clone("HLT_" + m_processName + "_jetsNumber_forYieldCount");
+	// jetsNumber_HLT->SetDirectory(outFileDir);
+	// jetsNumber_HLT->Scale(processScale);
+	// jetsNumber_HLT->Print();
+	// TH1D *jetsNumber_baseline = (TH1D *)input->Get("jetsNumber_baseline")->Clone("baseline_" + m_processName + "_jetsNumber_forYieldCount");
+	// jetsNumber_baseline->SetDirectory(outFileDir);
+	// jetsNumber_baseline->Scale(processScale);
+	// jetsNumber_baseline->Print();
 
-	input->Close();
+	// input->Close();
 
-	outFileDir->cd();
-	jetsNumber_initial->Write();
+	// outFileDir->cd();
+	// jetsNumber_initial->Write();
 	outputFile->Write();
 	outputFile->Close();
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());

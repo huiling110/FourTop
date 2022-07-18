@@ -19,40 +19,35 @@
 
 // Headers needed by this particular selector
 
+class writeHist : public TSelector
+{
+public:
+   TTreeReader fReader; //! the tree reader
+   TTree *fChain = 0;   //! pointer to the analyzed TTree or TChain
 
-class writeHist : public TSelector {
-public :
-   TTreeReader     fReader;  //!the tree reader
-   TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
-
-   //my member variables
+   // my member variables
    Bool_t m_isData;
-   Double_t m_genWeightSum;
+   // Double_t m_genWeightSum;
    TString m_outputFolder;
    TString m_processName;
    TString m_era;
    // TString m_version = "v1moreVariables";
    TString m_version;
    // std::vector<TString> m_options;
-   TFile* outputFile;
-//    TH1D* hist_jetsNumber;//for event count
-//!!!hists need to be scalec in terminate function
-   std::vector<TH1D*> jetsNumber_forYieldCount_hists;
-   std::vector<TH1D*> onlyGenWeight_hists;
-   std::vector<TH1D*> jetsNumber_hists;
-   std::vector<TH1D*> jets_HT_hists;
-   std::vector<TH1D*> jets_bScore_hists;
-   std::vector<TH1D*> jets_1pt_hists;
-   std::vector<TH1D*> tausT_HT_hists;
+   TFile *outputFile;
+   //    TH1D* hist_jetsNumber;//for event count
+   //!!!hists need to be scalec in terminate function
+   std::vector<TH1D *> jetsNumber_forYieldCount_hists;
+   std::vector<TH1D *> onlyGenWeight_hists;
+   std::vector<TH1D *> jetsNumber_hists;
+   std::vector<TH1D *> jets_HT_hists;
+   std::vector<TH1D *> jets_bScore_hists;
+   std::vector<TH1D *> jets_1pt_hists;
+   std::vector<TH1D *> tausT_HT_hists;
 
-   //variables to be writen to hists
+   // variables to be writen to hists
 
-   //regions to consider
-
-
-
-
-
+   // regions to consider
 
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
@@ -335,30 +330,26 @@ public :
    // TTreeReaderValue<Double_t> toptagger_scoreAllTops = {fReader, "toptagger_scoreAllTops"};
    // TTreeReaderValue<Double_t> toptagger_leptonsMVAT_minDeltaR = {fReader, "toptagger_leptonsMVAT_minDeltaR"};
 
+   writeHist(TTree * /*tree*/ = 0) {}
+   virtual ~writeHist() {}
+   virtual Int_t Version() const { return 2; }
+   virtual void Begin(TTree *tree);
+   virtual void SlaveBegin(TTree *tree);
+   virtual void Init(TTree *tree);
+   virtual Bool_t Notify();
+   virtual Bool_t Process(Long64_t entry);
+   virtual Int_t GetEntry(Long64_t entry, Int_t getall = 0) { return fChain ? fChain->GetTree()->GetEntry(entry, getall) : 0; }
+   virtual void SetOption(const char *option) { fOption = option; }
+   virtual void SetObject(TObject *obj) { fObject = obj; }
+   virtual void SetInputList(TList *input) { fInput = input; }
+   virtual TList *GetOutputList() const { return fOutput; }
+   virtual void SlaveTerminate();
+   virtual void Terminate();
 
-   writeHist(TTree * /*tree*/ =0) { }
-   virtual ~writeHist() { }
-   virtual Int_t   Version() const { return 2; }
-   virtual void    Begin(TTree *tree);
-   virtual void    SlaveBegin(TTree *tree);
-   virtual void    Init(TTree *tree);
-   virtual Bool_t  Notify();
-   virtual Bool_t  Process(Long64_t entry);
-   virtual Int_t   GetEntry(Long64_t entry, Int_t getall = 0) { return fChain ? fChain->GetTree()->GetEntry(entry, getall) : 0; }
-   virtual void    SetOption(const char *option) { fOption = option; }
-   virtual void    SetObject(TObject *obj) { fObject = obj; }
-   virtual void    SetInputList(TList *input) { fInput = input; }
-   virtual TList  *GetOutputList() const { return fOutput; }
-   virtual void    SlaveTerminate();
-   virtual void    Terminate();
+   // functions I add
+   void fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
 
-//functions I add
-	void fillHistsVector( Bool_t isRegion, UInt_t vectorIndex, Double_t weight );
-	
-
-
-   ClassDef(writeHist,0);
-
+   ClassDef(writeHist, 0);
 };
 
 #endif
@@ -386,6 +377,5 @@ Bool_t writeHist::Notify()
 
    return kTRUE;
 }
-
 
 #endif // #ifdef writeHist_cxx
