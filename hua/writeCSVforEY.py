@@ -137,8 +137,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         print('ifileName: ', ifileName )
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
-        ifScale:
-            iProScale = getProcessScale( iFileName )
+        if ifScale:
+            iProScale = getProcessScale( iFileName, '2016postVFP' )
         if 'jetHT' in ifileName:
             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
         else:
@@ -161,9 +161,9 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     return sumProcessHistsDict
 
 
-def getProScale( processName, era ):
-    uf.getGenSumDic( '../objectSelection/' )
-    scale = lumiMap[era]*samplesCrossSection[processName]/ge
+def getProcessScale( processName, era ):
+    genWeight = uf.getGenSumDic( '../objectSelection/' )
+    scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
     return scale
 
 
