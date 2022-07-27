@@ -6,7 +6,7 @@ import os
 import pandas as pd
 
 # from plotVaribles import  histoGramPerSample, summedProcessList
-from ttttGlobleQuantity import  histoGramPerSample, summedProcessList
+from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, lumiMap, samplesCrossSection
 import usefulFunc as uf
 
 def main():
@@ -125,7 +125,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
 
 
 
-def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount' ):
+def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False ):
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
     mcFileList = os.listdir( inputDir['mc'] )
@@ -136,6 +136,9 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount' )
         ifileName = ifile.split('_variableHists')[0]
         print('ifileName: ', ifileName )
         if not ifileName in allSubProcess: continue
+        iProScale = 1.0
+        ifScale:
+            iProScale = getProcessScale( iFileName )
         if 'jetHT' in ifileName:
             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
         else:
@@ -157,6 +160,11 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount' )
 
     return sumProcessHistsDict
 
+
+def getProScale( processName, era ):
+    uf.getGenSumDic( '../objectSelection/' )
+    scale = lumiMap[era]*samplesCrossSection[processName]/ge
+    return scale
 
 
 if __name__=='__main__':

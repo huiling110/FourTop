@@ -32,6 +32,8 @@ def main():
 
     # calCutFlow()
 
+
+#copied to 
 def getGenSumDic( inputCsv ):
     df = pd.read_csv( inputCsv )
     # genSumDic = df.to_dict()
