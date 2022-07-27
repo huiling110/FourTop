@@ -10,7 +10,7 @@ def checkMakeDir( folder ):
 def getGenSumDic( inputCsv ):
     df = pd.read_csv( inputCsv )
     genSumDic = pd.Series( df['2016postVFP'].values, index=df['process'] ).to_dict()
-    print( genSumDic )
+    # print( genSumDic )
     return genSumDic
 
 # def getProcessScale( processName, era ):

@@ -159,11 +159,11 @@ Bool_t writeHist::Process(Long64_t entry)
 		basicWeight = 1.0;
 	}
 
-	if (*jets_HT > 500)
+	if (*jets_number >= 6)
 	{
 		fillHistsVector(true, 0, basicWeight);
 	}
-	if (*jets_HT > 500 && *jets_number >= 6)
+	if (*jets_number >= 6 && *jets_6pt >= 6)
 	{
 		fillHistsVector(true, 1, basicWeight);
 	}
