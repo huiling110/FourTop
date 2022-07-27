@@ -121,7 +121,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
 	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
 	// }
-	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
+	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
+	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
 	// hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 	push_backHists("jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName);

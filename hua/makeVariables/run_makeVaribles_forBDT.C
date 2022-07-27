@@ -45,6 +45,7 @@ void run_makeVaribles_forBDT(
     {
         ifMergeAllevent = true;
     }
+
     else
     {
         outputDir = "output/";
@@ -73,21 +74,23 @@ void run_makeVaribles_forBDT(
     else
         chain.Process(selection + "+", option);
 
-    if (ifMergeAllevent)
-    {
-        cout << "--------" << endl;
-        cout << "now comes to add allevents stage\n";
-        TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
-        cout << "file opened :" << file->GetName() << "\n";
+    /*
+        if (ifMergeAllevent)
+        {
+            cout << "--------" << endl;
+            cout << "now comes to add allevents stage\n";
+            TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
+            cout << "file opened :" << file->GetName() << "\n";
 
-        // add allevents tree
-        TChain chain2("allevents");
-        chain2.Add(inputFile + "outTree*.root");
-        cout << "entries in allevent tree: " << chain2.GetEntries() << endl;
-        // chain2.ls();
-        // chain2.Merge( file, 1000, "C" );
-        chain2.Merge(file, 2000);
-        cout << "done merging allevents trees\n";
-        // file->Close();
-    }
+            // add allevents tree
+            TChain chain2("allevents");
+            chain2.Add(inputFile + "outTree*.root");
+            cout << "entries in allevent tree: " << chain2.GetEntries() << endl;
+            // chain2.ls();
+            // chain2.Merge( file, 1000, "C" );
+            chain2.Merge(file, 2000);
+            cout << "done merging allevents trees\n";
+            // file->Close();
+        }
+        */
 }

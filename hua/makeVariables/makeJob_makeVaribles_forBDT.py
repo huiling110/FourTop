@@ -13,7 +13,7 @@ import ttttGlobleQuantity as GQ
 
 # inVersion = 'v17NoSelection'
 inVersion = 'v19HLTSelection'
-outVersion = 'v2baseline'
+outVersion = 'v3nobaseline'
 justMC = False
 year = '2016'
 selectionBit = '3'

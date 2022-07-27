@@ -112,8 +112,8 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
 	newtree = new TTree("newtree", "tree for BDT");
 
-	eventCount_mvInitial = new TH1D("mvInitial_" + m_processName + "forEventCount", "mvInitial_" + m_processName + "forEventCount", 2, -1, 1);
-	eventCount_baseline = new TH1D("mvBaseline_" + m_processName + "forEventCount", "mvBaseline_" + m_processName + "forEventCount", 2, -1, 1);
+	eventCount_mvInitial = new TH1D("mvInitial_" + m_processName + "_forEventCount", "mvInitial_" + m_processName + "_forEventCount", 2, -1, 1);
+	eventCount_baseline = new TH1D("mvBaseline_" + m_processName + "_forEventCount", "mvBaseline_" + m_processName + "_forEventCount", 2, -1, 1);
 
 	makeBranchForTree();
 	// initializeBReader();

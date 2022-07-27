@@ -27,8 +27,10 @@ def main():
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/data/variableHists_v3onlyGenWeight/',
         # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v0/',
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v0/',
-        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v1noScale/',
-        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v1noScale/',
+        # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v1noScale/',
+        # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v1noScale/',
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/'
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
@@ -135,7 +137,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
 
     # for ifile in os.listdir( inputDir ):
     for ifile in mcFileList+dataFileList:
-        ifileName = ifile.split('_variableHists')[0]
+        # ifileName = ifile.split('_variableHists')[0]
+        ifileName = ifile.split('.root')[0]
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
         if ifScale and (not 'jetHT' in ifileName):
