@@ -13,7 +13,7 @@ import ttttGlobleQuantity as GQ
 
 # inVersion = 'v17NoSelection'
 # inVersion = 'v19HLTSelection'
-inVersion = 'processed'
+inVersion = 'v20FixedSelectJetsBug'
 outVersion = 'v0baseline'
 justMC = False
 year = '2016'

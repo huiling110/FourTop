@@ -33,18 +33,18 @@ def main():
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/'
         # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3nobaseline_v19HLTSelection/mc/variableHists_v0forbaselineTest/',
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3nobaseline_v19HLTSelection/data/variableHists_v0forbaselineTest/',
-        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3nobaseline_v19HLTSelection/mc/variableHists_v1forbaselineTestSwitch/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3nobaseline_v19HLTSelection/data/variableHists_v1forbaselineTestSwitch/',
+        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/mc/variableHists_v0/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/data/variableHists_v0/',
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3', 'baseline' ]
-    regionList = ['baseline1', 'baseline2', 'baseline3']
+    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
+    # regionList = ['baseline1', 'baseline2', 'baseline3']
     # regionList = ['baseline1']
 
     variableList = ['onlyGenWeight']
-    # regionList = [ 'baseline', '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
@@ -52,7 +52,7 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, True )
     print( sumProcessPerVar )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'baselineStep.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau1lRegions.csv' )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
@@ -166,7 +166,10 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
             else:
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
+                itemp = iRootFile.Get( iHistName)
+                itemp.Scale(iProScale)
+                # sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
+                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
         iRootFile.Close()
 

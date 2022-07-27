@@ -6,6 +6,8 @@ from ROOT import *
 from setTDRStyle import setTDRStyle
 from array import array
 
+from writeCSVforEY import getProcessScale, getSummedHists
+
 setTDRStyle()
 latex = TLatex()
 latex.SetNDC()
@@ -99,9 +101,9 @@ includeDataInStack = True
 def main():
 
     # version = 'v0baseline_v16_HLTselection'
-    version = 'v0baseline_v19HLTSelection'
+    version = 'v0baseline_v20FixedSelectJetsBug'
     # histVersion = 'variableHists_v1moreVariables'
-    histVersion = 'variableHists_v2baseline'
+    histVersion = 'variableHists_v0'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     myRegion = '1tau0lCR'
@@ -118,6 +120,7 @@ def main():
 
 
     nom, systs = extractHistograms( inputDirDict, variables, myRegion )
+    # nom = getSummedHists( )
     #nom[var].key() is actually summed processes
     print('nom: ', nom)
     print('systs: ', systs )
@@ -150,8 +153,8 @@ def extractHistograms( dir, variablesToCheck , myRegion):
 
     print('start to get mc hists<<<<<<<<<<<<<<<<<<<<<<<<<\n')
     for inFileName in os.listdir( dir['mc'] ):
-        sampleName = inFileName.split('_variableHist')[0]
-        # print('sampleName under dir: ', sampleName )
+        # sampleName = inFileName.split('_variableHist')[0]
+        sampleName = inFileName.split('.root')[0]
 
         if not sampleName in samples: continue
         print('opening file: ', inFileName )
@@ -161,6 +164,10 @@ def extractHistograms( dir, variablesToCheck , myRegion):
             if 'forYieldCount' in  key.GetName(): continue
             varName = key.GetName().split(sampleName)[1][1:]
 
+        iProScale = 1.0
+        if  (not 'jetHT' in sampleName):
+            iProScale = getProcessScale( sampleName, '2016postVFP' )
+
             iregionName = ihistName.split('_')[0]
             if not myRegion==iregionName: continue
             if not varName in variablesToCheck: continue#only check 
@@ -169,10 +176,11 @@ def extractHistograms( dir, variablesToCheck , myRegion):
                 if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
                     #nominalHist[varName].keys() is summed hists
                     nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
+                    nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
                     nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
                     print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
                 else: #add grouped mc bg together
-                    nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()))
+                    nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()), iProScale)
                     print('nom[{}][{}] add hist: {} '.format( varName, histoGramPerSample[sampleName], key)  )
             else: #systematic uncertainties
                 if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
@@ -199,7 +207,7 @@ def extractHistograms( dir, variablesToCheck , myRegion):
         inFile = TFile( os.path.join(dir['data']+inFileName), "READ" )
         print( 'openning {}\n'.format( inFileName ) )
 
-        sampleName = inFileName.split('_variableHist')[0]
+        sampleName = inFileName.split('.root')[0]
         for key in inFile.GetListOfKeys():
             ihistName = key.GetName()
             if 'forYieldCount' in  ihistName: continue

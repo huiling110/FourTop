@@ -63,8 +63,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     std::cout << "runRange: " << runRange[0] << ":" << runRange[1] << "\n";
     intializaTreeBranches(isdata, dataSet);
 
+    //???
     TString jsonInFile = GoldenJSONs[era];
-    // readJSON( isdata, jsonInFile,  _goodLumis );
+    readJSON(isdata, jsonInFile, _goodLumis);
 
     h_genWeight = new TH1D("h_genweight", "h_genweight", 1, -0.5, 0.5);
     h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
@@ -127,22 +128,29 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //!!!branch variable intialization to prevent them from get values from last event
 
     // good lumi selection
-    /*
-    //???readJSON function has problems in CMSSW_12_2_4
-   if(isdata) {
-       if ( _goodLumis.find(*run) == _goodLumis.end() ) return kFALSE;
-       else { //if run number is in map
-           Bool_t keepEvent = false;
-           for ( Int_t i ; i < _goodLumis[*run].size()/2.; i++){
-               if ( *luminosityBlock >= _goodLumis[*run][i*2] && *luminosityBlock <= _goodLumis[*run][i*2+1] ) {
-        o          keepEvent = true;
-                   break;
-               }
-           }
-           if (!keepEvent) return kFALSE; //veto luminosity blocks not in JSON
-       }
-   }
-   */
+    //???not finding twiki for this
+    if (isdata)
+    {
+        if (_goodLumis.find(*run) == _goodLumis.end())
+        {
+            return kFALSE;
+        }
+        else
+        { // if run number is in map
+            Bool_t keepEvent = false;
+            for (UInt_t i = 0; i < _goodLumis[*run].size() / 2.; i++)
+            {
+                if (*luminosityBlock >= _goodLumis[*run][i * 2] && *luminosityBlock <= _goodLumis[*run][i * 2 + 1])
+                {
+                    keepEvent = true;
+                    break;
+                }
+            }
+            if (!keepEvent)
+                return kFALSE; // veto luminosity blocks not in JSON
+        }
+    }
+
     eventsPassedJSON++;
 
     // MET filters
