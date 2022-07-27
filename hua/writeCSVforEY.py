@@ -25,8 +25,10 @@ def main():
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v19HLTSelection/data/'
         # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/variableHists_v3onlyGenWeight/',
         # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/data/variableHists_v3onlyGenWeight/',
-        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v0/',
-        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v0/',
+        # 'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v0/',
+        # 'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v0/',
+        'mc' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/variableHists_v1noScale/',
+        'data' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/data/variableHists_v1noScale/',
     }
     # variableList = [ 'jetsNumber_initial', 'jetsNumber_HLT', 'jetsNumber_baseline' ]
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
@@ -39,7 +41,7 @@ def main():
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     for ivar in variableList:
-        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, True )
     print( sumProcessPerVar )
 
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lEYinRegions.csv' )
@@ -134,11 +136,11 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     # for ifile in os.listdir( inputDir ):
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('_variableHists')[0]
-        print('ifileName: ', ifileName )
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
-        if ifScale:
-            iProScale = getProcessScale( iFileName, '2016postVFP' )
+        if ifScale and (not 'jetHT' in ifileName):
+            iProScale = getProcessScale( ifileName, '2016postVFP' )
+        print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
         if 'jetHT' in ifileName:
             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
         else:
@@ -151,10 +153,11 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             print('iHistName: ', iHistName )
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
+                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
             else:
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName))
+                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
         iRootFile.Close()
 
@@ -162,7 +165,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
 
 
 def getProcessScale( processName, era ):
-    genWeight = uf.getGenSumDic( '../objectSelection/' )
+    genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
     scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
     return scale
 
