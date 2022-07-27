@@ -2,7 +2,8 @@
 void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3nobaseline_v19HLTSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
@@ -53,8 +54,6 @@ void run_writeHist(
     TChain chain("newtree");
     chain.Add(inputFile);
 
-    // TString option1 = std::to_string(genWeightSumInitial);
-    // TString option = option1 + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
     TString option = inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
     cout << "option in run_writeHist: " << option << "\n";
 

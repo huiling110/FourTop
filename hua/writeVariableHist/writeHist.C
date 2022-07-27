@@ -60,12 +60,10 @@ void writeHist::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t we
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName)
 {
-	std::array<TString, 12> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
-	// UInt_t startInx = 0;
-	// if ( isData ) startInx = 1;
+	// std::array<TString, 12> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+	std::array<TString, 3> regions = {"baseline1", "baseline2", "baseline3"};
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
-		// 1250015d::co12<<regions[i]<<"\n";
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
 		TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin);
 		histsVariable.push_back(temp);
@@ -154,59 +152,79 @@ Bool_t writeHist::Process(Long64_t entry)
 
 	fReader.SetLocalEntry(entry);
 
-	if (*tausT_number < 1)
-		return kFALSE;
-	if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
-		return kFALSE;
-
+	// for testing of step by step baseline cut
 	Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-	// Double_t basicWeight = *EVENT_genWeight;
-	// Double_t basicWeight = (*EVENT_genWeight);
 	if (m_isData)
 	{
-		// assert( (basicWeight-1.0)<std::epsilon );
 		basicWeight = 1.0;
 	}
-	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
-	// Expression to be evaluated. If this expression evaluates to 0, this causes an assertion failure that terminates the program.
-	// 1tau0l SR
-	if (!m_isData)
+
+	if (*jets_HT > 500)
 	{
-		// be blind for data in signal region
-		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		fillHistsVector(is1tau0lSR, 0, basicWeight);
-		Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-		fillHistsVector(is1tau1lSR, 6, basicWeight);
+		fillHistsVector(true, 0, basicWeight);
+	}
+	if (*jets_HT > 500 && *jets_number >= 6)
+	{
+		fillHistsVector(true, 1, basicWeight);
+	}
+	if (*jets_HT > 500 && *jets_number >= 6 && *jets_6pt > 40)
+	{
+		fillHistsVector(true, 2, basicWeight);
 	}
 
-	// std::array<TString, 11> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// 1tau0l CR
-	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	fillHistsVector(is1tau0lCR, 1, basicWeight);
-	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	fillHistsVector(is1tau0lVR, 2, basicWeight);
-	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR2, 3, basicWeight);
-	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR3, 4, basicWeight);
-	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR4, 5, basicWeight);
+	/*
+		if (*tausT_number < 1)
+			return kFALSE;
+		if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
+			return kFALSE;
 
-	// 1tau1lCR
-	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
-	fillHistsVector(is1tau1lCR0, 7, basicWeight);
-	Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
-	fillHistsVector(is1tau1lCR1, 8, basicWeight);
-	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau1lCR2, 9, basicWeight);
-	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
-	fillHistsVector(is1tau1lCR3, 10, basicWeight);
-	// Bool_t is1tau1lCR4 =  *tausT_number==1 && *leptonsMVAT_number==1 &&  *jets_number<=4 && *bjetsM_num>=2 ;
-	// fillHistsVector( is1tau1lCR4, 11, basicWeight );
+		Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		// Double_t basicWeight = *EVENT_genWeight;
+		// Double_t basicWeight = (*EVENT_genWeight);
+		if (m_isData)
+		{
+			basicWeight = 1.0;
+		}
+		// std::cout<<"basicWeight: "<<basicWeight<<"\n";
+		// Expression to be evaluated. If this expression evaluates to 0, this causes an assertion failure that terminates the program.
+		// 1tau0l SR
+		if (!m_isData)
+		{
+			// be blind for data in signal region
+			Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+			fillHistsVector(is1tau0lSR, 0, basicWeight);
+			Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
+			fillHistsVector(is1tau1lSR, 6, basicWeight);
+		}
 
-	Bool_t isBaseline = *jets_HT > 500 && *jets_6pt > 40;
-	fillHistsVector(isBaseline, 11, basicWeight);
+		// std::array<TString, 11> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+		// 1tau0l CR
+		Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		fillHistsVector(is1tau0lCR, 1, basicWeight);
+		Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+		fillHistsVector(is1tau0lVR, 2, basicWeight);
+		Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+		fillHistsVector(is1tau0lCR2, 3, basicWeight);
+		Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
+		fillHistsVector(is1tau0lCR3, 4, basicWeight);
+		Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
+		fillHistsVector(is1tau0lCR4, 5, basicWeight);
 
+		// 1tau1lCR
+		Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
+		fillHistsVector(is1tau1lCR0, 7, basicWeight);
+		Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
+		fillHistsVector(is1tau1lCR1, 8, basicWeight);
+		Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
+		fillHistsVector(is1tau1lCR2, 9, basicWeight);
+		Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
+		fillHistsVector(is1tau1lCR3, 10, basicWeight);
+		// Bool_t is1tau1lCR4 =  *tausT_number==1 && *leptonsMVAT_number==1 &&  *jets_number<=4 && *bjetsM_num>=2 ;
+		// fillHistsVector( is1tau1lCR4, 11, basicWeight );
+
+		Bool_t isBaseline = *jets_HT > 500 && *jets_6pt > 40;
+		fillHistsVector(isBaseline, 11, basicWeight);
+	*/
 	return kTRUE;
 }
 
