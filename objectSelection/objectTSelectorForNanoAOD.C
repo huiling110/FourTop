@@ -213,7 +213,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
     if (!isdata)
+    {
         genTtbarId_ = *genTtbarId;
+    }
 
     SelectMuons(muonsL, muonsL_index, 0);
     sort(muonsL.begin(), muonsL.end(), compEle);
@@ -262,8 +264,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bool deepJet = true;
     // calJetSmearFactors(  isdata );
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get());
-    // std::cout << "JER_SF_new " << JER_SF_new.size() << "\n";
-    // std::cout << "JER_SF_new: ";
     // for (Int_t i = 0; i < JER_SF_new.size(); i++)
     // {
     //     std::cout << JER_SF_new[i] << " ";
@@ -853,8 +853,8 @@ void objectTSelectorForNanoAOD::SelectJets(const Int_t jetType, const bool deepJ
         }
 
         TLorentzVector jet_prov;
-        // jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
-        jet_prov.SetPtEtaPhiM(jetpt, Jet_eta.At(j), Jet_phi.At(j), ijetMass);
+        jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
+        // jet_prov.SetPtEtaPhiM(jetpt, Jet_eta.At(j), Jet_phi.At(j), ijetMass);
         // TLorentzVector jet;
         // jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
         // TLorentzVector jet_scaled = JER_SF_new[j]*jet_prov;
