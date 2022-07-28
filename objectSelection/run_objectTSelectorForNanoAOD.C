@@ -64,8 +64,7 @@ void run_objectTSelectorForNanoAOD(
     cout << "selectionBit is:" << eventSelectionBit << "\n";
     cout << "isdata: " << isData << "\n";
 
-    TString inputFile;
-    inputFile = inputDir + singleFileName;
+    TString inputFile = inputDir + singleFileName;
     cout << "inputFile: " << inputFile << "\n";
     TChain chain("Events");
     chain.Add(inputFile);
@@ -86,8 +85,6 @@ void run_objectTSelectorForNanoAOD(
     TString outputFile;
     outputFile = outputDir + singleFileName;
     cout << "outputFile: " << outputFile << endl;
-    // option = outputFile + ":2016postVP";
-    // option = outputFile + ":" + era + ":"+ eventSelectionBit;
     option = outputFile + ":" + era + ":" + eventSelectionBit + ":" + isData + ":" + dataSet;
     cout << "option in run: " << option << "\n";
 
@@ -101,6 +98,22 @@ void run_objectTSelectorForNanoAOD(
     {
         chain.Process(selection + "+", option);
     }
+
+    // get Runs tree
+    TFile *inputRoot = TFile::Open(inputFile, "READ");
+    TTree *runs = (TTree *)inputRoot->Get("Runs");
+    runs->SetBranchStatus("*", 0);
+    runs->SetBranchStatus("genEventSumw", 1);
+
+    TFile *outFile = TFile::Open(outputFile, "UPDATE");
+    TTree *runsForOut = runs->CloneTree(0);
+    runsForOut->CopyEntries(runs);
+    outFile->Write();
+    outFile->ls();
+    outFile->Close();
+
+    inputRoot->Close();
+
     t.Stop();
     t.Print();
 }
