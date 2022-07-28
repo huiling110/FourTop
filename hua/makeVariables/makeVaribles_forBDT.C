@@ -525,81 +525,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	// nonbjetsL_num = nonbjetsL.GetSize();
 	nonbjetsM_num = nonbjetsM.GetSize();
-	// nonbjetsT_num = nonbjetsT.GetSize();
-	// if (nonbjetsL_num > 0)
-	// { /*{{{*/
-	// 	nonbjetsL_1pt = nonbjetsL[0].Pt();
-	// 	nonbjetsL_1eta = fabs(nonbjetsL[0].Eta());
-	// 	nonbjetsL_1phi = fabs(nonbjetsL[0].Phi());
-	// }
-	// if (nonbjetsL_num > 1)
-	// {
-	// 	nonbjetsL_2pt = nonbjetsL[1].Pt();
-	// 	nonbjetsL_2eta = fabs(nonbjetsL[1].Eta());
-	// 	nonbjetsL_2phi = fabs(nonbjetsL[1].Phi());
-	// }
-	// if (nonbjetsL_num > 2)
-	// {
-	// 	nonbjetsL_3pt = nonbjetsL[2].Pt();
-	// 	nonbjetsL_3eta = fabs(nonbjetsL[2].Eta());
-	// 	nonbjetsL_3phi = fabs(nonbjetsL[2].Phi());
-	// }
-	// if (nonbjetsL_num > 3)
-	// {
-	// 	nonbjetsL_4pt = nonbjetsL[3].Pt();
-	// 	nonbjetsL_4eta = fabs(nonbjetsL[3].Eta());
-	// 	nonbjetsL_4phi = fabs(nonbjetsL[3].Phi());
-	// }
-
-	// if (nonbjetsM_num > 0)
-	// {
-	// 	nonbjetsM_1pt = nonbjetsM[0].Pt();
-	// 	nonbjetsM_1eta = fabs(nonbjetsM[0].Eta());
-	// 	nonbjetsM_1phi = fabs(nonbjetsM[0].Phi());
-	// }
-	// if (nonbjetsM_num > 1)
-	// {
-	// 	nonbjetsM_2pt = nonbjetsM[1].Pt();
-	// 	nonbjetsM_2eta = fabs(nonbjetsM[1].Eta());
-	// 	nonbjetsM_2phi = fabs(nonbjetsM[1].Phi());
-	// }
-	// if (nonbjetsM_num > 2)
-	// {
-	// 	nonbjetsM_3pt = nonbjetsM[2].Pt();
-	// 	nonbjetsM_3eta = fabs(nonbjetsM[2].Eta());
-	// 	nonbjetsM_3phi = fabs(nonbjetsM[2].Phi());
-	// }
-	// if (nonbjetsM_num > 3)
-	// {
-	// 	nonbjetsM_4pt = nonbjetsM[3].Pt();
-	// 	nonbjetsM_4eta = fabs(nonbjetsM[3].Eta());
-	// 	nonbjetsM_4phi = fabs(nonbjetsM[3].Phi());
-	// }
-
-	// if (nonbjetsT_num > 0)
-	// {
-	// 	nonbjetsT_1pt = nonbjetsT[0].Pt();
-	// 	nonbjetsT_1eta = fabs(nonbjetsT[0].Eta());
-	// 	nonbjetsT_1phi = fabs(nonbjetsT[0].Phi());
-	// }
-	// if (nonbjetsT_num > 1)
-	// {
-	// 	nonbjetsT_2pt = nonbjetsT[1].Pt();
-	// 	nonbjetsT_2eta = fabs(nonbjetsT[1].Eta());
-	// 	nonbjetsT_2phi = fabs(nonbjetsT[1].Phi());
-	// }
-	// if (nonbjetsT_num > 2)
-	// {
-	// 	nonbjetsT_3pt = nonbjetsT[2].Pt();
-	// 	nonbjetsT_3eta = fabs(nonbjetsT[2].Eta());
-	// 	nonbjetsT_3phi = fabs(nonbjetsT[2].Phi());
-	// }
-	// if (nonbjetsT_num > 3)
-	// {
-	// 	nonbjetsT_4pt = nonbjetsT[3].Pt();
-	// 	nonbjetsT_4eta = fabs(nonbjetsT[3].Eta());
-	// 	nonbjetsT_4phi = fabs(nonbjetsT[3].Phi());
-	// } /*}}}*/
 
 	forwardJets_num = forwardJets.GetSize();
 
@@ -630,8 +555,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// 	toptagger_3eta = fabs(tops_toptagger[2].Eta());
 	// 	toptagger_3phi = fabs(tops_toptagger[2].Phi());
 	// }
-
-	// std::cout<<__LINE__<<"\n";
 
 	// weights
 	EVENT_prefireWeight = *EVENT_prefireWeight_;
@@ -665,7 +588,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
 	tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
 	tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
-	// copy weight from
 
 	if (m_baselineSelection)
 	{
