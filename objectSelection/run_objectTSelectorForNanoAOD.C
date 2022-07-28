@@ -13,11 +13,11 @@
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/jetHT_2016H/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/jetHT_2016H/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016G/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018c/",
@@ -100,20 +100,25 @@ void run_objectTSelectorForNanoAOD(
     }
 
     // get Runs tree
-    TFile *inputRoot = TFile::Open(inputFile, "READ");
-    TTree *runs = (TTree *)inputRoot->Get("Runs");
-    runs->SetBranchStatus("*", 0);
-    runs->SetBranchStatus("genEventSumw", 1);
+    if (!isData)
+    {
+        TFile *inputRoot = TFile::Open(inputFile, "READ");
+        TTree *runs = (TTree *)inputRoot->Get("Runs");
+        runs->SetBranchStatus("*", 0);
+        runs->SetBranchStatus("genEventSumw", 1);
+        // runs->Print();
 
-    TFile *outFile = TFile::Open(outputFile, "UPDATE");
-    TTree *runsForOut = runs->CloneTree(0);
-    runsForOut->CopyEntries(runs);
-    outFile->Write();
-    outFile->ls();
-    outFile->Close();
+        TFile *outFile = TFile::Open(outputFile, "UPDATE");
+        TTree *runsForOut = runs->CloneTree();
+        // runsForOut->CopyEntries(runs);
+        runsForOut->Print();
+        runsForOut->Write();
+        outFile->Write();
+        outFile->ls();
+        outFile->Close();
 
-    inputRoot->Close();
-
+        inputRoot->Close();
+    }
     t.Stop();
     t.Print();
 }

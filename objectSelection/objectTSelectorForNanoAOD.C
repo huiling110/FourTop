@@ -72,7 +72,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
 
     tree = new TTree("tree", "tree after object selection");
-    allEvents = new TTree("allevents", "events before any selection");
 
     makeBranch(tree);
 
@@ -105,7 +104,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     ///////////////////////////////////////
     fProcessed++;
 
-    // allEvents new tree
     if (!isdata)
     {
         genWeight_allEvents = *Generator_weight;
@@ -133,7 +131,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         else
         { // if run number is in map
             Bool_t keepEvent = false;
-            for (UInt_t i = 0; i < _goodLumis[*run].size() / 2.; i++)
+            for (Int_t i = 0; i < _goodLumis[*run].size() / 2.; i++)
             {
                 if (*luminosityBlock >= _goodLumis[*run][i * 2] && *luminosityBlock <= _goodLumis[*run][i * 2 + 1])
                 {

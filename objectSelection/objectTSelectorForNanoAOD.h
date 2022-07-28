@@ -49,7 +49,6 @@ public:
 	TFile *inputPUFile_dataDown;
 	TFile *inputPUFile_mc;
 	TTree *tree;
-	TTree *allEvents;
 	TH1F *dataPileupProfile;
 	TH1F *dataPileupProfileUp;
 	TH1F *dataPileupProfileDown;
