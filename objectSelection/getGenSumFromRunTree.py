@@ -21,11 +21,11 @@ def getSumGenFromRun( nanoDir ):
             if not '.root' in ioutTree: continue
             iRoot = ROOT.TFile( nanoDir+ifile+'/'+ioutTree, 'READ' )
             iRunTree = iRoot.Get('Runs')
-            # isum = 0.0
-            # iRunTree.SetBranchAddress( 'genEventSumw', isum)
-            for ientry in (0, iRunTree.GetEntries()):
+            # print(iRunTree.GetEntries())
+            for ientry in range(0, iRunTree.GetEntries()):
                 iRunTree.GetEntry(ientry)
                 iProcessSum+=iRunTree.genEventSumw
+                # print( ientry, ': ', iRunTree.genEventSumw)
             iRoot.Close()
         # print( ifile, ': ', iProcessSum )
         sumGenDic[ifile]=iProcessSum

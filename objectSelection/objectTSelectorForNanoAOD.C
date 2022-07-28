@@ -67,15 +67,12 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     TString jsonInFile = GoldenJSONs[era];
     readJSON(isdata, jsonInFile, _goodLumis);
 
-    h_genWeight = new TH1D("h_genweight", "h_genweight", 1, -0.5, 0.5);
     h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
     h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
     h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
 
     tree = new TTree("tree", "tree after object selection");
     allEvents = new TTree("allevents", "events before any selection");
-
-    allEvents->Branch("genWeight_allEvents", &genWeight_allEvents, "genWeight_allEvents/D");
 
     makeBranch(tree);
 
@@ -111,10 +108,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // allEvents new tree
     if (!isdata)
     {
-        h_genWeight->Fill(0.0, *Generator_weight);
         genWeight_allEvents = *Generator_weight;
     }
-    allEvents->Fill();
 
     if (!isdata)
     {

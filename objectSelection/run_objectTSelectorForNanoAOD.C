@@ -31,7 +31,6 @@ void run_objectTSelectorForNanoAOD(
     // Bool_t ishuiling = false
     Bool_t ishuiling = true)
 {
-    // gROOT->ProcessLine(".L Loader.C+");
     gROOT->ProcessLine(".L objectTSelectorForNanoAOD.so");
 
     // determine era and isData from inputDir

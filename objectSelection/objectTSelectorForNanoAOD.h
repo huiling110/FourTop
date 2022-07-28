@@ -50,7 +50,6 @@ public:
 	TFile *inputPUFile_mc;
 	TTree *tree;
 	TTree *allEvents;
-	TH1D *h_genWeight;
 	TH1F *dataPileupProfile;
 	TH1F *dataPileupProfileUp;
 	TH1F *dataPileupProfileDown;
