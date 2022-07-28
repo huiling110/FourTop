@@ -111,7 +111,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	m_isData = std::stoi(option4.Data());
 	std::cout << "m_isData: " << m_isData << "\n";
 
-	// m_genWeightSum = std::stod(option1.Data());
+	m_genWeightSum = std::stod(option1.Data());
 	// std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
 	//???maybe there is lose of accuracy due to convertion
 
@@ -184,7 +184,6 @@ Bool_t writeHist::Process(Long64_t entry)
 		basicWeight = 1.0;
 	}
 	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
-	// Expression to be evaluated. If this expression evaluates to 0, this causes an assertion failure that terminates the program.
 	// 1tau0l SR
 	if (!m_isData)
 	{
@@ -234,35 +233,33 @@ void writeHist::SlaveTerminate()
 
 void writeHist::Terminate()
 {
-	// The Terminate() function is the last function to be called during
-	// a query. It always runs on the client, it can be used to present
-	// the results graphically or save the results to file.
-	/*
-	#include "../crossSectionMap.h"
-		Double_t processScale = 1.0;
-		if (!m_isData)
-		{
-			std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
-			processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
-		}
-		// std::cout<<processScale<<"\n";
+// The Terminate() function is the last function to be called during
+// a query. It always runs on the client, it can be used to present
+// the results graphically or save the results to file.
+#include "lumiAndCrossSection.h"
+	Double_t processScale = 1.0;
+	if (!m_isData)
+	{
+		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
+		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
+	}
+	// std::cout<<processScale<<"\n";
 
-		for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
-		{
+	for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
+	{
 
-			std::cout << j << "\n";
-			jetsNumber_forYieldCount_hists[j]->Scale(processScale);
-			jetsNumber_forYieldCount_hists[j]->Print();
-			onlyGenWeight_hists[j]->Scale(processScale);
-			onlyGenWeight_hists[j]->Print();
-			jetsNumber_hists[j]->Scale(processScale);
-			jets_HT_hists[j]->Scale(processScale);
-			jets_bScore_hists[j]->Scale(processScale);
-			jets_1pt_hists[j]->Scale(processScale);
-			tausT_HT_hists[j]->Scale(processScale);
-		}
+		std::cout << j << "\n";
+		jetsNumber_forYieldCount_hists[j]->Scale(processScale);
+		jetsNumber_forYieldCount_hists[j]->Print();
+		onlyGenWeight_hists[j]->Scale(processScale);
+		onlyGenWeight_hists[j]->Print();
+		jetsNumber_hists[j]->Scale(processScale);
+		jets_HT_hists[j]->Scale(processScale);
+		jets_bScore_hists[j]->Scale(processScale);
+		jets_1pt_hists[j]->Scale(processScale);
+		tausT_HT_hists[j]->Scale(processScale);
+	}
 
-		*/
 	// getting event count histo from input file
 	// TDirectory *outFileDir = gDirectory->GetDirectory("");
 	// TFile *input = new TFile(m_outputFolder + m_processName + ".root", "READ");

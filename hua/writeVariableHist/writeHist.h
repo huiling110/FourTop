@@ -27,7 +27,7 @@ public:
 
    // my member variables
    Bool_t m_isData;
-   // Double_t m_genWeightSum;
+   Double_t m_genWeightSum;
    TString m_outputFolder;
    TString m_processName;
    TString m_era;
