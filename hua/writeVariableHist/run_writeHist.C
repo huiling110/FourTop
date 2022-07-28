@@ -42,6 +42,7 @@ void run_writeHist(
         // h_genWeight->StatOverflows(kTRUE);
         // genWeightSumInitial = h_genWeight->GetMean() * h_genWeight->GetEntries();
     }
+    m_file->Close();
     cout << inputProcess << ": "
          << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
@@ -54,7 +55,9 @@ void run_writeHist(
     TChain chain("newtree");
     chain.Add(inputFile);
 
-    TString option = inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
+    TString sumGenWeight = std::to_string(genWeightSumInitial);
+    // TString option = inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
+    TString option = sumGenWeight + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
     cout << "option in run_writeHist: " << option << "\n";
 
     TStopwatch t;

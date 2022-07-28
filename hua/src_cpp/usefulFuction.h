@@ -1,14 +1,14 @@
+#include <string>
 
 #include "TString.h"
 
 void getOption(TString option, std::vector<TString> &optionVec)
 {
     optionVec.clear();
-    Int_t optionNum = option.CountChar(":");
-    for (Int_t i = 0; i < option; i++)
+    while (option.Contains(":"))
     {
-        ioption = option(0, option.First(":"));
-        option.Remove(0, option.First(":"));
+        TString ioption = option(0, option.First(":"));
+        option.Remove(0, option.First(":") + 1);
         optionVec.push_back(ioption);
     }
 }

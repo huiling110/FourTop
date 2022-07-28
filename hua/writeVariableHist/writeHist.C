@@ -31,6 +31,8 @@
 #include <cmath>
 // #include <filesystem>
 
+#include "../src_cpp/usefulFuction.h"
+
 // void getvOptionFromRunMacro( const TString option, std::vector<TString>& m_options ){
 //    TString option1 = option(0, option.First(":"));
 //     TString temp = option;
@@ -90,30 +92,23 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 
 	// this part could be in a function for multiple uses
 	//???better structure my project so that these commen functionality go to one include dir
-	TString temp = option;
-	TString option1 = option(0, option.First(":"));
-	TString option3 = temp.Remove(0, temp.First(":") + 1);
-	option3 = option3(0, option3.First(":"));
-	TString option4 = temp.Remove(0, temp.First(":") + 1);
-	option4 = option4(0, option4.First(":"));
-	temp.Remove(0, temp.First(":") + 1);
-	TString option5 = temp(0, temp.First(":"));
-
-	temp.Remove(0, temp.First(":") + 1);
-	m_era = temp(0, temp.First(":"));
-	std::cout << "m_era: " << m_era << "\n";
-
-	m_version = option5;
-	std::cout << "m_verion: " << m_version << "\n";
-
-	m_outputFolder = option1;
-	m_processName = option3;
-	m_isData = std::stoi(option4.Data());
-	std::cout << "m_isData: " << m_isData << "\n";
-
-	m_genWeightSum = std::stod(option1.Data());
-	// std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
+	std::vector<TString> optionVect;
+	getOption(option, optionVect);
+	for (UInt_t i = 0; i < optionVect.size(); i++)
+	{
+		std::cout << optionVect[i] << "\n";
+	}
+	m_genWeightSum = std::stod(optionVect[0].Data());
+	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
 	//???maybe there is lose of accuracy due to convertion
+	m_outputFolder = optionVect[1];
+	m_processName = optionVect[2];
+	m_isData = std::stoi(optionVect[3].Data());
+	std::cout << "m_isData: " << m_isData << "\n";
+	m_version = optionVect[4];
+	std::cout << "m_verion: " << m_version << "\n";
+	m_era = optionVect[5];
+	std::cout << "m_era: " << m_era << "\n";
 
 	// namespace fs = std::filesystem;
 	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
