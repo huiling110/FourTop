@@ -91,13 +91,13 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	std::cout << "option in writeHist: " << option << "\n";
 
 	// this part could be in a function for multiple uses
-	//???better structure my project so that these commen functionality go to one include dir
+	// better structure my project so that these commen functionality go to one include dir
 	std::vector<TString> optionVect;
 	getOption(option, optionVect);
-	for (UInt_t i = 0; i < optionVect.size(); i++)
-	{
-		std::cout << optionVect[i] << "\n";
-	}
+	// for (UInt_t i = 0; i < optionVect.size(); i++)
+	// {
+	// 	std::cout << optionVect[i] << "\n";
+	// }
 	m_genWeightSum = std::stod(optionVect[0].Data());
 	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
 	//???maybe there is lose of accuracy due to convertion
@@ -117,9 +117,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	// hist_jetsNumber = new TH1D( "jetsNumber_forYieldCount", "number of jets", 40, 0, 40 );
 	push_backHists("jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName);
-	push_backHists("onlyGenWeight", 2, -1, 1, onlyGenWeight_hists, m_processName);
+	push_backHists("eventCount", 2, -1, 1, onlyGenWeight_hists, m_processName);
 	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName);
 	push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName);
 	push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName);
@@ -255,26 +254,6 @@ void writeHist::Terminate()
 		tausT_HT_hists[j]->Scale(processScale);
 	}
 
-	// getting event count histo from input file
-	// TDirectory *outFileDir = gDirectory->GetDirectory("");
-	// TFile *input = new TFile(m_outputFolder + m_processName + ".root", "READ");
-	// TH1D *jetsNumber_initial = (TH1D *)input->Get("jetsNumber_initial")->Clone("initial_" + m_processName + "_jetsNumber_forYieldCount");
-	// jetsNumber_initial->SetDirectory(outFileDir);
-	// jetsNumber_initial->Scale(processScale);
-	// jetsNumber_initial->Print();
-	// TH1D *jetsNumber_HLT = (TH1D *)input->Get("jetsNumber_HLT")->Clone("HLT_" + m_processName + "_jetsNumber_forYieldCount");
-	// jetsNumber_HLT->SetDirectory(outFileDir);
-	// jetsNumber_HLT->Scale(processScale);
-	// jetsNumber_HLT->Print();
-	// TH1D *jetsNumber_baseline = (TH1D *)input->Get("jetsNumber_baseline")->Clone("baseline_" + m_processName + "_jetsNumber_forYieldCount");
-	// jetsNumber_baseline->SetDirectory(outFileDir);
-	// jetsNumber_baseline->Scale(processScale);
-	// jetsNumber_baseline->Print();
-
-	// input->Close();
-
-	// outFileDir->cd();
-	// jetsNumber_initial->Write();
 	outputFile->Write();
 	outputFile->Close();
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());

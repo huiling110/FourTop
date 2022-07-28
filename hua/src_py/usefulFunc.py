@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 
+import subprocess
+
 from ttttGlobleQuantity import lumiMap, samplesCrossSection
 
 def checkMakeDir( folder ):
@@ -15,3 +17,13 @@ def getGenSumDic( inputCsv ):
 
 # def getProcessScale( processName, era ):
 #     scale = lumiMap[era]*samplesCrossSection[processName]/getGenSumDic()
+
+def sumbitJobs(jobsh):
+    print('staring to submit jobs')
+    command = 'bash {}'.format( jobsh )
+    process = subprocess.run( command, shell=True ) 
+    output = process.stdout
+    print(output)
+
+    print('jobs submitted')
+

@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 
+import usefulFunc as uf
+
 #???make all job subscrison more modulized
 
 
@@ -17,7 +19,9 @@ Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writ
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v18HLTSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v22addedRunsTree/'
+
     version = "v0"
     justMC = False
     isTest = 0
@@ -25,17 +29,19 @@ def main():
 
 
 
-    subAllProcess = open( 'subAllProcess.sh', 'w')
-    subAllProcess.write('#!/bin/bash\n')
-    subAllProcess.write('cd '+ Jobsubmitpath +'\n')
-    inputDirDic={}
-    inputDirDic['mc'] = inputDir + 'mc/'
-    if not justMC:
-        inputDirDic['data'] = inputDir + 'data/'
+    # subAllProcess = open( 'subAllProcess.sh', 'w')
+    # subAllProcess.write('#!/bin/bash\n')
+    # subAllProcess.write('cd '+ Jobsubmitpath +'\n')
+    # inputDirDic={}
+    # inputDirDic['mc'] = inputDir + 'mc/'
+    # if not justMC:
+    #     inputDirDic['data'] = inputDir + 'data/'
 
-    for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
+    # for i in inputDirDic.keys():
+    #     makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
 
+
+    uf.sumbitJobs( os. getcwd()+'/subAllProcess.sh')
 
 
 
