@@ -17,7 +17,8 @@ void run_makeVaribles_forBDT(
     // Bool_t istest = false,
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v18HLTSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v19HLTSelection/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v20FixedSelectJetsBug/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v20FixedSelectJetsBug/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v22addedRunsTree/mc/",
     // TString inputBase = "../../objectSelection/",
 
     TString inputDir = "tttt",
@@ -73,23 +74,18 @@ void run_makeVaribles_forBDT(
     else
         chain.Process(selection + "+", option);
 
-    /*
-        if (ifMergeAllevent)
-        {
-            cout << "--------" << endl;
-            cout << "now comes to add allevents stage\n";
-            TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
-            cout << "file opened :" << file->GetName() << "\n";
+    // if (ifMergeAllevent)
+    // {
+    cout << "--------" << endl;
+    cout << "now comes to add Runs tree stage\n";
+    TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
+    cout << "file opened :" << file->GetName() << "\n";
 
-            // add allevents tree
-            TChain chain2("allevents");
-            chain2.Add(inputFile + "outTree*.root");
-            cout << "entries in allevent tree: " << chain2.GetEntries() << endl;
-            // chain2.ls();
-            // chain2.Merge( file, 1000, "C" );
-            chain2.Merge(file, 2000);
-            cout << "done merging allevents trees\n";
-            // file->Close();
-        }
-        */
+    // add Runs tree
+    TChain chain2("Runs");
+    chain2.Add(inputFile + "outTree*.root");
+    chain2.Merge(file, 2000);
+    cout << "done merging Runs trees\n";
+    // file->Close();
+    // }
 }
