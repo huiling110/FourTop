@@ -29,16 +29,16 @@ def main():
 
 
 
-    # subAllProcess = open( 'subAllProcess.sh', 'w')
-    # subAllProcess.write('#!/bin/bash\n')
-    # subAllProcess.write('cd '+ Jobsubmitpath +'\n')
-    # inputDirDic={}
-    # inputDirDic['mc'] = inputDir + 'mc/'
-    # if not justMC:
-    #     inputDirDic['data'] = inputDir + 'data/'
+    subAllProcess = open( 'subAllProcess.sh', 'w')
+    subAllProcess.write('#!/bin/bash\n')
+    subAllProcess.write('cd '+ Jobsubmitpath +'\n')
+    inputDirDic={}
+    inputDirDic['mc'] = inputDir + 'mc/'
+    if not justMC:
+        inputDirDic['data'] = inputDir + 'data/'
 
-    # for i in inputDirDic.keys():
-    #     makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
+    for i in inputDirDic.keys():
+        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
 
 
     uf.sumbitJobs( os. getcwd()+'/subAllProcess.sh')
