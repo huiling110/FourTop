@@ -31,7 +31,7 @@
 //
 #include "objectTSelectorForNanoAOD.h"
 #include "utilityFunctions.h"
-// we should use a better way of modulization of code rather the include copy here???
+// we should use a better way of modulization of code rather the include copy here
 #include <TH2.h>
 #include <TStyle.h>
 

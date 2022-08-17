@@ -26,25 +26,25 @@ def main():
     
     # writeGenSumToCSV( inOutListMC[1] )
 
-    # genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
-    # lumi = lumiMap[iera]
-    # fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
-    # uf.checkMakeDir( fileDir )
-    # writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
-    # writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+    genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
+    lumi = lumiMap[iera]
+    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
+    uf.checkMakeDir( fileDir )
+    writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
+    writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
     
 
-    variableList = ['onlygenWeight']
-    regionList = ['initial', 'HLT']
-    inputDir = {
-        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
-    }
-    #sumProcessPerVar[var][region][sumedProcess] = hist
-    sumProcessPerVar = {}
-    for ivar in variableList:
-        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
-    print( sumProcessPerVar )
+    # variableList = ['forEventCount']
+    # regionList = ['OBinitial', 'OBHLT']
+    # inputDir = {
+    #     'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
+    #     'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
+    # }
+    # # #sumProcessPerVar[var][region][sumedProcess] = hist
+    # sumProcessPerVar = {}
+    # for ivar in variableList:
+    #     sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+    # print( sumProcessPerVar )
 
 
 #copied to 
@@ -64,9 +64,9 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
         print( iPro )
         iRootFile = ROOT.TFile( outDir+iPro+'.root', "RECREATE")
         # iRootFile = ROOT.TFile( outDir+iPro+'_variableHists.root', "RECREATE")
-        iHist = ROOT.TH1D( 'initial_' + iPro + '_' + 'onlygenWeight', 'initial_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
-        iHistHLT = ROOT.TH1D( 'HLT_' + iPro + '_' + 'onlygenWeight', 'HLT_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
-        iHistPre = ROOT.TH1D( 'preSelection_' + iPro + '_' + 'onlygenWeight', 'preSelection_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHist = ROOT.TH1D( 'OBinitial_' + iPro + '_' + 'forEventCount', 'initial_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHistHLT = ROOT.TH1D( 'OBHLT_' + iPro + '_' + 'forEventCount', 'HLT_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
+        iHistPre = ROOT.TH1D( 'OBpreSelection_' + iPro + '_' + 'forEventCount', 'preSelection_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHist.SetDirectory(iRootFile)
         for ifile in os.listdir( indir+iPro ):
             if 'log' in ifile: continue
