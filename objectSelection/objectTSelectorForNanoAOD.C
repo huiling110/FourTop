@@ -1451,6 +1451,10 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
     // TString input = JER_SF_map[era] ;
     // auto corr_jerSF = cset_jerSF->at(input.Data());
     auto corr_jerSF = cset_jerSF->at(corr_SF_map[era].at(0).Data());
+    // std::cout<<"jerSF input: \n";
+    // for ( UInt_t i=0;  i<corr_jerSF->inputs().size(); i++){
+    //     std::cout<<corr_jerSF->inputs()[i]<<" ";
+    // }
     // TString jesSFName = "Summer19UL16APV_V7_MC";
     // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
     // TString jesSFName_MC_L1 = "Summer19UL16APV_V7_MC_L1FastJet_AK4PFchs";
