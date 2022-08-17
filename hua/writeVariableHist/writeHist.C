@@ -117,6 +117,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
+	whInitial = new TH1D("whIntial_"+m_processName+"_eventCount", "whIntial_"+m_processName+"_eventCount", 2, -1, 1 );
 	push_backHists("jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName);
 	push_backHists("eventCount", 2, -1, 1, onlyGenWeight_hists, m_processName);
 	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName);
@@ -167,12 +168,15 @@ Bool_t writeHist::Process(Long64_t entry)
 		}
 	*/
 
+	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	whInitial->Fill( 0.0, basicWeight );
+
 	if (*tausT_number < 1)
 		return kFALSE;
 	if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
 		return kFALSE;
 
-	Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	if (m_isData)
 	{
 		basicWeight = 1.0;
@@ -239,6 +243,8 @@ void writeHist::Terminate()
 	}
 	// std::cout<<processScale<<"\n";
 
+	whInitial->Scale(processScale);
+	whInitial->Print();
 	for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
 	{
 
