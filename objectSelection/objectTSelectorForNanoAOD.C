@@ -103,19 +103,15 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     ///////////////////////////////////////
     fProcessed++;
+    Double_t basicWeight = 1.0;
+    if(!isdata){
+        basicWeight = (*Generator_weight)*(*L1PreFiringWeight_Nom);
+    }
+    h_forEY_initial->Fill(0.0, basicWeight);
 
     if (!isdata)
     {
         genWeight_allEvents = *Generator_weight;
-    }
-
-    if (!isdata)
-    {
-        h_forEY_initial->Fill(0.0, *Generator_weight);
-    }
-    else
-    {
-        h_forEY_initial->Fill(0.0, 1);
     }
 
     //!!!branch variable intialization to prevent them from get values from last event
@@ -186,14 +182,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         }
     }
     eventsPassedHLT++;
-    if (isdata)
-    {
-        h_forEY_HLT->Fill(0.0, 1);
-    }
-    else
-    {
-        h_forEY_HLT->Fill(0.0, *Generator_weight);
-    }
+    h_forEY_HLT->Fill(0.0, basicWeight);
 
     //!!!very important to give value to default values to variables for each event!!!
     initializeBrancheValues();
@@ -343,14 +332,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(bjetsL.size() > 1))
             return kFALSE;
     }
-    if (!isdata)
-    {
-        h_forEY_preSelection->Fill(0.0, *Generator_weight);
-    }
-    else
-    {
-        h_forEY_preSelection->Fill(0.0, 1);
-    }
+    h_forEY_preSelection->Fill(0.0, basicWeight );
 
     // std::cout<<"tausTnum: "<<tausT.size()<<"  jetsNum: "<<jets.size()<<"\n";
 
