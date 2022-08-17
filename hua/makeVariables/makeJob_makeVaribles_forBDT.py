@@ -16,10 +16,11 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v20FixedSelectJetsBug'
 # inVersion = 'v22addedRuinsTree'
 inVersion = 'v23basicWeight'
-outVersion = 'v0baseline'
+# outVersion = 'v0baseline'
+outVersion = 'v0noBaseline'
 justMC = False
 year = '2016'
-selectionBit = '7'
+selectionBit = '5'
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
