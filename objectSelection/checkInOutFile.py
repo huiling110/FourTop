@@ -10,7 +10,7 @@ import usefulFunc as uf
 
 import sys
 sys.path.insert(0,'/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/')
-from writeCSVforEY import getSummedHists
+from writeCSVforEY import getSummedHists, writeHistsToCSV
 
 
 
@@ -26,25 +26,26 @@ def main():
     
     # writeGenSumToCSV( inOutListMC[1] )
 
-    genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
-    lumi = lumiMap[iera]
-    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
-    uf.checkMakeDir( fileDir )
-    writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
-    writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+    # genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
+    # lumi = lumiMap[iera]
+    # fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
+    # uf.checkMakeDir( fileDir )
+    # writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
+    # writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
     
 
-    # variableList = ['forEventCount']
-    # regionList = ['OBinitial', 'OBHLT']
-    # inputDir = {
-    #     'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
-    #     'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
-    # }
-    # # #sumProcessPerVar[var][region][sumedProcess] = hist
-    # sumProcessPerVar = {}
-    # for ivar in variableList:
-    #     sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
-    # print( sumProcessPerVar )
+    variableList = ['forEventCount']
+    regionList = ['OBinitial', 'OBHLT']
+    inputDir = {
+        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
+    }
+    # #sumProcessPerVar[var][region][sumedProcess] = hist
+    sumProcessPerVar = {}
+    for ivar in variableList:
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+    print( sumProcessPerVar )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
 
 
 #copied to 
