@@ -177,21 +177,21 @@ Bool_t writeHist::Process(Long64_t entry)
 	if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
 		return kFALSE;
 
-	/*
-		if (m_isData)
+	// 1tau0l SR
+	if (!m_isData)
+	{
+		// be blind for data in signal region
+		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+		if (is1tau0lSR)
 		{
-			basicWeight = 1.0;
+			eventCount_hists[4]->Fill(.0, basicWeight);
 		}
-		// 1tau0l SR
-		if (!m_isData)
-		{
-			// be blind for data in signal region
-			Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-			fillHistsVector(is1tau0lSR, 0, basicWeight);
-			Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-			fillHistsVector(is1tau1lSR, 6, basicWeight);
-		}
+		// fillHistsVector(is1tau0lSR, 0, basicWeight);
+		// Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
+		// fillHistsVector(is1tau1lSR, 6, basicWeight);
+	}
 
+	/*
 		// std::array<TString, 11> regions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 		// 1tau0l CR
 		Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
