@@ -37,9 +37,9 @@ public:
    TFile *outputFile;
    //    TH1D* hist_jetsNumber;//for event count
    //!!!hists need to be scalec in terminate function
-   TH1D* whInitial;
+   // TH1D* whInitial;
    std::vector<TH1D *> jetsNumber_forYieldCount_hists;
-   std::vector<TH1D *> onlyGenWeight_hists;
+   std::vector<TH1D *> eventCount_hists;
    std::vector<TH1D *> jetsNumber_hists;
    std::vector<TH1D *> jets_HT_hists;
    std::vector<TH1D *> jets_bScore_hists;

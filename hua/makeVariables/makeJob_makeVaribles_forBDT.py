@@ -17,10 +17,10 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v22addedRuinsTree'
 inVersion = 'v23basicWeight'
 # outVersion = 'v0baseline'
-outVersion = 'v0noBaseline'
+outVersion = 'v1noBaseline'
 justMC = False
 year = '2016'
-selectionBit = '5'
+selectionBit = '3'
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
