@@ -104,8 +104,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     ///////////////////////////////////////
     fProcessed++;
     Double_t basicWeight = 1.0;
-    if(!isdata){
-        basicWeight = (*Generator_weight)*(*L1PreFiringWeight_Nom);
+    if (!isdata)
+    {
+        basicWeight = (*Generator_weight) * (*L1PreFiringWeight_Nom);
     }
     h_forEY_initial->Fill(0.0, basicWeight);
 
@@ -325,14 +326,14 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // preSelection
     if (preSelection)
     {
-        if (!(tausL.size() > 0))
+        if (!(tausT.size() > 0))
             return kFALSE;
         if (!(jets.size() > 5))
             return kFALSE;
-        if (!(bjetsL.size() > 1))
-            return kFALSE;
+        // if (!(bjetsL.size() > 1))
+        // return kFALSE;
     }
-    h_forEY_preSelection->Fill(0.0, basicWeight );
+    h_forEY_preSelection->Fill(0.0, basicWeight);
 
     // std::cout<<"tausTnum: "<<tausT.size()<<"  jetsNum: "<<jets.size()<<"\n";
 

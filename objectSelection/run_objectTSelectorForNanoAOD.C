@@ -27,7 +27,7 @@ void run_objectTSelectorForNanoAOD(
     TString singleFileName = "outTree_0.root",
     // TString singleFileName = "outTree_1.root",
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
-    TString eventSelectionBit = "3",
+    TString eventSelectionBit = "7",
     // Bool_t ishuiling = false
     Bool_t ishuiling = true)
 {
@@ -75,7 +75,8 @@ void run_objectTSelectorForNanoAOD(
     TString selection;
     TString option;
     Int_t eventNum = 100;
-    selection = "objectTSelectorForNanoAOD.C";
+    // selection = "objectTSelectorForNanoAOD.C";
+    selection = "objectTSelectorForNanoAOD"; // gROOT->ProcessLine(".L selection");
     if (istest)
     {
         outputDir = "output/";
