@@ -94,7 +94,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
         iList = []
         for iProcess in summedProcessList:
             if ('SR' in iregion) and iProcess=='data':
-                iList.append('-1')
+                iList.append(-1.0)
             else: 
                 if not isRawEntries:
                     iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
@@ -104,8 +104,9 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
 
     df = pd.DataFrame( data, index=summedProcessList )
     # df.loc['totalBG'] = df.drop('data', 'tttt').sum(axis=0, numeric_only=True)       
-    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
+    # df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
     df.loc['totalbg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']
+    df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     # df['HLTeff'] = df['HLT']/df['initial']
