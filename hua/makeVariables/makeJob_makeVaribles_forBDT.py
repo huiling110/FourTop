@@ -15,9 +15,10 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v19HLTSelection'
 # inVersion = 'v20FixedSelectJetsBug'
 # inVersion = 'v22addedRuinsTree'
-inVersion = 'v23basicWeight'
+# inVersion = 'v23basicWeight'
+inVersion = 'v24noJER'
 # outVersion = 'v0baseline'
-outVersion = 'v1noBaseline'
+outVersion = 'v0noBaseline'
 justMC = False
 year = '2016'
 selectionBit = '3'
