@@ -81,7 +81,7 @@ void run_objectTSelectorForNanoAOD(
     {
         outputDir = "output/";
         // eventNum = 100;
-        eventNum = 1000;
+        eventNum = 10000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
@@ -112,10 +112,10 @@ void run_objectTSelectorForNanoAOD(
         TFile *outFile = TFile::Open(outputFile, "UPDATE");
         TTree *runsForOut = runs->CloneTree();
         // runsForOut->CopyEntries(runs);
-        runsForOut->Print();
+        // runsForOut->Print();
         runsForOut->Write();
         outFile->Write();
-        outFile->ls();
+        // outFile->ls();
         outFile->Close();
 
         inputRoot->Close();
