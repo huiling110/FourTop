@@ -10,25 +10,22 @@ from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, lumiMap, 
 import usefulFunc as uf
 
 def main():
-    inVersion = 'v0baseline_v22addedRunsTree'
+    # inVersion = 'v0baseline_v22addedRunsTree'
+    inVersion = 'v0noBaseline_v24noJER'
     histVersion = 'variableHists_v0'
 
-    # variableList = ['eventCount']
+    variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
-
-
-
-
-
+    regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau0lSRtau', '1tau0lSRlep', '1tau0lSRjet', '1tau0lSRbjet'] 
 
 
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-    # inputDir = {
+    inputDir = {
         # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/mc/variableHists_v0/',
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/data/variableHists_v0/',
-        # 'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-        # 'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    # }
+        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    }
     # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
@@ -42,10 +39,10 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau1lRegions.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow.csv' )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRaw_objectSelection.csv', True )
 
 

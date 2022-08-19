@@ -37,8 +37,10 @@ def main():
     variableList = ['forEventCount']
     regionList = ['OBinitial', 'OBHLT']
     inputDir = {
-        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
+        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
+        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
+        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/data/',
     }
     # #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
