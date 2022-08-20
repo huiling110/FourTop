@@ -3,8 +3,10 @@ import pandas as pd
 
 # obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v19HLTSelection/mc/results/cutFlow_objectSelection.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v19HLTSelection/mc/variableHists_v2baseline/results/1tau0lEYinRegions.csv'
-obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/results/cutFlow_objectSelection.csv'
-R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v24noJER/mc/variableHists_v0/results/cutflow.csv'
+# obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/results/cutFlow_objectSelection.csv'
+# R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v24noJER/mc/variableHists_v0/results/cutflow.csv'
+obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/results/cutFlowRawEntries_objectSelection.csv'
+R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v24noJER/mc/variableHists_v0/results/cutflow_rawEntries.csv'
 
 df1 = pd.read_csv( obCSV )
 df2 = pd.read_csv( R1tau0l )

@@ -1,9 +1,12 @@
 # import ROOT
-from ROOT import *
 
 import csv
 import os
+
+
 import pandas as pd
+from ROOT import *
+# from ROOT import *
 
 # from plotVaribles import  histoGramPerSample, summedProcessList
 from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, lumiMap, samplesCrossSection
@@ -39,7 +42,8 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow.csv' )
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow_rawEntries.csv', True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
@@ -113,10 +117,10 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
     # df['preeff'] = df['preSelection']/df['HLT']
 
     df['process'] = df.index
-    pd.set_option('display.float_format','{:.2f}'.format)
     print( df )
 
     df.to_csv( outDir+csvName, float_format='%.2f')
+    pd.set_option('display.float_format','{:.2f}'.format)
     print( 'done writen csv file here: ', outDir+csvName )
 
 
