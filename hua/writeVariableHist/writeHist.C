@@ -63,7 +63,8 @@ void writeHist::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t we
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName)
 {
 	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	std::array<TString, 8> regions = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRtau", "1tau0lSRlep", "1tau0lSRjet", "1tau0lSRbjet"};
+	// std::array<TString, 8> regions = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRtau", "1tau0lSRlep", "1tau0lSRjet", "1tau0lSRbjet"};
+	std::array<TString, 8> regions = {"whInitial", "1tau0lSRlep", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -154,43 +155,65 @@ Bool_t writeHist::Process(Long64_t entry)
 	}
 	eventCount_hists[0]->Fill(0.0, basicWeight);
 
-	if (*jets_number >= 6)
-	{
-		// fillHistsVector(true, 0, basicWeight);
-		eventCount_hists[1]->Fill(0.0, basicWeight);
-	}
-	if (*jets_number >= 6 && *jets_6pt >= 40)
-	{
-		eventCount_hists[2]->Fill(.0, basicWeight);
-	}
-	if (*jets_HT > 500 && *jets_number >= 6 && *jets_6pt > 40)
-	{
-		eventCount_hists[3]->Fill(.0, basicWeight);
-	}
-	else
-	{
-		return kFALSE;
-	}
-
 	if (!m_isData)
 	{
+		if (*leptonsMVAT_number == 0)
+		{
+			eventCount_hists[1]->Fill(.0, basicWeight);
+		}
+		else
+		{
+			return kFALSE;
+		}
 
 		if (*tausT_number == 1)
 		{
+			eventCount_hists[2]->Fill(.0, basicWeight);
+		}
+		else
+		{
+			return kFALSE;
+		}
+
+		if (*jets_number >= 6)
+		{
+			// fillHistsVector(true, 0, basicWeight);
+			eventCount_hists[3]->Fill(0.0, basicWeight);
+		}
+		if (*jets_number >= 6 && *jets_6pt >= 40)
+		{
 			eventCount_hists[4]->Fill(.0, basicWeight);
 		}
-		if (*tausT_number == 1 && *leptonsMVAT_number == 0)
+		if (*jets_HT > 500 && *jets_number >= 6 && *jets_6pt > 40)
 		{
 			eventCount_hists[5]->Fill(.0, basicWeight);
 		}
-		if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
+		else
+		{
+			return kFALSE;
+		}
+
+		if (*jets_number >= 8)
 		{
 			eventCount_hists[6]->Fill(.0, basicWeight);
 		}
-		if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
+		if (*jets_number >= 8 && *bjetsM_num >= 2)
 		{
 			eventCount_hists[7]->Fill(.0, basicWeight);
 		}
+
+		// if (*tausT_number == 1 && *leptonsMVAT_number == 0)
+		// {
+		// 	eventCount_hists[5]->Fill(.0, basicWeight);
+		// }
+		// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
+		// {
+		// 	eventCount_hists[6]->Fill(.0, basicWeight);
+		// }
+		// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
+		// {
+		// 	eventCount_hists[7]->Fill(.0, basicWeight);
+		// }
 	}
 	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	// Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
