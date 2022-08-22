@@ -15,7 +15,8 @@ import usefulFunc as uf
 def main():
     # inVersion = 'v0baseline_v22addedRunsTree'
     inVersion = 'v0noBaseline_v24noJER'
-    histVersion = 'variableHists_v0'
+    # histVersion = 'variableHists_v0'
+    histVersion = 'variableHists_v1leptonSlectionFirst'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']

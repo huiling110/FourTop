@@ -23,7 +23,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v22addedRunsTree/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v24noJER/'
 
-    version = "v0"
+    # version = "v0"
+    version = "v1leptonSlectionFirst"
     justMC = False
     isTest = 0
 
