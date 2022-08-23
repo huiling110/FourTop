@@ -64,7 +64,8 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 {
 	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	// std::array<TString, 8> regions = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRtau", "1tau0lSRlep", "1tau0lSRjet", "1tau0lSRbjet"};
-	std::array<TString, 8> regions = {"whInitial", "1tau0lSRlep", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	// std::array<TString, 8> regions = {"whInitial", "1tau0lSRlep", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	std::array<TString, 9> regions = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -157,7 +158,8 @@ Bool_t writeHist::Process(Long64_t entry)
 
 	if (!m_isData)
 	{
-		if (*leptonsMVAT_number == 0)
+		// if (*leptonsMVAT_number == 0)
+		if (*muonsT_number==0)
 		{
 			eventCount_hists[1]->Fill(.0, basicWeight);
 		}
@@ -165,10 +167,16 @@ Bool_t writeHist::Process(Long64_t entry)
 		{
 			return kFALSE;
 		}
+		if ( *elesMVAT_number==0){
+			eventCount_hists[2]->Fill(.0, basicWeight);
+		}
+		else{
+			return kFALSE;
+		}
 
 		if (*tausT_number == 1)
 		{
-			eventCount_hists[2]->Fill(.0, basicWeight);
+			eventCount_hists[3]->Fill(.0, basicWeight);
 		}
 		else
 		{
@@ -178,15 +186,15 @@ Bool_t writeHist::Process(Long64_t entry)
 		if (*jets_number >= 6)
 		{
 			// fillHistsVector(true, 0, basicWeight);
-			eventCount_hists[3]->Fill(0.0, basicWeight);
+			eventCount_hists[4]->Fill(0.0, basicWeight);
 		}
 		if (*jets_number >= 6 && *jets_6pt >= 40)
 		{
-			eventCount_hists[4]->Fill(.0, basicWeight);
+			eventCount_hists[5]->Fill(.0, basicWeight);
 		}
 		if (*jets_HT > 500 && *jets_number >= 6 && *jets_6pt > 40)
 		{
-			eventCount_hists[5]->Fill(.0, basicWeight);
+			eventCount_hists[6]->Fill(.0, basicWeight);
 		}
 		else
 		{
@@ -195,11 +203,11 @@ Bool_t writeHist::Process(Long64_t entry)
 
 		if (*jets_number >= 8)
 		{
-			eventCount_hists[6]->Fill(.0, basicWeight);
+			eventCount_hists[7]->Fill(.0, basicWeight);
 		}
 		if (*jets_number >= 8 && *bjetsM_num >= 2)
 		{
-			eventCount_hists[7]->Fill(.0, basicWeight);
+			eventCount_hists[8]->Fill(.0, basicWeight);
 		}
 
 		// if (*tausT_number == 1 && *leptonsMVAT_number == 0)

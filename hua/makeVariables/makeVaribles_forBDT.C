@@ -112,8 +112,9 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
 
 	newtree = new TTree("newtree", "tree for BDT");
 
-	eventCount_mvInitial = new TH1D("mvInitial_" + m_processName + "_forEventCount", "mvInitial_" + m_processName + "_forEventCount", 2, -1, 1);
-	eventCount_baseline = new TH1D("mvBaseline_" + m_processName + "_forEventCount", "mvBaseline_" + m_processName + "_forEventCount", 2, -1, 1);
+	eventCount_mvInitial = new TH1D("mvInitial_" + m_processName + "_forEventCount", "mvInitial_" + m_processName + "_forEventCount", 2, -1.0, 1.0);
+	eventCount_baseline = new TH1D("mvBaseline_" + m_processName + "_forEventCount", "mvBaseline_" + m_processName + "_forEventCount", 2, -1.0, 1.0);
+	eventCount_baseline->Print();
 
 	makeBranchForTree();
 	// initializeBReader();
@@ -146,8 +147,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
+		// basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
+		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) ;
 	}
+	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
 	eventCount_mvInitial->Fill(0.0, basicWeight);
 
 	// initialize
@@ -593,6 +596,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	{
 		// std::cout << "doing baseline selection\n";
 		if (!(jets_HT > 500 && jets_6pt > 40 && jets_number >= 6))
+		// if ( !(leptonsMVAT_number==0))
 		{
 			return kFALSE;
 		}
@@ -617,9 +621,14 @@ void makeVaribles_forBDT::Terminate()
 	// The Terminate() function is the last function to be called during
 	// a query. It always runs on the client, it can be used to present
 	// the results graphically or save the results to file.
+	eventCount_mvInitial->Print();
+	eventCount_baseline->Print();
+
 	outputfile->Write();
 	outputfile->Close();
 
+
+	// Info( "Terminate," "%ld",eventCount_baseline->GetEntries() );
 	Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight);
 	Info("Terminate", "passing HLT events: %lld; genWeighted events: %lf", fPassingHLT, fPassingHLT_genWeight);
 	Info("Terminate", "passing m_baselineSelection: %lld", fPassingPreselection);

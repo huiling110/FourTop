@@ -18,7 +18,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v18HLTSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v19HLTSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v20FixedSelectJetsBug/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v22addedRunsTree/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v22addedRunsTree/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v24noJER/mc/",
     // TString inputBase = "../../objectSelection/",
 
     TString inputDir = "tttt",
@@ -26,7 +27,8 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "jetHT_2016D",
     // TString inputDir = "ttbar_0l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
-    const TString eventSelectionBit = "7"
+    // const TString eventSelectionBit = "7"
+    const TString eventSelectionBit = "3"
     // 1 for MetFilters, 2 for HLTSelection, 4 for baseline. so 7 if all selection; 0 if no selection
 )
 {
@@ -56,12 +58,13 @@ void run_makeVaribles_forBDT(
 
     TChain chain("tree");
 
-    chain.Add(inputFile + "outTree*.root");
+    // chain.Add(inputFile + "outTree*.root");
+    chain.Add(inputFile + "outTree_1.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
-    // TString outputFileName = ;
 
-    TString selection = "makeVaribles_forBDT.C";
+    // TString selection = "makeVaribles_forBDT.C";
+    TString selection = "makeVaribles_forBDT";
 
     TString option = outputDir + ":" + inputDir + ":" + era + ":" + eventSelectionBit + ":";
     cout << "option in run: " << option << "\n";
@@ -69,7 +72,8 @@ void run_makeVaribles_forBDT(
     if (istest)
     {
         // chain.Process(selection + "+", option, 100);
-        chain.Process(selection + "+", option, 1000);
+        // chain.Process(selection + "+", option, 1000);
+        chain.Process(selection + "+", option);
     }
     else
         chain.Process(selection + "+", option);
