@@ -33,17 +33,6 @@
 #include "../src_cpp/usefulFuction.h"
 #include "writeHist.h"
 
-// void getvOptionFromRunMacro( const TString option, std::vector<TString>& m_options ){
-//    TString option1 = option(0, option.First(":"));
-//     TString temp = option;
-//     TString option2 = temp.Remove(0, option.First(":")+1);
-//     option2 = option2(0, option2.First(":"));
-//  TString option3 = temp.Remove(0, temp.First(":")+1);
-//  option3 = option3(0, option3.First(":"));
-//  TString option4 = temp.Remove(0, temp.First(":")+1 );
-//  option4 = option4(0, option4.First(":"));
-//  TString option5 = temp.Remove(0, temp.First(":")+1 );
-// }
 void writeHist::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
@@ -60,12 +49,12 @@ void writeHist::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t we
 	}
 }
 
-void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName)
+void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
 	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	// std::array<TString, 8> regions = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRtau", "1tau0lSRlep", "1tau0lSRjet", "1tau0lSRbjet"};
 	// std::array<TString, 8> regions = {"whInitial", "1tau0lSRlep", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
-	std::array<TString, 9> regions = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau",  "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	// std::array<TString, 9> regions = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -119,9 +108,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	// whInitial = new TH1D("whIntial_"+m_processName+"_eventCount", "whIntial_"+m_processName+"_eventCount", 2, -1, 1 );
-	// push_backHists("jetsNumber_forYieldCount", 40, 0, 40, jetsNumber_forYieldCount_hists, m_processName);
-	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName);
+	std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName);
 	// push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName);
 	// push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName);
@@ -159,7 +147,7 @@ Bool_t writeHist::Process(Long64_t entry)
 	if (!m_isData)
 	{
 		// if (*leptonsMVAT_number == 0)
-		if (*muonsT_number==0)
+		if (*muonsT_number == 0)
 		{
 			eventCount_hists[1]->Fill(.0, basicWeight);
 		}
@@ -167,10 +155,12 @@ Bool_t writeHist::Process(Long64_t entry)
 		{
 			return kFALSE;
 		}
-		if ( *elesMVAT_number==0){
+		if (*elesMVAT_number == 0)
+		{
 			eventCount_hists[2]->Fill(.0, basicWeight);
 		}
-		else{
+		else
+		{
 			return kFALSE;
 		}
 
