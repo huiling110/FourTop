@@ -588,19 +588,15 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
         if (!Electron_mvaFall17V2Iso_WP90.At(j))
             continue; // note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
         // note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
+        if (!Electron_convVeto.At(j))
+            continue;
+        // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
 
         // IP
         if (!(fabs(Electron_dxy.At(j)) < 0.05))
             continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))
             continue;
-        if (type == 1 or type == 2)
-        {
-            if (!((Electron_ip3d.At(j)) < 4))
-                continue;
-        }
-
-        // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
         if (type == 0)
         {
             if (!(int(Electron_lostHits.At(j)) <= 1))
@@ -610,9 +606,9 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
         {
             if (!(int(Electron_lostHits.At(j)) == 0))
                 continue;
+            if (!((Electron_ip3d.At(j)) < 4))
+                continue;
         }
-        if (!Electron_convVeto.At(j))
-            continue;
         // tight charge
         // Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
         //???not sure which one to use, drop for now
