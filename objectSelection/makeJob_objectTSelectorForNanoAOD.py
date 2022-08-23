@@ -26,6 +26,7 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v21withGoodLumi/'
 # jobVersionName = 'v22addedRunsTree/'
 # jobVersionName = 'v23basicWeight/'
+# jobVersionName = 'v24noJER/'
 jobVersionName = 'v24noJER/'
 onlyMC = False
 era = '2016'
