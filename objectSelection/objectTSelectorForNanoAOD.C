@@ -525,50 +525,45 @@ void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &Selecte
             continue;
         if (!(fabs(Muon_eta.At(j)) < 2.4))
             continue;
+        if (!(fabs(Muon_dz.At(j)) < 0.1))
+            continue;
+        if (!(fabs(Muon_dxy.At(j)) < 0.05))
+            continue;
         // ID
         if (type == 0)
         {
             if (!Muon_looseId.At(j))
                 continue;
-        }
-        if (type == 1 or type == 2)
-        {
-            if (!Muon_mediumId.At(j))
-                continue;
-        }
-        // ISO
-        if (type == 0 || type == 1)
-        {
-
             if (!(int(Muon_miniIsoId.At(j)) >= 1))
             //???do we need to int() the unsigned char here?
                 continue;
         }
-        if (type == 2)
-        {
-
-            if (!(int(Muon_miniIsoId.At(j)) >= 3))
+        if ( type==1){
+            if (!Muon_mediumId.At(j))
                 continue;
-        }
-
-        // IP
-        if (!(fabs(Muon_dz.At(j)) < 0.1))
-            continue;
-        if (!(fabs(Muon_dxy.At(j)) < 0.05))
-            continue;
-        if (type == 1 or type == 2)
-        {
+            if (!(int(Muon_miniIsoId.At(j)) >= 1))
+            //???do we need to int() the unsigned char here?
+                continue;
             if (!(fabs(Muon_ip3d.At(j)) < 4))
                 continue;
-        }
-
-        // charge,The quality of the charge reconstruction
-        if (type == 1 || type == 2)
-        {
             if (!(Muon_tightCharge.At(j) == 2))
                 continue;
-        }
 
+        }
+        if ( type==2){
+            if (!Muon_mediumId.At(j))
+                continue;
+            if (!(int(Muon_miniIsoId.At(j)) >= 3))
+                continue;
+            if (!(fabs(Muon_ip3d.At(j)) < 4))
+                continue;
+            if (!(Muon_tightCharge.At(j) == 2))
+                continue;
+
+        }
+        // ISO
+        // IP
+        // charge,The quality of the charge reconstruction
         TLorentzVector muon;
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
         muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
