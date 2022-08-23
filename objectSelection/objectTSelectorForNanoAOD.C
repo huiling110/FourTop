@@ -376,6 +376,11 @@ void objectTSelectorForNanoAOD::Terminate()
     Info("Terminate", "passed MET filters %lld events", eventsPassedMETFilters);
     Info("Terminate", "passed HLT %lld events", eventsPassedHLT);
     Info("Terminate", "passed preselection %lld events", eventsPassed);
+    Info("Terminate", "mouns: T %lld, F %lld, L %lld", mounsT_total, mounsF_total, mounsL_total);
+    Info("Terminate", "electrons: T %lld, F %lld, L %lld", elesT_total, elesF_total, elesL_total);
+    Info("Terminate", "taus: T %lld, F %lld, L %lld", tausT_total, tausF_total, tausL_total);
+    Info("Terminate", "jets: %lld", jets_total);
+    Info("Terminate", "bjets: M %lld", bjetsM_total  );
     Info("Terminate", "output file here: %s", outputfile->GetName());
     ///////////////////////////////
 }
