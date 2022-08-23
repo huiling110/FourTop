@@ -625,8 +625,6 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
-
-    //   for (UInt_t j = 0; j < Tau_pt.GetSize(); ++j) {/*{{{*/
     for (UInt_t j = 0; j < *nTau; ++j)
     {
         Double_t itau_pt = Tau_pt.At(j);
@@ -659,11 +657,6 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
             continue;
         //???why no dxy requirement?
         // if (!(Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
-        if (TauWP == 2 || TauWP == 3)
-        {
-            if (Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)
-                continue;
-        } // for decay mode
         if (TauWP == 1)
         {
             bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
@@ -678,6 +671,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
             bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
+            if (Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)
+                continue;
         }
         if (TauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
@@ -686,6 +681,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
             bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
             bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); // check if the 1st bit (VLoose WP) is 1
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)
                 continue;
         }
         // overlap removal
