@@ -1,11 +1,13 @@
-import sys
 import os
 import subprocess
+import sys
+
+import ttttGlobleQuantity as GQ
+
 # import glob
 # import string
 
  #
-import ttttGlobleQuantity as GQ
 
 #???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
@@ -16,7 +18,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v20FixedSelectJetsBug'
 # inVersion = 'v22addedRuinsTree'
 # inVersion = 'v23basicWeight'
-inVersion = 'v24noJER'
+# inVersion = 'v24noJER'
+inVersion = 'v25noJERNOTES'
 # outVersion = 'v0baseline'
 outVersion = 'v0noBaseline'
 justMC = False

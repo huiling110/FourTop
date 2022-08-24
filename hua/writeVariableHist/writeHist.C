@@ -166,16 +166,23 @@ writeHist::Process(Long64_t entry)
 			return kFALSE;
 		}
 
+
+
 		if (*jets_number >= 6 && *elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1)
 		{
 			// fillHistsVector(true, 0, basicWeight);
 			eventCount_hists[4]->Fill(0.0, basicWeight);
+		}else{
+			return kFALSE;
 		}
-		if (*jets_number >= 6 && *jets_6pt >= 40)
+		if (*jets_number >= 6 && *jets_6pt > 40.0)
 		{
 			eventCount_hists[5]->Fill(.0, basicWeight);
+		
+		}else{
+			return kFALSE;
 		}
-		if (*jets_HT > 500 && *jets_number >= 6 && *jets_6pt > 40)
+		if ( *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 )
 		{
 			eventCount_hists[6]->Fill(.0, basicWeight);
 		}
@@ -282,6 +289,7 @@ void writeHist::Terminate()
 	{
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
+		// std::cout<<"raw: "<<eventCount_hists[j]->GetEntries();
 	}
 
 	/*
