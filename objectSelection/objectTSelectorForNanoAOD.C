@@ -240,10 +240,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // nominal taus
     //  calTauSF( isdata );
-    calTauSF_new(); // calculate taus_TES_up  taus_TES_down
-    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, 0);
-    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL, 0);
-    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL, 0);
+    calTauSF_new();   // calculate taus_TES_up  taus_TES_down
+    Int_t tauTES = 4; //
+    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, tauTES);
+    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL, tauTES);
+    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL, tauTES);
     SelectTaus(tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 0);
     SelectTaus(tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 0);
     // sort( tausT.begin(), tausT.end(), compEle);
@@ -644,8 +645,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
             itau_mass *= taus_TES_down[j];
             break;
         default:
-            std::cout << "tau pt and mass not corrected!!!"
-                      << "\n";
+            // std::cout << "tau pt and mass not corrected!!!"
+            //           << "\n";
             break;
         }
 
