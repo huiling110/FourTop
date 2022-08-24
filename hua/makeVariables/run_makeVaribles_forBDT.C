@@ -59,8 +59,8 @@ void run_makeVaribles_forBDT(
 
     TChain chain("tree");
 
-    // chain.Add(inputFile + "outTree*.root");
-    chain.Add(inputFile + "outTree_1.root");
+    chain.Add(inputFile + "outTree*.root");
+    // chain.Add(inputFile + "outTree_1.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
 
@@ -73,14 +73,12 @@ void run_makeVaribles_forBDT(
     if (istest)
     {
         // chain.Process(selection + "+", option, 100);
-        // chain.Process(selection + "+", option, 1000);
-        chain.Process(selection + "+", option);
+        chain.Process(selection + "+", option, 1000);
+        // chain.Process(selection + "+", option);
     }
     else
         chain.Process(selection + "+", option);
 
-    // if (ifMergeAllevent)
-    // {
     cout << "--------" << endl;
     cout << "now comes to add Runs tree stage\n";
     TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
