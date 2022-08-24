@@ -380,7 +380,7 @@ void objectTSelectorForNanoAOD::Terminate()
     Info("Terminate", "electrons: T %lld, F %lld, L %lld", elesT_total, elesF_total, elesL_total);
     Info("Terminate", "taus: T %lld, F %lld, L %lld", tausT_total, tausF_total, tausL_total);
     Info("Terminate", "jets: %lld", jets_total);
-    Info("Terminate", "bjets: M %lld", bjetsM_total  );
+    Info("Terminate", "bjets: M %lld", bjetsM_total);
     Info("Terminate", "output file here: %s", outputfile->GetName());
     ///////////////////////////////
 }
@@ -535,22 +535,23 @@ void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &Selecte
             if (!Muon_looseId.At(j))
                 continue;
             if (!(int(Muon_miniIsoId.At(j)) >= 1))
-            //???do we need to int() the unsigned char here?
+                //???do we need to int() the unsigned char here?
                 continue;
         }
-        if ( type==1){
+        if (type == 1)
+        {
             if (!Muon_mediumId.At(j))
                 continue;
             if (!(int(Muon_miniIsoId.At(j)) >= 1))
-            //???do we need to int() the unsigned char here?
+                //???do we need to int() the unsigned char here?
                 continue;
             if (!(fabs(Muon_ip3d.At(j)) < 4))
                 continue;
             if (!(Muon_tightCharge.At(j) == 2))
                 continue;
-
         }
-        if ( type==2){
+        if (type == 2)
+        {
             if (!Muon_mediumId.At(j))
                 continue;
             if (!(int(Muon_miniIsoId.At(j)) >= 3))
@@ -559,7 +560,6 @@ void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &Selecte
                 continue;
             if (!(Muon_tightCharge.At(j) == 2))
                 continue;
-
         }
         // ISO
         // IP
@@ -660,6 +660,10 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
         if (TauWP == 1)
         {
             bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            // bitwise shift operators are the right-shift operator (>>
+            //&: bitwise and operator; only 1&1=1; 0&anything = 0
+            // 1<<1 = 2 = 00000010
+            // converting unsigned char to bool: uchar_t ->int->bool; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
             if (!isVSjetVVLoose)
                 continue;
             // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
