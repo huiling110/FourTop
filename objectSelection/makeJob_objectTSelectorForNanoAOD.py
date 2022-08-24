@@ -1,12 +1,13 @@
-import sys
-import os
 import glob
+import os
 import string
 import subprocess
+import sys
+
+import ttttGlobleQuantity as gq
+import usefulFunc as uf
 
  #my own modules
-import usefulFunc as uf
-import ttttGlobleQuantity as gq
 
 
 
@@ -27,7 +28,7 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v22addedRunsTree/'
 # jobVersionName = 'v23basicWeight/'
 # jobVersionName = 'v24noJER/'
-jobVersionName = 'v24noJER/'
+jobVersionName = 'v25noJERNOTES/'
 onlyMC = False
 era = '2016'
 # era = '2016APV'
