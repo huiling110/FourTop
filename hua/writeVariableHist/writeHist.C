@@ -104,7 +104,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	// std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 
 	// std::vector<TString> regionsForVariables = {
@@ -116,8 +117,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName);
 }
 
-Bool_t
-writeHist::Process(Long64_t entry)
+Bool_t writeHist::Process(Long64_t entry)
 {
 	// The Process() function is called for each entry in the tree (or possibly
 	// keyed object in the case of PROOF) to be processed. The entry argument
@@ -145,74 +145,96 @@ writeHist::Process(Long64_t entry)
 	}
 	eventCount_hists[0]->Fill(0.0, basicWeight);
 
+	if (*jets_number >= 6)
+	{
+		eventCount_hists[1]->Fill(.0, basicWeight);
+	}
+	if (*jets_number >= 6 && *jets_6pt > 40.0)
+	{
+		eventCount_hists[2]->Fill(.0, basicWeight);
+	}
+	if (*jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0)
+	{
+		eventCount_hists[3]->Fill(.0, basicWeight);
+	}
+	else
+	{
+		return kFALSE;
+	}
+
 	if (!m_isData)
 	{
 		// if (*leptonsMVAT_number == 0)
 		if (*muonsT_number == 0)
 		{
-			eventCount_hists[1]->Fill(.0, basicWeight);
+			eventCount_hists[4]->Fill(.0, basicWeight);
 		}
 		if (*elesMVAT_number == 0 && *muonsT_number == 0)
 		{
-			eventCount_hists[2]->Fill(.0, basicWeight);
+			eventCount_hists[5]->Fill(.0, basicWeight);
 		}
 
 		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1)
 		{
-			eventCount_hists[3]->Fill(.0, basicWeight);
-		}
-		else
-		{
-			return kFALSE;
-		}
-
-
-
-		if (*jets_number >= 6 && *elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1)
-		{
-			// fillHistsVector(true, 0, basicWeight);
-			eventCount_hists[4]->Fill(0.0, basicWeight);
-		}else{
-			return kFALSE;
-		}
-		if (*jets_number >= 6 && *jets_6pt > 40.0)
-		{
-			eventCount_hists[5]->Fill(.0, basicWeight);
-		
-		}else{
-			return kFALSE;
-		}
-		if ( *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 )
-		{
 			eventCount_hists[6]->Fill(.0, basicWeight);
 		}
-		else
-		{
-			return kFALSE;
-		}
-
-		if (*jets_number >= 8)
+		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1 && *jets_number >= 8)
 		{
 			eventCount_hists[7]->Fill(.0, basicWeight);
 		}
-		if (*jets_number >= 8 && *bjetsM_num >= 2)
+		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1 && *jets_number >= 8 && *bjetsM_num >= 2)
 		{
 			eventCount_hists[8]->Fill(.0, basicWeight);
 		}
-
-		// if (*tausT_number == 1 && *leptonsMVAT_number == 0)
-		// {
-		// 	eventCount_hists[5]->Fill(.0, basicWeight);
-		// }
-		// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
-		// {
-		// 	eventCount_hists[6]->Fill(.0, basicWeight);
-		// }
-		// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
-		// {
-		// 	eventCount_hists[7]->Fill(.0, basicWeight);
-		// }
 	}
+
+	/*
+
+			{
+				// fillHistsVector(true, 0, basicWeight);
+				eventCount_hists[4]->Fill(0.0, basicWeight);
+			}else{
+				return kFALSE;
+			}
+			if (*jets_number >= 6 && *jets_6pt > 40.0)
+			{
+				eventCount_hists[5]->Fill(.0, basicWeight);
+
+			}else{
+				return kFALSE;
+			}
+			if ( *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 )
+			{
+				eventCount_hists[6]->Fill(.0, basicWeight);
+			}
+			else
+			{
+				return kFALSE;
+			}
+
+			if (*jets_number >= 8)
+			{
+				eventCount_hists[7]->Fill(.0, basicWeight);
+			}
+			if (*jets_number >= 8 && *bjetsM_num >= 2)
+			{
+				eventCount_hists[8]->Fill(.0, basicWeight);
+			}
+
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0)
+			// {
+			// 	eventCount_hists[5]->Fill(.0, basicWeight);
+			// }
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
+			// {
+			// 	eventCount_hists[6]->Fill(.0, basicWeight);
+			// }
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
+			// {
+			// 	eventCount_hists[7]->Fill(.0, basicWeight);
+			// }
+		}
+		*/
 	/*
 		if (*tausT_number < 1)
 			return kFALSE;
