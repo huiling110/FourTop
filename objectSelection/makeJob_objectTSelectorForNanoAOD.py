@@ -28,7 +28,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v22addedRunsTree/'
 # jobVersionName = 'v23basicWeight/'
 # jobVersionName = 'v24noJER/'
-jobVersionName = 'v25noJERNOTES/'
+# jobVersionName = 'v25noJERNOTES/'
+jobVersionName = 'v26noJERNOTESwithSorting/'
 onlyMC = False
 era = '2016'
 # era = '2016APV'
@@ -139,6 +140,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
         uf.checkMakeDir( kOutDirLog )
         print( 'outputDir for kprocess: ', koutputDir )
         for entry in os.listdir( sampleDir):
+            if not '.root' in entry: continue
             if os.path.isfile(os.path.join(sampleDir, entry)):
                 smallFile = entry.replace( ".root", "")
                 # smallFilejob = "jobs_seperate/" +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
