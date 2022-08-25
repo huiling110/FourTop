@@ -19,6 +19,7 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v22addedRuinsTree'
 # inVersion = 'v23basicWeight'
 # inVersion = 'v24noJER'
+inVersion = 'v26noJERNOTESwithSorting'
 outVersion = 'v0noBaseline'
 justMC = False
 year = '2016'

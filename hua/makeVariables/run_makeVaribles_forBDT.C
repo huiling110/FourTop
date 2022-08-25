@@ -59,8 +59,8 @@ void run_makeVaribles_forBDT(
 
     TChain chain("tree");
 
-    // chain.Add(inputFile + "outTree*.root");
-    chain.Add(inputFile + "outTree_1.root");
+    chain.Add(inputFile + "outTree*.root");
+    // chain.Add(inputFile + "outTree_1.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
 
