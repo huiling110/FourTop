@@ -1,20 +1,20 @@
 
 
 import os
-import ROOT
-import pandas as pd
-
-
-from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, samples, samplesCrossSection, lumiMap
-import usefulFunc as uf
-
 import sys
+
+import pandas as pd
+import ROOT
+import usefulFunc as uf
+from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
+                                samplesCrossSection, summedProcessList)
+
 sys.path.insert(0,'/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/')
 from writeCSVforEY import getSummedHists, writeHistsToCSV
 
+from makeJob_objectTSelectorForNanoAOD import (era, eraDic, inputBase,
+                                               jobVersionName, outputBase)
 
-
-from makeJob_objectTSelectorForNanoAOD import inputBase, outputBase, eraDic, jobVersionName, era
 
 def main():
     inOutListMC = [ inputBase + era +'/' + 'mc/', outputBase + eraDic[era] + '/' +jobVersionName  + 'mc/' ]
@@ -30,18 +30,21 @@ def main():
 
     variableList = ['forEventCount']
     regionList = ['OBinitial', 'OBHLT']
+
     inputDir = {
         # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/mc/',
         # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v22addedRunsTree/data/',
-        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/data/',
+        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/mc/',
+        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v24noJER/data/',
+        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' +  jobVersionName+ '/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName + '/data/',
     }
     # #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     for ivar in variableList:
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRawEntries_objectSelection.csv', True)
 
 
