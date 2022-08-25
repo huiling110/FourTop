@@ -3,24 +3,26 @@
 import csv
 import os
 
-
 import pandas as pd
+import usefulFunc as uf
 from ROOT import *
+# from plotVaribles import  histoGramPerSample, summedProcessList
+from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
+                                samplesCrossSection, summedProcessList)
+
 # from ROOT import *
 
-# from plotVaribles import  histoGramPerSample, summedProcessList
-from ttttGlobleQuantity import  histoGramPerSample, summedProcessList, lumiMap, samplesCrossSection
-import usefulFunc as uf
 
 def main():
     # inVersion = 'v0baseline_v22addedRunsTree'
-    inVersion = 'v0noBaseline_v24noJER'
+    # inVersion = 'v0noBaseline_v24noJER'
+    inVersion = 'v0noBaseline_v25noJERNOTES'
     # histVersion = 'variableHists_v0'
-    histVersion = 'variableHists_v1leptonSlectionFirst'
+    histVersion = 'variableHists_v2cutflow1tau0l'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
-    regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau0lSRtau', '1tau0lSRlep', '1tau0lSRjet', '1tau0lSRbjet'] 
+    regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
 
 
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
@@ -43,7 +45,7 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow.csv' )
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow_rawEntries.csv', True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )

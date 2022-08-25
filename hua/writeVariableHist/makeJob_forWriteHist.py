@@ -1,6 +1,6 @@
 import os
-import sys
 import subprocess
+import sys
 
 import usefulFunc as uf
 
@@ -21,10 +21,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v22addedRunsTree/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v24noJER/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v24noJER/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v25noJERNOTES/'
 
     # version = "v0"
-    version = "v1leptonSlectionFirst"
+    # version = "v1leptonSlectionFirst"
+    version = 'v2cutflow1tau0l'
     justMC = False
     isTest = 0
 
@@ -43,7 +45,7 @@ def main():
         makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
 
 
-    uf.sumbitJobs( os. getcwd()+'/subAllProcess.sh')
+    uf.sumbitJobs( os.getcwd()+'/subAllProcess.sh')
 
 
 
