@@ -115,7 +115,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         genWeight_allEvents = *Generator_weight;
     }
 
-
     // good lumi selection
     //???not finding twiki for this
     if (isdata)
@@ -248,11 +247,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL, tauTES);
     SelectTaus(tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 0);
     SelectTaus(tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 0);
-    sort( tausT.begin(), tausT.end(), compEle);
-    sort( tausF.begin(), tausF.end(), compEle);
-    sort( tausL.begin(), tausL.end(), compEle);
-    sort( tausT_TESup.begin(), tausT_TESup.end(), compEle);
-    sort( tausT_TESdown.begin(), tausT_TESdown.end(), compEle);
+    sort(tausT.begin(), tausT.end(), compEle);
+    sort(tausF.begin(), tausF.end(), compEle);
+    sort(tausL.begin(), tausL.end(), compEle);
+    sort(tausT_TESup.begin(), tausT_TESup.end(), compEle);
+    sort(tausT_TESdown.begin(), tausT_TESdown.end(), compEle);
     //  //???does here imply we need at least 1 leptons
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
@@ -271,9 +270,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
     SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
-    sort( jets.begin(), jets.end(), compEle);
-    sort( jets_JECup.begin(), jets_JECup.end(), compEle);
-    sort( jets_JECdown.begin(), jets_JECdown.end(), compEle);
+    sort(jets.begin(), jets.end(), compEle);
+    sort(jets_JECup.begin(), jets_JECup.end(), compEle);
+    sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
     // std::cout << "jets size" << jets.size() << "\n";
     // printElements( jets_btags, jets );
     // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
@@ -283,9 +282,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL, tausL, 0);
-    sort( bjetsL.begin(), bjetsL.end(), compEle);
-    sort( bjetsM.begin(), bjetsM.end(), compEle);
-    sort( bjetsT.begin(), bjetsT.end(), compEle);
+    sort(bjetsL.begin(), bjetsL.end(), compEle);
+    sort(bjetsM.begin(), bjetsM.end(), compEle);
+    sort(bjetsT.begin(), bjetsT.end(), compEle);
 
     jetsSubstructBjets(nonbjetsL, jets, bjetsL);
     jetsSubstructBjets(nonbjetsM, jets, bjetsM);
@@ -506,7 +505,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
     tree->Branch("Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
 
     tree->Branch("run_", &run_, "run_/i"); // i : a 32 bit unsigned integer (UInt_t)
-    tree->Branch("event_", &event_);
+    tree->Branch("event_", &event_);       // If the address points to a single numerical variable, the leaflist is optional:
 
     tree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
     tree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");

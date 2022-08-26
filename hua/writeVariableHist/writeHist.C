@@ -109,9 +109,10 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 
 	cutFlowTree = new TTree("cutFlowTree", "cutFlowTree");
-	// cutFlowTree->Branch("event", event, "event/I");
-	// cutFlowTree->Branch("jet_6pt", jet_6pt, "jet_6pt/D");
-
+	cutFlowTree->Branch("event_", &event_);
+	// cutFlowTree->Bracnh()
+	cutFlowTree->Branch("jets_6pt_", &jets_6pt_);
+	cutFlowTree->Branch("ifPassJets_6pt", &ifPassJets_6pt);
 
 	// std::vector<TString> regionsForVariables = {
 	// 	"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
@@ -157,7 +158,17 @@ Bool_t writeHist::Process(Long64_t entry)
 	if (*jets_number >= 6 && *jets_6pt > 40.0)
 	{
 		eventCount_hists[2]->Fill(.0, basicWeight);
+		ifPassJets_6pt = kTRUE;
 	}
+	else
+	{
+		ifPassJets_6pt = kFALSE;
+	}
+
+	event_ = *event;
+	jets_6pt_ = *jets_6pt;
+	cutFlowTree->Fill();
+
 	if (*jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0)
 	{
 		eventCount_hists[3]->Fill(.0, basicWeight);
@@ -192,8 +203,6 @@ Bool_t writeHist::Process(Long64_t entry)
 			eventCount_hists[8]->Fill(.0, basicWeight);
 		}
 	}
-
-	cutFlowTree->Fill();
 
 	/*
 
@@ -337,6 +346,7 @@ void writeHist::Terminate()
 			tausT_HT_hists[j]->Scale(processScale);
 		}
 	*/
+	// cutFlowTree->Write();
 	outputFile->Write();
 	outputFile->Close();
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
