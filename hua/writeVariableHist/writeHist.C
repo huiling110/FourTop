@@ -166,6 +166,7 @@ Bool_t writeHist::Process(Long64_t entry)
 	}
 
 	event_ = *event;
+	std::cout << event << "\n";
 	jets_6pt_ = *jets_6pt;
 	cutFlowTree->Fill();
 
