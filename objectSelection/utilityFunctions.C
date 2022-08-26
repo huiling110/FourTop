@@ -33,7 +33,7 @@ Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2)
     Double_t deltaPhi = TMath::Abs(phi1 - phi2);
     Double_t deltaEta = eta1 - eta2;
     if (deltaPhi > TMath::Pi())
-        deltaPhi = TMath::TwoPi() - deltaPhi;
+        {deltaPhi = TMath::TwoPi() - deltaPhi;}
     return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
 }
 
