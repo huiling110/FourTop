@@ -175,7 +175,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
             return kFALSE; // for UL 2016 has this flag too
         if (!(*Flag_eeBadScFilter_ == 1)) return kFALSE;
 	}
+	fPassingMetFilters++;
 
+	event = *event_;
 	Flag_goodVertices = *Flag_goodVertices_;
 	Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
 	Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;
@@ -650,6 +652,7 @@ void makeVaribles_forBDT::Terminate()
 
 	// Info( "Terminate," "%ld",eventCount_baseline->GetEntries() );
 	Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight);
+	Info("Terminate", "passing MetFilter %lld events ", fPassingMetFilters);
 	Info("Terminate", "passing HLT events: %lld; genWeighted events: %lf", fPassingHLT, fPassingHLT_genWeight);
 	Info("Terminate", "passing m_baselineSelection: %lld", fPassingPreselection);
 	Info("Terminate", "output file here: %s", outputfile->GetName());
@@ -716,6 +719,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 {
 	//    if ( wantFilterHLTBranches ){
+	newtree->Branch("event", &event);
 	newtree->Branch("Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
 	newtree->Branch("Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
 	newtree->Branch("Flag_HBHENoiseFilter", &Flag_HBHENoiseFilter, "Flag_HBHENoiseFilter/I");
@@ -1078,7 +1082,8 @@ void makeVaribles_forBDT::initializeBReader(){
 */
 
 void makeVaribles_forBDT::InitializeBranches()
-{
+{ 
+	event = 0;
 	EVENT_prefireWeight = -99;
 	EVENT_prefireWeight_up = -99;
 	EVENT_prefireWeight_down = -99;

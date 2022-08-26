@@ -67,6 +67,7 @@ public:
 
     // branches in the newtree
     // same order as initialize
+    ULong64_t event;
     Int_t Flag_goodVertices;
     Int_t Flag_globalSuperTightHalo2016Filter;
     Int_t Flag_HBHENoiseFilter;
@@ -354,9 +355,10 @@ public:
     Double_t toptagger_3pt = -99;
     Double_t toptagger_3eta = -99;
     Double_t toptagger_3phi = -99;
-    Double_t toptagger_scoreAllTops = -99;
+    Double_t toptagger_scoreAllTops = 99;
     Double_t toptagger_leptonsMVAT_minDeltaR = -99;
 
+    TTreeReaderValue<ULong64_t> event_ = {fReader, "event_"};
     TTreeReaderValue<Int_t> Flag_goodVertices_ = {fReader, "Flag_goodVertices_"};
     TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter_ = {fReader, "Flag_globalSuperTightHalo2016Filter_"};
     TTreeReaderValue<Int_t> Flag_HBHENoiseFilter_ = {fReader, "Flag_HBHENoiseFilter_"};

@@ -108,6 +108,11 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 
+	cutFlowTree = new TTree("cutFlowTree", "cutFlowTree");
+	// cutFlowTree->Branch("event", event, "event/I");
+	// cutFlowTree->Branch("jet_6pt", jet_6pt, "jet_6pt/D");
+
+
 	// std::vector<TString> regionsForVariables = {
 	// 	"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
@@ -187,6 +192,8 @@ Bool_t writeHist::Process(Long64_t entry)
 			eventCount_hists[8]->Fill(.0, basicWeight);
 		}
 	}
+
+	cutFlowTree->Fill();
 
 	/*
 

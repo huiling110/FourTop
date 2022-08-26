@@ -187,6 +187,7 @@ public:
 	Int_t Flag_eeBadScFilter_;
 
 	UInt_t run_;
+	ULong64_t event_;
 	// HLT
 	// 2016
 	Int_t HLT_PFHT450_SixJet40_BTagCSV_p056_;

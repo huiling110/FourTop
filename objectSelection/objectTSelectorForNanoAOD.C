@@ -189,6 +189,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //!!!branch variable intialization to prevent them from get values from last event
 
     run_ = *run;
+    event_ = *event;
     copyHLT_new(isdata, dataSet);
 
     // Compute the per-event PU weight
@@ -493,6 +494,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
     tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
     tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
     tree->Branch("genTtbarId_", &genTtbarId_, "genTtbarId_/I");
+    //???change flags to Int_t type;
     tree->Branch("Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
     tree->Branch("Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
     tree->Branch("Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
@@ -504,6 +506,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
     tree->Branch("Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
 
     tree->Branch("run_", &run_, "run_/i"); // i : a 32 bit unsigned integer (UInt_t)
+    tree->Branch("event_", &event_);
 
     tree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
     tree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
@@ -1068,6 +1071,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     EVENT_genWeight_ = -99;
 
     run_ = 0;
+    event_ = 0;
 
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = -99;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = -99;
