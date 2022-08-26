@@ -500,7 +500,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
     tree->Branch("Flag_EcalDeadCellTriggerPrimitiveFilter_", &Flag_EcalDeadCellTriggerPrimitiveFilter_, "Flag_EcalDeadCellTriggerPrimitiveFilter_/I");
     tree->Branch("Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
     tree->Branch("Flag_BadPFMuonDzFilter_", &Flag_BadPFMuonDzFilter_, "Flag_BadPFMuonDzFilter_/I");
-    tree->Branch("Flag_ecalBadCalibFilter", &Flag_ecalBadCalibFilter, "Flag_ecalBadCalibFilter/I");
+    tree->Branch("Flag_ecalBadCalibFilter_", &Flag_ecalBadCalibFilter_, "Flag_ecalBadCalibFilter_/I");
     tree->Branch("Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
 
     tree->Branch("run_", &run_, "run_/i"); // i : a 32 bit unsigned integer (UInt_t)
@@ -700,6 +700,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
                 continue;
         }
         // overlap removal
+        /*
         Double_t minDeltaR_lep;
         if (LeptonsMVAL.size() > 0)
         {
@@ -707,6 +708,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
             if (!(minDeltaR_lep >= 0.4))
                 continue;
         }
+        */
         //?need err handling
         TLorentzVector tau;
         tau.SetPtEtaPhiM(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass); // here the pt and mass are already corrected
@@ -823,6 +825,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             }
         }
         // overlap removal
+        /*
         if (LeptonsMVAF.size() > 0)
         {
             Double_t deltaR = 0;
@@ -849,7 +852,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             if (!(minDeltaR_tau >= 0.4))
                 continue;
         }
-
+*/
         TLorentzVector jet_prov;
         // jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
         jet_prov.SetPtEtaPhiM(jetpt, Jet_eta.At(j), Jet_phi.At(j), ijetMass);

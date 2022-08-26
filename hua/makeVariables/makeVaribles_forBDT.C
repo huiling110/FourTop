@@ -156,6 +156,26 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// initialize
 	InitializeBranches();
 
+	if (m_MetFilters){
+        if (!(*Flag_goodVertices_ == 1))
+            return kFALSE; // a branch in tree.
+        if (!(*Flag_globalSuperTightHalo2016Filter_ == 1))
+            return kFALSE;
+        if (!(*Flag_HBHENoiseFilter_ == 1))
+            return kFALSE;
+        if (!(*Flag_HBHENoiseIsoFilter_ == 1))
+            return kFALSE;
+        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
+            return kFALSE; // a branch in Tree
+        if (!(*Flag_BadPFMuonFilter_ == 1))
+            return kFALSE;
+        if (!(*Flag_BadPFMuonDzFilter_ == 1))
+            return kFALSE;
+        if (!(*Flag_ecalBadCalibFilter_ == 1))
+            return kFALSE; // for UL 2016 has this flag too
+        if (!(*Flag_eeBadScFilter_ == 1)) return kFALSE;
+	}
+
 	Flag_goodVertices = *Flag_goodVertices_;
 	Flag_globalSuperTightHalo2016Filter = *Flag_globalSuperTightHalo2016Filter_;
 	Flag_HBHENoiseFilter = *Flag_HBHENoiseFilter_;

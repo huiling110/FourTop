@@ -363,6 +363,8 @@ public:
     TTreeReaderValue<Int_t> Flag_HBHENoiseIsoFilter_ = {fReader, "Flag_HBHENoiseIsoFilter_"};
     TTreeReaderValue<Int_t> Flag_EcalDeadCellTriggerPrimitiveFilter_ = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter_"};
     TTreeReaderValue<Int_t> Flag_BadPFMuonFilter_ = {fReader, "Flag_BadPFMuonFilter_"};
+    TTreeReaderValue<Int_t> Flag_BadPFMuonDzFilter_ = {fReader, "Flag_BadPFMuonDzFilter_"};
+    TTreeReaderValue<Int_t> Flag_ecalBadCalibFilter_ = {fReader, "Flag_ecalBadCalibFilter_"};
     TTreeReaderValue<Int_t> Flag_eeBadScFilter_ = {fReader, "Flag_eeBadScFilter_"};
     TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
     TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};

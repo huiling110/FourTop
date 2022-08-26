@@ -20,7 +20,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v20FixedSelectJetsBug/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v22addedRunsTree/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v24noJER/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v25noJERNOTES/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v25noJERNOTES/mc/",
+    TString inputBase = " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/",
     // TString inputBase = "../../objectSelection/",
 
     TString inputDir = "tttt",
@@ -73,8 +74,8 @@ void run_makeVaribles_forBDT(
     if (istest)
     {
         // chain.Process(selection + "+", option, 100);
-        // chain.Process(selection + "+", option, 1000);
-        chain.Process(selection + "+", option);
+        chain.Process(selection + "+", option, 10000);
+        // chain.Process(selection + "+", option);
     }
     else
         chain.Process(selection + "+", option);
