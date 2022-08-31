@@ -11,7 +11,8 @@
         },
         {
             "label": "make",
-            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make)",
+            // "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make)",
+            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && make)",
             "type": "shell"
         },
         {

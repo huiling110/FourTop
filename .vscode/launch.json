@@ -10,7 +10,8 @@
                 "-l",
                 "-b",
                 "-q",
-                "${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C+g"
+                // "${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C+g"
+                "${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/hua/makeVariables/",
@@ -28,6 +29,47 @@
             "preLaunchTask": "build",
             "envFile": "${workspaceFolder}/environmentVariablesFile.env"
         },
+
+    ],
+
+    "version": "0.0.0",
+    "configurations": [
+        {
+            "name": "run objectTSelector",
+            "type": "cppdbg",
+            "request": "launch",
+            // "program": "enter program name, for example ${workspaceFolder}/a.out",,
+            "program": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root",
+            "args": [
+                "-l",
+                "-b",
+                "-q",
+                "run_objectTSelectorForNanoAOD.C"
+            ],
+            // "MIMode": "gdb",
+            "cwd": "${workspaceFolder}/objectSelction/",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build",
+            "envFile": "${workspaceFolder}/environmentVariablesFile.env"
+        },
+      ]
+
+
+
+
+
+
         // {
         //     "name": "C/C++: cpp Compilar y depurar el archivo activo",
         //     "type": "cppdbg",
@@ -54,5 +96,4 @@
         //     "preLaunchTask": "C/C++: cpp compilar archivo activo",
         //     "miDebuggerPath": "/usr/bin/gdb"
         // }
-    ]
 }

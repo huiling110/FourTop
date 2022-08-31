@@ -29,13 +29,13 @@
 // root> T->Process("objectTSelectorForNanoAOD.C","some options")
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
-#include "objectTSelectorForNanoAOD.h"
-#include "utilityFunctions.h"
 // we should use a better way of modulization of code rather the include copy here
 #include <TH2.h>
 #include <TStyle.h>
 
 #include <cassert>
+#include "objectTSelectorForNanoAOD.h"
+#include "utilityFunctions.h"
 ///////////////////////
 
 void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
