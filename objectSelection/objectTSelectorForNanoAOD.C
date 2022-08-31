@@ -352,6 +352,18 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     eventsPassed++;
     tree->Fill();
 
+    // testing
+    // if (*event == 4102580 || *event == 4384548)
+    // //???
+    // {
+    //     std::cout << std::fixed;
+    //     std::cout << std::setprecision(16);
+    //     for (UInt_t k = 0; k < Jet_pt.GetSize(); k++)
+    //     {
+    //         std::cout << std::setprecision(16) << "jet_pt: " << Jet_pt.At(k) << "\n";
+    //     }
+    // }
+
     ///////////////////////////////////////
 
     return kTRUE;
