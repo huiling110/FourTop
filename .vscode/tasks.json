@@ -11,7 +11,6 @@
         },
         {
             "label": "make",
-            // "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make)",
             "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && make)",
             "type": "shell"
         },
@@ -23,25 +22,36 @@
                 "make"
             ]
         },
-        // {
-        //     "type": "cppbuild",
-        //     "label": "C/C++: cpp compilar archivo activo",
-        //     "command": "/usr/bin/cpp",
-        //     "args": [
-        //         "-fdiagnostics-color=always",
-        //         "-g",
-        //         "${file}",
-        //         "-o",
-        //         "${fileDirname}/${fileBasenameNoExtension}"
-        //     ],
-        //     "options": {
-        //         "cwd": "${fileDirname}"
-        //     },
-        //     "problemMatcher": [
-        //         "$gcc"
-        //     ],
-        //     "group": "build",
-        //     "detail": "Tarea generada por el depurador."
-        // }
+        {
+            "label": "cmsenv",
+            "command": "(cd ${workspaceFolder} && cmsenv)",
+            "type": "shell"
+        },
+        {
+            "label": "Make",
+            "command": "make clean && make",
+            "type": "shell"
+        },
+        {
+            "label": "cdObject",
+            "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/",
+            "type": "shell"
+        }
+        {
+            "label": "compile obectSelector",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "cmsenv",
+                "cdObject",
+                "Make"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "run"
+
+        }
     ]
 }
