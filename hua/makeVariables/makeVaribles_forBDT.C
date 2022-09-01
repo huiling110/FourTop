@@ -28,7 +28,7 @@
 #include <TMatrixDSym.h>
 #include <TVectorD.h>
 
-#include "makeVaribes_forBDT.h"
+#include "makeVaribles_forBDT.h"
 #include "weightCal.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
