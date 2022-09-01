@@ -23,13 +23,12 @@
 // root> T->Process("makeVaribles_forBDT.C+")
 //
 
-#include "makeVaribles_forBDT.h"
-
 #include <TH2.h>
 #include <TStyle.h>
 #include <TMatrixDSym.h>
 #include <TVectorD.h>
 
+#include "makeVaribes_forBDT.h"
 #include "weightCal.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
@@ -148,7 +147,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	if (!m_isData)
 	{
 		// basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
-		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) ;
+		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_);
 	}
 	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
 	eventCount_mvInitial->Fill(0.0, basicWeight);
@@ -156,24 +155,26 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// initialize
 	InitializeBranches();
 
-	if (m_MetFilters){
-        if (!(*Flag_goodVertices_ == 1))
-            return kFALSE; // a branch in tree.
-        if (!(*Flag_globalSuperTightHalo2016Filter_ == 1))
-            return kFALSE;
-        if (!(*Flag_HBHENoiseFilter_ == 1))
-            return kFALSE;
-        if (!(*Flag_HBHENoiseIsoFilter_ == 1))
-            return kFALSE;
-        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
-            return kFALSE; // a branch in Tree
-        if (!(*Flag_BadPFMuonFilter_ == 1))
-            return kFALSE;
-        if (!(*Flag_BadPFMuonDzFilter_ == 1))
-            return kFALSE;
-        if (!(*Flag_ecalBadCalibFilter_ == 1))
-            return kFALSE; // for UL 2016 has this flag too
-        if (!(*Flag_eeBadScFilter_ == 1)) return kFALSE;
+	if (m_MetFilters)
+	{
+		if (!(*Flag_goodVertices_ == 1))
+			return kFALSE; // a branch in tree.
+		if (!(*Flag_globalSuperTightHalo2016Filter_ == 1))
+			return kFALSE;
+		if (!(*Flag_HBHENoiseFilter_ == 1))
+			return kFALSE;
+		if (!(*Flag_HBHENoiseIsoFilter_ == 1))
+			return kFALSE;
+		if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
+			return kFALSE; // a branch in Tree
+		if (!(*Flag_BadPFMuonFilter_ == 1))
+			return kFALSE;
+		if (!(*Flag_BadPFMuonDzFilter_ == 1))
+			return kFALSE;
+		if (!(*Flag_ecalBadCalibFilter_ == 1))
+			return kFALSE; // for UL 2016 has this flag too
+		if (!(*Flag_eeBadScFilter_ == 1))
+			return kFALSE;
 	}
 	fPassingMetFilters++;
 
@@ -649,7 +650,6 @@ void makeVaribles_forBDT::Terminate()
 	outputfile->Write();
 	outputfile->Close();
 
-
 	// Info( "Terminate," "%ld",eventCount_baseline->GetEntries() );
 	Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight);
 	Info("Terminate", "passing MetFilter %lld events ", fPassingMetFilters);
@@ -1082,7 +1082,7 @@ void makeVaribles_forBDT::initializeBReader(){
 */
 
 void makeVaribles_forBDT::InitializeBranches()
-{ 
+{
 	event = 0;
 	EVENT_prefireWeight = -99;
 	EVENT_prefireWeight_up = -99;

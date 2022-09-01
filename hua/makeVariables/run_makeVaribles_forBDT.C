@@ -64,7 +64,6 @@ void run_makeVaribles_forBDT(
     chain.Add(inputFile + "outTree_4.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
-
     // TString selection = "makeVaribles_forBDT.C";
     TString selection = "makeVaribles_forBDT";
 
@@ -73,9 +72,9 @@ void run_makeVaribles_forBDT(
 
     if (istest)
     {
-        // chain.Process(selection + "+", option, 100);
+        chain.Process(selection + "+", option, 100);
         // chain.Process(selection + "+", option, 10000);
-        chain.Process(selection + "+", option);
+        // chain.Process(selection + "+", option);
     }
     else
         chain.Process(selection + "+", option);
@@ -87,8 +86,8 @@ void run_makeVaribles_forBDT(
 
     // add Runs tree
     TChain chain2("Runs");
-    // chain2.Add(inputFile + "outTree*.root");
-    chain2.Add(inputFile + "outTree_4.root");
+    chain2.Add(inputFile + "outTree*.root");
+    // chain2.Add(inputFile + "outTree_4.root");
     chain2.Merge(file, 2000);
     cout << "done merging Runs trees\n";
 }

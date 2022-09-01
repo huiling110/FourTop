@@ -50,8 +50,18 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "run"
+            
 
+        }
+
+        {
+            "label": "run makeVariables",
+            "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/ && root -q run_makeVaribles_forBDT.C",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "cmsenv"
+            ]
         }
     ]
 }
