@@ -51,6 +51,7 @@ void writeHist::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t we
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
 	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+	// chain.Add(inputFile + "outTree_4.root");
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;

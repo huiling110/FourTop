@@ -1,13 +1,13 @@
 {
     "version": "2.0.0",
     "options": {
-        "env": {}
+        "env": {},
     },
     "tasks": [
         {
             "label": "makeclean",
             "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make clean)",
-            "type": "shell"
+            "type": "shell",
         },
         {
             "label": "make",
@@ -36,7 +36,7 @@
             "label": "cdObject",
             "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/",
             "type": "shell"
-        }
+        },
         {
             "label": "compile obectSelector",
             "dependsOrder": "sequence",
@@ -50,10 +50,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            
-
-        }
-
+        },
         {
             "label": "run makeVariables",
             "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/ && root -q run_makeVaribles_forBDT.C",

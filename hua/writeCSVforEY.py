@@ -1,24 +1,24 @@
-# import ROOT
-
 import csv
 import os
 
 import pandas as pd
+import ROOT
 import usefulFunc as uf
-from ROOT import *
+from ROOT import TFile
+# from ROOT import *
 # from plotVaribles import  histoGramPerSample, summedProcessList
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
-
-# from ROOT import *
 
 
 def main():
     # inVersion = 'v0baseline_v22addedRunsTree'
     # inVersion = 'v0noBaseline_v24noJER'
-    inVersion = 'v0noBaseline_v25noJERNOTES'
+    # inVersion = 'v0noBaseline_v25noJERNOTES'
+    inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # histVersion = 'variableHists_v0'
-    histVersion = 'variableHists_v2cutflow1tau0l'
+    # histVersion = 'variableHists_v2cutflow1tau0l'
+    histVersion = 'variableHists_v0forCutFlow'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
@@ -90,7 +90,7 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
     print( 'done writen csv file here: ', outDir+fileName )
 
 
-def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
+def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False):
     print('\n')
     print('start to write hists to csv')
     uf.checkMakeDir( outDir )
@@ -114,10 +114,14 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False):
     # df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
     df.loc['totalbg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']
     df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
-    df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    # df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     # df['HLTeff'] = df['HLT']/df['initial']
     # df['preeff'] = df['preSelection']/df['HLT']
+
+    if not writeData:
+        # df = df.drop(labels=6, axis=0)
+        df = df.drop('data')
 
     df['process'] = df.index
     print( df )

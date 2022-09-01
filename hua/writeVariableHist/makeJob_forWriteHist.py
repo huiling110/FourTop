@@ -22,12 +22,14 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v22addedRunsTree/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v24noJER/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v25noJERNOTES/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP//v0noBaseline_v25noJERNOTES/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/'
 
-    # version = "v0"
+    version = "v0forCutFlow"
     # version = "v1leptonSlectionFirst"
-    version = 'v2cutflow1tau0l'
+    # version = 'v2cutflow1tau0l'
     justMC = False
+    # justMC = True
     isTest = 0
 
 
