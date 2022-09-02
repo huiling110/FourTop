@@ -109,11 +109,12 @@ def main():
     histVersion = 'variableHists_v1variables'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
-    myRegion = '1tau0lCR'
+    # myRegion = '1tau0lCR'
+    myRegion = '1tau1lCR0'
     ifDataDrivenQCD = False
 
-    #qcd corrected only in CR and VR
-    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    #qcd corrected only in CR an VR
+    # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
     inputDirDict = {}
     inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
