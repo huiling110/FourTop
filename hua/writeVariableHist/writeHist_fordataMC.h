@@ -46,11 +46,6 @@ public:
    std::vector<TH1D *> jets_1pt_hists;
    std::vector<TH1D *> tausT_HT_hists;
 
-   TTree *cutFlowTree;
-   ULong64_t event_;
-   Double_t jets_6pt_;
-   Bool_t ifPassJets_6pt;
-
    // variables to be writen to hists
 
    // regions to consider

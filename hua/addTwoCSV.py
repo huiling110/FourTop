@@ -10,8 +10,10 @@ import pandas as pd
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v25noJERNOTES/mc/variableHists_v2cutflow1tau0l/results/cutflow.csv'
 # obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlowRawEntries_objectSelection.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow_rawEntries.csv'
-obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlow_objectSelection.csv'
-R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow.csv'
+# obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlow_objectSelection.csv'
+# R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow.csv'
+obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlowRawEntries_objectSelection.csv'
+R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow_rawEntries.csv'
 
 df1 = pd.read_csv( obCSV )
 df2 = pd.read_csv( R1tau0l )
