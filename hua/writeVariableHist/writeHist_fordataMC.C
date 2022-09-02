@@ -40,11 +40,11 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 		// 1tau0lCR
 		//  std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, weight );
 		eventCount_hists[vectorIndex]->Fill(.0, weight);
-		// jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
-		// jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
-		// jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
-		// jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
-		// tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
+		jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
+		jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
+		jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
+		jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
+		tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
 	}
 }
 
@@ -109,11 +109,11 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName);
-	// push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName);
-	// push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName);
+	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
+	push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables );
+	push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName, regionsForVariables);
+	push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName, regionsForVariables);
+	push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
@@ -217,15 +217,11 @@ void writeHist_fordataMC::Terminate()
 		std::cout << j << "\n";
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
-		// jetsNumber_forYieldCount_hists[j]->Scale(processScale);
-		// jetsNumber_forYieldCount_hists[j]->Print();
-		// onlyGenWeight_hists[j]->Scale(processScale);
-		// onlyGenWeight_hists[j]->Print();
-		// jetsNumber_hists[j]->Scale(processScale);
-		// jets_HT_hists[j]->Scale(processScale);
-		// jets_bScore_hists[j]->Scale(processScale);
-		// jets_1pt_hists[j]->Scale(processScale);
-		// tausT_HT_hists[j]->Scale(processScale);
+		jetsNumber_hists[j]->Scale(processScale);
+		jets_HT_hists[j]->Scale(processScale);
+		jets_bScore_hists[j]->Scale(processScale);
+		jets_1pt_hists[j]->Scale(processScale);
+		tausT_HT_hists[j]->Scale(processScale);
 	}
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
 	outputFile->Write();
