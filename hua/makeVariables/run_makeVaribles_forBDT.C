@@ -21,7 +21,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v22addedRunsTree/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v24noJER/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v25noJERNOTES/mc/",
-    TString inputBase = " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/",
+    // TString inputBase = " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/",
+    TString inputBase = " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v28JERTESBack/mc/",
     // TString inputBase = "../../objectSelection/",
 
     TString inputDir = "tttt",

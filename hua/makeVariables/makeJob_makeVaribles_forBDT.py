@@ -20,7 +20,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v23basicWeight'
 # inVersion = 'v24noJER'
 # inVersion = 'v26noJERNOTESwithSorting'
-inVersion = 'v27noJERnoTESWithObjectRemoval'
+# inVersion = 'v27noJERnoTESWithObjectRemoval'
+inVersion = 'v28JERTESBack'
 outVersion = 'v0noBaseline'
 justMC = False
 year = '2016'
