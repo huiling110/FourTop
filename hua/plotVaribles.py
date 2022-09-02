@@ -1,11 +1,12 @@
-import os,sys,math
+import math
+import os
+import sys
+from array import array
 
-
+# from ROOT import TFile, TLatex
 from ROOT import *
 
 from setTDRStyle import setTDRStyle
-from array import array
-
 from writeCSVforEY import getProcessScale, getSummedHists
 
 setTDRStyle()
@@ -101,9 +102,11 @@ includeDataInStack = True
 def main():
 
     # version = 'v0baseline_v16_HLTselection'
-    version = 'v0baseline_v20FixedSelectJetsBug'
+    # version = 'v0baseline_v20FixedSelectJetsBug'
+    version = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # histVersion = 'variableHists_v1moreVariables'
-    histVersion = 'variableHists_v0'
+    # histVersion = 'variableHists_v0'
+    histVersion = 'variableHists_v1variables'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     myRegion = '1tau0lCR'
@@ -151,7 +154,6 @@ def extractHistograms( dir, variablesToCheck , myRegion):
 
     # getHistsFromDir() #???need to combine the data mc into one function
 
-    print('start to get mc hists<<<<<<<<<<<<<<<<<<<<<<<<<\n')
     for inFileName in os.listdir( dir['mc'] ):
         # sampleName = inFileName.split('_variableHist')[0]
         sampleName = inFileName.split('.root')[0]
@@ -161,43 +163,50 @@ def extractHistograms( dir, variablesToCheck , myRegion):
         inFile = TFile( os.path.join(dir['mc']+inFileName), "READ" )
         for key in inFile.GetListOfKeys():
             ihistName = key.GetName()
-            if 'forYieldCount' in  key.GetName(): continue
+            if 'eventCount' in  key.GetName(): continue
             varName = key.GetName().split(sampleName)[1][1:]
+            # print('keys in file: ', key)
 
-        iProScale = 1.0
-        if  (not 'jetHT' in sampleName):
-            iProScale = getProcessScale( sampleName, '2016postVFP' )
+            iProScale = 1.0
+            print('sampleName: ', sampleName)
+            if  (not 'jetHT' in sampleName):
+                # iProScale = getProcessScale( sampleName, '2016postVFP' )
+                # print('passing mc')
 
-            iregionName = ihistName.split('_')[0]
-            if not myRegion==iregionName: continue
-            if not varName in variablesToCheck: continue#only check 
-            if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
-                #for nominal hists
-                if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
-                    #nominalHist[varName].keys() is summed hists
-                    nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
-                    nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
-                    nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
-                    print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
-                else: #add grouped mc bg together
-                    nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()), iProScale)
-                    print('nom[{}][{}] add hist: {} '.format( varName, histoGramPerSample[sampleName], key)  )
-            else: #systematic uncertainties
-                if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
-                systName = key.GetName().split("{0}_".format(sampleName))[-1]
-                #depends on how I name my syst histgram
-                if systName in systematicHists[varName][histoGramPerSample[sampleName]].keys():
-#                    print sampleName,varName,systName, systematicHists[varName][histoGramPerSample[sampleName]][systName]
-                    systematicHists[varName][histoGramPerSample[sampleName]][systName].Add(inFile.Get(key.GetName()))
-                else:
-                    systematicHists[varName][histoGramPerSample[sampleName]][systName] = inFile.Get(key.GetName()).Clone()
-                    systematicHists[varName][histoGramPerSample[sampleName]][systName].SetDirectory(0)
-        # for syst in ["JER","JES"]:
-        #JER and JES in a different files, good idea!
-    # else: # Now do data stuff
+                iregionName = ihistName.split('_')[0]
+                print('iregion: ', iregionName)
+                if not myRegion==iregionName: continue
+                print('passing region')
+                if not varName in variablesToCheck: continue#only check 
+                print('passing varName')
+                if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
+                    #for nominal hists
+                    print('start to get mc hists<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+                    if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
+                        #nominalHist[varName].keys() is summed hists
+                        nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
+                        nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
+                        nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
+                        print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
+                    else: #add grouped mc bg together
+                        nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()), iProScale)
+                        print('nom[{}][{}] add hist: {} '.format( varName, histoGramPerSample[sampleName], key)  )
+                else: #systematic uncertainties
+                    if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
+                    systName = key.GetName().split("{0}_".format(sampleName))[-1]
+                    #depends on how I name my syst histgram
+                    if systName in systematicHists[varName][histoGramPerSample[sampleName]].keys():
+    #                    print sampleName,varName,systName, systematicHists[varName][histoGramPerSample[sampleName]][systName]
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName].Add(inFile.Get(key.GetName()))
+                    else:
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName] = inFile.Get(key.GetName()).Clone()
+                        systematicHists[varName][histoGramPerSample[sampleName]][systName].SetDirectory(0)
+            # for syst in ["JER","JES"]:
+            #JER and JES in a different files, good idea!
+        # else: # Now do data stuff
         inFile.Close()
-    print('done getting mc hists<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-    print('\n')    
+        print('done getting mc hists<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
+        # print('\n')    
 
 
     print( 'now getting data hists<<<<<<<<<<<<\n')
