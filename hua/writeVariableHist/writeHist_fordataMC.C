@@ -1,0 +1,355 @@
+#define writeHist_fordataMC_cxx
+// The class definition in writeHist_fordataMC.h has been generated automatically
+// by the ROOT utility TTree::MakeSelector(). This class is derived
+// from the ROOT class TSelector. For more information on the TSelector
+// framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
+
+// The following methods are defined in this file:
+//    Begin():        called every time a loop on the tree starts,
+//                    a convenient place to create your histograms.
+//    SlaveBegin():   called after Begin(), when on PROOF called only on the
+//                    slave servers.
+//    Process():      called for each event, in this function you decide what
+//                    to read and fill your histograms.
+//    SlaveTerminate: called at the end of the loop on the tree, when on PROOF
+//                    called only on the slave servers.
+//    Terminate():    called at the end of the loop on the tree,
+//                    a convenient place to draw/fit your histograms.
+//
+// To use this file, try the following session on your Tree T:
+//
+// root> T->Process("writeHist_fordataMC.C")
+// root> T->Process("writeHist_fordataMC.C","some options")
+// root> T->Process("writeHist_fordataMC.C+")
+//
+
+#include <TH2.h>
+#include <TStyle.h>
+
+#include <assert.h>
+#include <cmath>
+// #include <filesystem>
+
+#include "../src_cpp/usefulFuction.h"
+#include "writeHist_fordataMC.h"
+
+void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+{
+	if (isRegion)
+	{
+		// 1tau0lCR
+		//  std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, weight );
+		jetsNumber_forYieldCount_hists[vectorIndex]->Fill(*jets_number, weight);
+		jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
+		jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
+		jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
+		jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
+		tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
+	}
+}
+
+void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
+{
+	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+	// chain.Add(inputFile + "outTree_4.root");
+	for (UInt_t i = 0; i < regions.size(); i++)
+	{
+		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
+		TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin);
+		histsVariable.push_back(temp);
+	}
+}
+
+void writeHist_fordataMC::Begin(TTree * /*tree*/)
+{
+	// The Begin() function is called at the start of the query.
+	// When running with PROOF Begin() is only called on the client.
+	// The tree argument is deprecated (on PROOF 0 is passed).
+
+	TString option = GetOption();
+}
+
+void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
+{
+	// The SlaveBegin() function is called after the Begin() function.
+	// When running with PROOF SlaveBegin() is called on each slave server.
+	// The tree argument is deprecated (on PROOF 0 is passed).
+
+	TString option = GetOption();
+	std::cout << "option in writeHist_fordataMC: " << option << "\n";
+
+	// this part could be in a function for multiple uses
+	// better structure my project so that these commen functionality go to one include dir
+	std::vector<TString> optionVect;
+	getOption(option, optionVect);
+	// for (UInt_t i = 0; i < optionVect.size(); i++)
+	// {
+	// 	std::cout << optionVect[i] << "\n";
+	// }
+	m_genWeightSum = std::stod(optionVect[0].Data());
+	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
+	//???maybe there is lose of accuracy due to convertion
+	m_outputFolder = optionVect[1];
+	m_processName = optionVect[2];
+	m_isData = std::stoi(optionVect[3].Data());
+	std::cout << "m_isData: " << m_isData << "\n";
+	m_version = optionVect[4];
+	std::cout << "m_verion: " << m_version << "\n";
+	m_era = optionVect[5];
+	std::cout << "m_era: " << m_era << "\n";
+
+	// namespace fs = std::filesystem;
+	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
+	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
+	// }
+	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
+	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
+
+	// std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
+	std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
+	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
+
+	cutFlowTree = new TTree("cutFlowTree", "cutFlowTree");
+	cutFlowTree->Branch("event_", &event_);
+	// cutFlowTree->Bracnh()
+	cutFlowTree->Branch("jets_6pt_", &jets_6pt_);
+	cutFlowTree->Branch("ifPassJets_6pt", &ifPassJets_6pt);
+
+	// std::vector<TString> regionsForVariables = {
+	// 	"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName);
+	// push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName);
+	// push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName);
+}
+
+Bool_t writeHist_fordataMC::Process(Long64_t entry)
+{
+	// The Process() function is called for each entry in the tree (or possibly
+	// keyed object in the case of PROOF) to be processed. The entry argument
+	// specifies which entry in the currently loaded tree is to be processed.
+	// When processing keyed objects with PROOF, the object is already loaded
+	// and is available via the fObject pointer.
+	//
+	// This function should contain the \"body\" of the analysis. It can contain
+	// simple or elaborate selection criteria, run algorithms on the data
+	// of the event and typically fill histograms.
+	//
+	// The processing can be stopped by calling Abort().
+	//
+	// Use fStatus to set the return value of TTree::Process().
+	//
+	// The return value is currently not used.
+
+	fReader.SetLocalEntry(entry);
+	// for testing of step by step baseline cut
+	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	if (m_isData)
+	{
+		basicWeight = 1.0;
+	}
+	eventCount_hists[0]->Fill(0.0, basicWeight);
+
+	if (*jets_number >= 6)
+	{
+		eventCount_hists[1]->Fill(.0, basicWeight);
+	}
+	if (*jets_number >= 6 && *jets_6pt > 40.0)
+	{
+		eventCount_hists[2]->Fill(.0, basicWeight);
+		ifPassJets_6pt = kTRUE;
+	}
+	else
+	{
+		ifPassJets_6pt = kFALSE;
+	}
+
+	event_ = *event;
+	// std::cout << *event << "\n";
+	jets_6pt_ = *jets_6pt;
+	cutFlowTree->Fill();
+
+	if (*jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0)
+	{
+		eventCount_hists[3]->Fill(.0, basicWeight);
+	}
+	else
+	{
+		return kFALSE;
+	}
+
+	if (!m_isData)
+	{
+		// if (*leptonsMVAT_number == 0)
+		if (*muonsT_number == 0)
+		{
+			eventCount_hists[4]->Fill(.0, basicWeight);
+		}
+		if (*elesMVAT_number == 0 && *muonsT_number == 0)
+		{
+			eventCount_hists[5]->Fill(.0, basicWeight);
+		}
+
+		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1)
+		{
+			eventCount_hists[6]->Fill(.0, basicWeight);
+		}
+		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1 && *jets_number >= 8)
+		{
+			eventCount_hists[7]->Fill(.0, basicWeight);
+		}
+		if (*elesMVAT_number == 0 && *muonsT_number == 0 && *tausT_number == 1 && *jets_number >= 8 && *bjetsM_num >= 2)
+		{
+			eventCount_hists[8]->Fill(.0, basicWeight);
+		}
+	}
+
+	/*
+
+			{
+				// fillHistsVector(true, 0, basicWeight);
+				eventCount_hists[4]->Fill(0.0, basicWeight);
+			}else{
+				return kFALSE;
+			}
+			if (*jets_number >= 6 && *jets_6pt > 40.0)
+			{
+				eventCount_hists[5]->Fill(.0, basicWeight);
+
+			}else{
+				return kFALSE;
+			}
+			if ( *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 )
+			{
+				eventCount_hists[6]->Fill(.0, basicWeight);
+			}
+			else
+			{
+				return kFALSE;
+			}
+
+			if (*jets_number >= 8)
+			{
+				eventCount_hists[7]->Fill(.0, basicWeight);
+			}
+			if (*jets_number >= 8 && *bjetsM_num >= 2)
+			{
+				eventCount_hists[8]->Fill(.0, basicWeight);
+			}
+
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0)
+			// {
+			// 	eventCount_hists[5]->Fill(.0, basicWeight);
+			// }
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
+			// {
+			// 	eventCount_hists[6]->Fill(.0, basicWeight);
+			// }
+			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
+			// {
+			// 	eventCount_hists[7]->Fill(.0, basicWeight);
+			// }
+		}
+		*/
+	/*
+		if (*tausT_number < 1)
+			return kFALSE;
+		if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
+			return kFALSE;
+
+		// 1tau0l SR
+	if (!m_isData)
+	{
+		// be blind for data in signal region
+		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+		if (is1tau0lSR)
+		{
+			eventCount_hists[4]->Fill(.0, basicWeight);
+		}
+		// fillHistsVector(is1tau0lSR, 0, basicWeight);
+		// Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
+		// fillHistsVector(is1tau1lSR, 6, basicWeight);
+	}
+
+	// std::array<TString, 11> regddions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+	// 1tau0l CR
+	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	fillHistsVector(is1tau0lCR, 1, basicWeight);
+	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	fillHistsVector(is1tau0lVR, 2, basicWeight);
+	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+	fillHistsVector(is1tau0lCR2, 3, basicWeight);
+	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
+	fillHistsVector(is1tau0lCR3, 4, basicWeight);
+	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
+	fillHistsVector(is1tau0lCR4, 5, basicWeight);
+
+	// 1tau1lCR
+	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
+	fillHistsVector(is1tau1lCR0, 7, basicWeight);
+	Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
+	fillHistsVector(is1tau1lCR1, 8, basicWeight);
+	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
+	fillHistsVector(is1tau1lCR2, 9, basicWeight);
+	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
+	fillHistsVector(is1tau1lCR3, 10, basicWeight);
+	// fillHistsVector( is1tau1lCR4, 11, basicWeight );
+
+	// Bool_t isBaseline = *jets_HT > 500 && *jets_6pt > 40;
+	// fillHistsVector(isBaseline, 11, basicWeight);
+
+		*/
+	return kTRUE;
+}
+
+void writeHist_fordataMC::SlaveTerminate()
+{
+	// The SlaveTerminate() function is called after all entries or objects
+	// have been processed. When running with PROOF SlaveTerminate() is called
+	// on each slave server.
+}
+
+void writeHist_fordataMC::Terminate()
+{
+// The Terminate() function is the last function to be called during
+// a query. It always runs on the client, it can be used to present
+// the results graphically or save the results to file.
+#include "lumiAndCrossSection.h"
+	Double_t processScale = 1.0;
+	if (!m_isData)
+	{
+		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
+		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
+	}
+	// std::cout<<processScale<<"\n";
+
+	for (UInt_t j = 0; j < eventCount_hists.size(); j++)
+	{
+		eventCount_hists[j]->Scale(processScale);
+		eventCount_hists[j]->Print();
+		// std::cout<<"raw: "<<eventCount_hists[j]->GetEntries();
+	}
+
+	/*
+		for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
+		{
+
+			std::cout << j << "\n";
+			jetsNumber_forYieldCount_hists[j]->Scale(processScale);
+			jetsNumber_forYieldCount_hists[j]->Print();
+			onlyGenWeight_hists[j]->Scale(processScale);
+			onlyGenWeight_hists[j]->Print();
+			jetsNumber_hists[j]->Scale(processScale);
+			jets_HT_hists[j]->Scale(processScale);
+			jets_bScore_hists[j]->Scale(processScale);
+			jets_1pt_hists[j]->Scale(processScale);
+			tausT_HT_hists[j]->Scale(processScale);
+		}
+	*/
+	// cutFlowTree->Write();
+	outputFile->Write();
+	outputFile->Close();
+	Info("Terminate", "outputFile here:%s", outputFile->GetName());
+}

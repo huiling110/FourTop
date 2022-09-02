@@ -14,8 +14,9 @@ void run_writeHist(
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
-    TString version = "vtest",
-    Bool_t isTest = kTRUE
+    TString version = "test",
+    Bool_t isTest = kTRUE,
+    TString selector = "writeHist_fordataMC.C+"
     // TString inputProcess = "jetHT_2016C"
 )
 {
@@ -69,9 +70,10 @@ void run_writeHist(
     TStopwatch t;
     t.Start();
 
-    chain.Process("writeHist.C+", option);
+    // chain.Process("writeHist.C+", option);
     // chain.Process("writeHist.C+", option, 100);
     // chain.Process("writeHist.C+", option, 1000);
+    chain.Process(selector, option);
 
     t.Stop();
     t.Print();
