@@ -28,26 +28,26 @@ def main():
     # writeGenSumToCSV( inOutListMC[1] )
     # writeGenSumToCSV( inOutListMC[1] , iera)
     fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName
-    writGenSum_fromRunTree(fileDir+'mc/', '2016preVFP')
+    # writGenSum_fromRunTree(fileDir+'mc/', '2016preVFP')
 
     
 
-    # variableList = ['forEventCount']
-    # regionList = ['OBinitial', 'OBHLT']
+    variableList = ['forEventCount']
+    regionList = ['OBinitial', 'OBHLT']
 
-    # inputDir = {
-    #     # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' +  jobVersionName+ '/mc/',
-    #     # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName + '/data/',
-    #     'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' +  jobVersionName+ '/mc/',
-    #     'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName + '/data/',
-    # }
-    # # #sumProcessPerVar[var][region][sumedProcess] = hist
-    # sumProcessPerVar = {}
-    # for ivar in variableList:
-    #     sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, True, iera )
-    # print( sumProcessPerVar )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRawEntries_objectSelection.csv', True)
+    inputDir = {
+        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' +  jobVersionName+ '/mc/',
+        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName + '/data/',
+        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' +  jobVersionName+ '/mc/',
+        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName + '/data/',
+    }
+    # #sumProcessPerVar[var][region][sumedProcess] = hist
+    sumProcessPerVar = {}
+    for ivar in variableList:
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, True, iera )
+    print( sumProcessPerVar )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRawEntries_objectSelection.csv', True)
 
 
 

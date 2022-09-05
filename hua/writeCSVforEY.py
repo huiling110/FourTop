@@ -180,6 +180,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
         iRootFile.Close()
+        print( '\n')
 
     return sumProcessHistsDict
 
@@ -188,7 +189,7 @@ def getProcessScale( processName, era ):
     # genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
     genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_'+era+'.csv', era )[processName]
     scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
-    print( processName, ': ', 'genWeight: ', genWeight, ' scale: ', scale)
+    print( processName, ': ', 'genWeight= ', genWeight, ' lumi=', lumiMap[era], ' cross=', samplesCrossSection[processName],  ' scale= ', scale)
     return scale
 
 
