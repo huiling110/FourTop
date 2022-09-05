@@ -26,7 +26,9 @@ def main():
     # checkInOutFileNumber( inOutListData )
     
     # writeGenSumToCSV( inOutListMC[1] )
-    writeGenSumToCSV( inOutListMC[1] , iera)
+    # writeGenSumToCSV( inOutListMC[1] , iera)
+    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName
+    writGenSum_fromRunTree(fileDir+'mc/', '2016preVFP')
 
     
 
@@ -50,22 +52,33 @@ def main():
 
 
 
-# de/ calCutFlow( mcDir, dataDir ):
 
-def writGenSum_fromRunTree( outDir):
+def writGenSum_fromRunTree( inDir, era='2016preVFP'):
     processList = []
     genWeightDic = {}
-    for iPro in os.listdir( outDir ):
+    for iPro in os.listdir( inDir ):
+        if not '.root' in iPro: continue
         print( iPro) 
+        iProcess = iPro.split('.root')[0]
         processList.append( iPro )
-        # runTree = ROOT.
-        for ifile in os.listdir( outDir+iPro ):
-            if 'log' in ifile: continue
-            # print( ifile )
-            iRoot = ROOT.TFile( outDir+iPro+ '/'+ ifile, 'READ' )
-            iRunTree = iRoot.Get( 'Runs' )
-            sumHist.Add( ihist_initial )
-            iRoot.Close()
+        if 'log' in iPro: continue
+        iRoot = ROOT.TFile( inDir+iPro, 'READ' )
+        iRoot.ls()
+        iRunTree = iRoot.Get( 'Runs' )
+        genSum = 0.0
+        for entry in iRunTree:
+        # for ive in range(iRunTree.GetEntries()):
+            # iRunTree.GetEntry(ive)
+            genSum += entry.genEventSumw
+        genWeightDic[iProcess] = genSum
+        iRoot.Close()
+
+    df = pd.DataFrame.from_dict( genWeightDic, orient='index' , columns=[era])
+    df['process'] = df.index
+    print( df )
+    # df.to_csv( 'genWeightCSV/' + 'genSum_2016postVFP.csv'  )
+    df.to_csv( 'genWeightCSV/genSum_' + era +'.csv' )
+    
 
 
 
@@ -73,6 +86,7 @@ def writeGenSumToCSV( outDir, era ):
     processList = []
     genWeightDic = {}
     for iPro in os.listdir( outDir ):
+        if not '.root' in iPro: continue
         print( iPro) 
         processList.append( iPro )
         sumHist = ROOT.TH1D( 'summedHist' , 'summedHist', 2, -1, 1 )
