@@ -25,8 +25,22 @@ def main():
     # fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
     fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName
     uf.checkMakeDir( fileDir )
-    writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
-    writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+    # writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
+    mergeRuns(inOutListMC[1], fileDir+'mc/')
+    # writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+
+
+def mergeRuns( inputDir, outDir):
+    for iPro in os.listdir(outDir):
+        print(iPro)
+        iProcess = iPro.split('.root')[0]
+        print(iProcess)
+        iFile = ROOT.TFile( outDir+iPro, "UPDATE")
+        iRuns = ROOT.TChain("Runs")
+        iRuns.Add(inputDir+ iProcess + '/outTree*.root')
+        print('merged Runs tree for ', iFile.GetName())
+        iRuns.Merge(iFile, 2000)
+        # iFile.Close()
 
 
 
@@ -48,11 +62,13 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
         iHistPre = ROOT.TH1D( 'OBpreSelection_' + iPro + '_' + 'forEventCount', 'preSelection_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHist.SetDirectory(iRootFile)
 
-        if 'jetHT' not in iPro:
-            iRuns = ROOT.TChain("Runs")
-            iRuns.Add( indir+iPro+ "/outTree*.root")
-            iRuns.SetDirectory(iRootFile)
-            # iRuns.Print()
+        # iRootFile.cd()
+        # if 'jetHT' not in iPro:
+        #     iRuns = ROOT.TChain("Runs")
+        #     iRuns.SetDirectory(iRootFile)
+        #     iRuns.Add( indir+iPro+ "/outTree*.root")
+        #     iRuns.Merge( iRootFile, 2000);
+        #     # iRuns.Print()
 
 
 
@@ -76,11 +92,14 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
         iHist.Scale( iProScale )
         iHistHLT.Scale( iProScale )
         iHistPre.Scale( iProScale )
-        iHist.Print()
+     
+
 
         iRootFile.Write()
         print( 'written: ', iRootFile.GetName() )
         iRootFile.Close()
+
+
 
 if __name__=='__main__':
     main()
