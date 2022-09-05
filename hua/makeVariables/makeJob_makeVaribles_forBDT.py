@@ -22,7 +22,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v26noJERNOTESwithSorting'
 inVersion = 'v27noJERnoTESWithObjectRemoval'
 # inVersion = 'v28JERTESBack'
-outVersion = 'v0noBaseline'
+# outVersion = 'v0noBaseline'
+outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
 year = '2016'
 selectionBit = '3'
