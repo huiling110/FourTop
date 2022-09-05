@@ -19,9 +19,11 @@ def main():
     inOutListData = [ inputBase + era +'/' + 'data/',outputBase + eraDic[era] + '/' +jobVersionName  + 'data/' ]
 
 
-    genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
+    # genSumDic = getGenSumDic( 'genWeightCSV/genSum_2016postVFP.csv' )
+    genSumDic = getGenSumDic( 'genWeightCSV/genSum_' +iera +'.csv', iera )
     lumi = lumiMap[iera]
-    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
+    # fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
+    fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName
     uf.checkMakeDir( fileDir )
     writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
     writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
@@ -29,10 +31,10 @@ def main():
 
 
 #copied to 
-def getGenSumDic( inputCsv ):
+def getGenSumDic( inputCsv, iera ):
     df = pd.read_csv( inputCsv )
-    # genSumDic = df.to_dict()
-    genSumDic = pd.Series( df['2016postVFP'].values, index=df['process'] ).to_dict()
+    # genSumDic = pd.Series( df['2016postVFP'].values, index=df['process'] ).to_dict()
+    genSumDic = pd.Series( df[iera].values, index=df['process'] ).to_dict()
     print( genSumDic )
     return genSumDic
 
