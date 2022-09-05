@@ -856,8 +856,8 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	//
 	newtree->Branch("jets_HT_JECup", &jets_HT_JECup, "jets_HT_JECup/D");
 	newtree->Branch("jets_HT_JECdown", &jets_HT_JECdown, "jets_HT_JECdown/D");
-	newtree->Branch("jets_number_JECup", &jets_number_JECup, "jets_number_JECup/D");
-	newtree->Branch("jets_number_JECdown", &jets_number_JECdown, "jets_number_JECdown/D");
+	newtree->Branch("jets_number_JECup", &jets_number_JECup, "jets_number_JECup/I");
+	newtree->Branch("jets_number_JECdown", &jets_number_JECdown, "jets_number_JECdown/I");
 
 	newtree->Branch("jets_number", &jets_number, "jets_number/I");
 	newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
