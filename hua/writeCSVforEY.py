@@ -16,6 +16,7 @@ def main():
     # inVersion = 'v0noBaseline_v24noJER'
     # inVersion = 'v0noBaseline_v25noJERNOTES'
     inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
+    # inVersion = 'v0noBaseline_v28JERTESBack'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v2cutflow1tau0l'
     histVersion = 'variableHists_v0forCutFlow'
@@ -46,7 +47,7 @@ def main():
     print( sumProcessPerVar )
 
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCRSR.csv' )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow_rawEntries.csv', True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow_rawEntries.csv', True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')

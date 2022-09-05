@@ -105,8 +105,8 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	// std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet"};
-	std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
+	std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet", "1tau0lSR", "1tau1lSR", "1tau2lSR", "2tau0lSR", "2tau1lSR"};
+	// std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 
 	cutFlowTree = new TTree("cutFlowTree", "cutFlowTree");
@@ -204,103 +204,33 @@ Bool_t writeHist::Process(Long64_t entry)
 		{
 			eventCount_hists[8]->Fill(.0, basicWeight);
 		}
-	}
-
-	/*
-
-			{
-				// fillHistsVector(true, 0, basicWeight);
-				eventCount_hists[4]->Fill(0.0, basicWeight);
-			}else{
-				return kFALSE;
-			}
-			if (*jets_number >= 6 && *jets_6pt > 40.0)
-			{
-				eventCount_hists[5]->Fill(.0, basicWeight);
-
-			}else{
-				return kFALSE;
-			}
-			if ( *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 )
-			{
-				eventCount_hists[6]->Fill(.0, basicWeight);
-			}
-			else
-			{
-				return kFALSE;
-			}
-
-			if (*jets_number >= 8)
-			{
-				eventCount_hists[7]->Fill(.0, basicWeight);
-			}
-			if (*jets_number >= 8 && *bjetsM_num >= 2)
-			{
-				eventCount_hists[8]->Fill(.0, basicWeight);
-			}
-
-			// if (*tausT_number == 1 && *leptonsMVAT_number == 0)
-			// {
-			// 	eventCount_hists[5]->Fill(.0, basicWeight);
-			// }
-			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8)
-			// {
-			// 	eventCount_hists[6]->Fill(.0, basicWeight);
-			// }
-			// if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
-			// {
-			// 	eventCount_hists[7]->Fill(.0, basicWeight);
-			// }
-		}
-		*/
-	/*
-		if (*tausT_number < 1)
-			return kFALSE;
-		if (!(*jets_HT > 500 && *jets_6pt > 40 && *jets_number >= 6))
-			return kFALSE;
-
-		// 1tau0l SR
-	if (!m_isData)
-	{
-		// be blind for data in signal region
-		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		if (is1tau0lSR)
+		if (*tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2)
 		{
-			eventCount_hists[4]->Fill(.0, basicWeight);
+			// 1tau0l
+			eventCount_hists[9]->Fill(.0, basicWeight);
 		}
-		// fillHistsVector(is1tau0lSR, 0, basicWeight);
-		// Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-		// fillHistsVector(is1tau1lSR, 6, basicWeight);
+		if (*tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2)
+		{
+			// 1tau1l
+			eventCount_hists[10]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 1 && *leptonsMVAT_number == 2 && *jets_number >= 6 && *bjetsM_num >= 2)
+		{
+			eventCount_hists[11]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 2 && *leptonsMVAT_number == 0 && *jets_number >= 7 && *bjetsM_num >= 2)
+		{
+			eventCount_hists[12]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 2 && *leptonsMVAT_number == 1 && *jets_number >= 6 && *bjetsM_num >= 2)
+		{
+			eventCount_hists[13]->Fill(.0, basicWeight);
+		}
 	}
 
 	// std::array<TString, 11> regddions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	// 1tau0l CR
-	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	fillHistsVector(is1tau0lCR, 1, basicWeight);
-	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	fillHistsVector(is1tau0lVR, 2, basicWeight);
-	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR2, 3, basicWeight);
-	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR3, 4, basicWeight);
-	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR4, 5, basicWeight);
 
-	// 1tau1lCR
-	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
-	fillHistsVector(is1tau1lCR0, 7, basicWeight);
-	Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
-	fillHistsVector(is1tau1lCR1, 8, basicWeight);
-	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau1lCR2, 9, basicWeight);
-	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
-	fillHistsVector(is1tau1lCR3, 10, basicWeight);
-	// fillHistsVector( is1tau1lCR4, 11, basicWeight );
-
-	// Bool_t isBaseline = *jets_HT > 500 && *jets_6pt > 40;
-	// fillHistsVector(isBaseline, 11, basicWeight);
-
-		*/
 	return kTRUE;
 }
 
@@ -332,23 +262,6 @@ void writeHist::Terminate()
 		// std::cout<<"raw: "<<eventCount_hists[j]->GetEntries();
 	}
 
-	/*
-		for (UInt_t j = 0; j < jetsNumber_hists.size(); j++)
-		{
-
-			std::cout << j << "\n";
-			jetsNumber_forYieldCount_hists[j]->Scale(processScale);
-			jetsNumber_forYieldCount_hists[j]->Print();
-			onlyGenWeight_hists[j]->Scale(processScale);
-			onlyGenWeight_hists[j]->Print();
-			jetsNumber_hists[j]->Scale(processScale);
-			jets_HT_hists[j]->Scale(processScale);
-			jets_bScore_hists[j]->Scale(processScale);
-			jets_1pt_hists[j]->Scale(processScale);
-			tausT_HT_hists[j]->Scale(processScale);
-		}
-	*/
-	// cutFlowTree->Write();
 	outputFile->Write();
 	outputFile->Close();
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
