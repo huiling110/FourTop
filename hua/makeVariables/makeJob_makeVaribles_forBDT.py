@@ -20,8 +20,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v23basicWeight'
 # inVersion = 'v24noJER'
 # inVersion = 'v26noJERNOTESwithSorting'
-# inVersion = 'v27noJERnoTESWithObjectRemoval'
-inVersion = 'v28JERTESBack'
+inVersion = 'v27noJERnoTESWithObjectRemoval'
+# inVersion = 'v28JERTESBack'
 outVersion = 'v0noBaseline'
 justMC = False
 year = '2016'
@@ -44,7 +44,8 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
+        # if iera=='2016preVFP' : continue
+        if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )

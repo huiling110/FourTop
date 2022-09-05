@@ -19,10 +19,12 @@ def main():
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v2cutflow1tau0l'
-    histVersion = 'variableHists_v0forCutFlow'
+    # histVersion = 'variableHists_v0forCutFlow'
+    histVersion = 'variableHists_v3addSubchannels'
 
     variableList = ['eventCount']
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
+    regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
 
 
@@ -46,8 +48,8 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCRSR.csv' )
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutflow_rawEntries.csv', True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels_rawEntries.csv', True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Pre.csv', False, True )
     # writeHistsToCSV_cutflow( sumProcessPerVar, inputDir['mc']+'results/', 'preChannelCutflow_2016Post_withRaw.csv', True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
