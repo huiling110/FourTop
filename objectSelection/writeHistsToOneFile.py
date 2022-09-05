@@ -1,6 +1,7 @@
 
-import pandas as pd
 import os
+
+import pandas as pd
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
@@ -12,7 +13,8 @@ from makeJob_objectTSelectorForNanoAOD import (era, eraDic, inputBase,
 
 def main():
 
-    iera = '2016postVFP'
+    # iera = '2016postVFP'
+    iera = '2016preVFP'
     inOutListMC = [ inputBase + era +'/' + 'mc/', outputBase + eraDic[era] + '/' +jobVersionName  + 'mc/' ]
     inOutListData = [ inputBase + era +'/' + 'data/',outputBase + eraDic[era] + '/' +jobVersionName  + 'data/' ]
 

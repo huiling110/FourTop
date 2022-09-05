@@ -105,7 +105,7 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet", "1tau0lSR", "1tau1lSR", "1tau2lSR", "2tau0lSR", "2tau1lSR"};
+	std::vector<TString> regionsEC = {"whInitial", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "baseline1", "baseline2", "baseline3", "1tau0lSRjet", "1tau0lSRbjet", "1tau0lSR", "1tau1lSR", "1tau2lSR", "2tau0lSR", "2tau1lSR", "1tau1lSRtau", "1tau1lSRlep", "1tau1lSRjet", "1tau1lSRbjet"};
 	// std::vector<TString> regionsEC = {"whInitial", "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsEC);
 
@@ -225,6 +225,22 @@ Bool_t writeHist::Process(Long64_t entry)
 		if (*tausT_number == 2 && *leptonsMVAT_number == 1 && *jets_number >= 6 && *bjetsM_num >= 2)
 		{
 			eventCount_hists[13]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 1)
+		{
+			eventCount_hists[14]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 1 && *leptonsMVAT_number == 1)
+		{
+			eventCount_hists[15]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7)
+		{
+			eventCount_hists[16]->Fill(.0, basicWeight);
+		}
+		if (*tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2)
+		{
+			eventCount_hists[17]->Fill(.0, basicWeight);
 		}
 	}
 
