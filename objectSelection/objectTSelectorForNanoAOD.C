@@ -240,9 +240,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // nominal taus
     //  calTauSF( isdata );
-    calTauSF_new(); // calculate taus_TES_up  taus_TES_down
-    // Int_t tauTES = 4; // 4 means no TES
-    Int_t tauTES = 0; //
+    calTauSF_new();   // calculate taus_TES_up  taus_TES_down
+    Int_t tauTES = 4; // 4 means no TES
+    // Int_t tauTES = 0; //
     SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, 1, leptonsMVAL, tauTES);
     SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, 2, leptonsMVAL, tauTES);
     SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, 3, leptonsMVAL, tauTES);
@@ -266,8 +266,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     //     std::cout << JER_SF_new[i] << " ";
     // }
 
-    // Bool_t ifJER = kFALSE;
-    Bool_t ifJER = kTRUE;
+    Bool_t ifJER = kFALSE;
+    // Bool_t ifJER = kTRUE;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
     SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
