@@ -43,11 +43,19 @@ def writeHistsOneFileOneProcess( indir, genSumDic, samplesCrossSection, lumi, ou
     for iPro in os.listdir( indir ):
         print( iPro )
         iRootFile = ROOT.TFile( outDir+iPro+'.root', "RECREATE")
-        # iRootFile = ROOT.TFile( outDir+iPro+'_variableHists.root', "RECREATE")
         iHist = ROOT.TH1D( 'OBinitial_' + iPro + '_' + 'forEventCount', 'initial_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHistHLT = ROOT.TH1D( 'OBHLT_' + iPro + '_' + 'forEventCount', 'HLT_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHistPre = ROOT.TH1D( 'OBpreSelection_' + iPro + '_' + 'forEventCount', 'preSelection_' + iPro + '_' + 'onlygenWeight', 2, -1, 1 )
         iHist.SetDirectory(iRootFile)
+
+        if 'jetHT' not in iPro:
+            iRuns = ROOT.TChain("Runs")
+            iRuns.Add( indir+iPro+ "/outTree*.root")
+            iRuns.SetDirectory(iRootFile)
+            # iRuns.Print()
+
+
+
         for ifile in os.listdir( indir+iPro ):
             if 'log' in ifile: continue
             # print( ifile )

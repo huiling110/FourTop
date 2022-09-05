@@ -27,8 +27,8 @@ def main():
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3']
-    regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
+    # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
+    regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
 
 
@@ -53,10 +53,10 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels.csv' )
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels_rawEntries.csv', True )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow.csv' )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow_rawEntries.csv', True )
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels.csv' )
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels_rawEntries.csv', True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow.csv' )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow_rawEntries.csv', True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRaw_objectSelection.csv', True )
 
@@ -142,7 +142,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
 
 
-def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False ):
+def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' ):
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
     mcFileList = os.listdir( inputDir['mc'] )
@@ -155,7 +155,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
         if ifScale and (not 'jetHT' in ifileName):
-            iProScale = getProcessScale( ifileName, '2016postVFP' )
+            # iProScale = getProcessScale( ifileName, '2016postVFP' )
+            iProScale = getProcessScale( ifileName, era )
         print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
         if 'jetHT' in ifileName:
             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
@@ -184,8 +185,10 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
 
 
 def getProcessScale( processName, era ):
-    genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
+    # genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
+    genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_'+era+'.csv', era )[processName]
     scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
+    print( processName, ': ', 'genWeight: ', genWeight, ' scale: ', scale)
     return scale
 
 
