@@ -114,6 +114,9 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	// cutFlowTree->Bracnh()
 	cutFlowTree->Branch("jets_6pt_", &jets_6pt_);
 	cutFlowTree->Branch("ifPassJets_6pt", &ifPassJets_6pt);
+	cutFlowTree->Branch("ifPass6jets", &ifPass6jets);
+	cutFlowTree->Branch("ifPassHT500", &ifPassHT500);
+	// cutFlowTree->Branch("")
 
 	// std::vector<TString> regionsForVariables = {
 	// 	"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
@@ -155,6 +158,11 @@ Bool_t writeHist::Process(Long64_t entry)
 	if (*jets_number >= 6)
 	{
 		eventCount_hists[1]->Fill(.0, basicWeight);
+		ifPass6jets = kTRUE;
+	}
+	else
+	{
+		ifPass6jets = kFALSE;
 	}
 	if (*jets_number >= 6 && *jets_6pt > 40.0)
 	{
@@ -165,20 +173,22 @@ Bool_t writeHist::Process(Long64_t entry)
 	{
 		ifPassJets_6pt = kFALSE;
 	}
-
-	event_ = *event;
-	// std::cout << *event << "\n";
-	jets_6pt_ = *jets_6pt;
-	cutFlowTree->Fill();
-
 	if (*jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0)
 	{
 		eventCount_hists[3]->Fill(.0, basicWeight);
+		ifPassHT500 = kTRUE;
 	}
 	else
 	{
-		return kFALSE;
+		ifPassHT500 = kFALSE;
 	}
+	// else
+	// {
+	// 	return kFALSE;
+	// }
+	event_ = *event;
+	// std::cout << *event << "\n";
+	jets_6pt_ = *jets_6pt;
 
 	// std::vector<TString> regionsEC = {"whInitial",  "baseline1", "baseline2", "baseline3", "1tau0lSRmoun", "1tau0lSRele", "1tau0lSRtau", "1tau0lSRjet", "1tau0lSRbjet", "1tau0lSR", "1tau1lSR", "1tau2lSR", "2tau0lSR", "2tau1lSR", "1tau1lSRtau", "1tau1lSRlep", "1tau1lSRjet", "1tau1lSRbjet"};
 	if (!m_isData)
@@ -245,6 +255,7 @@ Bool_t writeHist::Process(Long64_t entry)
 		}
 	}
 
+	cutFlowTree->Fill();
 	// std::array<TString, 11> regddions = { "1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	// 1tau0l CR
 
@@ -264,6 +275,7 @@ void writeHist::Terminate()
 // a query. It always runs on the client, it can be used to present
 // the results graphically or save the results to file.
 #include "lumiAndCrossSection.h"
+// the results graphically or save the results to file.
 	Double_t processScale = 1.0;
 	if (!m_isData)
 	{

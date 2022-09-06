@@ -50,6 +50,8 @@ public:
    ULong64_t event_;
    Double_t jets_6pt_;
    Bool_t ifPassJets_6pt;
+   Bool_t ifPass6jets;
+   Bool_t ifPassHT500;
 
    // variables to be writen to hists
 
@@ -164,10 +166,10 @@ public:
    TTreeReaderValue<Double_t> tausF_leptonsTMVA_minDeltaR = {fReader, "tausF_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausL_leptonsTMVA_minDeltaR = {fReader, "tausL_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausT_leptonsTMVA_minDeltaR = {fReader, "tausT_leptonsTMVA_minDeltaR"};
-   TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
-   TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
-   TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
-   TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
+   // TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
+   // TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
+   // TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
+   // TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
    TTreeReaderValue<Int_t> jets_number = {fReader, "jets_number"};
    TTreeReaderValue<Double_t> jets_HT = {fReader, "jets_HT"};
    TTreeReaderValue<Double_t> jets_MHT = {fReader, "jets_MHT"};
