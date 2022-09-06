@@ -13,8 +13,8 @@
 // }
 
 void run_makeVaribles_forBDT(
-    Bool_t istest = true,
-    // Bool_t istest = false,
+    // Bool_t istest = true,
+    Bool_t istest = false,
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v18HLTSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v19HLTSelection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v20FixedSelectJetsBug/mc/",
@@ -30,9 +30,13 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016D",
     // TString inputDir = "ttbar_0l",
-    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
+    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
+    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // const TString eventSelectionBit = "7"
-    const TString eventSelectionBit = "3"
+    const TString eventSelectionBit = "3",
+    Bool_t ifOneSample = kFALSE,
+    // Bool_t ifOneSample = kTRUE,
+    TString singleSampleName = "outTree_5"
     // 1 for MetFilters, 2 for HLTSelection, 4 for baseline. so 7 if all selection; 0 if no selection
 )
 {
@@ -51,7 +55,6 @@ void run_makeVaribles_forBDT(
     {
         ifMergeAllevent = true;
     }
-
     else
     {
         outputDir = "output/";
@@ -61,8 +64,16 @@ void run_makeVaribles_forBDT(
     cout << "input file:" << inputFile << endl;
 
     TChain chain("tree");
+    if (ifOneSample)
+    {
+        chain.Add(inputFile + singleSampleName + ".root");
+        inputDir = singleSampleName;
+    }
+    else
+    {
+        chain.Add(inputFile + "outTree*.root");
+    }
 
-    chain.Add(inputFile + "outTree*.root");
     cout << "entries in tree: " << chain.GetEntries() << endl;
 
     // TString selection = "makeVaribles_forBDT.C";
@@ -78,7 +89,9 @@ void run_makeVaribles_forBDT(
         // chain.Process(selection + "+", option);
     }
     else
+    {
         chain.Process(selection + "+", option);
+    }
 
     cout << "--------" << endl;
     cout << "now comes to add Runs tree stage\n";
@@ -87,8 +100,14 @@ void run_makeVaribles_forBDT(
 
     // add Runs tree
     TChain chain2("Runs");
-    chain2.Add(inputFile + "outTree*.root");
-    // chain2.Add(inputFile + "outTree_4.root");
+    if (ifOneSample)
+    {
+        chain2.Add(inputFile + singleSampleName + ".root");
+    }
+    else
+    {
+        chain2.Add(inputFile + "outTree*.root");
+    }
     chain2.Merge(file, 2000);
     cout << "done merging Runs trees\n";
 }
