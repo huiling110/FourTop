@@ -168,6 +168,10 @@ Bool_t writeHist::Process(Long64_t entry)
 	{
 		eventCount_hists[2]->Fill(.0, basicWeight);
 		ifPassJets_6pt = kTRUE;
+		if ((*jet_6pt - 40.0) < TMath::Limits<Double_t>::Epsilon())
+		{
+			std::cout << std::setprecision(17) << *jet_6pt << "\n";
+		}
 	}
 	else
 	{
@@ -275,7 +279,7 @@ void writeHist::Terminate()
 // a query. It always runs on the client, it can be used to present
 // the results graphically or save the results to file.
 #include "lumiAndCrossSection.h"
-// the results graphically or save the results to file.
+	// the results graphically or save the results to file.
 	Double_t processScale = 1.0;
 	if (!m_isData)
 	{
@@ -290,6 +294,8 @@ void writeHist::Terminate()
 		eventCount_hists[j]->Print();
 		// std::cout<<"raw: "<<eventCount_hists[j]->GetEntries();
 	}
+
+	cutFlowTree->BuildIndex("event_");
 
 	outputFile->Write();
 	outputFile->Close();
