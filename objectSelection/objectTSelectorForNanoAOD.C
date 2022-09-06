@@ -295,21 +295,23 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     bjetsM_total = bjetsM_total + bjetsM.size();
 
     // test
-    // for (UInt_t i = 0; i < *nJet; i++)
-    // {
-    //     if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
-    //     {
+    // std::cout<<"event"<<*event<<"\n";
+    if(*event==)
+    for (UInt_t i = 0; i < *nJet; i++)
+    {
+        if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
+        {
 
-    //         std::cout << "original jet pt: " << i << " " << std::setprecision(10) << Jet_pt[i] << "\n";
-    //     }
-    // }
-    // for (UInt_t j = 0; j < jets.size(); j++)
-    // {
-    //     if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
-    //     {
-    //         std::cout << "lorenzts jets pt: " << j << " " << std::setprecision(10) << jets[j].Pt() << "\n";
-    //     }
-    // }
+            std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
+        }
+    }
+    for (UInt_t j = 0; j < jets.size(); j++)
+    {
+        if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
+        {
+            std::cout << "lorenzts jets pt: " << j << " " << std::setprecision(18) << jets[j].Pt() << "\n";
+        }
+    }
 
     if (Electron_charge.GetSize() > 0)
     {

@@ -16,7 +16,7 @@ void compareCutflow()
     TFile *huaFile = new TFile(myFile, "UPDATE");
     TTree *huaTree = (TTree *)huaFile->Get("cutFlowTree");
     // huaTree->BuildIndex("event_");
-    // huaTree->Print();
+    huaTree->Print();
     ULong64_t huaEvent;
     Bool_t huaPassJet6, houPassJet6;
     Double_t huajet6pt;
@@ -36,7 +36,7 @@ void compareCutflow()
     newhou->SetBranchAddress("event", &houEvent);
     newhou->SetBranchAddress("passbase2", &houPassJet6);
     newhou->SetBranchAddress("jet6_pt", &houjet6pt);
-    // newhou->Print();
+    newhou->Print();
 
     UInt_t diffPassjet6pt = 0;
     // houTree->Scan("cutFlowTree.event_:Events.event");

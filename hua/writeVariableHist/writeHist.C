@@ -149,6 +149,11 @@ Bool_t writeHist::Process(Long64_t entry)
 	// for testing of step by step baseline cut
 	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+
+	// test
+	// if (!(*event == 2567375 || *event == 2279051))
+	// 	return kFALSE;
+	// std::cout << std::setprecision(18) << *jets_6pt << "\n";
 	if (m_isData)
 	{
 		basicWeight = 1.0;
@@ -164,14 +169,16 @@ Bool_t writeHist::Process(Long64_t entry)
 	{
 		ifPass6jets = kFALSE;
 	}
-	if (*jets_number >= 6 && *jets_6pt > 40.0)
+	// if (TMath::Abs((*jets_6pt - 40.0)) < TMath::Limits<Double_t>::Epsilon())
+	// {
+	// 	std::cout << std::setprecision(18) << *jets_6pt << "\n";
+	// 	std::cout << (*jets_6pt > 40.0) << "\n";
+	// 	std::cout << "event with 40 pt: " << *event << "\n";
+	// }
+	if ((*jets_number >= 6) && (*jets_6pt > 40.0))
 	{
 		eventCount_hists[2]->Fill(.0, basicWeight);
 		ifPassJets_6pt = kTRUE;
-		if ((*jet_6pt - 40.0) < TMath::Limits<Double_t>::Epsilon())
-		{
-			std::cout << std::setprecision(17) << *jet_6pt << "\n";
-		}
 	}
 	else
 	{
