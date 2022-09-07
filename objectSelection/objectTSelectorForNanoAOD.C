@@ -101,9 +101,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     fReader.SetLocalEntry(entry);
 
-    if (!(*event == 2567375))
-        return kFALSE;
-
     ///////////////////////////////////////
     fProcessed++;
     Double_t basicWeight = 1.0;
@@ -272,56 +269,56 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     Bool_t ifJER = kFALSE;
     // Bool_t ifJER = kTRUE;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
-    // SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
-    // SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
-    // sort(jets.begin(), jets.end(), compEle);
-    // sort(jets_JECup.begin(), jets_JECup.end(), compEle);
-    // sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
+    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
+    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
+    sort(jets.begin(), jets.end(), compEle);
+    sort(jets_JECup.begin(), jets_JECup.end(), compEle);
+    sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
     // std::cout << "jets size" << jets.size() << "\n";
     // printElements( jets_btags, jets );
     // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
     // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
     // pt are sorted in MINIAOD
-    // SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
-    // SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
-    // SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
-    // SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL, tausL, 0);
-    // sort(bjetsL.begin(), bjetsL.end(), compEle);
-    // sort(bjetsM.begin(), bjetsM.end(), compEle);
-    // sort(bjetsT.begin(), bjetsT.end(), compEle);
+    SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
+    SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
+    SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
+    SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL, tausL, 0);
+    sort(bjetsL.begin(), bjetsL.end(), compEle);
+    sort(bjetsM.begin(), bjetsM.end(), compEle);
+    sort(bjetsT.begin(), bjetsT.end(), compEle);
 
-    // jetsSubstructBjets(nonbjetsL, jets, bjetsL);
-    // jetsSubstructBjets(nonbjetsM, jets, bjetsM);
-    // jetsSubstructBjets(nonbjetsT, jets, bjetsT);
+    jetsSubstructBjets(nonbjetsL, jets, bjetsL);
+    jetsSubstructBjets(nonbjetsM, jets, bjetsM);
+    jetsSubstructBjets(nonbjetsT, jets, bjetsT);
     // cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
 
     // test
     //???not sure why for some jet_pt=40, convert it to 40.00000000071 in Double_t;
-    if (*event == 2567375)
-    {
+    // if (*event == 2567375)
+    // {
 
-        std::cout << "passing event\n";
-        std::setprecision(18);
-        std::cout << jets[5].Pt() << " " << Jet_pt[6] << " " << Jet_pt[5] << "\n";
-        std::cout << std::setprecision(18) << Jet_pt[6] << "\n";
-    }
-    for (UInt_t i = 0; i < *nJet; i++)
-    {
-        if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
-        {
+    //     std::cout << "passing event 2567375\n";
+    //     std::setprecision(18);
+    //     std::cout << jets[5].Pt() << " " << Jet_pt[6] << " " << Jet_pt[5] << "\n";
+    //     std::cout << std::setprecision(18) << Jet_pt[6] << "\n";
+    // }
+    // for (UInt_t i = 0; i < *nJet; i++)
+    // {
+    //     if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
+    //     {
 
-            std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
-        }
-    }
-    for (UInt_t j = 0; j < jets.size(); j++)
-    {
-        if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
-        {
-            std::cout << "lorenzts jets pt: " << j << " " << jets[j].Pt() << "\n";
-        }
-    }
+    //         std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
+    //     }
+    // }
+    // for (UInt_t j = 0; j < jets.size(); j++)
+    // {
+    //     if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
+    //     {
+    //         std::cout << "lorenzts jets pt: " << j << " " << jets[j].Pt() << "\n";
+    //     }
+    // }
 
     if (Electron_charge.GetSize() > 0)
     {
@@ -911,7 +908,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         // std::cout<<"jet : "<<jet_prov.Pt()<<", "<<jet_prov.Eta()<<", "<<jet_prov.Phi()<<","<<jet_prov.M()<<"\n";
         // std::cout<<"jet scale manually: "<<jet.Pt()<<", "<<jet.Eta()<<", "<<jet.Phi()<<","<<jet.M()<<"\n";
         // std::cout<<"jet scale: "<<jet_scaled.Pt()<<", "<<jet_scaled.Eta()<<", "<<jet_scaled.Phi()<<", "<<jet_scaled.M()<<"\n";
-        std::cout << std::setprecision(18) << SelectedJets[5].Pt() << "\n";
+        // std::cout << std::setprecision(18) << SelectedJets[5].Pt() << "\n";
 
         SelectedJetsIndex.push_back(j);
         // CHANGE HERE TO RUN ON DATA
