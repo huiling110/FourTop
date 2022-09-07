@@ -754,8 +754,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
         }
 
         //?need err handling
-        ROOT::Math::PtEtaPhiMVector tau;
-        tau.SetPtEtaPhiM(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass); // here the pt and mass are already corrected
+        ROOT::Math::PtEtaPhiMVector tau(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass);
+        // tau.SetPtEtaPhiM(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass); // here the pt and mass are already corrected
         // TLorentzVector itau  = taus_TES.at(j)*tau;
         SelectedTaus.push_back(tau);
         SelectedTausIndex.push_back(j);
@@ -933,8 +933,8 @@ void objectTSelectorForNanoAOD::selectGenTaus(std::vector<ROOT::Math::PtEtaPhiMV
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 15))
             continue; // tau:15; top:6;W:
-        ROOT::Math::PtEtaPhiMVector gentau;
-        gentau.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        ROOT::Math::PtEtaPhiMVector gentau(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        // gentau.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genTaus.push_back(gentau);
     }
 }
@@ -944,8 +944,8 @@ void objectTSelectorForNanoAOD::selectGenEles(std::vector<ROOT::Math::PtEtaPhiMV
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 11))
             continue; // tau:15; ele:11;
-        ROOT::Math::PtEtaPhiMVector genele;
-        genele.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        ROOT::Math::PtEtaPhiMVector genele(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        // genele.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genEles.push_back(genele);
     }
 }
@@ -955,8 +955,8 @@ void objectTSelectorForNanoAOD::selectGenMuons(std::vector<ROOT::Math::PtEtaPhiM
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 13))
             continue; // tau:15; top:6;W:;muon:13
-        ROOT::Math::PtEtaPhiMVector genmuon;
-        genmuon.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        ROOT::Math::PtEtaPhiMVector genmuon(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        // genmuon.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genMuons.push_back(genmuon);
     }
 }

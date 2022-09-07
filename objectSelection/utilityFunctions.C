@@ -18,7 +18,7 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::v
     }
 }
 
-void printElements(const std::vector<Double_t> &jets_btags, const std::vector<TLorentzVector> &jets)
+void printElements(const std::vector<Double_t> &jets_btags, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets)
 {
     for (UInt_t j = 0; j < jets_btags.size(); j++)
     {
@@ -33,11 +33,13 @@ Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2)
     Double_t deltaPhi = TMath::Abs(phi1 - phi2);
     Double_t deltaEta = eta1 - eta2;
     if (deltaPhi > TMath::Pi())
-        {deltaPhi = TMath::TwoPi() - deltaPhi;}
+    {
+        deltaPhi = TMath::TwoPi() - deltaPhi;
+    }
     return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
 }
 
-Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<TLorentzVector> LeptonsMVAF)
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF)
 {
     Double_t deltaR = 0;
     Double_t minDeltaR = 100;
@@ -50,7 +52,7 @@ Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<TL
     return minDeltaR;
 }
 
-bool compEle(const TLorentzVector a, const TLorentzVector b)
+bool compEle(const ROOT::Math::PtEtaPhiMVector a, const ROOT::Math::PtEtaPhiMVector b)
 {
     return a.Pt() > b.Pt();
 }
@@ -69,7 +71,7 @@ void copy_TTreeReaderArray_toVector( const TTreeReaderArray<Int_t> &array, std::
 */
 
 // void jetsSubstructBjets(std::vector<TLorentzVector>& nonbjets, const std::vector<Double_t> &bjets_btags,const std::vector<Double_t> &jets_btags,  const std::vector<TLorentzVector>& jets ){
-void jetsSubstructBjets(std::vector<TLorentzVector> &nonbjets, const std::vector<TLorentzVector> &jets, const std::vector<TLorentzVector> &bjets)
+void jetsSubstructBjets(std::vector<ROOT::Math::PtEtaPhiMVector> &nonbjets, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &bjets)
 {
     // for( UInt_t jet =0; jet<jets_btags.size(); jet++){
     // if ( jets_btags[jet]== bjets_btags[jet]){
@@ -95,7 +97,7 @@ void jetsSubstructBjets(std::vector<TLorentzVector> &nonbjets, const std::vector
 }
 
 // SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
-void sortJetAndFlavorAndBcore(std::vector<TLorentzVector> &jets, std::vector<Double_t> &jets_btags, std::vector<Int_t> jets_flavour)
+void sortJetAndFlavorAndBcore(std::vector<ROOT::Math::PtEtaPhiMVector> &jets, std::vector<Double_t> &jets_btags, std::vector<Int_t> jets_flavour)
 {
     sort(jets_btags.begin(), jets_btags.end(), [&](std::size_t i, std::size_t j)
          { return jets[i].Pt() > jets[j].Pt(); });
