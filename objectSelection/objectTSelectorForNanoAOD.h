@@ -29,6 +29,7 @@
 #include "TFormula.h"
 #include "TLorentzVector.h"
 #include "TH1D.h"
+#include <Math/Vector4D.h>
 // #include "../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 // seem enough to only include the header
 
@@ -207,53 +208,54 @@ public:
 	Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
 	Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
 
-	std::vector<TLorentzVector> muonsL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> muonsL;
 	std::vector<Int_t> muonsL_index;
-	std::vector<TLorentzVector> muonsF;
+	std::vector<ROOT::Math::PtEtaPhiMVector> muonsF;
 	std::vector<Int_t> muonsF_index;
-	std::vector<TLorentzVector> muonsT;
+	std::vector<ROOT::Math::PtEtaPhiMVector> muonsT;
 	std::vector<Int_t> muonsT_index;
-	std::vector<TLorentzVector> eleMVAL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> eleMVAL;
 	std::vector<Int_t> eleMVAL_index;
-	std::vector<TLorentzVector> eleMVAF;
+	std::vector<ROOT::Math::PtEtaPhiMVector> eleMVAF;
 	std::vector<Int_t> eleMVAF_index;
-	std::vector<TLorentzVector> eleMVAT;
+	std::vector<ROOT::Math::PtEtaPhiMVector> eleMVAT;
 	std::vector<Int_t> eleMVAT_index;
-	// vector<TLorentzVector> eleMVAL_IsoT; vector<Int_t> eleMVAL_IsoT_index;
-	// vector<TLorentzVector> eleMVAF_IsoT; vector<Int_t> eleMVAF_IsoT_index;
-	// vector<TLorentzVector> eleMVAT_IsoT; vector<Int_t> eleMVAT_IsoT_index;
-	std::vector<TLorentzVector> leptonsMVAF;
-	std::vector<TLorentzVector> leptonsMVAT;
-	std::vector<TLorentzVector> leptonsMVAL;
-	std::vector<TLorentzVector> tausL;
+	// vector<ROOT::Math::PtEtaPhiMVector> eleMVAL_IsoT; vector<Int_t> eleMVAL_IsoT_index;
+	// vector<ROOT::Math::PtEtaPhiMVector> eleMVAF_IsoT; vector<Int_t> eleMVAF_IsoT_index;
+	// vector<ROOT::Math::PtEtaPhiMVector> eleMVAT_IsoT; vector<Int_t> eleMVAT_IsoT_index;
+	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAF;
+	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
+	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tausL;
 	std::vector<Int_t> tausL_index;
 	std::vector<Int_t> tausL_decayMode;
 	std::vector<Int_t> tausL_genPartFlav;
-	std::vector<TLorentzVector> tausF;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tausF;
 	std::vector<Int_t> tausF_index;
 	std::vector<Int_t> tausF_decayMode;
 	std::vector<Int_t> tausF_genPartFlav;
-	std::vector<TLorentzVector> tausT;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tausT;
 	std::vector<Int_t> tausT_index;
 	std::vector<Int_t> tausT_decayMode;
 	std::vector<Int_t> tausT_genPartFlav;
-	std::vector<TLorentzVector> tausT_TESup;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESup;
 	std::vector<Int_t> tausT_index_TESup;
 	std::vector<Int_t> tausT_decayMode_TESup;
 	std::vector<Int_t> tausT_genPartFlav_TESup;
-	std::vector<TLorentzVector> tausT_TESdown;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESdown;
 	std::vector<Int_t> tausT_index_TESdown;
 	std::vector<Int_t> tausT_decayMode_TESdown;
 	std::vector<Int_t> tausT_genPartFlav_TESdown;
 
-	std::vector<TLorentzVector> jets;
+	// std::vector<TLorentzVector> jets;
+	std::vector<ROOT::Math::PtEtaPhiMVector> jets;
 	std::vector<Int_t> jets_index;
 	std::vector<Int_t> jets_flavour;
 	std::vector<Double_t> jets_btags;
-	std::vector<TLorentzVector> jets_JERup;
-	std::vector<TLorentzVector> jets_JERdown;
-	std::vector<TLorentzVector> jets_JECup;	  // JEC may includes JER
-	std::vector<TLorentzVector> jets_JECdown; // JEC may includes JER
+	std::vector<ROOT::Math::PtEtaPhiMVector> jets_JERup;
+	std::vector<ROOT::Math::PtEtaPhiMVector> jets_JERdown;
+	std::vector<ROOT::Math::PtEtaPhiMVector> jets_JECup;   // JEC may includes JER
+	std::vector<ROOT::Math::PtEtaPhiMVector> jets_JECdown; // JEC may includes JER
 	std::vector<Int_t> jets_index_JECup;
 	std::vector<Int_t> jets_flavour_JECup;
 	std::vector<Double_t> jets_btags_JECup;
@@ -262,40 +264,40 @@ public:
 	std::vector<Double_t> jets_btags_JECdown;
 	std::vector<Double_t> jets_JESuncer;
 
-	std::vector<TLorentzVector> bjetsL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> bjetsL;
 	std::vector<Int_t> bjetsL_index;
 	std::vector<Int_t> bjetsL_flavour;
 	std::vector<Double_t> bjetsL_btags;
-	std::vector<TLorentzVector> bjetsM;
+	std::vector<ROOT::Math::PtEtaPhiMVector> bjetsM;
 	std::vector<Int_t> bjetsM_index;
 	std::vector<Int_t> bjetsM_flavour;
 	std::vector<Double_t> bjetsM_btags;
-	std::vector<TLorentzVector> bjetsT;
+	std::vector<ROOT::Math::PtEtaPhiMVector> bjetsT;
 	std::vector<Int_t> bjetsT_index;
 	std::vector<Int_t> bjetsT_flavour;
 	std::vector<Double_t> bjetsT_btags;
-	std::vector<TLorentzVector> forwardJets;
+	std::vector<ROOT::Math::PtEtaPhiMVector> forwardJets;
 	std::vector<Int_t> forwardJets_index;
 	std::vector<Int_t> forwardJets_flavour;
 	std::vector<Double_t> forwardJets_btags;
-	std::vector<TLorentzVector> nonbjetsL;
-	std::vector<TLorentzVector> nonbjetsM;
-	std::vector<TLorentzVector> nonbjetsT;
-	// std::vector<TLorentzVector> ; std::vector<Int_t> ;
-	// std::vector<TLorentzVector> ; std::vector<Int_t> ;
-	// std::vector<TLorentzVector> ; std::vector<Int_t> ;
-	// std::vector<TLorentzVector> ; std::vector<Int_t> ;
+	std::vector<ROOT::Math::PtEtaPhiMVector> nonbjetsL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> nonbjetsM;
+	std::vector<ROOT::Math::PtEtaPhiMVector> nonbjetsT;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
 	std::vector<Double_t> patElectron_charge_;
 	// std::vector<Double_t> patElectron_charge_;
 	std::vector<Double_t> Tau_charge_;
 	std::vector<Double_t> Muon_charge_;
 	Double_t Met_pt;
 	Double_t Met_phi;
-	std::vector<TLorentzVector> tops_toptagger;
+	std::vector<ROOT::Math::PtEtaPhiMVector> tops_toptagger;
 
-	std::vector<TLorentzVector> genTaus;
-	std::vector<TLorentzVector> genEles;
-	std::vector<TLorentzVector> genMuons;
+	std::vector<ROOT::Math::PtEtaPhiMVector> genTaus;
+	std::vector<ROOT::Math::PtEtaPhiMVector> genEles;
+	std::vector<ROOT::Math::PtEtaPhiMVector> genMuons;
 
 	// non tree branch variables
 	std::vector<Double_t> JER_SF_new;
@@ -315,15 +317,15 @@ public:
 	Double_t EVENT_genWeight_;
 
 	// functions I added
-	void SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-	void SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL, const Int_t sysTES);
-	void SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL, const Int_t sysJEC);
-	void SelectTops(std::vector<TLorentzVector> &SelectedTops);
+	void SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
+	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
+	void SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC);
+	void SelectTops(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTops);
 	void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
-	void selectGenTaus(std::vector<TLorentzVector> &genTaus);
-	void selectGenEles(std::vector<TLorentzVector> &genEles);
-	void selectGenMuons(std::vector<TLorentzVector> &genMuons);
-	void SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
+	void selectGenTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &genTaus);
+	void selectGenEles(std::vector<ROOT::Math::PtEtaPhiMVector> &genEles);
+	void selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons);
+	void SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
 
 	void makeBranch(TTree *tree);
 	void getRunRange(TTree *fChain);

@@ -101,6 +101,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     fReader.SetLocalEntry(entry);
 
+    if (!(*event == 2567375))
+        return kFALSE;
+
     ///////////////////////////////////////
     fProcessed++;
     Double_t basicWeight = 1.0;
@@ -269,27 +272,27 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     Bool_t ifJER = kFALSE;
     // Bool_t ifJER = kTRUE;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
-    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
-    sort(jets.begin(), jets.end(), compEle);
-    sort(jets_JECup.begin(), jets_JECup.end(), compEle);
-    sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
+    // SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
+    // SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
+    // sort(jets.begin(), jets.end(), compEle);
+    // sort(jets_JECup.begin(), jets_JECup.end(), compEle);
+    // sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
     // std::cout << "jets size" << jets.size() << "\n";
     // printElements( jets_btags, jets );
     // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
     // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
     // pt are sorted in MINIAOD
-    SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL, tausL, 0);
-    sort(bjetsL.begin(), bjetsL.end(), compEle);
-    sort(bjetsM.begin(), bjetsM.end(), compEle);
-    sort(bjetsT.begin(), bjetsT.end(), compEle);
+    // SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
+    // SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
+    // SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL, tausL, 0);
+    // SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL, tausL, 0);
+    // sort(bjetsL.begin(), bjetsL.end(), compEle);
+    // sort(bjetsM.begin(), bjetsM.end(), compEle);
+    // sort(bjetsT.begin(), bjetsT.end(), compEle);
 
-    jetsSubstructBjets(nonbjetsL, jets, bjetsL);
-    jetsSubstructBjets(nonbjetsM, jets, bjetsM);
-    jetsSubstructBjets(nonbjetsT, jets, bjetsT);
+    // jetsSubstructBjets(nonbjetsL, jets, bjetsL);
+    // jetsSubstructBjets(nonbjetsM, jets, bjetsM);
+    // jetsSubstructBjets(nonbjetsT, jets, bjetsT);
     // cout<<"nonb="<<nonbjetsL.size()<<" bjet="<<bjetsL.size()<<" jets="<<jets.size()<<endl;
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
@@ -564,7 +567,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
     tree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
 }
 
-void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type)
+void objectTSelectorForNanoAOD::SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type)
 {
     // changed ISO to ss of TTTT
     // 0 for Loose; 1 fakeble; 2 tight
@@ -615,16 +618,15 @@ void objectTSelectorForNanoAOD::SelectMuons(std::vector<TLorentzVector> &Selecte
         // ISO
         // IP
         // charge,The quality of the charge reconstruction
-        TLorentzVector muon;
+        ROOT::Math::PtEtaPhiMVector muon(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j), Muon_mass.At(j));
         // muon.SetPtEtaPhiE(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
-        muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j),
-                          Muon_mass.At(j));
+        // muon.SetPtEtaPhiM(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j), Muon_mass.At(j));
         SelectedMuons.push_back(muon);
         SelectedMuonsIndex.push_back(j);
     }
 }
 
-void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type)
+void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type)
 {
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
     // 2016 - MVANoIso94XV2, from SUSY
@@ -664,15 +666,15 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<TLorentzVector> &
         // Electron_tightCharge	Int_t	Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
         //???not sure which one to use, drop for now
 
-        TLorentzVector electron;
-        electron.SetPtEtaPhiM(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
+        ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
+        // electron.SetPtEtaPhiM(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
     }
 }
 /*}}}*/
 
-void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<TLorentzVector> LeptonsMVAL, const Int_t sysTES)
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
@@ -752,7 +754,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
         }
 
         //?need err handling
-        TLorentzVector tau;
+        ROOT::Math::PtEtaPhiMVector tau;
         tau.SetPtEtaPhiM(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass); // here the pt and mass are already corrected
         // TLorentzVector itau  = taus_TES.at(j)*tau;
         SelectedTaus.push_back(tau);
@@ -762,7 +764,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<TLorentzVector> &Selected
     }
 } /*}}}*/
 
-void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL, const Int_t sysJEC)
+// void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<TLorentzVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<TLorentzVector> LeptonsMVAF, const std::vector<TLorentzVector> SelectedTausL, const Int_t sysJEC)
+void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -771,6 +774,8 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
     {
         Double_t jetpt = static_cast<Double_t>(Jet_pt.At(j));
         Double_t ijetMass = Jet_mass.At(j);
+        Double_t ijetEta = Jet_eta.At(j);
+        Double_t ijetPhi = Jet_phi.At(j);
         if (ifJER)
         {
             jetpt = jetpt * JER_SF_new.at(j);
@@ -795,7 +800,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
             continue;
-        if (!(fabs(Jet_eta.At(j)) < 5.0))
+        if (!(fabs(ijetEta) < 5.0))
             continue;
         // cout << "jetId = " << Jet_jetId.At(j)<<"\n";
         if (!(Jet_jetId.At(j) > 0))
@@ -805,7 +810,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
 
         if (jetType == 11 || jetType == 12 || jetType == 13)
         {
-            if (!(fabs(Jet_eta.At(j)) < 2.4))
+            if (!(fabs(ijetEta) < 2.4))
                 continue;
         }
         if (deepJet)
@@ -847,20 +852,20 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         // find mostforwardjeteta
         if (jetType == 0)
         { // normal jet
-            if (fabs(Jet_eta.At(j)) > MaxMostForwardJetEta)
+            if (fabs(ijetEta) > MaxMostForwardJetEta)
             {
-                MaxMostForwardJetEta = fabs(Jet_eta.At(j));
+                MaxMostForwardJetEta = fabs(ijetEta);
             } // MostForwardJetEta branch in new tree and SB.
-            if (!(fabs(Jet_eta.At(j)) < 2.4))
+            if (!(fabs(ijetEta) < 2.4))
                 continue;
         }
         if (jetType == 2)
         { // forwardjet
-            if (!(fabs(Jet_eta.At(j)) >= 2.4 && fabs(Jet_eta.At(j)) <= 5))
+            if (!(fabs(ijetEta) >= 2.4 && fabs(ijetEta) <= 5))
                 continue;
             if (!(jetpt > 25))
                 continue;
-            if (fabs(Jet_eta.At(j)) >= 2.7 && fabs(Jet_eta.At(j)) <= 3.0)
+            if (fabs(ijetEta) >= 2.7 && fabs(ijetEta) <= 3.0)
             {
                 if (!(jetpt > 60.0))
                     continue;
@@ -873,7 +878,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             Double_t minDeltaR = 100;
             for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++)
             {
-                deltaR = DeltaR(LeptonsMVAF[lep].Eta(), Jet_eta.At(j), LeptonsMVAF[lep].Phi(), Jet_phi.At(j));
+                deltaR = DeltaR(LeptonsMVAF[lep].Eta(), ijetEta, LeptonsMVAF[lep].Phi(), ijetPhi);
                 if (deltaR < minDeltaR)
                     minDeltaR = deltaR; // The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
             }
@@ -886,23 +891,27 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             Double_t minDeltaR_tau = 100;
             for (UInt_t tau = 0; tau < SelectedTausL.size(); tau++)
             {
-                deltaR_tau = DeltaR(SelectedTausL[tau].Eta(), Jet_eta.At(j), SelectedTausL[tau].Phi(), Jet_phi.At(j));
+                deltaR_tau = DeltaR(SelectedTausL[tau].Eta(), ijetEta, SelectedTausL[tau].Phi(), ijetPhi);
                 if (deltaR_tau < minDeltaR_tau)
                     minDeltaR_tau = deltaR_tau;
             }
             if (!(minDeltaR_tau >= 0.4))
                 continue;
         }
-        TLorentzVector jet_prov;
-        // jet_prov.SetPtEtaPhiM(Jet_pt.At(j), Jet_eta.At(j), Jet_phi.At(j), Jet_mass.At(j));
-        jet_prov.SetPtEtaPhiM(jetpt, Jet_eta.At(j), Jet_phi.At(j), ijetMass);
+        // TLorentzVector jet_prov;
+        // std::cout << "jet pt in selectJets\n";
+        // std::cout << std::setprecision(18) << jetpt << "\n";
+        // jet_prov.SetPtEtaPhiM(jetpt, ijetEta, ijetPhi, ijetMass);
         // TLorentzVector jet;
         // jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
+        // std::cout << std::setprecision(18) << jet_prov.Pt() << "\n";
+        ROOT::Math::PtEtaPhiMVector jet_prov(jetpt, ijetEta, ijetPhi, ijetMass);
         SelectedJets.push_back(jet_prov);
         // SelectedJets.push_back(JER_SF_new[j] * jet_prov);
         // std::cout<<"jet : "<<jet_prov.Pt()<<", "<<jet_prov.Eta()<<", "<<jet_prov.Phi()<<","<<jet_prov.M()<<"\n";
         // std::cout<<"jet scale manually: "<<jet.Pt()<<", "<<jet.Eta()<<", "<<jet.Phi()<<","<<jet.M()<<"\n";
         // std::cout<<"jet scale: "<<jet_scaled.Pt()<<", "<<jet_scaled.Eta()<<", "<<jet_scaled.Phi()<<", "<<jet_scaled.M()<<"\n";
+        std::cout << std::setprecision(18) << SelectedJets[5].Pt() << "\n";
 
         SelectedJetsIndex.push_back(j);
         // CHANGE HERE TO RUN ON DATA
@@ -918,35 +927,35 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
     }
 }
 
-void objectTSelectorForNanoAOD::selectGenTaus(std::vector<TLorentzVector> &genTaus)
+void objectTSelectorForNanoAOD::selectGenTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &genTaus)
 {
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j)
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 15))
             continue; // tau:15; top:6;W:
-        TLorentzVector gentau;
+        ROOT::Math::PtEtaPhiMVector gentau;
         gentau.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genTaus.push_back(gentau);
     }
 }
-void objectTSelectorForNanoAOD::selectGenEles(std::vector<TLorentzVector> &genEles)
+void objectTSelectorForNanoAOD::selectGenEles(std::vector<ROOT::Math::PtEtaPhiMVector> &genEles)
 {
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j)
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 11))
             continue; // tau:15; ele:11;
-        TLorentzVector genele;
+        ROOT::Math::PtEtaPhiMVector genele;
         genele.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genEles.push_back(genele);
     }
 }
-void objectTSelectorForNanoAOD::selectGenMuons(std::vector<TLorentzVector> &genMuons)
+void objectTSelectorForNanoAOD::selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons)
 {
     for (UInt_t j = 0; j < GenPart_pt.GetSize(); ++j)
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == 24 && abs(GenPart_pdgId.At(j)) == 13))
             continue; // tau:15; top:6;W:;muon:13
-        TLorentzVector genmuon;
+        ROOT::Math::PtEtaPhiMVector genmuon;
         genmuon.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genMuons.push_back(genmuon);
     }
