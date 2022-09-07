@@ -296,30 +296,29 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // test
     //???not sure why for some jet_pt=40, convert it to 40.00000000071 in Double_t;
-    // std::cout<<"event"<<*event<<"\n";
-    // if (*event == 2567375)
-    // {
+    if (*event == 2567375)
+    {
 
-    //     std::cout << "passing event\n";
-    //     std::setprecision(18);
-    //     std::cout << jets[5].Pt() << " " << Jet_pt[6] << " " << Jet_pt[5] << "\n";
-    //     std::cout << std::setprecision(18) <<Jet_pt[6] << "\n";
-    // }
-    // for (UInt_t i = 0; i < *nJet; i++)
-    // {
-    //     if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
-    //     {
+        std::cout << "passing event\n";
+        std::setprecision(18);
+        std::cout << jets[5].Pt() << " " << Jet_pt[6] << " " << Jet_pt[5] << "\n";
+        std::cout << std::setprecision(18) << Jet_pt[6] << "\n";
+    }
+    for (UInt_t i = 0; i < *nJet; i++)
+    {
+        if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
+        {
 
-    //         std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
-    //     }
-    // }
-    // for (UInt_t j = 0; j < jets.size(); j++)
-    // {
-    //     if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
-    //     {
-    //         std::cout << "lorenzts jets pt: " << j << " " << jets[j].Pt() << "\n";
-    //     }
-    // }
+            std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
+        }
+    }
+    for (UInt_t j = 0; j < jets.size(); j++)
+    {
+        if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
+        {
+            std::cout << "lorenzts jets pt: " << j << " " << jets[j].Pt() << "\n";
+        }
+    }
 
     if (Electron_charge.GetSize() > 0)
     {
@@ -770,7 +769,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
     Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j)
     {
-        Double_t jetpt = Jet_pt.At(j);
+        Double_t jetpt = static_cast<Double_t>(Jet_pt.At(j));
         Double_t ijetMass = Jet_mass.At(j);
         if (ifJER)
         {
