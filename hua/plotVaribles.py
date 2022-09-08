@@ -5,6 +5,8 @@ from array import array
 
 # from ROOT import TFile, TLatex
 from ROOT import *
+from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
+                                samplesCrossSection, summedProcessList)
 
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
@@ -25,40 +27,6 @@ latex2.SetTextAlign(31);
 cmsText = "CMS"
 extraText = "Preliminary"
 
-summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'data' ]
-
-histoGramPerSample = {
-    'tttt':'tttt',
-    'ttbar_0l':'tt',
-    'ttbar_1l': 'tt',
-    'ttbar_2l': 'tt',
-    'qcd_50to100':'qcd',
-    'qcd_100to200':'qcd',
-    'qcd_200to300':'qcd',
-    'qcd_300to500':'qcd',
-    'qcd_500to700':'qcd',
-    'qcd_700to1000':'qcd',
-    'qcd_1000to1500':'qcd',
-    'qcd_1500to2000':'qcd',
-    'qcd_2000toInf':'qcd',
-
-    "ttG":"ttX",
-    "ttZ":"ttX",  
-    "ttW":"ttX",
-    "ttH_bb": "ttX", 
-    "ttH_nonbb": "ttX", 
-    "wz":"VV",
-    "ww":"VV",
-    "zz":"VV",
-    "st_tZq":"singleTop",
-    "st_tW_antitop":"singleTop",
-    "st_tW_top":"singleTop",
-
-    #data
-    'jetHT_2016F': 'data',
-    'jetHT_2016G': 'data',
-    'jetHT_2016H': 'data',
-}
 
 colourPerSample = {
     'tttt':kPink-9,
@@ -69,30 +37,6 @@ colourPerSample = {
     'VV': kGreen+2,
 }
 
-samples = [
-    'tttt', 
-    'ttbar_0l','ttbar_0l', 'ttbar_1l',
-    'qcd_50to100',
-    'qcd_100to200',
-    'qcd_200to300',
-    'qcd_300to500',
-    'qcd_500to700',
-    'qcd_700to1000',
-    'qcd_1000to1500',
-    'qcd_1500to2000',
-    'qcd_2000toInf',
-    "ttG",
-    "ttZ",  
-    "ttW",
-    "ttH_bb", 
-    "ttH_nonbb", 
-    "wz",
-    "ww",
-    "zz",
-    "st_tZq",
-    "st_tW_antitop",
-    "st_tW_top",
-]
 
 legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 
@@ -100,44 +44,56 @@ legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 includeDataInStack = True
 
 def main():
+    era = '2016postVFP'
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
-    version = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
+    inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # histVersion = 'variableHists_v1moreVariables'
     # histVersion = 'variableHists_v0'
     histVersion = 'variableHists_v1variables'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
-    myRegion = '1tau1lCR1'
+    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    # myRegion = '1tau1lCR1'
     ifDataDrivenQCD = False
 
     #qcd corrected only in CR an VR
-    # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-    inputDirDict = {}
-    inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
-    inputDirDict['data'] = inputDirBase + version + '/data/' + histVersion + '/' 
+    # # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+    # inputDirDict = {}
+    # inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
+    # inputDirDict['data'] = inputDirBase + version + '/data/' + histVersion + '/' 
+    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
+    inputDir = {
+        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    }
 
 
+    #sumProcessPerVar[var][region][sumedProcess] = hist
+    sumProcessPerVar = {}
+    for ivar in variables:
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+    print( sumProcessPerVar )
 
 
-    nom, systs = extractHistograms( inputDirDict, variables, myRegion )
-    # nom = getSummedHists( )
-    #nom[var].key() is actually summed processes
-    print('nom: ', nom)
-    print('systs: ', systs )
+    # nom, systs = extractHistograms( inputDirDict, variables, myRegion )#nom[variable][sample]
+    # # nom = getSummedHists( )
+    # #nom[var].key() is actually summed processes
+    # print('nom: ', nom)
+    # print('systs: ', systs )
     # checkHists( nom['jets_HT'] )
 
 
-    plotDir = inputDirDict['mc']+'results/'
-    if not os.path.exists( plotDir ):
-        os.mkdir( plotDir )
-    for variable in variables:        
-    #     print( systs[variable])
-        # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
-        makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+    # plotDir = inputDirDict['mc']+'results/'
+    # if not os.path.exists( plotDir ):
+    #     os.mkdir( plotDir )
+    # for variable in variables:        
+    # #     print( systs[variable])
+    #     # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+    #     makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
@@ -186,7 +142,7 @@ def extractHistograms( dir, variablesToCheck , myRegion):
                     if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
                         #nominalHist[varName].keys() is summed hists
                         nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
-                        nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
+                        # nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
                         nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
                         print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
                     else: #add grouped mc bg together
