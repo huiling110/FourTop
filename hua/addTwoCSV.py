@@ -12,15 +12,16 @@ import pandas as pd
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow_rawEntries.csv'
 # obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlow_objectSelection.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow.csv'
-# obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlowRawEntries_objectSelection.csv'
+obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval/mc/results/cutFlowRawEntries_objectSelection.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v0forCutFlow/results/cutflow_rawEntries.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau1lCutflow_rawEntries.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau1lCutflow.csv'
-obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval//mc/results/cutFlow_objectSelection.csv'
+# obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval//mc/results/cutFlow_objectSelection.csv'
 # obCSV = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/objectSelectionResults/v27noJERnoTESWithObjectRemoval//mc/results/cutFlowRawEntries_objectSelection.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau1lCutflow.csv'
-R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau0lCutflow.csv'
+# R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau0lCutflow.csv'
 # R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/variableHists_v4add1tau1lCutflow/results/1tau0lCutflow_rawEntries.csv'
+R1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/variableHists_v0forCutFlow/results/1tau1lCutflow.csv'
 
 df1 = pd.read_csv( obCSV )
 df2 = pd.read_csv( R1tau0l )
