@@ -117,14 +117,6 @@ void writeHist::SlaveBegin(TTree * /*tree*/)
 	cutFlowTree->Branch("ifPass6jets", &ifPass6jets);
 	cutFlowTree->Branch("ifPassHT500", &ifPassHT500);
 	// cutFlowTree->Branch("")
-
-	// std::vector<TString> regionsForVariables = {
-	// 	"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName);
-	// push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName);
-	// push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName);
 }
 
 Bool_t writeHist::Process(Long64_t entry)
@@ -192,11 +184,8 @@ Bool_t writeHist::Process(Long64_t entry)
 	else
 	{
 		ifPassHT500 = kFALSE;
+		return kFALSE;
 	}
-	// else
-	// {
-	// 	return kFALSE;
-	// }
 	event_ = *event;
 	// std::cout << *event << "\n";
 	jets_6pt_ = *jets_6pt;
