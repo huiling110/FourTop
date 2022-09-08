@@ -44,6 +44,12 @@ public:
    std::vector<TH1D *> jets_bScore_hists;
    std::vector<TH1D *> jets_1pt_hists;
    std::vector<TH1D *> tausT_HT_hists;
+   std::vector<TH1D *> bjetsM_MHT_hists;
+   std::vector<TH1D *> bjets_Number_hists;
+   std::vector<TH1D *> bjets_1pt_hists;
+   std::vector<TH1D *> jets_4bscoreMulti_hists;
+   std::vector<TH1D *> jets_2pt_hists;
+   std::vector<TH1D *> jets_HTto4rest_hists;
 
    // variables to be writen to hists
 

@@ -12,11 +12,10 @@ def copyData( dir ):
         output = process.stdout
         print( output )
 
-version = 'v0baseline_v16_HLTselection/'
+# version = 'v0baseline_v16_HLTselection/'
+version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 ifJustMC = False
 
-# pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_preVFP/'
-# post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016_postVFP/'
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
 post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
 merged_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
@@ -42,10 +41,10 @@ if not ifJustMC:
 
 #for MC we should haddd to add
 # for ikey in preDirDict.keys():
-#     if not ikey == 'mc': continue
 #     print( ikey )
 #     if not os.path.exists( mergedDirDict[ikey] ):
 #         os.mkdir( mergedDirDict[ikey] )
+#     if not ikey == 'mc': continue
 #     for i in os.listdir( preDirDict[ikey] ):
 #         if os.path.isdir( preDirDict[ikey] + i ):
 #             continue
@@ -62,7 +61,7 @@ if not ifJustMC:
 
 
 #for data
-# copyData( preDirDict['data'])
+copyData( preDirDict['data'])
 copyData( postDirDict['data'])
 
 
