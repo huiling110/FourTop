@@ -104,13 +104,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	// }
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
-	// std::cout << __LINE__ << "\n";
 
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables );
+	push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
 	push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName, regionsForVariables);
 	push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
@@ -118,22 +117,6 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
-	// The Process() function is called for each entry in the tree (or possibly
-	// keyed object in the case of PROOF) to be processed. The entry argument
-	// specifies which entry in the currently loaded tree is to be processed.
-	// When processing keyed objects with PROOF, the object is already loaded
-	// and is available via the fObject pointer.
-	//
-	// This function should contain the \"body\" of the analysis. It can contain
-	// simple or elaborate selection criteria, run algorithms on the data
-	// of the event and typically fill histograms.
-	//
-	// The processing can be stopped by calling Abort().
-	//
-	// Use fStatus to set the return value of TTree::Process().
-	//
-	// The return value is currently not used.
-
 	fReader.SetLocalEntry(entry);
 	// for testing of step by step baseline cut
 	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
@@ -142,7 +125,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		basicWeight = 1.0;
 	}
-	// std::cout << __LINE__ << "\n";
 
 	// baseline selection
 	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
@@ -150,7 +132,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
-	// std::cout << __LINE__ << "\n";
 
 	// 1tau0l SR
 	if (!m_isData)

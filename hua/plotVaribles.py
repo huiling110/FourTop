@@ -110,7 +110,7 @@ def main():
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
-    myRegion = '1tau1lCR0'
+    myRegion = '1tau1lCR1'
     ifDataDrivenQCD = False
 
     #qcd corrected only in CR an VR

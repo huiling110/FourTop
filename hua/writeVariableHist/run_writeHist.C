@@ -19,16 +19,14 @@ void run_writeHist(
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
-    // TString version = "test",
-    TString version = "forCutflow",
+    TString version = "test",
+    // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    // TString selector = "writeHist_fordataMC.C+"
-    TString selector = "writeHist.C"
+    TString selector = "writeHist_fordataMC.C+"
+    // TString selector = "writeHist.C"
     // TString inputProcess = "jetHT_2016C"
 )
 {
-    // gROOT->ProcessLine( ".L writeHist.so");
-
     TString inputFile = inputDir + inputProcess + ".root";
 
     Bool_t isData = kFALSE;

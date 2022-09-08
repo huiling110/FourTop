@@ -28,8 +28,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v28JERTESBack/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
-    version = "v0forCutFlow"
-    # version = "v1variables"
+    # version = "v0forCutFlow"
+    version = "v1variables"
     # version = "v3addSubchannels"
     justMC = False
     # justMC = True

@@ -160,8 +160,8 @@ public:
    TTreeReaderValue<Double_t> tausT_leptonsTMVA_minDeltaR = {fReader, "tausT_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
    TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
-   TTreeReaderValue<Double_t> jets_number_JECup = {fReader, "jets_number_JECup"};
-   TTreeReaderValue<Double_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
+   TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
+   TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
    TTreeReaderValue<Int_t> jets_number = {fReader, "jets_number"};
    TTreeReaderValue<Double_t> jets_HT = {fReader, "jets_HT"};
    TTreeReaderValue<Double_t> jets_MHT = {fReader, "jets_MHT"};
