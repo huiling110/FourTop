@@ -46,8 +46,8 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#???
+        # if iera=='2016preVFP' : continue
+        if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )
