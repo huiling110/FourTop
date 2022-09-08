@@ -325,23 +325,23 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
 	tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
 
-	if (tausL_number > 0)
+	if (tausT_number > 0)
 	{
-		tauL_1pt = tausL[0].Pt();
-		tauL_1eta = fabs(tausL[0].Eta());
-		tauL_1phi = fabs(tausL[0].Phi());
+		tausT_1pt = tausT[0].Pt();
+		tausT_1eta = fabs(tausT[0].Eta());
+		tausT_1phi = fabs(tausT[0].Phi());
 	}
-	if (tausL_number > 1)
+	if (tausT_number > 1)
 	{
-		tauL_2pt = tausL[1].Pt();
-		tauL_2eta = fabs(tausL[1].Eta());
-		tauL_2phi = fabs(tausL[1].Phi());
+		tausT_2pt = tausT[1].Pt();
+		tausT_2eta = fabs(tausT[1].Eta());
+		tausT_2phi = fabs(tausT[1].Phi());
 	}
-	if (tausL_number > 2)
+	if (tausT_number > 2)
 	{
-		tauL_3pt = tausL[2].Pt();
-		tauL_3eta = fabs(tausL[2].Eta());
-		tauL_3phi = fabs(tausL[2].Phi());
+		tausT_3pt = tausT[2].Pt();
+		tausT_3eta = fabs(tausT[2].Eta());
+		tausT_3phi = fabs(tausT[2].Phi());
 	}
 
 	// for jets JEC
@@ -828,15 +828,15 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausL_minDeltaR", &tausL_minDeltaR, "tausL_minDeltaR/D");
 	newtree->Branch("tausF_minDeltaR", &tausF_minDeltaR, "tausF_minDeltaR/D");
 	newtree->Branch("tausT_minDeltaR", &tausT_minDeltaR, "tausT_minDeltaR/D");
-	newtree->Branch("tauL_1pt", &tauL_1pt, "tauL_1pt/D");
-	newtree->Branch("tauL_1eta", &tauL_1eta, "tauL_1eta/D");
-	newtree->Branch("tauL_1phi", &tauL_1phi, "tauL_1phi/D");
-	newtree->Branch("tauL_2pt", &tauL_2pt, "tauL_2pt/D");
-	newtree->Branch("tauL_2eta", &tauL_2eta, "tauL_2eta/D");
-	newtree->Branch("tauL_2phi", &tauL_2phi, "tauL_2phi/D");
-	newtree->Branch("tauL_3pt", &tauL_3pt, "tauL_3pt/D");
-	newtree->Branch("tauL_3eta", &tauL_3eta, "tauL_3eta/D");
-	newtree->Branch("tauL_3phi", &tauL_3phi, "tauL_3phi/D");
+	newtree->Branch("tausT_1pt", &tausT_1pt, "tausT_1pt/D");
+	newtree->Branch("tausT_1eta", &tausT_1eta, "tausT_1eta/D");
+	newtree->Branch("tausT_1phi", &tausT_1phi, "tausT_1phi/D");
+	newtree->Branch("tausT_2pt", &tausT_2pt, "tausT_2pt/D");
+	newtree->Branch("tausT_2eta", &tausT_2eta, "tausT_2eta/D");
+	newtree->Branch("tausT_2phi", &tausT_2phi, "tausT_2phi/D");
+	newtree->Branch("tausT_3pt", &tausT_3pt, "tausT_3pt/D");
+	newtree->Branch("tausT_3eta", &tausT_3eta, "tausT_3eta/D");
+	newtree->Branch("tausT_3phi", &tausT_3phi, "tausT_3phi/D");
 	newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
 	newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
 	newtree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
@@ -1172,15 +1172,15 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausF_leptonsTMVA_minDeltaR = -99;
 	tausT_leptonsTMVA_minDeltaR = -99;
 	tausL_leptonsTMVA_minDeltaR = -99;
-	tauL_1pt = -99;
-	tauL_1eta = -99;
-	tauL_1phi = -99;
-	tauL_2pt = -99;
-	tauL_2eta = -99;
-	tauL_2phi = -99;
-	tauL_3pt = -99;
-	tauL_3eta = -99;
-	tauL_3phi = -99;
+	tausT_1pt = -99;
+	tausT_1eta = -99;
+	tausT_1phi = -99;
+	tausT_2pt = -99;
+	tausT_2eta = -99;
+	tausT_2phi = -99;
+	tausT_3pt = -99;
+	tausT_3eta = -99;
+	tausT_3phi = -99;
 
 	jets_HT_JECup = -99.;
 	jets_HT_JECdown = -99.;
