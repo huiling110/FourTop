@@ -23,11 +23,12 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v27noJERnoTESWithObjectRemoval'
 inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v28JERTESBack'
-outVersion = 'v0noBaseline'
+# outVersion = 'v0noBaseline'
+outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
 year = '2016'
-selectionBit = '3'
+selectionBit = '7'
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'

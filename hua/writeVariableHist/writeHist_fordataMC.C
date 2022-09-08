@@ -109,10 +109,10 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	push_backHists("jets_HT", 40, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
+	push_backHists("jets_HT", 20, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
 	push_backHists("jets_bScore", 30, 0, 3, jets_bScore_hists, m_processName, regionsForVariables);
-	push_backHists("jets_1pt", 40, 60, 200, jets_1pt_hists, m_processName, regionsForVariables);
-	push_backHists("tausT_HT", 40, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
+	push_backHists("jets_1pt", 20, 60, 200, jets_1pt_hists, m_processName, regionsForVariables);
+	push_backHists("tausT_HT", 20, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)

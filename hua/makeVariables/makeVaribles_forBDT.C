@@ -618,7 +618,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	if (m_baselineSelection)
 	{
 		// std::cout << "doing baseline selection\n";
-		if (!(jets_HT > 500 && jets_6pt > 40 && jets_number >= 6))
+		if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6))
 		// if ( !(leptonsMVAT_number==0))
 		{
 			return kFALSE;
