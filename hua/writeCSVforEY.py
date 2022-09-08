@@ -12,8 +12,9 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
     # era = '2016preVFP'
+    era = '2016'
     # inVersion = 'v0baseline_v22addedRunsTree'
     # inVersion = 'v0noBaseline_v24noJER'
     # inVersion = 'v0noBaseline_v25noJERNOTES'

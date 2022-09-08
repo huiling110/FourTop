@@ -39,30 +39,31 @@ if not ifJustMC:
     mergedDirDict['data'] = merged_dir + 'data/'
 
 
-#for MC we should haddd to add
-# for ikey in preDirDict.keys():
-#     print( ikey )
-#     if not os.path.exists( mergedDirDict[ikey] ):
-#         os.mkdir( mergedDirDict[ikey] )
-#     if not ikey == 'mc': continue
-#     for i in os.listdir( preDirDict[ikey] ):
-#         if os.path.isdir( preDirDict[ikey] + i ):
-#             continue
+# for MC we should haddd to add
+for ikey in preDirDict.keys():
+    print( ikey )
+    if not os.path.exists( mergedDirDict[ikey] ):
+        os.mkdir( mergedDirDict[ikey] )
+    if not ikey == 'mc': continue
+    for i in os.listdir( preDirDict[ikey] ):
+        if os.path.isdir( preDirDict[ikey] + i ):
+            continue
 
-#         ifile = preDirDict[ikey]  + i
-#         ifile_post = postDirDict[ikey] + i 
-#         ifile_merged = mergedDirDict[ikey] + i
-#         icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-#         print( icommand )
-#         process = subprocess.run( icommand, shell=True )
-#         output = process.stdout
-#         print( output )
+        ifile = preDirDict[ikey]  + i
+        ifile_post = postDirDict[ikey] + i 
+        ifile_merged = mergedDirDict[ikey] + i
+        # icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        print( icommand )
+        process = subprocess.run( icommand, shell=True )
+        output = process.stdout
+        print( output )
 
 
 
 #for data
-copyData( preDirDict['data'])
-copyData( postDirDict['data'])
+# copyData( preDirDict['data'])
+# copyData( postDirDict['data'])
 
 
 
