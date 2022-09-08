@@ -55,7 +55,8 @@ def main():
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
     # myRegion = '1tau1lCR1'
     ifDataDrivenQCD = False
 
@@ -87,13 +88,16 @@ def main():
     # checkHists( nom['jets_HT'] )
 
 
-    # plotDir = inputDirDict['mc']+'results/'
-    # if not os.path.exists( plotDir ):
-    #     os.mkdir( plotDir )
-    # for variable in variables:        
-    # #     print( systs[variable])
-    #     # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
-    #     makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+    plotDir = inputDir['mc']+'results/'
+    if not os.path.exists( plotDir ):
+        os.mkdir( plotDir )
+    sumProcessPerVarSys = {}
+    for variable in variables:
+        for iRegion in regionList:       
+            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, 'dataVsMC') 
+    #     print( systs[variable])
+        # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
+            # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
@@ -304,7 +308,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
     systsDown.Reset()
     dataHist = 0
 
-    doSystmatic = True
+    doSystmatic = False
     if not systHists:
         print( 'systHist empty, not including systematic uncertainty\n')
         doSystmatic = False
