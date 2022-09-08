@@ -314,9 +314,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausF_minDeltaR = MinDeltaRSingleCal(tausF);
 	tausT_minDeltaR = MinDeltaRSingleCal(tausT);
 
-	tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
-	tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
-	tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
+	// tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
+	// tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
+	// tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
 	tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, leptonsMVAT);
 	tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, leptonsMVAT);
 	tausT_leptonsT_invariantMass = InvariantMass2SysCal(tausT, leptonsMVAT);
@@ -378,7 +378,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	//
 	// aplanarity and sphericity
-	SpheriltyAplanarityCal(jets, jets_spherilty, jets_aplanarity);
+	// SpheriltyAplanarityCal(jets, jets_spherilty, jets_aplanarity);
 
 	if (jets_number > 0)
 	{ /*{{{*/

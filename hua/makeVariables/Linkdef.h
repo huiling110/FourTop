@@ -10,7 +10,8 @@
 #include "variablesFunctions.h"
 
 // All classes
-#pragma link C++ class vector<TLorentzVector>+;
+// #pragma link C++ class vector<TLorentzVector>+;
+#pragma link C++ class vector < ROOT::Math::PtEtaPhiMVector> + ;
 #pragma link C++ class makeVaribles_forBDT+;
 // #pragma link C++ function utilityFunctions+;
 // #pragma link C++ class TauIDSFTool+; 

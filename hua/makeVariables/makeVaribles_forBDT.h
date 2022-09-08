@@ -18,6 +18,7 @@
 
 // Headers needed by this particular selector
 #include "TLorentzVector.h"
+#include <Math/Vector4D.h>
 #include "TH1D.h"
 #include "TString.h"
 #include "TH2D.h"
@@ -372,67 +373,67 @@ public:
     TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
     TTreeReaderValue<Int_t> HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
     // Readers to access the data (delete the ones you do not need).
-    TTreeReaderArray<TLorentzVector> muonsL = {fReader, "muonsL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsL = {fReader, "muonsL"};
     // TTreeReaderArray<Int_t> muonsL_index = {fReader, "muonsL_index"};
-    TTreeReaderArray<TLorentzVector> muonsF = {fReader, "muonsF"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsF = {fReader, "muonsF"};
     // TTreeReaderArray<Int_t> muonsF_index = {fReader, "muonsF_index"};
-    TTreeReaderArray<TLorentzVector> muonsT = {fReader, "muonsT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsT = {fReader, "muonsT"};
     TTreeReaderArray<Int_t> muonsT_index = {fReader, "muonsT_index"};
-    TTreeReaderArray<TLorentzVector> eleMVAL = {fReader, "eleMVAL"};
-    TTreeReaderArray<TLorentzVector> eleMVAF = {fReader, "eleMVAF"};
-    TTreeReaderArray<TLorentzVector> eleMVAT = {fReader, "eleMVAT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAL = {fReader, "eleMVAL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAF = {fReader, "eleMVAF"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAT = {fReader, "eleMVAT"};
     // TTreeReaderArray<Int_t> eleMVAL_index = {fReader, "eleMVAL_index"};
     // TTreeReaderArray<Int_t> eleMVAF_index = {fReader, "eleMVAF_index"};
     TTreeReaderArray<Int_t> eleMVAT_index = {fReader, "eleMVAT_index"};
-    TTreeReaderArray<TLorentzVector> leptonsMVAF = {fReader, "leptonsMVAF"};
-    TTreeReaderArray<TLorentzVector> leptonsMVAT = {fReader, "leptonsMVAT"};
-    TTreeReaderArray<TLorentzVector> leptonsMVAL = {fReader, "leptonsMVAL"};
-    // TTreeReaderArray<TLorentzVector> eleMVAL_IsoT = {fReader, "eleMVAL_IsoT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAF = {fReader, "leptonsMVAF"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAT = {fReader, "leptonsMVAT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAL = {fReader, "leptonsMVAL"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAL_IsoT = {fReader, "eleMVAL_IsoT"};
     // TTreeReaderArray<Int_t> eleMVAL_IsoT_index = {fReader, "eleMVAL_IsoT_index"};
-    // TTreeReaderArray<TLorentzVector> eleMVAF_IsoT = {fReader, "eleMVAF_IsoT"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAF_IsoT = {fReader, "eleMVAF_IsoT"};
     // TTreeReaderArray<Int_t> eleMVAF_IsoT_index = {fReader, "eleMVAF_IsoT_index"};
-    // TTreeReaderArray<TLorentzVector> eleMVAT_IsoT = {fReader, "eleMVAT_IsoT"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAT_IsoT = {fReader, "eleMVAT_IsoT"};
     // TTreeReaderArray<Int_t> eleMVAT_IsoT_index = {fReader, "eleMVAT_IsoT_index"};
-    TTreeReaderArray<TLorentzVector> tausL = {fReader, "tausL"};
-    TTreeReaderArray<TLorentzVector> tausF = {fReader, "tausF"};
-    TTreeReaderArray<TLorentzVector> tausT = {fReader, "tausT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausL = {fReader, "tausL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausF = {fReader, "tausF"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT = {fReader, "tausT"};
     // TTreeReaderArray<Int_t> tausL_index = {fReader, "tausL_index"};
     // TTreeReaderArray<Int_t> tausF_index = {fReader, "tausF_index"};
     // TTreeReaderArray<Int_t> tausT_index = {fReader, "tausT_index"};
     TTreeReaderArray<Int_t> tausT_decayMode = {fReader, "tausT_decayMode"};
-    TTreeReaderArray<TLorentzVector> tausT_TESup = {fReader, "tausT_TESup"};
-    TTreeReaderArray<TLorentzVector> tausT_TESdown = {fReader, "tausT_TESdown"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESup = {fReader, "tausT_TESup"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESdown = {fReader, "tausT_TESdown"};
 
-    TTreeReaderArray<TLorentzVector> jets = {fReader, "jets"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets = {fReader, "jets"};
     TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
     TTreeReaderArray<Int_t> jets_flavour = {fReader, "jets_flavour"};
     TTreeReaderArray<Double_t> jets_btags = {fReader, "jets_btags"};
-    TTreeReaderArray<TLorentzVector> jets_JECup = {fReader, "jets_JECup"};
-    TTreeReaderArray<TLorentzVector> jets_JECdown = {fReader, "jets_JECdown"};
-    TTreeReaderArray<TLorentzVector> bjetsL = {fReader, "bjetsL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets_JECup = {fReader, "jets_JECup"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets_JECdown = {fReader, "jets_JECdown"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> bjetsL = {fReader, "bjetsL"};
     // TTreeReaderArray<Int_t> bjetsL_index = {fReader, "bjetsL_index"};
     // TTreeReaderArray<Double_t> bjetsL_btags = {fReader, "bjetsL_btags"};
-    TTreeReaderArray<TLorentzVector> bjetsM = {fReader, "bjetsM"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> bjetsM = {fReader, "bjetsM"};
     TTreeReaderArray<Int_t> bjetsM_index = {fReader, "bjetsM_index"};
     TTreeReaderArray<Double_t> bjetsM_btags = {fReader, "bjetsM_btags"};
-    TTreeReaderArray<TLorentzVector> bjetsT = {fReader, "bjetsT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> bjetsT = {fReader, "bjetsT"};
     // TTreeReaderArray<Int_t> bjetsT_index = {fReader, "bjetsT_index"};
     // TTreeReaderArray<Double_t> bjetsT_btags = {fReader, "bjetsT_btags"};
-    // TTreeReaderArray<TLorentzVector> nonbjetsT = {fReader, "nonbjetsT"};
-    TTreeReaderArray<TLorentzVector> nonbjetsM = {fReader, "nonbjetsM"};
-    // TTreeReaderArray<TLorentzVector> nonbjetsL = {fReader, "nonbjetsL"};
-    TTreeReaderArray<TLorentzVector> forwardJets = {fReader, "forwardJets"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> nonbjetsT = {fReader, "nonbjetsT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> nonbjetsM = {fReader, "nonbjetsM"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> nonbjetsL = {fReader, "nonbjetsL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> forwardJets = {fReader, "forwardJets"};
     // TTreeReaderArray<Int_t> forwardJets_index = {fReader, "forwardJets_index"};
     // TTreeReaderArray<Double_t> forwardJets_btags = {fReader, "forwardJets_btags"};
     TTreeReaderArray<Double_t> patElectron_charge_ = {fReader, "patElectron_charge_"};
     // TTreeReaderArray<Double_t> Tau_charge_ = {fReader, "Tau_charge_"};
     TTreeReaderArray<Double_t> Muon_charge_ = {fReader, "Muon_charge_"};
-    // TTreeReaderArray<TLorentzVector> genTaus = {fReader, "genTaus"};
-    // TTreeReaderArray<TLorentzVector> genEles = {fReader, "genEles"};
-    // TTreeReaderArray<TLorentzVector> genMuons = {fReader, "genMuons"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genTaus = {fReader, "genTaus"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genEles = {fReader, "genEles"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genMuons = {fReader, "genMuons"};
     TTreeReaderValue<Double_t> Met_pt = {fReader, "Met_pt"};
     TTreeReaderValue<Double_t> Met_phi = {fReader, "Met_phi"};
-    // TTreeReaderArray<TLorentzVector> tops_toptagger = {fReader, "tops_toptagger"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tops_toptagger = {fReader, "tops_toptagger"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up_ = {fReader, "EVENT_prefireWeight_up_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_down_ = {fReader, "EVENT_prefireWeight_down_"};

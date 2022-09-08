@@ -6,7 +6,7 @@
 
 using namespace correction;
 
-Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData  ){
+Double_t calMuonIDSF( const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& muonsT, const TH2D* MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData  ){
 	Double_t muonIDSF = 1.0;
 	if ( !isData )	{
 		for (UInt_t i = 0; i < muonsT.GetSize(); i++) {
@@ -35,7 +35,7 @@ Double_t calMuonIDSF( const TTreeReaderArray<TLorentzVector>& muonsT, const TH2D
 	return muonIDSF;
 }
 
-Double_t calEleMVA_IDSF( const TTreeReaderArray<TLorentzVector>& elesMVAT, const TH2D* EleIDSF  ){
+Double_t calEleMVA_IDSF( const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& elesMVAT, const TH2D* EleIDSF  ){
 	Double_t eleIDSF = 1.0;
 	for (UInt_t i = 0; i < elesMVAT.GetSize(); i++) { 
 		Int_t binx = EleIDSF->GetXaxis()->FindBin(elesMVAT.At(i).Eta());
@@ -47,7 +47,7 @@ Double_t calEleMVA_IDSF( const TTreeReaderArray<TLorentzVector>& elesMVAT, const
 	return eleIDSF;
 }
 
-Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era, const std::string& unc_jet, const std::string& unc_e, const std::string& unc_mu){
+Double_t calTau_IDSF(  const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, const TString era, const std::string& unc_jet, const std::string& unc_e, const std::string& unc_mu){
 	// TauIDSFTool VSjetIDTool = TauIDSFTool(era,"DeepTau2017v2p1VSjet","Medium", false, false, true);
 	TauIDSFTool VSjetIDTool = TauIDSFTool(era.Data(),"DeepTau2017v2p1VSjet","Medium", false, false, true);
 	TauIDSFTool VSeIDTool = TauIDSFTool(era.Data(),"DeepTau2017v2p1VSe","VVLoose", false, false, true); //no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
@@ -67,7 +67,7 @@ Double_t calTau_IDSF(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTr
 	return tauIDSF;
 }
 
-Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVector>& jets, const TH2D* TriggerSF, const TH2D* TriggerSFunc, Bool_t isData  ){
+Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& jets, const TH2D* TriggerSF, const TH2D* TriggerSFunc, Bool_t isData  ){
 	Double_t triggerSF = 1.0;
 	if ( isData ){
 		Int_t binx = TriggerSF->GetXaxis()->FindBin(jets_HT);
@@ -83,7 +83,7 @@ Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<TLorentzVe
 	return triggerSF;
 }
 
-Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, correction::CorrectionSet* cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData ){
+Double_t calTau_IDSF_new(  const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& tausT,  const TTreeReaderArray<Int_t>& tausT_decayMode,  const TTreeReaderArray<Int_t>& tausT_genPartFlav, correction::CorrectionSet* cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData ){
 	//read from official json file
 	//syst='nom', 'up' or  'down'.
 	Double_t sf = 1.0;
@@ -108,7 +108,7 @@ Double_t calTau_IDSF_new(  const TTreeReaderArray<TLorentzVector>& tausT,  const
 	return sf;
 }
 
-// Double_t calJES_new(const TTreeReaderArray<TLorentzVector>& jets ){
+// Double_t calJES_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& jets ){
 // 	//https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/JME
 // 	for (UInt_t i=0; i<jets.GetSize(); i++){
 
