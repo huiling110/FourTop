@@ -48,17 +48,21 @@ def main():
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
-    inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
+    # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
+    inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
     # histVersion = 'variableHists_v1moreVariables'
     # histVersion = 'variableHists_v0'
     histVersion = 'variableHists_v1variables'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # myRegion = '1tau1lCR1'
-    ifCorrectQCDYield = True
+    # ifCorrectQCDYield = True
+    ifCorrectQCDYield = False
+    # plotName = 'dataVsMC_qcdYieldCorrected'
+    plotName = 'dataVsMC'
 
     #qcd corrected only in CR an VR
     # # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
@@ -79,18 +83,18 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )       
     print( sumProcessPerVar )
 
+    # qcdYieldDic = {}
+    # qcdYieldDic['2016postVFP']['1tau0lVR'] = 3672.0 #+225
+    # qcdYieldDic['2016postVFP']['1tau0lCR'] = 1519.0 # ± 551
     if ifCorrectQCDYield:
         for ivar in variables:
             sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Print()
-            sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Scale( 767/sumProcessPerVar[ivar]['1tau0lVR']['qcd'].GetEntries() )
+            sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Scale( 3672/sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Integral() )
             sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Print()
+            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Print()
+            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Scale( 1519/sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Integral() )
+            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Print()
 
-    # nom, systs = extractHistograms( inputDirDict, variables, myRegion )#nom[variable][sample]
-    # # nom = getSummedHists( )
-    # #nom[var].key() is actually summed processes
-    # print('nom: ', nom)
-    # print('systs: ', systs )
-    # checkHists( nom['jets_HT'] )
 
 
     plotDir = inputDir['mc']+'results/'
@@ -99,7 +103,7 @@ def main():
     sumProcessPerVarSys = {}
     for variable in variables:
         for iRegion in regionList:       
-            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, 'dataVsMC') 
+            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, plotName) 
     #     print( systs[variable])
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
