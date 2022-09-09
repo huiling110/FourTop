@@ -1,3 +1,10 @@
+#include "TString.h"
+#include "TFile.h"
+#include "TTree.h"
+#include "TChain.h"
+#include "TStopwatch.h"
+
+
 
 void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/",
@@ -28,6 +35,7 @@ void run_writeHist(
     // TString inputProcess = "jetHT_2016C"
 )
 {
+    using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
 
     Bool_t isData = kFALSE;

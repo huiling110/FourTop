@@ -25,12 +25,13 @@ def main():
     # fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/objectSelectionResults/' + jobVersionName
     fileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'+iera+'/objectSelectionResults/' + jobVersionName
     uf.checkMakeDir( fileDir )
-    # writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
+    writeHistsOneFileOneProcess( inOutListMC[1], genSumDic, samplesCrossSection, lumi, fileDir+'mc/' )
     mergeRuns(inOutListMC[1], fileDir+'mc/')
-    # writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
+    writeHistsOneFileOneProcess( inOutListData[1], genSumDic, samplesCrossSection, lumi, fileDir+'data/', True )
 
 
 def mergeRuns( inputDir, outDir):
+    uf.checkMakeDir( outDir )
     for iPro in os.listdir(outDir):
         print(iPro)
         iProcess = iPro.split('.root')[0]
