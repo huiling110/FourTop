@@ -55,7 +55,7 @@ def main():
     # histVersion = 'variableHists_v1moreVariables'
     # histVersion = 'variableHists_v0'
     histVersion = 'variableHists_v1variables'
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT', 'bjetsM_MHT', 'bjets_Number', 'bjets_1pt', 'jets_4bscoreMulti', 'jets_2pt', 'jets_HTto4rest' ]
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_MHT', 'bjets_Number', 'bjets_1pt', 'jets_bScoreMultiply', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_HTto4rest' ]
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
