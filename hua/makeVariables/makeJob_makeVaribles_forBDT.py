@@ -23,12 +23,12 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v27noJERnoTESWithObjectRemoval'
 inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v28JERTESBack'
-# outVersion = 'v0noBaseline'
-outVersion = 'v1baseline'
+outVersion = 'v0noBaseline'
+# outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
 year = '2016'
-selectionBit = '7'
+selectionBit = '3'
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
@@ -48,7 +48,7 @@ def main():
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#???
+        if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )
