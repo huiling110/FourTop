@@ -242,6 +242,7 @@ Bool_t writeHist::Process(Long64_t entry)
 			eventCount_hists[14]->Fill(.0, basicWeight);
 		}
 		if (*tausT_number == 1 && *leptonsMVAT_number == 1)
+		// if (*tausT_number == 1 && (*muonsT_number + *elesMVAT_number) == 1)
 		{
 			eventCount_hists[15]->Fill(.0, basicWeight);
 		}
