@@ -45,6 +45,12 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 		jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
 		jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
 		tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
+		bjetsM_MHT_hists[vectorIndex]->Fill(*bjetsM_MHT, weight);
+		bjets_Number_hists[vectorIndex]->Fill(*bjetsM_num, weight);
+		bjets_1pt_hists[vectorIndex]->Fill(*bjetsM_1pt, weight);
+		jets_4bscoreMulti_hists[vectorIndex]->Fill(*jets_4largestBscoreMulti, weight);
+		jets_2pt_hists[vectorIndex]->Fill(*jets_2pt, weight);
+		jets_HTto4rest_hists[vectorIndex]->Fill(*jets_rationHT_4toRest, weight);
 	}
 }
 
@@ -110,10 +116,10 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
 	push_backHists("jets_HT", 10, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
-	push_backHists("jets_bScore", 20, 0, 3, jets_bScore_hists, m_processName, regionsForVariables);
+	push_backHists("jets_bScore", 10, 0.5, 2.0, jets_bScore_hists, m_processName, regionsForVariables);
 	push_backHists("jets_1pt", 10, 80, 500, jets_1pt_hists, m_processName, regionsForVariables);
-	push_backHists("tausT_HT", 20, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_MHT", 20, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
+	push_backHists("tausT_HT", 10, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
+	push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
 	push_backHists("bjets_Number", 3, 2, 4, bjets_Number_hists, m_processName, regionsForVariables);
 	push_backHists("bjets_1pt", 10, 80, 500, bjets_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_4bscoreMulti", 10, 0, 1, jets_4bscoreMulti_hists, m_processName, regionsForVariables);

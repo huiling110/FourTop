@@ -44,20 +44,23 @@ legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 includeDataInStack = True
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
+    era = '2016'
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
-    inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
+    # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
+    inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
     # histVersion = 'variableHists_v1moreVariables'
     # histVersion = 'variableHists_v0'
     histVersion = 'variableHists_v1variables'
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT']
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT', 'bjetsM_MHT', 'bjets_Number', 'bjets_1pt', 'jets_4bscoreMulti', 'jets_2pt', 'jets_HTto4rest' ]
     # variables = [ 'jets_HT']
     # myRegion = '1tau0lCR'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    regionList = ['1tau1lCR0' ]
     # myRegion = '1tau1lCR1'
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False

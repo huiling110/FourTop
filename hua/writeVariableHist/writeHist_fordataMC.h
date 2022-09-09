@@ -226,10 +226,10 @@ public:
    TTreeReaderValue<Int_t> bjetsM_num = {fReader, "bjetsM_num"};
    // TTreeReaderValue<Int_t> bjetsT_num = {fReader, "bjetsT_num"};
    // TTreeReaderValue<Double_t> bjetsL_HT = {fReader, "bjetsL_HT"};
-   // TTreeReaderValue<Double_t> bjetsM_HT = {fReader, "bjetsM_HT"};
+   TTreeReaderValue<Double_t> bjetsM_HT = {fReader, "bjetsM_HT"};
    // TTreeReaderValue<Double_t> bjetsT_HT = {fReader, "bjetsT_HT"};
    // TTreeReaderValue<Double_t> bjetsL_MHT = {fReader, "bjetsL_MHT"};
-   // TTreeReaderValue<Double_t> bjetsM_MHT = {fReader, "bjetsM_MHT"};
+   TTreeReaderValue<Double_t> bjetsM_MHT = {fReader, "bjetsM_MHT"};
    // TTreeReaderValue<Double_t> bjetsT_MHT = {fReader, "bjetsT_MHT"};
    // TTreeReaderValue<Double_t> bjetsL_invariantMass = {fReader, "bjetsL_invariantMass"};
    // TTreeReaderValue<Double_t> bjetsM_invariantMass = {fReader, "bjetsM_invariantMass"};
@@ -256,7 +256,7 @@ public:
    // TTreeReaderValue<Double_t> bjetsL_4pt = {fReader, "bjetsL_4pt"};
    // TTreeReaderValue<Double_t> bjetsL_4eta = {fReader, "bjetsL_4eta"};
    // TTreeReaderValue<Double_t> bjetsL_4phi = {fReader, "bjetsL_4phi"};
-   // TTreeReaderValue<Double_t> bjetsM_1pt = {fReader, "bjetsM_1pt"};
+   TTreeReaderValue<Double_t> bjetsM_1pt = {fReader, "bjetsM_1pt"};
    // TTreeReaderValue<Double_t> bjetsM_1eta = {fReader, "bjetsM_1eta"};
    // TTreeReaderValue<Double_t> bjetsM_1phi = {fReader, "bjetsM_1phi"};
    // TTreeReaderValue<Double_t> bjetsM_2pt = {fReader, "bjetsM_2pt"};
