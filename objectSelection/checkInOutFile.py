@@ -44,7 +44,7 @@ def main():
     # #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     for ivar in variableList:
-        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, True, iera )
+        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar, False, iera )
     print( sumProcessPerVar )
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRawEntries_objectSelection.csv', True)
