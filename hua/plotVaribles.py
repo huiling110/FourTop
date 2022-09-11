@@ -63,10 +63,10 @@ def main():
     # regionList = ['1tau1lCR0' ]
     regionList = ['1tau0lCR']
     # myRegion = '1tau1lCR1'
-    ifCorrectQCDYield = True
-    # ifCorrectQCDYield = False
-    plotName = 'dataVsMC_qcdYieldCorrected'
-    # plotName = 'dataVsMC'
+    # ifCorrectQCDYield = True
+    ifCorrectQCDYield = False
+    # plotName = 'dataVsMC_qcdYieldCorrected'
+    plotName = 'dataVsMC'
 
     #qcd corrected only in CR an VR
     # # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'

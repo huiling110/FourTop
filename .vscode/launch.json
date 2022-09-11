@@ -5,11 +5,11 @@
 			"name": "Root Simple Run",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root",
+			"program": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root.exe",
 			"args": [
 				"-l",
 				"-q",
-				"${fileDirname}/${fileBasename}+"
+				"${fileDirname}/${fileBasename}+g"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
@@ -41,8 +41,8 @@
 				"-l",
 				"-b",
 				"-q",
-				// "${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C+g"
-				"${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C"
+				"${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C+g"
+				// "${workspaceFolder}/hua/makeVariables/run_makeVaribles_forBDT.C"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/hua/makeVariables/",

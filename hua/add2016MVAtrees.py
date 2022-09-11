@@ -13,8 +13,8 @@ def copyData( dir ):
         print( output )
 
 # version = 'v0baseline_v16_HLTselection/'
-# version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
-version = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
+version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
+# version = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
@@ -41,30 +41,30 @@ if not ifJustMC:
 
 
 # for MC we should haddd to add
-# for ikey in preDirDict.keys():
-#     print( ikey )
-#     if not os.path.exists( mergedDirDict[ikey] ):
-#         os.mkdir( mergedDirDict[ikey] )
-#     if not ikey == 'mc': continue
-#     for i in os.listdir( preDirDict[ikey] ):
-#         if os.path.isdir( preDirDict[ikey] + i ):
-#             continue
+for ikey in preDirDict.keys():
+    print( ikey )
+    if not os.path.exists( mergedDirDict[ikey] ):
+        os.mkdir( mergedDirDict[ikey] )
+    if not ikey == 'mc': continue
+    for i in os.listdir( preDirDict[ikey] ):
+        if os.path.isdir( preDirDict[ikey] + i ):
+            continue
 
-#         ifile = preDirDict[ikey]  + i
-#         ifile_post = postDirDict[ikey] + i 
-#         ifile_merged = mergedDirDict[ikey] + i
-#         icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-#         # icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
-#         print( icommand )
-#         process = subprocess.run( icommand, shell=True )
-#         output = process.stdout
-#         print( output )
+        ifile = preDirDict[ikey]  + i
+        ifile_post = postDirDict[ikey] + i 
+        ifile_merged = mergedDirDict[ikey] + i
+        # icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        print( icommand )
+        process = subprocess.run( icommand, shell=True )
+        output = process.stdout
+        print( output )
 
 
 
 #for data
-copyData( preDirDict['data'])
-copyData( postDirDict['data'])
+# copyData( preDirDict['data'])
+# copyData( postDirDict['data'])
 
 
 

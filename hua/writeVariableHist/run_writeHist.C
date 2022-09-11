@@ -4,7 +4,7 @@
 #include "TChain.h"
 #include "TStopwatch.h"
 
-
+#include <iostream>
 
 void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/",
@@ -18,11 +18,12 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v26noJERNOTESwithSorting/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1noBaselineModifiedDouble_t_v27noJERnoTESWithObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v28JERTESBack/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
@@ -64,14 +65,14 @@ void run_writeHist(
         // genWeightSumInitial = h_genWeight->GetMean() * h_genWeight->GetEntries();
     }
     m_file->Close();
-    cout << inputProcess << ": "
-         << "genWeightSumInitial: " << genWeightSumInitial << "\n";
+    std::cout << inputProcess << ": "
+              << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
     // get era
     TString temp = inputDir(inputDir.Index("forMVA/") + 7, inputDir.Sizeof());
-    // cout<<temp<<"\n";
+    // std::cout<<temp<<"\n";
     TString era = temp(0, temp.First("/"));
-    cout << "era: " << era << "\n";
+    std::cout << "era: " << era << "\n";
 
     TChain chain("newtree");
     chain.Add(inputFile);
@@ -79,7 +80,7 @@ void run_writeHist(
     TString sumGenWeight = std::to_string(genWeightSumInitial);
     // TString option = inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
     TString option = sumGenWeight + ":" + inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
-    cout << "option in run_writeHist: " << option << "\n";
+    std::cout << "option in run_writeHist: " << option << "\n";
 
     TStopwatch t;
     t.Start();
