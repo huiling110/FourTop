@@ -21,7 +21,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v24noJER'
 # inVersion = 'v26noJERNOTESwithSorting'
 # inVersion = 'v27noJERnoTESWithObjectRemoval'
-inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
+# inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
+inVersion = 'v30TESnoJER'
 # inVersion = 'v28JERTESBack'
 outVersion = 'v0noBaseline'
 # outVersion = 'v1baseline'
@@ -47,7 +48,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
