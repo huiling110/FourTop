@@ -20,8 +20,8 @@ def main():
     inOutListMC = [ inputBase + era +'/' + 'mc/', outputBase + eraDic[era] + '/' +jobVersionName  + 'mc/' ]
     inOutListData = [ inputBase + era +'/' + 'data/',outputBase + eraDic[era] + '/' +jobVersionName  + 'data/' ]
     # iera = '2016postVFP'
-    # iera = '2016preVFP'
-    iera = '2016'
+    iera = '2016preVFP'
+    # iera = '2016'
 
     # checkInOutFileNumber( inOutListMC )
     # checkInOutFileNumber( inOutListData )
