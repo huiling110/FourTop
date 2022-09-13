@@ -7,13 +7,6 @@
 #include <iostream>
 
 void run_writeHist(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baseline_v19HLTSelection/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v22addedRunsTree/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v23basicWeight/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1noBaseline_v23basicWeight/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v24noJER/mc/",
-    // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/output/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v25noJERNOTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v26noJERNOTESwithSorting/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/mc/",
@@ -22,7 +15,7 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1noBaselineModifiedDouble_t_v27noJERnoTESWithObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v28JERTESBack/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // TString inputProcess = "ttbar_0l",
@@ -31,8 +24,8 @@ void run_writeHist(
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    // TString selector = "writeHist_fordataMC.C+"
-    TString selector = "writeHist.C+"
+    TString selector = "writeHist_fordataMC.C+"
+    // TString selector = "writeHist.C+"
     // TString inputProcess = "jetHT_2016C"
 )
 {

@@ -1,6 +1,7 @@
 #include <TString.h>
 
 std::map<TString, Double_t> lumiMap = {
+    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TWikiLUM
     {"2016preVFP", 19500}, //"UL2016_preVFP", 19500.0 from Fabio
     {"2016postVFP", 16810},
     {"2016", 36310},

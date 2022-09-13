@@ -60,5 +60,16 @@
                 "cmsenv"
             ]
         }
+
+        {
+            "label": "root run",
+            "command": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root",
+			"args": [
+				"-l",
+				"-q",
+				"${fileDirname}/${fileBasename}"
+			],
+			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
+        }
     ]
 }

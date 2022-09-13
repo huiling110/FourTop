@@ -63,8 +63,8 @@ for ikey in preDirDict.keys():
 
 
 #for data
-# copyData( preDirDict['data'])
-# copyData( postDirDict['data'])
+copyData( preDirDict['data'])
+copyData( postDirDict['data'])
 
 
 

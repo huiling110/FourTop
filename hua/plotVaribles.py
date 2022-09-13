@@ -61,7 +61,8 @@ def main():
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0' ]
-    regionList = ['1tau0lCR']
+    regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2']
+    
     # myRegion = '1tau1lCR1'
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False
