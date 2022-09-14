@@ -35,8 +35,8 @@ public:
    TString m_version;
    // std::vector<TString> m_options;
    TFile *outputFile;
-   //    TH1D* hist_jetsNumber;//for event count
    //!!!hists need to be scalec in terminate function
+   //???make this variables easier to add
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
    std::vector<TH1D *> jetsNumber_hists;
@@ -52,6 +52,8 @@ public:
    std::vector<TH1D *> bjetsM_MHT_hists;
    std::vector<TH1D *> bjets_Number_hists;
    std::vector<TH1D *> bjets_1pt_hists;
+   std::vector<TH1D *> bjets_HT_hists;
+
    std::vector<TH1D *> jets_bScoreMultiply_hists;
    std::vector<TH1D *> jets_2pt_hists;
    std::vector<TH1D *> jets_3pt_hists;
@@ -241,7 +243,7 @@ public:
    TTreeReaderValue<Double_t> bjetsM_MHT = {fReader, "bjetsM_MHT"};
    // TTreeReaderValue<Double_t> bjetsT_MHT = {fReader, "bjetsT_MHT"};
    // TTreeReaderValue<Double_t> bjetsL_invariantMass = {fReader, "bjetsL_invariantMass"};
-   // TTreeReaderValue<Double_t> bjetsM_invariantMass = {fReader, "bjetsM_invariantMass"};
+   TTreeReaderValue<Double_t> bjetsM_invariantMass = {fReader, "bjetsM_invariantMass"};
    // TTreeReaderValue<Double_t> bjetsT_invariantMass = {fReader, "bjetsT_invariantMass"};
    // TTreeReaderValue<Double_t> bjetsL_transMass = {fReader, "bjetsL_transMass"};
    // TTreeReaderValue<Double_t> bjetsM_transMass = {fReader, "bjetsM_transMass"};
