@@ -44,27 +44,25 @@ legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
 includeDataInStack = True
 
 def main():
-    era = '2016postVFP'
-    # era = '2016'
+    # era = '2016postVFP'
+    era = '2016'
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
-    inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
+    # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
+    inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v0noBaseline_v30TESnoJER'
     # histVersion = 'variableHists_v1moreVariables'
     # histVersion = 'variableHists_v0'
     histVersion = 'variableHists_v1variables'
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT', 'tausT_1pt',  'bjetsM_MHT', 'bjets_Number', 'bjets_1pt', 'jets_bScoreMultiply', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_HTto4rest' ]
+    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt', 'tausT_HT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_MHT', 'bjetsM_Number', 'bjetsM_1pt', 'bjetsM_HT','jets_bScoreMultiply', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_HTto4rest' ]
     # variables = [ 'jets_HT']
-    # myRegion = '1tau0lCR'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0' ]
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2']
     
-    # myRegion = '1tau1lCR1'
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False
     # plotName = 'dataVsMC_qcdYieldCorrected'

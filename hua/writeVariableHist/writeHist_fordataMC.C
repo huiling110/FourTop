@@ -48,7 +48,7 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 
 		bjetsM_MHT_hists[vectorIndex]->Fill(*bjetsM_MHT, weight);
 		bjets_Number_hists[vectorIndex]->Fill(*bjetsM_num, weight);
-		bjetsM_HT_hists[vectorIndex]->Fill(*bjetsM_HT, weight);
+		bjets_HT_hists[vectorIndex]->Fill(*bjetsM_HT, weight);
 		bjets_1pt_hists[vectorIndex]->Fill(*bjetsM_1pt, weight);
 
 		jets_bScoreMultiply_hists[vectorIndex]->Fill(*jets_bScoreMultiply, weight);
@@ -132,9 +132,9 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	push_backHists("tausT_1pt", 10, 20, 200, tausT_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
-	push_backHists("bjets_Number", 4, 0, 4, bjets_Number_hists, m_processName, regionsForVariables);
-	push_backHists("bjets_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
-	push_backHists("bjets_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
+	push_backHists("bjetsM_Number", 4, 0, 4, bjets_Number_hists, m_processName, regionsForVariables);
+	push_backHists("bjetsM_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
+	push_backHists("bjetsM_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_bScoreMultiply", 10, 0, 1, jets_bScoreMultiply_hists, m_processName, regionsForVariables);
 	push_backHists("jets_2pt", 10, 100, 300, jets_2pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_3pt", 10, 100, 300, jets_3pt_hists, m_processName, regionsForVariables);
@@ -240,7 +240,7 @@ void writeHist_fordataMC::Terminate()
 		bjetsM_MHT_hists[j]->Scale(processScale);
 		bjetsM_MHT_hists[j]->Print();
 		bjets_Number_hists[j]->Scale(processScale);
-		bjetsM_HT_hists[j]->Scale(processScale);
+		bjets_HT_hists[j]->Scale(processScale);
 		bjets_1pt_hists[j]->Scale(processScale);
 		jets_bScoreMultiply_hists[j]->Scale(processScale);
 		jets_2pt_hists[j]->Scale(processScale);

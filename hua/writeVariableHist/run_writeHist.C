@@ -25,8 +25,8 @@ void run_writeHist(
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    // TString selector = "writeHist_fordataMC.C+"
-    TString selector = "writeHist.C+"
+    TString selector = "writeHist_fordataMC.C+"
+    // TString selector = "writeHist.C+"
     // TString inputProcess = "jetHT_2016C"
 )
 {
