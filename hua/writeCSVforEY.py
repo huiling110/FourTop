@@ -11,28 +11,28 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
     # era = '2016preVFP'
-    # era = '2016'
+    era = '2016'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
-    inVersion = 'v0noBaseline_v30TESnoJER'
+    inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
+    # inVersion = 'v0noBaseline_v30TESnoJER'
     # histVersion = 'variableHists_v0'
-    # histVersion = 'variableHists_v2cutflow1tau0l'
-    histVersion = 'variableHists_v0forCutFlow'
-    # histVersion = 'variableHists_v1variables'
+    # histVersion = 'variableHists_v0forCutFlow'
+    histVersion = 'variableHists_v1variables'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
+    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
-    csvName = 'channelsEY'
+    # csvName = 'channelsEY'
     # csvName = '1tau0lCRs'
+    csvName = '1tau1lCRs_test'
 
 
 
@@ -47,11 +47,6 @@ def main():
         'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
         'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
     }
-    # regionList = [ '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4'] 
-    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = [ '1tau1lSR', '1tau1lCR0', '1tau1lCR1', '1tau1lCR2', '1tau1lCR3' ]
-    # regionList = ['baseline1', 'baseline2', 'baseline3']
-    # regionList = ['baseline1']
 
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -60,14 +55,8 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv' )
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels.csv' )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'subchannels_rawEntries.csv', True )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow.csv' )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', '1tau0lCutflow_rawEntries.csv', True )
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlow_objectSelection.csv')
-    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', 'cutFlowRaw_objectSelection.csv', True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
 
 
 
@@ -129,9 +118,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     df = pd.DataFrame( data, index=summedProcessList )
     # df.loc['totalBG'] = df.drop('data', 'tttt').sum(axis=0, numeric_only=True)       
     # df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
-    df.loc['totalbg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']
-    df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
-    # df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+    df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt']
+    # df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
 
     # df['HLTeff'] = df['HLT']/df['initial']
     # df['preeff'] = df['preSelection']/df['HLT']
@@ -139,6 +127,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     if not writeData:
         # df = df.drop(labels=6, axis=0)
         df = df.drop('data')
+    else:
+        df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     df['process'] = df.index
     print( df )
