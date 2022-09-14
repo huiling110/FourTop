@@ -18,10 +18,6 @@
 //
 // To use this file, try the following session on your Tree T:
 //
-// root> T->Process("writeHist_fordataMC.C")
-// root> T->Process("writeHist_fordataMC.C","some options")
-// root> T->Process("writeHist_fordataMC.C+")
-//
 
 #include <TH2.h>
 #include <TStyle.h>

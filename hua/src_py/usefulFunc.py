@@ -20,8 +20,9 @@ def getGenSumDic( inputCsv, era ):
 # def getProcessScale( processName, era ):
 #     scale = lumiMap[era]*samplesCrossSection[processName]/getGenSumDic()
 
-def sumbitJobs(jobsh):
+def sumbitJobs( indir, jobsh):
     print('staring to submit jobs')
+    os.chdir(indir)
     command = 'bash {}'.format( jobsh )
     process = subprocess.run( command, shell=True ) 
     output = process.stdout

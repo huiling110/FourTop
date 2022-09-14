@@ -28,12 +28,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v28JERTESBack/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v30TESnoJER/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
-    # version = "v0forCutFlow"
-    version = "v1variables"
+    version = "v0forCutFlow"
+    # version = "v1variables"
     justMC = False
     # justMC = True
     isTest = 0
@@ -53,7 +54,8 @@ def main():
         makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
 
 
-    uf.sumbitJobs( os.getcwd()+'/subAllProcess.sh')
+    # uf.sumbitJobs( os.getcwd()+'/hua/writeVariableHist/', 'subAllProcess.sh')
+    uf.sumbitJobs( os.getcwd(), 'subAllProcess.sh')
 
 
 

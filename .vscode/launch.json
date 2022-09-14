@@ -1,6 +1,8 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+
+	
 		{
 			"name": "Root Simple Run",
 			"type": "cppdbg",
@@ -60,14 +62,14 @@
 			// "preLaunchTask": "build",
 			// "envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
-		// {
-		// 	"name": "Python Huiling Edition",
-		// 	"type": "python",
-		// 	"request": "launch",
-		// 	"program": "${file}",
-		// 	"console": "integratedTerminal",
-			// "envFile": "${workspaceFolder}/environmentVariablesFile.env",
-		// },
+		{
+			"name": "Python Huiling Edition",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"envFile": "${workspaceFolder}/environmentVariablesFile.env",
+		},
 		{
 			"name": "run objectTSelector",
 			"type": "cppdbg",

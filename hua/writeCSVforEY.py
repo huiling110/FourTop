@@ -11,13 +11,14 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    # era = '2016postVFP'
+    era = '2016postVFP'
     # era = '2016preVFP'
-    era = '2016'
+    # era = '2016'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
-    inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
+    # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
+    inVersion = 'v0noBaseline_v30TESnoJER'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v2cutflow1tau0l'
     histVersion = 'variableHists_v0forCutFlow'
