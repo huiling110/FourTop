@@ -29,34 +29,34 @@
 #include "../src_cpp/usefulFuction.h"
 #include "writeHist_fordataMC.h"
 
-void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
-{
-	if (isRegion)
-	{
-		eventCount_hists[vectorIndex]->Fill(.0, weight);
-		jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
-		jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
-		jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
-		jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
+// void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+// {
+// 	if (isRegion)
+// 	{
+// 		eventCount_hists[vectorIndex]->Fill(.0, weight);
+// 		jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
+// 		jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
+// 		jets_bScore_hists[vectorIndex]->Fill(*jets_bScore, weight);
+// 		jets_1pt_hists[vectorIndex]->Fill(*jets_1pt, weight);
 
-		tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
-		tausT_1pt_hists[vectorIndex]->Fill(*tausT_1pt, weight);
-		tausT_1eta_hists[vectorIndex]->Fill(*tausT_1eta, weight);
+// 		tausT_HT_hists[vectorIndex]->Fill(*tausT_HT, weight);
+// 		tausT_1pt_hists[vectorIndex]->Fill(*tausT_1pt, weight);
+// 		tausT_1eta_hists[vectorIndex]->Fill(*tausT_1eta, weight);
 
-		bjetsM_MHT_hists[vectorIndex]->Fill(*bjetsM_MHT, weight);
-		bjets_Number_hists[vectorIndex]->Fill(*bjetsM_num, weight);
-		bjets_HT_hists[vectorIndex]->Fill(*bjetsM_HT, weight);
-		bjets_1pt_hists[vectorIndex]->Fill(*bjetsM_1pt, weight);
+// 		bjetsM_MHT_hists[vectorIndex]->Fill(*bjetsM_MHT, weight);
+// 		bjets_Number_hists[vectorIndex]->Fill(*bjetsM_num, weight);
+// 		bjets_HT_hists[vectorIndex]->Fill(*bjetsM_HT, weight);
+// 		bjets_1pt_hists[vectorIndex]->Fill(*bjetsM_1pt, weight);
 
-		jets_bScoreMultiply_hists[vectorIndex]->Fill(*jets_bScoreMultiply, weight);
-		jets_2pt_hists[vectorIndex]->Fill(*jets_2pt, weight);
-		jets_3pt_hists[vectorIndex]->Fill(*jets_3pt, weight);
-		jets_4pt_hists[vectorIndex]->Fill(*jets_4pt, weight);
-		jets_5pt_hists[vectorIndex]->Fill(*jets_5pt, weight);
-		jets_6pt_hists[vectorIndex]->Fill(*jets_6pt, weight);
-		jets_HTto4rest_hists[vectorIndex]->Fill(*jets_rationHT_4toRest, weight);
-	}
-}
+// 		jets_bScoreMultiply_hists[vectorIndex]->Fill(*jets_bScoreMultiply, weight);
+// 		jets_2pt_hists[vectorIndex]->Fill(*jets_2pt, weight);
+// 		jets_3pt_hists[vectorIndex]->Fill(*jets_3pt, weight);
+// 		jets_4pt_hists[vectorIndex]->Fill(*jets_4pt, weight);
+// 		jets_5pt_hists[vectorIndex]->Fill(*jets_5pt, weight);
+// 		jets_6pt_hists[vectorIndex]->Fill(*jets_6pt, weight);
+// 		jets_HTto4rest_hists[vectorIndex]->Fill(*jets_rationHT_4toRest, weight);
+// 	}
+// }
 
 void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
@@ -133,27 +133,27 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	push_backHists("jets_HT", 10, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
-	push_backHists("jets_bScore", 10, 0.5, 2.0, jets_bScore_hists, m_processName, regionsForVariables);
-	push_backHists("jets_1pt", 10, 80, 500, jets_1pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_HT", 10, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_bScore", 10, 0.5, 2.0, jets_bScore_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_1pt", 10, 80, 500, jets_1pt_hists, m_processName, regionsForVariables);
 
-	push_backHists("tausT_HT", 10, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
-	push_backHists("tausT_1eta", 10, -3, 3, tausT_1eta_hists, m_processName, regionsForVariables);
-	// push_backHists("", 10, 20, 200, _hists, m_processName, regionsForVariables);
+	// push_backHists("tausT_HT", 10, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
+	// push_backHists("tausT_1eta", 10, -3, 3, tausT_1eta_hists, m_processName, regionsForVariables);
+	// // push_backHists("", 10, 20, 200, _hists, m_processName, regionsForVariables);
 
-	push_backHists("tausT_1pt", 10, 20, 200, tausT_1pt_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_Number", 5, 0, 5, bjets_Number_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_bScoreMultiply", 10, 0, 1, jets_bScoreMultiply_hists, m_processName, regionsForVariables);
-	push_backHists("jets_2pt", 10, 100, 300, jets_2pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_3pt", 10, 100, 300, jets_3pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_4pt", 10, 100, 300, jets_4pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_5pt", 10, 100, 300, jets_5pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_6pt", 10, 40, 200, jets_6pt_hists, m_processName, regionsForVariables);
-	push_backHists("jets_HTto4rest", 10, 1, 10, jets_HTto4rest_hists, m_processName, regionsForVariables);
+	// push_backHists("tausT_1pt", 10, 20, 200, tausT_1pt_hists, m_processName, regionsForVariables);
+	// push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
+	// push_backHists("bjetsM_Number", 5, 0, 5, bjets_Number_hists, m_processName, regionsForVariables);
+	// push_backHists("bjetsM_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
+	// push_backHists("bjetsM_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_bScoreMultiply", 10, 0, 1, jets_bScoreMultiply_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_2pt", 10, 100, 300, jets_2pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_3pt", 10, 100, 300, jets_3pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_4pt", 10, 100, 300, jets_4pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_5pt", 10, 100, 300, jets_5pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_6pt", 10, 40, 200, jets_6pt_hists, m_processName, regionsForVariables);
+	// push_backHists("jets_HTto4rest", 10, 1, 10, jets_HTto4rest_hists, m_processName, regionsForVariables);
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
@@ -201,9 +201,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		// be blind for data in signal region
 		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		fillHistsVector(is1tau0lSR, 0, basicWeight);
 		Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-		fillHistsVector(is1tau1lSR, 6, basicWeight);
 		fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
 		fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
 	}
@@ -211,15 +209,10 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 
 	// 1tau0l CR
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	fillHistsVector(is1tau0lVR, 2, basicWeight);
 	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR2, 3, basicWeight);
 	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR3, 4, basicWeight);
 	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau0lCR4, 5, basicWeight);
 	fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
 	fillHistsVectorMyclass(is1tau0lVR, 2, basicWeight);
 	fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
@@ -228,11 +221,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 
 	// 1tau1lCR
 	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
-	fillHistsVector(is1tau1lCR0, 7, basicWeight);
 	Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
-	fillHistsVector(is1tau1lCR1, 8, basicWeight);
 	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-	fillHistsVector(is1tau1lCR2, 9, basicWeight);
 	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
 	fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
 	fillHistsVectorMyclass(is1tau1lCR0, 7, basicWeight);
@@ -262,8 +252,6 @@ void writeHist_fordataMC::Terminate()
 		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
 		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
 	}
-	// std::cout<<processScale<<"\n";
-	// std::cout << __LINE__ << "\n";
 
 	for (UInt_t j = 0; j < eventCount_hists.size(); j++)
 	{
@@ -271,29 +259,6 @@ void writeHist_fordataMC::Terminate()
 		std::cout << j << "\n";
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
-		jetsNumber_hists[j]->Scale(processScale);
-		jets_HT_hists[j]->Scale(processScale);
-		jets_bScore_hists[j]->Scale(processScale);
-		jets_1pt_hists[j]->Scale(processScale);
-
-		tausT_HT_hists[j]->Scale(processScale);
-		tausT_1pt_hists[j]->Scale(processScale);
-		tausT_1eta_hists[j]->Scale(processScale);
-		// [j]->Scale(processScale);
-
-		bjetsM_MHT_hists[j]->Scale(processScale);
-		// bjetsM_MHT_hists[j]->Print();
-		bjets_Number_hists[j]->Scale(processScale);
-		bjets_Number_hists[j]->Print();
-		bjets_HT_hists[j]->Scale(processScale);
-		bjets_1pt_hists[j]->Scale(processScale);
-		jets_bScoreMultiply_hists[j]->Scale(processScale);
-		jets_2pt_hists[j]->Scale(processScale);
-		jets_3pt_hists[j]->Scale(processScale);
-		jets_4pt_hists[j]->Scale(processScale);
-		jets_5pt_hists[j]->Scale(processScale);
-		jets_6pt_hists[j]->Scale(processScale);
-		jets_HTto4rest_hists[j]->Scale(processScale);
 	}
 
 	for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
