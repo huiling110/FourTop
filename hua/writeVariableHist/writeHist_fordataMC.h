@@ -18,6 +18,9 @@
 #include <TH1D.h>
 
 // Headers needed by this particular selector
+
+//
+template <typename Temp>
 class histsForRegions
 {
 private:
@@ -26,10 +29,11 @@ private:
    Double_t m_binMin;
    Double_t m_binMax;
    std::vector<TH1D *> m_histsVector;
-   TTreeReaderValue<Int_t> &m_variableRef;
+   // TTreeReaderValue<Int_t> &m_variableRef;
+   TTreeReaderValue<Temp> &m_variableRef;
 
 public:
-   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Int_t> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
+   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Temp> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
    void initializeRegions(std::vector<TString> &regions, TString m_processName)
    {
       for (UInt_t i = 0; i < regions.size(); i++)
@@ -81,7 +85,7 @@ public:
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
-   std::vector<histsForRegions> vectorOfVariableRegions;
+   std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
    std::vector<TH1D *> jetsNumber_hists;

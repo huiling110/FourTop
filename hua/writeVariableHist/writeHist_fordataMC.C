@@ -153,8 +153,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions jets_number_class{"jets_numberNew", 10, 6, 15, jets_number};
-	histsForRegions bjetsM_number_class{"bjetsM_numberNew", 5, 0, 5, bjetsM_num};
+	histsForRegions<Int_t> jets_number_class{"jets_numberNew", 10, 6, 15, jets_number};
+	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_numberNew", 5, 0, 5, bjetsM_num};
 	// vectorOfVariableRegions.push_back(eventCount_class);
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
