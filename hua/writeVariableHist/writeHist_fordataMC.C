@@ -133,28 +133,6 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	// push_backHists("jets_number", 10, 6, 15, jetsNumber_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_HT", 10, 500, 1500, jets_HT_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_bScore", 10, 0.5, 2.0, jets_bScore_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_1pt", 10, 80, 500, jets_1pt_hists, m_processName, regionsForVariables);
-
-	// push_backHists("tausT_HT", 10, 20, 200, tausT_HT_hists, m_processName, regionsForVariables);
-	// push_backHists("tausT_1eta", 10, -3, 3, tausT_1eta_hists, m_processName, regionsForVariables);
-	// // push_backHists("", 10, 20, 200, _hists, m_processName, regionsForVariables);
-
-	// push_backHists("tausT_1pt", 10, 20, 200, tausT_1pt_hists, m_processName, regionsForVariables);
-	// push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
-	// push_backHists("bjetsM_Number", 5, 0, 5, bjets_Number_hists, m_processName, regionsForVariables);
-	// push_backHists("bjetsM_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
-	// push_backHists("bjetsM_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_bScoreMultiply", 10, 0, 1, jets_bScoreMultiply_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_2pt", 10, 100, 300, jets_2pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_3pt", 10, 100, 300, jets_3pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_4pt", 10, 100, 300, jets_4pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_5pt", 10, 100, 300, jets_5pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_6pt", 10, 40, 200, jets_6pt_hists, m_processName, regionsForVariables);
-	// push_backHists("jets_HTto4rest", 10, 1, 10, jets_HTto4rest_hists, m_processName, regionsForVariables);
-
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
 	histsForRegions<Int_t> jets_number_class{"jets_numberNew", 10, 6, 15, jets_number};
