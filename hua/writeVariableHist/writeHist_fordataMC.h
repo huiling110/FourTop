@@ -29,7 +29,7 @@ private:
    TTreeReaderValue<Int_t> &m_variableRef;
 
 public:
-   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Int_t> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMax{binMax}, m_variableRef{variableRef} {};
+   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Int_t> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
    void initializeRegions(std::vector<TString> &regions, TString m_processName)
    {
       for (UInt_t i = 0; i < regions.size(); i++)

@@ -140,7 +140,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	push_backHists("tausT_1pt", 10, 20, 200, tausT_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("bjetsM_MHT", 10, 20, 200, bjetsM_MHT_hists, m_processName, regionsForVariables);
-	push_backHists("bjetsM_Number", 4, 0, 4, bjets_Number_hists, m_processName, regionsForVariables);
+	push_backHists("bjetsM_Number", 5, 0, 5, bjets_Number_hists, m_processName, regionsForVariables);
 	push_backHists("bjetsM_HT", 10, 20, 200, bjets_HT_hists, m_processName, regionsForVariables);
 	push_backHists("bjetsM_1pt", 10, 50, 500, bjets_1pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_bScoreMultiply", 10, 0, 1, jets_bScoreMultiply_hists, m_processName, regionsForVariables);
@@ -153,8 +153,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions jets_number_class{"jets_numberNew", 10, 6, 14, jets_number};
-	histsForRegions bjetsM_number_class{"bjetsM_numberNew", 4, 0, 4, bjetsM_num};
+	histsForRegions jets_number_class{"jets_numberNew", 10, 6, 15, jets_number};
+	histsForRegions bjetsM_number_class{"bjetsM_numberNew", 5, 0, 5, bjetsM_num};
 	// vectorOfVariableRegions.push_back(eventCount_class);
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
@@ -191,6 +191,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 		Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
 		fillHistsVector(is1tau1lSR, 6, basicWeight);
+		fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
+		fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
 	}
 	// std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 
@@ -206,6 +208,10 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
 	fillHistsVector(is1tau0lCR4, 5, basicWeight);
 	fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
+	fillHistsVectorMyclass(is1tau0lVR, 2, basicWeight);
+	fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
+	fillHistsVectorMyclass(is1tau0lCR3, 4, basicWeight);
+	fillHistsVectorMyclass(is1tau0lCR4, 5, basicWeight);
 
 	// 1tau1lCR
 	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
@@ -215,8 +221,11 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
 	fillHistsVector(is1tau1lCR2, 9, basicWeight);
 	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
-	fillHistsVector(is1tau1lCR3, 10, basicWeight);
-	// fillHistsVector( is1tau1lCR4, 11, basicWeight );
+	fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
+	fillHistsVectorMyclass(is1tau1lCR0, 7, basicWeight);
+	fillHistsVectorMyclass(is1tau1lCR1, 8, basicWeight);
+	fillHistsVectorMyclass(is1tau1lCR2, 9, basicWeight);
+	fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
 
 	return kTRUE;
 }
@@ -260,8 +269,9 @@ void writeHist_fordataMC::Terminate()
 		// [j]->Scale(processScale);
 
 		bjetsM_MHT_hists[j]->Scale(processScale);
-		bjetsM_MHT_hists[j]->Print();
+		// bjetsM_MHT_hists[j]->Print();
 		bjets_Number_hists[j]->Scale(processScale);
+		bjets_Number_hists[j]->Print();
 		bjets_HT_hists[j]->Scale(processScale);
 		bjets_1pt_hists[j]->Scale(processScale);
 		jets_bScoreMultiply_hists[j]->Scale(processScale);
