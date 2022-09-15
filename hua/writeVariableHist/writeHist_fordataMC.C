@@ -33,9 +33,6 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 {
 	if (isRegion)
 	{
-		// 1tau0lCR
-		//  std::printf( "%i : %f : %f \n", *jets_number, *jets_HT, weight );
-		// [vectorIndex]->Fill(, weight);
 		eventCount_hists[vectorIndex]->Fill(.0, weight);
 		jetsNumber_hists[vectorIndex]->Fill(*jets_number, weight);
 		jets_HT_hists[vectorIndex]->Fill(*jets_HT, weight);
@@ -59,6 +56,10 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 		jets_6pt_hists[vectorIndex]->Fill(*jets_6pt, weight);
 		jets_HTto4rest_hists[vectorIndex]->Fill(*jets_rationHT_4toRest, weight);
 	}
+}
+
+void writeHist_fordataMC::fillHistsVectorMyclass()
+{
 }
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
@@ -142,6 +143,17 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	push_backHists("jets_5pt", 10, 100, 300, jets_5pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_6pt", 10, 40, 200, jets_6pt_hists, m_processName, regionsForVariables);
 	push_backHists("jets_HTto4rest", 10, 1, 10, jets_HTto4rest_hists, m_processName, regionsForVariables);
+
+	vectorOfVariableRegions.clear();
+	histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
+	histsForRegions jets_number_class{"jets_number", 10, 6, 14};
+	vectorOfVariableRegions.push_back(eventCount_class);
+	vectorOfVariableRegions.push_back(jets_number_class);
+
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
+	{
+		vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	}
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)

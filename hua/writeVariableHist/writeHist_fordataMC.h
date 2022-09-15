@@ -18,6 +18,27 @@
 #include <TH1D.h>
 
 // Headers needed by this particular selector
+class histsForRegions
+{
+private:
+   TString m_variableName;
+   Int_t m_binNum;
+   Double_t m_binMin;
+   Double_t m_binMax;
+   std::vector<TH1D *> m_histsVector;
+
+public:
+   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax) : m_variableName{variableName}, m_binNum{bin}, m_binMax{binMax} {};
+   void initializeRegions(std::vector<TString> &regions, TString m_processName)
+   {
+      for (UInt_t i = 0; i < regions.size(); i++)
+      {
+         TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
+         TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
+         m_histsVector.push_back(temp);
+      }
+   };
+};
 
 class writeHist_fordataMC : public TSelector
 {
@@ -37,6 +58,7 @@ public:
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
+   std::vector<histsForRegions> vectorOfVariableRegions;
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
    std::vector<TH1D *> jetsNumber_hists;
