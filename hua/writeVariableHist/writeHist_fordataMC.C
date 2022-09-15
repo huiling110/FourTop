@@ -66,6 +66,10 @@ void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorI
 		{
 			vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight);
 		}
+		for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
+		{
+			vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight);
+		}
 	}
 }
 
@@ -159,9 +163,18 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
 
+	histsForRegions<Double_t> jets_1pt_class{"jets_1ptNew", 10, 100, 600, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2ptNew", 10, 100, 600, jets_2pt};
+	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
+
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
 	{
 		vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	}
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
+	{
+		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
 }
 
@@ -287,6 +300,11 @@ void writeHist_fordataMC::Terminate()
 	{
 		vectorOfVariableRegions[ihists].histsScale(processScale);
 		vectorOfVariableRegions[ihists].histsPrint();
+	}
+	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+	{
+		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+		vectorOfVariableRegionsDouble[ihists].histsPrint();
 	}
 
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
