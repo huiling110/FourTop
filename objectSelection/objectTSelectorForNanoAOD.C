@@ -265,6 +265,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // {
     //     std::cout << JER_SF_new[i] << " ";
     // }
+    // std::cout << " \n";
 
     // Bool_t ifJER = kFALSE;
     Bool_t ifJER = kTRUE;
@@ -294,31 +295,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
 
-    // test
-    //???not sure why for some jet_pt=40, convert it to 40.00000000071 in Double_t;
-    // if (*event == 2567375)
-    // {
-
-    //     std::cout << "passing event 2567375\n";
-    //     std::setprecision(18);
-    //     std::cout << jets[5].Pt() << " " << Jet_pt[6] << " " << Jet_pt[5] << "\n";
-    //     std::cout << std::setprecision(18) << Jet_pt[6] << "\n";
-    // }
-    // for (UInt_t i = 0; i < *nJet; i++)
-    // {
-    //     if (TMath::Abs(Jet_pt[i] - 40.0) < TMath::Limits<Float_t>::Epsilon())
-    //     {
-
-    //         std::cout << "original jet pt: " << i << " " << std::setprecision(18) << Jet_pt[i] << "\n";
-    //     }
-    // }
-    // for (UInt_t j = 0; j < jets.size(); j++)
-    // {
-    //     if (TMath::Abs(jets[j].Pt() - 40.0) < TMath::Limits<Double_t>::Epsilon())
-    //     {
-    //         std::cout << "lorenzts jets pt: " << j << " " << jets[j].Pt() << "\n";
-    //     }
-    // }
 
     if (Electron_charge.GetSize() > 0)
     {
@@ -374,24 +350,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     h_forEY_preSelection->Fill(0.0, basicWeight);
 
-    // std::cout<<"tausTnum: "<<tausT.size()<<"  jetsNum: "<<jets.size()<<"\n";
 
     eventsPassed++;
     tree->Fill();
 
-    // testing
-    // if (*event == 4102580 || *event == 4384548)
-    // //???
-    // {
-    //     std::cout << std::fixed;
-    //     std::cout << std::setprecision(16);
-    //     for (UInt_t k = 0; k < Jet_pt.GetSize(); k++)
-    //     {
-    //         std::cout << std::setprecision(16) << "jet_pt: " << Jet_pt.At(k) << "\n";
-    //     }
-    // }
-
-    ///////////////////////////////////////
 
     return kTRUE;
 }
@@ -895,16 +857,8 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             if (!(minDeltaR_tau >= 0.4))
                 continue;
         }
-        // TLorentzVector jet_prov;
-        // std::cout << "jet pt in selectJets\n";
-        // std::cout << std::setprecision(18) << jetpt << "\n";
-        // jet_prov.SetPtEtaPhiM(jetpt, ijetEta, ijetPhi, ijetMass);
-        // TLorentzVector jet;
-        // jet.SetPxPyPzE(jet_prov.Px() * JER_SF_new.at(j), jet_prov.Py() * JER_SF_new.at(j), jet_prov.Pz() * JER_SF_new.at(j), jet_prov.E() * JER_SF_new.at(j));
-        // std::cout << std::setprecision(18) << jet_prov.Pt() << "\n";
         ROOT::Math::PtEtaPhiMVector jet_prov(jetpt, ijetEta, ijetPhi, ijetMass);
         SelectedJets.push_back(jet_prov);
-        // SelectedJets.push_back(JER_SF_new[j] * jet_prov);
         // std::cout<<"jet : "<<jet_prov.Pt()<<", "<<jet_prov.Eta()<<", "<<jet_prov.Phi()<<","<<jet_prov.M()<<"\n";
         // std::cout<<"jet scale manually: "<<jet.Pt()<<", "<<jet.Eta()<<", "<<jet.Phi()<<","<<jet.M()<<"\n";
         // std::cout<<"jet scale: "<<jet_scaled.Pt()<<", "<<jet_scaled.Eta()<<", "<<jet_scaled.Phi()<<", "<<jet_scaled.M()<<"\n";
