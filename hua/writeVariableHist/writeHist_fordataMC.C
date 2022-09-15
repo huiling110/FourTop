@@ -167,7 +167,6 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
-	// for testing of step by step baseline cut
 	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	if (m_isData)

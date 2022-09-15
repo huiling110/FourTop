@@ -13,23 +13,19 @@ import ttttGlobleQuantity as GQ
 #???make this job submisssion and checking and resubmit and addHist automatized
 
 
-# inVersion = 'v17NoSelection'
-# inVersion = 'v19HLTSelection'
-# inVersion = 'v20FixedSelectJetsBug'
-# inVersion = 'v22addedRuinsTree'
-# inVersion = 'v23basicWeight'
-# inVersion = 'v24noJER'
-# inVersion = 'v26noJERNOTESwithSorting'
 # inVersion = 'v27noJERnoTESWithObjectRemoval'
-# inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
-inVersion = 'v30TESnoJER'
 # inVersion = 'v28JERTESBack'
+# inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
+# inVersion = 'v30TESnoJER'
+inVersion = 'v31TESandJER'
 outVersion = 'v0noBaseline'
 # outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
 year = '2016'
 selectionBit = '3'
+print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
+
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'

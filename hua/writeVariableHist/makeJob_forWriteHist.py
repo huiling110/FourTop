@@ -28,7 +28,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
     # version = "v0forCutFlow"
-    version = "v1variables"
+    version = "v1variablesUsingMyclass"
     justMC = False
     # justMC = True
     isTest = 0
