@@ -26,9 +26,10 @@ private:
    Double_t m_binMin;
    Double_t m_binMax;
    std::vector<TH1D *> m_histsVector;
+   TTreeReaderValue<Int_t> &m_variableRef;
 
 public:
-   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax) : m_variableName{variableName}, m_binNum{bin}, m_binMax{binMax} {};
+   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Int_t> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMax{binMax}, m_variableRef{variableRef} {};
    void initializeRegions(std::vector<TString> &regions, TString m_processName)
    {
       for (UInt_t i = 0; i < regions.size(); i++)
@@ -38,6 +39,28 @@ public:
          m_histsVector.push_back(temp);
       }
    };
+   void fillHistVec(UInt_t iRegion, Double_t weight)
+   {
+      m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+   }
+   void histsScale(Double_t scale)
+   {
+      for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
+      {
+         m_histsVector[ire]->Scale(scale);
+      }
+   }
+   void histsPrint()
+   {
+      for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
+      {
+         m_histsVector[ire]->Print();
+      }
+   }
+
+   // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
+   //    m_vri
+   // }
 };
 
 class writeHist_fordataMC : public TSelector
@@ -389,6 +412,7 @@ public:
 
    // functions I add
    void fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
+   void fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
 
    ClassDef(writeHist_fordataMC, 0);
 };

@@ -58,8 +58,15 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 	}
 }
 
-void writeHist_fordataMC::fillHistsVectorMyclass()
+void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
+	if (isRegion)
+	{
+		for (UInt_t i = 0; i < vectorOfVariableRegions.size(); i++)
+		{
+			vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight);
+		}
+	}
 }
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
@@ -145,10 +152,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	push_backHists("jets_HTto4rest", 10, 1, 10, jets_HTto4rest_hists, m_processName, regionsForVariables);
 
 	vectorOfVariableRegions.clear();
-	histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions jets_number_class{"jets_number", 10, 6, 14};
-	vectorOfVariableRegions.push_back(eventCount_class);
+	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
+	histsForRegions jets_number_class{"jets_numberNew", 10, 6, 14, jets_number};
+	histsForRegions bjetsM_number_class{"bjetsM_numberNew", 4, 0, 4, bjetsM_num};
+	// vectorOfVariableRegions.push_back(eventCount_class);
 	vectorOfVariableRegions.push_back(jets_number_class);
+	vectorOfVariableRegions.push_back(bjetsM_number_class);
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
 	{
@@ -196,6 +205,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	fillHistsVector(is1tau0lCR3, 4, basicWeight);
 	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
 	fillHistsVector(is1tau0lCR4, 5, basicWeight);
+	fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
 
 	// 1tau1lCR
 	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
@@ -262,6 +272,13 @@ void writeHist_fordataMC::Terminate()
 		jets_6pt_hists[j]->Scale(processScale);
 		jets_HTto4rest_hists[j]->Scale(processScale);
 	}
+
+	for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+	{
+		vectorOfVariableRegions[ihists].histsScale(processScale);
+		vectorOfVariableRegions[ihists].histsPrint();
+	}
+
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
 	outputFile->Write();
 	outputFile->Close();
