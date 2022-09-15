@@ -7,6 +7,7 @@
                 "/scratchfs/cms/huahuil/python/lib/python3.6/site-packages/correctionlib-0.0.0-py3.6-linux-x86_64.egg/correctionlib/include/**",
                 "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/../../../../../../../slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/include/**",
                 "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/include/**",
+                "/usr/include/c++/4.4.7/x86_64-redhat-linux"
             ],
             "defines": [],
             "intelliSenseMode": "${default}",
