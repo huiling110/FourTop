@@ -143,6 +143,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fProcessed++;
 	fProcessed_genWeight += *EVENT_genWeight_;
 
+
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
@@ -593,7 +594,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	//  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
 	//  btagEfficiency_weight = allBtagSF[0];
 	//  btagEfficiency_weight = calBTagSF( );
-	HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
+	// HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
 	muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
 	muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
 	muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
@@ -615,6 +616,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
 	tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
+	// std::cout << __LINE__ << "\n";
 	if (m_baselineSelection)
 	{
 		// std::cout << "doing baseline selection\n";
@@ -661,6 +663,7 @@ void makeVaribles_forBDT::Terminate()
 void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 {
 #include "inputFileClass.h"
+	std::cout << "starting to initialize some input files\n";
 	// muon ID
 	TFile *input_MuonIDSF = new TFile(MUOSF_files[m_era], "READ");
 	// input_MuonIDSF = new TFile( MUOSF_files[m_era], "READ" );
@@ -716,8 +719,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	{
 		printf("Correction: %s\n", corr.first.c_str());
 	}
-	// std::string JES_json = "JME/2016preVFP_UL/jet_jerc.json";
-	// cset_JES = correction::CorrectionSet::from_file(JES_json);
+	std::cout << "finished setting up input files\n";
 }
 
 void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
