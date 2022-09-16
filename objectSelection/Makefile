@@ -50,6 +50,10 @@ GLIBS = $(ROOTGLIBS)
 
 #Pattern-specific variable values
 #This rule can be applied to any pair of .o and .C files.
+#g++ -c -o: compile indepentent .C
+#g++ -o: link and complile into exutables
+#-g - turn on debugging (so GDB gives more friendly output)
+
 %/%.o: %.C
 	$(CXX) -c $(CXXFLAGS) $*.C
  
