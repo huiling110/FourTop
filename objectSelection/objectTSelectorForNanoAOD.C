@@ -296,8 +296,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // }
     // std::cout << " \n";
 
-    // Bool_t ifJER = kFALSE;
-    Bool_t ifJER = kTRUE;
+    Bool_t ifJER = kFALSE;
+    // Bool_t ifJER = kTRUE;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
     SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
