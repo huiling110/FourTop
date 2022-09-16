@@ -6,6 +6,7 @@ sh  wz.sh
 sh  qcd_1500to2000.sh
 sh  ttbar_1l.sh
 sh  st_tZq.sh
+sh  jetHT_2018a.sh
 sh  ttbar_2l.sh
 sh  st_tW_antitop.sh
 sh  qcd_50to100.sh
@@ -18,9 +19,11 @@ sh  st_tW_top.sh
 sh  zz.sh
 sh  ww.sh
 sh  qcd_1000to1500.sh
+sh  jetHT_2018c.sh
 sh  ttH_nonbb.sh
 sh  qcd_700to1000.sh
 sh  tttt.sh
 sh  qcd_2000toInf.sh
+sh  jetHT_2018b.sh
 sh  qcd_100to200.sh
 sh  ttbar_0l.sh
