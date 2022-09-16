@@ -179,6 +179,34 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
             if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
                 return kFALSE;
         }
+        else if (era.CompareTo("2018")==0){
+            if (!isdata)
+            {
+                if(!(*HLT_PFJet500==1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94==1) )
+                    return kFALSE;
+            }else{
+                if (*run >= 315257 && *run <= 325173)
+                {
+                    // 2018
+                    HLT_PFJet500_ = *HLT_PFJet500;
+                    if (*run < 315974)
+                    {
+                        if(!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1||*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2==1) )
+                            return kFALSE;
+                    }
+                    else if (*run < 317509)
+                    {
+                        if(!(*HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2==1))
+                            return kFALSE;
+                    }
+                    else
+                    {
+                        if(!(*HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94==1) )
+                            return kFALSE;
+                    }
+                }
+            }
+        }
 
     }
     eventsPassedHLT++;
