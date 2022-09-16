@@ -1127,6 +1127,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
     // std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
     // same file for JER and JES
     // cset_jerSF = correction::CorrectionSet::from_file(jer_file);
+    std::cout<<"JEC file: "<<jsonBase + json_map[era].at(0)<<"\n";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     for (auto &corr : *cset_jerSF)
     {
