@@ -693,12 +693,16 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 
 	// trigger
 	TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");
-	// TriggerSF = (TH2D*)input_TrigSF->Get("SF_njetsVsHT_"+m_era);
-	// TriggerSFunc = (TH2D*)input_TrigSF->Get("SF_njetsVsHTerrors_"+m_era);
-	TriggerSF = (TH2D *)input_TrigSF->Get("SF_njetsVsHT_" + map_era[m_era]);
-	TriggerSFunc = (TH2D *)input_TrigSF->Get("SF_njetsVsHTerrors_" + map_era[m_era]);
-	TriggerSF->SetDirectory(nullptr);
-	TriggerSFunc->SetDirectory(nullptr);
+	if( !input_TrigSF->IsZombie()){
+		TriggerSF = (TH2D *)input_TrigSF->Get("SF_njetsVsHT_" + map_era[m_era]);
+		TriggerSFunc = (TH2D *)input_TrigSF->Get("SF_njetsVsHTerrors_" + map_era[m_era]);
+		TriggerSF->SetDirectory(nullptr);
+		TriggerSFunc->SetDirectory(nullptr);
+	}else
+	{
+		std::cout << "HTL SF files not found!!! HLTweight will be 1.0\n ";
+	}
+	
 	input_TrigSF->Close();
 	delete input_TrigSF;
 

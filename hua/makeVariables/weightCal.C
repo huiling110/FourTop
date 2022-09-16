@@ -69,7 +69,7 @@ Double_t calTau_IDSF(  const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& taus
 
 Double_t getHLTweight( const Double_t jets_HT, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& jets, const TH2D* TriggerSF, const TH2D* TriggerSFunc, Bool_t isData  ){
 	Double_t triggerSF = 1.0;
-	if ( isData ){
+	if ( !isData && TriggerSF->GetEntries()!=0 ){
 		Int_t binx = TriggerSF->GetXaxis()->FindBin(jets_HT);
 		Int_t biny = TriggerSF->GetYaxis()->FindBin(jets.GetSize());
 		if (jets.GetSize() > 11 ) triggerSF = 1.0;
