@@ -64,7 +64,7 @@ GLIBS = $(ROOTGLIBS)
 $(PROGRAM).out: $(OBJS) $(SHAREDLIBS).so $(PROGRAM).C
 	@echo "building $(PROGRAM)......"
 	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROutGRAM).o $(LIBS) $(SHAREDLIBS).so  -o$(PROGRAM).out
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o $(LIBS) $(SHAREDLIBS).so  -o$(PROGRAM).out
 	@echo "done building $(PROGRAM)"
 
 #The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
