@@ -4,14 +4,24 @@
         "env": {},
     },
     "tasks": [
+		// {
+        //     "label": "makeclean",
+        //     "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make clean)",
+        //     "type": "shell",
+        // },
+        // {
+        //     "label": "make",
+        //     "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && make)",
+        //     "type": "shell"
+        // },
         {
             "label": "makeclean",
-            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make clean)",
+            "command": "(cd ${cwd}/objectSelection/ && make clean)",
             "type": "shell",
         },
         {
             "label": "make",
-            "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && make)",
+            "command": "(cd ${cwd}/objectSelection/ && cmsenv && make)",
             "type": "shell"
         },
         {
@@ -59,7 +69,7 @@
             "dependsOn": [
                 "cmsenv"
             ]
-        }
+        },
 
         {
             "label": "root run",

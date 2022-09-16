@@ -179,6 +179,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
             if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
                 return kFALSE;
         }
+
     }
     eventsPassedHLT++;
     h_forEY_HLT->Fill(0.0, basicWeight);

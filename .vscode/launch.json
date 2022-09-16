@@ -29,7 +29,7 @@
 					"text": "-gdb-set disassembly-flavor intel",
 					"ignoreFailures": true
 				}
-			]
+			],
 			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
 
@@ -80,10 +80,10 @@
 				"-l",
 				"-b",
 				"-q",
-				"run_objectTSelectorForNanoAOD.C"
+				"run_objectTSelectorForNanoAOD.C+g"
 			],
 			// "MIMode": "gdb",
-			"cwd": "${workspaceFolder}/objectSelction/",
+			"cwd": "${workspaceFolder}/objectSelection/",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",
@@ -96,7 +96,7 @@
 					"ignoreFailures": true
 				}
 			],
-			"preLaunchTask": "build",
+			// "preLaunchTask": "build",
 			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
 	]

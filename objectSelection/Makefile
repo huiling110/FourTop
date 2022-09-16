@@ -6,11 +6,12 @@ PROGRAM = objectTSelectorForNanoAOD
 
 HDRS = objectTSelectorForNanoAOD.h\
 	utilityFunctions.h\
-	# ../TauPOG/TauIDSFs/interface/TauIDSFTool.h\
- 
+
+#PROGRAM depend on OBJS 
 OBJS = objectTSelectorForNanoAOD.o\
 		utilityFunctions.o\
         dict_$(PROGRAM).o\
+		# run_objectTSelectorForNanoAOD.o\
 		# ../TauPOG/TauIDSFs/src/TauIDSFTool.o\
 
 #-----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ HEADRDIR = .
 # no exceptions: -fno-exceptions
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
+CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17  # -wall: turn on "all" Warnings
 LD = g++
 LDFLAGS = -O3 -Wall -g 
 SOFLAGS = -shared
@@ -47,12 +48,14 @@ LIBS = $(ROOTLIBS)
 LIBS += $(CORRECTIONLIB_LIB)
 GLIBS = $(ROOTGLIBS)
 
-
+#Pattern-specific variable values
+#This rule can be applied to any pair of .o and .C files.
 %/%.o: %.C
 	$(CXX) -c $(CXXFLAGS) $*.C
  
+#The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
 $(PROGRAM).so: $(OBJS)
-	@echo "Linking $(PROGRAM).so ..."
+	@echo "Linking $(PROGRAM).so ..." 
 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(PROGRAM).so
 	@echo "linking done"
 

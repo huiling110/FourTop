@@ -2,13 +2,9 @@
 #include "TString.h"
 #include "TChain.h"
 #include "TROOT.h"
+#include "TStopwatch.h"
+#include "TFile.h"
 
-// int main(int argc, char const *argv[])
-// {
-//     /* code */
-//     run_objectTSelectorForNanoAOD();
-//     return 0;
-// }
 
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
@@ -32,6 +28,7 @@ void run_objectTSelectorForNanoAOD(
     // Bool_t ishuiling = false
     Bool_t ishuiling = true)
 {
+    using namespace std;
     gROOT->ProcessLine(".L objectTSelectorForNanoAOD.so");
 
     // determine era and isData from inputDir
@@ -123,4 +120,10 @@ void run_objectTSelectorForNanoAOD(
     }
     t.Stop();
     t.Print();
+}
+
+int main(int argc, char const *argv[])
+{
+    run_objectTSelectorForNanoAOD();
+    return 0;
 }
