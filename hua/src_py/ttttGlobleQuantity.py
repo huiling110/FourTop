@@ -72,6 +72,7 @@ samples = [
     "st_tW_antitop",
     "st_tW_top",
 
+#2016
     'jetHT_2016F',
     'jetHT_2016G',
     'jetHT_2016H',
@@ -81,6 +82,18 @@ samples = [
     'jetHT_2016D',
     'jetHT_2016E',
     'jetHT_2016F_hipm',
+
+    #2018
+    'jetHT_2018a',
+    'jetHT_2018b',
+    'jetHT_2018c',
+    'jetHT_2018d',
+
+    'jetHT_2017b',
+    'jetHT_2017c',
+    'jetHT_2017d',
+    'jetHT_2017e',
+    'jetHT_2017f',
 ]
 
 samplesCrossSection = {
