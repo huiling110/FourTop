@@ -616,12 +616,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
 	tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
-	// std::cout << __LINE__ << "\n";
 	if (m_baselineSelection)
 	{
 		// std::cout << "doing baseline selection\n";
 		if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6))
-		// if ( !(leptonsMVAT_number==0))
 		{
 			return kFALSE;
 		}

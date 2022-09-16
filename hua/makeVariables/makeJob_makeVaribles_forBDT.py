@@ -17,20 +17,21 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v28JERTESBack'
 # inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v30TESnoJER'
-inVersion = 'v31TESandJER'
-outVersion = 'v0noBaseline'
-# outVersion = 'v1baseline'
+# inVersion = 'v31TESandJER'
+inVersion = 'v32TESnoJER'
+# outVersion = 'v0noBaseline'
+outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
-year = '2016'
-selectionBit = '3'
+# year = '2016'
+year = '2018'
+selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 
 
 
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
-# outputBase = '/scratchfs/cms/huahuil/forMVA/'
 
 
 
@@ -44,7 +45,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
+        # if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
@@ -74,6 +75,11 @@ def getInOutDic( year, inputBase, outBase, inVersion, outVersion, justMC ):
         if not justMC:
             inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
             inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
+    else:
+        inOutDirMap[year]={}
+        inOutDirMap[year]['mc']= [ inputBase + 'UL'+year+'/'+ inVersion + '/mc/' , outputBase +year+ '/'+ outVersion+'_'+inVersion + '/mc/' ]
+        if not justMC:
+            inOutDirMap[year]['data']= [ inputBase + 'UL'+year+'/'+ inVersion + '/data/' , outputBase +year+ '/'+ outVersion+'_'+inVersion + '/data/' ]
     return inOutDirMap
 
 
