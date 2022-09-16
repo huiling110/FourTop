@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 
-# PROGRAM = Analysis
-PROGRAM = objectTSelectorForNanoAOD
+# PROGRAM = objectTSelectorForNanoAOD
+SHAREDLIBS = objectTSelectorForNanoAOD
 
 
 HDRS = objectTSelectorForNanoAOD.h\
@@ -10,7 +10,7 @@ HDRS = objectTSelectorForNanoAOD.h\
 #PROGRAM depend on OBJS 
 OBJS = objectTSelectorForNanoAOD.o\
 		utilityFunctions.o\
-        dict_$(PROGRAM).o\
+        dict_$(SHAREDLIBS).o\
 		# run_objectTSelectorForNanoAOD.o\
 		# ../TauPOG/TauIDSFs/src/TauIDSFTool.o\
 
@@ -58,17 +58,17 @@ GLIBS = $(ROOTGLIBS)
 	$(CXX) -c $(CXXFLAGS) $*.C
  
 #The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
-$(PROGRAM).so: $(OBJS)
-	@echo "Linking $(PROGRAM).so ..." 
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(PROGRAM).so
+$(SHAREDLIBS).so: $(OBJS)
+	@echo "Linking $(SHAREDLIBS).so ..." 
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(SHAREDLIBS).so
 	@echo "linking done"
 
-dict_$(PROGRAM).C: $(HDRS)
+dict_$(SHAREDLIBS).C: $(HDRS)
 	@echo "Generating dictionary ..."
-	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
+	rootcint -f dict_$(SHAREDLIBS).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
 
 clean:
-	@rm -f $(OBJS) $(PROGRAM).so dict_*
+	@rm -f $(OBJS) $(SHAREDLIBS).so dict_*
  
 
 #------------------------------------------------------------------------
