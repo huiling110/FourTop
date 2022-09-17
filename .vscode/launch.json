@@ -74,7 +74,11 @@
 			"name": "run objectTSelector",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "run_objectTSelectorForNanoAOD.out",
+			"linux": {
+				"MIMode": "gdb",
+				"miDebuggerPath": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/gdb"
+			  },
+			"program": "${workspaceFolder}/objectSelection/run_objectTSelectorForNanoAOD.out",
 			"cwd": "${workspaceFolder}/objectSelection/",
 			"setupCommands": [
 				{
@@ -88,7 +92,7 @@
 					"ignoreFailures": true
 				}
 			],
-			"preLaunchTask": "build",
+			// "preLaunchTask": "build",
 			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
 	]

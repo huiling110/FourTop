@@ -36,9 +36,11 @@ HEADRDIR = .
 # no exceptions: -fno-exceptions
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17  # -wall: turn on "all" Warnings
+# CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17  # -wall: turn on "all" Warnings
+CXXFLAGS = -O0 -Wall -fPIC -g -std=c++17  # -wall: turn on "all" Warnings
 LD = g++
-LDFLAGS = -O3 -Wall -g 
+# LDFLAGS = -O3 -Wall -g 
+LDFLAGS = -O0 -Wall -g 
 SOFLAGS = -shared
 ARCHFLAGS =
 

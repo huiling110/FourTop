@@ -25,11 +25,17 @@
             "type": "shell"
         },
         {
+            "label": "cmsenv",
+            "command": "cmsenv",
+            "type": "shell"
+        },
+        {
             "label": "build",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "makeclean",
-                "make"
+                // "makeclean",
+                // "make"
+				"cmsenv"
             ]
         },
         {

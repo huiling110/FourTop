@@ -29,6 +29,7 @@ void run_objectTSelectorForNanoAOD(
     Bool_t ishuiling = true)
 {
     using namespace std;
+	// gROOT->SetMacroPath("/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTophua/objectSelection/");
     gROOT->ProcessLine(".L objectTSelectorForNanoAOD.so");
 
     // determine era and isData from inputDir
