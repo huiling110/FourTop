@@ -1,19 +1,9 @@
 {
-    "version": "2.0.0",
+    "version": "1.0.0",
     "options": {
         "env": {},
     },
     "tasks": [
-		// {
-        //     "label": "makeclean",
-        //     "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && cmsenv && make clean)",
-        //     "type": "shell",
-        // },
-        // {
-        //     "label": "make",
-        //     "command": "(cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables && make)",
-        //     "type": "shell"
-        // },
         {
             "label": "makeclean",
             "command": "(cd ${cwd}/objectSelection/ && make clean)",
@@ -21,62 +11,18 @@
         },
         {
             "label": "make",
-            "command": "(cd ${cwd}/objectSelection/ && cmsenv && make)",
+            "command": "(cd ${cwd}/objectSelection/ && make)",
             "type": "shell"
         },
-        {
-            "label": "cmsenv",
-            "command": "cmsenv",
-            "type": "shell"
-        },
+        
         {
             "label": "build",
             "dependsOrder": "sequence",
             "dependsOn": [
-                // "makeclean",
-                // "make"
-				"cmsenv"
+                "make"
             ]
         },
-        {
-            "label": "cmsenv",
-            "command": "(cd ${workspaceFolder} && cmsenv)",
-            "type": "shell"
-        },
-        {
-            "label": "Make",
-            "command": "make clean && make",
-            "type": "shell"
-        },
-        {
-            "label": "cdObject",
-            "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/",
-            "type": "shell"
-        },
-        {
-            "label": "compile obectSelector",
-            "dependsOrder": "sequence",
-            "dependsOn": [
-                "cmsenv",
-                "cdObject",
-                "Make"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-        },
-        {
-            "label": "run makeVariables",
-            "command": "cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/ && root -q run_makeVaribles_forBDT.C",
-            "type": "shell",
-            "dependsOrder": "sequence",
-            "dependsOn": [
-                "cmsenv"
-            ]
-        },
-
+        
         {
             "label": "root run",
             "command": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root",

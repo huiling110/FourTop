@@ -93,7 +93,7 @@
 				}
 			],
 			// "preLaunchTask": "build",
-			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
+			//"envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
 	]
 	// {
