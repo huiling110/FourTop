@@ -61,10 +61,10 @@ public:
 	TH1F *dataPileupProfileDown;
 	TH1F *MCPileupProfile;
 	// TRandom3 jet_jer_myran;
-	std::vector<std::vector<std::string>> resolution; //???commenting out this causing the runtime issure?
-	std::string resFormula;
-	std::vector<std::vector<std::string>> resSFs; //???????
-	std::string toyResFormula;					  // ? ? ?
+	// std::vector<std::vector<std::string>> resolution; //???commenting out this causing the runtime issure?
+	// std::string resFormula;
+	// std::vector<std::vector<std::string>> resSFs; //???????
+	// std::string toyResFormula;					  // ? ? ?
 
 	TH1D *h_forEY_initial;
 	TH1D *h_forEY_HLT;
