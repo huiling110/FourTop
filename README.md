@@ -1,18 +1,20 @@
 # Instructon for implemention
 * install 
-  * export SCRAM_ARCH=slc7_amd64_gcc900
-  * cmsrel CMSSW_12_2_4
-  * cd CMSSW_12_2_4/src
+  <!-- * export SCRAM_ARCH=slc7_amd64_gcc900 -->
+  <!-- * cmsrel CMSSW_12_2_4 -->
+  <!-- * cd CMSSW_12_2_4/src -->
   * git clone ssh://git@gitlab.cern.ch:7999/cms-nanoAOD/jsonpog-integration.git
   * git clone git@github.com:huiling110/FourTop.git 
+  * bash setupEnv.sh( setting up proper g++ root python and correction)
   * cd FourTop
  * run
-   * cmsenv
+   <!-- * cmsenv -->
    * cd objectSelection
    * mkdir output
-   * make clean
+   <!-- * make clean -->
    * make  (complie objectTSelectorForNano )
-   * root -b -q run_objectTSelectorForNanoAOD.C
+   * ./run_objectTSelectorForNanoAOD.out
+   * or root -b -q run_objectTSelectorForNanoAOD.C
  * tips
    * modify Linkdef.h and Makefile to use classes and functions from other source file(.C). never #inlude .C source code! only #include .h
    * only member functions of objectTSelector class should be in the class file, other functions go to utilityFunctions.C( keep things clean and code modulized)
