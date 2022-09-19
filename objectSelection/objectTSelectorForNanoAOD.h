@@ -77,68 +77,7 @@ public:
 	//    TauESTool TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
 	//    TauFESTool FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
 	// Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
-	//???move these away
-	std::map<TString, double> DeepJetL = {
-		// std::map of loose WPs for DeepJet
 
-		{"2016postVFP", 0.0480},
-		{"2016preVFP", 0.0508},
-		{"2017", 0.0532},
-		{"2018", 0.0490},
-
-	};
-
-	std::map<TString, double> DeepJetM = {
-		// std::map of medium WPs for DeepJet
-
-		{"2016postVFP", 0.2489},
-		{"2016preVFP", 0.2598},
-		{"2017", 0.3040},
-		{"2018", 0.2783},
-
-	};
-
-	std::map<TString, double> DeepJetT = {
-		// std::map of tight WPs for DeepJet
-
-		{"2016postVFP", 0.6377},
-		{"2016preVFP", 0.6502},
-		{"2017", 0.7476},
-		{"2018", 0.7100},
-
-	};
-
-	std::map<TString, double> DeepCSVL = {
-		// std::map of loose WPs for DeepCSV
-
-		{"2016postVFP", 0.1918},
-		{"2016preVFP", 0.2027},
-		{"2017", 0.1355},
-		{"2018", 0.1208},
-
-	};
-
-	std::map<TString, double> DeepCSVM = {
-		// std::map of medium WPs for DeepCSV
-
-		{"2016postVFP", 0.5847},
-		{"2016preVFP", 0.6001},
-		{"2017", 0.4506},
-		{"2018", 0.4168},
-
-	};
-
-	std::map<TString, double> DeepCSVT = {
-		// std::map of tight WPs for DeepCSV
-
-		{"2016postVFP", 0.8767},
-		{"2016preVFP", 0.8819},
-		{"2017", 0.7738},
-		{"2018", 0.7665},
-
-	};
-
-	// std::map<Int_t, std::vector<Int_t>> _goodLumis;
 	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
 
 	// 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
