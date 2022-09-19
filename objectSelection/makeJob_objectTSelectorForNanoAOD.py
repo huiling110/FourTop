@@ -35,11 +35,12 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v29LorentzProblemSolvedNoJERnoTES/'
 # jobVersionName = 'v30TESnoJER/'
 # jobVersionName = 'v31TESandJER/'
-jobVersionName = 'v32TESnoJER/'
+# jobVersionName = 'v32TESnoJER/'
+jobVersionName = 'v33TESnoJERCodeOptimzation'
 onlyMC = False
-# era = '2016'
+era = '2016'
 # era = '2016APV'
-era = '2018'
+# era = '2018'
 def main():
     # onlyMC = True
     eventSelection = '3'
@@ -169,8 +170,10 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile, eventSelection, isH
     subFile = open( shFile, 'w')
     subFile.write( "#!/bin/bash\n" )
     subFile.write( "cd "+codePath + "\n")
-    # subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\""   + ")"+ "\'" + "\n" )
-    subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\"," +  "\""+eventSelection+"\","  +ishuiling   + ")"+ "\'" + "\n" )
+    # subFile.write
+    # subFile.write( "root -l -b -q "+"\'"+rootplizer+"(false,\""+inputDir+"\","+"\""+koutputDir+"\"," + "\""+singleFile+ "\"," +  "\""+eventSelection+"\","  
+    # +ishuiling   + ")"+ "\'" + "\n" )
+    subFile.write('./run_objectTSelectorForNanoAOD.out ' + '0' +' '+ inputDir + ' ' + koutputDir + ' ' + singleFile + ' '  + eventSelection  )
     subFile.close()
     print( 'done writing the iJob for kProcess: ', shFile )
 
