@@ -540,7 +540,7 @@ public:
 	//    TTreeReaderArray<Bool_t> IsoTrack_isPFcand = {fReader, "IsoTrack_isPFcand"};
 	//    TTreeReaderArray<Bool_t> IsoTrack_isFromLostTrack = {fReader, "IsoTrack_isFromLostTrack"};
 	TTreeReaderValue<UInt_t> nJet = {fReader, "nJet"};
-	TTreeReaderArray<Float_t> Jet_area = {fReader, "Jet_area"};
+	// TTreeReaderArray<Float_t> Jet_area = {fReader, "Jet_area"};
 	TTreeReaderArray<Float_t> Jet_btagCSVV2 = {fReader, "Jet_btagCSVV2"};
 	TTreeReaderArray<Float_t> Jet_btagDeepB = {fReader, "Jet_btagDeepB"};
 	TTreeReaderArray<Float_t> Jet_btagDeepCvB = {fReader, "Jet_btagDeepCvB"};
@@ -549,7 +549,7 @@ public:
 	TTreeReaderArray<Float_t> Jet_btagDeepFlavCvB = {fReader, "Jet_btagDeepFlavCvB"};
 	TTreeReaderArray<Float_t> Jet_btagDeepFlavCvL = {fReader, "Jet_btagDeepFlavCvL"};
 	TTreeReaderArray<Float_t> Jet_btagDeepFlavQG = {fReader, "Jet_btagDeepFlavQG"};
-	TTreeReaderArray<Float_t> Jet_chEmEF = {fReader, "Jet_chEmEF"};
+	// TTreeReaderArray<Float_t> Jet_chEmEF = {fReader, "Jet_chEmEF"};
 	TTreeReaderArray<Float_t> Jet_chFPV0EF = {fReader, "Jet_chFPV0EF"};
 	TTreeReaderArray<Float_t> Jet_chHEF = {fReader, "Jet_chHEF"};
 	TTreeReaderArray<Float_t> Jet_eta = {fReader, "Jet_eta"};
