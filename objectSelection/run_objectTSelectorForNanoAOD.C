@@ -1,4 +1,6 @@
 #include <iostream>
+#include <boost/lexical_cast.hpp>
+
 #include "TString.h"
 #include "TChain.h"
 #include "TROOT.h"
@@ -23,9 +25,7 @@ void run_objectTSelectorForNanoAOD(
     // TString singleFileName = "outTree_11.root",
     TString singleFileName = "outTree_1.root",
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
-    TString eventSelectionBit = "3",
-    // Bool_t ishuiling = false
-    Bool_t ishuiling = true)
+    TString eventSelectionBit = "3")
 {
     using namespace std;
     // gROOT->SetMacroPath("/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTophua/objectSelection/");
@@ -124,6 +124,27 @@ void run_objectTSelectorForNanoAOD(
 
 int main(int argc, char const *argv[])
 {
+
+    Bool_t istest;
+    TString inputDir;
+    TString outputDir;
+    TString singleFileName;
+    TString eventSelectionBit;
+    if (argc < 6)
+    {
+        std::cout << "not enough input from command line\n";
+    }
+    else
+    {
+        istest = boost::lexical_cast<bool>(argv[1]);
+        inputDir = boost::lexical_cast<std::string>(argv[2]);
+        outputDir = boost::lexical_cast<std::string>(argv[3]);
+        singleFileName = boost::lexical_cast<std::string>(argv[4]);
+        eventSelectionBit = boost::lexical_cast<std::string>(argv[5]);
+        printf("istest=%i \n inputDir=%s \n outputDir=%s\n singleFileName=%s\n eventSelectionBit=%s\n ", istest, inputDir.Data(), outputDir.Data(), singleFileName.Data(), eventSelectionBit.Data());
+        run_objectTSelectorForNanoAOD(istest, inputDir, outputDir, singleFileName, eventSelectionBit);
+    }
     run_objectTSelectorForNanoAOD();
+
     return 0;
 }
