@@ -171,6 +171,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     copyFlags();
 
     // HLT
+
     if (HLTSelection)
     {
         if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)

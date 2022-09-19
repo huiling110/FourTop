@@ -5,23 +5,21 @@
     },
     "tasks": [
         {
-            "label": "makeclean",
-            "command": "(cd ${cwd}/objectSelection/ && make clean)",
-            "type": "shell",
-        },
+            "label": "complileC++",
+            "command": "make",
+            "type": "shell"
+            "options": {
+                "cwd": "${fileDirname}/"
+            }
+        }
+
+
         {
             "label": "make",
             "command": "(cd ${cwd}/objectSelection/ && make)",
             "type": "shell"
         },
         
-        {
-            "label": "build",
-            "dependsOrder": "sequence",
-            "dependsOn": [
-                "make"
-            ]
-        },
         
         {
             "label": "root run",
@@ -31,7 +29,6 @@
 				"-q",
 				"${fileDirname}/${fileBasename}"
 			],
-			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
         }
     ]
 }
