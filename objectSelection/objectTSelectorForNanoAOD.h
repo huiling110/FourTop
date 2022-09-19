@@ -44,26 +44,25 @@ public:
 	/////////////////////////
 	// our own members
 	////////////////////////
+	Bool_t isdata = false;
+	TString dataSet;
+	TString era = "2016postVFP";
+	Double_t runRange[2];
 	TFile *outputfile;
 	TFile *inputPUFile_data;
 	TFile *inputPUFile_dataUp;
 	TFile *inputPUFile_dataDown;
 	TFile *inputPUFile_mc;
-	TTree *tree;
+	TTree *newTree; // output tree
 	TH1F *dataPileupProfile;
 	TH1F *dataPileupProfileUp;
 	TH1F *dataPileupProfileDown;
 	TH1F *MCPileupProfile;
-	TRandom3 jet_jer_myran;
-	std::vector<std::vector<std::string>> resolution;
+	// TRandom3 jet_jer_myran;
+	std::vector<std::vector<std::string>> resolution; //???commenting out this causing the runtime issure?
 	std::string resFormula;
 	std::vector<std::vector<std::string>> resSFs;
 	std::string toyResFormula;
-	// CHANGE HERE TO RUN ON DATA
-	Bool_t isdata = false;
-	TString dataSet;
-	TString era = "2016postVFP";
-	Double_t runRange[2];
 
 	TH1D *h_forEY_initial;
 	TH1D *h_forEY_HLT;
@@ -290,7 +289,7 @@ public:
 	std::vector<ROOT::Math::PtEtaPhiMVector> genEles;
 	std::vector<ROOT::Math::PtEtaPhiMVector> genMuons;
 
-	// non tree branch variables
+	// non newTree branch variables
 	std::vector<Double_t> JER_SF_new;
 	std::vector<Double_t> JER_SF_new_up;
 	std::vector<Double_t> JER_SF_new_down;
@@ -318,7 +317,7 @@ public:
 	void selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons);
 	void SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
 
-	void makeBranch(TTree *tree);
+	void makeBranch(TTree *newTree);
 	void getRunRange(TTree *fChain);
 	void intializaTreeBranches(const Bool_t isdata, const TString dataset);
 

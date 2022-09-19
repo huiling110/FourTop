@@ -69,9 +69,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
     h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
 
-    tree = new TTree("tree", "tree after object selection");
+    newTree = new TTree("tree", "tree after object selection");
 
-    makeBranch(tree);
+    makeBranch(newTree);
 
     setupInputFile();
     // setupTauSFTool( isdata );
@@ -365,7 +365,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     h_forEY_preSelection->Fill(0.0, basicWeight);
 
     eventsPassed++;
-    tree->Fill();
+    newTree->Fill();
 
     return kTRUE;
 }
@@ -409,133 +409,133 @@ void objectTSelectorForNanoAOD::Terminate()
 }
 
 /////////////////
-void objectTSelectorForNanoAOD::makeBranch(TTree *tree)
+void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
 {
-    tree->Branch("muonsL", &muonsL);
-    tree->Branch("muonsL_index", &muonsL_index);
-    tree->Branch("muonsF", &muonsF);
-    tree->Branch("muonsF_index", &muonsF_index);
-    tree->Branch("muonsT", &muonsT);
-    tree->Branch("muonsT_index", &muonsT_index);
-    tree->Branch("eleMVAL", &eleMVAL);
-    tree->Branch("eleMVAF", &eleMVAF);
-    tree->Branch("eleMVAT", &eleMVAT);
-    tree->Branch("eleMVAL_index", &eleMVAL_index);
-    tree->Branch("eleMVAF_index", &eleMVAF_index);
-    tree->Branch("eleMVAT_index", &eleMVAT_index);
-    tree->Branch("leptonsMVAF", &leptonsMVAF);
-    tree->Branch("leptonsMVAT", &leptonsMVAT);
-    tree->Branch("leptonsMVAL", &leptonsMVAL);
+    newTree->Branch("muonsL", &muonsL);
+    newTree->Branch("muonsL_index", &muonsL_index);
+    newTree->Branch("muonsF", &muonsF);
+    newTree->Branch("muonsF_index", &muonsF_index);
+    newTree->Branch("muonsT", &muonsT);
+    newTree->Branch("muonsT_index", &muonsT_index);
+    newTree->Branch("eleMVAL", &eleMVAL);
+    newTree->Branch("eleMVAF", &eleMVAF);
+    newTree->Branch("eleMVAT", &eleMVAT);
+    newTree->Branch("eleMVAL_index", &eleMVAL_index);
+    newTree->Branch("eleMVAF_index", &eleMVAF_index);
+    newTree->Branch("eleMVAT_index", &eleMVAT_index);
+    newTree->Branch("leptonsMVAF", &leptonsMVAF);
+    newTree->Branch("leptonsMVAT", &leptonsMVAT);
+    newTree->Branch("leptonsMVAL", &leptonsMVAL);
 
-    tree->Branch("tausL", &tausL);
-    tree->Branch("tausF", &tausF);
-    tree->Branch("tausT", &tausT);
-    tree->Branch("tausL_index", &tausL_index);
-    tree->Branch("tausF_index", &tausF_index);
-    tree->Branch("tausT_index", &tausT_index);
-    tree->Branch("tausL_decayMode", &tausL_decayMode);
-    tree->Branch("tausF_decayMode", &tausF_decayMode);
-    tree->Branch("tausT_decayMode", &tausT_decayMode);
-    tree->Branch("tausL_genPartFlav", &tausL_genPartFlav);
-    tree->Branch("tausF_genPartFlav", &tausF_genPartFlav);
-    tree->Branch("tausT_genPartFlav", &tausT_genPartFlav);
-    tree->Branch("tausT_TESup", &tausT_TESup);
-    tree->Branch("tausT_index_TESup", &tausT_index_TESup);
-    tree->Branch("tausT_decayMode_TESup", &tausT_decayMode_TESup);
-    tree->Branch("tausT_genPartFlav_TESup", &tausT_genPartFlav_TESup);
-    tree->Branch("tausT_TESdown", &tausT_TESdown);
-    tree->Branch("tausT_index_TESdown", &tausT_index_TESdown);
-    tree->Branch("tausT_decayMode_TESdown", &tausT_decayMode_TESdown);
-    tree->Branch("tausT_genPartFlav_TESdown", &tausT_genPartFlav_TESdown);
+    newTree->Branch("tausL", &tausL);
+    newTree->Branch("tausF", &tausF);
+    newTree->Branch("tausT", &tausT);
+    newTree->Branch("tausL_index", &tausL_index);
+    newTree->Branch("tausF_index", &tausF_index);
+    newTree->Branch("tausT_index", &tausT_index);
+    newTree->Branch("tausL_decayMode", &tausL_decayMode);
+    newTree->Branch("tausF_decayMode", &tausF_decayMode);
+    newTree->Branch("tausT_decayMode", &tausT_decayMode);
+    newTree->Branch("tausL_genPartFlav", &tausL_genPartFlav);
+    newTree->Branch("tausF_genPartFlav", &tausF_genPartFlav);
+    newTree->Branch("tausT_genPartFlav", &tausT_genPartFlav);
+    newTree->Branch("tausT_TESup", &tausT_TESup);
+    newTree->Branch("tausT_index_TESup", &tausT_index_TESup);
+    newTree->Branch("tausT_decayMode_TESup", &tausT_decayMode_TESup);
+    newTree->Branch("tausT_genPartFlav_TESup", &tausT_genPartFlav_TESup);
+    newTree->Branch("tausT_TESdown", &tausT_TESdown);
+    newTree->Branch("tausT_index_TESdown", &tausT_index_TESdown);
+    newTree->Branch("tausT_decayMode_TESdown", &tausT_decayMode_TESdown);
+    newTree->Branch("tausT_genPartFlav_TESdown", &tausT_genPartFlav_TESdown);
 
-    tree->Branch("jets", &jets);
-    tree->Branch("jets_JESuncer", &jets_JESuncer);
-    tree->Branch("jets_index", &jets_index);
-    tree->Branch("jets_flavour", &jets_flavour);
-    tree->Branch("jets_btags", &jets_btags);
-    tree->Branch("jets_JECup", &jets_JECup);
-    tree->Branch("jets_index_JECup", &jets_index_JECup);
-    tree->Branch("jets_flavour_JECup", &jets_flavour_JECup);
-    tree->Branch("jets_btags_JECup", &jets_btags_JECup);
-    tree->Branch("jets_JECdown", &jets_JECdown);
-    tree->Branch("jets_index_JECdown", &jets_index_JECdown);
-    tree->Branch("jets_flavour_JECdown", &jets_flavour_JECdown);
-    tree->Branch("jets_btags_JECdown", &jets_btags_JECdown);
-    tree->Branch("bjetsL", &bjetsL);
-    tree->Branch("bjetsL_index", &bjetsL_index);
-    tree->Branch("bjetsL_flavour", &bjetsL_flavour);
-    tree->Branch("bjetsL_btags", &bjetsL_btags);
-    tree->Branch("bjetsM", &bjetsM);
-    tree->Branch("bjetsM_index", &bjetsM_index);
-    tree->Branch("bjetsM_flavour", &bjetsM_flavour);
-    tree->Branch("bjetsM_btags", &bjetsM_btags);
-    tree->Branch("bjetsT", &bjetsT);
-    tree->Branch("bjetsT_index", &bjetsT_index);
-    tree->Branch("bjetsT_flavour", &bjetsT_flavour);
-    tree->Branch("bjetsT_btags", &bjetsT_btags);
-    tree->Branch("forwardJets", &forwardJets);
-    tree->Branch("forwardJets_index", &forwardJets_index);
-    tree->Branch("forwardJets_flavour", &forwardJets_flavour);
-    tree->Branch("forwardJets_btags", &forwardJets_btags);
-    tree->Branch("nonbjetsL", &nonbjetsL);
-    tree->Branch("nonbjetsM", &nonbjetsM);
-    tree->Branch("nonbjetsT", &nonbjetsT);
-    tree->Branch("patElectron_charge_", &patElectron_charge_);
-    tree->Branch("Tau_charge_", &Tau_charge_);
-    tree->Branch("Muon_charge_", &Muon_charge_);
+    newTree->Branch("jets", &jets);
+    newTree->Branch("jets_JESuncer", &jets_JESuncer);
+    newTree->Branch("jets_index", &jets_index);
+    newTree->Branch("jets_flavour", &jets_flavour);
+    newTree->Branch("jets_btags", &jets_btags);
+    newTree->Branch("jets_JECup", &jets_JECup);
+    newTree->Branch("jets_index_JECup", &jets_index_JECup);
+    newTree->Branch("jets_flavour_JECup", &jets_flavour_JECup);
+    newTree->Branch("jets_btags_JECup", &jets_btags_JECup);
+    newTree->Branch("jets_JECdown", &jets_JECdown);
+    newTree->Branch("jets_index_JECdown", &jets_index_JECdown);
+    newTree->Branch("jets_flavour_JECdown", &jets_flavour_JECdown);
+    newTree->Branch("jets_btags_JECdown", &jets_btags_JECdown);
+    newTree->Branch("bjetsL", &bjetsL);
+    newTree->Branch("bjetsL_index", &bjetsL_index);
+    newTree->Branch("bjetsL_flavour", &bjetsL_flavour);
+    newTree->Branch("bjetsL_btags", &bjetsL_btags);
+    newTree->Branch("bjetsM", &bjetsM);
+    newTree->Branch("bjetsM_index", &bjetsM_index);
+    newTree->Branch("bjetsM_flavour", &bjetsM_flavour);
+    newTree->Branch("bjetsM_btags", &bjetsM_btags);
+    newTree->Branch("bjetsT", &bjetsT);
+    newTree->Branch("bjetsT_index", &bjetsT_index);
+    newTree->Branch("bjetsT_flavour", &bjetsT_flavour);
+    newTree->Branch("bjetsT_btags", &bjetsT_btags);
+    newTree->Branch("forwardJets", &forwardJets);
+    newTree->Branch("forwardJets_index", &forwardJets_index);
+    newTree->Branch("forwardJets_flavour", &forwardJets_flavour);
+    newTree->Branch("forwardJets_btags", &forwardJets_btags);
+    newTree->Branch("nonbjetsL", &nonbjetsL);
+    newTree->Branch("nonbjetsM", &nonbjetsM);
+    newTree->Branch("nonbjetsT", &nonbjetsT);
+    newTree->Branch("patElectron_charge_", &patElectron_charge_);
+    newTree->Branch("Tau_charge_", &Tau_charge_);
+    newTree->Branch("Muon_charge_", &Muon_charge_);
     // CHANGE HERE TO RUN ON DATA
 
-    tree->Branch("genTaus", &genTaus);
-    tree->Branch("genEles", &genEles);
-    tree->Branch("genMuons", &genMuons);
+    newTree->Branch("genTaus", &genTaus);
+    newTree->Branch("genEles", &genEles);
+    newTree->Branch("genMuons", &genMuons);
 
-    tree->Branch("Met_pt", &Met_pt, "Met_pt/D");
-    tree->Branch("Met_phi", &Met_phi, "Met_phi/D");
-    tree->Branch("tops_toptagger", &tops_toptagger);
+    newTree->Branch("Met_pt", &Met_pt, "Met_pt/D");
+    newTree->Branch("Met_phi", &Met_phi, "Met_phi/D");
+    newTree->Branch("tops_toptagger", &tops_toptagger);
 
-    tree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D");
-    tree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_, "EVENT_prefireWeight_up_/D");
-    tree->Branch("EVENT_prefireWeight_down_", &EVENT_prefireWeight_down_, "EVENT_prefireWeight_down_/D");
-    tree->Branch("PUWeight", &PUWeight, "PUWeight/D");
-    tree->Branch("PUWeight_Up", &PUWeight_Up, "PUWeight_Up/D");
-    tree->Branch("PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
+    newTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D");
+    newTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_, "EVENT_prefireWeight_up_/D");
+    newTree->Branch("EVENT_prefireWeight_down_", &EVENT_prefireWeight_down_, "EVENT_prefireWeight_down_/D");
+    newTree->Branch("PUWeight", &PUWeight, "PUWeight/D");
+    newTree->Branch("PUWeight_Up", &PUWeight_Up, "PUWeight_Up/D");
+    newTree->Branch("PUWeight_Down", &PUWeight_Down, "PUWeight_Down/D");
     // CHANGE HERE TO RUN ON DATA
 
-    tree->Branch("EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D");
+    newTree->Branch("EVENT_genWeight_", &EVENT_genWeight_, "EVENT_genWeight_/D");
 
-    tree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
-    tree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
-    tree->Branch("genTtbarId_", &genTtbarId_, "genTtbarId_/I");
+    newTree->Branch("PV_npvs_", &PV_npvs_, "PV_npvs_/I");
+    newTree->Branch("PV_npvsGood_", &PV_npvsGood_, "PV_npvsGood_/I");
+    newTree->Branch("genTtbarId_", &genTtbarId_, "genTtbarId_/I");
     //???change flags to Int_t type;
-    tree->Branch("Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
-    tree->Branch("Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
-    tree->Branch("Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
-    tree->Branch("Flag_HBHENoiseIsoFilter_", &Flag_HBHENoiseIsoFilter_, "Flag_HBHENoiseIsoFilter_/I");
-    tree->Branch("Flag_EcalDeadCellTriggerPrimitiveFilter_", &Flag_EcalDeadCellTriggerPrimitiveFilter_, "Flag_EcalDeadCellTriggerPrimitiveFilter_/I");
-    tree->Branch("Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
-    tree->Branch("Flag_BadPFMuonDzFilter_", &Flag_BadPFMuonDzFilter_, "Flag_BadPFMuonDzFilter_/I");
-    tree->Branch("Flag_ecalBadCalibFilter_", &Flag_ecalBadCalibFilter_, "Flag_ecalBadCalibFilter_/I");
-    tree->Branch("Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
+    newTree->Branch("Flag_goodVertices_", &Flag_goodVertices_, "Flag_goodVertices_/I");
+    newTree->Branch("Flag_globalSuperTightHalo2016Filter_", &Flag_globalSuperTightHalo2016Filter_, "Flag_globalSuperTightHalo2016Filter_/I");
+    newTree->Branch("Flag_HBHENoiseFilter_", &Flag_HBHENoiseFilter_, "Flag_HBHENoiseFilter_/I");
+    newTree->Branch("Flag_HBHENoiseIsoFilter_", &Flag_HBHENoiseIsoFilter_, "Flag_HBHENoiseIsoFilter_/I");
+    newTree->Branch("Flag_EcalDeadCellTriggerPrimitiveFilter_", &Flag_EcalDeadCellTriggerPrimitiveFilter_, "Flag_EcalDeadCellTriggerPrimitiveFilter_/I");
+    newTree->Branch("Flag_BadPFMuonFilter_", &Flag_BadPFMuonFilter_, "Flag_BadPFMuonFilter_/I");
+    newTree->Branch("Flag_BadPFMuonDzFilter_", &Flag_BadPFMuonDzFilter_, "Flag_BadPFMuonDzFilter_/I");
+    newTree->Branch("Flag_ecalBadCalibFilter_", &Flag_ecalBadCalibFilter_, "Flag_ecalBadCalibFilter_/I");
+    newTree->Branch("Flag_eeBadScFilter_", &Flag_eeBadScFilter_, "Flag_eeBadScFilter_/I");
 
-    tree->Branch("run_", &run_, "run_/i"); // i : a 32 bit unsigned integer (UInt_t)
-    tree->Branch("event_", &event_);       // If the address points to a single numerical variable, the leaflist is optional:
+    newTree->Branch("run_", &run_, "run_/i"); // i : a 32 bit unsigned integer (UInt_t)
+    newTree->Branch("event_", &event_);       // If the address points to a single numerical variable, the leaflist is optional:
 
-    tree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
-    tree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
-    tree->Branch("HLT_PFJet450_", &HLT_PFJet450_, "HLT_PFJet450_/I");
-    tree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
-    tree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
+    newTree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_/I");
+    newTree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_, "HLT_PFHT450_SixJet40_BTagCSV_p056_/I");
+    newTree->Branch("HLT_PFJet450_", &HLT_PFJet450_, "HLT_PFJet450_/I");
+    newTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_, "HLT_IsoMu24_/I");
+    newTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_, "HLT_IsoMu27_/I");
 
     // 2018////////////
-    //  tree->Branch( "", &, "/I");
-    tree->Branch("HLT_PFHT1050_", &HLT_PFHT1050_, "HLT_PFHT1050_/I");
-    tree->Branch("HLT_PFJet500_", &HLT_PFJet500_, "HLT_PFJet500_/I");
-    tree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_/I");
-    tree->Branch("HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_/I");
-    tree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_/I");
-    tree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_/I");
-    tree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
-    tree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
+    //  newTree->Branch( "", &, "/I");
+    newTree->Branch("HLT_PFHT1050_", &HLT_PFHT1050_, "HLT_PFHT1050_/I");
+    newTree->Branch("HLT_PFJet500_", &HLT_PFJet500_, "HLT_PFJet500_/I");
+    newTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_/I");
+    newTree->Branch("HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_/I");
+    newTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_/I");
+    newTree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_/I");
+    newTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
+    newTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
 }
 
 void objectTSelectorForNanoAOD::SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type)
