@@ -268,9 +268,9 @@ public:
 	void initializeBrancheValues();
 	void setupInputFile();
 	void getOptionFromRunMacro(const TString option);
-	void calJetSmearFactors(const Bool_t isdata);
-	void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down);
-	void setupTauSFTool(const Bool_t isdata);
+	// void calJetSmearFactors(const Bool_t isdata);
+	// void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down);
+	// void setupTauSFTool(const Bool_t isdata);
 	//    void calTauSF( const Bool_t isdata );
 	void calTauSF_new();
 
