@@ -59,7 +59,7 @@ GLIBS = $(ROOTGLIBS)
 
 #???need to configure it so that objectTSelectorForNanoAOD.h changes objectTSelectorForNanoAOD.o recompiles
 
-%/%.o: %.C %.h
+%/%.o: %.C $(HDRS)
 	$(CXX) -c $(CXXFLAGS) $*.C
  
 
