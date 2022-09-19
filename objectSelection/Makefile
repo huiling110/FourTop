@@ -57,7 +57,9 @@ GLIBS = $(ROOTGLIBS)
 #g++ -o: link and complile into exutables
 #-g - turn on debugging (so GDB gives more friendly output)
 
-%/%.o: %.C
+#???need to configure it so that objectTSelectorForNanoAOD.h changes objectTSelectorForNanoAOD.o recompiles
+
+%/%.o: %.C %.h
 	$(CXX) -c $(CXXFLAGS) $*.C
  
 
@@ -70,7 +72,7 @@ $(PROGRAM).out: $(OBJS) $(SHAREDLIBS).so $(PROGRAM).C
 	@echo "done building $(PROGRAM)"
 
 #The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
-$(SHAREDLIBS).so: $(OBJS)
+$(SHAREDLIBS).so: $(OBJS) $(HDRS)
 	@echo "Linking $(SHAREDLIBS).so ..." 
 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(SHAREDLIBS).so
 	@echo "linking done"
