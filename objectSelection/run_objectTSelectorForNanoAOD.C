@@ -5,14 +5,13 @@
 #include "TStopwatch.h"
 #include "TFile.h"
 
-
 void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016D/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/jetHT_2016H/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016G/",
@@ -29,7 +28,7 @@ void run_objectTSelectorForNanoAOD(
     Bool_t ishuiling = true)
 {
     using namespace std;
-	// gROOT->SetMacroPath("/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTophua/objectSelection/");
+    // gROOT->SetMacroPath("/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTophua/objectSelection/");
     gROOT->ProcessLine(".L objectTSelectorForNanoAOD.so");
 
     // determine era and isData from inputDir

@@ -207,7 +207,7 @@ Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Floa
 }
 
 // https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM
-void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<Int_t>> &_goodLumis)
+void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis)
 {
     if (isdata)
     { // deal with Lumi JSONs only if reading data
@@ -250,7 +250,8 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
                 TObjArray *values = value.Tokenize("[], :}");
                 // Finally tokenize the second element to remove everything which is not an integer
                 // You get the good lumi sections
-                std::vector<Int_t> valueVec;
+                // std::vector<Int_t> valueVec;
+                std::vector<UInt_t> valueVec;
                 for (Int_t i = 0; i < values->GetEntries(); i++)
                 {
                     valueVec.push_back((((TObjString *)(values->At(i)))->String()).Atoi());

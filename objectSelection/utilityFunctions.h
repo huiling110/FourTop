@@ -44,6 +44,6 @@ Float_t GetJerFromFile(Float_t eta, std::vector<std::vector<std::string>> resSFs
 Float_t GetStochasticFactor(Float_t pt, Float_t eta, Float_t rho, std::vector<std::vector<std::string>> resolution, TString resFormula);
 
 Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Float_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran);
-void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<Int_t>> &_goodLumis);
+void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis);
 
 /////////////////////////

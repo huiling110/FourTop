@@ -137,17 +137,9 @@ public:
 
 	};
 
-	std::map<TString, TString> GoldenJSONs = {
-		// std::map of golden JSONs
 
-		{"2016postVFP", "../golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
-		{"2016preVFP", "../golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
-		{"2017", "../golden_JSONs/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"},
-		{"2018", "../golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},
-
-	};
-
-	std::map<Int_t, std::vector<Int_t>> _goodLumis;
+	// std::map<Int_t, std::vector<Int_t>> _goodLumis;
+	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
 
 	// 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
 	Bool_t MetFilters = false;
@@ -722,7 +714,7 @@ public:
 	TTreeReaderValue<UInt_t> nMuon = {fReader, "nMuon"};
 	TTreeReaderArray<Float_t> Muon_dxy = {fReader, "Muon_dxy"};
 	TTreeReaderArray<Float_t> Muon_dxyErr = {fReader, "Muon_dxyErr"};
-	TTreeReaderArray<Float_t> Muon_dxybs = {fReader, "Muon_dxybs"};
+	// TTreeReaderArray<Float_t> Muon_dxybs = {fReader, "Muon_dxybs"};
 	TTreeReaderArray<Float_t> Muon_dz = {fReader, "Muon_dz"};
 	TTreeReaderArray<Float_t> Muon_dzErr = {fReader, "Muon_dzErr"};
 	TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};

@@ -64,8 +64,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     intializaTreeBranches(isdata, dataSet);
 
     //???
-    TString jsonInFile = GoldenJSONs[era];
-    readJSON(isdata, jsonInFile, _goodLumis);
 
     h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
     h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
@@ -120,6 +118,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     if (isdata)
     {
         if (_goodLumis.find(*run) == _goodLumis.end())
+        // std::map<Int_t, std::vector<Int_t>> _goodLumis;
         {
             return kFALSE;
         }
@@ -180,35 +179,37 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
             if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
                 return kFALSE;
         }
-        else if (era.CompareTo("2018")==0){
+        else if (era.CompareTo("2018") == 0)
+        {
             if (!isdata)
             {
-                if(!(*HLT_PFJet500==1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94==1) )
+                if (!(*HLT_PFJet500 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1))
                     return kFALSE;
-            }else{
+            }
+            else
+            {
                 if (*run >= 315257 && *run <= 325173)
                 {
                     // 2018
                     HLT_PFJet500_ = *HLT_PFJet500;
                     if (*run < 315974)
                     {
-                        if(!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1||*HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2==1) )
+                        if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1))
                             return kFALSE;
                     }
                     else if (*run < 317509)
                     {
-                        if(!(*HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5==1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2==1))
+                        if (!(*HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1))
                             return kFALSE;
                     }
                     else
                     {
-                        if(!(*HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59==1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94==1) )
+                        if (!(*HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1))
                             return kFALSE;
                     }
                 }
             }
         }
-
     }
     eventsPassedHLT++;
     h_forEY_HLT->Fill(0.0, basicWeight);
@@ -222,6 +223,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     copyHLT_new(isdata, dataSet);
 
     // Compute the per-event PU weight
+    //???todo: switch this to json
     if (!isdata)
     {
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0)
@@ -325,7 +327,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     jets_total = jets_total + jets.size();
     bjetsM_total = bjetsM_total + bjetsM.size();
 
-
     if (Electron_charge.GetSize() > 0)
     {
         copy_TTreeReaderArray_toVector(Electron_charge, patElectron_charge_);
@@ -380,10 +381,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     h_forEY_preSelection->Fill(0.0, basicWeight);
 
-
     eventsPassed++;
     tree->Fill();
-
 
     return kTRUE;
 }
@@ -1117,7 +1116,6 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = -99;
 }
 
-// void objectTSelectorForNanoAOD::setupInputFile( const Bool_t isdata, correction::CorrectionSet* cset_jerSF ){
 void objectTSelectorForNanoAOD::setupInputFile()
 {
 #include "inputMap.h"
@@ -1128,7 +1126,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
     // std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
     // same file for JER and JES
     // cset_jerSF = correction::CorrectionSet::from_file(jer_file);
-    std::cout<<"JEC file: "<<jsonBase + json_map[era].at(0)<<"\n";
+    std::cout << "JEC file: " << jsonBase + json_map[era].at(0) << "\n";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     for (auto &corr : *cset_jerSF)
     {
@@ -1209,6 +1207,10 @@ void objectTSelectorForNanoAOD::setupInputFile()
     {
         std::cout << "data not setting up jetSmearing and pile files"
                   << "\n";
+        std::cout << "setting up lumilosity json files for data\n";
+        // TString jsonInFile = GoldenJSONs[era];
+        // readJSON(isdata, jsonInFile, _goodLumis);
+        readJSON(isdata, GoldenJSONs[era], _goodLumis);
     }
 
     std::cout << "done setting input file........................\n";
