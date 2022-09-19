@@ -114,30 +114,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     // good lumi selection
-    //???not finding twiki for this
-    if (isdata)
+    //???todo: examination of selectGoodLumi()
+    Bool_t ifGoodLumi = selectGoodLumi();
+    if (!ifGoodLumi && isdata)
     {
-        if (_goodLumis.find(*run) == _goodLumis.end())
-        // std::map<Int_t, std::vector<Int_t>> _goodLumis;
-        {
-            return kFALSE;
-        }
-        else
-        { // if run number is in map
-            Bool_t keepEvent = false;
-            for (Int_t i = 0; i < _goodLumis[*run].size() / 2.; i++)
-            {
-                if (*luminosityBlock >= _goodLumis[*run][i * 2] && *luminosityBlock <= _goodLumis[*run][i * 2 + 1])
-                {
-                    keepEvent = true;
-                    break;
-                }
-            }
-            if (!keepEvent)
-                return kFALSE; // veto luminosity blocks not in JSON
-        }
+        return kFALSE;
     }
-
     eventsPassedJSON++;
 
     // MET filters
@@ -991,6 +973,37 @@ void objectTSelectorForNanoAOD::copyHLT_new(const Bool_t isdata, const TString d
             }
         }
     }
+}
+
+Bool_t objectTSelectorForNanoAOD::selectGoodLumi()
+{
+    // https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile
+    Bool_t ifGoodLumi = kTRUE;
+    if (isdata)
+    {
+        if (_goodLumis.find(*run) == _goodLumis.end())
+        {
+            ifGoodLumi = kFALSE;
+        }
+        else
+        { // if run number is in map
+            Bool_t keepEvent = false;
+            for (Int_t i = 0; i < _goodLumis[*run].size() / 2.; i++)
+            {
+                if (*luminosityBlock >= _goodLumis[*run][i * 2] && *luminosityBlock <= _goodLumis[*run][i * 2 + 1])
+                {
+                    keepEvent = true;
+                    break;
+                }
+            }
+            if (!keepEvent)
+            {
+                // veto luminosity blocks not in JSON
+                ifGoodLumi = kFALSE;
+            }
+        }
+    }
+    return ifGoodLumi;
 }
 
 void objectTSelectorForNanoAOD::copyFlags()

@@ -137,7 +137,6 @@ public:
 
 	};
 
-
 	// std::map<Int_t, std::vector<Int_t>> _goodLumis;
 	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
 
@@ -325,6 +324,7 @@ public:
 
 	void copyHLT_new(const Bool_t isdata, const TString dataset);
 	void copyFlags();
+	Bool_t selectGoodLumi();
 	void initializeBrancheValues();
 	void setupInputFile();
 	void getOptionFromRunMacro(const TString option);
