@@ -7,12 +7,31 @@
         {
             "label": "complileC++",
             "command": "make",
-            "type": "shell"
+            "type": "shell",
             "options": {
-                "cwd": "${fileDirname}/"
-            }
+                "cwd": "${fileDirname}"
+            },
+            "group": "test",
+            // "runOptions":  
         }
 
+        {
+            "label": "rootRun",
+            "command": "root",
+            "args":[
+                "-l",
+                "-q",
+                "${fileBasename}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "test",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "complileC++",
+            ],
+        }
 
         {
             "label": "make",

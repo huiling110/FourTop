@@ -18,13 +18,14 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v30TESnoJER'
 # inVersion = 'v31TESandJER'
-inVersion = 'v32TESnoJER'
+# inVersion = 'v32TESnoJER'
+inVersion = 'v33TESnoJERCodeOptimzation'
 # outVersion = 'v0noBaseline'
 outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
-# year = '2016'
-year = '2018'
+year = '2016'
+# year = '2018'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 
@@ -45,7 +46,7 @@ def main():
 
     subAllofAll = open( 'subAllofAll.sh', 'w')
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):

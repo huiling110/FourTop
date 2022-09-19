@@ -20,7 +20,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v29LorentzProblemSolvedNoJERnoTES/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v30TESnoJER/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v27noJERnoTESWithObjectRemoval/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v32TESnoJER/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v32TESnoJER/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v33TESnoJERCodeOptimzation/mc/",
     // TString inputBase = "../../objectSelection/",
 
     TString inputDir = "tttt",
