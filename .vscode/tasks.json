@@ -33,11 +33,6 @@
             ],
         }
 
-        {
-            "label": "make",
-            "command": "(cd ${cwd}/objectSelection/ && make)",
-            "type": "shell"
-        },
         
         
         {
