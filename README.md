@@ -12,7 +12,7 @@
    * cd objectSelection
    * mkdir output
    <!-- * make clean -->
-   * make  (complie objectTSelectorForNano )
+   * make 
    * ./run_objectTSelectorForNanoAOD.out
    * or root -b -q run_objectTSelectorForNanoAOD.C
  * tips
