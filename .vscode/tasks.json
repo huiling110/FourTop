@@ -1,8 +1,5 @@
 {
     "version": "1.0.0",
-    "options": {
-        "env": {},
-    },
     "tasks": [
         {
             "label": "complileC++",
@@ -34,15 +31,20 @@
         }
 
         
-        
         {
-            "label": "root run",
-            "command": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/root",
+            "label": "simpleRootRun",
+            "command": "root",
 			"args": [
 				"-l",
 				"-q",
 				"${fileDirname}/${fileBasename}"
 			],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            // "runOptions": {
+                
+            // }
         }
     ]
 }

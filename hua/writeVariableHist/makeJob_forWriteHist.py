@@ -1,19 +1,14 @@
 import os
 import subprocess
-import sys
+# from pathlib import Path
 
 import usefulFunc as uf
 
+# import sys
+
+
 #???make all job subscrison more modulized
 
-
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/mc/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v16_HLTselection/data/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/mc/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v17NoSelection/data/'
-# inputDir = '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/mc/'
-# inputDir = '/scratchfs/cms/huahuil/forMVA/2016postVFP/v4ClearedSomeMemoryUse_v17NoSelection/data/'
-# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baseline_v18HLTSelection/mc/'
 
 Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
 def main():
@@ -24,7 +19,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v30TESnoJER/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v31TESandJER/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v31TESandJER/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v33TESnoJERCodeOptimzation/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
@@ -38,7 +34,8 @@ def main():
 
 
 
-    subAllProcess = open( 'subAllProcess.sh', 'w')
+    subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
+    #important to add the full path so that it can be ran in any folder
     subAllProcess.write('#!/bin/bash\n')
     subAllProcess.write('cd '+ Jobsubmitpath +'\n')
     inputDirDic={}
@@ -48,10 +45,11 @@ def main():
 
     for i in inputDirDic.keys():
         makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
+    subAllProcess.close()
 
-
-    # uf.sumbitJobs( os.getcwd()+'/hua/writeVariableHist/', 'subAllProcess.sh')
-    uf.sumbitJobs( os.getcwd(), 'subAllProcess.sh')
+    # subDir = str(Path(__file__).absolute()).strip()
+    # subDir = subDir[0:subDir.rindex('/')]
+    uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
