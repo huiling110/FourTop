@@ -60,11 +60,6 @@ public:
 	TH1F *dataPileupProfileUp;
 	TH1F *dataPileupProfileDown;
 	TH1F *MCPileupProfile;
-	// TRandom3 jet_jer_myran;
-	// std::vector<std::vector<std::string>> resolution; //???commenting out this causing the runtime issure?
-	// std::string resFormula;
-	// std::vector<std::vector<std::string>> resSFs; //???????
-	// std::string toyResFormula;					  // ? ? ?
 
 	TH1D *h_forEY_initial;
 	TH1D *h_forEY_HLT;
@@ -237,6 +232,15 @@ public:
 	std::vector<Double_t> taus_TES;
 	std::vector<Double_t> taus_TES_up;
 	std::vector<Double_t> taus_TES_down;
+	// old JER
+	std::vector<Double_t> jetSmearingFactors;
+	std::vector<Double_t> jetSmearingFactorsUp;
+	std::vector<Double_t> jetSmearingFactorsDown;
+	TRandom3 jet_jer_myran;
+	std::vector<std::vector<std::string>> resolution; 
+	std::string resFormula;
+	std::vector<std::vector<std::string>> resSFs; 
+	std::string toyResFormula;					  
 
 	// weight
 	Double_t EVENT_prefireWeight_;
@@ -268,7 +272,7 @@ public:
 	void initializeBrancheValues();
 	void setupInputFile();
 	void getOptionFromRunMacro(const TString option);
-	// void calJetSmearFactors(const Bool_t isdata);
+	void calJetSmearFactors(const Bool_t isdata);
 	// void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down);
 	// void setupTauSFTool(const Bool_t isdata);
 	//    void calTauSF( const Bool_t isdata );

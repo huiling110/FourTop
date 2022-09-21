@@ -39,11 +39,11 @@ void sortJetAndFlavorAndBcore(std::vector<ROOT::Math::PtEtaPhiMVector> &jets, st
 void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_resolution, std::string &_resFormula);
 void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> *&matchingIdx); // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted
 
-Float_t GetJerFromFile(Float_t eta, std::vector<std::vector<std::string>> resSFs, int central);
+Double_t GetJerFromFile(Double_t eta, std::vector<std::vector<std::string>> resSFs, int central);
 
-Float_t GetStochasticFactor(Float_t pt, Float_t eta, Float_t rho, std::vector<std::vector<std::string>> resolution, TString resFormula);
+Double_t GetStochasticFactor(Double_t pt, Double_t eta, Double_t rho, std::vector<std::vector<std::string>> resolution, TString resFormula);
 
-Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Float_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran);
+Double_t GetSmearFactor(Double_t pt, Double_t genPt, Double_t eta, Double_t rho, Double_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran);
 void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis);
 
 /////////////////////////

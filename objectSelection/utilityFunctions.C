@@ -131,34 +131,31 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_res
     }
 }
 
-void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> *&matchingIdx)
+void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<Int_t>* &matchingIdx)
+// https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
+//???relative pT resolution not implementing
 {
-    for (unsigned int i = 0; i < recoEta.GetSize(); i++)
+    for (UInt_t i = 0; i < recoEta.GetSize(); i++)
     {
-        Float_t dRmin = 10.0;
+        Double_t dRmin = 10.0;
         int matchIdx = -1;
         int idx = -1;
         for (unsigned int j = 0; j < genEta.GetSize(); j++)
         {
-
             Double_t dr = DeltaR(recoEta.At(i), genEta.At(j), recoPhi.At(i), genPhi.At(j));
-            // cout << "dr: " << dr << endl;
             if (dr < dRmin)
             {
-
                 dRmin = dr;
                 idx = j;
             }
         }
-
         if (dRmin < 0.2)
             matchIdx = idx;
-        // matchingIdx.push_back(matchIdx);
         matchingIdx->push_back(matchIdx);
     }
 }
 
-Float_t GetJerFromFile(Float_t eta, std::vector<std::vector<std::string>> resSFs, int central)
+Double_t GetJerFromFile(Double_t eta, std::vector<std::vector<std::string>> resSFs, int central)
 {
     for (auto res : resSFs)
     { // go through all the lines
@@ -169,7 +166,7 @@ Float_t GetJerFromFile(Float_t eta, std::vector<std::vector<std::string>> resSFs
     return 1.;
 }
 
-Float_t GetStochasticFactor(Float_t pt, Float_t eta, Float_t rho, std::vector<std::vector<std::string>> resolution, TString resFormula)
+Double_t GetStochasticFactor(Double_t pt, Double_t eta, Double_t rho, std::vector<std::vector<std::string>> resolution, TString resFormula)
 {
 
     TFormula resForm("", resFormula);
@@ -187,11 +184,12 @@ Float_t GetStochasticFactor(Float_t pt, Float_t eta, Float_t rho, std::vector<st
     return resForm.Eval(pt);
 }
 
-Float_t GetSmearFactor(Float_t pt, Float_t genPt, Float_t eta, Float_t rho, Float_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran)
+Double_t GetSmearFactor(Double_t pt, Double_t genPt, Double_t eta, Double_t rho, Double_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran)
+// https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
 {
 
-    Float_t smearFactor = 1.;
-    Float_t relpterr = GetStochasticFactor(pt, eta, rho, resolution, resFormula);
+    Double_t smearFactor = 1.;
+    Double_t relpterr = GetStochasticFactor(pt, eta, rho, resolution, resFormula);
     if (genPt > 0. && (abs(pt - genPt) < 3 * relpterr * pt))
     {
         double dPt = pt - genPt;

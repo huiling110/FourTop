@@ -274,13 +274,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
-    // calJetSmearFactors(  isdata );
-    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get());
-    // for (Int_t i = 0; i < JER_SF_new.size(); i++)
-    // {
-    //     std::cout << JER_SF_new[i] << " ";
-    // }
-    // std::cout << " \n";
+    calJetSmearFactors(isdata);                                                      // Duncan's way
+    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get()); //???from json, needs more work
 
     Bool_t ifJER = kFALSE;
     // Bool_t ifJER = kTRUE;
@@ -749,8 +744,10 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         Double_t ijetPhi = Jet_phi.At(j);
         if (ifJER)
         {
-            jetpt = jetpt * JER_SF_new.at(j);
-            ijetMass = ijetMass * JER_SF_new.at(j);
+            // jetpt = jetpt * JER_SF_new.at(j);
+            // ijetMass = ijetMass * JER_SF_new.at(j);
+            jetpt *= jetSmearingFactors[j];
+            ijetMass *= jetSmearingFactors[j];
         }
         // maybe scaling only changes pt and mass? yes!
         switch (sysJEC)
@@ -1157,8 +1154,9 @@ void objectTSelectorForNanoAOD::setupInputFile()
 
     if (!isdata)
     {
-        // TString jetSmearing_PtFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
-        // TString jetSmearing_MCFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
+        //???era
+        TString jetSmearing_PtFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
+        TString jetSmearing_MCFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
 
         // Set up branch for pileup correction
         if (era.CompareTo("2016postVFP") == 0)
@@ -1214,8 +1212,8 @@ void objectTSelectorForNanoAOD::setupInputFile()
         dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
         MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
 
-        // readSmearingFile( jetSmearing_PtFile, resolution, resFormula );
-        // readSmearingFile( jetSmearing_MCFile, resSFs, toyResFormula );
+        readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
+        readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
     }
     else
     {
@@ -1474,43 +1472,39 @@ void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const
     }
 }
 
-/*
-void objectTSelectorForNanoAOD::calJetSmearFactors( const Bool_t isdata  ){
-    std::vector<Int_t>* matchingIndices   { new std::vector<Int_t>} ;
-    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); //if a reco jet is unmatched, the corresponding gen jet pt will be 0
+void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
+{
+    std::vector<Int_t> *matchingIndices{new std::vector<Int_t>};
+    getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); // if a reco jet is unmatched, the corresponding gen jet pt will be 0
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
     jetSmearingFactorsDown.clear();
-    Float_t smearFactor = 1.0;
-    Float_t smearFactorUp = 1.0;
-    Float_t smearFactorDown = 1.0;
-    for (UInt_t i = 0; i < *nJet; i++) {
-        if ( !isdata ){
-            Float_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
-            Float_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
-            Float_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
+    Double_t smearFactor = 1.0;
+    Double_t smearFactorUp = 1.0;
+    Double_t smearFactorDown = 1.0;
+    for (UInt_t i = 0; i < *nJet; i++)
+    {
+        if (!isdata)
+        {
+            Double_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
+            Double_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
+            Double_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
             smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
             smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
             smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
-        }else{
-            smearFactor = 1.0;
-            smearFactorUp = 1.0;
-            smearFactorDown = 1.0;
         }
         jetSmearingFactors.push_back(smearFactor);
         jetSmearingFactorsUp.push_back(smearFactorUp);
         jetSmearingFactorsDown.push_back(smearFactorDown);
-
     }
     delete matchingIndices;
-
 }
-*/
 
 void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet *cset_jerSF)
 {
 // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
 // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
+// https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
 #include "inputMap.h"
     // TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     // TString input = JER_SF_map[era] ;
@@ -1543,7 +1537,6 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
         if (!isdata)
         {
-            //???it seems the evaluate is cause runtime issue
             iSF = corr_jerSF->evaluate({Jet_eta.At(i), "nom"});
             iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
             iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
@@ -1627,12 +1620,12 @@ void objectTSelectorForNanoAOD::calTauSF( const Bool_t isdata ){
     tauFESFactors.clear();
     tauFESFactorsUp.clear();
     tauFESFactorsDown.clear();
-    Float_t TESSF = 1.0;
-    Float_t TESSFUp = 1.0;
-    Float_t TESSFDown = 1.0;
-    Float_t FESSF = 1.0;
-    Float_t FESSFUp = 1.0;
-    Float_t FESSFDown = 1.0;
+    Double_t TESSF = 1.0;
+    Double_t TESSFUp = 1.0;
+    Double_t TESSFDown = 1.0;
+    Double_t FESSF = 1.0;
+    Double_t FESSFUp = 1.0;
+    Double_t FESSFDown = 1.0;
     for (UInt_t i = 0; i < *nTau; i++) {
         if ( !isdata ){
             TESSF = TESTool.getTES(Tau_pt.At(i), Tau_decayMode.At(i), Tau_genPartFlav.At(i), "");
