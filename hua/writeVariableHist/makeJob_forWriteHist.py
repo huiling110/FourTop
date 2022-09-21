@@ -78,8 +78,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
             errFile = outputDir +  "log/" + iProcess +".err"
             subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
 
-    subprocess.run('chmod 777 ' + Jobsubmitpath + jobDir +'*sh',  shell=True)
-    subprocess.run('chmod 777 ' + Jobsubmitpath + 'subAllProcess.sh', shell=True)
+    subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)
+    subprocess.run('chmod 777 ' + 'subAllProcess.sh', shell=True)
 
 
 

@@ -132,9 +132,10 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", 10, 25, 300, bjetsM_invariantMass};
-	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 10, 10, 200, tausT_1pt};
+	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
+	 histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 10, 10, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3, tausT_1eta};
-	histsForRegions<Double_t> tausT_1phi_class{"tausT_1ph", 10, -3, 3, tausT_1phi};
+	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", 10, -3, 3, tausT_1phi};
 	// histsForRegions<Double_t> {"", 10, , , };
 	// histsForRegions<Double_t> {"", 10, , , };
 	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
@@ -152,6 +153,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausT_1eta_class);
 	vectorOfVariableRegionsDouble.push_back(tausT_1phi_class);
+	vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
 	// vectorOfVariableRegionsDouble.push_back();
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
@@ -167,11 +169,17 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
-	// Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-	Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-	if (m_isData)
+	Double_t basicWeight = 1.0;
+	if (!m_isData)
 	{
-		basicWeight = 1.0;
+		// Double_t basicWeight = (*EVENT_genWeight);
+		// Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
+		// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
+		// std::cout << "event weight=" << basicWeight << "\n";
+		// std::cout << "muonIDSF_weight=" << *muonIDSF_weight << " "
+		//   << "eleMVAT_IDSF_weight=" << *eleMVAT_IDSF_weight << "tauT_IDSF_weight_new=" << *tauT_IDSF_weight_new << "\n";
 	}
 
 	// baseline selection

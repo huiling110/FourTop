@@ -23,7 +23,8 @@ def main():
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
     # histVersion = 'variableHists_v1variables'
-    histVersion = 'variableHists_v1variablesUsingMyclass'
+    # histVersion = 'variableHists_v1variablesUsingMyclass'
+    histVersion = 'variableHists_v2addingPileupWeight'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']

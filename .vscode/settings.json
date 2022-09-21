@@ -26,5 +26,7 @@
         "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/",
         "${default}",
     ],
-    "python.formatting.provider": "yapf"
+    "python.formatting.provider": "yapf",
+    "task.allowAutomaticTasks": "on",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

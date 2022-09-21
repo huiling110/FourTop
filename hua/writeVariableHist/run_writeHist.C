@@ -79,10 +79,10 @@ void run_writeHist(
     TStopwatch t;
     t.Start();
 
-    // chain.Process("writeHist.C+", option);
     // chain.Process("writeHist.C+", option, 100);
     // chain.Process("writeHist.C+", option, 1000);
     chain.Process(selector, option);
+    // chain.Process(selector, option, 100);
 
     t.Stop();
     t.Print();

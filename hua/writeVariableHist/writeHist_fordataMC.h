@@ -7,6 +7,8 @@
 #ifndef writeHist_fordataMC_h
 #define writeHist_fordataMC_h
 
+#include <vector>
+
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
@@ -138,11 +140,11 @@ public:
    TTreeReaderValue<Double_t> PUweight_down = {fReader, "PUweight_down"};
    TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
-   TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"};
+   TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
    TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
    TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};
    TTreeReaderValue<Double_t> mounTrackerSF_weight = {fReader, "mounTrackerSF_weight"};
-   TTreeReaderValue<Double_t> eleMVAT_IDSF_weight = {fReader, "eleMVAT_IDSF_weight"};
+   TTreeReaderValue<Double_t> eleMVAT_IDSF_weight = {fReader, "eleMVAT_IDSF_weight"}; //???=-99
    TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_up = {fReader, "eleMVAT_IDSF_weight_up"};
    TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_down = {fReader, "eleMVAT_IDSF_weight_down"};
    TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_backup = {fReader, "eleMVAT_IDSF_weight_backup"};
