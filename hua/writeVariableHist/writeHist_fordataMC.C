@@ -128,12 +128,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 100, 1600, jets_HT};
 	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", 10, 0, 2, jets_bScore};
-	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", 10, 0, 10,jets_rationHT_4toRest };
+	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", 10, 0, 10, jets_rationHT_4toRest};
 	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", 10, 25, 300, bjetsM_invariantMass};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 10, 10, 200, tausT_1pt};
-	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3,tausT_1eta };
+	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3, tausT_1eta};
 	histsForRegions<Double_t> tausT_1phi_class{"tausT_1ph", 10, -3, 3, tausT_1phi};
 	// histsForRegions<Double_t> {"", 10, , , };
 	// histsForRegions<Double_t> {"", 10, , , };
@@ -167,8 +167,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
-	Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-	// Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	// Double_t basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
+	Double_t basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	if (m_isData)
 	{
 		basicWeight = 1.0;
@@ -210,7 +210,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	fillHistsVector(is1tau0lCR2, 3, basicWeight);
 	fillHistsVector(is1tau0lCR3, 4, basicWeight);
 	fillHistsVector(is1tau0lCR4, 5, basicWeight);
-	
 
 	// 1tau1lCR
 	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;

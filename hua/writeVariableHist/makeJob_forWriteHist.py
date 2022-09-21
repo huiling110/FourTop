@@ -1,8 +1,10 @@
 import os
 import subprocess
-# from pathlib import Path
 
 import usefulFunc as uf
+
+# from pathlib import Path
+
 
 # import sys
 
@@ -25,7 +27,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
     # version = "v0forCutFlow"
-    version = "v1variablesUsingMyclass"
+    # version = "v1variablesUsingMyclass"
+    version = 'v2addingPileupWeight'
     justMC = False
     # justMC = True
     isTest = 0
@@ -55,15 +58,12 @@ def main():
 
 def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
 
-    jobDir = 'jobSH/'
+    # jobDir = 'jobSH/'
+    jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
     if not os.path.exists( jobDir ):
         os.mkdir( jobDir )
     if not os.path.exists( outputDir ): os.mkdir( outputDir)
-
-    # subAllProcess = open( 'subAllProcess.sh', 'w')
-    # subAllProcess.write('#!/bin/bash\n')
-    # subAllProcess.write('cd '+ Jobsubmitpath +'\n')
 
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
