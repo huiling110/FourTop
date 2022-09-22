@@ -6,6 +6,7 @@ SHAREDLIBS = objectTSelectorForNanoAOD
 
 HDRS = objectTSelectorForNanoAOD.h\
 	utilityFunctions.h\
+	# inputMap.h\
 
 
 

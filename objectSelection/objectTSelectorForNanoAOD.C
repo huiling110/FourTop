@@ -36,6 +36,7 @@
 #include <cassert>
 #include "objectTSelectorForNanoAOD.h"
 #include "utilityFunctions.h"
+#include "inputMap.h"
 ///////////////////////
 
 void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
@@ -378,14 +379,6 @@ void objectTSelectorForNanoAOD::Terminate()
     // a query. It always runs on the client, it can be used to present
     // the results graphically or save the results to file.
 
-    // inputPUFile_data->Close();
-    // delete inputPUFile_data;
-    // inputPUFile_dataUp->Close();
-    // delete inputPUFile_dataUp;
-    // inputPUFile_dataDown->Close();
-    // delete inputPUFile_dataDown;
-    // inputPUFile_mc->Close();
-    // delete inputPUFile_mc;
     ///////////////////////////////
     outputfile->Write();
     outputfile->Close();
@@ -732,7 +725,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
 
 void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC)
 {
-#include "inputMap.h"
+    // #include "inputMap.h"
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MaxMostForwardJetEta = -99;
@@ -1129,7 +1122,8 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
 
 void objectTSelectorForNanoAOD::setupInputFile()
 {
-#include "inputMap.h"
+    //???might be a better way to include this
+    // #include "inputMap.h"
 
     std::cout << "setting up input file now........\n";
     // jec files
@@ -1157,6 +1151,12 @@ void objectTSelectorForNanoAOD::setupInputFile()
         //???era
         TString jetSmearing_PtFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
         TString jetSmearing_MCFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
+        // TString jetSmearing_PtFile = oldFileMap[era].at(0).Data();
+        // TString jetSmearing_MCFile = oldFileMap[era].at(1).Data();
+        std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
+                  << jetSmearing_MCFile << "\n";
+        readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
+        readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
 
         // Set up branch for pileup correction
         if (era.CompareTo("2016postVFP") == 0)
@@ -1165,9 +1165,6 @@ void objectTSelectorForNanoAOD::setupInputFile()
             inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
             inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
             inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
-
-            // jetSmearing_PtFile = "../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
-            // jetSmearing_MCFile = "../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
         }
         else if (era.CompareTo("2016preVFP") == 0)
         {
@@ -1175,9 +1172,6 @@ void objectTSelectorForNanoAOD::setupInputFile()
             inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
             inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
             inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
-
-            // jetSmearing_PtFile = "../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt";
-            // jetSmearing_MCFile = "../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_SF_AK4PFchs.txt";
         }
         else if (era.CompareTo("2017") == 0)
         {
@@ -1185,9 +1179,6 @@ void objectTSelectorForNanoAOD::setupInputFile()
             inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "READ");
             inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
             inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017.root", "READ");
-
-            // jetSmearing_PtFile = "../dada_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_PtResolution_AK4PFchs.txt";
-            // jetSmearing_MCFile = "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt";
         }
         else if (era.CompareTo("2018") == 0)
         {
@@ -1195,12 +1186,8 @@ void objectTSelectorForNanoAOD::setupInputFile()
             inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-72400ub-99bins.root", "READ");
             inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
             inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2018.root", "READ");
-
-            // jetSmearing_PtFile = "../data_rootFiles/smearing/UL2018/Summer19UL18_JRV2_MC_PtResolution_AK4PFchs.txt";
-            // jetSmearing_MCFile = "../data_rootFiles/smearing/UL2018/Summer19UL18_JRV2_MC_SF_AK4PFchs.txt";
         }
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
-        // std::cout<<"jetSmearing file used: "<<jetSmearing_PtFile<<"\n"<<jetSmearing_MCFile<<"\n";
         // Get needed histograms
         dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup");
         dataPileupProfileUp = (TH1F *)inputPUFile_dataUp->Get("pileup");
@@ -1211,17 +1198,12 @@ void objectTSelectorForNanoAOD::setupInputFile()
         dataPileupProfileUp->Scale(1.0 / dataPileupProfileUp->Integral());
         dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
         MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
-
-        readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
-        readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
     }
     else
     {
         std::cout << "data not setting up jetSmearing and pile files"
                   << "\n";
         std::cout << "setting up lumilosity json files for data\n";
-        // TString jsonInFile = GoldenJSONs[era];
-        // readJSON(isdata, jsonInFile, _goodLumis);
         readJSON(isdata, GoldenJSONs[era], _goodLumis);
     }
 
@@ -1473,7 +1455,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const
 }
 
 void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
-{
+{ // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
     std::vector<Int_t> *matchingIndices{new std::vector<Int_t>};
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); // if a reco jet is unmatched, the corresponding gen jet pt will be 0
     jetSmearingFactors.clear();
@@ -1502,10 +1484,10 @@ void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
 
 void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet *cset_jerSF)
 {
-// https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
-// https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-// https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
-#include "inputMap.h"
+    // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
+    // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
+    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
+    // #include "inputMap.h"
     // TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
     // TString input = JER_SF_map[era] ;
     // auto corr_jerSF = cset_jerSF->at(input.Data());

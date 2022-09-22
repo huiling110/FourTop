@@ -1,3 +1,6 @@
+#ifndef INPUTMAP_H
+#define INPUTMAP_H
+
 #include "TString.h"
 #include <map>
 #include <string>
@@ -24,15 +27,24 @@ std::map<TString, TString> GoldenJSONs = {
     {"2018", "../golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},
 
 };
-//???move these away
+std::map<TString, std::array<TString, 2>> oldFileMap = {
+    {"2016preVFP", {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.tx"}},
+    {"2016postVFP", {"../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16_JRV3_MC_SF_AK4PFchs.txt"}},
+    {"2017", {"../data_rootFiles/smearing/UL2017/Summer20UL17_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt"}},
+    {"2018", {"../data_rootFiles/smearing/UL2018/Summer20UL18_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL18_JRV3_MC_SF_AK4PFchs.txt"}},
+};
+// std::map<TString, std::array<TString, 2>> oldFileMap = {
+//     {"2016preVFP" : {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.txt"}},
+//     {"2016postVFP" : {"../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16_JRV3_MC_SF_AK4PFchs.txt"}},
+//     {"2017" : {"../data_rootFiles/smearing/UL2017/Summer20UL17_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt"}},
+//     {"2018" : {"../data_rootFiles/smearing/UL2018/Summer20UL18_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL18_JRV3_MC_SF_AK4PFchs.txt"}},
+// };
 std::map<TString, double> DeepJetL = {
     // std::map of loose WPs for DeepJet
-
     {"2016postVFP", 0.0480},
     {"2016preVFP", 0.0508},
     {"2017", 0.0532},
     {"2018", 0.0490},
-
 };
 
 std::map<TString, double> DeepJetM = {
@@ -84,3 +96,5 @@ std::map<TString, double> DeepCSVT = {
     {"2018", 0.7665},
 
 };
+
+#endif
