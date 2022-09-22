@@ -109,6 +109,8 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_res
     std::ifstream file(_path);
     std::string lineStr;
     bool firstLine = true;
+    _resolution.clear();
+    _resFormula.clear();
     while (std::getline(file, lineStr))
     {
         std::stringstream ss(lineStr);
@@ -131,7 +133,7 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_res
     }
 }
 
-void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<Int_t>* &matchingIdx)
+void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<Int_t> *&matchingIdx)
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
 //???relative pT resolution not implementing
 {
