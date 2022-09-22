@@ -725,7 +725,6 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
 
 void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC)
 {
-    // #include "inputMap.h"
     // jetType=0  -> usual jets; we use loose ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MaxMostForwardJetEta = -99;
@@ -1122,9 +1121,6 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
 
 void objectTSelectorForNanoAOD::setupInputFile()
 {
-    //???might be a better way to include this
-    // #include "inputMap.h"
-
     std::cout << "setting up input file now........\n";
     // jec files
     TString jsonBase = "../../jsonpog-integration/POG/";
@@ -1149,44 +1145,47 @@ void objectTSelectorForNanoAOD::setupInputFile()
     if (!isdata)
     {
         //???era
-        TString jetSmearing_PtFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
-        TString jetSmearing_MCFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
-        // TString jetSmearing_PtFile = oldFileMap[era].at(0).Data();
-        // TString jetSmearing_MCFile = oldFileMap[era].at(1).Data();
+        // TString jetSmearing_PtFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt";
+        // TString jetSmearing_MCFile = "../smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_SF_AK4PFchs.txt";
+        TString jetSmearing_PtFile = oldFileMap[era].at(0).Data();
+        TString jetSmearing_MCFile = oldFileMap[era].at(1).Data();
         std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
                   << jetSmearing_MCFile << "\n";
         readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
         readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
 
-        // Set up branch for pileup correction
-        if (era.CompareTo("2016postVFP") == 0)
-        {
-            inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
-            inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
-            inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
-            inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
-        }
-        else if (era.CompareTo("2016preVFP") == 0)
-        {
-            inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "READ");
-            inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
-            inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
-            inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
-        }
-        else if (era.CompareTo("2017") == 0)
-        {
-            inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
-            inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "READ");
-            inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
-            inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017.root", "READ");
-        }
-        else if (era.CompareTo("2018") == 0)
-        {
-            inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "READ");
-            inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-72400ub-99bins.root", "READ");
-            inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
-            inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2018.root", "READ");
-        }
+        // if (era.CompareTo("2016postVFP") == 0)
+        // {
+        //     inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "READ");
+        //     inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "READ");
+        //     inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "READ");
+        //     inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_postVFP.root", "READ");
+        // }
+        // else if (era.CompareTo("2016preVFP") == 0)
+        // {
+        //     inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "READ");
+        //     inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "READ");
+        //     inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "READ");
+        //     inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2016_preVFP.root", "READ");
+        // }
+        // else if (era.CompareTo("2017") == 0)
+        // {
+        //     inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "READ");
+        //     inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "READ");
+        //     inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "READ");
+        //     inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2017.root", "READ");
+        // }
+        // else if (era.CompareTo("2018") == 0)
+        // {
+        //     inputPUFile_data = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "READ");
+        //     inputPUFile_dataUp = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-72400ub-99bins.root", "READ");
+        //     inputPUFile_dataDown = new TFile("../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "READ");
+        //     inputPUFile_mc = new TFile("../data_rootFiles/PUHistogram_mc2018.root", "READ");
+        // }
+        inputPUFile_data = new TFile(pileUpFileMap[era].at(0).Data(), "READ");
+        inputPUFile_dataUp = new TFile(pileUpFileMap[era].at(1).Data(), "READ");
+        inputPUFile_dataDown = new TFile(pileUpFileMap[era].at(2).Data(), "READ");
+        inputPUFile_mc = new TFile(pileUpFileMap[era].at(3).Data(), "READ");
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
         // Get needed histograms
         dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup");

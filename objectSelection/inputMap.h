@@ -28,17 +28,19 @@ std::map<TString, TString> GoldenJSONs = {
 
 };
 std::map<TString, std::array<TString, 2>> oldFileMap = {
-    {"2016preVFP", {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.tx"}},
+    {"2016preVFP", {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.txt"}},
     {"2016postVFP", {"../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16_JRV3_MC_SF_AK4PFchs.txt"}},
     {"2017", {"../data_rootFiles/smearing/UL2017/Summer20UL17_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt"}},
     {"2018", {"../data_rootFiles/smearing/UL2018/Summer20UL18_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL18_JRV3_MC_SF_AK4PFchs.txt"}},
 };
-// std::map<TString, std::array<TString, 2>> oldFileMap = {
-//     {"2016preVFP" : {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.txt"}},
-//     {"2016postVFP" : {"../data_rootFiles/smearing/UL2016_postVFP/Summer20UL16_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16_JRV3_MC_SF_AK4PFchs.txt"}},
-//     {"2017" : {"../data_rootFiles/smearing/UL2017/Summer20UL17_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL17_JRV3_MC_SF_AK4PFchs.txt"}},
-//     {"2018" : {"../data_rootFiles/smearing/UL2018/Summer20UL18_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2017/Summer19UL18_JRV3_MC_SF_AK4PFchs.txt"}},
-// };
+
+std::map<TString, std::array<TString, 4>> pileUpFileMap = {
+    {"2016preVFP", {"../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-69200ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-72400ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-preVFP-66000ub-99bins.root", "../data_rootFiles/PUHistogram_mc2016_preVFP.root"}},
+    {"2016postVFP", {"../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-69200ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-72400ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2016-postVFP-66000ub-99bins.root", "../data_rootFiles/PUHistogram_mc2016_postVFP.root"}},
+    {"2017", {"../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-69200ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-72400ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2017-66000ub-99bins.root", "../data_rootFiles/PUHistogram_mc2017.root"}},
+    {"2018", {"../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-69200ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-72400ub-99bins.root", "../data_rootFiles/PileupHistogram-goldenJSON-13tev-2018-66000ub-99bins.root", "../data_rootFiles/PUHistogram_mc2018.root"}},
+};
+
 std::map<TString, double> DeepJetL = {
     // std::map of loose WPs for DeepJet
     {"2016postVFP", 0.0480},
