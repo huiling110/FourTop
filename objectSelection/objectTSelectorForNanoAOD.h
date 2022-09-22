@@ -51,10 +51,10 @@ public:
 
 	Double_t runRange[2];
 	TFile *outputfile;
-	TFile *inputPUFile_data;
-	TFile *inputPUFile_dataUp;
-	TFile *inputPUFile_dataDown;
-	TFile *inputPUFile_mc;
+	// TFile *inputPUFile_data;
+	// TFile *inputPUFile_dataUp;
+	// TFile *inputPUFile_dataDown;
+	// TFile *inputPUFile_mc;
 	TTree *newTree; // output tree
 	TH1F *dataPileupProfile;
 	TH1F *dataPileupProfileUp;
@@ -237,10 +237,10 @@ public:
 	std::vector<Double_t> jetSmearingFactorsUp;
 	std::vector<Double_t> jetSmearingFactorsDown;
 	TRandom3 jet_jer_myran;
-	std::vector<std::vector<std::string>> resolution; 
+	std::vector<std::vector<std::string>> resolution;
 	std::string resFormula;
-	std::vector<std::vector<std::string>> resSFs; 
-	std::string toyResFormula;					  
+	std::vector<std::vector<std::string>> resSFs;
+	std::string toyResFormula;
 
 	// weight
 	Double_t EVENT_prefireWeight_;
