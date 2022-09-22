@@ -275,7 +275,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausL_total = tausL_total + tausL.size();
 
     bool deepJet = true;
-    calJetSmearFactors(isdata);                                                      // Duncan's way
+    calJetSmearFactors(isdata); // Duncan's way
+    //???todo: optimize the JER calculation
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get()); //???from json, needs more work
 
     // Bool_t ifJER = kFALSE;
@@ -479,7 +480,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
 
     newTree->Branch("Met_pt", &Met_pt, "Met_pt/D");
     newTree->Branch("Met_phi", &Met_phi, "Met_phi/D");
-    newTree->Branch("tops_toptagger", &tops_toptagger);
+    // newTree->Branch("tops_toptagger", &tops_toptagger);
 
     newTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D");
     newTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_, "EVENT_prefireWeight_up_/D");
@@ -1090,7 +1091,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     patElectron_charge_.clear();
     Tau_charge_.clear();
     Muon_charge_.clear();
-    tops_toptagger.clear();
+    // tops_toptagger.clear();
     EVENT_prefireWeight_ = -99;
     EVENT_prefireWeight_up_ = -99;
     EVENT_prefireWeight_down_ = -99;

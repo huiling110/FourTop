@@ -219,7 +219,6 @@ public:
 	std::vector<Double_t> Muon_charge_;
 	Double_t Met_pt;
 	Double_t Met_phi;
-	std::vector<ROOT::Math::PtEtaPhiMVector> tops_toptagger;
 
 	std::vector<ROOT::Math::PtEtaPhiMVector> genTaus;
 	std::vector<ROOT::Math::PtEtaPhiMVector> genEles;
