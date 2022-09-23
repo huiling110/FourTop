@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 import ttttGlobleQuantity as GQ
+import usefulFunc as uf
 
 # import glob
 # import string
@@ -12,9 +13,8 @@ import ttttGlobleQuantity as GQ
 #???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
 
-
 # inVersion = 'v27noJERnoTESWithObjectRemoval'
-# inVersion = 'v28JERTESBack'
+# inVersion = 'v28JERTESBack' #test
 # inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v30TESnoJER'
 # inVersion = 'v31TESandJER'
@@ -50,9 +50,11 @@ def main():
 
     subAllName = 'subAllofAll.sh'
     subAllofAll = open( jobDir+ '/'+ subAllName, 'w')
+    subAllofAll.write( '#!/bin/bash\n')
+    subAllofAll.write('cd '+jobDir + '\n')
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#???
+        # if iera=='2016preVFP' : continue
+        if iera=='2016postVFP' : continue#???
         print(iera)
         if not os.path.exists( outputBase + iera +'/' ):
             os.mkdir( outputBase + iera +'/'  )
@@ -68,6 +70,11 @@ def main():
 
     #change mod
     subprocess.run( 'chmod 777 '+ jobDir+subAllName, shell=True )
+
+
+    uf.sumbitJobs(  jobDir + subAllName )
+
+
 
 
 def getInOutDic( year, inputBase, outBase, inVersion, outVersion, justMC ):

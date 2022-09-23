@@ -13,8 +13,9 @@ def copyData( dir ):
         print( output )
 
 # version = 'v0baseline_v16_HLTselection/'
-version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
+# version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 # version = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
+version = 'v1baseline_v36TESandJERByHuiling/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
@@ -53,8 +54,8 @@ for ikey in preDirDict.keys():
         ifile = preDirDict[ikey]  + i
         ifile_post = postDirDict[ikey] + i 
         ifile_merged = mergedDirDict[ikey] + i
-        # icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-        icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        # icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
         print( icommand )
         process = subprocess.run( icommand, shell=True )
         output = process.stdout
@@ -63,8 +64,8 @@ for ikey in preDirDict.keys():
 
 
 #for data
-copyData( preDirDict['data'])
-copyData( postDirDict['data'])
+# copyData( preDirDict['data'])
+# copyData( postDirDict['data'])
 
 
 

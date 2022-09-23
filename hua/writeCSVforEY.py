@@ -16,16 +16,16 @@ def main():
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
+    inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v0noBaseline_v31TESandJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
-    inVersion = 'v1baseline_v36TESandJERByHuiling'
+    # inVersion = 'v1baseline_v36TESandJERByHuiling'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
-    # histVersion = 'variableHists_v1variables'
+    histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
-    histVersion = 'variableHists_v2addingPileupWeight'
+    # histVersion = 'variableHists_v2addingPileupWeight'
 
     variableList = ['eventCount']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
