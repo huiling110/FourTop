@@ -41,8 +41,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v35TESandJERFromDuncan/'
 jobVersionName = 'v36TESandJERByHuiling/'
 onlyMC = False
-era = '2016'
-# era = '2016APV'
+# era = '2016'
+era = '2016APV'
 # era = '2018'
 def main():
     # onlyMC = True
