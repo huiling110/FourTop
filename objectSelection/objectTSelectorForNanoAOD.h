@@ -46,7 +46,7 @@ public:
 	// our own members
 	////////////////////////
 	// import initialization member variables
-	Bool_t isdata = false;
+	Bool_t m_isdata = false;
 	TString dataSet;
 	TString era = "2016postVFP";
 
@@ -265,9 +265,9 @@ public:
 
 	void makeBranch(TTree *newTree);
 	void getRunRange(TTree *fChain);
-	void intializaTreeBranches(const Bool_t isdata, const TString dataset);
+	void intializaTreeBranches(const TString dataset);
 
-	void copyHLT_new(const Bool_t isdata, const TString dataset);
+	void copyHLT_new( const TString dataset);
 	void copyFlags();
 	Bool_t selectGoodLumi();
 	void initializeBrancheValues();

@@ -61,7 +61,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
 
     getRunRange(fChain);
     std::cout << "runRange: " << runRange[0] << ":" << runRange[1] << "\n";
-    intializaTreeBranches(isdata, dataSet);
+    intializaTreeBranches(dataSet);
 
     //???
 
@@ -74,10 +74,9 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     makeBranch(newTree);
 
     setupInputFile();
-    // setupTauSFTool( isdata );
+    // setupTauSFTool( m_isdata );
 
     //for JER
-    // std::uint32_t> seed = 37428479;
     ULong64_t seed = 37428479;
     m_random_generator = std::mt19937(seed); //
 
@@ -107,13 +106,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     ///////////////////////////////////////
     fProcessed++;
     Double_t basicWeight = 1.0;
-    if (!isdata)
+    if (!m_isdata)
     {
         basicWeight = (*Generator_weight) * (*L1PreFiringWeight_Nom);
     }
     h_forEY_initial->Fill(0.0, basicWeight);
 
-    if (!isdata)
+    if (!m_isdata)
     {
         genWeight_allEvents = *Generator_weight;
     }
@@ -121,7 +120,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // good lumi selection
     //???todo: examination of selectGoodLumi()
     Bool_t ifGoodLumi = selectGoodLumi();
-    if (!ifGoodLumi && isdata)
+    if (!ifGoodLumi && m_isdata)
     {
         return kFALSE;
     }
@@ -149,7 +148,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         if (!(*Flag_ecalBadCalibFilter == 1))
             return kFALSE; // for UL 2016 has this flag too
         // }
-        // if (isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
+        // if (m_isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
         if (!(*Flag_eeBadScFilter == 1))
             return kFALSE; // for UL this filter exists for 2016 MC too
     }
@@ -168,7 +167,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         }
         else if (era.CompareTo("2018") == 0)
         {
-            if (!isdata)
+            if (!m_isdata)
             {
                 if (!(*HLT_PFJet500 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1))
                     return kFALSE;
@@ -208,11 +207,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     run_ = *run;
     event_ = *event;
-    copyHLT_new(isdata, dataSet);
+    copyHLT_new( dataSet);
 
     // Compute the per-event PU weight
     //???todo: switch this to json
-    if (!isdata)
+    if (!m_isdata)
     {
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0)
         {
@@ -223,7 +222,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
-    if (!isdata)
+    if (!m_isdata)
     {
         genTtbarId_ = *genTtbarId;
     }
@@ -259,7 +258,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     // nominal taus
-    //  calTauSF( isdata );
+    //  calTauSF( m_isdata );
     calTauSF_new(); // calculate taus_TES_up  taus_TES_down
     // Int_t tauTES = 4; // 4 means no TES
     Int_t tauTES = 0; //
@@ -278,13 +277,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausF_total = tausF_total + tausF.size();
     tausL_total = tausL_total + tausL.size();
 
-    // calJetSmearFactors(isdata); // Duncan's way
-    //todo: optimize the JER calculation; done
+    // calJetSmearFactors(m_isdata); // Duncan's way; computationally expensive and not right
     calJER_SF( JER_SF_new, cset_jerSF.get());
     // // for(UInt_t i=0; i<JER_SF_new.size(); i++){ 
     // //     std::cout<<JER_SF_new[i]<<" ";
     // // }
-    // std::cout<<"\n";
 
     // Bool_t ifJER = kFALSE;
     Bool_t ifJER = kTRUE;
@@ -295,9 +292,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(jets.begin(), jets.end(), compEle);
     sort(jets_JECup.begin(), jets_JECup.end(), compEle);
     sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
-    // printElements( jets_btags, jets );
-    // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
-    // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
     // pt are sorted in MINIAOD
     SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL, tausL, 0);
@@ -333,7 +327,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // SelectTops( tops_toptagger);
     // sort( tops_toptagger.begin(), tops_toptagger.end(), compEle);
 
-    if (!isdata)
+    if (!m_isdata)
     {
         genTaus.clear();
         genEles.clear();
@@ -347,7 +341,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     EVENT_prefireWeight_up_ = *L1PreFiringWeight_Up;
     EVENT_prefireWeight_down_ = *L1PreFiringWeight_Dn;
 
-    if (!isdata)
+    if (!m_isdata)
     {
         EVENT_genWeight_ = *genWeight;
     }
@@ -921,7 +915,7 @@ void objectTSelectorForNanoAOD::selectGenMuons(std::vector<ROOT::Math::PtEtaPhiM
     }
 }
 
-void objectTSelectorForNanoAOD::copyHLT_new(const Bool_t isdata, const TString dataset)
+void objectTSelectorForNanoAOD::copyHLT_new( const TString dataset)
 {
 
     HLT_IsoMu24_ = *HLT_IsoMu24;
@@ -934,7 +928,7 @@ void objectTSelectorForNanoAOD::copyHLT_new(const Bool_t isdata, const TString d
         HLT_PFJet450_ = *HLT_PFJet450;
     }
 
-    if (!isdata)
+    if (!m_isdata)
     {
         if (era.CompareTo("2018") == 0)
         {
@@ -977,7 +971,7 @@ Bool_t objectTSelectorForNanoAOD::selectGoodLumi()
 {
     // https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile
     Bool_t ifGoodLumi = kTRUE;
-    if (isdata)
+    if (m_isdata)
     {
         if (_goodLumis.find(*run) == _goodLumis.end())
         {
@@ -1150,7 +1144,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
         printf("tauSF Correction: %s\n", corr.first.c_str());
     }
 
-    if (!isdata)
+    if (!m_isdata)
     {
         TString jetSmearing_PtFile = oldFileMap[era].at(0).Data();
         TString jetSmearing_MCFile = oldFileMap[era].at(1).Data();
@@ -1180,7 +1174,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
         std::cout << "data not setting up jetSmearing and pile files"
                   << "\n";
         std::cout << "setting up lumilosity json files for data\n";
-        readJSON(isdata, GoldenJSONs[era], _goodLumis);
+        readJSON(m_isdata, GoldenJSONs[era], _goodLumis);
     }
 
     std::cout << "done setting input file........................\n";
@@ -1209,10 +1203,10 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro(const TString option)
     era = option2;
     std::cout << "era is: " << era << "\n";
     if (option4.CompareTo("0") == 0)
-        isdata = false;
+        m_isdata = false;
     else
-        isdata = true;
-    std::cout << "isdata  in TSelector: " << isdata << "\n";
+        m_isdata = true;
+    std::cout << "isdata  in TSelector: " << m_isdata << "\n";
     dataSet = option5;
     Int_t eventSelection = std::stoi(option3.Data());
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
@@ -1332,7 +1326,7 @@ void objectTSelectorForNanoAOD::getRunRange(TTree *fChain)
     //
 }
 
-void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const TString dataset)
+void objectTSelectorForNanoAOD::intializaTreeBranches( const TString dataset)
 {
     // overriding for MC files
 
@@ -1346,7 +1340,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const
         HLT_PFJet450 = {fReader, "HLT_PFJet450"};
     }
 
-    if (!isdata)
+    if (!m_isdata)
     {
         std::cout << "running over: MC"
                   << "\n";
@@ -1496,7 +1490,7 @@ void objectTSelectorForNanoAOD::calJER_SF( std::vector<Double_t> &jer_sf, correc
 
         // find gen matching
         Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
-        if (!isdata)
+        if (!m_isdata)
         {
             if(genMatchIndex>0){
                 Double_t dPt = ipt - GenJet_pt[genMatchIndex];
@@ -1539,7 +1533,7 @@ void objectTSelectorForNanoAOD::calTauSF_new()
     Double_t iTES_sf_down = 1.0;
     for (UInt_t i = 0; i < *nTau; i++)
     {
-        if (!isdata)
+        if (!m_isdata)
         {
             // corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
             // no sf for decaymode 5 and 6
