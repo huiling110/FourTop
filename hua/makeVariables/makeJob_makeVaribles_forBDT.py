@@ -19,7 +19,8 @@ import ttttGlobleQuantity as GQ
 # inVersion = 'v30TESnoJER'
 # inVersion = 'v31TESandJER'
 # inVersion = 'v32TESnoJER'
-inVersion = 'v33TESnoJERCodeOptimzation'
+# inVersion = 'v33TESnoJERCodeOptimzation'
+inVersion = 'v36TESandJERByHuiling'
 # outVersion = 'v0noBaseline'
 outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
@@ -44,7 +45,11 @@ def main():
     #all the parameters you need to change is in this part , better not change the rest of the code.
     inOutDirMap = getInOutDic( year, inputBase, outputBase, inVersion, outVersion, justMC )
 
-    subAllofAll = open( 'subAllofAll.sh', 'w')
+    # print(__file__)
+    jobDir = os.path.dirname(os.path.abspath(__file__)) 
+
+    subAllName = 'subAllofAll.sh'
+    subAllofAll = open( jobDir+ '/'+ subAllName, 'w')
     for iera in inOutDirMap.keys():
         if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
@@ -58,11 +63,11 @@ def main():
             print( iDir )
             generateJobsForDir( iDir, iera+'_'+key, selectionBit )
             subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
-    print( 'sub all jobs using: subAllofAll.sh')
+    print( 'sub all jobs using: ' + jobDir +'/' + subAllName)
     subAllofAll.close()
 
     #change mod
-    subprocess.run( 'chmod 777 subAllofAll.sh', shell=True )
+    subprocess.run( 'chmod 777 '+ jobDir+subAllName, shell=True )
 
 
 def getInOutDic( year, inputBase, outBase, inVersion, outVersion, justMC ):
