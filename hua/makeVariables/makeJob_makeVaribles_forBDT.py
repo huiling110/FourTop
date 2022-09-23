@@ -72,7 +72,7 @@ def main():
     subprocess.run( 'chmod 777 '+ jobDir+subAllName, shell=True )
 
 
-    uf.sumbitJobs(  jobDir + subAllName )
+    uf.sumbitJobs(  jobDir+'/' + subAllName )
 
 
 
