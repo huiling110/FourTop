@@ -35,9 +35,10 @@ void jetsSubstructBjets(std::vector<ROOT::Math::PtEtaPhiMVector> &nonbjets, cons
 
 // SelectJets(0, deepJet, jets, jets_btags, jets_index, jets_flavour, SysJes, SysJer, leptonsMVAL, tausL);
 void sortJetAndFlavorAndBcore(std::vector<ROOT::Math::PtEtaPhiMVector> &jets, std::vector<Double_t> &jets_btags, std::vector<Int_t> jets_flavour);
+Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt, Double_t jet_resolution);
 
 void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_resolution, std::string &_resFormula);
-void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> *&matchingIdx); // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted
+void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<int> &matchingIdx); // why do I need to pass the TTreeReaderArray by reference? If not, errors are prompted
 
 Double_t GetJerFromFile(Double_t eta, std::vector<std::vector<std::string>> resSFs, int central);
 

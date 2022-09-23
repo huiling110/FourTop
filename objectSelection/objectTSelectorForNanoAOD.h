@@ -14,6 +14,7 @@
 #ifndef objectTSelectorForNanoAOD_h
 #define objectTSelectorForNanoAOD_h
 
+	#include <random>
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
@@ -231,6 +232,7 @@ public:
 	std::vector<Double_t> taus_TES;
 	std::vector<Double_t> taus_TES_up;
 	std::vector<Double_t> taus_TES_down;
+	std::mt19937 m_random_generator;
 	// old JER
 	std::vector<Double_t> jetSmearingFactors;
 	std::vector<Double_t> jetSmearingFactorsUp;

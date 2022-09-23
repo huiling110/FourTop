@@ -29,7 +29,6 @@
 // root> T->Process("objectTSelectorForNanoAOD.C","some options")
 // root> T->Process("objectTSelectorForNanoAOD.C+")
 //
-// we should use a better way of modulization of code rather the include copy here
 #include <TH2.h>
 #include <TStyle.h>
 
@@ -76,6 +75,11 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
 
     setupInputFile();
     // setupTauSFTool( isdata );
+
+    //for JER
+    // std::uint32_t> seed = 37428479;
+    ULong64_t seed = 37428479;
+    m_random_generator = std::mt19937(seed); //
 
     ///////////////////////////////////////
 }
@@ -199,8 +203,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     h_forEY_HLT->Fill(0.0, basicWeight);
 
     //!!!very important to give value to default values to variables for each event!!!
-    initializeBrancheValues();
     //!!!branch variable intialization to prevent them from get values from last event
+    initializeBrancheValues();
 
     run_ = *run;
     event_ = *event;
@@ -274,13 +278,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausF_total = tausF_total + tausF.size();
     tausL_total = tausL_total + tausL.size();
 
-    bool deepJet = true;
     calJetSmearFactors(isdata); // Duncan's way
     //???todo: optimize the JER calculation
     calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get()); //???from json, needs more work
 
     // Bool_t ifJER = kFALSE;
     Bool_t ifJER = kTRUE;
+    Bool_t deepJet = true;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
     SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
@@ -672,20 +676,20 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
         // if (!(Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
         if (TauWP == 1)
         {
-            bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            Bool_t isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
             // bitwise shift operators are the right-shift operator (>>
             //&: bitwise and operator; only 1&1=1; 0&anything = 0
             // 1<<1 = 2 = 00000010
-            // converting unsigned char to bool: uchar_t ->int->bool; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
+            // converting unsigned char to Bool_t: uchar_t ->int->Bool_t; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
             if (!isVSjetVVLoose)
                 continue;
             // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
         }
         if (TauWP == 2)
         {
-            bool isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
-            bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
-            bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
+            Bool_t isVSjetVVLoose = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            Bool_t isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
+            Bool_t isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             if (Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)
@@ -694,9 +698,9 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
         if (TauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
 
-            bool isVSjetM = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4);    // check if the 5th bit (Medium WP) is 1
-            bool isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
-            bool isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); // check if the 1st bit (VLoose WP) is 1
+            Bool_t isVSjetM = Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4);    // check if the 5th bit (Medium WP) is 1
+            Bool_t isVSeVVVLoose = Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
+            Bool_t isVSmuVLoose = Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); // check if the 1st bit (VLoose WP) is 1
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             if (Tau_decayMode.At(j) == 5 || Tau_decayMode.At(j) == 6)
@@ -1425,7 +1429,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const
 
 void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
 { // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
-    std::vector<Int_t> *matchingIndices{new std::vector<Int_t>};
+    std::vector<Int_t> matchingIndices;
     getMatchingToGen(Jet_eta, Jet_phi, GenJet_eta, GenJet_phi, matchingIndices); // if a reco jet is unmatched, the corresponding gen jet pt will be 0
     jetSmearingFactors.clear();
     jetSmearingFactorsUp.clear();
@@ -1440,15 +1444,14 @@ void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
             Double_t resSF = GetJerFromFile(Jet_eta.At(i), resSFs, 0);
             Double_t resSFUp = GetJerFromFile(Jet_eta.At(i), resSFs, 2);
             Double_t resSFDown = GetJerFromFile(Jet_eta.At(i), resSFs, 1);
-            smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
-            smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
-            smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices->at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
+            smearFactor = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSF, resolution, resFormula, jet_jer_myran);
+            smearFactorUp = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFUp, resolution, resFormula, jet_jer_myran);
+            smearFactorDown = GetSmearFactor(Jet_pt.At(i), GenJet_pt.At(matchingIndices.at(i)), Jet_eta.At(i), *fixedGridRhoFastjetAll, resSFDown, resolution, resFormula, jet_jer_myran);
         }
         jetSmearingFactors.push_back(smearFactor);
         jetSmearingFactorsUp.push_back(smearFactorUp);
         jetSmearingFactorsDown.push_back(smearFactorDown);
     }
-    delete matchingIndices;
 }
 
 void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet *cset_jerSF)
@@ -1456,24 +1459,12 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
-    // #include "inputMap.h"
-    // TString input = "Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs";
-    // TString input = JER_SF_map[era] ;
-    // auto corr_jerSF = cset_jerSF->at(input.Data());
+    // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
     auto corr_jerSF = cset_jerSF->at(corr_SF_map[era].at(0).Data());
-    // std::cout<<"jerSF input: \n";
-    // for ( UInt_t i=0;  i<corr_jerSF->inputs().size(); i++){
-    //     std::cout<<corr_jerSF->inputs()[i].name()<<" ";
-    // }
-    // TString jesSFName = "Summer19UL16APV_V7_MC";
-    // TString jesSFName_MC_L1 = jesSFName + TString("_L1FastJet_AK4PFchs");
-    // TString jesSFName_MC_L1 = "Summer19UL16APV_V7_MC_L1FastJet_AK4PFchs";
-    // auto corr_jesSF_L1 = cset_jerSF->at(jesSFName_MC_L1.Data());
+    auto corr_jerResolution = cset_jerSF->at(corr_SF_map[era].at(2).Data());
 
     //???not sure how to get the JEC uncertainty for data yet?
     // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
-    // TString unc = "Summer19UL16APV_V7_MC_Total_AK4PFchs";
-    // auto corr_jesUncer = cset_jerSF->at(unc.Data());
     auto corr_jesUncer = cset_jerSF->at(corr_SF_map[era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
 
@@ -1481,16 +1472,44 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
     Double_t iSF_up = 1.0;
     Double_t iSF_down = 1.0;
     Double_t iSF_JESuncer = 0.0;
+    const Double_t  MIN_JET_ENERGY = 1e-2;
     for (UInt_t i = 0; i < *nJet; i++)
     {
         Double_t ieta = Jet_eta.At(i);
+        Double_t iphi = Jet_phi.At(i);
         Double_t ipt = Jet_pt.At(i);
+        ROOT::Math::PtEtaPhiMVector ijetVec(ipt, ieta, iphi, Jet_mass.At(i));
+        Double_t ienergy = ijetVec.energy();
+
+
+        Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"});
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+            // iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
+            // iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *fixedGridRhoFastjetAll}}); 
+        //what is this rho? average energy density , for a event
+
+        // find gen matching
+        Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
         if (!isdata)
         {
-            iSF = corr_jerSF->evaluate({Jet_eta.At(i), "nom"});
-            iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
-            iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
+            if(genMatchIndex>0){
+                Double_t dPt = ipt - GenJet_pt[genMatchIndex];
+                iSF = 1 + (ijet_sf - 1.) * dPt / ipt;
+            }else{
+                Double_t sigma = ijet_res * std::sqrt(ijet_sf * ijet_sf - 1);
+
+                    std::normal_distribution<> d(0, sigma);
+                    iSF = 1. + d(m_random_generator);//m_random_generator = std::mt19937(seed) //std::uint32_t>("seed", 37428479);
+            }
+            if ( ienergy * iSF < MIN_JET_ENERGY) {
+                    // Negative or too small smearFactor. We would change direction of the jet
+                    // and this is not what we want.
+                    // Recompute the smearing factor in order to have jet.energy() == MIN_JET_ENERGY
+                    Double_t newSmearFactor = MIN_JET_ENERGY / ienergy;
+                    iSF = newSmearFactor;
+            }
+
 
             // iSF_JES = corr_jesSF_L1->evaluate({ieta, ipt, "nom"});
             // iSF_JES = corr_jesSF_L1->evaluate({ Jet_area.At(i), ieta, ipt, 0.0 });

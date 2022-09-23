@@ -30,6 +30,20 @@
             ],
         }
 
+        {
+            "label": "runObjectSelection",
+            "command": "./run_objectTSelectorForNanoAOD.out",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "test",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "complileC++",
+            ],
+
+        }
+
         
         {
             "label": "simpleRootRun",

@@ -133,7 +133,7 @@ void readSmearingFile(TString _path, std::vector<std::vector<std::string>> &_res
     }
 }
 
-void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<Int_t> *&matchingIdx)
+void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float_t> &recoPhi, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, std::vector<Int_t> &matchingIdx)
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
 //???relative pT resolution not implementing
 {
@@ -153,11 +153,41 @@ void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float
         }
         if (dRmin < 0.2)
             matchIdx = idx;
-        matchingIdx->push_back(matchIdx);
+        matchingIdx.push_back(matchIdx);
     }
 }
 
-Double_t GetJerFromFile(Double_t eta, std::vector<std::vector<std::string>> resSFs, int central)
+Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt, Double_t jet_resolution)
+{
+    //https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h#L61
+    Double_t matched_genJetIndex = -99;
+    double min_dR = std::numeric_limits<double>::infinity();
+    for (UInt_t i = 0; i <= genEta.GetSize(); i++)
+    {
+        // Try to find a gen jet matching
+        // dR < m_dR_max
+        // dPt < m_dPt_max_factor * resolution
+        // resolution = jet.pt() * jet_resolution
+
+        // double dR = DeltaR(genJet, jet);
+        Double_t dR = DeltaR(recoEta, genEta.At(i), recoPhi, genPhi.At(i));
+
+        if (dR > min_dR)
+            continue;
+        if (dR < 0.2)
+        {
+            // double dPt = std::abs(genPt[i] - recoPt);
+            if (TMath::Abs(recoPt-genPt[i]) > 3 * recoPt * jet_resolution)
+                continue;
+            min_dR = dR;
+            matched_genJetIndex = i;
+        }
+    }
+    return matched_genJetIndex;
+}
+
+Double_t
+GetJerFromFile(Double_t eta, std::vector<std::vector<std::string>> resSFs, int central)
 {
     for (auto res : resSFs)
     { // go through all the lines
