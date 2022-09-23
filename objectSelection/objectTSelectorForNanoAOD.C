@@ -61,7 +61,7 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
 
     getRunRange(fChain);
     std::cout << "runRange: " << runRange[0] << ":" << runRange[1] << "\n";
-    intializaTreeBranches(dataSet);
+    intializaTreeBranches();
 
     //???
 
@@ -207,7 +207,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     run_ = *run;
     event_ = *event;
-    copyHLT_new( dataSet);
+    copyHLT_new();
 
     // Compute the per-event PU weight
     //???todo: switch this to json
@@ -915,7 +915,7 @@ void objectTSelectorForNanoAOD::selectGenMuons(std::vector<ROOT::Math::PtEtaPhiM
     }
 }
 
-void objectTSelectorForNanoAOD::copyHLT_new( const TString dataset)
+void objectTSelectorForNanoAOD::copyHLT_new()
 {
 
     HLT_IsoMu24_ = *HLT_IsoMu24;
@@ -1207,7 +1207,7 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro(const TString option)
     else
         m_isdata = true;
     std::cout << "isdata  in TSelector: " << m_isdata << "\n";
-    dataSet = option5;
+    m_dataSet = option5;
     Int_t eventSelection = std::stoi(option3.Data());
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
     std::cout << "eventSelection in selector: " << eventSelection << "\n";
@@ -1326,7 +1326,7 @@ void objectTSelectorForNanoAOD::getRunRange(TTree *fChain)
     //
 }
 
-void objectTSelectorForNanoAOD::intializaTreeBranches( const TString dataset)
+void objectTSelectorForNanoAOD::intializaTreeBranches( )
 {
     // overriding for MC files
 
@@ -1379,7 +1379,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( const TString dataset)
     }
     else
     { // data
-        std::cout << "running over: " << dataSet << "\n";
+        std::cout << "running over: " << m_dataSet << "\n";
 
         if (runRange[0] >= 315257 && runRange[1] <= 325172)
         { // 2018
