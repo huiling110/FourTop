@@ -14,7 +14,7 @@
 #ifndef objectTSelectorForNanoAOD_h
 #define objectTSelectorForNanoAOD_h
 
-	#include <random>
+#include <random>
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
@@ -48,7 +48,7 @@ public:
 	// import initialization member variables
 	Bool_t m_isdata = false;
 	TString m_dataSet;
-	TString era = "2016postVFP";
+	TString m_era = "2016postVFP";
 
 	Double_t runRange[2];
 	TFile *outputfile;

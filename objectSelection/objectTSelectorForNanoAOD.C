@@ -144,7 +144,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
             return kFALSE;
         if (!(*Flag_BadPFMuonDzFilter == 1))
             return kFALSE;
-        // if ( era == "2017" || era == "2018" ){
+        // if ( m_era == "2017" || m_era == "2018" ){
         if (!(*Flag_ecalBadCalibFilter == 1))
             return kFALSE; // for UL 2016 has this flag too
         // }
@@ -158,14 +158,15 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // HLT
 
     if (HLTSelection)
+    //todo: move this to a function and examine the HLT choice
     {
-        if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
+        if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
         {
             // std::cout<<"HLT selection for 2016"<<"\n";
             if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
                 return kFALSE;
         }
-        else if (era.CompareTo("2018") == 0)
+        else if (m_era.CompareTo("2018") == 0)
         {
             if (!m_isdata)
             {
@@ -210,7 +211,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     copyHLT_new();
 
     // Compute the per-event PU weight
-    //???todo: switch this to json
+    //todo: switch this to json
     if (!m_isdata)
     {
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0)
@@ -779,17 +780,17 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         { // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
             if (jetType == 11)
             {
-                if (!(Jet_btagDeepFlavB.At(j) > DeepJetL[era]))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetL[m_era]))
                     continue;
             }
             if (jetType == 12)
             {
-                if (!(Jet_btagDeepFlavB.At(j) > DeepJetM[era]))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetM[m_era]))
                     continue;
             }
             if (jetType == 13)
             {
-                if (!(Jet_btagDeepFlavB.At(j) > DeepJetT[era]))
+                if (!(Jet_btagDeepFlavB.At(j) > DeepJetT[m_era]))
                     continue;
             }
         }
@@ -797,17 +798,17 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         {
             if (jetType == 11)
             {
-                if (!(Jet_btagDeepB.At(j) > DeepCSVL[era]))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVL[m_era]))
                     continue;
             }
             if (jetType == 12)
             {
-                if (!(Jet_btagDeepB.At(j) > DeepCSVM[era]))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
                     continue;
             }
             if (jetType == 13)
             {
-                if (!(Jet_btagDeepB.At(j) > DeepCSVT[era]))
+                if (!(Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
                     continue;
             }
         }
@@ -921,7 +922,7 @@ void objectTSelectorForNanoAOD::copyHLT_new()
     HLT_IsoMu24_ = *HLT_IsoMu24;
     HLT_IsoMu27_ = *HLT_IsoMu27;
 
-    if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
+    if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
     {
         HLT_PFHT450_SixJet40_BTagCSV_p056_ = *HLT_PFHT450_SixJet40_BTagCSV_p056;
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
@@ -930,7 +931,7 @@ void objectTSelectorForNanoAOD::copyHLT_new()
 
     if (!m_isdata)
     {
-        if (era.CompareTo("2018") == 0)
+        if (m_era.CompareTo("2018") == 0)
         {
             // should be the same as in intializaTreeBranches
             HLT_PFHT1050_ = *HLT_PFHT1050; // 297050	306460; 315257	325172
@@ -1129,8 +1130,8 @@ void objectTSelectorForNanoAOD::setupInputFile()
     // std::string jer_file = "../../jsonpog-integration/POG/JME/2016preVFP_UL/jet_jerc.json";
     // same file for JER and JES
     // cset_jerSF = correction::CorrectionSet::from_file(jer_file);
-    std::cout << "JEC file: " << jsonBase + json_map[era].at(0) << "\n";
-    cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
+    std::cout << "JEC file: " << jsonBase + json_map[m_era].at(0) << "\n";
+    cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[m_era].at(0)).Data());
     for (auto &corr : *cset_jerSF)
     {
         printf("JEC Correction : %s\n", corr.first.c_str());
@@ -1138,7 +1139,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
 
     // TString tauSF_json = "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
     // cset_tauSF = correction::CorrectionSet::from_file(tauSF_json.Data());
-    cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
+    cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[m_era].at(1)).Data());
     for (auto &corr : *cset_tauSF)
     {
         printf("tauSF Correction: %s\n", corr.first.c_str());
@@ -1146,17 +1147,17 @@ void objectTSelectorForNanoAOD::setupInputFile()
 
     if (!m_isdata)
     {
-        TString jetSmearing_PtFile = oldFileMap[era].at(0).Data();
-        TString jetSmearing_MCFile = oldFileMap[era].at(1).Data();
+        TString jetSmearing_PtFile = oldFileMap[m_era].at(0).Data();
+        TString jetSmearing_MCFile = oldFileMap[m_era].at(1).Data();
         std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
                   << jetSmearing_MCFile << "\n";
         readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
         readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
 
-        TFile *inputPUFile_data = new TFile(pileUpFileMap[era].at(0).Data(), "READ");
-        TFile *inputPUFile_dataUp = new TFile(pileUpFileMap[era].at(1).Data(), "READ");
-        TFile *inputPUFile_dataDown = new TFile(pileUpFileMap[era].at(2).Data(), "READ");
-        TFile *inputPUFile_mc = new TFile(pileUpFileMap[era].at(3).Data(), "READ");
+        TFile *inputPUFile_data = new TFile(pileUpFileMap[m_era].at(0).Data(), "READ");
+        TFile *inputPUFile_dataUp = new TFile(pileUpFileMap[m_era].at(1).Data(), "READ");
+        TFile *inputPUFile_dataDown = new TFile(pileUpFileMap[m_era].at(2).Data(), "READ");
+        TFile *inputPUFile_mc = new TFile(pileUpFileMap[m_era].at(3).Data(), "READ");
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
         // Get needed histograms
         dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup")->Clone();
@@ -1174,7 +1175,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
         std::cout << "data not setting up jetSmearing and pile files"
                   << "\n";
         std::cout << "setting up lumilosity json files for data\n";
-        readJSON(m_isdata, GoldenJSONs[era], _goodLumis);
+        readJSON(m_isdata, GoldenJSONs[m_era], _goodLumis);
     }
 
     std::cout << "done setting input file........................\n";
@@ -1200,8 +1201,8 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro(const TString option)
     std::cout << "option4: " << option4 << "\n";
     std::cout << "option5: " << option5 << "\n";
 
-    era = option2;
-    std::cout << "era is: " << era << "\n";
+    m_era = option2;
+    std::cout << "m_era is: " << m_era << "\n";
     if (option4.CompareTo("0") == 0)
         m_isdata = false;
     else
@@ -1333,7 +1334,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( )
     HLT_IsoMu24 = {fReader, "HLT_IsoMu24"};
     HLT_IsoMu27 = {fReader, "HLT_IsoMu27"};
 
-    if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
+    if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
     {
         HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
@@ -1362,7 +1363,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches( )
         genTtbarId = {fReader, "genTtbarId"};
         // HLT for MC
 
-        if (era.CompareTo("2018") == 0)
+        if (m_era.CompareTo("2018") == 0)
         {
 
             HLT_PFHT1050 = {fReader, "HLT_PFHT1050"}; // 297050	306460; 315257	325172
@@ -1457,12 +1458,12 @@ void objectTSelectorForNanoAOD::calJER_SF( std::vector<Double_t> &jer_sf, correc
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
     // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
-    auto corr_jerSF = cset_jerSF->at(corr_SF_map[era].at(0).Data());
-    auto corr_jerResolution = cset_jerSF->at(corr_SF_map[era].at(2).Data());
+    auto corr_jerSF = cset_jerSF->at(corr_SF_map[m_era].at(0).Data());
+    auto corr_jerResolution = cset_jerSF->at(corr_SF_map[m_era].at(2).Data());
 
     //???not sure how to get the JEC uncertainty for data yet?
     // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
-    auto corr_jesUncer = cset_jerSF->at(corr_SF_map[era].at(1).Data());
+    auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
 
     jer_sf.clear();
@@ -1556,20 +1557,20 @@ void objectTSelectorForNanoAOD::calTauSF_new()
 /*
 void objectTSelectorForNanoAOD::setupTauSFTool( const Bool_t isdata){
     if ( !isdata ){
-        if ( era.CompareTo( "2016postVFP")==0 ){
+        if ( m_era.CompareTo( "2016postVFP")==0 ){
         //    std::cout<<__LINE__<<"\n";
             TESTool = TauESTool("UL2016_postVFP","DeepTau2017v2p1VSjet");
             FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
 
-        }else if( era.CompareTo( "2016preVFP")==0 ){
+        }else if( m_era.CompareTo( "2016preVFP")==0 ){
             TESTool = TauESTool("UL2016_preVFP","DeepTau2017v2p1VSjet");
             FESTool = TauFESTool("2016Legacy","DeepTau2017v2p1VSe"); //no measurement for 2016 UL, use ReReco instead
 
-        }else if( era.CompareTo("2017")==0 ){
+        }else if( m_era.CompareTo("2017")==0 ){
             TESTool = TauESTool("UL2017","DeepTau2017v2p1VSjet");
             FESTool = TauFESTool("2017ReReco","DeepTau2017v2p1VSe"); //no measurement for 2017 UL, use ReReco instead
 
-        }else if( era.CompareTo("2018")==0 ){
+        }else if( m_era.CompareTo("2018")==0 ){
             TESTool = TauESTool("UL2018","DeepTau2017v2p1VSjet");
             FESTool = TauFESTool("2018ReReco","DeepTau2017v2p1VSe"); //no measurement for 2018 UL, use ReReco instead
 
