@@ -49,21 +49,22 @@ def main():
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
 
     subAllName = 'subAllofAll.sh'
-    subAllofAll = open( jobDir+ '/'+ subAllName, 'w')
+    subAllofAllName = jobDir+ '/'+ subAllName
+    subAllofAll = open( subAllofAllName, 'w')
+    print('creating subAllofAll: ', subAllofAllName )
     subAllofAll.write( '#!/bin/bash\n')
     subAllofAll.write('cd '+jobDir + '\n')
+
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
         if iera=='2016postVFP' : continue#???
-        print(iera)
-        if not os.path.exists( outputBase + iera +'/' ):
-            os.mkdir( outputBase + iera +'/'  )
-        if not os.path.exists( outputBase+iera+'/'+ outVersion+'_'+inVersion):
-            os.mkdir( outputBase+iera+'/' +outVersion+'_'+inVersion)
+        print('era: ', iera)
+        uf.checkMakeDir(outputBase+iera+'/')
+        uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
         for key in inOutDirMap[iera].keys():
             iDir = inOutDirMap[iera][key]
-            print( iDir )
-            generateJobsForDir( iDir, iera+'_'+key, selectionBit )
+            print( 'inputOutDir: ', iDir )
+            generateJobsForDir( iDir, iera+'_'+key, selectionBit, jobDir )
             subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
     print( 'sub all jobs using: ' + jobDir +'/' + subAllName)
     subAllofAll.close()
@@ -72,7 +73,7 @@ def main():
     subprocess.run( 'chmod 777 '+ jobDir+subAllName, shell=True )
 
 
-    uf.sumbitJobs(  jobDir+'/' + subAllName )
+    uf.sumbitJobs(  subAllofAllName )
 
 
 
@@ -99,15 +100,16 @@ def getInOutDic( year, inputBase, outBase, inVersion, outVersion, justMC ):
 
 
 
-def generateJobsForDir( inOutList, dirKind, selectionBit ):
-    subDirJobs = open( dirKind+'_subAll.sh', 'w' )
+def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
+    subDirName = jobDir+ '/'+ dirKind+'_subAll.sh'
+    print('creating: ', subDirName )
+    subDirJobs = open( subDirName, 'w' )
     subDirJobs.write( '#!/bin/bash\n' )
-    subDirJobs.write( 'cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/\n')
-    jobsDir = dirKind + '_jobs/'
-    if not os.path.exists( jobsDir ):
-        os.mkdir( jobsDir )
-    if not os.path.exists( inOutList[1] ):
-        os.mkdir ( inOutList[1] )
+    # subDirJobs.write( 'cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/\n')
+    subDirJobs.write( 'cd ' + jobDir +'\n')
+    jobsDir =  jobDir + '/'+dirKind + '_jobs/'
+    uf.checkMakeDir(jobsDir)
+    uf.checkMakeDir(inOutList[1])
 
     for entry in os.listdir(inOutList[0] ):
         if not entry in GQ.samples: continue
@@ -117,15 +119,14 @@ def generateJobsForDir( inOutList, dirKind, selectionBit ):
         iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
         writeIjob( iParametersList, processJob )
 
-        if not os.path.exists(inOutList[1] +"log/" ):
-            os.mkdir( inOutList[1]  +"log/")
+        uf.checkMakeDir(inOutList[1] +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
         subDirJobs.write( 'hep_sub -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
         # subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
-    subprocess.run( 'chmod 777 ' + dirKind+'_subAll.sh', shell = True)
+    subprocess.run( 'chmod 777 ' + subDirName, shell = True)
 
 
 def writeIjob( parameterList, processJob ):
