@@ -278,9 +278,13 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausF_total = tausF_total + tausF.size();
     tausL_total = tausL_total + tausL.size();
 
-    calJetSmearFactors(isdata); // Duncan's way
-    //???todo: optimize the JER calculation
-    calJER_SF(isdata, JER_SF_new, JER_SF_new_up, JER_SF_new_down, cset_jerSF.get()); //???from json, needs more work
+    // calJetSmearFactors(isdata); // Duncan's way
+    //todo: optimize the JER calculation; done
+    calJER_SF( JER_SF_new, cset_jerSF.get());
+    // // for(UInt_t i=0; i<JER_SF_new.size(); i++){ 
+    // //     std::cout<<JER_SF_new[i]<<" ";
+    // // }
+    // std::cout<<"\n";
 
     // Bool_t ifJER = kFALSE;
     Bool_t ifJER = kTRUE;
@@ -291,7 +295,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(jets.begin(), jets.end(), compEle);
     sort(jets_JECup.begin(), jets_JECup.end(), compEle);
     sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
-    // std::cout << "jets size" << jets.size() << "\n";
     // printElements( jets_btags, jets );
     // std::cout<<"jets_JECup:  "; printElements( jets_btags_JECup, jets_JECup );
     // std::cout<<"jets_JECdown:  "; printElements( jets_btags_JECdown, jets_JECdown );
@@ -741,10 +744,10 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         Double_t ijetPhi = Jet_phi.At(j);
         if (ifJER)
         {
-            // jetpt = jetpt * JER_SF_new.at(j);
-            // ijetMass = ijetMass * JER_SF_new.at(j);
-            jetpt *= jetSmearingFactors[j];
-            ijetMass *= jetSmearingFactors[j];
+            jetpt = jetpt * JER_SF_new.at(j);
+            ijetMass = ijetMass * JER_SF_new.at(j);
+            // jetpt *= jetSmearingFactors[j];
+            // ijetMass *= jetSmearingFactors[j];
         }
         // maybe scaling only changes pt and mass? yes!
         switch (sysJEC)
@@ -1069,9 +1072,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     jets_flavour_JECdown.clear();
     jets_btags_JECdown.clear();
     jets_JESuncer.clear();
-    JER_SF_new.clear();
-    JER_SF_new_up.clear();
-    JER_SF_new_down.clear();
+    // JER_SF_new.clear();
+    // JER_SF_new_up.clear();
+    // JER_SF_new_down.clear();
     bjetsL.clear();
     bjetsL_index.clear();
     bjetsL_flavour.clear();
@@ -1426,7 +1429,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches(const Bool_t isdata, const
         }
     }
 }
-
+/*
 void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
 { // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
     std::vector<Int_t> matchingIndices;
@@ -1453,8 +1456,8 @@ void objectTSelectorForNanoAOD::calJetSmearFactors(const Bool_t isdata)
         jetSmearingFactorsDown.push_back(smearFactorDown);
     }
 }
-
-void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet *cset_jerSF)
+*/
+void objectTSelectorForNanoAOD::calJER_SF( std::vector<Double_t> &jer_sf, correction::CorrectionSet *cset_jerSF)
 {
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
@@ -1468,9 +1471,11 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
     auto corr_jesUncer = cset_jerSF->at(corr_SF_map[era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
 
+    jer_sf.clear();
+
     Double_t iSF = 1.0;
-    Double_t iSF_up = 1.0;
-    Double_t iSF_down = 1.0;
+    // Double_t iSF_up = 1.0;
+    // Double_t iSF_down = 1.0;
     Double_t iSF_JESuncer = 0.0;
     const Double_t  MIN_JET_ENERGY = 1e-2;
     for (UInt_t i = 0; i < *nJet; i++)
@@ -1518,8 +1523,8 @@ void objectTSelectorForNanoAOD::calJER_SF(const Bool_t isdata, std::vector<Doubl
         // std::cout << "iJERSF: " << iSF << "\n";
         // std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
         jer_sf.push_back(iSF);
-        jer_sf_up.push_back(iSF_up);
-        jer_sf_down.push_back(iSF_down);
+        // jer_sf_up.push_back(iSF_up);
+        // jer_sf_down.push_back(iSF_down);
         jets_JESuncer.push_back(iSF_JESuncer);
     }
 }

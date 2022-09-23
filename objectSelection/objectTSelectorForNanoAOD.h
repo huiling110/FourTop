@@ -227,8 +227,8 @@ public:
 
 	// non newTree branch variables
 	std::vector<Double_t> JER_SF_new;
-	std::vector<Double_t> JER_SF_new_up;
-	std::vector<Double_t> JER_SF_new_down;
+	// std::vector<Double_t> JER_SF_new_up;
+	// std::vector<Double_t> JER_SF_new_down;
 	std::vector<Double_t> taus_TES;
 	std::vector<Double_t> taus_TES_up;
 	std::vector<Double_t> taus_TES_down;
@@ -273,13 +273,12 @@ public:
 	void initializeBrancheValues();
 	void setupInputFile();
 	void getOptionFromRunMacro(const TString option);
-	void calJetSmearFactors(const Bool_t isdata);
-	// void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down);
+	// void calJetSmearFactors(const Bool_t isdata);
 	// void setupTauSFTool(const Bool_t isdata);
 	//    void calTauSF( const Bool_t isdata );
 	void calTauSF_new();
 
-	void calJER_SF(const Bool_t isdata, std::vector<Double_t> &jer_sf, std::vector<Double_t> &jer_sf_up, std::vector<Double_t> &jer_sf_down, correction::CorrectionSet *cset_jerSF);
+	void calJER_SF( std::vector<Double_t> &jer_sf, correction::CorrectionSet *cset_jerSF);
 
 	// Readers to access the data (delete the ones you do not need).
 	TTreeReaderValue<UInt_t> run = {fReader, "run"};

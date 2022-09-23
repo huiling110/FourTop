@@ -54,7 +54,7 @@
 
 
 		{
-			"name": "run objectTSelector",
+			"name": "debug objectTSelector",
 			"type": "cppdbg",
 			"request": "launch",
 			"linux": {
