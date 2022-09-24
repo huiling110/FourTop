@@ -39,14 +39,16 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v33TESnoJERCodeOptimzation/'
 # jobVersionName = 'v34TESandJERFromDuncan/'
 # jobVersionName = 'v35TESandJERFromDuncan/'
-jobVersionName = 'v36TESandJERByHuiling/'
+# jobVersionName = 'v36TESandJERByHuiling/'
+jobVersionName = 'v37TauPt30AndPreselection/'
 onlyMC = False
-# era = '2016'
+era = '2016'
 # era = '2016APV'
-era = '2018'
+# era = '2018'
 def main():
     # onlyMC = True
-    eventSelection = '3'
+    # eventSelection = '3'
+    eventSelection = '7'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     # dataList = [ 'jetHT', 'singleMu'] 

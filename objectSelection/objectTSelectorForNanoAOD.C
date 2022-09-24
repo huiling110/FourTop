@@ -357,8 +357,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
             return kFALSE;
         if (!(jets.size() > 5))
             return kFALSE;
-        // if (!(bjetsL.size() > 1))
-        // return kFALSE;
     }
     h_forEY_preSelection->Fill(0.0, basicWeight);
 
