@@ -54,8 +54,8 @@ for ikey in preDirDict.keys():
         ifile = preDirDict[ikey]  + i
         ifile_post = postDirDict[ikey] + i 
         ifile_merged = mergedDirDict[ikey] + i
-        icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
-        # icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        # icommand = 'hadd {} {} {}'.format( ifile_merged, ifile, ifile_post )
+        icommand = 'hadd -f {} {} {}'.format( ifile_merged, ifile, ifile_post )
         print( icommand )
         process = subprocess.run( icommand, shell=True )
         output = process.stdout

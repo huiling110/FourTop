@@ -2,7 +2,7 @@ import csv
 import os
 
 import pandas as pd
-import ROOT
+# import ROOT
 import usefulFunc as uf
 from ROOT import TFile
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
@@ -10,34 +10,34 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
     # era = '2016preVFP'
-    # era = '2016'
+    era = '2016'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
+    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v0noBaseline_v31TESandJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
-    # inVersion = 'v1baseline_v36TESandJERByHuiling'
+    inVersion = 'v1baseline_v36TESandJERByHuiling'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
-    histVersion = 'variableHists_v1variables'
+    # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
-    # histVersion = 'variableHists_v2addingPileupWeight'
+    histVersion = 'variableHists_v2addingPileupWeight'
 
     variableList = ['eventCount']
-    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
+    csvName = '1tau0lCRs'
     # csvName = '1tau0lCRs'
-    # csvName = '1tau0lCRs'
-    csvName = '1tau1lCRs'
+    # csvName = '1tau1lCRs'
 
 
 

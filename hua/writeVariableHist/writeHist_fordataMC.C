@@ -133,7 +133,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", 10, 25, 300, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
-	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 10, 10, 200, tausT_1pt};
+	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3, tausT_1eta};
 	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", 10, 0, 3, tausT_1phi};
 	// histsForRegions<Double_t> {"", 10, , , };

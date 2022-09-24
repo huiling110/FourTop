@@ -1,6 +1,6 @@
 import math
 import os
-import sys
+# import sys
 from array import array
 
 # from ROOT import TFile, TLatex
@@ -45,8 +45,8 @@ includeDataInStack = True
 
 def main():
     # era = '2016preVFP'
-    era = '2016postVFP'
-    # era = '2016'
+    # era = '2016postVFP'
+    era = '2016'
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
@@ -65,8 +65,8 @@ def main():
     # variables = [ 'jets_HT']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau1lCR0', '1tau1lCR2']
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False

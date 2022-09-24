@@ -2,12 +2,12 @@ import glob
 import os
 import string
 import subprocess
-import sys
 
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
 
  #my own modules
+
 
 
 
@@ -42,8 +42,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 jobVersionName = 'v36TESandJERByHuiling/'
 onlyMC = False
 # era = '2016'
-era = '2016APV'
-# era = '2018'
+# era = '2016APV'
+era = '2018'
 def main():
     # onlyMC = True
     eventSelection = '3'
