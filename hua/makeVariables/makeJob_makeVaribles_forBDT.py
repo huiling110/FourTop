@@ -20,14 +20,14 @@ import usefulFunc as uf
 # inVersion = 'v31TESandJER'
 # inVersion = 'v32TESnoJER'
 # inVersion = 'v33TESnoJERCodeOptimzation'
-# inVersion = 'v36TESandJERByHuiling'
-inVersion = 'v37TauPt30AndPreselection'
+inVersion = 'v36TESandJERByHuiling'
+# inVersion = 'v37TauPt30AndPreselection'
 # outVersion = 'v0noBaseline'
 outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 justMC = False
-year = '2016'
-# year = '2018'
+# year = '2016'
+year = '2018'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 

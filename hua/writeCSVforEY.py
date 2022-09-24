@@ -10,9 +10,9 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    # era = '2016postVFP'
+    era = '2016postVFP'
     # era = '2016preVFP'
-    era = '2016'
+    # era = '2016'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
@@ -21,11 +21,13 @@ def main():
     # inVersion = 'v0noBaseline_v31TESandJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     inVersion = 'v1baseline_v36TESandJERByHuiling'
+    # inVersion = 'v1baseline_v37TauPt30AndPreselection'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     histVersion = 'variableHists_v2addingPileupWeight'
+    # histVersion = 'variableHists_v3pileUpAndNewRange'
 
     variableList = ['eventCount']
     regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
@@ -36,7 +38,6 @@ def main():
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
     csvName = '1tau0lCRs'
-    # csvName = '1tau0lCRs'
     # csvName = '1tau1lCRs'
 
 
