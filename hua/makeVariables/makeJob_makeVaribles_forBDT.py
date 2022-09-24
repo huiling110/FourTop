@@ -20,7 +20,8 @@ import usefulFunc as uf
 # inVersion = 'v31TESandJER'
 # inVersion = 'v32TESnoJER'
 # inVersion = 'v33TESnoJERCodeOptimzation'
-inVersion = 'v36TESandJERByHuiling'
+# inVersion = 'v36TESandJERByHuiling'
+inVersion = 'v37TauPt30AndPreselection'
 # outVersion = 'v0noBaseline'
 outVersion = 'v1baseline'
 # outVersion = 'v1noBaselineModifiedDouble_t'
@@ -56,8 +57,8 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
-        if iera=='2016postVFP' : continue#???
+        if iera=='2016preVFP' : continue
+        # if iera=='2016postVFP' : continue#???
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
         uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
