@@ -1,5 +1,8 @@
 import csv
 import os
+from ctypes import c_double
+from re import I
+from tokenize import Double, Number
 
 import pandas as pd
 # import ROOT
@@ -30,15 +33,15 @@ def main():
     # histVersion = 'variableHists_v3pileUpAndNewRange'
 
     variableList = ['eventCount']
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
-    csvName = '1tau0lCRs'
-    # csvName = '1tau1lCRs'
+    # csvName = '1tau0lCRs_withUncert'
+    csvName = '1tau1lCRs_withUncertInverted'
 
 
 
@@ -114,21 +117,28 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         for iProcess in summedProcessList:
             if ('SR' in iregion) and iProcess=='data':
                 iList.append(-1.0)
+                iList.append(-1.0)#for uncert
             else: 
                 if not isRawEntries:
                     iList.append( sumProcessPerVal[variable][iregion][iProcess].Integral() )
+                    ierror = c_double(-1.0)
+                    iIntergral = sumProcessPerVal[variable][iregion][iProcess].IntegralAndError(1,2,ierror, '') 
+                    iList.append(ierror.value)
                 else:
                     iList.append( sumProcessPerVal[variable][iregion][iProcess].GetEntries() )
+                    iList.append( -1.0)
         data[iregion] = iList
+     
+    iListName = []
+    for iProcess in summedProcessList:
+        iListName.append(iProcess)
+        iListName.append(iProcess+'_uncert')
 
-    df = pd.DataFrame( data, index=summedProcessList )
-    # df.loc['totalBG'] = df.drop('data', 'tttt').sum(axis=0, numeric_only=True)       
-    # df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)
+    # df = pd.DataFrame( data, index=summedProcessList )
+    df = pd.DataFrame( data, index=iListName )
     df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt']
     # df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
 
-    # df['HLTeff'] = df['HLT']/df['initial']
-    # df['preeff'] = df['preSelection']/df['HLT']
 
     if not writeData:
         # df = df.drop(labels=6, axis=0)
@@ -136,7 +146,9 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     else:
         df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
-    df['process'] = df.index
+
+
+    # df['process'] = df.index
     print( df )
 
     df.to_csv( outDir+csvName, float_format='%.2f')
