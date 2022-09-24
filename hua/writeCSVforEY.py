@@ -146,6 +146,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     else:
         df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
+    df = df.transpose()
 
 
     # df['process'] = df.index
