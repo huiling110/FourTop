@@ -34,15 +34,15 @@ def main():
     histVersion = 'variableHists_v3pileUpAndNewRange'
 
     variableList = ['eventCount']
-    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
-    # csvName = '1tau0lCRs_withUncertInverted'
-    csvName = '1tau1lCRs_withUncertInverted'
+    csvName = '1tau0lCRs_withUncertInverted'
+    # csvName = '1tau1lCRs_withUncertInverted'
 
 
 
@@ -133,19 +133,18 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     iListName = []
     for iProcess in summedProcessList:
         iListName.append(iProcess)
-        iListName.append(iProcess+'_uncert')
+        iListName.append(iProcess+'Uncert')
 
     # df = pd.DataFrame( data, index=summedProcessList )
     df = pd.DataFrame( data, index=iListName )
     df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt']
-    # df.loc['totalMC'] = df.loc['totalbg'] + df.loc['tttt']
 
 
     if not writeData:
         # df = df.drop(labels=6, axis=0)
         df = df.drop('data')
     else:
-        df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
+        df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     df = df.transpose()
     df.reset_index(inplace=True)
