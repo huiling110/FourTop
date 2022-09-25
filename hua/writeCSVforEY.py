@@ -13,9 +13,10 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
     # era = '2016preVFP'
     # era = '2016'
+    era = '2018'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
@@ -23,8 +24,8 @@ def main():
     # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v0noBaseline_v31TESandJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
-    # inVersion = 'v1baseline_v36TESandJERByHuiling'
-    inVersion = 'v1baseline_v37TauPt30AndPreselection'
+    inVersion = 'v1baseline_v36TESandJERByHuiling'
+    # inVersion = 'v1baseline_v37TauPt30AndPreselection'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
     # histVersion = 'variableHists_v1variables'
@@ -147,6 +148,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     df = df.transpose()
+    df.reset_index(inplace=True)
 
 
     # df['process'] = df.index
