@@ -5,8 +5,8 @@ std::map<TString, Double_t> lumiMap = {
     {"2016preVFP", 19500}, //"UL2016_preVFP", 19500.0 from Fabio
     {"2016postVFP", 16810},
     {"2016", 36310},
-    {"UL2017", 41480.0},
-    {"UL2018", 59830.0},
+    {"2017", 41480.0},
+    {"2018", 59830.0},
 };
 
 std::map<TString, Double_t> crossSectionMap = {

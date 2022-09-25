@@ -143,7 +143,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fProcessed++;
 	fProcessed_genWeight += *EVENT_genWeight_;
 
-
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
@@ -204,6 +203,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 				return kFALSE;
 			}
 		}
+		//???todo: 2018 HLT
 	}
 
 	fPassingHLT++;
@@ -694,16 +694,18 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 
 	// trigger
 	TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");
-	if( !input_TrigSF->IsZombie()){
+	if (!input_TrigSF->IsZombie())
+	{
 		TriggerSF = (TH2D *)input_TrigSF->Get("SF_njetsVsHT_" + map_era[m_era]);
 		TriggerSFunc = (TH2D *)input_TrigSF->Get("SF_njetsVsHTerrors_" + map_era[m_era]);
 		TriggerSF->SetDirectory(nullptr);
 		TriggerSFunc->SetDirectory(nullptr);
-	}else
+	}
+	else
 	{
 		std::cout << "HTL SF files not found!!! HLTweight will be 1.0\n ";
 	}
-	
+
 	input_TrigSF->Close();
 	delete input_TrigSF;
 
