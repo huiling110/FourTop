@@ -1,8 +1,11 @@
 
 from makeplot_fromAnshual import *
 
-csv='1tau1lCRs_withUncertInverted.csv'
-bkg_unc=['tt_uncert','ttX_uncert','VV_uncert','qcd_uncert','singleTop_uncert']
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline_v36TESandJERByHuiling/mc/variableHists_v3pileUpAndNewRange/results/'
+
+csv= inputDir +'1tau1lCRs_withUncertInverted.csv'
+# bkg_unc=['tt_uncert','ttX_uncert','VV_uncert','qcd_uncert','singleTop_uncert']
+bkg_unc=['ttUncert','ttXUncert','VVUncert','qcdUncert','singleTopUncert']
 bkg=['tt','ttX','VV','qcd','singleTop']
 bkgcolor={'tt':'red',
          'ttX':'lightcoral',
@@ -12,7 +15,8 @@ bkgcolor={'tt':'red',
 sig=['tttt']
 sigcolor=['pink']
 scalesignal=50
-plotname="myplot"
+
+plotname= '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/' +'myplot'
 cmslabel="WIP"
 data=True
 lumi=16

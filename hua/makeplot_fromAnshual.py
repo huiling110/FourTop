@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def makeplot(csv,b,b_unc,bcolor,s,scolor,scalesignal=1,plotname="myplot",cmslabel="WIP", data=True, lumi=16, year=2016):
     k=pd.read_csv(csv,index_col=0)
     
@@ -41,7 +42,8 @@ def makeplot(csv,b,b_unc,bcolor,s,scolor,scalesignal=1,plotname="myplot",cmslabe
     k[b].plot(color=b_color,stacked='True',ax=ax1,sort_columns='True',kind='bar')
     #k[b].plot(colors=[bcolor[key] for key in b_color.keys()],subplots=True,ax=ax3,sort_columns='True',kind='pie')
     k[s].plot(color=s_color,ax=ax1,kind='bar',alpha=1,facecolor='None',edgecolor=sns.color_palette("dark",24))
-    ax1.errorbar(k.index, k['data'], yerr=k['data_uncert'], ecolor='k',fmt='.k',label='data')
+    # ax1.errorbar(k.index, k['data'], yerr=k['data_uncert'], ecolor='k',fmt='.k',label='data')
+    ax1.errorbar(k.index, k['data'], yerr=k['dataUncert'], ecolor='k',fmt='.k',label='data')
     ax1.errorbar(k.index, k['b_sum'], lw=30,yerr=k['uncert'],fmt='none', ecolor='k',alpha=0.2,label='stat_unc')
     ax1.legend(loc="best",bbox_to_anchor=(1.01, 0.8))
     ax1.set_ylim(ymin=0)
