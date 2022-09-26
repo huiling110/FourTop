@@ -34,15 +34,15 @@ def main():
     histVersion = 'variableHists_v3pileUpAndNewRange'
 
     variableList = ['eventCount']
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
-    csvName = '1tau0lCRs_withUncertInverted'
-    # csvName = '1tau1lCRs_withUncertInverted'
+    # csvName = '1tau0lCRs_withUncertInverted'
+    csvName = '1tau1lCRs_withUncertInverted'
 
 
 
@@ -93,11 +93,6 @@ def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=Fa
     df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
     df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
     
-
-    # if includeEfficiency:
-    #     df['HLTEff'] = df['jetsNumber_HLT']/df['jetsNumber_initial']
-    #     df['baselineEff'] = df['jetsNumber_baseline']/df['jetsNumber_HLT']
-
     pd.set_option('display.float_format','{:.2f}'.format)
     print(df)
 
@@ -141,13 +136,13 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
 
     if not writeData:
-        # df = df.drop(labels=6, axis=0)
         df = df.drop('data')
     else:
         df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["totalMC"]
 
     df = df.transpose()
-    df.reset_index(inplace=True)
+    # df.reset_index(inplace=True)
+    df['regions'] = df.index
 
 
     # df['process'] = df.index
