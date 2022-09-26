@@ -46,7 +46,8 @@ includeDataInStack = True
 def main():
     # era = '2016preVFP'
     # era = '2016postVFP'
-    era = '2016'
+    # era = '2016'
+    era = '2018'
 
     # version = 'v0baseline_v16_HLTselection'
     # version = 'v0baseline_v20FixedSelectJetsBug'
@@ -60,13 +61,14 @@ def main():
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
-    histVersion = 'variableHists_v2addingPileupWeight'
+    # histVersion = 'variableHists_v2addingPileupWeight'
+    histVersion = 'variableHists_v3pileUpAndNewRange'
     variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False

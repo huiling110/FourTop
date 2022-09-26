@@ -1,7 +1,8 @@
 import pandas as pd
 
 
-def makeplot(csv,b,b_unc,bcolor,s,scolor,scalesignal=1,plotname="myplot",cmslabel="WIP", data=True, lumi=16, year=2016):
+# def makeplot(csv,b,b_unc,bcolor,s,scolor,scalesignal=1,plotname="myplot",cmslabel="WIP", data=True, lumi=16, year=2016):
+def makeplot(csv,b,b_unc,bcolor,s,scolor,scalesignal=1,plotname="myplot",cmslabel="WIP", data=True, lumi=16, year='2016'):
     k=pd.read_csv(csv,index_col=0)
     
     for si in s:
