@@ -110,11 +110,25 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau", "1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
+
+	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 200, tausL_1pt};
+	vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
+	{
+		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	}
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
+	// baseline selection
+	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+	if (!baseline)
+	{
+		return kFALSE;
+	}
+
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
@@ -128,13 +142,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 	// std::cout << "event weight=" << basicWeight << "\n";
 
-	// baseline selection
-	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-	if (!baseline)
-	{
-		return kFALSE;
-	}
-
 	// 1tau0l SR
 	if (!m_isData)
 	{
@@ -143,7 +150,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 
 		Bool_t is1tau0lSRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		Bool_t is1tau0lCRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRLTauGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		Bool_t is1tau0lCRLTauGen = *tausL_number == 1 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lVRLTauGen = *tausL_number == 1 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
@@ -152,6 +159,26 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRLTauGen, 7, basicWeight);
 		fillHistsVector(is1tau0lVRGen, 8, basicWeight);
 		fillHistsVector(is1tau0lVRLTauGen, 9, basicWeight);
+
+		if (is1tau0lCRLTauGen)
+		{
+			tausL_1pt_class.fillHistVec(7, basicWeight);
+		}
+		if (is1tau0lCRGen)
+		{
+			tausL_1pt_class.fillHistVec(1, basicWeight);
+		}
+	}
+	else
+	{
+		if (is1tau0lCRLTau)
+		{
+			tausL_1pt_class.fillHistVec(7, basicWeight);
+		}
+		if (is1tau0lCR)
+		{
+			tausL_1pt_class.fillHistVec(1, basicWeight);
+		}
 	}
 
 	// 1tau0l CR
@@ -195,6 +222,11 @@ void writeHist_forFakeRate::Terminate()
 		eventCount_hists[j]->Print();
 	}
 
+	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+	{
+		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+		// vectorOfVariableRegionsDouble[ihists].histsPrint();
+	}
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
 	outputFile->Write();
 	outputFile->Close();

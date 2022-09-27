@@ -91,6 +91,7 @@ public:
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
+   // histsForRegions<Double_t> tausL_1pt_class;
    // std::vector<TH1D *> jetsNumber_hists;
    // std::vector<TH1D *> jets_HT_hists;
    // std::vector<TH1D *> jets_bScore_hists;
