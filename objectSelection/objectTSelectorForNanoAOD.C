@@ -661,8 +661,8 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
             break;
         }
 
-        // if (!(itau_pt > 20))
-        if (!(itau_pt > 30))
+        if (!(itau_pt > 20))
+            // if (!(itau_pt > 30))
             continue;
         if (!(Tau_eta.At(j) < 2.3 && Tau_eta.At(j) > -2.3))
             continue;
