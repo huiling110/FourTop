@@ -19,7 +19,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v30TESnoJER/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v33TESnoJERCodeOptimzation/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v38TESandJERTauPt20_preselection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline_v36TESandJERByHuiling/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
@@ -30,8 +31,7 @@ void run_writeHist(
     Bool_t isTest = kTRUE,
     // TString selector = "writeHist_fordataMC.C+"
     // TString selector = "writeHist.C+"
-    TString selector = "writeHist_forFakeRate.C+"
-)
+    TString selector = "writeHist_forFakeRate.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";

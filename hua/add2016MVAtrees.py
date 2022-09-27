@@ -15,7 +15,8 @@ def copyData( dir ):
 # version = 'v0baseline_v16_HLTselection/'
 # version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 # version = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
-version = 'v1baseline_v36TESandJERByHuiling/'
+# version = 'v1baseline_v36TESandJERByHuiling/'
+version = 'v1baseline_v38TESandJERTauPt20_preselection/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'

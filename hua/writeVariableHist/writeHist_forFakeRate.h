@@ -196,6 +196,9 @@ public:
    TTreeReaderValue<Int_t> tausL_number = {fReader, "tausL_number"};
    TTreeReaderValue<Int_t> tausF_number = {fReader, "tausF_number"};
    TTreeReaderValue<Int_t> tausT_number = {fReader, "tausT_number"};
+   TTreeReaderValue<Int_t> tausT_genTauNum = {fReader, "tausT_genTauNum"};
+   TTreeReaderValue<Int_t> tausL_genTauNum = {fReader, "tausL_genTauNum"};
+
    TTreeReaderValue<Double_t> tausL_MHT = {fReader, "tausL_MHT"};
    TTreeReaderValue<Double_t> tausF_MHT = {fReader, "tausF_MHT"};
    TTreeReaderValue<Double_t> tausT_MHT = {fReader, "tausT_MHT"};
