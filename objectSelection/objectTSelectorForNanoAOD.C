@@ -353,8 +353,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     // preSelection
     if (preSelection)
     {
-        if (!(tausT.size() > 0))
-            return kFALSE;
+        // if (!(tausT.size() > 0))
+        // return kFALSE;
         if (!(jets.size() > 5))
             return kFALSE;
     }
