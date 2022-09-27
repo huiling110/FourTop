@@ -1,5 +1,5 @@
-#define writeHist_fordataMC_cxx
-// The class definition in writeHist_fordataMC.h has been generated automatically
+#define writeHist_forFakeRate_cxx
+// The class definition in writeHist_forFakeRate.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
 // from the ROOT class TSelector. For more information on the TSelector
 // framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
@@ -27,9 +27,9 @@
 // #include <filesystem>
 
 #include "../src_cpp/usefulFuction.h"
-#include "writeHist_fordataMC.h"
+#include "writeHist_forFakeRate.h"
 
-void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
 	{
@@ -37,7 +37,7 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 	}
 }
 
-void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
 	{
@@ -64,7 +64,7 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 	}
 }
 
-void writeHist_fordataMC::Begin(TTree * /*tree*/)
+void writeHist_forFakeRate::Begin(TTree * /*tree*/)
 {
 	// The Begin() function is called at the start of the query.
 	// When running with PROOF Begin() is only called on the client.
@@ -73,14 +73,14 @@ void writeHist_fordataMC::Begin(TTree * /*tree*/)
 	TString option = GetOption();
 }
 
-void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
+void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 {
 	// The SlaveBegin() function is called after the Begin() function.
 	// When running with PROOF SlaveBegin() is called on each slave server.
 	// The tree argument is deprecated (on PROOF 0 is passed).
 
 	TString option = GetOption();
-	std::cout << "option in writeHist_fordataMC: " << option << "\n";
+	std::cout << "option in writeHist_forFakeRate: " << option << "\n";
 
 	// this part could be in a function for multiple uses
 	// better structure my project so that these commen functionality go to one include dir
@@ -112,7 +112,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 }
 
-Bool_t writeHist_fordataMC::Process(Long64_t entry)
+Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
 	Double_t basicWeight = 1.0;
@@ -147,23 +147,23 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lVR = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lVRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
 	fillHistsVector(is1tau0lVR, 3, basicWeight);
-	fillHistsVector(is1tau0lVRLtau, 4, basicWeight);
+	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 
 	return kTRUE;
 }
 
-void writeHist_fordataMC::SlaveTerminate()
+void writeHist_forFakeRate::SlaveTerminate()
 {
 	// The SlaveTerminate() function is called after all entries or objects
 	// have been processed. When running with PROOF SlaveTerminate() is called
 	// on each slave server.
 }
 
-void writeHist_fordataMC::Terminate()
+void writeHist_forFakeRate::Terminate()
 {
 // The Terminate() function is the last function to be called during
 // a query. It always runs on the client, it can be used to present
@@ -183,7 +183,6 @@ void writeHist_fordataMC::Terminate()
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
 	}
-
 
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
 	outputFile->Write();
