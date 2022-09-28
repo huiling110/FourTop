@@ -36,4 +36,11 @@ std::map<TString, Double_t> crossSectionMap = {
     {"qcd_1000to1500", 1.207e+03}, // 1.207e+03 +- 1.167e+00 pb
     {"qcd_1500to2000", 1.20e+02},  // 1.201e+02 +- 1.160e-01 pb
     {"qcd_2000toInf", 2.525e+01},  // 2.524e+01 +- 2.436e-02 pb
+
+    {"WJetsToLNu_HT-200To400" , 532.4},
+    {"WJetsToLNu_HT-400To600" , 61.6},
+    {"WJetsToLNu_HT-600To800" , 12.4},
+    {"WJetsToLNu_HT-800To1200" , 5.77},
+    {"WJetsToLNu_HT-1200To2500" , 1.023},
+    {"WJetsToLNu_HT-2500ToInf" , 0.0248},
 };

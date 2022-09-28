@@ -8,9 +8,9 @@ lumiMap = {
 }
 
 
-summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'data' ]
+summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'data' ]
 
-histoGramPerSample = {
+histoGramPerSample = { 
     'tttt':'tttt',
     'ttbar_0l':'tt',
     'ttbar_1l': 'tt',
@@ -40,7 +40,7 @@ histoGramPerSample = {
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",
     "WJetsToLNu_HT-600To800": "WJets",
-    " WJetsToLNu_HT-800To1200": "WJets",
+    "WJetsToLNu_HT-800To1200": "WJets",
     "WJetsToLNu_HT-1200To2500": "WJets",
     "WJetsToLNu_HT-2500ToInf": "WJets",
 
@@ -95,7 +95,7 @@ samples = [
     "WJetsToLNu_HT-200To400",
     "WJetsToLNu_HT-400To600",
     "WJetsToLNu_HT-600To800",
-    " WJetsToLNu_HT-800To1200",
+    "WJetsToLNu_HT-800To1200",
     "WJetsToLNu_HT-1200To2500",
     "WJetsToLNu_HT-2500ToInf",
 
@@ -154,7 +154,7 @@ samplesCrossSection = {
     "WJetsToLNu_HT-200To400": 532.4,
     "WJetsToLNu_HT-400To600": 61.6,
     "WJetsToLNu_HT-600To800": 12.4,
-    " WJetsToLNu_HT-800To1200": 5.77,
+    "WJetsToLNu_HT-800To1200": 5.77,
     "WJetsToLNu_HT-1200To2500": 1.023,
     "WJetsToLNu_HT-2500ToInf": 0.0248,
 }
