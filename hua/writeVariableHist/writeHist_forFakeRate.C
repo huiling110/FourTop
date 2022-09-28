@@ -54,8 +54,6 @@ void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vecto
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
-	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// chain.Add(inputFile + "outTree_4.root");
 	for (UInt_t i = 0; i < regions.size(); i++)
 	{
 		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -108,11 +106,11 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// }
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau", "1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"};
+	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau", "1tau0lVRLTauNotT", "1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 200, tausL_1pt};
-	vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
@@ -142,7 +140,17 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 	// std::cout << "event weight=" << basicWeight << "\n";
 
-	// 1tau0l SR
+	// 1tau0l CR
+	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lVRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lVRLTauNotT = *tausL_number == 1 && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	fillHistsVector(is1tau0lCR, 1, basicWeight);
+	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
+	fillHistsVector(is1tau0lVR, 3, basicWeight);
+	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
+	fillHistsVector(is1tau0lVRLTauNotT, 5, basicWeight);
 	if (!m_isData)
 	{
 		// be blind for data in signal region
@@ -150,46 +158,24 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 
 		Bool_t is1tau0lSRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		Bool_t is1tau0lCRLTauGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		Bool_t is1tau0lCRLTauGen = *tausL_number == 1 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lVRLTauGen = *tausL_number == 1 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-		fillHistsVector(is1tau0lSRGen, 5, basicWeight);
-		fillHistsVector(is1tau0lCRGen, 6, basicWeight);
-		fillHistsVector(is1tau0lCRLTauGen, 7, basicWeight);
-		fillHistsVector(is1tau0lVRGen, 8, basicWeight);
-		fillHistsVector(is1tau0lVRLTauGen, 9, basicWeight);
+		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
+		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
+		fillHistsVector(is1tau0lCRLTauGen, 8, basicWeight);
+		fillHistsVector(is1tau0lVRGen, 9, basicWeight);
+		fillHistsVector(is1tau0lVRLTauGen, 10, basicWeight);
 
-		if (is1tau0lCRLTauGen)
-		{
-			tausL_1pt_class.fillHistVec(7, basicWeight);
-		}
-		if (is1tau0lCRGen)
-		{
-			tausL_1pt_class.fillHistVec(1, basicWeight);
-		}
+		fillHistsVectorMyclass(is1tau0lCRLTauGen, 7, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCRGen, 1, basicWeight);
 	}
 	else
 	{
-		if (is1tau0lCRLTau)
-		{
-			tausL_1pt_class.fillHistVec(7, basicWeight);
-		}
-		if (is1tau0lCR)
-		{
-			tausL_1pt_class.fillHistVec(1, basicWeight);
-		}
+		fillHistsVectorMyclass(is1tau0lCRLTau, 7, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
 	}
-
-	// 1tau0l CR
-	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lVRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	fillHistsVector(is1tau0lCR, 1, basicWeight);
-	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
-	fillHistsVector(is1tau0lVR, 3, basicWeight);
-	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 
 	return kTRUE;
 }
