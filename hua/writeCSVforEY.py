@@ -13,9 +13,9 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    era = '2016postVFP'
+    # era = '2016postVFP'
     # era = '2016preVFP'
-    # era = '2016'
+    era = '2016'
     # era = '2018'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
