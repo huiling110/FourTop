@@ -109,7 +109,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau", "1tau0lVRLTauNotT", "1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 200, tausL_1pt};
+	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 180, tausL_1pt};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
@@ -168,12 +168,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lVRGen, 9, basicWeight);
 		fillHistsVector(is1tau0lVRLTauGen, 10, basicWeight);
 
-		fillHistsVectorMyclass(is1tau0lCRLTauGen, 7, basicWeight);
-		fillHistsVectorMyclass(is1tau0lCRGen, 1, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
 	}
 	else
 	{
-		fillHistsVectorMyclass(is1tau0lCRLTau, 7, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCRLTau, 2, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
 	}
 

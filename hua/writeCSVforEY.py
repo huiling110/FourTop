@@ -175,7 +175,6 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
         if ifScale and (not 'jetHT' in ifileName):
-            # iProScale = getProcessScale( ifileName, '2016postVFP' )
             iProScale = getProcessScale( ifileName, era )
         print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
         if 'jetHT' in ifileName:

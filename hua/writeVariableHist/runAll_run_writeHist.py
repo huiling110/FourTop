@@ -2,10 +2,13 @@
 import os
 import subprocess
 
-def main():
-    rootDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/'
 
-    histDir = rootDir + 'variableHists/'
+def main():
+    # rootDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/'
+    rootDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
+
+    version = 'v4forFakeRate'
+    histDir = rootDir +   'variableHists_' + version +'/' 
     if not os.path.exists(histDir):
         os.mkdir( histDir )
 
