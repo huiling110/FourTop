@@ -1,4 +1,5 @@
-from ROOT import TCanvas
+import numpy as np
+import ROOT
 from ttttGlobleQuantity import summedProcessList
 
 from writeCSVforEY import getSummedHists
@@ -31,11 +32,42 @@ def main():
     h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, 'tausL_1pt', '1tau0lCRLTauGen')
     h_CRLTau_dataSubBG = h_CRLTau_data - h_CRLTau_bgGenTau
 
+    binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 100.0, 140.0, 200.0])
+    h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
+    h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
 
-    can = TCanvas('numeritor')
-    h_CRLTau_dataSubBG.Draw('hist')
-    h_CR_dataSubBG.Draw('histsame')
-    can.SaveAs(inputDirDic['mc'] + 'test.png')
+    h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
+    h_fakeRateCR.Reset()
+    h_fakeRateCR.Sumw2()
+    h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
+
+    plotName = inputDirDic['mc'] + 'results/test.png'
+    plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
+
+
+
+def plotEfficiency(h_numeritor, h_dinominator, h_efficiency, plotName):
+    can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+
+    h_dinominator.Draw()
+    h_numeritor.Draw('same')
+    can.Update()
+
+    rightmax = 1.1*h_efficiency.GetMaximum();
+    scale = ROOT.gPad.GetUymax()/rightmax;
+    h_efficiency.SetLineColor(ROOT.kRed)
+    h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
+    h_efficiency.Draw("same")
+    
+    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(),
+        ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    axis.SetLineColor(ROOT.kRed)
+    axis.SetLabelColor(ROOT.kRed)
+    axis.Draw()
+
+
+    can.SaveAs(plotName)
 
 
 
