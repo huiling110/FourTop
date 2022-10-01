@@ -22,17 +22,18 @@ def main():
 
 
     h_CR_data = sumProcessPerVar['tausL_1pt']['1tau0lCR']['data'] 
+    h_CR_data.Print()
     h_CR_bgGenTau = addBGHist(sumProcessPerVar, 'tausL_1pt', '1tau0lCRGen')
     h_CR_bgGenTau.Print() 
-    h_CR_data.Print()
     h_CR_dataSubBG = h_CR_data - h_CR_bgGenTau
+    # h_CR_dataSubBG = h_CR_data.Add(h_CR_bgGenTau, -1).Clone()
     h_CR_dataSubBG.Print()
 
     h_CRLTau_data = sumProcessPerVar['tausL_1pt']['1tau0lCRLTau']['data'] 
     h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, 'tausL_1pt', '1tau0lCRLTauGen')
     h_CRLTau_dataSubBG = h_CRLTau_data - h_CRLTau_bgGenTau
 
-    binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 100.0, 140.0, 200.0])
+    binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0])
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
 
@@ -74,6 +75,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_efficiency, plotName):
 def addBGHist(sumProcessPerVar, var, region):
     sumHist = sumProcessPerVar[var][region][summedProcessList[0]]
     sumHist.Reset()
+    sumHist.Sumw2()
+    sumHist.SetName(region+ '_bgSum_' + var )
     for ipro in summedProcessList:
         if ipro=='data' or ipro=='tttt': continue
         sumHist.Add( sumProcessPerVar[var][region][ipro])

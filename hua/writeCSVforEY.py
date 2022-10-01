@@ -138,7 +138,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
     # df = pd.DataFrame( data, index=summedProcessList )
     df = pd.DataFrame( data, index=iListName )
-    df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt']
+    df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt'] +df.loc['WJets']
+    df.loc['bg'] = df.loc['totalMC'] - df.loc['tttt']
 
 
     if not writeData:
