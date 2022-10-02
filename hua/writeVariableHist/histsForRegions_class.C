@@ -27,6 +27,10 @@ public:
     {
         m_histsVector[iRegion]->Fill(*m_variableRef, weight);
     }
+    void fillHistVecAbs(UInt_t iRegion, Double_t weight)
+    {
+        m_histsVector[iRegion]->Fill(TMath::Abs(*m_variableRef), weight);
+    }
     void histsScale(Double_t scale)
     {
         for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)

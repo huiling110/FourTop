@@ -19,12 +19,16 @@ def main():
         sumProcessPerVar[ivar] = getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
 
+    plotVarDic = {
+        # 'tausL_1pt': [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0],
+        'tausL_1eta': [ -2.4, -2.1, -1.8, -1.5, -1.2, -0.9, -0.6, -0.3,  0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
+        }
+    h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(plotVarDic.keys())[0], sumProcessPerVar)
 
-    h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate('tausL_1pt', sumProcessPerVar)
 
 
-
-    binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0])
+    # binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0])
+    binLowEges = np.array( plotVarDic[list(plotVarDic.keys())[0]])
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
 
@@ -33,8 +37,13 @@ def main():
     h_fakeRateCR.Sumw2()
     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
 
-    plotName = inputDirDic['mc'] + 'results/test.png'
+    plotName = inputDirDic['mc'] + 'results/' + list(plotVarDic.keys())[0] + '_FR.png'
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
+
+
+
+
+
 
 def getHistForFakeRate( var, sumProcessPerVar ):
     h_CR_data = sumProcessPerVar[var]['1tau0lCR']['data'] 
@@ -59,6 +68,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_efficiency, plotName):
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
 
+    h_dinominator.SetLineColor(ROOT.kBlue+4)
+    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
     h_dinominator.Draw()
     h_numeritor.Draw('same')
     can.Update()
