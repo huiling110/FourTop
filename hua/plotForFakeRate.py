@@ -21,7 +21,7 @@ def main():
 
     plotVarDic = {
         # 'tausL_1pt': [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0],
-        'tausL_1eta': [ -2.4, -2.1, -1.8, -1.5, -1.2, -0.9, -0.6, -0.3,  0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
+        'tausL_1eta': [ 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
         }
     h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(plotVarDic.keys())[0], sumProcessPerVar)
 
