@@ -350,6 +350,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	{
 		tausL_1pt = tausL[0].Pt();
 		tausL_1eta = tausL[0].Eta();
+		tausL_1etaAbs = TMath::Abs(tausL[0].Eta());
 		tausL_1phi = tausL[0].Phi();
 	}
 
@@ -856,6 +857,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausT_3phi", &tausT_3phi, "tausT_3phi/D");
 	newtree->Branch("tausL_1pt", &tausL_1pt, "tausL_1pt/D");
 	newtree->Branch("tausL_1eta", &tausL_1eta, "tausL_1eta/D");
+	newtree->Branch("tausL_1etaAbs", &tausL_1etaAbs, "tausL_1etaAbs/D");
 	newtree->Branch("tausL_1phi", &tausL_1phi, "tausL_1phi/D");
 	newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
 	newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
@@ -1199,6 +1201,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausT_1phi = -99;
 	tausL_1pt = -99;
 	tausL_1eta = -99;
+	tausL_1etaAbs = -99;
 	tausL_1phi = -99;
 	tausT_2pt = -99;
 	tausT_2eta = -99;
