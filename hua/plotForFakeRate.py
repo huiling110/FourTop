@@ -11,7 +11,7 @@ def main():
         'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/data/variableHists_v4forFakeRate/'
     } 
 
-    variableList = ['tausL_1pt']
+    variableList = ['tausL_1pt', 'tausL_1eta']
     regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRGen", "1tau0lVRLTau"]
     sumProcessPerVar = {}
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -20,18 +20,9 @@ def main():
     print( sumProcessPerVar )
 
 
+    h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate('tausL_1pt', sumProcessPerVar)
 
-    h_CR_data = sumProcessPerVar['tausL_1pt']['1tau0lCR']['data'] 
-    h_CR_data.Print()
-    h_CR_bgGenTau = addBGHist(sumProcessPerVar, 'tausL_1pt', '1tau0lCRGen')
-    h_CR_bgGenTau.Print() 
-    h_CR_dataSubBG = h_CR_data - h_CR_bgGenTau
-    # h_CR_dataSubBG = h_CR_data.Add(h_CR_bgGenTau, -1).Clone()
-    h_CR_dataSubBG.Print()
 
-    h_CRLTau_data = sumProcessPerVar['tausL_1pt']['1tau0lCRLTau']['data'] 
-    h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, 'tausL_1pt', '1tau0lCRLTauGen')
-    h_CRLTau_dataSubBG = h_CRLTau_data - h_CRLTau_bgGenTau
 
     binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0])
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
@@ -44,6 +35,23 @@ def main():
 
     plotName = inputDirDic['mc'] + 'results/test.png'
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
+
+def getHistForFakeRate( var, sumProcessPerVar ):
+    h_CR_data = sumProcessPerVar[var]['1tau0lCR']['data'] 
+    h_CR_data.Print()
+    h_CR_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRGen')
+    h_CR_bgGenTau.Print() 
+    h_CR_dataSubBG = h_CR_data - h_CR_bgGenTau
+    # h_CR_dataSubBG = h_CR_data.Add(h_CR_bgGenTau, -1).Clone()
+    h_CR_dataSubBG.Print()
+
+    h_CRLTau_data = sumProcessPerVar[var]['1tau0lCRLTau']['data'] 
+    h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRLTauGen')
+    h_CRLTau_dataSubBG = h_CRLTau_data - h_CRLTau_bgGenTau
+
+    return h_CR_dataSubBG, h_CRLTau_dataSubBG
+
+
 
 
 

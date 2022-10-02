@@ -110,7 +110,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+	histsForRegions<Double_t> tausL_1eta_class{"tausL_1eta", 20, 0, 3, tausL_1eta};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(tausL_1eta_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
