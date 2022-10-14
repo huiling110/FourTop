@@ -1,18 +1,24 @@
 import numpy as np
 import ROOT
+import usefulFunc as uf
 from ttttGlobleQuantity import summedProcessList
 
 from writeCSVforEY import getSummedHists
 
 
 def main():
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
+    version = 'v4forFakeRate_eta0-06'
     inputDirDic ={
-        'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v4forFakeRate/',
-        'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/data/variableHists_v4forFakeRate/'
+        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v4forFakeRate/',
+        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/data/variableHists_v4forFakeRate/'
+        'mc': inputDir + 'mc/variableHists_' + version + '/',
+        'data': inputDir + 'data/variableHists_' + version + '/'
     } 
 
-    variableList = ['tausL_1pt', 'tausL_1eta']
-    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRGen", "1tau0lVRLTau"]
+    # variableList = ['tausL_1pt', 'tausL_1etaAbs']
+    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau",  "1tau0lVRLTau"]
+    variableList = ['tausL_1pt']
     sumProcessPerVar = {}
     #sumProcessPerVar[var][region][sumedProcess] = hist
     for ivar in variableList:
@@ -21,7 +27,8 @@ def main():
 
     plotVarDic = {
         # 'tausL_1pt': [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0],
-        'tausL_1eta': [ 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
+        'tausL_1pt': [20.0,  40.0,  60.0, 80.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0],
+        # 'tausL_1eta': [ 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
         }
     h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(plotVarDic.keys())[0], sumProcessPerVar)
 
@@ -37,7 +44,9 @@ def main():
     h_fakeRateCR.Sumw2()
     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
 
-    plotName = inputDirDic['mc'] + 'results/' + list(plotVarDic.keys())[0] + '_FR.png'
+    plotDir = inputDirDic['mc'] + 'results/' 
+    uf.checkMakeDir( plotDir )
+    plotName = plotDir + list(plotVarDic.keys())[0] + '_FR.png'
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
 
 

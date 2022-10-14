@@ -106,17 +106,35 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// }
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau", "1tau0lVRLTauNotT", "1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"};
+	std::vector<TString> regionsForVariables = {
+		"1tau0lSR",
+		"1tau0lCR",
+		"1tau0lCRLTau",
+		"1tau0lVR",
+		"1tau0lVRLTau",
+		"1tau0lVRLTauNotT",
+		"1tau0lSRGen",
+		"1tau0lCRGen",
+		"1tau0lCRLTauGen",
+		"1tau0lVRGen",
+		"1tau0lVRLTauGen", // 10
+						   // "1tau0lCR1eta",
+						   // "1tau0lCRLTau1eta",
+						   // "1tau0lCRGen1eta",
+						   // "1tau0lCRLTauGen1eta",
+	};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 8, 0, 2.4, tausL_1etaAbs};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
-	vectorOfVariableRegionsDouble.push_back(tausL_1eta_class);
+	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
+
+	// histsForRegions<Double_t> tausL_1ptEta0to06_class{"tausL_1ptFistEta", 20, 20, 220, tausL_1pt};
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -129,16 +147,17 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		return kFALSE;
 	}
 
+	// eta bining cut
+	if (!(0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6))
+		return kFALSE;
+
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
 		// basicWeight = (*EVENT_genWeight);
-		// basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
-		// std::cout << "muonIDSF_weight=" << *muonIDSF_weight << " "
-		//   << "eleMVAT_IDSF_weight=" << *eleMVAT_IDSF_weight << "tauT_IDSF_weight_new=" << *tauT_IDSF_weight_new << "\n";
 	}
 	// std::cout << "event weight=" << basicWeight << "\n";
 
@@ -172,6 +191,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 		fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
+
+		// fillHistsVectorMyclass(is1tau0lCRGen && (0 < *tausL_1etaAbs <= 0.6), 11, basicWeight);
 	}
 	else
 	{

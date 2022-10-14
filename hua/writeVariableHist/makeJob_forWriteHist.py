@@ -12,6 +12,7 @@ import usefulFunc as uf
 #???make all job subscrison more modulized
 
 
+
 Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v27noJERnoTESWithObjectRemoval/'
@@ -35,7 +36,8 @@ def main():
     # version = "v1variablesUsingMyclass"
     # version = 'v2addingPileupWeight'
     # version = 'v3pileUpAndNewRange'
-    version = 'v4forFakeRate'
+    # version = 'v4forFakeRate'
+    version = 'v4forFakeRate_eta0-06'
     justMC = False
     # justMC = True
     isTest = 0
