@@ -8,10 +8,13 @@ from writeCSVforEY import getSummedHists
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
+    
     version = 'v4forFakeRate_eta0-06'
+    plotPtInEta( version, inputDir )
+    
+def plotPtInEta( version, inputDir ):
+    
     inputDirDic ={
-        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v4forFakeRate/',
-        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/data/variableHists_v4forFakeRate/'
         'mc': inputDir + 'mc/variableHists_' + version + '/',
         'data': inputDir + 'data/variableHists_' + version + '/'
     } 
@@ -26,15 +29,14 @@ def main():
     print( sumProcessPerVar )
 
     plotVarDic = {
-        # 'tausL_1pt': [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0],
-        'tausL_1pt': [20.0,  40.0,  60.0, 80.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0],
+        'tausL_1pt': [20.0, 40.0, 60.0, 80.0, 120.0,  220.0],
+        # 'tausL_1pt': [20.0,  40.0,  60.0, 80.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0],
         # 'tausL_1eta': [ 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
         }
     h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(plotVarDic.keys())[0], sumProcessPerVar)
 
 
 
-    # binLowEges = np.array( [20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 90.0, 110.0, 140.0, 220.0])
     binLowEges = np.array( plotVarDic[list(plotVarDic.keys())[0]])
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )

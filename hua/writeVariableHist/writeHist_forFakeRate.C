@@ -148,7 +148,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 
 	// eta bining cut
-	if (!(0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6))
+	// if (!(0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6))
+	// if (!(0.6 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.2))
+	// if (!(1.2 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.8))
+	if (!(1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4))
 		return kFALSE;
 
 	Double_t basicWeight = 1.0;
