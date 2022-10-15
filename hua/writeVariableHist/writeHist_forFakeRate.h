@@ -43,6 +43,7 @@ public:
    //???make this variables easier to add
    std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
+	histsForRegions<Double_t> tausL_1pt_eta_class;
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
    // histsForRegions<Double_t> tausL_1pt_class;

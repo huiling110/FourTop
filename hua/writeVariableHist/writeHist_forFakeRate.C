@@ -120,6 +120,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauGen", // 10
 		"1tau0lVRLTauNotTgen",
 	};
+
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
@@ -131,7 +132,36 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
 
-	// histsForRegions<Double_t> tausL_1ptEta0to06_class{"tausL_1ptFistEta", 20, 20, 220, tausL_1pt};
+	std::vector<TString> regionsEtaDivided = {
+		"1tau0lCRLTau_Eta1",
+		"1tau0lCRLTau_Eta2",
+		"1tau0lCRLTau_Eta3",
+		"1tau0lCRLTau_Eta4",
+		"1tau0lCRLTauGen_Eta1",
+		"1tau0lCRLTauGen_Eta2",
+		"1tau0lCRLTauGen_Eta3",
+		"1tau0lCRLTauGen_Eta4",
+
+		"1tau0lCR_Eta1",
+		"1tau0lCR_Eta2",
+		"1tau0lCR_Eta3",
+		"1tau0lCR_Eta4",
+		"1tau0lCRGen_Eta1",
+		"1tau0lCRGen_Eta2",
+		"1tau0lCRGen_Eta3",
+		"1tau0lCRGen_Eta4",
+
+		"1tau0lVRLTauNotT_Eta1",
+		"1tau0lVRLTauNotT_Eta2",
+		"1tau0lVRLTauNotT_Eta3",
+		"1tau0lVRLTauNotT_Eta4",
+		"1tau0lVRLTauNotTGen_Eta1",
+		"1tau0lVRLTauNotTGen_Eta2",
+		"1tau0lVRLTauNotTGen_Eta3",
+		"1tau0lVRLTauNotTGen_Eta4",
+	};
+	tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided);
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -148,8 +178,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// if (!(0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6))
 	// if (!(0.6 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.2))
 	// if (!(1.2 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.8))
-	if (!(1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4))
-		return kFALSE;
+	// if (!(1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4))
+	// return kFALSE;
 
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
@@ -172,6 +202,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	fillHistsVector(is1tau0lVR, 3, basicWeight);
 	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 	fillHistsVector(is1tau0lVRLTauNotT, 5, basicWeight);
+
+	Bool_t isEta1 = 0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6;
+	// if (!(0.6 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.2))
+	// if (!(1.2 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.8))
+	// if (!(1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4))
+
 	if (!m_isData)
 	{
 		// be blind for data in signal region
@@ -190,8 +226,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lVRGen, 9, basicWeight);
 		fillHistsVector(is1tau0lVRLTauGen, 10, basicWeight);
 
+		// CR
 		fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
+		tausL_1pt_eta_class.fillHistVec(7, basicWeight);
 
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTgen, 11, basicWeight);

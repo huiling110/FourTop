@@ -23,9 +23,12 @@ public:
             m_histsVector.push_back(temp);
         }
     };
-    void fillHistVec(UInt_t iRegion, Double_t weight)
+    void fillHistVec(UInt_t iRegion, Double_t weight, Bool_t ifFill = kTRUE)
     {
-        m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+        if (ifFill)
+        {
+            m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+        }
     }
     void fillHistVecAbs(UInt_t iRegion, Double_t weight)
     {
