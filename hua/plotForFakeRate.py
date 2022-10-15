@@ -10,19 +10,29 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
    
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
-    etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
-    fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
    
-    FR_ptInEtaDic = {}
      
     
     
+    FR_ptInEtaList = []
     # version = 'v4forFakeRate_eta0-06'
     versions = ['v4forFakeRate_eta0-06', 'v4forFakeRate_eta06-12', 'v4forFakeRate_eta12-18', 'v4forFakeRate_eta18-24']
     for version in versions:
-        plotPtInEta( version, inputDir, ptBins )
+        ietaPt =  plotPtInEta( version, inputDir, ptBins , False)
+        FR_ptInEtaList.append(ietaPt)
+    print(FR_ptInEtaList)
     
-def plotPtInEta( version, inputDir, ptBins ):
+    
+    etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
+    fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
+    
+    
+    #application in AR
+    
+    
+    
+    
+def plotPtInEta( version, inputDir, ptBins , isAR=False):
     
     inputDirDic ={
         'mc': inputDir + 'mc/variableHists_' + version + '/',
@@ -55,11 +65,16 @@ def plotPtInEta( version, inputDir, ptBins ):
     h_fakeRateCR.Reset()
     h_fakeRateCR.Sumw2()
     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
+    h_fakeRateCR.SetName('fakeRate_'+version)
 
     plotDir = inputDirDic['mc'] + 'results/' 
     uf.checkMakeDir( plotDir )
     plotName = plotDir + list(plotVarDic.keys())[0] + '_FR.png'
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
+    
+    return h_fakeRateCR
+    
+    
 
 
 
