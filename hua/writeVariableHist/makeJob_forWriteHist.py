@@ -39,8 +39,9 @@ def main():
     # version = 'v4forFakeRate'
     # version = 'v4forFakeRate_eta0-06'
     # version = 'v4forFakeRate_eta06-12'
-    version = 'v4forFakeRate_eta12-18'
-    version = 'v4forFakeRate_eta18-24'
+    # version = 'v4forFakeRate_eta12-18'
+    # version = 'v4forFakeRate_eta18-24'
+    version = 'v5forFakeRateEtaDivided'
     justMC = False
     # justMC = True
     isTest = 0
