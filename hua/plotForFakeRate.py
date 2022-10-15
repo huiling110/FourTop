@@ -1,3 +1,5 @@
+from tkinter import Variable
+
 import numpy as np
 import ROOT
 import usefulFunc as uf
@@ -9,16 +11,22 @@ from writeCSVforEY import getSummedHists
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
    
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
    
      
     
     
     FR_ptInEtaList = []
-    # version = 'v4forFakeRate_eta0-06'
-    versions = ['v4forFakeRate_eta0-06', 'v4forFakeRate_eta06-12', 'v4forFakeRate_eta12-18', 'v4forFakeRate_eta18-24']
-    for version in versions:
-        ietaPt =  plotPtInEta( version, inputDir, ptBins , False)
+    version = 'v5forFakeRateEtaDivided'
+    # versions = ['v4forFakeRate_eta0-06', 'v4forFakeRate_eta06-12', 'v4forFakeRate_eta12-18', 'v4forFakeRate_eta18-24']
+    # for version in versions:``
+    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+    variableDic = {
+        'tausL_1pt': ptBins,
+    }
+    # etaList = ['_Eta1', '_Eta2', '_Eta3', '_Eta4']
+    etaList = ['_Eta1']
+    for ieta in etaList:
+        ietaPt =  plotPtInEta( version, inputDir, variableDic , ieta, False)
         FR_ptInEtaList.append(ietaPt)
     print(FR_ptInEtaList)
     
@@ -32,32 +40,29 @@ def main():
     
     
     
-def plotPtInEta( version, inputDir, ptBins , isAR=False):
+def plotPtInEta( version, inputDir, variableDic, etaRegion , isAR=False):
     
     inputDirDic ={
         'mc': inputDir + 'mc/variableHists_' + version + '/',
         'data': inputDir + 'data/variableHists_' + version + '/'
     } 
 
-    # variableList = ['tausL_1pt', 'tausL_1etaAbs']
-    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau",  "1tau0lVRLTau"]
-    variableList = ['tausL_1pt']
+    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau"]
+    for ire in range(len(regionList)):
+        regionList[ire] = regionList[ire] + etaRegion
+
     sumProcessPerVar = {}
     #sumProcessPerVar[var][region][sumedProcess] = hist
-    for ivar in variableList:
+    for ivar in variableDic.keys():
         sumProcessPerVar[ivar] = getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
 
-    plotVarDic = {
-        'tausL_1pt': ptBins,
-        # 'tausL_1pt': [20.0,  40.0,  60.0, 80.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0],
-        # 'tausL_1eta': [ 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4]
-        }
-    h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(plotVarDic.keys())[0], sumProcessPerVar)
+    # for ivar in variableDic.keys():
+        
+    # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
+    h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( ivar, sumProcessPerVar, etaRegion)
 
-
-    # binLowEges = np.array( plotVarDic[list(plotVarDic.keys())[0]])
-    binLowEges = plotVarDic[list(plotVarDic.keys())[0]]
+    binLowEges = variableDic[list(variableDic.keys())[0]]
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
 
@@ -69,7 +74,7 @@ def plotPtInEta( version, inputDir, ptBins , isAR=False):
 
     plotDir = inputDirDic['mc'] + 'results/' 
     uf.checkMakeDir( plotDir )
-    plotName = plotDir + list(plotVarDic.keys())[0] + '_FR.png'
+    plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR.png'
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
     
     return h_fakeRateCR
@@ -81,17 +86,17 @@ def plotPtInEta( version, inputDir, ptBins , isAR=False):
 
 
 
-def getHistForFakeRate( var, sumProcessPerVar ):
-    h_CR_data = sumProcessPerVar[var]['1tau0lCR']['data'] 
+def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
+    h_CR_data = sumProcessPerVar[var]['1tau0lCR'+etaRegion]['data'] 
     h_CR_data.Print()
-    h_CR_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRGen')
+    h_CR_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRGen'+etaRegion)
     h_CR_bgGenTau.Print() 
     h_CR_dataSubBG = h_CR_data - h_CR_bgGenTau
     # h_CR_dataSubBG = h_CR_data.Add(h_CR_bgGenTau, -1).Clone()
     h_CR_dataSubBG.Print()
 
-    h_CRLTau_data = sumProcessPerVar[var]['1tau0lCRLTau']['data'] 
-    h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRLTauGen')
+    h_CRLTau_data = sumProcessPerVar[var]['1tau0lCRLTau'+etaRegion]['data'] 
+    h_CRLTau_bgGenTau = addBGHist(sumProcessPerVar, var, '1tau0lCRLTauGen'+etaRegion)
     h_CRLTau_dataSubBG = h_CRLTau_data - h_CRLTau_bgGenTau
 
     return h_CR_dataSubBG, h_CRLTau_dataSubBG
