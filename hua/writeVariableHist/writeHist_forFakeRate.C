@@ -188,7 +188,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
 	}
-	// std::cout << "event weight=" << basicWeight << "\n";
 
 	// 1tau0l CR
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
@@ -303,7 +302,8 @@ void writeHist_forFakeRate::Terminate()
 		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
 		// vectorOfVariableRegionsDouble[ihists].histsPrint();
 	}
-	Info("Terminate", "outputFile here:%s", outputFile->GetName());
+	tausL_1pt_eta_class.histsScale(processScale);
+	Info("Terminate", "outputFile here: %s", outputFile->GetName());
 	outputFile->Write();
 	outputFile->Close();
 }
