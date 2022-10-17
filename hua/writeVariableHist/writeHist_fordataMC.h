@@ -42,6 +42,7 @@ public:
       {
          TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
          TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
+         temp.Sumw2();
          m_histsVector.push_back(temp);
       }
    };

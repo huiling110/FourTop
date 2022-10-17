@@ -1,4 +1,3 @@
-from tkinter import Variable
 
 import numpy as np
 import ROOT
@@ -27,31 +26,37 @@ def main():
         ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, False)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
-    print(FR_ptInEtaList)
     
+    
+    #application in AR
+    fakeTauBG = 0.0
+    fakeTauError = 0.0
+    for ipt in range(len(tauPtEtaListAR)):
+        iEtaFT, iEtaFTErr = calFTPerEta( tauPtEtaListAR[ipt], FR_ptInEtaList[ipt])
+        fakeTauBG = fakeTauBG+iEtaFT
+        fakeTauError = fakeTauError + iEtaFTErr
+    print('fake tau in AR: %d error: %d, '.format( fakeTauBG, fakeTauError))
+            
     
     # etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
     # fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
     
-    #application in AR
-    print(tauPtEtaListAR)
-    fakeTauBG = 0.0
-    for ipt in range(len(tauPtEtaListAR)):
-        tauPtEtaListAR[ipt].Print()
-        FR_ptInEtaList[ipt].Print()
-        iEtaFT = calFTPerEta( tauPtEtaListAR[ipt], FR_ptInEtaList[ipt])
-        fakeTauBG = fakeTauBG+iEtaFT
-    print('fake tau in AR: ', fakeTauBG)
-            
+    
 def calFTPerEta( tauptAR, FR):
     FT = 0.0
+    FTErr = 0.0
     for ibin in range(1,tauptAR.GetNbinsX()+1):
         iN_LnotT = tauptAR.GetBinContent(ibin)
         iFR = FR.GetBinContent(ibin)
         ifakeTau = iN_LnotT*(iFR/(1-iFR))
-        print('iFR=%d , iN_LnotT=%d', iFR, iN_LnotT)
         FT=FT+ifakeTau
-    return FT
+        
+        iFRErr = FR.GetBinError(ibin)
+        iNerr = tauptAR.GetBinError(ibin)
+        iNErr = ( pow(iN_LnotT, 2)/pow(1-FR, 4) )*iFRErr + pow(iFR/(1-iFR), 2)*iNerr
+        FTErr = FTErr+iNErr
+        print('iFR=%d , iN_LnotT=%d'.format( iFR, iN_LnotT) )
+    return FT, FTErr
             
     
     
