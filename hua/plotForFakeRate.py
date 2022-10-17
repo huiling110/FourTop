@@ -2,6 +2,7 @@
 import numpy as np
 import ROOT
 import usefulFunc as uf
+from cv2 import sqrt
 from ttttGlobleQuantity import summedProcessList
 
 from writeCSVforEY import getSummedHists
@@ -35,7 +36,7 @@ def main():
         iEtaFT, iEtaFTErr = calFTPerEta( tauPtEtaListAR[ipt], FR_ptInEtaList[ipt])
         fakeTauBG = fakeTauBG+iEtaFT
         fakeTauError = fakeTauError + iEtaFTErr
-    print('fake tau in AR: %d error: %d, '.format( fakeTauBG, fakeTauError))
+    print('fake tau in AR:{} error: {}, '.format( fakeTauBG, sqrt(fakeTauError) ) )
             
     
     # etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
@@ -52,10 +53,9 @@ def calFTPerEta( tauptAR, FR):
         FT=FT+ifakeTau
         
         iFRErr = FR.GetBinError(ibin)
-        iNerr = tauptAR.GetBinError(ibin)
-        iNErr = ( pow(iN_LnotT, 2)/pow(1-FR, 4) )*iFRErr + pow(iFR/(1-iFR), 2)*iNerr
+        iNErr = ( pow(iN_LnotT, 2)/pow(1-iFR, 4) )*iFRErr + pow(iFR/(1-iFR), 2)*tauptAR.GetBinError(ibin)
         FTErr = FTErr+iNErr
-        print('iFR=%d , iN_LnotT=%d'.format( iFR, iN_LnotT) )
+        print('iFR={} , iN_LnotT={}'.format( iFR, iN_LnotT) )
     return FT, FTErr
             
     
@@ -90,6 +90,7 @@ def plotPtInEta( version, inputDir, variableDic, etaRegion , isAR=False):
     binLowEges = variableDic[list(variableDic.keys())[0]]
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
+    h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, 'VRLTauNotT', binLowEges)
 
     h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
     h_fakeRateCR.Reset()
@@ -103,7 +104,7 @@ def plotPtInEta( version, inputDir, variableDic, etaRegion , isAR=False):
     plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
    
     h_fakeRateCR.Print() 
-    return h_fakeRateCR, h_VRLTauNotT_dataSubBG
+    return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
 
