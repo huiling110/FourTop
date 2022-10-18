@@ -37,6 +37,7 @@ def main():
         fakeTauBG = fakeTauBG+iEtaFT
         fakeTauError = fakeTauError + iEtaFTErr
     print('fake tau in AR:{} error: {}, '.format( fakeTauBG, sqrt(fakeTauError) ) )
+    print(fakeTauError)
             
     
     # etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
@@ -55,7 +56,7 @@ def calFTPerEta( tauptAR, FR):
         iFRErr = FR.GetBinError(ibin)
         iNErr = ( pow(iN_LnotT, 2)/pow(1-iFR, 4) )*iFRErr + pow(iFR/(1-iFR), 2)*tauptAR.GetBinError(ibin)
         FTErr = FTErr+iNErr
-        print('iFR={} , iN_LnotT={}'.format( iFR, iN_LnotT) )
+        print('iFR={} ,iFRErr={} , iFT={}, iNErr={}'.format( iFR, iFRErr, FT, iNErr) )
     return FT, FTErr
             
     
@@ -131,6 +132,7 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 def histDateMinusGenBG(var, sumProcessPerVar, region):
     h_data = sumProcessPerVar[var][region]['data']
+    h_data.Sumw2()
     h_bgGen = addBGHist(sumProcessPerVar, var, region)
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
