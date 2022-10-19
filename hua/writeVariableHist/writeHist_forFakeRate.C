@@ -155,6 +155,13 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTGen_Eta1",
 		"1tau0lVRLTauNotTGen_Eta2",
 		"1tau0lVRLTauNotTGen_Eta3",
+		// CR LNotT
+		"1tau0lCRLTauNotT_Eta1", // 18
+		"1tau0lCRLTauNotT_Eta2",
+		"1tau0lCRLTauNotT_Eta3",
+		"1tau0lCRLTauNotTGen_Eta1",
+		"1tau0lCRLTauNotTGen_Eta2",
+		"1tau0lCRLTauNotTGen_Eta3",
 	};
 	// tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
@@ -170,13 +177,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		return kFALSE;
 	}
 
-	// eta bining cut
-	// if (!(0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.6))
-	// if (!(0.6 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.2))
-	// if (!(1.2 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.8))
-	// if (!(1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4))
-	// return kFALSE;
-
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
@@ -185,12 +185,14 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
 	}
 
-	// 1tau0l CR
+	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 	Bool_t is1tau0lVRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 	Bool_t is1tau0lVRLTauNotT = *tausL_number == 1 && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRLTauNotT = *tausL_number == 1 && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
 	fillHistsVector(is1tau0lVR, 3, basicWeight);
@@ -214,6 +216,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lVRLTauGen = *tausL_number == 1 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lVRLTauNotTGen = *tausL_number == 1 && *tausT_number == 0 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lCRLTauNotTGen = *tausL_number == 1 && *tausT_number == 0 && *tausL_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+
 		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
 		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
 		fillHistsVector(is1tau0lCRLTauGen, 8, basicWeight);
@@ -236,6 +240,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(15, basicWeight, is1tau0lVRLTauNotTGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(16, basicWeight, is1tau0lVRLTauNotTGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(17, basicWeight, is1tau0lVRLTauNotTGen && isEta3);
+		// CRLNotT
+		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotTGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotTGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotTGen && isEta3);
 	}
 	else
 	{
@@ -254,6 +262,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(12, basicWeight, is1tau0lVRLTauNotT && isEta1);
 		tausL_1pt_eta_class.fillHistVec(13, basicWeight, is1tau0lVRLTauNotT && isEta2);
 		tausL_1pt_eta_class.fillHistVec(14, basicWeight, is1tau0lVRLTauNotT && isEta3);
+		// CRLNotT
+		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotT && isEta1);
+		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotT && isEta2);
+		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotT && isEta3);
 	}
 
 	return kTRUE;
