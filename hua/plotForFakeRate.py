@@ -1,8 +1,10 @@
 
+from math import sqrt
+
 import numpy as np
 import ROOT
 import usefulFunc as uf
-from cv2 import sqrt
+# from cv2 import sqrt
 from ttttGlobleQuantity import summedProcessList
 
 from writeCSVforEY import getSummedHists
@@ -10,7 +12,8 @@ from writeCSVforEY import getSummedHists
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
-    version = 'v5forFakeRateEtaDivided'
+    # version = 'v5forFakeRateEtaDivided'
+    version = 'v6forFakeRate3EtaRegions'
    
     # versions = ['v4forFakeRate_eta0-06', 'v4forFakeRate_eta06-12', 'v4forFakeRate_eta12-18', 'v4forFakeRate_eta18-24']
     # for version in versions:``
@@ -18,8 +21,7 @@ def main():
     variableDic = {
         'tausL_1pt': ptBins,
     }
-    # etaList = ['_Eta1', '_Eta2', '_Eta3', '_Eta4']
-    etaList = ['_Eta0.0_0.8', '_Eta0.8_1.6', '_Eta1.6_2.3']
+    etaList = ['_Eta1', '_Eta2', '_Eta3']
     # etaList = ['_Eta1']
     # etaList = ['']
     FR_ptInEtaList = []
@@ -174,7 +176,8 @@ def addBGHist(sumProcessPerVar, var, region):
     sumHist.Sumw2()
     sumHist.SetName(region+ '_bgSum_' + var )
     for ipro in summedProcessList:
-        if ipro=='data' or ipro=='tttt': continue
+        # if ipro=='data' or ipro=='tttt': continue
+        if ipro=='data' or ipro=='qcd': continue
         sumHist.Add( sumProcessPerVar[var][region][ipro])
     return sumHist
 
