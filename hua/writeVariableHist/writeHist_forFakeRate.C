@@ -119,14 +119,19 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRGen",
 		"1tau0lVRLTauGen", // 10
 		"1tau0lVRLTauNotTgen",
+		"1tau0lCRNotGen", // 12
+		"1tau0lVRNotGen",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 8, 0, 2.4, tausL_1etaAbs};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
+	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
@@ -229,6 +234,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
+		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
+		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);

@@ -185,7 +185,7 @@ def addBGHist(sumProcessPerVar, var, region):
     sumHist.SetName(region+ '_bgSum_' + var )
     for ipro in summedProcessList:
         # if ipro=='data' or ipro=='tttt': continue
-        if ipro=='data' or ipro=='qcd': continue
+        if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
         sumHist.Add( sumProcessPerVar[var][region][ipro])
     return sumHist
 
