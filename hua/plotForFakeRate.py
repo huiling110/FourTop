@@ -27,7 +27,7 @@ def main():
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
-        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, False)
+        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     
@@ -68,13 +68,17 @@ def calFTPerEta( tauptAR, FR):
     
     
     
-def plotPtInEta( version, inputDir, variableDic, etaRegion , isAR=False):
+def plotPtInEta( version, inputDir, variableDic, etaRegion , isVR=True):
     inputDirDic ={
         'mc': inputDir + 'mc/variableHists_' + version + '/',
         'data': inputDir + 'data/variableHists_' + version + '/'
     } 
 
     regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRLTauNotT", "1tau0lVRLTauNotTGen"]
+    if not isVR:
+        regionList[4] = '1tau0lCRLTauNotT'
+        regionList[5] = '1tau0lCRLTauNotTGen'
+    
     for ire in range(len(regionList)):
         regionList[ire] = regionList[ire] + etaRegion
 
@@ -89,12 +93,14 @@ def plotPtInEta( version, inputDir, variableDic, etaRegion , isAR=False):
     # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCR'+etaRegion)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCRLTau'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lVRLTauNotT'+etaRegion)
+    # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lVRLTauNotT'+etaRegion)
+    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4])
+
 
     binLowEges = variableDic[list(variableDic.keys())[0]]
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
-    h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, 'VRLTauNotT', binLowEges)
+    h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, regionList[4], binLowEges)
 
     h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
     h_fakeRateCR.Reset()
