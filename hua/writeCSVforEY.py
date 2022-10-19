@@ -169,7 +169,6 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     mcFileList = os.listdir( inputDir['mc'] )
     dataFileList = os.listdir ( inputDir['data'] )
 
-    # for ifile in os.listdir( inputDir ):
     for ifile in mcFileList+dataFileList:
         # ifileName = ifile.split('_variableHists')[0]
         ifileName = ifile.split('.root')[0]
@@ -186,6 +185,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         # iRootFile.ls()
         for iRegion in regionsList:
             iHistName = iRegion + '_' + ifileName + '_' + variable
+            # iHistForNotExsting = iRegion + '_' + ifileName + '_eventCount'
             if iRegion not in sumProcessHistsDict.keys(): sumProcessHistsDict[iRegion]={}
             print('iHistName: ', iHistName )
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():

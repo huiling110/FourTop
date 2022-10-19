@@ -35,10 +35,18 @@ colourPerSample = {
     'ttX': kPink+2,
     'singleTop': kGreen-4,
     'VV': kGreen+2,
+    'WJets': kOrange,
+    'fakeTau': kBlue,
 }
 
 
-legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
+legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets', 'fakeTau']
+
+fakeTauYiled = {
+    '1tau0lCR':  15569.67,
+    '1tau0lVR': 11997.29, 
+}
+
 
 # includeDataInStack = False
 includeDataInStack = True
@@ -46,41 +54,38 @@ includeDataInStack = True
 def main():
     # era = '2016preVFP'
     # era = '2016postVFP'
-    # era = '2016'
-    era = '2018'
+    era = '2016'
+    # era = '2018'
 
-    # version = 'v0baseline_v16_HLTselection'
-    # version = 'v0baseline_v20FixedSelectJetsBug'
-    # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
     # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
-    inVersion = 'v1baseline_v36TESandJERByHuiling'
-    # histVersion = 'variableHists_v1moreVariables'
-    # histVersion = 'variableHists_v0'
+    # inVersion = 'v1baseline_v36TESandJERByHuiling'
+    inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     # histVersion = 'variableHists_v2addingPileupWeight'
-    histVersion = 'variableHists_v3pileUpAndNewRange'
-    variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT']
+    # histVersion = 'variableHists_v3pileUpAndNewRange'
+    histVersion = 'variableHists_v6forFakeRate3EtaRegions'
+    # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
+    variables = [ 'jets_HT']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
     
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False
     # plotName = 'dataVsMC_qcdYieldCorrected'
     plotName = 'dataVsMC'
 
-    #qcd corrected only in CR an VR
-    # # inputDirBase = '/publicfs/0cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
-    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-    # inputDirDict = {}
-    # inputDirDict['mc'] = inputDirBase + version + '/mc/' + histVersion + '/' 
-    # inputDirDict['data'] = inputDirBase + version + '/data/' + histVersion + '/' 
+
+
+
+
+
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
     inputDir = {
         'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
@@ -93,19 +98,17 @@ def main():
     for ivar in variables:
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )       
     print( sumProcessPerVar )
+    #getSummedHists gets null pointer for hist don't exist
 
-    # qcdYieldDic = {}
-    # qcdYieldDic['2016postVFP']['1tau0lVR'] = 3672.0 #+225
-    # qcdYieldDic['2016postVFP']['1tau0lCR'] = 1519.0 # ± 551
-    if ifCorrectQCDYield:
-        for ivar in variables:
-            sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Print()
-            sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Scale( 3672/sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Integral() )
-            sumProcessPerVar[ivar]['1tau0lVR']['qcd'].Print()
-            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Print()
-            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Scale( 8084/sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Integral() )
-            sumProcessPerVar[ivar]['1tau0lCR']['qcd'].Print()
 
+    hasFakeTau = False
+    for ire in regionList:
+        if 'Gen' in ire:
+            hasFakeTau = True
+    if hasFakeTau:
+        for ivar in sumProcessPerVar:
+            replaceBgWithGen( sumProcessPerVar[ivar], regionList )
+            
 
 
     plotDir = inputDir['mc']+'results/'
@@ -113,11 +116,35 @@ def main():
         os.mkdir( plotDir )
     sumProcessPerVarSys = {}
     for variable in variables:
-        for iRegion in regionList:       
-            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, plotName) 
+        if not hasFakeTau:
+            for iRegion in regionList:       
+                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, plotName) 
+        else:
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys, variable, regionList[0], plotDir, plotName)
+            
+            
     #     print( systs[variable])
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
+
+def replaceBgWithGen( sumProcessIvar, regionList):
+    #1tau0lCR relace with 1tauCRGen
+    for ipro in sumProcessIvar[regionList[0]].keys():
+        if ipro=='data': continue
+        sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
+        
+    #adding 'fakeTau' process from CRNotGen
+    sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
+    sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
+    for ipro in sumProcessIvar[regionList[2]].keys():
+        if ipro=='data' or ipro=='tttt': continue
+        sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) 
+        
+    #scale to fake rate prediction
+    sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
+    
+        
+
 
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
