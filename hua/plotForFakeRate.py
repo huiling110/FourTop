@@ -18,7 +18,8 @@ def main():
     variableDic = {
         'tausL_1pt': ptBins,
     }
-    etaList = ['_Eta1', '_Eta2', '_Eta3', '_Eta4']
+    # etaList = ['_Eta1', '_Eta2', '_Eta3', '_Eta4']
+    etaList = ['_Eta0.0_0.8', '_Eta0.8_1.6', '_Eta1.6_2.3']
     # etaList = ['_Eta1']
     # etaList = ['']
     FR_ptInEtaList = []

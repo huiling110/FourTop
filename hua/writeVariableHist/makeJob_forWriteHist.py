@@ -41,7 +41,8 @@ def main():
     # version = 'v4forFakeRate_eta06-12'
     # version = 'v4forFakeRate_eta12-18'
     # version = 'v4forFakeRate_eta18-24'
-    version = 'v5forFakeRateEtaDivided'
+    # version = 'v5forFakeRateEtaDivided'
+    vesion = 'v6forFakeRate3EtaRegions'
     justMC = False
     # justMC = True
     isTest = 0
