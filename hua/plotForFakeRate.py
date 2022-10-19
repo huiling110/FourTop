@@ -21,13 +21,15 @@ def main():
     variableDic = {
         'tausL_1pt': ptBins,
     }
+    # isVR = True
+    isVR = False
     etaList = ['_Eta1', '_Eta2', '_Eta3']
     # etaList = ['_Eta1']
     # etaList = ['']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
-        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, True)
+        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, isVR)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     
