@@ -23,15 +23,7 @@ def main():
     }
     # isVR = True
     isVR = False
-    etaList = ['_Eta1', '_Eta2', '_Eta3']
-    # etaList = ['_Eta1']
-    # etaList = ['']
-    FR_ptInEtaList = []
-    tauPtEtaListAR = []
-    for ieta in etaList:
-        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, isVR)
-        FR_ptInEtaList.append(ietaPt)
-        tauPtEtaListAR.append(ietaVR)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDir, variableDic, isVR)
     
     
     #application in AR
@@ -119,7 +111,17 @@ def plotPtInEta( version, inputDir, variableDic, etaRegion , isVR=True):
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
-
+def getFRAndARNotTList(version, inputDir, variableDic, iVR):
+    etaList = ['_Eta1', '_Eta2', '_Eta3']
+    # etaList = ['_Eta1']
+    # etaList = ['']
+    FR_ptInEtaList = []
+    tauPtEtaListAR = []
+    for ieta in etaList:
+        ietaPt, ietaVR =  plotPtInEta( version, inputDir, variableDic , ieta, isVR)
+        FR_ptInEtaList.append(ietaPt)
+        tauPtEtaListAR.append(ietaVR)
+    return FR_ptInEtaList, tauPtEtaListAR
 
 
 

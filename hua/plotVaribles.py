@@ -40,7 +40,7 @@ colourPerSample = {
 }
 
 
-legendOrder = ['tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets', 'fakeTau']
+legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
 
 fakeTauYiled = {
     '1tau0lCR':  15569.67,
@@ -69,12 +69,14 @@ def main():
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    variables = [ 'jets_HT']
+    # variables = [ 'jets_HT', 'tausL_1pt']
+    variables = [ 'tausL_1pt']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     
     # ifCorrectQCDYield = True
     ifCorrectQCDYield = False
@@ -127,22 +129,32 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen( sumProcessIvar, regionList):
+def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=False):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
         sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
         
-    #adding 'fakeTau' process from CRNotGen
     sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
     sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
-    for ipro in sumProcessIvar[regionList[2]].keys():
-        if ipro=='data' or ipro=='tttt': continue
-        sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) 
+    if not ifGetFromMC:
+    #adding 'fakeTau' process from CRNotGen
+        for ipro in sumProcessIvar[regionList[2]].keys():
+            if ipro=='data' or ipro=='tttt': continue
+            sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) 
+    else:
+        #adding 'fakeTau' from CRLTauNotT data
+       sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData() 
         
     #scale to fake rate prediction
     sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
-    
+ 
+ 
+ def getShapeFromData( ifPt=True):
+    etaList = ['_Eta1', '_Eta2', '_Eta3']
+    for ieta in etaList:
+        
+        
         
 
 

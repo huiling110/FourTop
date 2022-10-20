@@ -107,16 +107,16 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
 	std::vector<TString> regionsForVariables = {
-		"1tau0lSR",
+		"1tau0lSR", // 0
 		"1tau0lCR",
 		"1tau0lCRLTau",
-		"1tau0lVR",
+		"1tau0lVR", // 3
 		"1tau0lVRLTau",
 		"1tau0lVRLTauNotT", // 5
 		"1tau0lSRGen",
 		"1tau0lCRGen",
 		"1tau0lCRLTauGen",
-		"1tau0lVRGen",
+		"1tau0lVRGen",	   // 9
 		"1tau0lVRLTauGen", // 10
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
@@ -232,6 +232,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// CR
 		fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
+		fillHistsVectorMyclass(is1tau0lVRGen, 9, basicWeight);
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
@@ -256,6 +257,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 		fillHistsVectorMyclass(is1tau0lCRLTau, 2, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
+		fillHistsVectorMyclass(is1tau0lVR, 3, basicWeight);
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 
