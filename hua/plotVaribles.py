@@ -8,6 +8,7 @@ from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 
+from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
@@ -77,9 +78,8 @@ def main():
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
-    
-    # ifCorrectQCDYield = True
-    ifCorrectQCDYield = False
+   
+    ifFromData = True 
     # plotName = 'dataVsMC_qcdYieldCorrected'
     plotName = 'dataVsMC'
 
@@ -109,7 +109,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( sumProcessPerVar[ivar], regionList )
+            replaceBgWithGen( sumProcessPerVar[ivar], regionList, False )
             
 
 
@@ -129,7 +129,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=False):
+def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=True):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
@@ -150,9 +150,20 @@ def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=False):
     sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
  
  
- def getShapeFromData( ifPt=True):
-    etaList = ['_Eta1', '_Eta2', '_Eta3']
-    for ieta in etaList:
+ def getShapeFromData( inputDir, ifPt=True):
+    # etaList = ['_Eta1', '_Eta2', '_Eta3']
+    # for ieta in etaList:
+    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+    variableDic = {
+        'tausL_1pt': ptBins,
+    }
+    isVR = False
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDir, variableDic, isVR, False)
+    
+    fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
+    
+    return fakeTauFromData
+        
         
         
         
