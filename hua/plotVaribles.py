@@ -130,9 +130,10 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
         if ipro=='data': continue
         sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
         
-    sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
-    sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
     if  ifGetFromMC:
+        sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
+        sumProcessIvar[regionList[0]]['fakeTau'].Reset()
+        sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
     #adding 'fakeTau' process from CRNotGen
         for ipro in sumProcessIvar[regionList[2]].keys():
             if ipro=='data' or ipro=='tttt': continue
