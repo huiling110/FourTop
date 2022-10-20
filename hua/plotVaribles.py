@@ -75,8 +75,8 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
    
     # plotName = 'dataVsMC_qcdYieldCorrected'
     plotName = 'dataVsMC_fakeTauFromData'
@@ -143,7 +143,10 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
         sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
     else:
         #adding 'fakeTau' from CRLTauNotT data
-        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era) 
+        isVR = False
+        if regionList[0]=='1tau0lVR': 
+            isVR = True
+        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era, isVR) 
         ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
@@ -152,12 +155,12 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
         
  
  
-def getShapeFromData( inVersion, histVersion, era):
+def getShapeFromData( inVersion, histVersion, era, isVR=False):
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     variableDic = {
         'tausL_1pt': ptBins,
     }
-    isVR = False
+    # isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inVersion, histVersion, era, variableDic, isVR, False)
     
     fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)

@@ -73,7 +73,7 @@ def calFTPerEta( tauptAR, FR):
         # print('iFR={} ,iFRErr={} , iFT={}, iNErr={}'.format( iFR, iFRErr, FT, iNErr) )
         
         distribution.SetBinContent( ibin, ifakeTau )
-        distribution.SetBinError(ibin, iNErr)
+        distribution.SetBinError(ibin, sqrt( iNErr) )#???
     return FT, FTErr, distribution
             
     
