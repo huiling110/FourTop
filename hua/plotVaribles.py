@@ -3,7 +3,7 @@ import os
 # import sys
 from array import array
 
-# from ROOT import TFile, TLatex
+import numpy as np
 from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
@@ -76,15 +76,11 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
    
-    ifFromData = True 
     # plotName = 'dataVsMC_qcdYieldCorrected'
-    plotName = 'dataVsMC'
-
-
-
+    plotName = 'dataVsMC_fakeTauFromData'
 
 
 
@@ -100,7 +96,6 @@ def main():
     for ivar in variables:
         sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )       
     print( sumProcessPerVar )
-    #getSummedHists gets null pointer for hist don't exist
 
 
     hasFakeTau = False
@@ -109,7 +104,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( sumProcessPerVar[ivar], regionList, False )
+            replaceBgWithGen( inVersion, histVersion, era, sumProcessPerVar[ivar], regionList, False )
             
 
 
@@ -129,7 +124,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=True):
+def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, ifGetFromMC=True):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
@@ -137,28 +132,26 @@ def replaceBgWithGen( sumProcessIvar, regionList, ifGetFromMC=True):
         
     sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
     sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
-    if not ifGetFromMC:
+    if  ifGetFromMC:
     #adding 'fakeTau' process from CRNotGen
         for ipro in sumProcessIvar[regionList[2]].keys():
             if ipro=='data' or ipro=='tttt': continue
             sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) 
+    #scale to fake rate prediction
+        sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
     else:
         #adding 'fakeTau' from CRLTauNotT data
-       sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData() 
+        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era) 
         
-    #scale to fake rate prediction
-    sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
  
  
- def getShapeFromData( inputDir, ifPt=True):
-    # etaList = ['_Eta1', '_Eta2', '_Eta3']
-    # for ieta in etaList:
+def getShapeFromData( inVersion, histVersion, era):
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     variableDic = {
         'tausL_1pt': ptBins,
     }
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDir, variableDic, isVR, False)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inVersion, histVersion, era, variableDic, isVR, False)
     
     fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
     
@@ -174,104 +167,7 @@ def checkHists( histsDict ):
         print('iProcess: ', ikey )
         histsDict[ikey].Print()
 
-def extractHistograms( dir, variablesToCheck , myRegion):
-    nominalHists = {}
-    systematicHists = {}
 
-    for var in variablesToCheck:
-        nominalHists[var] = {}
-        systematicHists[var] = {}
-    #nominalHists[varName][histoGramPerSample[sampleName]]
-
-    # getHistsFromDir() #???need to combine the data mc into one function
-
-    for inFileName in os.listdir( dir['mc'] ):
-        # sampleName = inFileName.split('_variableHist')[0]
-        sampleName = inFileName.split('.root')[0]
-
-        if not sampleName in samples: continue
-        print('opening file: ', inFileName )
-        inFile = TFile( os.path.join(dir['mc']+inFileName), "READ" )
-        for key in inFile.GetListOfKeys():
-            ihistName = key.GetName()
-            if 'eventCount' in  key.GetName(): continue
-            varName = key.GetName().split(sampleName)[1][1:]
-            # print('keys in file: ', key)
-
-            iProScale = 1.0
-            print('sampleName: ', sampleName)
-            if  (not 'jetHT' in sampleName):
-                # iProScale = getProcessScale( sampleName, '2016postVFP' )
-                # print('passing mc')
-
-                iregionName = ihistName.split('_')[0]
-                print('iregion: ', iregionName)
-                if not myRegion==iregionName: continue
-                print('passing region')
-                if not varName in variablesToCheck: continue#only check 
-                print('passing varName')
-                if not ('up' in key.GetName()) or ('down' in key.GetName()  ):
-                    #for nominal hists
-                    print('start to get mc hists<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-                    if histoGramPerSample[sampleName] not in nominalHists[varName].keys():
-                        #nominalHist[varName].keys() is summed hists
-                        nominalHists[varName][histoGramPerSample[sampleName]] = inFile.Get( key.GetName()).Clone()
-                        # nominalHists[varName][histoGramPerSample[sampleName]].Scale( iProScale)
-                        nominalHists[varName][histoGramPerSample[sampleName]].SetDirectory(0)
-                        print('nom[{}][{}] get hist: {} '.format( varName, histoGramPerSample[sampleName], key ) )
-                    else: #add grouped mc bg together
-                        nominalHists[varName][histoGramPerSample[sampleName]].Add(inFile.Get(key.GetName()), iProScale)
-                        print('nom[{}][{}] add hist: {} '.format( varName, histoGramPerSample[sampleName], key)  )
-                else: #systematic uncertainties
-                    if histoGramPerSample[sampleName] not in systematicHists[varName].keys(): systematicHists[varName][histoGramPerSample[sampleName]] = {}
-                    systName = key.GetName().split("{0}_".format(sampleName))[-1]
-                    #depends on how I name my syst histgram
-                    if systName in systematicHists[varName][histoGramPerSample[sampleName]].keys():
-    #                    print sampleName,varName,systName, systematicHists[varName][histoGramPerSample[sampleName]][systName]
-                        systematicHists[varName][histoGramPerSample[sampleName]][systName].Add(inFile.Get(key.GetName()))
-                    else:
-                        systematicHists[varName][histoGramPerSample[sampleName]][systName] = inFile.Get(key.GetName()).Clone()
-                        systematicHists[varName][histoGramPerSample[sampleName]][systName].SetDirectory(0)
-            # for syst in ["JER","JES"]:
-            #JER and JES in a different files, good idea!
-        # else: # Now do data stuff
-        inFile.Close()
-        print('done getting mc hists<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n')
-        # print('\n')    
-
-
-    print( 'now getting data hists<<<<<<<<<<<<\n')
-    for inFileName in os.listdir( dir['data'] ):
-        print('\n')
-        if not '.root' in inFileName: continue
-        inFile = TFile( os.path.join(dir['data']+inFileName), "READ" )
-        print( 'openning {}\n'.format( inFileName ) )
-
-        sampleName = inFileName.split('.root')[0]
-        for key in inFile.GetListOfKeys():
-            ihistName = key.GetName()
-            if 'forYieldCount' in  ihistName: continue
-            varName = ihistName.split(sampleName)[1][1:]
-            if not varName in variablesToCheck: continue#only check 
-            iregionName = ihistName.split('_')[0]
-            if not myRegion==iregionName: continue
-            print( 'ihist:{} in {}\n'.format( ihistName, inFileName  ) )
-            if not "data" in nominalHists[varName].keys():
-                nominalHists[varName]["data"] = inFile.Get( ihistName ).Clone()
-                nominalHists[varName]["data"].SetDirectory(0)
-                print('nomMap[{}][\'data\'] get hist:{}: '.format( varName, ihistName ) )
-                # nominalHists[varName]["qcd"] = inFileQCD.Get("{0}_{1}".format(varName,sampleName)).Clone()
-                # nominalHists[varName]["qcd"].SetDirectory(0)
-            else:
-                nominalHists[varName]["data"].Add(inFile.Get( ihistName ))
-                print('nomMap[{}][\'data\'] add hist:{}: '.format( varName, ihistName ) )
-                # nominalHists[varName]["qcd"].Add(inFileQCD.Get("{0}_{1}".format(varName,sampleName)))
-    print( 'done getting data hists<<<<<<<<<<<\n')
-
-    return (nominalHists,systematicHists)
-
-# def getHistsFromDir( dir ):
-#     return ( nominalHists, systematicHists )
 
 
 

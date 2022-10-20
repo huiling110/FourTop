@@ -52,7 +52,7 @@ def getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR):
         fakeTauError = fakeTauError + iEtaFTErr
         FTFromData.Add(iFT_hist)
     print('fake tau in AR:{} error: {}, '.format( fakeTauBG, sqrt(fakeTauError) ) )
-    print(fakeTauError)
+    return FTFromData
     
 def calFTPerEta( tauptAR, FR):
     FT = 0.0
