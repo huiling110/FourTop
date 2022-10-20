@@ -41,7 +41,6 @@ colourPerSample = {
 }
 
 
-legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
 
 fakeTauYiled = {
     '1tau0lCR':  15569.67,
@@ -98,6 +97,7 @@ def main():
     print( sumProcessPerVar )
 
 
+    legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     hasFakeTau = False
     for ire in regionList:
         if 'Gen' in ire:
@@ -105,6 +105,7 @@ def main():
     if hasFakeTau:
         for ivar in sumProcessPerVar:
             replaceBgWithGen( inVersion, histVersion, era, sumProcessPerVar[ivar], regionList, False )
+        legendOrder.remove('qcd')
             
 
 
@@ -115,9 +116,9 @@ def main():
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, plotName) 
+                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, legendOrder, plotName ) 
         else:
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys, variable, regionList[0], plotDir, plotName)
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys, variable, regionList[0], plotDir,legendOrder, plotName)
             
             
     #     print( systs[variable])
@@ -252,7 +253,10 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
 
     canvy.cd()
 
-def makeStackPlot(nominal,systHists,name,region,outDir,savePost = ""):
+def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, savePost = ""):
+    '''
+    nominal is a dic of distribution for all processes including data
+    '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
     canvasName = '{}_{}'.format( region, name )
