@@ -70,7 +70,8 @@ def main():
     histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'tausL_1pt']
-    variables = [ 'tausL_1pt']
+    # variables = [ 'tausL_1pt']
+    variables = ['tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
@@ -104,7 +105,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inVersion, histVersion, era, sumProcessPerVar[ivar], regionList, False )
+            replaceBgWithGen( inVersion, histVersion, era, sumProcessPerVar[ivar], ivar, regionList, False )
         legendOrder.remove('qcd')
             
 
@@ -125,7 +126,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, ifGetFromMC=True):
+def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, var, regionList, ifGetFromMC=True):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
@@ -146,8 +147,11 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
         isVR = False
         if regionList[0]=='1tau0lVR': 
             isVR = True
-        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era, isVR) 
-        ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era, var,  isVR) 
+        if 'eta' in var:
+            ptBins = np.array( [0, 0.8, 1.6, 2.3])
+        else:
+            ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
         
@@ -155,7 +159,7 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
         
  
  
-def getShapeFromData( inVersion, histVersion, era, isVR=False):
+def getShapeFromData( inVersion, histVersion, era, var, isVR=False):
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     variableDic = {
         'tausL_1pt': ptBins,
@@ -163,7 +167,10 @@ def getShapeFromData( inVersion, histVersion, era, isVR=False):
     # isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inVersion, histVersion, era, variableDic, isVR, False)
     
-    fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
+    ifPtBin = True
+    if 'eta' in var:
+        ifPtBin = False
+    fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR, ifPtBin)
     
     return fakeTauFromData
         

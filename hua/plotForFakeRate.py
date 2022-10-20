@@ -40,17 +40,29 @@ def main():
     # etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
     # fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
 
-def getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR):    
+def getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR, ifPtBin=True):    
     fakeTauBG = 0.0
     fakeTauError = 0.0
-    FTFromData = tauPtEtaListAR[0].Clone()
-    FTFromData.Reset()
+    FTFromData = ROOT.TH1D()
+    if ifPtBin:
+        FTFromData = tauPtEtaListAR[0].Clone()
+        FTFromData.Reset()
+    else:
+        etaBins = np.array([0, 0.8,1.6,2.3])
+        FTfromData = ROOT.TH1D('fake tau from data', 'fake tau from data', 3, etaBins )
     FTFromData.Sumw2()
+   
     for ipt in range(len(tauPtEtaListAR)):
         iEtaFT, iEtaFTErr, iFT_hist = calFTPerEta( tauPtEtaListAR[ipt], FR_ptInEtaList[ipt])
         fakeTauBG = fakeTauBG+iEtaFT
         fakeTauError = fakeTauError + iEtaFTErr
-        FTFromData.Add(iFT_hist)
+        if ifPtBin: 
+            FTFromData.Add(iFT_hist)
+        else:
+            FTFromData.SetBinContent(ipt, iEtaFT)
+            FTFromData.SetBinError(ipt, iEtaFTErr)
+    
+        
     print('fake tau in AR:{} error: {}, '.format( fakeTauBG, sqrt(fakeTauError) ) )
     print('fake tau from hist ', FTFromData.Integral())
     return FTFromData
