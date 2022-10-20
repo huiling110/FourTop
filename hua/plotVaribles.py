@@ -143,6 +143,11 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, regionList, 
     else:
         #adding 'fakeTau' from CRLTauNotT data
         sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era) 
+        ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+        for ipro in sumProcessIvar[regionList[0]].keys() :
+             sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
+        
+    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
         
  
  
