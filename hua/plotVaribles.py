@@ -116,9 +116,9 @@ def main():
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, legendOrder, plotName ) 
+                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, legendOrder, False, plotName ) 
         else:
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys, variable, regionList[0], plotDir,legendOrder, plotName)
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys, variable, regionList[0], plotDir,legendOrder, True, plotName)
             
             
     #     print( systs[variable])
@@ -253,7 +253,7 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
 
     canvy.cd()
 
-def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, savePost = ""):
+def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = ""):
     '''
     nominal is a dic of distribution for all processes including data
     '''
@@ -298,6 +298,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, savePost = 
             dataHist.SetMarkerStyle(20)
             dataHist.SetMarkerSize(1.2)
             dataHist.SetMarkerColor(kBlack)
+            continue
+        if ifFakeTau and i=='qcd': 
             continue
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
