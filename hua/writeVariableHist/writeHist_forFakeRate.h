@@ -43,41 +43,20 @@ public:
    //???make this variables easier to add
    std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
-	histsForRegions<Double_t>  tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+   histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
-   // histsForRegions<Double_t> tausL_1pt_class;
-   // std::vector<TH1D *> jetsNumber_hists;
-   // std::vector<TH1D *> jets_HT_hists;
-   // std::vector<TH1D *> jets_bScore_hists;
-   // std::vector<TH1D *> jets_1pt_hists;
 
-   // std::vector<TH1D *> tausT_HT_hists;
-   // std::vector<TH1D *> tausT_1pt_hists;
-   // std::vector<TH1D *> tausT_1eta_hists;
-   // // std::vector<TH1D *> _hists;
+   TH2D *FR_hist;
 
-   // std::vector<TH1D *> bjetsM_MHT_hists;
-   // std::vector<TH1D *> bjets_Number_hists;
-   // std::vector<TH1D *> bjets_1pt_hists;
-   // std::vector<TH1D *> bjets_HT_hists;
+       // variables to be writen to hists
 
-   // std::vector<TH1D *> jets_bScoreMultiply_hists;
-   // std::vector<TH1D *> jets_2pt_hists;
-   // std::vector<TH1D *> jets_3pt_hists;
-   // std::vector<TH1D *> jets_4pt_hists;
-   // std::vector<TH1D *> jets_5pt_hists;
-   // std::vector<TH1D *> jets_6pt_hists;
-   // std::vector<TH1D *> jets_HTto4rest_hists;
+       // regions to consider
 
-   // variables to be writen to hists
-
-   // regions to consider
-
-   // Readers to access the data (delete the ones you do not need).
-   TTreeReaderValue<ULong64_t>
-       event = {fReader, "event"};
+       // Readers to access the data (delete the ones you do not need).
+       TTreeReaderValue<ULong64_t>
+           event = {fReader, "event"};
    TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter = {fReader, "Flag_globalSuperTightHalo2016Filter"};
    TTreeReaderValue<Int_t> Flag_HBHENoiseFilter = {fReader, "Flag_HBHENoiseFilter"};

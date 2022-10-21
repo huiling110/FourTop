@@ -39,8 +39,6 @@ void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
 
 void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
-	// if (isRegion)
-	// {
 	for (UInt_t i = 0; i < vectorOfVariableRegions.size(); i++)
 	{
 		vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight, isRegion);
@@ -49,7 +47,6 @@ void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vecto
 	{
 		vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight, isRegion);
 	}
-	// }
 }
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
@@ -60,6 +57,20 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 		TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin);
 		histsVariable.push_back(temp);
 	}
+}
+
+Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
+{
+	// might need error handling for this
+	Double_t FRWeight = 1.0;
+	if (taus_1pt > 18)
+	{
+		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
+		Int_t biny = FR_TH2D->GetYaxis()->FindBin(taus_1eta);
+		Double_t FR = FR_TH2D->GetBinContent(binx, biny);
+		FRWeight = FR / (1 - FR);
+	}
+	return FRWeight;
 }
 
 void writeHist_forFakeRate::Begin(TTree * /*tree*/)
@@ -121,6 +132,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
+
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
@@ -128,6 +140,8 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+
+	histsForRegions<Double_t> jets_HT_FR_class{"jets_HT_FRWeighted", 10, 500, 1500, jets_HT}; // in VVLNotT for data and gen MC, this is the shape of in AR
 
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
@@ -170,6 +184,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	};
 	// tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
+
+	//
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta.root", "READ");
+	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -186,9 +204,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	if (!m_isData)
 	{
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
 	}
+
+	Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
+	// std::cout << "FRWeight=" << FRWeight << "\n";
 
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;

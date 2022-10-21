@@ -84,8 +84,8 @@ void run_writeHist(
     TStopwatch t;
     t.Start();
 
-    chain.Process(selector, option);
-    // chain.Process(selector, option, 100);
+    // chain.Process(selector, option);
+    chain.Process(selector, option, 100);
 
     t.Stop();
     t.Print();
