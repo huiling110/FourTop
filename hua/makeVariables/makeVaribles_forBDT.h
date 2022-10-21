@@ -172,6 +172,10 @@ public:
     Double_t tausF_leptonsTMVA_minDeltaR = -99.0;
     Double_t tausT_leptonsTMVA_minDeltaR = -99.0;
     Double_t tausL_leptonsTMVA_minDeltaR = -99.0;
+    Int_t tausT_prongNum = -99;
+    Int_t tausL_prongNum = -99;
+    Int_t tausF_prongNum = -99;
+
     Double_t tausT_1pt = -99.0;
     Double_t tausT_1eta = -99.0;
     Double_t tausT_1phi = -99.0;
@@ -407,6 +411,8 @@ public:
     // TTreeReaderArray<Int_t> tausF_index = {fReader, "tausF_index"};
     // TTreeReaderArray<Int_t> tausT_index = {fReader, "tausT_index"};
     TTreeReaderArray<Int_t> tausT_decayMode = {fReader, "tausT_decayMode"};
+    TTreeReaderArray<Int_t> tausL_decayMode = {fReader, "tausL_decayMode"};
+    TTreeReaderArray<Int_t> tausF_decayMode = {fReader, "tausF_decayMode"};
     TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
     TTreeReaderArray<Int_t> tausL_genPartFlav = {fReader, "tausL_genPartFlav"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESup = {fReader, "tausT_TESup"};

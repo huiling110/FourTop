@@ -72,6 +72,8 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
 
+Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode);
+
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
 
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& SelectedTops) ;

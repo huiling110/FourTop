@@ -381,6 +381,17 @@ Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
 	return genNum;
 }
 
+Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
+{
+	// DM = 5*(Nc-1)+Np,
+	Int_t prongNum = 0;
+	for (UInt_t i = 0; i < tausT_decayMode.GetSize(); i++)
+	{
+		Int_t iProng = (tausT_decayMode[i] / 5) + 1;
+		prongNum += iProng;
+	}
+	return prongNum;
+}
 /*
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla)
 {

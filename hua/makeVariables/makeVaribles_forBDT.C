@@ -328,6 +328,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
 	tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
 
+	tausT_prongNum = getTauProng(tausT_decayMode);
+	tausL_prongNum = getTauProng(tausL_decayMode);
+	tausF_prongNum = getTauProng(tausF_decayMode);
+
 	if (tausT_number > 0)
 	{
 		tausT_1pt = tausT[0].Pt();
@@ -872,6 +876,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausL_leptonsTMVA_minDeltaR", &tausL_leptonsTMVA_minDeltaR, "tausL_leptonsTMVA_minDeltaR/D");
 	newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
 
+	newtree->Branch("tausT_prongNum", &tausT_prongNum, "tausT_prongNum/I"); // I : a 32 bit signed integer (Int_t)
+	newtree->Branch("tausL_prongNum", &tausT_prongNum, "tausL_prongNum/I"); // I : a 32 bit signed integer (Int_t)
+	newtree->Branch("tausF_prongNum", &tausT_prongNum, "tausF_prongNum/I"); // I : a 32 bit signed integer (Int_t)
 	// newtree->Branch( "", &, "/");
 	//
 	//
@@ -1196,6 +1203,9 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausF_leptonsTMVA_minDeltaR = -99;
 	tausT_leptonsTMVA_minDeltaR = -99;
 	tausL_leptonsTMVA_minDeltaR = -99;
+	tausT_prongNum = -99;
+	tausL_prongNum = -99;
+	tausF_prongNum = -99;
 	tausT_1pt = -99;
 	tausT_1eta = -99;
 	tausT_1phi = -99;
