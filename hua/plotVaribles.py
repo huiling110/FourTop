@@ -69,9 +69,9 @@ def main():
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'tausL_1pt']
+    variables = [ 'jets_HT']
     # variables = [ 'tausL_1pt']
-    variables = ['tausL_1etaAbs']
+    # variables = ['tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]

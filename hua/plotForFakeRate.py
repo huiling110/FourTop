@@ -25,20 +25,35 @@ def main():
         'tausL_1pt': ptBins,
     }
   
-    
+    inputDirDic = getInputDic(inVersion, histVersion, era) 
         
     
     # isVR = True
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inVersion, histVersion, era, variableDic, isVR, True)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
+    
+    # writeFRToFile( FR_ptInEtaList )
     
     
     #application in AR
-    getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
+    # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
     
-    # etaBins = np.array( [0.0, 0.6, 1.2, 1.8, 2.4] )
-    # fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
+
+def writeFRToFile( FR_ptInEtaList):
+    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+    etaBins = np.array([0, 0.8,1.6,2.3])
+    
+    fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
+    for ixbin in len(ptBins):
+        for iybin in len(etaBins):
+            iFR =  FR_ptInEtaList[iybin].GetBinContent(ixbin+1)
+            fakeRate2D.SetBinContent(ixbin+1, iybin+1, iFR)
+    
+    
+    
+ 
+
 
 def getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR, ifPtBin=True):    
     fakeTauBG = 0.0
@@ -90,12 +105,8 @@ def calFTPerEta( tauptAR, FR):
     return FT, FTErr, distribution
             
     
-def getSumProcessVarEta( inVersion, histVersion, era, ieta, variableDic, isVR=True):
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
-    inputDirDic = {
-        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    }
+def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True):
+    # inputDirDic = getInputDic( inVersion, histVersion, era)
 
     regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRLTauNotT", "1tau0lVRLTauNotTGen"]
     if not isVR:
@@ -114,7 +125,14 @@ def getSumProcessVarEta( inVersion, histVersion, era, ieta, variableDic, isVR=Tr
     
     return sumProcessPerVar, inputDirDic, regionList
        
-    
+def getInputDic( inVersion, histVersion, era):
+    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
+    inputDirDic = {
+        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    }
+    return inputDirDic
+        
     
     
     
@@ -125,7 +143,8 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCR'+etaRegion)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCRLTau'+etaRegion)
     # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lVRLTauNotT'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4])
+    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4]) #tausL_1pt in VRLNotT
+    #what if it's jets_HT; jets_HT in eta region; could not work because we can't know taupt in bin
 
 
     binLowEges = variableDic[list(variableDic.keys())[0]]
@@ -149,12 +168,12 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
-def getFRAndARNotTList( inVersion, histVersion, era, variableDic, isVR, ifPlot=True):
+def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True):
     etaList = ['_Eta1', '_Eta2', '_Eta3']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
-        sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inVersion, histVersion, era, ieta, variableDic, isVR )
+        sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
         ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
