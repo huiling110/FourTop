@@ -140,7 +140,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
-
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
@@ -168,7 +167,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class); //!!!no need to scale to lumilosity!
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweighted.size(); ihistvec++)
 	{
-		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForVariables, m_processName);
+		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
 	};
 
 	std::vector<TString> regionsEtaDivided = {
