@@ -385,9 +385,11 @@ Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
 {
 	// DM = 5*(Nc-1)+Np,
 	Int_t prongNum = 0;
-	for (UInt_t i = 0; i < tausT_decayMode.GetSize(); i++)
+	for (UInt_t i = 0; i < tausT_decayMode.GetSize(); ++i)
 	{
 		Int_t iProng = (tausT_decayMode[i] / 5) + 1;
+		// std::cout << i << "tau Prong=" << iProng << "; "
+		//   << "tauDecayMode=" << tausT_decayMode[i] << "  ";
 		prongNum += iProng;
 	}
 	return prongNum;

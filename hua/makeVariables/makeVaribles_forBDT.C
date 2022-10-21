@@ -331,6 +331,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausT_prongNum = getTauProng(tausT_decayMode);
 	tausL_prongNum = getTauProng(tausL_decayMode);
 	tausF_prongNum = getTauProng(tausF_decayMode);
+	// std::printf("tausTdecaymode=%d; tausTProngNum==%d;  tausLdecaymode=%d; tausLProngNum=%d \n", tausT_decayMode.GetSize(), tausT_prongNum, tausL_decayMode.GetSize(), tausL_prongNum);
 
 	if (tausT_number > 0)
 	{
@@ -877,8 +878,8 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
 
 	newtree->Branch("tausT_prongNum", &tausT_prongNum, "tausT_prongNum/I"); // I : a 32 bit signed integer (Int_t)
-	newtree->Branch("tausL_prongNum", &tausT_prongNum, "tausL_prongNum/I"); // I : a 32 bit signed integer (Int_t)
-	newtree->Branch("tausF_prongNum", &tausT_prongNum, "tausF_prongNum/I"); // I : a 32 bit signed integer (Int_t)
+	newtree->Branch("tausL_prongNum", &tausL_prongNum, "tausL_prongNum/I"); // I : a 32 bit signed integer (Int_t)
+	newtree->Branch("tausF_prongNum", &tausF_prongNum, "tausF_prongNum/I"); // I : a 32 bit signed integer (Int_t)
 	// newtree->Branch( "", &, "/");
 	//
 	//
