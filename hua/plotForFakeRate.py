@@ -148,10 +148,10 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
 
         
     # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
-    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion)
-    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion)
-    # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lVRLTauNotT'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4], regionList[5]) #tausL_1pt in VRLNotT
+    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion)
+    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion)
+    # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys()[0]], '1tau0lVRLTauNotT'+etaRegion)
+    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5]) #tausL_1pt in VRLNotT
     #what if it's jets_HT; jets_HT in eta region; could not work because we can't know taupt in bin
 
 
@@ -207,10 +207,10 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
     return h_CR_dataSubBG, h_CRLTau_dataSubBG
 
-def histDateMinusGenBG(var, sumProcessPerVar, region, genRegion):
-    h_data = sumProcessPerVar[var][region]['data']
+def histDateMinusGenBG(var, sumProcessIVar, region, genRegion):
+    h_data = sumProcessIVar[region]['data']
     h_data.Sumw2()
-    h_bgGen = addBGHist(sumProcessPerVar, var, genRegion) #???no requiring gen here???
+    h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
 
@@ -244,15 +244,15 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
 
 
 
-def addBGHist(sumProcessPerVar, var, region):
-    sumHist = sumProcessPerVar[var][region][summedProcessList[0]]
+def addBGHist(sumProcessIVar, var, region):
+    sumHist = sumProcessIVar[region][summedProcessList[0]]
     sumHist.Reset()
     sumHist.Sumw2()
     sumHist.SetName(region+ '_bgSum_' + var )
     for ipro in summedProcessList:
         # if ipro=='data' or ipro=='tttt': continue
         if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
-        sumHist.Add( sumProcessPerVar[var][region][ipro])
+        sumHist.Add( sumProcessIVar[region][ipro])
     return sumHist
 
 

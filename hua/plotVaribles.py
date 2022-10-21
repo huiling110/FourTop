@@ -8,7 +8,7 @@ from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 
-from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData, getInputDic
+from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData, getInputDic, histDateMinusGenBG
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
@@ -156,7 +156,9 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
          
         
     print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
-        
+
+def getFakeTauFromWeighted(var, region, ):
+    histDateMinusGenBG()        
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
