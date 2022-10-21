@@ -50,13 +50,11 @@ public:
 
    TH2D *FR_hist;
 
-       // variables to be writen to hists
+   // variables to be writen to hists
 
-       // regions to consider
-
-       // Readers to access the data (delete the ones you do not need).
-       TTreeReaderValue<ULong64_t>
-           event = {fReader, "event"};
+   // Readers to access the data (delete the ones you do not need).
+   TTreeReaderValue<ULong64_t>
+       event = {fReader, "event"};
    TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter = {fReader, "Flag_globalSuperTightHalo2016Filter"};
    TTreeReaderValue<Int_t> Flag_HBHENoiseFilter = {fReader, "Flag_HBHENoiseFilter"};

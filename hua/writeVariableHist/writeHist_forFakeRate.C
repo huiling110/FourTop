@@ -132,6 +132,11 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
+		// for FakeRate weighting
+		"1tau0lVRLTauNotT_Weighted", // 14
+		"1tau0lVRLTauNotTGen_Weighted",
+		"1tau0lCRLTauNotT_Weighted", // 16
+		"1tau0lCRLTauNotTGen_Weighted",
 
 	};
 
@@ -140,8 +145,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
-
-	histsForRegions<Double_t> jets_HT_FR_class{"jets_HT_FRWeighted", 10, 500, 1500, jets_HT}; // in VVLNotT for data and gen MC, this is the shape of in AR
 
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
@@ -256,6 +259,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
+		// AR FR weighted
+		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -279,6 +285,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVR, 3, basicWeight);
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
+		// AR FR weighted
+		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 14, basicWeight * FRWeight);
+		fillHistsVectorMyclass(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
