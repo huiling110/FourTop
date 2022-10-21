@@ -8,7 +8,7 @@ from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 
-from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
+from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData, getInputDic
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
@@ -67,7 +67,8 @@ def main():
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     # histVersion = 'variableHists_v2addingPileupWeight'
     # histVersion = 'variableHists_v3pileUpAndNewRange'
-    histVersion = 'variableHists_v6forFakeRate3EtaRegions'
+    # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
+    histVersion = 'variableHists_v7addFRWeightedRegions'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     variables = [ 'jets_HT']
     # variables = [ 'tausL_1pt']
@@ -77,24 +78,19 @@ def main():
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
    
     # plotName = 'dataVsMC_qcdYieldCorrected'
-    plotName = 'dataVsMC_fakeTauFromData'
+    plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
 
 
 
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
-    inputDir = {
-        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    }
 
-
+    inputDirDic = getInputDic(inVersion, histVersion, era)
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     for ivar in variables:
-        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )       
+        sumProcessPerVar[ivar] = getSummedHists( inputDirDic, regionList, ivar )       
     print( sumProcessPerVar )
 
 
@@ -105,12 +101,12 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inVersion, histVersion, era, sumProcessPerVar[ivar], ivar, regionList, False )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, False )
         legendOrder.remove('qcd')
             
 
 
-    plotDir = inputDir['mc']+'results/'
+    plotDir = inputDirDic['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     sumProcessPerVarSys = {}
@@ -126,7 +122,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, var, regionList, ifGetFromMC=True):
+def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=True):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
@@ -147,7 +143,7 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, var, regionL
         isVR = False
         if regionList[0]=='1tau0lVR': 
             isVR = True
-        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inVersion, histVersion, era, var,  isVR) 
+        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inputDirDic, var,  isVR) 
         if 'eta' in var:
             ptBins = np.array( [0, 0.8, 1.6, 2.3])
         else:
@@ -159,13 +155,13 @@ def replaceBgWithGen(  inVersion, histVersion, era, sumProcessIvar, var, regionL
         
  
  
-def getShapeFromData( inVersion, histVersion, era, var, isVR=False):
+def getShapeFromData( inputDirDic, var, isVR=False):
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     variableDic = {
         'tausL_1pt': ptBins,
     }
     # isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inVersion, histVersion, era, variableDic, isVR, False)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList( inputDirDic, variableDic, isVR, False)
     
     ifPtBin = True
     if 'eta' in var:
