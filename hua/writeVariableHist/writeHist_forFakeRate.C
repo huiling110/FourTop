@@ -49,6 +49,14 @@ void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vecto
 	}
 }
 
+void FillHistsVecorMyClassGenearal(Bool_t isRegion, UInt_t vectorIndex, Double_t weight, std::vector<histsForRegions<Double_t>> &vectorOfVariableRegionsDouble)
+{
+	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
+	{
+		vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight, isRegion);
+	}
+}
+
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
 	for (UInt_t i = 0; i < regions.size(); i++)
@@ -132,11 +140,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
-		// for FakeRate weighting
-		"1tau0lVRLTauNotT_Weighted", // 14
-		"1tau0lVRLTauNotTGen_Weighted",
-		"1tau0lCRLTauNotT_Weighted", // 16
-		"1tau0lCRLTauNotTGen_Weighted",
 
 	};
 
@@ -153,6 +156,20 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
+	// FR weighted
+	std::vector<TString> regionsForFRWeighting = {
+		// for FakeRate weighting
+		"1tau0lVRLTauNotT_Weighted", // 0
+		"1tau0lVRLTauNotTGen_Weighted",
+		"1tau0lCRLTauNotT_Weighted", // 2
+		"1tau0lCRLTauNotTGen_Weighted",
+	};
+	histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
+	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class); //!!!no need to scale to lumilosity!
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweighted.size(); ihistvec++)
+	{
+		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	};
 
 	std::vector<TString> regionsEtaDivided = {
 		"1tau0lCRLTau_Eta1",
@@ -189,7 +206,8 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta.root", "READ");
+	// TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta.root", "READ");
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta_sumGenBG.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
 }
 
@@ -260,8 +278,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 		// AR FR weighted
-		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
-		fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		// fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		// fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -286,8 +306,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 		// AR FR weighted
-		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 14, basicWeight * FRWeight);
-		fillHistsVectorMyclass(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 2, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);

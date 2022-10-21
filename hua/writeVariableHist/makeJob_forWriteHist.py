@@ -43,7 +43,7 @@ def main():
     # version = 'v4forFakeRate_eta18-24'
     # version = 'v5forFakeRateEtaDivided'
     # version = 'v6forFakeRate3EtaRegions'
-    version = 'v7addFRWeightedRegions'
+    version = 'v8addFRWeightedRegionsNew'
     justMC = False
     # justMC = True
     isTest = 0

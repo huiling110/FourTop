@@ -8,7 +8,8 @@ from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 
-from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData, getInputDic, histDateMinusGenBG
+from plotForFakeRate import (getFRAndARNotTList, getFTFromLNotTData,
+                             getInputDic, histDateMinusGenBG)
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
@@ -68,7 +69,8 @@ def main():
     # histVersion = 'variableHists_v2addingPileupWeight'
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
-    histVersion = 'variableHists_v7addFRWeightedRegions'
+    # histVersion = 'variableHists_v7addFRWeightedRegions'
+    histVersion = 'variableHists_v8addFRWeightedRegionsNew'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     variables = [ 'jets_HT']
     # variables = [ 'tausL_1pt']
@@ -77,8 +79,8 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
    
     # plotName = 'dataVsMC_qcdYieldCorrected'
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
@@ -101,7 +103,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 3 )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
         legendOrder.remove('qcd')
             
 
@@ -150,15 +152,14 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
             ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
-     if ifGetFromMC==2:
+    if ifGetFromMC==2:
          #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
-        sumProcessIvar[regionList[0]]['fakeTau'] = 
+        sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[3], regionList[4]) 
+        # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
          
         
     print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
 
-def getFakeTauFromWeighted(var, region, ):
-    histDateMinusGenBG()        
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
