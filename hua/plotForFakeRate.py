@@ -1,5 +1,6 @@
 
 from math import sqrt
+from unicodedata import east_asian_width
 
 import numpy as np
 import ROOT
@@ -32,7 +33,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic )
     
     
     #application in AR
@@ -147,10 +148,10 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
 
         
     # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
-    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCR'+etaRegion)
-    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCRLTau'+etaRegion)
+    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion)
+    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion)
     # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, '1tau0lVRLTauNotT'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4]) #tausL_1pt in VRLNotT
+    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar, regionList[4], regionList[5]) #tausL_1pt in VRLNotT
     #what if it's jets_HT; jets_HT in eta region; could not work because we can't know taupt in bin
 
 
@@ -168,7 +169,7 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     if ifPlot:
         plotDir = inputDirDic['mc'] + 'results/' 
         uf.checkMakeDir( plotDir )
-        plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR.png'
+        plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg.png'
         plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
    
     h_fakeRateCR.Print() 
@@ -206,10 +207,10 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
     return h_CR_dataSubBG, h_CRLTau_dataSubBG
 
-def histDateMinusGenBG(var, sumProcessPerVar, region):
+def histDateMinusGenBG(var, sumProcessPerVar, region, genRegion):
     h_data = sumProcessPerVar[var][region]['data']
     h_data.Sumw2()
-    h_bgGen = addBGHist(sumProcessPerVar, var, region)
+    h_bgGen = addBGHist(sumProcessPerVar, var, genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
 

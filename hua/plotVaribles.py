@@ -101,7 +101,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, False )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 3 )
         legendOrder.remove('qcd')
             
 
@@ -122,13 +122,13 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=True):
+def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=0):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
         sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
         
-    if  ifGetFromMC:
+    if  ifGetFromMC==0:
         sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
         sumProcessIvar[regionList[0]]['fakeTau'].Reset()
         sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
@@ -138,7 +138,7 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
             sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) 
     #scale to fake rate prediction
         sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
-    else:
+    if ifGetFromMC==1:
         #adding 'fakeTau' from CRLTauNotT data
         isVR = False
         if regionList[0]=='1tau0lVR': 
@@ -150,6 +150,10 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
             ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
+     if ifGetFromMC==2:
+         #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
+        sumProcessIvar[regionList[0]]['fakeTau'] = 
+         
         
     print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
         
