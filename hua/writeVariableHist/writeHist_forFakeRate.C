@@ -70,12 +70,14 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 {
 	// might need error handling for this
-	Double_t FRWeight = 1.0;
+	Double_t FRWeight = 1.0; // the default value for FRWeight should not be 1!!!
 	if (taus_1pt > 18)
 	{
+
 		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
-		Int_t biny = FR_TH2D->GetYaxis()->FindBin(taus_1eta);
+		Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta));
 		Double_t FR = FR_TH2D->GetBinContent(binx, biny);
+		std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
 		FRWeight = FR / (1 - FR);
 	}
 	return FRWeight;
@@ -158,6 +160,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
+
 	// FR weighted
 	std::vector<TString> regionsForFRWeighting = {
 		// for FakeRate weighting
@@ -220,6 +223,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
+	if (*tausL_number < 1)
+	{
+		return kFALSE;
+	};
 
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
@@ -228,7 +235,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 
 	Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
-	// std::cout << "FRWeight=" << FRWeight << "\n";
+	std::cout << "FRWeight=" << FRWeight << "\n";
 
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
