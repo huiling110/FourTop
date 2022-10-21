@@ -140,6 +140,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
+
+		"1tau0lVRLTauNotTGen_Weighted", // 14
+		"1tau0lCRLTauNotTGen_Weighted",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
@@ -159,12 +162,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	std::vector<TString> regionsForFRWeighting = {
 		// for FakeRate weighting
 		"1tau0lVRLTauNotT_Weighted", // 0
-		"1tau0lVRLTauNotTGen_Weighted",
-		"1tau0lCRLTauNotT_Weighted", // 2
-		"1tau0lCRLTauNotTGen_Weighted",
+		"1tau0lCRLTauNotT_Weighted", // 1
 	};
 	histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
-	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class); //!!!no need to scale to lumilosity!
+	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class); //!!!no need to scale to lumilosity! only data regions!
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweighted.size(); ihistvec++)
 	{
 		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
@@ -277,10 +278,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 		// AR FR weighted
-		// fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
-		// fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 14, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -305,7 +304,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 		// AR FR weighted
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 2, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
