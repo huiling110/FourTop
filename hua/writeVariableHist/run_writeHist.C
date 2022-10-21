@@ -24,10 +24,10 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline_v36TESandJERByHuiling/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
-    // TString inputProcess = "tttt",
+    TString inputProcess = "tttt",
     // TString inputProcess = 'WJetsToLNu_HT-600To800',
     // TString inputProcess = "WJetsToLNu_HT-400To600",
-    TString inputProcess = "jetHT_2016C",
+    // TString inputProcess = "jetHT_2016C",
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
@@ -84,8 +84,8 @@ void run_writeHist(
     TStopwatch t;
     t.Start();
 
-    // chain.Process(selector, option);
-    chain.Process(selector, option, 100);
+    chain.Process(selector, option);
+    // chain.Process(selector, option, 100);
 
     t.Stop();
     t.Print();

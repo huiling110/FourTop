@@ -77,7 +77,7 @@ Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
 		Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta));
 		Double_t FR = FR_TH2D->GetBinContent(binx, biny);
-		std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
+		// std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
 		FRWeight = FR / (1 - FR);
 	}
 	return FRWeight;
@@ -235,7 +235,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 
 	Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
-	std::cout << "FRWeight=" << FRWeight << "\n";
+	// std::cout <u "FRWeight=" << FRWeight << "\n";
 
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
