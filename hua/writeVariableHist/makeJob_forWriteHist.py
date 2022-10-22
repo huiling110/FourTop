@@ -28,7 +28,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v37TauPt30AndPreselection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline_v36TESandJERByHuiling/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
@@ -43,7 +44,8 @@ def main():
     # version = 'v4forFakeRate_eta18-24'
     # version = 'v5forFakeRateEtaDivided'
     # version = 'v6forFakeRate3EtaRegions'
-    version = 'v8addFRWeightedRegionsNew'
+    # version = 'v8addFRWeightedRegionsNew'
+    version = 'v9addMoreVariables'
     justMC = False
     # justMC = True
     isTest = 0

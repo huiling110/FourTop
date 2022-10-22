@@ -39,9 +39,9 @@ void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
 
 void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
-	for (UInt_t i = 0; i < vectorOfVariableRegions.size(); i++)
+	for (UInt_t i = 0; i < vectorOfVariableRegionsInt.size(); i++)
 	{
-		vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight, isRegion);
+		vectorOfVariableRegionsInt[i].fillHistVec(vectorIndex, weight, isRegion);
 	}
 	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
 	{
@@ -49,7 +49,8 @@ void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vecto
 	}
 }
 
-void FillHistsVecorMyClassGenearal(Bool_t isRegion, UInt_t vectorIndex, Double_t weight, std::vector<histsForRegions<Double_t>> &vectorOfVariableRegionsDouble)
+template <typename T>
+void FillHistsVecorMyClassGenearal(Bool_t isRegion, UInt_t vectorIndex, Double_t weight, std::vector<histsForRegions<T>> &vectorOfVariableRegionsDouble)
 {
 	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
 	{
@@ -152,13 +153,19 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
 
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
+	vectorOfVariableRegionsInt.push_back(tausL_prongNum_class);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	}
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsInt.size(); ihistvec++)
+	{
+		vectorOfVariableRegionsInt[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
 
 	// FR weighted
@@ -168,10 +175,16 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauNotT_Weighted", // 1
 	};
 	histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
-	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class); //!!!no need to scale to lumilosity! only data regions!
+	histsForRegions<Int_t> tausL_prongNum_FRWeighted_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
+	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class);			  //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_FRWeighted_class); //!!!no need to scale to lumilosity! only data regions!
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweighted.size(); ihistvec++)
 	{
 		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
+	};
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweightedInt.size(); ihistvec++)
+	{
+		vectorOfVariblesRegions_FRweightedInt[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
 	};
 
 	std::vector<TString> regionsEtaDivided = {
@@ -313,6 +326,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// AR FR weighted
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
@@ -364,8 +379,12 @@ void writeHist_forFakeRate::Terminate()
 	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
 	{
 		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-		// vectorOfVariableRegionsDouble[ihists].histsPrint();
 	}
+	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsInt.size(); ihists++)
+	{
+		vectorOfVariableRegionsInt[ihists].histsScale(processScale);
+	}
+
 	tausL_1pt_eta_class.histsScale(processScale);
 	Info("Terminate", "outputFile here: %s", outputFile->GetName());
 	outputFile->Write();

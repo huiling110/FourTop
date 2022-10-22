@@ -41,9 +41,10 @@ public:
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
-   std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;
+   std::vector<histsForRegions<Int_t>> vectorOfVariableRegionsInt;
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
    std::vector<histsForRegions<Double_t>> vectorOfVariblesRegions_FRweighted;
+   std::vector<histsForRegions<Int_t>> vectorOfVariblesRegions_FRweightedInt;
    histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 
    // TH1D* whInitial;
@@ -158,6 +159,7 @@ public:
    TTreeReaderValue<Double_t> tausT_3pt = {fReader, "tausT_3pt"};
    TTreeReaderValue<Double_t> tausT_3eta = {fReader, "tausT_3eta"};
    TTreeReaderValue<Double_t> tausT_3phi = {fReader, "tausT_3phi"};
+   TTreeReaderValue<Int_t> tausL_prongNum = {fReader, "tausL_prongNum"};
    TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausT_leptonsT_transMass = {fReader, "tausT_leptonsT_transMass"};
