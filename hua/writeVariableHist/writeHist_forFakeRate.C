@@ -84,7 +84,8 @@ Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 	return FRWeight;
 }
 
-void vectorInitializeReigions(std::vector<histsForRegions<Double_t>> &vectorOfVariableRegionsDouble, std::vector<TString> &regionsForVariables, TString m_processName)
+template <typename TEM>
+void vectorInitializeReigions(std::vector<histsForRegions<TEM>> &vectorOfVariableRegionsDouble, std::vector<TString> &regionsForVariables, TString m_processName)
 {
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
@@ -151,45 +152,46 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
 
-		"1tau0lVRLTauNotTGen_Weighted", // 14
-		"1tau0lCRLTauNotTGen_Weighted",
+		// "1tau0lVRLTauNotTGen_Weighted", // 14
+		// "1tau0lCRLTauNotTGen_Weighted",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
-	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
-
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
-	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
-	vectorOfVariableRegionsInt.push_back(tausL_prongNum_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsInt.size(); ihistvec++)
-	{
-		vectorOfVariableRegionsInt[ihistvec].initializeRegions(regionsForVariables, m_processName);
-	}
 
+	// vectorOfVariableRegionsDouble.push_back(jets_HT_class);
+	// vectorOfVariableRegionsInt.push_back(tausL_prongNum_class);
+	// for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsInt.size(); ihistvec++)
+	// {
+	// 	vectorOfVariableRegionsInt[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	// }
+
+	// variables for plotting data/MC
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
 	// FR weighted
 	std::vector<TString> regionsForFRWeighting = {
+		// regions nessary for plotting data/MC
+		"1tau0lCR", // 0
+		"1tau0lCRGen",
+		"1tau0lCRNotGen", // 2
 		// for FakeRate weighting
-		"1tau0lVRLTauNotT_Weighted", // 0
-		"1tau0lCRLTauNotT_Weighted", // 1
+		"1tau0lVRLTauNotT_Weighted",	// 3
+		"1tau0lCRLTauNotT_Weighted",	// 4
+		"1tau0lVRLTauNotTGen_Weighted", // 5
+		"1tau0lCRLTauNotTGen_Weighted",
 	};
-	histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
-	histsForRegions<Int_t> tausL_prongNum_FRWeighted_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
-	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_FRWeighted_class);			  //!!!no need to scale to lumilosity! only data regions!
-	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_FRWeighted_class); //!!!no need to scale to lumilosity! only data regions!
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweighted.size(); ihistvec++)
-	{
-		vectorOfVariblesRegions_FRweighted[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
-	};
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariblesRegions_FRweightedInt.size(); ihistvec++)
-	{
-		vectorOfVariblesRegions_FRweightedInt[ihistvec].initializeRegions(regionsForFRWeighting, m_processName);
-	};
+	// histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
+	// histsForRegions<Int_t> tausL_prongNum_FRWeighted_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
+	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class);		   //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
+	vectorInitializeReigions(vectorOfVariblesRegions_FRweighted, regionsForFRWeighting, m_processName);
+	vectorInitializeReigions(vectorOfVariblesRegions_FRweightedInt, regionsForFRWeighting, m_processName);
 
 	std::vector<TString> regionsEtaDivided = {
 		"1tau0lCRLTau_Eta1",
@@ -302,8 +304,16 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 		// AR FR weighted
-		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 14, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
-		fillHistsVectorMyclass(is1tau0lCRLTauNotTGen, 15, basicWeight * FRWeight); //???how to deal with the uncertainty of FR???
+		//???how to deal with the uncertainty of FR???
+		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+
+		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -328,10 +338,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 		// AR FR weighted
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 1, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 0, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
