@@ -92,6 +92,16 @@ void vectorInitializeReigions(std::vector<histsForRegions<TEM>> &vectorOfVariabl
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
 };
+
+template <typename TEMP>
+void scaleVectorHistRegions(std::vector<histsForRegions<TEMP>> &vectorOfVariableRegionsDouble, Double_t scale)
+{
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
+	{
+		vectorOfVariableRegionsDouble[ihistvec].histsScale(scale);
+	}
+};
+
 void writeHist_forFakeRate::Begin(TTree * /*tree*/)
 {
 	// The Begin() function is called at the start of the query.
@@ -303,6 +313,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
+
 		// AR FR weighted
 		//???how to deal with the uncertainty of FR???
 		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
@@ -399,6 +410,9 @@ void writeHist_forFakeRate::Terminate()
 	{
 		vectorOfVariableRegionsInt[ihists].histsScale(processScale);
 	}
+
+	scaleVectorHistRegions(vectorOfVariblesRegions_FRweighted, processScale);
+	scaleVectorHistRegions(vectorOfVariblesRegions_FRweightedInt, processScale);
 
 	tausL_1pt_eta_class.histsScale(processScale);
 	Info("Terminate", "outputFile here: %s", outputFile->GetName());
