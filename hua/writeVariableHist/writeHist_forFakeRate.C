@@ -84,6 +84,13 @@ Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 	return FRWeight;
 }
 
+void vectorInitializeReigions(std::vector<histsForRegions<Double_t>> &vectorOfVariableRegionsDouble, std::vector<TString> &regionsForVariables, TString m_processName)
+{
+	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
+	{
+		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
+	}
+};
 void writeHist_forFakeRate::Begin(TTree * /*tree*/)
 {
 	// The Begin() function is called at the start of the query.
@@ -159,10 +166,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
 	vectorOfVariableRegionsInt.push_back(tausL_prongNum_class);
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
-	{
-		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
-	}
+	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsInt.size(); ihistvec++)
 	{
 		vectorOfVariableRegionsInt[ihistvec].initializeRegions(regionsForVariables, m_processName);
