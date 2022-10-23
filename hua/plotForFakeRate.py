@@ -32,7 +32,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic )
+    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -40,8 +40,8 @@ def main():
             
     
 
-def writeFRToFile( FR_ptInEtaList, inputDirDic):
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
+    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     etaBins = np.array([0, 0.8,1.6,2.3])
     
     outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'

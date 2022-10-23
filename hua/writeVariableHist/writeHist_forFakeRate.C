@@ -73,11 +73,12 @@ Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 
 		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
 		Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-		Double_t FR = FR_TH2D->GetBinContent(binx, biny);//not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+		Double_t FR = FR_TH2D->GetBinContent(binx, biny);				// not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
 		// std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
 		//???need better error handling
-		if( FR<0.000001){
-
+		if (FR < 0.000001)
+		{
+			std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
 			std::exit(1);
 		}
 		FRWeight = FR / (1 - FR);
