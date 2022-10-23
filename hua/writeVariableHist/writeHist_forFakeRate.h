@@ -41,7 +41,7 @@ public:
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
-   std::vector<histsForRegions<Int_t>> vectorOfVariableRegionsInt;
+   // std::vector<histsForRegions<Int_t>> vectorOfVariableRegionsInt;
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
    std::vector<histsForRegions<Double_t>> vectorOfVariblesRegions_FRweighted;
    std::vector<histsForRegions<Int_t>> vectorOfVariblesRegions_FRweightedInt;

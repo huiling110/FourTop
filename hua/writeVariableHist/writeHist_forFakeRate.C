@@ -39,10 +39,6 @@ void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
 
 void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
-	for (UInt_t i = 0; i < vectorOfVariableRegionsInt.size(); i++)
-	{
-		vectorOfVariableRegionsInt[i].fillHistVec(vectorIndex, weight, isRegion);
-	}
 	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
 	{
 		vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight, isRegion);
@@ -162,24 +158,15 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
 
-		// "1tau0lVRLTauNotTGen_Weighted", // 14
-		// "1tau0lCRLTauNotTGen_Weighted",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 30, 20, 250, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
-
-	// vectorOfVariableRegionsDouble.push_back(jets_HT_class);
-	// vectorOfVariableRegionsInt.push_back(tausL_prongNum_class);
-	// for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsInt.size(); ihistvec++)
-	// {
-	// 	vectorOfVariableRegionsInt[ihistvec].initializeRegions(regionsForVariables, m_processName);
-	// }
 
 	// variables for plotting data/MC
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
@@ -238,8 +225,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	// TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta.root", "READ");
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/mc/variableHists_v6forFakeRate3EtaRegions/results/fakeRateInPtEta_sumGenBG.root", "READ");
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/mc/variableHists_v10ExpandingTauPtRange/results/fakeRateInPtEta_sumGenBG.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
 }
 
@@ -405,10 +391,6 @@ void writeHist_forFakeRate::Terminate()
 	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
 	{
 		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-	}
-	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsInt.size(); ihists++)
-	{
-		vectorOfVariableRegionsInt[ihists].histsScale(processScale);
 	}
 
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweighted, processScale);

@@ -72,7 +72,8 @@ def main():
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
-    histVersion = 'variableHists_v9addMoreVariables'
+    # histVersion = 'variableHists_v9addMoreVariables'
+    histVersion = 'variableHists_v10ExpandingTauPtRange'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     variables = [ 'jets_HT', 'tausL_prongNum']
     # variables = [ 'tausL_1pt']

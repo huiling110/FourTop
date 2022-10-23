@@ -45,7 +45,8 @@ def main():
     # version = 'v5forFakeRateEtaDivided'
     # version = 'v6forFakeRate3EtaRegions'
     # version = 'v8addFRWeightedRegionsNew'
-    version = 'v9addMoreVariables'
+    # version = 'v9addMoreVariables'
+    version = 'v10ExpandingTauPtRange'
     justMC = False
     # justMC = True
     isTest = 0
