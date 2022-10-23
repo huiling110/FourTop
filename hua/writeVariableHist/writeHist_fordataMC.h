@@ -21,7 +21,7 @@
 
 // Headers needed by this particular selector
 
-//
+//???need to delete this to use class from histForRegions_class.C
 template <typename Temp>
 class histsForRegions
 {
@@ -30,6 +30,7 @@ private:
    Int_t m_binNum;
    Double_t m_binMin;
    Double_t m_binMax;
+   Double_t m_binRange[];
    std::vector<TH1D *> m_histsVector;
    // TTreeReaderValue<Int_t> &m_variableRef;
    TTreeReaderValue<Temp> &m_variableRef;
@@ -41,7 +42,14 @@ public:
       for (UInt_t i = 0; i < regions.size(); i++)
       {
          TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
-         TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
+         if (m_binRange.size() > 0)
+         {
+            TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binRange);
+         }
+         else
+         {
+            TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
+         }
          temp.Sumw2();
          m_histsVector.push_back(temp);
       }

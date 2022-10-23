@@ -76,11 +76,11 @@ Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 		Double_t FR = FR_TH2D->GetBinContent(binx, biny);				// not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
 		// std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
 		//???need better error handling
-		if (FR < 0.000001)
-		{
-			std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-			std::exit(1);
-		}
+		// if (FR < 0.000001)
+		// {
+		// 	std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+		// 	std::exit(1);
+		// }
 		FRWeight = FR / (1 - FR);
 	}
 	return FRWeight;
@@ -168,6 +168,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
+	// Double_t tauPtRange[6] = {20.0, 40.0, 60.0, 80.0, 120.0, 250.0};//???
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 30, 20, 250, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
