@@ -77,7 +77,7 @@ def main():
     histVersion = 'variableHists_v11moreVariables'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'tausL_prongNum', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt']
-    variables = [ 'tausL_1ptFRWeighted']
+    variables = [ 'tausL_1ptFRWeight']
     # variables = ['tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
@@ -158,8 +158,11 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
     if ifGetFromMC==2:
          #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
-        # sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[3], regionList[4]) 
-        sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
+        sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[3], regionList[4]) 
+        # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
+    #fake tau come from data
+    for ibin in range(sumProcessIvar[regionList[0]]['fakeTau'].GetNbinsX()):
+        sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
          
         
     print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
@@ -279,6 +282,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvasName = '{}_{}'.format( region, name )
     stack = THStack( canvasName, canvasName )
     canvy = TCanvas( canvasName, canvasName, 1000,800)
+    
+    #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     leggy = TLegend(0.8,0.6,0.95,0.9)
     leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
@@ -359,7 +364,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     maxi = stack.GetMaximum()
     if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
-    stack.SetMaximum(maxi)
+    if (maxi-stack.GetBinContent(stack.GetNBinX()))/maxi < 0.6:
+        maxi = maxi*1.5
+    stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
 
     dataHist.Print()
