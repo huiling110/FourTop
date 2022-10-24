@@ -48,7 +48,7 @@ def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
     fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
     for ixbin in range(len(ptBins)-1):
         for iybin in range(len(etaBins)-1):
-            iFR =  FR_ptInEtaList[iybin].GetBinContent(ixbin+1)
+            iFR =  FR_ptInEtaList[iybin].GetBinContent(ixbin+1) #if the sum of squares of weights has been defined (via Sumw2), this function returns the sqrt(sum of w2). otherwise it returns the sqrt(contents) for this bin.
             iFRerror =  FR_ptInEtaList[iybin].GetBinError(ixbin+1)
             fakeRate2D.SetBinContent(ixbin+1, iybin+1, iFR)
             fakeRate2D.SetBinError(ixbin+1, iybin+1, iFRerror)

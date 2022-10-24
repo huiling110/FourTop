@@ -179,6 +179,7 @@ public:
     Double_t tausT_1pt = -99.0;
     Double_t tausT_1eta = -99.0;
     Double_t tausT_1phi = -99.0;
+    Double_t tausL_1decayMode = -99;
     Double_t tausT_2pt = -99.0;
     Double_t tausT_2eta = -99.0;
     Double_t tausT_2phi = -99.0;

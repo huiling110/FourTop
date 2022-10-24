@@ -338,6 +338,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausT_1pt = tausT[0].Pt();
 		tausT_1eta = tausT[0].Eta();
 		tausT_1phi = tausT[0].Phi();
+		// tausT_1decayMode = tausT_decayMode[0];
+		tausL_1decayMode = tausL_decayMode[0];
 	}
 	if (tausT_number > 1)
 	{
@@ -854,6 +856,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausT_1pt", &tausT_1pt, "tausT_1pt/D");
 	newtree->Branch("tausT_1eta", &tausT_1eta, "tausT_1eta/D");
 	newtree->Branch("tausT_1phi", &tausT_1phi, "tausT_1phi/D");
+
+	newtree->Branch("tausL_1decayMode", &tausL_1decayMode, "tausL_1decayMode/D");
+
 	newtree->Branch("tausT_2pt", &tausT_2pt, "tausT_2pt/D");
 	newtree->Branch("tausT_2eta", &tausT_2eta, "tausT_2eta/D");
 	newtree->Branch("tausT_2phi", &tausT_2phi, "tausT_2phi/D");
@@ -1210,6 +1215,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausT_1pt = -99;
 	tausT_1eta = -99;
 	tausT_1phi = -99;
+	tausL_1decayMode = -99;
 	tausL_1pt = -99;
 	tausL_1eta = -99;
 	tausL_1etaAbs = -99;

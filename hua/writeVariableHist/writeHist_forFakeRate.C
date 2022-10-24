@@ -177,22 +177,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
-	// variables for plotting data/MC
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
-	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
-	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
-	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
-	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
-	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
-	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
-	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
-	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
-	// histsForRegions<Double_t>{};
-	// histsForRegions<Double_t>{};
-	// histsForRegions<Double_t>{};
-	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
-	histsForRegions<Int_t> jets_num_class{"jets_Num", 6, 6, 12, jets_number};
-	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_number", 5, 0, 5, bjetsM_num};
 	// FR weighted
 	std::vector<TString> regionsForFRWeighting = {
 		// regions nessary for plotting data/MC
@@ -205,6 +189,22 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTGen_Weighted", // 5
 		"1tau0lCRLTauNotTGen_Weighted",
 	};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
+	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
+	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
+	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
+	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
+	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
+	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
+	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", 28, 20, 300, tausL_1pt};
+	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", 23, 0, 2.3, tausL_1etaAbs};
+	// histsForRegions<Double_t>{};
+	// histsForRegions<Double_t>{};
+	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
+	histsForRegions<Int_t> jets_num_class{"jets_Num", 6, 6, 12, jets_number};
+	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_number", 5, 0, 5, bjetsM_num};
 	vectorOfVariblesRegions_FRweighted.clear();
 	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class); //!!!no need to scale to lumilosity! only data regions!
 	vectorOfVariblesRegions_FRweighted.push_back(jets_1pt_class);
@@ -215,6 +215,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariblesRegions_FRweighted.push_back(jets_6pt_class);
 	vectorOfVariblesRegions_FRweighted.push_back(bjetsM_1pt_class);
 	vectorOfVariblesRegions_FRweighted.push_back(tausT_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausL_1ptFR_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
+	// vectorOfVariblesRegions_FRweighted.push_back();
 	vectorOfVariblesRegions_FRweightedInt.clear();
 	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
 	vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
@@ -370,6 +373,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 
