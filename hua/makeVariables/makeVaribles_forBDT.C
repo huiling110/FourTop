@@ -587,19 +587,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// 	toptagger_1eta = fabs(tops_toptagger[0].Eta());
 	// 	toptagger_1phi = fabs(tops_toptagger[0].Phi());
 	// }
-	// if (toptagger_num > 1)
-	// {
-	// 	toptagger_2pt = tops_toptagger[1].Pt();
-	// 	toptagger_2eta = fabs(tops_toptagger[1].Eta());
-	// 	toptagger_2phi = fabs(tops_toptagger[1].Phi());
-	// 	std::vector<Double_t> MinMaxDeltaRTops;
-	// }
-	// if (toptagger_num > 2)
-	// {
-	// 	toptagger_3pt = tops_toptagger[2].Pt();
-	// 	toptagger_3eta = fabs(tops_toptagger[2].Eta());
-	// 	toptagger_3phi = fabs(tops_toptagger[2].Phi());
-	// }
+
+	// event information
+	PV_npvs = *PV_npvs_;
 
 	// weights
 	EVENT_prefireWeight = *EVENT_prefireWeight_;
@@ -756,7 +746,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
 	newtree->Branch("HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
 
-	//    }
+	newtree->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
 
 	newtree->Branch("EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
 	newtree->Branch("EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");

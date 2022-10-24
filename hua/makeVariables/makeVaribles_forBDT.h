@@ -80,6 +80,8 @@ public:
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
     Int_t HLT_PFJet450;
 
+    Int_t PV_npvs;
+
     Double_t EVENT_prefireWeight;
     Double_t EVENT_prefireWeight_up;
     Double_t EVENT_prefireWeight_down;
@@ -451,6 +453,7 @@ public:
     TTreeReaderValue<Double_t> Met_pt = {fReader, "Met_pt"};
     TTreeReaderValue<Double_t> Met_phi = {fReader, "Met_phi"};
     // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tops_toptagger = {fReader, "tops_toptagger"};
+
     TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up_ = {fReader, "EVENT_prefireWeight_up_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_down_ = {fReader, "EVENT_prefireWeight_down_"};
@@ -458,6 +461,9 @@ public:
     TTreeReaderValue<Double_t> PUWeight = {fReader, "PUWeight"};
     TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};
     TTreeReaderValue<Double_t> PUWeight_Up = {fReader, "PUWeight_Up"};
+    TTreeReaderValue<Int_t> PV_npvs_ = {fReader, "PV_npvs_"}; // total number of reconstructed primary vertices
+    // TTreeReaderValue<Double_t>  = {fReader, ""};
+
     // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
     // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
     // TTreeReaderValue<Int_t> HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_ = {fReader, "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_"};
