@@ -67,19 +67,22 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
 {
 	// might need error handling for this
-	Double_t FRWeight = 1.0; // the default value for FRWeight should not be 1!!!
-	if (taus_1pt > 18)
+	// Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
+	// set the default FRWeight to the last bin
+	Int_t binxNum = FR_TH2D->GetNbinsX();
+	Int_t binyNum = FR_TH2D->GetNbinsY();
+	Double_t FRWeight = FR_TH2D->GetBinContent(binxNum, binyNum);
+	if (taus_1pt > 20 && taus_1pt <= 300)
 	{
 
 		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
 		Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
 		Double_t FR = FR_TH2D->GetBinContent(binx, biny);				// not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
-		// std::cout << "iFR=" << FR << " itaupt=" << taus_1pt << "itaueta=" << std::abs(taus_1eta) << "\n";
 		//???need better error handling
 		// if (FR < 0.000001)
 		// {
-		// 	std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-		// 	std::exit(1);
+		// std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+		// std::exit(1);
 		// }
 		FRWeight = FR / (1 - FR);
 	}
@@ -176,7 +179,20 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 
 	// variables for plotting data/MC
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
+	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
+	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
+	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
+	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
+	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
+	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
+	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
+	// histsForRegions<Double_t>{};
+	// histsForRegions<Double_t>{};
+	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
+	histsForRegions<Int_t> jets_num_class{"jets_Num", 6, 6, 12, jets_number};
+	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_number", 5, 0, 5, bjetsM_num};
 	// FR weighted
 	std::vector<TString> regionsForFRWeighting = {
 		// regions nessary for plotting data/MC
@@ -189,10 +205,20 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTGen_Weighted", // 5
 		"1tau0lCRLTauNotTGen_Weighted",
 	};
-	// histsForRegions<Double_t> jets_HT_FRWeighted_class{"jets_HT", 10, 500, 1500, jets_HT};
-	// histsForRegions<Int_t> tausL_prongNum_FRWeighted_class{"tausL_prongNum", 3, 0, 3, tausL_prongNum};
-	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class);		   //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweighted.clear();
+	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class); //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweighted.push_back(jets_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_2pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_3pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_4pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_5pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_6pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(bjetsM_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausT_1pt_class);
+	vectorOfVariblesRegions_FRweightedInt.clear();
 	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(bjetsM_num_class);
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweighted, regionsForFRWeighting, m_processName);
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweightedInt, regionsForFRWeighting, m_processName);
 

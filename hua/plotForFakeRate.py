@@ -20,7 +20,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
     # version = 'v6forFakeRate3EtaRegions'
    
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
+    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     variableDic = {
         'tausL_1pt': ptBins,
     }
@@ -41,7 +41,6 @@ def main():
     
 
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
-    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
     etaBins = np.array([0, 0.8,1.6,2.3])
     
     outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
