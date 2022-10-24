@@ -361,6 +361,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausL_1phi = tausL[0].Phi();
 	}
 
+	// Met
+
 	// for jets JEC
 	jets_HT_JECup = HTcalculator(jets_JECup);
 	jets_HT_JECdown = HTcalculator(jets_JECdown);
@@ -380,16 +382,16 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	jets_average_deltaR = AverageDeltaRCal(jets);
 	jets_4largestBscoreSum = bscoreSumOf4largestCal(jets_btags);
 	jets_4largestBscoreMulti = bscoreMultiOf4largestCal(jets_btags);
-	if (Met_pt_ == 0)
+	if (*Met_pt == 0)
 	{
 		jets_HTDividedByMet = 0;
 	}
 	else
 	{
-		jets_HTDividedByMet = jets_HT / Met_pt_;
+		jets_HTDividedByMet = jets_HT / *Met_pt;
 	}
-	MetDividedByHT = Met_pt_ / jets_HT;
-	jets_MHTDividedByMet = jets_MHT / Met_pt_;
+	MetDividedByHT = *Met_pt / jets_HT;
+	jets_MHTDividedByMet = jets_MHT / *Met_pt;
 	jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
 	jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
 
@@ -398,7 +400,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// SpheriltyAplanarityCal(jets, jets_spherilty, jets_aplanarity);
 
 	if (jets_number > 0)
-	{ /*{{{*/
+	{
 		jets_1pt = jets[0].Pt();
 		jets_1eta = fabs(jets[0].Eta());
 		jets_1phi = fabs(jets[0].Phi());
@@ -465,7 +467,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		jets_11pt = jets[10].Pt();
 		jets_11eta = fabs(jets[10].Eta());
 		jets_11phi = fabs(jets[10].Phi());
-	} /*}}}*/
+	}
 
 	bjetsL_num = bjetsL.GetSize();
 	bjetsM_num = bjetsM.GetSize(); //
@@ -788,6 +790,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 
 	newtree->Branch("Met_pt_", &Met_pt_, "Met_pt_/D");
 	newtree->Branch("Met_phi_", &Met_phi_, "Met_phi_/D");
+
 	newtree->Branch("muonsL_number", &muonsL_number, "muonsL_number/I");
 	newtree->Branch("muonsF_number", &muonsF_number, "muonsF_number/I");
 	newtree->Branch("muonsT_number", &muonsT_number, "muonsT_number/I");
@@ -1147,6 +1150,7 @@ void makeVaribles_forBDT::InitializeBranches()
 
 	Met_pt_ = -99;
 	Met_phi_ = -99;
+
 	muonsL_number = -99;
 	muonsF_number = -99;
 	muonsT_number = -99;
