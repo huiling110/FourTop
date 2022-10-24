@@ -8,9 +8,8 @@ private:
     Int_t m_binNum;
     Double_t m_binMin;
     Double_t m_binMax;
-    // Double_t *m_binRange; //???need to add initialization for this
+    Double_t *m_binRange; //???need to add initialization for this
     std::vector<TH1D *> m_histsVector;
-    // TTreeReaderValue<Int_t> &m_variableRef;
     TTreeReaderValue<Temp> &m_variableRef;
 
 public:
