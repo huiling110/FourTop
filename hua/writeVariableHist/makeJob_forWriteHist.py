@@ -47,7 +47,7 @@ def main():
     # version = 'v8addFRWeightedRegionsNew'
     # version = 'v9addMoreVariables'
     # version = 'v10ExpandingTauPtRange'
-    version = 'v11moreVariables'
+    version = 'v12moreVariables'
     justMC = False
     # justMC = True
     isTest = 0

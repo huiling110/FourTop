@@ -37,8 +37,10 @@ colourPerSample = {
     'ttX': kPink+2,
     'singleTop': kGreen-4,
     'VV': kGreen+2,
-    'WJets': kOrange,
-    'fakeTau': kBlue,
+    # 'WJets': kOrange,
+    # 'fakeTau': kBlue,
+    'WJets': kBlue,
+    'fakeTau': kOrange,
 }
 
 
@@ -74,20 +76,23 @@ def main():
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
     # histVersion = 'variableHists_v9addMoreVariables'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    histVersion = 'variableHists_v11moreVariables'
+    histVersion = 'variableHists_v12moreVariables'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'tausL_prongNum', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt']
-    variables = [ 'tausL_1ptFRWeight']
-    # variables = ['tausL_1etaAbs']
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']
+    variables = [ 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight', 'tausL_prongNum']
+    # variables = ['Met_pt']#???
+    # variables = ['tausL_1ptFRWeight']
+    # variables = ['tausL_1pt', 'tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
    
-    # plotName = 'dataVsMC_qcdYieldCorrected'
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
+    # plotName = 'dataVsMC_fakeTauFromData'
 
 
 
@@ -107,7 +112,8 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
+            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
             
 
@@ -153,7 +159,7 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
         if 'eta' in var:
             ptBins = np.array( [0, 0.8, 1.6, 2.3])
         else:
-            ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+            ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
     if ifGetFromMC==2:
@@ -170,7 +176,7 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  220.0] )
+    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
     variableDic = {
         'tausL_1pt': ptBins,
     }
@@ -254,15 +260,12 @@ def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""
     #scale tttt
     signal = nominal['tttt'].Clone()
     signal.Scale(1000)
-    # signal.SetLineColor(kPink-9)
     signal.SetLineColor(kBlue)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(4)
     signal.SetFillStyle(3335)
     signal.SetFillColor(kBlue)
     leggy.AddEntry( signal, 'tttt', 'l')
-    # signal.GetXaxis().SetTitle(name)
-    # signal.Print()
     signal.Draw("SAME HIST ")
 
 
@@ -364,7 +367,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     maxi = stack.GetMaximum()
     if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
-    if (maxi-stack.GetBinContent(stack.GetNBinX()))/maxi < 0.6:
+    if (maxi-dataHist.GetBinContent(dataHist.GetNbinsX()))/maxi < 0.6:
         maxi = maxi*1.5
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
@@ -373,6 +376,18 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # if includeDataInStack: dataHist.Draw("e1x0 same")
     if includeDataInStack: dataHist.Draw("e0 same")
 
+    #scale tttt
+    # signal = nominal['tttt'].Clone()
+    # signal.Scale(1000)
+    # signal.SetLineColor(kBlue)
+    # signal.SetLineStyle(kSolid)
+    # signal.SetLineWidth(4)
+    # signal.SetFillStyle(3335)
+    # signal.SetFillColor(kBlue)
+    # leggy.AddEntry( signal, 'tttt', 'l')
+    # signal.Draw("SAME HIST ")
+    
+    
     assymErrorPlot.Draw("e2 SAME")
 
     if includeDataInStack:
@@ -408,6 +423,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         assymErrorPlotRatio.SetFillColor(14) 
         assymErrorPlotRatio.Draw("e2 same")
 
+    
+    
+    
     leggy.Draw()
     latex.SetTextSize(0.04)
     latex.SetTextFont(cmsTextFont)
@@ -420,7 +438,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     latex2.DrawLatex(0.95, 0.95, '35.9 fb^{-1}(13TeV) ' );
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
-    # canvy.SaveAs(outDir+"/{2}{0}{1}.root".format(region,savePost,name))
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
 
