@@ -187,9 +187,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotT_Weighted",	// 3
 		"1tau0lCRLTauNotT_Weighted",	// 4
 		"1tau0lVRLTauNotTGen_Weighted", // 5
-		"1tau0lCRLTauNotTGen_Weighted",
+		"1tau0lCRLTauNotTGen_Weighted", // 6
 		//
-		"1tau0lVR", // 6
+		"1tau0lVR", // 7
 		"1tau0lVRGen",
 		"1tau0lVRNotGen",
 	};
@@ -353,8 +353,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -380,12 +380,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 		// AR FR weighted
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVR, 6, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVR, 6, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 

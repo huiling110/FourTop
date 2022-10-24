@@ -90,6 +90,7 @@ def main():
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
     regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
    
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
     # plotName = 'dataVsMC_fakeTauFromData'
@@ -112,8 +113,8 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
+            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
             
 
