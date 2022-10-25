@@ -34,10 +34,6 @@ def main():
     # version = 'v2addingPileupWeight'
     # version = 'v3pileUpAndNewRange'
     # version = 'v4forFakeRate'
-    # version = 'v4forFakeRate_eta0-06'
-    # version = 'v4forFakeRate_eta06-12'
-    # version = 'v4forFakeRate_eta12-18'
-    # version = 'v4forFakeRate_eta18-24'
     # version = 'v5forFakeRateEtaDivided'
     # version = 'v6forFakeRate3EtaRegions'
     # version = 'v8addFRWeightedRegionsNew'
@@ -47,7 +43,8 @@ def main():
     # version = 'v0forFakeRate'
     # version = 'v1forFRSwitchToTauJetPt'
     # version = 'v1forFRSwitchToTauJetPt_1prong'
-    version = 'v1forFRSwitchToTauJetPt_3prong'
+    # version = 'v1forFRSwitchToTauJetPt_3prong'
+    version = 'v2forFRVariables'
     justMC = False
     # justMC = True
     isTest = 0
