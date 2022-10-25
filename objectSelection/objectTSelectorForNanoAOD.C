@@ -263,9 +263,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     calTauSF_new(); // calculate taus_TES_up  taus_TES_down
     // Int_t tauTES = 4; // 4 means no TES
     Int_t tauTES = 0; //
-    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetIndex, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
-    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetIndex, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
-    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetIndex, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
+    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
+    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
+    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
     // SelectTaus(tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 1);
     // SelectTaus(tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 2);
     sort(tausT.begin(), tausT.end(), compEle);
@@ -427,9 +427,9 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("tausL_genPartFlav", &tausL_genPartFlav);
     newTree->Branch("tausF_genPartFlav", &tausF_genPartFlav);
     newTree->Branch("tausT_genPartFlav", &tausT_genPartFlav);
-    newTree->Branch("tausL_jetIndex", &tausL_jetIndex);
-    newTree->Branch("tausF_jetIndex", &tausF_jetIndex);
-    newTree->Branch("tausT_jetIndex", &tausT_jetIndex);
+    newTree->Branch("tausL_jetPt", &tausL_jetPt);
+    newTree->Branch("tausF_jetPt", &tausF_jetPt);
+    newTree->Branch("tausT_jetPt", &tausT_jetPt);
     newTree->Branch("tausL_charge", &tausL_charge);
     newTree->Branch("tausF_charge", &tausF_charge);
     newTree->Branch("tausT_charge", &tausT_charge);
@@ -642,7 +642,8 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEta
 }
 /*}}}*/
 
-void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Int_t> &selectedTausJetIndex, std::vector<Bool_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
+void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausJetPt, std::vector<Bool_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
+
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
@@ -730,7 +731,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
         SelectedTausIndex.push_back(j);
         SelectedTausDecayMode.push_back(Tau_decayMode.At(j));
         SelectedTausGenPartFlav.push_back(Tau_genPartFlav.At(j));
-        selectedTausJetIndex.push_back(Tau_jetIdx.At(j));
+        selectedTausJetPt.push_back(Jet_pt.At(Tau_jetIdx.At(j)));
         selectedTausCharge.push_back(Tau_charge.At(j));
         selectedTausNeutralIso.push_back(Tau_neutralIso.At(j));
     }
@@ -1055,9 +1056,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     tausT_index.clear();
     tausT_genPartFlav.clear();
     tausT_decayMode.clear();
-    tausL_jetIndex.clear();
-    tausF_jetIndex.clear();
-    tausT_jetIndex.clear();
+    tausL_jetPt.clear();
+    tausF_jetPt.clear();
+    tausT_jetPt.clear();
     tausL_charge.clear();
     tausF_charge.clear();
     tausT_charge.clear();

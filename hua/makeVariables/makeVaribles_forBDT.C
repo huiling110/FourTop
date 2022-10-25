@@ -339,7 +339,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausT_1eta = tausT[0].Eta();
 		tausT_1phi = tausT[0].Phi();
 		// tausT_1decayMode = tausT_decayMode[0];
-		tausL_1decayMode = tausL_decayMode[0];
+		// tausT_1jetpt =
 	}
 	if (tausT_number > 1)
 	{
@@ -359,6 +359,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausL_1eta = tausL[0].Eta();
 		tausL_1etaAbs = TMath::Abs(tausL[0].Eta());
 		tausL_1phi = tausL[0].Phi();
+		tausL_1decayMode = tausL_decayMode[0];
 	}
 
 	// Met
