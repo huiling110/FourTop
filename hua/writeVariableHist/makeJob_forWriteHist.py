@@ -40,11 +40,11 @@ def main():
     # version = 'v9addMoreVariables'
     # version = 'v10ExpandingTauPtRange'
     # version = 'v12moreVariables'
-    # version = 'v0forFakeRate'
+    version = 'v0forFakeRate'
     # version = 'v1forFRSwitchToTauJetPt'
     # version = 'v1forFRSwitchToTauJetPt_1prong'
     # version = 'v1forFRSwitchToTauJetPt_3prong'
-    version = 'v2forFRVariables'
+    # version = 'v2forFRVariables'
     justMC = False
     # justMC = True
     isTest = 0
