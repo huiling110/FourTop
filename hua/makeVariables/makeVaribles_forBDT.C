@@ -873,8 +873,8 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausF_1decayMode", &tausF_1decayMode, "tausF_1decayMode/I");
 	newtree->Branch("tausT_1jetPt", &tausT_1jetPt, "tausT_1jetPt/D");
 	newtree->Branch("tausF_1jetPt", &tausF_1jetPt, "tausF_1jetPt/D");
-	newtree->Branch("tausT_1charge", &tausT_1charge, "tausT_1charge/O");
-	newtree->Branch("tausF_1charge", &tausF_1charge, "tausF_1charge/O");
+	newtree->Branch("tausT_1charge", &tausT_1charge, "tausT_1charge/I");
+	newtree->Branch("tausF_1charge", &tausF_1charge, "tausF_1charge/I");
 	newtree->Branch("tausT_1neutralIso", &tausT_1neutralIso, "tausT_1neatralIso/D");
 	newtree->Branch("tausF_1neutralIso", &tausF_1neutralIso, "tausF_1neatralIso/D");
 

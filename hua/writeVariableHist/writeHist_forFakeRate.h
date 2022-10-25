@@ -58,8 +58,8 @@ public:
    // variables to be writen to hists
 
    // Readers to access the data (delete the ones you do not need).
-   TTreeReaderValue<ULong64_t>
-       event = {fReader, "event"};
+   TTreeReaderValue<ULong64_t> event = {fReader, "event"};
+
    TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
    TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter = {fReader, "Flag_globalSuperTightHalo2016Filter"};
    TTreeReaderValue<Int_t> Flag_HBHENoiseFilter = {fReader, "Flag_HBHENoiseFilter"};
@@ -70,6 +70,7 @@ public:
    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
    TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
    TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+
    TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_down = {fReader, "EVENT_prefireWeight_down"};
@@ -77,6 +78,8 @@ public:
    TTreeReaderValue<Double_t> PUweight = {fReader, "PUweight"};
    TTreeReaderValue<Double_t> PUweight_up = {fReader, "PUweight_up"};
    TTreeReaderValue<Double_t> PUweight_down = {fReader, "PUweight_down"};
+   TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
+
    TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
    TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1

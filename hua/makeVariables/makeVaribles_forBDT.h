@@ -190,8 +190,8 @@ public:
     Int_t tausT_1decayMode = -99;
     Double_t tausT_1jetPt = -99.0;
     Double_t tausF_1jetPt = -99.0;
-    Bool_t tausT_1charge = 0;
-    Bool_t tausF_1charge = 0;
+    Int_t tausT_1charge = 0;
+    Int_t tausF_1charge = 0;
     Double_t tausT_1neutralIso = -99.0;
     Double_t tausF_1neutralIso = -99.0;
     Double_t tausT_2pt = -99.0;

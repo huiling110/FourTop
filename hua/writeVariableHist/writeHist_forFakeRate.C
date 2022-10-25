@@ -213,11 +213,12 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
 	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", 3, 1, 4, tausF_prongNum};
-	// histsForRegions<Int_t> tausF_charge_class{"tausF_charge", 2, 0, 2, tausF_1charge};//???
-	histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", 2, 0, 2, tausF_1decayMode};
+	// histsForRegions<Int_t> tausF_charge_class{"tausF_charge", 2, 0, 2, tausF_1charge}; //???
+	histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", 11, 0, 11, tausF_1decayMode};
 	// histsForRegions<Int_t> tausF_{"tausF_", 2, 0, 2, tausF_};
 	histsForRegions<Int_t> jets_num_class{"jets_num", 6, 6, 12, jets_number};
 	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", 5, 0, 5, bjetsM_num};
+	histsForRegions<Int_t> PV_npvs_class{"PV_npvs", 50, 0, 50, PV_npvs};
 	vectorOfVariblesRegions_FRweighted.clear();
 	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class); //!!!no need to scale to lumilosity! only data regions!
 	vectorOfVariblesRegions_FRweighted.push_back(jets_1pt_class);
