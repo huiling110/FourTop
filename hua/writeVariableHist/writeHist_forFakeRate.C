@@ -166,7 +166,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTgen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
-
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);

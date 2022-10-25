@@ -126,8 +126,8 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
         uf.checkMakeDir(inOutList[1] +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        subDirJobs.write( 'hep_sub -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-        # subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        # subDirJobs.write( 'hep_sub -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
     subprocess.run( 'chmod 777 ' + subDirName, shell = True)
