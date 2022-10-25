@@ -174,14 +174,14 @@ public:
 	std::vector<Double_t> tausT_neutralIso;
 	std::vector<Double_t> tausF_neutralIso;
 	std::vector<Double_t> tausL_neutralIso;
-	std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESup;
-	std::vector<Int_t> tausT_index_TESup;
-	std::vector<Int_t> tausT_decayMode_TESup;
-	std::vector<Int_t> tausT_genPartFlav_TESup;
-	std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESdown;
-	std::vector<Int_t> tausT_index_TESdown;
-	std::vector<Int_t> tausT_decayMode_TESdown;
-	std::vector<Int_t> tausT_genPartFlav_TESdown;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESup;
+	// std::vector<Int_t> tausT_index_TESup;
+	// std::vector<Int_t> tausT_decayMode_TESup;
+	// std::vector<Int_t> tausT_genPartFlav_TESup;
+	// std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESdown;
+	// std::vector<Int_t> tausT_index_TESdown;
+	// std::vector<Int_t> tausT_decayMode_TESdown;
+	// std::vector<Int_t> tausT_genPartFlav_TESdown;
 
 	// std::vector<TLorentzVector> jets;
 	std::vector<ROOT::Math::PtEtaPhiMVector> jets;
@@ -288,7 +288,7 @@ public:
 	//    void calTauSF( const Bool_t isdata );
 	void calTauSF_new();
 
-	void calJER_SF( std::vector<Double_t> &jer_sf, correction::CorrectionSet *cset_jerSF);
+	void calJER_SF(std::vector<Double_t> &jer_sf, correction::CorrectionSet *cset_jerSF);
 
 	// Readers to access the data (delete the ones you do not need).
 	TTreeReaderValue<UInt_t> run = {fReader, "run"};

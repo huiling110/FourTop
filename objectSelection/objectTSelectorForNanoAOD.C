@@ -436,14 +436,14 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("tausL_neutralIso", &tausL_neutralIso);
     newTree->Branch("tausF_neutralIso", &tausF_neutralIso);
     newTree->Branch("tausT_neutralIso", &tausT_neutralIso);
-    newTree->Branch("tausT_TESup", &tausT_TESup);
-    newTree->Branch("tausT_index_TESup", &tausT_index_TESup);
-    newTree->Branch("tausT_decayMode_TESup", &tausT_decayMode_TESup);
-    newTree->Branch("tausT_genPartFlav_TESup", &tausT_genPartFlav_TESup);
-    newTree->Branch("tausT_TESdown", &tausT_TESdown);
-    newTree->Branch("tausT_index_TESdown", &tausT_index_TESdown);
-    newTree->Branch("tausT_decayMode_TESdown", &tausT_decayMode_TESdown);
-    newTree->Branch("tausT_genPartFlav_TESdown", &tausT_genPartFlav_TESdown);
+    // newTree->Branch("tausT_TESup", &tausT_TESup);
+    // newTree->Branch("tausT_index_TESup", &tausT_index_TESup);
+    // newTree->Branch("tausT_decayMode_TESup", &tausT_decayMode_TESup);
+    // newTree->Branch("tausT_genPartFlav_TESup", &tausT_genPartFlav_TESup);
+    // newTree->Branch("tausT_TESdown", &tausT_TESdown);
+    // newTree->Branch("tausT_index_TESdown", &tausT_index_TESdown);
+    // newTree->Branch("tausT_decayMode_TESdown", &tausT_decayMode_TESdown);
+    // newTree->Branch("tausT_genPartFlav_TESdown", &tausT_genPartFlav_TESdown);
 
     newTree->Branch("jets", &jets);
     newTree->Branch("jets_JESuncer", &jets_JESuncer);
@@ -1065,14 +1065,14 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     tausF_neutralIso.clear();
     tausT_neutralIso.clear();
 
-    tausT_TESup.clear();
-    tausT_index_TESup.clear();
-    tausT_genPartFlav_TESup.clear();
-    tausT_decayMode_TESup.clear();
-    tausT_TESdown.clear();
-    tausT_index_TESdown.clear();
-    tausT_genPartFlav_TESdown.clear();
-    tausT_decayMode_TESdown.clear();
+    // // tausT_TESup.clear();
+    // tausT_index_TESup.clear();
+    // tausT_genPartFlav_TESup.clear();
+    // tausT_decayMode_TESup.clear();
+    // tausT_TESdown.clear();
+    // tausT_index_TESdown.clear();
+    // tausT_genPartFlav_TESdown.clear();
+    // tausT_decayMode_TESdown.clear();
 
     jets.clear();
     jets_index.clear();
