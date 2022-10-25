@@ -61,7 +61,7 @@ def main():
 
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        if iera=='2016postVFP' : continue#???
+        # if iera=='2016postVFP' : continue#???
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
         uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
