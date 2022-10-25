@@ -64,11 +64,20 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 	}
 }
 
-Double_t calFRWeight(Double_t taus_1pt, Double_t taus_1eta, const TH2D *FR_TH2D)
+Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong)
 {
 	// might need error handling for this
 	// Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
 	// set the default FRWeight to the last bin
+	TH2D *FR_TH2D;
+	if (taus_1prongNum == 1)
+	{
+		FR_TH2D = FR_TH2D_1prong;
+	}
+	else
+	{
+		FR_TH2D = FR_TH2D_3prong;
+	}
 	Int_t binxNum = FR_TH2D->GetNbinsX();
 	Int_t binyNum = FR_TH2D->GetNbinsY();
 	Double_t FRWeight = FR_TH2D->GetBinContent(binxNum, binyNum);
@@ -129,10 +138,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// better structure my project so that these commen functionality go to one include dir
 	std::vector<TString> optionVect;
 	getOption(option, optionVect);
-	// for (UInt_t i = 0; i < optionVect.size(); i++)
-	// {
-	// 	std::cout << optionVect[i] << "\n";
-	// }
 	m_genWeightSum = std::stod(optionVect[0].Data());
 	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
 	//???maybe there is lose of accuracy due to convertion
@@ -263,8 +268,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/mc/variableHists_v10ExpandingTauPtRange/results/fakeRateInPtEta_sumGenBG.root", "READ");
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/mc/variableHists_v10ExpandingTauPtRange_1prong/results/fakeRateInPtEta_sumGenBG.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
+	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/mc/variableHists_v10ExpandingTauPtRange_3prong/results/fakeRateInPtEta_sumGenBG.root", "READ");
+	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -282,13 +289,19 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		return kFALSE;
 	};
 
+	// for prong division
+	// if (!(*tausF_prongNum == 1))
+	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+	// 	return kFALSE;
+
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	}
 
-	Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
+	// Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
+	Double_t FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong);
 	// std::cout <u "FRWeight=" << FRWeight << "\n";
 
 	// Bool_t isTauLNum = *tausL_number == 1;

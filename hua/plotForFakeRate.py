@@ -17,14 +17,18 @@ def main():
     inVersion = 'v0addMoreVariables_v39addTauBranches'
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    histVersion = 'variableHists_v0forFakeRate'
+    # histVersion = 'variableHists_v0forFakeRate'
+    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
+    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
+    histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
     # version = 'v6forFakeRate3EtaRegions'
    
     ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     variableDic = {
-        'tausL_1pt': ptBins,
+        # 'tausL_1pt': ptBins,
+        'tausF_1jetPt': ptBins,
     }
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 

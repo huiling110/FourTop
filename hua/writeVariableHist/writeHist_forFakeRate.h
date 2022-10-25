@@ -51,7 +51,9 @@ public:
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
 
+   //for apply FR as event weight
    TH2D *FR_hist;
+   TH2D *FR_hist_3prong;
 
    // variables to be writen to hists
 
@@ -161,8 +163,13 @@ public:
    TTreeReaderValue<Double_t> tausT_3pt = {fReader, "tausT_3pt"};
    TTreeReaderValue<Double_t> tausT_3eta = {fReader, "tausT_3eta"};
    TTreeReaderValue<Double_t> tausT_3phi = {fReader, "tausT_3phi"};
+   TTreeReaderValue<Double_t> tausF_1pt = {fReader, "tausF_1pt"};
+   // TTreeReaderValue<Double_t> tausF_1eta = {fReader, "tausF_1eta"};
+   // TTreeReaderValue<Double_t> tausF_1etaAbs = {fReader, "tausF_1etaAbs"};
 
    TTreeReaderValue<Int_t> tausL_prongNum = {fReader, "tausL_prongNum"};
+   TTreeReaderValue<Int_t> tausF_prongNum = {fReader, "tausF_prongNum"};
+   TTreeReaderValue<Int_t> tausT_prongNum = {fReader, "tausT_prongNum"};
    TTreeReaderValue<Double_t> tausT_1jetPt = {fReader, "tausT_1jetPt"};
    TTreeReaderValue<Double_t> tausF_1jetPt = {fReader, "tausF_1jetPt"};
 
