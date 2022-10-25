@@ -13,9 +13,11 @@ from writeCSVforEY import getSummedHists
 
 def main():
     era = '2016' 
-    inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
+    # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
+    inVersion = 'v0addMoreVariables_v39addTauBranches'
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
-    histVersion = 'variableHists_v10ExpandingTauPtRange'
+    # histVersion = 'variableHists_v10ExpandingTauPtRange'
+    histVersion = 'variableHists_v0forFakeRate'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
     # version = 'v6forFakeRate3EtaRegions'

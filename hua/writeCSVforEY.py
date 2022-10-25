@@ -26,7 +26,8 @@ def main():
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
-    inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
+    # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
+    inVersion = 'v0addMoreVariables_v39addTauBranches'
     # inVersion = 'v1baseline_v37TauPt30AndPreselection'
     # histVersion = 'variableHists_v0'
     # histVersion = 'variableHists_v0forCutFlow'
@@ -34,13 +35,14 @@ def main():
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     # histVersion = 'variableHists_v2addingPileupWeight'
     # histVersion = 'variableHists_v3pileUpAndNewRange'
-    histVersion = 'variableHists_v4forFakeRate'
+    # histVersion = 'variableHists_v4forFakeRate'
+    histVersion = 'variableHists_v0forFakeRate'
 
     variableList = ['eventCount']
-    regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
-    # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
-    csvName = '1tau0lFakeRate'
-    # csvName = '1tau0lFakeRateGenTau'
+    # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
+    regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
+    # csvName = '1tau0lFakeRate'
+    csvName = '1tau0lFakeRateGenTau'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']

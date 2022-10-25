@@ -45,7 +45,8 @@ public:
    std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
    std::vector<histsForRegions<Double_t>> vectorOfVariblesRegions_FRweighted;
    std::vector<histsForRegions<Int_t>> vectorOfVariblesRegions_FRweightedInt;
-   histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+   // histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
+   histsForRegions<Double_t> tausL_1pt_eta_class{"tausF_1jetPt", 20, 20, 300, tausF_1jetPt};
 
    // TH1D* whInitial;
    std::vector<TH1D *> eventCount_hists;
@@ -160,7 +161,11 @@ public:
    TTreeReaderValue<Double_t> tausT_3pt = {fReader, "tausT_3pt"};
    TTreeReaderValue<Double_t> tausT_3eta = {fReader, "tausT_3eta"};
    TTreeReaderValue<Double_t> tausT_3phi = {fReader, "tausT_3phi"};
+
    TTreeReaderValue<Int_t> tausL_prongNum = {fReader, "tausL_prongNum"};
+   TTreeReaderValue<Double_t> tausT_1jetPt = {fReader, "tausT_1jetPt"};
+   TTreeReaderValue<Double_t> tausF_1jetPt = {fReader, "tausF_1jetPt"};
+
    TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausT_leptonsT_transMass = {fReader, "tausT_leptonsT_transMass"};

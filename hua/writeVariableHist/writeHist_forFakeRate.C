@@ -260,7 +260,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauNotTGen_Eta2",
 		"1tau0lCRLTauNotTGen_Eta3",
 	};
-	// tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
