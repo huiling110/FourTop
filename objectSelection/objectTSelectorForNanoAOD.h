@@ -165,6 +165,15 @@ public:
 	std::vector<Int_t> tausT_index;
 	std::vector<Int_t> tausT_decayMode;
 	std::vector<Int_t> tausT_genPartFlav;
+	std::vector<Int_t> tausT_jetIndex;
+	std::vector<Int_t> tausL_jetIndex;
+	std::vector<Int_t> tausF_jetIndex;
+	std::vector<Bool_t> tausF_charge;
+	std::vector<Bool_t> tausL_charge;
+	std::vector<Bool_t> tausT_charge;
+	std::vector<Double_t> tausT_neutralIso;
+	std::vector<Double_t> tausF_neutralIso;
+	std::vector<Double_t> tausL_neutralIso;
 	std::vector<ROOT::Math::PtEtaPhiMVector> tausT_TESup;
 	std::vector<Int_t> tausT_index_TESup;
 	std::vector<Int_t> tausT_decayMode_TESup;
@@ -254,7 +263,8 @@ public:
 
 	// functions I added
 	void SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
+	// void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
+	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Int_t> &selectedTausJetIndex, std::vector<Bool_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
 	void SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC);
 	void SelectTops(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTops);
 	void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
@@ -820,7 +830,7 @@ public:
 	// TTreeReaderArray<Float_t> Tau_leadTkDeltaPhi = {fReader, "Tau_leadTkDeltaPhi"};
 	// TTreeReaderArray<Float_t> Tau_leadTkPtOverTauPt = {fReader, "Tau_leadTkPtOverTauPt"};
 	TTreeReaderArray<Float_t> Tau_mass = {fReader, "Tau_mass"};
-	// TTreeReaderArray<Float_t> Tau_neutralIso = {fReader, "Tau_neutralIso"};
+	TTreeReaderArray<Float_t> Tau_neutralIso = {fReader, "Tau_neutralIso"};
 	TTreeReaderArray<Float_t> Tau_phi = {fReader, "Tau_phi"};
 	// TTreeReaderArray<Float_t> Tau_photonsOutsideSignalCone = {fReader, "Tau_photonsOutsideSignalCone"};
 	TTreeReaderArray<Float_t> Tau_pt = {fReader, "Tau_pt"};
@@ -832,7 +842,7 @@ public:
 	// TTreeReaderArray<Float_t> Tau_rawIsodR03 = {fReader, "Tau_rawIsodR03"};
 	TTreeReaderArray<Int_t> Tau_charge = {fReader, "Tau_charge"};
 	TTreeReaderArray<Int_t> Tau_decayMode = {fReader, "Tau_decayMode"};
-	// TTreeReaderArray<Int_t> Tau_jetIdx = {fReader, "Tau_jetIdx"};
+	TTreeReaderArray<Int_t> Tau_jetIdx = {fReader, "Tau_jetIdx"};
 	// TTreeReaderArray<Bool_t> Tau_idAntiEleDeadECal = {fReader, "Tau_idAntiEleDeadECal"};
 	// TTreeReaderArray<UChar_t> Tau_idAntiMu = {fReader, "Tau_idAntiMu"};
 	TTreeReaderArray<Bool_t> Tau_idDecayModeOldDMs = {fReader, "Tau_idDecayModeOldDMs"};
