@@ -164,6 +164,7 @@ public:
     Double_t tausT_minDeltaR = -99.0;
     Int_t tausT_genTauNum = 0;
     Int_t tausL_genTauNum = 0;
+    Int_t tausF_genTauNum = -99;
     Double_t tausF_leptonsT_transMass = -99.0;
     Double_t tausL_leptonsT_transMass = -99.0;
     Double_t tausT_leptonsT_transMass = -99.0;
@@ -428,6 +429,7 @@ public:
     TTreeReaderArray<Int_t> tausF_decayMode = {fReader, "tausF_decayMode"};
     TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
     TTreeReaderArray<Int_t> tausL_genPartFlav = {fReader, "tausL_genPartFlav"};
+    TTreeReaderArray<Int_t> tausF_genPartFlav = {fReader, "tausF_genPartFlav"};
     TTreeReaderArray<Double_t> tausT_jetPt = {fReader, "tausT_jetPt"};
     TTreeReaderArray<Double_t> tausF_jetPt = {fReader, "tausF_jetPt"};
     TTreeReaderArray<Bool_t> tausT_charge = {fReader, "tausT_charge"};

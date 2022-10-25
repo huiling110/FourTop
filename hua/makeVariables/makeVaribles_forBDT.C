@@ -316,6 +316,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausT_minDeltaR = MinDeltaRSingleCal(tausT);
 	tausT_genTauNum = calGenTauNum(tausT_genPartFlav);
 	tausL_genTauNum = calGenTauNum(tausL_genPartFlav);
+	tausF_genTauNum = calGenTauNum(tausF_genPartFlav);
 
 	// tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
 	// tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
@@ -858,6 +859,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausT_minDeltaR", &tausT_minDeltaR, "tausT_minDeltaR/D");
 	newtree->Branch("tausT_genTauNum", &tausT_genTauNum, "tausT_genTauNum/I");
 	newtree->Branch("tausL_genTauNum", &tausL_genTauNum, "tausL_genTauNum/I");
+	newtree->Branch("tausF_genTauNum", &tausF_genTauNum, "tausF_genTauNum/I");
 	// newtree->Branch( "", &, "/");
 	newtree->Branch("tausT_1pt", &tausT_1pt, "tausT_1pt/D");
 	newtree->Branch("tausT_1eta", &tausT_1eta, "tausT_1eta/D");
