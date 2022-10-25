@@ -60,13 +60,11 @@ def main():
     era = '2016'
     # era = '2018'
 
-    # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
-    inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
+    # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
+    inVersion = 'v0addMoreVariables_v39addTauBranches'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     # histVersion = 'variableHists_v2addingPileupWeight'
@@ -76,7 +74,8 @@ def main():
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
     # histVersion = 'variableHists_v9addMoreVariables'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    histVersion = 'variableHists_v12moreVariables'
+    # histVersion = 'variableHists_v12moreVariables'
+    histVersion = 'variableHists_v2forFRVariables'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']
     variables = [ 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight', 'tausL_prongNum']
@@ -87,9 +86,9 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
    
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted'

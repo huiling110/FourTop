@@ -209,8 +209,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", 10, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> Met_pt_class{"Met_pt", 10, 0, 200, Met_pt_};
+	histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", 28, 20, 300, tausF_1jetPt};
 	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
+	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", 3, 1, 4, tausF_prongNum};
 	histsForRegions<Int_t> jets_num_class{"jets_num", 6, 6, 12, jets_number};
 	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", 5, 0, 5, bjetsM_num};
 	vectorOfVariblesRegions_FRweighted.clear();
@@ -226,9 +228,11 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariblesRegions_FRweighted.push_back(tausL_1ptFR_class);
 	vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
 	vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausF_1jetPtFR_class);
 	// vectorOfVariblesRegions_FRweighted.push_back();
 	vectorOfVariblesRegions_FRweightedInt.clear();
 	vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
 	vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
 	vectorOfVariblesRegions_FRweightedInt.push_back(bjetsM_num_class);
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweighted, regionsForFRWeighting, m_processName);
