@@ -295,8 +295,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	}
 
 	// tau TES sys
-	tausT_number_TESup = tausT_TESup.GetSize();
-	tausT_number_TESdown = tausT_TESdown.GetSize();
+	// tausT_number_TESup = tausT_TESup.GetSize();
+	// tausT_number_TESdown = tausT_TESdown.GetSize();
 
 	// hadronic tau selection
 	tausL_number = tausL.GetSize();

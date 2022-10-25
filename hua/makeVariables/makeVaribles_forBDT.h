@@ -420,8 +420,8 @@ public:
     TTreeReaderArray<Int_t> tausF_decayMode = {fReader, "tausF_decayMode"};
     TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
     TTreeReaderArray<Int_t> tausL_genPartFlav = {fReader, "tausL_genPartFlav"};
-    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESup = {fReader, "tausT_TESup"};
-    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESdown = {fReader, "tausT_TESdown"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESup = {fReader, "tausT_TESup"};
+    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESdown = {fReader, "tausT_TESdown"};
 
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets = {fReader, "jets"};
     TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};

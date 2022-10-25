@@ -44,6 +44,24 @@
 
         }
 
+        {
+            "label": "runMakeVariables",
+            "command": "root",
+            "args":[
+                "-l",
+                "-q",
+                "run_makeVaribles_forBDT.C"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "test",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "complileC++",
+            ],
+
+        }
         
         {
             "label": "simpleRootRun",
