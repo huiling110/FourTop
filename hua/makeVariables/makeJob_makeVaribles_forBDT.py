@@ -22,10 +22,11 @@ import usefulFunc as uf
 # inVersion = 'v33TESnoJERCodeOptimzation'
 # inVersion = 'v36TESandJERByHuiling'
 # inVersion = 'v37TauPt30AndPreselection'
-inVersion = 'v38TESandJERTauPt20_preselection'
+# inVersion = 'v38TESandJERTauPt20_preselection'
+inVersion = 'v39addTauBranches'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v2baselineAddingTauProng'
-outVersion = 'v3addMoreVariables'
+outVersion = 'v0addMoreVariables'
 # outVersion = 'v1noBaselineModifiedDouble_t'
 year = '2016'
 # year = '2018'
@@ -59,7 +60,7 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
