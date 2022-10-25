@@ -64,7 +64,8 @@ def main():
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
-    inVersion = 'v0addMoreVariables_v39addTauBranches'
+    # inVersion = 'v0addMoreVariables_v39addTauBranches'
+    inVersion = 'v1fixedTauVariables_v39addTauBranches'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v1variablesUsingMyclass'
     # histVersion = 'variableHists_v2addingPileupWeight'
@@ -77,23 +78,24 @@ def main():
     # histVersion = 'variableHists_v12moreVariables'
     histVersion = 'variableHists_v2forFRVariables_finerPtBin'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']
-    variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
+    # variables = [ 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
-    # variables = ['tausL_1pt', 'tausL_1etaAbs']
+    variables = ['tausF_1jetPt', 'tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
-    plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
-    # plotName = 'dataVsMC_fakeTauFromData'
+    # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
+    plotName = 'dataVsMC_fakeTauFromData'
 
 
 
@@ -113,8 +115,8 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
-            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
+            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
             
 
@@ -160,7 +162,7 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
         if 'eta' in var:
             ptBins = np.array( [0, 0.8, 1.6, 2.3])
         else:
-            ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
+            ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
         for ipro in sumProcessIvar[regionList[0]].keys() :
              sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
     if ifGetFromMC==2:
@@ -177,11 +179,14 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
+    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
+    # variableDic = {
+    #     'tausL_1pt': ptBins,
+    # }
+    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     variableDic = {
-        'tausL_1pt': ptBins,
+        'tausF_1jetPt': ptBins,
     }
-    # isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList( inputDirDic, variableDic, isVR, False)
     
     ifPtBin = True

@@ -13,7 +13,8 @@ def plotYieldComparison(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/mc/variableHists_v2addingPileupWeight/results/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v37TauPt30AndPreselection/mc/variableHists_v3pileUpAndNewRange/results/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baseline_v36TESandJERByHuiling/mc/variableHists_v2addingPileupWeight/results/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/mc/variableHists_v4forFakeRate/results/',
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v36TESandJERByHuiling/mc/variableHists_v4forFakeRate/results/',
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v0forFakeRate/results/',
     # csvName = '1tau1lCRs_withUncertInverted.csv' 
     # csvName = '1tau0lCRs_withUncertInverted.csv'
     csvName = '1tau0lFakeRate.csv'

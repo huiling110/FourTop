@@ -175,8 +175,8 @@ public:
    TTreeReaderValue<Int_t> tausT_prongNum = {fReader, "tausT_prongNum"};
    TTreeReaderValue<Double_t> tausT_1jetPt = {fReader, "tausT_1jetPt"};
    TTreeReaderValue<Double_t> tausF_1jetPt = {fReader, "tausF_1jetPt"};
-   TTreeReaderValue<Bool_t> tausF_1charge = {fReader, "tausF_1charge"};
-   // TTreeReaderValue<Double_t> tausF_1neutralIso = {fReader, "tausF_1neatralIso"};//???
+   TTreeReaderValue<Int_t> tausF_1charge = {fReader, "tausF_1charge"};
+   // TTreeReaderValue<Double_t> tausF_1neutralIso = {fReader, "tausF_1neutralIso"}; //???
    TTreeReaderValue<Int_t> tausF_1decayMode = {fReader, "tausF_1decayMode"};
 
    TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
@@ -189,10 +189,6 @@ public:
    TTreeReaderValue<Double_t> tausF_leptonsTMVA_minDeltaR = {fReader, "tausF_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausL_leptonsTMVA_minDeltaR = {fReader, "tausL_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausT_leptonsTMVA_minDeltaR = {fReader, "tausT_leptonsTMVA_minDeltaR"};
-   TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
-   TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
-   TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
-   TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
    TTreeReaderValue<Int_t> jets_number = {fReader, "jets_number"};
    TTreeReaderValue<Double_t> jets_HT = {fReader, "jets_HT"};
    TTreeReaderValue<Double_t> jets_MHT = {fReader, "jets_MHT"};

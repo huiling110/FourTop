@@ -176,8 +176,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 28, 20, 300, tausL_1pt};
+	histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
@@ -205,6 +207,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
+	// histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", 10, 0, 2.3, tausL_1etaAbs};
@@ -213,7 +216,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
 	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", 3, 1, 4, tausF_prongNum};
-	// histsForRegions<Int_t> tausF_charge_class{"tausF_charge", 2, 0, 2, tausF_1charge}; //???
+	histsForRegions<Int_t> tausF_charge_class{"tausF_charge", 2, 0, 2, tausF_1charge}; //???
 	histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", 11, 0, 11, tausF_1decayMode};
 	// histsForRegions<Int_t> tausF_{"tausF_", 2, 0, 2, tausF_};
 	histsForRegions<Int_t> jets_num_class{"jets_num", 6, 6, 12, jets_number};
@@ -239,8 +242,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
 	vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
 	vectorOfVariblesRegions_FRweightedInt.push_back(bjetsM_num_class);
-	// vectorOfVariblesRegions_FRweightedInt.push_back(tausF_charge_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_charge_class);
 	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_1decayMode_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(PV_npvs_class);
 	// vectorOfVariblesRegions_FRweightedInt.push_back();
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweighted, regionsForFRWeighting, m_processName);
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweightedInt, regionsForFRWeighting, m_processName);
@@ -310,6 +314,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	}
+
+	// std::cout << "met=" << *Met_pt_ << "\n";//???
 
 	// Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
 	Double_t FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong);
