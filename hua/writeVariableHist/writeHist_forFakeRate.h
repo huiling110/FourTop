@@ -172,6 +172,9 @@ public:
    TTreeReaderValue<Int_t> tausT_prongNum = {fReader, "tausT_prongNum"};
    TTreeReaderValue<Double_t> tausT_1jetPt = {fReader, "tausT_1jetPt"};
    TTreeReaderValue<Double_t> tausF_1jetPt = {fReader, "tausF_1jetPt"};
+   TTreeReaderValue<Bool_t> tausF_1charge = {fReader, "tausF_1charge"};
+   // TTreeReaderValue<Double_t> tausF_1neutralIso = {fReader, "tausF_1neatralIso"};//???
+   TTreeReaderValue<Int_t> tausF_1decayMode = {fReader, "tausF_1decayMode"};
 
    TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};

@@ -78,8 +78,8 @@ def main():
     histVersion = 'variableHists_v2forFRVariables_finerPtBin'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']
-    # variables = [ 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight', 'tausL_prongNum']
     variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
+    
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
     # variables = ['tausL_1pt', 'tausL_1etaAbs']
