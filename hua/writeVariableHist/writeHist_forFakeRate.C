@@ -292,6 +292,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
 	// std::cout <u "FRWeight=" << FRWeight << "\n";
 
+	Bool_t isTauLNum = *tausL_number == 1;
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRLTau = *tausL_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;

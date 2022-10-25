@@ -78,5 +78,20 @@
                 
             // }
         }
+        {
+            "label": "runWriteHist",
+            "command": "root",
+			"args": [
+				"-l",
+				"-q",
+				"${fileDirname}/run_writeHist.C"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            // "runOptions": {
+                
+            // }
+        }
     ]
 }
