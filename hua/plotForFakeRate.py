@@ -20,12 +20,14 @@ def main():
     # histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
-    histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
+    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
+    histVersion = 'variableHists_v2forFRVariables'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1baseline_v38TESandJERTauPt20_preselection/'
     # version = 'v6forFakeRate3EtaRegions'
    
-    ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
+    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
+    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     variableDic = {
         # 'tausL_1pt': ptBins,
         'tausF_1jetPt': ptBins,
@@ -49,7 +51,8 @@ def main():
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
     etaBins = np.array([0, 0.8,1.6,2.3])
     
-    outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
+    # outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
+    outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG_newBin.root'
     outFile = ROOT.TFile( outFileName, "RECREATE") 
     fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
     for ixbin in range(len(ptBins)-1):

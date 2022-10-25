@@ -272,9 +272,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_1prong/results/fakeRateInPtEta_sumGenBG.root", "READ");
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
-	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_3prong/results/fakeRateInPtEta_sumGenBG.root", "READ");
+	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
 }
 
@@ -296,7 +296,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// for prong division
 	// if (!(*tausF_prongNum == 1))
 	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
-	// 	return kFALSE;
+	// return kFALSE;
 
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
