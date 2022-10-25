@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/jobs_seperata/
-sh  jetHT_2016F.sh
 sh  WJetsToLNu_HT-400To600.sh
 sh  ttW.sh
 sh  WJetsToLNu_HT-2500ToInf.sh
@@ -9,11 +8,14 @@ sh  wz.sh
 sh  qcd_1500to2000.sh
 sh  ttbar_1l.sh
 sh  st_tZq.sh
+sh  jetHT_2016B_v1.sh
+sh  jetHT_2016B_v2.sh
 sh  ttbar_2l.sh
 sh  st_tW_antitop.sh
 sh  qcd_50to100.sh
 sh  qcd_500to700.sh
 sh  ttZ.sh
+sh  jetHT_2016D.sh
 sh  ttH_bb.sh
 sh  ttG.sh
 sh  WJetsToLNu_HT-600To800.sh
@@ -21,15 +23,16 @@ sh  WJetsToLNu_HT-1200To2500.sh
 sh  qcd_300to500.sh
 sh  st_tW_top.sh
 sh  zz.sh
-sh  jetHT_2016G.sh
+sh  jetHT_2016E.sh
 sh  ww.sh
 sh  qcd_1000to1500.sh
 sh  ttH_nonbb.sh
 sh  qcd_700to1000.sh
-sh  jetHT_2016H.sh
 sh  WJetsToLNu_HT-200To400.sh
+sh  jetHT_2016C.sh
 sh  tttt.sh
 sh  qcd_2000toInf.sh
+sh  jetHT_2016F_hipm.sh
 sh  qcd_100to200.sh
 sh  ttbar_0l.sh
 sh  WJetsToLNu_HT-800To1200.sh

@@ -338,8 +338,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausT_1pt = tausT[0].Pt();
 		tausT_1eta = tausT[0].Eta();
 		tausT_1phi = tausT[0].Phi();
-		// tausT_1decayMode = tausT_decayMode[0];
-		// tausT_1jetpt =
+		tausT_1decayMode = tausT_decayMode[0];
+		// tausT_1jetPt = tausT_jetPt[0];
+		// tausT_1charge = tausT_charge[0];
+	}
+	if (tausF_number > 0)
+	{
+		tausF_1pt = tausF[0].Pt();
+		tausF_1eta = tausF[0].Eta();
+		tausF_1phi = tausF[0].Phi();
+		tausF_1decayMode = tausF_decayMode[0];
+		// tausF_1jetPt = tausF_jetPt[0];
 	}
 	if (tausT_number > 1)
 	{
@@ -850,8 +859,15 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausT_1pt", &tausT_1pt, "tausT_1pt/D");
 	newtree->Branch("tausT_1eta", &tausT_1eta, "tausT_1eta/D");
 	newtree->Branch("tausT_1phi", &tausT_1phi, "tausT_1phi/D");
+	newtree->Branch("tausF_1pt", &tausF_1pt, "tausF_1pt/D");
+	newtree->Branch("tausF_1eta", &tausF_1eta, "tausF_1eta/D");
+	newtree->Branch("tausF_1phi", &tausF_1phi, "tausF_1phi/D");
 
-	newtree->Branch("tausL_1decayMode", &tausL_1decayMode, "tausL_1decayMode/D");
+	newtree->Branch("tausL_1decayMode", &tausL_1decayMode, "tausL_1decayMode/I");
+	newtree->Branch("tausT_1decayMode", &tausT_1decayMode, "tausT_1decayMode/I");
+	newtree->Branch("tausF_1decayMode", &tausF_1decayMode, "tausF_1decayMode/I");
+	newtree->Branch("tausT_1jetPt", &tausT_1jetPt, "tausT_1jetPt/D");
+	newtree->Branch("tausF_1jetPt", &tausF_1jetPt, "tausF_1jetPt/D");
 
 	newtree->Branch("tausT_2pt", &tausT_2pt, "tausT_2pt/D");
 	newtree->Branch("tausT_2eta", &tausT_2eta, "tausT_2eta/D");
@@ -1210,7 +1226,12 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausT_1pt = -99;
 	tausT_1eta = -99;
 	tausT_1phi = -99;
+	tausF_1pt = -99;
+	tausF_1eta = -99;
+	tausF_1phi = -99;
 	tausL_1decayMode = -99;
+	tausT_1jetPt = -99;
+	tausF_1jetPt = -99;
 	tausL_1pt = -99;
 	tausL_1eta = -99;
 	tausL_1etaAbs = -99;

@@ -181,7 +181,14 @@ public:
     Double_t tausT_1pt = -99.0;
     Double_t tausT_1eta = -99.0;
     Double_t tausT_1phi = -99.0;
-    Double_t tausL_1decayMode = -99;
+    Double_t tausF_1pt = -99.0;
+    Double_t tausF_1eta = -99.0;
+    Double_t tausF_1phi = -99.0;
+    Int_t tausL_1decayMode = -99;
+    Int_t tausF_1decayMode = -99;
+    Int_t tausT_1decayMode = -99;
+    Double_t tausT_1jetPt = -99.0;
+    Double_t tausF_1jetPt = -99.0;
     Double_t tausT_2pt = -99.0;
     Double_t tausT_2eta = -99.0;
     Double_t tausT_2phi = -99.0;
@@ -412,16 +419,13 @@ public:
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausL = {fReader, "tausL"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausF = {fReader, "tausF"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT = {fReader, "tausT"};
-    // TTreeReaderArray<Int_t> tausL_index = {fReader, "tausL_index"};
-    // TTreeReaderArray<Int_t> tausF_index = {fReader, "tausF_index"};
-    // TTreeReaderArray<Int_t> tausT_index = {fReader, "tausT_index"};
     TTreeReaderArray<Int_t> tausT_decayMode = {fReader, "tausT_decayMode"};
     TTreeReaderArray<Int_t> tausL_decayMode = {fReader, "tausL_decayMode"};
     TTreeReaderArray<Int_t> tausF_decayMode = {fReader, "tausF_decayMode"};
     TTreeReaderArray<Int_t> tausT_genPartFlav = {fReader, "tausT_genPartFlav"};
     TTreeReaderArray<Int_t> tausL_genPartFlav = {fReader, "tausL_genPartFlav"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESup = {fReader, "tausT_TESup"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT_TESdown = {fReader, "tausT_TESdown"};
+    TTreeReaderArray<Double_t> tausT_jetPt = {fReader, "tausT_jetPt"};
+    TTreeReaderArray<Double_t> tausF_jetPt = {fReader, "tausF_jetPt"};
 
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets = {fReader, "jets"};
     TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
