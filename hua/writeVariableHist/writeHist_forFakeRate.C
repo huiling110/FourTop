@@ -198,6 +198,12 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVR", // 7
 		"1tau0lVRGen",
 		"1tau0lVRNotGen",
+		//
+		"1tau0lSR", // 10
+		"1tau0lSRGen",
+		"1tau0lSRNotGen",
+		"1tau0lSRLTauNotT_Weighted",	// 13
+		"1tau0lSRLTauNotTGen_Weighted", // 14
 	};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
@@ -332,6 +338,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	Bool_t is1tau0lVRLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 	Bool_t is1tau0lVRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 	Bool_t is1tau0lCRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	// SR
+	Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+	Bool_t is1tau0lSRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
 
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
@@ -347,7 +356,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	if (!m_isData)
 	{
 		// be blind for data in signal region
-		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 
 		Bool_t is1tau0lSRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
@@ -357,6 +365,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		Bool_t is1tau0lVRLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lVRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
 		Bool_t is1tau0lCRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		// SR
+		Bool_t is1tau0lSRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
 
 		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
 		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
@@ -388,6 +398,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+
+		// SR
+		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -421,6 +436,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+
+		// SR not for data in SR
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
