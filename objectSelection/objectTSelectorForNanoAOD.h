@@ -171,9 +171,9 @@ public:
 	std::vector<Double_t> tausT_jetEta;
 	std::vector<Double_t> tausL_jetEta;
 	std::vector<Double_t> tausF_jetEta;
-	std::vector<Bool_t> tausF_charge;
-	std::vector<Bool_t> tausL_charge;
-	std::vector<Bool_t> tausT_charge;
+	std::vector<Int_t> tausF_charge;
+	std::vector<Int_t> tausL_charge;
+	std::vector<Int_t> tausT_charge;
 	std::vector<Double_t> tausT_neutralIso;
 	std::vector<Double_t> tausF_neutralIso;
 	std::vector<Double_t> tausL_neutralIso;
@@ -267,7 +267,7 @@ public:
 	// functions I added
 	void SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
 	// void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
-	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausjetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Bool_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
+	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausjetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
 	void SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC);
 	void SelectTops(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTops);
 	void MetCorrection(Int_t SysJes, Int_t SysJer, Double_t &MET);
