@@ -93,7 +93,8 @@ def main():
     print( sumProcessPerVar )
 
 
-    legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    # legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     hasFakeTau = False
     for ire in regionList:
         if 'Gen' in ire:
@@ -103,6 +104,7 @@ def main():
             replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
             # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
+        legendOrder.insert(0, 'fakeTau')
             
 
 
@@ -207,13 +209,18 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvasName = '{}_{}'.format( region, name )
     canvy = TCanvas( canvasName, canvasName, 1000,800)
     
-
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.3)
 
-    # sumHist = nominal[nominal.keys()[0]].Clone()
-    keyList = list(nominal.keys())
-    #the base hist for adding
+
+    doSystmatic = True
+    if not systHists:
+        print( 'systHist empty, not including systematic uncertainty\n')
+        doSystmatic = False
+    print( 'doSystmatic: ', doSystmatic )
+
+    #here we get dataHist and add all MC for sumHist    
+    keyList = list(nominal.keys()) #process list
     sumHist = nominal[keyList[0]].Clone()
     sumHist.Reset()
     systsUp = nominal[keyList[0]].Clone("systsUp")
@@ -221,14 +228,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     systsDown = nominal[keyList[0]].Clone("systsDown")
     systsDown.Reset()
     dataHist = 0
-
-    doSystmatic = False
-    if not systHists:
-        print( 'systHist empty, not including systematic uncertainty\n')
-        doSystmatic = False
-    print( 'doSystmatic: ', doSystmatic )
-
-    #here we get dataHist and add all MC for sumHist    
     for i in nominal.keys():
         # i is i summed MC
         if i == "data":
@@ -244,11 +243,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         nominal[i].SetLineWidth(1)
         # nominal[i].GetXaxis().SetTitle(name)
         sumHist.Add(nominal[i]) #sumHist is bg+signal
-        # if i == "qcd": continue #special treatment to data driven bg
         #???need systsUp and systsDown calculation
-            # tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region, doSystmatic )
         if doSystmatic:
             tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] )
+            # tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region, doSystmatic )
             systsUp.Add(tempUp)
             systsDown.Add(tempDown)
 
@@ -270,7 +268,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack = THStack( canvasName, canvasName )
     for entry in legendOrder:
         stack.Add(nominal[entry])
-        # print( 'ientry integral: ', nominal[entry].Integral() )
     legendOrder.reverse()
 
 
