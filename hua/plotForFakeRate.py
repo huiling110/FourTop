@@ -40,7 +40,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -176,7 +176,8 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     if ifPlot:
         plotDir = inputDirDic['mc'] + 'results/' 
         uf.checkMakeDir( plotDir )
-        plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg.png'
+        # plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg.png'
+        plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better.png'
         plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
    
     h_fakeRateCR.Print() 
@@ -227,9 +228,11 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
 
-    h_dinominator.SetLineColor(ROOT.kBlue+4)
+    # h_dinominator.SetTitle("FR ")
+    h_dinominator.SetLineColor(ROOT.kOrange)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
     h_dinominator.Draw()
+    h_numeritor.SetLineColor(ROOT.kMagenta-4)
     h_numeritor.Draw('same')
     can.Update()
 
@@ -237,7 +240,9 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     rightmax = 1.1*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
+    h_efficiency.SetLineWidth(2)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
+    h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
     
     axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(),
@@ -246,6 +251,12 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     axis.SetLabelColor(ROOT.kRed)
     axis.Draw()
 
+
+    legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    legend.AddEntry(h_dinominator, "denominator: FTau-genMC")
+    legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
+    legend.AddEntry(h_efficiency, "FR")
+    legend.Draw()
 
     can.SaveAs(plotName)
 
