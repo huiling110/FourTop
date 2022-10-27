@@ -225,7 +225,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion):
 
 
 def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
-    setTDRStyle()
+    # setTDRStyle()
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
 
@@ -242,6 +242,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(2)
+    # h_efficiency.SetMarkerStyle(2)
+    h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
     h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
