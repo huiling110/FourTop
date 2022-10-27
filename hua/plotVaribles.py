@@ -196,76 +196,6 @@ def checkHists( histsDict ):
 
 
 
-def makeStackPlot_mcOnly(nominal,systHists,name,region,outDir, plotNameEtra = ""):
-    #name is variable name
-    stack = THStack("{1}_{0}".format(region,name),"{1}_{0}".format(region,name))
-    canvy = TCanvas("{1}_{0}".format(region,name),"{1}_{0}".format(region,name),1000,800)
-    leggy = TLegend(0.8,0.6,0.95,0.9)
-    leggy.SetFillStyle(1001)
-    leggy.SetBorderSize(1)
-    leggy.SetFillColor(0)
-    leggy.SetLineColor(0)
-    leggy.SetShadowColor(0)
-    leggy.SetFillColor(kWhite)
-
-    canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.3)
-
-    #???no dataHist
-    # sumHist = nominal[nominal.keys()[0]].Clone()
-    keyList = list(nominal.keys())
-    sumHist = nominal[keyList[0]].Clone()
-    sumHist.Reset()
-    #???no systsUp systsDown
-
-    for i in nominal.keys():
-        print('ikey: ', i)
-        if i=='data': continue
-        nominal[i].SetFillColor(colourPerSample[i])
-        nominal[i].SetLineColor(kBlack)
-        nominal[i].SetLineWidth(1)
-        nominal[i].GetXaxis().SetTitle(name)
-        sumHist.Add(nominal[i])
-
-    if "data" in nominal.keys():
-        leggy.AddEntry(nominal['data'],"Data","p")
-    for entry in legendOrder:
-        if entry=='tttt': continue
-        leggy.AddEntry(nominal[entry],entry,"f")
-    # leggy.AddEntry(assymErrorPlot,"Systs","f")
-
-    legendOrder.reverse()
-    for entry in legendOrder:
-        if entry=='tttt': continue
-        stack.Add(nominal[entry])
-        # print( 'ientry integral: ', nominal[entry].Integral() )
-    legendOrder.reverse()
-
-
-    maxi = stack.GetMaximum()
-    # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
-    stack.SetMaximum(maxi)
-    # stack.GetXaxis().SetTitle(name)
-    stack.Draw("hist")
-
-    #scale tttt
-    signal = nominal['tttt'].Clone()
-    signal.Scale(1000)
-    signal.SetLineColor(kBlue)
-    signal.SetLineStyle(kSolid)
-    signal.SetLineWidth(4)
-    signal.SetFillStyle(3335)
-    signal.SetFillColor(kBlue)
-    leggy.AddEntry( signal, 'tttt', 'l')
-    signal.Draw("SAME HIST ")
-
-
-    leggy.Draw()
-
-    # canvy.SaveAs(outDir+"{2}{0}{1}.png".format(region,savePost,name))
-    canvy.SaveAs( outDir+"{}_{}_{}.png".format(region,name, plotNameEtra) )
-
-    canvy.cd()
 
 def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = ""):
     '''
@@ -273,9 +203,11 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
+    setTDRStyle()
     canvasName = '{}_{}'.format( region, name )
-    stack = THStack( canvasName, canvasName )
+    
     canvy = TCanvas( canvasName, canvasName, 1000,800)
+    stack = THStack( canvasName, canvasName )
     
     #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     leggy = TLegend(0.8,0.6,0.95,0.9)
@@ -320,7 +252,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
-        nominal[i].GetXaxis().SetTitle(name)
+        # nominal[i].GetXaxis().SetTitle(name)
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         # if i == "qcd": continue #special treatment to data driven bg
         #???need systsUp and systsDown calculation
@@ -419,7 +351,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.Draw()
     
     #copied from global     
-    setTDRStyle()
     latex = TLatex()
     latex.SetNDC()
     latex.SetTextAlign(31)
