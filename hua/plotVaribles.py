@@ -257,8 +257,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #get the uncertainty for stack MC
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
-
-
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
 

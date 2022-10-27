@@ -5,9 +5,9 @@ from unicodedata import east_asian_width
 import numpy as np
 import ROOT
 import usefulFunc as uf
-# from cv2 import sqrt
 from ttttGlobleQuantity import summedProcessList
 
+from setTDRStyle import setTDRStyle
 from writeCSVforEY import getSummedHists
 
 
@@ -225,6 +225,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion):
 
 
 def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
+    setTDRStyle()
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
 

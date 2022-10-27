@@ -436,8 +436,8 @@ public:
     TTreeReaderArray<Double_t> tausF_jetPt = {fReader, "tausF_jetPt"};
     TTreeReaderArray<Double_t> tausT_jetEta = {fReader, "tausT_jetEta"};
     TTreeReaderArray<Double_t> tausF_jetEta = {fReader, "tausF_jetEta"};
-    TTreeReaderArray<Bool_t> tausT_charge = {fReader, "tausT_charge"};
-    TTreeReaderArray<Bool_t> tausF_charge = {fReader, "tausF_charge"};
+    TTreeReaderArray<Int_t> tausT_charge = {fReader, "tausT_charge"};
+    TTreeReaderArray<Int_t> tausF_charge = {fReader, "tausF_charge"};
     TTreeReaderArray<Double_t> tausT_neutralIso = {fReader, "tausT_neutralIso"};
     TTreeReaderArray<Double_t> tausF_neutralIso = {fReader, "tausF_neutralIso"};
 

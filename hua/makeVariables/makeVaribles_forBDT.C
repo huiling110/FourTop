@@ -341,7 +341,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausT_1phi = tausT[0].Phi();
 		tausT_1decayMode = tausT_decayMode[0];
 		tausT_1jetPt = tausT_jetPt[0];
-		// tausT_1jetEta = tausT_jetEta[0];
+		tausT_1jetEta = tausT_jetEta[0];
 		tausT_1charge = tausT_charge[0];
 		tausT_1neutralIso = tausT_neutralIso[0];
 	}
@@ -1247,7 +1247,8 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausF_1jetPt = -99;
 	tausT_1jetEta = -99;
 	tausF_1jetEta = -99;
-	// tausT_1charge
+	tausT_1charge = -99;
+	tausF_1charge = -99;
 	tausL_1pt = -99;
 	tausL_1eta = -99;
 	tausL_1etaAbs = -99;
