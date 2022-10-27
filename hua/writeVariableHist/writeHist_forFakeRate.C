@@ -182,6 +182,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
+	vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
 	// FR weighted

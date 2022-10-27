@@ -158,6 +158,7 @@ public:
    TTreeReaderValue<Double_t> tausL_1pt = {fReader, "tausL_1pt"};
    TTreeReaderValue<Double_t> tausL_1eta = {fReader, "tausL_1eta"};
    TTreeReaderValue<Double_t> tausL_1etaAbs = {fReader, "tausL_1etaAbs"};
+   TTreeReaderValue<Double_t> tausF_1jetEtaAbs = {fReader, "tausF_1jetEtaAbs"};
    TTreeReaderValue<Double_t> tausT_1eta = {fReader, "tausT_1eta"};
    TTreeReaderValue<Double_t> tausT_1phi = {fReader, "tausT_1phi"};
    TTreeReaderValue<Double_t> tausT_2pt = {fReader, "tausT_2pt"};
