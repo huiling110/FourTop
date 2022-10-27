@@ -13,23 +13,6 @@ from plotForFakeRate import (getFRAndARNotTList, getFTFromLNotTData,
 from setTDRStyle import setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
-setTDRStyle()
-latex = TLatex()
-latex.SetNDC()
-latex.SetTextAlign(31)
-
-cmsTextFont = 61
-extraTextFont = 52
-
-latex2 = TLatex();
-latex2.SetNDC();
-latex2.SetTextSize(0.04);
-latex2.SetTextAlign(31);
-
-cmsText = "CMS"
-extraText = "Preliminary"
-
-
 colourPerSample = {
     'tttt':kPink-9,
     'tt': kRed-4,
@@ -433,8 +416,25 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     
     
-    
     leggy.Draw()
+    
+    #copied from global     
+    setTDRStyle()
+    latex = TLatex()
+    latex.SetNDC()
+    latex.SetTextAlign(31)
+
+    cmsTextFont = 61
+    extraTextFont = 52
+
+    latex2 = TLatex();
+    latex2.SetNDC();
+    latex2.SetTextSize(0.04);
+    latex2.SetTextAlign(31);
+
+    cmsText = "CMS"
+    extraText = "Preliminary"
+    
     latex.SetTextSize(0.04)
     latex.SetTextFont(cmsTextFont)
     latex.DrawLatex(0.23, 0.95, cmsText )
