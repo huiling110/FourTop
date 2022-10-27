@@ -265,7 +265,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     Int_t tauTES = 0; //
     SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_jetEta, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
     SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_jetEta, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
-    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausL_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
+    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
     // SelectTaus(tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 1);
     // SelectTaus(tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 2);
     sort(tausT.begin(), tausT.end(), compEle);
