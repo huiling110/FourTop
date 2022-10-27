@@ -190,6 +190,8 @@ public:
     Int_t tausT_1decayMode = -99;
     Double_t tausT_1jetPt = -99.0;
     Double_t tausF_1jetPt = -99.0;
+    Double_t tausT_1jetEta = -99.0;
+    Double_t tausF_1jetEta = -99.0;
     Int_t tausT_1charge = 0;
     Int_t tausF_1charge = 0;
     Double_t tausT_1neutralIso = -99.0;
@@ -432,6 +434,8 @@ public:
     TTreeReaderArray<Int_t> tausF_genPartFlav = {fReader, "tausF_genPartFlav"};
     TTreeReaderArray<Double_t> tausT_jetPt = {fReader, "tausT_jetPt"};
     TTreeReaderArray<Double_t> tausF_jetPt = {fReader, "tausF_jetPt"};
+    TTreeReaderArray<Double_t> tausT_jetEta = {fReader, "tausT_jetEta"};
+    TTreeReaderArray<Double_t> tausF_jetEta = {fReader, "tausF_jetEta"};
     TTreeReaderArray<Bool_t> tausT_charge = {fReader, "tausT_charge"};
     TTreeReaderArray<Bool_t> tausF_charge = {fReader, "tausF_charge"};
     TTreeReaderArray<Double_t> tausT_neutralIso = {fReader, "tausT_neutralIso"};
