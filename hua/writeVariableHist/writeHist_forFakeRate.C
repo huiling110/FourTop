@@ -178,6 +178,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
 	histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
+	histsForRegions<Double_t> tausL_1etaAbs_class{"tausF_1jetEtaAbs", 23, 0, 2.3, tausF_1jetEtaAbs};
 	vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
 	vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
