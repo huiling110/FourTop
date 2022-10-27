@@ -205,18 +205,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     print( 'start plotting data/mc plot for {}'.format(name))
     setTDRStyle()
     canvasName = '{}_{}'.format( region, name )
-    
     canvy = TCanvas( canvasName, canvasName, 1000,800)
-    stack = THStack( canvasName, canvasName )
     
-    #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    leggy = TLegend(0.8,0.6,0.95,0.9)
-    leggy.SetFillStyle(1001)
-    leggy.SetBorderSize(1)
-    leggy.SetFillColor(0)
-    leggy.SetLineColor(0)
-    leggy.SetShadowColor(0)
-    leggy.SetFillColor(kWhite)
 
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.3)
@@ -275,13 +265,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
 
 
-    if "data" in nominal.keys():
-        leggy.AddEntry(nominal['data'],"Data","p")
-    for entry in legendOrder:
-        leggy.AddEntry(nominal[entry],entry,"f")
-    leggy.AddEntry(assymErrorPlot,"totalUncer","f")
-
+    #add bgs for stack
     legendOrder.reverse()
+    stack = THStack( canvasName, canvasName )
     for entry in legendOrder:
         stack.Add(nominal[entry])
         # print( 'ientry integral: ', nominal[entry].Integral() )
@@ -348,6 +334,20 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     
     
+    #legend
+    #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
+    leggy = TLegend(0.8,0.6,0.95,0.9)
+    leggy.SetFillStyle(1001)
+    leggy.SetBorderSize(1)
+    leggy.SetFillColor(0)
+    leggy.SetLineColor(0)
+    leggy.SetShadowColor(0)
+    leggy.SetFillColor(kWhite)
+    if "data" in nominal.keys():
+        leggy.AddEntry(nominal['data'],"Data","p")
+    for entry in legendOrder:
+        leggy.AddEntry(nominal[entry],entry,"f")
+    leggy.AddEntry(assymErrorPlot,"totalUncer","f")
     leggy.Draw()
     
     #copied from global     
