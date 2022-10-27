@@ -210,7 +210,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy = TCanvas( canvasName, canvasName, 1000,800)
     
     canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.3)
+    if includeDataInStack: canvy.SetBottomMargin(0.3)#set margion for ratio plot
 
 
     doSystmatic = True
@@ -241,6 +241,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
+        nominal[i].GetXaxis().SetLabelSize(0.01)
         # nominal[i].GetXaxis().SetTitle(name)
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         #???need systsUp and systsDown calculation
@@ -269,16 +270,15 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     for entry in legendOrder:
         stack.Add(nominal[entry])
     legendOrder.reverse()
-
-
     maxi = stack.GetMaximum()
     if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
     if (maxi-dataHist.GetBinContent(dataHist.GetNbinsX()))/maxi < 0.6:
         maxi = maxi*1.5
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
+    stack.GetXaxis().SetLabelSize(0.0)
 
-    dataHist.Print()
+    # dataHist.Print()
     # if includeDataInStack: dataHist.Draw("e1x0 same")
     if includeDataInStack: dataHist.Draw("e0 same")
 
@@ -347,31 +347,25 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.AddEntry(assymErrorPlot,"totalUncer","f")
     leggy.Draw()
     
-    #copied from global     
+    #text above the plot     
     latex = TLatex()
     latex.SetNDC()
     latex.SetTextAlign(31)
-
     cmsTextFont = 61
     extraTextFont = 52
-
     latex2 = TLatex();
     latex2.SetNDC();
     latex2.SetTextSize(0.04);
     latex2.SetTextAlign(31);
-
     cmsText = "CMS"
     extraText = "Preliminary"
-    
     latex.SetTextSize(0.04)
     latex.SetTextFont(cmsTextFont)
-    latex.DrawLatex(0.23, 0.95, cmsText )
-    
+    latex.DrawLatex(0.23, 0.96, cmsText )
     latex.SetTextFont(extraTextFont)
     latex.SetTextSize(0.04*0.76)
-    latex.DrawLatex(0.35, 0.95 , extraText )
-    
-    latex2.DrawLatex(0.95, 0.95, '35.9 fb^{-1}(13TeV) ' );
+    latex.DrawLatex(0.35, 0.96 , extraText )
+    latex2.DrawLatex(0.95, 0.96, '35.9 fb^{-1}(13TeV) ' );
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     print( 'done plotting data/mc plot for {}\n'.format(name))
