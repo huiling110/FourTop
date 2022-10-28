@@ -258,7 +258,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         # nominal[i].GetXaxis().SetTitle(name)
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         #???need systsUp and systsDown calculation
-        if doSystmatic and (not systHists[i]):
+        if doSystmatic and  systHists[i]:
             # tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] ) #for i process
             tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
             systsUp.Add(tempUp) #adding various processes, 
@@ -437,21 +437,20 @@ def getSystVariation(nominalHist,systHists):
     for systHi in systHists.keys():
     #systHi is 'up' or 'down' for varias sources
     #so this is to sum the sytstmatic variation for sources of systematic uncertainty
-        print( systHi )
-        if "bTag" in systHi: continue
+        print( 'doing sytematic calculation for: ',systHi )
+        # if "bTag" in systHi: continue
         syst = systHists[systHi].Clone()
         syst.Add(nominalHist,-1)
-        syst.Divide(nominalHist)
+        # syst.Divide(nominalHist)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
-            # print( "{0}: {1:.1f} ({2:.1f} - {3:.1f})".format(i, 100*syst.GetBinContent(i),systHists[systHi].GetBinContent(i),nominalHist.GetBinContent(i)) )
             if "up" in syst.GetName():
                 # print( 'sytHistUp: ', systHistUp.GetBinContent() )
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
-    for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
-        systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
-        systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
+    # for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
+        # systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
+        # systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
         #no need to divide and multiply
         #???should not be root sqaure of sigma since later we need to add the sigma varias process
 
@@ -490,8 +489,10 @@ def getSystVariation_my(nominalHist,systHists):
 
 def addStatisticUncer(sumHist, systsUp, systsDown ):
     for i in range(1,sumHist.GetXaxis().GetNbins()+1):
-        systsUp.SetBinContent(i, math.sqrt( systsUp.GetBinContent(i)*systsUp.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
-        systsDown.SetBinContent(i, math.sqrt( systsDown.GetBinContent(i)*systsDown.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+        # systsUp.SetBinContent(i, math.sqrt( systsUp.GetBinContent(i)*systsUp.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+        # systsDown.SetBinContent(i, math.sqrt( systsDown.GetBinContent(i)*systsDown.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+        systsUp.SetBinContent(i, math.sqrt( systsUp.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
+        systsDown.SetBinContent(i, math.sqrt( systsDown.GetBinContent(i) + sumHist.GetBinError(i)*sumHist.GetBinError(i) ) )
     return systsUp,systsDown
 
 
