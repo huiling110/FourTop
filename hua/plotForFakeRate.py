@@ -18,31 +18,32 @@ def main():
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    histVersion = 'variableHists_v0forFakeRate'
+    # histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    etaBins = np.array([0. ,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1,1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8,1.9, 2.0,2.1,2.2,2.3, 2.4 ]) 
+    # etaBins = np.array([0. ,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1,1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8,1.9, 2.0,2.1,2.2,2.3, 2.4 ]) 
     # etaBins = np.array([0. , 0.2,  0.4,  0.6,  0.8, 1.0, 1.2, 1.4,  1.6, 1.8, 2.0, ,2.2, 2.4 ]) 
     variableDic = {
         # 'tausL_1pt': ptBins,
-        # 'tausF_1jetPt': ptBins,
-        'tausF_1jetEtaAbs' : etaBins 
+        'tausF_1jetPt': ptBins,
+        # 'tausF_1jetEtaAbs' : etaBins 
     }
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
         
     
-    isVR = True
-    # isVR = False
+    # isVR = True
+    isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -187,8 +188,8 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     
     
 def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True):
-    # etaList = ['_Eta1', '_Eta2', '_Eta3']
-    etaList = ['']
+    etaList = ['_Eta1', '_Eta2', '_Eta3']
+    # etaList = ['']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:

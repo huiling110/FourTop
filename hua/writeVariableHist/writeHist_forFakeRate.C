@@ -353,7 +353,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
 	// Bool_t isEta3 = 1.6 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.3;
-	Bool_t isEta4 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
+	Bool_t isEta3 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
 
 	if (!m_isData)
 	{

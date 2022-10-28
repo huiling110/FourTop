@@ -49,7 +49,8 @@ def main():
     # version = 'v2forFRVariables'
     # version = 'v2forFRVariables_finerPtBin'
     # version = 'v0forFakeRate'
-    version = 'v0forFakeRateRepeat'
+    # version = 'v0forFakeRateRepeat'
+    version = 'v1forFREtaRegionCorrected'
     justMC = False
     # justMC = True
     isTest = 0

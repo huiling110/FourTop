@@ -73,8 +73,8 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
@@ -112,6 +112,7 @@ def main():
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
     sumProcessPerVarSys = {}
+    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
@@ -202,6 +203,8 @@ def checkHists( histsDict ):
 def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = ""):
     '''
     nominal is a dic of distribution for all processes including data
+    nominal: nominal[iprocess]
+    sysHists: sysHists[iprocess]['prefiring_up']
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
@@ -210,7 +213,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy = TCanvas( canvasName, canvasName, 1000,800)
     
     canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.3)#set margion for ratio plot
+    if includeDataInStack: canvy.SetBottomMargin(0.4)#set margion for ratio plot
 
 
     doSystmatic = True
