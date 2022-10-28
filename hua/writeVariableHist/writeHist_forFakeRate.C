@@ -206,7 +206,19 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lSRNotGen",
 		"1tau0lSRLTauNotT_Weighted",	// 13
 		"1tau0lSRLTauNotTGen_Weighted", // 14
+		// FR uncertainty variation
+		"1tau0lCRLTauNotT_Weighted_up",		 // 15
+		"1tau0lCRLTauNotT_Weighted_down",	 // 16
+		"1tau0lCRLTauNotTGen_Weighted_up",	 //
+		"1tau0lCRLTauNotTGen_Weighted_down", //
+		"1tau0lVRLTauNotT_Weighted_up",		 //
+		"1tau0lVRLTauNotT_Weighted_down",	 //
+		"1tau0lVRLTauNotTGen_Weighted_up",	 //
+		"1tau0lVRLTauNotTGen_Weighted_down", //
+
 	};
+	// systematic regions
+	// how the pileup weighting impact?, only impact MC, don't concern fake tau
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
@@ -291,9 +303,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
+	// TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
+	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
-	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
+	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
 }
 
@@ -315,7 +328,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// for prong division
 	// if (!(*tausF_prongNum == 1))
 	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
-	// return kFALSE;
+	// {
+	// 	return kFALSE;
+	// }
 
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
@@ -433,6 +448,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		// FR variation
 
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);

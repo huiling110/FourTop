@@ -23,7 +23,8 @@ def main():
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected_3prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -43,7 +44,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -52,7 +53,7 @@ def main():
     
 
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
-    etaBins = np.array([0, 0.8,1.6,2.3])
+    etaBins = np.array([0, 0.8,1.6,2.4])
     
     # outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
     outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG_newBin.root'

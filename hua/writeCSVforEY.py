@@ -168,6 +168,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' ):
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
+    sumProcessHistsDictSys = {}
     mcFileList = os.listdir( inputDir['mc'] )
     dataFileList = os.listdir ( inputDir['data'] )
 
