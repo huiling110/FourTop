@@ -215,7 +215,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauNotT_Weighted_down",	 // 16
 		"1tau0lCRLTauNotTGen_Weighted_up",	 //
 		"1tau0lCRLTauNotTGen_Weighted_down", //
-		"1tau0lVRLTauNotT_Weighted_up",		 //
+		"1tau0lVRLTauNotT_Weighted_up",		 // 19
 		"1tau0lVRLTauNotT_Weighted_down",	 //
 		"1tau0lVRLTauNotTGen_Weighted_up",	 //
 		"1tau0lVRLTauNotTGen_Weighted_down", //
@@ -223,10 +223,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	};
 	// systematic regions
 	// how the pileup weighting impact?, only impact MC, don't concern fake tau
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 500, 1500, jets_HT};
-	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 500, jets_1pt};
-	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
-	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", 14, 100, 1500, jets_HT};
+	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 25, 500, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 25, 600, jets_2pt};
+	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 25, 500, jets_3pt};
 	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
@@ -406,13 +406,17 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 
 		// AR FR weighted
-		//???how to deal with the uncertainty of FR???
 		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 8, basicWeight, vectorOfVariblesRegions_FRweighted);
+		// FR uncertainty variation
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 
 		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweightedInt);
@@ -420,6 +424,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		// FR uncertainty variation
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
 		// SR
 		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweighted);
@@ -454,11 +463,20 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		// FR variation
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		// FR variation
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
 		// SR not for data in SR
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
