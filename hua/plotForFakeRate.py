@@ -268,6 +268,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
     legend.AddEntry(h_efficiency, "FR")
     legend.Draw()
+    
+    addCMSTextToCan(can)
 
     can.SaveAs(plotName)
 

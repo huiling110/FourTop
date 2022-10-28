@@ -94,5 +94,25 @@ def setTDRStyle() :
 
   tdrStyle.cd()
 
+def addCMSTextToCan(canvas):
+    can = canvas 
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextAlign(31)
+    cmsTextFont = 61
+    extraTextFont = 52
+    latex2 = ROOT.TLatex()
+    latex2.SetNDC()
+    latex2.SetTextSize(0.04)
+    latex2.SetTextAlign(31)
+    cmsText = "CMS"
+    extraText = "Preliminary"
+    latex.SetTextSize(0.04)
+    latex.SetTextFont(cmsTextFont)
+    latex.DrawLatex(0.23, 0.96, cmsText )
+    latex.SetTextFont(extraTextFont)
+    latex.SetTextSize(0.04*0.76)
+    latex.DrawLatex(0.35, 0.96 , extraText )
+    latex2.DrawLatex(0.95, 0.96, '35.9 fb^{-1}(13TeV) ' )
 
 
