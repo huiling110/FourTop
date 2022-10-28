@@ -316,6 +316,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         ratioCanvy.cd(0)
         SetOwnership(ratioCanvy,False)
 
+        print( 'hist title: ', dataHist.GetTitle())
         sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
         sumHistoData.Sumw2()
         sumHistoData.Divide(sumHist)
@@ -329,7 +330,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         sumHistoData.GetXaxis().SetTitle(name)
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
-        print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
+        # print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.03)
         sumHistoData.Draw("E1X0")
@@ -411,12 +412,6 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
                 #???set to 0 by me
                 eyl.append(0)
                 eyh.append(0)
-    # print(x)
-    # print(y)
-    # print(exl)
-    # print(exh)
-    # print(eyl)
-    # print(eyh)
     errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
     return errors
 
@@ -428,7 +423,6 @@ def getSystVariation(nominalHist,systHists):
     '''
     #here the input nominalHist and systHists are for one summed process
     # systHists include 'up' and 'down' for varias sources, but it's just for one process
-    #???the calculation seems wrong
     systHistUp = nominalHist.Clone("up")
     systHistDown = nominalHist.Clone("down")
     systHistUp.Reset()
@@ -452,7 +446,6 @@ def getSystVariation(nominalHist,systHists):
         # systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
         # systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
         #no need to divide and multiply
-        #???should not be root sqaure of sigma since later we need to add the sigma varias process
 
     return systHistUp,systHistDown
 
