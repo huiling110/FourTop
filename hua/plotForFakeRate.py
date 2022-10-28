@@ -18,20 +18,20 @@ def main():
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    # histVersion = 'variableHists_v0forFakeRate'
+    histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
-    histVersion = 'variableHists_v2forFRVariables'
+    # histVersion = 'variableHists_v2forFRVariables'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     etaBins = np.array([0.,  0.4, 0.8, 1.2, 1.6, 2.0, 2.4 ]) 
     variableDic = {
-        'tausL_1pt': ptBins,
+        # 'tausL_1pt': ptBins,
         # 'tausF_1jetPt': ptBins,
-        # 'tausF_1jetEtaAbs' : etaBins 
+        'tausF_1jetEtaAbs' : etaBins 
     }
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
