@@ -178,16 +178,15 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
-	/*
-		histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 28, 20, 300, tausL_1pt};
-		histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
-		histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", 23, 0, 2.3, tausL_1etaAbs};
-		histsForRegions<Double_t> tausF_1jetEtaAbs_class{"tausF_1jetEtaAbs", 24, 0, 2.4, tausF_1jetEtaAbs};
-		vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
-		vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
-		vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
-		vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
-		/*/
+
+	// histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 28, 20, 300, tausL_1pt};
+	histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", "tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
+	// histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", "" 23, 0, 2.3, tausL_1etaAbs};
+	histsForRegions<Double_t> tausF_1jetEtaAbs_class{"tausF_1jetEtaAbs", "eta of tau", 24, 0, 2.4, tausF_1jetEtaAbs};
+	// vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
+	// vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
+	vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
 	// FR weighted
@@ -225,49 +224,47 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// systematic regions
 	// how the pileup weighting impact?, only impact MC, don't concern fake tau
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 14, 100, 1500, jets_HT};
-	// histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 25, 500, jets_1pt};
-	// histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 25, 600, jets_2pt};
-	// histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 25, 500, jets_3pt};
-	// histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
-	// histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
-	// histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
-	// histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
-	// histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
-	// histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", 28, 20, 300, tausL_1pt};
-	// histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", 10, 0, 2.3, tausL_1etaAbs};
-	// histsForRegions<Double_t> Met_pt_class{"Met_pt", 10, 0, 200, Met_pt_};
-	// histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", 28, 20, 300, tausF_1jetPt};
+	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 25, 500, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 25, 600, jets_2pt};
+	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 25, 500, jets_3pt};
+	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
+	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
+	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
+	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jet pt", 10, 25, 300, bjetsM_1pt};
+	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
+	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
+	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading fake tau \eta", 10, 0, 2.3, tausL_1etaAbs};
+	histsForRegions<Double_t> Met_pt_class{"Met_pt", "Met", 10, 0, 200, Met_pt_};
+	histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
 	// histsForRegions<Double_t>{};
-	// histsForRegions<Int_t> tausL_prongNum_class{"tausL_prongNum", 3, 1, 4, tausL_prongNum};
-	// histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", 3, 1, 4, tausF_prongNum};
-	// histsForRegions<Int_t> tausF_charge_class{"tausF_charge", 2, 0, 2, tausF_1charge}; //???
-	// histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", 11, 0, 11, tausF_1decayMode};
-	// histsForRegions<Int_t> jets_num_class{"jets_num", 6, 6, 12, jets_number};
-	// histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", 5, 0, 5, bjetsM_num};
-	// histsForRegions<Int_t> PV_npvs_class{"PV_npvs", 50, 0, 50, PV_npvs};
+	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};
+	histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "charge of leading ta", 2, 0, 2, tausF_1charge}; //???
+	histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "decay mode of leading fake tau", 11, 0, 11, tausF_1decayMode};
+	histsForRegions<Int_t> jets_num_class{"jets_num", "number of jets", 6, 6, 12, jets_number};
+	histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", "number of bjets", 5, 0, 5, bjetsM_num};
+	histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of primary vertex", 50, 0, 50, PV_npvs};
 	vectorOfVariblesRegions_FRweighted.clear();
 	vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class); //!!!no need to scale to lumilosity! only data regions!
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_1pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_2pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_3pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_4pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_5pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(jets_6pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(bjetsM_1pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(tausT_1pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(tausL_1ptFR_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
-	// vectorOfVariblesRegions_FRweighted.push_back(tausF_1jetPtFR_class);
-	// // vectorOfVariblesRegions_FRweighted.push_back();
-	// vectorOfVariblesRegions_FRweightedInt.clear();
-	// vectorOfVariblesRegions_FRweightedInt.push_back(tausL_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
-	// vectorOfVariblesRegions_FRweightedInt.push_back(tausF_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
-	// vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
-	// vectorOfVariblesRegions_FRweightedInt.push_back(bjetsM_num_class);
-	// vectorOfVariblesRegions_FRweightedInt.push_back(tausF_charge_class);
-	// vectorOfVariblesRegions_FRweightedInt.push_back(tausF_1decayMode_class);
-	// vectorOfVariblesRegions_FRweightedInt.push_back(PV_npvs_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_2pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_3pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_4pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_5pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(jets_6pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(bjetsM_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausT_1pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausL_1ptFR_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
+	vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
+	vectorOfVariblesRegions_FRweighted.push_back(tausF_1jetPtFR_class);
+	// vectorOfVariblesRegions_FRweighted.push_back();
+	vectorOfVariblesRegions_FRweightedInt.clear();
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_prongNum_class); //!!!no need to scale to lumilosity! only data regions!
+	vectorOfVariblesRegions_FRweightedInt.push_back(jets_num_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(bjetsM_num_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_charge_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(tausF_1decayMode_class);
+	vectorOfVariblesRegions_FRweightedInt.push_back(PV_npvs_class);
 	// vectorOfVariblesRegions_FRweightedInt.push_back();
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweighted, regionsForFRWeighting, m_processName);
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweightedInt, regionsForFRWeighting, m_processName);
