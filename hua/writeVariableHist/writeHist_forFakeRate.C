@@ -64,7 +64,7 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 	}
 }
 
-Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong)
+Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
 	// might need error handling for this
 	// Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
@@ -80,21 +80,25 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
 	}
 	Int_t binxNum = FR_TH2D->GetNbinsX();
 	Int_t binyNum = FR_TH2D->GetNbinsY();
-	Double_t FRWeight = FR_TH2D->GetBinContent(binxNum, binyNum);
-	if (taus_1pt > 20 && taus_1pt <= 300)
+	Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
+	Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
+	if (taus_1pt > 20.0 && taus_1pt <= 300.0)
 	{
 
 		Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
 		Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-		Double_t FR = FR_TH2D->GetBinContent(binx, biny);				// not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+		FR = FR_TH2D->GetBinContent(binx, biny);						// not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+		FR_sigma = FR_TH2D->GetBinError(binx, biny);
 		//???need better error handling
 		// if (FR < 0.000001)
 		// {
 		// std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
 		// std::exit(1);
 		// }
-		FRWeight = FR / (1 - FR);
 	}
+	Double_t FRWeight = FR / (1 - FR);
+	FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
+	FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
 	return FRWeight;
 }
 
@@ -341,8 +345,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// std::cout << "met=" << *Met_pt_ << "\n";//???
 
 	// Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
-	Double_t FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong);
-	// std::cout <u "FRWeight=" << FRWeight << "\n";
+	Double_t FRWeight_up, FRWeight_down;
+	Double_t FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+	// std::cout << "FRWeight=" << FRWeight << "; FR_up=" << FRWeight_up << " FR_down=" << FRWeight_down << "\n";
 
 	// Bool_t isTauLNum = *tausL_number == 1;
 	// Bool_t isTauLNumGen = *tausL_genTauNum == 1;
