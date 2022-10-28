@@ -168,7 +168,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauGen",
 		"1tau0lVRGen",	   // 9
 		"1tau0lVRLTauGen", // 10
-		"1tau0lVRLTauNotTgen",
+		"1tau0lVRLTauNotTGen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
 	};
