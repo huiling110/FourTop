@@ -48,18 +48,16 @@ def main():
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
-    inVersion = 'v1fixedTauVariables_v39addTauBranches'
+    # inVersion = 'v1fixedTauVariables_v39addTauBranches'
+    inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # histVersion = 'variableHists_v1variables'
-    # histVersion = 'variableHists_v1variablesUsingMyclass'
-    # histVersion = 'variableHists_v2addingPileupWeight'
-    # histVersion = 'variableHists_v3pileUpAndNewRange'
-    # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
     # histVersion = 'variableHists_v9addMoreVariables'
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
     # histVersion = 'variableHists_v12moreVariables'
-    histVersion = 'variableHists_v2forFRVariables_finerPtBin'
+    # histVersion = 'variableHists_v2forFRVariables_finerPtBin'
+    histVersion  = 'v3forFRaddFRWeightUpDownRegions'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
@@ -82,7 +80,14 @@ def main():
     # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
     plotName = 'dataVsMC_fakeTauFromData'
 
-
+    systematcList = ['Weighted'] #'Weighted for FR
+    ifFR_sys = True
+    
+    if ifFR_sys:
+        regionList.append(regionList[3]+'_up')
+        regionList.append(regionList[3]+'_down')
+        regionList.append(regionList[4]+'_up')
+        regionList.append(regionList[4]+'_down')
 
 
     inputDirDic = getInputDic(inVersion, histVersion, era)
@@ -93,6 +98,8 @@ def main():
     print( sumProcessPerVar )
 
 
+    sumProcessPerVarSys = {}
+    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     # legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     hasFakeTau = False
@@ -101,7 +108,7 @@ def main():
             hasFakeTau = True
     if hasFakeTau:
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2 )
+            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys  )
             # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
         legendOrder.insert(0, 'fakeTau')
@@ -111,8 +118,6 @@ def main():
     plotDir = inputDirDic['mc']+'results/'
     if not os.path.exists( plotDir ):
         os.mkdir( plotDir )
-    sumProcessPerVarSys = {}
-    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
@@ -125,7 +130,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=0):
+def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=0, ifFR_syst=False, sumProcessIvarSys={}):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue
@@ -157,6 +162,11 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
          #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
         sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[3], regionList[4]) 
         # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
+        #FR sytematic
+        if ifFR_syst:
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_up'] = histDateMinusGenBG( var, sumProcessIVar, regionList[5], regionList[7] ) 
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIVar, regionList[6], regionList[8] ) 
+        
     #fake tau come from data
     for ibin in range(sumProcessIvar[regionList[0]]['fakeTau'].GetNbinsX()):
         sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
@@ -249,9 +259,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         sumHist.Add(nominal[i]) #sumHist is bg+signal
         #???need systsUp and systsDown calculation
         if doSystmatic:
-            tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] )
+            tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] ) #for i process
             # tempUp,tempDown = getSystVariation(nominal[i],systHists[i],i,region, doSystmatic )
-            systsUp.Add(tempUp)
+            systsUp.Add(tempUp) #adding various processes, 
             systsDown.Add(tempDown)
 
     #add sytematic uncertainty
@@ -412,7 +422,10 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
 
 
 def getSystVariation(nominalHist,systHists,sampleName,region):
-    # to calculate the total sysHistUp and down
+    '''
+    # to calculate the total sysHistUp and down for one process from variaus uncertainty source
+    sysHistUp and systHistDown bincontent is the sigma_total for each bin from various sources
+    '''
     #here the input nominalHist and systHists are for one summed process
     # systHists include 'up' and 'down' for varias sources, but it's just for one process
     #???the calculation seems wrong
@@ -439,6 +452,8 @@ def getSystVariation(nominalHist,systHists,sampleName,region):
     for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
         systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
         systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
+        #no need to divide and multiply
+        #???should not be root sqaure of sigma since later we need to add the sigma varias process
 
     return systHistUp,systHistDown
 
@@ -454,7 +469,7 @@ def getSystVariation_my(nominalHist,systHists):
     systHistDown.Reset()
 
     for systHi in systHists.keys():
-    #systHi is 'up' or 'down' for varias sources
+    #systHi is 'up' or 'down' for varias sources for this process
     #so this is to sum the systematic variation for sources of systematic uncertainty
         print( systHi )
         if "bTag" in systHi: continue

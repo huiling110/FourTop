@@ -37,9 +37,6 @@ def main():
     # version = 'v3pileUpAndNewRange'
     # version = 'v4forFakeRate'
     # version = 'v5forFakeRateEtaDivided'
-    # version = 'v6forFakeRate3EtaRegions'
-    # version = 'v8addFRWeightedRegionsNew'
-    # version = 'v9addMoreVariables'
     # version = 'v10ExpandingTauPtRange'
     # version = 'v12moreVariables'
     # version = 'v0forFakeRate'
@@ -53,7 +50,8 @@ def main():
     # version = 'v1forFREtaRegionCorrected'
     # version = 'v1forFREtaRegionCorrected_1prong'
     # version = 'v1forFREtaRegionCorrected_3prong'
-    version = 'v2forFRforVariables'
+    # version = 'v2forFRforVariables'
+    version = 'v3forFRaddFRWeightUpDownRegions'
     justMC = False
     # justMC = True
     isTest = 0

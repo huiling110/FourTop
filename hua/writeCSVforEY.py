@@ -188,14 +188,16 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         # iRootFile.ls()
         for iRegion in regionsList:
             iHistName = iRegion + '_' + ifileName + '_' + variable
-            # iHistForNotExsting = iRegion + '_' + ifileName + '_eventCount'
-            if iRegion not in sumProcessHistsDict.keys(): sumProcessHistsDict[iRegion]={}
+            if iRegion not in sumProcessHistsDict.keys(): 
+                sumProcessHistsDict[iRegion]={}
+                sumProcessHistsDictSys[iRegion]={}
             print('iHistName: ', iHistName )
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
+                sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
             else:
                 itemp = iRootFile.Get( iHistName)
                 itemp.Scale(iProScale)
@@ -205,7 +207,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         iRootFile.Close()
         print( '\n')
 
-    return sumProcessHistsDict
+    return sumProcessHistsDict, sumProcessHistsDictSys
 
 
 def getProcessScale( processName, era ):
