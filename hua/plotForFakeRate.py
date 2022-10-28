@@ -27,7 +27,8 @@ def main():
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    etaBins = np.array([0.,  0.4, 0.8, 1.2, 1.6, 2.0, 2.4 ]) 
+    etaBins = np.array([0. ,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1,1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8,1.9, 2.0,2.1,2.2,2.3, 2.4 ]) 
+    # etaBins = np.array([0. , 0.2,  0.4,  0.6,  0.8, 1.0, 1.2, 1.4,  1.6, 1.8, 2.0, ,2.2, 2.4 ]) 
     variableDic = {
         # 'tausL_1pt': ptBins,
         # 'tausF_1jetPt': ptBins,
@@ -233,14 +234,17 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
 
     # h_dinominator.SetTitle("FR ")
     h_dinominator.SetLineColor(ROOT.kOrange)
-    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
+    # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
+    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    
     h_dinominator.Draw()
     h_numeritor.SetLineColor(ROOT.kMagenta-4)
     h_numeritor.Draw('same')
     can.Update()
 
     h_efficiency = h_eff.Clone()
-    rightmax = 1.1*h_efficiency.GetMaximum();
+    # rightmax = 1.1*h_efficiency.GetMaximum();
+    rightmax = 1.5*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(2)
@@ -250,8 +254,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
     
-    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(),
-        ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    # axis.SetRangeUser(0, rightmax*1.4)
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
     axis.Draw()

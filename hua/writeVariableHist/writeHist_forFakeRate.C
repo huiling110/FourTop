@@ -350,10 +350,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 	fillHistsVector(is1tau0lVRLTauNotT, 5, basicWeight);
 
-	Bool_t isEta1 = 0 < *tausL_1etaAbs && *tausL_1etaAbs <= 0.8;
-	Bool_t isEta2 = 0.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 1.6;
-	Bool_t isEta3 = 1.6 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.3;
-	// Bool_t isEta4 = 1.8 < *tausL_1etaAbs && *tausL_1etaAbs <= 2.4;
+	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
+	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
+	// Bool_t isEta3 = 1.6 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.3;
+	Bool_t isEta4 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
 
 	if (!m_isData)
 	{

@@ -48,7 +48,8 @@ def main():
     # version = 'v1forFRSwitchToTauJetPt_3prong'
     # version = 'v2forFRVariables'
     # version = 'v2forFRVariables_finerPtBin'
-    version = 'v0forFakeRate'
+    # version = 'v0forFakeRate'
+    version = 'v0forFakeRateRepeat'
     justMC = False
     # justMC = True
     isTest = 0
