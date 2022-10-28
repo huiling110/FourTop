@@ -57,7 +57,8 @@ def main():
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
     # histVersion = 'variableHists_v12moreVariables'
     # histVersion = 'variableHists_v2forFRVariables_finerPtBin'
-    histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
+    # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
+    histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
@@ -223,7 +224,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy = TCanvas( canvasName, canvasName, 1000,800)
     
     canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.4)#set margion for ratio plot
+    if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
 
 
     doSystmatic = True
@@ -316,18 +317,18 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         ratioCanvy.cd(0)
         SetOwnership(ratioCanvy,False)
 
-        print( 'hist title: ', dataHist.GetTitle())
+        # print( 'hist title: ', dataHist.GetTitle())
         sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
         sumHistoData.Sumw2()
         sumHistoData.Divide(sumHist)
-
         sumHistoData.GetYaxis().SetTitle("Data/MC")
         sumHistoData.GetYaxis().SetTitleOffset(1.3)
         ratioCanvy.cd()
         SetOwnership(sumHistoData,False)
         sumHistoData.SetMinimum(0.8)
         sumHistoData.SetMaximum(1.2)
-        sumHistoData.GetXaxis().SetTitle(name)
+        # sumHistoData.GetXaxis().SetTitle(name)
+        sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
         # print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
