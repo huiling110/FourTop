@@ -61,8 +61,7 @@ def main():
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
-    # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum']
-    # variables = [ 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
+    # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     variables = [ 'tausF_1jetPtFRWeight',]
     
     # variables = ['Met_pt']#???
@@ -289,6 +288,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
+    stack.GetYaxis().SetTitle("Events")
+    stack.GetYaxis().SetTitleOffset(1.3)
+    stack.GetYaxis().SetLabelSize(0.03)
+    stack.GetYaxis().SetTitleSize(0.04)
 
     # dataHist.Print()
     # if includeDataInStack: dataHist.Draw("e1x0 same")
@@ -327,7 +330,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         SetOwnership(sumHistoData,False)
         sumHistoData.SetMinimum(0.8)
         sumHistoData.SetMaximum(1.2)
-        # sumHistoData.GetXaxis().SetTitle(name)
         sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
