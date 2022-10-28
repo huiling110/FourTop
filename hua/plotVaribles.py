@@ -60,9 +60,9 @@ def main():
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    variables = [ 'tausF_1jetPtFRWeight',]
+    # variables = [ 'tausF_1jetPtFRWeight',]
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
@@ -362,16 +362,25 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.AddEntry( signal, 'tttt*1000', 'l')
     leggy.Draw()
     
-    #text above the plot     
+    #text above the plot
+    addCMSTextToCan(canvy)     
+
+    canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
+    print( 'done plotting data/mc plot for {}\n'.format(name))
+    print('\n')
+
+
+def addCMSTextToCan(canvas):
+    can = canvas 
     latex = TLatex()
     latex.SetNDC()
     latex.SetTextAlign(31)
     cmsTextFont = 61
     extraTextFont = 52
-    latex2 = TLatex();
-    latex2.SetNDC();
-    latex2.SetTextSize(0.04);
-    latex2.SetTextAlign(31);
+    latex2 = TLatex()
+    latex2.SetNDC()
+    latex2.SetTextSize(0.04)
+    latex2.SetTextAlign(31)
     cmsText = "CMS"
     extraText = "Preliminary"
     latex.SetTextSize(0.04)
@@ -380,12 +389,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     latex.SetTextFont(extraTextFont)
     latex.SetTextSize(0.04*0.76)
     latex.DrawLatex(0.35, 0.96 , extraText )
-    latex2.DrawLatex(0.95, 0.96, '35.9 fb^{-1}(13TeV) ' );
-
-    canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
-    print( 'done plotting data/mc plot for {}\n'.format(name))
-    print('\n')
-
+    latex2.DrawLatex(0.95, 0.96, '35.9 fb^{-1}(13TeV) ' )
+    
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
