@@ -243,8 +243,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     h_dinominator.GetYaxis().SetTitle('Events')
-    h_dinominator.GetYaxis().SetLabelSize(0.03)
-    h_dinominator.GetYaxis().SetTitleOffset(0.9)
+    h_dinominator.GetYaxis().SetLabelSize(0.025)
+    h_dinominator.GetYaxis().SetTitleOffset(1.1)
     h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
     
     h_dinominator.Draw()
@@ -279,7 +279,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     legend.AddEntry(h_efficiency, "FR")
     legend.Draw()
     
-    addCMSTextToCan(can)
+    addCMSTextToCan(can, 0.18, 0.3, 0.92)
 
     can.SaveAs(plotName)
 
