@@ -307,7 +307,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	// TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/variableHists_v1forFRSwitchToTauJetPt_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
 	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");

@@ -60,9 +60,10 @@ def main():
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = [ 'tausF_1jetPtFRWeight',]
+    variables = ['tausF_charge']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
@@ -281,10 +282,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     for entry in legendOrder:
         stack.Add(nominal[entry])
     legendOrder.reverse()
-    maxi = stack.GetMaximum()
-    if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
-    if (maxi-dataHist.GetBinContent(dataHist.GetNbinsX()))/maxi < 0.6:
-        maxi = maxi*1.5
+    maxi = 1.2* stack.GetMaximum()
+    # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
+    if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
+        maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
@@ -347,7 +348,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
     #legend
     #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    leggy = TLegend(0.8,0.6,0.95,0.9)
+    leggy = TLegend(0.8,0.7,0.9,0.94)
     leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
     leggy.SetFillColor(0)
