@@ -62,8 +62,8 @@ def main():
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    # variables = [ 'tausF_1jetPtFRWeight',]
-    variables = ['tausF_charge']
+    variables = [ 'tausF_1jetPtFRWeight',]
+    # variables = ['tausF_charge']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
@@ -72,9 +72,9 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
@@ -282,8 +282,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     for entry in legendOrder:
         stack.Add(nominal[entry])
     legendOrder.reverse()
-    maxi = 1.2* stack.GetMaximum()
-    # if dataHist.GetMaximum() > stack. GetMaximum(): maxi = dataHist.GetMaximum()
+    # maxi = 1.2* stack.GetMaximum()
+    maxi = 1.2* sumHist.GetMaximum()
     if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
         maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
@@ -303,9 +303,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     signal.Scale(1000)
     signal.SetLineColor(kMagenta)
     signal.SetLineStyle(kSolid)
-    signal.SetLineWidth(2)
-    signal.SetFillStyle(3335)
-    signal.SetFillColor(kMagenta)
+    signal.SetLineWidth(3)
+    signal.SetFillStyle(0)
+    # signal.SetFillColor(kMagenta)
     signal.Draw("SAME HIST ")
     
     
