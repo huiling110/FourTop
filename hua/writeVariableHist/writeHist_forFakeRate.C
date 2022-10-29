@@ -409,8 +409,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 8, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweighted);
 		// FR uncertainty variation
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
@@ -436,6 +436,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// FR uncertainty
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+		// Int
+		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		// FR uncertainty
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -469,7 +476,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-
+		// Int
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
@@ -484,6 +491,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+		//
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
