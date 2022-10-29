@@ -26,8 +26,8 @@ def main():
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
+    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected_3prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
