@@ -6,7 +6,7 @@ import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import summedProcessList
 
-from setTDRStyle import addCMSTextToCan
+from setTDRStyle import addCMSTextToCan, setTDRStyle
 from writeCSVforEY import getSummedHists
 
 # from unicodedata import east_asian_width
@@ -47,7 +47,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -236,11 +236,16 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     # setTDRStyle()
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
 
     # h_dinominator.SetTitle("FR ")
     h_dinominator.SetLineColor(ROOT.kOrange)
     # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    h_dinominator.GetYaxis().SetTitle('Events')
+    h_dinominator.GetYaxis().SetLabelSize(0.03)
+    h_dinominator.GetYaxis().SetTitleOffset(0.9)
+    h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
     
     h_dinominator.Draw()
     h_numeritor.SetLineColor(ROOT.kMagenta-4)
@@ -263,6 +268,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     # axis.SetRangeUser(0, rightmax*1.4)
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
+    axis.SetTitle('fake rate')
+    axis.SetTitleColor(ROOT.kRed)
     axis.Draw()
 
 
