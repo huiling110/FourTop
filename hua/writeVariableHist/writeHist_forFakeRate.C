@@ -219,6 +219,10 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotT_Weighted_down",	 //
 		"1tau0lVRLTauNotTGen_Weighted_up",	 //
 		"1tau0lVRLTauNotTGen_Weighted_down", //
+		"1tau0lSRLTauNotT_Weighted_up",		 // 23
+		"1tau0lSRLTauNotT_Weighted_down",	 // 23
+		"1tau0lSRLTauNotTGen_Weighted_up",	 // 24
+		"1tau0lSRLTauNotTGen_Weighted_down", // 24
 
 	};
 	// systematic regions
@@ -233,7 +237,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jet pt", 10, 25, 300, bjetsM_1pt};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
-	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading fake tau \eta", 10, 0, 2.3, tausL_1etaAbs};
+	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading fake tau #eta", 10, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> Met_pt_class{"Met_pt", "Met", 10, 0, 200, Met_pt_};
 	histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
 	// histsForRegions<Double_t>{};
@@ -430,6 +434,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		// FR uncertainty
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -476,6 +483,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 		// SR not for data in SR
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
