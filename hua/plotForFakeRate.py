@@ -1,14 +1,17 @@
 
 from math import sqrt
-from unicodedata import east_asian_width
 
 import numpy as np
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import summedProcessList
 
-from setTDRStyle import setTDRStyle
+from setTDRStyle import addCMSTextToCan
 from writeCSVforEY import getSummedHists
+
+# from unicodedata import east_asian_width
+
+
 
 
 def main():
@@ -23,8 +26,8 @@ def main():
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
-    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -134,12 +137,12 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True):
     
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
-    # etaList = ['_Eta1', '_Eta2', '_Eta3']
     for ire in range(len(regionList)):
         regionList[ire] = regionList[ire] + ieta
     sumProcessPerVar = {}
+    sumProcessPerVarSys = {} #???not sure why have to add this
     for ivar in variableDic.keys():
-        sumProcessPerVar[ivar] = getSummedHists( inputDirDic, regionList, ivar )
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
     
     return sumProcessPerVar, inputDirDic, regionList
