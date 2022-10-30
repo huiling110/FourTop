@@ -156,6 +156,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     copyFlags();
 
     // HLT
+    Bool_t ifPassHLT = HLTSelection();
+    if (!(ifPassHLT))
+    {
+        return kFALSE;
+    }
 
     eventsPassedHLT++;
     h_forEY_HLT->Fill(0.0, basicWeight);
@@ -985,7 +990,7 @@ void objectTSelectorForNanoAOD::copyFlags()
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
 }
 
-Bool_t objectTSelectorForNanoAOD::HLTSelecion()
+Bool_t objectTSelectorForNanoAOD::HLTSelection()
 {
     Bool_t ifPassHLT = kTRUE;
     if (m_HLTSelection)
