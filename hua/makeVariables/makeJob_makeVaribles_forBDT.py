@@ -30,8 +30,8 @@ inVersion = 'v40addTauJetEtau'
 # outVersion = 'v0addMoreVariables'
 outVersion = 'v1fixedTauVariables'
 # outVersion = 'v1noBaselineModifiedDouble_t'
-year = '2016'
-# year = '2018'
+# year = '2016'
+year = '2018'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
