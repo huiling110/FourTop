@@ -127,7 +127,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     eventsPassedJSON++;
 
     // MET filters
-    if (MetFilters)
+    if (m_MetFilters)
     {
         // recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
         if (!(*Flag_goodVertices == 1))
@@ -157,7 +157,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // HLT
 
-    if (HLTSelection)
+    if (m_HLTSelection)
     // todo: move this to a function and examine the HLT choice
     {
         if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
@@ -350,8 +350,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         EVENT_genWeight_ = 1;
     }
 
-    // preSelection
-    if (preSelection)
+    // m_preSelection
+    if (m_preSelection)
     {
         // if (!(tausT.size() > 0))
         // return kFALSE;
@@ -1238,83 +1238,83 @@ void objectTSelectorForNanoAOD::getOptionFromRunMacro(const TString option)
     std::cout << "isdata  in TSelector: " << m_isdata << "\n";
     m_dataSet = option5;
     Int_t eventSelection = std::stoi(option3.Data());
-    // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
+    // 1 for m_MetFilters, 2 for m_HLTSelection, 4 for m_preSelection. so 7 if all selection; 0 if no selection
     std::cout << "eventSelection in selector: " << eventSelection << "\n";
     // switch ( eventSelection ){
     //     case 0:
-    //         MetFilters = false; HLTSelection = false; preSelection = false;
+    //         m_MetFilters = false; m_HLTSelection = false; m_preSelection = false;
     //         return;
     //     case 1:
-    //         MetFilters = true; HLTSelection = false; preSelection = false;
+    //         m_MetFilters = true; m_HLTSelection = false; m_preSelection = false;
     //         return;
     //     case 2:
-    //         MetFilters = false; HLTSelection = true; preSelection = false;
+    //         m_MetFilters = false; m_HLTSelection = true; m_preSelection = false;
     //         return;
     //     case 3:
-    //         MetFilters = true; HLTSelection = true; preSelection = false;
+    //         m_MetFilters = true; m_HLTSelection = true; m_preSelection = false;
     //         return;
     //     case 4:
-    //         MetFilters = false; HLTSelection = false; preSelection = true;
+    //         m_MetFilters = false; m_HLTSelection = false; m_preSelection = true;
     //         return;
     //     case 5:
-    //         MetFilters = true; HLTSelection = false; preSelection = true;
+    //         m_MetFilters = true; m_HLTSelection = false; m_preSelection = true;
     //         return;
     //     case 6:
-    //         MetFilters = false; HLTSelection = true; preSelection = true;
+    //         m_MetFilters = false; m_HLTSelection = true; m_preSelection = true;
     //         return;
     //     case 7:
-    //         MetFilters = true; HLTSelection = true; preSelection = true;
+    //         m_MetFilters = true; m_HLTSelection = true; m_preSelection = true;
     //         return;
     // }
     if (eventSelection == 0)
     {
-        MetFilters = false;
-        HLTSelection = false;
-        preSelection = false;
+        m_MetFilters = false;
+        m_HLTSelection = false;
+        m_preSelection = false;
     }
     if (eventSelection == 1)
     {
-        MetFilters = true;
-        HLTSelection = false;
-        preSelection = false;
+        m_MetFilters = true;
+        m_HLTSelection = false;
+        m_preSelection = false;
     }
     if (eventSelection == 2)
     {
-        MetFilters = false;
-        HLTSelection = true;
-        preSelection = false;
+        m_MetFilters = false;
+        m_HLTSelection = true;
+        m_preSelection = false;
     }
     if (eventSelection == 3)
     {
-        MetFilters = true;
-        HLTSelection = true;
-        preSelection = false;
+        m_MetFilters = true;
+        m_HLTSelection = true;
+        m_preSelection = false;
     }
     if (eventSelection == 4)
     {
-        MetFilters = false;
-        HLTSelection = false;
-        preSelection = true;
+        m_MetFilters = false;
+        m_HLTSelection = false;
+        m_preSelection = true;
     }
     if (eventSelection == 5)
     {
-        MetFilters = true;
-        HLTSelection = false;
-        preSelection = true;
+        m_MetFilters = true;
+        m_HLTSelection = false;
+        m_preSelection = true;
     }
     if (eventSelection == 6)
     {
-        MetFilters = false;
-        HLTSelection = true;
-        preSelection = true;
+        m_MetFilters = false;
+        m_HLTSelection = true;
+        m_preSelection = true;
     }
     if (eventSelection == 7)
     {
-        MetFilters = true;
-        HLTSelection = true;
-        preSelection = true;
+        m_MetFilters = true;
+        m_HLTSelection = true;
+        m_preSelection = true;
     }
-    std::cout << "MetFilters = " << MetFilters << "; HLTSelection = " << HLTSelection << "; preSelection = " << preSelection << "\n";
+    std::cout << "m_MetFilters = " << m_MetFilters << "; m_HLTSelection = " << m_HLTSelection << "; m_preSelection = " << m_preSelection << "\n";
     TString outFileName = option1;
     outputfile = new TFile(outFileName, "RECREATE");
     std::cout << "outputFileName: " << outputfile->GetName() << "\n";

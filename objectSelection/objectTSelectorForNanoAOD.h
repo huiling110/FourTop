@@ -77,9 +77,9 @@ public:
 	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
 
 	// 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
-	Bool_t MetFilters = false;
-	Bool_t HLTSelection = false;
-	Bool_t preSelection = false;
+	Bool_t m_MetFilters = false;
+	Bool_t m_HLTSelection = false;
+	Bool_t m_preSelection = false;
 
 	Long64_t fProcessed = 0;
 	Long64_t eventsPassed = 0;
