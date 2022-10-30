@@ -63,9 +63,9 @@ def main():
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = [ 'tausF_1jetPtFRWeight',]
-    variables = ['tausF_charge']
+    # variables = ['tausF_charge']
     
-    # variables = ['Met_pt']#???
+    variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
     # variables = ['tausF_1jetPt', 'tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
@@ -73,8 +73,8 @@ def main():
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
-    regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
