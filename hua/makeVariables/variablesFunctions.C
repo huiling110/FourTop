@@ -210,7 +210,7 @@ Double_t TransMassCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Selec
 	return trans_mass;
 }
 
-/*
+
 Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
 {
 	Double_t transE1 = TransEnergySysCal(Jets);
@@ -227,10 +227,11 @@ Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Je
 	}
 	// TVector3 MHTsum = (SumJets + SumLeptons).Vect(); //???
 	auto MHTsum = (SumJets + SumLeptons).Vect(); //???
-	Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
+	// Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
+	Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum.Mag2());
 	return transMass;
 }
-*/
+
 
 Double_t MinDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets,
 					  const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)

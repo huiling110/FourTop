@@ -30,7 +30,6 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016D",
     // TString inputDir = "ttbar_0l",
-    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     const TString eventSelectionBit = "7",
     // const TString eventSelectionBit = "3",
