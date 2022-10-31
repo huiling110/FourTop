@@ -63,7 +63,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     std::cout << "runRange: " << runRange[0] << ":" << runRange[1] << "\n";
     intializaTreeBranches();
 
-    //???
 
     h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
     h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
@@ -1033,6 +1032,25 @@ Bool_t objectTSelectorForNanoAOD::HLTSelection()
                             ifPassHLT = kFALSE;
                     }
                 }
+            }
+        }else if (m_era.CompareTo("2017")==0){
+            if(!m_isdata){
+                if ( !(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2==1 || HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1 || HLT_PFJet430==1) )
+                    ifPassHLT = kFALSE;
+
+            }else{
+                if ( *run>=297050 && *run<=306460){
+                    //2017 data
+                    if ( *run<299329){
+                        if( !(HLT_PFHT430_SixJet40_BTagCSV_p080==1 || HLT_PFHT380_SixJet32_DoubleBTagCSV_p075==1 || HLT_PFJet430==1))
+                            ifPassHLT = kFALSE;
+                    }else 
+                    {
+                        if ( !(HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5==1 || HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2==1 || HLT_PFJet430==1 ))
+                            ifPassHLT = kFALSE;
+                    }
+                }
+
             }
         }
     }
