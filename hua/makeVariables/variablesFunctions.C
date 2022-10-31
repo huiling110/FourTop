@@ -209,26 +209,26 @@ Double_t TransMassCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Selec
 	Double_t trans_mass = sqrt(MHT * MHT + transE * transE);
 	return trans_mass;
 }
+
 /*
 Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
 {
-  Double_t transE1 = TransEnergySysCal(Jets);
-  Double_t transE2 = TransEnergySysCal(Leptons);
-  ROOT::Math::PtEtaPhiMVector SumJets(0, 0, 0, 0);
-  ROOT::Math::PtEtaPhiMVector SumLeptons(0, 0, 0, 0);
-  for (UInt_t j = 0; j < Jets.GetSize(); ++j)
-  {
-	SumJets = SumJets + Jets[j];
-  }
-  for (UInt_t k = 0; k < Leptons.GetSize(); ++k)
-  {
-	SumLeptons = SumLeptons + Leptons[k];
-  }
-  // TVector3 MHTsum = (SumJets + SumLeptons).Vect();
-  auto MHTsum = (SumJets + SumLeptons).Vect(); //???
-  Double_t transMass =
-	  sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
-  return transMass;
+	Double_t transE1 = TransEnergySysCal(Jets);
+	Double_t transE2 = TransEnergySysCal(Leptons);
+	ROOT::Math::PtEtaPhiMVector SumJets(0, 0, 0, 0);
+	ROOT::Math::PtEtaPhiMVector SumLeptons(0, 0, 0, 0);
+	for (UInt_t j = 0; j < Jets.GetSize(); ++j)
+	{
+		SumJets = SumJets + Jets[j];
+	}
+	for (UInt_t k = 0; k < Leptons.GetSize(); ++k)
+	{
+		SumLeptons = SumLeptons + Leptons[k];
+	}
+	// TVector3 MHTsum = (SumJets + SumLeptons).Vect(); //???
+	auto MHTsum = (SumJets + SumLeptons).Vect(); //???
+	Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum * MHTsum);
+	return transMass;
 }
 */
 
