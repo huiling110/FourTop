@@ -1232,6 +1232,16 @@ public:
 	// TTreeReaderValue<Bool_t>  = {fReader, "Flag_goodVertices"};
 	TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
 
+	//HLT 2017
+	// TTreeReaderValue<Bool_t>  HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
+	TTreeReaderValue<Bool_t>  HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "Flag_goodVertices"};
+	// TTreeReaderValue<Bool_t>  HLT_PFJet450 = {fReader, "Flag_goodVertices"};
+	//data
+	TTreeReaderValue<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "Flag_goodVertices"};
+	TTreeReaderValue<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "Flag_goodVertices"};
+	// TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5  = {fReader, "Flag_goodVertices"};
+	// TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "Flag_goodVertices"};
+
 	//    TTreeReaderValue<Bool_t> HLTriggerFirstPath = {fReader, "HLTriggerFirstPath"};
 	//    TTreeReaderValue<Bool_t> HLT_AK8PFJet360_TrimMass30 = {fReader, "HLT_AK8PFJet360_TrimMass30"};
 	//    TTreeReaderValue<Bool_t> HLT_AK8PFJet400_TrimMass30 = {fReader, "HLT_AK8PFJet400_TrimMass30"};
