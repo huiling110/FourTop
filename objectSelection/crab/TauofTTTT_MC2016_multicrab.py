@@ -52,9 +52,7 @@ if __name__ == '__main__':
 # minimum lepton are set to 1 instead of 2 
 tWLists = [
 ]
-#?nothing in twLists?
 
-#baseDir = "/workfs/cms/huahuil/BSM_UpdateVersion/CMSSW_10_2_20_UL/src/BSMFramework/"
 baseDir = "/workfs/cms/huahuil/BSM_UpdateVersion/add_toptagger/CMSSW_10_2_20_UL/src/BSMFramework/"
 
 for d in range(0,len(datasetnames)):
@@ -74,8 +72,8 @@ for d in range(0,len(datasetnames)):
     
     config.section_('General')
     config.General.requestName = datasetnames[d]#it is used by CRAB to create a project directory (named crab_<requestName>) where files corresponding to this particular task will be stored.
- #   config.General.workArea    = datasetnames[d]#The area (full or relative path) where to create the CRAB project directory
     config.General.workArea    = '/workfs/cms/huahuil/BSM_UpdateVersion/add_toptagger/CMSSW_10_2_20_UL/src/BSMFramework/BSM3G_TNT_Maker/crab/crab_results_1216/'  #do not write to workfs anymore because the output log file could be more than 2G
+    #The area (full or relative path) where to create the CRAB project directory
     config.General.transferLogs = True  #Whether or not to copy the jobs log files to the storage site
 
     config.section_('JobType')
@@ -103,12 +101,12 @@ for d in range(0,len(datasetnames)):
     config.Data.outputDatasetTag = datasetnames[d]+"HLTToptaggerAdded_EJetMetUpdated_oldEIDBack"
 
 #    print 'multicrab.py: outLFNDirBase = /store/user/binghuan/'
-    print 'multicrab.py: outLFNDirBase = /store/user/hhua/'
+    print ('multicrab.py: outLFNDirBase = /store/user/hhua/')
     #config.Data.publication = True
 
     config.section_('Site')
     config.Site.storageSite    = 'T2_CN_Beijing'#'T2_CH_CERN' # Site to which output is permenantly copied by crab3
-    print 'multicrab.py: Submitting Jobs'
+    print( 'multicrab.py: Submitting Jobs')
     #submit(config)
     p = Process(target=submit, args=(config,))
     p.start()

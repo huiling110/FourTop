@@ -24,8 +24,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v38TESandJERTauPt20_preselection/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v39addTauBranches/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v40addTauJetEtau/mc/",
-    TString inputBase = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v40addTauJetEtau/mc/",
+    // TString inputBase = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
 
     TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
