@@ -47,7 +47,8 @@ jobVersionName = 'v40addTauJetEtau/'
 onlyMC = False
 # era = '2016'
 # era = '2016APV'
-era = '2018'
+# era = '2018'
+era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
