@@ -1201,12 +1201,11 @@ void objectTSelectorForNanoAOD::setupInputFile()
     // }
 
     // TString tauSF_json = "../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
-    // cset_tauSF = correction::CorrectionSet::from_file(tauSF_json.Data());
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[m_era].at(1)).Data());
-    for (auto &corr : *cset_tauSF)
-    {
-        printf("tauSF Correction: %s\n", corr.first.c_str());
-    }
+    // for (auto &corr : *cset_tauSF)
+    // {
+    //     printf("tauSF Correction: %s\n", corr.first.c_str());
+    // }
 
     if (!m_isdata)
     {
