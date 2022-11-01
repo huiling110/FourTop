@@ -1491,6 +1491,21 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
                 HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
             }
         }
+        else if (runRange[0] >= 297050 && runRange[1] <= 306460)
+        {
+            // 2017 data
+            HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+            if (runRange[1] < 299329)
+            {
+                HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "HLT_PFHT430_SixJet40_BTagCSV_p080"};
+                HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
+            }
+            else
+            {
+                HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+                HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
+            }
+        }
     }
 }
 /*
