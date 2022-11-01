@@ -246,14 +246,14 @@ public:
 	std::vector<Double_t> taus_TES_down;
 	std::mt19937 m_random_generator;
 	// old JER
-	std::vector<Double_t> jetSmearingFactors;
-	std::vector<Double_t> jetSmearingFactorsUp;
-	std::vector<Double_t> jetSmearingFactorsDown;
-	TRandom3 jet_jer_myran;
-	std::vector<std::vector<std::string>> resolution;
-	std::string resFormula;
-	std::vector<std::vector<std::string>> resSFs;
-	std::string toyResFormula;
+	// std::vector<Double_t> jetSmearingFactors;
+	// std::vector<Double_t> jetSmearingFactorsUp;
+	// std::vector<Double_t> jetSmearingFactorsDown;
+	// TRandom3 jet_jer_myran;
+	// std::vector<std::vector<std::string>> resolution;
+	// std::string resFormula;
+	// std::vector<std::vector<std::string>> resSFs;
+	// std::string toyResFormula;
 
 	// weight
 	Double_t EVENT_prefireWeight_;
@@ -1232,11 +1232,11 @@ public:
 	// TTreeReaderValue<Bool_t>  = {fReader, "Flag_goodVertices"};
 	TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
 
-	//HLT 2017
-	// TTreeReaderValue<Bool_t>  HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
-	TTreeReaderValue<Bool_t>  HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "Flag_goodVertices"};
+	// HLT 2017
+	//  TTreeReaderValue<Bool_t>  HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
+	TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "Flag_goodVertices"};
 	// TTreeReaderValue<Bool_t>  HLT_PFJet450 = {fReader, "Flag_goodVertices"};
-	//data
+	// data
 	TTreeReaderValue<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "Flag_goodVertices"};
 	TTreeReaderValue<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "Flag_goodVertices"};
 	// TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5  = {fReader, "Flag_goodVertices"};

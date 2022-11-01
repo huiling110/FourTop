@@ -1210,12 +1210,12 @@ void objectTSelectorForNanoAOD::setupInputFile()
 
     if (!m_isdata)
     {
-        TString jetSmearing_PtFile = oldFileMap[m_era].at(0).Data();
-        TString jetSmearing_MCFile = oldFileMap[m_era].at(1).Data();
-        std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
-                  << jetSmearing_MCFile << "\n";
-        readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
-        readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
+        // TString jetSmearing_PtFile = oldFileMap[m_era].at(0).Data();
+        // TString jetSmearing_MCFile = oldFileMap[m_era].at(1).Data();
+        // std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
+        //           << jetSmearing_MCFile << "\n";
+        // readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
+        // readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
 
         TFile *inputPUFile_data = new TFile(pileUpFileMap[m_era].at(0).Data(), "READ");
         TFile *inputPUFile_dataUp = new TFile(pileUpFileMap[m_era].at(1).Data(), "READ");
