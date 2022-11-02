@@ -1037,7 +1037,7 @@ Bool_t objectTSelectorForNanoAOD::HLTSelection()
         {
             if (!m_isdata)
             {
-                if (!(*HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFJet450 == 1))
+                if (!(*HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFJet500 == 1))
                     ifPassHLT = kFALSE;
             }
             else
@@ -1047,12 +1047,12 @@ Bool_t objectTSelectorForNanoAOD::HLTSelection()
                     // 2017 data
                     if (*run < 299329)
                     {
-                        if (!(*HLT_PFHT430_SixJet40_BTagCSV_p080 == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 == 1 || *HLT_PFJet450 == 1))
+                        if (!(*HLT_PFHT430_SixJet40_BTagCSV_p080 == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 == 1 || *HLT_PFJet500 == 1))
                             ifPassHLT = kFALSE;
                     }
                     else
                     {
-                        if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFJet450 == 1))
+                        if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFJet500 == 1))
                             ifPassHLT = kFALSE;
                     }
                 }
@@ -1442,7 +1442,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
         }
         else if (m_era.CompareTo("2017") == 0)
         {
-            HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+            HLT_PFJet500 = {fReader, "HLT_PFJet500"};
             HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
         }
