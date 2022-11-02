@@ -313,7 +313,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
 	TFile *FRFile_3prong = new TFile( FRfileMap[m_era].at(1).Data(), "READ");
 	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
-	printf( "Reading FR file:%s", FRFile->GetName() );
+	printf( "Reading FR file:%s \n", FRFile->GetName() );
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)

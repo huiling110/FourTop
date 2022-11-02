@@ -40,8 +40,8 @@ includeDataInStack = True
 def main():
     # era = '2016preVFP'
     # era = '2016postVFP'
-    era = '2016'
-    # era = '2018'
+    # era = '2016'
+    era = '2018'
 
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
@@ -62,10 +62,10 @@ def main():
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    # variables = [ 'tausF_1jetPtFRWeight',]
+    variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     
-    variables = ['Met_pt']#???
+    # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
     # variables = ['tausF_1jetPt', 'tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
@@ -125,7 +125,7 @@ def main():
             for iRegion in regionList:       
                 makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, legendOrder, False, plotName ) 
         else:
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName)
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era)
             
             
     #     print( systs[variable])
@@ -211,7 +211,7 @@ def checkHists( histsDict ):
 
 
 
-def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = ""):
+def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = "", era='2016'):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -364,7 +364,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.Draw()
     
     #text above the plot
-    addCMSTextToCan(canvy)     
+    addCMSTextToCan(canvy, 0.23, 0.35, 0.96, era)     
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     print( 'done plotting data/mc plot for {}\n'.format(name))

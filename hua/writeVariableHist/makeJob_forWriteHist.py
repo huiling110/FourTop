@@ -45,12 +45,12 @@ def main():
     # version = 'v2forFRVariables_finerPtBin'
     # version = 'v0forFakeRate'
     # version = 'v0forFakeRateRepeat'
-    version = 'v1forFREtaRegionCorrected'
+    # version = 'v1forFREtaRegionCorrected'
     # version = 'v1forFREtaRegionCorrected_1prong'
     # version = 'v1forFREtaRegionCorrected_3prong'
     # version = 'v2forFRforVariables'
     # version = 'v3forFRaddFRWeightUpDownRegions'
-    # version = 'v4forFRAddHistTitle'
+    version = 'v4forFRAddHistTitle'
     justMC = False
     # justMC = True
     isTest = 0
