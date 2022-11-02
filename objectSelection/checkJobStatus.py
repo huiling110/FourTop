@@ -16,7 +16,8 @@ def main():
     #logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v1_testing/data/'
     # logDir = '/publicfs/cms/user/fabioiemmi/TauOfTTTT_NanoAOD/UL2016_preVFP/v10_MET_HLT_NewPresel/data/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v32TESnoJER/data/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v40addTauJetEtau/mc/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v40addTauJetEtau/mc/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v40addTauJetEtau/mc/'
 
     allProcesses = os.listdir( logDir )
 
