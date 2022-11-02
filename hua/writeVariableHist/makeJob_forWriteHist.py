@@ -59,6 +59,7 @@ def main():
 
 
 
+
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
     #important to add the full path so that it can be ran in any folder
     subAllProcess.write('#!/bin/bash\n')
