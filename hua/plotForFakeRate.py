@@ -284,14 +284,16 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
 
 
 
-def addBGHist(sumProcessIVar, var, region):
+def addBGHist(sumProcessIVar, var, region, includeQCD=False):
     sumHist = sumProcessIVar[region][summedProcessList[0]]
     sumHist.Reset()
     sumHist.Sumw2()
     sumHist.SetName(region+ '_bgSum_' + var )
     for ipro in summedProcessList:
-        # if ipro=='data' or ipro=='tttt': continue
-        if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+        if not includeQCD:
+            if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+        else:
+            if ipro=='data' or ipro=='tttt': continue
         sumHist.Add( sumProcessIVar[region][ipro])
     return sumHist
 
