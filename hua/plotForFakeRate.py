@@ -28,7 +28,7 @@ def main():
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected_3prong'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -233,7 +233,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion):
 
 
 
-def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
+def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2018'):
     # setTDRStyle()
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
@@ -280,7 +280,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName):
     legend.AddEntry(h_efficiency, "FR")
     legend.Draw()
     
-    addCMSTextToCan(can, 0.18, 0.3, 0.92)
+    addCMSTextToCan(can, 0.18, 0.3, 0.92, era)
 
     can.SaveAs(plotName)
 

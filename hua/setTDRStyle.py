@@ -1,5 +1,6 @@
 # from ROOT import *
 import ROOT
+from ttttGlobleQuantity import lumiMap
 
 
 def setTDRStyle() :
@@ -94,7 +95,7 @@ def setTDRStyle() :
 
   tdrStyle.cd()
 
-def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96):
+def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
     can = canvas
      
     cmsTextFont = 61
@@ -113,12 +114,16 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96):
     latex.SetTextSize(0.04*0.76)
     # latex.DrawLatex(0.35, 0.96 , extraText )
     latex.DrawLatex(x2, y , extraText )
-    
+  
+    lumiText = lumiMap[era] /1000
+    lumiText_s = '{0:.1f}'.format(lumiText)
+    lumiText_s = lumiText_s + ' fb^{-1}(13TeV)'
+    # print(lumiText)
     latex2 = ROOT.TLatex()
     latex2.SetNDC()
     latex2.SetTextSize(0.04)
     latex2.SetTextAlign(31)
-    # latex2.DrawLatex(0.95, 0.96, '35.9 fb^{-1}(13TeV) ' )
-    latex2.DrawLatex(x2+0.6, y, '35.9 fb^{-1}(13TeV) ' )
+    # latex2.DrawLatex(x2+0.6, y, '35.9 fb^{-1}(13TeV) ' )
+    latex2.DrawLatex(x2+0.6, y, lumiText_s )
 
 
