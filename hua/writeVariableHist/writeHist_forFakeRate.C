@@ -154,10 +154,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	m_era = optionVect[5];
 	std::cout << "m_era: " << m_era << "\n";
 
-	// namespace fs = std::filesystem;
-	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
-	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
-	// }
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
 	std::vector<TString> regionsForVariables = {
@@ -190,6 +186,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
 	// FR weighted
+	//???make this not vector index but clear name for regions
 	std::vector<TString> regionsForFRWeighting = {
 		// regions nessary for plotting data/MC
 		"1tau0lCR", // 0
@@ -329,8 +326,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	};
 
 	// for prong division
-	if (!(*tausF_prongNum == 1))
-	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+	// if (!(*tausF_prongNum == 1))
+	if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
 	{
 		return kFALSE;
 	}
@@ -345,7 +342,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	// Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
 	Double_t FRWeight_up, FRWeight_down;
-	Double_t FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+	Double_t FRWeight = 1.0;
+	if (!m_ifMeasurement){
+		FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+
+	}
 	// std::cout << "FRWeight=" << FRWeight << "; FR_up=" << FRWeight_up << " FR_down=" << FRWeight_down << "\n";
 
 	// Bool_t isTauLNum = *tausL_number == 1;
@@ -371,7 +372,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
-	// Bool_t isEta3 = 1.6 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.3;
 	Bool_t isEta3 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
 
 	if (!m_isData)
@@ -403,6 +403,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
+
+		if ( !m_ifMeasurement){
 
 		// AR FR weighted
 		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
@@ -444,6 +446,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
+		}
+
+
+
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(5, basicWeight, is1tau0lCRLTauGen && isEta3);
@@ -466,6 +472,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lVR, 3, basicWeight);
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
+
+		if ( !m_ifMeasurement){
+
 		// AR FR weighted
 		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
 		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
@@ -495,6 +504,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
 		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+		}
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);

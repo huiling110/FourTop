@@ -37,6 +37,7 @@ public:
    TString m_era;
    // TString m_version = "v1moreVariables";
    TString m_version;
+   Bool_t m_ifMeasurement = kTRUE;
    // std::vector<TString> m_options;
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
