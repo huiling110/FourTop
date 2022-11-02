@@ -235,7 +235,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading fake tau #eta", 10, 0, 2.3, tausL_1etaAbs};
-	histsForRegions<Double_t> Met_pt_class{"MET_pt", "Met", 10, 0, 200, MET_pt};
+	// histsForRegions<Double_t> Met_pt_class{"MET_pt", "Met", 10, 0, 200, MET_pt};
 	histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
 	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};
@@ -256,7 +256,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariblesRegions_FRweighted.push_back(tausT_1pt_class);
 	vectorOfVariblesRegions_FRweighted.push_back(tausL_1ptFR_class);
 	vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
-	vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
+	// vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
 	vectorOfVariblesRegions_FRweighted.push_back(tausF_1jetPtFR_class);
 	// vectorOfVariblesRegions_FRweighted.push_back();
 	vectorOfVariblesRegions_FRweightedInt.clear();
@@ -304,10 +304,16 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
 	//
-	TFile *FRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
+	std::map<TString, std::array<TString, 2>> FRfileMap = {
+		{"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"} }, 
+
+		{"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"} }, 
+	};
+	TFile *FRFile = new TFile( FRfileMap[m_era].at(0).Data(), "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
-	TFile *FRFile_3prong = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "READ");
+	TFile *FRFile_3prong = new TFile( FRfileMap[m_era].at(1).Data(), "READ");
 	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
+	printf( "Reading FR file:%s", FRFile->GetName() );
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -349,8 +355,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 	// std::cout << "FRWeight=" << FRWeight << "; FR_up=" << FRWeight_up << " FR_down=" << FRWeight_down << "\n";
 
-	// Bool_t isTauLNum = *tausL_number == 1;
-	// Bool_t isTauLNumGen = *tausL_genTauNum == 1;
 	Bool_t isTauLNum = (*tausF_number == 1);
 	Bool_t isTauLNumGen = (*tausF_genTauNum == 1);
 	// 1tau0l

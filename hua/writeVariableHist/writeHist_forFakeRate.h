@@ -37,7 +37,8 @@ public:
    TString m_era;
    // TString m_version = "v1moreVariables";
    TString m_version;
-   Bool_t m_ifMeasurement = kTRUE;
+   // Bool_t m_ifMeasurement = kTRUE;
+   Bool_t m_ifMeasurement = kFALSE;
    // std::vector<TString> m_options;
    TFile *outputFile;
    //!!!hists need to be scalec in terminate function
@@ -99,7 +100,7 @@ public:
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsmu_down = {fReader, "tauT_IDSF_weight_new_vsmu_down"};
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsele_up = {fReader, "tauT_IDSF_weight_new_vsele_up"};
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsele_down = {fReader, "tauT_IDSF_weight_new_vsele_down"};
-   TTreeReaderValue<Double_t> MET_pt = {fReader, "MET_pt"};
+   // TTreeReaderValue<Double_t> MET_pt = {fReader, "MET_pt"};
    // TTreeReaderValue<Double_t> Met_phi_ = {fReader, "Met_phi_"};
    TTreeReaderValue<Int_t> muonsL_number = {fReader, "muonsL_number"};
    TTreeReaderValue<Int_t> muonsF_number = {fReader, "muonsF_number"};
