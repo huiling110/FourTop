@@ -15,7 +15,8 @@ from writeCSVforEY import getSummedHists
 
 
 def main():
-    era = '2016' 
+    # era = '2016' 
+    era = '2018' 
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
