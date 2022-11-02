@@ -37,13 +37,13 @@ def main():
     # histVersion = 'variableHists_v2addingPileupWeight'
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     # histVersion = 'variableHists_v4forFakeRate'
-    histVersion = 'variableHists_v0forFakeRate'
+    # histVersion = 'variableHists_v0forFakeRate'
+    histVersion = 'variableHists_v1forFREtaRegionCorrected'
 
     variableList = ['eventCount']
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
-    # csvName = '1tau0lFakeRate'
-    csvName = '1tau0lFakeRateGenTau'
+    csvName = '1tau0lFakeRate'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
@@ -70,8 +70,9 @@ def main():
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
+    sumProcessPerVarSys = {}
     for ivar in variableList:
-        sumProcessPerVar[ivar] = getSummedHists( inputDir, regionList, ivar )
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
     print( sumProcessPerVar )
 
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )

@@ -24,8 +24,6 @@ def main():
     # histVersion = 'variableHists_v10ExpandingTauPtRange'
     # histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
-    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_1prong'
-    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt_3prong'
     # histVersion = 'variableHists_v2forFRVariables'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
     histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
@@ -46,7 +44,7 @@ def main():
     
     # isVR = True
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era)
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
@@ -159,7 +157,7 @@ def getInputDic( inVersion, histVersion, era):
     
     
     
-def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True):
+def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016'):
 
         
     # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
@@ -186,20 +184,20 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
         uf.checkMakeDir( plotDir )
         # plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg.png'
         plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better.png'
-        plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName )
+        plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era )
    
     h_fakeRateCR.Print() 
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
-def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True):
+def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016'):
     etaList = ['_Eta1', '_Eta2', '_Eta3']
     # etaList = ['']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
-        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot)
+        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
@@ -233,7 +231,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion):
 
 
 
-def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2018'):
+def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     # setTDRStyle()
     can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
