@@ -41,7 +41,8 @@ def main():
     # era = '2016preVFP'
     # era = '2016postVFP'
     # era = '2016'
-    era = '2018'
+    # era = '2018'
+    era = '2017'
 
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
@@ -60,8 +61,8 @@ def main():
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
-    variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
+    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     

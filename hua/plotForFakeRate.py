@@ -16,7 +16,8 @@ from writeCSVforEY import getSummedHists
 
 def main():
     # era = '2016' 
-    era = '2018' 
+    # era = '2018' 
+    era = '2017' 
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
@@ -27,6 +28,7 @@ def main():
     # histVersion = 'variableHists_v2forFRVariables'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
     histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
+    # histVersion = 'variableHists_v5forFRMCMeasure'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -46,7 +48,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era)
     
-    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -176,6 +178,8 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     h_fakeRateCR.Sumw2()
     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
     h_fakeRateCR.SetName('fakeRate')
+    
+    
 
     if ifPlot:
         plotDir = inputDirDic['mc'] + 'results/' 
@@ -197,8 +201,8 @@ def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016')
     tauPtEtaListAR = []
     for ieta in etaList:
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
-        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
-        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
+        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
+        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
