@@ -238,7 +238,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading fake tau #eta", 10, 0, 2.3, tausL_1etaAbs};
-	histsForRegions<Double_t> Met_pt_class{"Met_pt", "Met", 10, 0, 200, Met_pt_};
+	histsForRegions<Double_t> Met_pt_class{"MET_pt", "Met", 10, 0, 200, MET_pt};
 	histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
 	// histsForRegions<Double_t>{};
 	histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};

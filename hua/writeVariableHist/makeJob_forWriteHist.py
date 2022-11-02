@@ -35,11 +35,8 @@ def main():
     # version = "v0forCutFlow"
     # version = "v1variablesUsingMyclass"
     # version = 'v2addingPileupWeight'
-    # version = 'v3pileUpAndNewRange'
     # version = 'v4forFakeRate'
     # version = 'v5forFakeRateEtaDivided'
-    # version = 'v10ExpandingTauPtRange'
-    # version = 'v12moreVariables'
     # version = 'v0forFakeRate'
     # version = 'v1forFRSwitchToTauJetPt'
     # version = 'v1forFRSwitchToTauJetPt_1prong'
