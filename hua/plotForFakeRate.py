@@ -157,16 +157,14 @@ def getInputDic( inVersion, histVersion, era):
     
     
     
-def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016'):
+def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
 
         
     # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
-    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion)
-    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion)
+    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion, isDataMC)
+    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion, isDataMC)
     # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys()[0]], '1tau0lVRLTauNotT'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5]) #tausL_1pt in VRLNotT
-    #what if it's jets_HT; jets_HT in eta region; could not work because we can't know taupt in bin
-
+    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5], isDataMC) #tausL_1pt in VRLNotT
 
     binLowEges = variableDic[list(variableDic.keys())[0]]
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
@@ -182,8 +180,10 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     if ifPlot:
         plotDir = inputDirDic['mc'] + 'results/' 
         uf.checkMakeDir( plotDir )
-        # plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg.png'
-        plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better.png'
+        if not isDataMC:
+            plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better.png'
+        else:
+            plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
         plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era )
    
     h_fakeRateCR.Print() 
@@ -197,7 +197,8 @@ def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016')
     tauPtEtaListAR = []
     for ieta in etaList:
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
-        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
+        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
+        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
@@ -226,7 +227,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:
         h_data = sumProcessIVar[region]['data']
     else:
-       h_data = addBGHist(sumProcessIVari, var, genRegion, True) 
+       h_data = addBGHist(sumProcessIVar, var, genRegion, True) 
     h_data.Sumw2()
     h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen

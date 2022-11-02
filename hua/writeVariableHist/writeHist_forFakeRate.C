@@ -468,6 +468,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotTGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotTGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotTGen && isEta3);
+		//for mearure FR with MC
+		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
+		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
+		tausL_1pt_eta_class.fillHistVec(2, basicWeight, is1tau0lCRLTau && isEta3);
 	}
 	else
 	{
