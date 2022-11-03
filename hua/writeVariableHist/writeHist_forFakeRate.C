@@ -174,7 +174,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		// FR CRc and CRa and CR3
 		"1tau0lCRc", // 14
 		"1tau0lCRa",
-		"1tau0lCR3",
+		"1tau0lCRb",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
@@ -430,7 +430,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// CRc CRa CR3
 	fillHistsVector(is1tau0lCRc, 14, basicWeight);
 	fillHistsVector(is1tau0lCRa, 15, basicWeight);
-	fillHistsVector(is1tau0lCR3, 16, basicWeight);
+	fillHistsVector(is1tau0lCRb, 16, basicWeight);
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
