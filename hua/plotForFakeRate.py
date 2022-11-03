@@ -42,6 +42,8 @@ def main():
         'tausF_1jetPt': ptBins,
         # 'tausF_1jetEtaAbs' : etaBins 
     }
+    
+    CRnames = ['CRa', 'CRc']
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
     plotDir = inputDirDic['mc'] + 'results/'
@@ -49,15 +51,15 @@ def main():
     
     # isVR = True
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, 'CR2') #0 bjets
-    FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, 'CR1')# >=2 bjets
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[0]) #0 bjets
+    FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[1])# >=2 bjets
     
     for iFR in range( len(FR_ptInEtaList) ):
         
         FR_ptInEtaList[iFR].Print()
         FR_ptInEtaList_CR1[iFR].Print()
-        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era)
-    
+        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames)
+   
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
@@ -65,7 +67,7 @@ def main():
     #application in AR
     # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
-def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era):
+def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era, CRnames):
     print('start to plot FR overlay..........\n')
     can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
@@ -81,6 +83,7 @@ def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era):
     FR1_iEta.SetMarkerSize(2)
     FR1_iEta.SetMarkerColor(ROOT.kMagenta)
     FR1_iEta.Draw()
+    print(FR1_iEta.GetName())
     
     FR2_iEta.SetLineColor(ROOT.kRed)
     FR2_iEta.SetMarkerStyle(94)
@@ -95,11 +98,20 @@ def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era):
     uncert.SetFillStyle(3013)
     uncert.SetFillColor(4)
     uncert.Draw('same e2')
-    
+   
+   
+    CRlegendDic = {
+        'CRa': ['0 b jet'],
+        'CRb': ['1 b jet'],
+        'CRc': ['2 b jets'],
+        'CR':  ['0 b jet']
+    } 
     
     legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
-    legend.AddEntry(FR1_iEta, "0 b jets")
-    legend.AddEntry(FR2_iEta, ">=2 b jets")
+    # legend.AddEntry(FR1_iEta, "0 b jets")
+    # legend.AddEntry(FR2_iEta, ">=2 b jets")
+    legend.AddEntry(FR1_iEta, CRlegendDic[CRnames[0]][0])
+    legend.AddEntry(FR2_iEta, CRlegendDic[CRnames[1]][0])
     legend.AddEntry(uncert, "15% uncertainty")
     legend.Draw()
     

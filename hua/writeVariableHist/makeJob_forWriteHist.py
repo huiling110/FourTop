@@ -54,7 +54,7 @@ def main():
     # version = 'v4forFRAddHistTitle'
     # version = 'v5forFRMCMasure'
     # version = 'v6forFRCR12'
-    version = 'v6forFRCR12_3prong'
+    version = 'v6forFRCR12_1prong'
     justMC = False
     # justMC = True
     isTest = 0

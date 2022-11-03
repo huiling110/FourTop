@@ -367,8 +367,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	};
 
 	// for prong division
-	// if (!(*tausF_prongNum == 1))
-	if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+	if (!(*tausF_prongNum == 1))
+	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
 	{
 		return kFALSE;
 	}
