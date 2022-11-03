@@ -583,7 +583,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lCR1LTau && isEta3);
 		tausL_1pt_eta_class.fillHistVec(30, basicWeight, is1tau0lCR1 && isEta1);
 		tausL_1pt_eta_class.fillHistVec(31, basicWeight, is1tau0lCR1 && isEta2);
-		tausL_1pt_eta_class.fillHistVec(33, basicWeight, is1tau0lCR1 && isEta3);
+		tausL_1pt_eta_class.fillHistVec(32, basicWeight, is1tau0lCR1 && isEta3);
 
 	}
 
