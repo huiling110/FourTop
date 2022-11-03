@@ -200,8 +200,8 @@ def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016')
     tauPtEtaListAR = []
     for ieta in etaList:
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
-        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
-        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
+        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
+        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
@@ -269,6 +269,10 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
     h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
+    
+    #print
+    for i in range(1,h_efficiency.GetNbinsX()+1):
+        print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
     
     axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
     # axis.SetRangeUser(0, rightmax*1.4)
