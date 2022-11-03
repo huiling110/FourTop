@@ -171,17 +171,17 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTGen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
+		//FR CR1 and CR2 and CR3
+		"1tau0lCR1",//14
+		"1tau0lCR2",
+		"1tau0lCR3",
 	};
 
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	// histsForRegions<Double_t> tausL_1pt_class{"tausL_1pt", 28, 20, 300, tausL_1pt};
 	histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", "tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
-	// histsForRegions<Double_t> tausL_1etaAbs_class{"tausL_1etaAbs", "" 23, 0, 2.3, tausL_1etaAbs};
 	histsForRegions<Double_t> tausF_1jetEtaAbs_class{"tausF_1jetEtaAbs", "eta of tau", 24, 0, 2.4, tausF_1jetEtaAbs};
-	// vectorOfVariableRegionsDouble.push_back(tausL_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
-	// vectorOfVariableRegionsDouble.push_back(tausL_1etaAbs_class);
 	vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
 	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
 
@@ -381,7 +381,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	// std::cout << "met=" << *Met_pt_ << "\n";//???
 
-	// Double_t FRWeight = calFRWeight(*tausL_1pt, *tausL_1eta, FR_hist);
 	Double_t FRWeight_up, FRWeight_down;
 	Double_t FRWeight = 1.0;
 	if (!m_ifMeasurement){
@@ -405,8 +404,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	//CR1 and CR2
 	Bool_t is1tau0lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 	Bool_t is1tau0lCR1LTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 2;
-	Bool_t is1tau0lCR2LTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 2;
+	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCR2LTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+
 
 
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
@@ -414,6 +415,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	fillHistsVector(is1tau0lVR, 3, basicWeight);
 	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 	fillHistsVector(is1tau0lVRLTauNotT, 5, basicWeight);
+	//CR1 CR2 CR3
+	fillHistsVector(is1tau0lCR1, 14 , basicWeight);
+	fillHistsVector(is1tau0lCR2, 15 , basicWeight);
+	fillHistsVector(is1tau0lCR3, 16 , basicWeight);
+
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
