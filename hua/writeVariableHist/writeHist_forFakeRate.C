@@ -333,6 +333,19 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRaGen_Eta1", // 45
 		"1tau0lCRaGen_Eta2",
 		"1tau0lCRaGen_Eta3",
+		// CRb
+		"1tau0lCRbLTau_Eta1", // 48
+		"1tau0lCRbLTau_Eta2",
+		"1tau0lCRbLTau_Eta3",
+		"1tau0lCRbLTauGen_Eta1", // 51
+		"1tau0lCRbLTauGen_Eta2",
+		"1tau0lCRbLTauGen_Eta3",
+		"1tau0lCRb_Eta1", // 54
+		"1tau0lCRb_Eta2",
+		"1tau0lCRb_Eta3",
+		"1tau0lCRbGen_Eta1", // 57
+		"1tau0lCRbGen_Eta2",
+		"1tau0lCRbGen_Eta3",
 
 	};
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
@@ -406,7 +419,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	Bool_t is1tau0lCRcLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 	Bool_t is1tau0lCRa = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRaLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRb = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRbLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
 
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
@@ -441,6 +455,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		Bool_t is1tau0lCRcLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 		Bool_t is1tau0lCRaGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
 		Bool_t is1tau0lCRaLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRbGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lCRbLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
 
 		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
 		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
@@ -542,6 +558,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(45, basicWeight, is1tau0lCRaGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(46, basicWeight, is1tau0lCRaGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(47, basicWeight, is1tau0lCRaGen && isEta3);
+		// CRb
+		tausL_1pt_eta_class.fillHistVec(51, basicWeight, is1tau0lCRbLTauGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(52, basicWeight, is1tau0lCRbLTauGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(53, basicWeight, is1tau0lCRbLTauGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(57, basicWeight, is1tau0lCRbGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(58, basicWeight, is1tau0lCRbGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(59, basicWeight, is1tau0lCRbGen && isEta3);
 	}
 	else
 	{
@@ -613,6 +636,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(42, basicWeight, is1tau0lCRa && isEta1);
 		tausL_1pt_eta_class.fillHistVec(43, basicWeight, is1tau0lCRa && isEta2);
 		tausL_1pt_eta_class.fillHistVec(44, basicWeight, is1tau0lCRa && isEta3);
+		// CRb
+		tausL_1pt_eta_class.fillHistVec(48, basicWeight, is1tau0lCRbLTau && isEta1);
+		tausL_1pt_eta_class.fillHistVec(49, basicWeight, is1tau0lCRbLTau && isEta2);
+		tausL_1pt_eta_class.fillHistVec(50, basicWeight, is1tau0lCRbLTau && isEta3);
+		tausL_1pt_eta_class.fillHistVec(54, basicWeight, is1tau0lCRb && isEta1);
+		tausL_1pt_eta_class.fillHistVec(55, basicWeight, is1tau0lCRb && isEta2);
+		tausL_1pt_eta_class.fillHistVec(56, basicWeight, is1tau0lCRb && isEta3);
 	}
 
 	return kTRUE;

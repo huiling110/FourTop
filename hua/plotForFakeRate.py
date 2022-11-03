@@ -53,9 +53,6 @@ def main():
     
     # isVR = True
     isVR = False
-    # FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[0]) #0 bjets
-    # FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[1])# 1 bjets
-    # FR_ptInEtaList_CR2, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[2])# >=2 bjets
     FR_EtaListDic = {}
     FR_EtaListDic['1Eta'] = []
     FR_EtaListDic['2Eta'] = []
@@ -68,11 +65,6 @@ def main():
     
     # for iFR in range( len(FR_ptInEtaList) ):
     for iEta in ['1Eta', '2Eta', '3Eta']:
-        
-        # FR_ptInEtaList[iFR].Print()
-        # FR_ptInEtaList_CR1[iFR].Print()
-        
-        # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames)
         # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames, False)
         plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames)
    
