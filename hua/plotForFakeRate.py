@@ -30,7 +30,8 @@ def main():
     # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
     # histVersion = 'variableHists_v5forFRMCMeasure'
     # histVersion = 'variableHists_v6forFRCR12'
-    histVersion = 'variableHists_v6forFRCR12_1prong'
+    # histVersion = 'variableHists_v6forFRCR12_1prong'
+    histVersion = 'variableHists_v6forFRCR12_3prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -43,7 +44,8 @@ def main():
         # 'tausF_1jetEtaAbs' : etaBins 
     }
     
-    CRnames = ['CRa', 'CRc']
+    CRnames = ['CRa',  'CRc'] # for bjet
+    # CRnames = ['CR', 'CRa'] # for jet
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
     plotDir = inputDirDic['mc'] + 'results/'
@@ -51,14 +53,28 @@ def main():
     
     # isVR = True
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[0]) #0 bjets
-    FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[1])# >=2 bjets
+    # FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[0]) #0 bjets
+    # FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[1])# 1 bjets
+    # FR_ptInEtaList_CR2, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, CRnames[2])# >=2 bjets
+    FR_EtaListDic = {}
+    FR_EtaListDic['1Eta'] = []
+    FR_EtaListDic['2Eta'] = []
+    FR_EtaListDic['3Eta'] = []
+    for iCR in CRnames:
+        iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era, iCR )
+        FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
+        FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
+        FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
     
-    for iFR in range( len(FR_ptInEtaList) ):
+    # for iFR in range( len(FR_ptInEtaList) ):
+    for iEta in ['1Eta', '2Eta', '3Eta']:
         
-        FR_ptInEtaList[iFR].Print()
-        FR_ptInEtaList_CR1[iFR].Print()
-        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames)
+        # FR_ptInEtaList[iFR].Print()
+        # FR_ptInEtaList_CR1[iFR].Print()
+        
+        # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames)
+        # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames, False)
+        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames)
    
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
@@ -67,60 +83,67 @@ def main():
     #application in AR
     # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
-def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era, CRnames):
+# def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era, CRnames, ifForBjet=True):
+def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
     print('start to plot FR overlay..........\n')
     can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
     
-    FR1_iEta.GetYaxis().SetRangeUser(FR1_iEta.GetMinimum()*0.6, FR1_iEta.GetMaximum()*1.5)
-    FR1_iEta.GetYaxis().SetTitle('FR')
-    FR1_iEta.GetYaxis().SetLabelSize(0.025)
-    FR1_iEta.GetYaxis().SetTitleOffset(1.1)
-    FR1_iEta.GetXaxis().SetTitle('pt of tau mother jet')
-    FR1_iEta.SetLineColor(ROOT.kMagenta)
-    FR1_iEta.SetMarkerStyle(45)
-    FR1_iEta.SetMarkerSize(2)
-    FR1_iEta.SetMarkerColor(ROOT.kRed)
-    FR1_iEta.Draw()
-    print(FR1_iEta.GetName())
+    FRInRegionList[0].GetYaxis().SetRangeUser(FRInRegionList[0].GetMinimum()*0.6, FRInRegionList[0].GetMaximum()*1.5)
+    FRInRegionList[0].GetYaxis().SetTitle('FR')
+    FRInRegionList[0].GetYaxis().SetLabelSize(0.025)
+    FRInRegionList[0].GetYaxis().SetTitleOffset(1.1)
+    FRInRegionList[0].GetXaxis().SetTitle('pt of tau mother jet')
+    FRInRegionList[0].SetLineColor(ROOT.kMagenta)
+    FRInRegionList[0].SetMarkerStyle(45)
+    FRInRegionList[0].SetMarkerSize(2)
+    FRInRegionList[0].SetMarkerColor(ROOT.kRed)
+    FRInRegionList[0].Draw()
+    print(FRInRegionList[0].GetName())
     
-    FR2_iEta.SetLineColor(ROOT.kBlue)
-    FR2_iEta.SetMarkerStyle(94)
-    FR2_iEta.SetMarkerSize(2)
-    FR2_iEta.SetMarkerColor(ROOT.kRed )
-    FR2_iEta.Draw('same')
+    FRInRegionList[1].SetLineColor(ROOT.kBlue)
+    FRInRegionList[1].SetMarkerStyle(94)
+    FRInRegionList[1].SetMarkerSize(2)
+    FRInRegionList[1].SetMarkerColor(ROOT.kRed )
+    FRInRegionList[1].Draw('same')
     
     #add uncertainty band for FR1
-    uncert = FR1_iEta.Clone()
-    for ibin in range(1, FR1_iEta.GetNbinsX()+1):
-        uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*0.15)
+    uncert = FRInRegionList[0].Clone()
+    if ifForBjet:
+        uncertValue = 0.15
+    else:
+        uncertValue = 0.05
+    for ibin in range(1, FRInRegionList[0].GetNbinsX()+1):
+        uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*uncertValue)
     uncert.SetFillStyle(3013)
-    # uncert.SetFillColor(4)
     uncert.SetFillColor(ROOT.kOrange)
     uncert.Draw('same e2')
    
    
     CRlegendDic = {
-        'CRa': ['0 b jet'],
+        'CRa': ['0 b jet', '<8 jets'],
         'CRb': ['1 b jet'],
         'CRc': ['2 b jets'],
-        'CR':  ['0 b jet']
+        'CR':  ['0 b jet', '>8 jets']
     } 
     
     legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
-    # legend.AddEntry(FR1_iEta, "0 b jets")
-    # legend.AddEntry(FR2_iEta, ">=2 b jets")
-    legend.AddEntry(FR1_iEta, CRlegendDic[CRnames[0]][0])
-    legend.AddEntry(FR2_iEta, CRlegendDic[CRnames[1]][0])
-    legend.AddEntry(uncert, "15% uncertainty")
+    if ifForBjet:
+        legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][0])
+        legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][0])
+    else:
+        legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][1])
+        legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][1])
+    uncerEntry = '{} % uncertainty'.format(uncertValue*100)    
+    legend.AddEntry(uncert, uncerEntry)
     legend.Draw()
     
     addCMSTextToCan(can, 0.18, 0.3, 0.92, era)
     
-    plotName =  plotDir + 'FROverlay' +str(iEta+1) + 'Eta.png'
+    plotName =  plotDir + 'FROverlay' + '_'+iEta + CRnames[0]+CRnames[1] + '.png'
     can.SaveAs( plotName )
-    print('FR overlay plot here:', )
+    print('FR overlay plot here:', plotName )
     
     
     

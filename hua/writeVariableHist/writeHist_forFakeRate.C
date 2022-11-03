@@ -171,8 +171,8 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lVRLTauNotTGen",
 		"1tau0lCRNotGen", // 12
 		"1tau0lVRNotGen",
-		//FR CRc and CRa and CR3
-		"1tau0lCRc",//14
+		// FR CRc and CRa and CR3
+		"1tau0lCRc", // 14
 		"1tau0lCRa",
 		"1tau0lCR3",
 	};
@@ -295,23 +295,23 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauNotT_Eta1", // 18
 		"1tau0lCRLTauNotT_Eta2",
 		"1tau0lCRLTauNotT_Eta3",
-		"1tau0lCRLTauNotTGen_Eta1",//21
+		"1tau0lCRLTauNotTGen_Eta1", // 21
 		"1tau0lCRLTauNotTGen_Eta2",
-		"1tau0lCRLTauNotTGen_Eta3",//23
+		"1tau0lCRLTauNotTGen_Eta3", // 23
 
-		//VR MC FR measurement
-		// "1tau0lVRLTau_Eta1", //24
-		// "1tau0lVRLTau_Eta2",
-		// "1tau0lVRLTau_Eta3",//26
-		// "1tau0lVR_Eta1", // 27
-		// "1tau0lVR_Eta2",
-		// "1tau0lVR_Eta3",//29
+		// VR MC FR measurement
+		//  "1tau0lVRLTau_Eta1", //24
+		//  "1tau0lVRLTau_Eta2",
+		//  "1tau0lVRLTau_Eta3",//26
+		//  "1tau0lVR_Eta1", // 27
+		//  "1tau0lVR_Eta2",
+		//  "1tau0lVR_Eta3",//29
 
-		//FR measurment CRc and CRa
-		"1tau0lCRcLTau_Eta1",//24 2b
+		// FR measurment CRc and CRa
+		"1tau0lCRcLTau_Eta1", // 24 2b
 		"1tau0lCRcLTau_Eta2",
 		"1tau0lCRcLTau_Eta3",
-		"1tau0lCRcLTauGen_Eta1",//27
+		"1tau0lCRcLTauGen_Eta1", // 27
 		"1tau0lCRcLTauGen_Eta2",
 		"1tau0lCRcLTauGen_Eta3",
 		"1tau0lCRc_Eta1", // 30
@@ -320,11 +320,11 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRcGen_Eta1", // 33
 		"1tau0lCRcGen_Eta2",
 		"1tau0lCRcGen_Eta3",
-		//CRa
-		"1tau0lCRaLTau_Eta1",//36
+		// CRa
+		"1tau0lCRaLTau_Eta1", // 36
 		"1tau0lCRaLTau_Eta2",
 		"1tau0lCRaLTau_Eta3",
-		"1tau0lCRaLTauGen_Eta1",//39
+		"1tau0lCRaLTauGen_Eta1", // 39
 		"1tau0lCRaLTauGen_Eta2",
 		"1tau0lCRaLTauGen_Eta3",
 		"1tau0lCRa_Eta1", // 42
@@ -339,17 +339,17 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 
 	//
 	std::map<TString, std::array<TString, 2>> FRfileMap = {
-		{"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"} }, 
+		{"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
-		{"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"} }, 
+		{"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
-		{"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"} }, 
+		{"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 	};
-	TFile *FRFile = new TFile( FRfileMap[m_era].at(0).Data(), "READ");
+	TFile *FRFile = new TFile(FRfileMap[m_era].at(0).Data(), "READ");
 	FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
-	TFile *FRFile_3prong = new TFile( FRfileMap[m_era].at(1).Data(), "READ");
+	TFile *FRFile_3prong = new TFile(FRfileMap[m_era].at(1).Data(), "READ");
 	FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
-	printf( "Reading FR file:%s \n", FRFile->GetName() );
+	printf("Reading FR file:%s \n", FRFile->GetName());
 }
 
 Bool_t writeHist_forFakeRate::Process(Long64_t entry)
@@ -361,14 +361,14 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
-	if ( !(*tausF_number==1 && *leptonsMVAT_number==0) )
+	if (!(*tausF_number == 1 && *leptonsMVAT_number == 0))
 	{
 		return kFALSE;
 	};
 
 	// for prong division
-	if (!(*tausF_prongNum == 1))
-	// if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+	// if (!(*tausF_prongNum == 1))
+	if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
 	{
 		return kFALSE;
 	}
@@ -383,9 +383,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	Double_t FRWeight_up, FRWeight_down;
 	Double_t FRWeight = 1.0;
-	if (!m_ifMeasurement){
+	if (!m_ifMeasurement)
+	{
 		FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
-
 	}
 	// std::cout << "FRWeight=" << FRWeight << "; FR_up=" << FRWeight_up << " FR_down=" << FRWeight_down << "\n";
 
@@ -401,25 +401,22 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// SR
 	Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
 	Bool_t is1tau0lSRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
-	//CRc and CRa
-	Bool_t is1tau0lCRc     = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+	// CRc and CRa
+	Bool_t is1tau0lCRc = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 	Bool_t is1tau0lCRcLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCRa     = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCRa = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRaLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCR3     = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
-
-
+	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
 
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
 	fillHistsVector(is1tau0lVR, 3, basicWeight);
 	fillHistsVector(is1tau0lVRLTau, 4, basicWeight);
 	fillHistsVector(is1tau0lVRLTauNotT, 5, basicWeight);
-	//CRc CRa CR3
-	fillHistsVector(is1tau0lCRc, 14 , basicWeight);
-	fillHistsVector(is1tau0lCRa, 15 , basicWeight);
-	fillHistsVector(is1tau0lCR3, 16 , basicWeight);
-
+	// CRc CRa CR3
+	fillHistsVector(is1tau0lCRc, 14, basicWeight);
+	fillHistsVector(is1tau0lCRa, 15, basicWeight);
+	fillHistsVector(is1tau0lCR3, 16, basicWeight);
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
@@ -439,11 +436,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		Bool_t is1tau0lCRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		// SR
 		Bool_t is1tau0lSRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
-		//CRc and CRa
+		// CRc and CRa
 		Bool_t is1tau0lCRcGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 		Bool_t is1tau0lCRcLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
 		Bool_t is1tau0lCRaGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-		Bool_t is1tau0lCRaLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num ==0 ;
+		Bool_t is1tau0lCRaLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
 
 		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
 		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
@@ -460,51 +457,49 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
 		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 
-		if ( !m_ifMeasurement){
+		if (!m_ifMeasurement)
+		{
 
-		// AR FR weighted
-		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweighted);
-		// FR uncertainty variation
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			// AR FR weighted
+			FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweighted);
+			// FR uncertainty variation
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
 
-		FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		// FR uncertainty variation
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCRGen, 1, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCR && (!is1tau0lCRGen), 2, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 5, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 6, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRGen, 8, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVR && (!is1tau0lVRGen), 9, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			// FR uncertainty variation
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 17, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotTGen, 18, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 21, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotTGen, 22, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
-		// SR
-		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		// FR uncertainty
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-		// Int
-		FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		// FR uncertainty
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
-
+			// SR
+			FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			// FR uncertainty
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			// Int
+			FillHistsVecorMyClassGenearal(is1tau0lSRGen, 11, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lSR && (!is1tau0lSRGen), 12, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 14, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			// FR uncertainty
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 24, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotTGen, 25, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 		}
-
-
 
 		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
@@ -520,27 +515,27 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotTGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotTGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotTGen && isEta3);
-		//for mearure FR with MC
+		// for mearure FR with MC
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
 		tausL_1pt_eta_class.fillHistVec(2, basicWeight, is1tau0lCRLTau && isEta3);
 		tausL_1pt_eta_class.fillHistVec(6, basicWeight, is1tau0lCR && isEta1);
 		tausL_1pt_eta_class.fillHistVec(7, basicWeight, is1tau0lCR && isEta2);
 		tausL_1pt_eta_class.fillHistVec(8, basicWeight, is1tau0lCR && isEta3);
-		//VR
-		// tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lVRLTau && isEta1);
-		// tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lVRLTau && isEta2);
-		// tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lVRLTau && isEta3);
-		// tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lVR && isEta1);
-		// tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lVR && isEta2);
-		// tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lVR && isEta3);
+		// VR
+		//  tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lVRLTau && isEta1);
+		//  tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lVRLTau && isEta2);
+		//  tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lVRLTau && isEta3);
+		//  tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lVR && isEta1);
+		//  tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lVR && isEta2);
+		//  tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lVR && isEta3);
 		tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lCRcLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lCRcLTauGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lCRcLTauGen && isEta3);
 		tausL_1pt_eta_class.fillHistVec(33, basicWeight, is1tau0lCRcGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(34, basicWeight, is1tau0lCRcGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(35, basicWeight, is1tau0lCRcGen && isEta3);
-		//CRa
+		// CRa
 		tausL_1pt_eta_class.fillHistVec(39, basicWeight, is1tau0lCRaLTauGen && isEta1);
 		tausL_1pt_eta_class.fillHistVec(40, basicWeight, is1tau0lCRaLTauGen && isEta2);
 		tausL_1pt_eta_class.fillHistVec(41, basicWeight, is1tau0lCRaLTauGen && isEta3);
@@ -556,37 +551,38 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// VR
 		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 
-		if ( !m_ifMeasurement){
+		if (!m_ifMeasurement)
+		{
 
-		// AR FR weighted
-		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		// FR variation
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-		// Int
-		FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		// FR variation
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+			// AR FR weighted
+			FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			// FR variation
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			// Int
+			FillHistsVecorMyClassGenearal(is1tau0lCR, 0, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVR, 7, basicWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 4, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 3, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			// FR variation
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 15, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lCRLTauNotT, 16, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 19, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lVRLTauNotT, 20, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 
-		// SR not for data in SR
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
-		//
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
-		FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
+			// SR not for data in SR
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+			//
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 13, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 23, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+			FillHistsVecorMyClassGenearal(is1tau0lSRLTauNotT, 24, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
 		}
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
@@ -603,21 +599,20 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotT && isEta1);
 		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotT && isEta2);
 		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotT && isEta3);
-		//CRc and CRa
+		// CRc and CRa
 		tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lCRcLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lCRcLTau && isEta2);
 		tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lCRcLTau && isEta3);
 		tausL_1pt_eta_class.fillHistVec(30, basicWeight, is1tau0lCRc && isEta1);
 		tausL_1pt_eta_class.fillHistVec(31, basicWeight, is1tau0lCRc && isEta2);
 		tausL_1pt_eta_class.fillHistVec(32, basicWeight, is1tau0lCRc && isEta3);
-		//CRa
+		// CRa
 		tausL_1pt_eta_class.fillHistVec(36, basicWeight, is1tau0lCRaLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(37, basicWeight, is1tau0lCRaLTau && isEta2);
 		tausL_1pt_eta_class.fillHistVec(38, basicWeight, is1tau0lCRaLTau && isEta3);
 		tausL_1pt_eta_class.fillHistVec(42, basicWeight, is1tau0lCRa && isEta1);
 		tausL_1pt_eta_class.fillHistVec(43, basicWeight, is1tau0lCRa && isEta2);
 		tausL_1pt_eta_class.fillHistVec(44, basicWeight, is1tau0lCRa && isEta3);
-
 	}
 
 	return kTRUE;
