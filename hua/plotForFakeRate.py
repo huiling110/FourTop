@@ -29,7 +29,8 @@ def main():
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
     # histVersion = 'variableHists_v5forFRMCMeasure'
-    histVersion = 'variableHists_v6forFRCR12'
+    # histVersion = 'variableHists_v6forFRCR12'
+    histVersion = 'variableHists_v6forFRCR12_1prong'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -55,7 +56,7 @@ def main():
         
         FR_ptInEtaList[iFR].Print()
         FR_ptInEtaList_CR1[iFR].Print()
-        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir)
+        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era)
     
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
@@ -64,7 +65,7 @@ def main():
     #application in AR
     # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
-def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir):
+def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era):
     print('start to plot FR overlay..........\n')
     can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
@@ -76,15 +77,33 @@ def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir):
     FR1_iEta.GetYaxis().SetTitleOffset(1.1)
     FR1_iEta.GetXaxis().SetTitle('pt of tau mother jet')
     FR1_iEta.SetLineColor(ROOT.kOrange)
+    FR1_iEta.SetMarkerStyle(45)
+    FR1_iEta.SetMarkerSize(2)
+    FR1_iEta.SetMarkerColor(ROOT.kMagenta)
     FR1_iEta.Draw()
     
     FR2_iEta.SetLineColor(ROOT.kRed)
+    FR2_iEta.SetMarkerStyle(94)
+    FR2_iEta.SetMarkerSize(2)
+    FR2_iEta.SetMarkerColor(ROOT.kMagenta )
     FR2_iEta.Draw('same')
+    
+    #add uncertainty band for FR1
+    uncert = FR1_iEta.Clone()
+    for ibin in range(1, FR1_iEta.GetNbinsX()+1):
+        uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*0.15)
+    uncert.SetFillStyle(3013)
+    uncert.SetFillColor(4)
+    uncert.Draw('same e2')
+    
     
     legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
     legend.AddEntry(FR1_iEta, "0 b jets")
     legend.AddEntry(FR2_iEta, ">=2 b jets")
+    legend.AddEntry(uncert, "15% uncertainty")
     legend.Draw()
+    
+    addCMSTextToCan(can, 0.18, 0.3, 0.92, era)
     
     plotName =  plotDir + 'FROverlay' +str(iEta+1) + 'Eta.png'
     can.SaveAs( plotName )

@@ -53,8 +53,8 @@ def main():
     # version = 'v3forFRaddFRWeightUpDownRegions'
     # version = 'v4forFRAddHistTitle'
     # version = 'v5forFRMCMasure'
-    version = 'v6forFRCR12'
-    # version = 'v6forFRCR12_1prong'
+    # version = 'v6forFRCR12'
+    version = 'v6forFRCR12_3prong'
     justMC = False
     # justMC = True
     isTest = 0

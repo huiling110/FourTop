@@ -1,6 +1,7 @@
 import csv
 import os
 from ctypes import c_double
+from math import sqrt
 # from re import I
 from tokenize import Double, Number
 
@@ -16,8 +17,8 @@ def main():
     # era = '2016postVFP'
     # era = '2016preVFP'
     # era = '2016'
-    # era = '2018'
-    era = '2017'
+    era = '2018'
+    # era = '2017'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
     # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
@@ -39,12 +40,12 @@ def main():
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     # histVersion = 'variableHists_v4forFakeRate'
     # histVersion = 'variableHists_v0forFakeRate'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
+    histVersion = 'variableHists_v6forFRCR12'
 
-    variableList = ['eventCount']
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
-    regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
-    csvName = '1tau0lFakeRateTauGen'
+    # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
+    # csvName = '1tau0lFakeRateTauGen'
     # csvName = '1tau0lFakeRate'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
@@ -55,11 +56,14 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
+    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lCR1', '1tau0lCR2', '1tau0lCR3']
+    csvName = '1tau0lFRMeasureRegions'
 
 
 
 
 
+    variableList = ['eventCount']
 
     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
     inputDir = {
@@ -146,6 +150,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
     df = pd.DataFrame( data, index=iListName )
     df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt'] +df.loc['WJets']
     df.loc['bg'] = df.loc['totalMC'] - df.loc['tttt']
+    # df.loc['sig'] = df.loc['tttt']/sqrt(df.loc['totalMC'])
+    #???make this work
 
 
     if not writeData:
