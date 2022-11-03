@@ -128,13 +128,17 @@ def calFTPerEta( tauptAR, FR):
     return FT, FTErr, distribution
             
     
-def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True):
+def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=True):
     # inputDirDic = getInputDic( inVersion, histVersion, era)
 
-    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRLTauNotT", "1tau0lVRLTauNotTGen"]
-    if not isVR:
-        regionList[4] = '1tau0lCRLTauNotT'
-        regionList[5] = '1tau0lCRLTauNotTGen'
+    # regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau", "1tau0lVRLTauNotT", "1tau0lVRLTauNotTGen"]
+    regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau"]
+    if ifGetLNotT:
+        regionList.append( '1tau0lVRLTauNotT' )
+        regionList.append( '1tau0lVRLTauNotTGen' )
+        if not isVR:
+            regionList[4] = '1tau0lCRLTauNotT'
+            regionList[5] = '1tau0lCRLTauNotTGen'
     
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -164,13 +168,16 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
         
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion, isDataMC)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion, isDataMC)
-    # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys()[0]], '1tau0lVRLTauNotT'+etaRegion)
-    h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5], isDataMC) #tausL_1pt in VRLNotT
 
     binLowEges = variableDic[list(variableDic.keys())[0]]
     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
-    h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, regionList[4], binLowEges)
+    if len(regionList)>4:
+        h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5], isDataMC) #tausL_1pt in VRLNotT
+        h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, regionList[4], binLowEges)
+    else:
+        h_VRLTauNotT_dataSubBG_rebin = h_CR_dataSubBG_rebin.Clone()
+        h_VRLTauNotT_dataSubBG_rebin.Reset()
 
     h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
     h_fakeRateCR.Reset()
@@ -271,8 +278,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     h_efficiency.Draw("same")
     
     #print
-    for i in range(1,h_efficiency.GetNbinsX()+1):
-        print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
+    # for i in range(1,h_efficiency.GetNbinsX()+1):
+    #     print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
     
     axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
     # axis.SetRangeUser(0, rightmax*1.4)
