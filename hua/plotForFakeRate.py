@@ -43,11 +43,20 @@ def main():
     }
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
+    plotDir = inputDirDic['mc'] + 'results/'
         
     
     # isVR = True
     isVR = False
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era)
+    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, 'CR2') #0 bjets
+    FR_ptInEtaList_CR1, tauPtEtaListAR_CR1 = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era, 'CR1')# >=2 bjets
+    
+    for iFR in range( len(FR_ptInEtaList) ):
+        
+        FR_ptInEtaList[iFR].Print()
+        FR_ptInEtaList_CR1[iFR].Print()
+        plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir)
+    
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
@@ -55,7 +64,35 @@ def main():
     #application in AR
     # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
+def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir):
+    print('start to plot FR overlay..........\n')
+    can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
     
+    FR1_iEta.GetYaxis().SetRangeUser(FR1_iEta.GetMinimum()*0.6, FR1_iEta.GetMaximum()*1.5)
+    FR1_iEta.GetYaxis().SetTitle('FR')
+    FR1_iEta.GetYaxis().SetLabelSize(0.025)
+    FR1_iEta.GetYaxis().SetTitleOffset(1.1)
+    FR1_iEta.GetXaxis().SetTitle('pt of tau mother jet')
+    FR1_iEta.SetLineColor(ROOT.kOrange)
+    FR1_iEta.Draw()
+    
+    FR2_iEta.SetLineColor(ROOT.kRed)
+    FR2_iEta.Draw('same')
+    
+    legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    legend.AddEntry(FR1_iEta, "0 b jets")
+    legend.AddEntry(FR2_iEta, ">=2 b jets")
+    legend.Draw()
+    
+    plotName =  plotDir + 'FROverlay' +str(iEta+1) + 'Eta.png'
+    can.SaveAs( plotName )
+    print('FR overlay plot here:', )
+    
+    
+    
+        
 
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
     etaBins = np.array([0, 0.8,1.6,2.4])
@@ -187,7 +224,7 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     h_fakeRateCR.Reset()
     h_fakeRateCR.Sumw2()
     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
-    h_fakeRateCR.SetName('fakeRate')
+    h_fakeRateCR.SetName('FR_' + regionList[1] )
     
     
 
@@ -201,18 +238,18 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
         plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era )
    
-    h_fakeRateCR.Print() 
+    # h_fakeRateCR.Print() 
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
-def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016'):
+def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016', FRMeasureRegion='CR'):
     etaList = ['_Eta1', '_Eta2', '_Eta3']
     # etaList = ['']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
         # sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR, False )
-        sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR, False, 'CR1' )
+        sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR, False, FRMeasureRegion )
         ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
         # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
