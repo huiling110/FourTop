@@ -78,17 +78,17 @@ def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era, CRnames):
     FR1_iEta.GetYaxis().SetLabelSize(0.025)
     FR1_iEta.GetYaxis().SetTitleOffset(1.1)
     FR1_iEta.GetXaxis().SetTitle('pt of tau mother jet')
-    FR1_iEta.SetLineColor(ROOT.kOrange)
+    FR1_iEta.SetLineColor(ROOT.kMagenta)
     FR1_iEta.SetMarkerStyle(45)
     FR1_iEta.SetMarkerSize(2)
-    FR1_iEta.SetMarkerColor(ROOT.kMagenta)
+    FR1_iEta.SetMarkerColor(ROOT.kRed)
     FR1_iEta.Draw()
     print(FR1_iEta.GetName())
     
-    FR2_iEta.SetLineColor(ROOT.kRed)
+    FR2_iEta.SetLineColor(ROOT.kBlue)
     FR2_iEta.SetMarkerStyle(94)
     FR2_iEta.SetMarkerSize(2)
-    FR2_iEta.SetMarkerColor(ROOT.kMagenta )
+    FR2_iEta.SetMarkerColor(ROOT.kRed )
     FR2_iEta.Draw('same')
     
     #add uncertainty band for FR1
@@ -96,7 +96,8 @@ def plotFROverlay(FR1_iEta, FR2_iEta, iEta, plotDir, era, CRnames):
     for ibin in range(1, FR1_iEta.GetNbinsX()+1):
         uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*0.15)
     uncert.SetFillStyle(3013)
-    uncert.SetFillColor(4)
+    # uncert.SetFillColor(4)
+    uncert.SetFillColor(ROOT.kOrange)
     uncert.Draw('same e2')
    
    
