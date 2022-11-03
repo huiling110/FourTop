@@ -16,8 +16,8 @@ from writeCSVforEY import getSummedHists
 
 def main():
     # era = '2016' 
-    # era = '2018' 
-    era = '2017' 
+    era = '2018' 
+    # era = '2017' 
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
@@ -27,8 +27,8 @@ def main():
     # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
     # histVersion = 'variableHists_v2forFRVariables'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
-    # histVersion = 'variableHists_v5forFRMCMeasure'
+    # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
+    histVersion = 'variableHists_v5forFRMCMeasure'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -48,7 +48,7 @@ def main():
     isVR = False
     FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList(inputDirDic, variableDic, isVR, True, era)
     
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -162,7 +162,6 @@ def getInputDic( inVersion, histVersion, era):
 def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
 
         
-    # h_CR_dataSubBG, h_CRLTau_dataSubBG = getHistForFakeRate( list(variableDic.keys())[0], sumProcessPerVar)
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion, isDataMC)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion, isDataMC)
     # h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys()[0]], '1tau0lVRLTauNotT'+etaRegion)
@@ -201,8 +200,8 @@ def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016')
     tauPtEtaListAR = []
     for ieta in etaList:
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR )
-        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
-        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
+        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
+        ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
@@ -231,7 +230,7 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:
         h_data = sumProcessIVar[region]['data']
     else:
-       h_data = addBGHist(sumProcessIVar, var, genRegion, True) 
+       h_data = addBGHist(sumProcessIVar, var, region, True) 
     h_data.Sumw2()
     h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen
