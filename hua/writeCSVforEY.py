@@ -82,10 +82,12 @@ def main():
         for ire in regionList:
             ireCalList = [ ire, ire+'Gen', ire+'LTauNotT_Weighted', ire+'LTauNotTGen_Weighted']
             sumProcessPerVar_iCR = {}
+            sumProcessPerVar_iCR['eventCount'] = {}
+            sumProcessPerVar['eventCount'] = {}
             isumProcessPerVarSys = {}
             sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = getSummedHists( inputDir, ireCalList, 'eventCount' )       
             replaceBgWithGen( inputDir, sumProcessPerVar_iCR['eventCount'], 'eventCount', ireCalList, 2, False, isumProcessPerVarSys['eventCount']  )
-            sumProcessPerVar['eventCount'] = sumProcessPerVar_iCR['eventCount'][ire].copy()
+            sumProcessPerVar['eventCount'][ire] = sumProcessPerVar_iCR['eventCount'][ire].copy()
             
     print( sumProcessPerVar )
             

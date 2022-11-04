@@ -369,7 +369,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	}
 
-	// std::cout << "met=" << *Met_pt_ << "\n";//???
 
 	Double_t FRWeight_up, FRWeight_down;
 	Double_t FRWeight = 1.0;
@@ -447,7 +446,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRcGen, 17, basicWeight);
 		fillHistsVector(is1tau0lCRaGen, 18, basicWeight);
 		fillHistsVector(is1tau0lCRbGen, 19, basicWeight);
-		fillHistsVector(is1tau0lCRcLTauGen && noTauT , 20, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRcLTauGen && noTauT , 21, basicWeight*FRWeight);
 
 
 		if (!m_ifMeasurement)
@@ -546,7 +545,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	else
 	{
 
-		fillHistsVector(is1tau0lCRcLTau && noTauT , 21, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRcLTau && noTauT , 20, basicWeight*FRWeight);
 
 
 
