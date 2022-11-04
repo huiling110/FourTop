@@ -12,8 +12,6 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
 from usefulFunc import getInputDic
 
-# from plotVaribles import replaceBgWithGen
-
 
 def main():
     # era = '2016postVFP'
@@ -255,6 +253,15 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
     #     sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
     print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
 
+def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
+    if not isdataMC:
+        h_data = sumProcessIVar[region]['data']
+    else:
+       h_data = addBGHist(sumProcessIVar, var, region, True) 
+    h_data.Sumw2()
+    h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
+    h_dataMBG = h_data - h_bgGen
+    return h_dataMBG
 
 
 

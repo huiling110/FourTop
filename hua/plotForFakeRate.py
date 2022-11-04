@@ -340,15 +340,6 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
     return h_CR_dataSubBG, h_CRLTau_dataSubBG
 
-def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
-    if not isdataMC:
-        h_data = sumProcessIVar[region]['data']
-    else:
-       h_data = addBGHist(sumProcessIVar, var, region, True) 
-    h_data.Sumw2()
-    h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
-    h_dataMBG = h_data - h_bgGen
-    return h_dataMBG
 
 
 

@@ -12,7 +12,7 @@ from usefulFunc import getInputDic
 from plotForFakeRate import (getFRAndARNotTList, getFTFromLNotTData,
                              histDateMinusGenBG)
 from setTDRStyle import addCMSTextToCan, setTDRStyle
-from writeCSVforEY import getProcessScale, getSummedHists
+from writeCSVforEY import getProcessScale, getSummedHists, replaceBgWithGen
 
 colourPerSample = {
     'tttt':kPink-9,
