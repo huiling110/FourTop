@@ -44,8 +44,9 @@ def main():
         # 'tausF_1jetEtaAbs' : etaBins 
     }
     
-    CRnames = ['CRa',  'CRc'] # for bjet
-    # CRnames = ['CR', 'CRa'] # for jet
+    # CRnames = ['CRa',  'CRc'] # for bjet
+    CRnames = ['CR', 'CRa'] # for jet
+    # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
     plotDir = inputDirDic['mc'] + 'results/'
@@ -66,7 +67,8 @@ def main():
     # for iFR in range( len(FR_ptInEtaList) ):
     for iEta in ['1Eta', '2Eta', '3Eta']:
         # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames, False)
-        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames)
+        # plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames)
+        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, False)
    
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
@@ -83,22 +85,30 @@ def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
     ROOT.gStyle.SetOptTitle(0)
     
     FRInRegionList[0].GetYaxis().SetRangeUser(FRInRegionList[0].GetMinimum()*0.6, FRInRegionList[0].GetMaximum()*1.5)
-    FRInRegionList[0].GetYaxis().SetTitle('FR')
+    FRInRegionList[0].GetYaxis().SetTitle('fake rate')
     FRInRegionList[0].GetYaxis().SetLabelSize(0.025)
     FRInRegionList[0].GetYaxis().SetTitleOffset(1.1)
     FRInRegionList[0].GetXaxis().SetTitle('pt of tau mother jet')
-    FRInRegionList[0].SetLineColor(ROOT.kMagenta)
+    # FRInRegionList[0].SetLineColor(ROOT.kMagenta)
+    FRInRegionList[0].SetLineColor(ROOT.kOrange)
     FRInRegionList[0].SetMarkerStyle(45)
     FRInRegionList[0].SetMarkerSize(2)
-    FRInRegionList[0].SetMarkerColor(ROOT.kRed)
+    FRInRegionList[0].SetMarkerColor(ROOT.kOrange)
     FRInRegionList[0].Draw()
     print(FRInRegionList[0].GetName())
     
-    FRInRegionList[1].SetLineColor(ROOT.kBlue)
+    FRInRegionList[1].SetLineColor(ROOT.kRed)
     FRInRegionList[1].SetMarkerStyle(94)
     FRInRegionList[1].SetMarkerSize(2)
     FRInRegionList[1].SetMarkerColor(ROOT.kRed )
     FRInRegionList[1].Draw('same')
+    
+    if len(CRnames)>2:
+        FRInRegionList[2].SetLineColor(ROOT.kMagenta)
+        FRInRegionList[2].SetMarkerStyle(22)
+        FRInRegionList[2].SetMarkerSize(2)
+        FRInRegionList[2].SetMarkerColor(ROOT.kMagenta )
+        FRInRegionList[2].Draw('same')
     
     #add uncertainty band for FR1
     uncert = FRInRegionList[0].Clone()
@@ -124,9 +134,13 @@ def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
     if ifForBjet:
         legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][0])
         legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][0])
+        if len(CRnames)>2:
+            legend.AddEntry(FRInRegionList[2], CRlegendDic[CRnames[2]][0])
+            
     else:
         legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][1])
         legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][1])
+    
     uncerEntry = '{} % uncertainty'.format(uncertValue*100)    
     legend.AddEntry(uncert, uncerEntry)
     legend.Draw()

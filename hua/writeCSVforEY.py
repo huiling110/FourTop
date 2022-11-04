@@ -56,7 +56,7 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
-    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lCR1', '1tau0lCR2', '1tau0lCR3']
+    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
     csvName = '1tau0lFRMeasureRegions'
 
 
