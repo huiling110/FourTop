@@ -9,10 +9,10 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 from usefulFunc import getInputDic
 
-from plotForFakeRate import (getFRAndARNotTList, getFTFromLNotTData,
-                             histDateMinusGenBG)
+from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from setTDRStyle import addCMSTextToCan, setTDRStyle
-from writeCSVforEY import getProcessScale, getSummedHists, replaceBgWithGen
+from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
+                           replaceBgWithGen)
 
 colourPerSample = {
     'tttt':kPink-9,
