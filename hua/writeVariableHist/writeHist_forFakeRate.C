@@ -151,10 +151,13 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRc", // 14
 		"1tau0lCRa",
 		"1tau0lCRb",
-		//
+		//for fakeTau estimation
 		"1tau0lCRcGen", // 17
 		"1tau0lCRaGen",
 		"1tau0lCRbGen",
+		"1tau0lCRcLTauNotT_Weighted",//20
+		"1tau0lCRcLTauNotTGen_Weighted",
+
 	};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForEventCount);
 
@@ -378,6 +381,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	Bool_t isTauLNum = (*tausF_number == 1);
 	Bool_t isTauLNumGen = (*tausF_genTauNum == 1);
+	Bool_t noTauT = (*tausT_number==0); 
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
@@ -443,6 +447,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRcGen, 17, basicWeight);
 		fillHistsVector(is1tau0lCRaGen, 18, basicWeight);
 		fillHistsVector(is1tau0lCRbGen, 19, basicWeight);
+		fillHistsVector(is1tau0lCRcLTauGen && noTauT , 20, basicWeight*FRWeight);
 
 
 		if (!m_ifMeasurement)
@@ -540,6 +545,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 	else
 	{
+
+		fillHistsVector(is1tau0lCRcLTau && noTauT , 21, basicWeight*FRWeight);
+
+
+
+
 
 		if (!m_ifMeasurement)
 		{

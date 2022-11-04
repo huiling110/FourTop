@@ -73,9 +73,9 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
-    regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
@@ -133,7 +133,7 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=0, ifFR_syst=False, sumProcessIvarSys={}):
+def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=2, ifFR_syst=False, sumProcessIvarSys={}):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
         if ipro=='data': continue

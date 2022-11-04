@@ -72,7 +72,6 @@ def main():
         plotForBJet = False
     for iEta in ['1Eta', '2Eta', '3Eta']:
         plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
-        # plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, False)
    
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
