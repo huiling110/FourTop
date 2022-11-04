@@ -93,7 +93,7 @@ def main():
             
             
         
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True, True )
 
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
@@ -109,9 +109,12 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
     data = {}
     variable = list(sumProcessPerVal.keys())[0]
+    firstRegion = list(sumProcessPerVal['eventCount'].keys())[0]
     for iregion in sumProcessPerVal[variable].keys():
-        iList = []
-        for iProcess in summedProcessList:
+        iList = [] #list of processes for i region
+        # for iProcess in allProcesses:
+        for iProcess in sumProcessPerVal['eventCount'][iregion].keys():
+            if ifFakeTau and iProcess=='qcd': continue
             if ('SR' in iregion) and iProcess=='data':
                 iList.append(-1.0)
                 iList.append(-1.0)#for uncert
@@ -127,21 +130,27 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         data[iregion] = iList
      
     iListName = []
-    for iProcess in summedProcessList:
+    for iProcess in sumProcessPerVal['eventCount'][firstRegion].keys():
+        if ifFakeTau and iProcess=='qcd': continue
         iListName.append(iProcess)
         iListName.append(iProcess+'Uncert')
 
     df = pd.DataFrame( data, index=iListName )
-    df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt'] +df.loc['WJets']
-    df.loc['bg'] = df.loc['totalMC'] - df.loc['tttt']
-    # df.loc['sig'] = df.loc['tttt']/sqrt(df.loc['totalMC'])
+    if ifFakeTau:
+        df.loc['bg'] = df.loc['tt'] + df.loc['fakeTau'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop'] +df.loc['WJets'] 
+    else:
+        df.loc['bg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['WJets']
+        
+    df.loc['SandB'] = df.loc['bg'] + df.loc['tttt']
     #???make this work
+    # df.loc['sensitivity'] = df.loc['tttt']/(df.loc['SandB']**(1/2))
 
 
     if not writeData:
         df = df.drop('data')
     else:
-        df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["totalMC"]
+        # df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["totalMC"]
+        df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["bg"]
 
     df = df.transpose()
     # df.reset_index(inplace=True)
