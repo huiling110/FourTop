@@ -57,8 +57,8 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
-    # regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
-    regionList = ['1tau0lCRc']
+    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
+    # regionList = ['1tau0lCRc']
     
     # csvName = '1tau0lFRMeasureRegions'
     ifUseFakeTau = True
@@ -79,11 +79,12 @@ def main():
         for ivar in variableList:
             sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
     else:
+        sumProcessPerVar['eventCount'] = {}
         for ire in regionList:
             ireCalList = [ ire, ire+'Gen', ire+'LTauNotT_Weighted', ire+'LTauNotTGen_Weighted']
             sumProcessPerVar_iCR = {}
             sumProcessPerVar_iCR['eventCount'] = {}
-            sumProcessPerVar['eventCount'] = {}
+            sumProcessPerVar['eventCount'][ire] = {}
             isumProcessPerVarSys = {}
             sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = getSummedHists( inputDir, ireCalList, 'eventCount' )       
             replaceBgWithGen( inputDir, sumProcessPerVar_iCR['eventCount'], 'eventCount', ireCalList, 2, False, isumProcessPerVarSys['eventCount']  )
