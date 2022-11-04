@@ -93,6 +93,7 @@ def main():
             
             
         
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
 
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
@@ -101,7 +102,7 @@ def main():
 
 
 
-def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False):
+def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False, ifFakeTau = False):
     print('\n')
     print('start to write hists to csv')
     uf.checkMakeDir( outDir )
@@ -130,7 +131,6 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         iListName.append(iProcess)
         iListName.append(iProcess+'Uncert')
 
-    # df = pd.DataFrame( data, index=summedProcessList )
     df = pd.DataFrame( data, index=iListName )
     df.loc['totalMC'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['tttt'] +df.loc['WJets']
     df.loc['bg'] = df.loc['totalMC'] - df.loc['tttt']

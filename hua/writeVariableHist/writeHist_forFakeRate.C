@@ -157,6 +157,17 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRbGen",
 		"1tau0lCRcLTauNotT_Weighted",//20
 		"1tau0lCRcLTauNotTGen_Weighted",
+		"1tau0lCRaLTauNotT_Weighted",//22
+		"1tau0lCRaLTauNotTGen_Weighted",
+		"1tau0lCRbLTauNotT_Weighted",//24
+		"1tau0lCRbLTauNotTGen_Weighted",
+		//
+		"1tau0lSRLTauNotT_Weighted",//26
+		"1tau0lSRLTauNotTGen_Weighted",
+		"1tau0lCRLTauNotT_Weighted",//28
+		"1tau0lCRLTauNotTGen_Weighted",
+		"1tau0lVRLTauNotT_Weighted",//30
+		"1tau0lVRLTauNotTGen_Weighted",
 
 	};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForEventCount);
@@ -447,6 +458,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRaGen, 18, basicWeight);
 		fillHistsVector(is1tau0lCRbGen, 19, basicWeight);
 		fillHistsVector(is1tau0lCRcLTauGen && noTauT , 21, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRaLTauGen && noTauT , 23, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRbLTauGen && noTauT , 25, basicWeight*FRWeight);
+		//
+		fillHistsVector(is1tau0lSRLTauNotTGen , 27, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRLTauNotTGen , 29, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lVRLTauNotTGen , 31, basicWeight*FRWeight);
 
 
 		if (!m_ifMeasurement)
@@ -546,6 +563,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 
 		fillHistsVector(is1tau0lCRcLTau && noTauT , 20, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRaLTau && noTauT , 22, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRbLTau && noTauT , 24, basicWeight*FRWeight);
+		//
+		fillHistsVector(is1tau0lSRLTauNotT , 26, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRLTauNotT , 28, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lVRLTauNotT , 30, basicWeight*FRWeight);
 
 
 
