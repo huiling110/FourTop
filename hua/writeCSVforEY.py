@@ -143,7 +143,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         
     df.loc['SandB'] = df.loc['bg'] + df.loc['tttt']
     #???make this work
-    # df.loc['sensitivity'] = df.loc['tttt']/(df.loc['SandB']**(1/2))
+    df.loc['sensitivity'] = df.loc['tttt']/(df.loc['SandB']**(1/2))
 
 
     if not writeData:
