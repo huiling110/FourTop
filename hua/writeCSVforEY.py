@@ -11,6 +11,8 @@ from ROOT import TFile
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
 
+from plotVaribles import getInputDic
+
 
 def main():
     # era = '2016postVFP'
@@ -64,13 +66,12 @@ def main():
 
     variableList = ['eventCount']
 
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
-    inputDir = {
-        # 'mc': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/mc/variableHists_v0/',
-        # 'data': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v20FixedSelectJetsBug/data/variableHists_v0/',
-        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    }
+    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
+    # inputDir = {
+    #     'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+    #     'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    # }
+    inputDir = getInputDic(inVersion, histVersion, era)
 
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
