@@ -7,9 +7,10 @@ import numpy as np
 from ROOT import *
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
+from usefulFunc import getInputDic
 
 from plotForFakeRate import (getFRAndARNotTList, getFTFromLNotTData,
-                             getInputDic, histDateMinusGenBG)
+                             histDateMinusGenBG)
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from writeCSVforEY import getProcessScale, getSummedHists
 
@@ -61,9 +62,9 @@ def main():
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    # variables = [ 'tausF_1jetPtFRWeight',]
+    variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     
     # variables = ['Met_pt']#???

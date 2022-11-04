@@ -58,28 +58,28 @@ def main():
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
     regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
-    csvName = '1tau0lFRMeasureRegions'
+    
+    # csvName = '1tau0lFRMeasureRegions'
+    ifUseFakeTau = True
+    csvName = '1tau0lFRMeasureRegions_fakeTau'
 
 
 
 
 
     variableList = ['eventCount']
-
-    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
-    # inputDir = {
-    #     'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-    #     'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    # }
     inputDir = getInputDic(inVersion, histVersion, era)
 
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
-    for ivar in variableList:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
-    print( sumProcessPerVar )
+    if not ifUseFakeTau:
+        for ivar in variableList:
+            sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
+        print( sumProcessPerVar )
+    # else:
+        
 
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
