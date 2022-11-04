@@ -16,8 +16,8 @@ from writeCSVforEY import getSummedHists
 
 def main():
     # era = '2016' 
-    era = '2018' 
-    # era = '2017' 
+    # era = '2018' 
+    era = '2017' 
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
@@ -45,8 +45,11 @@ def main():
     }
     
     # CRnames = ['CRa',  'CRc'] # for bjet
-    CRnames = ['CR', 'CRa'] # for jet
-    # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
+    CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
+    # CRnames = ['CR', 'CRa'] # for jet
+    
+    
+    
   
     inputDirDic = getInputDic(inVersion, histVersion, era) 
     plotDir = inputDirDic['mc'] + 'results/'
@@ -64,11 +67,12 @@ def main():
         FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
         FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
     
-    # for iFR in range( len(FR_ptInEtaList) ):
+    plotForBJet = True
+    if 'CR' in CRnames:
+        plotForBJet = False
     for iEta in ['1Eta', '2Eta', '3Eta']:
-        # plotFROverlay(FR_ptInEtaList[iFR], FR_ptInEtaList_CR1[iFR], iFR, plotDir, era, CRnames, False)
-        # plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames)
-        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, False)
+        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
+        # plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, False)
    
     
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
