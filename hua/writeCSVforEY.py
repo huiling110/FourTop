@@ -2,7 +2,6 @@ import csv
 import os
 from ctypes import c_double
 from math import sqrt
-# from re import I
 from tokenize import Double, Number
 
 import pandas as pd

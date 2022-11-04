@@ -44,7 +44,7 @@ public:
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
    // std::vector<histsForRegions<Int_t>> vectorOfVariableRegionsInt;
-   std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
+   // std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
    std::vector<histsForRegions<Double_t>> vectorOfVariblesRegions_FRweighted;
    std::vector<histsForRegions<Int_t>> vectorOfVariblesRegions_FRweightedInt;
    // histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};

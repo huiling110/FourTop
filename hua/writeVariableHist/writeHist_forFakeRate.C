@@ -1,23 +1,6 @@
 #define writeHist_forFakeRate_cxx
 // The class definition in writeHist_forFakeRate.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
-// from the ROOT class TSelector. For more information on the TSelector
-// framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
-
-// The following methods are defined in this file:
-//    Begin():        called every time a loop on the tree starts,
-//                    a convenient place to create your histograms.
-//    SlaveBegin():   called after Begin(), when on PROOF called only on the
-//                    slave servers.
-//    Process():      called for each event, in this function you decide what
-//                    to read and fill your histograms.
-//    SlaveTerminate: called at the end of the loop on the tree, when on PROOF
-//                    called only on the slave servers.
-//    Terminate():    called at the end of the loop on the tree,
-//                    a convenient place to draw/fit your histograms.
-//
-// To use this file, try the following session on your Tree T:
-//
 
 #include <TH2.h>
 #include <TStyle.h>
@@ -37,13 +20,13 @@ void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
 	}
 }
 
-void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
-{
-	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
-	{
-		vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight, isRegion);
-	}
-}
+// void writeHist_forFakeRate::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+// {
+// 	for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
+// 	{
+// 		vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight, isRegion);
+// 	}
+// }
 
 template <typename T>
 void FillHistsVecorMyClassGenearal(Bool_t isRegion, UInt_t vectorIndex, Double_t weight, std::vector<histsForRegions<T>> &vectorOfVariableRegionsDouble)
@@ -103,11 +86,11 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
 }
 
 template <typename TEM>
-void vectorInitializeReigions(std::vector<histsForRegions<TEM>> &vectorOfVariableRegionsDouble, std::vector<TString> &regionsForVariables, TString m_processName)
+void vectorInitializeReigions(std::vector<histsForRegions<TEM>> &vectorOfVariableRegionsDouble, std::vector<TString> &regionsForEventCount, TString m_processName)
 {
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
 	{
-		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
+		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForEventCount, m_processName);
 	}
 };
 
@@ -156,7 +139,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {
+	std::vector<TString> regionsForEventCount = {
 		"1tau0lSR", // 0
 		"1tau0lCR",
 		"1tau0lCRLTau",
@@ -177,13 +160,13 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRb",
 	};
 
-	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
+	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForEventCount);
 
-	histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", "tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
-	histsForRegions<Double_t> tausF_1jetEtaAbs_class{"tausF_1jetEtaAbs", "eta of tau", 24, 0, 2.4, tausF_1jetEtaAbs};
-	vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
-	vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
-	vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForVariables, m_processName);
+	// histsForRegions<Double_t> tausF_1jetPt_class{"tausF_1jetPt", "tausF_1jetPt", 28, 20, 300, tausF_1jetPt};
+	// histsForRegions<Double_t> tausF_1jetEtaAbs_class{"tausF_1jetEtaAbs", "eta of tau", 24, 0, 2.4, tausF_1jetEtaAbs};
+	// vectorOfVariableRegionsDouble.push_back(tausF_1jetPt_class);
+	// vectorOfVariableRegionsDouble.push_back(tausF_1jetEtaAbs_class);
+	// vectorInitializeReigions(vectorOfVariableRegionsDouble, regionsForEventCount, m_processName);
 
 	// FR weighted
 	//???make this not vector index but clear name for regions
@@ -465,13 +448,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lVRLTauGen, 10, basicWeight);
 
 		// CR
-		fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
-		fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
-		fillHistsVectorMyclass(is1tau0lVRGen, 9, basicWeight);
-		// VR
-		fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
-		fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
-		fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lCRLTauGen, 8, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lCRGen, 7, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lVRGen, 9, basicWeight);
+		// // VR
+		// fillHistsVectorMyclass(is1tau0lVRLTauNotTGen, 11, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lCR && (!is1tau0lCRGen), 12, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lVR && (!is1tau0lVRGen), 13, basicWeight);
 
 		if (!m_ifMeasurement)
 		{
@@ -568,11 +551,11 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 	else
 	{
-		fillHistsVectorMyclass(is1tau0lCRLTau, 2, basicWeight);
-		fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
-		fillHistsVectorMyclass(is1tau0lVR, 3, basicWeight);
-		// VR
-		fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lCRLTau, 2, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
+		// fillHistsVectorMyclass(is1tau0lVR, 3, basicWeight);
+		// // VR
+		// fillHistsVectorMyclass(is1tau0lVRLTauNotT, 5, basicWeight);
 
 		if (!m_ifMeasurement)
 		{
@@ -676,10 +659,10 @@ void writeHist_forFakeRate::Terminate()
 		eventCount_hists[j]->Print();
 	}
 
-	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
-	{
-		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-	}
+	// for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+	// {
+	// 	vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+	// }
 
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweighted, processScale);
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweightedInt, processScale);
