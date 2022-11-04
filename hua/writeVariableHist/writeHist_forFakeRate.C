@@ -151,8 +151,11 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRc", // 14
 		"1tau0lCRa",
 		"1tau0lCRb",
+		//
+		"1tau0lCRcGen", // 17
+		"1tau0lCRaGen",
+		"1tau0lCRbGen",
 	};
-
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForEventCount);
 
 
@@ -402,6 +405,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	fillHistsVector(is1tau0lCRc, 14, basicWeight);
 	fillHistsVector(is1tau0lCRa, 15, basicWeight);
 	fillHistsVector(is1tau0lCRb, 16, basicWeight);
+	//fakeTau
+	fillHistsVector(is1tau0lCRb, 17, basicWeight*FRWeight);
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
@@ -434,6 +439,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRLTauGen, 8, basicWeight);
 		fillHistsVector(is1tau0lVRGen, 9, basicWeight);
 		fillHistsVector(is1tau0lVRLTauGen, 10, basicWeight);
+		//
+		fillHistsVector(is1tau0lCRcGen, 17, basicWeight);
+		fillHistsVector(is1tau0lCRaGen, 18, basicWeight);
+		fillHistsVector(is1tau0lCRbGen, 19, basicWeight);
 
 
 		if (!m_ifMeasurement)
@@ -624,15 +633,14 @@ void writeHist_forFakeRate::Terminate()
 	{
 		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
 		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
-	}
+	};
 
 	for (UInt_t j = 0; j < eventCount_hists.size(); j++)
 	{
-
 		std::cout << j << "\n";
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
-	}
+	};
 
 
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweighted, processScale);
