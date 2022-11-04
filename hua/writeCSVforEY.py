@@ -78,7 +78,6 @@ def main():
     if not ifUseFakeTau:
         for ivar in variableList:
             sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
-        print( sumProcessPerVar )
     else:
         for ire in regionList:
             ireCalList = [ ire, ire+'Gen', ire+'LTauNotT_Weighted', ire+'LTauNotTGen_Weighted']
@@ -86,13 +85,15 @@ def main():
             isumProcessPerVarSys = {}
             sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = getSummedHists( inputDir, ireCalList, 'eventCount' )       
             replaceBgWithGen( inputDir, sumProcessPerVar_iCR['eventCount'], 'eventCount', ireCalList, 2, False, isumProcessPerVarSys['eventCount']  )
+            sumProcessPerVar['eventCount'] = sumProcessPerVar_iCR['eventCount'][ire].copy()
             
+    print( sumProcessPerVar )
             
             
         
 
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
+    # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
 
 
 
