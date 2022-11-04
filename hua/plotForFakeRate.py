@@ -15,9 +15,9 @@ from writeCSVforEY import getSummedHists
 
 
 def main():
-    # era = '2016' 
+    era = '2016' 
     # era = '2018' 
-    era = '2017' 
+    # era = '2017' 
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
@@ -45,8 +45,8 @@ def main():
     }
     
     # CRnames = ['CRa',  'CRc'] # for bjet
-    CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
-    # CRnames = ['CR', 'CRa'] # for jet
+    # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
+    CRnames = ['CR', 'CRa'] # for jet
     
     
     
