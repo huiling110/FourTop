@@ -29,3 +29,14 @@ def sumbitJobs(  jobsh):
 
     print('jobs submitted')
 
+
+def getInputDic( inVersion, histVersion, era):
+    '''
+    for final hists folder structure
+    '''
+    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
+    inputDirDic = {
+        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    }
+    return inputDirDic

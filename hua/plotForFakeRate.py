@@ -256,13 +256,13 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=T
     
     return sumProcessPerVar, inputDirDic, regionList
        
-def getInputDic( inVersion, histVersion, era):
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
-    inputDirDic = {
-        'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
-        'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
-    }
-    return inputDirDic
+# def getInputDic( inVersion, histVersion, era):
+#     inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/' + era +'/'
+#     inputDirDic = {
+#         'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
+#         'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+#     }
+#     return inputDirDic
         
     
     

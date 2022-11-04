@@ -10,8 +10,7 @@ import usefulFunc as uf
 from ROOT import TFile
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
-
-from plotVaribles import getInputDic
+from usefulFunc import getInputDic
 
 
 def main():
@@ -42,7 +41,8 @@ def main():
     # histVersion = 'variableHists_v4forFakeRate'
     # histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    histVersion = 'variableHists_v6forFRCR12'
+    # histVersion = 'variableHists_v6forFRCR12'
+    histVersion = 'variableHists_v7addFRWeightReForEventCount'
 
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
@@ -86,35 +86,6 @@ def main():
 
 
 
-def writeHistsToCSV_cutflow(  sumProcessPerVar , outDir, fileName, includeRaw=False, includeEfficiency=True ):
-    print('\n')
-    print('start to write hists to csv')
-    if not os.path.exists( outDir ): os.mkdir( outDir )
-    firstVar = list(sumProcessPerVar.keys())[0]
-    region = list(sumProcessPerVar[firstVar].keys())[0]
-
-    data = {}
-    for iVar in sumProcessPerVar.keys():
-        iList = []
-        iListRaw = []
-        # iListEfficiency = []
-        # for iProcess in sumProcessPerVar[iVar][region].keys():
-        for iProcess in summedProcessList:
-            iList.append( sumProcessPerVar[iVar][region][iProcess].Integral() )
-            iListRaw.append( sumProcessPerVar[iVar][region][iProcess].GetEntries() )
-        data[iVar] = iList
-        if includeRaw:  data[ iVar+'rawEntries'] = iListRaw 
-    # print( data )
-    df = pd.DataFrame(data, summedProcessList )
-    df.loc["totalMC"] =  df.drop("data").sum(axis=0, numeric_only=True)        
-    df.loc["data/totalMC"] = df.loc["data"]/df.loc["totalMC"]
-    
-    pd.set_option('display.float_format','{:.2f}'.format)
-    print(df)
-
-    df.to_csv( outDir + fileName ) 
-
-    print( 'done writen csv file here: ', outDir+fileName )
 
 
 def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False):
