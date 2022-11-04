@@ -135,48 +135,6 @@ def main():
         # makeStackPlot_mcOnly(nom[variable],systs[variable],variable,myRegion, plotDir, 'mcOnly' )
             # makeStackPlot( nom[variable], systs[variable], variable, myRegion,  plotDir, 'dataVsMC' )
 
-def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=2, ifFR_syst=False, sumProcessIvarSys={}):
-    #1tau0lCR relace with 1tauCRGen
-    for ipro in sumProcessIvar[regionList[0]].keys():
-        if ipro=='data': continue
-        sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
-        
-    if  ifGetFromMC==0:
-        sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
-        sumProcessIvar[regionList[0]]['fakeTau'].Reset()
-        sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
-    #adding 'fakeTau' process from CRNotGen
-        for ipro in sumProcessIvar[regionList[2]].keys():
-            if ipro=='data' or ipro=='tttt': continue
-            sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) #2 is gone 
-    #scale to fake rate prediction
-        sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
-    if ifGetFromMC==1:
-        #adding 'fakeTau' from CRLTauNotT data
-        isVR = False
-        if regionList[0]=='1tau0lVR': 
-            isVR = True
-        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inputDirDic, var,  isVR) 
-        if 'eta' in var:
-            ptBins = np.array( [0, 0.8, 1.6, 2.3])
-        else:
-            ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-        for ipro in sumProcessIvar[regionList[0]].keys() :
-             sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
-    if ifGetFromMC==2:
-         #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
-        sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[2], regionList[3]) 
-        # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
-        #FR sytematic
-        sumProcessIvarSys[regionList[0]]['fakeTau']={}
-        if ifFR_syst:
-            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_up'] = histDateMinusGenBG( var, sumProcessIvar, regionList[4], regionList[6] ) 
-            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIvar, regionList[5], regionList[7] ) 
-        
-    #fake tau come from data
-    # for ibin in range(sumProcessIvar[regionList[0]]['fakeTau'].GetNbinsX()):
-    #     sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
-    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
 
  
  

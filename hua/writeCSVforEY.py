@@ -12,6 +12,8 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
 from usefulFunc import getInputDic
 
+# from plotVaribles import replaceBgWithGen
+
 
 def main():
     # era = '2016postVFP'
@@ -57,7 +59,8 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
-    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
+    # regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
+    regionList = ['1tau0lCRc']
     
     # csvName = '1tau0lFRMeasureRegions'
     ifUseFakeTau = True
@@ -78,7 +81,16 @@ def main():
         for ivar in variableList:
             sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
         print( sumProcessPerVar )
-    # else:
+    else:
+        for ire in regionList:
+            ireCalList = [ ire, ire+'Gen', ire+'LTauNotT_Weighted', ire+'LTauNotTGen_Weighted']
+            sumProcessPerVar_iCR = {}
+            isumProcessPerVarSys = {}
+            sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = getSummedHists( inputDir, ireCalList, 'eventCount' )       
+            replaceBgWithGen( inputDir, sumProcessPerVar_iCR['eventCount'], 'eventCount', ireCalList, 2, False, isumProcessPerVarSys['eventCount']  )
+            
+            
+            
         
 
     writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
@@ -197,6 +209,55 @@ def getProcessScale( processName, era ):
     scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
     print( processName, ': ', 'genWeight= ', genWeight, ' lumi=', lumiMap[era], ' cross=', samplesCrossSection[processName],  ' scale= ', scale)
     return scale
+
+
+
+def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=2, ifFR_syst=False, sumProcessIvarSys={}):
+    #1tau0lCR relace with 1tauCRGen
+    for ipro in sumProcessIvar[regionList[0]].keys():
+        if ipro=='data': continue
+        sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
+        
+    if  ifGetFromMC==0:
+        sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[0]]['tttt'].Clone()
+        sumProcessIvar[regionList[0]]['fakeTau'].Reset()
+        sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
+    #adding 'fakeTau' process from CRNotGen
+        for ipro in sumProcessIvar[regionList[2]].keys():
+            if ipro=='data' or ipro=='tttt': continue
+            sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) #2 is gone 
+    #scale to fake rate prediction
+        sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
+    if ifGetFromMC==1:
+        #adding 'fakeTau' from CRLTauNotT data
+        isVR = False
+        if regionList[0]=='1tau0lVR': 
+            isVR = True
+        sumProcessIvar[regionList[0]]['fakeTau'] = getShapeFromData( inputDirDic, var,  isVR) 
+        if 'eta' in var:
+            ptBins = np.array( [0, 0.8, 1.6, 2.3])
+        else:
+            ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
+        for ipro in sumProcessIvar[regionList[0]].keys() :
+             sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[0]][ipro].Rebin(len(ptBins)-1, '', ptBins)
+    if ifGetFromMC==2:
+         #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
+        sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[2], regionList[3]) 
+        # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
+        #FR sytematic
+        sumProcessIvarSys[regionList[0]]['fakeTau']={}
+        if ifFR_syst:
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_up'] = histDateMinusGenBG( var, sumProcessIvar, regionList[4], regionList[6] ) 
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIvar, regionList[5], regionList[7] ) 
+        
+    #fake tau come from data
+    # for ibin in range(sumProcessIvar[regionList[0]]['fakeTau'].GetNbinsX()):
+    #     sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
+    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
+
+
+
+
 
 
 if __name__=='__main__':
