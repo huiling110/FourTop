@@ -165,8 +165,6 @@ public:
     Int_t tausT_genTauNum = 0;
     Int_t tausL_genTauNum = 0;
     Int_t tausF_genTauNum = -99;
-    Double_t tausF_leptonsT_transMass = -99.0;
-    Double_t tausL_leptonsT_transMass = -99.0;
     Double_t tausT_leptonsT_transMass = -99.0;
     Double_t tausF_leptonsT_invariantMass = -99.0;
     Double_t tausL_leptonsT_invariantMass = -99.0;
@@ -209,10 +207,10 @@ public:
 
     //
     // Double_t ;
-    Double_t jets_HT_JECup = -99.0;
-    Double_t jets_HT_JECdown = -99.0;
-    Int_t jets_number_JECup = -99.;
-    Int_t jets_number_JECdown = -99;
+    // Double_t jets_HT_JECup = -99.0;
+    // Double_t jets_HT_JECdown = -99.0;
+    // Int_t jets_number_JECup = -99.;
+    // Int_t jets_number_JECdown = -99;
     Int_t jets_number = -99;
     Double_t jets_MHT = -99.0;
     Double_t jets_HT = -99.0;
@@ -232,6 +230,9 @@ public:
     Double_t jets_MHTDividedByMet = -99.0;
     Double_t jets_leptonsMVAT_minDeltaR = -99.0;
     Double_t jets_tausF_minDeltaR = -99.0;
+    Double_t jets_tausT_invariantMass= -99.0;
+    // Double_t = -99.0;
+
     Double_t jets_spherilty = -99.0;
     Double_t jets_aplanarity = -99.0;
     Double_t jets_1pt = -99.0;

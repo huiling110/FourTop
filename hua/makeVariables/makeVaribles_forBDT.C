@@ -146,8 +146,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		// basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
-		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_);
+		basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
 	}
 	// std::cout<<"basicWeight: "<<basicWeight<<"\n";
 	eventCount_mvInitial->Fill(0.0, basicWeight);
@@ -318,8 +317,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tausL_genTauNum = calGenTauNum(tausL_genPartFlav);
 	tausF_genTauNum = calGenTauNum(tausF_genPartFlav);
 
-	// tausF_leptonsT_transMass = TransMassSysCal(tausF, leptonsMVAT);
-	// tausL_leptonsT_transMass = TransMassSysCal(tausL, leptonsMVAT);
 	tausT_leptonsT_transMass = TransMassSysCal(tausT, leptonsMVAT);
 	tausF_leptonsT_invariantMass = InvariantMass2SysCal(tausF, leptonsMVAT);
 	tausL_leptonsT_invariantMass = InvariantMass2SysCal(tausL, leptonsMVAT);
@@ -380,10 +377,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// Met
 
 	// for jets JEC
-	jets_HT_JECup = HTcalculator(jets_JECup);
-	jets_HT_JECdown = HTcalculator(jets_JECdown);
-	jets_number_JECup = jets_JECup.GetSize();
-	jets_number_JECdown = jets_JECdown.GetSize();
+	// jets_HT_JECup = HTcalculator(jets_JECup);
+	// jets_HT_JECdown = HTcalculator(jets_JECdown);
+	// jets_number_JECup = jets_JECup.GetSize();
+	// jets_number_JECdown = jets_JECdown.GetSize();
 
 	// jets
 	jets_number = jets.GetSize();
@@ -410,6 +407,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	jets_MHTDividedByMet = jets_MHT / *MET_pt_;
 	jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
 	jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+	jets_tausT_invariantMass = InvariantMass2SysCal( jets, tausT);
 
 	//
 	// aplanarity and sphericity
@@ -584,25 +582,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		bjetsT_4phi = fabs(bjetsT[3].Phi());
 	} /*}}}*/
 
-	// nonbjetsL_num = nonbjetsL.GetSize();
 	nonbjetsM_num = nonbjetsM.GetSize();
 
 	forwardJets_num = forwardJets.GetSize();
 
-	// toptagger_num = tops_toptagger.GetSize();
-	// toptagger_MHT = MHTcalculator(tops_toptagger); // 900;return the pt sum of,vetctor sum
-	// toptagger_HT = HTcalculator(tops_toptagger);
-	// toptagger_invariantMass = InvariantMassCalculator(tops_toptagger);
-	// toptagger_transMass = TransMassCal(tops_toptagger);
-	// toptagger_minDeltaR_v1 = MinDeltaRSingleCal(tops_toptagger);
-	// toptagger_scoreAllTops = TopScoreAllTopsCal(tops_toptagger);
-	// toptagger_leptonsMVAT_minDeltaR = MinDeltaRCal(tops_toptagger, leptonsMVAT);
-	// if (toptagger_num > 0)
-	// {
-	// 	toptagger_1pt = tops_toptagger[0].Pt();
-	// 	toptagger_1eta = fabs(tops_toptagger[0].Eta());
-	// 	toptagger_1phi = fabs(tops_toptagger[0].Phi());
-	// }
 
 	// event information
 	PV_npvs = *PV_npvs_;
@@ -892,8 +875,6 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tausL_1eta", &tausL_1eta, "tausL_1eta/D");
 	newtree->Branch("tausL_1etaAbs", &tausL_1etaAbs, "tausL_1etaAbs/D");
 	newtree->Branch("tausL_1phi", &tausL_1phi, "tausL_1phi/D");
-	newtree->Branch("tausF_leptonsT_transMass", &tausF_leptonsT_transMass, "tausF_leptonsT_transMass/D");
-	newtree->Branch("tausL_leptonsT_transMass", &tausL_leptonsT_transMass, "tausL_leptonsT_transMass/D");
 	newtree->Branch("tausT_leptonsT_transMass", &tausT_leptonsT_transMass,
 					"tausT_leptonsT_transMass/D");
 	newtree->Branch("tausF_leptonsT_invariantMass", &tausF_leptonsT_invariantMass, "tausF_leptonsT_invariantMass/D");
@@ -912,10 +893,10 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	//
 	//
 	//
-	newtree->Branch("jets_HT_JECup", &jets_HT_JECup, "jets_HT_JECup/D");
-	newtree->Branch("jets_HT_JECdown", &jets_HT_JECdown, "jets_HT_JECdown/D");
-	newtree->Branch("jets_number_JECup", &jets_number_JECup, "jets_number_JECup/I");
-	newtree->Branch("jets_number_JECdown", &jets_number_JECdown, "jets_number_JECdown/I");
+	// newtree->Branch("jets_HT_JECup", &jets_HT_JECup, "jets_HT_JECup/D");
+	// newtree->Branch("jets_HT_JECdown", &jets_HT_JECdown, "jets_HT_JECdown/D");
+	// newtree->Branch("jets_number_JECup", &jets_number_JECup, "jets_number_JECup/I");
+	// newtree->Branch("jets_number_JECdown", &jets_number_JECdown, "jets_number_JECdown/I");
 
 	newtree->Branch("jets_number", &jets_number, "jets_number/I");
 	newtree->Branch("jets_HT", &jets_HT, "jets_HT/D");
@@ -937,6 +918,11 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 					"jets_leptonsMVAT_minDeltaR/D");
 	newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR,
 					"jets_tausF_minDeltaR/D");
+	newtree->Branch("jets_tausT_invariantMass", &jets_tausT_invariantMass, "jets_tausT_invariantMass/D");
+	// newtree->Branch("", &, "/D");
+	// newtree->Branch("", &, "/D");
+
+
 	newtree->Branch("jets_HTDividedByMet", &jets_HTDividedByMet, "jets_HTDividedByMet/D");
 	newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");
 	newtree->Branch("jets_MHTDividedByMet", &jets_MHTDividedByMet, "jets_MHTDividedByMet/D");
@@ -1223,8 +1209,6 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausT_minDeltaR = -99;
 	tausT_genTauNum = 0;
 	tausL_genTauNum = 0;
-	tausF_leptonsT_transMass = -99;
-	tausL_leptonsT_transMass = -99;
 	tausT_leptonsT_transMass = -99;
 	tausF_leptonsT_invariantMass = -99;
 	tausL_leptonsT_invariantMass = -99;
@@ -1260,10 +1244,10 @@ void makeVaribles_forBDT::InitializeBranches()
 	tausT_3eta = -99;
 	tausT_3phi = -99;
 
-	jets_HT_JECup = -99.;
-	jets_HT_JECdown = -99.;
-	jets_number_JECup = -99.;
-	jets_number_JECdown = -99.;
+	// jets_HT_JECup = -99.;
+	// jets_HT_JECdown = -99.;
+	// jets_number_JECup = -99.;
+	// jets_number_JECdown = -99.;
 
 	jets_number = -99;
 	jets_MHT = -99;
@@ -1284,6 +1268,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	jets_MHTDividedByMet = -99;
 	jets_leptonsMVAT_minDeltaR = -99;
 	jets_tausF_minDeltaR = -99;
+	jets_tausT_invariantMass = -99;
 	jets_spherilty = -99;
 	jets_aplanarity = -99;
 	jets_1pt = -99;
