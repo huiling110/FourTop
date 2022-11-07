@@ -3,12 +3,22 @@
 
         
 Double_t Process::getGenWeightSum(){
-    TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
-    alleventTree->Project( "genWeight", "genWeight_allEvents");
-    h_genWeight->StatOverflows(kTRUE);
-    Double_t sum = h_genWeight->GetMean() * h_genWeight->GetEntries();
-    delete h_genWeight;
-    return sum;
+    // TH1D* h_genWeight = new TH1D( "genWeight", "genWeight", 100, -100., 100.);
+    // alleventTree->Project( "genWeight", "genWeight_allEvents");
+    // h_genWeight->StatOverflows(kTRUE);
+    // Double_t sum = h_genWeight->GetMean() * h_genWeight->GetEntries();
+    // delete h_genWeight;
+    // return sum;
+
+    Double_t igen;
+    Runs->SetBranchAddress("genEventSumw", &igen);
+    Double_t genWeightSumInitial = 0.0;
+    for (int iEntry = 0; Runs->LoadTree(iEntry) >= 0; ++iEntry)
+    {
+        Runs->GetEntry(iEntry);
+        genWeightSumInitial += igen;
+    }
+    return genWeightSumInitial;
 }
 TString Process::getProcessName()
 {

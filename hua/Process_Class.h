@@ -21,7 +21,8 @@ class Process
         Double_t m_sigma;
         TFile* m_file;
         TTree *eventTree;
-        TTree *alleventTree;
+        // TTree *alleventTree;
+        TTree* Runs;
         TH1D *channelEY;
         // const Double_t m_LUMI;
     public:
@@ -30,7 +31,8 @@ class Process
         {
             m_file = TFile::Open( m_fileName);
             eventTree = (TTree*)m_file->Get( "newtree");
-            alleventTree = (TTree*)m_file->Get("allevents");
+            // alleventTree = (TTree*)m_file->Get("allevents");
+            Runs = (TTree *)m_file->Get("Runs");
         }
         //???deconstructor not working?
         /*
