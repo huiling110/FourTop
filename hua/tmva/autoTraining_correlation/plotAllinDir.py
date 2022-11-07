@@ -51,7 +51,6 @@ def main( ):
         if os.path.isfile( TMVAFileDir+entry ):
             #  continue
             if  'varibleList' in entry:
-            # if  '.root' in entry:
                 #  print( entry )
                 command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
@@ -59,8 +58,6 @@ def main( ):
                         shell=True,
                         capture_output=True,
                         text=True,
-                         #  stdout=subprocess.PIPE,
-                        # bufsize=1,
                         universal_newlines=True
                         )
                 output = process.stdout
@@ -96,7 +93,7 @@ def main( ):
     #plot sig
     logDir = TMVAFileDir + 'log/'
     plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
-    plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
+    # plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
 
     #plot AUC
     if not plotSigOnly:

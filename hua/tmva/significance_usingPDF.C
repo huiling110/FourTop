@@ -1,5 +1,6 @@
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/tmvaglob.h"
+#include "tmvaglob.h"
 
 void calSigHisto(const TH1D* BDT_S, const TH1D* BDT_B, TH1D* &sig_h, const TString fin ){
 
