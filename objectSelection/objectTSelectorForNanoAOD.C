@@ -124,6 +124,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     eventsPassedJSON++;
 
+    //good vertex selection
+    if (! (*PV_npvsGood>0) ) {
+        return kFALSE;
+    }
+
     // MET filters
     if (m_MetFilters)
     {
