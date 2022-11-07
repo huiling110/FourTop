@@ -26,26 +26,15 @@
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
-// if (!TClass::GetDict("Process_Class")) {
-    //   gROOT->ProcessLine(".L Process_Class.C++");
-// }
 
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0_fromV12/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/";
-const TString era_g = "2016";
-// const TString era_g = "2016preVFP";
-// std::cout<<"baseDir : "<<baseDir<<"\n";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2addVariables_v40addTauJetEtau/mc/";
+// const TString era_g = "2016";
+const TString era_g = "2017";
 
-//Double_t LUMI  = 41500.0; //Double_t LUMI = 36733; //36.773 /fb-1
-// const Double_t LUMI = 35900; //pb-1
-//?where to get the more precise LUMI?
-// std::map<TString, Double_t> lumiMap = {
-//     {"2016preVFP", 19520},
-//     {"2016postVFP", 16810},
-//     {"2016", 36330},
-// };
 
 
 
@@ -56,7 +45,8 @@ const TCut HLT_2016 = "HLT_PFHT450_SixJet40_BTagCSV_p056 || HLT_PFHT400_SixJet30
 
 
 // /*
-const TCut baselineSelection = "jets_HT>500  && jets_6pt>40 ";
+// const TCut baselineSelection = "jets_HT>500  && jets_6pt>40 ";
+const TCut baselineSelection = "jets_HT>500  && jets_6pt>40 && jets_number>=6 ";
 
 const TCut ES1tau0l = "tausT_number==1 && leptonsMVAT_number==0 &&  jets_number>=8 && bjetsM_num>=2 " && baselineSelection ;
 const TCut ES1tau1e = "tausT_number==1 && elesMVAT_number==1 && leptonsMVAT_number==1 &&  jets_number>=7 && bjetsM_num>=2" && baselineSelection ;
