@@ -24,15 +24,17 @@ import usefulFunc as uf
 # inVersion = 'v37TauPt30AndPreselection'
 # inVersion = 'v38TESandJERTauPt20_preselection'
 # inVersion = 'v39addTauBranches'
-inVersion = 'v40addTauJetEtau'
+# inVersion = 'v40addTauJetEtau'
+inVersion = 'v41addVertexSelection'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v2baselineAddingTauProng'
 # outVersion = 'v0addMoreVariables'
 # outVersion = 'v1fixedTauVariables'
-outVersion = 'v2addVariables'
-# year = '2016'
+# outVersion = 'v2addVariables'
+outVersion = 'v3extra1tau1lCut'
+year = '2016'
 # year = '2018'
-year = '2017'
+# year = '2017'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
@@ -65,7 +67,7 @@ def main():
 
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        if iera=='2016postVFP' : continue#???
+        # if iera=='2016postVFP' : continue#???
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
         uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
