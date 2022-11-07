@@ -16,8 +16,8 @@ from usefulFunc import getInputDic
 def main():
     # era = '2016postVFP'
     # era = '2016preVFP'
-    # era = '2016'
-    era = '2018'
+    era = '2016'
+    # era = '2018'
     # era = '2017'
     # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
     # inVersion = 'v0noBaseline_v28JERTESBack'
@@ -60,9 +60,10 @@ def main():
     regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
     # regionList = ['1tau0lCRc']
     
-    # csvName = '1tau0lFRMeasureRegions'
-    ifUseFakeTau = True
-    csvName = '1tau0lFRMeasureRegions_fakeTau'
+    ifUseFakeTau = False
+    csvName = '1tau0lFRMeasureRegions'
+    # ifUseFakeTau = True
+    # csvName = '1tau0lFRMeasureRegions_fakeTau'
 
 
 
@@ -94,7 +95,7 @@ def main():
             
             
         
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True, True )
+    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
 
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
