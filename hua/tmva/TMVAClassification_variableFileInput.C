@@ -82,10 +82,8 @@ Bool_t vectorInBranch( TString branchName, std::vector<TRegexp> & variableList )
 }
 ///???root interpretation running locally a bit slow
 int TMVAClassification_variableFileInput( TString myMethodList = "",
-    TString outputDir = "output/",
-   //  TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/",
+    TString outDir = "output/",
     // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
-   //  TString variableListCsv = "/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2os/variableList/varibleList_10.csv",
    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
     //   const TString channel = "1tau1l",
@@ -93,8 +91,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
     //   const TString channel = "2tau0l",
     Bool_t forVariables = true,
         // Bool_t forVariables = false,
-   //  Bool_t istest = true
-        Bool_t istest = false
+    Bool_t istest = true
+      //   Bool_t istest = false
     )
 {
     std::cout<<"baseDir : "<<baseDir<<"\n";
@@ -108,10 +106,8 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
    //---------------------------------------------------------------
-   TString outDir = outputDir;
+   // TString outDir = outputDir;
    TString outfile ;
-   // This loads the library
-
    // Apply additional cuts on the signal and background samples (can be different)
     TString csvListName;
     if ( forVariables ){
@@ -137,9 +133,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
 
    TMVA::Tools::Instance();
 
+   //???optimize code here. too many lines
    // Default MVA methods to be trained + tested
    std::map<std::string,int> Use;
-
    // Cut optimisation
    if ( forVariables )  {
        Use["Cuts"]  = 1;
@@ -272,13 +268,15 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // front of the "Silent" argument in the option string
    // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
    TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification" );
-   // TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=D:AnalysisType=Classification" );
+   //!!!factory parameters
+   //The first argument is the user-defined job name that will reappear in the names of the weight files containing the training results.
+   //???test the different options of Transformations can do to training
 
    TMVA::DataLoader *dataloader=new TMVA::DataLoader("dataset");
    // TMVA::DataLoader *dataloader=new TMVA::DataLoader( outDir );
    // If you wish to modify default settings
+   //!!!tuning here
    // (please check "src/Config.h" to see all available global options)
-   //
    //    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
    (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 20;
    // (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 40;
@@ -293,7 +291,6 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // note that you may also use variable expressions, such as: "3*var1/var2*abs(var3)"
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );//’F’ indicates any floating point type, i.e., float and double
-        //
      //variableListCsv
     if ( !forVariables ){
         ifstream fin( variableListCsv);
@@ -398,14 +395,20 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // global event weights per tree (see below for setting event-wise weights)
    // You can add an arbitrary number of signal or background trees
     // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
-    dataloader->AddSignalTree      ( TTTT.getEventTree() , lumiMap[era_g]* TTTT.getScale() );
-    for ( UInt_t p=1; p<allProcesses.size(); p++){
+   dataloader->AddSignalTree      ( TTTT.getEventTree() , lumiMap[era_g]* TTTT.getScale() );
+   for ( UInt_t p=1; p<allProcesses.size(); p++){
        if ( allProcesses[p].getEventTree()->GetEntries()==0 ){
           std::cout<<"empty process: "<<allProcesses[p].getProcessName()<<"\n";
           continue;
        }
         dataloader->AddBackgroundTree  ( allProcesses[p].getEventTree(), lumiMap[era_g]*allProcesses[p].getScale() );
-    }
+   }
+   // Set individual event weights (the variables must exist in the original TTree)
+  // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
+   // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
+   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight");
+   dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight");
+   //(*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight)
 
    // To give different trees for training and testing, do as follows:
    //
@@ -447,20 +450,12 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // ```
    // End of tree registration
 
-   // Set individual event weights (the variables must exist in the original TTree)
-  // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
-   // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-   // dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight");
-   // dataloader->SetBackgroundWeightExpression( "EVENT_genWeight*EVENT_prefireWeight*PUWeight*PUWeight*btagEfficiency_weight*HLTefficiency_weight" );
-   dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight");
-   dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUWeight");
 
 
-   // Tell the dataloader how to use the training and testing events
-   //
-   // If no numbers of events are given, half of the events in the tree are used
+   // Tell the dataloader how to use the training and testing events. If no numbers of events are given, half of the events in the tree are used
    // for training, and the other half for testing:
     char trainingSetup[100];
+    //???tuning here too
     sprintf( trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal*0.6, allBg*0.6 );
    if ( istest ){
        dataloader->PrepareTrainingAndTestTree(
@@ -672,6 +667,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                            "!H:!V:NTrees=1000:MinNodeSize=2.5%:BoostType=Grad:Shrinkage=0.10:UseBaggedBoost:BaggedSampleFraction=0.5:nCuts=20:MaxDepth=2" );
 
    if (Use["BDT"])  // Adaptive Boost
+   //???hyperparameter optimization here
       factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDT",
                            "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
