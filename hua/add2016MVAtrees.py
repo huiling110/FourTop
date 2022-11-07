@@ -3,6 +3,8 @@
 import os
 import subprocess
 
+#???there is case when not all files is merged and copied. 
+
 
 def copyData( dir ):
     for ifile in os.listdir( dir ):

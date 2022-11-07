@@ -7,30 +7,29 @@
 # Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
 
-from imp import init_builtin
-import sys
+import csv
+# from imp import init_builtin
+# import sys
 import os
 import subprocess
-import ROOT
-#  from ROOT import *
-#  import array
-#  import math
 
-import csv
+import ROOT
+
 import plotVariablesAndSP
 
 
 def main():
     #the first line identifies each piece of datain other words, the name of a data column
     #?want to change channel to string so that its more clear to user
-    # channel = '1tau1l'
-    channel = '1tau2l'
-    # version = 1
-    version = 2
+    channel = '1tau1l'
+    # channel = '1tau2l'
+    version = 1
+    # version = 2
     # version = 4
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
+    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
 
     vListDir, outputDir = checkAndMakeDir( channel, version, outputBase )
 
@@ -45,7 +44,7 @@ def main():
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
 def generateAllVariablesLog( outputDir , channel ):
-    tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
+    tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
     trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true , false )\''.format( tmvaTraining, outputDir, channel )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
