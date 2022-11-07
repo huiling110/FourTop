@@ -375,7 +375,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausL_1decayMode = tausL_decayMode[0];
 	}
 
-	// Met
 
 	// for jets JEC
 	// jets_HT_JECup = HTcalculator(jets_JECup);
