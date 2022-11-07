@@ -208,7 +208,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fPassingHLT++;
 	fPassingHLT_genWeight += *EVENT_genWeight_;
 
-	//MET
+	// MET
 	MET_pt = *MET_pt_;
 	MET_phi = *MET_phi_;
 
@@ -375,7 +375,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausL_1decayMode = tausL_decayMode[0];
 	}
 
-
 	// for jets JEC
 	// jets_HT_JECup = HTcalculator(jets_JECup);
 	// jets_HT_JECdown = HTcalculator(jets_JECdown);
@@ -408,7 +407,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
 	jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
 	jets_tausT_minDeltaR = MinDeltaRCal(jets, tausT);
-	jets_tausT_invariantMass = InvariantMass2SysCal( jets, tausT);
+	jets_tausT_invariantMass = InvariantMass2SysCal(jets, tausT);
 
 	//
 	// aplanarity and sphericity
@@ -587,7 +586,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	forwardJets_num = forwardJets.GetSize();
 
-
 	// event information
 	PV_npvs = *PV_npvs_;
 
@@ -633,6 +631,13 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		}
 	}
 	fPassingPreselection++;
+
+	// !!!extra cut for faster BDT training
+	if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
+	{
+		return kFALSE;
+	}
+
 	eventCount_baseline->Fill(0.0, basicWeight);
 
 	newtree->Fill();
@@ -922,7 +927,6 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("jets_tausT_invariantMass", &jets_tausT_invariantMass, "jets_tausT_invariantMass/D");
 	// newtree->Branch("", &, "/D");
 	// newtree->Branch("", &, "/D");
-
 
 	newtree->Branch("jets_HTDividedByMet", &jets_HTDividedByMet, "jets_HTDividedByMet/D");
 	newtree->Branch("MetDividedByHT", &MetDividedByHT, "MetDividedByHT/D");

@@ -36,7 +36,7 @@ def main():
 
     TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/'
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
-    makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
+    subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
     #???add features of submitting jobs and reporting job status and check job results
     # submitJobs()
@@ -71,6 +71,8 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, ap
         subAllscript.write( "hep_sub -mem 4000 "+  iJob  + " -o " + logFile + " -e " + errFile + '\n')
     os.popen('chmod 777 '+ TMVACodeDir + 'autoTraining_correlation/' + jobDir + "*sh")
     os.popen('chmod 777 ' + TMVACodeDir + 'autoTraining_correlation/'+ subAllscriptName )
+    print( 'sub all jobs using: ', subAllscriptName)
+    return subAllscriptName
 
     
 def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDir, isApp, binNum, appFolderName ):
