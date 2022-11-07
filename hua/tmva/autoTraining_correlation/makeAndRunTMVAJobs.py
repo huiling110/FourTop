@@ -6,24 +6,22 @@
 # Last Modified Date: 03.10.2021
 # Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
-import sys
 import os
-
-import csv
 
 import generateVariableList as GV
 
 
 def main():
-    # channel = '1tau1l'
-    channel = '1tau2l'
-    version = 2
+    channel = '1tau1l'
+    # channel = '1tau2l'
+    version = 1
     # version = 4 
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
-    isApp = True
-    # isApp = False
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
+    # isApp = True
+    isApp = False
     appFolderName = 'AppResults'
     # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
@@ -36,7 +34,7 @@ def main():
     
     
 
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
+    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/'
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
     makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     

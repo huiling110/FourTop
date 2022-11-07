@@ -374,7 +374,9 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
             cout<<"variables forvaribles training: "<<branchName<<endl;
             branchNames.push_back( branchName );
             if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
-            else dataloader->AddVariable( branchName, 'F' );
+            else dataloader->AddVariable( branchName, 'F' ); 
+            //Note that ’F’ indicates any floating point type, i.e., float and double
+            //In addition, two more arguments may be inserted into the AddVariable call, allowing the user to specify titles and units for the input variables for displaying purposes
         }
 		std::cout<<"chosenVariable: "<<chosenVariable<<"\n";
     }
@@ -464,10 +466,11 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                                         // "nTrain_Signal=0:nTrain_Background=0:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=NumEvents:!V" );
    }else{
         dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );//60% goes to training, 1tau1l
-       // if ( channel ==1 ) dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, "nTrain_Signal=104446:nTrain_Background=42911:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V" );//60% goes to training, 1tau1l
        //means raw entries
     // dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );
    }
+   //In case the user has provided a ROOT tree, the event copy can (and should) be accelerated by disabling all branches not used by the input variables
+   //??? Note that the preselection cuts are applied before the training and test samples are created, i.e., the tree sizes apply to numbers of selected events
 
    // ### Book MVA methods
    //
@@ -672,6 +675,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
                            "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20" );
                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20:NegWeightTreatment=IgnoreNegWeightsInTraining" );
+                           //???IgnoreNegWeightsInTraining=False, default
 
    if (Use["BDTB"]) // Bagging
       factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
