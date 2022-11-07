@@ -6,10 +6,12 @@
 # Last Modified Date: 03.10.2021
 # Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
-import sys
 import os
 import subprocess
+import sys
+
 import plotAUC
+
 
 def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/'
@@ -20,7 +22,8 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v3/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016//v1fixedTauVariables_v40addTauJetEtau/1tau1l_v1/'
     
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
@@ -50,7 +53,7 @@ def main( ):
             if  'varibleList' in entry:
             # if  '.root' in entry:
                 #  print( entry )
-                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
+                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
                 process = subprocess.run( [command], 
                         shell=True,
@@ -106,7 +109,7 @@ def plotInputVariables( TMVAFileDir, fileForVariables ):
     if not os.path.exists( outForVariables ):
         os.mkdir( outForVariables )
     # command = 'root -q -b \'../variables.C( \"{}\",  \"{}\", \"TMVA Input Variables\", kFALSE, kTRUE      )\'  '.format( TMVAFileDir+fileForVariables, outForVariables ) 
-    codeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/tmva/'
+    codeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/'
     command = 'root -q -b \'{}variables.C( \"{}\",  \"{}\", \"TMVA Input Variables\", kFALSE, kTRUE      )\'  '.format( codeDir, TMVAFileDir+fileForVariables, outForVariables ) 
     print( command )
     process = subprocess.run( command, shell=True)   

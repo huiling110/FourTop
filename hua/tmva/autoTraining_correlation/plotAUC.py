@@ -6,12 +6,14 @@
 # Last Modified Date: 03.10.2021
 # Last Modified By  : Huiling Hua <huahl@ihep.ac.cn>
 
-import ROOT
-import os
 import csv
+import os
 #  import array
 from array import array
+
 import numpy as np
+import ROOT
+
 
 def getAUCfromLog( logDir, histo):
     for entry in os.listdir( logDir ):
@@ -65,6 +67,8 @@ def getAUCToTGragh( logDir):
 #  def plotAUC( n, x, y, logDir, isBDT, isSig ):
 def plotAUC( x, y, logDir, isBDT, isSig ):
     x, y = np.array([x,y])
+    # x = np.array([x])
+    # y = np.array([y])
     flag = np.argsort(x)
     x, y = x[flag], y[flag]
 
@@ -104,7 +108,6 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
     if not os.path.exists( AUCDir ):
         os.mkdir( AUCDir )
 
-    #  c1.SaveAs("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/output/AUC_test3.png")
     if isBDT:
         if isSig:
             c1.SaveAs( AUCDir+'maxSig_BDT.png' )
@@ -188,7 +191,8 @@ if __name__ == '__main__':
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v1/log/'
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/log/'
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/log/'
-    logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/log/'
+    # logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/log/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/1tau1l_v1/log/'
     getAUCToTGragh( logDir )
 
 
