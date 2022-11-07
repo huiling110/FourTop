@@ -124,6 +124,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    std::cout<<channel<<": "<<cutForSandB<<endl;
 
    Double_t allSignal = allProcesses[0].getChannelHist( cutForSandB, weight )->GetEntries();
+   //???using jets_number for projecting for now
    std::cout<<"allSignalEvents: "<< allSignal<<"\n";
    Double_t allBg = getAllBgEntries( cutForSandB, weight );
    std::cout<<"allBgEvents: "<<allBg<<"\n";
@@ -203,7 +204,7 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
        Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
    }else{
         Use["BDT"]             = 1;
-        Use["BDTG"]            = 1;
+        Use["BDTG"]            = 0;
        Use["BDTB"]            = 0; // uses Bagging
        Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
        // Use["BDTF"]            = 1; // allow usage of fisher discriminant for node splitting
@@ -292,94 +293,93 @@ int TMVAClassification_variableFileInput( TString myMethodList = "",
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    // dataloader->AddVariable( "myvar1 := var1+var2", 'F' );//’F’ indicates any floating point type, i.e., float and double
      //variableListCsv
-    if ( !forVariables ){
-        ifstream fin( variableListCsv);
-        string line ;
-        TString ivariable;
-        vector<TString> variables {};
-        Int_t num = 1;
-        while ( getline( fin, line ) ){
-            if (num>1)  {
-                ivariable = line;
-                // cout<<"line: "<<line;
-                if( line.size()>0)  {
-                    // dataloader->AddVariable( ivariable, 'F');
-                    variables.push_back( ivariable);
+   if ( !forVariables ){
+      ifstream fin( variableListCsv);
+      string line ;
+      TString ivariable;
+      vector<TString> variables {};
+      Int_t num = 1;
+      while ( getline( fin, line ) ){
+         if (num>1)  {
+               ivariable = line;
+               // cout<<"line: "<<line;
+               if( line.size()>0)  {
+                  // dataloader->AddVariable( ivariable, 'F');
+                  variables.push_back( ivariable);
 
-                }
-                // cout<<"ivariable:"<<ivariable<<endl;
-            }   
-               dataloader->AddVariable( line, 'F');
-            num = num+1;
-        }
-        fin.close();
+               }
+               // cout<<"ivariable:"<<ivariable<<endl;
+         }   
+         dataloader->AddVariable( line, 'F');
+         num = num+1;
+      }
+      fin.close();
 
-    }else{
-        std::vector<TString> branchNames;
-        TString branchName;
-        UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
-        cout<<"number of branches: "<<nbr<<endl;
-		Int_t chosenVariable = 0;
-        for ( UInt_t i=0; i<nbr; i++){
-            branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
+   }else{
+      //for generating initial variable list
+      std::vector<TString> branchNames;
+      TString branchName;
+      UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+      cout<<"number of branches: "<<nbr<<endl;
+      Int_t chosenVariable = 0;
+      for ( UInt_t i=0; i<nbr; i++){
+         branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
 
-			std::vector<TRegexp> commanVarToAvoid = {
-				"Flag", "HLT", "Weight","weight", 
-				"toptagger",
-				"Met",//???
-				"muons",
-				"elesMVA",
-				"leptonsMVAT_2OS", "leptonsMVAT_2SS" ,"leptonsMVAT_number",
-				"bjets._3", "bjets._4", "bjetsM_number",
-				"nonbjetsM_4",
-				"tausT_number",
-			};
-			if ( vectorInBranch( branchName, commanVarToAvoid )) continue;
+      std::vector<TRegexp> commanVarToAvoid = {
+         "Flag", "HLT", "Weight","weight", "event", "PV_npvs",
+         "toptagger",
+         "muons",
+         "elesMVA",
+         "leptonsMVAT_2OS", "leptonsMVAT_2SS" ,"leptonsMVAT_number",
+         "bjets._3", "bjets._4", "bjetsM_number",
+         "nonbjetsM_4",
+         "tausT_number",
+      };
+      if ( vectorInBranch( branchName, commanVarToAvoid )) continue;
 
-         if ( channel.CompareTo("1tau1l")==0 ){
-            if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
-            if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")))  )  continue;
-            if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")))  )  continue;
+      if ( channel.CompareTo("1tau1l")==0 ){
+         if ( branchName.Contains("tauL")&&( !(branchName.Contains("tauL_1")))  )  continue;
+         if ( branchName.Contains("tauF")&&( !(branchName.Contains("tauF_1")))  )  continue;
+         if ( branchName.Contains("tauT")&&( !(branchName.Contains("tauT_1")))  )  continue;
 
-            if ( branchName.Contains("taus") &&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
-			//???might miss some combination channels???
-            if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
-            if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
+         if ( branchName.Contains("taus") &&  ( !(branchName.Contains("tausT_1")||branchName.Contains("tausL_1")||branchName.Contains("tausF_1") ) )    )  continue;  //1tau channels
+      //???might miss some combination channels???
+         if ( branchName.Contains("leptonsMVA")&& ( !(branchName.Contains("leptonsMVAT_1")||branchName.Contains("leptonsMVAF_1")||branchName.Contains("leptonsMVAL_1")) )   )  continue; //1l
+         if ( branchName.Contains("jets_8")||branchName.Contains("jets_9")||branchName.Contains("jets_10")||branchName.Contains("jets_11") )  continue; //>=7 jets
 
-         }else if( channel.CompareTo("1tau2l")==0 ){
-			std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR", "tau._2", "tau._3" };
-			if (  vectorInBranch( branchName, tauVariablesToAvoid ) ) continue;
+      }else if( channel.CompareTo("1tau2l")==0 ){
+         std::vector<TRegexp> tauVariablesToAvoid = {"taus._MHT", "taus._HT", "taus._invariantMass", "taus._minDeltaR", "tau._2", "tau._3" };
+         if (  vectorInBranch( branchName, tauVariablesToAvoid ) ) continue;
 
-			std::vector<TRegexp> leptonVarToAvoid = { "leptonsMVAT_2OS", "leptonsMVAT_3" };
-			if ( vectorInBranch( branchName, leptonVarToAvoid )) continue;
+         std::vector<TRegexp> leptonVarToAvoid = { "leptonsMVAT_2OS", "leptonsMVAT_3" };
+         if ( vectorInBranch( branchName, leptonVarToAvoid )) continue;
 
-			std::vector<TRegexp> jetsVarToAvoid = { "jets_7", "jets_8", "jets_9", "jets_10", "jets_11" };
-			if ( vectorInBranch( branchName, jetsVarToAvoid )) continue;
+         std::vector<TRegexp> jetsVarToAvoid = { "jets_7", "jets_8", "jets_9", "jets_10", "jets_11" };
+         if ( vectorInBranch( branchName, jetsVarToAvoid )) continue;
 
          std::vector<TRegexp> mismodeled = { "phi", "eta", "minDeltaR"};
          if ( vectorInBranch( branchName, mismodeled )) continue;
+      }
 
-
-		 }
-
-         //probematic branches
-         if ( branchName.Contains("jets_bScoreMultiply") )  continue;
-         if ( branchName.Contains("bjetsM_minDeltaR") )  continue; //bjetsM_minDeltaR
-		 if ( branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") ||branchName.Contains("tausT_leptonsT_transMass")) continue;
-
-
-
-			
-			chosenVariable = chosenVariable+1;
-            cout<<"variables forvaribles training: "<<branchName<<endl;
-            branchNames.push_back( branchName );
-            if ( branchName.Contains( "num")|| branchName.Contains("number") ) dataloader->AddVariable( branchName, 'I' );
-            else dataloader->AddVariable( branchName, 'F' ); 
-            //Note that ’F’ indicates any floating point type, i.e., float and double
-            //In addition, two more arguments may be inserted into the AddVariable call, allowing the user to specify titles and units for the input variables for displaying purposes
-        }
-		std::cout<<"chosenVariable: "<<chosenVariable<<"\n";
-    }
+      //probematic branches
+      if ( branchName.Contains("jets_bScoreMultiply") )  continue;
+      if ( branchName.Contains("bjetsM_minDeltaR") )  continue; //bjetsM_minDeltaR
+      if ( branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") ||branchName.Contains("tausT_leptonsT_transMass")) continue;
+         
+      chosenVariable = chosenVariable+1;
+      cout<<"variables forvaribles training: "<<branchName<<endl;
+      branchNames.push_back( branchName );
+      if ( branchName.Contains( "num")|| branchName.Contains("number") ){
+         dataloader->AddVariable( branchName, 'I' );
+      }
+      else{
+         dataloader->AddVariable( branchName, 'F' ); 
+      //Note that ’F’ indicates any floating point type, i.e., float and double
+      //In addition, two more arguments may be inserted into the AddVariable call, allowing the user to specify titles and units for the input variables for displaying purposes
+      }
+      }
+      std::cout<<"chosenVariable: "<<chosenVariable<<"\n";
+   }
 
 
 
