@@ -20,7 +20,7 @@ eraDic = {
 
 
 codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/"
-rootplizer = "run_objectTSelectorForNanoAOD.C"
+#
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v20FixedSelectJetsBug/'
@@ -43,12 +43,13 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v37TauPt30AndPreselection/'
 # jobVersionName = 'v38TESandJERTauPt20_preselection/'
 # jobVersionName = 'v39addTauBranches/'
-jobVersionName = 'v40addTauJetEtau/'
+# jobVersionName = 'v40addTauJetEtau/'
+jobVersionName = 'v41addVertexSelection/'
 onlyMC = False
-# era = '2016'
+era = '2016'
 # era = '2016APV'
 # era = '2018'
-era = '2017'
+# era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
