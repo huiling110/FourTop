@@ -208,6 +208,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fPassingHLT++;
 	fPassingHLT_genWeight += *EVENT_genWeight_;
 
+	//MET
 	MET_pt = *MET_pt_;
 	MET_phi = *MET_phi_;
 
@@ -407,6 +408,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	jets_MHTDividedByMet = jets_MHT / *MET_pt_;
 	jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
 	jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+	jets_tausT_minDeltaR = MinDeltaRCal(jets, tausT);
 	jets_tausT_invariantMass = InvariantMass2SysCal( jets, tausT);
 
 	//
@@ -916,8 +918,8 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 
 	newtree->Branch("jets_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR,
 					"jets_leptonsMVAT_minDeltaR/D");
-	newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR,
-					"jets_tausF_minDeltaR/D");
+	newtree->Branch("jets_tausF_minDeltaR", &jets_tausF_minDeltaR, "jets_tausF_minDeltaR/D");
+	newtree->Branch("jets_tausT_minDeltaR", &jets_tausT_minDeltaR, "jets_tausT_minDeltaR/D");
 	newtree->Branch("jets_tausT_invariantMass", &jets_tausT_invariantMass, "jets_tausT_invariantMass/D");
 	// newtree->Branch("", &, "/D");
 	// newtree->Branch("", &, "/D");
@@ -1268,6 +1270,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	jets_MHTDividedByMet = -99;
 	jets_leptonsMVAT_minDeltaR = -99;
 	jets_tausF_minDeltaR = -99;
+	jets_tausT_minDeltaR = -99;
 	jets_tausT_invariantMass = -99;
 	jets_spherilty = -99;
 	jets_aplanarity = -99;
