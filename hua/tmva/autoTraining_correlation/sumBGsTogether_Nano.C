@@ -24,7 +24,7 @@ TH1D *getHist(const TString histName, TFile *input, Bool_t isMVA)
 }
 
 void sumBGsTogether_Nano(
-    // TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_10var_forCombine.root"
+    // TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2/1tau1l_v1/AppResults_11bins/TMVApp_1tau1l_10var_forComresubmit_bine.root"
     // TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/TMVApp_1tau1l_10var_forCombine.root"
     TString inputName = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/TMVApp_1tau1l_10var_forCombine.root")
 {
@@ -33,17 +33,17 @@ void sumBGsTogether_Nano(
 
     TH1::SetDefaultSumw2();
     TH1D *TTTo2L2Nu = getHist("ttbar_2l", input, true);
-    // TTTo2L2Nu->Print();
 
     Int_t binNum = TTTo2L2Nu->GetXaxis()->GetNbins();
     Double_t binMin = TTTo2L2Nu->GetXaxis()->GetXmin();
     Double_t binMax = TTTo2L2Nu->GetXaxis()->GetXmax();
 
-    TH1D *TT_MVA_BDT = new TH1D("TT_MVA_BDT", "TT_MVA_BDT", binNum, binMin, binMax);
-    TH1D *TTX_MVA_BDT = new TH1D("TTX_MVA_BDT", "TTX_MVA_BDT", binNum, binMin, binMax);
+    TH1D *TT_MVA_BDT = new TH1D("tt_MVA_BDT", "tt_MVA_BDT", binNum, binMin, binMax);
+    TH1D *TTX_MVA_BDT = new TH1D("ttX_MVA_BDT", "ttX_MVA_BDT", binNum, binMin, binMax);
     TH1D *VV_MVA_BDT = new TH1D("VV_MVA_BDT", "VV_MVA_BDT", binNum, binMin, binMax);
-    TH1D *SingleTop_MVA_BDT = new TH1D("SingleTop_MVA_BDT", "SingleTop_MVA_BDT", binNum, binMin, binMax);
-    TH1D *QCD_MVA_BDT = new TH1D("QCD_MVA_BDT", "QCD_MVA_BDT", binNum, binMin, binMax);
+    TH1D *SingleTop_MVA_BDT = new TH1D("singleTop_MVA_BDT", "singleTop_MVA_BDT", binNum, binMin, binMax);
+    TH1D *QCD_MVA_BDT = new TH1D("qcd_MVA_BDT", "qcd_MVA_BDT", binNum, binMin, binMax);
+    // TH1D *WJets_MVA_BDT = new TH1D("WJets_MVA_BDT", "WJets_MVA_BDT", binNum, binMin, binMax);
     TH1D *allBgs_MVA_BDT = new TH1D("allBgs_MVA_BDT", "allBgs_MVA_BDT", binNum, binMin, binMax);
     TH1D *iHist;
     for (UInt_t p = 0; p < allProcesses.size(); p++)

@@ -23,7 +23,6 @@
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0_fromV12/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/";
@@ -149,6 +148,8 @@ std::vector<Process> allProcesses = {
     WZ, WW, ZZ,                                                                                                                                          // 11
     tZq_ll, ST_tW_antitop, ST_tW_top,                                                                                                                    // 14
     QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, // 23
+    //???WJets not added yet
+
 };
 
 TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
