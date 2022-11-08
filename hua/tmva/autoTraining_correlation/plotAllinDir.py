@@ -29,17 +29,13 @@ def main( ):
     print('channel: ', channel)
     # fileForVaribles = channel + 'varibleList_50.root'
     fileForVaribles = channel + 'varibleList_40.root'
-    plotInputVariables( TMVAFileDir , fileForVaribles )
-
-    if plotSigOnly:
-        plotSigOnlyC = 'true'
-    else:
-        plotSigOnlyC = 'false'
+    # plotInputVariables( TMVAFileDir , fileForVaribles )
 
 
 
-    # variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir )
-    # print( len(sig_BDT), sig_BDT )
+
+    variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir , plotSigOnly)
+    print( len(sig_BDT), sig_BDT )
 
                     
                         
@@ -55,7 +51,12 @@ def main( ):
     # if not plotSigOnly:
     #     plotAUC.getAUCToTGragh( logDir )
         
-def plotAll( TMVAFileDir, plotSigOnlyC ):
+def plotAll( TMVAFileDir, plotSigOnly ):
+    print('starting to plotAll.C')
+    if plotSigOnly:
+        plotSigOnlyC = 'true'
+    else:
+        plotSigOnlyC = 'false'
     variableNum_BDT, sig_BDT = [], []
     for entry in os.listdir( TMVAFileDir ):
         #  print( entry )
@@ -92,7 +93,7 @@ def plotAll( TMVAFileDir, plotSigOnlyC ):
                         line = line[11:]
                         num = int(line)
                         variableNum_BDT.append( num )
-    
+    print('done plotAll.C')
 
     
 
@@ -107,6 +108,8 @@ def plotInputVariables( TMVAFileDir, fileForVariables ):
     process = subprocess.run( command, shell=True)   
     print( process.stdout )
     print( 'done input variable distribution')
+    print('\n')
+    print('\n')
     
     
 
