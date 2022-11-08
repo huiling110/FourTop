@@ -34,8 +34,8 @@ def main( ):
 
 
 
-    variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir , plotSigOnly)
-    print( len(sig_BDT), sig_BDT )
+    # variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir , plotSigOnly)
+    # print( len(sig_BDT), sig_BDT )
 
                     
                         
@@ -43,13 +43,13 @@ def main( ):
 
 
     # #plot sig
-    # logDir = TMVAFileDir + 'log/'
+    logDir = TMVAFileDir + 'log/'
     # plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
-    # # plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
+    # plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
 
     # #plot AUC
-    # if not plotSigOnly:
-    #     plotAUC.getAUCToTGragh( logDir )
+    if not plotSigOnly:
+        plotAUC.getAUCToTGragh( logDir )
         
 def plotAll( TMVAFileDir, plotSigOnly ):
     print('starting to plotAll.C')
@@ -78,11 +78,8 @@ def plotAll( TMVAFileDir, plotSigOnly ):
                 # for line in output:
                 for line in output.split(os.linesep):
                     if 'BDT_sigMax' in line:
-                        #  print( line )
-                        #  print( repr(line))
                         line_Sig = line[13:]
                         BDTSig = float( line_Sig )
-                        #  print( BDTSig )
                         sig_BDT.append( BDTSig )
                     # if 'BDTG_sigMax' in line:
                     #     #  print( line )
@@ -93,7 +90,9 @@ def plotAll( TMVAFileDir, plotSigOnly ):
                         line = line[11:]
                         num = int(line)
                         variableNum_BDT.append( num )
+                        
     print('done plotAll.C')
+    return variableNum_BDT, sig_BDT
 
     
 
