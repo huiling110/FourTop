@@ -3,10 +3,9 @@ import subprocess
 import sys
 
 import ROOT
+from ttttGlobleQuantity import samples, summedProcessList
 
-from ttttGlobleQuantity import 
-
-sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
+sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
 import generateVariableList as GV
 
 g_allProcesses = [
@@ -32,7 +31,8 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_60bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_90bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/AppResults_30bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
 
     # channel = '2tau0l'
     channel = '1tau1l'
@@ -42,14 +42,14 @@ def main():
     
     addSummedHists( TMVAppDir )
 
-    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    emptyListSum = checkEmptyProcessForSum( emptyList )
-    listForCombine = getNonEmptyList( g_allProcesses, emptyList )
-    listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
+    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    # emptyListSum = checkEmptyProcessForSum( emptyList )
+    # listForCombine = getNonEmptyList( g_allProcesses, emptyList )
+    # listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
 
-    writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
   
 
 
@@ -94,14 +94,15 @@ def ifInEmptyList( beginIndex, endIndex , emptyList):
 
    
 def addSummedHists( TMVAppDir ):
+    '''
+    add summed process hists, like ttbar_0l+ttbar_1l+ttbar_har=ttbar
+    '''
     for ifile in os.listdir( TMVAppDir ):
         if '.root' in ifile:
             print( ifile )
             ifile = TMVAppDir + ifile
-            # command = 'root -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/sumBGsTogether.C( \"{}\")\''.format(ifile)
             command = 'root -q \'../tmva/autoTraining_correlation/sumBGsTogether_Nano.C( \"{}\")\''.format(ifile)
             print(command)
-            # process = subprocess.run( command, shell=True, capture_output=True, text=True )
             process = subprocess.run( command, shell=True )
             output = process.stdout
             print( output )
@@ -180,9 +181,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
 
 
 def checkEmptyProcess( fileDir, channel ):
-    #  fileDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/AppResults/'
     rootF = ""
-    # channelName = GV.getNameForChannel( channel )
     rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
     
     emptyProcesses = []
