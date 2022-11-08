@@ -8,14 +8,14 @@ from ttttGlobleQuantity import samples, summedProcessList
 sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
 import generateVariableList as GV
 
-g_allProcesses = [
-    'tttt', #0
-    'ttbar_2l','ttbar_0l','ttbar_0l',#3
-    'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',#9
-    'wz','ww','zz',#12
-    'st_tZq', 'st_tW_antitop','st_tW_top',#15
-    'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',#24
-]
+# g_allProcesses = [
+#     'tttt', #0
+#     'ttbar_2l','ttbar_0l','ttbar_0l',#3
+#     'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',#9
+#     'wz','ww','zz',#12
+#     'st_tZq', 'st_tW_antitop','st_tW_top',#15
+#     'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',#24
+# ]
 g_allSumProcesses = [
     'tttt', #0
     'TT',
@@ -40,18 +40,46 @@ def main():
     
     
     
-    addSummedHists( TMVAppDir )
+    # addSummedHists( TMVAppDir )
 
-    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     # emptyListSum = checkEmptyProcessForSum( emptyList )
     # listForCombine = getNonEmptyList( g_allProcesses, emptyList )
     # listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
+    listForCombineSum = getNonEmptyList_new( emptyList)
+    listForCombine = getNonEmptyList_new( emptyList, False)
+    print(listForCombineSum)
 
-    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
-
-    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    writeDatacards( TMVAppDir, listForCombine, False, 10 )
   
-
+def getNonEmptyList_new( emptyList, isSum=True):
+    listForCombine = []
+    if isSum :
+        listFrom = summedProcessList
+    else:
+        listFrom = samples
+    for iPro in listFrom:
+        if iPro == 'data' or 'jetHT' in iPro: continue
+        if 'WJets' in iPro: continue
+        if iPro in emptyList: continue 
+        listForCombine.append(iPro)
+    return listForCombine
+  
+  
+def removeData( samples, isSumList = False):
+    removedList = []
+    for ipro in samples:
+        if 'WJets' in ipro: continue
+        if not isSumList:
+            if (not 'jetHT' in ipro) :
+                removedList.append( ipro)
+        else:
+            if not 'data' in ipro:
+                removedList.append( ipro )
+    return removedList
+        
+    
 
 def getNonEmptyList( allList, emptyList ):
     nonEmptyList = []
@@ -77,7 +105,7 @@ def checkEmptyProcessForSum( emptyList ):
 
 
 
-def ifInEmptyList( beginIndex, endIndex , emptyList):
+def ifInEmptyList( beginIndex, endIndex , emptyList, g_allProcesses):
     ifAllIn = False
     inNum = 0
     for i in range(beginIndex, endIndex+1):
@@ -147,10 +175,10 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum ):
     card.write('\n')
     card.write( 80*'-' + '\n' )
 
-    # card.write( 'SR_1tau1l   autoMCStats  0\n')
     card.write( 'SR_1tau1l   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
+    print( 'datacard writen here: ', outCard)
 
 
 
@@ -188,10 +216,10 @@ def checkEmptyProcess( fileDir, channel ):
     iFile = ROOT.TFile( fileDir+rootF)
     itnext = iFile.GetListOfKeys()
     for i in itnext:
-        print(i.GetName())
+        if ('QCD' in i) or ('SingleTop' in i) or ('VV' in i) or ('TT' in i): continue
+        print( 'reading hist: ', i.GetName())
         iHistName = i.GetName()
         iProcessName = iHistName[:iHistName.find('MVA')-1]
-        # print( iProcessName )
         iHist = iFile.Get(iHistName)
         if iHist.Integral()<=0:
             emptyProcesses.append( iProcessName )
