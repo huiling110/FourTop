@@ -42,7 +42,7 @@ def main():
     subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
     #???add features of submitting jobs and reporting job status and check job results
-    # submitJobs()
+    uf.sumbitJobs( subAll )
 
 
 
