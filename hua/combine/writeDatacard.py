@@ -5,8 +5,8 @@ import sys
 import ROOT
 from ttttGlobleQuantity import samples, summedProcessList
 
-sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
-import generateVariableList as GV
+# sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
+# import generateVariableList as GV
 
 # g_allProcesses = [
 #     'tttt', #0
@@ -16,14 +16,14 @@ import generateVariableList as GV
 #     'st_tZq', 'st_tW_antitop','st_tW_top',#15
 #     'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',#24
 # ]
-g_allSumProcesses = [
-    'tttt', #0
-    'TT',
-    'TTX',
-    'VV',
-    'SingleTop',
-    'QCD',
-]
+# g_allSumProcesses = [
+#     'tttt', #0
+#     'TT',
+#     'TTX',
+#     'VV',
+#     'SingleTop',
+#     'QCD',
+# ]
 
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/'
@@ -40,7 +40,7 @@ def main():
     
     
     
-    # addSummedHists( TMVAppDir )
+    addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     # emptyListSum = checkEmptyProcessForSum( emptyList )

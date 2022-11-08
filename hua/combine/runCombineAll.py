@@ -2,7 +2,7 @@ import os
 import subprocess
 import sys
 
-# sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
+sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
 import plotCombineResults as plot
 
 #  import ROOT
@@ -22,12 +22,12 @@ def main():
     
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/combine/combination/'
 
-    cardToWorkspaces( cardDir )
-#
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-#
-    copyCombineResultsToDir( cardDir )
+#     cardToWorkspaces( cardDir )
+# #
+#     runCombineSig( cardDir, True )
+#     runCombineSig( cardDir, False )
+# #
+#     copyCombineResultsToDir( cardDir )
 
     plot.main( cardDir+ 'combineResults/')
 

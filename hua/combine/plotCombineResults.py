@@ -9,7 +9,8 @@ import plotAUC
 
 def main(
     # resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/combineResults/'
-    resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC/combineResults/'
+    # resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults_11bins/datacard/sumDC/combineResults/'
+    resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016/TMVAOutput/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/combineResults/'
         ):
     variable_nums, mediumLimits = getMediumLimit( resultDir, False )
     variable_numsSig, mediumSigs = getMediumLimit( resultDir, True )
