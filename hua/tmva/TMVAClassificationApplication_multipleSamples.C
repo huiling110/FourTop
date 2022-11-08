@@ -302,7 +302,8 @@ void TMVAClassificationApplication_multipleSamples(
 
    // --------------------------------------------------------------------------------------------------
    TH1F *data_BDTG = new TH1F("data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0);
-   TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.2, 0.4); // for combine
+   TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.3, 0.3); // for combine
+   data_BDT->Sumw2();
    for (UInt_t p = 0; p < allProcesses.size(); p++)
    {
       evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, false, channel, outputDir, variableListCsv, weightDir, binNum);
