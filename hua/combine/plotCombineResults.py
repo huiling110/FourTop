@@ -1,9 +1,11 @@
 import os
-import ROOT
 import sys
-#  import /workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/plotAUC
-sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
+
+import ROOT
+
+sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
 import plotAUC
+
 
 def main(
     # resultDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v3addBtagHLTweights/1tau1l_v1/AppResults/datacard/sumDC/combineResults/'

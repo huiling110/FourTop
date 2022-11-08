@@ -1,28 +1,25 @@
 import os
+import subprocess
 import sys
+
+# sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
+import plotCombineResults as plot
+
 #  import ROOT
 
-import subprocess
 
-import plotCombineResults as plot
 
 def main():
 
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_20bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_40bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau1l_v3/AppResults_resubmit_80bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v2/AppResults_40bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v1/AppResults_40bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_40bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_20bins/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_60bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_90bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/AppResults_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/2tau0l_HT/datacard/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/datacard_error_L/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v2Add2Variables_fromV9/1tau0l_HT/datacard_error_L/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/'
+    
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/combine/combination/'
 
     cardToWorkspaces( cardDir )
@@ -32,7 +29,7 @@ def main():
 #
     copyCombineResultsToDir( cardDir )
 
-    # plot.main( cardDir+ 'combineResults/')
+    plot.main( cardDir+ 'combineResults/')
 
 def copyCombineResultsToDir( cardDir ):
     resultsDir = cardDir+ 'combineResults/'
@@ -82,14 +79,12 @@ def cardToWorkspaces( cardDir):
             command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
             print( 'command: ', command )
 
-            #  iprocess = subprocess.run( [command],
-                    #  shell=True,
-                    #  )
-            #  output = iprocess.stdout
             iprocess = subprocess.Popen( [command], shell=True )
             output = iprocess.communicate()[0]
             print( output)
     print( 'workpace transformation done!' )
+    print('\n')
+    print('\n')
 
 
 
