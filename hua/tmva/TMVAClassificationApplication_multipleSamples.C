@@ -106,7 +106,7 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
    // Book output histograms
    // if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           binNum, -0.8, 0.8 );
    if (Use["BDT"])
-      histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.2, 0.4);
+      histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.3, 0.3);
    if (Use["BDTG"])
       histBdtG = new TH1F(processName + "_MVA_BDTG", "MVA_BDTG", binNum, -1.0, 1.0);
 

@@ -6,7 +6,7 @@ sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/h
 import plotCombineResults as plot
 
 #  import ROOT
-
+#!!!run this with python2 because the CMSSW supports only python2
 
 
 def main():
