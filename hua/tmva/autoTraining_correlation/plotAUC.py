@@ -124,33 +124,44 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
 
 
 def plot2D(x, y, name, outDir  ): 
-    x, y = np.array([x,y])
-    flag = np.argsort(x)
-    x, y = x[flag], y[flag]
+    # x, y = np.array([x,y])
+    # flag = np.argsort(x)
+    # x, y = x[flag], y[flag]
+    # x, limit, limit_up, limit_down = np.array([x, y[1],])
+    # y: # medium up , limit, down
+    
+    limit = np.array(y)
+    # print(limit)
+    varNum = np.array([[i] for i in x])
+    # print(varNum)
+    appenedArray = np.append(limit,  varNum, axis=1)
+    # print(appenedArray)
+    appenedArray[appenedArray[:,3].argsort()]
+    print(appenedArray)
 
-    c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
-    c1.SetGrid()
+    # c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
+    # c1.SetGrid()
  
-    n = len( x )
-    gr = ROOT.TGraph( n, x, y )
-    gr.SetLineColor( 2 )
-    gr.SetLineWidth( 4 )
-    gr.SetMarkerColor( 4 )
-    gr.SetMarkerStyle( 21 )
+    # n = len( x )
+    # gr = ROOT.TGraph( n, x, y )
+    # gr.SetLineColor( 2 )
+    # gr.SetLineWidth( 4 )
+    # gr.SetMarkerColor( 4 )
+    # gr.SetMarkerStyle( 21 )
 
 
-    gr.GetXaxis().SetTitle( 'numer of variables' )
-    #  if name.find( 'Limit'):
-    if 'Limit' in name:
-        gr.GetYaxis().SetTitle( 'expected limit' )
-        gr.SetTitle( "Expected Limit Vs Number of Variables" )
-    else:
-        gr.SetTitle( "Expected Significance Vs Number of Variables" )
-        gr.GetYaxis().SetTitle( 'expected significance' )
+    # gr.GetXaxis().SetTitle( 'numer of variables' )
+    # #  if name.find( 'Limit'):
+    # if 'Limit' in name:
+    #     gr.GetYaxis().SetTitle( 'expected limit' )
+    #     gr.SetTitle( "Expected Limit Vs Number of Variables" )
+    # else:
+    #     gr.SetTitle( "Expected Significance Vs Number of Variables" )
+    #     gr.GetYaxis().SetTitle( 'expected significance' )
 
-    gr.Draw('APL')
-    c1.SaveAs( outDir + name + '.png' )
-    print( 'plot saved here:', outDir )
+    # gr.Draw('APL')
+    # c1.SaveAs( outDir + name + '.png' )
+    # print( 'plot saved here:', outDir )
 
 
 
