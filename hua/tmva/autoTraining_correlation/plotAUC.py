@@ -13,6 +13,7 @@ from array import array
 
 import numpy as np
 import ROOT
+import tdr
 
 
 def getAUCfromLog( logDir, histo):
