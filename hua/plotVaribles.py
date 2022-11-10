@@ -5,12 +5,12 @@ from array import array
 
 import numpy as np
 from ROOT import *
+from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 from usefulFunc import getInputDic
 
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
-from setTDRStyle import addCMSTextToCan, setTDRStyle
 from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
                            replaceBgWithGen)
 
@@ -29,10 +29,10 @@ colourPerSample = {
 
 
 
-fakeTauYiled = {
-    '1tau0lCR':  15569.67,
-    '1tau0lVR': 11997.29, 
-}
+# fakeTauYiled = {
+#     '1tau0lCR':  15569.67,
+#     '1tau0lVR': 11997.29, 
+# }
 
 
 # includeDataInStack = False
