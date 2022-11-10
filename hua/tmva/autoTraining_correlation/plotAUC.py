@@ -31,6 +31,7 @@ def getAUCfromLog( logDir, histo):
 
 
 def getAUCToTGragh( logDir):
+    era = '2016'
     #x, y = array( 'd' ), array( 'd' )
     x, y = [], []
     x_BDTG, y_BDTG= [], []
@@ -56,15 +57,11 @@ def getAUCToTGragh( logDir):
 
         n = n+1
     
-    #  x, y = np.array([x,y])
-    #  flag = np.argsort(x)
-    #  x, y = x[flag], y[flag]
-    plotAUC( x, y , logDir , True, False )
-    plotAUC( x_BDTG, y_BDTG, logDir,False, False )
+    plotAUC( x, y , logDir , True, False, era )
+    # plotAUC( x_BDTG, y_BDTG, logDir,False, False )
 
 
-#  def plotAUC( n, x, y, logDir, isBDT, isSig ):
-def plotAUC( x, y, logDir, isBDT, isSig ):
+def plotAUC( x, y, logDir, isBDT, isSig, era='2016' ):
     x, y = np.array([x,y])
     # x = np.array([x])
     # y = np.array([y])
@@ -77,22 +74,22 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
  
     n = len( x )
     gr = ROOT.TGraph( n, x, y )
-    gr.SetLineColor( 2 )
-    gr.SetLineWidth( 4 )
-    gr.SetMarkerColor( 4 )
+    gr.SetLineColor( ROOT.kOrange )
+    gr.SetLineWidth( 2 )
+    gr.SetMarkerColor( ROOT.kRed )
     gr.SetMarkerStyle( 21 )
-    if isBDT: 
-        if isSig:
-            gr.SetTitle( 'Maximum Significance vs No. of Variables (BDT)' )
-        else:
-            gr.SetTitle( 'AUC vs No. of Variables (BDT)' )
-    else:
-        if isSig:
-            gr.SetTitle( 'Maximum Significance vs No. of Variables (BDTG)' )
-        else:
-            gr.SetTitle( 'AUC vs No. of Variables (BDTG)' )
-
-
+    # if isBDT: 
+    #     if isSig:
+    #         gr.SetTitle( 'Maximum Significance vs No. of Variables (BDT)' )
+    #     else:
+    #         gr.SetTitle( 'AUC vs No. of Variables (BDT)' )
+    # else:
+    #     if isSig:
+    #         gr.SetTitle( 'Maximum Significance vs No. of Variables (BDTG)' )
+    #     else:
+    #         gr.SetTitle( 'AUC vs No. of Variables (BDTG)' )
+    gr.SetTitle("")
+    
     gr.GetXaxis().SetTitle( 'number of variables' )
     if isSig:
         gr.GetYaxis().SetTitle( 'Significance' )
@@ -100,6 +97,7 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
         gr.GetYaxis().SetTitle( 'AUC' )
     gr.Draw('APL')
 
+    setTDRStyle.addCMSTextToCan(c1, 0.17, 0.27, 0.91, era)
 
     AUCDir = logDir[:-4]
     #  print( AUCDir )
@@ -126,8 +124,6 @@ def plot2D(x, y, name, outDir, era  ):
     # x, y = np.array([x,y])
     # flag = np.argsort(x)
     # x, y = x[flag], y[flag]
-    # x, limit, limit_up, limit_down = np.array([x, y[1],])
-    # y: # medium up , limit, down
     
     limit = np.array(y)
     # print(limit)
@@ -224,7 +220,8 @@ if __name__ == '__main__':
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/2tau1l_v1/log/'
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/log/'
     # logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/log/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/1tau1l_v1/log/'
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/1tau1l_v1/log/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/log/'
     getAUCToTGragh( logDir )
 
 
