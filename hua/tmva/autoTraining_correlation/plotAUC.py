@@ -136,28 +136,35 @@ def plot2D(x, y, name, outDir  ):
     # print(varNum)
     appenedArray = np.append(limit,  varNum, axis=1)
     # print(appenedArray)
-    appenedArray[appenedArray[:,3].argsort()]
+    appenedArray =  appenedArray[appenedArray[:,3].argsort()]
     print(appenedArray)
-    varNum = appenedArray[:,3]
+    varNum_x = appenedArray[:,3]
     limit = appenedArray[:,1]
     limit_up = appenedArray[:,2]
     limit_down = appenedArray[:,0]
     exl = np.zeros((len(varNum)))
     exh = np.zeros((len(varNum)))
-    print(varNum)
-    print(limit)
-    print(type(varNum))
-    print(type(limit))
+    # print(varNum_x)
+    # print(limit)
+    # print(type(varNum_x))
+    varNum_x = np.array(varNum_x)#???
+    limit = np.array(limit)
+    limit_down = np.array(limit_down)
+    limit_down = np.subtract(limit, limit_down)
+    limit_up = np.array(limit_up)
+    limit_up = np.subtract(limit_up, limit)
+    # print(type(limit))
+    # print(limit_up)
 
     c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
     c1.SetGrid()
  
     n = len( x )
     # gr = ROOT.TGraph( n, x, y )
-    gr = ROOT.TGraphAsymmErrors( n, varNum, limit, exl, exh, limit_down, limit_up )
-    gr.SetLineColor( 2 )
-    gr.SetLineWidth( 4 )
-    gr.SetMarkerColor( 4 )
+    gr = ROOT.TGraphAsymmErrors( n, varNum_x, limit, exl, exh, limit_down, limit_up )
+    gr.SetLineColor( ROOT.kOrange)
+    gr.SetLineWidth( 2 )
+    gr.SetMarkerColor( ROOT.kRed )
     gr.SetMarkerStyle( 21 )
 
 
