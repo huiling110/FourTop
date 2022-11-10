@@ -18,8 +18,8 @@ def main():
 
     
 def getHists(inputDir, inputFile):
-    rootFile = ROOT.TFile( inputDir+inputFile, 'READ')
     histsInProcesses = {}
+    rootFile = ROOT.TFile( inputDir+inputFile, 'READ')
     for ipro in summedProcessList:
         ihistName = ipro+'_MVA_BDT'
         # print('trying to get hist: ', ihistName)
@@ -30,8 +30,9 @@ def getHists(inputDir, inputFile):
             # ihist.Print()
             histsInProcesses[ipro] = ihist.Clone()
             histsInProcesses[ipro].Print()
-    print(histsInProcesses)
+            histsInProcesses[ipro].SetDirectory(0)#!!!very important to do this! if not, the hists will be destroyed after the rootfile closes
     rootFile.Close()
+    # print(histsInProcesses)
     return histsInProcesses
         
         
