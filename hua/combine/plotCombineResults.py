@@ -19,7 +19,7 @@ def main(
     if not os.path.exists(outDir):
         os.mkdir( outDir )
     # plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir)
-    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit_withError' , outDir)
+    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit_withError' , outDir, '2016')
     # plotAUC.plot2D( variable_numsSig, mediumSigs, 'expectedSigs', outDir)
 
 

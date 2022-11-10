@@ -8,12 +8,10 @@
 
 import csv
 import os
-#  import array
-from array import array
 
 import numpy as np
 import ROOT
-import tdr
+import setTDRStyle
 
 
 def getAUCfromLog( logDir, histo):
@@ -124,7 +122,7 @@ def plotAUC( x, y, logDir, isBDT, isSig ):
     #  return gr
 
 
-def plot2D(x, y, name, outDir  ): 
+def plot2D(x, y, name, outDir, era  ): 
     # x, y = np.array([x,y])
     # flag = np.argsort(x)
     # x, y = x[flag], y[flag]
@@ -173,12 +171,16 @@ def plot2D(x, y, name, outDir  ):
     #  if name.find( 'Limit'):
     if 'Limit' in name:
         gr.GetYaxis().SetTitle( 'expected limit' )
-        gr.SetTitle( "Expected Limit Vs Number of Variables" )
+        # gr.SetTitle( "Expected Limit Vs Number of Variables" )
     else:
-        gr.SetTitle( "Expected Significance Vs Number of Variables" )
+        # gr.SetTitle( "Expected Significance Vs Number of Variables" )
         gr.GetYaxis().SetTitle( 'expected significance' )
+    gr.SetTitle("")
+        
 
     gr.Draw('APL')
+    
+    setTDRStyle.addCMSTextToCan(c1, 0.17, 0.27, 0.91, era)
     c1.SaveAs( outDir + name + '.png' )
     print( 'plot saved here:', outDir )
 
