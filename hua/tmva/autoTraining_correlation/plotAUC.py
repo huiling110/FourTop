@@ -138,30 +138,41 @@ def plot2D(x, y, name, outDir  ):
     # print(appenedArray)
     appenedArray[appenedArray[:,3].argsort()]
     print(appenedArray)
+    varNum = appenedArray[:,3]
+    limit = appenedArray[:,1]
+    limit_up = appenedArray[:,2]
+    limit_down = appenedArray[:,0]
+    exl = np.zeros((len(varNum)))
+    exh = np.zeros((len(varNum)))
+    print(varNum)
+    print(limit)
+    print(type(varNum))
+    print(type(limit))
 
-    # c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
-    # c1.SetGrid()
+    c1 = ROOT.TCanvas( 'c1', 'A Simple Graph Example', 200, 10, 700, 500 )
+    c1.SetGrid()
  
-    # n = len( x )
+    n = len( x )
     # gr = ROOT.TGraph( n, x, y )
-    # gr.SetLineColor( 2 )
-    # gr.SetLineWidth( 4 )
-    # gr.SetMarkerColor( 4 )
-    # gr.SetMarkerStyle( 21 )
+    gr = ROOT.TGraphAsymmErrors( n, varNum, limit, exl, exh, limit_down, limit_up )
+    gr.SetLineColor( 2 )
+    gr.SetLineWidth( 4 )
+    gr.SetMarkerColor( 4 )
+    gr.SetMarkerStyle( 21 )
 
 
-    # gr.GetXaxis().SetTitle( 'numer of variables' )
-    # #  if name.find( 'Limit'):
-    # if 'Limit' in name:
-    #     gr.GetYaxis().SetTitle( 'expected limit' )
-    #     gr.SetTitle( "Expected Limit Vs Number of Variables" )
-    # else:
-    #     gr.SetTitle( "Expected Significance Vs Number of Variables" )
-    #     gr.GetYaxis().SetTitle( 'expected significance' )
+    gr.GetXaxis().SetTitle( 'numer of variables' )
+    #  if name.find( 'Limit'):
+    if 'Limit' in name:
+        gr.GetYaxis().SetTitle( 'expected limit' )
+        gr.SetTitle( "Expected Limit Vs Number of Variables" )
+    else:
+        gr.SetTitle( "Expected Significance Vs Number of Variables" )
+        gr.GetYaxis().SetTitle( 'expected significance' )
 
-    # gr.Draw('APL')
-    # c1.SaveAs( outDir + name + '.png' )
-    # print( 'plot saved here:', outDir )
+    gr.Draw('APL')
+    c1.SaveAs( outDir + name + '.png' )
+    print( 'plot saved here:', outDir )
 
 
 

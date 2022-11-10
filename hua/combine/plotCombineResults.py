@@ -18,7 +18,8 @@ def main(
     outDir = resultDir + 'combineResults/'
     if not os.path.exists(outDir):
         os.mkdir( outDir )
-    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir)
+    # plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir)
+    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit_withError' , outDir)
     # plotAUC.plot2D( variable_numsSig, mediumSigs, 'expectedSigs', outDir)
 
 
