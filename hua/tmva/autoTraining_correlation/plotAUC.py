@@ -121,22 +121,31 @@ def plotAUC( x, y, logDir, isBDT, isSig, era='2016' ):
 
 
 def plot2D(x, y, name, outDir, era  ): 
-    # x, y = np.array([x,y])
-    # flag = np.argsort(x)
-    # x, y = x[flag], y[flag]
     
     limit = np.array(y)
-    # print(limit)
+    print(limit)
     varNum = np.array([[i] for i in x])
     # print(varNum)
     appenedArray = np.append(limit,  varNum, axis=1)
     # print(appenedArray)
-    appenedArray =  appenedArray[appenedArray[:,3].argsort()]
-    print(appenedArray)
-    varNum_x = appenedArray[:,3]
-    limit = appenedArray[:,1]
-    limit_up = appenedArray[:,2]
-    limit_down = appenedArray[:,0]
+    if np.shape(limit)[1]>2:
+        appenedArray =  appenedArray[appenedArray[:,3].argsort()]
+        print(appenedArray)
+        varNum_x = appenedArray[:,3]
+        limit = appenedArray[:,1]
+        limit_up = appenedArray[:,2]
+        limit_down = appenedArray[:,0]
+        limit_down = np.array(limit_down)
+        limit_down = np.subtract(limit, limit_down)
+        limit_up = np.array(limit_up)
+        limit_up = np.subtract(limit_up, limit)
+    else:
+        appenedArray =  appenedArray[appenedArray[:,1].argsort()]
+        print(appenedArray)
+        varNum_x = appenedArray[:,1]
+        limit = appenedArray[:,0]
+        limit_up =  np.zeros((len(varNum)))
+        limit_down =  np.zeros((len(varNum)))
     exl = np.zeros((len(varNum)))
     exh = np.zeros((len(varNum)))
     # print(varNum_x)
@@ -144,10 +153,6 @@ def plot2D(x, y, name, outDir, era  ):
     # print(type(varNum_x))
     varNum_x = np.array(varNum_x)#???
     limit = np.array(limit)
-    limit_down = np.array(limit_down)
-    limit_down = np.subtract(limit, limit_down)
-    limit_up = np.array(limit_up)
-    limit_up = np.subtract(limit_up, limit)
     # print(type(limit))
     # print(limit_up)
 
