@@ -45,6 +45,7 @@ void sumBGsTogether_Nano(
     TH1D *QCD_MVA_BDT = new TH1D("qcd_MVA_BDT", "qcd_MVA_BDT", binNum, binMin, binMax);
     // TH1D *WJets_MVA_BDT = new TH1D("WJets_MVA_BDT", "WJets_MVA_BDT", binNum, binMin, binMax);
     TH1D *allBgs_MVA_BDT = new TH1D("allBgs_MVA_BDT", "allBgs_MVA_BDT", binNum, binMin, binMax);
+    TT_MVA_BDT->Sumw2();
     TH1D *iHist;
     for (UInt_t p = 0; p < allProcesses.size(); p++)
     {

@@ -257,16 +257,13 @@ void TMVAClassificationApplication_multipleSamples(
 
    // Default MVA methods to be trained + tested
    std::map<std::string, int> Use;
-
-   // Cut optimisation
-   //
    // Boosted Decision Trees
    Use["BDT"] = 1;  // uses Adaptive Boost
    Use["BDTG"] = 0; // uses Gradient Boost
    //
    // ---------------------------------------------------------------
    // Use["Plugin"]          = 0;
-   Use["Category"] = 0;
+   // Use["Category"] = 0;
 
    std::cout << std::endl;
    std::cout << "==> Start TMVAClassificationApplication" << std::endl;
