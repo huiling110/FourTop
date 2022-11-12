@@ -10,7 +10,8 @@ def main():
     inputFile = 'TMVApp_1tau1l_10var_forCombine.root'
     
     
-    era = '2016'
+    # era = '2016'
+    era = getEraFromDir(inputDir)
     
     histsInProcesses, dummySys = getHists(inputDir, inputFile)
     print(histsInProcesses)
@@ -20,6 +21,17 @@ def main():
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
     plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era, False, 100  )
 
+
+def getEraFromDir(inputDir):
+    era = ''
+    if '2016' in inputDir:
+        era = '2016'
+    elif '2017' in inputDir:
+        era = '2017'
+    elif '2018' in inputDir:
+        era = '2018'
+    return era
+        
 
     
 def getHists(inputDir, inputFile):
