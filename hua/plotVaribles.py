@@ -36,7 +36,7 @@ colourPerSample = {
 
 
 # includeDataInStack = False
-includeDataInStack = True
+# includeDataInStack = True
 
 def main():
     # era = '2016preVFP'
@@ -176,7 +176,7 @@ def checkHists( histsDict ):
 
 
 
-def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = "", era='2016'):
+def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -265,7 +265,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     #scale tttt
     signal = nominal['tttt'].Clone()
-    signal.Scale(1000)
+    # signal.Scale(1000)
+    signal.Scale(signalScale)
     signal.SetLineColor(kMagenta)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(3)
