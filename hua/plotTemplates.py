@@ -18,7 +18,7 @@ def main():
     outDir = inputDir+'results/'
     uf.checkMakeDir( outDir )
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
-    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDT', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era, False, 100  )
+    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era, False, 100  )
 
 
     

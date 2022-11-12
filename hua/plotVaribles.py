@@ -261,7 +261,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     # dataHist.Print()
     # if includeDataInStack: dataHist.Draw("e1x0 same")
-    if includeDataInStack: dataHist.Draw("e0 same")
+    if includeDataInStack:
+        dataHist.Draw("e0 same")
+    else:
+        stack.GetXaxis().SetLabelSize(0.03)
+        stack.GetXaxis().SetTitle(name)
+        stack.GetXaxis().SetTitleSize(0.04)
 
     #scale tttt
     signal = nominal['tttt'].Clone()
@@ -326,7 +331,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     for entry in legendOrder:
         leggy.AddEntry(nominal[entry],entry,"f")
     leggy.AddEntry(assymErrorPlot,"totalUncer","f")
-    leggy.AddEntry( signal, 'tttt*1000', 'l')
+    signalEntry = 'tttt*{}'.format(signalScale)
+    # leggy.AddEntry( signal, 'tttt*1000', 'l')
+    leggy.AddEntry( signal, signalEntry, 'l')
     leggy.Draw()
     
     #text above the plot
