@@ -104,9 +104,8 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
    }
 
    // Book output histograms
-   // if (Use["BDT"])           histBdt     = new TH1F( processName+"_MVA_BDT",           "MVA_BDT",           binNum, -0.8, 0.8 );
    if (Use["BDT"])
-      histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.3, 0.3);
+      histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
    if (Use["BDTG"])
       histBdtG = new TH1F(processName + "_MVA_BDTG", "MVA_BDTG", binNum, -1.0, 1.0);
 
@@ -142,8 +141,8 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
    // theTree->SetBranchAddress("HLTefficiency_weight", &HLTefficiency_weight);
 
    // Efficiency calculator for cut method
-   Int_t nSelCutsGA = 0;
-   Double_t effS = 0.7;
+   // Int_t nSelCutsGA = 0;
+   // Double_t effS = 0.7;
 
    std::vector<Float_t> vecVar(4); // vector for EvaluateMVA tests
 
@@ -201,8 +200,6 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
       // Double_t eventWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight * btagEfficiency_weight * HLTefficiency_weight;
       Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight;
 
-      // if (Use["BDT"          ])   histBdt    ->Fill( reader->EvaluateMVA( "BDT method"), eventWeight );
-      // if (Use["BDTG"         ])   histBdtG   ->Fill( reader->EvaluateMVA( "BDTG method"), eventWeight );
       if (Use["BDT"])
          histBdt->Fill(reader->EvaluateMVA("BDT method"), basicWeight);
       if (Use["BDTG"])

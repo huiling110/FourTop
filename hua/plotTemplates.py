@@ -10,15 +10,21 @@ def main():
     inputFile = 'TMVApp_1tau1l_10var_forCombine.root'
     
     
-    histsInProcesses = getHists(inputDir, inputFile)
+    era = '2016'
+    
+    histsInProcesses, dummySys = getHists(inputDir, inputFile)
     print(histsInProcesses)
-    histsInProcesses['tttt'].Print()
 
+    outDir = inputDir+'results/'
+    uf.checkMakeDir( outDir )
+    legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
+    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDT', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era  )
 
 
     
 def getHists(inputDir, inputFile):
     histsInProcesses = {}
+    histSys = {}
     rootFile = ROOT.TFile( inputDir+inputFile, 'READ')
     for ipro in summedProcessList:
         ihistName = ipro+'_MVA_BDT'
@@ -31,9 +37,10 @@ def getHists(inputDir, inputFile):
             histsInProcesses[ipro] = ihist.Clone()
             histsInProcesses[ipro].Print()
             histsInProcesses[ipro].SetDirectory(0)#!!!very important to do this! if not, the hists will be destroyed after the rootfile closes
+            # histSys[ipro]={}
     rootFile.Close()
     # print(histsInProcesses)
-    return histsInProcesses
+    return histsInProcesses, histSys
         
         
     
