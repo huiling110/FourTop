@@ -35,8 +35,9 @@ def main():
     TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
 
     # channel = '2tau0l'
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # channel = '1tau2l'
+    channel = getChannelFromDir (TMVAppDir)
     
     
     
@@ -49,6 +50,8 @@ def main():
 
     # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
     # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
+ 
+         
   
 def getNonEmptyList_new( emptyList, isSum=True):
     listForCombine = []
