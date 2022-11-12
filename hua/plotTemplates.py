@@ -14,6 +14,7 @@ def main():
    
     for ifile in os.listdir( inputDir ): 
         # inputFile = 'TMVApp_1tau1l_10var_forCombine.root'
+        if not '.root' in ifile: continue
         plotOneFile(ifile, inputDir) 
 
 
@@ -25,7 +26,8 @@ def plotOneFile(inputFile, inputDir):
     outDir = inputDir+'results/'
     uf.checkMakeDir( outDir )
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
-    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era, False, 100  )
+    plotName = inputFile.replace('.root', '')
+    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, plotName +'BDTTemplates', era, False, 100  )
 
     
 def getHists(inputDir, inputFile):

@@ -51,10 +51,10 @@ def getEraFromDir(inputDir):
         era = '2018'
     return era
 
- def getChannelFromDir( dir ):
+def getChannelFromDir( dir ):
     cha = ''
     if '1tau1l' in dir:
         cha = '1tau1l'
-    elif: '1tau0l' in dir:
+    elif '1tau0l' in dir:
         cha = '1tau0l'
     return cha

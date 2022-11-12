@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 import ROOT
+import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
 
 # sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
@@ -37,19 +38,19 @@ def main():
     # channel = '2tau0l'
     # channel = '1tau1l'
     # channel = '1tau2l'
-    channel = getChannelFromDir (TMVAppDir)
+    channel = uf.getChannelFromDir (TMVAppDir)
     
     
     
-    addSummedHists( TMVAppDir )
+    # addSummedHists( TMVAppDir )
 
-    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    # listForCombineSum = getNonEmptyList_new( emptyList)
-    # listForCombine = getNonEmptyList_new( emptyList, False)
-    # print(listForCombineSum)
+    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    listForCombineSum = getNonEmptyList_new( emptyList)
+    listForCombine = getNonEmptyList_new( emptyList, False)
+    print(listForCombineSum)
 
-    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
-    # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
  
          
   
