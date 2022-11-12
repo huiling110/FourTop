@@ -40,3 +40,13 @@ def getInputDic( inVersion, histVersion, era):
         'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
     }
     return inputDirDic
+
+def getEraFromDir(inputDir):
+    era = ''
+    if '2016' in inputDir:
+        era = '2016'
+    elif '2017' in inputDir:
+        era = '2017'
+    elif '2018' in inputDir:
+        era = '2018'
+    return era

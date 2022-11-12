@@ -1,3 +1,5 @@
+import os
+
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import summedProcessList
@@ -7,12 +9,16 @@ import plotVaribles
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
-    inputFile = 'TMVApp_1tau1l_10var_forCombine.root'
     
     
-    # era = '2016'
-    era = getEraFromDir(inputDir)
-    
+   
+    for ifile in os.listdir( inputDir ): 
+        # inputFile = 'TMVApp_1tau1l_10var_forCombine.root'
+        plotOneFile(ifile, inputDir) 
+
+
+def plotOneFile(inputFile, inputDir):
+    era = uf.getEraFromDir(inputDir)
     histsInProcesses, dummySys = getHists(inputDir, inputFile)
     print(histsInProcesses)
 
@@ -20,18 +26,6 @@ def main():
     uf.checkMakeDir( outDir )
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
     plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, 'BDTTemplates', era, False, 100  )
-
-
-def getEraFromDir(inputDir):
-    era = ''
-    if '2016' in inputDir:
-        era = '2016'
-    elif '2017' in inputDir:
-        era = '2017'
-    elif '2018' in inputDir:
-        era = '2018'
-    return era
-        
 
     
 def getHists(inputDir, inputFile):

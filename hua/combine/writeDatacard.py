@@ -42,16 +42,13 @@ def main():
     
     addSummedHists( TMVAppDir )
 
-    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    # emptyListSum = checkEmptyProcessForSum( emptyList )
-    # listForCombine = getNonEmptyList( g_allProcesses, emptyList )
-    # listForCombineSum = getNonEmptyList( g_allSumProcesses, emptyListSum  )
-    listForCombineSum = getNonEmptyList_new( emptyList)
-    listForCombine = getNonEmptyList_new( emptyList, False)
-    print(listForCombineSum)
+    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    # listForCombineSum = getNonEmptyList_new( emptyList)
+    # listForCombine = getNonEmptyList_new( emptyList, False)
+    # print(listForCombineSum)
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
-    writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    # writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
   
 def getNonEmptyList_new( emptyList, isSum=True):
     listForCombine = []
@@ -129,7 +126,7 @@ def addSummedHists( TMVAppDir ):
         if '.root' in ifile:
             print( ifile )
             ifile = TMVAppDir + ifile
-            command = 'root -q \'../tmva/autoTraining_correlation/sumBGsTogether_Nano.C( \"{}\")\''.format(ifile)
+            command = 'root -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/sumBGsTogether_Nano.C( \"{}\")\''.format(ifile)
             print(command)
             process = subprocess.run( command, shell=True )
             output = process.stdout

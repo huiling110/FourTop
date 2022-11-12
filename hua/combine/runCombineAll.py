@@ -22,12 +22,12 @@ def main():
     
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop/hua/combine/combination/'
 
-#     cardToWorkspaces( cardDir )
+    cardToWorkspaces( cardDir )
+#
+    runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
 # #
-#     runCombineSig( cardDir, True )
-#     runCombineSig( cardDir, False )
-# #
-#     copyCombineResultsToDir( cardDir )
+    copyCombineResultsToDir( cardDir )
 
     plot.main( cardDir+ 'combineResults/')
 
@@ -81,6 +81,7 @@ def cardToWorkspaces( cardDir):
 
             iprocess = subprocess.Popen( [command], shell=True )
             output = iprocess.communicate()[0]
+            # output = iprocess.communicate()
             print( output)
     print( 'workpace transformation done!' )
     print('\n')
