@@ -13,7 +13,6 @@ import usefulFunc as uf
 
 
 
-Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v30TESnoJER/'
@@ -27,9 +26,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v39addTauBranches/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
@@ -55,7 +55,8 @@ def main():
     # version = 'v5forFRMCMasure'
     # version = 'v6forFRCR12'
     # version = 'v6forFRCR12_3prong'
-    version = 'v7addFRWeightReForEventCount'
+    # version = 'v7addFRWeightReForEventCount'
+    version = 'v0for1tau1lCRs'
     justMC = False
     # justMC = True
     isTest = 0
@@ -65,6 +66,8 @@ def main():
 
 
 
+    # Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
+    Jobsubmitpath = os.path.abspath(__file__+'/..')
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
     #important to add the full path so that it can be ran in any folder
     subAllProcess.write('#!/bin/bash\n')
@@ -75,7 +78,7 @@ def main():
         inputDirDic['data'] = inputDir + 'data/'
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess )
+        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess, Jobsubmitpath )
     subAllProcess.close()
 
     # subDir = str(Path(__file__).absolute()).strip()
@@ -84,7 +87,7 @@ def main():
 
 
 
-def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
+def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
 
     # jobDir = 'jobSH/'
     jobDir = Jobsubmitpath +'jobSH/'
@@ -100,7 +103,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess, isTest, inputDir, version )  
+            makeIjob( iJobFile, iProcess, isTest, inputDir, version, Jobsubmitpath )  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
@@ -113,7 +116,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess ):
 
 
 
-def makeIjob( shFile, iProcess, isTest, inputDir, version ):
+def makeIjob( shFile, iProcess, isTest, inputDir, version, Jobsubmitpath ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
