@@ -19,64 +19,66 @@
 
 #include <TH1D.h>
 
+#include "histsForRegions_class.C"
+
 // Headers needed by this particular selector
 
 //???need to delete this to use class from histForRegions_class.C
-template <typename Temp>
-class histsForRegions
-{
-private:
-   TString m_variableName;
-   Int_t m_binNum;
-   Double_t m_binMin;
-   Double_t m_binMax;
-   Double_t m_binRange[];
-   std::vector<TH1D *> m_histsVector;
-   // TTreeReaderValue<Int_t> &m_variableRef;
-   TTreeReaderValue<Temp> &m_variableRef;
+// template <typename Temp>
+// class histsForRegions
+// {
+// private:
+//    TString m_variableName;
+//    Int_t m_binNum;
+//    Double_t m_binMin;
+//    Double_t m_binMax;
+//    Double_t m_binRange[];
+//    std::vector<TH1D *> m_histsVector;
+//    // TTreeReaderValue<Int_t> &m_variableRef;
+//    TTreeReaderValue<Temp> &m_variableRef;
 
-public:
-   histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Temp> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
-   void initializeRegions(std::vector<TString> &regions, TString m_processName)
-   {
-      for (UInt_t i = 0; i < regions.size(); i++)
-      {
-         TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
-         if (m_binRange.size() > 0)
-         {
-            TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binRange);
-         }
-         else
-         {
-            TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
-         }
-         temp.Sumw2();
-         m_histsVector.push_back(temp);
-      }
-   };
-   void fillHistVec(UInt_t iRegion, Double_t weight)
-   {
-      m_histsVector[iRegion]->Fill(*m_variableRef, weight);
-   }
-   void histsScale(Double_t scale)
-   {
-      for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-      {
-         m_histsVector[ire]->Scale(scale);
-      }
-   }
-   void histsPrint()
-   {
-      for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-      {
-         m_histsVector[ire]->Print();
-      }
-   }
+// public:
+//    histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Temp> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
+//    void initializeRegions(std::vector<TString> &regions, TString m_processName)
+//    {
+//       for (UInt_t i = 0; i < regions.size(); i++)
+//       {
+//          TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
+//          if (m_binRange.size() > 0)
+//          {
+//             TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binRange);
+//          }
+//          else
+//          {
+//             TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
+//          }
+//          temp.Sumw2();
+//          m_histsVector.push_back(temp);
+//       }
+//    };
+//    void fillHistVec(UInt_t iRegion, Double_t weight)
+//    {
+//       m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+//    }
+//    void histsScale(Double_t scale)
+//    {
+//       for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
+//       {
+//          m_histsVector[ire]->Scale(scale);
+//       }
+//    }
+//    void histsPrint()
+//    {
+//       for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
+//       {
+//          m_histsVector[ire]->Print();
+//       }
+//    }
 
-   // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
-   //    m_vri
-   // }
-};
+//    // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
+//    //    m_vri
+//    // }
+// };
 
 class writeHist_fordataMC : public TSelector
 {
@@ -130,16 +132,16 @@ public:
    // Readers to access the data (delete the ones you do not need).
    TTreeReaderValue<ULong64_t>
        event = {fReader, "event"};
-   TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
-   TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter = {fReader, "Flag_globalSuperTightHalo2016Filter"};
-   TTreeReaderValue<Int_t> Flag_HBHENoiseFilter = {fReader, "Flag_HBHENoiseFilter"};
-   TTreeReaderValue<Int_t> Flag_HBHENoiseIsoFilter = {fReader, "Flag_HBHENoiseIsoFilter"};
-   TTreeReaderValue<Int_t> Flag_EcalDeadCellTriggerPrimitiveFilter = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter"};
-   TTreeReaderValue<Int_t> Flag_BadPFMuonFilter = {fReader, "Flag_BadPFMuonFilter"};
-   TTreeReaderValue<Int_t> Flag_eeBadScFilter = {fReader, "Flag_eeBadScFilter"};
-   TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-   TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-   TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+   // TTreeReaderValue<Int_t> Flag_goodVertices = {fReader, "Flag_goodVertices"};
+   // TTreeReaderValue<Int_t> Flag_globalSuperTightHalo2016Filter = {fReader, "Flag_globalSuperTightHalo2016Filter"};
+   // TTreeReaderValue<Int_t> Flag_HBHENoiseFilter = {fReader, "Flag_HBHENoiseFilter"};
+   // TTreeReaderValue<Int_t> Flag_HBHENoiseIsoFilter = {fReader, "Flag_HBHENoiseIsoFilter"};
+   // TTreeReaderValue<Int_t> Flag_EcalDeadCellTriggerPrimitiveFilter = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter"};
+   // TTreeReaderValue<Int_t> Flag_BadPFMuonFilter = {fReader, "Flag_BadPFMuonFilter"};
+   // TTreeReaderValue<Int_t> Flag_eeBadScFilter = {fReader, "Flag_eeBadScFilter"};
+   // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+   // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+   // TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_down = {fReader, "EVENT_prefireWeight_down"};
@@ -165,8 +167,8 @@ public:
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsmu_down = {fReader, "tauT_IDSF_weight_new_vsmu_down"};
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsele_up = {fReader, "tauT_IDSF_weight_new_vsele_up"};
    TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsele_down = {fReader, "tauT_IDSF_weight_new_vsele_down"};
-   TTreeReaderValue<Double_t> Met_pt_ = {fReader, "Met_pt_"};
-   TTreeReaderValue<Double_t> Met_phi_ = {fReader, "Met_phi_"};
+   TTreeReaderValue<Double_t> MET_pt = {fReader, "MET_pt"};
+   TTreeReaderValue<Double_t> MET_phi = {fReader, "MET_phi"};
    TTreeReaderValue<Int_t> muonsL_number = {fReader, "muonsL_number"};
    TTreeReaderValue<Int_t> muonsF_number = {fReader, "muonsF_number"};
    TTreeReaderValue<Int_t> muonsT_number = {fReader, "muonsT_number"};
@@ -176,9 +178,9 @@ public:
    TTreeReaderValue<Double_t> muonsT_2pt = {fReader, "muonsT_2pt"};
    TTreeReaderValue<Double_t> muonsT_2eta = {fReader, "muonsT_2eta"};
    TTreeReaderValue<Double_t> muonsT_2phi = {fReader, "muonsT_2phi"};
-   TTreeReaderValue<Double_t> muonsT_3pt = {fReader, "muonsT_3pt"};
-   TTreeReaderValue<Double_t> muonsT_3eta = {fReader, "muonsT_3eta"};
-   TTreeReaderValue<Double_t> muonsT_3phi = {fReader, "muonsT_3phi"};
+   // TTreeReaderValue<Double_t> muonsT_3pt = {fReader, "muonsT_3pt"};
+   // TTreeReaderValue<Double_t> muonsT_3eta = {fReader, "muonsT_3eta"};
+   // TTreeReaderValue<Double_t> muonsT_3phi = {fReader, "muonsT_3phi"};
    TTreeReaderValue<Int_t> elesMVAL_number = {fReader, "elesMVAL_number"};
    TTreeReaderValue<Int_t> elesMVAF_number = {fReader, "elesMVAF_number"};
    TTreeReaderValue<Int_t> elesMVAT_number = {fReader, "elesMVAT_number"};
@@ -226,8 +228,8 @@ public:
    TTreeReaderValue<Double_t> tausT_3pt = {fReader, "tausT_3pt"};
    TTreeReaderValue<Double_t> tausT_3eta = {fReader, "tausT_3eta"};
    TTreeReaderValue<Double_t> tausT_3phi = {fReader, "tausT_3phi"};
-   TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
-   TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
+   // TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
+   // TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausT_leptonsT_transMass = {fReader, "tausT_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausF_leptonsT_invariantMass = {fReader, "tausF_leptonsT_invariantMass"};
    TTreeReaderValue<Double_t> tausL_leptonsT_invariantMass = {fReader, "tausL_leptonsT_invariantMass"};
@@ -236,10 +238,10 @@ public:
    TTreeReaderValue<Double_t> tausF_leptonsTMVA_minDeltaR = {fReader, "tausF_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausL_leptonsTMVA_minDeltaR = {fReader, "tausL_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausT_leptonsTMVA_minDeltaR = {fReader, "tausT_leptonsTMVA_minDeltaR"};
-   TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
-   TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
-   TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
-   TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
+   // TTreeReaderValue<Double_t> jets_HT_JECup = {fReader, "jets_HT_JECup"};
+   // TTreeReaderValue<Double_t> jets_HT_JECdown = {fReader, "jets_HT_JECdown"};
+   // TTreeReaderValue<Int_t> jets_number_JECup = {fReader, "jets_number_JECup"};
+   // TTreeReaderValue<Int_t> jets_number_JECdown = {fReader, "jets_number_JECdown"};
    TTreeReaderValue<Int_t> jets_number = {fReader, "jets_number"};
    TTreeReaderValue<Double_t> jets_HT = {fReader, "jets_HT"};
    TTreeReaderValue<Double_t> jets_MHT = {fReader, "jets_MHT"};
@@ -282,17 +284,17 @@ public:
    TTreeReaderValue<Double_t> jets_7pt = {fReader, "jets_7pt"};
    TTreeReaderValue<Double_t> jets_7eta = {fReader, "jets_7eta"};
    TTreeReaderValue<Double_t> jets_7phi = {fReader, "jets_7phi"};
-   TTreeReaderValue<Double_t> jets_8pt = {fReader, "jets_8pt"};
-   TTreeReaderValue<Double_t> jets_8eta = {fReader, "jets_8eta"};
-   TTreeReaderValue<Double_t> jets_8phi = {fReader, "jets_8phi"};
-   TTreeReaderValue<Double_t> jets_9pt = {fReader, "jets_9pt"};
-   TTreeReaderValue<Double_t> jets_9eta = {fReader, "jets_9eta"};
-   TTreeReaderValue<Double_t> jets_9phi = {fReader, "jets_9phi"};
-   TTreeReaderValue<Double_t> jets_10pt = {fReader, "jets_10pt"};
-   TTreeReaderValue<Double_t> jets_10eta = {fReader, "jets_10eta"};
-   TTreeReaderValue<Double_t> jets_10phi = {fReader, "jets_10phi"};
-   TTreeReaderValue<Double_t> jets_11pt = {fReader, "jets_11pt"};
-   TTreeReaderValue<Double_t> jets_11eta = {fReader, "jets_11eta"};
+   // TTreeReaderValue<Double_t> jets_8pt = {fReader, "jets_8pt"};
+   // TTreeReaderValue<Double_t> jets_8eta = {fReader, "jets_8eta"};
+   // TTreeReaderValue<Double_t> jets_8phi = {fReader, "jets_8phi"};
+   // TTreeReaderValue<Double_t> jets_9pt = {fReader, "jets_9pt"};
+   // TTreeReaderValue<Double_t> jets_9eta = {fReader, "jets_9eta"};
+   // TTreeReaderValue<Double_t> jets_9phi = {fReader, "jets_9phi"};
+   // TTreeReaderValue<Double_t> jets_10pt = {fReader, "jets_10pt"};
+   // TTreeReaderValue<Double_t> jets_10eta = {fReader, "jets_10eta"};
+   // TTreeReaderValue<Double_t> jets_10phi = {fReader, "jets_10phi"};
+   // TTreeReaderValue<Double_t> jets_11pt = {fReader, "jets_11pt"};
+   // TTreeReaderValue<Double_t> jets_11eta = {fReader, "jets_11eta"};
    TTreeReaderValue<Double_t> jets_11phi = {fReader, "jets_11phi"};
    // TTreeReaderValue<Int_t> bjetsL_num = {fReader, "bjetsL_num"};
    TTreeReaderValue<Int_t> bjetsM_num = {fReader, "bjetsM_num"};

@@ -114,46 +114,46 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions<Int_t> jets_number_class{"jets_number", 10, 6, 15, jets_number};
-	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_number", 5, 0, 5, bjetsM_num};
+	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 10, 6, 15, jets_number};
+	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_number", "number of b jets", 5, 0, 5, bjetsM_num};
 	// vectorOfVariableRegions.push_back(eventCount_class);
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
 
-	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", 10, 100, 600, jets_1pt};
-	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", 10, 50, 600, jets_2pt};
-	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
-	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
-	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
-	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 100, 1600, jets_HT};
-	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", 10, 0, 2, jets_bScore};
-	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", 10, 0, 10, jets_rationHT_4toRest};
-	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", 10, 25, 300, bjetsM_invariantMass};
-	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
-	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
-	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3, tausT_1eta};
-	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", 10, 0, 3, tausT_1phi};
+	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 100, 600, jets_1pt};
+	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 50, 600, jets_2pt};
+	// histsForRegions<Double_t> jets_3pt_class{"jets_3pt", 10, 50, 500, jets_3pt};
+	// histsForRegions<Double_t> jets_4pt_class{"jets_4pt", 10, 25, 300, jets_4pt};
+	// histsForRegions<Double_t> jets_5pt_class{"jets_5pt", 10, 25, 250, jets_5pt};
+	// histsForRegions<Double_t> jets_6pt_class{"jets_6pt", 10, 25, 180, jets_6pt};
+	// histsForRegions<Double_t> jets_HT_class{"jets_HT", 10, 100, 1600, jets_HT};
+	// histsForRegions<Double_t> jets_bScore_class{"jets_bScore", 10, 0, 2, jets_bScore};
+	// histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", 10, 0, 10, jets_rationHT_4toRest};
+	// histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", 10, 25, 300, bjetsM_HT};
+	// histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", 10, 25, 300, bjetsM_HT};
+	// histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", 10, 25, 300, bjetsM_invariantMass};
+	// histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", 10, 25, 300, bjetsM_1pt};
+	// histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", 20, 20, 200, tausT_1pt};
+	// histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", 10, 0, 3, tausT_1eta};
+	// histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", 10, 0, 3, tausT_1phi};
 	// histsForRegions<Double_t> {"", 10, , , };
 	// histsForRegions<Double_t> {"", 10, , , };
 	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_4pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_5pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_6pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
-	vectorOfVariableRegionsDouble.push_back(jets_bScore_class);
-	vectorOfVariableRegionsDouble.push_back(jets_rationHT_4toRest_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_invariantMass_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1eta_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1phi_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_4pt_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_5pt_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_6pt_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_HT_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_bScore_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_rationHT_4toRest_class);
+	// vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
+	// vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
+	// vectorOfVariableRegionsDouble.push_back(bjetsM_invariantMass_class);
+	// vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
+	// vectorOfVariableRegionsDouble.push_back(tausT_1eta_class);
+	// vectorOfVariableRegionsDouble.push_back(tausT_1phi_class);
+	// vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
 	// vectorOfVariableRegionsDouble.push_back();
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
@@ -172,13 +172,9 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		// basicWeight = (*EVENT_genWeight);
-		// basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
-		// std::cout << "muonIDSF_weight=" << *muonIDSF_weight << " "
-		//   << "eleMVAT_IDSF_weight=" << *eleMVAT_IDSF_weight << "tauT_IDSF_weight_new=" << *tauT_IDSF_weight_new << "\n";
 	}
 	// std::cout << "event weight=" << basicWeight << "\n";
 

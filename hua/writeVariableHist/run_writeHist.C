@@ -14,9 +14,10 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v39addTauBranches/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline_v36TESandJERByHuiling/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/",
     // TString inputDir = "/scratchfs/cms/huahuil/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
@@ -26,9 +27,9 @@ void run_writeHist(
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    // TString selector = "writeHist_fordataMC.C+"
-    // TString selector = "writeHist.C+"
-    TString selector = "writeHist_forFakeRate.C+")
+    TString selector = "writeHist_fordataMC.C+")
+// TString selector = "writeHist.C+"
+// TString selector = "writeHist_forFakeRate.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
