@@ -127,10 +127,17 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 100, 1600, jets_HT};
-	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets",  10, 0, 2, jets_bScore};
-	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets",10, 0, 10, jets_rationHT_4toRest};
+	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
+	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
+	histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
+	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 600, MET_pt};
+	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 100, 1600, jets_transMass};
+	// histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
+	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 180, jets_7pt};
+	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of jets b score", 10, 0, 1, jets_4largestBscoreMulti};
+
 	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of medium b jets", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets",  10, 25, 300, bjetsM_HT};
+	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 300, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
@@ -147,6 +154,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
 	vectorOfVariableRegionsDouble.push_back(jets_bScore_class);
 	vectorOfVariableRegionsDouble.push_back(jets_rationHT_4toRest_class);
+	vectorOfVariableRegionsDouble.push_back(jets_leading2invariantMass_class);
+	vectorOfVariableRegionsDouble.push_back(MET_pt_class);
+	vectorOfVariableRegionsDouble.push_back(jets_transMass_class);
+	// vectorOfVariableRegionsDouble.push_back(jets_avaregeDeltaR_class);
+	vectorOfVariableRegionsDouble.push_back(jets_7pt_class);
+	vectorOfVariableRegionsDouble.push_back(jets_4largestBscoreMulti_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_invariantMass_class);
