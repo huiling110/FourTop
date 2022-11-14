@@ -698,6 +698,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	//  muonIsoSF_hist = (TH2D*)muonIsoSF_file->Get()
 
 	// eGamma
+	//???set up error handling when there is no input
 	TFile *input_EleIDSF = new TFile(TString(EGammaSF_files[m_era]), "READ");
 	EleIDSF = (TH2D *)input_EleIDSF->Get("EGamma_SF2D");
 	EleIDSF->SetDirectory(nullptr);
