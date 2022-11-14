@@ -113,7 +113,6 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
     print('creating: ', subDirName )
     subDirJobs = open( subDirName, 'w' )
     subDirJobs.write( '#!/bin/bash\n' )
-    # subDirJobs.write( 'cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables/\n')
     subDirJobs.write( 'cd ' + jobDir +'\n')
     jobsDir =  jobDir + '/'+dirKind + '_jobs/'
     uf.checkMakeDir(jobsDir)
@@ -141,7 +140,9 @@ def writeIjob( parameterList, processJob ):
     subFile  = open ( processJob ,"w")
     subFile.write( "#!/bin/bash\n")
     subFile.write("/bin/hostname\n")
-    subFile.write("cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables\n")
+    codeDir = os.path.dirname(os.path.abspath(__file__))
+    # subFile.write("cd /workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/makeVariables\n")
+    subFile.write("cd {}\n".format(codeDir))
     command = 'root -b -l -q \'run_makeVaribles_forBDT.C(false, \"{}\", \"{}\", \"{}\", \"{}\"   )\' '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
     subFile.write(command )
     subFile.close()

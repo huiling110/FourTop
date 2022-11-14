@@ -23,7 +23,8 @@ def copyData( dir ):
 # version = 'v0addMoreVariables_v39addTauBranches/'
 # version = 'v1fixedTauVariables_v39addTauBranches/'
 # version = 'v1fixedTauVariables_v40addTauJetEtau/'
-version = 'v3extra1tau1lCut_v41addVertexSelection/'
+# version = 'v3extra1tau1lCut_v41addVertexSelection/'
+version = 'v4baseline_v41addVertexSelection/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
