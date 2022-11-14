@@ -96,8 +96,8 @@ void TMVAClassificationApplication_perSample(
     {
         isdata = kTRUE;
     }
-    // TH1D* histBdt = new TH1D(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
+    // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.22, 0.10);
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");

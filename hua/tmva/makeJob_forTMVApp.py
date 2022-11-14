@@ -70,7 +70,7 @@ def makeIjob( shFile, iProcess,  inputDir, version, Jobsubmitpath , outDir):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
-    subFile.write( 'root -q -b \'TMVAClassificationApplication_perSample.C( \"{}\", \"{}\", \"{}\", \"{}\", {} , \"{}\", \"{}\", \"{}\", \"{}\" )\' '.format( inputDir, iProcess, version, channel, 30, variableListCsv, weightDir, outDir, '2016'  ) )
+    subFile.write( 'root -q -b \'TMVAClassificationApplication_perSample.C( \"{}\", \"{}\", \"{}\", \"{}\", {} , \"{}\", \"{}\", \"{}\", \"{}\" )\' '.format( inputDir, iProcess, version, channel, 10, variableListCsv, weightDir, outDir, '2016'  ) )
     print( 'done writing: ', shFile)
 
 
