@@ -126,7 +126,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 100, 1600, jets_HT};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1600, jets_HT};
 	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
 	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
 	histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
