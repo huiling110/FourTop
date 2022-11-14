@@ -18,8 +18,10 @@
 #include "../src_cpp/usefulFuction.h"
 
 void TMVAClassificationApplication_perSample(
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
-    TString inputProcess = "tttt",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/data/",
+    // TString inputProcess = "tttt",
+    TString inputProcess = "jetHT_2016F",
     TString version = "test",
     TString channel = "1tau1lCR0",
     const Int_t binNum = 30,
@@ -28,12 +30,13 @@ void TMVAClassificationApplication_perSample(
     TString outputDir = "output/TMVAApp_10var_1tau1lCR0/",
     TString era = "2016"
     // Bool_t isTest = kTRUE
-){
-    
+)
+{
+
     // This loads the library
     TMVA::Tools::Instance();
     std::map<std::string, int> Use;
-    Use["BDT"]=1;
+    Use["BDT"] = 1;
 
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
 
@@ -51,19 +54,19 @@ void TMVAClassificationApplication_perSample(
         ivariable = line;
         if (line.size() > 0)
         {
-            std::cout <<"reading ivariable =" <<ivariable << "\n";
+            std::cout << "reading ivariable =" << ivariable << "\n";
             variablesName.push_back(ivariable);
             variablesForReader.push_back(0.0);
             variablesOrigin.push_back(0.0);
-            if (ivariable.Contains("number") || ivariable.Contains("num")){
-                std::cout <<"reading int ivariable =" <<ivariable << "\n";
+            if (ivariable.Contains("number") || ivariable.Contains("num"))
+            {
+                std::cout << "reading int ivariable =" << ivariable << "\n";
                 variablesName_int.push_back(ivariable);
                 variablesOrigin_int.push_back(0);
             }
         }
     }
     fin.close();
-
 
     UInt_t variableNum = variablesName.size();
     for (UInt_t v = 0; v < variableNum; v++)
@@ -87,16 +90,21 @@ void TMVAClassificationApplication_perSample(
     // Book output histograms
     TString processName = inputProcess;
     // TString processName = inputProcess( 0, inputProcess.Length()-inputProcess.Index(".root")-1 );
-    std::cout<<"processName="<<processName<<"\n";
+    std::cout << "processName=" << processName << "\n";
+    Bool_t isdata = kFALSE;
+    if (processName.Contains("jetHT"))
+    {
+        isdata = kTRUE;
+    }
     // TH1D* histBdt = new TH1D(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
-    TH1D* histBdt = new TH1D( channel +"_"+ processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
 
-    
-    TFile* input = new TFile(inputDir+inputProcess+".root", "READ");
-    TTree* theTree = (TTree*)input->Get("newtree");
+    TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
+    TTree *theTree = (TTree *)input->Get("newtree");
     for (UInt_t i = 0; i < variableNum; i++)
     {
-        if( variablesName[i].Contains("number") || variablesName[i].Contains("num")) continue;
+        if (variablesName[i].Contains("number") || variablesName[i].Contains("num"))
+            continue;
         theTree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
     }
     for (UInt_t v = 0; v < variablesName_int.size(); v++)
@@ -119,7 +127,6 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
     theTree->SetBranchAddress("PUweight", &PUweight);
-
 
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
     TStopwatch sw;
@@ -170,32 +177,40 @@ void TMVAClassificationApplication_perSample(
         Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight;
 
         if (Use["BDT"])
-            histBdt->Fill(reader->EvaluateMVA("BDT method"), basicWeight);
+        {
+            if (!isdata)
+            {
+                histBdt->Fill(reader->EvaluateMVA("BDT method"), basicWeight);
+            }
+            else
+            {
+                histBdt->Fill(reader->EvaluateMVA("BDT method"), 1);
+            }
+        }
     }
     delete reader;
     // Get elapsed time
     sw.Stop();
 
-    //scale hist
-    Bool_t isdata = kFALSE;
-    if (processName.Contains("jetHT")) {
-        isdata = kTRUE;
-    }
-    if (!isdata){
-        Double_t genWeightSum = getGenSum(inputDir+inputProcess+".root");
-		Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
+    // scale hist
+    if (!isdata)
+    {
+        Double_t genWeightSum = getGenSum(inputDir + inputProcess + ".root");
+        Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
         histBdt->Scale(processScale);
-        std::cout<<processName<<": "<<processScale<<"\n";
+        std::cout << processName << ": " << processScale << "\n";
+    }
+    else
+    {
+        std::cout << processName << ": not MC, no scaling of hist\n";
     }
 
     TString s_variableNum = std::to_string(variableNum);
     // TString outFileName = outputDir + "TMVApp_" + channel + "_" + s_variableNum + "var_forCombine.root";
-    TString outFileName = outputDir + processName +".root";
-    TFile* out = new TFile(outFileName, "RECREATE");
+    TString outFileName = outputDir + processName + ".root";
+    TFile *out = new TFile(outFileName, "RECREATE");
     histBdt->SetDirectory(out);
     histBdt->Write();
-    std::cout<<"output file here: "<<out->GetName()<<"\n";
+    std::cout << "output file here: " << out->GetName() << "\n";
     out->Close();
-    
-
 };
