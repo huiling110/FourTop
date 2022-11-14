@@ -70,7 +70,7 @@ void run_writeHist(
     std::cout << "era: " << era << "\n";
 
     TChain chain("newtree");
-    chain.Add(inputFile);
+    chain.Add(inputFile); 
 
     TString sumGenWeight = std::to_string(genWeightSumInitial);
     // TString option = inputDir + ":" + inputProcess + ":" + isData + ":" + version + ":" + era + ":";
@@ -80,6 +80,7 @@ void run_writeHist(
     TStopwatch t;
     t.Start();
 
+    //???//what if the chain is empty? it seems the selector it not run at all theu
     chain.Process(selector, option);
     // chain.Process(selector, option, 100);
 

@@ -202,7 +202,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
-                sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
+                # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
             else:
                 itemp = iRootFile.Get( iHistName)
                 itemp.Scale(iProScale)

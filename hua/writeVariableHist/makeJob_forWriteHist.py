@@ -66,8 +66,8 @@ def main():
 
 
 
-    # Jobsubmitpath = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/' 
-    Jobsubmitpath = os.path.abspath(__file__+'/..')
+    Jobsubmitpath = os.path.dirname( os.path.abspath(__file__) ) +'/'
+    print( Jobsubmitpath)
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
     #important to add the full path so that it can be ran in any folder
     subAllProcess.write('#!/bin/bash\n')
@@ -81,8 +81,6 @@ def main():
         makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess, Jobsubmitpath )
     subAllProcess.close()
 
-    # subDir = str(Path(__file__).absolute()).strip()
-    # subDir = subDir[0:subDir.rindex('/')]
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 

@@ -187,9 +187,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*muonIDSF_weight) * (*eleMVAT_IDSF_weight);
 	}
-	// std::cout << "event weight=" << basicWeight << "\n";
 
 	// baseline selection
 	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;

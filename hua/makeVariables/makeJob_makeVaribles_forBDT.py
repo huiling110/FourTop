@@ -13,9 +13,6 @@ import usefulFunc as uf
 #???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
 
-# inVersion = 'v27noJERnoTESWithObjectRemoval'
-# inVersion = 'v28JERTESBack' #test
-# inVersion = 'v29LorentzProblemSolvedNoJERnoTES'
 # inVersion = 'v30TESnoJER'
 # inVersion = 'v31TESandJER'
 # inVersion = 'v32TESnoJER'
@@ -31,7 +28,8 @@ inVersion = 'v41addVertexSelection'
 # outVersion = 'v0addMoreVariables'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
-outVersion = 'v3extra1tau1lCut'
+# outVersion = 'v3extra1tau1lCut'
+outVersion = 'v4baseline'
 year = '2016'
 # year = '2018'
 # year = '2017'

@@ -633,10 +633,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	fPassingPreselection++;
 
 	// !!!extra cut for faster BDT training
-	if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
-	{
-		return kFALSE;
-	}
+	// if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
+	// {
+	// 	return kFALSE;
+	// }
 
 	eventCount_baseline->Fill(0.0, basicWeight);
 
@@ -914,7 +914,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("jets_centrality", &jets_centrality, "jets_centrality/D");
 	newtree->Branch("jets_bScore", &jets_bScore, "jets_bScore/D");
 	newtree->Branch("jets_bScoreMultiply", &jets_bScoreMultiply, "jets_bScoreMultiply/D");
-	newtree->Branch("jets_average_deltaR", &jets_average_deltaR, "&jets_average_deltaR/D");
+	newtree->Branch("jets_average_deltaR", &jets_average_deltaR, "jets_average_deltaR/D");
 	newtree->Branch("jets_4largestBscoreSum", &jets_4largestBscoreSum, "jets_4largestBscoreSum/D");
 	newtree->Branch("jets_4largestBscoreMulti", &jets_4largestBscoreMulti, "jets_4largestBscoreMulti/D");
 	newtree->Branch("jets_leading2invariantMass", &jets_leading2invariantMass, "jets_leading2invariantMass/D");

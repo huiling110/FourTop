@@ -41,8 +41,8 @@ colourPerSample = {
 def main():
     # era = '2016preVFP'
     # era = '2016postVFP'
-    # era = '2016'
-    era = '2018'
+    era = '2016'
+    # era = '2018'
     # era = '2017'
 
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
@@ -51,7 +51,8 @@ def main():
     # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
     # inVersion = 'v1fixedTauVariables_v39addTauBranches'
-    inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
+    # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
+    inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
@@ -61,36 +62,39 @@ def main():
     # histVersion = 'variableHists_v2forFRVariables_finerPtBin'
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     # histVersion  = 'variableHists_v4forFRAddHistTitle'
-    histVersion = 'variableHists_v7addFRWeightReForEventCount'
+    # histVersion = 'variableHists_v7addFRWeightReForEventCount'
+    histVersion = 'variableHists_v0for1tau1lCRs'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    variables = [ 'tausF_1jetPtFRWeight',]
+    # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     # variables = ['eventCount']
+    variables = ['jets_HT']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
     # variables = ['tausF_1jetPt', 'tausL_1etaAbs']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
-    plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
+    # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
     # plotName = 'dataVsMC_fakeTauFromData'
+    plotName = 'dataVsMC'
 
     # systematcList = ['Weighted'] #'Weighted for FR
     # ifFR_sys = True
     ifFR_sys = False
-    
+    # appendSYSRegions( ifFR_sys, regionList) 
     if ifFR_sys:
         regionList.append(regionList[2]+'_up')
         regionList.append(regionList[2]+'_down')
@@ -130,7 +134,7 @@ def main():
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys, variable, iRegion, plotDir, legendOrder, False, plotName ) 
+                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName ) 
         else:
             makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era)
             
@@ -243,11 +247,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     #add bgs for stack
     legendOrder.reverse()
+    for ipro in legendOrder:
+        if not ipro in nominal.keys():
+            print( 'this prcess not get: ', ipro )
+            legendOrder.remove(ipro)
     stack = THStack( canvasName, canvasName )
     for entry in legendOrder:
         stack.Add(nominal[entry])
     legendOrder.reverse()
-    # maxi = 1.2* stack.GetMaximum()
     maxi = 1.2* sumHist.GetMaximum()
     if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
         maxi = maxi*1.7
