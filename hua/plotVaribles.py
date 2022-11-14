@@ -64,12 +64,12 @@ def main():
     histVersion = 'variableHists_v0for1tau1lCRs'
     # histVersion = 'variableHists_v0_BDT1tau1lCRs'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     # variables = ['eventCount']
-    # variables = ['jets_HT']
+    variables = ['jets_HT']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     
@@ -112,15 +112,16 @@ def main():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )       
     print( sumProcessPerVar )
     print( sumProcessPerVarSys )
+    print('\n')
 
 
-    # legendOrder = ['fakeTau', 'tttt', 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     hasFakeTau = False
     for ire in regionList:
         if 'Gen' in ire:
             hasFakeTau = True
     if hasFakeTau:
+        print('has fake')
         for ivar in sumProcessPerVar:
             replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
             # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
@@ -128,11 +129,12 @@ def main():
         legendOrder.insert(0, 'fakeTau')
     
     
-    for ire in regionList:
+    for (i,ire) in enumerate( regionList):
+        if i==0:
+            legendOrder.remove('qcd')     
         if '1tau1l' in ire:
             for ivar in variables:
                 sumProcessPerVar[ivar][ire].pop('qcd')
-            legendOrder.remove('qcd')     
             print('remove qcd for 1tau1l')
     print( sumProcessPerVar )
 
