@@ -40,6 +40,7 @@ justMC = False
 
 
 
+
 inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
 # outputBase = '/scratchfs/cms/huahuil/forMVA/'
