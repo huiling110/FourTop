@@ -251,7 +251,7 @@ public:
    TTreeReaderValue<Double_t> jets_centrality = {fReader, "jets_centrality"};
    TTreeReaderValue<Double_t> jets_bScore = {fReader, "jets_bScore"};
    TTreeReaderValue<Double_t> jets_bScoreMultiply = {fReader, "jets_bScoreMultiply"};
-   // TTreeReaderValue<Double_t> jets_average_deltaR = {fReader, "jets_average_deltaR"}; //??? probmatic
+   TTreeReaderValue<Double_t> jets_average_deltaR = {fReader, "jets_average_deltaR"}; //??? probmatic
    TTreeReaderValue<Double_t> jets_4largestBscoreSum = {fReader, "jets_4largestBscoreSum"};
    TTreeReaderValue<Double_t> jets_4largestBscoreMulti = {fReader, "jets_4largestBscoreMulti"};
    TTreeReaderValue<Double_t> jets_leading2invariantMass = {fReader, "jets_leading2invariantMass"};
