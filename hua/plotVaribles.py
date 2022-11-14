@@ -62,12 +62,12 @@ def main():
     # histVersion = 'variableHists_v7addFRWeightReForEventCount'
     histVersion = 'variableHists_v0for1tau1lCRs'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', 'bjetsM_1pt']
+    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['tausF_charge']
     # variables = ['eventCount']
-    variables = ['jets_HT']
+    # variables = ['jets_HT']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
@@ -131,7 +131,7 @@ def main():
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName ) 
+                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 1 ) 
         else:
             makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era)
             
@@ -253,6 +253,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         stack.Add(nominal[entry])
     legendOrder.reverse()
     maxi = 1.2* sumHist.GetMaximum()
+    if maxi<=0 :
+        print(name, ' variable empty')
+        print('\n')
+        return
     if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
         maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram

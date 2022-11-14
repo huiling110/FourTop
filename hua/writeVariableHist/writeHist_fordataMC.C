@@ -114,7 +114,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 10, 6, 15, jets_number};
+	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
 	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_number", "number of b jets", 5, 0, 5, bjetsM_num};
 	// vectorOfVariableRegions.push_back(eventCount_class);
 	vectorOfVariableRegions.push_back(jets_number_class);
@@ -126,19 +126,19 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1600, jets_HT};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1800, jets_HT};
 	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
 	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
 	histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
-	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 600, MET_pt};
-	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 100, 1600, jets_transMass};
+	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
+	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 500, 1800, jets_transMass};
 	histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
-	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 180, jets_7pt};
-	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of jets b score", 10, 0, 1, jets_4largestBscoreMulti};
+	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
+	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of 4 lorgest jets b score", 10, 0, 1, jets_4largestBscoreMulti};
 
 	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 300, bjetsM_invariantMass};
+	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "leading tau eta", 10, 0, 3, tausT_1eta};
