@@ -195,6 +195,10 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
+	// if (entry < 100)
+	// {
+	// 	std::cout << "jets_4largestBscoreMulti=" << *jets_4largestBscoreMulti << "\n";
+	// }
 
 	// 1tau0l SR
 	if (!m_isData)
