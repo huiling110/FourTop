@@ -328,10 +328,10 @@ void TMVAClassificationApplication_multipleSamples(
             evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, true, channel, outputDir, variableListCsv, weightDir, binNum);
         }
     }
-    if ( channel.Contains("CR")){
-        //evaluate data for control regions
+    // if ( channel.Contains("CR")){
+    //     //evaluate data for control regions
 
-    }
+    // }
 
     std::cout << "==> TMVAClassificationApplication is done!" << std::endl
               << std::endl;

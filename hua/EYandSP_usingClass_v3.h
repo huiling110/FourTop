@@ -151,9 +151,20 @@ std::vector<Process> allProcesses = {
     //???WJets not added yet
 
 };
-std::vector<Process> dataSamples = {
+// baseDirData = 
+// Process jetHT_2016F{}
+// std::vector<Process> dataSamples = {
+//     'jetHT_2016F': 'data',
+//     'jetHT_2016G': 'data',
+//     'jetHT_2016H': 'data',
+//     'jetHT_2016B_v1': 'data',
+//     'jetHT_2016B_v2': 'data',
+//     'jetHT_2016C': 'data',
+//     'jetHT_2016D': 'data',
+//     'jetHT_2016E': 'data',
+//     'jetHT_2016F_hipm': 'data',
 
-}
+// }
 
 TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
 {
