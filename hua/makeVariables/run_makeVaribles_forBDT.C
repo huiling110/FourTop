@@ -28,9 +28,9 @@ void run_makeVaribles_forBDT(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v41addVertexSelection/mc/",
     // TString inputBase = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
-    // TString inputDir = "jetHT_2016D",
+    TString inputDir = "jetHT_2016F",
     // TString inputDir = "ttbar_0l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     const TString eventSelectionBit = "7",
@@ -93,21 +93,23 @@ void run_makeVaribles_forBDT(
         chain.Process(selection + "+", option);
     }
 
-    cout << "--------" << endl;
-    cout << "now comes to add Runs tree stage\n";
-    TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
-    cout << "file opened :" << file->GetName() << "\n";
-
     // add Runs tree
-    TChain chain2("Runs");
-    if (ifOneSample)
+    if (!inputDir.Contains("jetHT"))
     {
-        chain2.Add(inputFile + singleSampleName + ".root");
+        cout << "--------" << endl;
+        cout << "now comes to add Runs tree stage\n";
+        TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
+        cout << "file opened :" << file->GetName() << "\n";
+        TChain chain2("Runs");
+        if (ifOneSample)
+        {
+            chain2.Add(inputFile + singleSampleName + ".root");
+        }
+        else
+        {
+            chain2.Add(inputFile + "outTree*.root");
+        }
+        chain2.Merge(file, 2000);
+        cout << "done merging Runs trees\n";
     }
-    else
-    {
-        chain2.Add(inputFile + "outTree*.root");
-    }
-    chain2.Merge(file, 2000);
-    cout << "done merging Runs trees\n";
 }
