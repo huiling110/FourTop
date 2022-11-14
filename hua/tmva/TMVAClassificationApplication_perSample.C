@@ -13,7 +13,6 @@
 #include "TMVA/Tools.h"
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
-// #include "../EYandSP_usingClass_v3.h"
 
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "../src_cpp/usefulFuction.h"
@@ -178,13 +177,14 @@ void TMVAClassificationApplication_perSample(
 
     //scale hist
     Bool_t isdata = kFALSE;
-    if processName.Contains("jetHT") {
+    if (processName.Contains("jetHT")) {
         isdata = kTRUE;
     }
     if (!isdata){
-
-		processScale = ((lumiMap[era] * crossSectionMap[processName]) / m_genWeightSum);
+        Double_t genWeightSum = getGenSum(inputDir+inputProcess);
+		Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
         histBdt->Scale(processScale);
+        std::cout<<processName<<": "<<processScale<<"\n";
     }
 
     TString s_variableNum = std::to_string(variableNum);

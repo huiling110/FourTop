@@ -16,8 +16,8 @@ void getOption(TString option, std::vector<TString> &optionVec)
 Double_t getGenSum(TString inputFile){
     Double_t genWeightSumInitial = 1.0;
     TFile *m_file = new TFile(inputFile, "READ");
-    if (!isData)
-    {
+    // if (!isData)
+    // {
         TTree *Runs = (TTree *)m_file->Get("Runs");
         Double_t igen;
         Runs->SetBranchAddress("genEventSumw", &igen);
@@ -27,9 +27,8 @@ Double_t getGenSum(TString inputFile){
             Runs->GetEntry(iEntry);
             genWeightSumInitial += igen;
         }
-    }
+    // }
     m_file->Close();
-    std::cout << inputProcess << ": "
-              << "genWeightSumInitial: " << genWeightSumInitial << "\n";
+    std::cout  << "genWeightSumInitial: " << genWeightSumInitial << "\n";
     return genWeightSumInitial;
 }
