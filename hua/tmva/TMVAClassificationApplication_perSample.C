@@ -15,17 +15,20 @@
 #include "TMVA/MethodCuts.h"
 // #include "../EYandSP_usingClass_v3.h"
 
+#include "lumiAndCrossSection.h"
 
+#include "../src_cpp/usefulFuction.h"
 
 void TMVAClassificationApplication_perSample(
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
     TString inputProcess = "tttt.root",
     TString version = "test",
     TString channel = "1tau1lCR0",
-    const Int_t binNum = 20,
+    const Int_t binNum = 30,
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
-    TString outputDir = "output/",
+    TString outputDir = "output/TMVAApp_10var_1tau1lCR0/",
+    TString era = "2016",
     Bool_t isTest = kTRUE
 ){
     
@@ -84,9 +87,10 @@ void TMVAClassificationApplication_perSample(
     }
 
     // Book output histograms
-    TString processName = inputProcess( 0, inputProcess.Length()-inputProcess.Index(".root") );
+    TString processName = inputProcess( 0, inputProcess.Length()-inputProcess.Index(".root")-1 );
     std::cout<<"processName="<<processName<<"\n";
-    TH1D* histBdt = new TH1D(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
+    // TH1D* histBdt = new TH1D(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
+    TH1D* histBdt = new TH1D( channel +"_"+ processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
 
     
     TFile* input = new TFile(inputDir+inputProcess, "READ");
@@ -173,13 +177,24 @@ void TMVAClassificationApplication_perSample(
     // Get elapsed time
     sw.Stop();
 
+    //scale hist
+    Bool_t isdata = kFALSE;
+    if processName.Contains("jetHT") {
+        isdata = kTRUE;
+    }
+    if (!isdata){
+
+		processScale = ((lumiMap[era] * crossSectionMap[processName]) / m_genWeightSum);
+        histBdt->Scale(processScale);
+    }
 
     TString s_variableNum = std::to_string(variableNum);
-    TString outFileName = outputDir + "TMVApp_" + channel + "_" + s_variableNum + "var_forCombine.root";
+    // TString outFileName = outputDir + "TMVApp_" + channel + "_" + s_variableNum + "var_forCombine.root";
+    TString outFileName = outputDir + processName +".root";
     TFile* out = new TFile(outFileName, "RECREATE");
     histBdt->SetDirectory(out);
     histBdt->Write();
-    std::cout<<"output file here: "<<out->GetName();
+    std::cout<<"output file here: "<<out->GetName()<<"\n";
     out->Close();
     
 
