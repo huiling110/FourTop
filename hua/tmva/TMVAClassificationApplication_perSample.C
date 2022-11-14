@@ -15,8 +15,7 @@
 #include "TMVA/MethodCuts.h"
 // #include "../EYandSP_usingClass_v3.h"
 
-#include "lumiAndCrossSection.h"
-
+#include "../src_cpp/lumiAndCrossSection.h"
 #include "../src_cpp/usefulFuction.h"
 
 void TMVAClassificationApplication_perSample(
