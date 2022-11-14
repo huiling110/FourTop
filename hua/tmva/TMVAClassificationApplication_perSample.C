@@ -19,15 +19,15 @@
 
 void TMVAClassificationApplication_perSample(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
-    TString inputProcess = "tttt.root",
+    TString inputProcess = "tttt",
     TString version = "test",
     TString channel = "1tau1lCR0",
     const Int_t binNum = 30,
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
     TString outputDir = "output/TMVAApp_10var_1tau1lCR0/",
-    TString era = "2016",
-    Bool_t isTest = kTRUE
+    TString era = "2016"
+    // Bool_t isTest = kTRUE
 ){
     
     // This loads the library
@@ -85,13 +85,14 @@ void TMVAClassificationApplication_perSample(
     }
 
     // Book output histograms
-    TString processName = inputProcess( 0, inputProcess.Length()-inputProcess.Index(".root")-1 );
+    TString processName = inputProcess;
+    // TString processName = inputProcess( 0, inputProcess.Length()-inputProcess.Index(".root")-1 );
     std::cout<<"processName="<<processName<<"\n";
     // TH1D* histBdt = new TH1D(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
     TH1D* histBdt = new TH1D( channel +"_"+ processName + "_BDT", "BDT score", binNum, -0.18, 0.34);
 
     
-    TFile* input = new TFile(inputDir+inputProcess, "READ");
+    TFile* input = new TFile(inputDir+inputProcess+".root", "READ");
     TTree* theTree = (TTree*)input->Get("newtree");
     for (UInt_t i = 0; i < variableNum; i++)
     {
@@ -181,7 +182,7 @@ void TMVAClassificationApplication_perSample(
         isdata = kTRUE;
     }
     if (!isdata){
-        Double_t genWeightSum = getGenSum(inputDir+inputProcess);
+        Double_t genWeightSum = getGenSum(inputDir+inputProcess+".root");
 		Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
         histBdt->Scale(processScale);
         std::cout<<processName<<": "<<processScale<<"\n";
