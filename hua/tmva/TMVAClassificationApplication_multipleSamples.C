@@ -126,7 +126,7 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
     //   but of course you can use different ones and copy the values inside the event loop
     for (UInt_t i = 0; i < variableNum; i++)
     {
-        if( variablesName.Contains("number") || variableName.Contains("num")) continue;
+        if( variablesName[i].Contains("number") || variablesName[i].Contains("num")) continue;
         theTree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
     }
     for (UInt_t v = 0; v < variablesName_int.size(); v++)
@@ -318,16 +318,19 @@ void TMVAClassificationApplication_multipleSamples(
 
     // --------------------------------------------------------------------------------------------------
     TH1F *data_BDTG = new TH1F("data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0);
-    TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.3, 0.3); // for combine
+    TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.34); // for combine
     data_BDT->Sumw2();
     for (UInt_t p = 0; p < allProcesses.size(); p++)
     {
         evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, false, channel, outputDir, variableListCsv, weightDir, binNum);
-        // std::cout << __LINE__ << "\n";
         if (p == allProcesses.size() - 1)
         {
             evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, true, channel, outputDir, variableListCsv, weightDir, binNum);
         }
+    }
+    if ( channel.Contains("CR")){
+        //evaluate data for control regions
+
     }
 
     std::cout << "==> TMVAClassificationApplication is done!" << std::endl

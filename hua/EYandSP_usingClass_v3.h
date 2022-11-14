@@ -151,6 +151,9 @@ std::vector<Process> allProcesses = {
     //???WJets not added yet
 
 };
+std::vector<Process> dataSamples = {
+
+}
 
 TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
 {
