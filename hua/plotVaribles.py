@@ -8,7 +8,7 @@ from ROOT import *
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
-from usefulFunc import getInputDic
+from usefulFunc import checkMakeDir, getInputDic
 
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
@@ -63,9 +63,13 @@ def main():
     # histVersion = 'variableHists_v0for1tau1lCRs'
     variables = [ 'tausF_1jetPtFRWeight',]
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted_test'
+    # systematcList = ['Weighted'] #'Weighted for FR
+    # ifFR_sys = True
+    ifFR_sys = False
     
     # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
     # histVersion = 'variableHists_v0_BDT1tau1lCRs'
@@ -87,16 +91,12 @@ def main():
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lSR', '1tau0lSRGen', '1tau0lSRNotGen', '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
    
     # plotName = 'dataVsMC_fakeTauFromData'
     # plotName = 'dataVsMC'
 
-    # systematcList = ['Weighted'] #'Weighted for FR
-    # ifFR_sys = True
-    ifFR_sys = False
     
     
     
@@ -126,6 +126,9 @@ def main():
             # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
         legendOrder.insert(0, 'fakeTau')
+        sumProcessPerVar[ivar][regionList[0]].pop('qcd')
+    
+    writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     #remove qcd for 1tau1l 
     # for (i,ire) in enumerate( regionList):
@@ -138,18 +141,31 @@ def main():
     #         print('remove qcd for 1tau1l')
     # print( sumProcessPerVar )
 
-    plotDir = inputDirDic['mc']+'results/'
-    if not os.path.exists( plotDir ):
-        os.mkdir( plotDir )
-    for variable in variables:
-        if not hasFakeTau:
-            for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 1 ) 
-        else:
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,100)
+    # plotDir = inputDirDic['mc']+'results/'
+    # checkMakeDir( plotDir)
+    # for variable in variables:
+    #     if not hasFakeTau:
+    #         for iRegion in regionList:       
+    #             makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 1 ) 
+    #     else:
+    #         makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,100)
  
  
  
+def writeTemplatesForCombine(sumProcessPerVar, inputDir, region) :
+    outDir = inputDir + 'templatesForCombine/'
+    checkMakeDir( outDir )
+    outFile = TFile( outDir+'1tau0ltemplates.root', 'RECREATE')
+    for ivar in sumProcessPerVar.keys():
+        for ipro in sumProcessPerVar[ivar][region].keys():
+            itempName = ipro + '_' + ivar 
+            ihist = sumProcessPerVar[ivar][region][ipro].Clone(itempName)
+            ihist.Write()
+    outFile.Print()
+    print('writen templates for combine here', outFile.GetName())
+    outFile.Close()    
+    
+    
  
             
 def checkRegionGen(regionList):
