@@ -123,13 +123,13 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     # card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
     card.write( 'shapes * *  ' + rootFile + '  ${}\n'.format(histName)  )
     # card.write( 'bin          SR_1tau1l\n')
-    card.write( 'bin          {}\n'.format(channel))
+    card.write( 'bin          SR{}\n'.format(channel))
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
 
     processNum = len( listForCombine )
     # card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR_1tau1l', 18) + '\n')
-    card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces(channel, 18) + '\n')
+    card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR'+channel, 18) + '\n')
     card.write( getStringWithSpaces('process', 10) )
     for ip in listForCombine:
         card.write( getStringWithSpaces(ip,18))
@@ -150,7 +150,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     card.write('\n')
     card.write( 80*'-' + '\n' )
 
-    card.write( channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
+    card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
     print( 'datacard writen here: ', outCard)
