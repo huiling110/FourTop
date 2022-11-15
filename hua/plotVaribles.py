@@ -61,7 +61,8 @@ def main():
     histVersion  = 'variableHists_v4forFRAddHistTitle'
     # histVersion = 'variableHists_v7addFRWeightReForEventCount'
     # histVersion = 'variableHists_v0for1tau1lCRs'
-    variables = [ 'tausF_1jetPtFRWeight',]
+    # variables = [ 'tausF_1jetPtFRWeight',]
+    variables = ['jets_HT']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
@@ -152,8 +153,8 @@ def main():
  
  
  
-def writeTemplatesForCombine(sumProcessPerVar, inputDir, region) :
-    outDir = inputDir + 'templatesForCombine/'
+def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
+    outDir = inputDir + channel + '_templatesForCombine/'
     checkMakeDir( outDir )
     outFile = TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
     for ivar in sumProcessPerVar.keys():

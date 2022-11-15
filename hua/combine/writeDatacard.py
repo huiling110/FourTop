@@ -6,25 +6,6 @@ import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
 
-# sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/autoTraining_correlation/')
-# import generateVariableList as GV
-
-# g_allProcesses = [
-#     'tttt', #0
-#     'ttbar_2l','ttbar_0l','ttbar_0l',#3
-#     'ttG','ttZ', 'ttW','ttH_bb', 'ttH_bb', 'ttH_nonbb',#9
-#     'wz','ww','zz',#12
-#     'st_tZq', 'st_tW_antitop','st_tW_top',#15
-#     'qcd_50to100','qcd_100to200','qcd_200to300','qcd_300to500','qcd_500to700','qcd_700to1000','qcd_1000to1500','qcd_1500to2000','qcd_2000toInf',#24
-# ]
-# g_allSumProcesses = [
-#     'tttt', #0
-#     'TT',
-#     'TTX',
-#     'VV',
-#     'SingleTop',
-#     'QCD',
-# ]
 
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/'
@@ -33,7 +14,8 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_90bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/AppResults_30bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
+    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v4forFRAddHistTitle/1tau0l_templatesForCombine/'
 
     # channel = '2tau0l'
     # channel = '1tau1l'
@@ -45,16 +27,16 @@ def main():
     # addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    listForCombineSum = getNonEmptyList_new( emptyList)
-    listForCombine = getNonEmptyList_new( emptyList, False)
-    print(listForCombineSum)
+    listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
+    # listForCombine = getNonEmptyList_new( emptyList, False)
+    print('for combine: ', listForCombineSum)
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10 )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
     # writeDatacards( TMVAppDir, listForCombine, False, 10 )
  
          
   
-def getNonEmptyList_new( emptyList, isSum=True):
+def getNonEmptyList_new( emptyList, isSum=True, channel='1tau1l'):
     listForCombine = []
     if isSum :
         listFrom = summedProcessList
@@ -62,9 +44,12 @@ def getNonEmptyList_new( emptyList, isSum=True):
         listFrom = samples
     for iPro in listFrom:
         if iPro == 'data' or 'jetHT' in iPro: continue
-        if 'WJets' in iPro: continue
+        # if 'WJets' in iPro: continue
+        if iPro =='qcd': continue
         if iPro in emptyList: continue 
         listForCombine.append(iPro)
+    if channel=='1tau0l':
+        listForCombine.append('fakeTau')
     return listForCombine
   
   
@@ -82,27 +67,7 @@ def removeData( samples, isSumList = False):
         
     
 
-def getNonEmptyList( allList, emptyList ):
-    nonEmptyList = []
-    for en in allList:
-        if not en in emptyList:
-            nonEmptyList.append(en)
-    return nonEmptyList
 
-def checkEmptyProcessForSum( emptyList ):
-    emptyListSum=[]
-    if ifInEmptyList( 1,3, emptyList ):
-        emptyListSum.apppend( 'TT')
-    if ifInEmptyList( 4, 9, emptyList ):
-        emptyListSum.append( 'TTX' )
-    if ifInEmptyList( 10, 12, emptyList ):
-        emptyListSum.append( 'VV' )
-    if ifInEmptyList( 13, 15, emptyList ):
-        emptyListSum.append( 'SingleTop' )
-    if ifInEmptyList( 16, 24, emptyList ):
-        emptyListSum.append( 'QCD')
-    print( 'summedEmptyList: ', emptyListSum)
-    return emptyListSum
 
 
 
@@ -185,7 +150,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum ):
 
 
 
-def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
+def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1l' ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
@@ -211,7 +176,10 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum ):
 
 def checkEmptyProcess( fileDir, channel ):
     rootF = ""
-    rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
+    if channel=='1tau1l':
+        rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
+    elif channel=='1tau0l':
+        rootF = '1tau0ltemplates_forCombine.root'
     
     emptyProcesses = []
     iFile = ROOT.TFile( fileDir+rootF)
