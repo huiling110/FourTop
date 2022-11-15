@@ -63,7 +63,6 @@ def main():
     # histVersion = 'variableHists_v0for1tau1lCRs'
     variables = [ 'tausF_1jetPtFRWeight',]
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
     plotName = 'dataVsMC_fakeTauFromData_FRWeighted_test'
@@ -98,12 +97,12 @@ def main():
     # systematcList = ['Weighted'] #'Weighted for FR
     # ifFR_sys = True
     ifFR_sys = False
-    # appendSYSRegions( ifFR_sys, regionList) 
-    if ifFR_sys:
-        regionList.append(regionList[2]+'_up')
-        regionList.append(regionList[2]+'_down')
-        regionList.append(regionList[3]+'_up')
-        regionList.append(regionList[3]+'_down')
+    
+    
+    
+    
+    
+    appendSYSRegions( ifFR_sys, regionList) 
 
 
     inputDirDic = getInputDic(inVersion, histVersion, era)
@@ -155,6 +154,13 @@ def main():
             
 
 
+def appendSYSRegions( ifFR_sys, regionList) :
+    if ifFR_sys:
+        regionList.append(regionList[2]+'_up')
+        regionList.append(regionList[2]+'_down')
+        regionList.append(regionList[3]+'_up')
+        regionList.append(regionList[3]+'_down')
+    
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
