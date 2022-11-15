@@ -257,8 +257,8 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
         sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[2], regionList[3]) 
         # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
         #FR sytematic
-        sumProcessIvarSys[regionList[0]]['fakeTau']={}
         if ifFR_syst:
+            sumProcessIvarSys[regionList[0]]['fakeTau']={}
             sumProcessIvarSys[regionList[0]]['fakeTau']['FR_up'] = histDateMinusGenBG( var, sumProcessIvar, regionList[4], regionList[6] ) 
             sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIvar, regionList[5], regionList[7] ) 
         
