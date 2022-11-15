@@ -178,19 +178,19 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     dataFileList = os.listdir ( inputDir['data'] )
 
     for ifile in mcFileList+dataFileList:
-        # ifileName = ifile.split('_variableHists')[0]
         ifileName = ifile.split('.root')[0]
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
         if ifScale and (not 'jetHT' in ifileName):
             iProScale = getProcessScale( ifileName, era )
         print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
+        isdata = False
         if 'jetHT' in ifileName:
+            isdata = True
             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
         else:
             iRootFile = TFile( inputDir['mc']+ifile, 'READ' ) 
         print('openning file: ', iRootFile.GetName() )
-        # iRootFile.ls()
         for iRegion in regionsList:
             iHistName = iRegion + '_' + ifileName + '_' + variable
             if iRegion not in sumProcessHistsDict.keys(): 
@@ -199,13 +199,15 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             print('iHistName: ', iHistName )
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
+                if ifScale or not isdata: 
+                    sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
                 # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
             else:
                 itemp = iRootFile.Get( iHistName)
-                itemp.Scale(iProScale)
+                if ifScale or not isdata: 
+                    itemp.Scale(iProScale)
                 # sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
