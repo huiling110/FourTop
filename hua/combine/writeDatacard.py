@@ -21,6 +21,7 @@ def main():
     # channel = '1tau1l'
     # channel = '1tau2l'
     channel = uf.getChannelFromDir (TMVAppDir)
+    print(channel)
     
     
     
@@ -108,19 +109,27 @@ def getStringWithSpaces( string, allSpaces ):
         sys.exit()
     return string + (allSpaces-len(string))*' '
 
-def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum ):
+def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var ):
     card = open( outCard, 'wt' )
     card.write( 'imax *\n' )
     card.write( 'jmax *\n' )
     card.write( 'kmax *\n' )
     card.write( 80*'-' + '\n' )
-    card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
-    card.write( 'bin          SR_1tau1l\n')
+    histName = ''
+    if channel=='1tau1l':
+        histName = 'PROCESS_MVA_BDT' 
+    elif channel=='1tau0l':
+        histName = 'PROCESS_' + var
+    # card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
+    card.write( 'shapes * *  ' + rootFile + '  ${}\n'.format(histName)  )
+    # card.write( 'bin          SR_1tau1l\n')
+    card.write( 'bin          {}\n'.format(channel))
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
 
     processNum = len( listForCombine )
-    card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR_1tau1l', 18) + '\n')
+    # card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR_1tau1l', 18) + '\n')
+    card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces(channel, 18) + '\n')
     card.write( getStringWithSpaces('process', 10) )
     for ip in listForCombine:
         card.write( getStringWithSpaces(ip,18))
@@ -141,7 +150,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum ):
     card.write('\n')
     card.write( 80*'-' + '\n' )
 
-    card.write( 'SR_1tau1l   autoMCStats  ' + str(autoMCNum) +  '\n')
+    card.write( channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
     print( 'datacard writen here: ', outCard)
@@ -159,10 +168,10 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1
     else:
         cardDir = cardDir +'seperateDC'
     cardDir = cardDir + '_' + str( autoMCNum ) + '/'
-    if not os.path.exists( cardDir ):
-        os.mkdir( cardDir )
+    uf.checkMakeDir(cardDir)
 
     for entry in os.listdir( TMVAppDir ):
+        if not '.root' in entry: continue
         irootFile = TMVAppDir+entry
         ioutCard = entry[:-16]
         if isSum:
@@ -171,7 +180,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1
             ioutCard = cardDir + ioutCard + '_datacard.txt'
         print( 'rootFile:', irootFile )
         print( 'datacard: ',ioutCard )
-        writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum )
+        writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum , channel, 'jets_HT')
 
 
 def checkEmptyProcess( fileDir, channel ):
