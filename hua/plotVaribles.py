@@ -102,8 +102,7 @@ def main():
     
     
     
-    appendSYSRegions( ifFR_sys, regionList) 
-
+    regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     inputDirDic = getInputDic(inVersion, histVersion, era)
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -118,10 +117,8 @@ def main():
 
 
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
-    hasFakeTau = False
-    for ire in regionList:
-        if 'Gen' in ire:
-            hasFakeTau = True
+    
+    hasFakeTau = checkRegionGen(regionList)
     if hasFakeTau:
         print('has fake')
         for ivar in sumProcessPerVar:
@@ -150,8 +147,18 @@ def main():
                 makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 1 ) 
         else:
             makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,100)
+ 
+ 
+ 
+ 
             
-            
+def checkRegionGen(regionList):
+    hasFakeTau = False
+    for ire in regionList:
+        if 'Gen' in ire:
+            hasFakeTau = True
+    return hasFakeTau
+                
 
 
 def appendSYSRegions( ifFR_sys, regionList) :
@@ -160,7 +167,7 @@ def appendSYSRegions( ifFR_sys, regionList) :
         regionList.append(regionList[2]+'_down')
         regionList.append(regionList[3]+'_up')
         regionList.append(regionList[3]+'_down')
-    
+    return regionList 
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
