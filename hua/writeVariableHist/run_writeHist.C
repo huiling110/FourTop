@@ -40,24 +40,21 @@ void run_writeHist(
 
     // get genWeightSumInitial for the process
     Double_t genWeightSumInitial = 1.0;
-    TFile *m_file = new TFile(inputFile, "READ");
+    // TFile *m_file = new TFile(inputFile, "READ");
     if (!isData)
     {
-        TTree *Runs = (TTree *)m_file->Get("Runs");
-        Double_t igen;
-        Runs->SetBranchAddress("genEventSumw", &igen);
-        genWeightSumInitial = 0.0;
-        for (int iEntry = 0; Runs->LoadTree(iEntry) >= 0; ++iEntry)
-        {
-            Runs->GetEntry(iEntry);
-            genWeightSumInitial += igen;
-        }
-        // TH1D *h_genWeight = new TH1D("genWeight", "genWeight", 100, -100., 100.);
-        // alleventTree->Project("genWeight", "genWeight_allEvents");
-        // h_genWeight->StatOverflows(kTRUE);
-        // genWeightSumInitial = h_genWeight->GetMean() * h_genWeight->GetEntries();
+        genWeightSumInitial = getGenSum(inputFile);
+        // TTree *Runs = (TTree *)m_file->Get("Runs");
+        // Double_t igen;
+        // Runs->SetBranchAddress("genEventSumw", &igen);
+        // genWeightSumInitial = 0.0;
+        // for (int iEntry = 0; Runs->LoadTree(iEntry) >= 0; ++iEntry)
+        // {
+        //     Runs->GetEntry(iEntry);
+        //     genWeightSumInitial += igen;
+        // }
     }
-    m_file->Close();
+    // m_file->Close();
     std::cout << inputProcess << ": "
               << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 

@@ -1,3 +1,6 @@
+#ifndef USEFULFUNCTION_H
+#define USEFULFUNCTION_H
+
 #include <string>
 #include <iostream>
 
@@ -36,3 +39,5 @@ Double_t getGenSum(TString inputFile)
     std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
     return genWeightSumInitial;
 }
+
+#endif
