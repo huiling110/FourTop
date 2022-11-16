@@ -49,7 +49,8 @@ def main():
     # version = 'v6forFRCR12'
     # version = 'v6forFRCR12_3prong'
     # version = 'v7addFRWeightReForEventCount'
-    version = 'v0for1tau1lCRs'
+    # version = 'v0for1tau1lCRs'
+    version = 'v1forCombine1tau0l'
     justMC = False
     # justMC = True
     isTest = 0

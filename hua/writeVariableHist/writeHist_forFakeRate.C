@@ -211,7 +211,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	};
 	// systematic regions
 	// how the pileup weighting impact?, only impact MC, don't concern fake tau
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1500, jets_HT};
+	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 30, 500, 1500, jets_HT};
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 40, 500, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 40, 600, jets_2pt};
 	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 40, 500, jets_3pt};
