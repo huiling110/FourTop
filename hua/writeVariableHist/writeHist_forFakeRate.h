@@ -179,15 +179,15 @@ public:
    // TTreeReaderValue<Double_t> tausF_1neutralIso = {fReader, "tausF_1neutralIso"}; //???
    TTreeReaderValue<Int_t> tausF_1decayMode = {fReader, "tausF_1decayMode"};
 
-   TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
-   TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
+   // TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
+   // TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};
    TTreeReaderValue<Double_t> tausT_leptonsT_transMass = {fReader, "tausT_leptonsT_transMass"};
-   TTreeReaderValue<Double_t> tausF_leptonsT_invariantMass = {fReader, "tausF_leptonsT_invariantMass"};
-   TTreeReaderValue<Double_t> tausL_leptonsT_invariantMass = {fReader, "tausL_leptonsT_invariantMass"};
+   // TTreeReaderValue<Double_t> tausF_leptonsT_invariantMass = {fReader, "tausF_leptonsT_invariantMass"};
+   // TTreeReaderValue<Double_t> tausL_leptonsT_invariantMass = {fReader, "tausL_leptonsT_invariantMass"};
    TTreeReaderValue<Double_t> tausT_leptonsT_invariantMass = {fReader, "tausT_leptonsT_invariantMass"};
-   TTreeReaderValue<Double_t> tausF_leptonsT_chargeSum = {fReader, "tausF_leptonsT_chargeSum"};
-   TTreeReaderValue<Double_t> tausF_leptonsTMVA_minDeltaR = {fReader, "tausF_leptonsTMVA_minDeltaR"};
-   TTreeReaderValue<Double_t> tausL_leptonsTMVA_minDeltaR = {fReader, "tausL_leptonsTMVA_minDeltaR"};
+   // TTreeReaderValue<Double_t> tausF_leptonsT_chargeSum = {fReader, "tausF_leptonsT_chargeSum"};
+   // TTreeReaderValue<Double_t> tausF_leptonsTMVA_minDeltaR = {fReader, "tausF_leptonsTMVA_minDeltaR"};
+   // TTreeReaderValue<Double_t> tausL_leptonsTMVA_minDeltaR = {fReader, "tausL_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Double_t> tausT_leptonsTMVA_minDeltaR = {fReader, "tausT_leptonsTMVA_minDeltaR"};
    TTreeReaderValue<Int_t> jets_number = {fReader, "jets_number"};
    TTreeReaderValue<Double_t> jets_HT = {fReader, "jets_HT"};

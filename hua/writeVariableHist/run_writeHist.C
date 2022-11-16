@@ -1,11 +1,12 @@
 #include "TString.h"
-#include "lumiAndCrossSection.h"
 #include "TFile.h"
 #include "TTree.h"
 #include "TChain.h"
 #include "TStopwatch.h"
 
 #include <iostream>
+
+#include "../src_cpp/usefulFuction.h"
 
 void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0addMoreVariables_v39addTauBranches/mc/",
@@ -21,14 +22,12 @@ void run_writeHist(
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
     // TString inputProcess = 'WJetsToLNu_HT-600To800',
-    // TString inputProcess = "WJetsToLNu_HT-400To600",
     // TString inputProcess = "jetHT_2016C",
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    TString selector = "writeHist_fordataMC.C+")
-// TString selector = "writeHist.C+"
-// TString selector = "writeHist_forFakeRate.C+")
+    // TString selector = "writeHist_fordataMC.C+")
+    TString selector = "writeHist_forFakeRate.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";

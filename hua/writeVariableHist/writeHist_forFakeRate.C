@@ -9,6 +9,7 @@
 #include <cmath>
 // #include <filesystem>
 
+#include "../src_cpp/lumiAndCrossSection.h"
 #include "../src_cpp/usefulFuction.h"
 #include "writeHist_forFakeRate.h"
 
@@ -19,7 +20,6 @@ void writeHist_forFakeRate::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
 		eventCount_hists[vectorIndex]->Fill(.0, weight);
 	}
 }
-
 
 template <typename T>
 void FillHistsVecorMyClassGenearal(Bool_t isRegion, UInt_t vectorIndex, Double_t weight, std::vector<histsForRegions<T>> &vectorOfVariableRegionsDouble)
@@ -151,27 +151,26 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRc", // 14
 		"1tau0lCRa",
 		"1tau0lCRb",
-		//for fakeTau estimation
+		// for fakeTau estimation
 		"1tau0lCRcGen", // 17
 		"1tau0lCRaGen",
 		"1tau0lCRbGen",
-		"1tau0lCRcLTauNotT_Weighted",//20
+		"1tau0lCRcLTauNotT_Weighted", // 20
 		"1tau0lCRcLTauNotTGen_Weighted",
-		"1tau0lCRaLTauNotT_Weighted",//22
+		"1tau0lCRaLTauNotT_Weighted", // 22
 		"1tau0lCRaLTauNotTGen_Weighted",
-		"1tau0lCRbLTauNotT_Weighted",//24
+		"1tau0lCRbLTauNotT_Weighted", // 24
 		"1tau0lCRbLTauNotTGen_Weighted",
 		//
-		"1tau0lSRLTauNotT_Weighted",//26
+		"1tau0lSRLTauNotT_Weighted", // 26
 		"1tau0lSRLTauNotTGen_Weighted",
-		"1tau0lCRLTauNotT_Weighted",//28
+		"1tau0lCRLTauNotT_Weighted", // 28
 		"1tau0lCRLTauNotTGen_Weighted",
-		"1tau0lVRLTauNotT_Weighted",//30
+		"1tau0lVRLTauNotT_Weighted", // 30
 		"1tau0lVRLTauNotTGen_Weighted",
 
 	};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForEventCount);
-
 
 	// FR weighted
 	//???make this not vector index but clear name for regions
@@ -380,7 +379,6 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
 	}
 
-
 	Double_t FRWeight_up, FRWeight_down;
 	Double_t FRWeight = 1.0;
 	if (!m_ifMeasurement)
@@ -391,7 +389,7 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 	Bool_t isTauLNum = (*tausF_number == 1);
 	Bool_t isTauLNumGen = (*tausF_genTauNum == 1);
-	Bool_t noTauT = (*tausT_number==0); 
+	Bool_t noTauT = (*tausT_number == 0);
 	// 1tau0l
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	Bool_t is1tau0lCRLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
@@ -419,8 +417,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	fillHistsVector(is1tau0lCRc, 14, basicWeight);
 	fillHistsVector(is1tau0lCRa, 15, basicWeight);
 	fillHistsVector(is1tau0lCRb, 16, basicWeight);
-	//fakeTau
-	fillHistsVector(is1tau0lCRb, 17, basicWeight*FRWeight);
+	// fakeTau
+	fillHistsVector(is1tau0lCRb, 17, basicWeight * FRWeight);
 
 	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
 	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
@@ -457,14 +455,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		fillHistsVector(is1tau0lCRcGen, 17, basicWeight);
 		fillHistsVector(is1tau0lCRaGen, 18, basicWeight);
 		fillHistsVector(is1tau0lCRbGen, 19, basicWeight);
-		fillHistsVector(is1tau0lCRcLTauGen && noTauT , 21, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRaLTauGen && noTauT , 23, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRbLTauGen && noTauT , 25, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRcLTauGen && noTauT, 21, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRaLTauGen && noTauT, 23, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRbLTauGen && noTauT, 25, basicWeight * FRWeight);
 		//
-		fillHistsVector(is1tau0lSRLTauNotTGen , 27, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRLTauNotTGen , 29, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lVRLTauNotTGen , 31, basicWeight*FRWeight);
-
+		fillHistsVector(is1tau0lSRLTauNotTGen, 27, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRLTauNotTGen, 29, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lVRLTauNotTGen, 31, basicWeight * FRWeight);
 
 		if (!m_ifMeasurement)
 		{
@@ -562,17 +559,13 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	else
 	{
 
-		fillHistsVector(is1tau0lCRcLTau && noTauT , 20, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRaLTau && noTauT , 22, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRbLTau && noTauT , 24, basicWeight*FRWeight);
+		fillHistsVector(is1tau0lCRcLTau && noTauT, 20, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRaLTau && noTauT, 22, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRbLTau && noTauT, 24, basicWeight * FRWeight);
 		//
-		fillHistsVector(is1tau0lSRLTauNotT , 26, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lCRLTauNotT , 28, basicWeight*FRWeight);
-		fillHistsVector(is1tau0lVRLTauNotT , 30, basicWeight*FRWeight);
-
-
-
-
+		fillHistsVector(is1tau0lSRLTauNotT, 26, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lCRLTauNotT, 28, basicWeight * FRWeight);
+		fillHistsVector(is1tau0lVRLTauNotT, 30, basicWeight * FRWeight);
 
 		if (!m_ifMeasurement)
 		{
@@ -657,10 +650,10 @@ void writeHist_forFakeRate::SlaveTerminate()
 
 void writeHist_forFakeRate::Terminate()
 {
-// The Terminate() function is the last function to be called during
-// a query. It always runs on the client, it can be used to present
-// the results graphically or save the results to file.
-#include "lumiAndCrossSection.h"
+	// The Terminate() function is the last function to be called during
+	// a query. It always runs on the client, it can be used to present
+	// the results graphically or save the results to file.
+	// #include "lumiAndCrossSection.h"
 	Double_t processScale = 1.0;
 	if (!m_isData)
 	{
@@ -674,7 +667,6 @@ void writeHist_forFakeRate::Terminate()
 		eventCount_hists[j]->Scale(processScale);
 		eventCount_hists[j]->Print();
 	};
-
 
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweighted, processScale);
 	scaleVectorHistRegions(vectorOfVariblesRegions_FRweightedInt, processScale);
