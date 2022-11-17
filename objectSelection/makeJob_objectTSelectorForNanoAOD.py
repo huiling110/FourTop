@@ -1,6 +1,4 @@
-import glob
 import os
-import string
 import subprocess
 
 import ttttGlobleQuantity as gq
@@ -19,7 +17,8 @@ eraDic = {
 }
 
 
-codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/"
+# codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/"
+codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
@@ -47,9 +46,9 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 jobVersionName = 'v41addVertexSelection/'
 onlyMC = False
 # era = '2016'
-era = '2016APV'
+# era = '2016APV'
 # era = '2018'
-# era = '2017'
+era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
