@@ -402,12 +402,12 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 			}
 
 			// probematic branches
-			if (branchName.Contains("jets_bScoreMultiply"))
-				continue;
-			if (branchName.Contains("bjetsM_minDeltaR"))
-				continue; // bjetsM_minDeltaR
-			if (branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") || branchName.Contains("tausT_leptonsT_transMass"))
-				continue;
+			// if (branchName.Contains("jets_bScoreMultiply"))
+			// continue;
+			// if (branchName.Contains("bjetsM_minDeltaR"))
+			// continue; // bjetsM_minDeltaR
+			// if (branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") || branchName.Contains("tausT_leptonsT_transMass"))
+			// 	continue;
 
 			chosenVariable = chosenVariable + 1;
 			cout << "variables forvaribles training: " << branchName << endl;
@@ -508,8 +508,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 	else
 	{
 		dataloader->PrepareTrainingAndTestTree(cutForSandB, cutForSandB, trainingSetup); // 60% goes to training, 1tau1l
-		// means raw entries
-		// dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );
+																						 // means raw entries
+																						 // dataloader->PrepareTrainingAndTestTree( cutForSandB, cutForSandB, trainingSetup );
 	}
 	// In case the user has provided a ROOT tree, the event copy can (and should) be accelerated by disabling all branches not used by the input variables
 	//??? Note that the preselection cuts are applied before the training and test samples are created, i.e., the tree sizes apply to numbers of selected events
