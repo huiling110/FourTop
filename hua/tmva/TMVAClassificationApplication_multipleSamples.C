@@ -74,16 +74,15 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
             variablesName.push_back(ivariable);
             variablesForReader.push_back(0.0);
             variablesOrigin.push_back(0.0);
-            if (ivariable.Contains("number") || ivariable.Contains("num")){
-                std::cout <<"reading int ivariable =" <<ivariable << "\n";
+            if (ivariable.Contains("number") || ivariable.Contains("num"))
+            {
+                std::cout << "reading int ivariable =" << ivariable << "\n";
                 variablesName_int.push_back(ivariable);
                 variablesOrigin_int.push_back(0);
             }
         }
     }
     fin.close();
-
-
 
     UInt_t variableNum = variablesName.size();
     for (UInt_t v = 0; v < variableNum; v++)
@@ -126,7 +125,8 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
     //   but of course you can use different ones and copy the values inside the event loop
     for (UInt_t i = 0; i < variableNum; i++)
     {
-        if( variablesName[i].Contains("number") || variablesName[i].Contains("num")) continue;
+        if (variablesName[i].Contains("number") || variablesName[i].Contains("num"))
+            continue;
         theTree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
     }
     for (UInt_t v = 0; v < variablesName_int.size(); v++)
@@ -260,14 +260,15 @@ void TMVAClassificationApplication_multipleSamples(
     TString outputDir = "output/",
     //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/variableList/varibleList_10.csv",
     //  TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/dataset/1tau1lvaribleList_10_weight/",
-    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
-    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
-      const Int_t channel = 1,//1tau1l
+    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
+    // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
+    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
+    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
+    // const Int_t channel = 1, // 1tau1l
     // const Int_t channel = 4//1tau2l
-    // const Int_t channel = 5,//2tauXl
-    //  const TString channel = "1tau1l",
     // const TString channel = "1tau1lCR0",
-    const Int_t binNum = 20
+    const TString channel = "1tau1l",
+    const Int_t binNum = 30
 
 )
 {
@@ -288,7 +289,7 @@ void TMVAClassificationApplication_multipleSamples(
 
     std::cout << std::endl;
     std::cout << "==> Start TMVAClassificationApplication" << std::endl;
-    std::cout<<"apply in channel: "<<channel<<"\n";
+    std::cout << "apply in channel: " << channel << "\n";
 
     // Select methods (don't look at this code - not of interest)
     if (myMethodList != "")

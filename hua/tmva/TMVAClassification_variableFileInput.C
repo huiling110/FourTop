@@ -361,6 +361,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				// "bjetsM_number",
 				"nonbjetsM_4",
 				"tausT_number",
+				"gen",
 			};
 			if (vectorInBranch(branchName, commanVarToAvoid))
 				continue;
