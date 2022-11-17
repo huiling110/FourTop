@@ -36,7 +36,8 @@ def main():
     
 
     # TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
-    TMVACodeDir = os.path.dirname(os.path.abspath(__file__)) +'/'
+    TMVACodeDir = os.path.dirname(os.path.abspath(__file__)) 
+    TMVACodeDir = TMVACodeDir[:TMVACodeDir.rfind('/')]
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
     subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     
