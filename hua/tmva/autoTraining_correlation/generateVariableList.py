@@ -11,9 +11,8 @@ import csv
 import os
 import subprocess
 
-import ROOT
-
 import plotVariablesAndSP
+import ROOT
 
 
 def main():
@@ -29,7 +28,8 @@ def main():
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
+    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v2addVariables_v40addTauJetEtau/'
     
     
@@ -48,7 +48,7 @@ def main():
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
 
 def generateAllVariablesLog( outputDir , channel ):
-    tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
+    tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'
     trainingCommand = 'root -b -q \'{}(  \"\", \"{}\", \"\", \"{}\", true , false )\''.format( tmvaTraining, outputDir, channel )
     print( 'training for all variables starts....................................... ' )
     print( 'command: ', trainingCommand )
@@ -58,6 +58,8 @@ def generateAllVariablesLog( outputDir , channel ):
 
     with open( outputDir+'{}__variables.log'.format(channel), 'w') as logFile:
         logFile.writelines( output )
+    print('training log file here: ', outputDir+'{}__variables.log'.format(channel))
+    print('\n')
 
 
 def getTMVAlog( outputDir, channelName ):

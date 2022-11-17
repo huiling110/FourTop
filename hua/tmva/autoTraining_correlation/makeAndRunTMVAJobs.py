@@ -8,9 +8,8 @@
 
 import os
 
-import usefulFunc as uf
-
 import generateVariableList as GV
+import usefulFunc as uf
 
 
 def main():
@@ -22,9 +21,10 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
-    isApp = True
-    # isApp = False
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/'
+    # isApp = True
+    isApp = False
     appFolderName = 'AppResults'
     # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
@@ -35,7 +35,8 @@ def main():
     
     
 
-    TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+    # TMVACodeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
+    TMVACodeDir = os.path.dirname(os.path.abspath(__file__)) +'/'
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
     subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
     

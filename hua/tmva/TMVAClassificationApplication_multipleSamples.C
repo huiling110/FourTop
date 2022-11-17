@@ -262,11 +262,11 @@ void TMVAClassificationApplication_multipleSamples(
     //  TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1_fromV8/1tau1l_v1/dataset/1tau1lvaribleList_10_weight/",
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
-    //   const Int_t channel = 1,//1tau1l
+      const Int_t channel = 1,//1tau1l
     // const Int_t channel = 4//1tau2l
     // const Int_t channel = 5,//2tauXl
     //  const TString channel = "1tau1l",
-    const TString channel = "1tau1lCR0",
+    // const TString channel = "1tau1lCR0",
     const Int_t binNum = 20
 
 )
