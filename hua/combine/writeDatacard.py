@@ -27,12 +27,15 @@ def main():
     
     
     
-    addSummedHists( TMVAppDir )
+    # addSummedHists( TMVAppDir )
 
     emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
     # listForCombine = getNonEmptyList_new( emptyList, False)
     print('for combine: ', listForCombineSum)
+    
+    #remove WJets for no WJets entering training
+    listForCombineSum.remove('WJets')
 
     writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
     # writeDatacards( TMVAppDir, listForCombine, False, 10 )
