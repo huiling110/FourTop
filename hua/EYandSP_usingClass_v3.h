@@ -19,7 +19,7 @@
 #include "TCut.h"
 #include "TPRegexp.h"
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/writeVariableHist/lumiAndCrossSection.h"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/src_cpp/lumiAndCrossSection.h"
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
@@ -27,9 +27,9 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/mc/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/";
-const TString era_g = "2016";
-// const TString era_g = "2017";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/mc/";
+// const TString era_g = "2016";
+const TString era_g = "2017";
 
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 const TCut HLT_2016 = "HLT_PFHT450_SixJet40_BTagCSV_p056 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ||HLT_PFJet450";
@@ -142,16 +142,16 @@ Process QCD_HT1500to2000{baseDir + "qcd_1500to2000.root", 1.20e+02};  // 1.201e+
 Process QCD_HT2000toInf{baseDir + "qcd_2000toInf.root", 2.525e+01};   // 2.524e+01 +- 2.436e-02 pb
 
 std::vector<Process> allProcesses = {
-    TTTT,                                                                                                                                                // 0
-    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,                                                                                                           // 3
-    TTGJets, ttZJets, ttWJets, ttH_bb, ttH_nonbb,                                                                                                        // 8
-    WZ, WW, ZZ,                                                                                                                                          // 11
-    tZq_ll, ST_tW_antitop, ST_tW_top,                                                                                                                    // 14
-    QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, // 23
+    TTTT,                                         // 0
+    TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,    // 3
+    TTGJets, ttZJets, ttWJets, ttH_bb, ttH_nonbb, // 8
+    WZ, WW, ZZ,                                   // 11
+    tZq_ll, ST_tW_antitop, ST_tW_top,             // 14
+    // QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, // 23
     //???WJets not added yet
 
 };
-// baseDirData = 
+// baseDirData =
 // Process jetHT_2016F{}
 // std::vector<Process> dataSamples = {
 //     'jetHT_2016F': 'data',
