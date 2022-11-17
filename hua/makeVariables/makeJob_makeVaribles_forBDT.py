@@ -30,8 +30,8 @@ outVersion = 'v3extra1tau1lCut'
 # outVersion = 'v4baseline'
 # outVersion = 'v5baselineExtraTauLepCut'
 # year = '2016'
-# year = '2018'
-year = '2017'
+year = '2018'
+# year = '2017'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
