@@ -8,9 +8,9 @@
 
 import os
 import subprocess
-import sys
 
 import plotAUC
+import usefulFunc as uf
 
 
 def main( ):
@@ -25,28 +25,22 @@ def main( ):
     #  plotSigOnly = True
     plotSigOnly = False
 
-    channel = TMVAFileDir[-10:-4]
+    # channel = TMVAFileDir[-10:-4]
+    channel = uf.getChannelFromDir( TMVAFileDir)
     print('channel: ', channel)
-    # fileForVaribles = channel + 'varibleList_50.root'
     fileForVaribles = channel + 'varibleList_40.root'
-    # plotInputVariables( TMVAFileDir , fileForVaribles )
+    plotInputVariables( TMVAFileDir , fileForVaribles )
 
 
 
 
-    # variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir , plotSigOnly)
-    # print( len(sig_BDT), sig_BDT )
-
-                    
-                        
-
-
+    variableNum_BDT, sig_BDT =  plotAll( TMVAFileDir , plotSigOnly)
+    print( len(sig_BDT), sig_BDT )
 
     # #plot sig
     logDir = TMVAFileDir + 'log/'
     # plotAUC.plotAUC(  variableNum_BDT, sig_BDT, logDir, True, True )
     # plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
-
     # #plot AUC
     if not plotSigOnly:
         plotAUC.getAUCToTGragh( logDir )
@@ -64,7 +58,7 @@ def plotAll( TMVAFileDir, plotSigOnly ):
             #  continue
             if  'varibleList' in entry:
                 #  print( entry )
-                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
+                command = 'root -l -b -q \'/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/plotAll.C(' + '\"' + TMVAFileDir + entry + '\", '  + plotSigOnlyC + ' )\''
                 print( command )
                 process = subprocess.run( [command], 
                         shell=True,
@@ -101,7 +95,7 @@ def plotInputVariables( TMVAFileDir, fileForVariables ):
     outForVariables = TMVAFileDir + 'results/variableDistribution/'
     if not os.path.exists( outForVariables ):
         os.mkdir( outForVariables )
-    codeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/hua/tmva/'
+    codeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/'
     command = 'root -q -b \'{}variables.C( \"{}\",  \"{}\", \"TMVA Input Variables\", kFALSE, kTRUE      )\'  '.format( codeDir, TMVAFileDir+fileForVariables, outForVariables ) 
     print( command )
     process = subprocess.run( command, shell=True)   
