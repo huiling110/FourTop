@@ -80,12 +80,12 @@ void sumBGsTogether_Nano(
             cout << "processName = " << iprocessName << "\n";
             SingleTop_MVA_BDT->Add(iHist, 1.0);
         }
-        else
-        {
-            cout << "adding QCD:\n";
-            cout << "processName = " << iprocessName << "\n";
-            QCD_MVA_BDT->Add(iHist, 1.0);
-        }
+        // else
+        // {
+        //     cout << "adding QCD:\n";
+        //     cout << "processName = " << iprocessName << "\n";
+        //     QCD_MVA_BDT->Add(iHist, 1.0);
+        // }
         allBgs_MVA_BDT->Add(iHist, 1.0);
 
         delete iHist;
