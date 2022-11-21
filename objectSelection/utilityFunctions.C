@@ -10,7 +10,7 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std:
         vec.push_back(array.At(i));
     }
 }
-void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Double_t> &vec)
+void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec)
 {
     for (UInt_t i = 0; i < array.GetSize(); i++)
     {
@@ -159,7 +159,7 @@ void getMatchingToGen(TTreeReaderArray<Float_t> &recoEta, TTreeReaderArray<Float
 
 Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt, Double_t jet_resolution)
 {
-    //https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h#L61
+    // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h#L61
     Double_t matched_genJetIndex = -99;
     double min_dR = std::numeric_limits<double>::infinity();
     for (UInt_t i = 0; i <= genEta.GetSize(); i++)
@@ -177,7 +177,7 @@ Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeR
         if (dR < 0.2)
         {
             // double dPt = std::abs(genPt[i] - recoPt);
-            if (TMath::Abs(recoPt-genPt[i]) > 3 * recoPt * jet_resolution)
+            if (TMath::Abs(recoPt - genPt[i]) > 3 * recoPt * jet_resolution)
                 continue;
             min_dR = dR;
             matched_genJetIndex = i;

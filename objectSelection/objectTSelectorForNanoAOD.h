@@ -226,10 +226,10 @@ public:
 	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
 	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
 	// std::vector<ROOT::Math::PtEtaPhiMVector> ; std::vector<Int_t> ;
-	std::vector<Double_t> patElectron_charge_;
+	std::vector<Int_t> patElectron_charge_;
 	// std::vector<Double_t> patElectron_charge_;
-	std::vector<Double_t> Tau_charge_;
-	std::vector<Double_t> Muon_charge_;
+	std::vector<Int_t> Tau_charge_;
+	std::vector<Int_t> Muon_charge_;
 	Double_t MET_pt_;
 	Double_t MET_phi_;
 

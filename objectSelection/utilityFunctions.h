@@ -9,7 +9,7 @@
 #include <Math/Vector4D.h>
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec);
-void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Double_t> &vec);
+void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec);
 void printElements(const std::vector<Double_t> &jets_btags, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets);
 
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2);
