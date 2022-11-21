@@ -27,6 +27,7 @@
 // #include <filesystem>
 
 #include "../src_cpp/usefulFuction.h"
+#include "../src_cpp/lumiAndCrossSection.h"
 #include "writeHist_fordataMC.h"
 
 void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
@@ -256,10 +257,10 @@ void writeHist_fordataMC::SlaveTerminate()
 
 void writeHist_fordataMC::Terminate()
 {
-// The Terminate() function is the last function to be called during
-// a query. It always runs on the client, it can be used to present
-// the results graphically or save the results to file.
-#include "lumiAndCrossSection.h"
+	// The Terminate() function is the last function to be called during
+	// a query. It always runs on the client, it can be used to present
+	// the results graphically or save the results to file.
+	// #include "lumiAndCrossSection.h"
 	Double_t processScale = 1.0;
 	if (!m_isData)
 	{
@@ -283,7 +284,6 @@ void writeHist_fordataMC::Terminate()
 	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
 	{
 		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-		// vectorOfVariableRegionsDouble[ihists].histsPrint();
 	}
 
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
