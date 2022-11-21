@@ -43,12 +43,13 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v38TESandJERTauPt20_preselection/'
 # jobVersionName = 'v39addTauBranches/'
 # jobVersionName = 'v40addTauJetEtau/'
-jobVersionName = 'v41addVertexSelection/'
+# jobVersionName = 'v41addVertexSelection/'
+jobVersionName = 'v42fixedChargeType/'
 onlyMC = False
 # era = '2016'
 # era = '2016APV'
-era = '2018'
-# era = '2017'
+# era = '2018'
+era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
