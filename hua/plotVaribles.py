@@ -45,7 +45,8 @@ def main():
     era = '2017'
 
     # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
-    inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
+    # inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
+    inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
     # inVersion = 'v4baseline_v41addVertexSelection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
@@ -59,7 +60,7 @@ def main():
     # histVersion = 'variableHists_v7addFRWeightReForEventCount'
     histVersion = 'variableHists_v0for1tau1lCRs'
     # variables = [ 'tausF_1jetPtFRWeight',]
-    variables = ['jets_HT']
+    # variables = ['jets_HT']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
@@ -72,7 +73,7 @@ def main():
     # histVersion = 'variableHists_v0_BDT1tau1lCRs'
     # histVersion = 'variableHists_v1HT30bins1tau0l'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
+    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = ['tausF_charge']
     # variables = ['eventCount']

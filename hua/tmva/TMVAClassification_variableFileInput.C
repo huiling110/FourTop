@@ -294,7 +294,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 	//!!!tuning here
 	// (please check "src/Config.h" to see all available global options)
 	//    (TMVA::gConfig().GetVariablePlotting()).fTimesRMS = 8.0;
-	(TMVA::gConfig().GetVariablePlotting()).fNbins1D = 20;
+	// (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 20;
+	(TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
 	// (TMVA::gConfig().GetVariablePlotting()).fNbins1D  = 40;
 	// TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 100 ;
 	TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
@@ -721,7 +722,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 	if (Use["BDT"]) // Adaptive Boost
 					//???hyperparameter optimization here
 		factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
-							"!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
+							// "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
+							"!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
 	// "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=40" );
 	// "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20:NegWeightTreatment=IgnoreNegWeightsInTraining" );
 	//???IgnoreNegWeightsInTraining=False, default
