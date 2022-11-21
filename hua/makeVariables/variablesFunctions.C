@@ -210,7 +210,6 @@ Double_t TransMassCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Selec
 	return trans_mass;
 }
 
-
 Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
 {
 	Double_t transE1 = TransEnergySysCal(Jets);
@@ -231,7 +230,6 @@ Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Je
 	Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum.Mag2());
 	return transMass;
 }
-
 
 Double_t MinDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets,
 					  const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
@@ -395,6 +393,30 @@ Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
 	}
 	return prongNum;
 }
+
+Int_t chargeMulCalSingle(TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index)
+{
+	Int_t chargeMul = 1;
+	for (UInt_t i = 0; i < muonsT_index; ++i)
+	{
+		chargeMul = Muon_charge_.At(muonsT_index[i]) * chargeMul;
+	}
+	return chargMul;
+}
+
+Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index)
+{
+	Int_t muonsCharge = chargeMulCalSingle(Muon_charge_, muonsT_index);
+	Int_t eleCharge = chargeMulCalSingle(patElectron_charge_, eleMVAT_index);
+	Int_t charge = 1;
+	for (UInt_t ch = 0; ch < tausT_charge.GetSize(); ch++)
+	{
+		charge = charge * tausT_charge[ch];
+	}
+	charge = charge * muonsCharge * eleCharge;
+	return charge;
+};
+
 /*
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla)
 {

@@ -173,6 +173,7 @@ public:
     Double_t tausF_leptonsTMVA_minDeltaR = -99.0;
     Double_t tausT_leptonsTMVA_minDeltaR = -99.0;
     Double_t tausL_leptonsTMVA_minDeltaR = -99.0;
+    Int_t tausT_leptonsTMVA_chargeMulti = -99;
     Int_t tausT_prongNum = -99;
     Int_t tausL_prongNum = -99;
     Int_t tausF_prongNum = -99;

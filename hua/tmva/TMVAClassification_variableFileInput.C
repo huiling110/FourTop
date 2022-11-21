@@ -371,18 +371,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 			{
 				if (branchName.Contains("tausT_leptonsT_transMass") || branchName.Contains("jets_spherilty") || branchName.Contains("tausF_leptonsT_chargeSum") || branchName.Contains("tausT_3") || branchName.Contains("tausT_2") || branchName.Contains("leptonsMVAT_2") || branchName.Contains("leptonsMVAT_3") || branchName.Contains("tausT_minDeltaR") || branchName.Contains("jets_aplanarity"))
 					continue; //???
-				// if (branchName.Contains("tauL") && (!(branchName.Contains("tauL_1"))))
-				// 	continue;
-				// if (branchName.Contains("tauF") && (!(branchName.Contains("tauF_1"))))
-				// 	continue;
-				// if (branchName.Contains("tauT") && (!(branchName.Contains("tauT_1"))))
-				// 	continue;
 
-				// if (branchName.Contains("taus") && (!(branchName.Contains("tausT_1") || branchName.Contains("tausL_1") || branchName.Contains("tausF_1"))))
-				// 	continue; // 1tau channels
 				//???might miss some combination channels???
-				// if (branchName.Contains("leptonsMVA") && (!(branchName.Contains("leptonsMVAT_1") || branchName.Contains("leptonsMVAF_1") || branchName.Contains("leptonsMVAL_1"))))
-				// 	continue; // 1l
 				if (branchName.Contains("jets_9") || branchName.Contains("jets_10") || branchName.Contains("jets_11"))
 					continue; //>=7 jets
 			}
