@@ -5,7 +5,7 @@
 #include "TIterator.h"
 #include "TKey.h"
 
-void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString variablenum = "")
+void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString variablenum = "", TString fileDir = "")
 {
 	// input:   - Input file (result from TMVA),
 	//          - type = 1 --> plot efficiency(B) versus eff(S)
@@ -217,7 +217,8 @@ void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TStr
 
 	c->Update();
 
-	TString fname = "plots/" + hNameRef;
+	// TString fname = "plots/" + hNameRef;
+	TString fname = fileDir + "results/" + hNameRef + "_" + variablenum;
 	if (TString(BinDir->GetName()).Contains("multicut"))
 	{
 		TString fprepend(BinDir->GetName());
@@ -273,9 +274,11 @@ void efficiencies(
 	// get input variable number
 	TString variableNum = fin(fin.Index("varibleList") + 12, fin.Index(".root") - fin.Index("varibleList") - 12);
 	std::cout << "plotting ROC for variablse: " << variableNum << "\n";
+	TString fileDir = fin(0, fin.Index("1tau1lvaribleList"));
+	std::cout << fileDir << "\n";
 
 	file->cd("dataset");
-	plot_efficiencies(file, type, gDirectory, variableNum);
+	plot_efficiencies(file, type, gDirectory, variableNum, fileDir);
 
 	return;
 }

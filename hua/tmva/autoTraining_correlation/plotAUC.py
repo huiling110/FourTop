@@ -12,6 +12,7 @@ import os
 import numpy as np
 import ROOT
 import setTDRStyle
+import usefulFunc as uf
 
 
 def getAUCfromLog( logDir, histo):
@@ -30,8 +31,8 @@ def getAUCfromLog( logDir, histo):
         histo.SetBinContent( vListNum, AUC_BDT)
 
 
-def getAUCToTGragh( logDir):
-    era = '2016'
+def getAUCToTGragh( logDir, era='2016'):
+    # era = '2016'
     #x, y = array( 'd' ), array( 'd' )
     x, y = [], []
     x_BDTG, y_BDTG= [], []
@@ -226,8 +227,10 @@ if __name__ == '__main__':
     #  logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau2l_v1/log/'
     # logDir = '/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v46_v2Resubmitv1/1tau1l_v2/log/'
     # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/1tau1l_v1/log/'
-    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/log/'
-    getAUCToTGragh( logDir )
+    # logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/log/'
+    logDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/log/'
+    era = uf.getEraFromDir( logDir )
+    getAUCToTGragh( logDir, era )
 
 
 

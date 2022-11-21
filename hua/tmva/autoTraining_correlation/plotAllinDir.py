@@ -19,14 +19,15 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/'
     
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
     plotSigOnly = False
 
-    # channel = TMVAFileDir[-10:-4]
     channel = uf.getChannelFromDir( TMVAFileDir)
+    era = uf.getEraFromDir(TMVAFileDir) 
     print('channel: ', channel)
     fileForVaribles = channel + 'varibleList_40.root'
     plotInputVariables( TMVAFileDir , fileForVaribles )
@@ -43,7 +44,7 @@ def main( ):
     # plotAUC.plotAUC(  variableNum_BDTG, sig_BDTG, logDir, False, True )
     # #plot AUC
     if not plotSigOnly:
-        plotAUC.getAUCToTGragh( logDir )
+        plotAUC.getAUCToTGragh( logDir, era )
         
 def plotAll( TMVAFileDir, plotSigOnly ):
     print('starting to plotAll.C')
