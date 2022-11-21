@@ -5,7 +5,7 @@
 #include "TIterator.h"
 #include "TKey.h"
 
-void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0)
+void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString variablenum = "")
 {
 	// input:   - Input file (result from TMVA),
 	//          - type = 1 --> plot efficiency(B) versus eff(S)
@@ -64,7 +64,7 @@ void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0)
 		ytit = "Background rejection";
 	if (type == 3)
 		ytit = "1/(Background eff.)";
-	TString ftit = ytit + " versus " + xtit;
+	TString ftit = ytit + " versus " + xtit + "(" + variablenum + " variables)";
 
 	TString hNameRef = "effBvsS";
 	if (type == 2)
@@ -269,8 +269,13 @@ void efficiencies(
 			plot_efficiencies(file, type, d);
 		}
 	}
+
+	// get input variable number
+	TString variableNum = fin(fin.Index("varibleList") + 12, fin.Index(".root") - fin.Index("varibleList") - 12);
+	std::cout << "plotting ROC for variablse: " << variableNum << "\n";
+
 	file->cd("dataset");
-	plot_efficiencies(file, type, gDirectory);
+	plot_efficiencies(file, type, gDirectory, variableNum);
 
 	return;
 }
