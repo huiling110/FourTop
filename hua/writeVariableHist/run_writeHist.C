@@ -17,12 +17,13 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/",
     // TString inputDir = "/scratchfs/cms/huahuil/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
-    // TString inputProcess = "tttt",
-    TString inputProcess = "wz",
+    TString inputProcess = "tttt",
+    // TString inputProcess = "wz",
     // TString inputProcess = 'WJetsToLNu_HT-600To800',
     // TString inputProcess = "jetHT_2016C",
     TString version = "test",
@@ -68,7 +69,7 @@ void run_writeHist(
 
     // what if the chain is empty? it seems the selector it not run at all theu
     // chain.Print();
-    std::cout <<"entires in chain: "<< chain.GetEntries() << "\n";
+    std::cout << "entires in chain: " << chain.GetEntries() << "\n";
     chain.Process(selector, option);
     // chain.Process(selector, option, 100);
 

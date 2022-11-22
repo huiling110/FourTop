@@ -268,24 +268,27 @@ void writeHist_fordataMC::Terminate()
 		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
 	}
 
-	for (UInt_t j = 0; j < eventCount_hists.size(); j++)
+	if (!m_isData)
 	{
 
-		std::cout << j << "\n";
-		eventCount_hists[j]->Scale(processScale);
-		eventCount_hists[j]->Print();
-	}
+		for (UInt_t j = 0; j < eventCount_hists.size(); j++)
+		{
 
-	for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
-	{
-		vectorOfVariableRegions[ihists].histsScale(processScale);
-		vectorOfVariableRegions[ihists].histsPrint();
-	}
-	for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
-	{
-		vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-	}
+			std::cout << j << "\n";
+			eventCount_hists[j]->Scale(processScale);
+			eventCount_hists[j]->Print();
+		}
 
+		for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+		{
+			vectorOfVariableRegions[ihists].histsScale(processScale);
+			vectorOfVariableRegions[ihists].histsPrint();
+		}
+		for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+		{
+			vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+		}
+	}
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
 	outputFile->Write();
 	outputFile->Close();
