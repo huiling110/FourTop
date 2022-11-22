@@ -4,14 +4,17 @@ import os
 from array import array
 
 import numpy as np
+import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
-from usefulFunc import checkMakeDir, getInputDic, getInputDicNew
 from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
                            replaceBgWithGen)
+
+# from usefulFunc import checkMakeDir getInputDicNew
+
 
 colourPerSample = {
     'tttt':kPink-9,
@@ -44,12 +47,13 @@ def main():
     # era = '2016postVFP'
     # era = '2016'
     # era = '2018'
-    era = '2017'
+    # era = '2017'
+    era = uf.getEraFromDir(inputDir)
 
     # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
     # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
-    inVersion = 'v5baselineExtraTauLepCut_v42fixedChargeType'
+    # inVersion = 'v5baselineExtraTauLepCut_v42fixedChargeType'
     # inVersion = 'v4baseline_v41addVertexSelection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
@@ -61,7 +65,7 @@ def main():
     # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
     # histVersion  = 'variableHists_v4forFRAddHistTitle'
     # histVersion = 'variableHists_v7addFRWeightReForEventCount'
-    histVersion = 'variableHists_v0for1tau1lCRs'
+    # histVersion = 'variableHists_v0for1tau1lCRs'
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['jets_HT']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
@@ -107,7 +111,7 @@ def main():
     regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     # inputDirDic = getInputDic(inVersion, histVersion, era)
-    inputDirDic = getInputDicNew( inputDir)
+    inputDirDic = uf.getInputDicNew( inputDir)
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
@@ -145,7 +149,7 @@ def main():
     print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
-    checkMakeDir( plotDir)
+    uf.checkMakeDir( plotDir)
     for variable in variables:
         if not hasFakeTau:
             for iRegion in regionList:       
@@ -157,7 +161,7 @@ def main():
  
 def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
     outDir = inputDir + channel + '_templatesForCombine/'
-    checkMakeDir( outDir )
+    uf.checkMakeDir( outDir )
     outFile = TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
     for ivar in sumProcessPerVar.keys():
         dataHist = TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
