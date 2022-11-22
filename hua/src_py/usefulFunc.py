@@ -2,7 +2,6 @@ import os
 import subprocess
 
 import pandas as pd
-
 from ttttGlobleQuantity import lumiMap, samplesCrossSection
 
 
@@ -38,6 +37,15 @@ def getInputDic( inVersion, histVersion, era):
     inputDirDic = {
         'mc': inputDirBase + inVersion + '/mc/' + histVersion + '/',
         'data': inputDirBase + inVersion + '/data/' + histVersion + '/',
+    }
+    return inputDirDic
+
+def getInputDicNew( inputDirMC ):
+    inputDirmc = inputDirMC[:]
+    inputDirData = inputDirMC.replace('mc', 'data')
+    inputDirDic = {
+        'mc': inputDirmc,
+        'data': inputDirData,
     }
     return inputDirDic
 

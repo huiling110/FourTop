@@ -9,7 +9,7 @@ from ROOT import *
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
-from usefulFunc import checkMakeDir, getInputDic
+from usefulFunc import checkMakeDir, getInputDic, getInputDicNew
 from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
                            replaceBgWithGen)
 
@@ -38,6 +38,8 @@ colourPerSample = {
 # includeDataInStack = True
 
 def main():
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
+    
     # era = '2016preVFP'
     # era = '2016postVFP'
     # era = '2016'
@@ -46,7 +48,8 @@ def main():
 
     # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
-    inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
+    # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
+    inVersion = 'v5baselineExtraTauLepCut_v42fixedChargeType'
     # inVersion = 'v4baseline_v41addVertexSelection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
@@ -73,11 +76,11 @@ def main():
     # histVersion = 'variableHists_v0_BDT1tau1lCRs'
     # histVersion = 'variableHists_v1HT30bins1tau0l'
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number', 'bjetsM_number', 'bjetsM_1pt', "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "MET_pt", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti", "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = ['tausF_charge']
     # variables = ['eventCount']
-    # variables = ['jets_HT']
+    variables = ['jets_HT']
     # variables = ['BDT']
     regionList = ['1tau1lCR0']
     
@@ -103,7 +106,8 @@ def main():
     
     regionList = appendSYSRegions( ifFR_sys, regionList) 
 
-    inputDirDic = getInputDic(inVersion, histVersion, era)
+    # inputDirDic = getInputDic(inVersion, histVersion, era)
+    inputDirDic = getInputDicNew( inputDir)
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
