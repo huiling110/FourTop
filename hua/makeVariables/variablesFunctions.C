@@ -397,11 +397,11 @@ Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
 Int_t chargeMulCalSingle(TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index)
 {
 	Int_t chargeMul = 1;
-	for (UInt_t i = 0; i < muonsT_index; ++i)
+	for (UInt_t i = 0; i < muonsT_index.GetSize(); ++i)
 	{
 		chargeMul = Muon_charge_.At(muonsT_index[i]) * chargeMul;
 	}
-	return chargMul;
+	return chargeMul;
 }
 
 Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index)

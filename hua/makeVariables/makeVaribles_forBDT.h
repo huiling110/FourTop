@@ -465,9 +465,9 @@ public:
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> forwardJets = {fReader, "forwardJets"};
     // TTreeReaderArray<Int_t> forwardJets_index = {fReader, "forwardJets_index"};
     // TTreeReaderArray<Double_t> forwardJets_btags = {fReader, "forwardJets_btags"};
-    TTreeReaderArray<Double_t> patElectron_charge_ = {fReader, "patElectron_charge_"};
+    TTreeReaderArray<Int_t> patElectron_charge_ = {fReader, "patElectron_charge_"};
     // TTreeReaderArray<Double_t> Tau_charge_ = {fReader, "Tau_charge_"};
-    TTreeReaderArray<Double_t> Muon_charge_ = {fReader, "Muon_charge_"};
+    TTreeReaderArray<Int_t> Muon_charge_ = {fReader, "Muon_charge_"};
     // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genTaus = {fReader, "genTaus"};
     // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genEles = {fReader, "genEles"};
     // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genMuons = {fReader, "genMuons"};
