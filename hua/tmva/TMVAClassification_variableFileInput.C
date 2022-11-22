@@ -363,6 +363,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				"nonbjetsM_4",
 				"tausT_number",
 				"gen",
+				"tausL",
+				"tausF",
 			};
 			if (vectorInBranch(branchName, commanVarToAvoid))
 				continue;
