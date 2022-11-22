@@ -327,7 +327,11 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				}
 				// cout<<"ivariable:"<<ivariable<<endl;
 			}
-			dataloader->AddVariable(line, 'F');
+			if (line.Contains("num") ){
+				dataloader->AddVariable(line, 'I');
+			}else{
+				dataloader->AddVariable(line, 'F');
+			}
 			num = num + 1;
 		}
 		fin.close();
@@ -398,12 +402,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 			}
 
 			// probematic branches
-			// if (branchName.Contains("jets_bScoreMultiply"))
-			// continue;
-			// if (branchName.Contains("bjetsM_minDeltaR"))
-			// continue; // bjetsM_minDeltaR
-			// if (branchName.Contains("tausF_leptonsT_transMass") || branchName.Contains("tausL_leptonsT_transMass") || branchName.Contains("tausT_leptonsT_transMass"))
-			// 	continue;
 
 			chosenVariable = chosenVariable + 1;
 			cout << "variables forvaribles training: " << branchName << endl;
