@@ -363,7 +363,15 @@ Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 	{
 		initB = initB * SelectedJetsBTags[j];
 	}
-	return TMath::Sqrt(initB);
+	if (SelectedJetsBTags.GetSize() < 1)
+	{
+		initB = 0;
+	}
+	else
+	{
+		initB = TMath::Sqrt(initB);
+	}
+	return initB;
 }
 
 Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
