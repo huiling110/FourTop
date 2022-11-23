@@ -29,8 +29,9 @@ def main():
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/'
+    # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/'
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v2addVariables_v40addTauJetEtau/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v42fixedChargeType/'
     
     
     
@@ -46,6 +47,9 @@ def main():
     #plot variable list
     SPDic = plotVariablesAndSP.getInitListAndSP(TMVAlog )
     plotVariablesAndSP.plotListListSP( vListList, outputDir, SPDic , channel )
+    
+    #plot input shape
+    # plotInputShape()
 
 def generateAllVariablesLog( outputDir , channel ):
     tmvaTraining = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/TMVAClassification_variableFileInput.C'

@@ -327,9 +327,13 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				}
 				// cout<<"ivariable:"<<ivariable<<endl;
 			}
-			if (line.Contains("num") ){
+			TString ivar = line;
+			if (ivar.Contains("num"))
+			{
 				dataloader->AddVariable(line, 'I');
-			}else{
+			}
+			else
+			{
 				dataloader->AddVariable(line, 'F');
 			}
 			num = num + 1;

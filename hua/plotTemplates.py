@@ -1,14 +1,14 @@
 import os
 
+import plotVaribles
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import summedProcessList
 
-import plotVaribles
-
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v42fixedChargeType/1tau1l_v0/AppResults_30bins/'
     
     
    
