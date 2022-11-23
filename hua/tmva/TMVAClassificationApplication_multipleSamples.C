@@ -111,7 +111,8 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
 
     // Book output histograms
     if (Use["BDT"])
-        histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
+        // histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.34);
+        histBdt = new TH1F(processName + "_MVA_BDT", "MVA_BDT", binNum, -0.18, 0.4); // 2017
     if (Use["BDTG"])
         histBdtG = new TH1F(processName + "_MVA_BDTG", "MVA_BDTG", binNum, -1.0, 1.0);
 
@@ -319,7 +320,8 @@ void TMVAClassificationApplication_multipleSamples(
 
     // --------------------------------------------------------------------------------------------------
     TH1F *data_BDTG = new TH1F("data_obs_MVA_BDTG", "data_obs_MVA_BDTG", binNum, -1.0, 1.0);
-    TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.34); // for combine
+    // TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.34); // 2016
+    TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.4); // 2017
     data_BDT->Sumw2();
     for (UInt_t p = 0; p < allProcesses.size(); p++)
     {

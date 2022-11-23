@@ -9,4 +9,5 @@ writeDatacard.py
 runCombineAll.py
 
 #plotting
+plotTemplates.py
 makeJob_forTMVApp.py #for BDT in CR
