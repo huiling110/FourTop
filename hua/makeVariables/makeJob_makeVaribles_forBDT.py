@@ -32,8 +32,8 @@ inVersion = 'v42fixedChargeType'
 # outVersion = 'v5baselineExtraTauLepCut'
 outVersion = 'v6Cut1tau1lVariableFixed'
 # year = '2016'
-# year = '2018'
-year = '2017'
+year = '2018'
+# year = '2017'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
