@@ -17,10 +17,11 @@ def main():
     
     
     print( inputDir, ' ', version )
+   
+    era = uf.getEraFromDir(inputDir) 
+    makeSubAllJob(inputDir, version, variableListCsv, weightDir,  era )
     
-    makeSubAllJob(inputDir, version, variableListCsv, weightDir)
-    
-def makeSubAllJob(inputDir, version, variableListCsv, weightDir, allJobName='subTMVApp.sh'):
+def makeSubAllJob(inputDir, version, variableListCsv, weightDir, era, allJobName='subTMVApp.sh', ):
     #???move this to usefulFunc
     Jobsubmitpath = os.path.dirname( os.path.abspath(__file__) ) +'/'
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
@@ -33,13 +34,13 @@ def makeSubAllJob(inputDir, version, variableListCsv, weightDir, allJobName='sub
     inputDirDic['data'] = inputDir + 'data/'
     
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, subAllProcess, Jobsubmitpath, variableListCsv, weightDir )
+        makeJobsforDir( inputDirDic[i], version, subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era )
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
-def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableListCsv, weightDir ):
+def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era ):
 
     # jobDir = 'jobSH/'
     jobDir = Jobsubmitpath +'jobSH/'
@@ -54,7 +55,7 @@ def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableLi
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess, inputDir, version, Jobsubmitpath , outputDir, variableListCsv, weightDir)  
+            makeIjob( iJobFile, iProcess, inputDir, version, Jobsubmitpath , outputDir, variableListCsv, weightDir, era)  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
@@ -66,12 +67,12 @@ def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableLi
      
 
 
-def makeIjob( shFile, iProcess,  inputDir, version, Jobsubmitpath , outDir, variableListCsv, weightDir ):
+def makeIjob( shFile, iProcess,  inputDir, version, Jobsubmitpath , outDir, variableListCsv, weightDir, era ):
     channel = '1tau1lCR0'
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
-    subFile.write( 'root -q -b \'TMVAClassificationApplication_perSample.C( \"{}\", \"{}\", \"{}\", \"{}\", {} , \"{}\", \"{}\", \"{}\", \"{}\" )\' '.format( inputDir, iProcess, version, channel, 10, variableListCsv, weightDir, outDir, '2016'  ) )
+    subFile.write( 'root -q -b \'TMVAClassificationApplication_perSample.C( \"{}\", \"{}\", \"{}\", \"{}\", {} , \"{}\", \"{}\", \"{}\", \"{}\" )\' '.format( inputDir, iProcess, version, channel, 10, variableListCsv, weightDir, outDir, era  ) )
     print( 'done writing: ', shFile)
 
 

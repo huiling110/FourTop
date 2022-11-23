@@ -63,7 +63,8 @@ colourPerSample = {
     # era = '2017'
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
     
     era = uf.getEraFromDir(inputDir)
 
@@ -82,8 +83,8 @@ def main():
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # variables = ['tausF_charge']
     # variables = ['eventCount']
-    variables = ['jets_HT']
-    # variables = ['BDT']
+    # variables = ['jets_HT']
+    variables = ['BDT']
     regionList = ['1tau1lCR0']
     
     # variables = ['Met_pt']#???
