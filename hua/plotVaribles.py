@@ -374,6 +374,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         sumHistoData.SetMinimum(0.8)
         sumHistoData.SetMaximum(1.2)
         # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
+        sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
         # print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )

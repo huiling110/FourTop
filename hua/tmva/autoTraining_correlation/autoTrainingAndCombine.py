@@ -7,3 +7,6 @@ makeAndRunTMVAJob.py # for App jobs
 #combine part
 writeDatacard.py
 runCombineAll.py
+
+#plotting
+makeJob_forTMVApp.py #for BDT in CR

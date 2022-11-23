@@ -6,7 +6,7 @@ import usefulFunc as uf
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v42fixedChargeType/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/'
 
     version = 'v0_BDT1tau1lCRs'
     
@@ -44,9 +44,8 @@ def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableLi
     # jobDir = 'jobSH/'
     jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
-    if not os.path.exists( jobDir ):
-        os.mkdir( jobDir )
-    if not os.path.exists( outputDir ): os.mkdir( outputDir)
+    uf.checkMakeDir(jobDir)
+    uf.checkMakeDir(outputDir)
 
     if not os.path.exists(outputDir +"/log/" ):
         os.mkdir( outputDir  +"/log/")
