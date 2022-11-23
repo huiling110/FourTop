@@ -96,7 +96,7 @@ void TMVAClassificationApplication_perSample(
     {
         isdata = kTRUE;
     }
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.18, 0.18); // 2017
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.2, 0.2); // 2017
     // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.22, 0.10);
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");

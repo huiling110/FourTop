@@ -15,9 +15,9 @@ import plotVariablesAndSP
 import ROOT
 
 
+#!!!change inputDir and era in EY.h!!!
 def main():
     #the first line identifies each piece of datain other words, the name of a data column
-    #?want to change channel to string so that its more clear to user
     channel = '1tau1l'
     # channel = '1tau2l'
     version = 0
