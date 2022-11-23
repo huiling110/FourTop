@@ -111,15 +111,18 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
 	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+	// std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lCR0", "1tau1lCR2"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
 	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
 	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_number", "number of b jets", 5, 0, 5, bjetsM_num};
-	// vectorOfVariableRegions.push_back(eventCount_class);
+	histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
+	// vectorOfVariableRegions.push_back();
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
+	vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
 
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 100, 600, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 50, 600, jets_2pt};
@@ -127,16 +130,19 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
+	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
+	histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 10, 25, 100, jets_8pt};
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1800, jets_HT};
 	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
 	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
 	histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
-	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
 	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 500, 1800, jets_transMass};
 	histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
-	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
 	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of 4 lorgest jets b score", 10, 0, 1, jets_4largestBscoreMulti};
+	histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity of jets", 10, 0, 0.003, jets_bScoreMultiply};
+	// histsForRegions<Double_t>{"", 10};
 
+	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
 	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
@@ -144,8 +150,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "leading tau eta", 10, 0, 3, tausT_1eta};
 	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "leading tau eta", 10, 0, 3, tausT_1phi};
-	// histsForRegions<Double_t> {"", 10, , , };
-	// histsForRegions<Double_t> {"", 10, , , };
+	histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT of tight tau", 10, 25, 300, tausT_HT};
 	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
@@ -160,6 +165,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(jets_transMass_class);
 	vectorOfVariableRegionsDouble.push_back(jets_avaregeDeltaR_class);
 	vectorOfVariableRegionsDouble.push_back(jets_7pt_class);
+	vectorOfVariableRegionsDouble.push_back(jets_8pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_4largestBscoreMulti_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
@@ -168,6 +174,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(tausT_1eta_class);
 	vectorOfVariableRegionsDouble.push_back(tausT_1phi_class);
 	vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
+	vectorOfVariableRegionsDouble.push_back(jets_bScoreMultiply_class);
+	vectorOfVariableRegionsDouble.push_back(tausT_HT_class);
 	// vectorOfVariableRegionsDouble.push_back();
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)

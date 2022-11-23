@@ -202,24 +202,27 @@ public:
    TTreeReaderValue<Double_t> leptonsMVAT_3pt = {fReader, "leptonsMVAT_3pt"};
    TTreeReaderValue<Double_t> leptonsMVAT_3eta = {fReader, "leptonsMVAT_3eta"};
    TTreeReaderValue<Double_t> leptonsMVAT_3phi = {fReader, "leptonsMVAT_3phi"};
-   TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
-   TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};
+   // TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
+   // TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};
    TTreeReaderValue<Int_t> tausL_number = {fReader, "tausL_number"};
    TTreeReaderValue<Int_t> tausF_number = {fReader, "tausF_number"};
    TTreeReaderValue<Int_t> tausT_number = {fReader, "tausT_number"};
-   TTreeReaderValue<Double_t> tausL_MHT = {fReader, "tausL_MHT"};
-   TTreeReaderValue<Double_t> tausF_MHT = {fReader, "tausF_MHT"};
+   // TTreeReaderValue<Double_t> tausL_MHT = {fReader, "tausL_MHT"};
+   // TTreeReaderValue<Double_t> tausF_MHT = {fReader, "tausF_MHT"};
    TTreeReaderValue<Double_t> tausT_MHT = {fReader, "tausT_MHT"};
-   TTreeReaderValue<Double_t> tausL_HT = {fReader, "tausL_HT"};
-   TTreeReaderValue<Double_t> tausF_HT = {fReader, "tausF_HT"};
+   // TTreeReaderValue<Double_t> tausL_HT = {fReader, "tausL_HT"};
+   // TTreeReaderValue<Double_t> tausF_HT = {fReader, "tausF_HT"};
    TTreeReaderValue<Double_t> tausT_HT = {fReader, "tausT_HT"};
-   TTreeReaderValue<Double_t> tausL_invariantMass = {fReader, "tausL_invariantMass"};
-   TTreeReaderValue<Double_t> tausF_invariantMass = {fReader, "tausF_invariantMass"};
+   // TTreeReaderValue<Double_t> tausL_invariantMass = {fReader, "tausL_invariantMass"};
+   // TTreeReaderValue<Double_t> tausF_invariantMass = {fReader, "tausF_invariantMass"};
    TTreeReaderValue<Double_t> tausT_invariantMass = {fReader, "tausT_invariantMass"};
-   TTreeReaderValue<Double_t> tausL_minDeltaR = {fReader, "tausL_minDeltaR"};
-   TTreeReaderValue<Double_t> tausF_minDeltaR = {fReader, "tausF_minDeltaR"};
+   // TTreeReaderValue<Double_t> tausL_minDeltaR = {fReader, "tausL_minDeltaR"};
+   // TTreeReaderValue<Double_t> tausF_minDeltaR = {fReader, "tausF_minDeltaR"};
    TTreeReaderValue<Double_t> tausT_minDeltaR = {fReader, "tausT_minDeltaR"};
-   TTreeReaderValue<Double_t> tausT_1pt = {fReader, "tausT_1pt"};
+   TTreeReaderValue<Int_t> tausT_leptonsTMVA_chargeMulti = {fReader, "tausT_leptonsTMVA_chargeMulti"};
+
+   TTreeReaderValue<Double_t>
+       tausT_1pt = {fReader, "tausT_1pt"};
    TTreeReaderValue<Double_t> tausT_1eta = {fReader, "tausT_1eta"};
    TTreeReaderValue<Double_t> tausT_1phi = {fReader, "tausT_1phi"};
    TTreeReaderValue<Double_t> tausT_2pt = {fReader, "tausT_2pt"};
@@ -284,6 +287,7 @@ public:
    TTreeReaderValue<Double_t> jets_7pt = {fReader, "jets_7pt"};
    TTreeReaderValue<Double_t> jets_7eta = {fReader, "jets_7eta"};
    TTreeReaderValue<Double_t> jets_7phi = {fReader, "jets_7phi"};
+   TTreeReaderValue<Double_t> jets_8pt = {fReader, "jets_8pt"};
    // TTreeReaderValue<Double_t> jets_8pt = {fReader, "jets_8pt"};
    // TTreeReaderValue<Double_t> jets_8eta = {fReader, "jets_8eta"};
    // TTreeReaderValue<Double_t> jets_8phi = {fReader, "jets_8phi"};
