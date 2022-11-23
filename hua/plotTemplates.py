@@ -27,7 +27,8 @@ def plotOneFile(inputFile, inputDir):
     uf.checkMakeDir( outDir )
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV']
     plotName = inputFile.replace('.root', '')
-    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, plotName +'BDTTemplates', era, False, 100  )
+    # plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, plotName +'BDTTemplates', era, False, 100  )
+    plotVaribles.makeStackPlot( histsInProcesses, dummySys, 'BDTScore', '1tau1l', outDir, legendOrder, False, plotName +'BDTTemplates', era, True, 100  )
 
     
 def getHists(inputDir, inputFile):
@@ -46,6 +47,9 @@ def getHists(inputDir, inputFile):
             histsInProcesses[ipro].Print()
             histsInProcesses[ipro].SetDirectory(0)#!!!very important to do this! if not, the hists will be destroyed after the rootfile closes
             # histSys[ipro]={}
+    #blind for data now
+    # histsInProcesses['data'] = histsInProcesses['tttt'].Clone()
+    # histsInProcesses['data'].Reset()
     rootFile.Close()
     # print(histsInProcesses)
     return histsInProcesses, histSys

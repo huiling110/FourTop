@@ -262,9 +262,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     systsDown = nominal[keyList[0]].Clone("systsDown")
     systsDown.Reset()
     dataHist = 0
+    hasDataHist = True
+    if not 'data' in nominal.keys():
+        hasDataHist = False
     for i in nominal.keys():
         # i is i summed MC
-        if i == "data":
+        if i == "data" and hasDataHist:
             dataHist = nominal["data"]
             dataHist.SetMarkerStyle(20)
             dataHist.SetMarkerSize(1.2)
@@ -324,7 +327,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     # dataHist.Print()
     # if includeDataInStack: dataHist.Draw("e1x0 same")
-    if includeDataInStack:
+    if includeDataInStack and hasDataHist:
         dataHist.Draw("e0 same")
     else:
         stack.GetXaxis().SetLabelSize(0.03)
@@ -355,17 +358,22 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         ratioCanvy.cd(0)
         SetOwnership(ratioCanvy,False)
 
+        # if hasDataHist:
         # print( 'hist title: ', dataHist.GetTitle())
-        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
-        sumHistoData.Sumw2()
-        sumHistoData.Divide(sumHist)
+        if hasDataHist:
+            sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
+            sumHistoData.Sumw2()
+            sumHistoData.Divide(sumHist)
+        else:
+            sumHistoData = sumHist.Clone() 
+            sumHistoData.Reset()
         sumHistoData.GetYaxis().SetTitle("Data/MC")
         sumHistoData.GetYaxis().SetTitleOffset(1.3)
         ratioCanvy.cd()
         SetOwnership(sumHistoData,False)
         sumHistoData.SetMinimum(0.8)
         sumHistoData.SetMaximum(1.2)
-        sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
+        # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
         # print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
