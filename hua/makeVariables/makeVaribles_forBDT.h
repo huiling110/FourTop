@@ -286,9 +286,9 @@ public:
     Double_t bjetsL_transMass = -99.0;
     Double_t bjetsM_transMass = -99.0;
     Double_t bjetsT_transMass = -99.0;
-    Double_t bjetsL_minDeltaR = -99.0;
-    Double_t bjetsM_minDeltaR = -99.0;
-    Double_t bjetsT_minDeltaR = -99.0;
+    Double_t bjetsL_minDeltaR = 0;
+    Double_t bjetsM_minDeltaR = 0;
+    Double_t bjetsT_minDeltaR = 0;
     Double_t bjetsL_leptonsMVAT_minDeltaR = -99.0;
     Double_t bjetsM_leptonsMVAT_minDeltaR = -99.0;
     Double_t bjetsT_leptonsMVAT_minDeltaR = -99.0;

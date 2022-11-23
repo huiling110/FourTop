@@ -316,7 +316,7 @@ public:
    // TTreeReaderValue<Double_t> bjetsM_transMass = {fReader, "bjetsM_transMass"};
    // TTreeReaderValue<Double_t> bjetsT_transMass = {fReader, "bjetsT_transMass"};
    // TTreeReaderValue<Double_t> bjetsL_minDeltaR = {fReader, "bjetsL_minDeltaR"};
-   // TTreeReaderValue<Double_t> bjetsM_minDeltaR = {fReader, "bjetsM_minDeltaR"};
+   TTreeReaderValue<Double_t> bjetsM_minDeltaR = {fReader, "bjetsM_minDeltaR"};
    // TTreeReaderValue<Double_t> bjetsT_minDeltaR = {fReader, "bjetsT_minDeltaR"};
    // TTreeReaderValue<Double_t> bjetsL_leptonsMVAT_minDeltaR = {fReader, "bjetsL_leptonsMVAT_minDeltaR"};
    // TTreeReaderValue<Double_t> bjetsM_leptonsMVAT_minDeltaR = {fReader, "bjetsM_leptonsMVAT_minDeltaR"};

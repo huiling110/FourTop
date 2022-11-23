@@ -147,6 +147,11 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
+	// hisvtsForRegions<Double_t> bjetsM_minDeltaR_class{
+	// 	"bjetsM_minDeltaR",
+	// 	"minimum delta R of b jets",
+	// 	10,
+	// };
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "leading tau eta", 10, 0, 3, tausT_1eta};
 	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "leading tau eta", 10, 0, 3, tausT_1phi};

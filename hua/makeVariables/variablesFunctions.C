@@ -260,9 +260,9 @@ Double_t MinDeltaRSingleCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
 	Double_t min_1 = 10;
 	for (UInt_t j = 0; j < Jets.GetSize(); ++j)
 	{
-		if (Jets.GetSize() < 3)
+		if (Jets.GetSize() < 2)
 		{
-			min_3 = -99.;
+			min_3 = 0.;
 			break;
 		}
 		for (UInt_t k = j + 1; k < Jets.GetSize(); ++k)
@@ -281,6 +281,10 @@ Double_t MinDeltaRSingleCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
 			min_3 = min;
 		}
 	}
+	// if (Jets.GetSize() < 2)
+	// {
+	// 	min_3 = 0;
+	// }
 	return min_3;
 }
 

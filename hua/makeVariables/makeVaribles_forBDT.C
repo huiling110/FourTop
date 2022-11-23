@@ -1331,9 +1331,9 @@ void makeVaribles_forBDT::InitializeBranches()
 	bjetsL_transMass = -99;
 	bjetsM_transMass = -99;
 	bjetsT_transMass = -99;
-	bjetsL_minDeltaR = -99;
-	bjetsM_minDeltaR = -99;
-	bjetsT_minDeltaR = -99;
+	bjetsL_minDeltaR = 0;
+	bjetsM_minDeltaR = 0;
+	bjetsT_minDeltaR = 0;
 	bjetsL_leptonsMVAT_minDeltaR = -99;
 	bjetsM_leptonsMVAT_minDeltaR = -99;
 	bjetsT_leptonsMVAT_minDeltaR = -99;
