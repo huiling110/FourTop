@@ -12,6 +12,7 @@ import usefulFunc as uf
 
 #???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
+#todo add git co after job submission for version control
 
 # inVersion = 'v30TESnoJER'
 # inVersion = 'v31TESandJER'

@@ -64,7 +64,9 @@ colourPerSample = {
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
     
     era = uf.getEraFromDir(inputDir)
 
@@ -84,9 +86,9 @@ def main():
     # variables = [ 'jets_HT', 'jets_number', 'jets_bScore', 'jets_1pt','jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_rationHT_4toRest', 'tausT_1pt', 'tausT_1eta', 'tausT_1phi', 'bjetsM_MHT', 'bjetsM_number', 'bjetsM_1pt', 'bjetsM_HT'  ]
     # variables = [ 'bjetsM_number', 'bjetsM_1pt',, "bjetsM_HT", "bjetsM_MHT", "bjetsM_invariantMass", "bjetsM_1pt", "tausT_1pt"  ] #variables intereting in 1tau1l
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_7pt", "jets_4largestBscoreMulti",  ]
-    # variables = ['tausT_leptonsTMVA_chargeMulti', 'jets_bScoreMultiply', 'tausT_HT', 'jets_8pt']
-    variables = ['BDT']
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
+    variables = ['tausT_leptonsTMVA_chargeMulti', 'taus_MHT', 'tausT_HT', ]
+    # variables = ['BDT']
     regionList = ['1tau1lCR0']
     
     # variables = ['Met_pt']#???
