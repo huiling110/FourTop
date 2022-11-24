@@ -119,10 +119,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
 	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_number", "number of b jets", 5, 0, 5, bjetsM_num};
 	histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
+	histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 6, 2, 8, nonbjetsM_num};
 	// vectorOfVariableRegions.push_back();
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
 	vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
+	vectorOfVariableRegions.push_back(nonbjetsM_num_class);
 
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 100, 600, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 50, 600, jets_2pt};
@@ -139,7 +141,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 500, 1800, jets_transMass};
 	histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
 	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of 4 lorgest jets b score", 10, 0, 1, jets_4largestBscoreMulti};
-	histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity of jets", 10, 0, 0.003, jets_bScoreMultiply};
+	histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity of jets", 10, 0, 1, jets_bScoreMultiply};
 	// histsForRegions<Double_t>{"", 10};
 
 	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
@@ -147,15 +149,14 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
 	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
-	// hisvtsForRegions<Double_t> bjetsM_minDeltaR_class{
-	// 	"bjetsM_minDeltaR",
-	// 	"minimum delta R of b jets",
-	// 	10,
-	// };
+	histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 350, bjetsM_2pt};
+	histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "minimum delta R of b jets", 10, 0, 4, bjetsM_minDeltaR};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "leading tau eta", 10, 0, 3, tausT_1eta};
 	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "leading tau eta", 10, 0, 3, tausT_1phi};
 	histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT of tight tau", 10, 25, 300, tausT_HT};
+	histsForRegions<Double_t> tausT_MHT_class{"tausT_HT", "HT of tight tau", 10, 25, 300, tausT_MHT};
+	histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "invariant mass of taus and leptons", 10, 0, 700, tausT_leptonsT_invariantMass};
 	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
@@ -181,6 +182,9 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
 	vectorOfVariableRegionsDouble.push_back(jets_bScoreMultiply_class);
 	vectorOfVariableRegionsDouble.push_back(tausT_HT_class);
+	vectorOfVariableRegionsDouble.push_back(tausT_MHT_class);
+	vectorOfVariableRegionsDouble.push_back(tausT_leptonsT_invariantMass_class);
+	vectorOfVariableRegionsDouble.push_back(bjetsM_minDeltaR_class);
 	// vectorOfVariableRegionsDouble.push_back();
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
