@@ -29,9 +29,11 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v42fixedChargeType/mc/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 // const TString era_g = "2016";
-const TString era_g = "2017";
+// const TString era_g = "2017";
+const TString era_g = "2018";
 
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 const TCut HLT_2016 = "HLT_PFHT450_SixJet40_BTagCSV_p056 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ||HLT_PFJet450";
