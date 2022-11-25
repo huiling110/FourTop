@@ -212,7 +212,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	// systematic regions
 	// how the pileup weighting impact?, only impact MC, don't concern fake tau
 	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 30, 500, 1500, jets_HT};
-	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "HT of jets", 30, 1, 6, jets_bScore};
+	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 30, 1, 5, jets_bScore};
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 40, 500, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 40, 600, jets_2pt};
 	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 40, 500, jets_3pt};
@@ -220,9 +220,9 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 40, 250, jets_5pt};
 	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 40, 180, jets_6pt};
 	histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity", 30, 0, 1, jets_bScoreMultiply};
-	histsForRegions<Double_t> jets_4largestBscoreSum_class{"jets_4largestBscoreSum", "sum of 4 largest jets b score", 30, 0, 6, jets_4largestBscoreSum};
+	histsForRegions<Double_t> jets_4largestBscoreSum_class{"jets_4largestBscoreSum", "sum of 4 largest jets b score", 30, 0.6, 4, jets_4largestBscoreSum};
 	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "jets_4largestBscoreMulti", 30, 0, 1, jets_4largestBscoreMulti};
-	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "bjetsM_invariantMass", 30, 0, 800, bjetsM_invariantMass};
+	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invariantMass of b jets", 30, 0, 800, bjetsM_invariantMass};
 	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jet pt", 10, 25, 300, bjetsM_1pt};
 	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
 	histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
