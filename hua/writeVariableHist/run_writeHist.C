@@ -29,8 +29,9 @@ void run_writeHist(
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    TString selector = "writeHist_fordataMC.C+")
-// TString selector = "writeHist_forFakeRate.C+")
+    // TString selector = "writeHist_fordataMC.C+"//1tau1l)
+    TString selector = "writeHist_forFakeRate.C+" // 1tau0l
+)
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
