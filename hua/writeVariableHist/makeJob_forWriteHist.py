@@ -22,14 +22,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
-    # version = "v0forCutFlow"
-    # version = "v1variablesUsingMyclass"
-    # version = 'v2addingPileupWeight'
     # version = 'v4forFakeRate'
     # version = 'v5forFakeRateEtaDivided'
     # version = 'v0forFakeRate'
@@ -37,21 +35,18 @@ def main():
     # version = 'v1forFRSwitchToTauJetPt_1prong'
     # version = 'v1forFRSwitchToTauJetPt_3prong'
     # version = 'v2forFRVariables'
-    # version = 'v2forFRVariables_finerPtBin'
-    # version = 'v0forFakeRate'
-    # version = 'v0forFakeRateRepeat'
     # version = 'v1forFREtaRegionCorrected'
     # version = 'v1forFREtaRegionCorrected_1prong'
     # version = 'v1forFREtaRegionCorrected_3prong'
     # version = 'v2forFRforVariables'
-    # version = 'v3forFRaddFRWeightUpDownRegions'
     # version = 'v4forFRAddHistTitle'
     # version = 'v5forFRMCMasure'
     # version = 'v6forFRCR12'
     # version = 'v6forFRCR12_3prong'
     # version = 'v7addFRWeightReForEventCount'
-    version = 'v0for1tau1lCRs'
+    # version = 'v0for1tau1lCRs'
     # version = 'v1HT30bins1tau0l'
+    version = 'v0forVariables1tau0l'
     justMC = False
     # justMC = True
     isTest = 0

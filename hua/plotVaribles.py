@@ -13,9 +13,6 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
 from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
                            replaceBgWithGen)
 
-# from usefulFunc import checkMakeDir getInputDicNew
-
-
 colourPerSample = {
     'tttt':kPink-9,
     'tt': kRed-4,
@@ -31,10 +28,6 @@ colourPerSample = {
 
 
 
-# fakeTauYiled = {
-#     '1tau0lCR':  15569.67,
-#     '1tau0lVR': 11997.29, 
-# }
 
     # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
@@ -63,23 +56,17 @@ colourPerSample = {
     # era = '2017'
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
     
-    era = uf.getEraFromDir(inputDir)
 
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['jets_HT']
     # variables = ['eventCount']
-    # variables = ['jets_HT']
     # variables = ['tausF_charge']
-    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    # plotName = 'dataVsMC_fakeTauFromData_FRWeighted'
-    # plotName = 'dataVsMC_fakeTauFromData_FRWeighted_test'
     # ifFR_sys = True
     ifFR_sys = False
     
@@ -89,7 +76,7 @@ def main():
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
     # variables = ['bjetsM_num']
     # variables = ['BDT']
-    regionList = ['1tau1lCR0']
+    # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
     
     # variables = ['Met_pt']#???
@@ -99,10 +86,16 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+   
+    variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] 
+    #regions for 1tau0l fake tau
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
    
     plotName = 'dataVsMC_fakeTauFromData'
     # plotName = 'dataVsMC'
@@ -112,6 +105,7 @@ def main():
     
     
     
+    era = uf.getEraFromDir(inputDir)
     regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     # inputDirDic = getInputDic(inVersion, histVersion, era)
@@ -139,18 +133,18 @@ def main():
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
     
-    # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
+    writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
-    for (i,ire) in enumerate( regionList):
-        if i==0:
-            legendOrder.remove('qcd')     
-        if '1tau1l' in ire:
-            for ivar in variables:
-                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
-                sumProcessPerVar[ivar][ire].pop('qcd')
-            print('remove qcd for 1tau1l')
-    print( sumProcessPerVar )
+    # for (i,ire) in enumerate( regionList):
+    #     if i==0:
+    #         legendOrder.remove('qcd')     
+    #     if '1tau1l' in ire:
+    #         for ivar in variables:
+    #             if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
+    #             sumProcessPerVar[ivar][ire].pop('qcd')
+    #         print('remove qcd for 1tau1l')
+    # print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
