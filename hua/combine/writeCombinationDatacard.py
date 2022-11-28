@@ -6,7 +6,30 @@ import subprocess
 SR1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt'
 SR1tau0l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/variableHists_v1HT30bins1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_datacard.txt'
 
-command = 'combineCards.py SR1tau1l={} SR1tau0l={} > 2016_1tau1lAnd1tau0l_datacard.txt'.format(SR1tau1l, SR1tau0l)
+cardDic_1tau0l = {
+    'SR1tau0l_2016' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt',
+    'SR1tau0l_2017' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt',
+    'SR1tau0l_2018' : '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt',
+}
+cardDic = {
+    'SR1tau1l_2016': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt',
+    'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt',
+    'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt',
+}
+
+# command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)
+cardDic.update(cardDic_1tau0l)
+command = 'combineCards.py '
+for iCard in cardDic.keys():
+    command = command+ iCard + '='+ cardDic[iCard] + ' '
+# command = command +'> '+ 'Run2_1tau1l_datacard.txt'
+command = command +'> '+ 'Run2_all_datacard.txt'
+    
+    
+    
+
+# command = 'combineCards.py SR1tau1l={} SR1tau0l={} > 2016_1tau1lAnd1tau0l_datacard.txt'.format(SR1tau1l, SR1tau0l)
 print(command)
-# process = subprocess.Popen( command, shell=True)
-# out = process.communicate()
+process = subprocess.Popen( command, shell=True)
+out = process.communicate()
+print(out)
