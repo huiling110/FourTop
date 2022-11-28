@@ -24,7 +24,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v7baselineExtraTauCut_v42fixedChargeType/'
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
@@ -90,7 +91,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
         if '.root' in iFile:
             iProcess = iFile.split('.root')[0]
             print(iProcess)
-            iJobFile = jobDir + iProcess +'.sh' 
+            # iJobFile = jobDir + iProcess +'.sh' 
+            iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
             makeIjob( iJobFile, iProcess, isTest, inputDir, version, Jobsubmitpath )  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
