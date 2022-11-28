@@ -29,12 +29,13 @@ inVersion = 'v42fixedChargeType'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
 # outVersion = 'v3extra1tau1lCut'
-outVersion = 'v4baseline'
+# outVersion = 'v4baseline'
 # outVersion = 'v5baselineExtraTauLepCut'
 # outVersion = 'v6Cut1tau1lVariableFixed'
+outVersion = 'v7baselineExtraTauCut'
 # year = '2016'
-# year = '2018'
-year = '2017'
+year = '2018'
+# year = '2017'
 selectionBit = '7'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
@@ -140,7 +141,8 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
 
 
 def writeIjob( parameterList, processJob ):
-    subFile  = open ( processJob ,"w")
+    # subFile  = open ( processJob ,"w")
+    subFile  = open ( 'MV_'+ processJob ,"w")
     subFile.write( "#!/bin/bash\n")
     subFile.write("/bin/hostname\n")
     codeDir = os.path.dirname(os.path.abspath(__file__))
