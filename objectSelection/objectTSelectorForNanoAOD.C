@@ -124,8 +124,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     eventsPassedJSON++;
 
-    //good vertex selection
-    if (! (*PV_npvsGood>0) ) {
+    // good vertex selection
+    if (!(*PV_npvsGood > 0))
+    {
         return kFALSE;
     }
 
@@ -1019,7 +1020,6 @@ Bool_t objectTSelectorForNanoAOD::HLTSelection()
                 if (*run >= 315257 && *run <= 325173)
                 {
                     // 2018
-                    // HLT_PFJet500_ = *HLT_PFJet500;
                     if (*run < 315974)
                     {
                         if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFJet500 == 1))
@@ -1462,11 +1462,16 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
             //  if the condition is false, the program is terminated and an error message is displayed.
             // assert( !(runRange[0]<315974 && runRange[1]>315974) );
             // assert( !(runRange[0]<317509 && runRange[1]>317509) );
+            // 1st problem, for some HLT is not present in some data runs due to switch or trigger
+            // 2nd problem, for data runs, one data has the range larger than the valid trigger range, for this data file the invalid range the trigger value is set to 0
+            //!!!must properly set the initialization and application of these trigger branches!
             assert(!(runRange[0] < 315974 && runRange[1] >= 317509));
 
             HLT_PFHT1050 = {fReader, "HLT_PFHT1050"}; // 297050	306460; 315257	325172
             HLT_PFJet500 = {fReader, "HLT_PFJet500"};
             HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5"};
+
+            // /*
             if (runRange[1] < 315974)
             {
                 HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"}; // checked
@@ -1484,6 +1489,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
             }
             else if (runRange[0] < 315974 && 315974 <= runRange[1] && runRange[1] < 317509)
             {
+                //???what is this range for?
                 HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};         // checked
                 HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"}; // checked
                 HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};

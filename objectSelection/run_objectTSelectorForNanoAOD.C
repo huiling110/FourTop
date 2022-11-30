@@ -11,7 +11,7 @@ void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/tttt/",
@@ -19,7 +19,7 @@ void run_objectTSelectorForNanoAOD(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/jetHT_2016H/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016G/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018a/",
     // TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
@@ -82,8 +82,8 @@ void run_objectTSelectorForNanoAOD(
     {
         outputDir = "output/";
         // eventNum = 100;
-        eventNum = 1000;
-        // eventNum = 10000;
+        // eventNum = 1000;
+        eventNum = 10000;
     }
     TString outputFile;
     outputFile = outputDir + singleFileName;
