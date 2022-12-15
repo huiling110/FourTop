@@ -434,6 +434,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 	// You can add an arbitrary number of signal or background trees
 	// dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
 	dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap[era_g] * TTTT.getScale());
+	dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
 	for (UInt_t p = 1; p < allProcesses.size(); p++)
 	{
 		if (allProcesses[p].getEventTree()->GetEntries() == 0)

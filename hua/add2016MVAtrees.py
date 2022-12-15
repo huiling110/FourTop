@@ -26,7 +26,8 @@ def copyData( dir ):
 # version = 'v3extra1tau1lCut_v41addVertexSelection/'
 # version = 'v4baseline_v41addVertexSelection/'
 # version = 'v5baselineExtraTauLepCut_v41addVertexSelection/'
-version = 'v4baseline_v42fixedChargeType/'
+# version = 'v4baseline_v42fixedChargeType/'
+version = 'v6Cut1tau1lVariableFixed_v42fixedChargeType/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'

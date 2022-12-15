@@ -31,6 +31,8 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v42fixedChargeType/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
+const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
+const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 // const TString era_g = "2016";
 // const TString era_g = "2017";
 const TString era_g = "2018";
@@ -153,22 +155,37 @@ std::vector<Process> allProcesses = {
     tZq_ll, ST_tW_antitop, ST_tW_top,             // 14
     // QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, // 23
     //???WJets not added yet
-
 };
-// baseDirData =
-// Process jetHT_2016F{}
-// std::vector<Process> dataSamples = {
-//     'jetHT_2016F': 'data',
-//     'jetHT_2016G': 'data',
-//     'jetHT_2016H': 'data',
-//     'jetHT_2016B_v1': 'data',
-//     'jetHT_2016B_v2': 'data',
-//     'jetHT_2016C': 'data',
-//     'jetHT_2016D': 'data',
-//     'jetHT_2016E': 'data',
-//     'jetHT_2016F_hipm': 'data',
 
-// }
+// 2016
+// TString baseDir2016 = baseDir.Copy();
+// baseDir2016 = baseDir2016.ReplaceAll("2018", "2016"); //???
+Process TTTT2016{baseDir2016 + "tttt.root", crossSectionMap["tttt"]};
+Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
+Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
+Process TTToSemiLeptonic2016{baseDir2016 + "ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTGJets2016{baseDir2016 + "ttG.root", 4.62};          // 3.773
+Process ttZJets2016{baseDir2016 + "ttZ.root", 0.783};         // 0.6559
+Process ttWJets2016{baseDir2016 + "ttW.root", 0.611};         // 0.2014 changed to 611
+Process ttH_bb2016{baseDir2016 + "ttH_bb.root", 0.2897};      // 0.2897
+Process ttH_nonbb2016{baseDir2016 + "ttH_nonbb.root", 0.209}; // 0.209
+// VV
+Process WZ2016{baseDir2016 + "wz.root", 2.343};
+Process WW2016{baseDir2016 + "ww.root", 6.430};
+Process ZZ2016{baseDir2016 + "zz.root", 1.016}; // ZZ
+// Single Top
+Process tZq_ll2016{baseDir2016 + "st_tZq.root", 0.07358};
+// Process tZq_nunu2016{baseDir2016+".root", 0.1379 };//???
+Process ST_tW_antitop2016{baseDir2016 + "st_tW_antitop.root", 35.85}; // 38.06
+Process ST_tW_top2016{baseDir2016 + "st_tW_top.root", 35.85};         // 38.09
+
+std::vector<Process> allProcesses2016 = {
+    TTTT2016,                                                         // 0
+    TTTo2L2Nu2016, TTToHadronic2016, TTToSemiLeptonic2016,            // 3
+    TTGJets2016, ttZJets2016, ttWJets2016, ttH_bb2016, ttH_nonbb2016, // 8
+    WZ2016, WW2016, ZZ2016,                                           // 11
+    tZq_ll2016, ST_tW_antitop2016, ST_tW_top2016,                     // 14
+};
 
 TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
 {
