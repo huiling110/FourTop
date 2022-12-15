@@ -158,8 +158,6 @@ std::vector<Process> allProcesses = {
 };
 
 // 2016
-// TString baseDir2016 = baseDir.Copy();
-// baseDir2016 = baseDir2016.ReplaceAll("2018", "2016"); //???
 Process TTTT2016{baseDir2016 + "tttt.root", crossSectionMap["tttt"]};
 Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
 Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
@@ -185,6 +183,34 @@ std::vector<Process> allProcesses2016 = {
     TTGJets2016, ttZJets2016, ttWJets2016, ttH_bb2016, ttH_nonbb2016, // 8
     WZ2016, WW2016, ZZ2016,                                           // 11
     tZq_ll2016, ST_tW_antitop2016, ST_tW_top2016,                     // 14
+};
+
+// 2017
+Process TTTT2017{baseDir2017 + "tttt.root", crossSectionMap["tttt"]};
+Process TTTo2L2Nu2017{baseDir2017 + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
+Process TTToHadronic2017{baseDir2017 + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
+Process TTToSemiLeptonic2017{baseDir2017 + "ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTGJets2017{baseDir2017 + "ttG.root", 4.62};          // 3.773
+Process ttZJets2017{baseDir2017 + "ttZ.root", 0.783};         // 0.6559
+Process ttWJets2017{baseDir2017 + "ttW.root", 0.611};         // 0.2014 changed to 611
+Process ttH_bb2017{baseDir2017 + "ttH_bb.root", 0.2897};      // 0.2897
+Process ttH_nonbb2017{baseDir2017 + "ttH_nonbb.root", 0.209}; // 0.209
+// VV
+Process WZ2017{baseDir2017 + "wz.root", 2.343};
+Process WW2017{baseDir2017 + "ww.root", 6.430};
+Process ZZ2017{baseDir2017 + "zz.root", 1.016}; // ZZ
+// Single Top
+Process tZq_ll2017{baseDir2017 + "st_tZq.root", 0.07358};
+// Process tZq_nunu2017{baseDir2017+".root", 0.1379 };//???
+Process ST_tW_antitop2017{baseDir2017 + "st_tW_antitop.root", 35.85}; // 38.06
+Process ST_tW_top2017{baseDir2017 + "st_tW_top.root", 35.85};         // 38.09
+
+std::vector<Process> allProcesses2017 = {
+    TTTT2017,                                                         // 0
+    TTTo2L2Nu2017, TTToHadronic2017, TTToSemiLeptonic2017,            // 3
+    TTGJets2017, ttZJets2017, ttWJets2017, ttH_bb2017, ttH_nonbb2017, // 8
+    WZ2017, WW2017, ZZ2017,                                           // 11
+    tZq_ll2017, ST_tW_antitop2017, ST_tW_top2017,                     // 14
 };
 
 TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)

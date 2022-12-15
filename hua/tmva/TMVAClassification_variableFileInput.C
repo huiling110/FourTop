@@ -435,6 +435,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 	// dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
 	dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap[era_g] * TTTT.getScale());
 	dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
+	dataloader->AddSignalTree(allProcesses2017[0].getEventTree(), lumiMap["2017"] * allProcesses2017[0].getScale());
 	for (UInt_t p = 1; p < allProcesses.size(); p++)
 	{
 		if (allProcesses[p].getEventTree()->GetEntries() == 0)
@@ -445,12 +446,21 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 		std::cout << "adding background for training: " << allProcesses[p].getProcessName() << "\n";
 		dataloader->AddBackgroundTree(allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale());
 	}
+	for (UInt_t p = 1; p < allProcesses2016.size(); p++)
+	{
+		if (allProcesses2016[p].getEventTree()->GetEntries() == 0)
+		{
+			std::cout << "empty process: " << allProcesses2016[p].getProcessName() << "\n";
+			continue;
+		}
+		std::cout << "adding background for training: " << allProcesses2016[p].getProcessName() << "\n";
+		dataloader->AddBackgroundTree(allProcesses2016[p].getEventTree(), lumiMap["2016"] * allProcesses2016[p].getScale());
+	}
 	// Set individual event weights (the variables must exist in the original TTree)
 	// -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
 	// const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
 	dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight");
 	dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight");
-	//(*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight)
 
 	// To give different trees for training and testing, do as follows:
 	//
