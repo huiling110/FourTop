@@ -23,7 +23,8 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v42fixedChargeType/1tau1l_v0/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
     
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
@@ -33,7 +34,7 @@ def main( ):
     era = uf.getEraFromDir(TMVAFileDir) 
     print('channel: ', channel)
     fileForVaribles = channel + 'varibleList_40.root'
-    plotInputVariables( TMVAFileDir , fileForVaribles )
+    # plotInputVariables( TMVAFileDir , fileForVaribles )
 
 
 
