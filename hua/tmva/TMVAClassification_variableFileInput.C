@@ -456,6 +456,16 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 		std::cout << "adding background for training: " << allProcesses2016[p].getProcessName() << "\n";
 		dataloader->AddBackgroundTree(allProcesses2016[p].getEventTree(), lumiMap["2016"] * allProcesses2016[p].getScale());
 	}
+	for (UInt_t p = 1; p < allProcesses2017.size(); p++)
+	{
+		if (allProcesses2017[p].getEventTree()->GetEntries() == 0)
+		{
+			std::cout << "empty process: " << allProcesses2017[p].getProcessName() << "\n";
+			continue;
+		}
+		std::cout << "adding background for training: " << allProcesses2017[p].getProcessName() << "\n";
+		dataloader->AddBackgroundTree(allProcesses2017[p].getEventTree(), lumiMap["2017"] * allProcesses2017[p].getScale());
+	}
 	// Set individual event weights (the variables must exist in the original TTree)
 	// -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
 	// const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
