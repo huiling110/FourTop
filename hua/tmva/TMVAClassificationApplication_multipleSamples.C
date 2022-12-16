@@ -323,12 +323,12 @@ void TMVAClassificationApplication_multipleSamples(
     // TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.34); // 2016
     TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.4); // 2017
     data_BDT->Sumw2();
-    for (UInt_t p = 0; p < allProcesses.size(); p++)
+    for (UInt_t p = 0; p < allProcesses2017.size(); p++)
     {
-        evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, false, channel, outputDir, variableListCsv, weightDir, binNum);
-        if (p == allProcesses.size() - 1)
+        evaluateMVA(Use, allProcesses2017[p].getProcessName(), allProcesses2017[p].getEventTree(), lumiMap[era_g] * allProcesses2017[p].getScale(), data_BDT, data_BDTG, false, channel, outputDir, variableListCsv, weightDir, binNum);
+        if (p == allProcesses2017.size() - 1)
         {
-            evaluateMVA(Use, allProcesses[p].getProcessName(), allProcesses[p].getEventTree(), lumiMap[era_g] * allProcesses[p].getScale(), data_BDT, data_BDTG, true, channel, outputDir, variableListCsv, weightDir, binNum);
+            evaluateMVA(Use, allProcesses2017[p].getProcessName(), allProcesses2017[p].getEventTree(), lumiMap[era_g] * allProcesses2017[p].getScale(), data_BDT, data_BDTG, true, channel, outputDir, variableListCsv, weightDir, binNum);
         }
     }
     // if ( channel.Contains("CR")){

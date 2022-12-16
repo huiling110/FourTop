@@ -20,7 +20,8 @@ def main(
     era = uf.getEraFromDir(resultDir)
     outDir = resultDir + 'combineResults/'
     uf.checkMakeDir(outDir)
-    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit_withError' , outDir, era)
+    # plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit_withError' , outDir, era)
+    plotAUC.plot2D( variable_nums, mediumLimits, 'expectedLimit' , outDir, era)
     plotAUC.plot2D( variable_numsSig, mediumSigs, 'expectedSigs', outDir, era)
 
 

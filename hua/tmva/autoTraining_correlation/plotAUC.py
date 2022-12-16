@@ -162,7 +162,8 @@ def plot2D(x, y, name, outDir, era  ):
  
     n = len( x )
     # gr = ROOT.TGraph( n, x, y )
-    gr = ROOT.TGraphAsymmErrors( n, varNum_x, limit, exl, exh, limit_down, limit_up )
+    # gr = ROOT.TGraphAsymmErrors( n, varNum_x, limit, exl, exh, limit_down, limit_up )
+    gr = ROOT.TGraphAsymmErrors( n, varNum_x, limit, exl, exh )
     gr.SetLineColor( ROOT.kOrange)
     gr.SetLineWidth( 2 )
     gr.SetMarkerColor( ROOT.kRed )

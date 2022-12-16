@@ -34,7 +34,7 @@ def main( ):
     era = uf.getEraFromDir(TMVAFileDir) 
     print('channel: ', channel)
     fileForVaribles = channel + 'varibleList_40.root'
-    # plotInputVariables( TMVAFileDir , fileForVaribles )
+    plotInputVariables( TMVAFileDir , fileForVaribles )
 
 
 

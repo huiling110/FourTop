@@ -27,16 +27,19 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
-    # isApp = True
-    isApp = False
+    isApp = True
+    # isApp = False
+    # appYear = '2018'
+    appYear = '2017'
+    binNum = 30
     
     
-    appFolderName = 'AppResults'
+    # appFolderName = 'AppResults'
+    appFolderName = 'AppResults_'+appYear
     # appFolderName = 'AppResults_resubmit'
     # binNum = 11 #for App only
     # binNum = 40#for App only
     # binNum = 20#for App only
-    binNum = 30
 
     
     

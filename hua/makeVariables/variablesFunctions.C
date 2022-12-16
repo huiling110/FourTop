@@ -345,7 +345,7 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJets
 	}
 	else
 	{
-		sum = -99;
+		sum = 0;
 	}
 	return sum;
 }

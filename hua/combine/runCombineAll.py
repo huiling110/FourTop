@@ -31,7 +31,8 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/combinationRun2_1tau0l/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/comRun2_1tau1l/'
-    cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/Run2_2channels/'
+    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/Run2_2channels/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_2016_30bins/datacard/sumDC_10/'
     
 
     cardToWorkspaces( cardDir )
@@ -41,7 +42,7 @@ def main():
 # #
     copyCombineResultsToDir( cardDir )
 
-    # plot.main( cardDir+ 'combineResults/')
+    plot.main( cardDir+ 'combineResults/')
 
 def copyCombineResultsToDir( cardDir ):
     resultsDir = cardDir+ 'combineResults/'
