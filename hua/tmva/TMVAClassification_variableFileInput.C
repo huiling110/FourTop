@@ -333,7 +333,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				// cout<<"ivariable:"<<ivariable<<endl;
 			}
 			TString ivar = line;
-			if (ivar.Contains("num"))
+			if (ivar.Contains("num") || ivar.Contains("number") || ivar.Contains("charge"))
 			{
 				dataloader->AddVariable(line, 'I');
 			}
@@ -417,7 +417,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 			chosenVariable = chosenVariable + 1;
 			cout << "variables forvaribles training: " << branchName << endl;
 			branchNames.push_back(branchName);
-			if (branchName.Contains("num") || branchName.Contains("number"))
+			if (branchName.Contains("num") || branchName.Contains("number") || branchName.Contains("charge"))
 			{
 				dataloader->AddVariable(branchName, 'I');
 			}
