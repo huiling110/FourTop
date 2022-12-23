@@ -378,7 +378,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 				"gen",
 				"tausL",
 				"tausF",
-				"jets_4largestBscoreMulti",
+				// "jets_4largestBscoreMulti",
+				// "jets_bScoreMultiply",
 			};
 			if (vectorInBranch(branchName, commanVarToAvoid))
 				continue;
