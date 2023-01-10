@@ -599,10 +599,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	PUweight = *PUWeight;
 	PUweight_down = *PUWeight_Down;
 	PUweight_up = *PUWeight_Up;
-	Double_t *allBtagSF = evalEventSF(jets, jets_flavour, jets_btags, CSVreader);
+	// Double_t *allBtagSF = evalEventSF(jets, jets_flavour, jets_btags, CSVreader);
 	//  btagEfficiency_weight = allBtagSF[0];
 	//  btagEfficiency_weight = calBTagSF( );
 	// HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
+
+	btagShape_weight = calBtagShapeWeight();
 	muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
 	muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
 	muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
