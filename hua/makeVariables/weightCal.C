@@ -136,16 +136,20 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &ta
 	return sf;
 }
 
-// Double_t calJES_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& jets ){
-// 	//https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/tree/master/POG/JME
-// 	for (UInt_t i=0; i<jets.GetSize(); i++){
-
-// 	}
-
-// }
-
-Double_t calBtagShapeWeight()
+Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &jets, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData)
 {
 	// https://twiki.cern.ch/twiki/bin/view/CMS/BTagCalibration#Using_b_tag_scale_factors_in_you
 	// https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/btvExample.py
+	Double_t sf = 1.0;
+	if (!isData)
+	{
+		auto corr_deepJet = cset_btag->at("deepJet_shape");
+		for (UInt_t j = 0; j < jets.GetSize(); j++)
+		{
+			Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+			sf *= ijetSF;
+		}
+	}
+	// std::cout << "btagSF = " << sf << "\n";
+	return sf;
 }

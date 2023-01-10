@@ -604,7 +604,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	//  btagEfficiency_weight = calBTagSF( );
 	// HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
 
-	// btagShape_weight = calBtagShapeWeight();
 	muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
 	muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
 	muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
@@ -625,6 +624,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
 	tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
 	tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
+
+	// for (auto &corr : *cset_btag)
+	// {
+	// 	printf("Correction: %s\n", corr.first.c_str());
+	// }
+	btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
 
 	if (m_baselineSelection)
 	{
@@ -740,6 +745,10 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	{
 		printf("Correction: %s\n", corr.first.c_str());
 	}
+	for (auto &corr : *cset_btag)
+	{
+		printf("Correction: %s\n", corr.first.c_str());
+	}
 	std::cout << "finished setting up input files\n";
 }
 
@@ -787,6 +796,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("tauT_IDSF_weight_new_vsmu_down", &tauT_IDSF_weight_new_vsmu_down, "tauT_IDSF_weight_new_vsmu_down/D");
 	newtree->Branch("tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up, "tauT_IDSF_weight_new_vsele_up/D");
 	newtree->Branch("tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down, "tauT_IDSF_weight_new_vsele_down/D");
+	newtree->Branch("btagShape_weight", &btagShape_weight, "btagShape_weight/D");
 
 	//    newtree->Branch( "", &, "/D");
 	//    newtree->Branch( "", &, "/D");
@@ -1167,6 +1177,7 @@ void makeVaribles_forBDT::InitializeBranches()
 	tauT_IDSF_weight_new_vsmu_down = -99;
 	tauT_IDSF_weight_new_vsele_up = -99;
 	tauT_IDSF_weight_new_vsele_down = -99;
+	btagShape_weight = 1.;
 
 	MET_pt = -99;
 	MET_phi = -99;

@@ -65,7 +65,7 @@ public:
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
-    std::unique_ptr<correction::CorrectionSet> cset_JES;
+    // std::unique_ptr<correction::CorrectionSet> cset_JES;
 
     // branches in the newtree
     // same order as initialize
@@ -108,6 +108,7 @@ public:
     Double_t tauT_IDSF_weight_new_vsmu_down;
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
+    Double_t btagShape_weight = 1.0;
 
     Double_t MET_pt;
     Double_t MET_phi;
@@ -233,7 +234,7 @@ public:
     Double_t jets_leptonsMVAT_minDeltaR = -99.0;
     Double_t jets_tausF_minDeltaR = -99.0;
     Double_t jets_tausT_minDeltaR = -99.0;
-    Double_t jets_tausT_invariantMass= -99.0;
+    Double_t jets_tausT_invariantMass = -99.0;
     // Double_t = -99.0;
 
     Double_t jets_spherilty = -99.0;
