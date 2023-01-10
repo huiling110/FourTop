@@ -30,6 +30,7 @@
 
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
+#include "../../objectSelection/inputMap.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
@@ -598,7 +599,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	PUweight = *PUWeight;
 	PUweight_down = *PUWeight_Down;
 	PUweight_up = *PUWeight_Up;
-	//  Double_t* allBtagSF = evalEventSF( jets, jets_flavour, jets_btags, CSVreader );
+	Double_t *allBtagSF = evalEventSF(jets, jets_flavour, jets_btags, CSVreader);
 	//  btagEfficiency_weight = allBtagSF[0];
 	//  btagEfficiency_weight = calBTagSF( );
 	// HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
@@ -726,8 +727,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	input_TrigSF->Close();
 	delete input_TrigSF;
 
-// new SF files from
-#include "../../objectSelection/inputMap.h"
+	// new SF files from
 	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	TString base = "../../../jsonpog-integration/POG/";
 	TString tauSF_json = base + json_map[m_era].at(1);
