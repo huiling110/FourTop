@@ -604,7 +604,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	//  btagEfficiency_weight = calBTagSF( );
 	// HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
 
-	btagShape_weight = calBtagShapeWeight();
+	// btagShape_weight = calBtagShapeWeight();
 	muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
 	muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
 	muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
@@ -733,8 +733,9 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	// TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
 	TString base = "../../../jsonpog-integration/POG/";
 	TString tauSF_json = base + json_map[m_era].at(1);
+	TString btagSF_json = base + json_map[m_era].at(2);
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
-	cset_btag = correction::CorrectionSet::from_file(tauSF_json.Data());
+	cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
 	for (auto &corr : *cset)
 	{
 		printf("Correction: %s\n", corr.first.c_str());
