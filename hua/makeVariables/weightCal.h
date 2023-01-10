@@ -10,6 +10,10 @@
 
 #include "correction.h"
 
+// #include "./test/BTagEntry.h"
+// #include "test/BTagCalibration.h"
+// #include "test/BTagCalibrationReader.h"
+
 Double_t calMuonIDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &muonsT, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 Double_t calEleMVA_IDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &eleMVAT, const TH2D *EleIDSF);
 Double_t getHLTweight(const Double_t jets_HT, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &jets, const TH2D *TriggerSF, const TH2D *TriggerSFunc, Bool_t isData);

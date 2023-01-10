@@ -734,6 +734,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 	TString base = "../../../jsonpog-integration/POG/";
 	TString tauSF_json = base + json_map[m_era].at(1);
 	cset = correction::CorrectionSet::from_file(tauSF_json.Data());
+	cset_btag = correction::CorrectionSet::from_file(tauSF_json.Data());
 	for (auto &corr : *cset)
 	{
 		printf("Correction: %s\n", corr.first.c_str());
