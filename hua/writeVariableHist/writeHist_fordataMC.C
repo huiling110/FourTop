@@ -204,8 +204,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight);
+		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 	}
 
