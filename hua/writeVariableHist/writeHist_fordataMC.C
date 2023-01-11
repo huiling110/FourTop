@@ -204,7 +204,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight);
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 	}
 
@@ -230,7 +231,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 		fillHistsVector(is1tau1lSR, 6, basicWeight);
 	}
-	// std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
 
 	// 1tau0l CR
 	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
