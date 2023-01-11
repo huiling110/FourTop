@@ -96,6 +96,8 @@ public:
    TString m_version;
    // std::vector<TString> m_options;
    TFile *outputFile;
+   TH1D *btagRHist;
+
    //!!!hists need to be scalec in terminate function
    //???make this variables easier to add
    std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;

@@ -26,6 +26,8 @@ def main():
     h_eff.Reset()
     h_eff.Sumw2()
     h_eff.Divide(h_before, h_after)
+    h_eff.SetName("btagR")
+    # h_eff.Divide(h_after, h_before)
    
    
     plotDir = inputDirDic['mc']+'results/'
@@ -45,7 +47,7 @@ def main():
     outFile = ROOT.TFile( outFileName, "RECREATE") 
     h_eff.SetDirectory(outFile)
     h_eff.Write() 
-    outFile.Write()
+    # outFile.Write()
     outFile.Close()
     print('btagR file writen here: ', outFileName)
 

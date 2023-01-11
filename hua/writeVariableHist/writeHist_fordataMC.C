@@ -30,6 +30,14 @@
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "writeHist_fordataMC.h"
 
+Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
+{
+
+	Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
+	Double_t r = btagRHist->GetBinContent(binx);
+	return r;
+}
+
 void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
@@ -196,18 +204,26 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	{
 		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
+
+	//
+	TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
+	btagRHist = (TH1D *)btagRFile->Get("btagR");
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
+
+	Double_t btagR = calBtagR(*jets_number, btagRHist);
 	Double_t basicWeight = 1.0;
 	if (!m_isData)
 	{
-		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight);
+		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
 		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
 	}
+
+	// btagWeightR
 
 	// baseline selection
 	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
