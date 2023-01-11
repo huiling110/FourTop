@@ -29,11 +29,6 @@ colourPerSample = {
 
 
 
-    # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
-    # inVersion = 'v3extra1tau1lCut_v41addVertexSelection'
-    # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
-    # inVersion = 'v5baselineExtraTauLepCut_v42fixedChargeType'
-    # inVersion = 'v4baseline_v41addVertexSelection'
     # histVersion = 'variableHists_v1variables'
     # histVersion = 'variableHists_v7addFRWeightedRegions'
     # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
@@ -45,7 +40,6 @@ colourPerSample = {
     # histVersion  = 'variableHists_v4forFRAddHistTitle'
     # histVersion = 'variableHists_v7addFRWeightReForEventCount'
     # histVersion = 'variableHists_v0for1tau1lCRs'
-
     # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
     # histVersion = 'variableHists_v0_BDT1tau1lCRs'
     # histVersion = 'variableHists_v1HT30bins1tau0l'
@@ -61,7 +55,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v1addBtagWeight/'
     
 
     # variables = [ 'tausF_1jetPtFRWeight',]
@@ -77,7 +72,7 @@ def main():
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
     # variables = ['bjetsM_num']
     # variables = ['BDT']
-    # regionList = ['1tau1lCR0']
+    regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
     
     # variables = ['Met_pt']#???
@@ -95,12 +90,12 @@ def main():
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
    
-    plotName = 'dataVsMC_fakeTauFromData'
-    # plotName = 'dataVsMC'
+    # plotName = 'dataVsMC_fakeTauFromData'
+    plotName = 'dataVsMC'
 
     
     
