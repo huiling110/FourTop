@@ -51,7 +51,8 @@ def main():
     # version = 'v1HT30bins1tau0l'
     # version = 'v0forVariables1tau0l'
     # version = 'v1addBtagWeight'
-    version = 'v2onlyBasicWeight'
+    # version = 'v2onlyBasicWeight'
+    version = 'v3forBTagR'
     justMC = False
     # justMC = True
     isTest = 0

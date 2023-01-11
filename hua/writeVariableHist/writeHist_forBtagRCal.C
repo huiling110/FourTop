@@ -1,5 +1,5 @@
-#define writeHist_fordataMC_cxx
-// The class definition in writeHist_fordataMC.h has been generated automatically
+#define writeHist_forBtagRCal_cxx
+// The class definition in writeHist_forBtagRCal.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
 // from the ROOT class TSelector. For more information on the TSelector
 // framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
@@ -28,9 +28,9 @@
 
 #include "../src_cpp/usefulFuction.h"
 #include "../src_cpp/lumiAndCrossSection.h"
-#include "writeHist_fordataMC.h"
+#include "writeHist_forBtagRCal.h"
 
-void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_forBtagRCal::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
 	{
@@ -38,7 +38,7 @@ void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, D
 	}
 }
 
-void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_forBtagRCal::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
 	if (isRegion)
 	{
@@ -46,10 +46,10 @@ void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorI
 		{
 			vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight);
 		}
-		for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
-		{
-			vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight);
-		}
+		// for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
+		// {
+		// 	vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight);
+		// }
 	}
 }
 
@@ -65,7 +65,7 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
 	}
 }
 
-void writeHist_fordataMC::Begin(TTree * /*tree*/)
+void writeHist_forBtagRCal::Begin(TTree * /*tree*/)
 {
 	// The Begin() function is called at the start of the query.
 	// When running with PROOF Begin() is only called on the client.
@@ -74,14 +74,14 @@ void writeHist_fordataMC::Begin(TTree * /*tree*/)
 	TString option = GetOption();
 }
 
-void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
+void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
 {
 	// The SlaveBegin() function is called after the Begin() function.
 	// When running with PROOF SlaveBegin() is called on each slave server.
 	// The tree argument is deprecated (on PROOF 0 is passed).
 
 	TString option = GetOption();
-	std::cout << "option in writeHist_fordataMC: " << option << "\n";
+	std::cout << "option in writeHist_forBtagRCal: " << option << "\n";
 
 	// this part could be in a function for multiple uses
 	// better structure my project so that these commen functionality go to one include dir
@@ -110,95 +110,28 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lCR0", "1tau1lCR2"};
+	std::vector<TString> regionsForVariables = {"baseline1Tau", "baseline1TauBTagWeight"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	vectorOfVariableRegions.clear();
 	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
 	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
-	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
-	histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
-	histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
+	// histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
+	// histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
+	// histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
 	// vectorOfVariableRegions.push_back();
 	vectorOfVariableRegions.push_back(jets_number_class);
-	vectorOfVariableRegions.push_back(bjetsM_number_class);
-	vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
-	vectorOfVariableRegions.push_back(nonbjetsM_num_class);
-
-	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 100, 600, jets_1pt};
-	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 50, 600, jets_2pt};
-	histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 50, 500, jets_3pt};
-	histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
-	histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
-	histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
-	histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
-	histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 10, 25, 100, jets_8pt};
-	histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1800, jets_HT};
-	histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
-	histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
-	histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
-	histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 500, 1800, jets_transMass};
-	histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
-	histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of 4 lorgest jets b score", 10, 0, 1, jets_4largestBscoreMulti};
-	histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity of jets", 10, 0, 1, jets_bScoreMultiply};
-	// histsForRegions<Double_t>{"", 10};
-
-	histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
-	histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of medium b jets", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
-	histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
-	histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
-	histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "second b jets pt", 10, 25, 350, bjetsM_2pt};
-	histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "minimum delta R of b jets", 10, 0, 4, bjetsM_minDeltaR};
-	histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tau pt", 20, 20, 200, tausT_1pt};
-	histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "leading tau eta", 10, 0, 3, tausT_1eta};
-	histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "leading tau eta", 10, 0, 3, tausT_1phi};
-	histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT of tight tau", 10, 25, 300, tausT_HT};
-	histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT of tight tau", 10, 25, 300, tausT_MHT};
-	histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "invariant mass of taus and leptons", 10, 0, 500, tausT_leptonsT_invariantMass};
-	vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_4pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_5pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_6pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_HT_class);
-	vectorOfVariableRegionsDouble.push_back(jets_bScore_class);
-	vectorOfVariableRegionsDouble.push_back(jets_rationHT_4toRest_class);
-	vectorOfVariableRegionsDouble.push_back(jets_leading2invariantMass_class);
-	vectorOfVariableRegionsDouble.push_back(MET_pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_transMass_class);
-	vectorOfVariableRegionsDouble.push_back(jets_avaregeDeltaR_class);
-	vectorOfVariableRegionsDouble.push_back(jets_7pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_8pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_4largestBscoreMulti_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_invariantMass_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1pt_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1eta_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_1phi_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_1pt_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_2pt_class);
-	vectorOfVariableRegionsDouble.push_back(jets_bScoreMultiply_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_HT_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_MHT_class);
-	vectorOfVariableRegionsDouble.push_back(tausT_leptonsT_invariantMass_class);
-	vectorOfVariableRegionsDouble.push_back(bjetsM_minDeltaR_class);
-	// vectorOfVariableRegionsDouble.push_back();
+	// vectorOfVariableRegions.push_back(bjetsM_number_class);
+	// vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
+	// vectorOfVariableRegions.push_back(nonbjetsM_num_class);
 
 	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
 	{
 		vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
 	}
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
-	{
-		vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
-	}
 }
 
-Bool_t writeHist_fordataMC::Process(Long64_t entry)
+Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
 {
 	fReader.SetLocalEntry(entry);
 	Double_t basicWeight = 1.0;
@@ -224,56 +157,22 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	if (!m_isData)
 	{
 		// be blind for data in signal region
-		Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		Bool_t is1tau1lSR = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-		fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
-		fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
-		fillHistsVector(is1tau0lSR, 0, basicWeight);
-		fillHistsVector(is1tau1lSR, 6, basicWeight);
+		Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
+		fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
+		fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
 	}
-
-	// 1tau0l CR
-	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCR4 = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number == 7 && *bjetsM_num >= 2;
-	fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
-	fillHistsVectorMyclass(is1tau0lVR, 2, basicWeight);
-	fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
-	fillHistsVectorMyclass(is1tau0lCR3, 4, basicWeight);
-	fillHistsVectorMyclass(is1tau0lCR4, 5, basicWeight);
-	fillHistsVector(is1tau0lCR, 1, basicWeight);
-	fillHistsVector(is1tau0lVR, 2, basicWeight);
-	fillHistsVector(is1tau0lCR2, 3, basicWeight);
-	fillHistsVector(is1tau0lCR3, 4, basicWeight);
-	fillHistsVector(is1tau0lCR4, 5, basicWeight);
-
-	// 1tau1lCR
-	Bool_t is1tau1lCR0 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 1;
-	Bool_t is1tau1lCR1 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number >= 7 && *bjetsM_num == 0;
-	Bool_t is1tau1lCR2 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-	Bool_t is1tau1lCR3 = *tausT_number == 1 && *leptonsMVAT_number == 1 && *jets_number == 6 && *bjetsM_num < 2;
-	fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
-	fillHistsVectorMyclass(is1tau1lCR0, 7, basicWeight);
-	fillHistsVectorMyclass(is1tau1lCR1, 8, basicWeight);
-	fillHistsVectorMyclass(is1tau1lCR2, 9, basicWeight);
-	fillHistsVector(is1tau1lCR3, 10, basicWeight);
-	fillHistsVector(is1tau1lCR0, 7, basicWeight);
-	fillHistsVector(is1tau1lCR1, 8, basicWeight);
-	fillHistsVector(is1tau1lCR2, 9, basicWeight);
 
 	return kTRUE;
 }
 
-void writeHist_fordataMC::SlaveTerminate()
+void writeHist_forBtagRCal::SlaveTerminate()
 {
 	// The SlaveTerminate() function is called after all entries or objects
 	// have been processed. When running with PROOF SlaveTerminate() is called
 	// on each slave server.
 }
 
-void writeHist_fordataMC::Terminate()
+void writeHist_forBtagRCal::Terminate()
 {
 	// The Terminate() function is the last function to be called during
 	// a query. It always runs on the client, it can be used to present
@@ -293,18 +192,14 @@ void writeHist_fordataMC::Terminate()
 		{
 
 			std::cout << j << "\n";
-			eventCount_hists[j]->Scale(processScale);
+			// eventCount_hists[j]->Scale(processScale);
 			eventCount_hists[j]->Print();
 		}
 
 		for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
 		{
-			vectorOfVariableRegions[ihists].histsScale(processScale);
+			// vectorOfVariableRegions[ihists].histsScale(processScale);
 			vectorOfVariableRegions[ihists].histsPrint();
-		}
-		for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
-		{
-			vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
 		}
 	}
 	Info("Terminate", "outputFile here:%s", outputFile->GetName());
