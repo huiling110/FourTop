@@ -590,6 +590,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
 	// event information
 	PV_npvs = *PV_npvs_;
+	PV_npvsGood = *PV_npvsGood_;
 
 	// weights
 	EVENT_prefireWeight = *EVENT_prefireWeight_;
@@ -769,6 +770,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
 
 	newtree->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
+	newtree->Branch("PV_npvsGood", &PV_npvsGood, "PV_npvsGood/I");
 
 	newtree->Branch("EVENT_prefireWeight", &EVENT_prefireWeight, "EVENT_prefireWeight/D");
 	newtree->Branch("EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");

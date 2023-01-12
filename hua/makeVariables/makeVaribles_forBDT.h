@@ -82,6 +82,7 @@ public:
     Int_t HLT_PFJet450;
 
     Int_t PV_npvs;
+    Int_t PV_npvsGood;
 
     Double_t EVENT_prefireWeight;
     Double_t EVENT_prefireWeight_up;
@@ -485,6 +486,7 @@ public:
     TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};
     TTreeReaderValue<Double_t> PUWeight_Up = {fReader, "PUWeight_Up"};
     TTreeReaderValue<Int_t> PV_npvs_ = {fReader, "PV_npvs_"}; // total number of reconstructed primary vertices
+    TTreeReaderValue<Int_t> PV_npvsGood_ = {fReader, "PV_npvsGood_"}; // total number of reconstructed primary vertices
     // TTreeReaderValue<Double_t>  = {fReader, ""};
 
     // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
