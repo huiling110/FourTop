@@ -190,6 +190,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
     PV_npvs_ = *PV_npvs;
     PV_npvsGood_ = *PV_npvsGood;
+
     if (!m_isdata)
     {
         genTtbarId_ = *genTtbarId;
@@ -1213,14 +1214,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
     // }
 
     if (!m_isdata)
-    {
-        // TString jetSmearing_PtFile = oldFileMap[m_era].at(0).Data();
-        // TString jetSmearing_MCFile = oldFileMap[m_era].at(1).Data();
-        // std::cout << "jetSmearing file used: " << jetSmearing_PtFile << "\n"
-        //           << jetSmearing_MCFile << "\n";
-        // readSmearingFile(jetSmearing_PtFile, resolution, resFormula);
-        // readSmearingFile(jetSmearing_MCFile, resSFs, toyResFormula);
-
+    { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
         TFile *inputPUFile_data = new TFile(pileUpFileMap[m_era].at(0).Data(), "READ");
         TFile *inputPUFile_dataUp = new TFile(pileUpFileMap[m_era].at(1).Data(), "READ");
         TFile *inputPUFile_dataDown = new TFile(pileUpFileMap[m_era].at(2).Data(), "READ");
