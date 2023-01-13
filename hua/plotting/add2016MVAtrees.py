@@ -29,7 +29,8 @@ def copyData( dir ):
 # version = 'v4baseline_v42fixedChargeType/'
 # version = 'v6Cut1tau1lVariableFixed_v42fixedChargeType/'
 # version = 'v8Cut1tau1l_v42fixedChargeType/'
-version = 'v9addBtagWeight_v42fixedChargeType/'
+# version = 'v9addBtagWeight_v42fixedChargeType/'
+version = 'v10addPV_npvsGood_baseline_v42fixedChargeType/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'

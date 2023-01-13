@@ -115,11 +115,9 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
 	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
 	// }
-	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
 	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lCR0", "1tau1lCR2"};
+	std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
 	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
 	vectorOfVariableRegions.clear();
@@ -128,11 +126,15 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 	histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
 	histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
 	histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
+	histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "PV_npvsGood", 50, 0, 50, PV_npvsGood};
+	histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "PV_npvs", 50, 0, 50, PV_npvs};
 	// vectorOfVariableRegions.push_back();
 	vectorOfVariableRegions.push_back(jets_number_class);
 	vectorOfVariableRegions.push_back(bjetsM_number_class);
 	vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
 	vectorOfVariableRegions.push_back(nonbjetsM_num_class);
+	vectorOfVariableRegions.push_back(PV_npvsGood_class);
+	vectorOfVariableRegions.push_back(PV_npvs_class);
 
 	histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 100, 600, jets_1pt};
 	histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 50, 600, jets_2pt};
@@ -231,10 +233,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
-	// if (entry < 100)
-	// {
-	// 	std::cout << "jets_4largestBscoreMulti=" << *jets_4largestBscoreMulti << "\n";
-	// }
 
 	// 1tau0l SR
 	if (!m_isData)
@@ -259,6 +257,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
 	fillHistsVectorMyclass(is1tau0lCR3, 4, basicWeight);
 	fillHistsVectorMyclass(is1tau0lCR4, 5, basicWeight);
+	fillHistsVectorMyclass(baseline, 11, basicWeight);
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lVR, 2, basicWeight);
 	fillHistsVector(is1tau0lCR2, 3, basicWeight);

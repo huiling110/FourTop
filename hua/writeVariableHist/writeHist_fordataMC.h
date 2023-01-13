@@ -143,7 +143,8 @@ public:
    // TTreeReaderValue<Int_t> Flag_eeBadScFilter = {fReader, "Flag_eeBadScFilter"};
    // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
    // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-   // TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+   TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
+   TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};
    TTreeReaderValue<Double_t> EVENT_prefireWeight_down = {fReader, "EVENT_prefireWeight_down"};
