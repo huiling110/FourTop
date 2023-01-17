@@ -153,6 +153,8 @@ public:
 	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAF;
 	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
 	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAL;
+	std::vector<ROOT::Math::PtEtaPhiMVector> muonsTopMVAT;
+
 	std::vector<ROOT::Math::PtEtaPhiMVector> tausL;
 	std::vector<Int_t> tausL_index;
 	std::vector<Int_t> tausL_decayMode;
@@ -266,6 +268,8 @@ public:
 
 	// functions I added
 	void SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
+	void SelectLeptonsTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &selectedLeponts, Bool_t isMuon);
+
 	// void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
 	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausjetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
 	void SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC);
@@ -383,14 +387,14 @@ public:
 	TTreeReaderArray<Float_t> Electron_eta = {fReader, "Electron_eta"};
 	// TTreeReaderArray<Float_t> Electron_hoe = {fReader, "Electron_hoe"};
 	TTreeReaderArray<Float_t> Electron_ip3d = {fReader, "Electron_ip3d"};
-	// TTreeReaderArray<Float_t> Electron_jetPtRelv2 = {fReader, "Electron_jetPtRelv2"};
-	// TTreeReaderArray<Float_t> Electron_jetRelIso = {fReader, "Electron_jetRelIso"};
+	TTreeReaderArray<Float_t> Electron_jetPtRelv2 = {fReader, "Electron_jetPtRelv2"};
+	TTreeReaderArray<Float_t> Electron_jetRelIso = {fReader, "Electron_jetRelIso"};
 	TTreeReaderArray<Float_t> Electron_mass = {fReader, "Electron_mass"};
-	// TTreeReaderArray<Float_t> Electron_miniPFRelIso_all = {fReader, "Electron_miniPFRelIso_all"};
-	// TTreeReaderArray<Float_t> Electron_miniPFRelIso_chg = {fReader, "Electron_miniPFRelIso_chg"};
+	TTreeReaderArray<Float_t> Electron_miniPFRelIso_all = {fReader, "Electron_miniPFRelIso_all"};
+	TTreeReaderArray<Float_t> Electron_miniPFRelIso_chg = {fReader, "Electron_miniPFRelIso_chg"};
 	TTreeReaderArray<Float_t> Electron_mvaFall17V2Iso = {fReader, "Electron_mvaFall17V2Iso"};
 	TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso = {fReader, "Electron_mvaFall17V2noIso"};
-	// TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
+	TTreeReaderArray<Float_t> Electron_pfRelIso03_all = {fReader, "Electron_pfRelIso03_all"};
 	// TTreeReaderArray<Float_t> Electron_pfRelIso03_chg = {fReader, "Electron_pfRelIso03_chg"};
 	TTreeReaderArray<Float_t> Electron_phi = {fReader, "Electron_phi"};
 	TTreeReaderArray<Float_t> Electron_pt = {fReader, "Electron_pt"};
@@ -410,7 +414,7 @@ public:
 	TTreeReaderArray<Bool_t> Electron_convVeto = {fReader, "Electron_convVeto"};
 	// TTreeReaderArray<Bool_t> Electron_cutBased_HEEP = {fReader, "Electron_cutBased_HEEP"};
 	// TTreeReaderArray<Bool_t> Electron_isPFcand = {fReader, "Electron_isPFcand"};
-	// TTreeReaderArray<UChar_t> Electron_jetNDauCharged = {fReader, "Electron_jetNDauCharged"};
+	TTreeReaderArray<UChar_t> Electron_jetNDauCharged = {fReader, "Electron_jetNDauCharged"};
 	TTreeReaderArray<UChar_t> Electron_lostHits = {fReader, "Electron_lostHits"};
 	TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP80 = {fReader, "Electron_mvaFall17V2Iso_WP80"};
 	TTreeReaderArray<Bool_t> Electron_mvaFall17V2Iso_WP90 = {fReader, "Electron_mvaFall17V2Iso_WP90"};
@@ -677,18 +681,18 @@ public:
 	// TTreeReaderArray<Float_t> Muon_dzErr = {fReader, "Muon_dzErr"};
 	TTreeReaderArray<Float_t> Muon_eta = {fReader, "Muon_eta"};
 	TTreeReaderArray<Float_t> Muon_ip3d = {fReader, "Muon_ip3d"};
-	// TTreeReaderArray<Float_t> Muon_jetPtRelv2 = {fReader, "Muon_jetPtRelv2"};
+	TTreeReaderArray<Float_t> Muon_jetPtRelv2 = {fReader, "Muon_jetPtRelv2"}; // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton
 	TTreeReaderArray<Float_t> Muon_jetRelIso = {fReader, "Muon_jetRelIso"};
 	TTreeReaderArray<Float_t> Muon_mass = {fReader, "Muon_mass"};
-	// TTreeReaderArray<Float_t> Muon_miniPFRelIso_all = {fReader, "Muon_miniPFRelIso_all"};
-	// TTreeReaderArray<Float_t> Muon_miniPFRelIso_chg = {fReader, "Muon_miniPFRelIso_chg"};
+	TTreeReaderArray<Float_t> Muon_miniPFRelIso_all = {fReader, "Muon_miniPFRelIso_all"};
+	TTreeReaderArray<Float_t> Muon_miniPFRelIso_chg = {fReader, "Muon_miniPFRelIso_chg"};
 	// TTreeReaderArray<Float_t> Muon_pfRelIso03_all = {fReader, "Muon_pfRelIso03_all"};
 	// TTreeReaderArray<Float_t> Muon_pfRelIso03_chg = {fReader, "Muon_pfRelIso03_chg"};
-	// TTreeReaderArray<Float_t> Muon_pfRelIso04_all = {fReader, "Muon_pfRelIso04_all"};
+	TTreeReaderArray<Float_t> Muon_pfRelIso04_all = {fReader, "Muon_pfRelIso04_all"};
 	TTreeReaderArray<Float_t> Muon_phi = {fReader, "Muon_phi"};
 	TTreeReaderArray<Float_t> Muon_pt = {fReader, "Muon_pt"};
 	// TTreeReaderArray<Float_t> Muon_ptErr = {fReader, "Muon_ptErr"};
-	// TTreeReaderArray<Float_t> Muon_segmentComp = {fReader, "Muon_segmentComp"};
+	TTreeReaderArray<Float_t> Muon_segmentComp = {fReader, "Muon_segmentComp"};
 	TTreeReaderArray<Float_t> Muon_sip3d = {fReader, "Muon_sip3d"};
 	// TTreeReaderArray<Float_t> Muon_softMva = {fReader, "Muon_softMva"};
 	// TTreeReaderArray<Float_t> Muon_tkRelIso = {fReader, "Muon_tkRelIso"};
@@ -696,7 +700,8 @@ public:
 	// TTreeReaderArray<Float_t> Muon_mvaLowPt = {fReader, "Muon_mvaLowPt"};
 	// TTreeReaderArray<Float_t> Muon_mvaTTH = {fReader, "Muon_mvaTTH"};
 	TTreeReaderArray<Int_t> Muon_charge = {fReader, "Muon_charge"};
-	// TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
+	// TTreeReaderArray<Int_t> pfRelIso03_all = {fReader, "Muon_jetIdx"};
+	TTreeReaderArray<Int_t> Muon_jetIdx = {fReader, "Muon_jetIdx"};
 	// TTreeReaderArray<Int_t> Muon_nStations = {fReader, "Muon_nStations"};
 	// TTreeReaderArray<Int_t> Muon_nTrackerLayers = {fReader, "Muon_nTrackerLayers"};
 	// TTreeReaderArray<Int_t> Muon_pdgId = {fReader, "Muon_pdgId"};
@@ -709,7 +714,7 @@ public:
 	// TTreeReaderArray<Bool_t> Muon_isPFcand = {fReader, "Muon_isPFcand"};
 	// TTreeReaderArray<Bool_t> Muon_isStandalone = {fReader, "Muon_isStandalone"};
 	// TTreeReaderArray<Bool_t> Muon_isTracker = {fReader, "Muon_isTracker"};
-	// TTreeReaderArray<UChar_t> Muon_jetNDauCharged = {fReader, "Muon_jetNDauCharged"};
+	TTreeReaderArray<UChar_t> Muon_jetNDauCharged = {fReader, "Muon_jetNDauCharged"};
 	TTreeReaderArray<Bool_t> Muon_looseId = {fReader, "Muon_looseId"};
 	TTreeReaderArray<Bool_t> Muon_mediumId = {fReader, "Muon_mediumId"};
 	// TTreeReaderArray<Bool_t> Muon_mediumPromptId = {fReader, "Muon_mediumPromptId"};

@@ -229,6 +229,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
+    SelectLeptonsTopMVA(muonsTopMVAT, true);
+
     // nominal taus
     //  calTauSF( m_isdata );
     calTauSF_new();   // calculate taus_TES_up  taus_TES_down
@@ -387,6 +389,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("leptonsMVAF", &leptonsMVAF);
     newTree->Branch("leptonsMVAT", &leptonsMVAT);
     newTree->Branch("leptonsMVAL", &leptonsMVAL);
+    newTree->Branch("muonsTopMVAT", &muonsTopMVAT);
 
     newTree->Branch("tausL", &tausL);
     newTree->Branch("tausF", &tausF);
@@ -617,6 +620,67 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEta
     }
 }
 /*}}}*/
+
+void objectTSelectorForNanoAOD::SelectLeptonsTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &selectedLeponts, Bool_t isMuon)
+{
+    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
+    TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
+    TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
+
+    for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j)
+    {
+        Float_t boosterVars[2][1][15];
+        // probalbly on top of POG ID
+        Float_t LepGood_pt = Muon_pt[j];
+        Float_t LepGood_eta = TMath::Abs(Muon_eta[j]);
+        Float_t LepGood_jetNDauChargedMVASel = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
+        Float_t LepGood_miniRelIsoCharged = Muon_miniPFRelIso_chg[j];
+        Float_t LepGood_miniRelIsoNeutralVanilla = Muon_miniPFRelIso_all[j] - Muon_miniPFRelIso_chg[j];
+        Float_t LepGood_jetPtRelv2 = Muon_jetPtRelv2[j];                           // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+        Float_t LepGood_jetPtRatioVanilla = Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]]); // ; Ratio between the lepton and jet transverse momenta
+        Float_t LepGood_relIso0p3Vanilla = Muon_pfRelIso04_all[j];                 //; Relative isolation using the cone size of 0.4
+        Float_t LepGood_jetBTag = Jet_btagDeepB[Muon_jetIdx[j]];
+        Float_t LepGood_sip3d = Muon_sip3d[j];
+        Float_t LepGood_dxy = Muon_dxy[j];
+        Float_t LepGood_dz = Muon_dz[j];
+        Float_t segComp = Muon_segmentComp[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+
+        for (UInt_t i = 0; i < 2; ++i)
+        {
+            boosterVars[i][0][0] = LepGood_pt;
+            boosterVars[i][0][1] = LepGood_eta;
+            boosterVars[i][0][2] = LepGood_jetNDauChargedMVASel;
+            boosterVars[i][0][3] = LepGood_miniRelIsoCharged;
+            boosterVars[i][0][4] = LepGood_miniRelIsoNeutralVanilla;
+            boosterVars[i][0][5] = LepGood_jetPtRelv2;
+            boosterVars[i][0][6] = LepGood_jetPtRatioVanilla;
+            boosterVars[i][0][7] = LepGood_relIso0p3Vanilla;
+            boosterVars[i][0][8] = LepGood_jetBTag;
+            boosterVars[i][0][9] = LepGood_sip3d;
+            boosterVars[i][0][10] = LepGood_dxy;
+            boosterVars[i][0][11] = LepGood_dz;
+            boosterVars[0][0][12] = segComp;
+        }
+
+        BoosterHandle booster;
+        XGBoosterCreate(NULL, 0, &booster);
+        // XGBoosterCreate(NULL, 0, &booster[1]);
+        XGBoosterLoadModel(booster, muonWeight.Data());
+        // XGBoosterLoadModel(booster[1], eleWeight.Data());
+
+        DMatrixHandle dtest;
+        int nfeat = 13;
+        XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
+        bst_ulong out_len;
+        const float *f;
+        // XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
+        int a = XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
+        // std::cout << a << "\n";
+        XGDMatrixFree(dtest);
+        XGBoosterFree(booster);
+        std::cout << "muon Top score = " << f[0] << "\n";
+    }
+}
 
 void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausJetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
 
@@ -1088,6 +1152,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
+    muonsTopMVAT.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();

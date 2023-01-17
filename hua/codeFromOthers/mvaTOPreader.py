@@ -137,13 +137,14 @@ def main():
     # bst = xgb.Booster(model_file=mvaWeightDirNew+'el_TOPv2UL18_XGB.weights.bin')
     # feature_names = bst.feature_names
     # print(feature_names)
-    print(top.getmvaTOPScore(lep))
+    # print(top.getmvaTOPScore(lep))
    
     # resaveModel(input, outDir) :
-    # for ifile in os.listdir(mvaWeightDir):
-    #     if not '.bin' in ifile: continue
-    #     bst = xgb.Booster( model_file= mvaWeightDir+ifile)
-    #     bst.save_model(mvaWeightDirNew+ifile)
+    for ifile in os.listdir(mvaWeightDir):
+        # if not '.bin' in ifile: continue
+        if not '.bin' in ifile: continue
+        bst = xgb.Booster( model_file= mvaWeightDir+ifile)
+        bst.save_model(mvaWeightDirNew+ifile)
         
     
     
