@@ -30,6 +30,9 @@ ROOTGLIBS = $(shell root-config --glibs)
 CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
 CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 
+XGBOOST_LIB = -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/ -lxgboost
+XGBOOST_FLAGS = -I/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include
+
 # Directories
 HEADRDIR = .
 
@@ -48,8 +51,10 @@ ARCHFLAGS =
 #
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 CXXFLAGS += $(CORRECTIONLIB_FLAGS)
+CXXFLAGS += $(XGBOOST_FLAGS)
 LIBS = $(ROOTLIBS)
 LIBS += $(CORRECTIONLIB_LIB)
+LIBS += $(XGBOOST_LIB)
 GLIBS = $(ROOTGLIBS)
 
 #Pattern-specific variable values

@@ -68,7 +68,7 @@ class mvaTOPreader:
             	log(abs(lep['dxy'])),
             	log(abs(lep['dz'])),
                 lep['mvaFall17V2noIso'], # eleMvaFall17v2
-                ord(lep['lostHits']), # eleMissingHits
+                # ord(lep['lostHits']), # eleMissingHits
             ]])
             dtest = xgb.DMatrix(features)
             for v in self.versions:
@@ -113,8 +113,8 @@ def main():
     top = mvaTOPreader('UL2018')
     # top = mvaTOPreader('UL2017')
     lep = {}
-    # lep['pdgId'] = 11
-    lep['pdgId'] = 13
+    lep['pdgId'] = 11
+    # lep['pdgId'] = 13
     lep['pt'] = 30 
     lep['eta'] = 1.5 
     lep['jetNDauCharged'] = '1' # jetNDauChargedMVASel

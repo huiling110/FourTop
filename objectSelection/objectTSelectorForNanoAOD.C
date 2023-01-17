@@ -33,6 +33,9 @@
 #include <TStyle.h>
 
 #include <cassert>
+#include <xgboost/c_api.h>
+#include <xgboost/data.h>
+
 #include "objectTSelectorForNanoAOD.h"
 #include "utilityFunctions.h"
 #include "inputMap.h"
