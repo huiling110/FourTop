@@ -1,8 +1,10 @@
-import os
-import xgboost as xgb
-import numpy as np
-from math import log, log10
 import logging
+import os
+from math import log, log10
+
+import numpy as np
+import xgboost as xgb
+
 logger = logging.getLogger(__name__)
 
 class mvaTOPreader:
@@ -24,8 +26,10 @@ class mvaTOPreader:
         self.WPs = {'v1': [0.20, 0.41, 0.64, 0.81], 
                     'v2': [0.59, 0.81, 0.90, 0.94] }
             
-        cmsswbase=os.environ["CMSSW_BASE"]
-        directory = cmsswbase+"/src/Analysis/Tools/data/mvaWeights/"
+        # cmsswbase=os.environ["CMSSW_BASE"]
+        # directory = cmsswbase+"/src/Analysis/Tools/data/mvaWeights/"
+        # directory = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights/'
+        directory = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/'
 
         # Load Electron weights
         self.bst_el = {}
@@ -47,7 +51,9 @@ class mvaTOPreader:
         
     def getmvaTOPScore(self, lep):
         results = []
-        if abs(lep['pdgId']) == 11:
+        # features = self.bst_el['v1'].feature_names
+        # print(features)
+        if abs(lep['pdgId']) == 11: #electron
             features = np.array([[
                 lep['pt'], 
                 lep['eta'], 
@@ -66,6 +72,7 @@ class mvaTOPreader:
             ]])
             dtest = xgb.DMatrix(features)
             for v in self.versions:
+                # print( self.bst_el[v].feature_names)
                 mvaScore = self.bst_el[v].predict(dtest)[0]
                 WP = 0
                 for wp in self.WPs[v]:
@@ -73,7 +80,7 @@ class mvaTOPreader:
                         WP += 1
                 results.append(mvaScore)
                 results.append(WP)
-        elif abs(lep['pdgId']) == 13:
+        elif abs(lep['pdgId']) == 13: #muon
             features = np.array([[
                 lep['pt'], 
                 lep['eta'], 
@@ -87,6 +94,7 @@ class mvaTOPreader:
             	lep['sip3d'],
             	log(abs(lep['dxy'])), 
             	log(abs(lep['dz'])), 
+                #different than electron from below
                 lep['segmentComp'], # segComp
             ]])
             dtest = xgb.DMatrix(features)
@@ -99,4 +107,49 @@ class mvaTOPreader:
                 results.append(mvaScore)
                 results.append(WP)
         return tuple(results)
+    
+    
+def main():
+    top = mvaTOPreader('UL2018')
+    # top = mvaTOPreader('UL2017')
+    lep = {}
+    # lep['pdgId'] = 11
+    lep['pdgId'] = 13
+    lep['pt'] = 30 
+    lep['eta'] = 1.5 
+    lep['jetNDauCharged'] = '1' # jetNDauChargedMVASel
+    lep['miniPFRelIso_chg'] = 1.2 # miniRelIsoCharged
+    lep['miniPFRelIso_all'] = 1.4
+    lep['miniPFRelIso_chg'] = 1.2# miniRelIsoNeutralVanilla
+    lep['jetPtRelv2'] = 2.3
+    lep['jetPtRatio'] = 2.4 # jetPtRatioVanilla
+    lep['pfRelIso03_all'] = 1.3 # relIso0p3DBVanilla
+    lep['jetBTag'] = 0.5
+    lep['sip3d'] =  0.4
+    lep['dxy'] =0.4
+    lep['dz'] = 0.5
+    lep['segmentComp'] = 2.2
+    lep['mvaFall17V2noIso'] = 0.8
+    lep['lostHits']= '0'
+    
+    # mvaWeightDirNew = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/'
+    # mvaWeightDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights/'
+    # bst = xgb.Booster(model_file=mvaWeightDirNew+'el_TOPv2UL18_XGB.weights.bin')
+    # feature_names = bst.feature_names
+    # print(feature_names)
+    print(top.getmvaTOPScore(lep))
+   
+    # resaveModel(input, outDir) :
+    # for ifile in os.listdir(mvaWeightDir):
+    #     if not '.bin' in ifile: continue
+    #     bst = xgb.Booster( model_file= mvaWeightDir+ifile)
+    #     bst.save_model(mvaWeightDirNew+ifile)
+        
+    
+    
+    
+    
+    
+if __name__=='__main__':
+    main()
 
