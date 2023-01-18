@@ -157,6 +157,7 @@ public:
 	std::vector<Int_t> muonsTopMVAT_index;
 	std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVAT;
 	std::vector<Int_t> elesTopMVAT_index;
+	std::vector<Double_t> elesTopMVAT_topMVAScore;
 
 	std::vector<ROOT::Math::PtEtaPhiMVector> tausL;
 	std::vector<Int_t> tausL_index;
@@ -282,7 +283,7 @@ public:
 	void selectGenEles(std::vector<ROOT::Math::PtEtaPhiMVector> &genEles);
 	void selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons);
 	void SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
-	void SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
+	void SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, std::vector<Double_t> &SelectedEleTopMVAScore, const Int_t type);
 
 	void makeBranch(TTree *newTree);
 	void getRunRange(TTree *fChain);

@@ -229,7 +229,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, 2);
+    SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, elesTopMVAT_topMVAScore, 2);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -393,6 +393,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     newTree->Branch("elesTopMVAT", &elesTopMVAT);
     newTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
+    newTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
 
     newTree->Branch("tausL", &tausL);
     newTree->Branch("tausF", &tausF);
@@ -624,13 +625,14 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEta
 }
 /*}}}*/
 
-void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type)
+void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, std::vector<Double_t> &SelectedEleTopMVAScore, const Int_t type)
 { // same as SS  of TTTT
     // 0: loose, 2: tight
     for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j)
     {
         Double_t pt = Electron_pt.At(j);
         Double_t eta = Electron_eta.At(j);
+        Double_t topMVAScore = -99.;
         if (!(fabs(eta) < 2.5))
             continue;
         if (!(pt > 10))
@@ -683,13 +685,16 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             Float_t LepGood_dz = Electron_dz[j];
             Float_t segComp = Electron_mvaFall17V2noIso[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
             std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
-            Double_t topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
+            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
+            if (!(topMVAScore > 0.81))
+                continue;
         }
 
         ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
         SelectedElectrons.push_back(electron);
         SelectedElectronsIndex.push_back(j);
-    }
+        SelectedEleTopMVAScore.push_back(topMVAScore);
+    } //
 }
 
 void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausJetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
@@ -1166,6 +1171,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     muonsTopMVAT_index.clear();
     elesTopMVAT.clear();
     elesTopMVAT_index.clear();
+    elesTopMVAT_topMVAScore.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();

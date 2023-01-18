@@ -298,16 +298,16 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
 
 Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, Bool_t isMuon)
 {
-    // #include "inputMap.h"
+#include "inputMap.h"
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
     // TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
     // TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
-    std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
-        {"2016postVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
-        {"2016preVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
-        {"2017", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
-        {"2018", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
-    };
+    // std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
+    //     {"2016postVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
+    //     {"2016preVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
+    //     {"2017", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
+    //     {"2018", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
+    // };
     TString muonWeight = TopMVALeptonMap[era].at(0);
     if (isMuon)
     {
@@ -374,7 +374,7 @@ Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, 
     int a = XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
     XGDMatrixFree(dtest);
     XGBoosterFree(booster);
-    std::cout << "muon Top score = " << f[0] << "\n";
+    std::cout << "Top lepton score = " << f[0] << "\n";
     return f[0];
 
     // }
