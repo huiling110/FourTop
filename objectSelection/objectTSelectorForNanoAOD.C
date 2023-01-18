@@ -33,8 +33,8 @@
 #include <TStyle.h>
 
 #include <cassert>
-#include <xgboost/c_api.h>
-#include <xgboost/data.h>
+// #include <xgboost/c_api.h>
+// #include <xgboost/data.h>
 
 #include "objectTSelectorForNanoAOD.h"
 #include "utilityFunctions.h"
@@ -229,7 +229,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectEleTopMVA(eleTopMVAT, eleTopMVAT_index, 2);
+    SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, 2);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -390,6 +390,9 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("leptonsMVAT", &leptonsMVAT);
     newTree->Branch("leptonsMVAL", &leptonsMVAL);
     newTree->Branch("muonsTopMVAT", &muonsTopMVAT);
+    newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
+    newTree->Branch("elesTopMVAT", &elesTopMVAT);
+    newTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
 
     newTree->Branch("tausL", &tausL);
     newTree->Branch("tausF", &tausF);
@@ -653,7 +656,34 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
                 continue;
             // TOP UL Lepton MVA
-            TopLeptonEvaluate();
+            // Float_t LepGood_pt = Muon_pt[j];
+            // Float_t LepGood_eta = TMath::Abs(Muon_eta[j]);
+            // Float_t LepGood_jetNDauChargedMVASel = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
+            // Float_t LepGood_miniRelIsoCharged = Muon_miniPFRelIso_chg[j];
+            // Float_t LepGood_miniRelIsoNeutralVanilla = Muon_miniPFRelIso_all[j] - Muon_miniPFRelIso_chg[j];
+            // Float_t LepGood_jetPtRelv2 = Muon_jetPtRelv2[j];                           // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+            // Float_t LepGood_jetPtRatioVanilla = Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]]); // ; Ratio between the lepton and jet transverse momenta
+            // Float_t LepGood_relIso0p3Vanilla = Muon_pfRelIso04_all[j];                 //; Relative isolation using the cone size of 0.4
+            // Float_t LepGood_jetBTag = Jet_btagDeepB[Muon_jetIdx[j]];
+            // Float_t LepGood_sip3d = Muon_sip3d[j];
+            // Float_t LepGood_dxy = Muon_dxy[j];
+            // Float_t LepGood_dz = Muon_dz[j];
+            // Float_t segComp = Muon_segmentComp[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+            Float_t LepGood_pt = Electron_pt[j];
+            Float_t LepGood_eta = TMath::Abs(Electron_eta[j]);
+            Float_t LepGood_jetNDauChargedMVASel = Electron_jetNDauCharged[j]; // number of charged daughters of the closest jet
+            Float_t LepGood_miniRelIsoCharged = Electron_miniPFRelIso_chg[j];
+            Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j];
+            Float_t LepGood_jetPtRelv2 = Electron_jetPtRelv2[j];                               // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+            Float_t LepGood_jetPtRatioVanilla = Electron_pt[j] / (Jet_pt[Electron_jetIdx[j]]); // ; Ratio between the lepton and jet transverse momenta
+            Float_t LepGood_relIso0p3Vanilla = Electron_pfRelIso03_all[j];                     //???; Relative isolation using the cone size of 0.4
+            Float_t LepGood_jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
+            Float_t LepGood_sip3d = Electron_sip3d[j];
+            Float_t LepGood_dxy = Electron_dxy[j];
+            Float_t LepGood_dz = Electron_dz[j];
+            Float_t segComp = Electron_mvaFall17V2noIso[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+            std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
+            Double_t topMVAScore = TopLeptonEvaluate(inputFeatures);
         }
 
         ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
@@ -1133,6 +1163,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     leptonsMVAT.clear();
     leptonsMVAL.clear();
     muonsTopMVAT.clear();
+    muonsTopMVAT_index.clear();
+    elesTopMVAT.clear();
+    elesTopMVAT_index.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();

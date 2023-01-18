@@ -154,6 +154,9 @@ public:
 	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
 	std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAL;
 	std::vector<ROOT::Math::PtEtaPhiMVector> muonsTopMVAT;
+	std::vector<Int_t> muonsTopMVAT_index;
+	std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVAT;
+	std::vector<Int_t> elesTopMVAT_index;
 
 	std::vector<ROOT::Math::PtEtaPhiMVector> tausL;
 	std::vector<Int_t> tausL_index;
@@ -406,7 +409,7 @@ public:
 	// TTreeReaderArray<Float_t> Electron_mvaTTH = {fReader, "Electron_mvaTTH"};
 	TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
 	// TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
-	// TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
+	TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
 	// TTreeReaderArray<Int_t> Electron_pdgId = {fReader, "Electron_pdgId"};
 	// TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};
 	TTreeReaderArray<Int_t> Electron_tightCharge = {fReader, "Electron_tightCharge"};
