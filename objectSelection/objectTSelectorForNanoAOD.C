@@ -683,7 +683,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             Float_t LepGood_dz = Electron_dz[j];
             Float_t segComp = Electron_mvaFall17V2noIso[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
             std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
-            Double_t topMVAScore = TopLeptonEvaluate(inputFeatures);
+            Double_t topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
         }
 
         ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));

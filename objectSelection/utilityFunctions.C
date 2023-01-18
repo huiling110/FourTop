@@ -2,9 +2,10 @@
 #include <xgboost/c_api.h>
 #include <xgboost/data.h>
 
-#include "utilityFunctions.h"
 #include "TString.h"
 #include "TObjString.h"
+
+#include "utilityFunctions.h"
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec)
 {
@@ -295,14 +296,24 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
     }
 }
 
-Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era)
+Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, Bool_t isMuon)
 {
-    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
-    TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
-    TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
+    // #include "inputMap.h"
+    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
+    // TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
+    // TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
+    std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
+        {"2016postVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
+        {"2016preVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
+        {"2017", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
+        {"2018", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
+    };
+    TString muonWeight = TopMVALeptonMap[era].at(0);
+    if (isMuon)
+    {
+        muonWeight = TopMVALeptonMap[era].at(1);
+    }
 
-    // for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j)
-    // {
     Float_t boosterVars[2][1][15];
     // Float_t LepGood_pt = Muon_pt[j];
     // Float_t LepGood_eta = TMath::Abs(Muon_eta[j]);

@@ -7,6 +7,7 @@
 #include <TRandom3.h>
 #include "TLorentzVector.h"
 #include <Math/Vector4D.h>
+// #include "inputMap.h"
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec);
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec);
@@ -46,6 +47,6 @@ Double_t GetStochasticFactor(Double_t pt, Double_t eta, Double_t rho, std::vecto
 
 Double_t GetSmearFactor(Double_t pt, Double_t genPt, Double_t eta, Double_t rho, Double_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran);
 void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis);
-Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era );
+Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, Bool_t isMoun);
 
 /////////////////////////
