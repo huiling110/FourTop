@@ -268,7 +268,7 @@ public:
 
 	// functions I added
 	void SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type);
-	void SelectLeptonsTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &selectedLeponts, Bool_t isMuon);
+	// void SelectLeptonsTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &selectedLeponts, Bool_t isMuon);
 
 	// void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
 	void SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausjetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES);
@@ -279,6 +279,7 @@ public:
 	void selectGenEles(std::vector<ROOT::Math::PtEtaPhiMVector> &genEles);
 	void selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons);
 	void SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
+	void SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
 
 	void makeBranch(TTree *newTree);
 	void getRunRange(TTree *fChain);

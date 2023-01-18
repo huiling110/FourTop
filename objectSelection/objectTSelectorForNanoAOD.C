@@ -229,7 +229,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     leptonsMVAL.insert(leptonsMVAL.end(), eleMVAL.begin(), eleMVAL.end());
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
-    SelectLeptonsTopMVA(muonsTopMVAT, true);
+    SelectEleTopMVA(eleTopMVAT, eleTopMVAT_index, 2);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -621,64 +621,44 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEta
 }
 /*}}}*/
 
-void objectTSelectorForNanoAOD::SelectLeptonsTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &selectedLeponts, Bool_t isMuon)
-{
-    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
-    TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
-    TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
-
-    for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j)
+void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type)
+{ // same as SS  of TTTT
+    // 0: loose, 2: tight
+    for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j)
     {
-        Float_t boosterVars[2][1][15];
-        // probalbly on top of POG ID
-        Float_t LepGood_pt = Muon_pt[j];
-        Float_t LepGood_eta = TMath::Abs(Muon_eta[j]);
-        Float_t LepGood_jetNDauChargedMVASel = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
-        Float_t LepGood_miniRelIsoCharged = Muon_miniPFRelIso_chg[j];
-        Float_t LepGood_miniRelIsoNeutralVanilla = Muon_miniPFRelIso_all[j] - Muon_miniPFRelIso_chg[j];
-        Float_t LepGood_jetPtRelv2 = Muon_jetPtRelv2[j];                           // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-        Float_t LepGood_jetPtRatioVanilla = Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]]); // ; Ratio between the lepton and jet transverse momenta
-        Float_t LepGood_relIso0p3Vanilla = Muon_pfRelIso04_all[j];                 //; Relative isolation using the cone size of 0.4
-        Float_t LepGood_jetBTag = Jet_btagDeepB[Muon_jetIdx[j]];
-        Float_t LepGood_sip3d = Muon_sip3d[j];
-        Float_t LepGood_dxy = Muon_dxy[j];
-        Float_t LepGood_dz = Muon_dz[j];
-        Float_t segComp = Muon_segmentComp[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+        Double_t pt = Electron_pt.At(j);
+        Double_t eta = Electron_eta.At(j);
+        if (!(fabs(eta) < 2.5))
+            continue;
+        if (!(pt > 10))
+            continue;
 
-        for (UInt_t i = 0; i < 2; ++i)
+        // IP
+        if (!(fabs(Electron_dxy.At(j)) < 0.05))
+            continue;
+        if (!(fabs(Electron_dz.At(j)) < 0.1))
+            continue;
+        if (!((Electron_ip3d.At(j)) < 4))
+            continue;
+        // Iso
+        if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
+            continue;
+
+        if (!(int(Electron_lostHits.At(j)) <= 1))
+            continue;
+        if (type == 2)
         {
-            boosterVars[i][0][0] = LepGood_pt;
-            boosterVars[i][0][1] = LepGood_eta;
-            boosterVars[i][0][2] = LepGood_jetNDauChargedMVASel;
-            boosterVars[i][0][3] = LepGood_miniRelIsoCharged;
-            boosterVars[i][0][4] = LepGood_miniRelIsoNeutralVanilla;
-            boosterVars[i][0][5] = LepGood_jetPtRelv2;
-            boosterVars[i][0][6] = LepGood_jetPtRatioVanilla;
-            boosterVars[i][0][7] = LepGood_relIso0p3Vanilla;
-            boosterVars[i][0][8] = LepGood_jetBTag;
-            boosterVars[i][0][9] = LepGood_sip3d;
-            boosterVars[i][0][10] = LepGood_dxy;
-            boosterVars[i][0][11] = LepGood_dz;
-            boosterVars[0][0][12] = segComp;
+            if (!Electron_convVeto.At(j))
+                continue;                          // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
+            if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+                continue;
+            // TOP UL Lepton MVA
+            TopLeptonEvaluate();
         }
 
-        BoosterHandle booster;
-        XGBoosterCreate(NULL, 0, &booster);
-        // XGBoosterCreate(NULL, 0, &booster[1]);
-        XGBoosterLoadModel(booster, muonWeight.Data());
-        // XGBoosterLoadModel(booster[1], eleWeight.Data());
-
-        DMatrixHandle dtest;
-        int nfeat = 13;
-        XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
-        bst_ulong out_len;
-        const float *f;
-        // XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
-        int a = XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
-        // std::cout << a << "\n";
-        XGDMatrixFree(dtest);
-        XGBoosterFree(booster);
-        std::cout << "muon Top score = " << f[0] << "\n";
+        ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
+        SelectedElectrons.push_back(electron);
+        SelectedElectronsIndex.push_back(j);
     }
 }
 
