@@ -55,19 +55,19 @@ class mvaTOPreader:
         # print(features)
         if abs(lep['pdgId']) == 11: #electron
             features = np.array([[
-                lep['pt'], 
-                lep['eta'], 
-                ord(lep['jetNDauCharged']), # jetNDauChargedMVASel
-                lep['miniPFRelIso_chg'], # miniRelIsoCharged
-                lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # miniRelIsoNeutralVanilla
-                lep['jetPtRelv2'],
-                lep['jetPtRatio'], # jetPtRatioVanilla 
-                lep['pfRelIso03_all'], # relIso0p3Vanilla
-                lep['jetBTag'],
-            	lep['sip3d'],
-            	log(abs(lep['dxy'])),
-            	log(abs(lep['dz'])),
-                lep['mvaFall17V2noIso'], # eleMvaFall17v2
+                lep['pt'], #0 
+                lep['eta'], #1
+                ord(lep['jetNDauCharged']), #2 jetNDauChargedMVASel
+                lep['miniPFRelIso_chg'], # 3 miniRelIsoCharged
+                lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # 4miniRelIsoNeutralVanilla
+                lep['jetPtRelv2'],#5
+                lep['jetPtRatio'], # 6 jetPtRatioVanilla 
+                lep['pfRelIso03_all'], # 7 relIso0p3Vanilla
+                lep['jetBTag'], #8
+            	lep['sip3d'], #9
+            	log(abs(lep['dxy'])), #10
+            	log(abs(lep['dz'])), #11
+                lep['mvaFall17V2noIso'], # 12 eleMvaFall17v2
                 # ord(lep['lostHits']), # eleMissingHits
             ]])
             dtest = xgb.DMatrix(features)
