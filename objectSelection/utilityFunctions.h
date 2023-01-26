@@ -1,3 +1,6 @@
+#ifndef UTILITYFUNCTIONS_H
+#def UTILITYFUNCTIONS_H
+
 #include "TTreeReader.h"
 #include "TTreeReaderArray.h"
 #include <TROOT.h>

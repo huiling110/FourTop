@@ -727,12 +727,14 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j]; // f4
             Float_t LepGood_jetPtRelv2 = Electron_jetPtRelv2[j];                                                    // f5;  Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
             Float_t LepGood_jetPtRatioVanilla = Electron_pt[j] / (Jet_pt[Electron_jetIdx[j]]);                      // f6 ; Ratio between the lepton and jet transverse momenta
-            Float_t LepGood_relIso0p3Vanilla = Electron_pfRelIso03_all[j];                                          // f7;???; Relative isolation using the cone size of 0.4
-            Float_t LepGood_jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];                                            // f8
-            Float_t LepGood_sip3d = Electron_sip3d[j];                                                              // f9
-            Float_t LepGood_dxy = TMath::Log(TMath::Abs(Electron_dxy[j]));                                          // f10
-            Float_t LepGood_dz = TMath::Log(TMath::Abs(Electron_dz[j]));                                            // f11
-            Float_t segComp = Electron_mvaFall17V2noIso[j];                                                         // f12; Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+            // Float_t LepGood_jetPtRatioVanilla = 1. / (1. + Electron_jetRelIso[j]); // f6 ; Ratio between the lepton and jet transverse momenta
+            // from Jan: 1./(1.+Electron_jetRelIso)n
+            Float_t LepGood_relIso0p3Vanilla = Electron_pfRelIso03_all[j]; // f7;???; Relative isolation using the cone size of 0.4
+            Float_t LepGood_jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];   // f8
+            Float_t LepGood_sip3d = Electron_sip3d[j];                     // f9
+            Float_t LepGood_dxy = TMath::Log(TMath::Abs(Electron_dxy[j])); // f10
+            Float_t LepGood_dz = TMath::Log(TMath::Abs(Electron_dz[j]));   // f11
+            Float_t segComp = Electron_mvaFall17V2noIso[j];                // f12; Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
             std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
             for (UInt_t i = 0; i < inputFeatures.size(); i++)
             {
