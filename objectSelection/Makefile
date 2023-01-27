@@ -6,13 +6,14 @@ SHAREDLIBS = objectTSelectorForNanoAOD
 
 HDRS = objectTSelectorForNanoAOD.h\
 	utilityFunctions.h\
-	# inputMap.h\
+	inputMap.h\
 
 
 
 #PROGRAM depend on OBJS 
 OBJS = objectTSelectorForNanoAOD.o\
 		utilityFunctions.o\
+		inputMap.o\
         dict_$(SHAREDLIBS).o\
 		# run_objectTSelectorForNanoAOD.o\
 

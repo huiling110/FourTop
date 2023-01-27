@@ -37,8 +37,8 @@
 // #include <xgboost/data.h>
 
 #include "objectTSelectorForNanoAOD.h"
-#include "utilityFunctions.h"
-#include "inputMap.h"
+// #include "utilityFunctions.h"
+// #include "inputMap.h"
 ///////////////////////
 
 void objectTSelectorForNanoAOD::Begin(TTree * /*tree*/)
@@ -230,7 +230,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, elesTopMVAT_topMVAScore, 2);
-    SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
+    // SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -726,7 +726,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             Float_t LepGood_miniRelIsoCharged = Electron_miniPFRelIso_chg[j];                                       // f3
             Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j]; // f4
             Float_t LepGood_jetPtRelv2 = Electron_jetPtRelv2[j];                                                    // f5;  Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-            Float_t LepGood_jetPtRatioVanilla = Electron_pt[j] / (Jet_pt[Electron_jetIdx[j]]);                      // f6 ; Ratio between the lepton and jet transverse momenta
+            Float_t LepGood_jetPtRatioVanilla = 1. / (Electron_jetRelIso[j] + 1.);                                  // f6 ; Ratio between the lepton and jet transverse momenta
             // Float_t LepGood_jetPtRatioVanilla = 1. / (1. + Electron_jetRelIso[j]); // f6 ; Ratio between the lepton and jet transverse momenta
             // from Jan: 1./(1.+Electron_jetRelIso)n
             Float_t LepGood_relIso0p3Vanilla = Electron_pfRelIso03_all[j]; // f7;???; Relative isolation using the cone size of 0.4
@@ -740,10 +740,10 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             {
                 std::cout << i << " : " << inputFeatures[i] << "\n";
             }
-            std::cout << "\n";
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
-            if (!(topMVAScore > 0.81))
-                continue;
+            std::cout << "\n";
+            // if (!(topMVAScore > 0.81))
+            // continue;
         }
 
         ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));

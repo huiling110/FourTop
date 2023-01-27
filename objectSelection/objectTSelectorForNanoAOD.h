@@ -36,6 +36,9 @@
 
 #include "correction.h"
 
+#include "utilityFunctions.h"
+#include "inputMap.h"
+
 class objectTSelectorForNanoAOD : public TSelector
 {
 public:
