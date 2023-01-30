@@ -70,6 +70,7 @@ class mvaTOPreader:
                 lep['mvaFall17V2noIso'], # 12 eleMvaFall17v2
                 # ord(lep['lostHits']), # eleMissingHits
             ]])
+            print(features)
             dtest = xgb.DMatrix(features)
             for v in self.versions:
                 # print( self.bst_el[v].feature_names)
@@ -115,7 +116,7 @@ def main():
     lep = {}
     lep['pdgId'] = 11
     # lep['pdgId'] = 13
-    lep['pt'] = 30 
+    lep['pt'] = 50 
     lep['eta'] = 1.5 
     lep['jetNDauCharged'] = '1' # jetNDauChargedMVASel
     lep['miniPFRelIso_chg'] = 1.2 # miniRelIsoCharged

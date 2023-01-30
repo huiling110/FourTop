@@ -7,8 +7,6 @@
 
 #include "utilityFunctions.h"
 
-// #include "inputMap.h"
-
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec)
 {
     for (UInt_t i = 0; i < array.GetSize(); i++)
@@ -317,7 +315,8 @@ Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, 
     }
     std::cout << "leptonWeight: " << muonWeight << "\n";
 
-    Float_t boosterVars[2][1][15];
+    // Float_t boosterVars[2][1][15];
+    Float_t boosterVars[2][1][13];
     boosterVars[0][0][0] = inputFeatures[0];
     boosterVars[0][0][1] = inputFeatures[1];
     boosterVars[0][0][2] = inputFeatures[2];
@@ -336,7 +335,6 @@ Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, 
     XGBoosterCreate(NULL, 0, &booster);
     // XGBoosterCreate(NULL, 0, &booster[1]);
     XGBoosterLoadModel(booster, muonWeight.Data());
-    // XGBoosterLoadModel(booster[0], eleWeight.Data());
 
     DMatrixHandle dtest;
     int nfeat = 13;

@@ -695,47 +695,65 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
         Double_t pt = Electron_pt.At(j);
         Double_t eta = Electron_eta.At(j);
         Double_t topMVAScore = -99.;
-        if (!(fabs(eta) < 2.5))
-            continue;
-        if (!(pt > 10))
-            continue;
+        // if (!(fabs(eta) < 2.5))
+        //     continue;
+        // if (!(pt > 10))
+        //     continue;
 
         // IP
-        if (!(fabs(Electron_dxy.At(j)) < 0.05))
-            continue;
-        if (!(fabs(Electron_dz.At(j)) < 0.1))
-            continue;
-        if (!((Electron_ip3d.At(j)) < 4))
-            continue;
-        // Iso
-        if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
-            continue;
+        // if (!(fabs(Electron_dxy.At(j)) < 0.05))
+        //     continue;
+        // if (!(fabs(Electron_dz.At(j)) < 0.1))
+        //     continue;
+        // if (!((Electron_ip3d.At(j)) < 4))
+        //     continue;
+        // // Iso
+        // if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
+        //     continue;
 
-        if (!(int(Electron_lostHits.At(j)) <= 1))
-            continue;
+        // if (!(int(Electron_lostHits.At(j)) <= 1))
+        //     continue;
         if (type == 2)
         {
-            if (!Electron_convVeto.At(j))
-                continue;                          // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-            if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
-                continue;
+            // if (!Electron_convVeto.At(j))
+            //     continue;                          // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
+            // if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+            //     continue;
             // TOP UL Lepton MVA
-            Float_t LepGood_pt = Electron_pt[j];                                                                    // f0
-            Float_t LepGood_eta = TMath::Abs(Electron_eta[j]);                                                      // f1
-            Float_t LepGood_jetNDauChargedMVASel = Electron_jetNDauCharged[j];                                      // f2; number of charged daughters of the closest jet
-            Float_t LepGood_miniRelIsoCharged = Electron_miniPFRelIso_chg[j];                                       // f3
-            Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j]; // f4
-            Float_t LepGood_jetPtRelv2 = Electron_jetPtRelv2[j];                                                    // f5;  Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-            Float_t LepGood_jetPtRatioVanilla = 1. / (Electron_jetRelIso[j] + 1.);                                  // f6 ; Ratio between the lepton and jet transverse momenta
-            // Float_t LepGood_jetPtRatioVanilla = 1. / (1. + Electron_jetRelIso[j]); // f6 ; Ratio between the lepton and jet transverse momenta
-            // from Jan: 1./(1.+Electron_jetRelIso)n
-            Float_t LepGood_relIso0p3Vanilla = Electron_pfRelIso03_all[j]; // f7;???; Relative isolation using the cone size of 0.4
-            Float_t LepGood_jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];   // f8
-            Float_t LepGood_sip3d = Electron_sip3d[j];                     // f9
-            Float_t LepGood_dxy = TMath::Log(TMath::Abs(Electron_dxy[j])); // f10
-            Float_t LepGood_dz = TMath::Log(TMath::Abs(Electron_dz[j]));   // f11
-            Float_t segComp = Electron_mvaFall17V2noIso[j];                // f12; Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
+            // Float_t pt = Electron_pt[j];               // f0
+            // Float_t eta = TMath::Abs(Electron_eta[j]); // f1
+            // // Float_t jetNDauCharged = Electron_jetNDauCharged[j];                                                    // f2; number of charged daughters of the closest jet
+            // Float_t jetNDauCharged = 49;                                                                            // f2; number of charged daughters of the closest jet
+            // Float_t miniPFRelIso_chg = Electron_miniPFRelIso_chg[j];                                                // f3
+            // Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j]; // f4
+            // Float_t jetPtRelv2 = Electron_jetPtRelv2[j];                                                            // f5;  Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+            // Float_t LepGood_jetPtRatioVanilla = 1. / (Electron_jetRelIso[j] + 1.);                                  // f6 ; Ratio between the lepton and jet transverse momenta
+            // Float_t pfRelIso03_all = Electron_pfRelIso03_all[j];                                                    // f7;???; Relative isolation using the cone size of 0.4
+            // Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];                                                    // f8
+            // Float_t sip3d = Electron_sip3d[j];                                                                      // f9
+            // Float_t dxy = TMath::Log(TMath::Abs(Electron_dxy[j]));                                                  // f10
+            // Float_t dz = TMath::Log(TMath::Abs(Electron_dz[j]));                                                    // f11
+            // Float_t segComp = Electron_mvaFall17V2noIso[j];                                                         // f12; Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+            // std::array<Float_t, 13> inputFeatures{pt, eta, jetNDauCharged, miniPFRelIso_chg, LepGood_miniRelIsoNeutralVanilla, jetPtRelv2, LepGood_jetPtRatioVanilla, pfRelIso03_all, jetBTag, sip3d, dxy, dz, segComp};
+            Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
+            Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
+            std::array<Float_t, 13> inputFeatures
+            {
+                Electron_pt[j],
+                    Electron_eta[j],
+                    Electron_jetNDauCharged[j],
+                    Electron_miniPFRelIso_chg[j],
+                    Electron_miniPFRelIso_all[j],
+                    Electron_jetPtRelv2[j],
+                    jetPtRatio, // 1. / (Electron_jetRelIso[j] + 1.)
+                    Electron_pfRelIso03_all[j],
+                    jetBTag, //
+                    Electron_sip3d[j],
+                    Electron_dxy[j],
+                    Electron_dz[j],
+                    Electron_mvaFall17V2noIso[j],
+            }
+
             for (UInt_t i = 0; i < inputFeatures.size(); i++)
             {
                 std::cout << i << " : " << inputFeatures[i] << "\n";
@@ -777,9 +795,9 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             continue;
         if (type == 2)
         {
-            Float_t LepGood_pt = Muon_pt[j];
-            Float_t LepGood_eta = TMath::Abs(Muon_eta[j]);
-            Float_t LepGood_jetNDauChargedMVASel = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
+            Float_t pt = Muon_pt[j];
+            Float_t eta = TMath::Abs(Muon_eta[j]);
+            Float_t jetNDauCharged = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
             Float_t LepGood_miniRelIsoCharged = Muon_miniPFRelIso_chg[j];
             Float_t LepGood_miniRelIsoNeutralVanilla = Muon_miniPFRelIso_all[j] - Muon_miniPFRelIso_chg[j];
             Float_t LepGood_jetPtRelv2 = Muon_jetPtRelv2[j];                           // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
@@ -790,7 +808,7 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             Float_t LepGood_dxy = TMath::Log(TMath::Abs(Muon_dxy[j]));
             Float_t LepGood_dz = TMath::Log(TMath::Abs(Muon_dz[j]));
             Float_t segComp = Muon_segmentComp[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            std::array<Float_t, 13> inputFeatures{LepGood_pt, LepGood_eta, LepGood_jetNDauChargedMVASel, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
+            std::array<Float_t, 13> inputFeatures{pt, eta, jetNDauCharged, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
             topLeptonScore = TopLeptonEvaluate(inputFeatures, m_era, true);
             if (!(topLeptonScore > 0.64))
                 continue;
