@@ -737,22 +737,22 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             // std::array<Float_t, 13> inputFeatures{pt, eta, jetNDauCharged, miniPFRelIso_chg, LepGood_miniRelIsoNeutralVanilla, jetPtRelv2, LepGood_jetPtRatioVanilla, pfRelIso03_all, jetBTag, sip3d, dxy, dz, segComp};
             Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
             Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
-            std::array<Float_t, 13> inputFeatures
-            {
-                Electron_pt[j],
-                    Electron_eta[j],
-                    Electron_jetNDauCharged[j],
+            std::array<Float_t, 13> inputFeatures =
+                {
+                    Electron_pt[j],
+                    TMath::Abs(Electron_eta[j]),
+                    float(int(Electron_jetNDauCharged[j])),
                     Electron_miniPFRelIso_chg[j],
-                    Electron_miniPFRelIso_all[j],
+                    Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j],
                     Electron_jetPtRelv2[j],
                     jetPtRatio, // 1. / (Electron_jetRelIso[j] + 1.)
                     Electron_pfRelIso03_all[j],
                     jetBTag, //
                     Electron_sip3d[j],
-                    Electron_dxy[j],
-                    Electron_dz[j],
+                    TMath::Log(TMath::Abs(Electron_dxy[j])),
+                    TMath::Log(TMath::Abs(Electron_dz[j])),
                     Electron_mvaFall17V2noIso[j],
-            }
+                };
 
             for (UInt_t i = 0; i < inputFeatures.size(); i++)
             {
