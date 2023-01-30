@@ -57,7 +57,8 @@ class mvaTOPreader:
             features = np.array([[
                 lep['pt'], #0 
                 lep['eta'], #1
-                ord(lep['jetNDauCharged']), #2 jetNDauChargedMVASel
+                # ord(lep['jetNDauCharged']), #2 jetNDauChargedMVASel
+                lep['jetNDauCharged'], #2 jetNDauChargedMVASel
                 lep['miniPFRelIso_chg'], # 3 miniRelIsoCharged
                 lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # 4miniRelIsoNeutralVanilla
                 lep['jetPtRelv2'],#5
@@ -70,7 +71,9 @@ class mvaTOPreader:
                 lep['mvaFall17V2noIso'], # 12 eleMvaFall17v2
                 # ord(lep['lostHits']), # eleMissingHits
             ]])
-            print(features)
+            for i in features[0]:
+                print(i)
+
             dtest = xgb.DMatrix(features)
             for v in self.versions:
                 # print( self.bst_el[v].feature_names)
@@ -118,20 +121,34 @@ def main():
     # lep['pdgId'] = 13
     lep['pt'] = 50 
     lep['eta'] = 1.5 
-    lep['jetNDauCharged'] = '1' # jetNDauChargedMVASel
+    lep['jetNDauCharged'] = 5 # jetNDauChargedMVASel
     lep['miniPFRelIso_chg'] = 1.2 # miniRelIsoCharged
     lep['miniPFRelIso_all'] = 1.4
-    lep['miniPFRelIso_chg'] = 1.2# miniRelIsoNeutralVanilla
     lep['jetPtRelv2'] = 2.3
     lep['jetPtRatio'] = 2.4 # jetPtRatioVanilla
     lep['pfRelIso03_all'] = 1.3 # relIso0p3DBVanilla
     lep['jetBTag'] = 0.5
-    lep['sip3d'] =  0.4
-    lep['dxy'] =0.4
-    lep['dz'] = 0.5
+    lep['sip3d'] =  0.004
+    lep['dxy'] =0.004
+    lep['dz'] = 0.005
     lep['segmentComp'] = 2.2
     lep['mvaFall17V2noIso'] = 0.8
     lep['lostHits']= '0'
+    # lep['pt'] = 15.9296 
+    # lep['eta'] = 0.309631
+    # lep['jetNDauCharged'] = '5' 
+    # lep['miniPFRelIso_chg'] = 2.18302
+    # lep['miniPFRelIso_all'] = 4.42647
+    # lep['jetPtRelv2'] = 2.07031
+    # lep['jetPtRatio'] = 0.157248
+    # lep['pfRelIso03_all'] = 4.40528
+    # lep['jetBTag'] = 0.657227
+    # lep['sip3d'] =  3.61133
+    # lep['dxy'] = -0.0020504
+    # lep['dz'] = 0.0186615
+    # lep['mvaFall17V2noIso'] = 0.363446
+    # lep['lostHits']= '0'
+    # lep['segmentComp'] = 2.2
     
     # mvaWeightDirNew = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/'
     # mvaWeightDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights/'

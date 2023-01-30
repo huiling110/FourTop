@@ -720,44 +720,40 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             // if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
             //     continue;
             // TOP UL Lepton MVA
-            // Float_t pt = Electron_pt[j];               // f0
-            // Float_t eta = TMath::Abs(Electron_eta[j]); // f1
-            // // Float_t jetNDauCharged = Electron_jetNDauCharged[j];                                                    // f2; number of charged daughters of the closest jet
-            // Float_t jetNDauCharged = 49;                                                                            // f2; number of charged daughters of the closest jet
-            // Float_t miniPFRelIso_chg = Electron_miniPFRelIso_chg[j];                                                // f3
-            // Float_t LepGood_miniRelIsoNeutralVanilla = Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j]; // f4
-            // Float_t jetPtRelv2 = Electron_jetPtRelv2[j];                                                            // f5;  Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-            // Float_t LepGood_jetPtRatioVanilla = 1. / (Electron_jetRelIso[j] + 1.);                                  // f6 ; Ratio between the lepton and jet transverse momenta
-            // Float_t pfRelIso03_all = Electron_pfRelIso03_all[j];                                                    // f7;???; Relative isolation using the cone size of 0.4
-            // Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];                                                    // f8
-            // Float_t sip3d = Electron_sip3d[j];                                                                      // f9
-            // Float_t dxy = TMath::Log(TMath::Abs(Electron_dxy[j]));                                                  // f10
-            // Float_t dz = TMath::Log(TMath::Abs(Electron_dz[j]));                                                    // f11
-            // Float_t segComp = Electron_mvaFall17V2noIso[j];                                                         // f12; Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            // std::array<Float_t, 13> inputFeatures{pt, eta, jetNDauCharged, miniPFRelIso_chg, LepGood_miniRelIsoNeutralVanilla, jetPtRelv2, LepGood_jetPtRatioVanilla, pfRelIso03_all, jetBTag, sip3d, dxy, dz, segComp};
             Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
             Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
-            std::array<Float_t, 13> inputFeatures =
-                {
-                    Electron_pt[j],
-                    TMath::Abs(Electron_eta[j]),
-                    float(int(Electron_jetNDauCharged[j])),
-                    Electron_miniPFRelIso_chg[j],
-                    Electron_miniPFRelIso_all[j] - Electron_miniPFRelIso_chg[j],
-                    Electron_jetPtRelv2[j],
-                    jetPtRatio, // 1. / (Electron_jetRelIso[j] + 1.)
-                    Electron_pfRelIso03_all[j],
-                    jetBTag, //
-                    Electron_sip3d[j],
-                    TMath::Log(TMath::Abs(Electron_dxy[j])),
-                    TMath::Log(TMath::Abs(Electron_dz[j])),
-                    Electron_mvaFall17V2noIso[j],
-                };
+            UChar_t jetNDauCharged = Electron_jetNDauCharged[j];
+            std::cout << jetNDauCharged << "\n";
+            // std::cout << Electron_lostHits[j] << "\n";
+            std::cout << "\n";
+            std::map<TString, Float_t> inputFeatures = {
+                // {"pt", Electron_pt[j]},
+                // {"eta", Electron_eta[j]},
+                // {"etNDauCharged", Electron_jetNDauCharged.At(j)},
+                // {"miniPFRelIso_chg", Electron_miniPFRelIso_chg[j]},
+                // {"miniPFRelIso_all", Electron_miniPFRelIso_all[j]},
+                // {"jetPtRelv2", Electron_jetPtRelv2[j]},
+                // {"jetPtRatio", jetPtRatio},
+                // {"pfRelIso03_all", Electron_pfRelIso03_all[j]},
+                // {"jetBTag", jetBTag},
+                // {"sip3d", Electron_sip3d[j]},
+                // {"dxy", Electron_dxy[j]},
+                // {"dz", Electron_dz[j]},
+                // {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
+                {"pt", 50},
+                {"eta", 1.5},
+                {"jetNDauCharged", 5},
+                {"miniPFRelIso_chg", 1.2},
+                {"miniPFRelIso_all", 1.4},
+                {"jetPtRelv2", 2.3},
+                {"jetPtRatio", 2.4},
+                {"pfRelIso03_all", 1.3},
+                {"jetBTag", 0.5},
+                {"sip3d", 0.004},
+                {"dxy", 0.004},
+                {"dz", 0.005},
+                {"mvaFall17V2noIso", 0.8}};
 
-            for (UInt_t i = 0; i < inputFeatures.size(); i++)
-            {
-                std::cout << i << " : " << inputFeatures[i] << "\n";
-            }
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
             std::cout << "\n";
             // if (!(topMVAScore > 0.81))
@@ -770,7 +766,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
         SelectedEleTopMVAScore.push_back(topMVAScore);
     } //
 }
-
+/*
 void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, std::vector<Double_t> &SelectedMuonsLeptonScore, const Int_t type)
 { // SS of TTTT
     // 0 for Loose; 2 tight
@@ -819,7 +815,7 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
         SelectedMuonsLeptonScore.push_back(topLeptonScore);
     }
 }
-
+*/
 void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausJetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
 
 {

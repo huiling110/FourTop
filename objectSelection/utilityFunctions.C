@@ -1,9 +1,11 @@
 
 #include <xgboost/c_api.h>
+#include <xgboost/predictor.h>
 #include <xgboost/data.h>
 
 #include "TString.h"
 #include "TObjString.h"
+#include <cmath>
 
 #include "utilityFunctions.h"
 
@@ -302,7 +304,7 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
 //     {"2017", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
 //     {"2018", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
 // };
-Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, Bool_t isMuon)
+Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMuon)
 {
     // #include "inputMap.h"
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
@@ -318,37 +320,59 @@ Double_t TopLeptonEvaluate(std::array<Float_t, 13> &inputFeatures, TString era, 
     //
 
     // Float_t boosterVars[2][1][15];
-    Float_t boosterVars[2][1][13];
-    boosterVars[0][0][0] = inputFeatures[0];
-    boosterVars[0][0][1] = inputFeatures[1];
-    boosterVars[0][0][2] = inputFeatures[2];
-    boosterVars[0][0][3] = inputFeatures[3];
-    boosterVars[0][0][4] = inputFeatures[4];
-    boosterVars[0][0][5] = inputFeatures[5];
-    boosterVars[0][0][6] = inputFeatures[6];
-    boosterVars[0][0][7] = inputFeatures[7];
-    boosterVars[0][0][8] = inputFeatures[8];
-    boosterVars[0][0][9] = inputFeatures[9];
-    boosterVars[0][0][10] = inputFeatures[10];
-    boosterVars[0][0][11] = inputFeatures[11];
-    boosterVars[0][0][12] = inputFeatures[12];
+    // Float_t boosterVars[2][1][13];
+    float boosterVars[2][1][13];
+    boosterVars[0][0][0] = inputFeatures["pt"];
+    boosterVars[0][0][1] = inputFeatures["eta"];
+    boosterVars[0][0][2] = inputFeatures["jetNDauCharged"];
+    boosterVars[0][0][3] = inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][0][4] = inputFeatures["miniPFRelIso_all"] - inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][0][5] = inputFeatures["jetPtRelv2"];
+    boosterVars[0][0][6] = inputFeatures["jetPtRatio"];
+    boosterVars[0][0][7] = inputFeatures["pfRelIso03_all"];
+    boosterVars[0][0][8] = inputFeatures["jetBTag"];
+    boosterVars[0][0][9] = inputFeatures["sip3d"];
+    boosterVars[0][0][10] = TMath::Log(TMath::Abs(inputFeatures["dxy"]));
+    boosterVars[0][0][11] = TMath::Log(TMath::Abs(inputFeatures["dz"]));
+    boosterVars[0][0][12] = inputFeatures["mvaFall17V2noIso"];
 
-    BoosterHandle booster;
-    XGBoosterCreate(NULL, 0, &booster);
-    // XGBoosterCreate(NULL, 0, &booster[1]);
-    XGBoosterLoadModel(booster, muonWeight.Data());
+    for (Int_t i = 0; i < 13; i++)
+    {
+        std::cout << "inputFeatures: " << boosterVars[0][0][i] << "\n";
+    }
+
+    BoosterHandle booster[2];
+    XGBoosterCreate(NULL, 0, &booster[0]);
+    XGBoosterLoadModel(booster[0], muonWeight.Data());
 
     DMatrixHandle dtest;
     int nfeat = 13;
     XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
     bst_ulong out_len;
     const float *f;
-    // XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
-    int a = XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
+    // XGBoosterPredict(booster[0], dtest, 0, 0, &out_len, &f);
+    XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
+    // bst_ulong out_len = 0;
+    /* Run prediction with DMatrix object. */
+    // char const config[] =
+    //     "{\"training\": false, \"type\": 0, "
+    //     "\"iteration_begin\": 0, \"iteration_end\": 0, \"strict_shape\": false}";
+    // /* Shape of output prediction */
+    // uint64_t const *out_shape;
+    // /* Dimension of output prediction */
+    // uint64_t out_dim;
+    // /* Pointer to a thread local contigious array, assigned in prediction function. */
+    // float const *out_result = NULL;
+    // XGBoosterPredictFromDMatrix(booster, dtest, config, &out_shape, &out_dim, &out_result);
     XGDMatrixFree(dtest);
-    XGBoosterFree(booster);
+    XGBoosterFree(booster[0]);
     std::cout << "Top lepton score = " << f[0] << "\n";
-    return f[0];
+    Double_t score = f[0];
+    // Double_t score = (exp(f[0] * 2 * log(M_E)) - 1) / (exp(2 * log(M_E)) - 1) * 2 - 1;
+    // std::cout << "Top lepton score = " << score << "\n";
+    delete f;
+
+    return score;
 }
 
 /////////////////////////
