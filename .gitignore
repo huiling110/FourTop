@@ -8,5 +8,6 @@
 *.sh
 *.pyc
 *.root
+*/output/*
 
 

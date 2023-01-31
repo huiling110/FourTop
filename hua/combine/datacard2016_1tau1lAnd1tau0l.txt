@@ -1,0 +1,18 @@
+Combination of SR1tau1l=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt  SR1tau0l=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/variableHists_v1HT30bins1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_datacard.txt
+imax 2 number of bins
+jmax 6 number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *         SR1tau0l  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/variableHists_v1HT30bins1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10//publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/variableHists_v1HT30bins1tau0l/1tau0l_templatesForCombine/1tau0ltemplates_forCombine.root $PROCESS_jets_HT
+shapes *         SR1tau1l  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10//publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/TMVApp_1tau1l_10var_forCombine.root $PROCESS_MVA_BDT
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l  SR1tau0l
+observation  -1        -1      
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l   SR1tau1l   SR1tau1l   SR1tau1l   SR1tau1l   SR1tau0l   SR1tau0l   SR1tau0l   SR1tau0l   SR1tau0l   SR1tau0l   SR1tau0l 
+process      tttt       singleTop  tt         ttX        VV         tttt       fakeTau    ttX        tt         WJets      VV         singleTop
+process      0          1          2          3          4          0          5          3          2          6          4          1        
+rate         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1         -1       
+----------------------------------------------------------------------------------------------------------------------------------
+SR1tau1l autoMCStats 10 0 1
+SR1tau0l autoMCStats 10 0 1
