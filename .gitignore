@@ -1,7 +1,12 @@
-**/*.d
-**/*.so
-**/*.pcm
-**/*.cpp_tmp*
-**/*.o 
-**/*dict_* 
+*.d
+*.so
+*.pcm
+*.cpp_tmp*
+*.o
+*.out
+*dict_*
+*.sh
+*.pyc
+*.root
+
 
