@@ -114,8 +114,9 @@ class mvaTOPreader:
     
     
 def main():
-    top = mvaTOPreader('UL2018')
+    # top = mvaTOPreader('UL2018')
     # top = mvaTOPreader('UL2017')
+    top = mvaTOPreader('UL2016')
     lep = {}
     lep['pdgId'] = 11
     # lep['pdgId'] = 13

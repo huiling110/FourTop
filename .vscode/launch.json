@@ -6,7 +6,7 @@
 			"name":"Python: Current File",
 			"type":"python",
 			"request":"launch",
-			"cwd": "${fileDirname}"
+			"cwd": "${fileDirname}",
 			"program":"${file}",
 			"console":"integratedTerminal",
 			"justMyCode":true
@@ -51,18 +51,13 @@
 			"envFile": "${workspaceFolder}/environmentVariablesFile.env"
 		},
 
-
-
 		{
-			"name": "debug objectTSelector",
+			"name": "(gdb) Attach",
 			"type": "cppdbg",
 			"request": "launch",
-			"linux": {
-				"MIMode": "gdb",
-				"miDebuggerPath": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/gdb"
-			},
 			"program": "${workspaceFolder}/objectSelection/run_objectTSelectorForNanoAOD.out",
-			"cwd": "${workspaceFolder}/objectSelection/",
+			"cwd":"${workspaceFolder}/objectSelection/",
+			"MIMode": "gdb",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",
@@ -76,6 +71,31 @@
 				}
 			]
 		},
+
+		// {
+		// 	"name": "debug objectTSelector",
+		// 	"type": "cppdbg",
+		// 	"request": "launch",
+		// 	"linux": {
+		// 		"MIMode": "gdb",
+		// 		"miDebuggerPath": "/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/gdb"
+		// 	},
+		// 	"program": "${workspaceFolder}/objectSelection/run_objectTSelectorForNanoAOD.out",
+		// 	"cwd": "${workspaceFolder}/objectSelection/",
+		// 	"setupCommands": [
+		// 		{
+		// 			"description": "Enable pretty-printing for gdb",
+		// 			"text": "-enable-pretty-printing",
+		// 			"ignoreFailures": true
+		// 		},
+		// 		{
+		// 			"description": "Set Disassembly Flavor to Intel",
+		// 			"text": "-gdb-set disassembly-flavor intel",
+		// 			"ignoreFailures": true
+		// 		}
+		// 	],
+			
+		// },
 		{
 			"name": "Dynamic Python: File",
 			"type": "python",

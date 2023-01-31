@@ -298,12 +298,6 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
     }
 }
 
-// std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
-//     {"2016postVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
-//     {"2016preVFP", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
-//     {"2017", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
-//     {"2018", {"./TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
-// };
 Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMuon)
 {
     // #include "inputMap.h"
@@ -321,24 +315,24 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString er
 
     // Float_t boosterVars[2][1][15];
     // Float_t boosterVars[2][1][13];
-    float boosterVars[2][1][13];
-    boosterVars[0][0][0] = inputFeatures["pt"];
-    boosterVars[0][0][1] = inputFeatures["eta"];
-    boosterVars[0][0][2] = inputFeatures["jetNDauCharged"];
-    boosterVars[0][0][3] = inputFeatures["miniPFRelIso_chg"];
-    boosterVars[0][0][4] = inputFeatures["miniPFRelIso_all"] - inputFeatures["miniPFRelIso_chg"];
-    boosterVars[0][0][5] = inputFeatures["jetPtRelv2"];
-    boosterVars[0][0][6] = inputFeatures["jetPtRatio"];
-    boosterVars[0][0][7] = inputFeatures["pfRelIso03_all"];
-    boosterVars[0][0][8] = inputFeatures["jetBTag"];
-    boosterVars[0][0][9] = inputFeatures["sip3d"];
-    boosterVars[0][0][10] = TMath::Log(TMath::Abs(inputFeatures["dxy"]));
-    boosterVars[0][0][11] = TMath::Log(TMath::Abs(inputFeatures["dz"]));
-    boosterVars[0][0][12] = inputFeatures["mvaFall17V2noIso"];
+    float boosterVars[1][13];
+    boosterVars[0][0] = inputFeatures["pt"];
+    boosterVars[0][1] = inputFeatures["eta"];
+    boosterVars[0][2] = inputFeatures["jetNDauCharged"];
+    boosterVars[0][3] = inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][4] = inputFeatures["miniPFRelIso_all"] - inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][5] = inputFeatures["jetPtRelv2"];
+    boosterVars[0][6] = inputFeatures["jetPtRatio"];
+    boosterVars[0][7] = inputFeatures["pfRelIso03_all"];
+    boosterVars[0][8] = inputFeatures["jetBTag"];
+    boosterVars[0][9] = inputFeatures["sip3d"];
+    boosterVars[0][10] = TMath::Log(TMath::Abs(inputFeatures["dxy"]));
+    boosterVars[0][11] = TMath::Log(TMath::Abs(inputFeatures["dz"]));
+    boosterVars[0][12] = inputFeatures["mvaFall17V2noIso"];
 
     for (Int_t i = 0; i < 13; i++)
     {
-        std::cout << "inputFeatures: " << boosterVars[0][0][i] << "\n";
+        std::cout << "inputFeatures: " << boosterVars[0][i] << "\n";
     }
 
     BoosterHandle booster[2];
