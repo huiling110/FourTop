@@ -1,0 +1,20 @@
+Combination of SR1tau1l_2018=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt  SR1tau1l_2016=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt  SR1tau1l_2017=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/datacard/sumDC_10/TMVApp_1tau1l_10var_Sum_datacard.txt
+imax * number of bins
+jmax * number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/TMVApp_1tau1l_10var_forCombine.root $PROCESS_MVA_BDT
+shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/TMVApp_1tau1l_10var_forCombine.root $PROCESS_MVA_BDT
+shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/TMVApp_1tau1l_10var_forCombine.root $PROCESS_MVA_BDT
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l_2018  SR1tau1l_2016  SR1tau1l_2017
+observation  -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2017
+process      tttt           singleTop      tt             ttX            VV             tttt           singleTop      tt             ttX            VV             tttt           singleTop      tt             ttX          
+process      0              1              2              3              4              0              1              2              3              4              0              1              2              3            
+rate         -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+SR1tau1l_2018 autoMCStats 10 0 1
+SR1tau1l_2016 autoMCStats 10 0 1
+SR1tau1l_2017 autoMCStats 10 0 1
