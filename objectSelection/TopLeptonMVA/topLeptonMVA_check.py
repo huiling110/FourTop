@@ -1,5 +1,6 @@
 import os
 import ROOT
+from ROOT import std
 from array import array
 # import uproot
 # import pandas as pd
@@ -25,15 +26,18 @@ def main():
     uf.checkMakeDir(outDir) 
     outFile = ROOT.TFile( outDir + 'syncWithSS.root', "RECREATE")
     outTree = ROOT.TTree('events', 'event tree for sync')
+    
     event = array('L', [0])
-    # event  = 0
+    ele_topLeptonMVA = std.vector('float')()
     outTree.Branch('eventNumber', event, 'event/l')
+    outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
     
     # for i in range(tree.GetEntries()):
     for i in range( 20):
         tree.GetEntry(i)
         event[0] = tree.event
         print('eventNumber: ', tree.event)
+        ele_topLeptonMVA.clear()
                 
         for ele in range(tree.nElectron):
             lep = {} 
@@ -54,7 +58,8 @@ def main():
             # print(lep)
         
             top = tl.mvaTOPreader('UL2018')
-            print(top.getmvaTOPScore(lep))
+            # print(top.getmvaTOPScore(lep))
+            ele_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
         
         outTree.Fill() 
         
