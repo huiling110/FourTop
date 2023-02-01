@@ -29,16 +29,21 @@ def main():
     
     event = array('L', [0])
     ele_topLeptonMVA = std.vector('float')()
+    mu_topLeptonMVA = std.vector('float')()
     outTree.Branch('eventNumber', event, 'event/l')
+    outTree.Branch('mu_topLeptonMVA', mu_topLeptonMVA)
     outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
     
     # for i in range(tree.GetEntries()):
     for i in range( 20):
         tree.GetEntry(i)
         event[0] = tree.event
-        print('eventNumber: ', tree.event)
+        # print('eventNumber: ', tree.event)
         ele_topLeptonMVA.clear()
-                
+        mu_topLeptonMVA.clear()
+        
+        # ele_topLeptonMVA =  getLeptonVector(  )
+                    
         for ele in range(tree.nElectron):
             lep = {} 
             lep['pdgId'] = 11
@@ -60,6 +65,26 @@ def main():
             top = tl.mvaTOPreader('UL2018')
             # print(top.getmvaTOPScore(lep))
             ele_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
+        
+        for mu in range(tree.nMuon):
+            lep = {} 
+            lep['pdgId'] = 13
+            lep["pt"] = tree.Muon_pt[mu]
+            lep["eta"] = tree.Muon_eta[mu] #absolute or not?
+            lep["jetNDauCharged"] = tree.Muon_jetNDauCharged[mu] #???
+            lep["miniPFRelIso_chg"] = tree.Muon_miniPFRelIso_chg[mu]
+            lep["miniPFRelIso_all"] = tree.Muon_miniPFRelIso_all[mu]
+            lep["jetPtRelv2"] = tree.Muon_jetPtRelv2[mu]
+            lep["jetPtRatio"] = 1. / (tree.Muon_jetRelIso[mu] + 1.) 
+            lep["pfRelIso03_all"] = tree.Muon_pfRelIso03_all[mu]
+            lep["jetBTag"] = tree.Jet_btagDeepB[tree.Muon_jetIdx[mu]]
+            lep["sip3d"] = tree.Muon_sip3d[mu]
+            lep["dxy"] = tree.Muon_dxy[mu]
+            lep["dz"] = tree.Muon_dz[mu]
+            lep["segmentComp"] = tree.Muon_segmentComp[mu]
+            top = tl.mvaTOPreader('UL2018')
+            mu_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
+    
         
         outTree.Fill() 
         
