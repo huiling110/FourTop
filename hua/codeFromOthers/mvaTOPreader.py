@@ -57,7 +57,7 @@ class mvaTOPreader:
             features = np.array([[
                 lep['pt'], #0 
                 lep['eta'], #1
-                # ord(lep['jetNDauCharged']), #2 jetNDauChargedMVASel
+                # ord(lep['jetNDauCharged']), #???
                 lep['jetNDauCharged'], #2 jetNDauChargedMVASel
                 lep['miniPFRelIso_chg'], # 3 miniRelIsoCharged
                 lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # 4miniRelIsoNeutralVanilla
@@ -71,8 +71,8 @@ class mvaTOPreader:
                 lep['mvaFall17V2noIso'], # 12 eleMvaFall17v2
                 # ord(lep['lostHits']), # eleMissingHits
             ]])
-            for i in features[0]:
-                print(i)
+            # for i in features[0]:
+            #     print(i)
 
             dtest = xgb.DMatrix(features)
             for v in self.versions:

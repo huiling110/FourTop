@@ -21,60 +21,33 @@ def main():
     # tree.SetBranchStatus("Electron_pt", 1)#???
     
     # Electron_pt = array('f', [0.])
-    # Electron_eta = array('f',[0.])
-    # Electron_jetNDauCharged = array('f', [0.])
-    # Electron_miniPFRelIso_chg = array('f',[0.])
-    # Electron_miniPFRelIso_all = array('f',[0.])
-    # Electron_jetPtRelv2 = array('f',[0.])
-    # Electron_jetRelIso = array('f', [0.])# jetPtRatio},
-    # Electron_pfRelIso03_all = array('f',[0.])
-    # Jet_btagDeepB = array('f') # jetBTag},
-    # Electron_jetIdx = array('f', [0.]) # jetBTag
-    # Electron_sip3d = array('f',[0.])
-    # Electron_dxy = array('f',[0.])
-    # Electron_dz = array('f',[0.])
-    # Electron_mvaFall17V2noIso = array('f',[0.])
-    
-    # tree.SetBranchAddress('Electron_pt', Electron_pt)
-    # tree.SetBranchAddress('Electron_eta', Electron_eta)
-    # tree.SetBranchAddress('Electron_jetNDauCharged', Electron_jetNDauCharged )
-    # tree.SetBranchAddress('Electron_miniPFRelIso_chg', Electron_miniPFRelIso_chg)
-    # tree.SetBranchAddress('Electron_miniPFRelIso_all', Electron_miniPFRelIso_all)
-    # tree.SetBranchAddress('Electron_jetPtRelv2', Electron_jetPtRelv2)
-    # tree.SetBranchAddress('Electron_jetRelIso', Electron_jetRelIso)
-    # tree.SetBranchAddress('Electron_pfRelIso03_all', Electron_pfRelIso03_all)
-    # tree.SetBranchAddress('Electron_sip3d', Electron_sip3d)
-    # tree.SetBranchAddress('Electron_dxy', Electron_dxy)
-    # tree.SetBranchAddress('Electron_dz', Electron_dz)
     # tree.SetBranchAddress('Electron_mvaFall17V2noIso',Electron_mvaFall17V2noIso )
     
     # for i in range(tree.GetEntries()):
     for i in range( 20):
         tree.GetEntry(i)
         pt = tree.Electron_pt #Electron_pt#???
-        # print(pt)
-        for ipt in pt:
-            print(ipt)
             
-        for ele in range()
+        for ele in range(tree.nElectron):
+            lep = {} 
+            lep['pdgId'] = 11
+            lep["pt"] = tree.Electron_pt[ele]
+            lep["eta"] = tree.Electron_eta[ele]
+            lep["jetNDauCharged"] = tree.Electron_jetNDauCharged[ele]
+            lep["miniPFRelIso_chg"] = tree.Electron_miniPFRelIso_chg[ele]
+            lep["miniPFRelIso_all"] = tree.Electron_miniPFRelIso_all[ele]
+            lep["jetPtRelv2"] = tree.Electron_jetPtRelv2[ele]
+            lep["jetPtRatio"] = 1. / (tree.Electron_jetRelIso[ele] + 1.) 
+            lep["pfRelIso03_all"] = tree.Electron_pfRelIso03_all[ele]
+            lep["jetBTag"] = tree.Jet_btagDeepB[tree.Electron_jetIdx[ele]]
+            lep["sip3d"] = tree.Electron_sip3d[ele]
+            lep["dxy"] = tree.Electron_dxy[ele]
+            lep["dz"] = tree.Electron_dz[ele]
+            lep["mvaFall17V2noIso"] = tree.Electron_mvaFall17V2noIso[ele]
+            print(lep)
         
-        # lep = {} 
-        # lep['pdgId'] = 11
-        # lep["pt"] = Electron_pt[0]
-        # lep["eta"] = Electron_eta[0]
-        # lep["etNDauCharged"] = Electron_jetNDauCharged.At(j)},
-        # lep["miniPFRelIso_chg"] = Electron_miniPFRelIso_chg[0]
-        # lep["miniPFRelIso_all"] = Electron_miniPFRelIso_all[0]
-        # lep["jetPtRelv2"] = Electron_jetPtRelv2[0]
-        # lep["jetPtRatio"] = 1. / (Electron_jetRelIso[0] + 1.) 
-        # lep["pfRelIso03_all"] = Electron_pfRelIso03_all[0]
-        # lep["jetBTag"] = jetBTag},
-        # lep["sip3d"] = Electron_sip3d[0]
-        # lep["dxy"] = Electron_dxy[0]
-        # lep["dz"] = Electron_dz[0]
-        # lep["mvaFall17V2noIso"] = Electron_mvaFall17V2noIso[j]}};
-        
-        # top = mvaTOPreader('UL2018')
+            top = tl.mvaTOPreader('UL2018')
+            print(top.getmvaTOPScore(lep))
         
     inputFile.Close()   
     
