@@ -11,16 +11,56 @@ import mvaTOPreader as tl
 import usefulFunc as uf
 
 def main():
+    
+    # eventList = getEventNumFromSS()
+    # print(eventList)
+    
+    # createRootFile( eventList)        
+    createRootFile( )        
+    
+    
+    
+def getEventNumFromSS():
+    inFile =  ROOT.TFile('/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/sync_objects_TT_UGent.root', 'READ')
+    tree = inFile.Get('SyncObjects')
+    eventNumberList = []
+    for eve in range(tree.GetEntries()):
+        # print(eve.EventNumber)
+        tree.GetEntry(eve)
+        eventNumberList.append(tree.EventNumber)
+  
+    inputTT = ROOT.TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/nanoAOD/B8F4ECF8-1363-C14F-B6F4-D292106546A0.root", "READ")
+    outFile = ROOT.TFile('/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/skimmedInputTT.root', 'recreate')
+    oldTree = inputTT.Get('Events')
+    newTree = oldTree.CloneTree(0) 
+    for eve in range(oldTree.GetEntries()):
+        oldTree.GetEntry(eve)
+        if oldTree.event in eventNumberList:
+            newTree.Fill()
+    newTree.Print()
+    outFile.Write()
+    print('skimmed treee here: ', outFile.GetName())
+        
+    return eventNumberList 
+    
+    
+# def createRootFile(eventList):
+def createRootFile():
     #xrootd for accessing data
     #redirector for Europe and Asia: rootd-cms.infn.it
     # nanoFile = '/store/mc/RunIISummer20UL18NanoAODv9/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/NANOAODSIM/106X_upgrade2018_realistic_v16_L1v1-v1/120000/B8F4ECF8-1363-C14F-B6F4-D292106546A0.root'
     # inputFile = ROOT.TFile.Open("root://rootd-cms.infn.it//" + nanoFile )#???not working
-    inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/nanoAOD/B8F4ECF8-1363-C14F-B6F4-D292106546A0.root", "READ") #UL2018
+    # inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/nanoAOD/B8F4ECF8-1363-C14F-B6F4-D292106546A0.root", "READ") #UL2018
+    inputFile = ROOT.TFile('/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/skimmedInputTT.root')
     
     tree = inputFile.Get("Events") 
     # tree.Print()
     # tree.SetBranchStatus("*", 0)
     # tree.SetBranchStatus("Electron_pt", 1)#???
+    
+    # for i in range(tree.GetEntries()):
+    #     tree.GetEntry(i)
+    #     if not (tree.event in eventList): continue
         
     outDir = os.path.dirname(os.path.realpath(__file__)) + '/output/'
     uf.checkMakeDir(outDir) 
@@ -34,9 +74,11 @@ def main():
     outTree.Branch('mu_topLeptonMVA', mu_topLeptonMVA)
     outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
     
-    # for i in range(tree.GetEntries()):
-    for i in range( 20):
+    for i in range(tree.GetEntries()):
+    # for i in range( 4000):
         tree.GetEntry(i)
+        # if not (tree.event in eventList): continue
+        
         event[0] = tree.event
         # print('eventNumber: ', tree.event)
         ele_topLeptonMVA.clear()
@@ -95,7 +137,6 @@ def main():
     outFile.Close()
     
 
-        
 
     
     
