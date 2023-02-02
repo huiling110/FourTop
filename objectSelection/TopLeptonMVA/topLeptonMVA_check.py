@@ -2,6 +2,7 @@ import os
 import ROOT
 from ROOT import std
 from array import array
+import math
 # import uproot
 # import pandas as pd
 
@@ -64,15 +65,20 @@ def createRootFile():
         
     outDir = os.path.dirname(os.path.realpath(__file__)) + '/output/'
     uf.checkMakeDir(outDir) 
-    outFile = ROOT.TFile( outDir + 'syncWithSS.root', "RECREATE")
+    # outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbs.root', "RECREATE")
+    outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbsAndOrd.root', "RECREATE")
     outTree = ROOT.TTree('events', 'event tree for sync')
     
     event = array('L', [0])
     ele_topLeptonMVA = std.vector('float')()
     mu_topLeptonMVA = std.vector('float')()
+    mu_topLeptonMVA_score = std.vector('float')()
+    Electron_jetNDauCharged = std.vector('float')()
     outTree.Branch('eventNumber', event, 'event/l')
     outTree.Branch('mu_topLeptonMVA', mu_topLeptonMVA)
+    outTree.Branch('mu_topLeptonMVA_score', mu_topLeptonMVA_score)
     outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
+    outTree.Branch('Electron_jetNDauCharged', Electron_jetNDauCharged)
     
     for i in range(tree.GetEntries()):
     # for i in range( 4000):
@@ -83,6 +89,8 @@ def createRootFile():
         # print('eventNumber: ', tree.event)
         ele_topLeptonMVA.clear()
         mu_topLeptonMVA.clear()
+        mu_topLeptonMVA_score.clear()
+        Electron_jetNDauCharged.clear()
         
         # ele_topLeptonMVA =  getLeptonVector(  )
                     
@@ -90,8 +98,8 @@ def createRootFile():
             lep = {} 
             lep['pdgId'] = 11
             lep["pt"] = tree.Electron_pt[ele]
-            lep["eta"] = tree.Electron_eta[ele] #absolute or not?
-            lep["jetNDauCharged"] = tree.Electron_jetNDauCharged[ele]
+            lep["eta"] = abs(tree.Electron_eta[ele]) #absolute or not?
+            lep["jetNDauCharged"] = chr(tree.Electron_jetNDauCharged[ele])
             lep["miniPFRelIso_chg"] = tree.Electron_miniPFRelIso_chg[ele]
             lep["miniPFRelIso_all"] = tree.Electron_miniPFRelIso_all[ele]
             lep["jetPtRelv2"] = tree.Electron_jetPtRelv2[ele]
@@ -107,13 +115,14 @@ def createRootFile():
             top = tl.mvaTOPreader('UL2018')
             # print(top.getmvaTOPScore(lep))
             ele_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
+            Electron_jetNDauCharged.push_back(tree.Electron_jetNDauCharged[ele])
         
         for mu in range(tree.nMuon):
             lep = {} 
             lep['pdgId'] = 13
             lep["pt"] = tree.Muon_pt[mu]
-            lep["eta"] = tree.Muon_eta[mu] #absolute or not?
-            lep["jetNDauCharged"] = tree.Muon_jetNDauCharged[mu] #???
+            lep["eta"] = abs(tree.Muon_eta[mu]) #absolute or not?
+            lep["jetNDauCharged"] = chr(tree.Muon_jetNDauCharged[mu]) #???
             lep["miniPFRelIso_chg"] = tree.Muon_miniPFRelIso_chg[mu]
             lep["miniPFRelIso_all"] = tree.Muon_miniPFRelIso_all[mu]
             lep["jetPtRelv2"] = tree.Muon_jetPtRelv2[mu]
@@ -125,7 +134,10 @@ def createRootFile():
             lep["dz"] = tree.Muon_dz[mu]
             lep["segmentComp"] = tree.Muon_segmentComp[mu]
             top = tl.mvaTOPreader('UL2018')
-            mu_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
+            score = top.getmvaTOPScore((lep))[0]
+            mu_topLeptonMVA.push_back(score)
+            mu_topLeptonMVA_score.push_back(math.log(score / (1 - score)))
+            
     
         
         outTree.Fill() 

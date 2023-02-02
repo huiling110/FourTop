@@ -73,4 +73,33 @@ double TopLeptonEvaluate(std::map<string, float> &inputFeatures, string era, boo
 
 int main()
 {
+    std::map<TString, Float_t> inputFeatures = {
+        // {"pt", Electron_pt[j]},
+        // {"eta", Electron_eta[j]},
+        // {"etNDauCharged", Electron_jetNDauCharged.At(j)},
+        // {"miniPFRelIso_chg", Electron_miniPFRelIso_chg[j]},
+        // {"miniPFRelIso_all", Electron_miniPFRelIso_all[j]},
+        // {"jetPtRelv2", Electron_jetPtRelv2[j]},
+        // {"jetPtRatio", jetPtRatio},
+        // {"pfRelIso03_all", Electron_pfRelIso03_all[j]},
+        // {"jetBTag", jetBTag},
+        // {"sip3d", Electron_sip3d[j]},
+        // {"dxy", Electron_dxy[j]},
+        // {"dz", Electron_dz[j]},
+        // {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
+        {"pt", 50},
+        {"eta", 1.5},
+        {"jetNDauCharged", 5},
+        {"miniPFRelIso_chg", 1.2},
+        {"miniPFRelIso_all", 1.4},
+        {"jetPtRelv2", 2.3},
+        {"jetPtRatio", 2.4},
+        {"pfRelIso03_all", 1.3},
+        {"jetBTag", 0.5},
+        {"sip3d", 0.004},
+        {"dxy", 0.004},
+        {"dz", 0.005},
+        {"mvaFall17V2noIso", 0.8}};
+
+    topMVAScore = TopLeptonEvaluate(inputFeatures, '2018', false);
 }
