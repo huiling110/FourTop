@@ -16,9 +16,9 @@ def main():
     # eventList = getEventNumFromSS()
     # print(eventList)
     
-    # createRootFile( )        
+    createRootFile( )        
     
-    compareTopMVAScore()
+    # compareTopMVAScore()
 
 def compareTopMVAScore():
     myFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/output/syncWithSS_ord.root'
@@ -28,25 +28,31 @@ def compareTopMVAScore():
     array = uproot.open(myFile)[myTree].arrays() 
     # print(array)
     # print(type(array))
-    events10 = array[:5]
+    events10 = array[:10]
     print(len(events10))
     # print(events10)
     # firtEvent = array['eventNumber']<77202012
     # print(array['ele_topLeptonMVA'][firtEvent])
-    for i in events10:
-        print(i['eventNumber'], i['ele_topLeptonMVA'], i['Electron_jetNDauCharged'])
+    # for i in events10:
+        # print(i['eventNumber'], i['ele_topLeptonMVA'], i['Electron_jetNDauCharged'])
     
     
     KiFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/sync_objects_TT_UGent.root'
     KiTree = 'SyncObjects'
     KiArray = uproot.open(KiFile)[KiTree].arrays()
-    events10K = KiArray[:5]
-    for e in events10K:
-        print(e['EventNumber'], e['electrons_topleptonmva'], e['electrons_jetNDauCharged'])
-    
+    events10K = KiArray[:10]
+    # for e in events10K:
+        # print(e['EventNumber'], e['electrons_topleptonmva'], e['electrons_jetNDauCharged'])
+   
+    compareEventList( KiArray, array) 
         
-        
-       
+def compareEventList(events, eventsMy, list=[77202006, 77202004, 77202011]):
+    for ie in list:
+        comp = events['EventNumber']==ie
+        compMy = eventsMy['eventNumber']==ie
+        print('event: ', ie, 'ele=', events['electrons_topleptonmva'][comp], 'mu=', events['muons_topleptonmva'][comp])
+        print('event: ', ie, 'ele=', eventsMy['ele_topLeptonMVA'][compMy], 'mu=', eventsMy['mu_topLeptonMVA'][compMy])
+        print('\n') 
     
     
 def getEventNumFromSS():
@@ -101,6 +107,7 @@ def createRootFile():
     
     event = array('L', [0])
     ele_topLeptonMVA = std.vector('float')()
+    ele_topLeptonMVA_v2 = std.vector('float')()
     mu_topLeptonMVA = std.vector('float')()
     mu_topLeptonMVA_score = std.vector('float')()
     Electron_jetNDauCharged = std.vector('float')()
@@ -108,6 +115,7 @@ def createRootFile():
     outTree.Branch('mu_topLeptonMVA', mu_topLeptonMVA)
     outTree.Branch('mu_topLeptonMVA_score', mu_topLeptonMVA_score)
     outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
+    outTree.Branch('ele_topLeptonMVA_v2', ele_topLeptonMVA_v2)
     outTree.Branch('Electron_jetNDauCharged', Electron_jetNDauCharged)
     
     for i in range(tree.GetEntries()):
@@ -118,6 +126,7 @@ def createRootFile():
         event[0] = tree.event
         # print('eventNumber: ', tree.event)
         ele_topLeptonMVA.clear()
+        ele_topLeptonMVA_v2.clear()
         mu_topLeptonMVA.clear()
         mu_topLeptonMVA_score.clear()
         Electron_jetNDauCharged.clear()
@@ -146,6 +155,7 @@ def createRootFile():
             top = tl.mvaTOPreader('UL2018')
             # print(top.getmvaTOPScore(lep))
             ele_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
+            ele_topLeptonMVA_v2.push_back(top.getmvaTOPScore((lep))[2])
             Electron_jetNDauCharged.push_back(tree.Electron_jetNDauCharged[ele])
         
         for mu in range(tree.nMuon):
