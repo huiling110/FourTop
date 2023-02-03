@@ -66,7 +66,8 @@ def createRootFile():
     outDir = os.path.dirname(os.path.realpath(__file__)) + '/output/'
     uf.checkMakeDir(outDir) 
     # outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbs.root', "RECREATE")
-    outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbsAndOrd.root', "RECREATE")
+    # outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbsAndOrd.root', "RECREATE")
+    outFile = ROOT.TFile( outDir + 'syncWithSS_ord.root', "RECREATE")
     outTree = ROOT.TTree('events', 'event tree for sync')
     
     event = array('L', [0])
@@ -98,7 +99,7 @@ def createRootFile():
             lep = {} 
             lep['pdgId'] = 11
             lep["pt"] = tree.Electron_pt[ele]
-            lep["eta"] = abs(tree.Electron_eta[ele]) #absolute or not?
+            lep["eta"] = tree.Electron_eta[ele] #absolute or not? not
             lep["jetNDauCharged"] = chr(tree.Electron_jetNDauCharged[ele])
             lep["miniPFRelIso_chg"] = tree.Electron_miniPFRelIso_chg[ele]
             lep["miniPFRelIso_all"] = tree.Electron_miniPFRelIso_all[ele]

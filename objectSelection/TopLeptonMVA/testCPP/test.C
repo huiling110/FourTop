@@ -27,13 +27,14 @@ double TopLeptonEvaluate(std::map<std::string, float> &inputFeatures, bool isMuo
 {
     BoosterHandle booster;
     const char *muonWeight = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin";
+    // const char *muonWeight = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights/el_TOPUL18_XGB.weights.bin";
     // std::cout << "leptonWeight: " << muonWeight << "\n";
 
     //
 
     // Float_t boosterVars[2][1][15];
     // Float_t boosterVars[2][1][13];
-    float boosterVars[0][13];
+    float boosterVars[1][13];
     boosterVars[0][0] = inputFeatures["pt"];
     boosterVars[0][1] = inputFeatures["eta"];
     boosterVars[0][2] = inputFeatures["jetNDauCharged"];
@@ -58,11 +59,14 @@ double TopLeptonEvaluate(std::map<std::string, float> &inputFeatures, bool isMuo
 
     DMatrixHandle dtest;
     int nfeat = 13;
-    XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars), 1, nfeat, NAN, &dtest);
+    // XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars), 1, nfeat, NAN, &dtest);
+    // XGDMatrixCreateFromMat((float *)(boosterVars), 1, nfeat, NAN, &dtest);
+    safe_xgboost(XGDMatrixCreateFromMat((float *)(boosterVars), 1, nfeat, -1, &dtest));
+
     bst_ulong out_len;
     const float *f;
-    // XGBoosterPredict(booster[0], dtest, 0, 0, &out_len, &f);
-    XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
+    safe_xgboost(XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f));
+    // XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);
 
     XGDMatrixFree(dtest);
     XGBoosterFree(booster);
