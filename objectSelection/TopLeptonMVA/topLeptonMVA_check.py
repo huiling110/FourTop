@@ -145,7 +145,7 @@ def createRootFile():
             lep["jetPtRelv2"] = tree.Electron_jetPtRelv2[ele]
             lep["jetPtRatio"] = 1. / (tree.Electron_jetRelIso[ele] + 1.) 
             lep["pfRelIso03_all"] = tree.Electron_pfRelIso03_all[ele]
-            lep["jetBTag"] = tree.Jet_btagDeepB[tree.Electron_jetIdx[ele]]
+            lep["jetBTag"] = tree.Jet_btagDeepFlavB[tree.Electron_jetIdx[ele]]
             lep["sip3d"] = tree.Electron_sip3d[ele]
             lep["dxy"] = tree.Electron_dxy[ele]
             lep["dz"] = tree.Electron_dz[ele]
@@ -169,7 +169,7 @@ def createRootFile():
             lep["jetPtRelv2"] = tree.Muon_jetPtRelv2[mu]
             lep["jetPtRatio"] = 1. / (tree.Muon_jetRelIso[mu] + 1.) 
             lep["pfRelIso03_all"] = tree.Muon_pfRelIso03_all[mu]
-            lep["jetBTag"] = tree.Jet_btagDeepB[tree.Muon_jetIdx[mu]]
+            lep["jetBTag"] = tree.Jet_btagDeepFlavB[tree.Muon_jetIdx[mu]]
             lep["sip3d"] = tree.Muon_sip3d[mu]
             lep["dxy"] = tree.Muon_dxy[mu]
             lep["dz"] = tree.Muon_dz[mu]
