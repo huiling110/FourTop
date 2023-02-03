@@ -5,7 +5,8 @@
 #include <iostream>
 #include <cmath>
 
-#include </cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include/xgboost/c_api.h>
+// #include </cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include/xgboost/c_api.h>
+#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 // #include </cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include/xgboost/data.h>
 
 // #include "../inputMap.h"
