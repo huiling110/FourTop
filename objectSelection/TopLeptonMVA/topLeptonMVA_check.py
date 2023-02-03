@@ -3,8 +3,8 @@ import ROOT
 from ROOT import std
 from array import array
 import math
-# import uproot
-# import pandas as pd
+import pandas as pd
+import uproot
 
 import sys
 sys.path.append("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/codeFromOthers/")
@@ -16,9 +16,37 @@ def main():
     # eventList = getEventNumFromSS()
     # print(eventList)
     
-    # createRootFile( eventList)        
-    createRootFile( )        
+    # createRootFile( )        
     
+    compareTopMVAScore()
+
+def compareTopMVAScore():
+    myFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/output/syncWithSS_ord.root'
+    myTree = 'events'
+   
+    # array = uproot.open(myFile)[myTree].arrays(library = "pd") 
+    array = uproot.open(myFile)[myTree].arrays() 
+    # print(array)
+    # print(type(array))
+    events10 = array[:5]
+    print(len(events10))
+    # print(events10)
+    # firtEvent = array['eventNumber']<77202012
+    # print(array['ele_topLeptonMVA'][firtEvent])
+    for i in events10:
+        print(i['eventNumber'], i['ele_topLeptonMVA'], i['Electron_jetNDauCharged'])
+    
+    
+    KiFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/sync_objects_TT_UGent.root'
+    KiTree = 'SyncObjects'
+    KiArray = uproot.open(KiFile)[KiTree].arrays()
+    events10K = KiArray[:5]
+    for e in events10K:
+        print(e['EventNumber'], e['electrons_topleptonmva'], e['electrons_jetNDauCharged'])
+    
+        
+        
+       
     
     
 def getEventNumFromSS():
@@ -67,7 +95,8 @@ def createRootFile():
     uf.checkMakeDir(outDir) 
     # outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbs.root', "RECREATE")
     # outFile = ROOT.TFile( outDir + 'syncWithSS_etaAbsAndOrd.root', "RECREATE")
-    outFile = ROOT.TFile( outDir + 'syncWithSS_ord.root', "RECREATE")
+    # outFile = ROOT.TFile( outDir + 'syncWithSS_ord.root', "RECREATE")
+    outFile = ROOT.TFile( outDir + 'syncWithSS.root', "RECREATE")
     outTree = ROOT.TTree('events', 'event tree for sync')
     
     event = array('L', [0])
@@ -100,7 +129,8 @@ def createRootFile():
             lep['pdgId'] = 11
             lep["pt"] = tree.Electron_pt[ele]
             lep["eta"] = tree.Electron_eta[ele] #absolute or not? not
-            lep["jetNDauCharged"] = chr(tree.Electron_jetNDauCharged[ele])
+            # lep["jetNDauCharged"] = chr(tree.Electron_jetNDauCharged[ele])
+            lep["jetNDauCharged"] = tree.Electron_jetNDauCharged[ele]
             lep["miniPFRelIso_chg"] = tree.Electron_miniPFRelIso_chg[ele]
             lep["miniPFRelIso_all"] = tree.Electron_miniPFRelIso_all[ele]
             lep["jetPtRelv2"] = tree.Electron_jetPtRelv2[ele]
@@ -122,8 +152,8 @@ def createRootFile():
             lep = {} 
             lep['pdgId'] = 13
             lep["pt"] = tree.Muon_pt[mu]
-            lep["eta"] = abs(tree.Muon_eta[mu]) #absolute or not?
-            lep["jetNDauCharged"] = chr(tree.Muon_jetNDauCharged[mu]) #???
+            lep["eta"] = tree.Muon_eta[mu] #absolute or not?
+            lep["jetNDauCharged"] = tree.Muon_jetNDauCharged[mu] #???
             lep["miniPFRelIso_chg"] = tree.Muon_miniPFRelIso_chg[mu]
             lep["miniPFRelIso_all"] = tree.Muon_miniPFRelIso_all[mu]
             lep["jetPtRelv2"] = tree.Muon_jetPtRelv2[mu]

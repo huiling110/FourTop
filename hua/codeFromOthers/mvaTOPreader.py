@@ -57,8 +57,8 @@ class mvaTOPreader:
             features = np.array([[
                 lep['pt'], #0 
                 lep['eta'], #1
-                ord(lep['jetNDauCharged']), #???
-                # lep['jetNDauCharged'], #2 jetNDauChargedMVASel
+                # ord(lep['jetNDauCharged']), #???
+                lep['jetNDauCharged'], #2 jetNDauChargedMVASel
                 lep['miniPFRelIso_chg'], # 3 miniRelIsoCharged
                 lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # 4miniRelIsoNeutralVanilla
                 lep['jetPtRelv2'],#5
@@ -88,8 +88,8 @@ class mvaTOPreader:
             features = np.array([[
                 lep['pt'], 
                 lep['eta'], 
-                ord(lep['jetNDauCharged']), # jetNDauChargedMVASel
-                # lep['jetNDauCharged'], # ???
+                # ord(lep['jetNDauCharged']), # jetNDauChargedMVASel
+                lep['jetNDauCharged'], # ???
                 lep['miniPFRelIso_chg'], # miniRelIsoCharged
                 lep['miniPFRelIso_all']-lep['miniPFRelIso_chg'], # miniRelIsoNeutralVanilla
                 lep['jetPtRelv2'],
