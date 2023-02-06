@@ -5,11 +5,14 @@ from array import array
 import math
 import pandas as pd
 import uproot
+import numpy as np
+import awkward as ak
 
 import sys
 sys.path.append("/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/codeFromOthers/")
 import mvaTOPreader as tl
 import usefulFunc as uf
+
 
 def main():
     
@@ -21,39 +24,50 @@ def main():
     # compareTopMVAScore()
 
 def compareTopMVAScore():
-    myFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/output/syncWithSS_ord.root'
+    myFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/output/syncWithSS.root'
+    # myFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/output/syncWithSS_etaAbs.root'
     myTree = 'events'
    
     # array = uproot.open(myFile)[myTree].arrays(library = "pd") 
     array = uproot.open(myFile)[myTree].arrays() 
     # print(array)
     # print(type(array))
-    events10 = array[:10]
-    print(len(events10))
-    # print(events10)
-    # firtEvent = array['eventNumber']<77202012
-    # print(array['ele_topLeptonMVA'][firtEvent])
-    # for i in events10:
-        # print(i['eventNumber'], i['ele_topLeptonMVA'], i['Electron_jetNDauCharged'])
+    # print(array['eventNumber'][:20])
     
     
     KiFile = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/sync_objects_TT_UGent.root'
     KiTree = 'SyncObjects'
     KiArray = uproot.open(KiFile)[KiTree].arrays()
-    events10K = KiArray[:10]
+    # events10K = KiArray[:10]
     # for e in events10K:
         # print(e['EventNumber'], e['electrons_topleptonmva'], e['electrons_jetNDauCharged'])
-   
     compareEventList( KiArray, array) 
         
-def compareEventList(events, eventsMy, list=[77202006, 77202004, 77202011]):
+def compareEventList(events, eventsMy, list=[77202006, 77202004, 77202011, 77202020, 77202010, 77202012, 77202009]):
+    np.set_printoptions(precision=6)
     for ie in list:
         comp = events['EventNumber']==ie
         compMy = eventsMy['eventNumber']==ie
-        print('event: ', ie, 'ele=', events['electrons_topleptonmva'][comp], 'mu=', events['muons_topleptonmva'][comp])
-        print('event: ', ie, 'ele=', eventsMy['ele_topLeptonMVA'][compMy], 'mu=', eventsMy['mu_topLeptonMVA'][compMy])
-        print('\n') 
-    
+        print('eventK: ', ie, 'ele=', events['electrons_topleptonmva'][comp],'ele_pt=', ak.Array(events['electrons_pt'][comp][0]), events['electrons_eta'][comp])
+        print('eventH: ', ie, 'ele=', eventsMy['ele_topLeptonMVA'][compMy], 'ele_pt=', eventsMy['Electron_pt'][compMy]  )
+        print( 'mu=', events['muons_topleptonmva'][comp], 'mu_pt=', events['muons_pt'][comp])
+        print('mu=', eventsMy['mu_topLeptonMVA'][compMy], 'mu_pt=', eventsMy['Muons_pt'][compMy])
+        print('\n')
+        
+         
+        
+    for i in events['electrons_pt'][events['EventNumber']==77202006][0]:
+        print(i)
+    print('\n')
+    for i in eventsMy['Electron_pt'][eventsMy['eventNumber']==77202006][0]:
+        print(i)
+    print('\n')
+    for i in events['muons_pt'][events['EventNumber']==77202006][0]:
+        print(i)
+    print('\n')
+    for i in eventsMy['Muons_pt'][eventsMy['eventNumber']==77202006][0]:
+        print(i)
+    # print(type(events['electrons_pt'][events['EventNumber']==77202006][0]))
     
 def getEventNumFromSS():
     inFile =  ROOT.TFile('/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/sync_objects_TT_UGent.root', 'READ')
@@ -111,12 +125,43 @@ def createRootFile():
     mu_topLeptonMVA = std.vector('float')()
     mu_topLeptonMVA_score = std.vector('float')()
     Electron_jetNDauCharged = std.vector('float')()
+    Electron_pt = std.vector('float')()
+    Muon_pt = std.vector('float')()
+    Muon_eta = std.vector('float')()
+    Muon_jetNDauCharged = std.vector('float')()
+    Muon_miniPFRelIso_chg = std.vector('float')()
+    Muon_miniPFRelIso_all = std.vector('float')()
+    Muon_jetPtRelv2 = std.vector('float')()
+    Muon_jetPtRatio = std.vector('float')()
+    Muon_pfRelIso03_all = std.vector('float')()
+    Muon_jetBTag = std.vector('float')()
+    Muon_sip3d = std.vector('float')()
+    Muon_dxy = std.vector('float')()
+    Muon_dz = std.vector('float')()
+    Muon_segmentComp = std.vector('float')()
     outTree.Branch('eventNumber', event, 'event/l')
     outTree.Branch('mu_topLeptonMVA', mu_topLeptonMVA)
     outTree.Branch('mu_topLeptonMVA_score', mu_topLeptonMVA_score)
     outTree.Branch('ele_topLeptonMVA', ele_topLeptonMVA)
     outTree.Branch('ele_topLeptonMVA_v2', ele_topLeptonMVA_v2)
     outTree.Branch('Electron_jetNDauCharged', Electron_jetNDauCharged)
+    outTree.Branch('Electron_pt', Electron_pt)
+    outTree.Branch('Muon_pt', Muon_pt)
+    outTree.Branch('Muon_eta',Muon_eta )
+    outTree.Branch('Muon_jetNDauCharged',Muon_jetNDauCharged )
+    outTree.Branch('Muon_miniPFRelIso_chg', Muon_miniPFRelIso_chg)
+    outTree.Branch('Muon_miniPFRelIso_all', Muon_miniPFRelIso_all)
+    outTree.Branch('Muon_jetPtRelv2', Muon_jetPtRelv2)
+    outTree.Branch('Muon_jetPtRatio', Muon_jetPtRatio)
+    outTree.Branch('Muon_pfRelIso03_all', Muon_pfRelIso03_all)
+    outTree.Branch('Muon_jetBTag', Muon_jetBTag)
+    outTree.Branch('Muon_sip3d', Muon_sip3d)
+    outTree.Branch('Muon_dxy', Muon_dxy)
+    outTree.Branch('Muon_dz', Muon_dz)
+    outTree.Branch('Muon_segmentComp', Muon_segmentComp)
+    # outTree.Branch('', )
+    # outTree.Branch('', )
+    
     
     for i in range(tree.GetEntries()):
     # for i in range( 4000):
@@ -130,6 +175,20 @@ def createRootFile():
         mu_topLeptonMVA.clear()
         mu_topLeptonMVA_score.clear()
         Electron_jetNDauCharged.clear()
+        Electron_pt.clear()
+        Muon_pt.clear()
+        Muon_eta.clear() #absolute or not?
+        Muon_jetNDauCharged.clear() #???
+        Muon_miniPFRelIso_chg.clear()
+        Muon_miniPFRelIso_all.clear()
+        Muon_jetPtRelv2.clear()
+        Muon_jetPtRatio.clear() 
+        Muon_pfRelIso03_all.clear()
+        Muon_jetBTag.clear()
+        Muon_sip3d.clear()
+        Muon_dxy.clear()
+        Muon_dz.clear()
+        Muon_segmentComp.clear()
         
         # ele_topLeptonMVA =  getLeptonVector(  )
                     
@@ -157,6 +216,7 @@ def createRootFile():
             ele_topLeptonMVA.push_back(top.getmvaTOPScore((lep))[0])
             ele_topLeptonMVA_v2.push_back(top.getmvaTOPScore((lep))[2])
             Electron_jetNDauCharged.push_back(tree.Electron_jetNDauCharged[ele])
+            Electron_pt.push_back(tree.Electron_pt[ele])
         
         for mu in range(tree.nMuon):
             lep = {} 
@@ -179,6 +239,19 @@ def createRootFile():
             mu_topLeptonMVA.push_back(score)
             mu_topLeptonMVA_score.push_back(math.log(score / (1 - score)))
             
+            Muon_pt.push_back(tree.Muon_pt[mu])
+            Muon_eta.push_back( tree.Muon_eta[mu]) #absolute or not?
+            Muon_jetNDauCharged.push_back( tree.Muon_jetNDauCharged[mu]) #???
+            Muon_miniPFRelIso_chg.push_back( tree.Muon_miniPFRelIso_chg[mu])
+            Muon_miniPFRelIso_all.push_back( tree.Muon_miniPFRelIso_all[mu])
+            Muon_jetPtRelv2.push_back( tree.Muon_jetPtRelv2[mu])
+            Muon_jetPtRatio.push_back( 1. / (tree.Muon_jetRelIso[mu]) + 1.) 
+            Muon_pfRelIso03_all.push_back( tree.Muon_pfRelIso03_all[mu])
+            Muon_jetBTag.push_back( tree.Jet_btagDeepFlavB[tree.Muon_jetIdx[mu]])
+            Muon_sip3d.push_back( tree.Muon_sip3d[mu])
+            Muon_dxy.push_back( tree.Muon_dxy[mu])
+            Muon_dz.push_back( tree.Muon_dz[mu])
+            Muon_segmentComp.push_back( tree.Muon_segmentComp[mu])
     
         
         outTree.Fill() 
