@@ -31,8 +31,10 @@ ROOTGLIBS = $(shell root-config --glibs)
 CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
 CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 
-XGBOOST_LIB = -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/ -lxgboost
-XGBOOST_FLAGS = -I/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include
+# XGBOOST_LIB = -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/ -lxgboost
+# XGBOOST_FLAGS = -I/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/include
+XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
+XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/
 
 # Directories
 HEADRDIR = .

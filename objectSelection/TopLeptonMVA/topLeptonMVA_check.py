@@ -245,7 +245,7 @@ def createRootFile():
             Muon_miniPFRelIso_chg.push_back( tree.Muon_miniPFRelIso_chg[mu])
             Muon_miniPFRelIso_all.push_back( tree.Muon_miniPFRelIso_all[mu])
             Muon_jetPtRelv2.push_back( tree.Muon_jetPtRelv2[mu])
-            Muon_jetPtRatio.push_back( 1. / (tree.Muon_jetRelIso[mu]) + 1.) 
+            Muon_jetPtRatio.push_back( 1. / (tree.Muon_jetRelIso[mu] + 1.)) 
             Muon_pfRelIso03_all.push_back( tree.Muon_pfRelIso03_all[mu])
             Muon_jetBTag.push_back( tree.Jet_btagDeepFlavB[tree.Muon_jetIdx[mu]])
             Muon_sip3d.push_back( tree.Muon_sip3d[mu])

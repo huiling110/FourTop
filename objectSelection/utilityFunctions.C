@@ -1,13 +1,15 @@
 
-#include <xgboost/c_api.h>
-#include <xgboost/predictor.h>
-#include <xgboost/data.h>
+// #include <xgboost/c_api.h>
+// #include <xgboost/predictor.h>
+// #include <xgboost/data.h>
 
 #include "TString.h"
 #include "TObjString.h"
 #include <cmath>
 
 #include "utilityFunctions.h"
+
+#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec)
 {
@@ -335,36 +337,22 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString er
         std::cout << "inputFeatures: " << boosterVars[0][i] << "\n";
     }
 
-    BoosterHandle booster[2];
-    XGBoosterCreate(NULL, 0, &booster[0]);
-    XGBoosterLoadModel(booster[0], muonWeight.Data());
+    BoosterHandle booster;
+    XGBoosterCreate(NULL, 0, &booster);
+    XGBoosterLoadModel(booster, muonWeight.Data());
 
     DMatrixHandle dtest;
     int nfeat = 13;
     XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
     bst_ulong out_len;
     const float *f;
-    // XGBoosterPredict(booster[0], dtest, 0, 0, &out_len, &f);
-    XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
-    // bst_ulong out_len = 0;
-    /* Run prediction with DMatrix object. */
-    // char const config[] =
-    //     "{\"training\": false, \"type\": 0, "
-    //     "\"iteration_begin\": 0, \"iteration_end\": 0, \"strict_shape\": false}";
-    // /* Shape of output prediction */
-    // uint64_t const *out_shape;
-    // /* Dimension of output prediction */
-    // uint64_t out_dim;
-    // /* Pointer to a thread local contigious array, assigned in prediction function. */
-    // float const *out_result = NULL;
-    // XGBoosterPredictFromDMatrix(booster, dtest, config, &out_shape, &out_dim, &out_result);
+    XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
+    // XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
     XGDMatrixFree(dtest);
-    XGBoosterFree(booster[0]);
+    XGBoosterFree(booster);
     std::cout << "Top lepton score = " << f[0] << "\n";
     Double_t score = f[0];
-    // Double_t score = (exp(f[0] * 2 * log(M_E)) - 1) / (exp(2 * log(M_E)) - 1) * 2 - 1;
-    // std::cout << "Top lepton score = " << score << "\n";
-    delete f;
+    // delete f;
 
     return score;
 }
