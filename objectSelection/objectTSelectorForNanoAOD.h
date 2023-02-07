@@ -81,7 +81,7 @@ public:
 	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
 
 	// xgboost
-	BoosterHandle m_booster;
+	BoosterHandle m_booster[2];
 
 	// 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
 	Bool_t m_MetFilters = false;

@@ -348,9 +348,8 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString er
     // XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
     XGDMatrixFree(dtest);
     // XGBoosterFree(booster);
-    std::cout << "Top lepton score = " << f[0] << "\n";
+    // std::cout << "Top lepton score = " << f[0] << "\n";
     Double_t score = f[0];
-    // delete f;
 
     return score;
 }

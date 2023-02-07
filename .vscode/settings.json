@@ -91,5 +91,16 @@
     ],
     "python.formatting.provider": "yapf",
     "task.allowAutomaticTasks": "on",
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "terminal.integrated.defaultProfile.windows": "",
+
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shellArgs.linux": [
+    "-l",
+    "-i",
+    "-c",
+    "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
+    ],
+
+
 }

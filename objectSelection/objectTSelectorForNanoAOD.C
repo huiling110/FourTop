@@ -358,6 +358,10 @@ void objectTSelectorForNanoAOD::Terminate()
     ///////////////////////////////
     outputfile->Write();
     outputfile->Close();
+
+    XGBoosterFree(m_booster[0]);
+    XGBoosterFree(m_booster[1]);
+
     Info("Terminate", "processed %lld events", fProcessed);
     Info("Terminate", "passed JSON %lld events", eventsPassedJSON);
     Info("Terminate", "passed MET filters %lld events", eventsPassedMETFilters);
@@ -695,36 +699,34 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
         Double_t pt = Electron_pt.At(j);
         Double_t eta = Electron_eta.At(j);
         Double_t topMVAScore = -99.;
-        // if (!(fabs(eta) < 2.5))
-        //     continue;
-        // if (!(pt > 10))
-        //     continue;
-
+        if (!(fabs(eta) < 2.5))
+            continue;
+        if (!(pt > 10))
+            continue;
         // IP
-        // if (!(fabs(Electron_dxy.At(j)) < 0.05))
-        //     continue;
-        // if (!(fabs(Electron_dz.At(j)) < 0.1))
-        //     continue;
-        // if (!((Electron_ip3d.At(j)) < 4))
-        //     continue;
-        // // Iso
-        // if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
-        //     continue;
+        if (!(fabs(Electron_dxy.At(j)) < 0.05))
+            continue;
+        if (!(fabs(Electron_dz.At(j)) < 0.1))
+            continue;
+        if (!((Electron_ip3d.At(j)) < 4))
+            continue;
+        // Iso
+        if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
+            continue;
 
-        // if (!(int(Electron_lostHits.At(j)) <= 1))
-        //     continue;
+        if (!(int(Electron_lostHits.At(j)) <= 1))
+            continue;
         if (type == 2)
         {
-            // if (!Electron_convVeto.At(j))
-            //     continue;                          // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-            // if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
-            //     continue;
+            if (!Electron_convVeto.At(j))
+                continue;                          // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
+            if (!(Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+                continue;
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
             Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
-            UChar_t jetNDauCharged = Electron_jetNDauCharged[j];
+            // UChar_t jetNDauCharged = Electron_jetNDauCharged[j];
             // std::cout << jetNDauCharged << "\n";
-            std::cout << "\n";
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", Electron_pt[j]},
                 {"eta", Electron_eta[j]},
@@ -740,7 +742,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
                 {"dz", Electron_dz[j]},
                 {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
 
-            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false, m_booster);
+            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false, m_booster[0]);
             std::cout << "\n";
             // if (!(topMVAScore > 0.81))
             // continue;
@@ -1435,15 +1437,17 @@ void objectTSelectorForNanoAOD::setupInputFile()
     }
 
     // set up xgboost booster
-    TString muonWeight = TopMVALeptonMap[m_era].at(0);
+    TString eleWeight = TopMVALeptonMap[m_era].at(0);
     // if (isMuon)
     // {
-    TString eleWeight = TopMVALeptonMap[m_era].at(1);
+    TString muWeight = TopMVALeptonMap[m_era].at(1);
     // }
-    std::cout << "leptonWeight: " << muonWeight << "\n";
+    std::cout << "muonWeight: " << muWeight << "\n";
     // BoosterHandle booster;
-    XGBoosterCreate(NULL, 0, &m_booster);
-    XGBoosterLoadModel(m_booster, muonWeight.Data());
+    XGBoosterCreate(NULL, 0, &m_booster[0]);
+    XGBoosterLoadModel(m_booster[0], eleWeight.Data());
+    XGBoosterCreate(NULL, 0, &m_booster[1]);
+    XGBoosterLoadModel(m_booster[1], muWeight.Data());
 
     std::cout << "done setting input file........................\n";
 }
