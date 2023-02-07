@@ -11,6 +11,7 @@
 #include "TLorentzVector.h"
 #include <Math/Vector4D.h>
 #include "inputMap.h" //???why can not include here?
+#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec);
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec);
@@ -50,7 +51,7 @@ Double_t GetStochasticFactor(Double_t pt, Double_t eta, Double_t rho, std::vecto
 
 Double_t GetSmearFactor(Double_t pt, Double_t genPt, Double_t eta, Double_t rho, Double_t jer_sf, std::vector<std::vector<std::string>> resolution, TString resFormula, TRandom3 ran);
 void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis);
-Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMoun);
+Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMoun, const BoosterHandle &booster);
 
 #endif
 

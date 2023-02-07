@@ -89,7 +89,7 @@ $(SHAREDLIBS).so: $(OBJS) $(HDRS)
 
 dict_$(SHAREDLIBS).C: $(HDRS)
 	@echo "Generating dictionary ..."
-	rootcint -f dict_$(SHAREDLIBS).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
+	rootcint -f dict_$(SHAREDLIBS).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(XGBOOST_FLAGS) $(HDRS) Linkdef.h 
 
 clean:
 	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).o dict_*

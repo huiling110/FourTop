@@ -740,7 +740,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
                 {"dz", Electron_dz[j]},
                 {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
 
-            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false);
+            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false, m_booster);
             std::cout << "\n";
             // if (!(topMVAScore > 0.81))
             // continue;
@@ -1433,6 +1433,17 @@ void objectTSelectorForNanoAOD::setupInputFile()
         std::cout << "setting up lumilosity json files for data\n";
         readJSON(m_isdata, GoldenJSONs[m_era], _goodLumis);
     }
+
+    // set up xgboost booster
+    TString muonWeight = TopMVALeptonMap[m_era].at(0);
+    // if (isMuon)
+    // {
+    TString eleWeight = TopMVALeptonMap[m_era].at(1);
+    // }
+    std::cout << "leptonWeight: " << muonWeight << "\n";
+    // BoosterHandle booster;
+    XGBoosterCreate(NULL, 0, &m_booster);
+    XGBoosterLoadModel(m_booster, muonWeight.Data());
 
     std::cout << "done setting input file........................\n";
 }

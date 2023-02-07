@@ -38,6 +38,7 @@
 
 #include "utilityFunctions.h"
 #include "inputMap.h"
+#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 
 class objectTSelectorForNanoAOD : public TSelector
 {
@@ -78,6 +79,9 @@ public:
 	// Uchar_t era = 0;//0 for 2016PPV, 2 for 2016APV, 4 for 2017, 6 for 2018
 
 	std::map<Int_t, std::vector<UInt_t>> _goodLumis;
+
+	// xgboost
+	BoosterHandle m_booster;
 
 	// 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
 	Bool_t m_MetFilters = false;

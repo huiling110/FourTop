@@ -9,8 +9,6 @@
 
 #include "utilityFunctions.h"
 
-#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
-
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Float_t> &array, std::vector<Double_t> &vec)
 {
     for (UInt_t i = 0; i < array.GetSize(); i++)
@@ -300,18 +298,18 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
     }
 }
 
-Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMuon)
+Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMuon, const BoosterHandle &booster)
 {
     // #include "inputMap.h"
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
     // TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
     // TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
-    TString muonWeight = TopMVALeptonMap[era].at(0);
-    if (isMuon)
-    {
-        muonWeight = TopMVALeptonMap[era].at(1);
-    }
-    std::cout << "leptonWeight: " << muonWeight << "\n";
+    // TString muonWeight = TopMVALeptonMap[era].at(0);
+    // if (isMuon)
+    // {
+    //     muonWeight = TopMVALeptonMap[era].at(1);
+    // }
+    // std::cout << "leptonWeight: " << muonWeight << "\n";
 
     //
 
@@ -337,9 +335,9 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString er
     //     std::cout << "inputFeatures: " << boosterVars[0][i] << "\n";
     // }
 
-    BoosterHandle booster;
-    XGBoosterCreate(NULL, 0, &booster);
-    XGBoosterLoadModel(booster, muonWeight.Data());
+    // BoosterHandle booster;
+    // XGBoosterCreate(NULL, 0, &booster);
+    // XGBoosterLoadModel(booster, muonWeight.Data());
 
     DMatrixHandle dtest;
     int nfeat = 13;
@@ -349,7 +347,7 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString er
     XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
     // XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
     XGDMatrixFree(dtest);
-    XGBoosterFree(booster);
+    // XGBoosterFree(booster);
     std::cout << "Top lepton score = " << f[0] << "\n";
     Double_t score = f[0];
     // delete f;
