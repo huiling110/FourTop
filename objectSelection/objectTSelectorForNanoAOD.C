@@ -743,9 +743,8 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
                 {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
 
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false, m_booster[0]);
-            std::cout << "\n";
-            // if (!(topMVAScore > 0.81))
-            // continue;
+            if (!(topMVAScore > 0.81))
+                continue;
         }
 
         ROOT::Math::PtEtaPhiMVector electron(Electron_pt.At(j), Electron_eta.At(j), Electron_phi.At(j), Electron_mass.At(j));
