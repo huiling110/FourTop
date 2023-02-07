@@ -14,35 +14,28 @@ from usefulFunc import getInputDic
 
 
 def main():
-    # era = '2016postVFP'
+    era = '2016postVFP'
     # era = '2016preVFP'
-    era = '2016'
+    # era = '2016'
     # era = '2018'
     # era = '2017'
-    # inVersion = 'v0noBaseline_v27noJERnoTESWithObjectRemoval'
-    # inVersion = 'v0noBaseline_v28JERTESBack'
-    # inVersion = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES'
-    # inVersion = 'v0noBaseline_v30TESnoJER'
     # inVersion = 'v0noBaseline_v31TESandJER'
     # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
     # inVersion = 'v1baseline_v36TESandJERByHuiling'
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
     # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
     # inVersion = 'v0addMoreVariables_v39addTauBranches'
-    inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
-    # inVersion = 'v1baseline_v37TauPt30AndPreselection'
-    # histVersion = 'variableHists_v0'
-    # histVersion = 'variableHists_v0forCutFlow'
-    # histVersion = 'variableHists_v1variables'
-    # histVersion = 'variableHists_v1variablesUsingMyclass'
+    # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
     # histVersion = 'variableHists_v2addingPileupWeight'
     # histVersion = 'variableHists_v3pileUpAndNewRange'
     # histVersion = 'variableHists_v4forFakeRate'
     # histVersion = 'variableHists_v0forFakeRate'
     # histVersion = 'variableHists_v1forFREtaRegionCorrected'
     # histVersion = 'variableHists_v6forFRCR12'
-    histVersion = 'variableHists_v7addFRWeightReForEventCount'
+    # histVersion = 'variableHists_v7addFRWeightReForEventCount'
+    
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v0oldLepton/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v1SSLepton/'
 
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
@@ -57,11 +50,12 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau0lCRs_withUncertInverted'
     # csvName = '1tau1lCRs_withUncertInverted'
-    regionList = [ '1tau0lSR','1tau0lCR', '1tau0lVR','1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
+    regionList = [ '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lCRc']
     
     ifUseFakeTau = False
-    csvName = '1tau0lFRMeasureRegions'
+    # csvName = '1tau0lFRMeasureRegions'
+    csvName = 'eventYield'
     # ifUseFakeTau = True
     # csvName = '1tau0lFRMeasureRegions_fakeTau'
 
@@ -70,7 +64,11 @@ def main():
 
 
     variableList = ['eventCount']
-    inputDir = getInputDic(inVersion, histVersion, era)
+    # inputDir = getInputDic(inVersion, histVersion, era)
+    inputDirDic = {
+        'mc': inputDir,
+        'data': inputDir.replace('mc', 'data')
+    }
 
 
     #sumProcessPerVar[var][region][sumedProcess] = hist
@@ -78,7 +76,7 @@ def main():
     sumProcessPerVarSys = {}
     if not ifUseFakeTau:
         for ivar in variableList:
-            sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDir, regionList, ivar )
+            sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )
     else:
         sumProcessPerVar['eventCount'] = {}
         for ire in regionList:
@@ -95,7 +93,7 @@ def main():
             
             
         
-    writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
+    writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
 
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
