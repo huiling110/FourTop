@@ -230,7 +230,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, elesTopMVAT_topMVAScore, 2);
-    // SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
+    SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -730,7 +730,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", Electron_pt[j]},
                 {"eta", Electron_eta[j]},
-                {"etNDauCharged", Electron_jetNDauCharged.At(j)},
+                {"jetNDauCharged", Electron_jetNDauCharged.At(j)},
                 {"miniPFRelIso_chg", Electron_miniPFRelIso_chg[j]},
                 {"miniPFRelIso_all", Electron_miniPFRelIso_all[j]},
                 {"jetPtRelv2", Electron_jetPtRelv2[j]},
@@ -754,7 +754,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
         SelectedEleTopMVAScore.push_back(topMVAScore);
     } //
 }
-/*
+
 void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, std::vector<Double_t> &SelectedMuonsLeptonScore, const Int_t type)
 { // SS of TTTT
     // 0 for Loose; 2 tight
@@ -779,21 +779,22 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             continue;
         if (type == 2)
         {
-            Float_t pt = Muon_pt[j];
-            Float_t eta = TMath::Abs(Muon_eta[j]);
-            Float_t jetNDauCharged = Muon_jetNDauCharged[j]; // number of charged daughters of the closest jet
-            Float_t LepGood_miniRelIsoCharged = Muon_miniPFRelIso_chg[j];
-            Float_t LepGood_miniRelIsoNeutralVanilla = Muon_miniPFRelIso_all[j] - Muon_miniPFRelIso_chg[j];
-            Float_t LepGood_jetPtRelv2 = Muon_jetPtRelv2[j];                           // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-            Float_t LepGood_jetPtRatioVanilla = Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]]); // ; Ratio between the lepton and jet transverse momenta
-            Float_t LepGood_relIso0p3Vanilla = Muon_pfRelIso04_all[j];                 //; Relative isolation using the cone size of 0.4
-            Float_t LepGood_jetBTag = Jet_btagDeepB[Muon_jetIdx[j]];
-            Float_t LepGood_sip3d = Muon_sip3d[j];
-            Float_t LepGood_dxy = TMath::Log(TMath::Abs(Muon_dxy[j]));
-            Float_t LepGood_dz = TMath::Log(TMath::Abs(Muon_dz[j]));
-            Float_t segComp = Muon_segmentComp[j]; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            std::array<Float_t, 13> inputFeatures{pt, eta, jetNDauCharged, LepGood_miniRelIsoCharged, LepGood_miniRelIsoNeutralVanilla, LepGood_jetPtRelv2, LepGood_jetPtRatioVanilla, LepGood_relIso0p3Vanilla, LepGood_jetBTag, LepGood_sip3d, LepGood_dxy, LepGood_dz, segComp};
-            topLeptonScore = TopLeptonEvaluate(inputFeatures, m_era, true);
+            std::map<TString, Float_t> inputFeatures = {
+                {"pt", Muon_pt[j]},
+                {"eta", Muon_eta[j]},
+                {"jetNDauCharged", Muon_jetNDauCharged[j]}, // number of charged daughters of the closest jet
+                {"miniPFRelIso_chg", Muon_miniPFRelIso_chg[j]},
+                {"miniPFRelIso_all", Muon_miniPFRelIso_all[j]},
+                {"jetPtRelv2", Muon_jetPtRelv2[j]},                    // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+                {"jetPtRatio", Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]])}, // ; Ratio between the lepton and jet transverse momenta
+                {"pfRelIso03_all", Muon_pfRelIso04_all[j]},            //???; Relative isolation using the cone size of 0.4
+                {"jetBTag", Jet_btagDeepB[Muon_jetIdx[j]]},
+                {"sip3d", Muon_sip3d[j]},
+                {"dxy", TMath::Log(TMath::Abs(Muon_dxy[j]))},
+                {"dz", TMath::Log(TMath::Abs(Muon_dz[j]))},
+                {"mvaFall17V2noIso", Muon_segmentComp[j]},
+            }; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
+            topLeptonScore = TopLeptonEvaluate(inputFeatures, m_era, true, m_booster[1]);
             if (!(topLeptonScore > 0.64))
                 continue;
         }
@@ -803,7 +804,7 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
         SelectedMuonsLeptonScore.push_back(topLeptonScore);
     }
 }
-*/
+
 void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedTaus, std::vector<Int_t> &SelectedTausIndex, std::vector<Int_t> &SelectedTausDecayMode, std::vector<Int_t> &SelectedTausGenPartFlav, std::vector<Double_t> &selectedTausJetPt, std::vector<Double_t> &selectedTausJetEta, std::vector<Int_t> &selectedTausCharge, std::vector<Double_t> &selectedTausNeutralIso, const Int_t TauWP, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAL, const Int_t sysTES)
 
 {
