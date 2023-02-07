@@ -30,7 +30,6 @@
 
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
-// #include "../../objectSelection/inputMap.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {

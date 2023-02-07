@@ -24,7 +24,8 @@ import usefulFunc as uf
 # inVersion = 'v39addTauBranches'
 # inVersion = 'v40addTauJetEtau'
 # inVersion = 'v41addVertexSelection'
-inVersion = 'v42fixedChargeType'
+# inVersion = 'v42fixedChargeType'
+inVersion = 'v44addSSLeptons'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
@@ -35,7 +36,8 @@ inVersion = 'v42fixedChargeType'
 # outVersion = 'v7baselineExtraTauCut'
 # outVersion = 'v8Cut1tau1l'
 # outVersion = 'v9addBtagWeight'
-outVersion = 'v10addPV_npvsGood_baseline'
+# outVersion = 'v10addPV_npvsGood_baseline'
+outVersion = 'v0baseline'
 year = '2016'
 # year = '2018'
 # year = '2017'
@@ -71,7 +73,7 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#???
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
