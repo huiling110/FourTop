@@ -30,7 +30,7 @@
 
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
-#include "../../objectSelection/inputMap.h"
+// #include "../../objectSelection/inputMap.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
@@ -243,6 +243,10 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		elesMVAF_1pt = eleMVAF[0].Pt();
 	}
 	//???add more electron variables
+
+	// SS lepton variables
+	elesTopMVAT_number = elesTopMVAT.GetSize();
+	muonsTopMVAT_number = muonsTopMVAT.GetSize();
 
 	leptonsMVAT_number = leptonsMVAT.GetSize();
 	leptonsMVAF_number = leptonsMVAF.GetSize();
@@ -646,7 +650,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	// if (!(tausT_number == 1 && leptonsMVAT_number == 1))
 	// if (!(tausT_number == 1))
 	// {
-		// return kFALSE;
+	// return kFALSE;
 	// }
 
 	fPassingPreselection++;
@@ -849,6 +853,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
 					"leptonsMVAT_3eta/D");
 	newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
+
+	newtree->Branch("elesTopMVAT_number", &elesTopMVAT_number, "elesTopMVAT_number/I");
+	newtree->Branch("muonsTopMVAT_number", &muonsTopMVAT_number, "muonsTopMVAT_number/I");
 
 	newtree->Branch("tausT_number_TESup", &tausT_number_TESup, "tausT_number_TESup/I");
 	newtree->Branch("tausT_number_TESdown", &tausT_number_TESdown, "tausT_number_TESdown/I");
@@ -1217,6 +1224,9 @@ void makeVaribles_forBDT::InitializeBranches()
 	leptonsMVAT_3pt = -99;
 	leptonsMVAT_3eta = -99;
 	leptonsMVAT_3phi = -99;
+
+	elesTopMVAT_number = -99;
+	muonsTopMVAT_number = -99;
 
 	tausT_number_TESup = -99;
 	tausL_number = -99;

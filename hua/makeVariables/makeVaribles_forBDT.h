@@ -147,6 +147,9 @@ public:
     Double_t leptonsMVAT_3eta = -99.0;
     Double_t leptonsMVAT_3phi = -99.0;
 
+    Int_t elesTopMVAT_number = -99;
+    Int_t muonsTopMVAT_number = -99;
+
     Int_t tausT_number_TESup = -99;
     Int_t tausT_number_TESdown = -99;
 
@@ -423,12 +426,10 @@ public:
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAF = {fReader, "leptonsMVAF"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAT = {fReader, "leptonsMVAT"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> leptonsMVAL = {fReader, "leptonsMVAL"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAL_IsoT = {fReader, "eleMVAL_IsoT"};
-    // TTreeReaderArray<Int_t> eleMVAL_IsoT_index = {fReader, "eleMVAL_IsoT_index"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAF_IsoT = {fReader, "eleMVAF_IsoT"};
-    // TTreeReaderArray<Int_t> eleMVAF_IsoT_index = {fReader, "eleMVAF_IsoT_index"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> eleMVAT_IsoT = {fReader, "eleMVAT_IsoT"};
-    // TTreeReaderArray<Int_t> eleMVAT_IsoT_index = {fReader, "eleMVAT_IsoT_index"};
+
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> elesTopMVAT = {fReader, "elesTopMVAT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsTopMVAT = {fReader, "muonsTopMVAT"};
+
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausL = {fReader, "tausL"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausF = {fReader, "tausF"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausT = {fReader, "tausT"};
@@ -485,7 +486,7 @@ public:
     TTreeReaderValue<Double_t> PUWeight = {fReader, "PUWeight"};
     TTreeReaderValue<Double_t> PUWeight_Down = {fReader, "PUWeight_Down"};
     TTreeReaderValue<Double_t> PUWeight_Up = {fReader, "PUWeight_Up"};
-    TTreeReaderValue<Int_t> PV_npvs_ = {fReader, "PV_npvs_"}; // total number of reconstructed primary vertices
+    TTreeReaderValue<Int_t> PV_npvs_ = {fReader, "PV_npvs_"};         // total number of reconstructed primary vertices
     TTreeReaderValue<Int_t> PV_npvsGood_ = {fReader, "PV_npvsGood_"}; // total number of reconstructed primary vertices
     // TTreeReaderValue<Double_t>  = {fReader, ""};
 

@@ -1,7 +1,6 @@
 #include "weightCal.h"
-// #include "TauPOG/TauIDSFs/src/TauIDSFTool.cc"
 // #include "../../TauPOG/TauIDSFs/interface/TauIDSFTool.h"
-#include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
+// #include "TauPOG/TauIDSFs/interface/TauIDSFTool.h"
 // #include "correction.h"
 
 using namespace correction;
@@ -62,28 +61,28 @@ Double_t calEleMVA_IDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &ele
 	return eleIDSF;
 }
 
-Double_t calTau_IDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_genPartFlav, const TString era, const std::string &unc_jet, const std::string &unc_e, const std::string &unc_mu)
-{
-	// TauIDSFTool VSjetIDTool = TauIDSFTool(era,"DeepTau2017v2p1VSjet","Medium", false, false, true);
-	TauIDSFTool VSjetIDTool = TauIDSFTool(era.Data(), "DeepTau2017v2p1VSjet", "Medium", false, false, true);
-	TauIDSFTool VSeIDTool = TauIDSFTool(era.Data(), "DeepTau2017v2p1VSe", "VVLoose", false, false, true);					// no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
-	TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(era.Data()), "DeepTau2017v2p1VSmu", "VLoose", false, false, false); // No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
+// Double_t calTau_IDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_genPartFlav, const TString era, const std::string &unc_jet, const std::string &unc_e, const std::string &unc_mu)
+// {
+// 	// TauIDSFTool VSjetIDTool = TauIDSFTool(era,"DeepTau2017v2p1VSjet","Medium", false, false, true);
+// 	TauIDSFTool VSjetIDTool = TauIDSFTool(era.Data(), "DeepTau2017v2p1VSjet", "Medium", false, false, true);
+// 	TauIDSFTool VSeIDTool = TauIDSFTool(era.Data(), "DeepTau2017v2p1VSe", "VVLoose", false, false, true);					// no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+// 	TauIDSFTool VSmuIDTool = TauIDSFTool(fromULtoReReco(era.Data()), "DeepTau2017v2p1VSmu", "VLoose", false, false, false); // No UL measurement for these SFs? UL file is not present! Also, set otherVSlepWP to false, VLoose histogram is available
 
-	Double_t tauIDSF = 1.0;
-	for (UInt_t i = 0; i < tausT.GetSize(); i++)
-	{
-		Double_t VSjetSF = VSjetIDTool.getSFvsPT(tausT.At(i).Pt(), tausT_genPartFlav.At(i), unc_jet);
-		Double_t VSeSF = VSeIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_e);
-		Double_t VSmuSF = VSmuIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_mu);
+// 	Double_t tauIDSF = 1.0;
+// 	for (UInt_t i = 0; i < tausT.GetSize(); i++)
+// 	{
+// 		Double_t VSjetSF = VSjetIDTool.getSFvsPT(tausT.At(i).Pt(), tausT_genPartFlav.At(i), unc_jet);
+// 		Double_t VSeSF = VSeIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_e);
+// 		Double_t VSmuSF = VSmuIDTool.getSFvsEta(fabs(tausT.At(i).Eta()), tausT_genPartFlav.At(i), unc_mu);
 
-		tauIDSF *= VSjetSF;
-		tauIDSF *= VSeSF;
-		tauIDSF *= VSmuSF;
-	}
-	if (tauIDSF == 0)
-		tauIDSF = 1.0;
-	return tauIDSF;
-}
+// 		tauIDSF *= VSjetSF;
+// 		tauIDSF *= VSeSF;
+// 		tauIDSF *= VSmuSF;
+// 	}
+// 	if (tauIDSF == 0)
+// 		tauIDSF = 1.0;
+// 	return tauIDSF;
+// }
 
 Double_t getHLTweight(const Double_t jets_HT, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &jets, const TH2D *TriggerSF, const TH2D *TriggerSFunc, Bool_t isData)
 {
