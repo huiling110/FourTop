@@ -714,7 +714,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
         if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
             continue;
 
-        if (!(int(Electron_lostHits.At(j)) <= 1))
+        if (!(int(Electron_lostHits.At(j)) < 1))
             continue;
         if (type == 2)
         {
@@ -725,8 +725,6 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
             Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
-            // UChar_t jetNDauCharged = Electron_jetNDauCharged[j];
-            // std::cout << jetNDauCharged << "\n";
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", Electron_pt[j]},
                 {"eta", Electron_eta[j]},
@@ -741,8 +739,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
                 {"dxy", Electron_dxy[j]},
                 {"dz", Electron_dz[j]},
                 {"mvaFall17V2noIso", Electron_mvaFall17V2noIso[j]}};
-
-            topMVAScore = TopLeptonEvaluate(inputFeatures, m_era, false, m_booster[0]);
+            topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
             if (!(topMVAScore > 0.81))
                 continue;
         }
@@ -764,9 +761,9 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             continue;
         if (!(fabs(Muon_eta.At(j)) < 2.4))
             continue;
-        if (!(fabs(Muon_dz.At(j)) < 0.1))
-            continue;
         if (!(fabs(Muon_dxy.At(j)) < 0.05))
+            continue;
+        if (!(fabs(Muon_dz.At(j)) < 0.1))
             continue;
         if (!(Muon_ip3d.At(j) < 8))
             continue;
@@ -793,7 +790,7 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
                 {"dz", TMath::Log(TMath::Abs(Muon_dz[j]))},
                 {"mvaFall17V2noIso", Muon_segmentComp[j]},
             }; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            topLeptonScore = TopLeptonEvaluate(inputFeatures, m_era, true, m_booster[1]);
+            topLeptonScore = TopLeptonEvaluate(inputFeatures, m_booster[1]);
             if (!(topLeptonScore > 0.64))
                 continue;
         }

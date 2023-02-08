@@ -298,23 +298,9 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
     }
 }
 
-Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, TString era, Bool_t isMuon, const BoosterHandle &booster)
+Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, const BoosterHandle &booster)
 {
-    // #include "inputMap.h"
-    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/TopLeptonMVA/mvaWeights_new/";
-    // TString muonWeight = baseDir + "mu_TOPUL18_XGB.weights.bin";
-    // TString eleWeight = baseDir + "el_TOPUL18_XGB.weights.bin";
-    // TString muonWeight = TopMVALeptonMap[era].at(0);
-    // if (isMuon)
-    // {
-    //     muonWeight = TopMVALeptonMap[era].at(1);
-    // }
-    // std::cout << "leptonWeight: " << muonWeight << "\n";
 
-    //
-
-    // Float_t boosterVars[2][1][15];
-    // Float_t boosterVars[2][1][13];
     float boosterVars[1][13];
     boosterVars[0][0] = inputFeatures["pt"];
     boosterVars[0][1] = inputFeatures["eta"];
