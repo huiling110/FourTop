@@ -48,8 +48,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v43noJERTES/'
 jobVersionName = 'v44addSSLeptons/'
 onlyMC = False
-era = '2016'
-# era = '2016APV'
+# era = '2016'
+era = '2016APV'
 # era = '2018'
 # era = '2017'
 def main():
