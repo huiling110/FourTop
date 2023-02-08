@@ -298,10 +298,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		leptonsMVAT_3phi = fabs(leptonsMVAT[2].Phi());
 	}
 
-	// tau TES sys
-	// tausT_number_TESup = tausT_TESup.GetSize();
-	// tausT_number_TESdown = tausT_TESdown.GetSize();
-
 	// hadronic tau selection
 	tausL_number = tausL.GetSize();
 	tausF_number = tausF.GetSize();
@@ -379,12 +375,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 		tausL_1phi = tausL[0].Phi();
 		tausL_1decayMode = tausL_decayMode[0];
 	}
-
-	// for jets JEC
-	// jets_HT_JECup = HTcalculator(jets_JECup);
-	// jets_HT_JECdown = HTcalculator(jets_JECdown);
-	// jets_number_JECup = jets_JECup.GetSize();
-	// jets_number_JECdown = jets_JECdown.GetSize();
 
 	// jets
 	jets_number = jets.GetSize();
