@@ -708,7 +708,7 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             continue;
         if (!(fabs(Electron_dz.At(j)) < 0.1))
             continue;
-        if (!((Electron_ip3d.At(j)) < 4))
+        if (!((Electron_ip3d.At(j)) < 8))
             continue;
         // Iso
         if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
@@ -1438,10 +1438,7 @@ void objectTSelectorForNanoAOD::setupInputFile()
 
     // set up xgboost booster
     TString eleWeight = TopMVALeptonMap[m_era].at(0);
-    // if (isMuon)
-    // {
     TString muWeight = TopMVALeptonMap[m_era].at(1);
-    // }
     std::cout << "muonWeight: " << muWeight << "\n";
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
