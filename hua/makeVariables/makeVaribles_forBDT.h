@@ -149,6 +149,8 @@ public:
 
     Int_t elesTopMVAT_number = -99;
     Int_t muonsTopMVAT_number = -99;
+    Int_t elesTopMVAL_number = -99;
+    Int_t muonsTopMVAL_number = -99;
 
     Int_t tausT_number_TESup = -99;
     Int_t tausT_number_TESdown = -99;
@@ -429,6 +431,8 @@ public:
 
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> elesTopMVAT = {fReader, "elesTopMVAT"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsTopMVAT = {fReader, "muonsTopMVAT"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> elesTopMVAL = {fReader, "elesTopMVAL"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsTopMVAL = {fReader, "muonsTopMVAL"};
 
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausL = {fReader, "tausL"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tausF = {fReader, "tausF"};
