@@ -235,7 +235,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
-	Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
+	// Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
+	Int_t lepNum = *leptonsMVAT_number;
 
 	// 1tau0l SR
 	if (!m_isData)
