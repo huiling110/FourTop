@@ -19,23 +19,10 @@ def main():
     # era = '2016'
     # era = '2018'
     # era = '2017'
-    # inVersion = 'v0noBaseline_v31TESandJER'
-    # inVersion = 'v1baseline_v33TESnoJERCodeOptimzation'
-    # inVersion = 'v1baseline_v36TESandJERByHuiling'
-    # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
-    # inVersion = 'v1baseline_v38TESandJERTauPt20_preselection'
-    # inVersion = 'v0addMoreVariables_v39addTauBranches'
-    # inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
-    # histVersion = 'variableHists_v2addingPileupWeight'
-    # histVersion = 'variableHists_v3pileUpAndNewRange'
-    # histVersion = 'variableHists_v4forFakeRate'
-    # histVersion = 'variableHists_v0forFakeRate'
-    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    # histVersion = 'variableHists_v6forFRCR12'
-    # histVersion = 'variableHists_v7addFRWeightReForEventCount'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v0oldLepton/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v1SSLepton/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v1SSLepton/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v2SSLepton/'
 
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]

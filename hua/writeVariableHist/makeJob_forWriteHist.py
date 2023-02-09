@@ -39,13 +39,13 @@ def main():
     # version = 'v1addPrefiringWeight'
     # version = 'v2addPileupWeight'
     # version = 'v0oldLepton'
-    version = 'v2SSLepton'
+    # version = 'v2SSLepton'
+    version = 'v3FR_forEventCount'
     justMC = False
     # justMC = True
     isTest = 0
     print( inputDir, ' ', version )
 
-,8in_198ch_2019_N4790_16_neg40degC_BackSideBiased_0minsAnnealing,RINSC_May2022_ALPS_BacksideBias,HPK_8in_192_2019_N4790_16_2E15,9/05/2022,ALPS,12,/eos/user/h/hgsensor/HGCAL_test_results/Results/RINSC_March2022_ALPS/HPK_8in_198ch_2019_OpenCorrection_RINSC_March2021_1kHz/HPK_8in_198ch_2019_OpenCorrection_RINSC_March2021_1kHz_CV.txt,-40,1,/eos/user/h/hgsensor/HGCAL_test_results/Results/RINSC_May2022_ALPS_BacksideBias/HPK_8in_198ch_2019_N4790_16_neg40degC_BackSideBiased_0minsAnnealing/HPK_8in_198ch_2019_N4790_16_neg40degC_BackSideBiased_0minsAnnealing_CV.txt,1,1,0
 
 
 
