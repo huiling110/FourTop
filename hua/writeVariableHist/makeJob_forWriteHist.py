@@ -19,7 +19,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v45newLepBugFixed/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/'
     
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
@@ -39,9 +39,11 @@ def main():
     # version = 'v0noCorrection'
     # version = 'v1addPrefiringWeight'
     # version = 'v2addPileupWeight'
-    version = 'v0oldLepton'
+    # version = 'v0oldLepton'
     # version = 'v2SSLepton'
-    # version = 'v3FR_forEventCount'
+    # version = 'v0FR_oldLep'
+    version = 'v0FR_newLep'
+    # version = 'v1FR_vetoNewLepL'
     justMC = False
     # justMC = True
     isTest = 0

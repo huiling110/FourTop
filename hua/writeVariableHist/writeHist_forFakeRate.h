@@ -132,6 +132,12 @@ public:
    TTreeReaderValue<Double_t> leptonsMVAT_3pt = {fReader, "leptonsMVAT_3pt"};
    TTreeReaderValue<Double_t> leptonsMVAT_3eta = {fReader, "leptonsMVAT_3eta"};
    TTreeReaderValue<Double_t> leptonsMVAT_3phi = {fReader, "leptonsMVAT_3phi"};
+
+   TTreeReaderValue<Int_t> elesTopMVAT_number = {fReader, "elesTopMVAT_number"};
+   TTreeReaderValue<Int_t> muonsTopMVAT_number = {fReader, "muonsTopMVAT_number"};
+   TTreeReaderValue<Int_t> elesTopMVAL_number = {fReader, "elesTopMVAL_number"};
+   TTreeReaderValue<Int_t> muonsTopMVAL_number = {fReader, "muonsTopMVAL_number"};
+
    TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
    TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};
    TTreeReaderValue<Int_t> tausL_number = {fReader, "tausL_number"};

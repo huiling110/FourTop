@@ -301,14 +301,6 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 		"1tau0lCRLTauNotTGen_Eta2",
 		"1tau0lCRLTauNotTGen_Eta3", // 23
 
-		// VR MC FR measurement
-		//  "1tau0lVRLTau_Eta1", //24
-		//  "1tau0lVRLTau_Eta2",
-		//  "1tau0lVRLTau_Eta3",//26
-		//  "1tau0lVR_Eta1", // 27
-		//  "1tau0lVR_Eta2",
-		//  "1tau0lVR_Eta3",//29
-
 		// FR measurment CRc and CRa
 		"1tau0lCRcLTau_Eta1", // 24 2b
 		"1tau0lCRcLTau_Eta2",
@@ -376,7 +368,12 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	{
 		return kFALSE;
 	}
-	if (!(*tausF_number == 1 && *leptonsMVAT_number == 0))
+
+	// swich to new SS lepton
+	// Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
+	Int_t lepNum = *elesTopMVAL_number + *muonsTopMVAL_number;
+	// leptonsMVAT_number
+	if (!(*tausF_number == 1 && lepNum == 0))
 	{
 		return kFALSE;
 	};
@@ -406,22 +403,22 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	Bool_t isTauLNumGen = (*tausF_genTauNum == 1);
 	Bool_t noTauT = (*tausT_number == 0);
 	// 1tau0l
-	Bool_t is1tau0lCR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCRLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lVR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lVRLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lVRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lCRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lVR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lVRLTauNotT = isTauLNum && *tausT_number == 0 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRLTauNotT = isTauLNum && *tausT_number == 0 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 	// SR
-	Bool_t is1tau0lSR = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lSRLTauNotT = isTauLNum && *tausT_number == 0 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
+	Bool_t is1tau0lSR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+	Bool_t is1tau0lSRLTauNotT = isTauLNum && *tausT_number == 0 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 2;
 	// CRc and CRa
-	Bool_t is1tau0lCRc = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCRcLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-	Bool_t is1tau0lCRa = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCRaLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-	Bool_t is1tau0lCRb = *tausT_number == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
-	Bool_t is1tau0lCRbLTau = isTauLNum && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRc = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+	Bool_t is1tau0lCRcLTau = isTauLNum && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+	Bool_t is1tau0lCRa = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCRaLTau = isTauLNum && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 0;
+	Bool_t is1tau0lCRb = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
+	Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
 
 	fillHistsVector(is1tau0lCR, 1, basicWeight);
 	fillHistsVector(is1tau0lCRLTau, 2, basicWeight);
@@ -444,22 +441,22 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 		// be blind for data in signal region
 		fillHistsVector(is1tau0lSR, 0, basicWeight);
 
-		Bool_t is1tau0lSRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
-		Bool_t is1tau0lCRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-		Bool_t is1tau0lCRLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-		Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-		Bool_t is1tau0lVRLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-		Bool_t is1tau0lVRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-		Bool_t is1tau0lCRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lSRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
+		Bool_t is1tau0lCRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lVRLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lVRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lCRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
 		// SR
-		Bool_t is1tau0lSRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number >= 8 && *bjetsM_num == 2;
+		Bool_t is1tau0lSRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 2;
 		// CRc and CRa
-		Bool_t is1tau0lCRcGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-		Bool_t is1tau0lCRcLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-		Bool_t is1tau0lCRaGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-		Bool_t is1tau0lCRaLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 0;
-		Bool_t is1tau0lCRbGen = *tausT_number == 1 && *tausT_genTauNum == 1 && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
-		Bool_t is1tau0lCRbLTauGen = isTauLNum && isTauLNumGen && *leptonsMVAT_number == 0 && *jets_number < 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lCRcGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+		Bool_t is1tau0lCRcLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+		Bool_t is1tau0lCRaGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRaLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 0;
+		Bool_t is1tau0lCRbGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
+		Bool_t is1tau0lCRbLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
 
 		fillHistsVector(is1tau0lSRGen, 6, basicWeight);
 		fillHistsVector(is1tau0lCRGen, 7, basicWeight);
