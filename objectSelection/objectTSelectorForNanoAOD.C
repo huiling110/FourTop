@@ -726,7 +726,8 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
                 continue;
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (Electron_jetRelIso[j] + 1.);
-            Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
+            // Float_t jetBTag = Jet_btagDeepB[Electron_jetIdx[j]];
+            Float_t jetBTag = Jet_btagDeepFlavB[Electron_jetIdx[j]];
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", Electron_pt[j]},
                 {"eta", Electron_eta[j]},
@@ -785,8 +786,9 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
                 {"miniPFRelIso_all", Muon_miniPFRelIso_all[j]},
                 {"jetPtRelv2", Muon_jetPtRelv2[j]},                    // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
                 {"jetPtRatio", Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]])}, // ; Ratio between the lepton and jet transverse momenta
-                {"pfRelIso03_all", Muon_pfRelIso04_all[j]},            //???; Relative isolation using the cone size of 0.4
-                {"jetBTag", Jet_btagDeepB[Muon_jetIdx[j]]},
+                {"pfRelIso03_all", Muon_pfRelIso03_all[j]},            // 4
+                // {"jetBTag", Jet_btagDeepB[Muon_jetIdx[j]]},
+                {"jetBTag", Jet_btagDeepFlavB[Muon_jetIdx[j]]},
                 {"sip3d", Muon_sip3d[j]},
                 {"dxy", TMath::Log(TMath::Abs(Muon_dxy[j]))},
                 {"dz", TMath::Log(TMath::Abs(Muon_dz[j]))},
