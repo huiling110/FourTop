@@ -24,8 +24,8 @@ void run_objectTSelectorForNanoAOD(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018a/",
     // TString outputDir = "/publicfs/cms/user/fabioiemmi/TauOfTTTT/test_tobjectSelector/",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/tttt/",
-    // TString singleFileName = "outTree_11.root",
-    TString singleFileName = "outTree_1.root",
+    TString singleFileName = "outTree_11.root",
+    // TString singleFileName = "outTree_1.root",
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
     // TString eventSelectionBit = "3"
     TString eventSelectionBit = "7")
