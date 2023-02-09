@@ -790,8 +790,8 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
                 // {"jetBTag", Jet_btagDeepB[Muon_jetIdx[j]]},
                 {"jetBTag", Jet_btagDeepFlavB[Muon_jetIdx[j]]},
                 {"sip3d", Muon_sip3d[j]},
-                {"dxy", TMath::Log(TMath::Abs(Muon_dxy[j]))},
-                {"dz", TMath::Log(TMath::Abs(Muon_dz[j]))},
+                {"dxy", Muon_dxy[j]},
+                {"dz", Muon_dz[j]},
                 {"mvaFall17V2noIso", Muon_segmentComp[j]},
             }; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
             topLeptonScore = TopLeptonEvaluate(inputFeatures, m_booster[1]);
