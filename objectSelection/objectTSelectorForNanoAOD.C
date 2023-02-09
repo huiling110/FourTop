@@ -391,7 +391,6 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("leptonsMVAF", &leptonsMVAF);
     newTree->Branch("leptonsMVAT", &leptonsMVAT);
     newTree->Branch("leptonsMVAL", &leptonsMVAL);
-    newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     newTree->Branch("elesTopMVAT", &elesTopMVAT);
     newTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
     newTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
@@ -778,17 +777,18 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             continue;
         if (type == 2)
         {
+            Float_t jetPtRatio = 1. / (Muon_jetRelIso[j] + 1.);
+            Float_t jetBTag = Jet_btagDeepFlavB[Muon_jetIdx[j]];
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", Muon_pt[j]},
                 {"eta", Muon_eta[j]},
                 {"jetNDauCharged", Muon_jetNDauCharged[j]}, // number of charged daughters of the closest jet
                 {"miniPFRelIso_chg", Muon_miniPFRelIso_chg[j]},
                 {"miniPFRelIso_all", Muon_miniPFRelIso_all[j]},
-                {"jetPtRelv2", Muon_jetPtRelv2[j]},                    // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-                {"jetPtRatio", Muon_pt[j] / (Jet_pt[Muon_jetIdx[j]])}, // ; Ratio between the lepton and jet transverse momenta
-                {"pfRelIso03_all", Muon_pfRelIso03_all[j]},            // 4
-                // {"jetBTag", Jet_btagDeepB[Muon_jetIdx[j]]},
-                {"jetBTag", Jet_btagDeepFlavB[Muon_jetIdx[j]]},
+                {"jetPtRelv2", Muon_jetPtRelv2[j]},         // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
+                {"jetPtRatio", jetPtRatio},                 // ; Ratio between the lepton and jet transverse momenta
+                {"pfRelIso03_all", Muon_pfRelIso03_all[j]}, // 44
+                {"jetBTag", jetBTag},
                 {"sip3d", Muon_sip3d[j]},
                 {"dxy", Muon_dxy[j]},
                 {"dz", Muon_dz[j]},
