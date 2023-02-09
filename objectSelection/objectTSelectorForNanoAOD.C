@@ -230,7 +230,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     sort(leptonsMVAL.begin(), leptonsMVAL.end(), compEle);
 
     SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, elesTopMVAT_topMVAScore, 2);
+    SelectEleTopMVA(elesTopMVAL, elesTopMVAL_index, elesTopMVAL_topMVAScore, 0);
     SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
+    SelectMuTopMVA(muonsTopMVAL, muonsTopMVAL_index, muonsTopMVAL_topMVAScore, 0);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -240,8 +242,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_jetEta, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
     SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_jetEta, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
     SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
-    // SelectTaus(tausT_TESup, tausT_index_TESup, tausT_decayMode_TESup, tausT_genPartFlav_TESup, 3, leptonsMVAL, 1);
-    // SelectTaus(tausT_TESdown, tausT_index_TESdown, tausT_decayMode_TESdown, tausT_genPartFlav_TESdown, 3, leptonsMVAL, 2);
     sort(tausT.begin(), tausT.end(), compEle);
     sort(tausF.begin(), tausF.end(), compEle);
     sort(tausL.begin(), tausL.end(), compEle);
@@ -254,9 +254,6 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // calJetSmearFactors(m_isdata); // Duncan's way; computationally expensive and not right
     calJER_SF(JER_SF_new, cset_jerSF.get());
-    // // for(UInt_t i=0; i<JER_SF_new.size(); i++){
-    // //     std::cout<<JER_SF_new[i]<<" ";
-    // // }
     Bool_t ifJER = kFALSE;
     // Bool_t ifJER = kTRUE;
     Bool_t deepJet = true;
@@ -394,14 +391,19 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("leptonsMVAF", &leptonsMVAF);
     newTree->Branch("leptonsMVAT", &leptonsMVAT);
     newTree->Branch("leptonsMVAL", &leptonsMVAL);
-    newTree->Branch("muonsTopMVAT", &muonsTopMVAT);
     newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     newTree->Branch("elesTopMVAT", &elesTopMVAT);
     newTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
     newTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
+    newTree->Branch("elesTopMVAL", &elesTopMVAL);
+    newTree->Branch("elesTopMVAL_index", &elesTopMVAL_index);
+    newTree->Branch("elesTopMVAL_topMVAScore", &elesTopMVAL_topMVAScore);
     newTree->Branch("muonsTopMVAT", &muonsTopMVAT);
     newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     newTree->Branch("muonsTopMVAT_topMVAScore", &muonsTopMVAT_topMVAScore);
+    newTree->Branch("muonsTopMVAL", &muonsTopMVAL);
+    newTree->Branch("muonsTopMVAL_index", &muonsTopMVAL_index);
+    newTree->Branch("muonsTopMVAL_topMVAScore", &muonsTopMVAL_topMVAScore);
 
     newTree->Branch("tausL", &tausL);
     newTree->Branch("tausF", &tausF);
@@ -1271,14 +1273,18 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     leptonsMVAF.clear();
     leptonsMVAT.clear();
     leptonsMVAL.clear();
-    muonsTopMVAT.clear();
-    muonsTopMVAT_index.clear();
     elesTopMVAT.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
+    elesTopMVAL.clear();
+    elesTopMVAL_index.clear();
+    elesTopMVAL_topMVAScore.clear();
     muonsTopMVAT.clear();
     muonsTopMVAT_index.clear();
     muonsTopMVAT_topMVAScore.clear();
+    muonsTopMVAL.clear();
+    muonsTopMVAL_index.clear();
+    muonsTopMVAL_topMVAScore.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();
