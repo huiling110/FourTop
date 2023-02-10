@@ -32,8 +32,8 @@ def copyData( dir ):
 # version = 'v9addBtagWeight_v42fixedChargeType/'
 # version = 'v10addPV_npvsGood_baseline_v42fixedChargeType/'
 # version = 'v0baseline_v44addSSLeptons/'
-# version = 'v0LepLAdded_v45newLepBugFixed/'
-version = 'v0LepLAdded_v46addPOGIDL/'
+version = 'v0LepLAdded_v45newLepBugFixed/'
+# version = 'v0LepLAdded_v46addPOGIDL/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
