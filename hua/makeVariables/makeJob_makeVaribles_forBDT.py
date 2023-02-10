@@ -26,7 +26,8 @@ import usefulFunc as uf
 # inVersion = 'v41addVertexSelection'
 # inVersion = 'v42fixedChargeType'
 # inVersion = 'v44addSSLeptons'
-inVersion = 'v45newLepBugFixed'
+# inVersion = 'v45newLepBugFixed'
+inVersion = 'v46addPOGIDL'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
@@ -74,8 +75,8 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#???
+        # if iera=='2016preVFP' : continue
+        # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
         uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
