@@ -231,8 +231,11 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     SelectEleTopMVA(elesTopMVAT, elesTopMVAT_index, elesTopMVAT_topMVAScore, 2);
     SelectEleTopMVA(elesTopMVAL, elesTopMVAL_index, elesTopMVAL_topMVAScore, 0);
+    SelectEleTopMVA(elesTopMVALPOG, elesTopMVALPOG_index, elesTopMVALPOG_topMVAScore, 5);
+    SelectEleTopMVA(elesTopMVAVPOG, elesTopMVAVPOG_index, elesTopMVAVPOG_topMVAScore, 4);
     SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
     SelectMuTopMVA(muonsTopMVAL, muonsTopMVAL_index, muonsTopMVAL_topMVAScore, 0);
+    SelectMuTopMVA(muonsTopMVALPOG, muonsTopMVALPOG_index, muonsTopMVALPOG_topMVAScore, 5);
 
     // nominal taus
     //  calTauSF( m_isdata );
@@ -397,12 +400,21 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("elesTopMVAL", &elesTopMVAL);
     newTree->Branch("elesTopMVAL_index", &elesTopMVAL_index);
     newTree->Branch("elesTopMVAL_topMVAScore", &elesTopMVAL_topMVAScore);
+    newTree->Branch("elesTopMVALPOG", &elesTopMVALPOG);
+    newTree->Branch("elesTopMVALPOG_index", &elesTopMVALPOG_index);
+    newTree->Branch("elesTopMVALPOG_topMVAScore", &elesTopMVALPOG_topMVAScore);
+    newTree->Branch("elesTopMVAVPOG", &elesTopMVAVPOG);
+    newTree->Branch("elesTopMVAVPOG_index", &elesTopMVAVPOG_index);
+    newTree->Branch("elesTopMVAVPOG_topMVAScore", &elesTopMVAVPOG_topMVAScore);
     newTree->Branch("muonsTopMVAT", &muonsTopMVAT);
     newTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     newTree->Branch("muonsTopMVAT_topMVAScore", &muonsTopMVAT_topMVAScore);
     newTree->Branch("muonsTopMVAL", &muonsTopMVAL);
     newTree->Branch("muonsTopMVAL_index", &muonsTopMVAL_index);
     newTree->Branch("muonsTopMVAL_topMVAScore", &muonsTopMVAL_topMVAScore);
+    newTree->Branch("muonsTopMVALPOG", &muonsTopMVALPOG);
+    newTree->Branch("muonsTopMVALPOG_index", &muonsTopMVALPOG_index);
+    newTree->Branch("muonsTopMVALPOG_topMVAScore", &muonsTopMVALPOG_topMVAScore);
 
     newTree->Branch("tausL", &tausL);
     newTree->Branch("tausF", &tausF);
@@ -768,8 +780,9 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
 }
 
 void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, std::vector<Double_t> &SelectedMuonsLeptonScore, const Int_t type)
-{ // SS of TTTT
-    // 0 for Loose; 2 tight
+{
+    // SS of TTTT: 0 for Loose; 2 tight
+    // POG: 5: loose
     Double_t topLeptonScore = -99.;
     for (UInt_t j = 0; j < Muon_pt.GetSize(); ++j)
     {
@@ -777,18 +790,27 @@ void objectTSelectorForNanoAOD::SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiM
             continue;
         if (!(fabs(Muon_eta.At(j)) < 2.4))
             continue;
-        if (!(fabs(Muon_dxy.At(j)) < 0.05))
-            continue;
-        if (!(fabs(Muon_dz.At(j)) < 0.1))
-            continue;
-        if (!(Muon_ip3d.At(j) < 8))
-            continue;
-        // Iso
-        if (!(Muon_miniPFRelIso_all.At(j < 0.4)))
-            continue;
-        // ID
-        if (!Muon_mediumId.At(j))
-            continue;
+        if (type == 5)
+        {
+            if (!Muon_looseId.At(j))
+                continue;
+        }
+        if (type == 0 || type == 2)
+        {
+
+            if (!(fabs(Muon_dxy.At(j)) < 0.05))
+                continue;
+            if (!(fabs(Muon_dz.At(j)) < 0.1))
+                continue;
+            if (!(Muon_ip3d.At(j) < 8))
+                continue;
+            // Iso
+            if (!(Muon_miniPFRelIso_all.At(j < 0.4)))
+                continue;
+            // ID
+            if (!Muon_mediumId.At(j))
+                continue;
+        }
         if (type == 2)
         {
             Float_t jetPtRatio = 1. / (Muon_jetRelIso[j] + 1.);
@@ -1295,12 +1317,21 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     elesTopMVAL.clear();
     elesTopMVAL_index.clear();
     elesTopMVAL_topMVAScore.clear();
+    elesTopMVALPOG.clear();
+    elesTopMVALPOG_index.clear();
+    elesTopMVALPOG_topMVAScore.clear();
+    elesTopMVAVPOG.clear();
+    elesTopMVAVPOG_index.clear();
+    elesTopMVAVPOG_topMVAScore.clear();
     muonsTopMVAT.clear();
     muonsTopMVAT_index.clear();
     muonsTopMVAT_topMVAScore.clear();
     muonsTopMVAL.clear();
     muonsTopMVAL_index.clear();
     muonsTopMVAL_topMVAScore.clear();
+    muonsTopMVALPOG.clear();
+    muonsTopMVALPOG_index.clear();
+    muonsTopMVALPOG_topMVAScore.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();

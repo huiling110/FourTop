@@ -166,12 +166,22 @@ public:
 	std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVAL;
 	std::vector<Int_t> elesTopMVAL_index;
 	std::vector<Double_t> elesTopMVAL_topMVAScore;
+	std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVALPOG;
+	std::vector<Int_t> elesTopMVALPOG_index;
+	std::vector<Double_t> elesTopMVALPOG_topMVAScore;
+	std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVAVPOG;
+	std::vector<Int_t> elesTopMVAVPOG_index;
+	std::vector<Double_t> elesTopMVAVPOG_topMVAScore;
+
 	std::vector<ROOT::Math::PtEtaPhiMVector> muonsTopMVAT;
 	std::vector<Int_t> muonsTopMVAT_index;
 	std::vector<Double_t> muonsTopMVAT_topMVAScore;
 	std::vector<ROOT::Math::PtEtaPhiMVector> muonsTopMVAL;
 	std::vector<Int_t> muonsTopMVAL_index;
 	std::vector<Double_t> muonsTopMVAL_topMVAScore;
+	std::vector<ROOT::Math::PtEtaPhiMVector> muonsTopMVALPOG;
+	std::vector<Int_t> muonsTopMVALPOG_index;
+	std::vector<Double_t> muonsTopMVALPOG_topMVAScore;
 
 	std::vector<ROOT::Math::PtEtaPhiMVector> tausL;
 	std::vector<Int_t> tausL_index;
