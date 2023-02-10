@@ -1,10 +1,11 @@
 import csv
 import os
 from ctypes import c_double
-from math import sqrt
+import math
 from tokenize import Double, Number
 
 import pandas as pd
+import numpy as np
 # import ROOT
 import usefulFunc as uf
 from ROOT import TFile
@@ -132,8 +133,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         df.loc['bg'] = df.loc['tt'] + df.loc['qcd'] +df.loc['ttX'] +df.loc['VV']+ df.loc['singleTop']+df.loc['WJets']
         
     df.loc['SandB'] = df.loc['bg'] + df.loc['tttt']
-    #???make this work
-    df.loc['sensitivity'] = df.loc['tttt']/(df.loc['SandB']**(1/2))
+    df.loc['sensitivity'] = df.loc['tttt']/np.sqrt(df.loc['SandB'])
+    df.loc['significance'] = np.sqrt( 2*( df.loc['SandB']*np.log(1+df.loc['tttt']/df.loc['bg']) - df.loc['tttt']) ) 
 
 
     if not writeData:
