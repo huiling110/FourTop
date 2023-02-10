@@ -42,8 +42,8 @@ def main():
     # version = 'v0oldLepton'
     # version = 'v2SSLepton'
     # version = 'v0FR_oldLep'
-    version = 'v0FR_newLep'
-    # version = 'v1FR_vetoNewLepL'
+    # version = 'v0FR_newLep'
+    version = 'v1FR_vetoNewLepL'
     justMC = False
     # justMC = True
     isTest = 0
