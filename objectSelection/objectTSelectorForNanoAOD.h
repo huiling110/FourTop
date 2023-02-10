@@ -424,7 +424,7 @@ public:
 	TTreeReaderArray<Float_t> Electron_sip3d = {fReader, "Electron_sip3d"};
 	// TTreeReaderArray<Float_t> Electron_mvaTTH = {fReader, "Electron_mvaTTH"};
 	TTreeReaderArray<Int_t> Electron_charge = {fReader, "Electron_charge"};
-	// TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
+	TTreeReaderArray<Int_t> Electron_cutBased = {fReader, "Electron_cutBased"};
 	TTreeReaderArray<Int_t> Electron_jetIdx = {fReader, "Electron_jetIdx"};
 	// TTreeReaderArray<Int_t> Electron_pdgId = {fReader, "Electron_pdgId"};
 	// TTreeReaderArray<Int_t> Electron_photonIdx = {fReader, "Electron_photonIdx"};

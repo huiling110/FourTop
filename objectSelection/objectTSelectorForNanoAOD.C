@@ -694,7 +694,8 @@ void objectTSelectorForNanoAOD::SelectElectronsMVA(std::vector<ROOT::Math::PtEta
 // }
 void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, std::vector<Double_t> &SelectedEleTopMVAScore, const Int_t type)
 { // same as SS  of TTTT
-    // 0: loose, 2: tight
+    // 0: loose, 2: tight;
+    // POG: 4: veto; 5:POG loose
     for (UInt_t j = 0; j < Electron_pt.GetSize(); ++j)
     {
         Double_t pt = Electron_pt.At(j);
@@ -704,19 +705,32 @@ void objectTSelectorForNanoAOD::SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhi
             continue;
         if (!(pt > 10))
             continue;
-        // IP
-        if (!(fabs(Electron_dxy.At(j)) < 0.05))
-            continue;
-        if (!(fabs(Electron_dz.At(j)) < 0.1))
-            continue;
-        if (!((Electron_ip3d.At(j)) < 8))
-            continue;
-        // Iso
-        if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
-            continue;
+        if (type == 5)
+        {
+            if (!(Electron_cutBased[j] >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+                continue;
+        }
+        if (type == 4)
+        {
+            if (!(Electron_cutBased[j] >= 1)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+                continue;
+        }
+        if (type == 0 || type == 2)
+        {
+            // IP
+            if (!(fabs(Electron_dxy.At(j)) < 0.05))
+                continue;
+            if (!(fabs(Electron_dz.At(j)) < 0.1))
+                continue;
+            if (!((Electron_ip3d.At(j)) < 8))
+                continue;
+            // Iso
+            if (!(Electron_miniPFRelIso_all.At(j) < 0.4)) // mini PF relative isolation, total (with scaled rho*EA PU corrections)
+                continue;
 
-        if (!(int(Electron_lostHits.At(j)) < 1))
-            continue;
+            if (!(int(Electron_lostHits.At(j)) < 1))
+                continue;
+        }
         if (type == 2)
         {
             if (!Electron_convVeto.At(j))
