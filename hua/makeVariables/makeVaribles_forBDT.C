@@ -248,6 +248,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 	muonsTopMVAT_number = muonsTopMVAT.GetSize();
 	elesTopMVAL_number = elesTopMVAL.GetSize();
 	muonsTopMVAL_number = muonsTopMVAL.GetSize();
+	muonsTopMVALPOG_number = muonsTopMVALPOG.GetSize();
+	elesTopMVALPOG_number = elesTopMVALPOG.GetSize();
+	elesTopMVAVPOG_number = elesTopMVAVPOG.GetSize();
 
 	leptonsMVAT_number = leptonsMVAT.GetSize();
 	leptonsMVAF_number = leptonsMVAF.GetSize();
@@ -849,6 +852,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 	newtree->Branch("muonsTopMVAT_number", &muonsTopMVAT_number, "muonsTopMVAT_number/I");
 	newtree->Branch("elesTopMVAL_number", &elesTopMVAL_number, "elesTopMVAL_number/I");
 	newtree->Branch("muonsTopMVAL_number", &muonsTopMVAL_number, "muonsTopMVAL_number/I");
+	newtree->Branch("muonsTopMVALPOG_number", &muonsTopMVALPOG_number, "muonsTopMVALPOG_number/I");
+	newtree->Branch("elesTopMVALPOG_number", &elesTopMVALPOG_number, "elesTopMVALPOG_number/I");
+	newtree->Branch("elesTopMVAVPOG_number", &elesTopMVAVPOG_number, "elesTopMVAVPOG_number/I");
 
 	newtree->Branch("tausT_number_TESup", &tausT_number_TESup, "tausT_number_TESup/I");
 	newtree->Branch("tausT_number_TESdown", &tausT_number_TESdown, "tausT_number_TESdown/I");
@@ -1222,6 +1228,9 @@ void makeVaribles_forBDT::InitializeBranches()
 	muonsTopMVAT_number = -99;
 	elesTopMVAL_number = -99;
 	muonsTopMVAL_number = -99;
+	muonsTopMVALPOG_number = -99;
+	elesTopMVALPOG_number = -99;
+	elesTopMVAVPOG_number = -99;
 
 	tausT_number_TESup = -99;
 	tausL_number = -99;
