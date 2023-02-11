@@ -20,7 +20,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/'
     
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
@@ -44,8 +45,10 @@ def main():
     # version = 'v2SSLepton'
     # version = 'v0FR_oldLep'
     # version = 'v0FR_newLep'
-    version = 'v1FR_vetoNewLepL'
-    version = 'v1FR_vetoNewLepL_repeat'
+    # version = 'v1FR_vetoNewLepL'
+    # version = 'v1FR_vetoNewLepL_repeat'
+    # version = 'v2FR_vetoPOGlepL'
+    version = 'v2FR_vetoPOGMuLEleV'
     justMC = False
     # justMC = True
     isTest = 0

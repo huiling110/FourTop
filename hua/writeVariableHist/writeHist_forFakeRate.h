@@ -139,6 +139,7 @@ public:
    TTreeReaderValue<Int_t> muonsTopMVAL_number = {fReader, "muonsTopMVAL_number"};
    TTreeReaderValue<Int_t> muonsTopMVALPOG_number = {fReader, "muonsTopMVALPOG_number"};
    TTreeReaderValue<Int_t> elesTopMVALPOG_number = {fReader, "elesTopMVALPOG_number"};
+   TTreeReaderValue<Int_t> elesTopMVAVPOG_number = {fReader, "elesTopMVAVPOG_number"};
 
    TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
    TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};

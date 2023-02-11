@@ -372,7 +372,8 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// swich to new SS lepton
 	// Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
 	// Int_t lepNum = *elesTopMVAL_number + *muonsTopMVAL_number;
-	Int_t lepNum = *elesTopMVALPOG_number + *muonsTopMVALPOG_number;
+	// Int_t lepNum = *elesTopMVALPOG_number + *muonsTopMVALPOG_number;
+	Int_t lepNum = *elesTopMVAVPOG_number + *muonsTopMVALPOG_number;
 	// leptonsMVAT_number
 	if (!(*tausF_number == 1 && lepNum == 0))
 	{
