@@ -15,12 +15,6 @@ from usefulFunc import getInputDic
 
 
 def main():
-    # era = '2016postVFP'
-    # era = '2016preVFP'
-    # era = '2016'
-    # era = '2018'
-    # era = '2017'
-    
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v0oldLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v1SSLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v44addSSLeptons/mc/variableHists_v2SSLepton/'
@@ -86,13 +80,14 @@ def main():
             
             
         
-    writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
+    # writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
 
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'.csv', False, True )
     # writeHistsToCSV( sumProcessPerVar,  inputDir['mc']+'results/', csvName+'_rawEntries.csv', True, True )
 
 
 
+    
 
 
 def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False, ifFakeTau = False):

@@ -68,3 +68,11 @@ def getChannelFromDir( dir ):
     elif '1tau0l' in dir:
         cha = '1tau0l'
     return cha
+
+
+def getDirDic(inputMC):
+    inputDirDic = {
+        'mc': inputMC,
+        'data': inputMC.replace('mc', 'data')
+    }
+    return inputDirDic
