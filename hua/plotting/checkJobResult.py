@@ -19,6 +19,10 @@ def checkJobStatus(inputDirDic):
     inputList = os.listdir(inputDirDic['mc']  ) + os.listdir(inputDirDic['data']) 
     for i, ipro in enumerate(inputList):
         inputList[i] = ipro.replace('.root', '')
+    inputList.remove('log') 
+    inputList.remove('log') 
+    inputList.remove('results')
+    inputList = sorted(inputList)
     
     allSubPros = list(gq.histoGramPerSample.keys())[:] #copy
     era = uf.getEraFromDir(inputDirDic['mc']) 
@@ -27,18 +31,19 @@ def checkJobStatus(inputDirDic):
         if 'jetHT' in isub and (not era in isub): continue
         allSubProsNew.append(isub)    
             # print('remove data: ', isub)
+    allSubProsNew = sorted(allSubProsNew)
    
-    print('subProcess from inputDir:              ', inputList)
+    print('subProcess from inputDir:\n', inputList)
     print('\n')
-    print('all subProcess removing non year data :', allSubProsNew) 
+    print('all subProcess removing non year data :\n', allSubProsNew) 
     print('\n')
     
-    missingPro = []
-    for iPro in allSubProsNew :
-        if not iPro in inputList:
-            missingPro.append(iPro)
+    missingPro = list(filter(lambda x: x not in inputList, allSubProsNew)
+    print( 'in allSub not in dir:\n' ,)  )
+    print( 'in allSub not in dir:\n' ,list(filter(lambda x: x not in allSubProsNew, inputList))  )
     if len(missingPro) >0 :
         raise ValueError('missing some sub processes: ', missingPro)
+    
         
     for ifile in os.listdir(inputDirDic['mc'] +'/log/'):
         if not 'err' in ifile: continue
