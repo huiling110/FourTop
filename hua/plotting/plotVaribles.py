@@ -28,55 +28,32 @@ colourPerSample = {
 
 
 
-
-    # histVersion = 'variableHists_v1variables'
-    # histVersion = 'variableHists_v7addFRWeightedRegions'
-    # histVersion = 'variableHists_v8addFRWeightedRegionsNew'
-    # histVersion = 'variableHists_v9addMoreVariables'
-    # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    # histVersion = 'variableHists_v12moreVariables'
-    # histVersion = 'variableHists_v2forFRVariables_finerPtBin'
-    # histVersion  = 'variableHists_v3forFRaddFRWeightUpDownRegions'
-    # histVersion  = 'variableHists_v4forFRAddHistTitle'
-    # histVersion = 'variableHists_v7addFRWeightReForEventCount'
-    # histVersion = 'variableHists_v0for1tau1lCRs'
-    # inVersion = 'v5baselineExtraTauLepCut_v41addVertexSelection'
-    # histVersion = 'variableHists_v0_BDT1tau1lCRs'
-    # histVersion = 'variableHists_v1HT30bins1tau0l'
-    # era = '2016preVFP'
-    # era = '2016postVFP'
-    # era = '2016'
-    # era = '2018'
-    # era = '2017'
-
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0for1tau1lCRs/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v1addBtagWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v2onlyBasicWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v4btagWeightWithR/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/mc/variableHists_v0noCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/mc/variableHists_v0noCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v4FR_application/'
     
 
     # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['jets_HT']
     # variables = ['eventCount']
     # variables = ['tausF_charge']
-    # ifFR_sys = True
-    ifFR_sys = False
+    ifFR_sys = True
+    # ifFR_sys = False
     
     # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # for 1tau1l
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
     # variables = ['bjetsM_num', 'bjetsM_1pt', 'bjetsM_2pt', ]
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
-    regionList = ['1tau1lCR2']
+    # regionList = ['1tau1lCR2']
     
     # variables = ['Met_pt']#???
     # variables = ['tausL_1ptFRWeight']
@@ -86,19 +63,20 @@ def main():
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
   
-    # variables = ['jets_bScore'] 
+    #1tau0l
+    variables = ['jets_bScore'] 
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
     #regions for 1tau0l fake tau
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
    
-    # plotName = 'dataVsMC_fakeTauFromData'
-    plotName = 'dataVsMC'
+    plotName = 'dataVsMC_fakeTauFromData'
+    # plotName = 'dataVsMC'
 
     
     
@@ -135,15 +113,15 @@ def main():
     writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
-    for (i,ire) in enumerate( regionList):
-        if i==0:
-            legendOrder.remove('qcd')     
-        if '1tau1l' in ire:
-            for ivar in variables:
-                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
-                sumProcessPerVar[ivar][ire].pop('qcd')
-            print('remove qcd for 1tau1l')
-    print( sumProcessPerVar )
+    # for (i,ire) in enumerate( regionList):
+    #     if i==0:
+    #         legendOrder.remove('qcd')     
+    #     if '1tau1l' in ire:
+    #         for ivar in variables:
+    #             if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
+    #             sumProcessPerVar[ivar][ire].pop('qcd')
+    #         print('remove qcd for 1tau1l')
+    # print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
