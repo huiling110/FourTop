@@ -1,6 +1,8 @@
 import csv
 import os
 
+import ROOT
+
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
@@ -14,12 +16,23 @@ def main():
     # except ValueError as e:
         # print(e)
     
+   
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
+    # checkOSJobs(obDir, '2016preVFP')
+    checkOSJobs(obDir, '2016postVFP')
+    
     # mvDir = inputDir[:inputDir.find('variableHist')]
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v46addPOGIDL/'
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v46addPOGIDL/'
     # print(mvDir)
     # checkMVJobs(mvDir)
-   
-    obDir = inputDir[:inputDir.find('forMVA')] 
-    checkOSJobs(obDir, '2016preVFP')
+    
+    
+    
+    
+    
+    
     
 def checkOSJobs(obDir, era='2016preVFP'):
     nanoDirDic = {
@@ -28,18 +41,36 @@ def checkOSJobs(obDir, era='2016preVFP'):
         '2017': '/publicfs/cms/data/TopQuark/nanoAOD/2017/',
         '2018': '/publicfs/cms/data/TopQuark/nanoAOD/2018/',
     }
-    # if era=='2016':
-    #     dirDic = {
-    #         '2016preVFP': obDir+'UL2016_preVFP/',
-    #         '2016postVFP': obDir+'UL2016_postVFP/',
-    #     }
-    # for idir in dirDic.keys():
-        # print(dirDic[idir])
     nanoDir = nanoDirDic[era]
     print('inputNano dir: ', nanoDir)
-    getProcessFileDic(nanoDir, era)
+    fileDic = getProcessFileDic(nanoDir, era)
+    print(fileDic)
+    print('\n')
     
-def getProcessFileDic(nanoDir, era):
+    OSfileDic = getProcessFileDic(obDir, era, True)
+    print(OSfileDic)
+    print('\n')
+    
+    if not fileDic==OSfileDic:
+        print('os file not the same with nanofile')
+    else:
+        print('os file the same with nanofile')
+
+    checkLogOB(obDir)
+    
+def checkLogOB(obDir):
+    print('start to check log dir')
+    obDirDic={}
+    obDirDic['mc']=obDir+'mc/'
+    obDirDic['data']=obDir+'data/'
+    for ikey in obDirDic.keys():
+        for isub in os.listdir(obDirDic[ikey]):
+            checkLogDir(obDirDic[ikey]+isub+'/log/')
+                
+         
+    
+    
+def getProcessFileDic(nanoDir, era, isOB=False):
     fileDir = {}
     fileDir['mc']={}
     fileDir['data']={}
@@ -47,25 +78,48 @@ def getProcessFileDic(nanoDir, era):
     print('all subProcess considered: \n', subProList)
     mcDir = nanoDir+'mc/'
     for ipro in subProList:
-        fileDir['mc'][ipro] = []
-        # for ifile in os.listdir(mcDir+ipro+'/'):
-            # print(ifile)
+        if 'jetHT' in ipro:
+            fileDir['data'][ipro] = []
+            fileDir['data'][ipro] = getCheckNanoFile(nanoDir+'data/'+ipro+ '/', isOB)
+        else:
+            fileDir['mc'][ipro] = []
+            fileDir['mc'][ipro] = getCheckNanoFile(mcDir+ipro+ '/', isOB)
+    # print( fileDir)
+    return fileDir
         
-        
+def getCheckNanoFile(dir, isOB=False, ifCheckNano=False):
+    fileList = []
+    for ifile in os.listdir(dir):
+        if not '.root' in ifile: continue
+        fileList.append(ifile)
+        if ifCheckNano:
+            rootF = ROOT.TFile(dir+ifile, 'READ')
+            if rootF.IsZombie():
+                print('BAD!!! file corrupt!!! ', ifile )
+            rootF.Close()
+    sorted(fileList)
+    return fileList        
     
     
     
 def checkMVJobs(mvDir):
-    era = uf.getEraFromDir(mvDir)
-    if era=='2016':
-        dirPre = mvDir.replace('2016', '2016preVFP')
-        print(dirPre)
+    mvDic = expandDirDic(mvDir)
+    for idir in mvDic.keys():
+        logDir = mvDic[idir] + 'log/'
+        checkLogDir(logDir)
+       
+def expandDirDic( dir):
+    dirDic={}
+    dirDic['mc'] = dir+'mc/'
+    dirDic['data'] = dir+'data/'
+    return dirDic
+
         
 def getAllSub(era):
     #era can be 2016 or '2016preVPF'
     dic={
-        '2016postVFP': ['jetHT_2016F', 'jetHT_2016F_hipm', 'jetHT_2016G', 'jetHT_2016H'],
-        '2016preVFP': ['jetHT_2016B_v1', 'jetHT_2016B_v2','jetHT_2016C', 'jetHT_2016D', 'jetHT_2016E'],
+        '2016postVFP': ['jetHT_2016F',  'jetHT_2016G', 'jetHT_2016H'],
+        '2016preVFP': ['jetHT_2016B_v1', 'jetHT_2016B_v2','jetHT_2016C', 'jetHT_2016D', 'jetHT_2016E', 'jetHT_2016F_hipm'],
     }
     allSubPros = list(gq.histoGramPerSample.keys())[:] #copy
     allSubProsNew = []
@@ -110,6 +164,7 @@ def checkJobStatus(inputDirDic):
     checkLogDir( inputDirDic['data'] +'/log/')    
             
 def checkLogDir(logDir):            
+    print('checking log dir: ', logDir)
     for ifile in os.listdir(logDir):
         if not 'err' in ifile: continue
         if not checkWordInFile( logDir + ifile ):
@@ -123,6 +178,7 @@ def checkWordInFile( file, word='Terminate' ):
         reader = csv.reader(file )
         for row in reader:
             # print(row)
+            if len(row) <1: continue
             if word in row[0]:
                    inFile = True
     # print(inFile)
