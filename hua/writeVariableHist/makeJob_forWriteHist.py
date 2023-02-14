@@ -26,19 +26,6 @@ def main():
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
-    # version = 'v4forFRAddHistTitle'
-    # version = 'v5forFRMCMasure'
-    # version = 'v6forFRCR12'
-    # version = 'v6forFRCR12_3prong'
-    # version = 'v7addFRWeightReForEventCount'
-    # version = 'v0for1tau1lCRs'
-    # version = 'v1HT30bins1tau0l'
-    # version = 'v0forVariables1tau0l'
-    # version = 'v1addBtagWeight'
-    # version = 'v2onlyBasicWeight'
-    # version = 'v3forBTagR'
-    # version = 'v4btagWeightWithR'
-    # version = 'v0noCorrection'
     # version = 'v1addPrefiringWeight'
     # version = 'v2addPileupWeight'
     # version = 'v0oldLepton'
@@ -48,7 +35,8 @@ def main():
     # version = 'v1FR_vetoNewLepL'
     # version = 'v1FR_vetoNewLepL_repeat'
     # version = 'v2FR_vetoPOGlepL'
-    version = 'v2FR_vetoPOGMuLEleV'
+    # version = 'v2FR_vetoPOGMuLEleV'
+    version ='v3FR_measure_vetoTOPTL'
     justMC = False
     # justMC = True
     isTest = 0

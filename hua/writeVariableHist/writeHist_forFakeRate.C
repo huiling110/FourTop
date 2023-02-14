@@ -273,73 +273,53 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
 	vectorInitializeReigions(vectorOfVariblesRegions_FRweightedInt, regionsForFRWeighting, m_processName);
 
 	std::vector<TString> regionsEtaDivided = {
-		"1tau0lCRLTau_Eta1",
+		"1tau0lCRLTau_Eta1", // 0
 		"1tau0lCRLTau_Eta2",
-		"1tau0lCRLTau_Eta3",
-		"1tau0lCRLTauGen_Eta1",
+		"1tau0lCRLTauGen_Eta1", // 2
 		"1tau0lCRLTauGen_Eta2",
-		"1tau0lCRLTauGen_Eta3",
 
-		"1tau0lCR_Eta1", // 6
+		"1tau0lCR_Eta1", // 4
 		"1tau0lCR_Eta2",
-		"1tau0lCR_Eta3",
-		"1tau0lCRGen_Eta1", // 9
+		"1tau0lCRGen_Eta1", // 6
 		"1tau0lCRGen_Eta2",
-		"1tau0lCRGen_Eta3",
 
-		"1tau0lVRLTauNotT_Eta1", // 12
+		"1tau0lVRLTauNotT_Eta1", // 8
 		"1tau0lVRLTauNotT_Eta2",
-		"1tau0lVRLTauNotT_Eta3",
-		"1tau0lVRLTauNotTGen_Eta1",
+		"1tau0lVRLTauNotTGen_Eta1", // 10
 		"1tau0lVRLTauNotTGen_Eta2",
-		"1tau0lVRLTauNotTGen_Eta3",
 		// CR LNotT
-		"1tau0lCRLTauNotT_Eta1", // 18
+		"1tau0lCRLTauNotT_Eta1", // 12
 		"1tau0lCRLTauNotT_Eta2",
-		"1tau0lCRLTauNotT_Eta3",
-		"1tau0lCRLTauNotTGen_Eta1", // 21
+		"1tau0lCRLTauNotTGen_Eta1", // 14
 		"1tau0lCRLTauNotTGen_Eta2",
-		"1tau0lCRLTauNotTGen_Eta3", // 23
 
 		// FR measurment CRc and CRa
-		"1tau0lCRcLTau_Eta1", // 24 2b
+		"1tau0lCRcLTau_Eta1", // 16
 		"1tau0lCRcLTau_Eta2",
-		"1tau0lCRcLTau_Eta3",
-		"1tau0lCRcLTauGen_Eta1", // 27
+		"1tau0lCRcLTauGen_Eta1", // 18
 		"1tau0lCRcLTauGen_Eta2",
-		"1tau0lCRcLTauGen_Eta3",
-		"1tau0lCRc_Eta1", // 30
+		"1tau0lCRc_Eta1", // 20
 		"1tau0lCRc_Eta2",
-		"1tau0lCRc_Eta3",
-		"1tau0lCRcGen_Eta1", // 33
+		"1tau0lCRcGen_Eta1", // 22
 		"1tau0lCRcGen_Eta2",
-		"1tau0lCRcGen_Eta3",
 		// CRa
-		"1tau0lCRaLTau_Eta1", // 36
+		"1tau0lCRaLTau_Eta1", // 24
 		"1tau0lCRaLTau_Eta2",
-		"1tau0lCRaLTau_Eta3",
-		"1tau0lCRaLTauGen_Eta1", // 39
+		"1tau0lCRaLTauGen_Eta1", // 26
 		"1tau0lCRaLTauGen_Eta2",
-		"1tau0lCRaLTauGen_Eta3",
-		"1tau0lCRa_Eta1", // 42
+		"1tau0lCRa_Eta1", // 28
 		"1tau0lCRa_Eta2",
-		"1tau0lCRa_Eta3",
-		"1tau0lCRaGen_Eta1", // 45
+		"1tau0lCRaGen_Eta1", // 30
 		"1tau0lCRaGen_Eta2",
-		"1tau0lCRaGen_Eta3",
 		// CRb
-		"1tau0lCRbLTau_Eta1", // 48
+		"1tau0lCRbLTau_Eta1", // 32
 		"1tau0lCRbLTau_Eta2",
-		"1tau0lCRbLTau_Eta3",
-		"1tau0lCRbLTauGen_Eta1", // 51
+		"1tau0lCRbLTauGen_Eta1", // 34
 		"1tau0lCRbLTauGen_Eta2",
-		"1tau0lCRbLTauGen_Eta3",
-		"1tau0lCRb_Eta1", // 54
+		"1tau0lCRb_Eta1", // 36
 		"1tau0lCRb_Eta2",
-		"1tau0lCRb_Eta3",
-		"1tau0lCRbGen_Eta1", // 57
+		"1tau0lCRbGen_Eta1", // 38
 		"1tau0lCRbGen_Eta2",
-		"1tau0lCRbGen_Eta3",
 
 	};
 	tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
@@ -370,10 +350,10 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	}
 
 	// swich to new SS lepton
-	// Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
+	Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
 	// Int_t lepNum = *elesTopMVAL_number + *muonsTopMVAL_number;
 	// Int_t lepNum = *elesTopMVALPOG_number + *muonsTopMVALPOG_number;
-	Int_t lepNum = *elesTopMVAVPOG_number + *muonsTopMVALPOG_number;
+	// Int_t lepNum = *elesTopMVAVPOG_number + *muonsTopMVALPOG_number;
 	// leptonsMVAT_number
 	if (!(*tausF_number == 1 && lepNum == 0))
 	{
@@ -434,9 +414,9 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 	// fakeTau
 	fillHistsVector(is1tau0lCRb, 17, basicWeight * FRWeight);
 
-	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 0.8;
-	Bool_t isEta2 = 0.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.6;
-	Bool_t isEta3 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
+	Bool_t isEta1 = 0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.5;
+	Bool_t isEta2 = 1.5 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
+	// Bool_t isEta3 = 1.8 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.4;
 
 	if (!m_isData)
 	{
@@ -526,54 +506,35 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 			FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 30, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
 		}
 
-		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCRLTauGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(5, basicWeight, is1tau0lCRLTauGen && isEta3);
-		tausL_1pt_eta_class.fillHistVec(9, basicWeight, is1tau0lCRGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(10, basicWeight, is1tau0lCRGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(11, basicWeight, is1tau0lCRGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(2, basicWeight, is1tau0lCRLTauGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(6, basicWeight, is1tau0lCRGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(7, basicWeight, is1tau0lCRGen && isEta2);
 		// VR
-		tausL_1pt_eta_class.fillHistVec(15, basicWeight, is1tau0lVRLTauNotTGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(16, basicWeight, is1tau0lVRLTauNotTGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(17, basicWeight, is1tau0lVRLTauNotTGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(10, basicWeight, is1tau0lVRLTauNotTGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(11, basicWeight, is1tau0lVRLTauNotTGen && isEta2);
 		// CRLNotT
-		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotTGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotTGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotTGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(14, basicWeight, is1tau0lCRLTauNotTGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(15, basicWeight, is1tau0lCRLTauNotTGen && isEta2);
 		// for mearure FR with MC
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
-		tausL_1pt_eta_class.fillHistVec(2, basicWeight, is1tau0lCRLTau && isEta3);
-		tausL_1pt_eta_class.fillHistVec(6, basicWeight, is1tau0lCR && isEta1);
-		tausL_1pt_eta_class.fillHistVec(7, basicWeight, is1tau0lCR && isEta2);
-		tausL_1pt_eta_class.fillHistVec(8, basicWeight, is1tau0lCR && isEta3);
-		// VR
-		//  tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lVRLTau && isEta1);
-		//  tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lVRLTau && isEta2);
-		//  tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lVRLTau && isEta3);
-		//  tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lVR && isEta1);
-		//  tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lVR && isEta2);
-		//  tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lVR && isEta3);
-		tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lCRcLTauGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lCRcLTauGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lCRcLTauGen && isEta3);
-		tausL_1pt_eta_class.fillHistVec(33, basicWeight, is1tau0lCRcGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(34, basicWeight, is1tau0lCRcGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(35, basicWeight, is1tau0lCRcGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCR && isEta1);
+		tausL_1pt_eta_class.fillHistVec(5, basicWeight, is1tau0lCR && isEta2);
+		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRcLTauGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRcLTauGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(22, basicWeight, is1tau0lCRcGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(23, basicWeight, is1tau0lCRcGen && isEta2);
 		// CRa
-		tausL_1pt_eta_class.fillHistVec(39, basicWeight, is1tau0lCRaLTauGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(40, basicWeight, is1tau0lCRaLTauGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(41, basicWeight, is1tau0lCRaLTauGen && isEta3);
-		tausL_1pt_eta_class.fillHistVec(45, basicWeight, is1tau0lCRaGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(46, basicWeight, is1tau0lCRaGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(47, basicWeight, is1tau0lCRaGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lCRaLTauGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(27, basicWeight, is1tau0lCRaLTauGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(30, basicWeight, is1tau0lCRaGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(31, basicWeight, is1tau0lCRaGen && isEta2);
 		// CRb
-		tausL_1pt_eta_class.fillHistVec(51, basicWeight, is1tau0lCRbLTauGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(52, basicWeight, is1tau0lCRbLTauGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(53, basicWeight, is1tau0lCRbLTauGen && isEta3);
-		tausL_1pt_eta_class.fillHistVec(57, basicWeight, is1tau0lCRbGen && isEta1);
-		tausL_1pt_eta_class.fillHistVec(58, basicWeight, is1tau0lCRbGen && isEta2);
-		tausL_1pt_eta_class.fillHistVec(59, basicWeight, is1tau0lCRbGen && isEta3);
+		tausL_1pt_eta_class.fillHistVec(34, basicWeight, is1tau0lCRbLTauGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(35, basicWeight, is1tau0lCRbLTauGen && isEta2);
+		tausL_1pt_eta_class.fillHistVec(38, basicWeight, is1tau0lCRbGen && isEta1);
+		tausL_1pt_eta_class.fillHistVec(39, basicWeight, is1tau0lCRbGen && isEta2);
 	}
 	else
 	{
@@ -627,39 +588,31 @@ Bool_t writeHist_forFakeRate::Process(Long64_t entry)
 
 		tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
 		tausL_1pt_eta_class.fillHistVec(1, basicWeight, is1tau0lCRLTau && isEta2);
-		tausL_1pt_eta_class.fillHistVec(2, basicWeight, is1tau0lCRLTau && isEta3);
-		tausL_1pt_eta_class.fillHistVec(6, basicWeight, is1tau0lCR && isEta1);
-		tausL_1pt_eta_class.fillHistVec(7, basicWeight, is1tau0lCR && isEta2);
-		tausL_1pt_eta_class.fillHistVec(8, basicWeight, is1tau0lCR && isEta3);
+		tausL_1pt_eta_class.fillHistVec(4, basicWeight, is1tau0lCR && isEta1);
+		tausL_1pt_eta_class.fillHistVec(5, basicWeight, is1tau0lCR && isEta2);
 		// VR
-		tausL_1pt_eta_class.fillHistVec(12, basicWeight, is1tau0lVRLTauNotT && isEta1);
-		tausL_1pt_eta_class.fillHistVec(13, basicWeight, is1tau0lVRLTauNotT && isEta2);
-		tausL_1pt_eta_class.fillHistVec(14, basicWeight, is1tau0lVRLTauNotT && isEta3);
+		tausL_1pt_eta_class.fillHistVec(8, basicWeight, is1tau0lVRLTauNotT && isEta1);
+		tausL_1pt_eta_class.fillHistVec(9, basicWeight, is1tau0lVRLTauNotT && isEta2);
+		// tausL_1pt_eta_class.fillHistVec(14, basicWeight, is1tau0lVRLTauNotT && isEta3);
 		// CRLNotT
-		tausL_1pt_eta_class.fillHistVec(18, basicWeight, is1tau0lCRLTauNotT && isEta1);
-		tausL_1pt_eta_class.fillHistVec(19, basicWeight, is1tau0lCRLTauNotT && isEta2);
-		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotT && isEta3);
+		tausL_1pt_eta_class.fillHistVec(12, basicWeight, is1tau0lCRLTauNotT && isEta1);
+		tausL_1pt_eta_class.fillHistVec(13, basicWeight, is1tau0lCRLTauNotT && isEta2);
+		// tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRLTauNotT && isEta3);
 		// CRc and CRa
-		tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lCRcLTau && isEta1);
-		tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lCRcLTau && isEta2);
-		tausL_1pt_eta_class.fillHistVec(26, basicWeight, is1tau0lCRcLTau && isEta3);
-		tausL_1pt_eta_class.fillHistVec(30, basicWeight, is1tau0lCRc && isEta1);
-		tausL_1pt_eta_class.fillHistVec(31, basicWeight, is1tau0lCRc && isEta2);
-		tausL_1pt_eta_class.fillHistVec(32, basicWeight, is1tau0lCRc && isEta3);
+		tausL_1pt_eta_class.fillHistVec(16, basicWeight, is1tau0lCRcLTau && isEta1);
+		tausL_1pt_eta_class.fillHistVec(17, basicWeight, is1tau0lCRcLTau && isEta2);
+		tausL_1pt_eta_class.fillHistVec(20, basicWeight, is1tau0lCRc && isEta1);
+		tausL_1pt_eta_class.fillHistVec(21, basicWeight, is1tau0lCRc && isEta2);
 		// CRa
-		tausL_1pt_eta_class.fillHistVec(36, basicWeight, is1tau0lCRaLTau && isEta1);
-		tausL_1pt_eta_class.fillHistVec(37, basicWeight, is1tau0lCRaLTau && isEta2);
-		tausL_1pt_eta_class.fillHistVec(38, basicWeight, is1tau0lCRaLTau && isEta3);
-		tausL_1pt_eta_class.fillHistVec(42, basicWeight, is1tau0lCRa && isEta1);
-		tausL_1pt_eta_class.fillHistVec(43, basicWeight, is1tau0lCRa && isEta2);
-		tausL_1pt_eta_class.fillHistVec(44, basicWeight, is1tau0lCRa && isEta3);
+		tausL_1pt_eta_class.fillHistVec(24, basicWeight, is1tau0lCRaLTau && isEta1);
+		tausL_1pt_eta_class.fillHistVec(25, basicWeight, is1tau0lCRaLTau && isEta2);
+		tausL_1pt_eta_class.fillHistVec(28, basicWeight, is1tau0lCRa && isEta1);
+		tausL_1pt_eta_class.fillHistVec(29, basicWeight, is1tau0lCRa && isEta2);
 		// CRb
-		tausL_1pt_eta_class.fillHistVec(48, basicWeight, is1tau0lCRbLTau && isEta1);
-		tausL_1pt_eta_class.fillHistVec(49, basicWeight, is1tau0lCRbLTau && isEta2);
-		tausL_1pt_eta_class.fillHistVec(50, basicWeight, is1tau0lCRbLTau && isEta3);
-		tausL_1pt_eta_class.fillHistVec(54, basicWeight, is1tau0lCRb && isEta1);
-		tausL_1pt_eta_class.fillHistVec(55, basicWeight, is1tau0lCRb && isEta2);
-		tausL_1pt_eta_class.fillHistVec(56, basicWeight, is1tau0lCRb && isEta3);
+		tausL_1pt_eta_class.fillHistVec(32, basicWeight, is1tau0lCRbLTau && isEta1);
+		tausL_1pt_eta_class.fillHistVec(33, basicWeight, is1tau0lCRbLTau && isEta2);
+		tausL_1pt_eta_class.fillHistVec(36, basicWeight, is1tau0lCRb && isEta1);
+		tausL_1pt_eta_class.fillHistVec(37, basicWeight, is1tau0lCRb && isEta2);
 	}
 
 	return kTRUE;

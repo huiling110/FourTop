@@ -11,16 +11,13 @@ def main():
 
     inputDirDic = uf.getDirDic(inputDir) 
     era = uf.getEraFromDir(inputDir)
-    # try:
-    # checkJobStatus(inputDirDic)
-    # except ValueError as e:
-        # print(e)
+    checkJobStatus(inputDirDic)
     
    
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
     # checkOSJobs(obDir, '2016preVFP')
-    checkOSJobs(obDir, '2016postVFP')
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
+    # checkOSJobs(obDir, '2016postVFP')
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v46addPOGIDL/'
