@@ -32,6 +32,7 @@ public:
         if (ifFill)
         {
             m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+            // std::cout << "filling \n";
         }
     }
     void fillHistVecAbs(UInt_t iRegion, Double_t weight)

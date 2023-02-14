@@ -39,14 +39,10 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v4FR_application/'
     
 
-    # variables = [ 'tausF_1jetPtFRWeight',]
     # variables = ['jets_HT']
     # variables = ['eventCount']
     # variables = ['tausF_charge']
-    ifFR_sys = True
-    # ifFR_sys = False
     
-    # variables = [ 'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'PV_npvs']
     # for 1tau1l
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
@@ -54,30 +50,28 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    
-    # variables = ['Met_pt']#???
-    # variables = ['tausL_1ptFRWeight']
-    # variables = ['tausF_1jetPt', 'tausL_1etaAbs']
+        # variables = ['Met_pt']#???
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
   
     #1tau0l
-    variables = ['jets_bScore'] 
+    # variables = ['jets_HT'] 
+    variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'PV_npvs'] #'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
-    #regions for 1tau0l fake tau
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRNotGen']
-    regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
+    regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    # ifFR_sys = True #???problem when turn this on
+    ifFR_sys = False
    
     plotName = 'dataVsMC_fakeTauFromData'
     # plotName = 'dataVsMC'
 
+    
     
     
     
@@ -368,7 +362,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
     #legend
     #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    leggy = TLegend(0.8,0.7,0.9,0.94)
+    # leggy = TLegend(0.8,0.7,0.9,0.94)
+    leggy = TLegend(0.68,0.8,0.92,0.94)
+    leggy.SetNColumns(2) 
     leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
     leggy.SetFillColor(0)
