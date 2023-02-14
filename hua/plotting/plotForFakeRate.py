@@ -9,35 +9,15 @@ from ttttGlobleQuantity import summedProcessList
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from writeCSVforEY import getSummedHists, histDateMinusGenBG
 
-# from unicodedata import east_asian_width
-
 
 
 
 def main():
-    era = '2016' 
-    # era = '2018' 
-    # era = '2017' 
-    # inVersion = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection'
-    # inVersion = 'v0addMoreVariables_v39addTauBranches'
-    inVersion = 'v1fixedTauVariables_v40addTauJetEtau'
-    # histVersion = 'variableHists_v6forFakeRate3EtaRegions'
-    # histVersion = 'variableHists_v10ExpandingTauPtRange'
-    # histVersion = 'variableHists_v0forFakeRate'
-    # histVersion = 'variableHists_v1forFRSwitchToTauJetPt'
-    # histVersion = 'variableHists_v2forFRVariables'
-    # histVersion = 'variableHists_v1forFREtaRegionCorrected'
-    # histVersion = 'variableHists_v1forFREtaRegionCorrected_1prong'
-    # histVersion = 'variableHists_v5forFRMCMeasure'
-    # histVersion = 'variableHists_v6forFRCR12'
-    # histVersion = 'variableHists_v6forFRCR12_1prong'
-    histVersion = 'variableHists_v6forFRCR12_3prong'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    # etaBins = np.array([0. ,0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1,1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8,1.9, 2.0,2.1,2.2,2.3, 2.4 ]) 
-    # etaBins = np.array([0. , 0.2,  0.4,  0.6,  0.8, 1.0, 1.2, 1.4,  1.6, 1.8, 2.0, ,2.2, 2.4 ]) 
     variableDic = {
         # 'tausL_1pt': ptBins,
         'tausF_1jetPt': ptBins,
@@ -51,30 +31,33 @@ def main():
     
     
   
-    inputDirDic = getInputDic(inVersion, histVersion, era) 
+    # inputDirDic = getInputDic(inVersion, histVersion, era) 
+    inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
+    era = uf.getEraFromDir(inputDir)
         
     
     # isVR = True
     isVR = False
-    FR_EtaListDic = {}
-    FR_EtaListDic['1Eta'] = []
-    FR_EtaListDic['2Eta'] = []
-    FR_EtaListDic['3Eta'] = []
-    for iCR in CRnames:
-        iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era, iCR )
-        FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
-        FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
-        FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
+    # FR_EtaListDic = {}
+    # FR_EtaListDic['1Eta'] = []
+    # FR_EtaListDic['2Eta'] = []
+    # # FR_EtaListDic['3Eta'] = []
+    # for iCR in CRnames:
+    #     iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era, iCR )
+    #     FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
+    #     FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
+    #     # FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
     
-    plotForBJet = True
-    if 'CR' in CRnames:
-        plotForBJet = False
-    for iEta in ['1Eta', '2Eta', '3Eta']:
-        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
+    # plotForBJet = True
+    # if 'CR' in CRnames:
+    #     plotForBJet = False
+    # for iEta in ['1Eta', '2Eta', '3Eta']:
+    #     plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
    
-    
-    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    #measure FR in CR
+    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era )
+    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
     
     
     #application in AR
@@ -159,7 +142,8 @@ def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
         
 
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
-    etaBins = np.array([0, 0.8,1.6,2.4])
+    # etaBins = np.array([0, 0.8,1.6,2.4])
+    etaBins = np.array([0, 1.5,2.4])
     
     # outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
     outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG_newBin.root'
@@ -249,7 +233,7 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=T
     for ire in range(len(regionList)):
         regionList[ire] = regionList[ire] + ieta
     sumProcessPerVar = {}
-    sumProcessPerVarSys = {} #???not sure why have to add this
+    sumProcessPerVarSys = {} 
     for ivar in variableDic.keys():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
@@ -268,10 +252,7 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=T
     
     
 def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
-    # regionList = ["1tau0lCRGen", '1tau0lCR', '1tau0lCRLTauGen', "1tau0lCRLTau"]
-    # h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCR'+etaRegion, '1tau0lCRGen'+etaRegion, isDataMC)
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[1], regionList[0], isDataMC)
-    # h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], '1tau0lCRLTau'+etaRegion, '1tau0lCRLTauGen'+etaRegion, isDataMC)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[3], regionList[2], isDataMC)
 
     binLowEges = variableDic[list(variableDic.keys())[0]]
@@ -296,7 +277,6 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
         plotDir = inputDirDic['mc'] + 'results/' 
         uf.checkMakeDir( plotDir )
         if not isDataMC:
-            # plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better.png'
             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+'_'+regionList[1]+ '_FR_sumGenBg_better.png'
         else:
             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
@@ -307,15 +287,13 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     
     
 def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016', FRMeasureRegion='CR'):
-    etaList = ['_Eta1', '_Eta2', '_Eta3']
-    # etaList = ['']
+    # etaList = ['_Eta1', '_Eta2', '_Eta3']
+    etaList = ['_Eta1', '_Eta2']
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
-        # sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR, False )
         sumProcessPerVar, inputDirDic, regionList  = getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR, False, FRMeasureRegion )
         ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era)
-        # ietaPt, ietaVR =  plotPtInEta( sumProcessPerVar, inputDirDic, regionList,  variableDic , ieta, ifPlot, era, True)
         FR_ptInEtaList.append(ietaPt)
         tauPtEtaListAR.append(ietaVR)
     return FR_ptInEtaList, tauPtEtaListAR
@@ -349,17 +327,19 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
 
-    # h_dinominator.SetTitle("FR ")
-    h_dinominator.SetLineColor(ROOT.kOrange)
-    # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.1)
+    h_dinominator.SetLineColor(ROOT.kOrange+1)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     h_dinominator.GetYaxis().SetTitle('Events')
     h_dinominator.GetYaxis().SetLabelSize(0.025)
     h_dinominator.GetYaxis().SetTitleOffset(1.1)
     h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
+    h_dinominator.SetLineWidth(2)
+    # h_dinominator.SetLineStyle(2)
     
     h_dinominator.Draw()
     h_numeritor.SetLineColor(ROOT.kMagenta-4)
+    h_numeritor.SetLineWidth(2)
+    # h_numeritor.SetLineStyle(8)
     h_numeritor.Draw('same')
     can.Update()
 
@@ -368,7 +348,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     rightmax = 1.5*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
-    h_efficiency.SetLineWidth(2)
+    h_efficiency.SetLineWidth(3)
     # h_efficiency.SetMarkerStyle(2)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty

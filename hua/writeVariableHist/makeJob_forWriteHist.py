@@ -36,7 +36,9 @@ def main():
     # version = 'v1FR_vetoNewLepL_repeat'
     # version = 'v2FR_vetoPOGlepL'
     # version = 'v2FR_vetoPOGMuLEleV'
-    version ='v3FR_measure_vetoTOPTL'
+    # version ='v3FR_measure_vetoTOPTL'
+    # version ='v3FR_measure_1prong'
+    version ='v3FR_measure_2prong'
     justMC = False
     # justMC = True
     isTest = 0
