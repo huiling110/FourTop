@@ -26,10 +26,6 @@ def main():
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
-    # version = 'v1addPrefiringWeight'
-    # version = 'v2addPileupWeight'
-    # version = 'v0oldLepton'
-    # version = 'v2SSLepton'
     # version = 'v0FR_oldLep'
     # version = 'v0FR_newLep'
     # version = 'v1FR_vetoNewLepL'
@@ -38,7 +34,8 @@ def main():
     # version = 'v2FR_vetoPOGMuLEleV'
     # version ='v3FR_measure_vetoTOPTL'
     # version ='v3FR_measure_1prong'
-    version ='v3FR_measure_2prong'
+    # version ='v3FR_measure_2prong'
+    version = 'v4FR_application'
     justMC = False
     # justMC = True
     isTest = 0
