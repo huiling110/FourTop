@@ -187,6 +187,7 @@ public:
     TTreeReaderValue<Int_t> tausF_1charge = {fReader, "tausF_1charge"};
     // TTreeReaderValue<Double_t> tausF_1neutralIso = {fReader, "tausF_1neutralIso"}; //???
     TTreeReaderValue<Int_t> tausF_1decayMode = {fReader, "tausF_1decayMode"};
+    // TTreeReaderValue<Int_t> tausF_1eta = {fReader, "tausF_1eta"};
 
     // TTreeReaderValue<Double_t> tausF_leptonsT_transMass = {fReader, "tausF_leptonsT_transMass"};
     // TTreeReaderValue<Double_t> tausL_leptonsT_transMass = {fReader, "tausL_leptonsT_transMass"};

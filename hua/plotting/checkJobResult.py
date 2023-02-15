@@ -7,22 +7,28 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGMuLEleV/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGMuLEleV/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGlepL/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v1FR_vetoNewLepL_repeat/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v0FR_newLep/'
 
     inputDirDic = uf.getDirDic(inputDir) 
     era = uf.getEraFromDir(inputDir)
     checkJobStatus(inputDirDic)
     
-   
+    #check object selection jobs 
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v45newLepBugFixed/'
     # checkOSJobs(obDir, '2016preVFP')
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v45newLepBugFixed/'
     # checkOSJobs(obDir, '2016postVFP')
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v46addPOGIDL/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v46addPOGIDL/'
-    # print(mvDir)
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v45newLepBugFixed/'
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v45newLepBugFixed/'
     # checkMVJobs(mvDir)
     
     
@@ -141,7 +147,7 @@ def checkJobStatus(inputDirDic):
     inputList = sorted(inputList)
    
     era = uf.getEraFromDir(inputDirDic['mc']) 
-    getAllSub(era) 
+    allSubProsNew = getAllSub(era) 
     allSubProsNew = sorted(allSubProsNew)
    
     print('subProcess from inputDir:\n', inputList)
