@@ -16,9 +16,9 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v44addSSLeptons/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/",
-    TString inputProcess = "ttbar_0l",
+    // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
-    // TString inputProcess = "tttt",
+    TString inputProcess = "tttt",
     // TString inputProcess = "wz",
     // TString inputProcess = 'WJetsToLNu_HT-600To800',
     // TString inputProcess = "jetHT_2016C",
@@ -26,7 +26,8 @@ void run_writeHist(
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
     // TString selector = "writeHist_fordataMC.C+" // 1tau1l)
-    TString selector = "writeHist_forFakeRate.C+" // 1tau0l
+    // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
+    TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
     // TString selector = "writeHist_forBtagRCal.C+" // 1tau0l
 )
 {

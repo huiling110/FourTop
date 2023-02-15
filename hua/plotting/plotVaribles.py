@@ -44,7 +44,7 @@ def main():
     # variables = ['tausF_charge']
     
     # for 1tau1l
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
     # variables = ['bjetsM_num', 'bjetsM_1pt', 'bjetsM_2pt', ]
     # variables = ['BDT']
@@ -55,9 +55,10 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
+    # plotName = 'dataVsMC'
   
     #1tau0l
-    # variables = ['jets_HT']
+    # variables = ['jets_bScore']
     # variables = ['tausF_1jetPtFRWeight']
     variables = ['tausF_1eta'] 
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', ''tausF_1eta', 'PV_npvs'] #'tausF_1jetPtFRWeight', 'tausL_1etaAbsFRWeight', 
@@ -68,11 +69,9 @@ def main():
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    ifFR_sys = True #???problem when turn this on
-    # ifFR_sys = False
-   
+    # ifFR_sys = True #???problem when turn this on
+    ifFR_sys = False
     plotName = 'dataVsMC_fakeTauFromData'
-    # plotName = 'dataVsMC'
 
     
     

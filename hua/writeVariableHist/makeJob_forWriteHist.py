@@ -36,6 +36,10 @@ def main():
     # version ='v3FR_measure_1prong'
     # version ='v3FR_measure_2prong'
     version = 'v4FR_application'
+    # version = 'v0_oldLep'
+    # version = 'v0_newLep'
+    # version = 'v1_newLepNoCorrection'
+    
     justMC = False
     # justMC = True
     isTest = 0
