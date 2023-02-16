@@ -14,7 +14,9 @@ from writeCSVforEY import getSummedHists, histDateMinusGenBG
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -341,7 +343,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     h_dinominator.GetYaxis().SetTitleOffset(1.1)
     h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
     h_dinominator.SetLineWidth(3)
-    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.5)
+    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
     # h_dinominator.SetLineStyle(2)
     
     h_dinominator.Draw()
@@ -355,7 +357,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
 
     h_efficiency = h_eff.Clone()
     # rightmax = 1.5*h_efficiency.GetMaximum();
-    rightmax = .4
+    rightmax = .35
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(3)
@@ -370,7 +372,6 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     #     print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
     
     axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
-    # axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
     # axis.SetRangeUser(0, rightmax*1.4)
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
