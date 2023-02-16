@@ -210,14 +210,18 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
         //
         "1tau0lCRc", // 27
         "1tau0lCRcGen",
-        "1tau0lCRcLTauNotT_Weighted",    // 29
-        "1tau0lCRcLTauNotTGen_Weighted", // 30
+        "1tau0lCRcLTauNotT_Weighted",         // 29
+        "1tau0lCRcLTauNotTGen_Weighted",      // 30
+        "1tau0lCRcLTauNotT_Weighted_up",      // 31
+        "1tau0lCRcLTauNotT_Weighted_down",    // 32
+        "1tau0lCRcLTauNotTGen_Weighted_up",   // 33
+        "1tau0lCRcLTauNotTGen_Weighted_down", // 34
 
     };
     // systematic regions
     // how the pileup weighting impact?, only impact MC, don't concern fake tau
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 30, 500, 1500, jets_HT};
-    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 30, 1, 5, jets_bScore};
+    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 20, 0, 4, jets_bScore};
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 40, 500, jets_1pt};
     histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 40, 600, jets_2pt};
     histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 40, 500, jets_3pt};
@@ -515,6 +519,11 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
             FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 30, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
             FillHistsVecorMyClassGenearal(is1tau0lCRcGen, 28, basicWeight, vectorOfVariblesRegions_FRweightedInt);
             FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 30, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+            // CRc syst up and down regions
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 33, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 34, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 33, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTauGen && noTauT, 34, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
         }
 
         tausL_1pt_eta_class.fillHistVec(3, basicWeight, is1tau0lCRLTauGen && isEta1);
@@ -597,6 +606,11 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
             FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 29, basicWeight * FRWeight, vectorOfVariblesRegions_FRweighted);
             FillHistsVecorMyClassGenearal(is1tau0lCRc, 27, basicWeight, vectorOfVariblesRegions_FRweightedInt);
             FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 29, basicWeight * FRWeight, vectorOfVariblesRegions_FRweightedInt);
+            // CRc syst up and down regions
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 31, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweighted);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 32, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweighted);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 31, basicWeight * FRWeight_up, vectorOfVariblesRegions_FRweightedInt);
+            FillHistsVecorMyClassGenearal(is1tau0lCRcLTau && noTauT, 32, basicWeight * FRWeight_down, vectorOfVariblesRegions_FRweightedInt);
         }
 
         tausL_1pt_eta_class.fillHistVec(0, basicWeight, is1tau0lCRLTau && isEta1);
