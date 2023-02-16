@@ -239,6 +239,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     // histsForRegions<Double_t> Met_pt_class{"MET_pt", "Met", 10, 0, 200, MET_pt};
     histsForRegions<Double_t> tausF_1eta_class{"tausF_1eta", "leading fake tau #eta", 24, -2.4, 2.4, tausF_1eta};
     histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
+    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "leading pt of fake tau", 28, 20, 300, tausF_1pt};
     // histsForRegions<Double_t>{};
     histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};
     histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "charge of leading tau", 2, -2, 2, tausF_1charge};
@@ -260,6 +261,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     vectorOfVariblesRegions_FRweighted.push_back(tausL_1etaAbsFR_class);
     // vectorOfVariblesRegions_FRweighted.push_back(Met_pt_class);
     vectorOfVariblesRegions_FRweighted.push_back(tausF_1jetPtFR_class);
+    vectorOfVariblesRegions_FRweighted.push_back(tausF_1pt_class);
     vectorOfVariblesRegions_FRweighted.push_back(tausF_1eta_class);
     vectorOfVariblesRegions_FRweighted.push_back(jets_bScore_class);
     vectorOfVariblesRegions_FRweighted.push_back(jets_bScoreMultiply_class);
