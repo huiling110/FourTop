@@ -60,10 +60,10 @@ def main():
     # plotName = 'dataVsMC'
   
     #1tau0l
-    variables = ['jets_bScore']
+    # variables = ['jets_bScore']
     # variables = ['tausF_1jetPtFRWeight']
     # variables = ['tausF_1eta'] 
-    # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
+    variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
@@ -259,6 +259,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         #???need systsUp and systsDown calculation
         if doSystmatic and  systHists[i]:
             # tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] ) #for i process
+            print('cal sys for: ', i)
             tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
             systsUp.Add(tempUp) #adding various processes, 
             systsDown.Add(tempDown)
