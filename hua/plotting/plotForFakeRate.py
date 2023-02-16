@@ -328,10 +328,11 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
-    # setTDRStyle()
-    can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
-    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-    ROOT.gStyle.SetOptTitle(0)
+    setTDRStyle()
+    # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
+    can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
+    # ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    # ROOT.gStyle.SetOptTitle(0)
 
     h_dinominator.SetLineColor(ROOT.kOrange+1)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
@@ -355,11 +356,11 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(3)
-    # h_efficiency.SetMarkerStyle(2)
+    # h_efficiency.SetMarkerStyle(3)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
     h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
-    h_efficiency.Draw("same")
+    h_efficiency.Draw("E1 same")
     
     #print
     # for i in range(1,h_efficiency.GetNbinsX()+1):
@@ -380,7 +381,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     legend.AddEntry(h_efficiency, "FR")
     legend.Draw()
     
-    addCMSTextToCan(can, 0.18, 0.3, 0.92, era)
+    addCMSTextToCan(can, 0.23, 0.35, 0.96, era)     
 
     can.SaveAs(plotName)
 
