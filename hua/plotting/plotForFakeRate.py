@@ -328,31 +328,34 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
-    setTDRStyle()
+    # setTDRStyle()#???not sure why no content line
     # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
-    # ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-    # ROOT.gStyle.SetOptTitle(0)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
 
-    h_dinominator.SetLineColor(ROOT.kOrange+1)
+    # h_dinominator.SetLineColor(ROOT.kOrange)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     h_dinominator.GetYaxis().SetTitle('Events')
     h_dinominator.GetYaxis().SetLabelSize(0.025)
     h_dinominator.GetYaxis().SetTitleOffset(1.1)
     h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
-    h_dinominator.SetLineWidth(2)
+    h_dinominator.SetLineWidth(3)
+    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.5)
     # h_dinominator.SetLineStyle(2)
     
     h_dinominator.Draw()
-    h_numeritor.SetLineColor(ROOT.kMagenta-4)
-    h_numeritor.SetLineWidth(2)
+    # h_numeritor.SetLineColor(ROOT.kMagenta-4)
+    # h_numeritor.SetLineColor(ROOT.kBlue)
+    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
+    h_numeritor.SetLineWidth(3)
     # h_numeritor.SetLineStyle(8)
     h_numeritor.Draw('same')
     can.Update()
 
     h_efficiency = h_eff.Clone()
-    # rightmax = 1.1*h_efficiency.GetMaximum();
-    rightmax = 1.5*h_efficiency.GetMaximum();
+    # rightmax = 1.5*h_efficiency.GetMaximum();
+    rightmax = .4
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(3)
@@ -360,28 +363,31 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
     h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
-    h_efficiency.Draw("E1 same")
+    h_efficiency.Draw("same")
     
     #print
     # for i in range(1,h_efficiency.GetNbinsX()+1):
     #     print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
     
     axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    # axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
     # axis.SetRangeUser(0, rightmax*1.4)
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
     axis.SetTitle('fake rate')
     axis.SetTitleColor(ROOT.kRed)
+    # axis.SetRangeUser(0, 0.4)
     axis.Draw()
 
 
-    legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    # legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.5,0.7,0.9,0.9)
     legend.AddEntry(h_dinominator, "denominator: FTau-genMC")
     legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
     legend.AddEntry(h_efficiency, "FR")
     legend.Draw()
     
-    addCMSTextToCan(can, 0.23, 0.35, 0.96, era)     
+    addCMSTextToCan(can, 0.17, 0.30, 0.92, era)     
 
     can.SaveAs(plotName)
 

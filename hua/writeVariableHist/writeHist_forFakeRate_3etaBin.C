@@ -238,7 +238,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     // histsForRegions<Double_t>{};
     histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};
     histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "charge of leading tau", 2, -2, 2, tausF_1charge};
-    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "decay mode of leading fake tau", 11, 0, 11, tausF_1decayMode};
+    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "decay mode of leading fake tau", 12, 0, 12, tausF_1decayMode};
     histsForRegions<Int_t> jets_num_class{"jets_num", "number of jets", 6, 6, 12, jets_number};
     histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", "number of bjets", 5, 0, 5, bjetsM_num};
     histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of primary vertex", 50, 0, 50, PV_npvs};
@@ -368,11 +368,14 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     };
 
     // for prong division
-    // if (!(*tausF_prongNum == 1))
-    // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
-    // {
-    // 	return kFALSE;
-    // }
+    if (m_ifMeasurement)
+    {
+        if (!(*tausF_prongNum == 1))
+        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        {
+            return kFALSE;
+        }
+    }
 
     Double_t basicWeight = 1.0;
     if (!m_isData)
