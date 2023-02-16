@@ -4,8 +4,8 @@
 // from TChain newtree/
 //////////////////////////////////////////////////////////
 
-#ifndef writeHist_forFakeRate_h
-#define writeHist_forFakeRate_h
+#ifndef writeHist_forFakeRate_3etaBin_h
+#define writeHist_forFakeRate_3etaBin_h
 
 #include <vector>
 
@@ -23,7 +23,7 @@
 #include "histsForRegions_class.C"
 //
 
-class writeHist_forFakeRate : public TSelector
+class writeHist_forFakeRate_3etaBin : public TSelector
 {
 public:
     TTreeReader fReader; //! the tree reader
@@ -369,8 +369,8 @@ public:
     // TTreeReaderValue<Double_t> toptagger_scoreAllTops = {fReader, "toptagger_scoreAllTops"};
     // TTreeReaderValue<Double_t> toptagger_leptonsMVAT_minDeltaR = {fReader, "toptagger_leptonsMVAT_minDeltaR"};
 
-    writeHist_forFakeRate(TTree * /*tree*/ = 0) {}
-    virtual ~writeHist_forFakeRate() {}
+    writeHist_forFakeRate_3etaBin(TTree * /*tree*/ = 0) {}
+    virtual ~writeHist_forFakeRate_3etaBin() {}
     virtual Int_t Version() const { return 2; }
     virtual void Begin(TTree *tree);
     virtual void SlaveBegin(TTree *tree);
@@ -389,13 +389,13 @@ public:
     void fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
     void fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
 
-    ClassDef(writeHist_forFakeRate, 0);
+    ClassDef(writeHist_forFakeRate_3etaBin, 0);
 };
 
 #endif
 
-#ifdef writeHist_forFakeRate_cxx
-void writeHist_forFakeRate::Init(TTree *tree)
+#ifdef writeHist_forFakeRate_3etaBin_cxx
+void writeHist_forFakeRate_3etaBin::Init(TTree *tree)
 {
     // The Init() function is called when the selector needs to initialize
     // a new tree or chain. Typically here the reader is initialized.
@@ -407,7 +407,7 @@ void writeHist_forFakeRate::Init(TTree *tree)
     fReader.SetTree(tree);
 }
 
-Bool_t writeHist_forFakeRate::Notify()
+Bool_t writeHist_forFakeRate_3etaBin::Notify()
 {
     // The Notify() function is called when a new file is opened. This
     // can be either for a new TTree in a TChain or when when a new TTree
@@ -418,4 +418,4 @@ Bool_t writeHist_forFakeRate::Notify()
     return kTRUE;
 }
 
-#endif // #ifdef writeHist_forFakeRate_cxx
+#endif // #ifdef writeHist_forFakeRate_3etaBin_cxx
