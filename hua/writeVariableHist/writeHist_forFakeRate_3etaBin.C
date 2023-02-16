@@ -384,6 +384,13 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
         }
     }
 
+    // temperay divison in endcap and barrel region
+    // if (!(0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.5))
+    // if (!(1.5 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.3))
+    // {
+    //     return kFALSE;
+    // }
+
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
