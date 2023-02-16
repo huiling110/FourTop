@@ -13,7 +13,8 @@ from writeCSVforEY import getSummedHists, histDateMinusGenBG
 
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins/'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -26,8 +27,10 @@ def main():
     
     # CRnames = ['CRa',  'CRc'] # for bjet
     # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
-    CRnames = ['CR', 'CRa'] # for jet
-    
+    # CRnames = ['CR', 'CRa'] # for jet
+    CRnames = ['CR'] # for jet
+    # etaBins = 3 
+    etaBins = np.array([0, 0.8, 1.5, 2.3])
     
     
   
@@ -56,8 +59,8 @@ def main():
     #     plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
    
     #measure FR in CR
-    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era )
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins )
+    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era )
+    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
     
     #application in AR
@@ -141,9 +144,9 @@ def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
     
         
 
-def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins):
+def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins):
     # etaBins = np.array([0, 0.8,1.6,2.4])
-    etaBins = np.array([0, 1.5,2.4])
+    # etaBins = np.array([0, 1.5,2.4])
     
     # outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
     outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG_newBin.root'
@@ -286,9 +289,12 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
-def getFRAndARNotTList( inputDirDic, variableDic, isVR, ifPlot=True, era='2016', FRMeasureRegion='CR'):
+def getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR,  ifPlot=True, era='2016', FRMeasureRegion='CR'):
     # etaList = ['_Eta1', '_Eta2', '_Eta3']
-    etaList = ['_Eta1', '_Eta2']
+    # etaList = ['_Eta1', '_Eta2']
+    etaList = []
+    for i in range(1, len(etaBins)):
+        etaList.append('_Eta'+str(i))
     FR_ptInEtaList = []
     tauPtEtaListAR = []
     for ieta in etaList:
