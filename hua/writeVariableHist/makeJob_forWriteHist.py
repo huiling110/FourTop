@@ -27,7 +27,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
 
     # version = 'v0FR_oldLep'
-    version = 'v0FR_newLep'
+    # version = 'v0FR_newLep'
     # version = 'v1FR_vetoNewLepL'
     # version = 'v1FR_vetoNewLepL_repeat'
     # version = 'v2FR_vetoPOGlepL'
@@ -39,7 +39,7 @@ def main():
     # version = 'v5FR_measure3EtaBins'
     # version = 'v5FR_measure3EtaBins_1prong'
     # version = 'v5FR_measure3EtaBins_3prong'
-    # version = 'v5FR_application'
+    version = 'v5FR_application'
     # version = 'v0_oldLep'
     # version = 'v0_newLep'
     # version = 'v1_newLepNoCorrection'
