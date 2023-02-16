@@ -189,6 +189,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             print('iHistName: ', iHistName )
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
+                sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
                 if ifScale or not isdata: 
                     sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
