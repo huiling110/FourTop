@@ -41,10 +41,11 @@ def main():
     # version = 'v5FR_measure3EtaBins_3prong'
     # version = 'v5FR_application'
     # version = 'v5FR_application_barrel'
-    version = 'v5FR_application_endcap'
+    # version = 'v5FR_application_endcap'
     # version = 'v0_oldLep'
     # version = 'v0_newLep'
     # version = 'v1_newLepNoCorrection'
+    version = 'v1_newLepPrefiring'
     
     justMC = False
     # justMC = True
