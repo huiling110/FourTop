@@ -239,9 +239,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // nominal taus
     //  calTauSF( m_isdata );
-    calTauSF_new();   // calculate taus_TES_up  taus_TES_down
-    Int_t tauTES = 4; // 4 means no TES
-    // Int_t tauTES = 0; //
+    calTauSF_new(); // calculate taus_TES_up  taus_TES_down
+    // Int_t tauTES = 4; // 4 means no TES
+    Int_t tauTES = 0; // 0 means TES correction
     SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_jetEta, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
     SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_jetEta, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
     SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
