@@ -154,6 +154,12 @@ public:
     Int_t muonsTopMVALPOG_number = -99;
     Int_t elesTopMVALPOG_number = -99;
     Int_t elesTopMVAVPOG_number = -99;
+    Double_t elesTopMVAT_1pt = -99;
+    Double_t elesTopMVAT_1eta = -99;
+    Double_t elesTopMVAT_1phi = -99;
+    Double_t muonsTopMVAT_1pt = -99;
+    Double_t muonsTopMVAT_1eta = -99;
+    Double_t muonsTopMVAT_1phi = -99;
 
     Int_t tausT_number_TESup = -99;
     Int_t tausT_number_TESdown = -99;
