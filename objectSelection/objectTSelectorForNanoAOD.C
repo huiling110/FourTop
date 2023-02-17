@@ -257,8 +257,8 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
 
     // calJetSmearFactors(m_isdata); // Duncan's way; computationally expensive and not right
     calJER_SF(JER_SF_new, cset_jerSF.get());
-    Bool_t ifJER = kFALSE;
-    // Bool_t ifJER = kTRUE;
+    // Bool_t ifJER = kFALSE;
+    Bool_t ifJER = kTRUE;
     Bool_t deepJet = true;
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
@@ -1092,6 +1092,10 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
         }
     }
 }
+
+// void objectTSelectorForNanoAOD::SelectIsoTracks()
+// {
+// }
 
 void objectTSelectorForNanoAOD::selectGenTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &genTaus)
 {

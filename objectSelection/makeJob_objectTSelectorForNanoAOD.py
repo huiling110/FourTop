@@ -49,7 +49,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v44addSSLeptons/'
 # jobVersionName = 'v45newLepBugFixed/'
 # jobVersionName = 'v46addPOGIDL'
-jobVersionName = 'v47JustTES'
+# jobVersionName = 'v47JustTES/'
+jobVersionName = 'v48TESandJER/'
 
 onlyMC = False
 era = '2016'
