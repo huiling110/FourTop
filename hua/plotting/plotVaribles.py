@@ -50,12 +50,12 @@ def main():
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
     # variables = ['bjetsM_num', 'bjetsM_1pt', 'bjetsM_2pt', ']
     # variables = ['BDT']
-    # regionList = ['1tau1lCR0']
+    regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
         # variables = ['Met_pt']#???
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     ifFR_sys = False
     plotName = 'dataVsMC'
@@ -221,10 +221,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
 
 
-    doSystmatic = True
-    if not systHists:
-        print( 'systHist empty, not including systematic uncertainty\n')
-        doSystmatic = False
+    # doSystmatic = True
+    doSystmatic = False
+    for ipro in systHists.keys():
+        if systHists[ipro]:
+            doSystmatic = True
+    # if not systHists:
+        # print( 'systHist empty, not including systematic uncertainty\n')
     print( 'doSystmatic: ', doSystmatic )
 
     #here we get dataHist and add all MC for sumHist    
