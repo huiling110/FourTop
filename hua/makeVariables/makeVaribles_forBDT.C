@@ -607,9 +607,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     EVENT_prefireWeight_up = *EVENT_prefireWeight_up_;
     EVENT_prefireWeight_down = *EVENT_prefireWeight_down_;
     EVENT_genWeight = *EVENT_genWeight_;
-    PUweight = *PUWeight;
-    PUweight_down = *PUWeight_Down;
-    PUweight_up = *PUWeight_Up;
+    PUweight_ = *PUWeight;
+    PUweight_down_ = *PUWeight_Down;
+    PUweight_up_ = *PUWeight_Up;
     // Double_t *allBtagSF = evalEventSF(jets, jets_flavour, jets_btags, CSVreader);
     //  btagEfficiency_weight = allBtagSF[0];
     //  btagEfficiency_weight = calBTagSF( );
@@ -786,9 +786,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("EVENT_prefireWeight_up", &EVENT_prefireWeight_up, "EVENT_prefireWeight_up/D");
     newtree->Branch("EVENT_prefireWeight_down", &EVENT_prefireWeight_down, "EVENT_prefireWeight_down/D");
     newtree->Branch("EVENT_genWeight", &EVENT_genWeight, "EVENT_genWeight/D");
-    newtree->Branch("PUweight", &PUweight, "PUweight/D");
-    newtree->Branch("PUweight_up", &PUweight_up, "PUweight_up/D");
-    newtree->Branch("PUweight_down", &PUweight_down, "PUweight_down/D");
+    newtree->Branch("PUweight_", &PUweight_, "PUweight_/D");
+    newtree->Branch("PUweight_up_", &PUweight_up_, "PUweight_up_/D");
+    newtree->Branch("PUweight_down_", &PUweight_down_, "PUweight_down_/D");
     newtree->Branch("btagEfficiency_weight", &btagEfficiency_weight, "btagEfficiency_weight/D");
     newtree->Branch("HLTefficiency_weight", &HLTefficiency_weight, "HLTefficiency_weight/D");
     newtree->Branch("muonIDSF_weight", &muonIDSF_weight, "muonIDSF_weight/D");
@@ -1182,9 +1182,9 @@ void makeVaribles_forBDT::InitializeBranches()
     EVENT_prefireWeight_up = -99;
     EVENT_prefireWeight_down = -99;
     EVENT_genWeight = -99;
-    PUweight = -99;
-    PUweight_down = -99;
-    PUweight_up = -99;
+    PUweight_ = -99;
+    PUweight_down_ = -99;
+    PUweight_up_ = -99;
     btagEfficiency_weight = -99;
     HLTefficiency_weight = -99;
     muonIDSF_weight = -99;

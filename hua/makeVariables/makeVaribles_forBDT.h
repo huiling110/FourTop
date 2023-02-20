@@ -88,9 +88,9 @@ public:
     Double_t EVENT_prefireWeight_up;
     Double_t EVENT_prefireWeight_down;
     Double_t EVENT_genWeight;
-    Double_t PUweight;
-    Double_t PUweight_up;
-    Double_t PUweight_down;
+    Double_t PUweight_;
+    Double_t PUweight_up_;
+    Double_t PUweight_down_;
     Double_t btagEfficiency_weight;
     Double_t HLTefficiency_weight;
     Double_t muonIDSF_weight;
