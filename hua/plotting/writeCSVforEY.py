@@ -1,11 +1,12 @@
 import csv
+import math
 import os
 from ctypes import c_double
-import math
 from tokenize import Double, Number
 
-import pandas as pd
+import checkJobResult as cj
 import numpy as np
+import pandas as pd
 # import ROOT
 import usefulFunc as uf
 from ROOT import TFile
@@ -22,7 +23,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_vetoTOPTL/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0_oldLep/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0_newLep/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0FR_newLep/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0FR_newLep/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/variableHists_v2_newLepPileUp/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/variableHists_v1_newLepPrefiring/'
 
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     # csvName = '1tau0lFakeRate'
@@ -30,15 +33,15 @@ def main():
     # csvName = '1tau0lFakeRateTauGen'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
-    regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
-    csvName = '1tau0lCRs_withUncertInverted'
+    # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
+    # csvName = '1tau0lCRs_withUncertInverted'
     
-    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
+    regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
-    # csvName = '1tau1lCRs_withUncertInverted'
+    csvName = '1tau1lCRs_withUncertInverted'
     # regionList = [ '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
     

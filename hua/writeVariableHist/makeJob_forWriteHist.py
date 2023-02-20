@@ -45,9 +45,9 @@ def main():
     # version = 'v5FR_application_endcap'
     # version = 'v0_oldLep'
     # version = 'v0_newLep'
-    version = 'v0_newLep_noCorrection'
-    # version = 'v1_newLepNoCorrection'
-    # version = 'v1_newLepPrefiring'
+    # version = 'v0_newLep_noCorrection'
+    version = 'v1_newLepPrefiring'
+    # version = 'v2_newLepPileUp'
     
     justMC = False
     # justMC = True

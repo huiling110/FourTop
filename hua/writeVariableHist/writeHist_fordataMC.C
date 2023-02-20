@@ -126,8 +126,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
     histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
     histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
-    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "PV_npvsGood", 50, 0, 50, PV_npvsGood};
-    histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "PV_npvs", 50, 0, 50, PV_npvs};
+    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "PV_npvsGood", 10, 0, 50, PV_npvsGood};
+    histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "PV_npvs", 10, 0, 50, PV_npvs};
     // vectorOfVariableRegions.push_back();
     vectorOfVariableRegions.push_back(jets_number_class);
     vectorOfVariableRegions.push_back(bjetsM_number_class);
@@ -226,12 +226,13 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
-        basicWeight = (*EVENT_genWeight);
+        // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight);
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
     }
+    std::cout << *PUweight << "\n";
 
     // btagWeightR
 
