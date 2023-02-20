@@ -14,11 +14,6 @@ import usefulFunc as uf
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
-# inVersion = 'v30TESnoJER'
-# inVersion = 'v31TESandJER'
-# inVersion = 'v32TESnoJER'
-# inVersion = 'v33TESnoJERCodeOptimzation'
-# inVersion = 'v36TESandJERByHuiling'
 # inVersion = 'v37TauPt30AndPreselection'
 # inVersion = 'v38TESandJERTauPt20_preselection'
 # inVersion = 'v39addTauBranches'
@@ -39,7 +34,8 @@ inVersion = 'v46addPOGIDL'
 # outVersion = 'v8Cut1tau1l'
 # outVersion = 'v9addBtagWeight'
 # outVersion = 'v10addPV_npvsGood_baseline'
-outVersion = 'v0LepLAdded'
+# outVersion = 'v0LepLAdded'
+outVersion = 'v1AddTOPLepVariables'
 year = '2016'
 # year = '2018'
 # year = '2017'
@@ -75,7 +71,7 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
+        if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')

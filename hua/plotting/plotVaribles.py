@@ -1,8 +1,8 @@
 
+import math
 import os
 # import sys
 from array import array
-import math
 
 import numpy as np
 import usefulFunc as uf
@@ -39,15 +39,16 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/mc/variableHists_v0noCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v4FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_application/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v1_newLepNoCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v1_newLepNoCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/variableHists_v1_newLepNoCorrection/'
     
 
     # for 1tau1l
-    # variables = ['jets_HT']
+    variables = ['jets_HT']
     # variables = ['eventCount']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num'] #for 1tau1l BDT input
-    variables = ['bjetsM_num', 'bjetsM_1pt', 'bjetsM_2pt', '']
+    # variables = ['bjetsM_num', 'bjetsM_1pt', 'bjetsM_2pt', ']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
@@ -109,15 +110,15 @@ def main():
     writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
-    # for (i,ire) in enumerate( regionList):
-    #     if i==0:
-    #         legendOrder.remove('qcd')     
-    #     if '1tau1l' in ire:
-    #         for ivar in variables:
-    #             if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
-    #             sumProcessPerVar[ivar][ire].pop('qcd')
-    #         print('remove qcd for 1tau1l')
-    # print( sumProcessPerVar )
+    for (i,ire) in enumerate( regionList):
+        if i==0:
+            legendOrder.remove('qcd')     
+        if '1tau1l' in ire:
+            for ivar in variables:
+                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
+                sumProcessPerVar[ivar][ire].pop('qcd')
+            print('remove qcd for 1tau1l')
+    print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
