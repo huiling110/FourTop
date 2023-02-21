@@ -149,9 +149,9 @@ public:
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_down = {fReader, "EVENT_prefireWeight_down"};
     TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
-    TTreeReaderValue<Double_t> PUweight = {fReader, "PUweight"};
-    TTreeReaderValue<Double_t> PUweight_up = {fReader, "PUweight_up"};
-    TTreeReaderValue<Double_t> PUweight_down = {fReader, "PUweight_down"};
+    TTreeReaderValue<Double_t> PUweight_ = {fReader, "PUweight_"};
+    TTreeReaderValue<Double_t> PUweight_up_ = {fReader, "PUweight_up_"};
+    TTreeReaderValue<Double_t> PUweight_down_ = {fReader, "PUweight_down_"};
     // TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
     TTreeReaderValue<Double_t> btagShape_weight = {fReader, "btagShape_weight"};
     TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};

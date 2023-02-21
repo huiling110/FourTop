@@ -228,7 +228,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     {
         // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
     }
@@ -280,7 +280,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     Bool_t is1tau1lCR1 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 0;
     Bool_t is1tau1lCR2 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num >= 2;
     // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num < 2;
-    Bool_t is1tau1lCR3 = *tausT_number == 1 &&lepNum == 1 &&*jets_number == 6 &&*bjetsM_num = 1;
+    Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num == 1;
     fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
     fillHistsVectorMyclass(is1tau1lCR0, 7, basicWeight);
     fillHistsVectorMyclass(is1tau1lCR1, 8, basicWeight);
