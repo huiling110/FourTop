@@ -166,6 +166,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     mcFileList = os.listdir( inputDir['mc'] )
     dataFileList = os.listdir ( inputDir['data'] )
 
+    cj.checkJobStatus(inputDir)
+    
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
         if not ifileName in allSubProcess: continue
