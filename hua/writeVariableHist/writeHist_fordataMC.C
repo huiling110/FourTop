@@ -232,7 +232,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
     }
-    std::cout << *PUweight << "\n";
+    // std::cout << *PUweight << "\n";
 
     // btagWeightR
 
