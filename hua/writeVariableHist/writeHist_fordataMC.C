@@ -276,7 +276,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     fillHistsVector(is1tau0lCR4, 5, basicWeight);
 
     // 1tau1lCR
-    Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 1;
+    // Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 1;
+    Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 6 && *bjetsM_num == 1;
     Bool_t is1tau1lCR1 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 0;
     Bool_t is1tau1lCR2 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num >= 2;
     // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num < 2;
