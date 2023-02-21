@@ -1472,10 +1472,10 @@ void objectTSelectorForNanoAOD::setupInputFile()
         TFile *inputPUFile_mc = new TFile(pileUpFileMap[m_era].at(3).Data(), "READ");
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
         // Get needed histograms
-        dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup")->Clone();
-        dataPileupProfileUp = (TH1F *)inputPUFile_dataUp->Get("pileup")->Clone();
-        dataPileupProfileDown = (TH1F *)inputPUFile_dataDown->Get("pileup")->Clone();
-        MCPileupProfile = (TH1F *)inputPUFile_mc->Get("pileup")->Clone();
+        dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup");
+        dataPileupProfileUp = (TH1F *)inputPUFile_dataUp->Get("pileup");
+        dataPileupProfileDown = (TH1F *)inputPUFile_dataDown->Get("pileup");
+        MCPileupProfile = (TH1F *)inputPUFile_mc->Get("pileup");
         // Scale to unit area for a fair comparison
         dataPileupProfile->Scale(1.0 / dataPileupProfile->Integral());
         dataPileupProfileUp->Scale(1.0 / dataPileupProfileUp->Integral());
