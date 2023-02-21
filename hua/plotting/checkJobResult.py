@@ -2,9 +2,9 @@ import csv
 import os
 
 import ROOT
-
-import usefulFunc as uf
 import ttttGlobleQuantity as gq
+import usefulFunc as uf
+
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGMuLEleV/'
@@ -12,9 +12,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v1FR_vetoNewLepL_repeat/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v0FR_newLep/'
 
-    inputDirDic = uf.getDirDic(inputDir) 
-    era = uf.getEraFromDir(inputDir)
-    checkJobStatus(inputDirDic)
+    # inputDirDic = uf.getDirDic(inputDir) 
+    # era = uf.getEraFromDir(inputDir)
+    # checkJobStatus(inputDirDic)
     
     #check object selection jobs 
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
@@ -22,7 +22,8 @@ def main():
     # checkOSJobs(obDir, '2016preVFP')
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v45newLepBugFixed/'
-    # checkOSJobs(obDir, '2016postVFP')
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpJERAndTES/'
+    checkOSJobs(obDir, '2016postVFP')
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v46addPOGIDL/'
