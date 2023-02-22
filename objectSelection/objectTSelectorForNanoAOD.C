@@ -254,6 +254,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     tausT_total = tausT_total + tausT.size();
     tausF_total = tausF_total + tausF.size();
     tausL_total = tausL_total + tausL.size();
+    // if (tausT.size() > 0)
+    // {
+    //     std::cout << "tauT_1pt=" << tausT[0].Pt() << "\n";
+    // }
 
     // calJetSmearFactors(m_isdata); // Duncan's way; computationally expensive and not right
     calJER_SF(JER_SF_new, cset_jerSF.get());
