@@ -27,6 +27,7 @@
 #include <TStyle.h>
 #include <TMatrixDSym.h>
 #include <TVectorD.h>
+#include <TCanvas.h>
 
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
@@ -629,6 +630,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 0, kFALSE, m_isData);
     elesTopMVAT_weight_up = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 1, kFALSE, m_isData);
     elesTopMVAT_weight_down = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 2, kFALSE, m_isData);
+    musTopMVAT_weight = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 0, kTRUE, m_isData);
+    // musTopMVAT_weight_up = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 1, kTRUE, m_isData);
+    // musTopMVAT_weight_down = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 2, kTRUE, m_isData);
 
     // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
@@ -740,7 +744,10 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     delete eleIDSF_topMVAFile;
     TFile *muIDSF_topMVAFile = new TFile((topLeptonSF_files[m_era].at(1)), "READ");
     std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
-    muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    // muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA->Print();
     muIDSF_topMVA->SetDirectory(nullptr);
     muIDSF_topMVAFile->Close();
     delete muIDSF_topMVAFile;
@@ -820,6 +827,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("elesTopMVAT_weight", &elesTopMVAT_weight, "elesTopMVAT_weight/D");
     newtree->Branch("elesTopMVAT_weight_up", &elesTopMVAT_weight_up, "elesTopMVAT_weight_up/D");
     newtree->Branch("elesTopMVAT_weight_down", &elesTopMVAT_weight_down, "elesTopMVAT_weight_down/D");
+    newtree->Branch("musTopMVAT_weight", &musTopMVAT_weight, "musTopMVAT_weight/D");
+    newtree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up, "musTopMVAT_weight_up/D");
+    newtree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down, "musTopMVAT_weight_down/D");
     newtree->Branch("tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
     newtree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new, "tauT_IDSF_weight_new/D");
     newtree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up, "tauT_IDSF_weight_new_vsjet_up/D");
@@ -1218,6 +1228,9 @@ void makeVaribles_forBDT::InitializeBranches()
     elesTopMVAT_weight = -99;
     elesTopMVAT_weight_up = -99;
     elesTopMVAT_weight_down = -99;
+    musTopMVAT_weight_up = -99;
+    musTopMVAT_weight = -99;
+    musTopMVAT_weight_down = -99;
     tauT_IDSF_weight = -99;
     tauT_IDSF_weight_new = -99;
     tauT_IDSF_weight_new_vsjet_up = -99;
