@@ -631,8 +631,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     elesTopMVAT_weight_up = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 1, kFALSE, m_isData);
     elesTopMVAT_weight_down = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 2, kFALSE, m_isData);
     musTopMVAT_weight = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 0, kTRUE, m_isData);
-    // musTopMVAT_weight_up = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 1, kTRUE, m_isData);
-    // musTopMVAT_weight_down = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 2, kTRUE, m_isData);
+    musTopMVAT_weight_up = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 1, kTRUE, m_isData);
+    musTopMVAT_weight_down = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 2, kTRUE, m_isData);
 
     // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
