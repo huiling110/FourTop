@@ -628,7 +628,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     eleMVAT_IDSF_weight_down = calMuonIDSF(eleMVAT, EleIDSF, 2, false, m_isData);
 
     // lepton SF for top mva leptons
-    elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, EleIDSF, 0, kFALSE, m_isData);
+    // elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, EleIDSF, 0, kFALSE, m_isData);
 
     // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
@@ -731,8 +731,19 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     delete input_EleIDSF;
     EleIDSF->Print();
 
-    //TOP Lepton MVA 
-
+    // TOP Lepton MVA
+    TFile *eleIDSF_topMVAFile = new TFile((topLeptonSF_files[m_era].at(0)), "READ");
+    std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
+    eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
+    eleIDSF_topMVA->SetDirectory(nullptr);
+    eleIDSF_topMVAFile->Close();
+    delete eleIDSF_topMVAFile;
+    TFile *muIDSF_topMVAFile = new TFile((topLeptonSF_files[m_era].at(1)), "READ");
+    std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
+    muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA->SetDirectory(nullptr);
+    muIDSF_topMVAFile->Close();
+    delete muIDSF_topMVAFile;
 
     // trigger
     TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");

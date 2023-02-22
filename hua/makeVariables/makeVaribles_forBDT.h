@@ -62,6 +62,8 @@ public:
     TH2D *EleIDSF;
     TH2D *TriggerSF;
     TH2D *TriggerSFunc;
+    TH2D *eleIDSF_topMVA;
+    TH2D *muIDSF_topMVA;
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
