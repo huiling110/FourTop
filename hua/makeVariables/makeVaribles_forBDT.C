@@ -621,14 +621,14 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // mounTrackerSF_weight = calMuonIDSF( muonsT, muonTrackerSF_hist, 0 );
     //???tracker file has some problems
 
-    // EleIDSF->Print();
-    // eleMVAT_IDSF_weight = calEleMVA_IDSF( eleMVAT, EleIDSF );
     eleMVAT_IDSF_weight_backup = calMuonIDSF(eleMVAT, EleIDSF, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(eleMVAT, EleIDSF, 1, kFALSE, m_isData);
     eleMVAT_IDSF_weight_down = calMuonIDSF(eleMVAT, EleIDSF, 2, false, m_isData);
 
     // lepton SF for top mva leptons
-    // elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, EleIDSF, 0, kFALSE, m_isData);
+    elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 0, kFALSE, m_isData);
+    elesTopMVAT_weight_up = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 1, kFALSE, m_isData);
+    elesTopMVAT_weight_down = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 2, kFALSE, m_isData);
 
     // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
@@ -817,6 +817,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("eleMVAT_IDSF_weight_up", &eleMVAT_IDSF_weight_up, "eleMVAT_IDSF_weight_up/D");
     newtree->Branch("eleMVAT_IDSF_weight_down", &eleMVAT_IDSF_weight_down, "eleMVAT_IDSF_weight_down/D");
     newtree->Branch("eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup, "eleMVAT_IDSF_weight_backup/D");
+    newtree->Branch("elesTopMVAT_weight", &elesTopMVAT_weight, "elesTopMVAT_weight/D");
+    newtree->Branch("elesTopMVAT_weight_up", &elesTopMVAT_weight_up, "elesTopMVAT_weight_up/D");
+    newtree->Branch("elesTopMVAT_weight_down", &elesTopMVAT_weight_down, "elesTopMVAT_weight_down/D");
     newtree->Branch("tauT_IDSF_weight", &tauT_IDSF_weight, "tauT_IDSF_weight/D");
     newtree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new, "tauT_IDSF_weight_new/D");
     newtree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up, "tauT_IDSF_weight_new_vsjet_up/D");
@@ -1212,6 +1215,9 @@ void makeVaribles_forBDT::InitializeBranches()
     eleMVAT_IDSF_weight_up = -99;
     eleMVAT_IDSF_weight_down = -99;
     eleMVAT_IDSF_weight_backup = -99;
+    elesTopMVAT_weight = -99;
+    elesTopMVAT_weight_up = -99;
+    elesTopMVAT_weight_down = -99;
     tauT_IDSF_weight = -99;
     tauT_IDSF_weight_new = -99;
     tauT_IDSF_weight_new_vsjet_up = -99;

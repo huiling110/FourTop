@@ -103,6 +103,9 @@ public:
     Double_t eleMVAT_IDSF_weight_up;
     Double_t eleMVAT_IDSF_weight_down;
     Double_t eleMVAT_IDSF_weight_backup;
+    Double_t elesTopMVAT_weight;
+    Double_t elesTopMVAT_weight_up;
+    Double_t elesTopMVAT_weight_down;
     Double_t tauT_IDSF_weight;
     Double_t tauT_IDSF_weight_new;
     Double_t tauT_IDSF_weight_new_vsjet_up;
