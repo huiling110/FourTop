@@ -47,8 +47,9 @@ def main():
     # version = 'v0_newLep'
     # version = 'v0_newLep_noCorrection'
     # version = 'v1_newLepPrefiring'
-    version = 'v2_newLepPileUpCR0Changed'
+    # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed'
+    version = 'v4_tauIDSF'
     
     justMC = False
     # justMC = True
