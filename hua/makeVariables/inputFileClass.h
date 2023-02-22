@@ -47,6 +47,14 @@ std::map<TString, TString> EGammaSF_files = {
     {"2018", EGammaSF_dir + "egammaEffi.txt_Ele_wp90noiso_EGM2D.root"},
 };
 
+// top lepton mva
+std::map<TString, std::array<TString, 2>> topLeptonSF_files = {
+    {"2016preVFP", {"./topMVASF/ele/2016APV/egammaEffi.txt_EGM2D.root", "./topMVASF/mu/2016HIPM/NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt.root"}},
+    {"2016postVFP", {"./topMVASF/ele/2016/egammaEffi.txt_EGM2D.root", "./topMVASF/mu/2016/NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt.root"}},
+    {"2017", {"./topMVASF/ele/2017/egammaEffi.txt_EGM2D.root", "./topMVASF/mu/2017/NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt.root"}},
+    {"2018", {"./topMVASF/ele/2018/egammaEffi.txt_EGM2D.root", "./topMVASF/mu/2018/NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt.root"}},
+};
+
 // TString BTVSF_dir = "/publicfs/cms/user/fabioiemmi/CMSSW_10_6_27/src/FourTop/fabio/UltraLegacy/scale_factors/btagging/";
 // std::map<TString, TString> BTVSF_files_reshaping = { //std::map OF INPUT BTV SCALE FACTOR FILES
 

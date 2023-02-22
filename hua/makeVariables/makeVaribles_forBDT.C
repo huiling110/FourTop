@@ -627,6 +627,9 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     eleMVAT_IDSF_weight_up = calMuonIDSF(eleMVAT, EleIDSF, 1, kFALSE, m_isData);
     eleMVAT_IDSF_weight_down = calMuonIDSF(eleMVAT, EleIDSF, 2, false, m_isData);
 
+    // lepton SF for top mva leptons
+    elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, EleIDSF, 0, kFALSE, m_isData);
+
     // tauT_IDSF_weight = calTau_IDSF( tausT, tausT_genPartFlav, m_era );//
     tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
     tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
@@ -727,6 +730,9 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     input_EleIDSF->Close();
     delete input_EleIDSF;
     EleIDSF->Print();
+
+    //TOP Lepton MVA 
+
 
     // trigger
     TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");
