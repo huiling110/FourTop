@@ -52,7 +52,8 @@ def main():
     # version = 'v3_pileupCR0Changed'
     # version = 'v4_tauIDSF'
     # version = 'v5_lepEffSF'
-    version = 'v6_btagRMeasure'
+    # version = 'v6_btagRMeasure'
+    version = 'v7_btagCorrection'
     
     justMC = False
     # justMC = True
