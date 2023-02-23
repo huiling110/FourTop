@@ -29,10 +29,10 @@ void run_writeHist(
     TString version = "test",
     // TString version = "forCutflow",
     Bool_t isTest = kTRUE,
-    // TString selector = "writeHist_fordataMC.C+" // 1tau1l)
+    TString selector = "writeHist_fordataMC.C+" // 1tau1l)
     // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
     // TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
-    TString selector = "writeHist_forBtagRCal.C+" // 1tau0l
+    // TString selector = "writeHist_forBtagRCal.C+"
 )
 {
     using namespace std;

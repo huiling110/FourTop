@@ -32,7 +32,7 @@
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {
-    Double r = 1.0;
+    Double_t r = 1.0;
     if (jets_number > btagRHist->GetXaxis()->GetXmin() && jets_number < btagRHist->GetXaxis()->GetXmax())
     {
         Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
@@ -217,7 +217,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     }
 
     //
-    TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
+    // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
+    TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
     btagRHist = (TH1D *)btagRFile->Get("btagR");
 }
 
@@ -241,8 +242,9 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*(*btagShape_weight) * btagR);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
     }
+    // std::cout << btagR << "\n";
 
     // btagWeightR
 
