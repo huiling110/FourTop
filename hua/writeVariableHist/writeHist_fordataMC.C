@@ -168,8 +168,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT of tight tau", 10, 25, 300, tausT_MHT};
     histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "invariant mass of taus and leptons", 10, 0, 500, tausT_leptonsT_invariantMass};
 
-    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "muonsTopMVAT_1pt", 10, 0, 140, muonsTopMVAT_1pt};
-    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "elesTopMVAT_1pt", 10, 0, 140, elesTopMVAT_1pt};
+    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "muonsTopMVAT_1pt", 14, 0, 140, muonsTopMVAT_1pt};
+    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "elesTopMVAT_1pt", 14, 0, 140, elesTopMVAT_1pt};
 
     vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
