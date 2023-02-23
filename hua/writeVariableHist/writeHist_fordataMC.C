@@ -155,8 +155,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     // histsForRegions<Double_t>{"", 10};
 
     histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
-    histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of medium b jets", 10, 25, 300, bjetsM_HT};
-    histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of medium b jets", 10, 25, 300, bjetsM_HT};
+    histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of b jets", 10, 25, 300, bjetsM_HT};
+    histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of b jets", 10, 25, 300, bjetsM_HT};
     histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
     histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "second b jets pt", 10, 25, 350, bjetsM_2pt};
@@ -166,10 +166,10 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "leading tau eta", 10, 0, 3, tausT_1phi};
     histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT of tight tau", 10, 25, 300, tausT_HT};
     histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT of tight tau", 10, 25, 300, tausT_MHT};
-    histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "invariant mass of taus and leptons", 10, 0, 500, tausT_leptonsT_invariantMass};
+    histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "invariant mass of tau and lepton", 10, 0, 500, tausT_leptonsT_invariantMass};
 
-    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "muonsTopMVAT_1pt", 14, 0, 140, muonsTopMVAT_1pt};
-    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "elesTopMVAT_1pt", 14, 0, 140, elesTopMVAT_1pt};
+    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "leading muon pt", 14, 0, 140, muonsTopMVAT_1pt};
+    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "leading electron pt", 14, 0, 140, elesTopMVAT_1pt};
 
     vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
