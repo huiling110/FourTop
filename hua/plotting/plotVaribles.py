@@ -16,7 +16,7 @@ from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
 
 colourPerSample = {
     'tttt':kPink-9,
-    'tt': kRed-4,
+    'tt': kRed,
     'qcd': kOrange-2,
     'ttX': kPink+2,
     'singleTop': kGreen-4,
@@ -220,6 +220,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     setTDRStyle()
     canvasName = '{}_{}'.format( region, name )
     canvy = TCanvas( canvasName, canvasName, 1000,800)
+    # canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
@@ -303,7 +304,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.GetYaxis().SetTitle("Events")
     stack.GetYaxis().SetTitleOffset(1.3)
     stack.GetYaxis().SetLabelSize(0.04)
-    stack.GetYaxis().SetTitleSize(0.04)
+    stack.GetYaxis().SetTitleSize(0.05)
 
     if includeDataInStack and hasDataHist:
         dataHist.Draw("e0 same")
@@ -328,6 +329,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     if includeDataInStack:
         ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
+        # ratioCanvy.SetTopMargin(0.7)
         ratioCanvy.SetTopMargin(0.7)
         ratioCanvy.SetFillColor(0)
         ratioCanvy.SetFillStyle(0)
@@ -349,15 +351,17 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         sumHistoData.GetYaxis().SetTitleOffset(1.3)
         ratioCanvy.cd()
         SetOwnership(sumHistoData,False)
-        sumHistoData.SetMinimum(0.8)
+        sumHistoData.SetMinimum(0.5)
         # sumHistoData.SetMaximum(1.2)
-        sumHistoData.SetMaximum(1.3)
+        sumHistoData.SetMaximum(1.5)
         # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
         sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
+        sumHistoData.GetXaxis().SetTitleSize(0.05)
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.05)
+        sumHistoData.GetYaxis().SetLabelSize(0.03)
         sumHistoData.Draw("E1X0")
         assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
 
@@ -370,7 +374,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #legend
     #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     # leggy = TLegend(0.8,0.7,0.9,0.94)
-    leggy = TLegend(0.68,0.8,0.92,0.94)
+    # leggy = TLegend(0.68,0.8,0.92,0.94)
+    leggy = TLegend(0.6,0.75,0.92,0.94)
     leggy.SetNColumns(2) 
     leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
