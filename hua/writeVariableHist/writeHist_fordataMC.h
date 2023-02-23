@@ -163,6 +163,13 @@ public:
     TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_up = {fReader, "eleMVAT_IDSF_weight_up"};
     TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_down = {fReader, "eleMVAT_IDSF_weight_down"};
     TTreeReaderValue<Double_t> eleMVAT_IDSF_weight_backup = {fReader, "eleMVAT_IDSF_weight_backup"};
+    TTreeReaderValue<Double_t> elesTopMVAT_weight = {fReader, "elesTopMVAT_weight"};
+    TTreeReaderValue<Double_t> elesTopMVAT_weight_up = {fReader, "elesTopMVAT_weight_up"};
+    TTreeReaderValue<Double_t> elesTopMVAT_weight_down = {fReader, "elesTopMVAT_weight_down"};
+    TTreeReaderValue<Double_t> musTopMVAT_weight = {fReader, "musTopMVAT_weight"};
+    TTreeReaderValue<Double_t> musTopMVAT_weight_up = {fReader, "musTopMVAT_weight_up"};
+    TTreeReaderValue<Double_t> musTopMVAT_weight_down = {fReader, "musTopMVAT_weight_down"};
+
     TTreeReaderValue<Double_t> tauT_IDSF_weight = {fReader, "tauT_IDSF_weight"};
     TTreeReaderValue<Double_t> tauT_IDSF_weight_new = {fReader, "tauT_IDSF_weight_new"};
     TTreeReaderValue<Double_t> tauT_IDSF_weight_new_vsjet_up = {fReader, "tauT_IDSF_weight_new_vsjet_up"};

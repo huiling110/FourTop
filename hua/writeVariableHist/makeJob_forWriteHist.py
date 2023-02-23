@@ -50,7 +50,8 @@ def main():
     # version = 'v1_newLepPrefiring'
     # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed'
-    version = 'v4_tauIDSF'
+    # version = 'v4_tauIDSF'
+    version = 'v5_lepEffSF'
     
     justMC = False
     # justMC = True

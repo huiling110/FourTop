@@ -222,6 +222,13 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 {
     fReader.SetLocalEntry(entry);
 
+    // baseline selection
+    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    if (!baseline)
+    {
+        return kFALSE;
+    }
+
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
     if (!m_isData)
@@ -229,18 +236,13 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
         // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
     }
 
     // btagWeightR
 
-    // baseline selection
-    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-    if (!baseline)
-    {
-        return kFALSE;
-    }
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
     // Int_t lepNum = *leptonsMVAT_number;
 
@@ -327,7 +329,7 @@ void writeHist_fordataMC::Terminate()
         for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
         {
             vectorOfVariableRegions[ihists].histsScale(processScale);
-            vectorOfVariableRegions[ihists].histsPrint();
+            // vectorOfVariableRegions[ihists].histsPrint();
         }
         for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
         {
