@@ -51,7 +51,8 @@ def main():
     # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed'
     # version = 'v4_tauIDSF'
-    version = 'v5_lepEffSF'
+    # version = 'v5_lepEffSF'
+    version = 'v6_btagRMeasure'
     
     justMC = False
     # justMC = True

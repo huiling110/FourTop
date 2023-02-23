@@ -32,9 +32,12 @@
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {
-
-    Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
-    Double_t r = btagRHist->GetBinContent(binx);
+    Double r = 1.0;
+    if (jets_number > btagRHist->GetXaxis()->GetXmin() && jets_number < btagRHist->GetXaxis()->GetXmax())
+    {
+        Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
+        r = btagRHist->GetBinContent(binx);
+    }
     return r;
 }
 
@@ -237,8 +240,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        // basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight) * btagR;
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*(*btagShape_weight) * btagR);
     }
 
     // btagWeightR
