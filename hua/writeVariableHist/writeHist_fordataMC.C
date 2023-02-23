@@ -126,8 +126,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
     histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
     histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
-    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "PV_npvsGood", 10, 0, 50, PV_npvsGood};
-    histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "PV_npvs", 10, 0, 50, PV_npvs};
+    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "number of good vertexes", 10, 0, 50, PV_npvsGood};
+    histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of vertexes", 10, 0, 50, PV_npvs};
     // vectorOfVariableRegions.push_back();
     vectorOfVariableRegions.push_back(jets_number_class);
     vectorOfVariableRegions.push_back(bjetsM_number_class);
@@ -144,8 +144,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
     histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
     histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 10, 25, 100, jets_8pt};
-    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 10, 500, 1800, jets_HT};
-    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 10, 0, 2, jets_bScore};
+    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 10, 500, 1800, jets_HT};
+    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "sum of b tag score", 10, 0, 2, jets_bScore};
     histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
     histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 10, 100, 1000, jets_leading2invariantMass};
     histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "trans mass of jets", 10, 500, 1800, jets_transMass};
