@@ -48,10 +48,10 @@ def main():
     
 
     # for 1tau1l
-    # variables = ['jets_HT']
+    variables = ['jets_HT']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_HT', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
@@ -225,13 +225,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
 
 
-    # doSystmatic = True
     doSystmatic = False
     for ipro in systHists.keys():
         if systHists[ipro]:
             doSystmatic = True
-    # if not systHists:
-        # print( 'systHist empty, not including systematic uncertainty\n')
     print( 'doSystmatic: ', doSystmatic )
 
     #here we get dataHist and add all MC for sumHist    
@@ -292,7 +289,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     for entry in legendOrder:
         stack.Add(nominal[entry])
     legendOrder.reverse()
-    maxi = 1.2* sumHist.GetMaximum()
+    # maxi = 1.2* sumHist.GetMaximum()
+    maxi = 1.4* dataHist.GetMaximum()
     if maxi<=0 :
         print(name, ' variable empty')
         print('\n')
@@ -304,11 +302,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle("Events")
     stack.GetYaxis().SetTitleOffset(1.3)
-    stack.GetYaxis().SetLabelSize(0.03)
+    stack.GetYaxis().SetLabelSize(0.04)
     stack.GetYaxis().SetTitleSize(0.04)
 
-    # dataHist.Print()
-    # if includeDataInStack: dataHist.Draw("e1x0 same")
     if includeDataInStack and hasDataHist:
         dataHist.Draw("e0 same")
     else:
@@ -349,19 +345,19 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         else:
             sumHistoData = sumHist.Clone() 
             sumHistoData.Reset()
-        sumHistoData.GetYaxis().SetTitle("Data/MC")
+        sumHistoData.GetYaxis().SetTitle("Data/pred.")
         sumHistoData.GetYaxis().SetTitleOffset(1.3)
         ratioCanvy.cd()
         SetOwnership(sumHistoData,False)
         sumHistoData.SetMinimum(0.8)
-        sumHistoData.SetMaximum(1.2)
+        # sumHistoData.SetMaximum(1.2)
+        sumHistoData.SetMaximum(1.3)
         # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
         sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.2)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
-        # print( 'sumHistoData title: ', sumHistoData.GetXaxis().GetTitle() )
         sumHistoData.GetYaxis().SetNdivisions(6)
-        sumHistoData.GetYaxis().SetTitleSize(0.03)
+        sumHistoData.GetYaxis().SetTitleSize(0.05)
         sumHistoData.Draw("E1X0")
         assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
 
