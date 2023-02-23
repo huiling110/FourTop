@@ -32,177 +32,168 @@
 
 void writeHist_forBtagRCal::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
-	if (isRegion)
-	{
-		eventCount_hists[vectorIndex]->Fill(.0, weight);
-	}
+    if (isRegion)
+    {
+        eventCount_hists[vectorIndex]->Fill(.0, weight);
+    }
 }
 
 void writeHist_forBtagRCal::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
-	if (isRegion)
-	{
-		for (UInt_t i = 0; i < vectorOfVariableRegions.size(); i++)
-		{
-			vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight);
-		}
-		// for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
-		// {
-		// 	vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight);
-		// }
-	}
+    if (isRegion)
+    {
+        for (UInt_t i = 0; i < vectorOfVariableRegions.size(); i++)
+        {
+            vectorOfVariableRegions[i].fillHistVec(vectorIndex, weight);
+        }
+        // for (UInt_t i = 0; i < vectorOfVariableRegionsDouble.size(); i++)
+        // {
+        // 	vectorOfVariableRegionsDouble[i].fillHistVec(vectorIndex, weight);
+        // }
+    }
 }
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
-	// std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-	// chain.Add(inputFile + "outTree_4.root");
-	for (UInt_t i = 0; i < regions.size(); i++)
-	{
-		TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
-		TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin);
-		histsVariable.push_back(temp);
-	}
+    // std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
+    // chain.Add(inputFile + "outTree_4.root");
+    for (UInt_t i = 0; i < regions.size(); i++)
+    {
+        TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
+        TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), binNum, minBin, maxBin);
+        histsVariable.push_back(temp);
+    }
 }
 
 void writeHist_forBtagRCal::Begin(TTree * /*tree*/)
 {
-	// The Begin() function is called at the start of the query.
-	// When running with PROOF Begin() is only called on the client.
-	// The tree argument is deprecated (on PROOF 0 is passed).
+    // The Begin() function is called at the start of the query.
+    // When running with PROOF Begin() is only called on the client.
+    // The tree argument is deprecated (on PROOF 0 is passed).
 
-	TString option = GetOption();
+    TString option = GetOption();
 }
 
 void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
 {
-	// The SlaveBegin() function is called after the Begin() function.
-	// When running with PROOF SlaveBegin() is called on each slave server.
-	// The tree argument is deprecated (on PROOF 0 is passed).
+    // The SlaveBegin() function is called after the Begin() function.
+    // When running with PROOF SlaveBegin() is called on each slave server.
+    // The tree argument is deprecated (on PROOF 0 is passed).
 
-	TString option = GetOption();
-	std::cout << "option in writeHist_forBtagRCal: " << option << "\n";
+    TString option = GetOption();
+    std::cout << "option in writeHist_forBtagRCal: " << option << "\n";
 
-	// this part could be in a function for multiple uses
-	// better structure my project so that these commen functionality go to one include dir
-	std::vector<TString> optionVect;
-	getOption(option, optionVect);
-	// for (UInt_t i = 0; i < optionVect.size(); i++)
-	// {
-	// 	std::cout << optionVect[i] << "\n";
-	// }
-	m_genWeightSum = std::stod(optionVect[0].Data());
-	std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
-	//???maybe there is lose of accuracy due to convertion
-	m_outputFolder = optionVect[1];
-	m_processName = optionVect[2];
-	m_isData = std::stoi(optionVect[3].Data());
-	std::cout << "m_isData: " << m_isData << "\n";
-	m_version = optionVect[4];
-	std::cout << "m_verion: " << m_version << "\n";
-	m_era = optionVect[5];
-	std::cout << "m_era: " << m_era << "\n";
+    // this part could be in a function for multiple uses
+    // better structure my project so that these commen functionality go to one include dir
+    std::vector<TString> optionVect;
+    getOption(option, optionVect);
+    // for (UInt_t i = 0; i < optionVect.size(); i++)
+    // {
+    // 	std::cout << optionVect[i] << "\n";
+    // }
+    m_genWeightSum = std::stod(optionVect[0].Data());
+    std::cout << "m_genWeightSum: " << m_genWeightSum << "\n";
+    //???maybe there is lose of accuracy due to convertion
+    m_outputFolder = optionVect[1];
+    m_processName = optionVect[2];
+    m_isData = std::stoi(optionVect[3].Data());
+    std::cout << "m_isData: " << m_isData << "\n";
+    m_version = optionVect[4];
+    std::cout << "m_verion: " << m_version << "\n";
+    m_era = optionVect[5];
+    std::cout << "m_era: " << m_era << "\n";
 
-	// namespace fs = std::filesystem;
-	// if ( !fs::exists((m_outputFolder+"variableHists"+ "_"+m_version+"/").Data() )){
-	// 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
-	// }
-	// outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + "_variableHists.root", "RECREATE");
-	outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
+    // namespace fs = std::filesystem;
+    outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-	std::vector<TString> regionsForVariables = {"baseline1Tau", "baseline1TauBTagWeight"};
-	push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
+    std::vector<TString> regionsForVariables = {"baseline1Tau", "baseline1TauBTagWeight"};
+    push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-	vectorOfVariableRegions.clear();
-	// histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-	histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
-	// histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
-	// histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
-	// histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
-	// vectorOfVariableRegions.push_back();
-	vectorOfVariableRegions.push_back(jets_number_class);
-	// vectorOfVariableRegions.push_back(bjetsM_number_class);
-	// vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
-	// vectorOfVariableRegions.push_back(nonbjetsM_num_class);
+    vectorOfVariableRegions.clear();
+    // histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
+    histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
+    // histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
+    // histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
+    // histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
+    // vectorOfVariableRegions.push_back();
+    vectorOfVariableRegions.push_back(jets_number_class);
+    // vectorOfVariableRegions.push_back(bjetsM_number_class);
+    // vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
+    // vectorOfVariableRegions.push_back(nonbjetsM_num_class);
 
-	for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
-	{
-		vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
-	}
+    for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
+    {
+        vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
+    }
 }
 
 Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
 {
-	fReader.SetLocalEntry(entry);
-	Double_t basicWeight = 1.0;
-	if (!m_isData)
-	{
-		basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*btagShape_weight);
-		// basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*tauT_IDSF_weight_new);
-	}
+    fReader.SetLocalEntry(entry);
 
-	// baseline selection
-	Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-	if (!baseline)
-	{
-		return kFALSE;
-	}
-	// if (entry < 100)
-	// {
-	// 	std::cout << "jets_4largestBscoreMulti=" << *jets_4largestBscoreMulti << "\n";
-	// }
+    Double_t basicWeight = 1.0;
+    if (!m_isData)
+    {
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
+    }
 
-	// 1tau0l SR
-	if (!m_isData)
-	{
-		// be blind for data in signal region
-		Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
-		fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
-		fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
-	}
+    // baseline selection
+    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    if (!baseline)
+    {
+        return kFALSE;
+    }
 
-	return kTRUE;
+    // 1tau0l SR
+    if (!m_isData)
+    {
+        // be blind for data in signal region
+        Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
+        fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
+        fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
+    }
+
+    return kTRUE;
 }
 
 void writeHist_forBtagRCal::SlaveTerminate()
 {
-	// The SlaveTerminate() function is called after all entries or objects
-	// have been processed. When running with PROOF SlaveTerminate() is called
-	// on each slave server.
+    // The SlaveTerminate() function is called after all entries or objects
+    // have been processed. When running with PROOF SlaveTerminate() is called
+    // on each slave server.
 }
 
 void writeHist_forBtagRCal::Terminate()
 {
-	// The Terminate() function is the last function to be called during
-	// a query. It always runs on the client, it can be used to present
-	// the results graphically or save the results to file.
-	// #include "lumiAndCrossSection.h"
-	Double_t processScale = 1.0;
-	if (!m_isData)
-	{
-		std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
-		processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
-	}
+    // The Terminate() function is the last function to be called during
+    // a query. It always runs on the client, it can be used to present
+    // the results graphically or save the results to file.
+    // #include "lumiAndCrossSection.h"
+    Double_t processScale = 1.0;
+    if (!m_isData)
+    {
+        std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
+        processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
+    }
 
-	if (!m_isData)
-	{
+    if (!m_isData)
+    {
 
-		for (UInt_t j = 0; j < eventCount_hists.size(); j++)
-		{
+        for (UInt_t j = 0; j < eventCount_hists.size(); j++)
+        {
 
-			std::cout << j << "\n";
-			// eventCount_hists[j]->Scale(processScale);
-			eventCount_hists[j]->Print();
-		}
+            std::cout << j << "\n";
+            // eventCount_hists[j]->Scale(processScale);
+            eventCount_hists[j]->Print();
+        }
 
-		for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
-		{
-			// vectorOfVariableRegions[ihists].histsScale(processScale);
-			vectorOfVariableRegions[ihists].histsPrint();
-		}
-	}
-	Info("Terminate", "outputFile here:%s", outputFile->GetName());
-	outputFile->Write();
-	outputFile->Close();
+        for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+        {
+            // vectorOfVariableRegions[ihists].histsScale(processScale);
+            vectorOfVariableRegions[ihists].histsPrint();
+        }
+    }
+    Info("Terminate", "outputFile here:%s", outputFile->GetName());
+    outputFile->Write();
+    outputFile->Close();
 }
