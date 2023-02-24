@@ -15,7 +15,8 @@ from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
                            replaceBgWithGen)
 
 colourPerSample = {
-    'tttt':kPink-9,
+    # 'tttt':kPink-9,
+    'tttt':kBlue,
     'tt': kRed,
     'qcd': kOrange-2,
     'ttX': kPink+2,
@@ -51,11 +52,13 @@ def main():
     
 
     # for 1tau1l
-    variables = ['jets_HT']
+    variables = ['jets_number']
+    # variables = ['bjetsM_1pt']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
+    # variables = ['jets_bScore']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
-    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
+    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
@@ -324,7 +327,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     signal = nominal['tttt'].Clone()
     # signal.Scale(1000)
     signal.Scale(signalScale)
-    signal.SetLineColor(kMagenta)
+    # signal.SetLineColor(kMagenta)
+    signal.SetLineColor(kBlue)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(3)
     signal.SetFillStyle(0)
