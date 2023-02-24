@@ -340,6 +340,9 @@ public:
     Double_t bjetsM_1pt = -99.0;
     Double_t bjetsM_1eta = -99.0;
     Double_t bjetsM_1phi = -99.0;
+    Double_t bjetsM_1btag = -99.0;
+    Double_t bjetsM_2btag = -99.0;
+    Double_t bjetsM_3btag = -99.0;
     Double_t bjetsM_2pt = -99.0;
     Double_t bjetsM_2eta = -99.0;
     Double_t bjetsM_2phi = -99.0;

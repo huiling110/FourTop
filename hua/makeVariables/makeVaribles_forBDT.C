@@ -557,18 +557,21 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         bjetsM_1pt = bjetsM[0].Pt();
         bjetsM_1eta = fabs(bjetsM[0].Eta());
         bjetsM_1phi = fabs(bjetsM[0].Phi());
+        bjetsM_1btag = bjetsM_btags[0];
     }
     if (bjetsM_num > 1)
     {
         bjetsM_2pt = bjetsM[1].Pt();
         bjetsM_2eta = fabs(bjetsM[1].Eta());
         bjetsM_2phi = fabs(bjetsM[1].Phi());
+        bjetsM_2btag = bjetsM_btags[1];
     }
     if (bjetsM_num > 2)
     {
         bjetsM_3pt = bjetsM[2].Pt();
         bjetsM_3eta = fabs(bjetsM[2].Eta());
         bjetsM_3phi = fabs(bjetsM[2].Phi());
+        bjetsM_3btag = bjetsM_btags[2];
     }
     if (bjetsM_num > 3)
     {
@@ -1097,6 +1100,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("bjetsM_1pt", &bjetsM_1pt, "bjetsM_1pt/D");
     newtree->Branch("bjetsM_1eta", &bjetsM_1eta, "bjetsM_1eta/D");
     newtree->Branch("bjetsM_1phi", &bjetsM_1phi, "bjetsM_1phi/D");
+    newtree->Branch("bjetsM_1btag", &bjetsM_1btag, "bjetsM_1btag/D");
+    newtree->Branch("bjetsM_2btag", &bjetsM_2btag, "bjetsM_2btag/D");
+    newtree->Branch("bjetsM_3btag", &bjetsM_3btag, "bjetsM_3btag/D");
     newtree->Branch("bjetsM_2pt", &bjetsM_2pt, "bjetsM_2pt/D");
     newtree->Branch("bjetsM_2eta", &bjetsM_2eta, "bjetsM_2eta/D");
     newtree->Branch("bjetsM_2phi", &bjetsM_2phi, "bjetsM_2phi/D");
@@ -1466,6 +1472,9 @@ void makeVaribles_forBDT::InitializeBranches()
     bjetsM_1pt = -99;
     bjetsM_1eta = -99;
     bjetsM_1phi = -99;
+    bjetsM_1btag = -99;
+    bjetsM_2btag = -99;
+    bjetsM_3btag = -99;
     bjetsM_2pt = -99;
     bjetsM_2eta = -99;
     bjetsM_2phi = -99;
