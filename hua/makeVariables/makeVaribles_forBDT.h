@@ -264,6 +264,13 @@ public:
     Double_t jets_aplanarity = -99.0;
     Double_t jets_1pt = -99.0;
     Double_t jets_1phi = -99.0;
+    Double_t jets_1btag = -99.0;
+    Double_t jets_2btag = -99.0;
+    Double_t jets_3btag = -99.0;
+    Double_t jets_4btag = -99.0;
+    Double_t jets_5btag = -99.0;
+    Double_t jets_6btag = -99.0;
+    Double_t jets_7btag = -99.0;
     Double_t jets_1eta = -99.0;
     Double_t jets_2pt = -99.0;
     Double_t jets_2eta = -99.0;

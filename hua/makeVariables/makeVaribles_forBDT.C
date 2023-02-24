@@ -431,6 +431,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         jets_1pt = jets[0].Pt();
         jets_1eta = fabs(jets[0].Eta());
         jets_1phi = fabs(jets[0].Phi());
+        jets_1btag = jets_btags[0];
     }
     if (jets_number > 1)
     {
@@ -438,18 +439,21 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         jets_2eta = fabs(jets[1].Eta());
         jets_2phi = fabs(jets[1].Phi());
         jets_leading2invariantMass = (jets[0] + jets[1]).M();
+        jets_2btag = jets_btags[1];
     }
     if (jets_number > 2)
     {
         jets_3pt = jets[2].Pt();
         jets_3eta = fabs(jets[2].Eta());
         jets_3phi = fabs(jets[2].Phi());
+        jets_3btag = jets_btags[2];
     }
     if (jets_number > 3)
     {
         jets_4pt = jets[3].Pt();
         jets_4eta = fabs(jets[3].Eta());
         jets_4phi = fabs(jets[3].Phi());
+        jets_4btag = jets_btags[4];
     }
     if (jets_number > 4)
     {
@@ -457,18 +461,21 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         jets_5eta = fabs(jets[4].Eta());
         jets_5phi = fabs(jets[4].Phi());
         jets_rationHT_4toRest = rationHT_4toRestCal(jets);
+        jets_5btag = jets_btags[5];
     }
     if (jets_number > 5)
     {
         jets_6pt = jets[5].Pt();
         jets_6eta = fabs(jets[5].Eta());
         jets_6phi = fabs(jets[5].Phi());
+        jets_6btag = jets_btags[5];
     }
     if (jets_number > 6)
     {
         jets_7pt = jets[6].Pt();
         jets_7eta = fabs(jets[6].Eta());
         jets_7phi = fabs(jets[6].Phi());
+        jets_7btag = jets_btags[6];
         //???
     }
     if (jets_number > 7)
@@ -1011,6 +1018,13 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("jets_1pt", &jets_1pt, "jets_1pt/D");
     newtree->Branch("jets_1eta", &jets_1eta, "jets_1eta/D");
     newtree->Branch("jets_1phi", &jets_1phi, "jets_1phi/D");
+    newtree->Branch("jets_1btag", &jets_1btag, "jets_1btag/D");
+    newtree->Branch("jets_2btag", &jets_2btag, "jets_2btag/D");
+    newtree->Branch("jets_3btag", &jets_3btag, "jets_3btag/D");
+    newtree->Branch("jets_4btag", &jets_4btag, "jets_4btag/D");
+    newtree->Branch("jets_5btag", &jets_5btag, "jets_5btag/D");
+    newtree->Branch("jets_6btag", &jets_6btag, "jets_6btag/D");
+    newtree->Branch("jets_7btag", &jets_7btag, "jets_7btag/D");
     newtree->Branch("jets_2pt", &jets_2pt, "jets_2pt/D");
     newtree->Branch("jets_2eta", &jets_2eta, "jets_2eta/D");
     newtree->Branch("jets_2phi", &jets_2phi, "jets_2phi/D");
@@ -1376,6 +1390,13 @@ void makeVaribles_forBDT::InitializeBranches()
     jets_aplanarity = -99;
     jets_1pt = -99;
     jets_1phi = -99;
+    jets_1btag = -99;
+    jets_2btag = -99;
+    jets_3btag = -99;
+    jets_4btag = -99;
+    jets_5btag = -99;
+    jets_6btag = -99;
+    jets_7btag = -99;
     jets_1eta = -99;
     jets_2pt = -99;
     jets_2eta = -99;

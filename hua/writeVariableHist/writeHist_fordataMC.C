@@ -128,7 +128,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 7, 5.5, 12.5, jets_number};
     histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 8, -0.5, 7.5, bjetsM_num};
     histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
-    histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 6, 4.5, 10.5, nonbjetsM_num};
+    histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 11, -0.5, 10.5, nonbjetsM_num};
     histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "number of good vertexes", 10, 0, 50, PV_npvsGood};
     histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of vertexes", 10, 0, 50, PV_npvs};
     // vectorOfVariableRegions.push_back();
@@ -139,14 +139,14 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegions.push_back(PV_npvsGood_class);
     vectorOfVariableRegions.push_back(PV_npvs_class);
 
-    histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 25, 600, jets_1pt};
-    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 25, 600, jets_2pt};
-    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 25, 500, jets_3pt};
-    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 25, 300, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 25, 250, jets_5pt};
-    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 25, 180, jets_6pt};
-    histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 10, 25, 100, jets_7pt};
-    histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 10, 25, 100, jets_8pt};
+    histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 40, 25, 625, jets_1pt};
+    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 34, 25, 535, jets_2pt};
+    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 33, 25, 520, jets_3pt};
+    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 20, 25, 325, jets_4pt};
+    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 14, 25, 235, jets_5pt};
+    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 8, 25, 145, jets_6pt};
+    histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 8, 25, 145, jets_7pt};
+    histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 8, 25, 145, jets_8pt};
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 10, 500, 1800, jets_HT};
     histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "sum of b tag score", 10, 0, 5, jets_bScore};
     histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 10, 0, 10, jets_rationHT_4toRest};
@@ -158,7 +158,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     // histsForRegions<Double_t>{"", 10};
 
     histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
-    histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of b jets", 10, 25, 300, bjetsM_HT};
+    histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT of b jets", 10, 25, 500, bjetsM_HT};
     histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT of b jets", 10, 25, 300, bjetsM_HT};
     histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "invarant mass of medium b jets", 10, 25, 100, bjetsM_invariantMass};
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "leading b jets pt", 10, 25, 300, bjetsM_1pt};
