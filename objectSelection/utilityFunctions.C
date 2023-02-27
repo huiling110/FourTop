@@ -175,15 +175,16 @@ Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeR
         // dPt < m_dPt_max_factor * resolution
         // resolution = jet.pt() * jet_resolution
 
-        // double dR = DeltaR(genJet, jet);
         Double_t dR = DeltaR(recoEta, genEta.At(i), recoPhi, genPhi.At(i));
 
         if (dR > min_dR)
             continue;
         if (dR < 0.2)
-        {
-            // double dPt = std::abs(genPt[i] - recoPt);
-            if (TMath::Abs(recoPt - genPt[i]) > 3 * recoPt * jet_resolution)
+        { // m_dR_max = 0.2
+            Double_t dPt = std::abs(genPt[i] - recoPt);
+            // if (TMath::Abs(recoPt - genPt[i]) > 3 * recoPt * jet_resolution)
+            // if (dPt > m_dPt_max_factor * resolution)
+            if (dPt > 3 * recoPt * jet_resolution)
                 continue;
             min_dR = dR;
             matched_genJetIndex = i;

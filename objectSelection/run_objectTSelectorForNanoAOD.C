@@ -81,8 +81,8 @@ void run_objectTSelectorForNanoAOD(
     if (istest)
     {
         outputDir = "output/";
-        // eventNum = 100;
-        eventNum = 1000;
+        eventNum = 100;
+        // eventNum = 1000;
         // eventNum = 10000;
     }
     TString outputFile;

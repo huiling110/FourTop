@@ -622,7 +622,7 @@ public:
     TTreeReaderArray<Float_t> Jet_pt = {fReader, "Jet_pt"};
     // TTreeReaderArray<Float_t> Jet_puIdDisc = {fReader, "Jet_puIdDisc"};
     // TTreeReaderArray<Float_t> Jet_qgl = {fReader, "Jet_qgl"};
-    // TTreeReaderArray<Float_t> Jet_rawFactor = {fReader, "Jet_rawFactor"};
+    TTreeReaderArray<Float_t> Jet_rawFactor = {fReader, "Jet_rawFactor"};
     // TTreeReaderArray<Float_t> Jet_bRegCorr = {fReader, "Jet_bRegCorr"};
     // TTreeReaderArray<Float_t> Jet_bRegRes = {fReader, "Jet_bRegRes"};
     // TTreeReaderArray<Float_t> Jet_cRegCorr = {fReader, "Jet_cRegCorr"};
