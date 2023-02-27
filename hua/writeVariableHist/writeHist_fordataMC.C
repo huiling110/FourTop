@@ -155,7 +155,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average delta R of jets", 10, 1.2, 3.2, jets_average_deltaR};
     histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "square root of the multiplicity of 4 lorgest jets b score", 10, 0, 1, jets_4largestBscoreMulti};
     histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity of jets", 10, 0, 1, jets_bScoreMultiply};
-    histsForRegions<Double_t> jets_1btag_class{"jets_1btag", "leading jet btag", 10, -1, 1, jets_1btag};
+    histsForRegions<Double_t> jets_1btag_class{"jets_1btag", "leading jet btag", 40, 0, 1, jets_1btag};
+    histsForRegions<Double_t> jets_2btag_class{"jets_2btag", "2rd jet btag", 40, 0, 1, jets_2btag};
+    histsForRegions<Double_t> jets_3btag_class{"jets_3btag", "3rd jet btag", 40, 0, 1, jets_3btag};
+    histsForRegions<Double_t> jets_4btag_class{"jets_4btag", "4th jet btag", 40, 0, 1, jets_4btag};
+    histsForRegions<Double_t> jets_5btag_class{"jets_5btag", "5th jet btag", 40, 0, 1, jets_5btag};
+    histsForRegions<Double_t> jets_6btag_class{"jets_6btag", "6th jet btag", 40, 0, 1, jets_6btag};
     // histsForRegions<Double_t>{"", 10};
 
     histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
@@ -208,6 +213,11 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegionsDouble.push_back(muonsTopMVAT_1t_class);
     vectorOfVariableRegionsDouble.push_back(elesTopMVAT_1pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_1btag_class);
+    vectorOfVariableRegionsDouble.push_back(jets_2btag_class);
+    vectorOfVariableRegionsDouble.push_back(jets_3btag_class);
+    vectorOfVariableRegionsDouble.push_back(jets_4btag_class);
+    vectorOfVariableRegionsDouble.push_back(jets_5btag_class);
+    vectorOfVariableRegionsDouble.push_back(jets_6btag_class);
 
     for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
     {
