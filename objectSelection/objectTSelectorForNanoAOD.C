@@ -1885,11 +1885,11 @@ void objectTSelectorForNanoAOD::calJER_SF(std::vector<Double_t> &jer_sf, correct
         // jer_sf_down.push_back(iSF_down);
         jets_JESuncer.push_back(iSF_JESuncer);
     }
-    for (Int_t i = 0; i < jer_sf.size(); i++)
-    {
-        std::cout << i << "jerSF=" << jer_sf[i] << "  ";
-    }
-    std::cout << "\n";
+    // for (UInt_t i = 0; i < jer_sf.size(); i++)
+    // {
+    //     std::cout << i << "jerSF=" << jer_sf[i] << "  ";
+    // }
+    // std::cout << "\n";
 }
 
 void objectTSelectorForNanoAOD::calTauSF_new()
