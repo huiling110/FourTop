@@ -160,6 +160,7 @@ public:
     std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAF;
     std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
     std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAL;
+    std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAL_top;
     std::vector<ROOT::Math::PtEtaPhiMVector> elesTopMVAT;
     std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;

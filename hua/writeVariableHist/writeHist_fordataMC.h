@@ -141,8 +141,9 @@ public:
     // TTreeReaderValue<Int_t> Flag_EcalDeadCellTriggerPrimitiveFilter = {fReader, "Flag_EcalDeadCellTriggerPrimitiveFilter"};
     // TTreeReaderValue<Int_t> Flag_BadPFMuonFilter = {fReader, "Flag_BadPFMuonFilter"};
     // TTreeReaderValue<Int_t> Flag_eeBadScFilter = {fReader, "Flag_eeBadScFilter"};
-    // TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
-    // TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
+    TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+    TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
     TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};

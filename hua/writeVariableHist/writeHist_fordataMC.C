@@ -244,6 +244,13 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     {
         return kFALSE;
     }
+    // HLT
+    // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
+    if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
+    // if (*HLT_PFJet450 == 1)
+    {
+        return kFALSE;
+    }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
@@ -273,6 +280,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
         fillHistsVector(is1tau0lSR, 0, basicWeight);
         fillHistsVector(is1tau1lSR, 6, basicWeight);
+        fillHistsVector(baseline, 11, basicWeight);
     }
 
     // 1tau0l CR

@@ -236,6 +236,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     SelectMuTopMVA(muonsTopMVAT, muonsTopMVAT_index, muonsTopMVAT_topMVAScore, 2);
     SelectMuTopMVA(muonsTopMVAL, muonsTopMVAL_index, muonsTopMVAL_topMVAScore, 0);
     SelectMuTopMVA(muonsTopMVALPOG, muonsTopMVALPOG_index, muonsTopMVALPOG_topMVAScore, 5);
+    leptonsMVAL_top = muonsTopMVAL;
+    leptonsMVAL_top.insert(leptonsMVAL_top.end(), elesTopMVAL.begin(), elesTopMVAL.end());
+    sort(leptonsMVAL_top.begin(), leptonsMVAL_top.end(), compEle);
 
     // nominal taus
     //  calTauSF( m_isdata );
