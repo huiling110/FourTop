@@ -185,7 +185,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     if (!m_isdata)
     {
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt)) > 0)
-        {
+        { //???why do it this way???
             PUWeight = dataPileupProfile->GetBinContent(dataPileupProfile->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
             PUWeight_Up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
             PUWeight_Down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(*Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(*Pileup_nTrueInt));
@@ -1835,28 +1835,28 @@ void objectTSelectorForNanoAOD::calJER_SF(std::vector<Double_t> &jer_sf, correct
         ROOT::Math::PtEtaPhiMVector ijetVec(ipt, ieta, iphi, Jet_mass.At(i));
         Double_t ienergy = ijetVec.energy();
         // std::cout << "Jet_rawFactor=" << Jet_rawFactor[i] << "\n";
-        Double_t rawJetPt = ipt * (1 - Jet_rawFactor[i]);
+        // Double_t rawJetPt = ipt * (1 - Jet_rawFactor[i]);
 
         Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"}); // jer_sf
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
         // iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
         // iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
-        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
-        Double_t ijet_res = corr_jerResolution->evaluate({{rawJetPt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
+        // Double_t ijet_res = corr_jerResolution->evaluate({{rawJetPt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
         // what is this rho? average energy density , for a event
 
         // find gen matching
-        // Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
-        Int_t genMatchIndex = genMatchForJER(ieta, iphi, rawJetPt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
+        Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
+        // Int_t genMatchIndex = genMatchForJER(ieta, iphi, rawJetPt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
         if (!m_isdata)
         {
             if (genMatchIndex > 0)
             {
                 // Case 1: we have a "good" generator level jet matched to the reconstructed jet
-                // Double_t dPt = ipt - GenJet_pt[genMatchIndex];
-                Double_t dPt = rawJetPt - GenJet_pt[genMatchIndex];
-                // iSF = 1 + (ijet_sf - 1.) * dPt / ipt;
-                iSF = 1 + (ijet_sf - 1.) * dPt / rawJetPt;
+                Double_t dPt = ipt - GenJet_pt[genMatchIndex];
+                // Double_t dPt = rawJetPt - GenJet_pt[genMatchIndex];
+                iSF = 1 + (ijet_sf - 1.) * dPt / ipt;
+                // iSF = 1 + (ijet_sf - 1.) * dPt / rawJetPt;
             }
             else
             { // Case 2: we don't have a gen jet. Smear jet pt using a random gaussian variation
