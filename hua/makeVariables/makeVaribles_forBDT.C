@@ -149,7 +149,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     {
         basicWeight = (*EVENT_genWeight_) * (*EVENT_prefireWeight_) * (*PUWeight);
     }
-    // std::cout<<"basicWeight: "<<basicWeight<<"\n";
     eventCount_mvInitial->Fill(0.0, basicWeight);
 
     // initialize
