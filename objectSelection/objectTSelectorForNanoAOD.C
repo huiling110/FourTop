@@ -245,9 +245,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     calTauSF_new(); // calculate taus_TES_up  taus_TES_down
     // Int_t tauTES = 4; // 4 means no TES
     Int_t tauTES = 0; // 0 means TES correction
-    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_jetEta, tausL_charge, tausL_neutralIso, 1, leptonsMVAL, tauTES);
-    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_jetEta, tausF_charge, tausF_neutralIso, 2, leptonsMVAL, tauTES);
-    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL, tauTES);
+    SelectTaus(tausL, tausL_index, tausL_decayMode, tausL_genPartFlav, tausL_jetPt, tausL_jetEta, tausL_charge, tausL_neutralIso, 1, leptonsMVAL_top, tauTES);
+    SelectTaus(tausF, tausF_index, tausF_decayMode, tausF_genPartFlav, tausF_jetPt, tausF_jetEta, tausF_charge, tausF_neutralIso, 2, leptonsMVAL_top, tauTES);
+    SelectTaus(tausT, tausT_index, tausT_decayMode, tausT_genPartFlav, tausT_jetPt, tausT_jetEta, tausT_charge, tausT_neutralIso, 3, leptonsMVAL_top, tauTES);
     sort(tausT.begin(), tausT.end(), compEle);
     sort(tausF.begin(), tausF.end(), compEle);
     sort(tausL.begin(), tausL.end(), compEle);
@@ -272,9 +272,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
                   << "tauTES: " << tauTES << "\n";
     }
     Bool_t deepJet = true;
-    SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL, tausL, 0);
-    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL, tausL, 1);
-    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL, tausL, 2);
+    SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL_top, tausL, 0);
+    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL_top, tausL, 1);
+    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL_top, tausL, 2);
     sort(jets.begin(), jets.end(), compEle);
     sort(jets_JECup.begin(), jets_JECup.end(), compEle);
     sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
