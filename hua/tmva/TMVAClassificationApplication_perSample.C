@@ -24,10 +24,13 @@ void TMVAClassificationApplication_perSample(
     TString inputProcess = "tttt",
     // TString inputProcess = "jetHT_2016F",
     TString version = "test",
-    TString channel = "1tau1lCR0",
+    // TString channel = "1tau1lCR0",
+    TString channel = "1tau1lSR",
     const Int_t binNum = 30,
-    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
-    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
+    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
+    // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
+    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_10.csv",
+    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
     TString outputDir = "output/TMVAApp_10var_1tau1lCR0/",
     TString era = "2016"
     // Bool_t isTest = kTRUE
@@ -59,7 +62,7 @@ void TMVAClassificationApplication_perSample(
             variablesName.push_back(ivariable);
             variablesForReader.push_back(0.0);
             variablesOrigin.push_back(0.0);
-            if (ivariable.Contains("number") || ivariable.Contains("num"))
+            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("chargeMulti"))
             {
                 std::cout << "reading int ivariable =" << ivariable << "\n";
                 variablesName_int.push_back(ivariable);
@@ -104,7 +107,7 @@ void TMVAClassificationApplication_perSample(
     TTree *theTree = (TTree *)input->Get("newtree");
     for (UInt_t i = 0; i < variableNum; i++)
     {
-        if (variablesName[i].Contains("number") || variablesName[i].Contains("num"))
+        if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("chargeMulti"))
             continue;
         theTree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
     }
@@ -124,10 +127,10 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     theTree->SetBranchAddress("jets_HT", &jets_HT);
     theTree->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight; // btagEfficiency_weight, HLTefficiency_weight;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight_; // btagEfficiency_weight, HLTefficiency_weight;
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
-    theTree->SetBranchAddress("PUweight", &PUweight);
+    theTree->SetBranchAddress("PUweight_", &PUweight_);
 
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
     TStopwatch sw;
@@ -152,7 +155,7 @@ void TMVAClassificationApplication_perSample(
         }
         // cout<<"\n";
         // channel selection
-        if (channel.CompareTo("1tau1l") == 0)
+        if (channel.CompareTo("1tau1lSR") == 0)
         {
             // Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
             if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
