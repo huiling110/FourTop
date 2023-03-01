@@ -119,7 +119,7 @@ def main():
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
     
-    writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
+    # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
     for (i,ire) in enumerate( regionList):
@@ -143,24 +143,6 @@ def main():
  
  
  
-def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
-    outDir = inputDir + channel + '_templatesForCombine/'
-    uf.checkMakeDir( outDir )
-    outFile = TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
-    for ivar in sumProcessPerVar.keys():
-        dataHist = TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
-        dataHist.Reset()
-        for ipro in sumProcessPerVar[ivar][region].keys():
-            itempName = ipro + '_' + ivar 
-            ihist = sumProcessPerVar[ivar][region][ipro].Clone(itempName)
-            ihist.Write()
-            if (not ipro=='tttt') and (not ipro=='qcd') and (not ipro=='qcd'):
-                dataHist.Add(ihist)
-                print('add data:', ihist)
-        dataHist.Write()
-    # outFile.ls()
-    print('writen templates for combine here', outFile.GetName())
-    outFile.Close()    
     
     
  
