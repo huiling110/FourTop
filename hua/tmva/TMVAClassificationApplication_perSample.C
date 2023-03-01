@@ -27,7 +27,7 @@ void TMVAClassificationApplication_perSample(
     TString version = "test",
     // TString channel = "1tau1lCR0",
     TString channel = "1tau1lSR",
-    const Int_t binNum = 30,
+    const Int_t binNum = 20,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_12.csv",
@@ -102,12 +102,14 @@ void TMVAClassificationApplication_perSample(
         isdata = kTRUE;
     }
 
-    TString s_variableNum = std::to_string(variableNum);
+    // TString s_variableNum = std::to_string(variableNum);
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
     TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.2, 0.5); // 2017
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.2, 0.5);
-    TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT__BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.2, 0.5); // 2017
+    TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.2, 0.5);
+    TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.2, 0.5);
+    TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.2, 0.5);
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");
@@ -133,11 +135,13 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     theTree->SetBranchAddress("jets_HT", &jets_HT);
     theTree->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight_, PUweight_up_, PUweight_down_; // btagEfficiency_weight, HLTefficiency_weight;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_; // btagEfficiency_weight, HLTefficiency_weight;
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
+    theTree->SetBranchAddress("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);
+    theTree->SetBranchAddress("EVENT_prefireWeight_down", &EVENT_prefireWeight_down);
     theTree->SetBranchAddress("PUweight_", &PUweight_);
-    theTree->SetBranchAddress("PUweight_up_", &PUweight_down_);
+    theTree->SetBranchAddress("PUweight_up_", &PUweight_up_);
     theTree->SetBranchAddress("PUweight_down_", &PUweight_down_);
 
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
@@ -186,16 +190,19 @@ void TMVAClassificationApplication_perSample(
 
         // Return the MVA outputs and fill into histograms
         // Double_t eventWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight * btagEfficiency_weight * HLTefficiency_weight;
-        Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
+        // Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
 
         if (Use["BDT"])
         {
             Double_t bdtScore = reader->EvaluateMVA("BDT method");
             if (!isdata)
             {
-                histBdt->Fill(bdtScore, basicWeight);
+                // histBdt->Fill(bdtScore, basicWeight);
+                histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
                 histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
                 histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
+                histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
+                histBdt_prefiring_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_down * PUweight_);
             }
             else
             {
@@ -212,10 +219,13 @@ void TMVAClassificationApplication_perSample(
     {
         Double_t genWeightSum = getGenSum(inputDir + inputProcess + ".root");
         Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
+        std::cout << processName << ": " << processScale << "\n";
+
         histBdt->Scale(processScale);
         histBdt_pileup_up->Scale(processScale);
         histBdt_pileup_down->Scale(processScale);
-        std::cout << processName << ": " << processScale << "\n";
+        histBdt_prefiring_up->Scale(processScale);
+        histBdt_prefiring_down->Scale(processScale);
     }
     else
     {
