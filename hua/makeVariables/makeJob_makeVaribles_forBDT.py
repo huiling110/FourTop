@@ -27,8 +27,10 @@ import usefulFunc as uf
 # inVersion = 'v49FixedPileUpOnlyJER'
 # inVersion = 'v49FixedPileUpJERAndTES'
 # inVersion = 'v50switchRawPtJERNoTES'
-inVersion = 'v51TESNoJER'
-outVersion = 'v0noBaseline'
+# inVersion = 'v51TESNoJER'
+inVersion = 'v51TESNewLepFoLepForrObjectRemoval'
+# outVersion = 'v0noBaseline'
+outVersion = 'v0baseline'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
 # outVersion = 'v3extra1tau1lCut'
@@ -46,8 +48,8 @@ outVersion = 'v0noBaseline'
 year = '2016'
 # year = '2018'
 # year = '2017'
-# selectionBit = '7'
-selectionBit = '1'
+selectionBit = '7'
+# selectionBit = '1'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 
