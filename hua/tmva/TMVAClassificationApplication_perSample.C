@@ -19,9 +19,10 @@
 
 void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/data/",
-    // TString inputProcess = "tttt",
-    TString inputProcess = "jetHT_2016F",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/data/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
+    TString inputProcess = "tttt",
+    // TString inputProcess = "jetHT_2016F",
     TString version = "test",
     TString channel = "1tau1lCR0",
     const Int_t binNum = 30,
@@ -174,7 +175,7 @@ void TMVAClassificationApplication_perSample(
 
         // Return the MVA outputs and fill into histograms
         // Double_t eventWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight * btagEfficiency_weight * HLTefficiency_weight;
-        Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight;
+        Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
 
         if (Use["BDT"])
         {
