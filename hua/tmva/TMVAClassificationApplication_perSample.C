@@ -20,7 +20,8 @@
 void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/data/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/",
     TString inputProcess = "tttt",
     // TString inputProcess = "jetHT_2016F",
     TString version = "test",
@@ -31,7 +32,7 @@ void TMVAClassificationApplication_perSample(
     // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_10.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
-    TString outputDir = "output/TMVAApp_10var_1tau1lCR0/",
+    TString outputDir = "output/",
     TString era = "2016"
     // Bool_t isTest = kTRUE
 )
@@ -100,8 +101,9 @@ void TMVAClassificationApplication_perSample(
     {
         isdata = kTRUE;
     }
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.2, 0.2); // 2017
-    // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.22, 0.10);
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.2, 0.5); // 2017
+    TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.2, 0.5);
+    TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT__BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.2, 0.5); // 2017
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");
@@ -182,13 +184,14 @@ void TMVAClassificationApplication_perSample(
 
         if (Use["BDT"])
         {
+            Double_t bdtScore = reader->EvaluateMVA("BDT method");
             if (!isdata)
             {
-                histBdt->Fill(reader->EvaluateMVA("BDT method"), basicWeight);
+                histBdt->Fill(bdtScore, basicWeight);
             }
             else
             {
-                histBdt->Fill(reader->EvaluateMVA("BDT method"), 1);
+                histBdt->Fill(bdtScore);
             }
         }
     }
@@ -214,7 +217,8 @@ void TMVAClassificationApplication_perSample(
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
     histBdt->SetDirectory(out);
-    histBdt->Write();
+    out->Write();
+    // histBdt->Write();
     std::cout << "output file here: " << out->GetName() << "\n";
     out->Close();
 };
