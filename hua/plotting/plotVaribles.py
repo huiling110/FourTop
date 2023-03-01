@@ -11,8 +11,7 @@ from ROOT import *
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
-from writeCSVforEY import (getProcessScale, getSummedHists, histDateMinusGenBG,
-                           replaceBgWithGen)
+from writeCSVforEY import replaceBgWithGen
 
 colourPerSample = {
     # 'tttt':kPink-9,
@@ -50,7 +49,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpOnlyJER/mc/variableHists_v3_pileupCR0Changed_v2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v3_pileupCR0Changed_v2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v49FixedPileUpOnlyJER/mc/variableHists_v3_pileupCR0Changed_v2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v50switchRawPtJERNoTES/mc/variableHists_v3_pileupCR0Changed_v2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v50switchRawPtJERNoTES/mc/variableHists_v3_pileupCR0Changed_v2/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/variableHists_v0_BDTWithSystematics/'
 
     # for 1tau1l
     # variables = ['jets_number']
@@ -58,16 +58,16 @@ def main():
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
     # variables = ['jets_bScore']
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' ]
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
-    # variables = ['BDT']
+    variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
         # variables = ['Met_pt']#??
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    # regionList = ['1tau1lSR']
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lSR']
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     ifFR_sys = False
     plotName = 'dataVsMC'
@@ -101,7 +101,7 @@ def main():
     sumProcessPerVarSys = {}
     #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     for ivar in variables:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )       
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar )       
     print( sumProcessPerVar )
     print( sumProcessPerVarSys )
     print('\n')
@@ -281,8 +281,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         stack.Add(nominal[entry])
     legendOrder.reverse()
     # maxi = 1.2* sumHist.GetMaximum()
-    if dataHist.GetMaximum()>0:
-        maxi = 1.4* dataHist.GetMaximum()
+    if hasDataHist:
+        if dataHist.GetMaximum()>0:
+            maxi = 1.4* dataHist.GetMaximum()
     else:
         maxi = 1.4* sumHist.GetMaximum()
     if maxi<=0 :

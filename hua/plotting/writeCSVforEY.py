@@ -209,12 +209,6 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     return sumProcessHistsDict, sumProcessHistsDictSys
 
 
-def getProcessScale( processName, era ):
-    # genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
-    genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_'+era+'.csv', era )[processName]
-    scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
-    print( processName, ': ', 'genWeight= ', genWeight, ' lumi=', lumiMap[era], ' cross=', samplesCrossSection[processName],  ' scale= ', scale)
-    return scale
 
 
 

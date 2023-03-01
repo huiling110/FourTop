@@ -2,7 +2,9 @@ import os
 import subprocess
 
 import pandas as pd
-from ttttGlobleQuantity import lumiMap, samplesCrossSection
+import ROOT
+from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
+                                samplesCrossSection)
 
 
 def checkMakeDir( folder ):
@@ -104,11 +106,12 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         isdata = False
         if 'jetHT' in ifileName:
             isdata = True
-            iRootFile = TFile( inputDir['data']+ifile, 'READ' )
+            iRootFile = ROOT.TFile( inputDir['data']+ifile, 'READ' )
         else:
-            iRootFile = TFile( inputDir['mc']+ifile, 'READ' ) 
+            iRootFile = ROOT.TFile( inputDir['mc']+ifile, 'READ' ) 
         print('openning file: ', iRootFile.GetName() )
         for iRegion in regionsList:
+            if 'SR' in iRegion and isdata: continue
             iHistName = iRegion + '_' + ifileName + '_' + variable
             if iRegion not in sumProcessHistsDict.keys(): 
                 sumProcessHistsDict[iRegion]={}
@@ -134,3 +137,10 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
 
     return sumProcessHistsDict, sumProcessHistsDictSys
 
+
+def getProcessScale( processName, era ):
+    # genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_2016postVFP.csv' )[processName]
+    genWeight = uf.getGenSumDic( '../objectSelection/genWeightCSV/genSum_'+era+'.csv', era )[processName]
+    scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
+    print( processName, ': ', 'genWeight= ', genWeight, ' lumi=', lumiMap[era], ' cross=', samplesCrossSection[processName],  ' scale= ', scale)
+    return scale

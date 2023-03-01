@@ -5,10 +5,9 @@ import sys
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
-from writeCSVforEY import getSummedHists
+
 
 # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
-variables = ['jets_bScore']
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_30bins/'
@@ -27,12 +26,14 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_2016_30bins/'
-    TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/AppResults_2017_15bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/AppResults_2017_15bins/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/variableHists_v0_BDTWithSystematics/'
 
+    regionList = ['1tau1lSR']
+    variables = ['BDT']
 
-
-    channel = uf.getChannelFromDir (TMVAppDir)
-    print(channel)
+    # channel = uf.getChannelFromDir (TMVAppDir)
+    # print(channel)
     
 
 
@@ -42,32 +43,32 @@ def main():
     sumProcessPerVarSys = {}
     #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     for ivar in variables:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )       
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar )       
     print( sumProcessPerVar )
     print( sumProcessPerVarSys )
     print('\n')
     writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
-    addSummedHists( TMVAppDir )
+    # addSummedHists( TMVAppDir )
 
-    emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
-    listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
-    # listForCombine = getNonEmptyList_new( emptyList, False)
-    print('for combine: ', listForCombineSum)
+    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    # listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
+    # # listForCombine = getNonEmptyList_new( emptyList, False)
+    # print('for combine: ', listForCombineSum)
     
-    #remove WJets for no WJets entering training
-    listForCombineSum.remove('WJets')
+    # #remove WJets for no WJets entering training
+    # listForCombineSum.remove('WJets')
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
-    # writeDatacards( TMVAppDir, listForCombine, False, 10 )
+    # writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
+    # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
  
          
 def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
     outDir = inputDir + channel + '_templatesForCombine/'
     uf.checkMakeDir( outDir )
-    outFile = TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
+    outFile = ROOT.TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
     for ivar in sumProcessPerVar.keys():
-        dataHist = TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
+        dataHist = ROOT.TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
         dataHist.Reset()
         for ipro in sumProcessPerVar[ivar][region].keys():
             itempName = ipro + '_' + ivar 
