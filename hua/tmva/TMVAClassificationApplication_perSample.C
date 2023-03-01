@@ -30,8 +30,8 @@ void TMVAClassificationApplication_perSample(
     const Int_t binNum = 30,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
-    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_10.csv",
-    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
+    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_12.csv",
+    TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_12_weight/",
     TString outputDir = "output/",
     TString era = "2016"
     // Bool_t isTest = kTRUE
@@ -101,6 +101,10 @@ void TMVAClassificationApplication_perSample(
     {
         isdata = kTRUE;
     }
+
+    TString s_variableNum = std::to_string(variableNum);
+    TString outFileName = outputDir + processName + ".root";
+    TFile *out = new TFile(outFileName, "RECREATE");
     TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.2, 0.5); // 2017
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.2, 0.5);
     TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT__BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.2, 0.5); // 2017
@@ -129,10 +133,12 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     theTree->SetBranchAddress("jets_HT", &jets_HT);
     theTree->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight_; // btagEfficiency_weight, HLTefficiency_weight;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight_, PUweight_up_, PUweight_down_; // btagEfficiency_weight, HLTefficiency_weight;
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
     theTree->SetBranchAddress("PUweight_", &PUweight_);
+    theTree->SetBranchAddress("PUweight_up_", &PUweight_down_);
+    theTree->SetBranchAddress("PUweight_down_", &PUweight_down_);
 
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
     TStopwatch sw;
@@ -188,6 +194,8 @@ void TMVAClassificationApplication_perSample(
             if (!isdata)
             {
                 histBdt->Fill(bdtScore, basicWeight);
+                histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
+                histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
             }
             else
             {
@@ -205,6 +213,8 @@ void TMVAClassificationApplication_perSample(
         Double_t genWeightSum = getGenSum(inputDir + inputProcess + ".root");
         Double_t processScale = ((lumiMap[era] * crossSectionMap[processName]) / genWeightSum);
         histBdt->Scale(processScale);
+        histBdt_pileup_up->Scale(processScale);
+        histBdt_pileup_down->Scale(processScale);
         std::cout << processName << ": " << processScale << "\n";
     }
     else
@@ -212,11 +222,8 @@ void TMVAClassificationApplication_perSample(
         std::cout << processName << ": not MC, no scaling of hist\n";
     }
 
-    TString s_variableNum = std::to_string(variableNum);
-    // TString outFileName = outputDir + "TMVApp_" + channel + "_" + s_variableNum + "var_forCombine.root";
-    TString outFileName = outputDir + processName + ".root";
-    TFile *out = new TFile(outFileName, "RECREATE");
     histBdt->SetDirectory(out);
+    // histBdt->SetDirectory(out);
     out->Write();
     // histBdt->Write();
     std::cout << "output file here: " << out->GetName() << "\n";
