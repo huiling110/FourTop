@@ -5,6 +5,7 @@ import sys
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
+from writeCSVforEY import getSummedHists
 
 # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
 variables = ['jets_bScore']
@@ -35,6 +36,16 @@ def main():
     
 
 
+    inputDirDic = uf.getInputDicNew( inputDir)
+    #sumProcessPerVar[var][region][sumedProcess] = hist
+    sumProcessPerVar = {}
+    sumProcessPerVarSys = {}
+    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
+    for ivar in variables:
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )       
+    print( sumProcessPerVar )
+    print( sumProcessPerVarSys )
+    print('\n')
     writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     addSummedHists( TMVAppDir )
