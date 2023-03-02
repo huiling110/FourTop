@@ -47,7 +47,7 @@ def main():
     print('\n')
     print( sumProcessPerVarSys )
     print('\n')
-    # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
+    writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     # addSummedHists( TMVAppDir )
 
     
@@ -63,13 +63,14 @@ def main():
     # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
  
          
-def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
+def writeTemplatesForCombine(sumProcessPerVar,sumProcessPerVaySys, inputDir, region, channel='1tau0l') :
     outDir = inputDir + channel + '_templatesForCombine/'
     uf.checkMakeDir( outDir )
-    outFile = ROOT.TFile( outDir+'templates_forCombine.root', 'RECREATE')
+    outFile = ROOT.TFile( outDir+'templates.root', 'RECREATE')
     for ivar in sumProcessPerVar.keys():
         dataHist = ROOT.TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
         dataHist.Reset()
+        dataHist.Sumw2()
         for ipro in sumProcessPerVar[ivar][region].keys():
             itempName = ipro + '_' + ivar 
             ihist = sumProcessPerVar[ivar][region][ipro].Clone(itempName)
@@ -77,6 +78,10 @@ def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l
             if (not ipro=='tttt') and (not ipro=='qcd') and (not ipro=='qcd'):
                 dataHist.Add(ihist)
                 print('add data:', ihist)
+                
+                for isys in sumProcessPerVaySys[ivar][region][ipro].keys():
+                    ihistSys = sumProcessPerVaySys[ivar][region][ipro][isys].Clone(itempName+'_'+isys)
+                    ihistSys.Write()
         dataHist.Write()
     # outFile.ls()
     print('writen templates for combine here', outFile.GetName())
