@@ -64,7 +64,7 @@ def main():
     print(channel)
     # writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
     # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
-    writeDatacards( TMVAppDir, processListForCombine, True, 10,  variables, channel )
+    writeDatacards( TMVAppDir, processListForCombine, True, 10,  variables, 'SR'+channel )
 
 
 def getProcessList( input):
@@ -75,6 +75,7 @@ def getProcessList( input):
         ihist = obj.GetName()
         if not ('_up' in ihist or '_down' in ihist):
             ipro = ihist.split('_')[0]
+            if ipro=='data': continue
             hist = file.Get(ihist)
             if hist.Integral()<=0:
                 print(ipro, ' empty, not add to datacard\n')
@@ -181,7 +182,7 @@ def getStringWithSpaces( string, allSpaces ):
         sys.exit()
     return string + (allSpaces-len(string))*' '
 
-def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var ):
+def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var, ifSys=False ):
     outCard = outCard.replace('Sum', 'Sum_'+var)
     card = open( outCard, 'wt' )
     card.write( 'imax *\n' )
@@ -190,38 +191,16 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     card.write( 80*'-' + '\n' )
     
     histName = ''
-    if channel=='1tau1l':
+    if channel=='SR1tau1l':
         histName = 'PROCESS_BDT' 
-    elif channel=='1tau0l':
+    elif channel=='SR1tau0l':
         histName = 'PROCESS_' + var
     # card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
     card.write( 'shapes * *  ' + rootFile + '  ${}\n'.format(histName)  )
-    # card.write( 'bin          SR_1tau1l\n')
-    card.write( 'bin          SR{}\n'.format(channel))
+    card.write( 'bin          {}\n'.format(channel))
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
 
-    # processNum = len( listForCombine )
-    # card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR'+channel, 18) + '\n')
-    # card.write( getStringWithSpaces('process', 10) )
-    # for ip in listForCombine:
-    #     card.write( getStringWithSpaces(ip,18))
-    # card.write('\n')
-
-    # start = 0
-    # card.write( getStringWithSpaces('process', 10))
-    # while start<processNum:
-    #     card.write( getStringWithSpaces( str(start),18)  )
-    #     start = start+1
-    # card.write('\n')
-
-    # start = 0
-    # card.write( getStringWithSpaces('rate', 10) )
-    # while start<processNum:
-    #     card.write( getStringWithSpaces('-1', 18) )
-    #     start = start+1
-    # card.write('\n')
-    # card.write( 80*'-' + '\n' )
     dicForProcessLines = {}
     for (i, ipro) in enumerate( listForCombine):
         dicForProcessLines[ipro] = [channel, i, -1]
@@ -247,7 +226,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     
 
     card.write( 80*'-' + '\n' )
-    card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
+    card.write( channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
     print( 'datacard writen here: ', outCard)
@@ -270,7 +249,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum,  variables, ch
     for entry in os.listdir( TMVAppDir ):
         if not '.root' in entry: continue
         irootFile = TMVAppDir+entry
-        ioutCard = entry[:-16]
+        ioutCard = entry.split('.root')[0]
         if isSum:
             ioutCard = cardDir + ioutCard + '_Sum_datacard.txt'
         else:
