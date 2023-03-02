@@ -36,17 +36,17 @@ def main():
     # print(channel)
     
 
-
+    era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
     #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
     for ivar in variables:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar )       
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar, False, era, True )       
     print( sumProcessPerVar )
     print( sumProcessPerVarSys )
     print('\n')
-    writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
+    # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     # addSummedHists( TMVAppDir )
 
     
