@@ -105,11 +105,11 @@ void TMVAClassificationApplication_perSample(
     // TString s_variableNum = std::to_string(variableNum);
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.3, 0.5); // 2017
-    TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.3, 0.5);
-    TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.3, 0.5);
-    TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.3, 0.5);
-    TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.3, 0.5);
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.22, 0.48); // 2017
+    TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
+    TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
+    TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
+    TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");

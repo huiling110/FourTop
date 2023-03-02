@@ -87,7 +87,7 @@ def getDirDic(inputMC):
 
 
 
-def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' ):
+def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False):
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
     sumProcessHistsDictSys = {}
@@ -110,6 +110,13 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         else:
             iRootFile = ROOT.TFile( inputDir['mc']+ifile, 'READ' ) 
         print('openning file: ', iRootFile.GetName() )
+        histList = []
+        for key in iRootFile.GetListOfKeys():
+            obj = key.ReadObj()
+            if isinstance(obj, ROOT.TH1):
+                histList.append(obj.GetName())
+        print('all hists in file: ', histList) 
+        
         for iRegion in regionsList:
             if 'SR' in iRegion and isdata: continue
             iHistName = iRegion + '_' + ifileName + '_' + variable

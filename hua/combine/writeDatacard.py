@@ -38,7 +38,6 @@ def main():
 
 
     inputDirDic = uf.getInputDicNew( inputDir)
-    #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
     #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
@@ -48,9 +47,9 @@ def main():
     print( sumProcessPerVarSys )
     print('\n')
     writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
-    
     # addSummedHists( TMVAppDir )
 
+    
     # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
     # listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
     # # listForCombine = getNonEmptyList_new( emptyList, False)
@@ -66,7 +65,7 @@ def main():
 def writeTemplatesForCombine(sumProcessPerVar, inputDir, region, channel='1tau0l') :
     outDir = inputDir + channel + '_templatesForCombine/'
     uf.checkMakeDir( outDir )
-    outFile = ROOT.TFile( outDir+'1tau0ltemplates_forCombine.root', 'RECREATE')
+    outFile = ROOT.TFile( outDir+'templates_forCombine.root', 'RECREATE')
     for ivar in sumProcessPerVar.keys():
         dataHist = ROOT.TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
         dataHist.Reset()
