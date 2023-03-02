@@ -92,7 +92,7 @@ def getSysList(rootFile, variable):
         histName = obj.GetName()
         if isinstance(obj, ROOT.TH1):
             histList.append(histName)
-            if '_up' in histName:
+            if '_up' in histName or '_down' in histName:
                 iSys = histName[histName.find(variable)+len(variable)+1:len(histName)]
                 sysList.append(iSys)
     print('all hists in file: ', histList)
@@ -129,6 +129,9 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         for iRegion in regionsList:
             if 'SR' in iRegion and isdata: continue
             iHistName = iRegion + '_' + ifileName + '_' + variable
+            # for (index,isys) in enumerate(sysList):
+            #     sysList[index] = iHistName +'_'+ isys
+            
             if iRegion not in sumProcessHistsDict.keys(): 
                 sumProcessHistsDict[iRegion]={}
                 sumProcessHistsDictSys[iRegion]={}
@@ -136,25 +139,26 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             
             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
                 sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
-                # if not isSysHist:
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
-                # else:
-                    # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][sysName]= iRootFile.Get( iHistName).Clone()
-                    # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][sysName].SetDirectory(0)
-                    
                 if ifScale or not isdata: 
                     sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
+                #get systematic hist
+                if ifGetSys:
+                    for isys in sysList:
+                        sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][isys] = iRootFile.Get( iHistName+'_'+isys).Clone()
+                        sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][isys].SetDirectory(0)
             else:
                 itemp = iRootFile.Get( iHistName)
                 if ifScale or not isdata: 
                     itemp.Scale(iProScale)
-                # if not isSysHist:
                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
-                # else:
-                    # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][sysName].Add( itemp)
+                if ifGetSys:
+                    for isys in sysList:
+                        sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]][isys].Add( iRootFile.Get( iHistName+'_'+ isys))
+                        
         iRootFile.Close()
         print( '\n')
 

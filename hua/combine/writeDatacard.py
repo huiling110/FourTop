@@ -44,6 +44,7 @@ def main():
     for ivar in variables:
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar, False, era, True )       
     print( sumProcessPerVar )
+    print('\n')
     print( sumProcessPerVarSys )
     print('\n')
     # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
