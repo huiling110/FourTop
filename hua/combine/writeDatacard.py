@@ -7,7 +7,6 @@ import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
 
 
-# variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
 def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_30bins/'
@@ -28,6 +27,7 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_2016_30bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/AppResults_2017_15bins/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/variableHists_v0_BDTWithSystematics/'
+    # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass'] #1tau0l  
 
     regionList = ['1tau1lSR']
     variables = ['BDT']
@@ -38,30 +38,49 @@ def main():
 
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
-    sumProcessPerVar = {}
-    sumProcessPerVarSys = {}
-    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
-    for ivar in variables:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar, False, era, True )       
-    print( sumProcessPerVar )
-    print('\n')
-    print( sumProcessPerVarSys )
-    print('\n')
-    writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
-    # addSummedHists( TMVAppDir )
+    # sumProcessPerVar = {}
+    # sumProcessPerVarSys = {}
+    # #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
+    # for ivar in variables:
+    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar, False, era, True )       
+    # print( sumProcessPerVar )
+    # print('\n')
+    # print( sumProcessPerVarSys )
+    # print('\n')
+    # writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0], '1tau1l') 
 
-    
-    # emptyList = checkEmptyProcess( TMVAppDir, channel ) #after addSummedHists emptyList contains summeDhist
+    templatesFile = inputDir+ '1tau0l_templatesForCombine/templates.root'
+    # emptyList = checkEmptyProcess( templatesFile ) #after addSummedHists emptyList contains summeDhist
     # listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
-    # # listForCombine = getNonEmptyList_new( emptyList, False)
-    # print('for combine: ', listForCombineSum)
+    processListForCombine = getProcessList(templatesFile) 
+    print('for combine: ', processListForCombine)
     
     # #remove WJets for no WJets entering training
     # listForCombineSum.remove('WJets')
 
+    TMVAppDir = inputDir + '1tau0l_templatesForCombine/'
+    channel = uf.getChannelFromDir (TMVAppDir)
+    print(channel)
     # writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
     # # writeDatacards( TMVAppDir, listForCombine, False, 10 )
- 
+    writeDatacards( TMVAppDir, processListForCombine, True, 10,  variables, channel )
+
+
+def getProcessList( input):
+    list = []
+    file = ROOT.TFile.Open(input, 'READ')
+    for key in file.GetListOfKeys():
+        obj = key.ReadObj()
+        ihist = obj.GetName()
+        if not ('_up' in ihist or '_down' in ihist):
+            ipro = ihist.split('_')[0]
+            hist = file.Get(ihist)
+            if hist.Integral()<=0:
+                print(ipro, ' empty, not add to datacard\n')
+                continue
+            list.append(ipro)
+    return list
+            
          
 def writeTemplatesForCombine(sumProcessPerVar,sumProcessPerVaySys, inputDir, region, channel='1tau0l') :
     outDir = inputDir + channel + '_templatesForCombine/'
@@ -210,7 +229,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
 
 
 
-def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1l' ):
+def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum,  variables, channel='1tau1l' ):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
@@ -236,15 +255,16 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1
             writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum , channel, ivar)
 
 
-def checkEmptyProcess( fileDir, channel ):
-    rootF = ""
-    if channel=='1tau1l':
-        rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
-    elif channel=='1tau0l':
-        rootF = '1tau0ltemplates_forCombine.root'
+# def checkEmptyProcess( fileDir, channel ):
+def checkEmptyProcess( rootF ):
+    # rootF = ""
+    # if channel=='1tau1l':
+    #     rootF = 'TMVApp_' + channel + '_10var_forCombine.root'
+    # elif channel=='1tau0l':
+    #     rootF = '1tau0ltemplates_forCombine.root'
     
     emptyProcesses = []
-    iFile = ROOT.TFile( fileDir+rootF)
+    iFile = ROOT.TFile( rootF)
     itnext = iFile.GetListOfKeys()
     for i in itnext:
         if ('QCD' in i) or ('SingleTop' in i) or ('VV' in i) or ('TT' in i): continue
