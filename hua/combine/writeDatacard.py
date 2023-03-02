@@ -79,6 +79,8 @@ def getProcessList( input):
                 print(ipro, ' empty, not add to datacard\n')
                 continue
             list.append(ipro)
+    list.pop(list.index('tttt')) 
+    list.insert('tttt', 0)
     return list
             
          
@@ -185,9 +187,10 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     card.write( 'jmax *\n' )
     card.write( 'kmax *\n' )
     card.write( 80*'-' + '\n' )
+    
     histName = ''
     if channel=='1tau1l':
-        histName = 'PROCESS_MVA_BDT' 
+        histName = 'PROCESS_BDT' 
     elif channel=='1tau0l':
         histName = 'PROCESS_' + var
     # card.write( 'shapes * *  ' + rootFile + '  $PROCESS_MVA_BDT\n'  )
@@ -205,20 +208,25 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
         card.write( getStringWithSpaces(ip,18))
     card.write('\n')
 
-    start = 0
-    card.write( getStringWithSpaces('process', 10))
-    while start<processNum:
-        card.write( getStringWithSpaces( str(start),18)  )
-        start = start+1
-    card.write('\n')
+    # start = 0
+    # card.write( getStringWithSpaces('process', 10))
+    # while start<processNum:
+    #     card.write( getStringWithSpaces( str(start),18)  )
+    #     start = start+1
+    # card.write('\n')
 
-    start = 0
-    card.write( getStringWithSpaces('rate', 10) )
-    while start<processNum:
-        card.write( getStringWithSpaces('-1', 18) )
-        start = start+1
-    card.write('\n')
-    card.write( 80*'-' + '\n' )
+    # start = 0
+    # card.write( getStringWithSpaces('rate', 10) )
+    # while start<processNum:
+    #     card.write( getStringWithSpaces('-1', 18) )
+    #     start = start+1
+    # card.write('\n')
+    # card.write( 80*'-' + '\n' )
+    dicForProcessLines = {}
+    for ipro in listForCombine:
+        dicForProcessLines
+          
+    
 
     card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
