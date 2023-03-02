@@ -224,11 +224,21 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     # card.write( 80*'-' + '\n' )
     dicForProcessLines = {}
     for (i, ipro) in enumerate( listForCombine):
-        dicForProcessLines[ipro] = [i, -1, channel]
+        dicForProcessLines[ipro] = [channel, i, -1]
     df = pd.DataFrame(dicForProcessLines)
-    print(df)
-    output_str = df.to_string(index=False, justify='left')
-    # df.to_csv(output_str, index=False) 
+    header = df.columns.tolist()
+    new_row = pd.DataFrame([header], columns=df.columns)
+    df = pd.concat([new_row, df], ignore_index=True)
+    row1 = df.iloc[0].copy()
+    row2 = df.iloc[1].copy()
+    df.iloc[0] = row2
+    df.iloc[1] = row1
+    new_col = pd.Series(['bin', 'process', 'process', 'rate'])
+    # insert the new column at the beginning of the dataframe
+    df.insert(loc=0, column='first', value=new_col)
+    # print(df)
+    
+    output_str = df.to_string(index=False, header=False, justify='right')
     card.write(output_str)
     card.write('\n')
 
@@ -236,6 +246,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
           
     
 
+    card.write( 80*'-' + '\n' )
     card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
