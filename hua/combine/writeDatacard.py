@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 
+import pandas as pd
 import ROOT
 import usefulFunc as uf
 from ttttGlobleQuantity import samples, summedProcessList
@@ -80,7 +81,7 @@ def getProcessList( input):
                 continue
             list.append(ipro)
     list.pop(list.index('tttt')) 
-    list.insert('tttt', 0)
+    list.insert( 0, 'tttt')
     return list
             
          
@@ -200,13 +201,12 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     card.write( 'observation  -1\n')
     card.write( 80*'-' + '\n' )
 
-    processNum = len( listForCombine )
-    # card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR_1tau1l', 18) + '\n')
-    card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR'+channel, 18) + '\n')
-    card.write( getStringWithSpaces('process', 10) )
-    for ip in listForCombine:
-        card.write( getStringWithSpaces(ip,18))
-    card.write('\n')
+    # processNum = len( listForCombine )
+    # card.write( getStringWithSpaces( 'bin', 10) + processNum*getStringWithSpaces('SR'+channel, 18) + '\n')
+    # card.write( getStringWithSpaces('process', 10) )
+    # for ip in listForCombine:
+    #     card.write( getStringWithSpaces(ip,18))
+    # card.write('\n')
 
     # start = 0
     # card.write( getStringWithSpaces('process', 10))
@@ -223,8 +223,16 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     # card.write('\n')
     # card.write( 80*'-' + '\n' )
     dicForProcessLines = {}
-    for ipro in listForCombine:
-        dicForProcessLines
+    for (i, ipro) in enumerate( listForCombine):
+        dicForProcessLines[ipro] = [i, -1, channel]
+    df = pd.DataFrame(dicForProcessLines)
+    print(df)
+    output_str = df.to_string(index=False, justify='left')
+    # df.to_csv(output_str, index=False) 
+    card.write(output_str)
+    card.write('\n')
+
+    
           
     
 
