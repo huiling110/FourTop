@@ -15,16 +15,13 @@
 void run_makeVaribles_forBDT(
     Bool_t istest = true,
     // Bool_t istest = false,
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v40addTauJetEtau/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v41addVertexSelection/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v42fixedChargeType/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v41addVertexSelection/mc/",
     // TString inputBase = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v40addTauJetEtau/mc/",
     // TString inputBase = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/UL2017/v42fixedChargeType/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v45newLepBugFixed/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v46addPOGIDL/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpNoJERTES/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpNoJERTES/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v51TESNewLepObjectRemovalCorrected/mc/",
 
     TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
