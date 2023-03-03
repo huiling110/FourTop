@@ -146,10 +146,10 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     theTree->SetBranchAddress("jets_HT", &jets_HT);
     theTree->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight; // btagEfficiency_weight, HLTefficiency_weight;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, PUweight_; // btagEfficiency_weight, HLTefficiency_weight;
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
-    theTree->SetBranchAddress("PUweight", &PUweight);
+    theTree->SetBranchAddress("PUweight_", &PUweight_);
     // theTree->SetBranchAddress("btagEfficiency_weight", &btagEfficiency_weight);
     // theTree->SetBranchAddress("HLTefficiency_weight", &HLTefficiency_weight);
 
@@ -182,45 +182,45 @@ void evaluateMVA(std::map<std::string, int> Use, TString processName, TTree *the
         }
         // cout<<"\n";
         // channel selection
-        if (channel.CompareTo("1tau1l") == 0)
-        {
-            // Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
-                continue;
-        }
-        else if (channel.CompareTo("1tau1lCR0") == 0)
-        {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num == 1))
-                continue;
-        }
-        else if (channel.CompareTo("1tau2l") == 0)
-        {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 2 && jets_number >= 6 && bjetsM_num >= 2))
-                continue;
-        }
-        else if (channel.CompareTo("2tauXl") == 0)
-        {
-            if (
-                !(
-                    (tausT_number == 2 && leptonsMVAT_number == 0 && jets_number >= 7 && bjetsM_num >= 2) ||
-                    (tausT_number == 2 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num >= 2) ||
-                    (tausT_number == 2 && leptonsMVAT_number == 2 && leptonsMVAT_2OS == 1 && jets_number >= 2 && bjetsM_num >= 2)))
-                continue;
-        }
-        else if (channel.CompareTo("2tau0l") == 0)
-        {
-            if (!(tausT_number == 2 && leptonsMVAT_number == 0 && jets_number >= 7 && bjetsM_num >= 2))
-                continue;
-        }
+        // if (channel.CompareTo("1tau1l") == 0)
+        // {
+        //     // Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
+        //     if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
+        //         continue;
+        // }
+        // else if (channel.CompareTo("1tau1lCR0") == 0)
+        // {
+        //     if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num == 1))
+        //         continue;
+        // }
+        // else if (channel.CompareTo("1tau2l") == 0)
+        // {
+        //     if (!(tausT_number == 1 && leptonsMVAT_number == 2 && jets_number >= 6 && bjetsM_num >= 2))
+        //         continue;
+        // }
+        // else if (channel.CompareTo("2tauXl") == 0)
+        // {
+        //     if (
+        //         !(
+        //             (tausT_number == 2 && leptonsMVAT_number == 0 && jets_number >= 7 && bjetsM_num >= 2) ||
+        //             (tausT_number == 2 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num >= 2) ||
+        //             (tausT_number == 2 && leptonsMVAT_number == 2 && leptonsMVAT_2OS == 1 && jets_number >= 2 && bjetsM_num >= 2)))
+        //         continue;
+        // }
+        // else if (channel.CompareTo("2tau0l") == 0)
+        // {
+        //     if (!(tausT_number == 2 && leptonsMVAT_number == 0 && jets_number >= 7 && bjetsM_num >= 2))
+        //         continue;
+        // }
 
-        else
-        {
-            std::cout << "no event selection for channel\n";
-        }
+        // else
+        // {
+        //     std::cout << "no event selection for channel\n";
+        // }
 
         // Return the MVA outputs and fill into histograms
         // Double_t eventWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight * btagEfficiency_weight * HLTefficiency_weight;
-        Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight;
+        Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
 
         if (Use["BDT"])
             histBdt->Fill(reader->EvaluateMVA("BDT method"), basicWeight);
