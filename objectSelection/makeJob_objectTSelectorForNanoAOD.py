@@ -17,7 +17,6 @@ eraDic = {
 }
 
 
-# codePath = "/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTop/objectSelection/"
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
@@ -46,9 +45,9 @@ jobVersionName = 'v51TESNewLepObjectRemovalCorrected/'
 
 onlyMC = False
 # era = '2016'
-era = '2016APV'
+# era = '2016APV'
+era = '2017'
 # era = '2018'
-# era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
@@ -70,19 +69,19 @@ def main():
     uf.checkMakeDir( outputDir) 
     inputDirMC = inputDir + 'mc/'
 
-    jobsDir = codePath + 'jobs_seperata/'
-    if os.path.exists( jobsDir ):
-        subprocess.run('rm -fr '+ jobsDir , shell=True)
-    uf.checkMakeDir( jobsDir)
+    # jobsDir = codePath + 'jobs_seperata/'
+    jobsDir = codePath + 'jobs_eachYear/'
+    uf.checkMakeDir(jobsDir)
 
-    makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling )
+    makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling, era )
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
-            makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling )
+            makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling, era )
 
     makeSubAllJobs( jobsDir )
-    subprocess.run('chmod 777 '+codePath+"jobs_seperata/*sh", shell=True )
+    # subprocess.run('chmod 777 '+codePath+"jobs_seperata/*sh", shell=True )
+    subprocess.run('chmod 777 '+ jobsDir+ era+ "/*sh", shell=True )
 
 
 
@@ -90,14 +89,15 @@ def main():
 
 
 def makeSubAllJobs( jobsDir ):
-    subAllFile = codePath+"subAllJobs.sh"
+    # subAllFile = codePath+"subAllJobs.sh"
+    subAllFile = jobsDir+"subAllJobs"+era+ ".sh"
     if os.path.exists(subAllFile):
         subprocess.run('rm -fr '+subAllFile , shell=True)
 
     subAllProcessName = open( subAllFile, 'w')
     subAllProcessName.write( "#!/bin/bash\n")
-    subAllProcessName.write( 'cd ' + jobsDir + '\n')
-    for ijob in os.listdir( jobsDir ):
+    subAllProcessName.write( 'cd ' + jobsDir+era + '\n')
+    for ijob in os.listdir( jobsDir+era ):
         if '.sh' in ijob:
             subAllProcessName.write( "sh  " + ijob + "\n")
     subAllProcessName.close()
@@ -112,7 +112,7 @@ def makeSubAllJobs( jobsDir ):
 
 
 
-def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuiling ):
+def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuiling , era):
     allProcesses = os.listdir( inputDir )
     if isData:
         outputDir = outputDir + 'data/'
@@ -120,8 +120,14 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
         outputDir = outputDir + 'mc/'
     uf.checkMakeDir( outputDir )
 
-    jobScriptsFolder = codePath + 'jobs_seperata/'
+    # jobScriptsFolder = codePath + 'jobs_seperata/'
+    jobScriptsFolder = codePath + 'jobs_eachYear/'
     uf.checkMakeDir( jobScriptsFolder )
+    jobScriptsFolder = jobScriptsFolder+era+'/'
+    # if os.path.exists( jobScriptsFolder ):
+    #     subprocess.run('rm -fr '+ jobScriptsFolder , shell=True)
+    uf.checkMakeDir(jobScriptsFolder)
+    
 
     for k in allProcesses:
         if not k in gq.samples:  continue
@@ -156,7 +162,6 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
             if not '.root' in entry: continue
             if os.path.isfile(os.path.join(sampleDir, entry)):
                 smallFile = entry.replace( ".root", "")
-                # smallFilejob = "jobs_seperate/" +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
                 smallFilejob = jobScriptsFolder +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
                 prepareCshJob( sampleDir, koutputDir, smallFilejob, entry, eventSelection, isHuiling )
                 
