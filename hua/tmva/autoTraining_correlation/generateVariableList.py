@@ -20,8 +20,8 @@ def main():
     #the first line identifies each piece of datain other words, the name of a data column
     channel = '1tau1l'
     # channel = '1tau2l'
-    version = 0
-    # version = 1
+    # version = 0
+    version = 1
     # version = 2
     # version = 4
     # outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'

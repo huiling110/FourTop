@@ -20,7 +20,8 @@ def main():
 
     regionList = ['1tau1lSR']
     variables = ['BDT']
-    ifSys = True 
+    # ifSys = True 
+    ifSys = False
 
     # channel = uf.getChannelFromDir (TMVAppDir)
     # print(channel)
