@@ -9,18 +9,6 @@ from ttttGlobleQuantity import samples, summedProcessList
 
 
 def main():
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_11bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_60bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau1l_v4/AppResults_90bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v1/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4modifiedMinDeltaR_fromV9/1tau2l_v2/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v4forFRAddHistTitle/1tau0l_templatesForCombine/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v42fixedChargeType/1tau1l_v0/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/'
-    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_30bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/variableHists_v1HT30bins1tau0l/1tau0l_templatesForCombine/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/'
@@ -32,6 +20,7 @@ def main():
 
     regionList = ['1tau1lSR']
     variables = ['BDT']
+    ifSys = True 
 
     # channel = uf.getChannelFromDir (TMVAppDir)
     # print(channel)
@@ -53,7 +42,7 @@ def main():
     templatesFile = inputDir+ '1tau0l_templatesForCombine/templates.root'
     # emptyList = checkEmptyProcess( templatesFile ) #after addSummedHists emptyList contains summeDhist
     # listForCombineSum = getNonEmptyList_new( emptyList,True, channel)
-    processListForCombine = getProcessList(templatesFile) 
+    processListForCombine = getProcessList(templatesFile, ifSys) 
     print('for combine: ', processListForCombine)
     
     # #remove WJets for no WJets entering training
@@ -67,20 +56,26 @@ def main():
     writeDatacards( TMVAppDir, processListForCombine, True, 10,  variables, 'SR'+channel )
 
 
-def getProcessList( input):
+def getProcessList( input, ifSys=False):
     list = []
+    sysDic = {}
     file = ROOT.TFile.Open(input, 'READ')
     for key in file.GetListOfKeys():
         obj = key.ReadObj()
         ihist = obj.GetName()
+        ipro = ihist.split('_')[0]
         if not ('_up' in ihist or '_down' in ihist):
-            ipro = ihist.split('_')[0]
             if ipro=='data': continue
             hist = file.Get(ihist)
             if hist.Integral()<=0:
                 print(ipro, ' empty, not add to datacard\n')
                 continue
             list.append(ipro)
+        if '_up' in ihist:
+            isys = 
+            sysDic[ipro] = []
+            susDic[ipro].append()
+            
     list.pop(list.index('tttt')) 
     list.insert( 0, 'tttt')
     return list

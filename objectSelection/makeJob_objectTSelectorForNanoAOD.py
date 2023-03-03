@@ -45,15 +45,15 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 jobVersionName = 'v51TESNewLepFoLepForrObjectRemoval/'
 
 onlyMC = False
-era = '2016'
-# era = '2016APV'
+# era = '2016'
+era = '2016APV'
 # era = '2018'
 # era = '2017'
 def main():
     # onlyMC = True
     # eventSelection = '3'
-    # eventSelection = '7'
-    eventSelection = '5'
+    eventSelection = '7'
+    # eventSelection = '5'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
     # dataList = [ 'jetHT', 'singleMu'] 
