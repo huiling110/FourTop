@@ -33,9 +33,12 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 // const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 // const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v8Cut1tau1l_v42fixedChargeType/mc/";
-const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v8Cut1tau1l_v42fixedChargeType/mc/";
-const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8Cut1tau1l_v42fixedChargeType/mc/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v8Cut1tau1l_v42fixedChargeType/mc/";
+// const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v8Cut1tau1l_v42fixedChargeType/mc/";
+// const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8Cut1tau1l_v42fixedChargeType/mc/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
 // const TString era_g = "2016";
 // const TString era_g = "2017";
 const TString era_g = "2018";
@@ -59,7 +62,8 @@ const TCut ES2tau1m = "tausT_number==2 && muonsT_number==1 && leptonsMVAT_number
 const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2OS==1  && jets_number>=2 && bjetsM_num>=2 " && baselineSelection;
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 " && baselineSelection;
 
-const TCut ES1tau1l = ES1tau1e || ES1tau1m;
+// const TCut ES1tau1l = ES1tau1e || ES1tau1m;
+const TCut ES1tau1l = "tausT_number==1 && (elesTopMVAT_number+muonsTopMVAT_numbe==1)  &&  jets_number>=7 && bjetsM_num>=2";
 const TCut ES1tau2l = ES1tau2os || ES1tau2ss;
 const TCut ES2tau1l = ES2tau1e || ES2tau1m;
 const TCut ES2tau2l = ES2tau2os || ES2tau2ss;
@@ -102,6 +106,7 @@ std::map<TString, TCut> regions_1tau0l = {
     {"CR41tau0l", CR4_1tau0l},
 };
 
+// 2018
 Process TTTT{baseDir + "tttt.root", crossSectionMap["tttt"]};
 Process TTTo2L2Nu{baseDir + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
 Process TTToHadronic{baseDir + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
