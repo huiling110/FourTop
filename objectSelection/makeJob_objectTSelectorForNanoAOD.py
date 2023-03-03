@@ -42,7 +42,7 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v49FixedPileUpJERAndTES/'
 # jobVersionName = 'v50switchRawPtJERNoTES/'
 # jobVersionName = 'v51TESNoJER/'
-jobVersionName = 'v51TESNewLepFoLepForrObjectRemoval/'
+jobVersionName = 'v51TESNewLepObjectRemovalCorrected/'
 
 onlyMC = False
 # era = '2016'
