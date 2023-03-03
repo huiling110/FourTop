@@ -48,8 +48,8 @@ outVersion = 'v1cut1tau1l'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
 # year = '2016'
-year = '2018'
-# year = '2017'
+# year = '2018'
+year = '2017'
 selectionBit = '7'
 # selectionBit = '1'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
@@ -101,7 +101,7 @@ def main():
     subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
 
 
-    # uf.sumbitJobs(  subAllofAllName )
+    uf.sumbitJobs(  subAllofAllName )
 
 
 
