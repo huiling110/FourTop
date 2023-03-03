@@ -47,8 +47,8 @@ outVersion = 'v1cut1tau1l'
 # outVersion = 'v1AddTOPLepVariables'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
-year = '2016'
-# year = '2018'
+# year = '2016'
+year = '2018'
 # year = '2017'
 selectionBit = '7'
 # selectionBit = '1'
@@ -75,7 +75,8 @@ def main():
     # print(__file__)
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
 
-    subAllName = 'subAllofAll.sh'
+    # subAllName = 'subAllofAll.sh'
+    subAllName = year+'subAllofAll.sh'
     subAllofAllName = jobDir+ '/'+ subAllName
     subAllofAll = open( subAllofAllName, 'w')
     print('creating subAllofAll: ', subAllofAllName )
@@ -97,10 +98,10 @@ def main():
     subAllofAll.close()
 
     #change mod
-    subprocess.run( 'chmod 777 '+ jobDir+subAllName, shell=True )
+    subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
 
 
-    uf.sumbitJobs(  subAllofAllName )
+    # uf.sumbitJobs(  subAllofAllName )
 
 
 
@@ -134,6 +135,9 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
     subDirJobs.write( '#!/bin/bash\n' )
     subDirJobs.write( 'cd ' + jobDir +'\n')
     jobsDir =  jobDir + '/'+dirKind + '_jobs/'
+     
+    if os.path.exists( jobsDir ):
+        subprocess.run('rm -fr '+ jobsDir , shell=True)
     uf.checkMakeDir(jobsDir)
     uf.checkMakeDir(inOutList[1])
 
@@ -141,15 +145,14 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
         if not entry in GQ.samples: continue
         print( 'loop over: ', entry )
         
-        # processJob = jobsDir +  entry + ".sh"
-        processJob = jobsDir + 'MV_'+ entry + ".sh"
+        # processJob = jobsDir + 'MV_'+ entry + ".sh"
+        processJob = jobsDir + 'MV_' + year + entry + ".sh"
         iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
         writeIjob( iParametersList, processJob )
 
         uf.checkMakeDir(inOutList[1] +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        # subDirJobs.write( 'hep_sub -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
         subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
