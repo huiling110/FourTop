@@ -46,8 +46,8 @@ jobVersionName = 'v51TESNewLepObjectRemovalCorrected/'
 onlyMC = False
 # era = '2016'
 # era = '2016APV'
-era = '2017'
-# era = '2018'
+# era = '2017'
+era = '2018'
 def main():
     # onlyMC = True
     # eventSelection = '3'
@@ -162,12 +162,15 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
             if not '.root' in entry: continue
             if os.path.isfile(os.path.join(sampleDir, entry)):
                 smallFile = entry.replace( ".root", "")
-                smallFilejob = jobScriptsFolder +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
+                # smallFilejob = jobScriptsFolder +sample_k + "/" + sample_k + '_' + smallFile + ".sh"  
+                iSmallJobName = 'OS_'+ era + sample_k + '_' + smallFile + ".sh"
+                smallFilejob = jobScriptsFolder +sample_k + "/" + iSmallJobName   
                 prepareCshJob( sampleDir, koutputDir, smallFilejob, entry, eventSelection, isHuiling )
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
-                sub_oneProcess.write( "hep_sub "+ sample_k + '_' + smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
+                # sub_oneProcess.write( "hep_sub "+ sample_k + '_' + smallFile + ".sh" + " -o " + logFile + " -e " + errFile + "\n")
+                sub_oneProcess.write( "hep_sub "+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()
