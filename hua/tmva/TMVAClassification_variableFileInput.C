@@ -427,10 +427,10 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // Set individual event weights (the variables must exist in the original TTree)
     // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
     // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-    // dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
-    // dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
-    dataloader->SetSignalWeightExpression("EVENT_prefireWeight*EVENT_genWeight*PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight");
-    dataloader->SetBackgroundWeightExpression("EVENT_prefireWeight*EVENT_genWeight*PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight");
+    dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
+    dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
+    // dataloader->SetSignalWeightExpression("EVENT_prefireWeight*EVENT_genWeight*PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight");
+    // dataloader->SetBackgroundWeightExpression("EVENT_prefireWeight*EVENT_genWeight*PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight");
 
     // Tell the dataloader how to use the training and testing events. If no numbers of events are given, half of the events in the tree are used
     // for training, and the other half for testing:
