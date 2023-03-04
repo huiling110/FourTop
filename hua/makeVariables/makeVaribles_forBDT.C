@@ -668,12 +668,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     }
 
     // !!!extra cut for faster BDT training
-    if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)) // for 1tau1l training
-    // if (!(tausT_number == 1 && leptonsMVAT_number == 1))
-    // if (!(tausT_number == 1))
-    {
-        return kFALSE;
-    }
+    // if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)) // for 1tau1l training
+    // // if (!(tausT_number == 1 && leptonsMVAT_number == 1))
+    // // if (!(tausT_number == 1))
+    // {
+    //     return kFALSE;
+    // }
 
     fPassingPreselection++;
     eventCount_baseline->Fill(0.0, basicWeight);

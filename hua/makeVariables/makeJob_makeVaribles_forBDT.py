@@ -31,8 +31,8 @@ import usefulFunc as uf
 # inVersion = 'v51TESNewLepFoLepForrObjectRemoval
 inVersion = 'v51TESNewLepObjectRemovalCorrected'
 # outVersion = 'v0noBaseline'
-# outVersion = 'v0baseline'
-outVersion = 'v1cut1tau1l'
+outVersion = 'v0baseline'
+# outVersion = 'v1cut1tau1l'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
 # outVersion = 'v3extra1tau1lCut'
