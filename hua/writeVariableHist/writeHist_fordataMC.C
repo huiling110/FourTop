@@ -246,11 +246,11 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     }
     // HLT
     // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
-    if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
+    // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
     // if (*HLT_PFJet450 == 1)
-    {
-        return kFALSE;
-    }
+    // {
+    //     return kFALSE;
+    // }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
