@@ -21,8 +21,10 @@ def main():
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_2016_30bins/'
     # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/AppResults_2017_15bins/'
     TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/AppResults_2017_20bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/AppResults_2017_30bins/'
+    # TMVAppDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/AppResults_2017_15bins/'
 
-
+    ifMCUncert = False
 
     channel = uf.getChannelFromDir (TMVAppDir)
     print(channel)
@@ -39,7 +41,7 @@ def main():
     #remove WJets for no WJets entering training
     listForCombineSum.remove('WJets')
 
-    writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel )
+    writeDatacards( TMVAppDir, listForCombineSum, True, 10, channel, ifMCUncert )
     # writeDatacards( TMVAppDir, listForCombine, False, 10 )
  
          
@@ -116,7 +118,7 @@ def getStringWithSpaces( string, allSpaces ):
         sys.exit()
     return string + (allSpaces-len(string))*' '
 
-def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var ):
+def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var, ifMCUncert=True ):
     outCard = outCard.replace('Sum', 'Sum_'+var)
     card = open( outCard, 'wt' )
     card.write( 'imax *\n' )
@@ -158,7 +160,8 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
     card.write('\n')
     card.write( 80*'-' + '\n' )
 
-    card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
+    if ifMCUncert:
+        card.write( 'SR'+channel+ '   autoMCStats  ' + str(autoMCNum) +  '\n')
 
     card.close()
     print( 'datacard writen here: ', outCard)
@@ -167,7 +170,7 @@ def writeSingleCard( rootFile, outCard, listForCombine, autoMCNum, channel, var 
 
 
 
-def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1l' ):
+def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1l' , ifMCUncert=True):
     cardDir = TMVAppDir + 'datacard/'
     if not os.path.exists( cardDir ):
         os.mkdir( cardDir )
@@ -175,6 +178,8 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1
         cardDir = cardDir + 'sumDC'
     else:
         cardDir = cardDir +'seperateDC'
+    if not ifMCUncert:
+        cardDir = cardDir+'_noMCUncert'
     cardDir = cardDir + '_' + str( autoMCNum ) + '/'
     uf.checkMakeDir(cardDir)
 
@@ -190,7 +195,7 @@ def writeDatacards( TMVAppDir, listForCombine,  isSum, autoMCNum, channel='1tau1
         print( 'datacard: ',ioutCard )
         # writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum , channel, 'jets_HT')
         for ivar in variables:
-            writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum , channel, ivar)
+            writeSingleCard( irootFile, ioutCard, listForCombine, autoMCNum , channel, ivar, ifMCUncert)
 
 
 def checkEmptyProcess( fileDir, channel ):
