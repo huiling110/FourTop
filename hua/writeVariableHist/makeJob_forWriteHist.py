@@ -35,14 +35,14 @@ def main():
     # version = 'v5FR_application_endcap'
     # version = 'v0_oldLep'
     # version = 'v0_newLep'
-    # version = 'v0_newLep_noCorrection_v2'
+    version = 'v0_newLep_noCorrection'
     # version = 'v1_newLepPrefiring_v2'
     # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed_v2'
     # version = 'v4_tauIDSF_v2'
     # version = 'v5_lepEffSF'
     # version = 'v6_btagRMeasure'
-    version = 'v7_btagCorrection'
+    # version = 'v7_btagCorrection'
     
     justMC = False
     # justMC = True

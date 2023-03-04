@@ -254,14 +254,15 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
+    //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)
     {
         // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
     }
     // std::cout << btagR << "\n";
 
@@ -354,7 +355,6 @@ void writeHist_fordataMC::Terminate()
         for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
         {
             vectorOfVariableRegions[ihists].histsScale(processScale);
-            // vectorOfVariableRegions[ihists].histsPrint();
         }
         for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
         {
