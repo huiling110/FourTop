@@ -10,27 +10,29 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5baselineExtraTauLepCut_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/'
 
     version = 'v0_BDT1tau1lCRs'
     # version = 'v0_BDTWithSystematics'
+    region = '1tau1lCR0'
     
-    # variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv"
-    # weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/"
     # variableListCsv = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/variableList/varibleList_10.csv'
     # weightDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/'
     # variableListCsv = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/variableList/varibleList_19.csv'
     # weightDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_19_weight/'
-    variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_12.csv"
-    weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_12_weight/"
+    # variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_12.csv"
+    # weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/dataset/1tau1lvaribleList_12_weight/"
+    variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/variableList/varibleList_17.csv"
+    weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/dataset/1tau1lvaribleList_17_weight/"
     
     
     print( inputDir, ' ', version )
    
     era = uf.getEraFromDir(inputDir) 
-    makeSubAllJob(inputDir, version, variableListCsv, weightDir,  era )
+    makeSubAllJob(inputDir, version, variableListCsv, weightDir,  era, region )
     
-def makeSubAllJob(inputDir, version, variableListCsv, weightDir, era, allJobName='subTMVApp.sh', ):
+def makeSubAllJob(inputDir, version, variableListCsv, weightDir, era, allJobName='subTMVApp.sh', region = '1tau1lCR0'):
     #???move this to usefulFunc
     Jobsubmitpath = os.path.dirname( os.path.abspath(__file__) ) +'/'
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
@@ -43,13 +45,13 @@ def makeSubAllJob(inputDir, version, variableListCsv, weightDir, era, allJobName
     inputDirDic['data'] = inputDir + 'data/'
     
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era )
+        makeJobsforDir( inputDirDic[i], version, subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era , region)
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
-def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era ):
+def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableListCsv, weightDir, era, region ):
 
     # jobDir = 'jobSH/'
     jobDir = Jobsubmitpath +'jobSH/'
@@ -64,7 +66,7 @@ def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableLi
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess, inputDir, version, Jobsubmitpath , outputDir, variableListCsv, weightDir, era)  
+            makeIjob( iJobFile, iProcess, inputDir, version, Jobsubmitpath , outputDir, variableListCsv, weightDir, era, region)  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
@@ -76,9 +78,9 @@ def makeJobsforDir( inputDir, version,  subAllProcess, Jobsubmitpath, variableLi
      
 
 
-def makeIjob( shFile, iProcess,  inputDir, version, Jobsubmitpath , outDir, variableListCsv, weightDir, era ):
+def makeIjob( shFile, iProcess,  inputDir, version, Jobsubmitpath , outDir, variableListCsv, weightDir, era, channel ):
     # channel = '1tau1lCR0'
-    channel = '1tau1lSR'
+    # channel = '1tau1lSR'
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
