@@ -125,11 +125,12 @@ void TMVAClassificationApplication_perSample(
     }
 
     // for selection
-    //  Float_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, jets_HT;
-    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS;
+    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
     Double_t jets_HT, jets_6pt;
     theTree->SetBranchAddress("tausT_number", &tausT_number);
-    theTree->SetBranchAddress("leptonsMVAT_number", &leptonsMVAT_number);
+    // theTree->SetBranchAddress("leptonsMVAT_number", &leptonsMVAT_number);
+    theTree->SetBranchAddress("elesTopMVAT_number", &elesTopMVAT_number);
+    theTree->SetBranchAddress("muonsTopMVAT_number", &muonsTopMVAT_number);
     theTree->SetBranchAddress("jets_number", &jets_number);
     theTree->SetBranchAddress("bjetsM_num", &bjetsM_num);
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
@@ -167,6 +168,7 @@ void TMVAClassificationApplication_perSample(
         }
         // cout<<"\n";
         // channel selection
+        leptonsMVAT_number = elesTopMVAT_number + muonsTopMVAT_number;
         if (channel.CompareTo("1tau1lSR") == 0)
         {
             // Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
