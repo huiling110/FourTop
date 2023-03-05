@@ -177,7 +177,8 @@ void TMVAClassificationApplication_perSample(
         }
         else if (channel.CompareTo("1tau1lCR0") == 0)
         {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num == 1))
+            // if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num == 1))
+            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1))
                 continue;
         }
         else if (channel.CompareTo("1tau2l") == 0)
