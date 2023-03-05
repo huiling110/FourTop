@@ -35,7 +35,9 @@ def main():
     appYear = '2017'
     # binNum = 30
     # binNum = 20
-    binNum = 15
+    # binNum = 15
+    # binNum = 10
+    binNum = 40
     
     
     # appFolderName = 'AppResults'
