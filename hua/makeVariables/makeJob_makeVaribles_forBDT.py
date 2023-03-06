@@ -47,8 +47,8 @@ outVersion = 'v0baseline'
 # outVersion = 'v1AddTOPLepVariables'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
-# year = '2016'
-year = '2018'
+year = '2016'
+# year = '2018'
 # year = '2017'
 selectionBit = '7'
 # selectionBit = '1'
@@ -146,7 +146,8 @@ def generateJobsForDir( inOutList, dirKind, selectionBit, jobDir ):
         print( 'loop over: ', entry )
         
         # processJob = jobsDir + 'MV_'+ entry + ".sh"
-        processJob = jobsDir + 'MV_' + year + entry + ".sh"
+        # processJob = jobsDir + 'MV_' + year + entry + ".sh"
+        processJob = jobsDir + 'MV_' + dirKind +'_'+ entry + ".sh"
         iParametersList = [ inOutList[0], entry, inOutList[1], selectionBit ]
         writeIjob( iParametersList, processJob )
 
