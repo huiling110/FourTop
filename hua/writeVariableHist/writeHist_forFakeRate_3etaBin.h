@@ -37,8 +37,8 @@ public:
     TString m_era;
     // TString m_version = "v1moreVariables";
     TString m_version;
-    // Bool_t m_ifMeasurement = kTRUE;
-    Bool_t m_ifMeasurement = kFALSE;
+    Bool_t m_ifMeasurement = kTRUE;
+    // Bool_t m_ifMeasurement = kFALSE;
     TFile *outputFile;
     //!!!hists need to be scalec in terminate function
     //???make this variables easier to add
@@ -74,9 +74,9 @@ public:
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_down = {fReader, "EVENT_prefireWeight_down"};
     TTreeReaderValue<Double_t> EVENT_genWeight = {fReader, "EVENT_genWeight"};
-    TTreeReaderValue<Double_t> PUweight = {fReader, "PUweight"};
-    TTreeReaderValue<Double_t> PUweight_up = {fReader, "PUweight_up"};
-    TTreeReaderValue<Double_t> PUweight_down = {fReader, "PUweight_down"};
+    TTreeReaderValue<Double_t> PUweight_ = {fReader, "PUweight_"};
+    TTreeReaderValue<Double_t> PUweight_up_ = {fReader, "PUweight_up_"};
+    TTreeReaderValue<Double_t> PUweight_down_ = {fReader, "PUweight_down_"};
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
 
     TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};

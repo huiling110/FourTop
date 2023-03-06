@@ -377,8 +377,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     // for prong division
     if (m_ifMeasurement)
     {
-        if (!(*tausF_prongNum == 1))
-        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        // if (!(*tausF_prongNum == 1))
+        if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
         {
             return kFALSE;
         }
@@ -394,7 +394,7 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
-        basicWeight = (*PUweight) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
     }
 
     Double_t FRWeight_up, FRWeight_down;

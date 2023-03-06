@@ -16,7 +16,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/'
     
    
     # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
@@ -339,9 +340,11 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     # h_dinominator.SetLineColor(ROOT.kOrange)
     h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     h_dinominator.GetYaxis().SetTitle('Events')
-    h_dinominator.GetYaxis().SetLabelSize(0.025)
+    h_dinominator.GetYaxis().SetTitleSize(0.05)
+    h_dinominator.GetYaxis().SetLabelSize(0.03)
     h_dinominator.GetYaxis().SetTitleOffset(1.1)
     h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
+    h_dinominator.GetXaxis().SetTitleSize(0.05)
     h_dinominator.SetLineWidth(3)
     h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
     # h_dinominator.SetLineStyle(2)
@@ -360,7 +363,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     rightmax = .35
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
-    h_efficiency.SetLineWidth(3)
+    h_efficiency.SetLineWidth(4)
     # h_efficiency.SetMarkerStyle(3)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
@@ -381,8 +384,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     axis.Draw()
 
 
-    # legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
-    legend = ROOT.TLegend(0.5,0.7,0.9,0.9)
+    # legend = ROOT.TLegend(0.5,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
     legend.AddEntry(h_dinominator, "denominator: FTau-genMC")
     legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
     legend.AddEntry(h_efficiency, "FR")
