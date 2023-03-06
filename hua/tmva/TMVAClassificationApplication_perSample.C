@@ -29,7 +29,7 @@ void TMVAClassificationApplication_perSample(
     TString version = "test",
     // TString channel = "1tau1lCR0",
     TString channel = "1tau1lSR",
-    const Int_t binNum = 15,
+    const Int_t binNum = 10,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/variableList/varibleList_10.csv",
     // TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/dataset/1tau1lvaribleList_10_weight/",
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/variableList/varibleList_12.csv",
@@ -110,7 +110,7 @@ void TMVAClassificationApplication_perSample(
     // TString s_variableNum = std::to_string(variableNum);
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.22, 0.48); // 2017
+    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.12); // 2017 CR0
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
