@@ -21,7 +21,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpOnlyJER/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v49FixedPileUpOnlyJER/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v50switchRawPtJERNoTES/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v51TESNewLepObjectRemovalCorrected/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/'
 
     # version = 'v0FR_oldLep'
     # version = 'v0FR_newLep'
@@ -35,7 +37,7 @@ def main():
     # version = 'v5FR_application_endcap'
     # version = 'v0_oldLep'
     # version = 'v0_newLep'
-    version = 'v0_newLep_noCorrection'
+    # version = 'v0_newLep_noCorrection'
     # version = 'v1_newLepPrefiring_v2'
     # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed_v2'
@@ -43,6 +45,7 @@ def main():
     # version = 'v5_lepEffSF'
     # version = 'v6_btagRMeasure'
     # version = 'v7_btagCorrection'
+    version = 'v0_basicCorrection'
     
     justMC = False
     # justMC = True
