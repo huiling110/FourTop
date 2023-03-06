@@ -31,8 +31,9 @@ def main():
     outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
     isApp = True
     # isApp = False
-    appYear = '2018'
+    # appYear = '2018'
     # appYear = '2017'
+    appYear = '2016'
     # binNum = 30
     # binNum = 20
     binNum = 15

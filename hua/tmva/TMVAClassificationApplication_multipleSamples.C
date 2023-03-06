@@ -323,8 +323,9 @@ void TMVAClassificationApplication_multipleSamples(
     // TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.34); // 2016
     TH1F *data_BDT = new TH1F("data_obs_MVA_BDT", "data_obs_MVA_BDT", binNum, -0.18, 0.4); // 2017
     data_BDT->Sumw2();
-    std::vector<Process> allProcessHere = allProcesses; // 2018
+    // std::vector<Process> allProcessHere = allProcesses; // 2018
     // std::vector<Process> allProcessHere = allProcesses2017;
+    std::vector<Process> allProcessHere = allProcesses2016; // 2016
     for (UInt_t p = 0; p < allProcessHere.size(); p++)
     {
         evaluateMVA(Use, allProcessHere[p].getProcessName(), allProcessHere[p].getEventTree(), lumiMap[era_g] * allProcessHere[p].getScale(), data_BDT, data_BDTG, false, channel, outputDir, variableListCsv, weightDir, binNum);
