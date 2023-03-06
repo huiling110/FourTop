@@ -34,7 +34,8 @@ def copyData( dir ):
 # version = 'v0baseline_v44addSSLeptons/'
 # version = 'v0LepLAdded_v45newLepBugFixed/'
 # version = 'v0LepLAdded_v46addPOGIDL/'
-version = 'v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
+# version = 'v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
+version = 'v0baseline_v51TESNewLepObjectRemovalCorrected/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
