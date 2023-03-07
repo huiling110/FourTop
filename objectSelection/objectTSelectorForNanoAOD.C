@@ -1243,7 +1243,6 @@ Bool_t objectTSelectorForNanoAOD::HLTSelection()
 {
     Bool_t ifPassHLT = kTRUE;
     if (m_HLTSelection)
-    // todo: move this to a function and examine the HLT choice
     {
         if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
         {
@@ -1673,7 +1672,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
     {
         HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-        HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+        // HLT_PFJet450 = {fReader, "HLT_PFJet450"};
     }
 
     if (!m_isdata)
@@ -1702,7 +1701,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
         {
 
             HLT_PFHT1050 = {fReader, "HLT_PFHT1050"}; // 297050	306460; 315257	325172
-            HLT_PFJet500 = {fReader, "HLT_PFJet500"};
+            // HLT_PFJet500 = {fReader, "HLT_PFJet500"};
             HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5"};
 
             // HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = { fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};//checked
@@ -1714,7 +1713,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
         }
         else if (m_era.CompareTo("2017") == 0)
         {
-            HLT_PFJet500 = {fReader, "HLT_PFJet500"};
+            // HLT_PFJet500 = {fReader, "HLT_PFJet500"};
             HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
         }
@@ -1735,7 +1734,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
             assert(!(runRange[0] < 315974 && runRange[1] >= 317509));
 
             HLT_PFHT1050 = {fReader, "HLT_PFHT1050"}; // 297050	306460; 315257	325172
-            HLT_PFJet500 = {fReader, "HLT_PFJet500"};
+            // HLT_PFJet500 = {fReader, "HLT_PFJet500"};
             HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5"};
 
             // /*
@@ -1772,7 +1771,7 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
         else if (runRange[0] >= 297050 && runRange[1] <= 306460)
         {
             // 2017 data
-            HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+            // HLT_PFJet450 = {fReader, "HLT_PFJet450"};
             if (runRange[1] < 299329)
             {
                 HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "HLT_PFHT430_SixJet40_BTagCSV_p080"};

@@ -1251,10 +1251,12 @@ public:
     TTreeReaderValue<Bool_t> Flag_METFilters = {fReader, "Flag_METFilters"};
     // TTreeReaderValue<Bool_t> L1Reco_step = {fReader, "L1Reco_step"};
 
+    // I assume these trigger are all present in data and mc
+    TTreeReaderValue<Bool_t> HLT_PFJet500 = {fReader, "HLT_PFJet500"};
+    TTreeReaderValue<Bool_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
     // TRIGGERS FOR 2016
     TTreeReaderValue<Bool_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "Flag_goodVertices"};
     TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "Flag_goodVertices"};
-    TTreeReaderValue<Bool_t> HLT_PFJet450 = {fReader, "Flag_goodVertices"};
     TTreeReaderValue<Bool_t> HLT_IsoMu24 = {fReader, "Flag_goodVertices"};
     TTreeReaderValue<Bool_t> HLT_IsoMu27 = {fReader, "Flag_goodVertices"}; // read fake branches in header
 
@@ -1270,7 +1272,6 @@ public:
     TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "Flag_goodVertices"};
 
     TTreeReaderValue<Bool_t> HLT_PFHT1050 = {fReader, "Flag_goodVertices"};
-    TTreeReaderValue<Bool_t> HLT_PFJet500 = {fReader, "Flag_goodVertices"};
     // TTreeReaderValue<Bool_t>  = {fReader, "Flag_goodVertices"};
     TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = {fReader, "Flag_goodVertices"};
 

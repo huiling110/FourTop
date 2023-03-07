@@ -26,8 +26,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/'
 
     # version = 'v0FR_measure'
-    version = 'v0FR_measure_3prong'
-    # version = 'v4FR_application'
+    # version = 'v0FR_measure_3prong'
+    version = 'v4FR_application'
     # version = 'v5FR_measure3EtaBins'
     # version = 'v5FR_measure3EtaBins_1prong'
     # version = 'v5FR_measure3EtaBins_3prong'
