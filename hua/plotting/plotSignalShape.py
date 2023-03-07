@@ -22,14 +22,20 @@ def main():
         
 def plotShape( hist, outDir):
     # outFile = TFile
-   canvas = ROOT.TCanvas("canvas", "My Canvas", 800, 600) 
+    canvas = ROOT.TCanvas("canvas", "My Canvas", 800, 600) 
    
-   hist.Draw()
+    ROOT.gStyle.SetOptTitle(0)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+
+    hist.GetXaxis().SetTitle(hist.GetTitle())
+    hist.GetXaxis().SetTitleSize(0.05)
+    hist.SetLineWidth(2)
+    hist.Draw()
    
    
-   outName = outDir+ hist.GetName()+'.png'
-   canvas.SaveAs(outName)
-   print('plot saved here: ', outName)
+    outName = outDir+ hist.GetName()+'.png'
+    canvas.SaveAs(outName)
+    print('plot saved here: ', outName)
     
      
     
