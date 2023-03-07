@@ -109,13 +109,19 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     // }
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+    // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+    std::vector<TString> regionsForVariables = {
+        "noSelection",
+        "HLTPFJetPt",
+    };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 40, 25, 625, jets_1pt};
+    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 40, 0, 1800, jets_HT};
     // histsForRegions<Double_t>{"", 10};
 
     vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_HT_class);
     // vectorOfVariableRegionsDouble.push_back();
 
     for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegionsDouble.size(); ihistvec++)
@@ -129,11 +135,11 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
     fReader.SetLocalEntry(entry);
 
     // baseline selection
-    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-    if (!baseline)
-    {
-        return kFALSE;
-    }
+    // Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    // if (!baseline)
+    // {
+    //     return kFALSE;
+    // }
     // HLT
     // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
     // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
@@ -141,19 +147,15 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
     // {
     //     return kFALSE;
     // }
+    Bool_t PFJet450 = *HLT_PFJet450;
 
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)
     {
-        // basicWeight = (*EVENT_genWeight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
         basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
     }
-    // std::cout << btagR << "\n";
+    // std::cout << "basicWeight=" << basicWeight << " ";
 
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
     // Int_t lepNum = *leptonsMVAT_number;
@@ -164,46 +166,12 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
         // be blind for data in signal region
         Bool_t is1tau0lSR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
         Bool_t is1tau1lSR = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-        fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
-        fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
-        fillHistsVector(is1tau0lSR, 0, basicWeight);
-        fillHistsVector(is1tau1lSR, 6, basicWeight);
-        fillHistsVector(baseline, 11, basicWeight);
+        // fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
+        // fillHistsVector(is1tau0lSR, 0, basicWeight);
+        fillHistsVectorMyclass(kTRUE, 0, basicWeight);
+        fillHistsVectorMyclass(PFJet450, 1, basicWeight);
+        fillHistsVector(kTRUE, 0, basicWeight);
     }
-
-    // 1tau0l CR
-    Bool_t is1tau0lCR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
-    Bool_t is1tau0lVR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-    Bool_t is1tau0lCR2 = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-    Bool_t is1tau0lCR3 = *tausT_number == 1 && lepNum == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-    Bool_t is1tau0lCR4 = *tausT_number == 1 && lepNum == 0 && *jets_number == 7 && *bjetsM_num >= 2;
-    fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
-    fillHistsVectorMyclass(is1tau0lVR, 2, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR3, 4, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR4, 5, basicWeight);
-    fillHistsVectorMyclass(baseline, 11, basicWeight);
-    fillHistsVector(is1tau0lCR, 1, basicWeight);
-    fillHistsVector(is1tau0lVR, 2, basicWeight);
-    fillHistsVector(is1tau0lCR2, 3, basicWeight);
-    fillHistsVector(is1tau0lCR3, 4, basicWeight);
-    fillHistsVector(is1tau0lCR4, 5, basicWeight);
-
-    // 1tau1lCR
-    // Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 1;
-    Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 6 && *bjetsM_num == 1; // CR1 in slides
-    Bool_t is1tau1lCR1 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 0;
-    Bool_t is1tau1lCR2 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-    // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num < 2;
-    Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num == 1;
-    fillHistsVectorMyclass(is1tau1lCR3, 10, basicWeight);
-    fillHistsVectorMyclass(is1tau1lCR0, 7, basicWeight);
-    fillHistsVectorMyclass(is1tau1lCR1, 8, basicWeight);
-    fillHistsVectorMyclass(is1tau1lCR2, 9, basicWeight);
-    fillHistsVector(is1tau1lCR3, 10, basicWeight);
-    fillHistsVector(is1tau1lCR0, 7, basicWeight);
-    fillHistsVector(is1tau1lCR1, 8, basicWeight);
-    fillHistsVector(is1tau1lCR2, 9, basicWeight);
 
     return kTRUE;
 }
@@ -220,7 +188,6 @@ void writeHist_forHLT::Terminate()
     // The Terminate() function is the last function to be called during
     // a query. It always runs on the client, it can be used to present
     // the results graphically or save the results to file.
-    // #include "lumiAndCrossSection.h"
     Double_t processScale = 1.0;
     if (!m_isData)
     {
@@ -235,18 +202,14 @@ void writeHist_forHLT::Terminate()
         {
 
             std::cout << j << "\n";
-            eventCount_hists[j]->Scale(processScale);
+            // eventCount_hists[j]->Scale(processScale);
             eventCount_hists[j]->Print();
         }
 
-        for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
-        {
-            vectorOfVariableRegions[ihists].histsScale(processScale);
-        }
-        for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
-        {
-            vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-        }
+        // for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+        // {
+        //     vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+        // }
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
     outputFile->Write();

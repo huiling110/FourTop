@@ -9,13 +9,6 @@
 #include "../src_cpp/usefulFuction.h"
 
 void run_writeHist(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v10addPV_npvsGood_baseline_v42fixedChargeType/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v44addSSLeptons/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v49FixedPileUpNoJERTES/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v49FixedPileUpJERAndTES/mc/",
@@ -25,7 +18,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noBaseline_v51TESNoJER/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/",
+    TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/makeVariables/output/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
@@ -40,8 +34,7 @@ void run_writeHist(
     // TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
     // TString selector = "writeHist_forBtagRCal.C+"
     // TString selector = "writeHist_forSystematic.C+"
-    TString selector = "writeHist_forHLT.C+" 
-)
+    TString selector = "writeHist_forHLT.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
@@ -63,9 +56,9 @@ void run_writeHist(
               << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
     // get era
-    TString temp = inputDir(inputDir.Index("forMVA/") + 7, inputDir.Sizeof());
-    // std::cout<<temp<<"\n";
-    TString era = temp(0, temp.First("/"));
+    // TString temp = inputDir(inputDir.Index("forMVA/") + 7, inputDir.Sizeof());
+    // TString era = temp(0, temp.First("/"));
+    TString era = "2016postVFP";
     std::cout << "era: " << era << "\n";
 
     TChain chain("newtree");
