@@ -110,18 +110,39 @@ samples = [
     'jetHT_2016D',
     'jetHT_2016E',
     'jetHT_2016F_hipm',
-
     #2018
     'jetHT_2018a',
     'jetHT_2018b',
     'jetHT_2018c',
     'jetHT_2018d',
-
+    #2017
     'jetHT_2017b',
     'jetHT_2017c',
     'jetHT_2017d',
     'jetHT_2017e',
     'jetHT_2017f',
+    
+#2016
+    'singleMu_2016F',
+    'singleMu_2016G',
+    'singleMu_2016H',
+    'singleMu_2016B_v1',
+    'singleMu_2016B_v2',
+    'singleMu_2016C',
+    'singleMu_2016D',
+    'singleMu_2016E',
+    'singleMu_2016F_hipm',
+    #2018
+    'singleMu_2018a',
+    'singleMu_2018b',
+    'singleMu_2018c',
+    'singleMu_2018d',
+    #2017
+    'singleMu_2017b',
+    'singleMu_2017c',
+    'singleMu_2017d',
+    'singleMu_2017e',
+    'singleMu_2017f',
 ]
 
 samplesCrossSection = {
