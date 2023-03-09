@@ -112,7 +112,9 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
     std::vector<TString> regionsForVariables = {
         "noSelection",
-        "HLTPFJetPt",
+        "1tau",
+        "1tau1l",
+        "1tau0l",
     };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
@@ -244,6 +246,9 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
 
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
     // Int_t lepNum = *leptonsMVAT_number;
+    Bool_t is1tau = *tausT_number == 1;
+    Bool_t is1tau1l = is1tau && lepNum == 1;
+    Bool_t is1tau0l = is1tau && lepNum == 0;
 
     // 1tau0l SR
     if (!m_isData)
@@ -254,7 +259,9 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
         // fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
         // fillHistsVector(is1tau0lSR, 0, basicWeight);
         fillHistsVectorMyclass(kTRUE, 0, basicWeight);
-        fillHistsVectorMyclass(PFJet450, 1, basicWeight);
+        fillHistsVectorMyclass(is1tau, 1, basicWeight);
+        fillHistsVectorMyclass(is1tau1l, 2, basicWeight);
+        fillHistsVectorMyclass(is1tau0l, 3, basicWeight);
         fillHistsVector(kTRUE, 0, basicWeight);
     }
 

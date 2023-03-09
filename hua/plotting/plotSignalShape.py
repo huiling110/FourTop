@@ -3,7 +3,8 @@ import usefulFunc as uf
 
 def main():
     input = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noCut_v52noHLTSelection/mc/variableHists_test/tttt.root' 
-    region = 'noSelection'
+    # region = 'noSelection'
+    region = '1tau'
     
     inputDir = input[ 0: input.rfind('/')+1 ]
     print(inputDir)
@@ -19,6 +20,7 @@ def main():
         if not region in histName: continue
         print('histName: ', histName) 
         plotShape( hist, outDir  )
+    file.Close()
         
 def plotShape( hist, outDir):
     # outFile = TFile
