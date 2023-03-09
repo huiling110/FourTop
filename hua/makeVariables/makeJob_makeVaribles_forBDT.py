@@ -30,11 +30,13 @@ import usefulFunc as uf
 # inVersion = 'v51TESNoJER'
 # inVersion = 'v51TESNewLepFoLepForrObjectRemoval
 # inVersion = 'v51TESNewLepObjectRemovalCorrected'
-inVersion =  'v52noHLTSelection'
+# inVersion =  'v52noHLTSelection'
+inVersion = 'v52noHLTButPreSelection'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
-outVersion = 'v0noCut'
+# outVersion = 'v0noCut'
 # outVersion = 'v1cut1tau1l'
+outVersion = 'v2baslineNoHLT'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
 # outVersion = 'v3extra1tau1lCut'
@@ -54,7 +56,8 @@ year = '2016'
 # year = '2017'
 # selectionBit = '7'
 # selectionBit = '1'
-selectionBit = '0'
+# selectionBit = '0'
+selectionBit = '5'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 
@@ -87,7 +90,7 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
+        # if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
