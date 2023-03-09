@@ -96,7 +96,7 @@ public:
     TString m_version;
     // std::vector<TString> m_options;
     TFile *outputFile;
-    TH1D *btagRHist;
+    TH2D *correlationHist;
 
     //!!!hists need to be scalec in terminate function
     //???make this variables easier to add

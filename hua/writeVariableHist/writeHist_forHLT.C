@@ -108,14 +108,16 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     // 	fs::create_directory( (m_outputFolder+"variableHists"+ "_"+m_version+"/").Data());
     // }
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
+    correlationHist = new TH2D("noSelection_correlation", "correlation of jet multiplicity and b jet multiplicity", 15, -0.5, 14.5, 8, -0.5, 7.5);
 
     // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
-    std::vector<TString> regionsForVariables = {
-        "noSelection",
-        "1tau",
-        "1tau1l",
-        "1tau0l",
-    };
+    std::vector<TString>
+        regionsForVariables = {
+            "noSelection",
+            "1tau",
+            "1tau1l",
+            "1tau0l",
+        };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 13, -0.5, 12.5, jets_number};
@@ -234,7 +236,7 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
     // {
     //     return kFALSE;
     // }
-    Bool_t PFJet450 = *HLT_PFJet450;
+    // Bool_t PFJet450 = *HLT_PFJet450;
 
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
@@ -243,6 +245,9 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
         basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
     }
     // std::cout << "basicWeight=" << basicWeight << " ";
+
+    // correlation hist
+    correlationHist->Fill(*jets_number, *bjetsM_num, basicWeight);
 
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
     // Int_t lepNum = *leptonsMVAT_number;
@@ -286,6 +291,7 @@ void writeHist_forHLT::Terminate()
         std::cout << m_processName << ": " << lumiMap[m_era] << " " << crossSectionMap[m_processName] << " " << m_genWeightSum << "\n";
         processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / m_genWeightSum);
     }
+    correlationHist->Scale(processScale);
 
     if (!m_isData)
     {
