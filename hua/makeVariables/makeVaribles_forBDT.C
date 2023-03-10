@@ -63,7 +63,7 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
     Int_t selectionBitInt = std::stoi(selectionBit.Data());
     std::cout << "selectionBit: " << selectionBitInt << "\n";
 
-    if (m_processName.Contains("jetHT"))
+    if (m_processName.Contains("jetHT") || m_processName.Contains("singleMu"))
     {
         m_isData = true;
     }

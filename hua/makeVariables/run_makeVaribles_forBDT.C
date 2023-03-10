@@ -90,7 +90,7 @@ void run_makeVaribles_forBDT(
     }
 
     // add Runs tree
-    if (!inputDir.Contains("jetHT"))
+    if (!(inputDir.Contains("jetHT") || inputDir.Contains("singleMu")))
     {
         cout << "--------" << endl;
         cout << "now comes to add Runs tree stage\n";
