@@ -114,6 +114,8 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
         regionsForVariables = {
             "baseline1Muon",
             "baseline1MuonAndHLT",
+            "baseline",       // for MC true efficiency
+            "baselineAndHLT", // for MC true efficiency
         };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
@@ -124,24 +126,12 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegions.push_back(bjetsM_number_class);
 
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 40, 25, 625, jets_1pt};
-    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 34, 25, 535, jets_2pt};
-    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 33, 25, 520, jets_3pt};
-    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 20, 25, 325, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 14, 25, 235, jets_5pt};
     histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 8, 25, 145, jets_6pt};
-    histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 8, 25, 145, jets_7pt};
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 40, 0, 1800, jets_HT};
-    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "sum of b tag score", 30, 0, 5, jets_bScore};
-    histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 30, 0, 10, jets_rationHT_4toRest};
-    histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "invariant mass of 2 largest jets", 30, 100, 1000, jets_leading2invariantMass};
     // histsForRegions<Double_t>{"", 30};
 
     vectorOfVariableRegionsDouble.clear();
     vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
-    vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
-    vectorOfVariableRegionsDouble.push_back(jets_3pt_class);
-    vectorOfVariableRegionsDouble.push_back(jets_4pt_class);
-    vectorOfVariableRegionsDouble.push_back(jets_5pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_6pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_HT_class);
     // vectorOfVariableRegionsDouble.push_back();
@@ -181,6 +171,9 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
 
     fillHistsVectorMyclass(baseline && is1muon, 0, basicWeight);
     fillHistsVectorMyclass(baseline && is1muon && ifHLT, 1, basicWeight);
+    fillHistsVectorMyclass(baseline, 2, basicWeight);
+    fillHistsVectorMyclass(baseline && ifHLT, 3, basicWeight);
+
     fillHistsVector(baseline && is1muon, 0, basicWeight);
     fillHistsVector(baseline && is1muon && ifHLT, 1, basicWeight);
 
@@ -213,14 +206,14 @@ void writeHist_forHLTStudy::Terminate()
         {
 
             std::cout << j << "\n";
-            // eventCount_hists[j]->Scale(processScale);
+            eventCount_hists[j]->Scale(processScale);
             eventCount_hists[j]->Print();
         }
 
-        // for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
-        // {
-        //     vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
-        // }
+        for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
+        {
+            vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+        }
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
     outputFile->Write();
