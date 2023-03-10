@@ -21,23 +21,24 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/",
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/makeVariables/output/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noCut_v52noHLTSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
-    // TString inputProcess = "tttt",
-    TString inputProcess = "ttbar_2l",
+    TString inputProcess = "tttt",
+    // TString inputProcess = "ttbar_2l",
     // TString inputProcess = "wz",
     // TString inputProcess = 'WJetsToLNu_HT-600To800',
     // TString inputProcess = "jetHT_2016C",
     TString version = "test",
     // TString version = "existHLT",
     Bool_t isTest = kTRUE,
-    TString selector = "writeHist_fordataMC.C+") // 1tau1l)
-// TString selector = "writeHist_forFakeRate.C+" // 1tau0l
-// TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
-// TString selector = "writeHist_forBtagRCal.C+"
-// TString selector = "writeHist_forSystematic.C+"
-// TString selector = "writeHist_forHLT.C+")
+    // TString selector = "writeHist_fordataMC.C+") // 1tau1l)
+    // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
+    // TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
+    // TString selector = "writeHist_forBtagRCal.C+"
+    // TString selector = "writeHist_forSystematic.C+"
+    TString selector = "writeHist_forHLT.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
