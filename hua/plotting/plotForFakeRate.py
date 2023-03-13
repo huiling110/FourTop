@@ -331,7 +331,7 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 
-def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
+def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True):
     # setTDRStyle()#???not sure why no content line
     # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
@@ -360,8 +360,10 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016'):
     can.Update()
 
     h_efficiency = h_eff.Clone()
-    # rightmax = 1.5*h_efficiency.GetMaximum();
-    rightmax = .35
+    if ifFixMax:
+        rightmax = .35
+    else:
+        rightmax = 1.5*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(4)
