@@ -266,18 +266,18 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     return h_dataMBG
 
 
-def addBGHist(sumProcessIVar, var, region, includeQCD=False):
-    sumHist = sumProcessIVar[region][summedProcessList[0]]
-    sumHist.Reset()
-    sumHist.Sumw2()
-    sumHist.SetName(region+ '_bgSum_' + var )
-    for ipro in summedProcessList:
-        if not includeQCD:
-            if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
-        else:
-            if ipro=='data' or ipro=='tttt': continue
-        sumHist.Add( sumProcessIVar[region][ipro])
-    return sumHist
+# def addBGHist(sumProcessIVar, var, region, includeQCD=False):
+#     sumHist = sumProcessIVar[region][summedProcessList[0]]
+#     sumHist.Reset()
+#     sumHist.Sumw2()
+#     sumHist.SetName(region+ '_bgSum_' + var )
+#     for ipro in summedProcessList:
+#         if not includeQCD:
+#             if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+#         else:
+#             if ipro=='data' or ipro=='tttt': continue
+#         sumHist.Add( sumProcessIVar[region][ipro])
+#     return sumHist
 
 
 

@@ -3,7 +3,7 @@ import subprocess
 
 import pandas as pd
 import ROOT
-from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
+from ttttGlobleQuantity import (histoGramPerSample, lumiMap, summedProcessList,
                                 samplesCrossSection)
 
 
@@ -173,3 +173,18 @@ def getProcessScale( processName, era ):
     scale = lumiMap[era]*samplesCrossSection[processName]/genWeight
     print( processName, ': ', 'genWeight= ', genWeight, ' lumi=', lumiMap[era], ' cross=', samplesCrossSection[processName],  ' scale= ', scale)
     return scale
+
+
+def addBGHist(sumProcessIVar, var, region, includeQCD=False):
+    sumHist = sumProcessIVar[region][summedProcessList[0]]
+    sumHist.Reset()
+    sumHist.Sumw2()
+    sumHist.SetName(region+ '_bgSum_' + var )
+    for ipro in summedProcessList:
+        if not includeQCD:
+            if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+        else:
+            if ipro=='data' or ipro=='tttt': continue
+        sumHist.Add( sumProcessIVar[region][ipro])
+    return sumHist
+
