@@ -179,7 +179,7 @@ def addBGHist(sumProcessIVar, var, region, includeQCD=False):
     sumHist = sumProcessIVar[region][summedProcessList[0]]
     sumHist.Reset()
     sumHist.Sumw2()
-    sumHist.SetName(region+ '_bgSum_' + var )
+    sumHist.SetName(region)
     for ipro in summedProcessList:
         if not includeQCD:
             if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
@@ -187,6 +187,6 @@ def addBGHist(sumProcessIVar, var, region, includeQCD=False):
             if ipro=='data' or ipro=='tttt': continue
         sumHist.Add( sumProcessIVar[region][ipro])
     # sumHist.SetName(region+ '_allBG_' + var)
-    sumHist.SetName(region)
+    # sumHist.SetTitle(var)
     return sumHist
 

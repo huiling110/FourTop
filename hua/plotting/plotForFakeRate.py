@@ -344,7 +344,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     h_dinominator.GetYaxis().SetTitleSize(0.05)
     h_dinominator.GetYaxis().SetLabelSize(0.03)
     h_dinominator.GetYaxis().SetTitleOffset(1.1)
-    h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
+    # h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
+    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
     h_dinominator.GetXaxis().SetTitleSize(0.05)
     h_dinominator.SetLineWidth(3)
     h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
@@ -370,7 +371,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     # h_efficiency.SetMarkerStyle(3)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
-    h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
+    # h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
     
     #print
@@ -381,7 +382,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     # axis.SetRangeUser(0, rightmax*1.4)
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
-    axis.SetTitle('fake rate')
+    # axis.SetTitle('fake rate')
+    axis.SetTitle(h_efficiency.GetTitle())
     axis.SetTitleSize(0.05)
     axis.SetTitleColor(ROOT.kRed)
     # axis.SetRangeUser(0, 0.4)
