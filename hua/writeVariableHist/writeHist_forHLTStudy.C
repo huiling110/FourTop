@@ -127,7 +127,7 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
 
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 40, 25, 625, jets_1pt};
     histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 8, 25, 145, jets_6pt};
-    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 20, 500, 2500, jets_HT};
+    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 40, 500, 2500, jets_HT};
     // histsForRegions<Double_t>{"", 30};
 
     vectorOfVariableRegionsDouble.clear();
