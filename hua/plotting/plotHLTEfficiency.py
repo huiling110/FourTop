@@ -25,17 +25,16 @@ def main():
     # } 
     MCTrueth_de = uf.addBGHist(sumProcessPerVar['jets_HT'], 'jets_HT', 'baseline', includeQCD=True)
     MCTrueth_nu = uf.addBGHist(sumProcessPerVar['jets_HT'], 'jets_HT', 'baselineAndHLT', includeQCD=True)
-    MCTrueth_de.Print()
-    MCTrueth_nu.Print()
+    # MCTrueth_de.Print()
+    # MCTrueth_nu.Print()
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
-    # eff_MCTrueth.Divide(MCTrueth_de, MCTrueth_nu)
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
     eff_MCTrueth.SetName('eff_MCTrueth')
     eff_MCTrueth.SetTitle('efficiency')
     eff_MCTrueth.Print()
     plotName = plotDir + 'MCTruethEff.png'
-    plotEfficiency(MCTrueth_de, MCTrueth_nu, eff_MCTrueth, plotName, '2016postVFP', False)
+    plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, '2016postVFP', False)
      
     
     
