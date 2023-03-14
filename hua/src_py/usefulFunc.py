@@ -178,16 +178,17 @@ def getProcessScale( processName, era ):
     return scale
 
 
-def addBGHist(sumProcessIVar, var, region, includeQCD=False):
+def addBGHist(sumProcessIVar,  region, includeQCD=False):
     sumHist = sumProcessIVar[region][summedProcessList[0]]
     sumHist.Reset()
     sumHist.Sumw2()
     sumHist.SetName(region)
     for ipro in summedProcessList:
         if not includeQCD:
-            if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+            # if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+            if ipro=='jetHT' or ipro=='singleMu' or ipro=='qcd' or ipro=='tttt': continue
         else:
-            if ipro=='data' or ipro=='tttt': continue
+            if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
         sumHist.Add( sumProcessIVar[region][ipro])
     # sumHist.SetName(region+ '_allBG_' + var)
     return sumHist

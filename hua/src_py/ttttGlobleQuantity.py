@@ -9,7 +9,8 @@ lumiMap = {
 }
 
 
-summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'data' ]
+# summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'data' ]
+summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'jetHT', 'singleMu' ]
 
 histoGramPerSample = { 
     'tttt':'tttt',

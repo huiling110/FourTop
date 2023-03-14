@@ -47,7 +47,10 @@ def main():
     # version = 'v6_btagRMeasure'
     # version = 'v7_btagCorrection'
     # version = 'v0_basicCorrection'
-    version = 'v0triggerEff'
+    # version = 'v0triggerEff'
+    # version = 'v0triggerEffBugFixed'
+    # version = 'v1triggerEffMuonSel'
+    version = 'v2withoutJetTriggerMuonSel'
     
     justMC = False
     # justMC = True

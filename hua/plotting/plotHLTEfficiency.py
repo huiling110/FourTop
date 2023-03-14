@@ -6,7 +6,9 @@ from plotForFakeRate import plotEfficiency
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEffBugFixed/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v1triggerEffMuonSel/'
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
@@ -39,11 +41,15 @@ def main():
     for ivar in variableList:
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
+   
+    # print( sumProcessPerVar['jets_HT']['baseline']['tt'].Integral())
+    # print( sumProcessPerVar['jets_number']['baseline']['tt'].Integral())
+    # print( sumProcessPerVar['bjetsM_num']['baseline']['tt'].Integral())
     
     plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
-    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
-    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, ifData=2)
+    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, ifData=2)
     
    
    
@@ -54,8 +60,8 @@ def main():
 
 def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
     if  ifData==0:
-        MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionDe, includeQCD=True)
-        MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionNu, includeQCD=True)
+        MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], regionDe, includeQCD=True)
+        MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], regionNu, includeQCD=True)
     elif ifData==1:
         MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['singleMu'].Clone()
         MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['singleMu'].Clone()
@@ -71,6 +77,8 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
         binLowEges = variableDic[list(variableDic.keys())[0]]
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
         MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
+    MCTrueth_de.Print()
+    MCTrueth_nu.Print()
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
