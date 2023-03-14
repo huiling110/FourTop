@@ -6,8 +6,22 @@ from plotForFakeRate import plotEfficiency
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
-    variableList = ['jets_HT']
+    variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
+    
+    ptBins = np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] )
+    variableDic = {
+        'jets_HT': ptBins,
+    }
+    # variableDic = {
+    #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+    # }
+    
+    # variableDic = {
+    #     'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
+    # } 
+    
+    
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -20,34 +34,43 @@ def main():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
     
-    #MC truth efficiency
-    ptBins = np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] )
-    variableDic = {
-        'jets_HT': ptBins,
-    }
-    plotName = plotDir + 'MCTruthEffwithQCD.png'
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, plotName)
-    
-     
+    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCtruethEff', plotDir)
+    # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefEff.png'
+    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefData.png'
+    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=True)
     
     #MC reference efficiency
+    # ptBins = np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] )
+    # variableDic = {
+    #     'bjetsM_num': [],
+    # }
+   
+   
+   
     
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
 
 
-def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName): 
-    MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], 'baseline', includeQCD=True)
-    MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], 'baselineAndHLT', includeQCD=True)
-    binLowEges = variableDic[list(variableDic.keys())[0]]
-    MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
-    MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
+def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=False): 
+    if not ifData:
+        MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionDe, includeQCD=True)
+        MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionNu, includeQCD=True)
+    else:
+        MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['data'].Clone()
+        MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['data'].Clone()
+    if len( variableDic[list(variableDic.keys())[0]] ) >0:
+        binLowEges = variableDic[list(variableDic.keys())[0]]
+        MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
+        MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
     eff_MCTrueth.SetName('eff_MCTrueth')
     eff_MCTrueth.SetTitle('efficiency')
     eff_MCTrueth.Print()
+    plotName = plotDir + list(variableDic.keys())[0] + plotName + '.png'
     plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, '2016postVFP', False)
 
     
