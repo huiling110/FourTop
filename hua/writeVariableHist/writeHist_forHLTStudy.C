@@ -159,7 +159,7 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     }
 
     // Bool_t is1muon = *muonsTopMVAT_number >= 1;
-    Bool_t is1muon = *HLT_IsoMu24 == 1 or *HLT_IsoMu24 == 1;
+    Bool_t is1muon = *HLT_IsoMu24 == 1 || *HLT_IsoMu24 == 1;
     Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
 
     Double_t basicWeight = 1.0;
@@ -177,6 +177,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
 
     fillHistsVector(baseline && is1muon, 0, basicWeight);
     fillHistsVector(baseline && is1muon && ifHLT, 1, basicWeight);
+    fillHistsVector(baseline, 2, basicWeight);
+    fillHistsVector(baseline && ifHLT, 3, basicWeight);
 
     return kTRUE;
 }
@@ -214,6 +216,11 @@ void writeHist_forHLTStudy::Terminate()
         for (UInt_t ihists = 0; ihists < vectorOfVariableRegionsDouble.size(); ihists++)
         {
             vectorOfVariableRegionsDouble[ihists].histsScale(processScale);
+        }
+
+        for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+        {
+            vectorOfVariableRegions[ihists].histsScale(processScale);
         }
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
