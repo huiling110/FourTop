@@ -392,15 +392,12 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
 
     # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
     legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
-    # legend.AddEntry(h_dinominator, "denominator: FTau-genMC")
-    # legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
-    # legend.AddEntry(h_efficiency, "FR")
     legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
     legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
     legend.AddEntry(h_efficiency, h_efficiency.GetName())
     legend.Draw()
     
-    addCMSTextToCan(can, 0.17, 0.30, 0.92, era)     
+    addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
 
     can.SaveAs(plotName)
 
