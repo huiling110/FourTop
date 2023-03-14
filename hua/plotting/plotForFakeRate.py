@@ -364,7 +364,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     if ifFixMax:
         rightmax = .35
     else:
-        rightmax = 1.5*h_efficiency.GetMaximum();
+        rightmax = 1.7*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(4)
@@ -390,8 +390,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     axis.Draw()
 
 
-    # legend = ROOT.TLegend(0.5,0.7,0.9,0.9)
-    legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
+    # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
     # legend.AddEntry(h_dinominator, "denominator: FTau-genMC")
     # legend.AddEntry(h_numeritor, "numeritor: TTau-genMC")
     # legend.AddEntry(h_efficiency, "FR")
