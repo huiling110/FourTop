@@ -6,19 +6,22 @@ from plotForFakeRate import plotEfficiency
 
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
-    variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt']
+    variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
-    variableDic = {
-        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] ),
-    }
+    # variableDic = {
+    #     'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+    # }
     # variableDic = {
     #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
     # }
     
     # variableDic = {
     #     'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
-    # } 
+    # }
+    variableDic = {
+        'jets_number': []
+    } 
     
     
     

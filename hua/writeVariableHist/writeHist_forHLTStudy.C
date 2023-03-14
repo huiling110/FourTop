@@ -158,7 +158,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
         return kFALSE;
     }
 
-    Bool_t is1muon = *muonsTopMVAT_number >= 1;
+    // Bool_t is1muon = *muonsTopMVAT_number >= 1;
+    Bool_t is1muon = *HLT_IsoMu24 == 1 or *HLT_IsoMu24 == 1;
     Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
 
     Double_t basicWeight = 1.0;
