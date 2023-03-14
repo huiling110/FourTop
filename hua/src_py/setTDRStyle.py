@@ -121,8 +121,9 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
     latex2.SetNDC()
     latex2.SetTextSize(0.04)
     latex2.SetTextAlign(31)
-    # latex2.SetTextFont(61)  
+    latex2.SetTextFont(42)  
     # latex2.DrawLatex(x2+0.6, y, lumiText_s )
     latex2.DrawLatex(x2+0.56, y, lumiText_s )
+    
 
 
