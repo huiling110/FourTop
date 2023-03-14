@@ -9,17 +9,16 @@ def main():
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
-    ptBins = np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] )
-    variableDic = {
-        'jets_HT': ptBins,
-    }
+    # variableDic = {
+    #     'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] ),
+    # }
     # variableDic = {
     #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
     # }
     
-    # variableDic = {
-    #     'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
-    # } 
+    variableDic = {
+        'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
+    } 
     
     
     
@@ -34,11 +33,9 @@ def main():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
     
-    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCtruethEff', plotDir)
-    # # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefEff.png'
+    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
     # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
-    # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefData.png'
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=True)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=True)
     
     #MC reference efficiency
     # ptBins = np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2250, 2500] )
@@ -60,6 +57,8 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
     else:
         MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['singleMu'].Clone()
         MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['singleMu'].Clone()
+        MCTrueth_de.SetName(regionDe)
+        MCTrueth_nu.SetName(regionNu)
     if len( variableDic[list(variableDic.keys())[0]] ) >0:
         binLowEges = variableDic[list(variableDic.keys())[0]]
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
@@ -67,7 +66,8 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
-    eff_MCTrueth.SetName('eff_MCTrueth')
+    # eff_MCTrueth.SetName('eff_MCTrueth')
+    eff_MCTrueth.SetName(plotName)
     eff_MCTrueth.SetTitle('efficiency')
     eff_MCTrueth.Print()
     plotName = plotDir + list(variableDic.keys())[0] + plotName + '.png'

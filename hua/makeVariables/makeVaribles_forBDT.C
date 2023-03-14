@@ -188,6 +188,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *HLT_PFHT450_SixJet40_BTagCSV_p056_;
     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
     HLT_PFJet450 = *HLT_PFJet450_;
+    HLT_IsoMu24 = *HLT_IsoMu24_;
+    HLT_IsoMu27 = *HLT_IsoMu27_;
 
     if (m_HLTSelection)
     {
@@ -811,6 +813,8 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056", &HLT_PFHT450_SixJet40_BTagCSV_p056, "HLT_PFHT450_SixJet40_BTagCSV_p056/I");
     newtree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056/I");
     newtree->Branch("HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
+    newtree->Branch("HLT_IsoMu24", &HLT_IsoMu24, "HLT_IsoMu24/I");
+    newtree->Branch("HLT_IsoMu27", &HLT_IsoMu27, "HLT_IsoMu27/I");
 
     newtree->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
     newtree->Branch("PV_npvsGood", &PV_npvsGood, "PV_npvsGood/I");

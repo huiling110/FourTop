@@ -82,6 +82,8 @@ public:
     Int_t HLT_PFHT450_SixJet40_BTagCSV_p056;
     Int_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
     Int_t HLT_PFJet450;
+    Int_t HLT_IsoMu24;
+    Int_t HLT_IsoMu27;
 
     Int_t PV_npvs;
     Int_t PV_npvsGood;
@@ -439,6 +441,9 @@ public:
     TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_ = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"};
     TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"};
     TTreeReaderValue<Int_t> HLT_PFJet450_ = {fReader, "HLT_PFJet450_"};
+    TTreeReaderValue<Int_t> HLT_IsoMu24_ = {fReader, "HLT_IsoMu24_"};
+    TTreeReaderValue<Int_t> HLT_IsoMu27_ = {fReader, "HLT_IsoMu27_"};
+
     // Readers to access the data (delete the ones you do not need).
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> muonsL = {fReader, "muonsL"};
     // TTreeReaderArray<Int_t> muonsL_index = {fReader, "muonsL_index"};
