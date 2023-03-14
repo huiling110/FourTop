@@ -110,14 +110,19 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
+        print(ifileName)
+        if ('singleMu' in ifileName) or ('jetHT' in ifileName):
+            isdata = True
+        else:
+            isdata = False
         if not ifileName in allSubProcess: continue
         iProScale = 1.0
-        if ifScale and (not 'jetHT' in ifileName):
+        # if ifScale and (not 'jetHT' in ifileName):
+        if ifScale and (not isdata):
             iProScale = getProcessScale( ifileName, era )
         print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
-        isdata = False
-        if 'jetHT' in ifileName:
-            isdata = True
+        print('isdata', isdata)
+        if isdata:
             iRootFile = ROOT.TFile( inputDir['data']+ifile, 'READ' )
         else:
             iRootFile = ROOT.TFile( inputDir['mc']+ifile, 'READ' ) 

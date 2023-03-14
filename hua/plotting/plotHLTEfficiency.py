@@ -34,9 +34,9 @@ def main():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
     
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCtruethEff', plotDir)
-    # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefEff.png'
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCtruethEff', plotDir)
+    # # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefEff.png'
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
     # plotNameRef = plotDir + list(variableDic.keys())[0] + 'MCRefData.png'
     plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=True)
     
@@ -58,8 +58,8 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
         MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionDe, includeQCD=True)
         MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], list(variableDic.keys())[0], regionNu, includeQCD=True)
     else:
-        MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['data'].Clone()
-        MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['data'].Clone()
+        MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['singleMu'].Clone()
+        MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['singleMu'].Clone()
     if len( variableDic[list(variableDic.keys())[0]] ) >0:
         binLowEges = variableDic[list(variableDic.keys())[0]]
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
