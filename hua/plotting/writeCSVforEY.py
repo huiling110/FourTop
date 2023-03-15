@@ -25,7 +25,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0_newLep/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0FR_newLep/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/variableHists_v1_newLepPrefiring/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v49FixedPileUpNoJERTES/mc/variableHists_v2_newLepPileUp/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v49FixedPileUpNoJERTES/mc/variableHists_v2_newLepPileUp/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
 
     # regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
     # csvName = '1tau0lFakeRate'
@@ -36,21 +37,21 @@ def main():
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
     # csvName = '1tau0lCRs_withUncertInverted'
     
-    regionList = ['1tau1lSR', '1tau1lCR0','1tau1lCR2', '1tau1lCR3']
+    # regionList = ['1tau1lSR', '1tau1lCR0','1tau1lCR2', '1tau1lCR3']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
-    csvName = '1tau1lCRs_withUncertInverted'
+    # csvName = '1tau1lCRs_withUncertInverted'
     # regionList = [ '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
+    # ifUseFakeTau = False
     
+    
+    regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
+    csvName = 'eventYield'
     ifUseFakeTau = False
-    # csvName = '1tau0lFRMeasureRegions'
-    # csvName = 'eventYield'
-    # ifUseFakeTau = True
-    # csvName = '1tau0lFRMeasureRegions_fakeTau'
-
+    isJetHT= True
 
 
 
@@ -68,7 +69,7 @@ def main():
     sumProcessPerVarSys = {}
     if not ifUseFakeTau:
         for ivar in variableList:
-            sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = getSummedHists( inputDirDic, regionList, ivar )
+            sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar )
     else:
         sumProcessPerVar['eventCount'] = {}
         for ire in regionList:
@@ -77,7 +78,7 @@ def main():
             sumProcessPerVar_iCR['eventCount'] = {}
             sumProcessPerVar['eventCount'][ire] = {}
             isumProcessPerVarSys = {}
-            sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = getSummedHists( inputDir, ireCalList, 'eventCount' )       
+            sumProcessPerVar_iCR['eventCount'], isumProcessPerVarSys['eventCount'] = uf.getSummedHists( inputDir, ireCalList, 'eventCount' )       
             replaceBgWithGen( inputDir, sumProcessPerVar_iCR['eventCount'], 'eventCount', ireCalList, 2, False, isumProcessPerVarSys['eventCount']  )
             sumProcessPerVar['eventCount'][ire] = sumProcessPerVar_iCR['eventCount'][ire].copy()
             
@@ -85,7 +86,7 @@ def main():
             
             
         
-    writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau )
+    writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau, isJetHT )
 
 
 
@@ -93,7 +94,7 @@ def main():
     
 
 
-def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False, ifFakeTau = False):
+def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, writeData=False, ifFakeTau = False, isJetHT=True):
     print('\n')
     print('start to write hists to csv')
     uf.checkMakeDir( outDir )
@@ -106,7 +107,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         # for iProcess in allProcesses:
         for iProcess in sumProcessPerVal['eventCount'][iregion].keys():
             if ifFakeTau and iProcess=='qcd': continue
-            if ('SR' in iregion) and iProcess=='data':
+            # if ('SR' in iregion) and iProcess=='data':
+            if ('SR' in iregion) and (iProcess=='jetHT' or iProcess=='singleMu'):
                 iList.append(-1.0)
                 iList.append(-1.0)#for uncert
             else: 
@@ -138,17 +140,17 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
 
     if not writeData:
-        df = df.drop('data')
+        df = df.drop('jetHT')
     else:
-        # df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["totalMC"]
-        df.loc["dataDivideTotalMC"] = df.loc["data"]/df.loc["bg"]
+        if isJetHT:
+            df.loc["dataDivideTotalMC"] = df.loc["jetHT"]/df.loc["bg"]
+        else:
+            df.loc["dataDivideTotalMC"] = df.loc["singleMu"]/df.loc["bg"]
 
     df = df.transpose()
-    # df.reset_index(inplace=True)
     df['regions'] = df.index
 
 
-    # df['process'] = df.index
     print( df )
 
     df.to_csv( outDir+csvName, float_format='%.3f')
@@ -159,54 +161,54 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
 
 
-def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' ):
-    allSubProcess = histoGramPerSample.keys()
-    sumProcessHistsDict = {}
-    sumProcessHistsDictSys = {}
-    mcFileList = os.listdir( inputDir['mc'] )
-    dataFileList = os.listdir ( inputDir['data'] )
+# def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' ):
+#     allSubProcess = histoGramPerSample.keys()
+#     sumProcessHistsDict = {}
+#     sumProcessHistsDictSys = {}
+#     mcFileList = os.listdir( inputDir['mc'] )
+#     dataFileList = os.listdir ( inputDir['data'] )
 
-    # cj.checkJobStatus(inputDir)
+#     # cj.checkJobStatus(inputDir)
     
-    for ifile in mcFileList+dataFileList:
-        ifileName = ifile.split('.root')[0]
-        if not ifileName in allSubProcess: continue
-        iProScale = 1.0
-        if ifScale and (not 'jetHT' in ifileName):
-            iProScale = getProcessScale( ifileName, era )
-        print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
-        isdata = False
-        if 'jetHT' in ifileName:
-            isdata = True
-            iRootFile = TFile( inputDir['data']+ifile, 'READ' )
-        else:
-            iRootFile = TFile( inputDir['mc']+ifile, 'READ' ) 
-        print('openning file: ', iRootFile.GetName() )
-        for iRegion in regionsList:
-            iHistName = iRegion + '_' + ifileName + '_' + variable
-            if iRegion not in sumProcessHistsDict.keys(): 
-                sumProcessHistsDict[iRegion]={}
-                sumProcessHistsDictSys[iRegion]={}
-            print('iHistName: ', iHistName )
-            if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
-                sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
-                if ifScale or not isdata: 
-                    sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
-                print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
-                # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
-            else:
-                itemp = iRootFile.Get( iHistName)
-                if ifScale or not isdata: 
-                    itemp.Scale(iProScale)
-                # sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
-                sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
-                print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
-        iRootFile.Close()
-        print( '\n')
+#     for ifile in mcFileList+dataFileList:
+#         ifileName = ifile.split('.root')[0]
+#         if not ifileName in allSubProcess: continue
+#         iProScale = 1.0
+#         if ifScale and (not 'jetHT' in ifileName):
+#             iProScale = getProcessScale( ifileName, era )
+#         print('ifileName: {}, scale: {}'.format( ifileName , iProScale) )
+#         isdata = False
+#         if 'jetHT' in ifileName:
+#             isdata = True
+#             iRootFile = TFile( inputDir['data']+ifile, 'READ' )
+#         else:
+#             iRootFile = TFile( inputDir['mc']+ifile, 'READ' ) 
+#         print('openning file: ', iRootFile.GetName() )
+#         for iRegion in regionsList:
+#             iHistName = iRegion + '_' + ifileName + '_' + variable
+#             if iRegion not in sumProcessHistsDict.keys(): 
+#                 sumProcessHistsDict[iRegion]={}
+#                 sumProcessHistsDictSys[iRegion]={}
+#             print('iHistName: ', iHistName )
+#             if histoGramPerSample[ifileName] not in sumProcessHistsDict[iRegion].keys():
+#                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]] = iRootFile.Get( iHistName).Clone()
+#                 sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
+#                 if ifScale or not isdata: 
+#                     sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Scale(iProScale)
+#                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].SetDirectory(0)
+#                 print('sumProcessHistDic[{}][{}] get hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
+#                 # sumProcessHistsDictSys[iRegion][histoGramPerSample[ifileName]] = {}
+#             else:
+#                 itemp = iRootFile.Get( iHistName)
+#                 if ifScale or not isdata: 
+#                     itemp.Scale(iProScale)
+#                 # sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add(iRootFile.Get( iHistName), iProScale )
+#                 sumProcessHistsDict[iRegion][histoGramPerSample[ifileName]].Add( itemp)
+#                 print('sumProcessHistDic[{}][{}] add hist: {}'.format( iRegion, histoGramPerSample[ifileName], iHistName ))
+#         iRootFile.Close()
+#         print( '\n')
 
-    return sumProcessHistsDict, sumProcessHistsDictSys
+#     return sumProcessHistsDict, sumProcessHistsDictSys
 
 
 
