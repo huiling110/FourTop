@@ -10,17 +10,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEffBugFixed/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v1triggerEffMuonSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v3MuonSelUpdatedNoJetHLT/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v5addBjetToBaseline/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v5addBjetToBaseline/'
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
     # variableDic = {
     #     'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
     # }
-    # variableDic = {
-    #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-    # }
+    variableDic = {
+        'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+    }
     
     # variableDic = {
     #     'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
@@ -29,9 +29,9 @@ def main():
     #     'jets_number': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5,12.5])
     # } 
     
-    variableDic = {
-        'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625])
-    }
+    # variableDic = {
+    #     'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625])
+    # }
     
     
     inputDirDic = uf.getDirDic(inputDir)
@@ -49,12 +49,12 @@ def main():
     # print( sumProcessPerVar['jets_number']['baseline']['tt'].Integral())
     # print( sumProcessPerVar['bjetsM_num']['baseline']['tt'].Integral())
     
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
+    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
     plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
     plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
 
     
    

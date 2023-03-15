@@ -153,7 +153,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
 
     // baseline selection
     // Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 && *bjetsM_num >= 2;
+    // Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 && *bjetsM_num >= 2;
+    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 && *bjetsM_num >= 1;
     if (!baseline)
     {
         return kFALSE;

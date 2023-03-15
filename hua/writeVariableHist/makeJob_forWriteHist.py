@@ -53,7 +53,8 @@ def main():
     # version = 'v2withoutJetTriggerMuonSel'
     # version = 'v3MuonSelUpdatedNoJetHLT'
     # version = 'v4MuonSelUpdated'
-    version = 'v5addBjetToBaseline'
+    # version = 'v5addBjetToBaseline'
+    version = 'v6oneBjetToBaseline'
     
     justMC = False
     # justMC = True
