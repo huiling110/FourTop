@@ -306,6 +306,9 @@ public:
     TTreeReaderValue<Double_t> jets_7eta = {fReader, "jets_7eta"};
     TTreeReaderValue<Double_t> jets_7phi = {fReader, "jets_7phi"};
     TTreeReaderValue<Double_t> jets_8pt = {fReader, "jets_8pt"};
+    TTreeReaderValue<Double_t> jets_9pt = {fReader, "jets_9pt"};
+    TTreeReaderValue<Double_t> jets_10pt = {fReader, "jets_10pt"};
+    TTreeReaderValue<Double_t> jets_11pt = {fReader, "jets_11pt"};
     TTreeReaderValue<Double_t> jets_1btag = {fReader, "jets_1btag"};
     TTreeReaderValue<Double_t> jets_2btag = {fReader, "jets_2btag"};
     TTreeReaderValue<Double_t> jets_3btag = {fReader, "jets_3btag"};

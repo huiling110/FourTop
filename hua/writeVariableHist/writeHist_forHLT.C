@@ -127,13 +127,16 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegions.push_back(bjetsM_number_class);
 
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 40, 25, 625, jets_1pt};
-    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 34, 25, 535, jets_2pt};
-    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 33, 25, 520, jets_3pt};
-    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 20, 25, 325, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 14, 25, 235, jets_5pt};
-    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 8, 25, 145, jets_6pt};
-    histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "seventh jet pt", 8, 25, 145, jets_7pt};
-    histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "eighth jet pt", 8, 25, 145, jets_8pt};
+    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "2nd jet pt", 34, 25, 535, jets_2pt};
+    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "3rd jet pt", 33, 25, 520, jets_3pt};
+    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "4th jet pt", 20, 25, 325, jets_4pt};
+    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "5th jet pt", 14, 25, 235, jets_5pt};
+    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "6th jet pt", 8, 25, 145, jets_6pt};
+    histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "7th jet pt", 8, 25, 145, jets_7pt};
+    histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "8th jet pt", 8, 25, 145, jets_8pt};
+    histsForRegions<Double_t> jets_9pt_class{"jets_9pt", "9th jet pt", 8, 25, 145, jets_9pt};
+    histsForRegions<Double_t> jets_10pt_class{"jets_10pt", "10th jet pt", 8, 25, 145, jets_10pt};
+    histsForRegions<Double_t> jets_11pt_class{"jets_11pt", "11th jet pt", 8, 25, 145, jets_11pt};
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 40, 0, 1800, jets_HT};
     histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "sum of b tag score", 30, 0, 5, jets_bScore};
     histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT of 4 largest jet pt/HT of all jets", 30, 0, 10, jets_rationHT_4toRest};
@@ -174,6 +177,11 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegionsDouble.push_back(jets_4pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_5pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_6pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_7pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_8pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_9pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_10pt_class);
+    vectorOfVariableRegionsDouble.push_back(jets_11pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_HT_class);
     vectorOfVariableRegionsDouble.push_back(jets_bScore_class);
     vectorOfVariableRegionsDouble.push_back(jets_rationHT_4toRest_class);
@@ -181,8 +189,6 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegionsDouble.push_back(MET_pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_transMass_class);
     vectorOfVariableRegionsDouble.push_back(jets_avaregeDeltaR_class);
-    vectorOfVariableRegionsDouble.push_back(jets_7pt_class);
-    vectorOfVariableRegionsDouble.push_back(jets_8pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_4largestBscoreMulti_class);
     vectorOfVariableRegionsDouble.push_back(bjetsM_HT_class);
     vectorOfVariableRegionsDouble.push_back(bjetsM_MHT_class);
