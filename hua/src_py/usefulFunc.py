@@ -179,7 +179,8 @@ def getProcessScale( processName, era ):
 
 
 def addBGHist(sumProcessIVar,  region, includeQCD=False):
-    sumHist = sumProcessIVar[region][summedProcessList[0]]
+    # sumHist = sumProcessIVar[region][summedProcessList[0]]
+    sumHist = sumProcessIVar[region][summedProcessList[0]].Clone()
     sumHist.Reset()
     sumHist.Sumw2()
     sumHist.SetName(region)

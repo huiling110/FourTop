@@ -50,7 +50,9 @@ def main():
     # version = 'v0triggerEff'
     # version = 'v0triggerEffBugFixed'
     # version = 'v1triggerEffMuonSel'
-    version = 'v2withoutJetTriggerMuonSel'
+    # version = 'v2withoutJetTriggerMuonSel'
+    # version = 'v3MuonSelUpdatedNoJetHLT'
+    version = 'v4MuonSelUpdated'
     
     justMC = False
     # justMC = True

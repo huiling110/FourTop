@@ -8,7 +8,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEffBugFixed/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v1triggerEffMuonSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v1triggerEffMuonSel/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v3MuonSelUpdatedNoJetHLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
@@ -42,14 +44,15 @@ def main():
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
    
-    # print( sumProcessPerVar['jets_HT']['baseline']['tt'].Integral())
+    print( sumProcessPerVar['jets_HT']['baseline']['tt'].Integral())
     # print( sumProcessPerVar['jets_number']['baseline']['tt'].Integral())
     # print( sumProcessPerVar['bjetsM_num']['baseline']['tt'].Integral())
     
     plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, ifData=2)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+
     
    
    
@@ -60,16 +63,21 @@ def main():
 
 def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
     if  ifData==0:
+        print('plot for all bg')
         MCTrueth_de = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], regionDe, includeQCD=True)
         MCTrueth_nu = uf.addBGHist(sumProcessPerVar[list(variableDic.keys())[0]], regionNu, includeQCD=True)
     elif ifData==1:
+        print('plot for data')
         MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['singleMu'].Clone()
         MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['singleMu'].Clone()
         MCTrueth_de.SetName(regionDe)
         MCTrueth_nu.SetName(regionNu)
     elif ifData==2:
+        print('plot for tttt')
         MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['tttt'].Clone()
         MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['tttt'].Clone()
+        # MCTrueth_de = sumProcessPerVar[list(variableDic.keys())[0]][regionDe]['tttt']
+        # MCTrueth_nu = sumProcessPerVar[list(variableDic.keys())[0]][regionNu]['tttt']
         MCTrueth_de.SetName(regionDe)
         MCTrueth_nu.SetName(regionNu)
         
