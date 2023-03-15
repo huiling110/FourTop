@@ -152,7 +152,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     fReader.SetLocalEntry(entry);
 
     // baseline selection
-    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    // Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 && *bjetsM_num >= 2;
     if (!baseline)
     {
         return kFALSE;
