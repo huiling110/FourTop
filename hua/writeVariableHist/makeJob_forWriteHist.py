@@ -54,7 +54,9 @@ def main():
     # version = 'v3MuonSelUpdatedNoJetHLT'
     # version = 'v4MuonSelUpdated'
     # version = 'v5addBjetToBaseline'
-    version = 'v6oneBjetToBaseline'
+    # version = 'v6oneBjetToBaseline'
+    version = 'v7HLTRemove2btag'
+    # version = 'v00forSignalShape'
     
     justMC = False
     # justMC = True

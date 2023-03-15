@@ -20,10 +20,10 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/",
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/makeVariables/output/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noCut_v52noHLTSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0noCut_v52noHLTSelection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
@@ -39,8 +39,8 @@ void run_writeHist(
     // TString selector = "writeHist_forFakeRate_3etaBin.C+" // 1tau0l
     // TString selector = "writeHist_forBtagRCal.C+"
     // TString selector = "writeHist_forSystematic.C+"
-    TString selector = "writeHist_forHLT.C+") //for tttt signal study
-    // TString selector = "writeHist_forHLTStudy.C+") // for HLT study
+    // TString selector = "writeHist_forHLT.C+") // for tttt signal study
+    TString selector = "writeHist_forHLTStudy.C+") // for HLT study
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
