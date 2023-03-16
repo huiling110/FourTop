@@ -149,12 +149,12 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     // 2D for SF
     Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500};
     Double_t ybins[] = {40, 55, 70, 85, 115, 145};
-    b1HT6pt_de = new TH2D("b1HT6pt_de", "b1HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b1HT6pt_nu = new TH2D("b1HT6pt_nu", "b1HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b2HT6pt_de = new TH2D("b2HT6pt_de", "b2HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b2HT6pt_nu = new TH2D("b2HT6pt_nu", "b2HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b3HT6pt_de = new TH2D("b3HT6pt_de", "b3HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b3HT6pt_nu = new TH2D("b3HT6pt_nu", "b3HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_de = new TH2D("baseline1Muon1b_" + m_processName + "_jetsHTAnd6pt", "baseline1Muon1b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_nu = new TH2D("baseline1MuonAndHLT1b_" + m_processName + "_jetsHTAnd6pt", "baseline1MuonAndHLT1b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_de = new TH2D("baseline1Muon2b_" + m_processName + "_jetsHTAnd6pt", "baseline1Muon2b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
 }
 
 Bool_t writeHist_forHLTStudy::Process(Long64_t entry)

@@ -1,4 +1,5 @@
 import numpy as np
+import ROOT
 
 import usefulFunc as uf
 
@@ -13,7 +14,37 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v5addBjetToBaseline/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v6oneBjetToBaseline/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v7HLTRemove2btag/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v7HLTRemove2btag/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/'
+    
+    inputDirDic = uf.getDirDic(inputDir)
+    plotDir = inputDirDic['mc'] + 'results/'
+    uf.checkMakeDir(plotDir)
+    era = uf.getEraFromDir(inputDir)
+    
+    # plotEfficiency(inputDir)
+    
+    #plotSF
+    plotSF(inputDirDic)
+    
+    
+    #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
+   
+def plotSF(inputDirDic):
+    # file = ROOT.TFile(inputDir+'tt') 
+    # tt_1b = 
+    variableList = ['jetsHTAnd6pt']
+    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', ]
+    
+    sumProcessPerVar = {}
+    sumProcessPerVarSys = {} 
+    for ivar in variableList:
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+    print( sumProcessPerVar )
+    
+    
+    
+def plotEfficiency(inputDirDic):
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
@@ -36,10 +67,6 @@ def main():
     }
     
     
-    inputDirDic = uf.getDirDic(inputDir)
-    plotDir = inputDirDic['mc'] + 'results/'
-    uf.checkMakeDir(plotDir)
-    era = uf.getEraFromDir(inputDir)
      
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
@@ -63,7 +90,6 @@ def main():
    
     
     
-    #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
 
 
 def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
