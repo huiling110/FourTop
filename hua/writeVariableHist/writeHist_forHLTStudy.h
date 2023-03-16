@@ -46,30 +46,13 @@ public:
     std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
     // TH1D* whInitial;
     std::vector<TH1D *> eventCount_hists;
-    // std::vector<TH1D *> jetsNumber_hists;
-    // std::vector<TH1D *> jets_HT_hists;
-    // std::vector<TH1D *> jets_bScore_hists;
-    // std::vector<TH1D *> jets_1pt_hists;
 
-    // std::vector<TH1D *> tausT_HT_hists;
-    // std::vector<TH1D *> tausT_1pt_hists;
-    // std::vector<TH1D *> tausT_1eta_hists;
-    // // std::vector<TH1D *> _hists;
-
-    // std::vector<TH1D *> bjetsM_MHT_hists;
-    // std::vector<TH1D *> bjets_Number_hists;
-    // std::vector<TH1D *> bjets_1pt_hists;
-    // std::vector<TH1D *> bjets_HT_hists;
-
-    // std::vector<TH1D *> jets_bScoreMultiply_hists;
-    // std::vector<TH1D *> jets_2pt_hists;
-    // std::vector<TH1D *> jets_3pt_hists;
-    // std::vector<TH1D *> jets_4pt_hists;
-    // std::vector<TH1D *> jets_5pt_hists;
-    // std::vector<TH1D *> jets_6pt_hists;
-    // std::vector<TH1D *> jets_HTto4rest_hists;
-
-    // variables to be writen to hists
+    TH2D *b1HT6pt_de;
+    TH2D *b1HT6pt_nu;
+    TH2D *b2HT6pt_de;
+    TH2D *b2HT6pt_nu;
+    TH2D *b3HT6pt_de;
+    TH2D *b3HT6pt_nu;
 
     // regions to consider
 

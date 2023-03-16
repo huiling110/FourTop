@@ -145,6 +145,16 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     {
         vectorOfVariableRegionsDouble[ihistvec].initializeRegions(regionsForVariables, m_processName);
     }
+
+    // 2D for SF
+    Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500};
+    Double_t ybins[] = {40, 55, 70, 85, 115, 145};
+    b1HT6pt_de = new TH2D("b1HT6pt_de", "b1HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_nu = new TH2D("b1HT6pt_nu", "b1HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_de = new TH2D("b2HT6pt_de", "b2HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_nu = new TH2D("b2HT6pt_nu", "b2HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_de = new TH2D("b3HT6pt_de", "b3HT6pt_de", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_nu = new TH2D("b3HT6pt_nu", "b3HT6pt_nu", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
 }
 
 Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
@@ -163,10 +173,10 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     // Bool_t is1muon = *muonsTopMVAT_number >= 1;
     // Bool_t is1muon = *HLT_IsoMu24 == 1; // 2016
     // Bool_t is1muon = *HLT_IsoMu27 == 1;                                                                                            // 2017 and 2018
-    Bool_t is1muon = *HLT_IsoMu24 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.; // 2016
-    // Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
+    Bool_t is1muon = *HLT_IsoMu24 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;                                   // 2016
+    Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
     // Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1; // 2016
-    Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
+    // Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
 
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
@@ -185,6 +195,38 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     fillHistsVector(baseline && is1muon && ifHLT, 1, basicWeight);
     fillHistsVector(baseline, 2, basicWeight);
     fillHistsVector(baseline && ifHLT, 3, basicWeight);
+
+    // 2D
+    if (baseline && is1muon)
+    {
+        if (*bjetsM_num == 1)
+        {
+            b1HT6pt_de->Fill(*jets_HT, *jets_6pt);
+        }
+        if (*bjetsM_num == 2)
+        {
+            b2HT6pt_de->Fill(*jets_HT, *jets_6pt);
+        }
+        if (*bjetsM_num >= 3 && *bjetsM_num <= 7)
+        {
+            b3HT6pt_de->Fill(*jets_HT, *jets_6pt);
+        }
+    }
+    if (baseline && is1muon && ifHLT)
+    {
+        if (*bjetsM_num == 1)
+        {
+            b1HT6pt_nu->Fill(*jets_HT, *jets_6pt);
+        }
+        if (*bjetsM_num == 2)
+        {
+            b2HT6pt_nu->Fill(*jets_HT, *jets_6pt);
+        }
+        if (*bjetsM_num >= 3 && *bjetsM_num <= 7)
+        {
+            b3HT6pt_nu->Fill(*jets_HT, *jets_6pt);
+        }
+    }
 
     return kTRUE;
 }
@@ -228,6 +270,13 @@ void writeHist_forHLTStudy::Terminate()
         {
             vectorOfVariableRegions[ihists].histsScale(processScale);
         }
+
+        b1HT6pt_de->Scale(processScale);
+        b1HT6pt_nu->Scale(processScale);
+        b2HT6pt_de->Scale(processScale);
+        b2HT6pt_nu->Scale(processScale);
+        b3HT6pt_de->Scale(processScale);
+        b3HT6pt_nu->Scale(processScale);
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
     outputFile->Write();
