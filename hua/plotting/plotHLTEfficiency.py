@@ -23,10 +23,10 @@ def main():
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(inputDir)
     
-    # plotEfficiencyHLT(inputDir)
+    plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    plotSF(inputDirDic)
+    # plotSF(inputDirDic)
     
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
@@ -139,10 +139,8 @@ def plotEfficiencyHLT(inputDirDic):
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
    
-    # print( sumProcessPerVar['jets_HT']['baseline']['tt'].Integral())
-    # print( sumProcessPerVar['jets_number']['baseline']['tt'].Integral())
-    # print( sumProcessPerVar['bjetsM_num']['baseline']['tt'].Integral())
-    
+    plotDir = inputDirDic['mc'] + 'results/'
+    uf.checkMakeDir(plotDir)
     plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
     plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
     plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
@@ -195,7 +193,8 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
     eff_MCTrueth.SetTitle('efficiency')
     eff_MCTrueth.Print()
     plotName = plotDir + list(variableDic.keys())[0] + plotName + '.png'
-    plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, '2016postVFP', False)
+    era = uf.getEraFromDir(plotDir)
+    plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
 
     
 if __name__=='__main__':

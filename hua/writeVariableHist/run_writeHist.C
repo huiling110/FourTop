@@ -62,10 +62,8 @@ void run_writeHist(
               << "genWeightSumInitial: " << genWeightSumInitial << "\n";
 
     // get era
-    // TString temp = inputDir(inputDir.Index("forMVA/") + 7, inputDir.Sizeof());
-    // TString era = temp(0, temp.First("/"));
-    TString era = "2016postVFP";
-    std::cout << "era: " << era << "\n";
+    TString temp = inputDir(inputDir.Index("forMVA/") + 7, inputDir.Sizeof());
+    TString era = temp(0, temp.First("/"));
 
     TChain chain("newtree");
     chain.Add(inputFile);
