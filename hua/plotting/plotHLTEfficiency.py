@@ -58,10 +58,10 @@ def plotSF(inputDirDic):
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
         dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
-        ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
+        # ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
     
-        plotName = plotDir + ibR + '_triggerSF.png'
-        plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
+        # plotName = plotDir + ibR + '_triggerSF.png'
+        # plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -76,34 +76,55 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle)
     dataEff1b.SetName(dataEff1b.GetName()+'_eff')
     
         
-    plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle)
+    plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle, True)
     
     return dataEff1b
     
-def plot2D(hist2D, plotName, canTitle):
+def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     print('start plot 2D plot')
-    print(hist2D.GetTitle())
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     # ROOT.gStyle.SetOptTitle(0) #draw hist title
     ROOT.gStyle.SetPaintTextFormat(".2f")
     ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     ROOT.gStyle.SetTitleSize(0.07, "Y")
-   
-    histTitle = hist2D.GetTitle() 
-    xtitle = hist2D.GetTitle().split(":")[0]
-    ytitle = hist2D.GetTitle().split(":")[1]
-    hist2D.GetXaxis().SetTitle(xtitle)
-    hist2D.GetYaxis().SetTitle(ytitle)
-    hist2D.GetYaxis().SetTitleSize(0.05)
-    hist2D.GetXaxis().SetTitleSize(0.05)
-    # hist2D.GetYaxis().SetRangeUser(0.8 , 1.2)
-    hist2D.SetMinimum(0.8)
-    hist2D.SetMaximum(1.2)
-    hist2D.LabelsOption("v") 
-    # hist2D.SetMarkerSize(0.01)
-    hist2D.Draw("colzetext")
-    hist2D.SetTitle(canTitle)
+    
+    if ifPlotEven:
+        xbin_edges = hist2D.GetXaxis().GetXbins() 
+        ybin_edges = hist2D.GetYaxis().GetXbins() 
+        for x in range(1, hist2D.GetNbinsX()+1):
+            hist2D.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
+        for y in range(1, hist2D.GetNbinsY()+1):
+            hist2D.GetYaxis().SetBinLabel(y, str(xbin_edges[y-1]) + '-'+ str(xbin_edges[y])  )
+        hist2D_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
+        for x in range(1, hist2D_even.GetNbinsX()+1):
+            hist2D_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 
+            for y in range(1, hist2D_even.GetNbinsY()+1):
+                hist2D_even.SetBinContent(x,y, hist2D.GetBinContent(x,y))
+                hist2D_even.SetBinError(x,y, hist2D.GetBinError(x,y))
+                if x==1:
+                    hist2D_even.GetYaxis().SetBinLabel(y, hist2D.GetYaxis().GetBinLabel(y)) 
+        hist2D_even.Print()
+    
+    if not ifPlotEven:
+        histToDraw = hist2D
+    else:
+        histToDraw = hist2D_even
+        
+    histTitle = histToDraw.GetTitle() 
+    xtitle = histToDraw.GetTitle().split(":")[0]
+    ytitle = histToDraw.GetTitle().split(":")[1]
+    histToDraw.GetXaxis().SetTitle(xtitle)
+    histToDraw.GetYaxis().SetTitle(ytitle)
+    histToDraw.GetYaxis().SetTitleSize(0.05)
+    histToDraw.GetXaxis().SetTitleSize(0.05)
+    histToDraw.SetMinimum(0.8)
+    histToDraw.SetMaximum(1.2)
+    histToDraw.LabelsOption("v") 
+    histToDraw.Draw("colzetext")
+    histToDraw.SetTitle(canTitle)
+    
+    
      
     can.SetLeftMargin(0.15)
     can.SetRightMargin(0.15)
