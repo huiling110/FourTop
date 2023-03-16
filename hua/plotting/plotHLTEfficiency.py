@@ -42,32 +42,28 @@ def plotSF(inputDirDic):
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
    
-   
-    dataEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'singleMu') 
-    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt') 
-   
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
-    plotName = plotDir + 'SF_1b.png'
-    # plotSFSingle( ttEff1b, dataEff1b, plotName)
    
-def getEffHist(sumProcessPerVar, regionDe, regionNu, process):
+    dataEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'singleMu', plotDir) 
+    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt') 
+   
+    plotName = plotDir + 'SF_1b.png'
+    plotSFSingle( ttEff1b, dataEff1b, plotName)
+   
+def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
     dataEff1b_nu = sumProcessPerVar['jetsHTAnd6pt'][regionNu][process].Clone() 
-    # print('denominator: ')
-    dataEff1b_de.Print()
-    dataEff1b_de.Print()
-    dataEff1b = dataEff1b_de
-    # print(type(dataEff1b_de), dataEff1b_de)
-    # print(type(dataEff1b_nu), dataEff1b_nu)
-    # print(type(dataEff1b), dataEff1b)
-    dataEff1b.Print()
+    # dataEff1b_de.Print()
+    # dataEff1b_de.Print()
+    dataEff1b = dataEff1b_de.Clone()
+    # dataEff1b.Print()
     
     dataEff1b.Sumw2()
-    dataEff1b = dataEff1b.Divide(dataEff1b_nu)
-    
-    
-    plot2D( dataEff1b_de, dataEff1b_de.GetName()+'.png')
+    dataEff1b.Divide(dataEff1b_nu)
+    dataEff1b.SetName(dataEff1b.GetName()+'_eff')
+        
+    plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png')
     
     return dataEff1b
     
@@ -75,7 +71,10 @@ def plot2D(hist2D, plotName):
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
+    ROOT.gStyle.SetPaintTextFormat(".2f")
     
+    hist2D.LabelsOption("v") 
+    # hist2D.SetMarkerSize(0.01)
     hist2D.Draw("colzetext")
     
     can.Draw()
