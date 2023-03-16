@@ -15,7 +15,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v5addBjetToBaseline/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v6oneBjetToBaseline/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v7HLTRemove2btag/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -46,10 +47,10 @@ def plotSF(inputDirDic):
     uf.checkMakeDir(plotDir)
    
     dataEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'singleMu', plotDir) 
-    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt') 
+    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt', plotDir) 
    
-    plotName = plotDir + 'SF_1b.png'
-    plotSFSingle( ttEff1b, dataEff1b, plotName)
+    plotName = plotDir + 'HLTSF_1b.png'
+    # plotSFSingle( ttEff1b, dataEff1b, plotName)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -72,11 +73,21 @@ def plot2D(hist2D, plotName):
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
     ROOT.gStyle.SetPaintTextFormat(".2f")
-    
+    ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
+    ROOT.gStyle.SetTitleSize(0.07, "Y")
+   
+    xtitle = hist2D.GetTitle().split(":")[0]
+    ytitle = hist2D.GetTitle().split(":")[1]
+    hist2D.GetXaxis().SetTitle(xtitle)
+    hist2D.GetYaxis().SetTitle(ytitle)
+    hist2D.GetYaxis().SetTitleSize(0.05)
+    hist2D.GetXaxis().SetTitleSize(0.05)
     hist2D.LabelsOption("v") 
     # hist2D.SetMarkerSize(0.01)
     hist2D.Draw("colzetext")
-    
+     
+    can.SetLeftMargin(0.15)
+    can.SetBottomMargin(0.15) 
     can.Draw()
     can.SaveAs(plotName)
      
