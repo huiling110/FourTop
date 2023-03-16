@@ -22,7 +22,7 @@ def main():
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(inputDir)
     
-    # plotEfficiency(inputDir)
+    # plotEfficiencyHLT(inputDir)
     
     #plotSF
     plotSF(inputDirDic)
@@ -41,10 +41,65 @@ def plotSF(inputDirDic):
     for ivar in variableList:
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     print( sumProcessPerVar )
+   
+   
+    dataEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'singleMu') 
+    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt') 
+   
+    plotDir = inputDirDic['mc'] + 'results/'
+    uf.checkMakeDir(plotDir)
+    plotName = plotDir + 'SF_1b.png'
+    # plotSFSingle( ttEff1b, dataEff1b, plotName)
+   
+def getEffHist(sumProcessPerVar, regionDe, regionNu, process):
+    dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
+    dataEff1b_nu = sumProcessPerVar['jetsHTAnd6pt'][regionNu][process].Clone() 
+    # print('denominator: ')
+    dataEff1b_de.Print()
+    dataEff1b_de.Print()
+    dataEff1b = dataEff1b_de
+    # print(type(dataEff1b_de), dataEff1b_de)
+    # print(type(dataEff1b_nu), dataEff1b_nu)
+    # print(type(dataEff1b), dataEff1b)
+    dataEff1b.Print()
+    
+    dataEff1b.Sumw2()
+    dataEff1b = dataEff1b.Divide(dataEff1b_nu)
+    
+    
+    plot2D( dataEff1b_de, dataEff1b_de.GetName()+'.png')
+    
+    return dataEff1b
+    
+def plot2D(hist2D, plotName):
+    can = ROOT.TCanvas('SF', 'SF', 1000, 800)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
+    
+    hist2D.Draw("colzetext")
+    
+    can.Draw()
+    can.SaveAs(plotName)
+     
+    
+def plotSFSingle(de_2D, nu_2D, plotName):
+    de = de_2D.Clone()
+    nu = nu_2D.Clone()
+    de.Sumw2()
+    nu.Sumw2()
+    ratio = de.Clone()
+    ratio.Divide(nu)
+    
+    can = ROOT.TCanvas('SF', 'SF', 1000, 800)
+    # ratio.Draw("colz")
+    ratio.Draw("colztext")
+    can.Draw() 
+    can.SaveAs(plotName)
     
     
     
-def plotEfficiency(inputDirDic):
+    
+def plotEfficiencyHLT(inputDirDic):
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
