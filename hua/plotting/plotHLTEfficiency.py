@@ -35,7 +35,7 @@ def plotSF(inputDirDic):
     # file = ROOT.TFile(inputDir+'tt') 
     # tt_1b = 
     variableList = ['jetsHTAnd6pt']
-    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', ]
+    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
@@ -45,14 +45,25 @@ def plotSF(inputDirDic):
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
+  
+    bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    regionTitleDic = {
+        'baseline1Muon1b': 'b jets number = 1',
+        'baseline1Muon2b': 'b jets number = 2',
+        'baseline1Muon3b': '2 < b jets number < 8',
+    }
+    
+    for ibR in bRegions:
+        bRegions_nu = ibR.replace('1Muon', '1MuonAndHLT')
+        print('regions: ', ibR, bRegions_nu)
+        canTitle = regionTitleDic[ibR] 
+        dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
+        ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
+    
+        plotName = plotDir + ibR + '_triggerSF.png'
+        plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
    
-    dataEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'singleMu', plotDir) 
-    ttEff1b = getEffHist(sumProcessPerVar, 'baseline1Muon1b', 'baseline1MuonAndHLT1b', 'tt', plotDir) 
-   
-    plotName = plotDir + 'HLTSF_1b.png'
-    # plotSFSingle( ttEff1b, dataEff1b, plotName)
-   
-def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir):
+def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
     dataEff1b_nu = sumProcessPerVar['jetsHTAnd6pt'][regionNu][process].Clone() 
     # dataEff1b_de.Print()
@@ -64,18 +75,14 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir):
     dataEff1b.Divide(dataEff1b_nu)
     dataEff1b.SetName(dataEff1b.GetName()+'_eff')
     
-    regionTitleDic = {
-        'baseline1Muon1b': 'b jets number = 1',
-        'baseline1Muon2b': 'b jets number = 2',
-        'baseline1Muon3b': '2 < b jets number < 8',
-    }
-    canTitle = regionTitleDic[regionDe] 
         
     plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle)
     
     return dataEff1b
     
 def plot2D(hist2D, plotName, canTitle):
+    print('start plot 2D plot')
+    print(hist2D.GetTitle())
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     # ROOT.gStyle.SetOptTitle(0) #draw hist title
@@ -83,6 +90,7 @@ def plot2D(hist2D, plotName, canTitle):
     ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     ROOT.gStyle.SetTitleSize(0.07, "Y")
    
+    histTitle = hist2D.GetTitle() 
     xtitle = hist2D.GetTitle().split(":")[0]
     ytitle = hist2D.GetTitle().split(":")[1]
     hist2D.GetXaxis().SetTitle(xtitle)
@@ -104,9 +112,10 @@ def plot2D(hist2D, plotName, canTitle):
     # can.SetTitle(canTitle)
     can.Draw("g")
     can.SaveAs(plotName)
+    hist2D.SetTitle(histTitle)
      
     
-def plotSFSingle(de_2D, nu_2D, plotName):
+def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     de = de_2D.Clone()
     nu = nu_2D.Clone()
     de.Sumw2()
@@ -114,11 +123,11 @@ def plotSFSingle(de_2D, nu_2D, plotName):
     ratio = de.Clone()
     ratio.Divide(nu)
     
-    can = ROOT.TCanvas('SF', 'SF', 1000, 800)
-    # ratio.Draw("colz")
-    ratio.Draw("colztext")
-    can.Draw() 
-    can.SaveAs(plotName)
+    # can = ROOT.TCanvas('SF', 'SF', 1000, 800)
+    # ratio.Draw("colztext")
+    # can.Draw() 
+    # can.SaveAs(plotName)
+    plot2D(ratio, plotName, canTitle)
     
     
     
