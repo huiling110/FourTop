@@ -23,10 +23,10 @@ def main():
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(inputDir)
     
-    plotEfficiencyHLT(inputDirDic)
+    # plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    # plotSF(inputDirDic)
+    plotSF(inputDirDic)
     
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
@@ -63,15 +63,22 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir):
     dataEff1b.Sumw2()
     dataEff1b.Divide(dataEff1b_nu)
     dataEff1b.SetName(dataEff1b.GetName()+'_eff')
+    
+    regionTitleDic = {
+        'baseline1Muon1b': 'b jets number = 1',
+        'baseline1Muon2b': 'b jets number = 2',
+        'baseline1Muon3b': '2 < b jets number < 8',
+    }
+    canTitle = regionTitleDic[regionDe] 
         
-    plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png')
+    plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle)
     
     return dataEff1b
     
-def plot2D(hist2D, plotName):
+def plot2D(hist2D, plotName, canTitle):
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-    ROOT.gStyle.SetOptTitle(0)
+    # ROOT.gStyle.SetOptTitle(0) #draw hist title
     ROOT.gStyle.SetPaintTextFormat(".2f")
     ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     ROOT.gStyle.SetTitleSize(0.07, "Y")
@@ -82,13 +89,20 @@ def plot2D(hist2D, plotName):
     hist2D.GetYaxis().SetTitle(ytitle)
     hist2D.GetYaxis().SetTitleSize(0.05)
     hist2D.GetXaxis().SetTitleSize(0.05)
+    # hist2D.GetYaxis().SetRangeUser(0.8 , 1.2)
+    hist2D.SetMinimum(0.8)
+    hist2D.SetMaximum(1.2)
     hist2D.LabelsOption("v") 
     # hist2D.SetMarkerSize(0.01)
     hist2D.Draw("colzetext")
+    hist2D.SetTitle(canTitle)
      
     can.SetLeftMargin(0.15)
+    can.SetRightMargin(0.15)
     can.SetBottomMargin(0.15) 
-    can.Draw()
+    # can.SetTopMargin(0.2) 
+    # can.SetTitle(canTitle)
+    can.Draw("g")
     can.SaveAs(plotName)
      
     
@@ -113,9 +127,9 @@ def plotEfficiencyHLT(inputDirDic):
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
-    # variableDic = {
-    #     'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-    # }
+    variableDic = {
+        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+    }
     # variableDic = {
     #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
     # }
@@ -127,9 +141,9 @@ def plotEfficiencyHLT(inputDirDic):
     #     'jets_number': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5,12.5])
     # } 
     
-    variableDic = {
-        'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625])
-    }
+    # variableDic = {
+    #     'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625])
+    # }
     
     
      
