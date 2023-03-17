@@ -42,9 +42,9 @@ Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
     return r;
 }
 
-Double_t 2dSFExtrac(Double_t x, Double_t y, TH2D *sfHist)
-{
-}
+// Double_t 2dSFExtrac(Double_t x, Double_t y, TH2D *sfHist)
+// {
+// }
 
 void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
@@ -237,8 +237,6 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
     TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
     btagRHist = (TH1D *)btagRFile->Get("btagR");
-    TFile *triggerSFFile = new TFile(triggerSF_map[m_era], "READ");
-    trggerSFHist = (TH2D *)triggerSFFile->Get("")
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
@@ -259,6 +257,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
+    // Double_t HLTWeight = getHLTWeight(*jets_HT, *jets_6pt, triggerSFHist1b, triggerSFHist2b, triggerSFHist);
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)

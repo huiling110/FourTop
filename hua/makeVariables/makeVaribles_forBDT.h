@@ -60,8 +60,11 @@ public:
     TH2D *MuonIDSF;
     TH2D *muonTrackerSF_hist;
     TH2D *EleIDSF;
-    TH2D *TriggerSF;
-    TH2D *TriggerSFunc;
+    // TH2D *TriggerSF;
+    // TH2D *TriggerSFunc;
+    TH2D *triggerHist1b;
+    TH2D *triggerHist2b;
+    TH2D *triggerHist3b;
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
 

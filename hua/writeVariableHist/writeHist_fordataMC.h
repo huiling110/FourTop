@@ -97,10 +97,14 @@ public:
     // std::vector<TString> m_options;
     TFile *outputFile;
     TH1D *btagRHist;
+    TH2D *triggerSFHist1b;
+    TH2D *triggerSFHist2b;
+    TH2D *triggerSFHist;
 
     //!!!hists need to be scalec in terminate function
     //???make this variables easier to add
-    std::vector<histsForRegions<Int_t>> vectorOfVariableRegions;
+    std::vector<histsForRegions<Int_t>>
+        vectorOfVariableRegions;
     std::vector<histsForRegions<Double_t>> vectorOfVariableRegionsDouble;
     // TH1D* whInitial;
     std::vector<TH1D *> eventCount_hists;

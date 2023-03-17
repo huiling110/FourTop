@@ -83,15 +83,22 @@ std::map<TString, std::array<TString, 2>> topLeptonSF_files = {
 
 // };
 
-TString TRGSF_dir = "../../fabio/UltraLegacy/scale_factors/trigger/";
-std::map<TString, TString> TRGSF_files = {
-    // std::map OF INPUT TRG SCALE FACTOR FILES
-    // {"2016preVFP", TRGSF_dir + "TriggerSF_2D_2016preVFP.root"},
-    // {"2016postVFP", TRGSF_dir + "TriggerSF_2D_2016postVFP.root"},
-    {"2016preVFP", TRGSF_dir + "TriggerSF_2D_UL2016_preVFP.root"},
-    {"2016postVFP", TRGSF_dir + "TriggerSF_2D_UL2016_postVFP.root"},
-    {"2017", TRGSF_dir + "proxy.root"},
-    {"2018", TRGSF_dir + "proxy.rootv"},
+// TString TRGSF_dir = "../../fabio/UltraLegacy/scale_factors/trigger/";
+// std::map<TString, TString> TRGSF_files = {
+//     // std::map OF INPUT TRG SCALE FACTOR FILES
+//     // {"2016preVFP", TRGSF_dir + "TriggerSF_2D_2016preVFP.root"},
+//     // {"2016postVFP", TRGSF_dir + "TriggerSF_2D_2016postVFP.root"},
+//     {"2016preVFP", TRGSF_dir + "TriggerSF_2D_UL2016_preVFP.root"},
+//     {"2016postVFP", TRGSF_dir + "TriggerSF_2D_UL2016_postVFP.root"},
+//     {"2017", TRGSF_dir + "proxy.root"},
+//     {"2018", TRGSF_dir + "proxy.rootv"},
+// };
+
+std::map<TString, TString> triggerSF_map = {
+    {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/results/baseline1Muon1b_triggerSF.root"},
+    {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/results/baseline1Muon1b_triggerSF.root"},
+    {"2017", ""},
+    {"2018", ""},
 };
 
 std::map<TString, std::array<TString, 3>> json_map = {

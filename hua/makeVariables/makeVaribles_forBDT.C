@@ -31,6 +31,7 @@
 
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
+#include "inputFileClass.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
@@ -660,6 +661,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // }
     btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
 
+    // HLT_weight =
+
     if (m_baselineSelection)
     {
         // std::cout << "doing baseline selection\n";
@@ -713,7 +716,6 @@ void makeVaribles_forBDT::Terminate()
 
 void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 {
-#include "inputFileClass.h"
     std::cout << "starting to initialize some input files\n";
     // muon ID
     TFile *input_MuonIDSF = new TFile(MUOSF_files[m_era], "READ");
@@ -764,21 +766,33 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     delete muIDSF_topMVAFile;
 
     // trigger
-    TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");
-    if (!input_TrigSF->IsZombie())
-    {
-        TriggerSF = (TH2D *)input_TrigSF->Get("SF_njetsVsHT_" + map_era[m_era]);
-        TriggerSFunc = (TH2D *)input_TrigSF->Get("SF_njetsVsHTerrors_" + map_era[m_era]);
-        TriggerSF->SetDirectory(nullptr);
-        TriggerSFunc->SetDirectory(nullptr);
-    }
-    else
-    {
-        std::cout << "HTL SF files not found!!! HLTweight will be 1.0\n ";
-    }
+    // TFile *input_TrigSF = new TFile(TString(TRGSF_files[m_era]), "READ");
+    // if (!input_TrigSF->IsZombie())
+    // {
+    //     TriggerSF = (TH2D *)input_TrigSF->Get("SF_njetsVsHT_" + map_era[m_era]);
+    //     TriggerSFunc = (TH2D *)input_TrigSF->Get("SF_njetsVsHTerrors_" + map_era[m_era]);
+    //     TriggerSF->SetDirectory(nullptr);
+    //     TriggerSFunc->SetDirectory(nullptr);
+    // }
+    // else
+    // {
+    //     std::cout << "HTL SF files not found!!! HLTweight will be 1.0\n ";
+    // }
 
-    input_TrigSF->Close();
-    delete input_TrigSF;
+    // input_TrigSF->Close();
+    // delete input_TrigSF;
+    TString trigger1b = triggerSF_map[m_era];
+    TFile *triggerSFFile = new TFile(trigger1b, "READ");
+    triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1Muon1b_SF");
+    TString triggerSFName2b = trigger1b.ReplaceAll("1b", "2b");
+    TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
+    triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1Muon2b_SF");
+    TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b", "3b");
+    TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
+    triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1Muon3b_SF");
+    std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";
+    std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
+    std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
 
     // new SF files from
     // TString tauSF_json = "../../../jsonpog-integration/POG/TAU/2016preVFP_UL/tau.json" ;
