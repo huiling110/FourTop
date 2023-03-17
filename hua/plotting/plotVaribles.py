@@ -39,10 +39,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v4FR_application/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v4FR_application/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
 
     # for 1tau1l
-    # variables = ['jets_number']
+    variables = ['jets_number']
     # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
@@ -54,11 +55,11 @@ def main():
     # regionList = ['1tau1lCR2']
     # variables = ['Met_pt']#??
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
-    # ifFR_sys = False
-    # plotName = 'dataVsMC'
+    ifFR_sys = False
+    plotName = 'dataVsMC'
   
     #1tau0l
     # variables = ['jets_bScore' ]
@@ -66,18 +67,15 @@ def main():
     # variables = ['tausF_1jetPtFRWeight']
     # variables = ['tausF_1pt'] 
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
-    variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
+    # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
+    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    ifFR_sys = True #???problem when turn this on
-    plotName = 'dataVsMC_fakeTauFromData'
+    # ifFR_sys = True #???problem when turn this on
+    # plotName = 'dataVsMC_fakeTauFromData'
 
-    
-    
-    
     
     
     
@@ -111,15 +109,16 @@ def main():
     # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
-    # for (i,ire) in enumerate( regionList):
-    #     if i==0:
-    #         legendOrder.remove('qcd')     
-    #     if '1tau1l' in ire:
-    #         for ivar in variables:
-    #             if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
-    #             sumProcessPerVar[ivar][ire].pop('qcd')
-    #         print('remove qcd for 1tau1l')
-    # print( sumProcessPerVar )
+    for (i,ire) in enumerate( regionList):
+        if i==0:
+            legendOrder.remove('qcd')     
+        if '1tau1l' in ire:
+            for ivar in variables:
+                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
+                sumProcessPerVar[ivar][ire].pop('qcd')
+                sumProcessPerVar[ivar][ire].pop('singleMu')
+            print('remove qcd for 1tau1l')
+    print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
@@ -221,12 +220,15 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     systsDown.Reset()
     dataHist = 0
     hasDataHist = True
-    if not 'data' in nominal.keys():
+    # if not 'data' in nominal.keys():
+    if not 'jetHT' in nominal.keys():
         hasDataHist = False
     for i in nominal.keys():
         # i is i summed MC
-        if i == "data" and hasDataHist:
-            dataHist = nominal["data"]
+        # if i == "data" and hasDataHist:
+        if i == "jetHT" and hasDataHist:
+            # dataHist = nominal["data"]
+            dataHist = nominal["jetHT"]
             dataHist.SetMarkerStyle(20)
             dataHist.SetMarkerSize(1.2)
             dataHist.SetMarkerColor(kBlack)
@@ -369,8 +371,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.SetLineColor(0)
     leggy.SetShadowColor(0)
     leggy.SetFillColor(kWhite)
-    if "data" in nominal.keys():
-        leggy.AddEntry(nominal['data'],"Data","p")
+    # if "data" in nominal.keys():
+    if "jetHT" in nominal.keys():
+        # leggy.AddEntry(nominal['data'],"Data","p")
+        leggy.AddEntry(nominal['jetHT'],"Data","p")
     for entry in legendOrder:
         leggy.AddEntry(nominal[entry],entry,"f")
     leggy.AddEntry(assymErrorPlot,"totalUncer","f")

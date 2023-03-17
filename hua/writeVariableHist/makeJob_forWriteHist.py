@@ -48,7 +48,8 @@ def main():
     # version = 'v6oneBjetToBaseline'
     # version = 'v7HLTRemove2btag'
     # version = 'v8add2DHist'
-    version = 'v1pileupWeight'
+    # version = 'v1pileupWeight'
+    version = 'v2HLTweight'
     
     
     justMC = False
