@@ -123,7 +123,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     // }
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     vectorOfVariableRegions.clear();
@@ -257,7 +257,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
-    // Double_t HLTWeight = getHLTWeight(*jets_HT, *jets_6pt, triggerSFHist1b, triggerSFHist2b, triggerSFHist);
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)
@@ -292,20 +291,20 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     // 1tau0l CR
     Bool_t is1tau0lCR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
     Bool_t is1tau0lVR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
-    Bool_t is1tau0lCR2 = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
-    Bool_t is1tau0lCR3 = *tausT_number == 1 && lepNum == 0 && *jets_number < 7 && *bjetsM_num >= 2;
-    Bool_t is1tau0lCR4 = *tausT_number == 1 && lepNum == 0 && *jets_number == 7 && *bjetsM_num >= 2;
+    Bool_t is1tau0lCRc = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+    Bool_t is1tau0lCRb = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
+    Bool_t is1tau0lCRa = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 0;
     fillHistsVectorMyclass(is1tau0lCR, 1, basicWeight);
     fillHistsVectorMyclass(is1tau0lVR, 2, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR2, 3, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR3, 4, basicWeight);
-    fillHistsVectorMyclass(is1tau0lCR4, 5, basicWeight);
+    fillHistsVectorMyclass(is1tau0lCRc, 3, basicWeight);
+    fillHistsVectorMyclass(is1tau0lCRb, 4, basicWeight);
+    fillHistsVectorMyclass(is1tau0lCRa, 5, basicWeight);
     fillHistsVectorMyclass(baseline, 11, basicWeight);
     fillHistsVector(is1tau0lCR, 1, basicWeight);
     fillHistsVector(is1tau0lVR, 2, basicWeight);
-    fillHistsVector(is1tau0lCR2, 3, basicWeight);
-    fillHistsVector(is1tau0lCR3, 4, basicWeight);
-    fillHistsVector(is1tau0lCR4, 5, basicWeight);
+    fillHistsVector(is1tau0lCRc, 3, basicWeight);
+    fillHistsVector(is1tau0lCRb, 4, basicWeight);
+    fillHistsVector(is1tau0lCRa, 5, basicWeight);
 
     // 1tau1lCR
     // Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 1;

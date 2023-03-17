@@ -159,7 +159,7 @@ public:
     TTreeReaderValue<Double_t> PUweight_down_ = {fReader, "PUweight_down_"};
     // TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
     TTreeReaderValue<Double_t> btagShape_weight = {fReader, "btagShape_weight"};
-    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
+    TTreeReaderValue<Double_t> HLT_weight = {fReader, "HLT_weight"};
     TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
     TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
     TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};
