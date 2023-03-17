@@ -99,7 +99,7 @@ public:
     Double_t PUweight_up_;
     Double_t PUweight_down_;
     Double_t btagEfficiency_weight;
-    Double_t HLTefficiency_weight;
+    // Double_t HLTefficiency_weight;
     Double_t muonIDSF_weight;
     Double_t muonIDSF_weight_up;
     Double_t muonIDSF_weight_down;
@@ -123,6 +123,9 @@ public:
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
     Double_t btagShape_weight = 1.0;
+    Double_t HLT_weight = 1.0;
+    Double_t HLT_weight_up = 1.0;
+    Double_t HLT_weight_down = 1.0;
 
     Double_t MET_pt;
     Double_t MET_phi;

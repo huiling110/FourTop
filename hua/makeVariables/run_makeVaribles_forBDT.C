@@ -18,13 +18,13 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v46addPOGIDL/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpNoJERTES/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v51TESNewLepObjectRemovalCorrected/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTSelection/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTButPreSelection/data/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTSelection/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTButPreSelection/data/",
 
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016F",
-    TString inputDir = "singleMu_2016F",
+    // TString inputDir = "singleMu_2016F",
     // TString inputDir = "ttbar_0l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // const TString eventSelectionBit = "0",
@@ -81,8 +81,8 @@ void run_makeVaribles_forBDT(
     if (istest)
     {
         // chain.Process(selection + "+", option, 100);
-        // chain.Process(selection + "+", option, 1000);
-        chain.Process(selection + "+", option, 10000);
+        chain.Process(selection + "+", option, 1000);
+        // chain.Process(selection + "+", option, 10000);
     }
     else
     {

@@ -153,6 +153,41 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
     return sf;
 }
 
-// Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, )
-// {
-// }
+Double_t get2DSF(Double_t x, Double_t y, TH2D *hist)
+{
+    Double_t sf = 1.0;
+    Int_t xbins = hist->GetXaxis()->GetNbins();
+    Double_t xmin = hist->GetXaxis()->GetBinLowEdge(1);
+    Double_t xmax = hist->GetXaxis()->GetBinUpEdge(xbins);
+    Int_t ybins = hist->GetYaxis()->GetNbins();
+    Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
+    Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
+    if (x >= xmin && x <= xmax && y >= ymin && y < ymax)
+    {
+        Int_t binx = hist->GetXaxis()->FindBin(x);
+        Int_t biny = hist->GetYaxis()->FindBin(y);
+        sf = hist->GetBinContent(binx, biny);
+    }
+    return sf;
+}
+
+Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata)
+{
+    Double_t weight = 1.;
+    if (!isdata)
+    {
+        if (bjets_num == 1)
+        {
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist1b);
+        }
+        else if (bjets_num == 2)
+        {
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist2b);
+        }
+        else if (bjets_num > 2 and bjets_num < 8)
+        {
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist3b);
+        }
+    }
+    return weight;
+}
