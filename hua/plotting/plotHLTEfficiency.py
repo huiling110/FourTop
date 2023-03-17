@@ -58,10 +58,10 @@ def plotSF(inputDirDic):
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
         dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
-        # ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
+        ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
     
-        # plotName = plotDir + ibR + '_triggerSF.png'
-        # plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
+        plotName = plotDir + ibR + '_triggerSF.png'
+        plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -148,12 +148,15 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     ratio = de.Clone()
     ratio.Divide(nu)
     
-    # can = ROOT.TCanvas('SF', 'SF', 1000, 800)
-    # ratio.Draw("colztext")
-    # can.Draw() 
-    # can.SaveAs(plotName)
-    plot2D(ratio, plotName, canTitle)
+    plot2D(ratio, plotName, canTitle, True)
     
+    SFfileName = plotName.replace('.png', '.root')
+    file = ROOT.TFile(SFfileName, 'recreate') 
+    ratio.SetDirectory(file)
+    ratio.Write()
+    file.Write()
+    file.Close()
+    print('trigger SF file here: ', file.GetName())
     
     
     
