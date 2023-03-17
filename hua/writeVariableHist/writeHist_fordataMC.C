@@ -29,6 +29,7 @@
 #include "../src_cpp/usefulFuction.h"
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "writeHist_fordataMC.h"
+#include "SFfileMap.h"
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {
@@ -39,6 +40,10 @@ Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
         r = btagRHist->GetBinContent(binx);
     }
     return r;
+}
+
+Double_t 2dSFExtrac(Double_t x, Double_t y, TH2D *sfHist)
+{
 }
 
 void writeHist_fordataMC::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
@@ -66,8 +71,6 @@ void writeHist_fordataMC::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorI
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
-    // std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-    // chain.Add(inputFile + "outTree_4.root");
     for (UInt_t i = 0; i < regions.size(); i++)
     {
         TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -234,6 +237,8 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
     TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
     btagRHist = (TH1D *)btagRFile->Get("btagR");
+    TFile *triggerSFFile = new TFile(triggerSF_map[m_era], "READ");
+    trggerSFHist = (TH2D *)triggerSFFile->Get("")
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
@@ -247,12 +252,11 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         return kFALSE;
     }
     // HLT
-    // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
-    // if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
+    if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
     // if (*HLT_PFJet450 == 1)
-    // {
-    //     return kFALSE;
-    // }
+    {
+        return kFALSE;
+    }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;

@@ -147,6 +147,8 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     nu.Sumw2()
     ratio = de.Clone()
     ratio.Divide(nu)
+    ratioName = ratio.GetName().split('_')[0]+'_SF'
+    ratio.SetName(ratioName)
     
     plot2D(ratio, plotName, canTitle, True)
     
