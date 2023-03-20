@@ -73,17 +73,22 @@ def main():
 # def plotFROverlay(FRInRegionList,  era, CRnames, ifForBjet=True):
 def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBand=False,):
     print('start to plot overlay..........\n')
-    can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
+    # can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
+    can = ROOT.TCanvas('FR overlay', 'FR_overlay', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
+    # ROOT.gStyle.SetTitleSize(0.07, "X")#not working
+    # ROOT.gStyle.SetTitleSize(0.05, "Y")
     
     FRInRegionList[0].GetYaxis().SetRangeUser(FRInRegionList[0].GetMinimum()*0.6, FRInRegionList[0].GetMaximum()*1.5)
     # FRInRegionList[0].GetYaxis().SetTitle('fake rate')
     FRInRegionList[0].GetYaxis().SetTitle(yTitle)
-    FRInRegionList[0].GetYaxis().SetLabelSize(0.025)
-    FRInRegionList[0].GetYaxis().SetTitleOffset(1.1)
+    FRInRegionList[0].GetYaxis().SetTitleSize(0.05)
+    FRInRegionList[0].GetYaxis().SetLabelSize(0.035)
+    FRInRegionList[0].GetYaxis().SetTitleOffset(1.0)
     # FRInRegionList[0].GetXaxis().SetTitle('pt of tau mother jet')
     FRInRegionList[0].GetXaxis().SetTitle(FRInRegionList[0].GetTitle())
+    FRInRegionList[0].GetXaxis().SetTitleSize(0.05)
     FRInRegionList[0].SetLineColor(ROOT.kOrange)
     FRInRegionList[0].SetMarkerStyle(45)
     FRInRegionList[0].SetMarkerSize(2)
@@ -125,7 +130,8 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     #     'CR':  ['0 b jet', '>8 jets']
     # } 
     
-    legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    # legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.55,0.7,0.9,0.9)
     for (i,iLe) in enumerate(legendList):
         legend.AddEntry(FRInRegionList[i], iLe)
             
@@ -450,7 +456,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
     # axis.SetTitle('fake rate')
-    axis.SetTitle(h_efficiency.GetTitle())
+    # axis.SetTitle(h_efficiency.GetTitle())
+    axis.SetTitle('efficiency')
     axis.SetTitleSize(0.05)
     axis.SetTitleColor(ROOT.kRed)
     # axis.SetRangeUser(0, 0.4)
