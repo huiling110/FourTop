@@ -3,7 +3,7 @@ import ROOT
 
 import usefulFunc as uf
 
-from plotForFakeRate import plotEfficiency 
+from plotForFakeRate import plotEfficiency, plotFROverlay
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
@@ -23,13 +23,13 @@ def main():
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(inputDir)
     
-    # plotEfficiencyHLT(inputDirDic)
+    #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
+    plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    plotSF(inputDirDic)
+    # plotSF(inputDirDic)
     
     
-    #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
    
 def plotSF(inputDirDic):
     # file = ROOT.TFile(inputDir+'tt') 
@@ -194,13 +194,14 @@ def plotEfficiencyHLT(inputDirDic):
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
-    plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-    plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
-
+    # plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'MCTruthEff', plotDir)
+    eff_ttTruth = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+    # plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'MCRefEff', plotDir)
+    eff_ttRef = plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
+    eff_dataRef = plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+    eff_tttt = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+    
+    eff_ttRef.Print()
     
    
    
@@ -248,6 +249,7 @@ def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plo
     plotName = plotDir + list(variableDic.keys())[0] + plotName + '.png'
     era = uf.getEraFromDir(plotDir)
     plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
+    return eff_MCTrueth
 
     
 if __name__=='__main__':
