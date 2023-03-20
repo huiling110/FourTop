@@ -202,6 +202,11 @@ def plotEfficiencyHLT(inputDirDic):
     eff_tttt = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
     
     eff_ttRef.Print()
+    overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+    legendList = ['tt truth eff', 'tt referency eff', 'data referency eff']
+    era = uf.getEraFromDir(plotDir)   
+    overlayName = plotDir + 'HLTefficiencyOverlay.png' 
+    plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
     
    
    
