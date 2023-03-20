@@ -95,7 +95,7 @@ def getSysList(rootFile, variable):
             if '_up' in histName or '_down' in histName:
                 iSys = histName[histName.find(variable)+len(variable)+1:len(histName)]
                 sysList.append(iSys)
-    print('all hists in file: ', histList)
+    # print('all hists in file: ', histList)
     return sysList
 
 

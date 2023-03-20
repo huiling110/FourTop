@@ -8,7 +8,8 @@ import usefulFunc as uf
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGMuLEleV/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGlepL/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGlepL/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v1FR_vetoNewLepL_repeat/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v0FR_newLep/'
 
@@ -19,11 +20,12 @@ def main():
     #check object selection jobs 
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v45newLepBugFixed/'
-    # checkOSJobs(obDir, '2016preVFP')
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v52noHLTButPreSelection/'
+    checkOSJobs(obDir, '2016preVFP')
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v45newLepBugFixed/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpJERAndTES/'
-    checkOSJobs(obDir, '2016postVFP')
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpJERAndTES/'
+    # checkOSJobs(obDir, '2016postVFP')
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v46addPOGIDL/'
@@ -82,7 +84,7 @@ def getProcessFileDic(nanoDir, era, isOB=False):
     print('all subProcess considered: \n', subProList)
     mcDir = nanoDir+'mc/'
     for ipro in subProList:
-        if 'jetHT' in ipro:
+        if 'jetHT' in ipro or 'singleMu' in ipro:
             fileDir['data'][ipro] = []
             fileDir['data'][ipro] = getCheckNanoFile(nanoDir+'data/'+ipro+ '/', isOB)
         else:
@@ -120,18 +122,22 @@ def expandDirDic( dir):
 
         
 def getAllSub(era):
+    #get the all sub processes removing the other year data sub processes
     #era can be 2016 or '2016preVPF'
     dic={
-        '2016postVFP': ['jetHT_2016F',  'jetHT_2016G', 'jetHT_2016H'],
-        '2016preVFP': ['jetHT_2016B_v1', 'jetHT_2016B_v2','jetHT_2016C', 'jetHT_2016D', 'jetHT_2016E', 'jetHT_2016F_hipm'],
+        '2016postVFP': ['jetHT_2016F',  'jetHT_2016G', 'jetHT_2016H', 'singleMu_2016F',  'singleMu_2016G', 'singleMu_2016H'],
+        '2016preVFP': ['jetHT_2016B_v1', 'jetHT_2016B_v2','jetHT_2016C', 'jetHT_2016D', 'jetHT_2016E', 'jetHT_2016F_hipm',
+                       'singleMu_2016B_v1', 'singleMu_2016B_v2','singleMu_2016C', 'singleMu_2016D', 'singleMu_2016E', 'singleMu_2016F_hipm'],
     }
     allSubPros = list(gq.histoGramPerSample.keys())[:] #copy
     allSubProsNew = []
     for isub in allSubPros:
         if era=='2016preVFP' or era=='2016postVFP':
             if 'jetHT' in isub and not ( isub in dic[era] ): continue
+            if 'singleMu' in isub and not ( isub in dic[era] ): continue
         else: 
             if 'jetHT' in isub and (not era in isub): continue
+            if 'singleMu' in isub and (not era in isub): continue
         allSubProsNew.append(isub)    
         # print('remove data: ', isub)
     return allSubProsNew

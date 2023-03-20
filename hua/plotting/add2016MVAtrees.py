@@ -14,16 +14,6 @@ def copyData( dir ):
         output = process.stdout
         print( output )
 
-# version = 'v0baseline_v16_HLTselection/'
-# version = 'v0noBaseline_v29LorentzProblemSolvedNoJERnoTES/'
-# version = 'v1baseline_v29LorentzProblemSolvedNoJERnoTES/'
-# version = 'v1baseline_v36TESandJERByHuiling/'
-# version = 'v1baseline_v38TESandJERTauPt20_preselection/'
-# version = 'v2baselineAddingTauProng_v38TESandJERTauPt20_preselection/'
-# version = 'v0addMoreVariables_v39addTauBranches/'
-# version = 'v1fixedTauVariables_v39addTauBranches/'
-# version = 'v1fixedTauVariables_v40addTauJetEtau/'
-# version = 'v3extra1tau1lCut_v41addVertexSelection/'
 # version = 'v4baseline_v41addVertexSelection/'
 # version = 'v5baselineExtraTauLepCut_v41addVertexSelection/'
 # version = 'v4baseline_v42fixedChargeType/'
@@ -37,7 +27,8 @@ def copyData( dir ):
 # version = 'v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
 # version = 'v0baseline_v51TESNewLepObjectRemovalCorrected/'
 # version = 'v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/'
-version = 'v4baseline_v52noHLTButPreSelection/'
+# version = 'v4baseline_v52noHLTButPreSelection/'
+version = 'v4baseline_re_v52noHLTButPreSelection/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
