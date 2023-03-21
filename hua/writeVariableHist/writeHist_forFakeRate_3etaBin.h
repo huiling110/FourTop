@@ -37,8 +37,8 @@ public:
     TString m_era;
     // TString m_version = "v1moreVariables";
     TString m_version;
-    // Bool_t m_ifMeasurement = kTRUE;
-    Bool_t m_ifMeasurement = kFALSE;
+    Bool_t m_ifMeasurement = kTRUE;
+    // Bool_t m_ifMeasurement = kFALSE;
     TFile *outputFile;
     //!!!hists need to be scalec in terminate function
     //???make this variables easier to add
@@ -80,7 +80,7 @@ public:
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
 
     TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
-    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
+    TTreeReaderValue<Double_t> HLT_weight = {fReader, "HLT_weight"};
     TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
     TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
     TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};

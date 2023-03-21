@@ -129,6 +129,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     std::cout << "m_verion: " << m_version << "\n";
     m_era = optionVect[5];
     std::cout << "m_era: " << m_era << "\n";
+    std::cout << "m_ifMeasurement: " << m_ifMeasurement << "\n";
 
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
@@ -378,8 +379,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     // for prong division
     if (m_ifMeasurement)
     {
-        // if (!(*tausF_prongNum == 1))
-        if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        if (!(*tausF_prongNum == 1))
+        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
         {
             return kFALSE;
         }
@@ -395,7 +396,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
-        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
     }
 
     Double_t FRWeight_up, FRWeight_down;

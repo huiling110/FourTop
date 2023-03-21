@@ -90,6 +90,7 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     FRInRegionList[0].GetXaxis().SetTitle(FRInRegionList[0].GetTitle())
     FRInRegionList[0].GetXaxis().SetTitleSize(0.05)
     FRInRegionList[0].SetLineColor(ROOT.kOrange)
+    FRInRegionList[0].SetLineWidth(3)
     FRInRegionList[0].SetMarkerStyle(45)
     FRInRegionList[0].SetMarkerSize(2)
     FRInRegionList[0].SetMarkerColor(ROOT.kOrange)
@@ -97,6 +98,7 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     print(FRInRegionList[0].GetName())
     
     FRInRegionList[1].SetLineColor(ROOT.kRed)
+    FRInRegionList[1].SetLineWidth(3)
     FRInRegionList[1].SetMarkerStyle(94)
     FRInRegionList[1].SetMarkerSize(2)
     FRInRegionList[1].SetMarkerColor(ROOT.kRed )
@@ -105,6 +107,7 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     # if len(CRnames)>2:
     if len(FRInRegionList)>2:
         FRInRegionList[2].SetLineColor(ROOT.kMagenta)
+        FRInRegionList[2].SetLineWidth(3)
         FRInRegionList[2].SetMarkerStyle(22)
         FRInRegionList[2].SetMarkerSize(2)
         FRInRegionList[2].SetMarkerColor(ROOT.kMagenta )
