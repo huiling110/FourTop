@@ -47,7 +47,8 @@ def plotSF(inputDirDic):
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
   
-    bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    # bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    bRegions = ['baseline1Muon1b']
     regionTitleDic = {
         'baseline1Muon1b': 'b jets number = 1',
         'baseline1Muon2b': 'b jets number = 2',
@@ -101,11 +102,12 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     # ROOT.gStyle.SetPalette(ROOT.kGreenRedViolet)
     # ROOT.gStyle.SetPalette(ROOT.kCandy)
     # ROOT.gStyle.SetPalette(ROOT.kFruitPunch)
+    ROOT.gStyle.SetPalette(ROOT.kSolar)
     # ROOT.gStyle.SetPalette(53)
     # ROOT.gStyle.SetPalette(55)
     # ROOT.gStyle.SetPalette(56)
     # ROOT.gStyle.SetPalette(57) #default
-    ROOT.gStyle.SetPalette(58) #default
+    # ROOT.gStyle.SetPalette(63)
     
 
     
