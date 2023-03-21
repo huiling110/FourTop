@@ -783,13 +783,13 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     // delete input_TrigSF;
     TString trigger1b = triggerSF_map[m_era];
     TFile *triggerSFFile = new TFile(trigger1b, "READ");
-    triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1Muon1b_SF");
+    triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1MuonAndHLT1b_SF");
     TString triggerSFName2b = trigger1b.ReplaceAll("1b", "2b");
     TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
-    triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1Muon2b_SF");
+    triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1MuonAndHLT2b_SF");
     TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b", "3b");
     TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
-    triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1Muon3b_SF");
+    triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1MuonAndHLT3b_SF");
     std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";
     std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
     std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
