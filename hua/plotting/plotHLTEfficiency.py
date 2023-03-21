@@ -47,8 +47,8 @@ def plotSF(inputDirDic):
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
   
-    # bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
-    bRegions = ['baseline1Muon1b']
+    bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    # bRegions = ['baseline1Muon1b']
     regionTitleDic = {
         'baseline1Muon1b': 'b jets number = 1',
         'baseline1Muon2b': 'b jets number = 2',
@@ -59,13 +59,11 @@ def plotSF(inputDirDic):
         bRegions_nu = ibR.replace('1Muon', '1MuonAndHLT')
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
-        # dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
-        # ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
         dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle) 
         ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
-        # plotName = plotDir + ibR + '_triggerSF.png'
-        # plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
+        plotName = plotDir + ibR + '_triggerSF.png'
+        plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -144,8 +142,8 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     histToDraw.GetXaxis().SetTickLength(0.02)
     # histToDraw.GetXaxis().SetLabelAngle(45)
     # histToDraw.GetXaxis().SetLabelSize(0.02)
-    histToDraw.SetMinimum(0.9)
-    histToDraw.SetMaximum(1.1)
+    histToDraw.SetMinimum(0.65)
+    histToDraw.SetMaximum(1.35)
     histToDraw.LabelsOption("v") 
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
