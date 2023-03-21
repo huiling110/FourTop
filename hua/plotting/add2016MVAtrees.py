@@ -28,7 +28,8 @@ def copyData( dir ):
 # version = 'v0baseline_v51TESNewLepObjectRemovalCorrected/'
 # version = 'v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/'
 # version = 'v4baseline_v52noHLTButPreSelection/'
-version = 'v4baseline_re_v52noHLTButPreSelection/'
+# version = 'v4baseline_re_v52noHLTButPreSelection/'
+version = 'v5updateHLTSF_v52noHLTButPreSelection/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
