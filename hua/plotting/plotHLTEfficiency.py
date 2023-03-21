@@ -98,14 +98,13 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     # ROOT.gStyle.SetPalette(ROOT.kCherry)
     # ROOT.gStyle.SetPalette(ROOT.kSunset)
     # ROOT.gStyle.SetPalette(ROOT.kGreenRedViolet)
-    # ROOT.gStyle.SetPalette(ROOT.kCandy)
-    # ROOT.gStyle.SetPalette(ROOT.kFruitPunch)
-    ROOT.gStyle.SetPalette(ROOT.kSolar)
+    # ROOT.gStyle.SetPalette(ROOT.kSolar)
     # ROOT.gStyle.SetPalette(53)
     # ROOT.gStyle.SetPalette(55)
     # ROOT.gStyle.SetPalette(56)
     # ROOT.gStyle.SetPalette(57) #default
-    # ROOT.gStyle.SetPalette(63)
+    # ROOT.gStyle.SetPalette(69)
+    ROOT.gStyle.SetPalette(70)
     
 
     
@@ -115,7 +114,8 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
         for x in range(1, hist2D.GetNbinsX()+1):
             hist2D.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
         for y in range(1, hist2D.GetNbinsY()+1):
-            hist2D.GetYaxis().SetBinLabel(y, str(xbin_edges[y-1]) + '-'+ str(xbin_edges[y])  )
+            # hist2D.GetYaxis().SetBinLabel(y, str(xbin_edges[y-1]) + '-'+ str(xbin_edges[y])  )
+            hist2D.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
         hist2D_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
         for x in range(1, hist2D_even.GetNbinsX()+1):
             hist2D_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 

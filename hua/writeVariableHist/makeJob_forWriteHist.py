@@ -24,9 +24,7 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/'
 
     # version = 'v4FR_application'
-    # version = 'v5FR_measure3EtaBins'
-    # version = 'v0FR_measure3EtaBins_1prong'
-    # version = 'v5FR_measure3EtaBins_3prong'
+    version = 'v0FR_measure3EtaBins_1prong' # version = 'v5FR_measure3EtaBins_3prong'
     # version = 'v5FR_application'
     # version = 'v5FR_application_barrel'
     # version = 'v5FR_application_endcap'
@@ -51,7 +49,7 @@ def main():
     
     #1tau1l
     # version = 'v1pileupWeight'
-    version = 'v2HLTweight'
+    # version = 'v2HLTweight'
     
     
     justMC = False

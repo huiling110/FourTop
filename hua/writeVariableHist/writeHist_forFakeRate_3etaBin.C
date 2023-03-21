@@ -334,6 +334,21 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
         "1tau0lCRbGen_Eta1", // 42
         "1tau0lCRbGen_Eta2",
 
+        // for measuring FR in VR
+        "1tau0lVRLTau_Eta1", // 44
+        "1tau0lVRLTau_Eta2",
+        "1tau0lVRLTau_Eta3", // 46
+        "1tau0lVRLTauGen_Eta1",
+        "1tau0lVRLTauGen_Eta2", // 48
+        "1tau0lVRLTauGen_Eta3",
+
+        "1tau0lVR_Eta1", // 50
+        "1tau0lVR_Eta2",
+        "1tau0lVR_Eta3", // 52
+        "1tau0lVRGen_Eta1",
+        "1tau0lVRGen_Eta2", // 54
+        "1tau0lVRGen_Eta3",
+
     };
     tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
 
@@ -359,7 +374,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
 {
     fReader.SetLocalEntry(entry);
     // baseline selection
-    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    // Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    Bool_t baseline = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0 && *bjetsM_num >= 1;
     if (!baseline)
     {
         return kFALSE;
@@ -455,6 +471,7 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
         Bool_t is1tau0lCRLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
         Bool_t is1tau0lVRGen = *tausT_number == 1 && *tausT_genTauNum == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
         Bool_t is1tau0lVRLTauGen = isTauLNum && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+
         Bool_t is1tau0lVRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
         Bool_t is1tau0lCRLTauNotTGen = isTauLNum && *tausT_number == 0 && isTauLNumGen && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
         // SR
@@ -569,6 +586,13 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
         tausL_1pt_eta_class.fillHistVec(39, basicWeight, is1tau0lCRbLTauGen && isEta2);
         tausL_1pt_eta_class.fillHistVec(42, basicWeight, is1tau0lCRbGen && isEta1);
         tausL_1pt_eta_class.fillHistVec(43, basicWeight, is1tau0lCRbGen && isEta2);
+        // VR for measure
+        tausL_1pt_eta_class.fillHistVec(47, basicWeight, is1tau0lVRLTauGen && isEta1);
+        tausL_1pt_eta_class.fillHistVec(48, basicWeight, is1tau0lVRLTauGen && isEta2);
+        tausL_1pt_eta_class.fillHistVec(49, basicWeight, is1tau0lVRLTauGen && isEta3);
+        tausL_1pt_eta_class.fillHistVec(53, basicWeight, is1tau0lVRGen && isEta1);
+        tausL_1pt_eta_class.fillHistVec(54, basicWeight, is1tau0lVRGen && isEta2);
+        tausL_1pt_eta_class.fillHistVec(55, basicWeight, is1tau0lVRGen && isEta3);
     }
     else
     {
@@ -652,6 +676,13 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
         tausL_1pt_eta_class.fillHistVec(37, basicWeight, is1tau0lCRbLTau && isEta2);
         tausL_1pt_eta_class.fillHistVec(40, basicWeight, is1tau0lCRb && isEta1);
         tausL_1pt_eta_class.fillHistVec(41, basicWeight, is1tau0lCRb && isEta2);
+        // VR
+        tausL_1pt_eta_class.fillHistVec(44, basicWeight, is1tau0lVRLTau && isEta1);
+        tausL_1pt_eta_class.fillHistVec(45, basicWeight, is1tau0lVRLTau && isEta2);
+        tausL_1pt_eta_class.fillHistVec(46, basicWeight, is1tau0lVRLTau && isEta3);
+        tausL_1pt_eta_class.fillHistVec(50, basicWeight, is1tau0lVR && isEta1);
+        tausL_1pt_eta_class.fillHistVec(51, basicWeight, is1tau0lVR && isEta2);
+        tausL_1pt_eta_class.fillHistVec(52, basicWeight, is1tau0lVR && isEta3);
     }
 
     return kTRUE;

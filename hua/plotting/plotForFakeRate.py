@@ -21,7 +21,6 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/'
     
    
-    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  300.0] )
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     variableDic = {
         # 'tausL_1pt': ptBins,
@@ -64,7 +63,7 @@ def main():
    
     #measure FR in CR
     FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era )
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
     
     #application in AR

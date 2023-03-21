@@ -322,6 +322,7 @@ void writeHist_forFakeRate::SlaveBegin(TTree * /*tree*/)
         "1tau0lCRb_Eta2",
         "1tau0lCRbGen_Eta1", // 38
         "1tau0lCRbGen_Eta2",
+        // for measure FR in VR
 
     };
     tausL_1pt_eta_class.initializeRegions(regionsEtaDivided, m_processName);
