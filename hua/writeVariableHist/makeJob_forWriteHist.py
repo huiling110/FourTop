@@ -22,11 +22,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/'
 
-    # version = 'v0FR_measure'
-    # version = 'v0FR_measure_3prong'
     # version = 'v4FR_application'
     # version = 'v5FR_measure3EtaBins'
-    # version = 'v5FR_measure3EtaBins_1prong'
+    version = 'v0FR_measure3EtaBins_1prong'
     # version = 'v5FR_measure3EtaBins_3prong'
     # version = 'v5FR_application'
     # version = 'v5FR_application_barrel'
@@ -49,7 +47,9 @@ def main():
     # version = 'v6oneBjetToBaseline'
     # version = 'v7HLTRemove2btag'
     # version = 'v8add2DHist'
-    version = 'v1pileupWeight'
+    
+    #1tau1l
+    # version = 'v1pileupWeight'
     # version = 'v2HLTweight'
     
     

@@ -1,4 +1,5 @@
 import numpy as np
+import array
 import ROOT
 
 import usefulFunc as uf
@@ -24,10 +25,10 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    plotEfficiencyHLT(inputDirDic)
+    # plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    # plotSF(inputDirDic)
+    plotSF(inputDirDic)
     
     
    
@@ -57,11 +58,13 @@ def plotSF(inputDirDic):
         bRegions_nu = ibR.replace('1Muon', '1MuonAndHLT')
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
-        dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
-        ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
+        # dataEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'singleMu', plotDir, canTitle) 
+        # ttEff1b = getEffHist(sumProcessPerVar, ibR, bRegions_nu, 'tt', plotDir, canTitle) 
+        dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle) 
+        ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
-        plotName = plotDir + ibR + '_triggerSF.png'
-        plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
+        # plotName = plotDir + ibR + '_triggerSF.png'
+        # plotSFSingle( ttEff1b, dataEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -88,6 +91,23 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     ROOT.gStyle.SetPaintTextFormat(".2f")
     ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     ROOT.gStyle.SetTitleSize(0.07, "Y")
+    # levels = [i*1 for i in range(30, 39)]
+    # print('colors: ', levels)
+    # print(int(ROOT.kRed)) 
+    # palette = array.array('i', levels)
+    # ROOT.gStyle.SetPalette(len(levels), palette)
+    # ROOT.gStyle.SetPalette(ROOT.kCherry)
+    # ROOT.gStyle.SetPalette(ROOT.kSunset)
+    # ROOT.gStyle.SetPalette(ROOT.kGreenRedViolet)
+    # ROOT.gStyle.SetPalette(ROOT.kCandy)
+    # ROOT.gStyle.SetPalette(ROOT.kFruitPunch)
+    # ROOT.gStyle.SetPalette(53)
+    # ROOT.gStyle.SetPalette(55)
+    # ROOT.gStyle.SetPalette(56)
+    # ROOT.gStyle.SetPalette(57) #default
+    ROOT.gStyle.SetPalette(58) #default
+    
+
     
     if ifPlotEven:
         xbin_edges = hist2D.GetXaxis().GetXbins() 
@@ -127,6 +147,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     histToDraw.LabelsOption("v") 
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
+    # histToDraw.SetContour(10)
     
     
      
