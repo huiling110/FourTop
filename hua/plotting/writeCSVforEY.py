@@ -276,11 +276,12 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
 
 def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:
-        h_data = sumProcessIVar[region]['data']
+        # h_data = sumProcessIVar[region]['data']
+        h_data = sumProcessIVar[region]['jetHT']
     else:
-       h_data = addBGHist(sumProcessIVar, var, region, True) 
+       h_data = uf.addBGHist(sumProcessIVar, var, region, True) 
     h_data.Sumw2()
-    h_bgGen = addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
+    h_bgGen = uf.addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
 
