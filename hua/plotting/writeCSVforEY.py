@@ -271,8 +271,8 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
             sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIvar, regionList[5], regionList[7] ) 
         
     #fake tau come from data
-    # print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
-    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['jetHT'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
+    if  not 'SR' in regionList[0]:
+        print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['jetHT'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
 
 def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:

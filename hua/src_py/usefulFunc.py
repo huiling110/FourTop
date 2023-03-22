@@ -133,7 +133,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             sysList=[]
         
         for iRegion in regionsList:
-            if 'SR' in iRegion and isdata: continue
+            # if 'SR' in iRegion and isdata: continue
+            if (iRegion=='1tau1lSR' or iRegion=='1tau0lSR') and isdata: continue
             iHistName = iRegion + '_' + ifileName + '_' + variable
             # for (index,isys) in enumerate(sysList):
             #     sysList[index] = iHistName +'_'+ isys

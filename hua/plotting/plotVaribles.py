@@ -56,17 +56,17 @@ def main():
     # plotName = 'dataVsMC'
   
     #1tau0l
-    # variables = ['jets_bScore' ]
+    variables = ['jets_bScore' ]
     # variables = ['bjetsM_num']
     # variables = ['tausF_1jetPtFRWeight']
     # variables = ['tausF_1pt'] 
-    variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
+    # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     ifFR_sys = True #???problem when turn this on
     plotName = 'dataVsMC_fakeTauFromData'
 
@@ -88,9 +88,9 @@ def main():
     print('\n')
 
     #remove 'singleMu'
-    for (i,ire) in enumerate( regionList):
-        for ivar in variables:
-            sumProcessPerVar[ivar][ire].pop('singleMu')
+    # for (i,ire) in enumerate( regionList):
+    #     for ivar in variables:
+    #         sumProcessPerVar[ivar][ire].pop('singleMu')
 
 
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
@@ -125,9 +125,9 @@ def main():
             for iRegion in regionList:       
                 makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
         else:
-            print(regionList)
-            sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,100)
+            # print(regionList)
+            # sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
  
  
  
