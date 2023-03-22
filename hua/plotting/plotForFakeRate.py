@@ -19,7 +19,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/'
     
    
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
@@ -43,9 +44,18 @@ def main():
     plotDir = inputDirDic['mc'] + 'results/'
     era = uf.getEraFromDir(inputDir)
         
-    
     # isVR = True
     isVR = False
+    
+    #measure FR in CR
+    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
+    
+    #application in AR
+    #plotVariable.py for this
+    # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
+    
+    
     # FR_EtaListDic = {}
     # FR_EtaListDic['1Eta'] = []
     # FR_EtaListDic['2Eta'] = []
@@ -62,14 +72,8 @@ def main():
     # for iEta in ['1Eta', '2Eta', '3Eta']:
     #     plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
    
-    #measure FR in CR
-    # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era )
-    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
-    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
     
-    #application in AR
-    # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
             
 # def plotFROverlay(FRInRegionList,  era, CRnames, ifForBjet=True):
 def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBand=False,):
@@ -367,7 +371,7 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+'_'+regionList[1]+ '_FR_sumGenBg_better.png'
         else:
             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
-        plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era )
+        plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era , True, 'fake rate')
    
     # h_fakeRateCR.Print() 
     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
@@ -410,7 +414,7 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 
-def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True):
+def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
     # setTDRStyle()#???not sure why no content line
     # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
     can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
@@ -450,7 +454,6 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     # h_efficiency.SetMarkerStyle(3)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
-    # h_efficiency.GetXaxis().SetTitle('tau mother jet pt')
     h_efficiency.Draw("same")
     
     #print
@@ -462,8 +465,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     axis.SetLineColor(ROOT.kRed)
     axis.SetLabelColor(ROOT.kRed)
     # axis.SetTitle('fake rate')
-    # axis.SetTitle(h_efficiency.GetTitle())
-    axis.SetTitle('efficiency')
+    # axis.SetTitle('efficiency')
+    axis.SetTitle(rightTitle)
     axis.SetTitleSize(0.05)
     axis.SetTitleColor(ROOT.kRed)
     # axis.SetRangeUser(0, 0.4)

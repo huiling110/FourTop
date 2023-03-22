@@ -234,7 +234,8 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=2, ifFR_syst=False, sumProcessIvarSys={}):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
-        if ipro=='data': continue
+        # if ipro=='data': continue
+        if ipro=='jetHT': continue
         sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
         
     if  ifGetFromMC==0:
@@ -243,7 +244,8 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
         sumProcessIvar[regionList[0]]['fakeTau'].Sumw2()
     #adding 'fakeTau' process from CRNotGen
         for ipro in sumProcessIvar[regionList[2]].keys():
-            if ipro=='data' or ipro=='tttt': continue
+            # if ipro=='data' or ipro=='tttt': continue
+            if ipro=='jetHT' or ipro=='tttt': continue
             sumProcessIvar[regionList[0]]['fakeTau'].Add( sumProcessIvar[regionList[2]][ipro] ) #2 is gone 
     #scale to fake rate prediction
         sumProcessIvar[regionList[0]]['fakeTau'].Scale( fakeTauYiled[regionList[0]]/ sumProcessIvar[regionList[0]]['fakeTau'].Integral())
@@ -262,7 +264,6 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
     if ifGetFromMC==2:
          #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
         sumProcessIvar[regionList[0]]['fakeTau'] = histDateMinusGenBG( var, sumProcessIvar, regionList[2], regionList[3]) 
-        # sumProcessIvar[regionList[0]]['fakeTau'] = sumProcessIvar[regionList[3]]['data']
         #FR sytematic
         if ifFR_syst:
             sumProcessIvarSys[regionList[0]]['fakeTau']={}
@@ -270,9 +271,8 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
             sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = histDateMinusGenBG( var, sumProcessIvar, regionList[5], regionList[7] ) 
         
     #fake tau come from data
-    # for ibin in range(sumProcessIvar[regionList[0]]['fakeTau'].GetNbinsX()):
-    #     sumProcessIvar[regionList[0]]['fakeTau'].SetBinError(ibin+1, 0)
-    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
+    # print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['data'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
+    print('checking data={}, fakeTau={} '.format(sumProcessIvar[regionList[0]]['jetHT'].Integral(), sumProcessIvar[regionList[0]]['fakeTau'].Integral()))
 
 def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:

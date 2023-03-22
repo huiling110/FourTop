@@ -356,7 +356,8 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     std::map<TString, std::array<TString, 2>> FRfileMap = {
         // {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
         // {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
-        {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        // {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
         {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
@@ -395,19 +396,12 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     // for prong division
     if (m_ifMeasurement)
     {
-        if (!(*tausF_prongNum == 1))
-        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        // if (!(*tausF_prongNum == 1))
+        if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
         {
             return kFALSE;
         }
     }
-
-    // temperay divison in endcap and barrel region
-    // if (!(0 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 1.5))
-    // if (!(1.5 < *tausF_1jetEtaAbs && *tausF_1jetEtaAbs <= 2.3))
-    // {
-    //     return kFALSE;
-    // }
 
     Double_t basicWeight = 1.0;
     if (!m_isData)

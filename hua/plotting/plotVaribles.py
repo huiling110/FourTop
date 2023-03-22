@@ -27,15 +27,6 @@ colourPerSample = {
     'fakeTau': kOrange,
 }
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v3_pileupCR0Changed_v2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v49FixedPileUpOnlyJER/mc/variableHists_v3_pileupCR0Changed_v2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3addjetBtagVar_v50switchRawPtJERNoTES/mc/variableHists_v3_pileupCR0Changed_v2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/variableHists_v0_BDTWithSystematics/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v7_btagCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_newLep_noCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_BDT1tau1lCRs/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_BDT1tau1lCRs/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
@@ -45,7 +36,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_application/'
 
     # for 1tau1l
     # variables = ['jets_number']
@@ -53,30 +45,30 @@ def main():
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag', 'jets_rationHT_4toRest']
-    variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
+    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
-    ifFR_sys = False
-    plotName = 'dataVsMC'
+    # ifFR_sys = False
+    # plotName = 'dataVsMC'
   
     #1tau0l
     # variables = ['jets_bScore' ]
     # variables = ['bjetsM_num']
     # variables = ['tausF_1jetPtFRWeight']
     # variables = ['tausF_1pt'] 
-    # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
+    variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs']  
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
+    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted']
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    # ifFR_sys = True #???problem when turn this on
-    # plotName = 'dataVsMC_fakeTauFromData'
+    ifFR_sys = True #???problem when turn this on
+    plotName = 'dataVsMC_fakeTauFromData'
 
     
     
@@ -95,6 +87,11 @@ def main():
     print( sumProcessPerVarSys )
     print('\n')
 
+    #remove 'singleMu'
+    for (i,ire) in enumerate( regionList):
+        for ivar in variables:
+            sumProcessPerVar[ivar][ire].pop('singleMu')
+
 
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
     
@@ -112,13 +109,12 @@ def main():
     
     # remove qcd for 1tau1l 
     for (i,ire) in enumerate( regionList):
-        if i==0:
-            legendOrder.remove('qcd')     
-        if '1tau1l' in ire:
-            for ivar in variables:
+        for ivar in variables:
+            if '1tau1l' in ire:
+                if i==0:
+                    legendOrder.remove('qcd')     
                 if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
                 sumProcessPerVar[ivar][ire].pop('qcd')
-                sumProcessPerVar[ivar][ire].pop('singleMu')
             print('remove qcd for 1tau1l')
     print( sumProcessPerVar )
 
@@ -129,7 +125,9 @@ def main():
             for iRegion in regionList:       
                 makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
         else:
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
+            print(regionList)
+            sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
+            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,100)
  
  
  
@@ -222,14 +220,11 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     systsDown.Reset()
     dataHist = 0
     hasDataHist = True
-    # if not 'data' in nominal.keys():
     if not 'jetHT' in nominal.keys():
         hasDataHist = False
     for i in nominal.keys():
         # i is i summed MC
-        # if i == "data" and hasDataHist:
         if i == "jetHT" and hasDataHist:
-            # dataHist = nominal["data"]
             dataHist = nominal["jetHT"]
             dataHist.SetMarkerStyle(20)
             dataHist.SetMarkerSize(1.2)
@@ -237,6 +232,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
             dataHist.SetLineColor(kBlack)
             continue
         if ifFakeTau and i=='qcd': 
+            continue
+        if i == 'tttt' or i=='singleMu':
             continue
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
