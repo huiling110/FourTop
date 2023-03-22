@@ -45,7 +45,7 @@ public:
     std::vector<histsForRegions<Double_t>> vectorOfVariblesRegions_FRweighted;
     std::vector<histsForRegions<Int_t>> vectorOfVariblesRegions_FRweightedInt;
     // histsForRegions<Double_t> tausL_1pt_eta_class{"tausL_1pt", 20, 20, 220, tausL_1pt};
-    histsForRegions<Double_t> tausL_1pt_eta_class{"tausF_1jetPt", "leading jet pt of tau mother jet", 28, 20, 300, tausF_1jetPt};
+    histsForRegions<Double_t> tausL_1pt_eta_class{"tausF_1jetPt", "tau mother jet pt", 28, 20, 300, tausF_1jetPt};
 
     // TH1D* whInitial;
     std::vector<TH1D *> eventCount_hists;
