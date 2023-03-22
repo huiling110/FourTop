@@ -126,8 +126,11 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             iRootFile = ROOT.TFile( inputDir['mc']+ifile, 'READ' ) 
         print('openning file: ', iRootFile.GetName() )
         
-        sysList = getSysList(iRootFile, variable)  
-        print('systematic in file: ', sysList)
+        if ifGetSys: 
+            sysList = getSysList(iRootFile, variable)  
+            print('systematic in file: ', sysList)
+        else:
+            sysList=[]
         
         for iRegion in regionsList:
             if 'SR' in iRegion and isdata: continue
