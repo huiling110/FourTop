@@ -336,6 +336,7 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=T
     
     
 def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
+    print('starting to plot FR for ieta', )
     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[1], regionList[0], isDataMC)
     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[3], regionList[2], isDataMC)
 
@@ -371,8 +372,7 @@ def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaReg
     
     
 def getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR,  ifPlot=True, era='2016', FRMeasureRegion='CR'):
-    # etaList = ['_Eta1', '_Eta2', '_Eta3']
-    # etaList = ['_Eta1', '_Eta2']
+    # etaBins = np.array([0, 0.8, 1.5, 2.3])
     etaList = []
     for i in range(1, len(etaBins)):
         etaList.append('_Eta'+str(i))

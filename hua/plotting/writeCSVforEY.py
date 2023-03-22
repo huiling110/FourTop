@@ -279,9 +279,10 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
         # h_data = sumProcessIVar[region]['data']
         h_data = sumProcessIVar[region]['jetHT']
     else:
-       h_data = uf.addBGHist(sumProcessIVar, var, region, True) 
+    #    h_data = uf.addBGHist(sumProcessIVar, var, region, True) 
+       h_data = uf.addBGHist(sumProcessIVar, region, True) 
     h_data.Sumw2()
-    h_bgGen = uf.addBGHist(sumProcessIVar, var, genRegion) #???no requiring gen here???
+    h_bgGen = uf.addBGHist(sumProcessIVar,  genRegion) #???no requiring gen here???
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
 
