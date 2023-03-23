@@ -141,6 +141,11 @@ public:
     Int_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     Int_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
     Int_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    // 2017
+    Int_t HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
+    // data
+    Int_t HLT_PFHT430_SixJet40_BTagCSV_p080_;
+    Int_t HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
 
     std::vector<ROOT::Math::PtEtaPhiMVector> muonsL;
     std::vector<Int_t> muonsL_index;

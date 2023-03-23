@@ -549,6 +549,11 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_/I");
     newTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_/I");
     newTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
+    // 2017
+    newTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_/I");
+    newTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_/I");
+    newTree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080_", &HLT_PFHT430_SixJet40_BTagCSV_p080_, "HLT_PFHT430_SixJet40_BTagCSV_p080_/I");
+    newTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_/I");
 }
 
 void objectTSelectorForNanoAOD::SelectMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, const Int_t type)
@@ -1167,6 +1172,12 @@ void objectTSelectorForNanoAOD::copyHLT_new()
             HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
             HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
         }
+        else if (m_era.CompareTo("2017") == 0)
+        {
+            HLT_PFJet500_ = *HLT_PFJet500;
+            HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
+            HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
+        }
     }
     else
     { // data
@@ -1190,6 +1201,21 @@ void objectTSelectorForNanoAOD::copyHLT_new()
             {
                 HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
                 HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
+            }
+        }
+        else if (*run >= 297050 && *run <= 306460)
+        {
+            // 2017 data
+            HLT_PFJet500_ = *HLT_PFJet500;
+            if (*run < 299329)
+            {
+                HLT_PFHT430_SixJet40_BTagCSV_p080_ = *HLT_PFHT430_SixJet40_BTagCSV_p080;
+                HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+            }
+            else
+            {
+                HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
+                HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
             }
         }
     }
@@ -1451,6 +1477,11 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = -99;
     HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = -99;
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = -99;
+    // 2017
+    HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = -99;
+    // data
+    HLT_PFHT430_SixJet40_BTagCSV_p080_ = -99;
+    HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = -99;
 }
 
 void objectTSelectorForNanoAOD::setupInputFile()
