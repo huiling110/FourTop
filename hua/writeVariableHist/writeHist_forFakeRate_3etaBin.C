@@ -231,7 +231,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     // systematic regions
     // how the pileup weighting impact?, only impact MC, don't concern fake tau
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT(GeV)", 30, 500, 1500, jets_HT};
-    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 20, 0, 4.5, jets_bScore};
+    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "#sum_{i} jet_{i}^{b score}", 20, 0, 4.5, jets_bScore};
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "p_{T}^{1st jet}(GeV)", 10, 40, 500, jets_1pt};
     histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "p_{T}^{2nd jet}(GeV)", 10, 40, 600, jets_2pt};
     histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "p_{T}^{3rd jet}(GeV)", 10, 40, 500, jets_3pt};
@@ -246,17 +246,17 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{tight #tau}(GeV)", 20, 20, 200, tausT_1pt};
     histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", " p_{T}^{loose #tau}", 28, 20, 300, tausL_1pt};
     histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", " #eta^{loose #tau}", 10, 0, 2.3, tausL_1etaAbs};
-    histsForRegions<Double_t> tausF_1eta_class{"tausF_1eta", "#eta^{fakeable #tau}", 24, -2.4, 2.4, tausF_1eta};
+    histsForRegions<Double_t> tausF_1eta_class{"tausF_1eta", "#eta^{ #tau}", 24, -2.4, 2.4, tausF_1eta};
     histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", " #eta^{tight #tau}", 24, -2.4, 2.4, tausT_1eta};
-    histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "fakeable #tau's mother jet  p_{T}(GeV)", 28, 20, 300, tausF_1jetPt};
-    // histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "fakeable #tau p_{T}", 20, 20, 120, tausF_1pt};
-    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "p_{T}^{fakeable #tau}(GeV)", 20, 20, 120, tausF_1pt};
+    histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", " #tau's mother jet  p_{T}(GeV)", 28, 20, 300, tausF_1jetPt};
+    // histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", " #tau p_{T}", 20, 20, 120, tausF_1pt};
+    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "p_{T}^{ #tau}(GeV)", 20, 20, 120, tausF_1pt};
     // histsForRegions<Double_t>{};
-    histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "fakeable #tau prong", 3, 1, 4, tausF_prongNum};
-    histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "fakeable #tau charge", 2, -2, 2, tausF_1charge};
-    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "fakeable #tau decay mode", 12, 0, 12, tausF_1decayMode};
+    histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", " #tau prong", 3, 1, 4, tausF_prongNum};
+    histsForRegions<Int_t> tausF_charge_class{"tausF_charge", " #tau charge", 2, -2, 2, tausF_1charge};
+    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", " #tau decay mode", 12, 0, 12, tausF_1decayMode};
     histsForRegions<Int_t> jets_num_class{"jets_num", "n^{jet}", 6, 6, 12, jets_number};
-    histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", "n^{bjet}", 5, 0, 5, bjetsM_num};
+    histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", "n^{bjet}", 5, 0.5, 5.5, bjetsM_num};
     histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "n^{PV}", 50, 0, 50, PV_npvsGood};
     vectorOfVariblesRegions_FRweighted.clear();
     vectorOfVariblesRegions_FRweighted.push_back(jets_HT_class); //!!!no need to scale to lumilosity! only data regions!
