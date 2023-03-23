@@ -231,7 +231,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     // systematic regions
     // how the pileup weighting impact?, only impact MC, don't concern fake tau
     histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT(GeV)", 30, 500, 1500, jets_HT};
-    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "#sum_{i} jet_{i}^{b score}", 20, 0, 4.5, jets_bScore};
+    histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", 20, 0, 4.5, jets_bScore};
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "p_{T}^{1st jet}(GeV)", 10, 40, 500, jets_1pt};
     histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "p_{T}^{2nd jet}(GeV)", 10, 40, 600, jets_2pt};
     histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "p_{T}^{3rd jet}(GeV)", 10, 40, 500, jets_3pt};
@@ -249,8 +249,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> tausF_1eta_class{"tausF_1eta", "#eta^{ #tau}", 24, -2.4, 2.4, tausF_1eta};
     histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", " #eta^{tight #tau}", 24, -2.4, 2.4, tausT_1eta};
     histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", " #tau's mother jet  p_{T}(GeV)", 28, 20, 300, tausF_1jetPt};
-    // histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", " #tau p_{T}", 20, 20, 120, tausF_1pt};
-    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "p_{T}^{ #tau}(GeV)", 20, 20, 120, tausF_1pt};
+    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "p_{T}^{ #tau}(GeV)", 20, 20, 100, tausF_1pt};
     // histsForRegions<Double_t>{};
     histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", " #tau prong", 3, 1, 4, tausF_prongNum};
     histsForRegions<Int_t> tausF_charge_class{"tausF_charge", " #tau charge", 2, -2, 2, tausF_1charge};
