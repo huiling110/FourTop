@@ -12,7 +12,6 @@ import usefulFunc as uf
 from ROOT import TFile
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
                                 samplesCrossSection, summedProcessList)
-from usefulFunc import getInputDic
 
 
 def main():

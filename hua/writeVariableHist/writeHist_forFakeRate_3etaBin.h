@@ -77,6 +77,7 @@ public:
     TTreeReaderValue<Double_t> PUweight_up_ = {fReader, "PUweight_up_"};
     TTreeReaderValue<Double_t> PUweight_down_ = {fReader, "PUweight_down_"};
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
+    TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
     TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
     TTreeReaderValue<Double_t> HLT_weight = {fReader, "HLT_weight"};
