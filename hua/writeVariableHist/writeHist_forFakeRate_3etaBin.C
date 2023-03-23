@@ -221,14 +221,14 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     };
     // systematic regions
     // how the pileup weighting impact?, only impact MC, don't concern fake tau
-    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT of jets", 30, 500, 1500, jets_HT};
+    histsForRegions<Double_t> jets_HT_class{"jets_HT", "HT", 30, 500, 1500, jets_HT};
     histsForRegions<Double_t> jets_bScore_class{"jets_bScore", "b score sum of jets", 20, 0, 4.5, jets_bScore};
     histsForRegions<Double_t> jets_1pt_class{"jets_1pt", "leading jet pt", 10, 40, 500, jets_1pt};
-    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "second jet pt", 10, 40, 600, jets_2pt};
-    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "third jet pt", 10, 40, 500, jets_3pt};
-    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "fourth jet pt", 10, 40, 300, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "fifth jet pt", 10, 40, 250, jets_5pt};
-    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "sixth jet pt", 10, 40, 180, jets_6pt};
+    histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "2nd jet pt", 10, 40, 600, jets_2pt};
+    histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "3rd jet pt", 10, 40, 500, jets_3pt};
+    histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "4th jet pt", 10, 40, 300, jets_4pt};
+    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "5th jet pt", 10, 40, 250, jets_5pt};
+    histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "6th jet pt", 10, 40, 180, jets_6pt};
     histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "square root of b score multiplicity", 30, 0, 1, jets_bScoreMultiply};
     histsForRegions<Double_t> jets_4largestBscoreSum_class{"jets_4largestBscoreSum", "sum of 4 largest jets b score", 30, 0.6, 4, jets_4largestBscoreSum};
     histsForRegions<Double_t> jets_4largestBscoreMulti_class{"jets_4largestBscoreMulti", "jets_4largestBscoreMulti", 30, 0, 1, jets_4largestBscoreMulti};
@@ -237,14 +237,13 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "leading tight tau pt", 20, 20, 200, tausT_1pt};
     histsForRegions<Double_t> tausL_1ptFR_class{"tausL_1ptFRWeight", "leading loose tau pt", 28, 20, 300, tausL_1pt};
     histsForRegions<Double_t> tausL_1etaAbsFR_class{"tausL_1etaAbsFRWeight", "leading loose tau #eta", 10, 0, 2.3, tausL_1etaAbs};
-    // histsForRegions<Double_t> Met_pt_class{"MET_pt", "Met", 10, 0, 200, MET_pt};
     histsForRegions<Double_t> tausF_1eta_class{"tausF_1eta", "leading fake tau #eta", 24, -2.4, 2.4, tausF_1eta};
     histsForRegions<Double_t> tausF_1jetPtFR_class{"tausF_1jetPtFRWeight", "leading pt of mother jet of fake tau", 28, 20, 300, tausF_1jetPt};
-    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "leading pt of fake tau", 40, 20, 140, tausF_1pt};
+    histsForRegions<Double_t> tausF_1pt_class{"tausF_1pt", "fake tau $ p_{T} $", 40, 20, 140, tausF_1pt};
     // histsForRegions<Double_t>{};
-    histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of prongs of tau", 3, 1, 4, tausF_prongNum};
-    histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "charge of leading tau", 2, -2, 2, tausF_1charge};
-    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "decay mode of leading fake tau", 12, 0, 12, tausF_1decayMode};
+    histsForRegions<Int_t> tausF_prongNum_class{"tausF_prongNum", "number of tau prongs", 3, 1, 4, tausF_prongNum};
+    histsForRegions<Int_t> tausF_charge_class{"tausF_charge", "tau charge", 2, -2, 2, tausF_1charge};
+    histsForRegions<Int_t> tausF_1decayMode_class{"tausF_1decayMode", "fake tau decay mode", 12, 0, 12, tausF_1decayMode};
     histsForRegions<Int_t> jets_num_class{"jets_num", "number of jets", 6, 6, 12, jets_number};
     histsForRegions<Int_t> bjetsM_num_class{"bjetsM_num", "number of bjets", 5, 0, 5, bjetsM_num};
     histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of primary vertex", 50, 0, 50, PV_npvs};
