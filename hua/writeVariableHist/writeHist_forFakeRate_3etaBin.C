@@ -372,7 +372,8 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
         {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
         // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
-        {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
     };
     TFile *FRFile = new TFile(FRfileMap[m_era].at(0).Data(), "READ");
     FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
@@ -416,8 +417,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
-        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
+        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
     }
 
     Double_t FRWeight_up, FRWeight_down;
