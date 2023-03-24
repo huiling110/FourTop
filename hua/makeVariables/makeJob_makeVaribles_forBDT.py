@@ -24,7 +24,7 @@ import usefulFunc as uf
 # inVersion = 'v51TESNewLepFoLepForrObjectRemoval
 # inVersion = 'v51TESNewLepObjectRemovalCorrected'
 # inVersion =  'v52noHLTSelection'
-inVersion = 'v52noHLTButPreSelection'
+inVersion = 'v5updatehltsf'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
 # outVersion = 'v0noCut'
