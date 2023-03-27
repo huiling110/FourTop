@@ -14,9 +14,6 @@ import usefulFunc as uf
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
-# inVersion = 'v45newLepBugFixed'
-# inVersion = 'v46addPOGIDL'
-# inVersion = 'v49FixedPileUpNoJERTES'
 # inVersion = 'v49FixedPileUpOnlyJER'
 # inVersion = 'v49FixedPileUpJERAndTES'
 # inVersion = 'v50switchRawPtJERNoTES'
@@ -24,20 +21,19 @@ import usefulFunc as uf
 # inVersion = 'v51TESNewLepFoLepForrObjectRemoval
 # inVersion = 'v51TESNewLepObjectRemovalCorrected'
 # inVersion =  'v52noHLTSelection'
-inVersion = 'v5updatehltsf'
+# inVersion = 'v52noHLTButPreSelection'
+inVersion = 'v54noHLTButPre'
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
 # outVersion = 'v0noCut'
 # outVersion = 'v1cut1tau1l'
-# outVersion = 'v2baslineNoHLT'
+outVersion = 'v2baslineNoHLT'
 # outVersion = 'v3baslineNoHLTMuonTriggerAdded'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
 # outVersion = 'v3extra1tau1lCut'
 # outVersion = 'v4baseline'
-# outVersion = 'v4baseline'
-# outVersion = 'v4baseline_re'
-outVersion = 'v5updateHLTSF'
+# outVersion = 'v5updateHLTSF'
 # outVersion = 'v5baselineExtraTauLepCut'
 # outVersion = 'v6Cut1tau1lVariableFixed'
 # outVersion = 'v7baselineExtraTauCut'
@@ -51,10 +47,11 @@ outVersion = 'v5updateHLTSF'
 # year = '2016'
 year = '2018'
 # year = '2017'
-selectionBit = '7'
+# selectionBit = '7'
 # selectionBit = '1'
 # selectionBit = '0'
 # selectionBit = '5'
+selectionBit = '4'
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 

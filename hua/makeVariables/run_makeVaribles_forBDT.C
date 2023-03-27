@@ -19,7 +19,8 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpNoJERTES/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v51TESNewLepObjectRemovalCorrected/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTSelection/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTButPreSelection/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v52noHLTButPreSelection/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v52noHLTButPreSelection/mc/",
 
     TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
@@ -28,8 +29,8 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "ttbar_0l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // const TString eventSelectionBit = "0",
-    const TString eventSelectionBit = "7",
-    // const TString eventSelectionBit = "3",
+    // const TString eventSelectionBit = "7",
+    const TString eventSelectionBit = "4",
     Bool_t ifOneSample = kFALSE,
     // Bool_t ifOneSample = kTRUE,
     TString singleSampleName = "outTree_5"
@@ -41,7 +42,11 @@ void run_makeVaribles_forBDT(
     TString era = sub(0, sub.First("/"));
     cout << era << "\n";
     era.Remove(era.Index("UL"), 2);
-    era.Remove(era.Index("_"), 1);
+    if (era.Contains("_"))
+    {
+        era.Remove(era.Index("_"), 1);
+    }
+
     cout << "era in run: " << era << "\n";
 
     gROOT->ProcessLine(".L makeVaribles_forBDT.so");
