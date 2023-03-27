@@ -75,7 +75,6 @@ void objectTSelectorForNanoAOD::SlaveBegin(TTree *fChain)
     makeBranch(newTree);
 
     setupInputFile();
-    // setupTauSFTool( m_isdata );
 
     // for JER
     ULong64_t seed = 37428479;
