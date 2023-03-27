@@ -21,8 +21,8 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v4baseline_v52noHLTButPreSelection/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v54noHLTButPre/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     // TString inputProcess = "tttt",
@@ -36,10 +36,10 @@ void run_writeHist(
     // TString selector = "writeHist_fordataMC.C+") // 1tau1l)
     // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
     // TString selector = "writeHist_forFakeRate_3etaBin.C+") // 1tau0l
-// TString selector = "writeHist_forBtagRCal.C+"
-// TString selector = "writeHist_forSystematic.C+"
-// TString selector = "writeHist_forHLT.C+") // for tttt signal study
-TString selector = "writeHist_forHLTStudy.C+") // for HLT study
+    // TString selector = "writeHist_forBtagRCal.C+"
+    // TString selector = "writeHist_forSystematic.C+"
+    // TString selector = "writeHist_forHLT.C+") // for tttt signal study
+    TString selector = "writeHist_forHLTStudy.C+") // for HLT study
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
