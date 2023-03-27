@@ -31,7 +31,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_application/'
 
-    regionList = ["1tau0lSR", "1tau0lCR", "1tau0lCRLTau", "1tau0lVR", "1tau0lVRLTau"]
+    regionList = [ "1tau0lCR", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
     # csvName = '1tau0lFakeRateTauGen'
@@ -122,8 +122,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
         # for iProcess in sumProcessPerVal['eventCount'][iregion].keys():
         for iProcess in sumProcessPerVal['eventCount'][firstRegion].keys():
             if ifFakeTau and iProcess=='qcd': continue
-            # if ('SR' in iregion) and (iProcess=='jetHT' or iProcess=='singleMu'):
-            if ('SR' in iregion) or (iProcess=='jetHT' or iProcess=='singleMu'):
+            if ('SR' in iregion) and (iProcess=='jetHT' or iProcess=='singleMu'):
                 iList.append(-1.0)
                 iList.append(-1.0)#for uncert
             else: 

@@ -407,8 +407,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     // for prong division
     if (m_ifMeasurement)
     {
-        // if (!(*tausF_prongNum == 1))
-        if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        if (!(*tausF_prongNum == 1))
+        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
         {
             return kFALSE;
         }
