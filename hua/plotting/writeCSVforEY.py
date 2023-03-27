@@ -29,9 +29,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_application/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_application/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_applicationNewTitle/'
 
-    regionList = [ "1tau0lCR", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
+    regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
     # csvName = '1tau0lFakeRateTauGen'
@@ -90,14 +91,14 @@ def main():
     print( sumProcessPerVar )
             
     
-    for (i,ire) in enumerate( regionList):
-        if 'SR' in ire: continue
-        if isJetHT:
-            sumProcessPerVar['eventCount'][ire].pop('singleMu')
-            print('remove singleMu for ', ire)
-        else:
-            sumProcessPerVar['eventCount'][ire].pop('jetHT')
-            print('remove jetHT for ', ire)
+    # for (i,ire) in enumerate( regionList):
+    #     if 'SR' in ire: continue
+    #     if isJetHT:
+    #         sumProcessPerVar['eventCount'][ire].pop('singleMu')
+    #         print('remove singleMu for ', ire)
+    #     else:
+    #         sumProcessPerVar['eventCount'][ire].pop('jetHT')
+    #         print('remove jetHT for ', ire)
     
     print( sumProcessPerVar )
         

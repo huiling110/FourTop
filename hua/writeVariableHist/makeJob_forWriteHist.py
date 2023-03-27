@@ -27,10 +27,10 @@ def main():
 
     # version = 'v4FR_application'
     # version = 'v0FR_measure3EtaBins_1prong'
-    version = 'v0FR_measureVR_1prong'
+    # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
-    # version = 'v1FR_applicationNewTitle'
+    version = 'v1FR_applicationNewTitle'
     # version = 'v1_newLepPrefiring_v2'
     # version = 'v2_newLepPileUpCR0Changed'
     # version = 'v3_pileupCR0Changed_v2'

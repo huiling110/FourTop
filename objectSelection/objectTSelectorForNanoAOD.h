@@ -328,6 +328,7 @@ public:
 
     void copyHLT_new();
     void copyFlags();
+    Bool_t METFilter();
     Bool_t HLTSelection();
     Bool_t selectGoodLumi();
     void initializeBrancheValues();

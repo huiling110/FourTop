@@ -369,7 +369,8 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
         // {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v5FR_measure3EtaBins_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
         {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
-        {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        // {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
+        {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}}
 
         // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
         // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
@@ -407,8 +408,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     // for prong division
     if (m_ifMeasurement)
     {
-        if (!(*tausF_prongNum == 1))
-        // if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
+        // if (!(*tausF_prongNum == 1))
+        if (!(*tausF_prongNum == 2 || *tausF_prongNum == 3))
         {
             return kFALSE;
         }

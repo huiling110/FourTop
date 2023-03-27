@@ -134,30 +134,10 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     }
 
     // MET filters
-    if (m_MetFilters)
+    Bool_t passMETFilter = METFilter();
+    if (!(passMETFilter))
     {
-        // recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
-        if (!(*Flag_goodVertices == 1))
-            return kFALSE; // a branch in tree.
-        if (!(*Flag_globalSuperTightHalo2016Filter == 1))
-            return kFALSE;
-        if (!(*Flag_HBHENoiseFilter == 1))
-            return kFALSE;
-        if (!(*Flag_HBHENoiseIsoFilter == 1))
-            return kFALSE;
-        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))
-            return kFALSE; // a branch in Tree
-        if (!(*Flag_BadPFMuonFilter == 1))
-            return kFALSE;
-        if (!(*Flag_BadPFMuonDzFilter == 1))
-            return kFALSE;
-        // if ( m_era == "2017" || m_era == "2018" ){
-        if (!(*Flag_ecalBadCalibFilter == 1))
-            return kFALSE; // for UL 2016 has this flag too
-        // }
-        // if (m_isdata) {  if (!(*Flag_eeBadScFilter == 1)) return kFALSE;}
-        if (!(*Flag_eeBadScFilter == 1))
-            return kFALSE; // for UL this filter exists for 2016 MC too
+        return kFALSE;
     }
     eventsPassedMETFilters++;
     copyFlags();
@@ -1263,6 +1243,37 @@ void objectTSelectorForNanoAOD::copyFlags()
     Flag_BadPFMuonDzFilter_ = *Flag_BadPFMuonDzFilter;
     Flag_ecalBadCalibFilter_ = *Flag_ecalBadCalibFilter;
     Flag_eeBadScFilter_ = *Flag_eeBadScFilter;
+}
+
+Bool_t objectTSelectorForNanoAOD::METFilter()
+{
+    Bool_t ifPass = kTRUE;
+    if (m_MetFilters)
+    {
+        // recommendations from here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/MissingETOptionalFiltersRun2#MET_Filter_Recommendations_for_R
+        if (!(*Flag_goodVertices == 1))
+            ifPass = kFALSE; // a branch in tree.
+        if (!(*Flag_globalSuperTightHalo2016Filter == 1))
+            ifPass = kFALSE;
+        if (!(*Flag_HBHENoiseFilter == 1))
+            ifPass = kFALSE;
+        if (!(*Flag_HBHENoiseIsoFilter == 1))
+            ifPass = kFALSE;
+        if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter == 1))
+            ifPass = kFALSE; // a branch in Tree
+        if (!(*Flag_BadPFMuonFilter == 1))
+            ifPass = kFALSE;
+        if (!(*Flag_BadPFMuonDzFilter == 1))
+            ifPass = kFALSE;
+        if (!(*Flag_eeBadScFilter == 1))
+            ifPass = kFALSE; // for UL this filter exists for 2016 MC too
+        if (m_era.CompareTo("2017") == 0 || m_era.CompareTo("2018") == 0)
+        {
+            if (!(*Flag_ecalBadCalibFilter == 1))
+                ifPass = kFALSE;
+        }
+    }
+    return ifPass;
 }
 
 Bool_t objectTSelectorForNanoAOD::HLTSelection()
