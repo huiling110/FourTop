@@ -191,6 +191,13 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     HLT_PFJet450 = *HLT_PFJet450_;
     HLT_IsoMu24 = *HLT_IsoMu24_;
     HLT_IsoMu27 = *HLT_IsoMu27_;
+    // 2018
+    HLT_PFJet500 = *HLT_PFJet500_;
+    HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
 
     if (m_HLTSelection)
     {
@@ -667,7 +674,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     {
         // std::cout << "doing baseline selection\n";
         // if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6))
-        if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6 & bjetsM_num >= 1))
+        if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6 && bjetsM_num >= 1))
         {
             return kFALSE;
         }
@@ -815,7 +822,6 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 
 void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 {
-    //    if ( wantFilterHLTBranches ){
     newtree->Branch("event", &event);
     newtree->Branch("Flag_goodVertices", &Flag_goodVertices, "Flag_goodVertices/I");
     newtree->Branch("Flag_globalSuperTightHalo2016Filter", &Flag_globalSuperTightHalo2016Filter, "Flag_globalSuperTightHalo2016Filter/I");
@@ -830,6 +836,13 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("HLT_PFJet450", &HLT_PFJet450, "HLT_PFJet450/I");
     newtree->Branch("HLT_IsoMu24", &HLT_IsoMu24, "HLT_IsoMu24/I");
     newtree->Branch("HLT_IsoMu27", &HLT_IsoMu27, "HLT_IsoMu27/I");
+    newtree->Branch("HLT_PFJet500", &HLT_PFJet500, "HLT_PFJet500/I");
+    newtree->Branch("HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5", &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5/I");
+    newtree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2", &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2/I");
+    newtree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5/I");
+    newtree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59/I");
+    newtree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94/I");
+    // newtree->Branch("", &, "/I");
 
     newtree->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
     newtree->Branch("PV_npvsGood", &PV_npvsGood, "PV_npvsGood/I");
