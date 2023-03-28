@@ -69,6 +69,12 @@ public:
     TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056 = {fReader, "HLT_PFHT450_SixJet40_BTagCSV_p056"};
     TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = {fReader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
     TTreeReaderValue<Int_t> HLT_PFJet450 = {fReader, "HLT_PFJet450"};
+    TTreeReaderValue<Int_t> HLT_PFJet500 = {fReader, "HLT_PFJet500"};
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+    TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+    TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
 
     TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up = {fReader, "EVENT_prefireWeight_up"};

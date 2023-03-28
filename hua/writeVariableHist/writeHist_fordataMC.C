@@ -250,8 +250,24 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         return kFALSE;
     }
     // HLT
-    if (!(*HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1))
-    // if (*HLT_PFJet450 == 1)
+    Bool_t ifHLT = kTRUE;
+    if (m_era.CompareTo("2016") == 0)
+    {
+        if (entry == 0)
+        {
+            std::cout << "HLT selection for 2016";
+        }
+        ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
+    }
+    else if (m_era.CompareTo("2018") == 0)
+    {
+        if (entry == 0)
+        {
+            std::cout << "HLT selection for 2018";
+        }
+        ifHLT = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFJet500 == 1;
+    }
+    if (!(ifHLT))
     {
         return kFALSE;
     }

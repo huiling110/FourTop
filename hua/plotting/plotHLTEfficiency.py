@@ -26,10 +26,10 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    plotEfficiencyHLT(inputDirDic)
+    # plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    # plotSF(inputDirDic)
+    plotSF(inputDirDic)
     
     
    
