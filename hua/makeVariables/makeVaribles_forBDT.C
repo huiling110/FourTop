@@ -212,6 +212,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
                 return kFALSE;
             }
         }
+        else if (m_era.CompareTo("2018") == 0)
+        {
+            if (fProcessed == 1)
+            {
+                std::cout << "doing HTL selection\n";
+            }
+            if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ == 1 || *HLT_PFJet500_ == 1))
+            {
+                return kFALSE;
+            }
+        }
         //???todo: 2018 HLT
     }
 
