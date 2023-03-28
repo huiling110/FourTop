@@ -24,7 +24,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v54noHLTButPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v54noHLTButPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3HLTBaseline_v54noHLTButPre/'
 
     # version = 'v4FR_application'
     # version = 'v0FR_measure3EtaBins_1prong'
@@ -40,7 +41,7 @@ def main():
     # version = 'v6_btagRMeasure'
     # version = 'v7_btagCorrection'
     # version = 'v0_basicCorrection'
-    version = 'v0triggerEff'
+    # version = 'v0triggerEff'
     # version = 'v1triggerEffMuonSel'
     # version = 'v2withoutJetTriggerMuonSel'
     # version = 'v3MuonSelUpdatedNoJetHLT'
@@ -52,7 +53,7 @@ def main():
     
     #1tau1l
     # version = 'v1pileupWeight'
-    # version = 'v2HLTweight'
+    version = 'v2HLTweight'
     
     
     justMC = False
