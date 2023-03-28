@@ -60,8 +60,8 @@ def main():
     # eventSelection = '1'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
-    # dataList = [ 'jetHT', 'singleMu'] 
-    dataList = [ 'jetHT']
+    dataList = [ 'jetHT', 'singleMu'] 
+    # dataList = [ 'jetHT']
     # dataList = ['singleMu'] 
 
     print( "era: ", era, "  eventSelection: ", eventSelection )
