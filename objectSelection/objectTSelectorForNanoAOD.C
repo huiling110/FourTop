@@ -1818,8 +1818,15 @@ void objectTSelectorForNanoAOD::intializaTreeBranches()
                 HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "HLT_PFHT430_SixJet40_BTagCSV_p080"};
                 HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
             }
-            else
+            else if (runRange[0] >= 297050 && runRange[1] <= 306460)
             {
+                HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+                HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
+            }
+            else if (runRange[0] < 299329 && runRange[1] <= 306460)
+            { // cross range files
+                HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "HLT_PFHT430_SixJet40_BTagCSV_p080"};
+                HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
                 HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
                 HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
             }
