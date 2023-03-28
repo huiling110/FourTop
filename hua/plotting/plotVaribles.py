@@ -91,9 +91,9 @@ def main():
     print('\n')
 
     # remove 'singleMu'
-    # for (i,ire) in enumerate( regionList):
-    #     for ivar in variables:
-    #         sumProcessPerVar[ivar][ire].pop('singleMu')
+    for (i,ire) in enumerate( regionList):
+        for ivar in variables:
+            sumProcessPerVar[ivar][ire].pop('singleMu')
 
 
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']

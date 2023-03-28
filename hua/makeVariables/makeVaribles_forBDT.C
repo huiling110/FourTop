@@ -679,7 +679,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // }
     btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
 
-    // HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
+    HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
 
     if (m_baselineSelection)
     {
@@ -806,7 +806,7 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     TString triggerSFName2b = trigger1b.ReplaceAll("1b", "2b");
     TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
     triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1MuonAndHLT2b_SF");
-    TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b", "3b");
+    TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b_", "3b_");
     TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
     triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1MuonAndHLT3b_SF");
     std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";

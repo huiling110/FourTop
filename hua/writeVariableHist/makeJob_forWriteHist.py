@@ -52,8 +52,8 @@ def main():
     # version = 'v8add2DHist'
     
     #1tau1l
-    # version = 'v1pileupWeight'
-    version = 'v2HLTweight'
+    version = 'v1pileupWeight'
+    # version = 'v2HLTweight'
     
     
     justMC = False
