@@ -201,7 +201,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     // std::cout << "basicWeight=" << basicWeight << " ";
     if (!m_isData)
     {
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*muonIDSF_weight);
     }
 
     fillHistsVectorMyclass(baseline && is1muon, 0, basicWeight);
