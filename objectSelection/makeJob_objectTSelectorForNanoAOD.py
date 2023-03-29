@@ -4,11 +4,6 @@ import subprocess
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
 
- #my own modules
-
-
-
-
 eraDic = {
     '2016':'UL2016_postVFP',
     '2016APV': 'UL2016_preVFP',
@@ -16,20 +11,10 @@ eraDic = {
     '2018': 'UL2018'
 }
 
-
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-# jobVersionName = 'v34TESandJERFromDuncan/'
-# jobVersionName = 'v35TESandJERFromDuncan/'
-# jobVersionName = 'v36TESandJERByHuiling/'
-# jobVersionName = 'v37TauPt30AndPreselection/'
-# jobVersionName = 'v38TESandJERTauPt20_preselection/'
-# jobVersionName = 'v39addTauBranches/'
-# jobVersionName = 'v40addTauJetEtau/'
-# jobVersionName = 'v41addVertexSelection/'
-# jobVersionName = 'v42fixedChargeType/'
 # jobVersionName = 'v43noJERTES/'
 # jobVersionName = 'v44addSSLeptons/'
 # jobVersionName = 'v45newLepBugFixed/'
@@ -45,13 +30,14 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v52noHLTSelection/'
 # jobVersionName = 'v52noHLTButPreSelection/'
 # jobVersionName = 'v53HLTAndPre/'
-jobVersionName = 'v54noHLTButPre/'
+# jobVersionName = 'v54noHLTButPre/'
 # jobVersionName = 'v55HLTAndPre/'
+jobVersionName = 'v54noHLTButPreMetFixed/'
 
 onlyMC = False
-# era = '2016'
+era = '2016'
 # era = '2016APV'
-era = '2017'
+# era = '2017'
 # era = '2018'
 def main():
     # onlyMC = True

@@ -418,8 +418,8 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
-        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
+        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
+        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
     }
 
     Double_t FRWeight_up, FRWeight_down;
