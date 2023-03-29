@@ -40,7 +40,8 @@ Double_t getGenSum(TString inputFile)
     return genWeightSumInitial;
 }
 
-TH1D *getHistogramFromFile(TString filename, TString histname)
+template <typename T>
+T *getHistogramFromFile(TString filename, TString histname)
 {
     TFile *file = TFile::Open(filename);
     if (!file || file->IsZombie())
@@ -48,7 +49,7 @@ TH1D *getHistogramFromFile(TString filename, TString histname)
         std::cerr << "Error: could not open file " << filename << std::endl;
         return nullptr;
     }
-    TH1D *hist = dynamic_cast<TH1D *>(file->Get(histname));
+    T *hist = dynamic_cast<T *>(file->Get(histname));
     if (!hist)
     {
         std::cerr << "Error: could not retrieve histogram " << histname << " from file " << filename << std::endl;
@@ -57,7 +58,7 @@ TH1D *getHistogramFromFile(TString filename, TString histname)
     }
     hist->SetDirectory(nullptr); // detach histogram from file to prevent it from being deleted
     file->Close();
-    return hist;
+    return T;
 }
 
 #endif
