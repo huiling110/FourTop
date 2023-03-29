@@ -54,6 +54,8 @@ public:
     TH2D *b3HT6pt_de;
     TH2D *b3HT6pt_nu;
 
+    TH1D *btagRHist;
+
     // regions to consider
 
     // Readers to access the data (delete the ones you do not need).

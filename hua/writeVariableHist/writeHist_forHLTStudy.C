@@ -25,10 +25,11 @@
 #include <assert.h>
 #include <cmath>
 // #include <filesystem>
-
-#include "../src_cpp/usefulFuction.h"
-#include "../src_cpp/lumiAndCrossSection.h"
 #include "writeHist_forHLTStudy.h"
+
+#include "../src_cpp/usefulFuction.h" //!!!need to complie this into library instead of include
+#include "../src_cpp/lumiAndCrossSection.h"
+#include "SFfileMap.h"
 
 void writeHist_forHLTStudy::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
@@ -155,6 +156,9 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    //
+    btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
+    std::cout << "btagR file: " << btagRHist.GetName() << "\n";
 }
 
 Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
