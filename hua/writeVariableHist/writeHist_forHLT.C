@@ -117,6 +117,9 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
             "1tau",
             "1tau1l",
             "1tau0l",
+            "1tauAndSS",
+            "1tau1lAndSS",
+            "1tau0lAndSS",
         };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
