@@ -23,8 +23,8 @@ import usefulFunc as uf
 # inVersion =  'v52noHLTSelection'
 # inVersion = 'v52noHLTButPreSelection'
 # inVersion = 'v54noHLTButPre'
-# inVersion = 'v54noHLTButPreMetFixed'
-inVersion = 'v55ojectRemovalwithTight'
+inVersion = 'v54noHLTButPreMetFixed'
+# inVersion = 'v55ojectRemovalwithTight'
 
 # outVersion = 'v0noBaseline'
 outVersion = 'v0baseline'
@@ -55,8 +55,8 @@ year = '2016'
 # selectionBit = '7'
 # selectionBit = '1'
 # selectionBit = '0'
-selectionBit = '4'
-# selectionBit = '6' # no metfilters
+# selectionBit = '4'
+selectionBit = '6' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 

@@ -288,8 +288,6 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     }
     // std::cout << btagR << "\n";
 
-    // btagWeightR
-
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
     // Int_t lepNum = *leptonsMVAT_number;
 
