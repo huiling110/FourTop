@@ -277,6 +277,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         elesTopMVAT_1pt = elesTopMVAT[0].Pt();
         elesTopMVAT_1eta = elesTopMVAT[0].Eta();
         elesTopMVAT_1phi = elesTopMVAT[0].Phi();
+        elesTopMVAT_1char = patElectron_charge_.At(elesTopMVAT_index[1]);
     }
     if (muonsTopMVAT_number > 0)
     {
@@ -953,6 +954,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("elesTopMVAT_1pt", &elesTopMVAT_1pt, "elesTopMVAT_1pt/D");
     newtree->Branch("elesTopMVAT_1eta", &elesTopMVAT_1eta, "elesTopMVAT_1eta/D");
     newtree->Branch("elesTopMVAT_1phi", &elesTopMVAT_1phi, "elesTopMVAT_1phi/D");
+    newtree->Branch("elesTopMVAT_1char", &elesTopMVAT_1char, "elesTopMVAT_1char/I");
     newtree->Branch("muonsTopMVAT_1pt", &muonsTopMVAT_1pt, "muonsTopMVAT_1pt/D");
     newtree->Branch("muonsTopMVAT_1eta", &muonsTopMVAT_1eta, "muonsTopMVAT_1eta/D");
     newtree->Branch("muonsTopMVAT_1phi", &muonsTopMVAT_1phi, "muonsTopMVAT_1phi/D");
@@ -1353,6 +1355,7 @@ void makeVaribles_forBDT::InitializeBranches()
     elesTopMVAT_1pt = -99;
     elesTopMVAT_1eta = -99;
     elesTopMVAT_1phi = -99;
+    elesTopMVAT_1char = -99;
     muonsTopMVAT_1pt = -99;
     muonsTopMVAT_1eta = -99;
     muonsTopMVAT_1phi = -99;

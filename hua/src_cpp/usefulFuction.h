@@ -58,7 +58,7 @@ T *getHistogramFromFile(TString filename, TString histname)
     }
     hist->SetDirectory(nullptr); // detach histogram from file to prevent it from being deleted
     file->Close();
-    return T;
+    return hist;
 }
 
 #endif
