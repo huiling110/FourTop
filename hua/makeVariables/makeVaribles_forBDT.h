@@ -183,6 +183,7 @@ public:
     Double_t muonsTopMVAT_1pt = -99;
     Double_t muonsTopMVAT_1eta = -99;
     Double_t muonsTopMVAT_1phi = -99;
+    Int_t muonsTopMVAT_1char = -99;
 
     Int_t tausT_number_TESup = -99;
     Int_t tausT_number_TESdown = -99;

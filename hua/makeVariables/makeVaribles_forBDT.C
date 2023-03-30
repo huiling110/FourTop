@@ -284,6 +284,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         muonsTopMVAT_1pt = muonsTopMVAT[0].Pt();
         muonsTopMVAT_1eta = muonsTopMVAT[0].Eta();
         muonsTopMVAT_1phi = muonsTopMVAT[0].Phi();
+        muonsTopMVAT_1char = Muon_charge_.At(muonsTopMVAT_index[1]);
     }
 
     leptonsMVAT_number = leptonsMVAT.GetSize();
@@ -958,6 +959,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("muonsTopMVAT_1pt", &muonsTopMVAT_1pt, "muonsTopMVAT_1pt/D");
     newtree->Branch("muonsTopMVAT_1eta", &muonsTopMVAT_1eta, "muonsTopMVAT_1eta/D");
     newtree->Branch("muonsTopMVAT_1phi", &muonsTopMVAT_1phi, "muonsTopMVAT_1phi/D");
+    newtree->Branch("muonsTopMVAT_1char", &muonsTopMVAT_1char, "muonsTopMVAT_1char/I");
 
     newtree->Branch("tausT_number_TESup", &tausT_number_TESup, "tausT_number_TESup/I");
     newtree->Branch("tausT_number_TESdown", &tausT_number_TESdown, "tausT_number_TESdown/I");
@@ -1359,6 +1361,7 @@ void makeVaribles_forBDT::InitializeBranches()
     muonsTopMVAT_1pt = -99;
     muonsTopMVAT_1eta = -99;
     muonsTopMVAT_1phi = -99;
+    muonsTopMVAT_1char = -99;
 
     tausT_number_TESup = -99;
     tausL_number = -99;
