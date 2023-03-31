@@ -162,12 +162,6 @@ public:
     Double_t leptonsMVAT_1pt = -99.0;
     Double_t leptonsMVAT_1eta = -99.0;
     Double_t leptonsMVAT_1phi = -99.0;
-    Double_t leptonsMVAT_2pt = -99.0;
-    Double_t leptonsMVAT_2eta = -99.0;
-    Double_t leptonsMVAT_2phi = -99.0;
-    Double_t leptonsMVAT_3pt = -99.0;
-    Double_t leptonsMVAT_3eta = -99.0;
-    Double_t leptonsMVAT_3phi = -99.0;
 
     Int_t elesTopMVAT_number = -99;
     Int_t muonsTopMVAT_number = -99;
@@ -215,6 +209,7 @@ public:
     Double_t tausT_leptonsTMVA_minDeltaR = -99.0;
     Double_t tausL_leptonsTMVA_minDeltaR = -99.0;
     Int_t tausT_leptonsTMVA_chargeMulti = -99;
+    Int_t tausT_leptonsTopMVA_chargeMulti = -99;
     Int_t tausT_prongNum = -99;
     Int_t tausL_prongNum = -99;
     Int_t tausF_prongNum = -99;

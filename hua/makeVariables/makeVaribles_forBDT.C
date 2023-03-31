@@ -325,18 +325,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         leptonsMVAT_1eta = fabs(leptonsMVAT[0].Eta());
         leptonsMVAT_1phi = fabs(leptonsMVAT[0].Phi());
     }
-    if (leptonsMVAT_number > 1)
-    {
-        leptonsMVAT_2pt = leptonsMVAT[1].Pt();
-        leptonsMVAT_2eta = fabs(leptonsMVAT[1].Eta());
-        leptonsMVAT_2phi = fabs(leptonsMVAT[1].Phi());
-    }
-    if (leptonsMVAT_number > 2)
-    {
-        leptonsMVAT_3pt = leptonsMVAT[2].Pt();
-        leptonsMVAT_3eta = fabs(leptonsMVAT[2].Eta());
-        leptonsMVAT_3phi = fabs(leptonsMVAT[2].Phi());
-    }
 
     // hadronic tau selection
     tausL_number = tausL.GetSize();
@@ -367,6 +355,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     tausL_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausL);
     tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
     tausT_leptonsTMVA_chargeMulti = chargeMulCal(tausT_charge, Muon_charge_, muonsT_index, patElectron_charge_, eleMVAT_index);
+    tausT_leptonsTopMVA_chargeMulti = chargeMulCal(tausT_charge, Muon_charge_, muonsTopMVAT_index, patElectron_charge_, elesTopMVAT_index);
+    // tausT_leptonsTopMVAT_2chargeMulti = tausT_charge[0] *
 
     tausT_prongNum = getTauProng(tausT_decayMode);
     tausL_prongNum = getTauProng(tausL_decayMode);
@@ -933,17 +923,6 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
                     "leptonsMVAT_1eta/D");
     newtree->Branch("leptonsMVAT_1phi", &leptonsMVAT_1phi,
                     "leptonsMVAT_1phi/D");
-    newtree->Branch("leptonsMVAT_2pt", &leptonsMVAT_2pt,
-                    "leptonsMVAT_2pt/D");
-    newtree->Branch("leptonsMVAT_2eta", &leptonsMVAT_2eta,
-                    "leptonsMVAT_2eta/D");
-    newtree->Branch("leptonsMVAT_2phi", &leptonsMVAT_2phi,
-                    "leptonsMVAT_2phi/D");
-    newtree->Branch("leptonsMVAT_3pt", &leptonsMVAT_3pt,
-                    "leptonsMVAT_3pt/D");
-    newtree->Branch("leptonsMVAT_3eta", &leptonsMVAT_3eta,
-                    "leptonsMVAT_3eta/D");
-    newtree->Branch("leptonsMVAT_3phi", &leptonsMVAT_3phi, "leptonsMVAT_3phi/D");
 
     newtree->Branch("elesTopMVAT_number", &elesTopMVAT_number, "elesTopMVAT_number/I");
     newtree->Branch("muonsTopMVAT_number", &muonsTopMVAT_number, "muonsTopMVAT_number/I");
@@ -1023,6 +1002,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("tausL_leptonsTMVA_minDeltaR", &tausL_leptonsTMVA_minDeltaR, "tausL_leptonsTMVA_minDeltaR/D");
     newtree->Branch("tausT_leptonsTMVA_minDeltaR", &tausT_leptonsTMVA_minDeltaR, "tausT_leptonsTMVA_minDeltaR/D");
     newtree->Branch("tausT_leptonsTMVA_chargeMulti", &tausT_leptonsTMVA_chargeMulti, "tausT_leptonsTMVA_chargeMulti/I");
+    newtree->Branch("tausT_leptonsTopMVA_chargeMulti", &tausT_leptonsTopMVA_chargeMulti, "tausT_leptonsTopMVA_chargeMulti/I");
 
     newtree->Branch("tausT_prongNum", &tausT_prongNum, "tausT_prongNum/I"); // I : a 32 bit signed integer (Int_t)
     newtree->Branch("tausL_prongNum", &tausL_prongNum, "tausL_prongNum/I"); // I : a 32 bit signed integer (Int_t)
@@ -1340,12 +1320,6 @@ void makeVaribles_forBDT::InitializeBranches()
     leptonsMVAT_1pt = -99;
     leptonsMVAT_1eta = -99;
     leptonsMVAT_1phi = -99;
-    leptonsMVAT_2pt = -99;
-    leptonsMVAT_2eta = -99;
-    leptonsMVAT_2phi = -99;
-    leptonsMVAT_3pt = -99;
-    leptonsMVAT_3eta = -99;
-    leptonsMVAT_3phi = -99;
 
     elesTopMVAT_number = -99;
     muonsTopMVAT_number = -99;
@@ -1390,6 +1364,7 @@ void makeVaribles_forBDT::InitializeBranches()
     tausT_leptonsTMVA_minDeltaR = -99;
     tausL_leptonsTMVA_minDeltaR = -99;
     tausT_leptonsTMVA_chargeMulti = -99;
+    tausT_leptonsTopMVA_chargeMulti = -99;
     tausT_prongNum = -99;
     tausL_prongNum = -99;
     tausF_prongNum = -99;

@@ -23,8 +23,8 @@ import usefulFunc as uf
 # inVersion =  'v52noHLTSelection'
 # inVersion = 'v52noHLTButPreSelection'
 # inVersion = 'v54noHLTButPre'
-inVersion = 'v54noHLTButPreMetFixed'
-# inVersion = 'v55ojectRemovalwithTight'
+# inVersion = 'v54noHLTButPreMetFixed'
+inVersion = 'v55ojectRemovalwithTight'
 
 # outVersion = 'v0noBaseline'
 outVersion = 'v0baseline'
@@ -89,7 +89,7 @@ def main():
     subAllofAll.write('cd '+jobDir + '\n')
 
     for iera in inOutDirMap.keys():
-        if iera=='2016preVFP' : continue
+        # if iera=='2016preVFP' : continue
         # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         uf.checkMakeDir(outputBase+iera+'/')
