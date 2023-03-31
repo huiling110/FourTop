@@ -49,8 +49,8 @@ def main():
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
     # variables = ['tausT_leptonsTMVA_chargeMulti']
-    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag', 'jets_rationHT_4toRest']
-    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
+    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag', 'jets_rationHT_4toRest']
+    variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
@@ -93,7 +93,7 @@ def main():
     print('\n')
 
     # remove 'singleMu'
-    removeSingleMu(sumProcessPerVar)
+    sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
     legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
@@ -111,14 +111,7 @@ def main():
     # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
-    for (i,ire) in enumerate( regionList):
-        for ivar in variables:
-            if '1tau1l' in ire:
-                if i==0:
-                    legendOrder.remove('qcd')     
-                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
-                sumProcessPerVar[ivar][ire].pop('qcd')
-            print('remove qcd for 1tau1l')
+    sumProcessPerVar, legendOrder = removeQCD(sumProcessPerVar, legendOrder)
     print( sumProcessPerVar )
 
     plotDir = inputDirDic['mc']+'results/'
@@ -132,7 +125,19 @@ def main():
             # sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
             makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
  
- 
+def removeQCD(sumProcessPerVar, legendOrder):
+    variables = list(sumProcessPerVar.keys()) 
+    regionList = list(sumProcessPerVar[variables[0]].keys())
+    for (i,ire) in enumerate( regionList):
+        if '1tau1l' in ire:
+            print('remove qcd for 1tau1l')
+            for ivar in variables:
+                # if i==0:
+                #     legendOrder.remove('qcd')     
+                if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
+                sumProcessPerVar[ivar][ire].pop('qcd')
+    legendOrder.remove('qcd') 
+    return sumProcessPerVar, legendOrder
  
     
     
@@ -144,6 +149,7 @@ def removeSingleMu(sumProcessPerVar):
         for ivar in variables:
             if 'singleMu' in sumProcessPerVar[ivar][ire].keys():
                 sumProcessPerVar[ivar][ire].pop('singleMu')
+    return sumProcessPerVar
             
 def checkRegionGen(regionList):
     hasFakeTau = False
