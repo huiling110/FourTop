@@ -114,12 +114,13 @@ void writeHist_forHLT::SlaveBegin(TTree * /*tree*/)
     std::vector<TString>
         regionsForVariables = {
             "noSelection",
-            "1tau",
+            "1tau", // 1
             "1tau1l",
-            "1tau0l",
+            "1tau0l", // 3
             "1tauAndSS",
-            "1tau1lAndSS",
+            "1tau1lAndSS", // 5
             "1tau0lAndSS",
+            "SSML",
         };
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
@@ -251,7 +252,8 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)
     {
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) ;
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
     }
     // std::cout << "basicWeight=" << basicWeight << " ";
 
@@ -263,6 +265,30 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
     Bool_t is1tau = *tausT_number == 1;
     Bool_t is1tau1l = is1tau && lepNum == 1;
     Bool_t is1tau0l = is1tau && lepNum == 0;
+
+    Bool_t isSS = kFALSE;
+    if (lepNum == 2)
+    {
+        if (*elesTopMVAT_number == 0)
+        {
+            isSS = (*muonsTopMVAT_1char) * (*muonsTopMVAT_1char);
+        }
+        else if (*elesTopMVAT_number == 1)
+        {
+            isSS = (*elesTopMVAT_1char) * (*muonsTopMVAT_1char);
+        }
+        else if (*elesTopMVAT_number == 2)
+        {
+            isSS = (*elesTopMVAT_1char) * (*elesTopMVAT_1char);
+        }
+    }
+    Bool_t isSS2l = lepNum == 2 && isSS && *jets_number >= 6 && *bjetsM_num >= 2 && *jets_HT > 280;
+    Bool_t isSS3l = lepNum == 3 && *jets_number >= 3 && *bjetsM_num >= 2 && *jets_HT > 200;
+    Bool_t isSS4l = lepNum == 4l;
+    // if (isSS2l)
+    // {
+    //     std::cout << "isSS=" << isSS << "\n";
+    // }
 
     // 1tau0l SR
     if (!m_isData)
@@ -277,6 +303,13 @@ Bool_t writeHist_forHLT::Process(Long64_t entry)
         fillHistsVectorMyclass(is1tau1l, 2, basicWeight);
         fillHistsVectorMyclass(is1tau0l, 3, basicWeight);
         fillHistsVector(kTRUE, 0, basicWeight);
+        fillHistsVector(is1tau, 1, basicWeight);
+        fillHistsVector(is1tau1l, 2, basicWeight);
+        fillHistsVector(is1tau0l, 3, basicWeight);
+        fillHistsVector(is1tau && (isSS2l || isSS3l || isSS4l), 4, basicWeight);
+        fillHistsVector(is1tau1l && (isSS2l || isSS3l || isSS4l), 5, basicWeight);
+        fillHistsVector(is1tau1l && (isSS2l || isSS3l || isSS4l), 6, basicWeight);
+        fillHistsVector((isSS2l || isSS3l || isSS4l), 7, basicWeight);
     }
 
     return kTRUE;
@@ -309,7 +342,7 @@ void writeHist_forHLT::Terminate()
         {
 
             std::cout << j << "\n";
-            // eventCount_hists[j]->Scale(processScale);
+            eventCount_hists[j]->Scale(processScale);
             eventCount_hists[j]->Print();
         }
 

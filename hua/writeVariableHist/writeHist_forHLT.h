@@ -155,7 +155,7 @@ public:
     TTreeReaderValue<Double_t> PUweight_down_ = {fReader, "PUweight_down_"};
     // TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
     TTreeReaderValue<Double_t> btagShape_weight = {fReader, "btagShape_weight"};
-    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
+    TTreeReaderValue<Double_t> HLT_weight = {fReader, "HLT_weight"};
     TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
     TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
     TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};
@@ -219,6 +219,8 @@ public:
     TTreeReaderValue<Int_t> muonsTopMVAT_number = {fReader, "muonsTopMVAT_number"};
     TTreeReaderValue<Double_t> elesTopMVAT_1pt = {fReader, "elesTopMVAT_1pt"};
     TTreeReaderValue<Double_t> muonsTopMVAT_1pt = {fReader, "muonsTopMVAT_1pt"};
+    TTreeReaderValue<Int_t> elesTopMVAT_1char = {fReader, "elesTopMVAT_1char"};
+    TTreeReaderValue<Int_t> muonsTopMVAT_1char = {fReader, "elesTopMVAT_1char"};
 
     // TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
     // TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};
