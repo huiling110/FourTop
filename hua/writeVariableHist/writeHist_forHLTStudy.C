@@ -156,9 +156,9 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    //
-    btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
-    std::cout << "btagR file: " << btagRHist.GetName() << "\n";
+    // getHistogramFromFile
+    // btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
+    // std::cout << "btagR file: " << btagRHist->GetName() << "\n";
 }
 
 Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
@@ -174,9 +174,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
         return kFALSE;
     }
 
-    // Bool_t is1muon = *muonsTopMVAT_number >= 1;
     // Bool_t is1muon = *HLT_IsoMu24 == 1; // 2016
-    // Bool_t is1muon = *HLT_IsoMu27 == 1;                                                                                            // 2017 and 2018
+    // Bool_t is1muon = *HLT_IsoMu27 == 1;                                                                                           // 2017 and 2018
     // Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1; // 2016
     // Bool_t ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
     Bool_t is1muon = kTRUE;
@@ -206,7 +205,8 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
     if (!m_isData)
     {
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*muonIDSF_weight);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*muonIDSF_weight) * (*btagShape_weight);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*muonIDSF_weight);
     }
 
     fillHistsVectorMyclass(baseline && is1muon, 0, basicWeight);

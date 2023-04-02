@@ -356,7 +356,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     tausT_leptonsTMVA_minDeltaR = MinDeltaRCal(leptonsMVAT, tausT);
     tausT_leptonsTMVA_chargeMulti = chargeMulCal(tausT_charge, Muon_charge_, muonsT_index, patElectron_charge_, eleMVAT_index);
     tausT_leptonsTopMVA_chargeMulti = chargeMulCal(tausT_charge, Muon_charge_, muonsTopMVAT_index, patElectron_charge_, elesTopMVAT_index);
-    // tausT_leptonsTopMVAT_2chargeMulti = tausT_charge[0] *
 
     tausT_prongNum = getTauProng(tausT_decayMode);
     tausL_prongNum = getTauProng(tausL_decayMode);
