@@ -54,9 +54,9 @@ def getInputDicNew( inputDirMC ):
 def getEraFromDir(inputDir):
     era = ''
     if '2016' in inputDir:
-        if '2016post' in inputDir or '2016_post':
+        if '2016post' in inputDir or '2016_post' in inputDir:
             era = '2016postVFP'
-        elif '2016pre' in inputDir or '2016_post':
+        elif '2016pre' in inputDir or '2016_post' in inputDir:
             era = '2016preVFP'
         else:
             era = '2016'
