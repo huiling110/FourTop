@@ -118,7 +118,6 @@ void makeVaribles_forBDT::SlaveBegin(TTree * /*tree*/)
     eventCount_baseline->Print();
 
     makeBranchForTree();
-    // initializeBReader();
     initializeInputFiles(m_era); // for now I intialize for data too
 }
 
