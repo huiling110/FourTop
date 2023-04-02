@@ -222,19 +222,21 @@ def plotEfficiencyHLT(inputDirDic):
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
+    era = uf.getEraFromDir(plotDir)   
     # eff_ttTruth = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-    eff_ttTruth = plotEffHLT('jets_number', variableDic['jets_number'], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-    # eff_ttRef = plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
-    # eff_dataRef = plotEffHLT(variableDic, 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-    # eff_tttt = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+    # eff_ttTruth = plotEffHLT('jets_number', variableDic['jets_number'], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+    for ivar in variableDic.keys():
+        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
     
-    # eff_ttRef.Print()
-    # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-    # legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
-    # era = uf.getEraFromDir(plotDir)   
-    # variable = list(variableDic.keys())[0]
-    # overlayName = plotDir + 'HLTefficiencyOverlay_' + variable  + '.png' 
-    # plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
+        eff_ttRef.Print()
+        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+        legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
+        # variable = list(variableDic.keys())[0]
+        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + '.png' 
+        plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
     
    
    
