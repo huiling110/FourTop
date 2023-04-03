@@ -24,9 +24,12 @@ def main():
     
     h_de = sumProcessPerVar[variable]['1tau1lNoBBtagWeight']['tt'].Clone()
     h_nu = sumProcessPerVar[variable]['1tau1lNoB']['tt'].Clone()
+    h_de.SetName('1tau1lNoBBtagWeight')
+    h_nu.SetName('1tau1lNoB')
     h_eff = h_de.Clone()
     h_eff.Reset()
     h_eff.Divide(h_nu, h_de)
+    h_eff.SetName('b tag R')
     h_eff.Print()
     
    
@@ -34,22 +37,16 @@ def main():
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir(plotDir)
     plotName = plotDir + 'bTagR.png' 
-    plotEfficiency(h_nu, h_de, h_eff, plotName, era, False)
-    
-    # print(h_eff.GetBinContent(1))
-    # print(h_eff.GetBinContent(2))
-    # print(h_eff.GetBinContent(3))
-    # print(h_eff.GetBinContent(4))
-    # print(h_eff.GetBinContent(5))
-    # print(h_eff.GetBinContent(6))
+    plotEfficiency(h_nu, h_de, h_eff, plotName, era, False, 'b tag R')
     
     
-    # outFileName = plotDir + 'btagR.root' 
-    # outFile = ROOT.TFile( outFileName, "RECREATE") 
-    # h_eff.SetDirectory(outFile)
-    # h_eff.Write() 
-    # outFile.Close()
-    # print('btagR file writen here: ', outFileName)
+    
+    outFileName = plotDir + 'btagR.root' 
+    outFile = ROOT.TFile( outFileName, "RECREATE") 
+    h_eff.SetDirectory(outFile)
+    h_eff.Write() 
+    outFile.Close()
+    print('btagR file writen here: ', outFileName)
 
     
     
