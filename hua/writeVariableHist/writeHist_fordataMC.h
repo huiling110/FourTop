@@ -245,6 +245,7 @@ public:
     // TTreeReaderValue<Double_t>  = {fReader, ""};
     TTreeReaderValue<Double_t> tausT_minDeltaR = {fReader, "tausT_minDeltaR"};
     TTreeReaderValue<Int_t> tausT_leptonsTMVA_chargeMulti = {fReader, "tausT_leptonsTMVA_chargeMulti"};
+    TTreeReaderValue<Int_t> tausT_leptonsTopMVA_chargeMulti = {fReader, "tausT_leptonsTopMVA_chargeMulti"};
     TTreeReaderValue<Double_t> tausT_leptonsT_invariantMass = {fReader, "tausT_leptonsT_invariantMass"};
 
     TTreeReaderValue<Double_t> tausT_1pt = {fReader, "tausT_1pt"};

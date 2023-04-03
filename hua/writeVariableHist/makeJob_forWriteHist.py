@@ -40,8 +40,8 @@ def main():
     # version = 'v5HLTSFWeightNoBtag'
     # version ='v3btagShapeWeight'
     # version = 'v4basicWeight'
-    # version = 'v6allCorrectionButBtag'
-    version = 'v7btagShapeRWeight'
+    version = 'v6allCorrectionButBtag'
+    # version = 'v7btagShapeRWeight'
     # version = 'v0CheckHLTSF1_5'
     
     #
