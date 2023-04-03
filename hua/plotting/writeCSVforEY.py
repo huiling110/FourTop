@@ -31,7 +31,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v54noHLTButPreMetFixed/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v5HLTSFWeightNoBtag/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v4basicWeight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0btagRCal/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0btagRCal/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0CheckHLTSF1_5/'
 
     # regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
@@ -42,10 +43,10 @@ def main():
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
     # csvName = '1tau0lCRs'
     
-    # regionList = [ '1tau1lCR0','1tau1lCR2', '1tau1lSR']
+    regionList = [ '1tau1lCR0','1tau1lCR2', '1tau1lSR']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
-    regionList = ['baselineNoB1Tau', '1tau1lNoB']
+    # regionList = ['baselineNoB1Tau', '1tau1lNoB']
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
     # csvName = '1tau1lRegions'

@@ -46,9 +46,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v4basicWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v5HLTSFWeightNoBtag/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v6allCorrectionButBtag/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
 
     # for 1tau1l
-    variables = ['jets_number']
+    # variables = ['jets_number']
     # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
@@ -60,8 +61,8 @@ def main():
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
     # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    regionList = ['1tau1lSR']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   
