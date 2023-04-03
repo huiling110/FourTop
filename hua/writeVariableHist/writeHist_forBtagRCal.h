@@ -150,7 +150,7 @@ public:
 
     // TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
     TTreeReaderValue<Double_t> btagShape_weight = {fReader, "btagShape_weight"};
-    TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
+    // TTreeReaderValue<Double_t> HLTefficiency_weight = {fReader, "HLTefficiency_weight"};
     TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
     TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
     TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};
@@ -196,12 +196,12 @@ public:
     TTreeReaderValue<Double_t> leptonsMVAT_1pt = {fReader, "leptonsMVAT_1pt"};
     TTreeReaderValue<Double_t> leptonsMVAT_1eta = {fReader, "leptonsMVAT_1eta"};
     TTreeReaderValue<Double_t> leptonsMVAT_1phi = {fReader, "leptonsMVAT_1phi"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2pt = {fReader, "leptonsMVAT_2pt"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2eta = {fReader, "leptonsMVAT_2eta"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2phi = {fReader, "leptonsMVAT_2phi"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3pt = {fReader, "leptonsMVAT_3pt"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3eta = {fReader, "leptonsMVAT_3eta"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3phi = {fReader, "leptonsMVAT_3phi"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_2pt = {fReader, "leptonsMVAT_2pt"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_2eta = {fReader, "leptonsMVAT_2eta"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_2phi = {fReader, "leptonsMVAT_2phi"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_3pt = {fReader, "leptonsMVAT_3pt"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_3eta = {fReader, "leptonsMVAT_3eta"};
+    // TTreeReaderValue<Double_t> leptonsMVAT_3phi = {fReader, "leptonsMVAT_3phi"};
     // TTreeReaderValue<Int_t> tausT_number_TESup = {fReader, "tausT_number_TESup"};
     // TTreeReaderValue<Int_t> tausT_number_TESdown = {fReader, "tausT_number_TESdown"};
     TTreeReaderValue<Int_t> tausL_number = {fReader, "tausL_number"};

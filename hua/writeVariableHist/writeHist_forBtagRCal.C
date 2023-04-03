@@ -112,13 +112,8 @@ void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
     vectorOfVariableRegions.clear();
     // histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
     histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
-    // histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "number of b jets", 5, 0, 5, bjetsM_num};
-    // histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 2, -1, 1, tausT_leptonsTMVA_chargeMulti};
-    // histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "number of non b jets", 5, 5, 10, nonbjetsM_num};
     // vectorOfVariableRegions.push_back();
     vectorOfVariableRegions.push_back(jets_number_class);
-    // vectorOfVariableRegions.push_back(bjetsM_number_class);
-    // vectorOfVariableRegions.push_back(tausT_leptonsTMVA_chargeMulti_class);
     // vectorOfVariableRegions.push_back(nonbjetsM_num_class);
 
     for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
