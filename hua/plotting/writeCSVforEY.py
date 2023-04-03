@@ -45,11 +45,11 @@ def main():
     # regionList = [ '1tau1lCR0','1tau1lCR2', '1tau1lSR']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
-    regionList = ['baselineNoB1Tau']
+    regionList = ['baselineNoB1Tau', '1tau1lNoB']
     # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
     # csvName = '1tau1lRegions'
-    csvName = 'btagRCalRegions.csv'
+    csvName = 'btagRCalRegions'
     # regionList = [ 'baseline', '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
     ifUseFakeTau = False

@@ -207,8 +207,8 @@ public:
     TTreeReaderValue<Int_t> tausL_number = {fReader, "tausL_number"};
     TTreeReaderValue<Int_t> tausF_number = {fReader, "tausF_number"};
     TTreeReaderValue<Int_t> tausT_number = {fReader, "tausT_number"};
-    TTreeReaderValue<Double_t> elesTopMVAT_number = {fReader, "elesTopMVAT_number"};
-    TTreeReaderValue<Double_t> muonsTopMVAT_number = {fReader, "muonsTopMVAT_number"};
+    TTreeReaderValue<Int_t> elesTopMVAT_number = {fReader, "elesTopMVAT_number"};
+    TTreeReaderValue<Int_t> muonsTopMVAT_number = {fReader, "muonsTopMVAT_number"};
     // TTreeReaderValue<Double_t> tausF_MHT = {fReader, "tausF_MHT"};
     TTreeReaderValue<Double_t> tausT_MHT = {fReader, "tausT_MHT"};
     // TTreeReaderValue<Double_t> tausL_HT = {fReader, "tausL_HT"};
