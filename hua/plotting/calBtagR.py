@@ -29,7 +29,7 @@ def main():
     h_eff = h_de.Clone()
     h_eff.Reset()
     h_eff.Divide(h_nu, h_de)
-    h_eff.SetName('b tag R')
+    h_eff.SetName('btagR')
     h_eff.Print()
     
    

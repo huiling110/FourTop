@@ -235,8 +235,9 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
     //
     // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
-    TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
-    btagRHist = (TH1D *)btagRFile->Get("btagR");
+    // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
+    // btagRHist = (TH1D *)btagRFile->Get("btagR");
+    btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
 }
 
 Bool_t writeHist_fordataMC::Process(Long64_t entry)
@@ -272,7 +273,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         return kFALSE;
     }
 
-    // Double_t btagR = calBtagR(*jets_number, btagRHist);
+    Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer
     if (!m_isData)
