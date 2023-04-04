@@ -397,6 +397,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("eleMVAT_index", &eleMVAT_index);
     newTree->Branch("leptonsMVAF", &leptonsMVAF);
     newTree->Branch("leptonsMVAT", &leptonsMVAT);
+    newTree->Branch("leptonsMVAT_top", &leptonsMVAT_top);
     newTree->Branch("leptonsMVAL", &leptonsMVAL);
     newTree->Branch("elesTopMVAT", &elesTopMVAT);
     newTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
@@ -1374,6 +1375,7 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     eleMVAT_index.clear();
     leptonsMVAF.clear();
     leptonsMVAT.clear();
+    leptonsMVAT_top.clear();
     leptonsMVAL.clear();
     elesTopMVAT.clear();
     elesTopMVAT_index.clear();
@@ -1397,7 +1399,6 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     muonsTopMVALPOG_index.clear();
     muonsTopMVALPOG_topMVAScore.clear();
     leptonsMVAL_top.clear();
-    leptonsMVAT_top.clear();
 
     taus_TES.clear();
     taus_TES_up.clear();
