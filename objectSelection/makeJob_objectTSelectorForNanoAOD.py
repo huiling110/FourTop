@@ -15,13 +15,6 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #
 inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
 outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-# jobVersionName = 'v43noJERTES/'
-# jobVersionName = 'v44addSSLeptons/'
-# jobVersionName = 'v45newLepBugFixed/'
-# jobVersionName = 'v46addPOGIDL'
-# jobVersionName = 'v47JustTES/'
-# jobVersionName = 'v48TESandJER/'
-# jobVersionName = 'v49FixedPileUpNoJERTES/'
 # jobVersionName = 'v49FixedPileUpOnlyJER/'
 # jobVersionName = 'v49FixedPileUpJERAndTES/'
 # jobVersionName = 'v50switchRawPtJERNoTES/'
@@ -34,22 +27,23 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v55HLTAndPre/'
 # jobVersionName = 'v54noHLTButPreMetFixed/'
 # jobVersionName = 'v55ojectRemovalwithTight/'
-jobVersionName = 'v55ojectRemovalwithTightNoHLT/'
+# jobVersionName = 'v55ojectRemovalwithTightNoHLT/'
+jobVersionName = 'v56addLepTopHLTSel/'
 
 onlyMC = False
-era = '2016'
-# era = '2016APV'
+# era = '2016'
+era = '2016APV'
 # era = '2017'
 # era = '2018'
 def main():
     # onlyMC = True
-    # eventSelection = '7'
-    eventSelection = '5'
+    eventSelection = '7'
+    # eventSelection = '5'
     # eventSelection = '1'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
-    dataList = [ 'jetHT', 'singleMu'] 
-    # dataList = [ 'jetHT']
+    # dataList = [ 'jetHT', 'singleMu'] 
+    dataList = [ 'jetHT']
     # dataList = ['singleMu'] 
 
     print( "era: ", era, "  eventSelection: ", eventSelection )
