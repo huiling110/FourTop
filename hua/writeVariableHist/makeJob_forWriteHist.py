@@ -41,7 +41,7 @@ def main():
     # version ='v3btagShapeWeight'
     # version = 'v4basicWeight'
     # version = 'v6allCorrectionButBtag'
-    version = 'v7btagShapeRWeight'
+    # version = 'v7btagShapeRWeight'
     # version = 'v0CheckHLTSF1_5'
     
     #

@@ -128,13 +128,13 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
 
     vectorOfVariableRegions.clear();
     // histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
-    histsForRegions<Int_t> jets_number_class{"jets_number", "n_{jet}", 7, 5.5, 12.5, jets_number};
-    histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "n_{b jet}", 8, -0.5, 7.5, bjetsM_num};
+    histsForRegions<Int_t> jets_number_class{"jets_number", "n^{jet}", 7, 5.5, 12.5, jets_number};
+    histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "n^{b jet}", 8, -0.5, 7.5, bjetsM_num};
     histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 3, -1.5, 1.5, tausT_leptonsTMVA_chargeMulti};
-    histsForRegions<Int_t> tausT_leptonsTopMVA_chargeMulti_class{"tausT_leptonsTopMVA_chargeMulti", "charge_{#tau}*charge_{lep}", 3, -1.5, 1.5, tausT_leptonsTopMVA_chargeMulti};
+    histsForRegions<Int_t> tausT_leptonsTopMVA_chargeMulti_class{"tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}", 3, -1.5, 1.5, tausT_leptonsTopMVA_chargeMulti};
     // tausT_leptonsTopMVA_chargeMulti
-    histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "n_{non b jet}", 11, -0.5, 10.5, nonbjetsM_num};
-    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "n_{vertex}", 10, 0, 50, PV_npvsGood};
+    histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "n^{non b jet}", 11, -0.5, 10.5, nonbjetsM_num};
+    histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "n^{vertex}", 10, 0, 50, PV_npvsGood};
     histsForRegions<Int_t> PV_npvs_class{"PV_npvs", "number of vertexes", 10, 0, 50, PV_npvs};
     // vectorOfVariableRegions.push_back();
     vectorOfVariableRegions.push_back(jets_number_class);
@@ -156,7 +156,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "p_{T}^{7th jet}(GeV)", 8, 25, 145, jets_7pt};
     histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "p_{T}^{8th jet}(GeV)", 8, 25, 145, jets_8pt};
     histsForRegions<Double_t> jets_bScoreMultiply_class{"jets_bScoreMultiply", "#prod_{i=all jets} score_{i}^{b tag}", 30, 0, 1, jets_bScoreMultiply};
-    histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT_{4 leaading jets}/HT_{all jets}", 10, 0, 10, jets_rationHT_4toRest};
+    histsForRegions<Double_t> jets_rationHT_4toRest_class{"jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{all jets}", 10, 0, 10, jets_rationHT_4toRest};
     histsForRegions<Double_t> jets_leading2invariantMass_class{"jets_leading2invariantMass", "m^{2 leading jets}", 10, 100, 1000, jets_leading2invariantMass};
     histsForRegions<Double_t> jets_transMass_class{"jets_transMass", "m_{T}^{jets}", 10, 500, 1800, jets_transMass};
     histsForRegions<Double_t> jets_avaregeDeltaR_class{"jets_average_deltaR", "average(#Delta R)^{jets}", 10, 1.2, 3.2, jets_average_deltaR};
@@ -172,19 +172,19 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> MET_pt_class{"MET_pt", "MET", 10, 0, 500, MET_pt};
     histsForRegions<Double_t> bjetsM_HT_class{"bjetsM_HT", "HT^{b jets}", 10, 25, 500, bjetsM_HT};
     histsForRegions<Double_t> bjetsM_MHT_class{"bjetsM_MHT", "MHT^{b jets}", 10, 25, 300, bjetsM_HT};
-    histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "m^{b jets}", 10, 0, 180, bjetsM_invariantMass};
+    histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "m^{b jets}", 10, 0, 240, bjetsM_invariantMass};
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "p_{T}^{1st bjet}", 10, 25, 300, bjetsM_1pt};
     histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "p_{T}^{2nd bjet}", 10, 25, 350, bjetsM_2pt};
-    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets}", 10, 0, 4, bjetsM_minDeltaR};
-    histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau}", 20, 20, 200, tausT_1pt};
+    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 10, 0, 4, bjetsM_minDeltaR};
+    histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau}", 10, 20, 200, tausT_1pt};
     histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "#eta_{#tau}", 10, 0, 3, tausT_1eta};
     histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "#phi_{#tau}", 10, 0, 3, tausT_1phi};
     histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT_{#tau}(GeV)", 10, 25, 300, tausT_HT};
     histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT_{#tau}(GeV)", 10, 25, 300, tausT_MHT};
     histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "m_{#tau and lep}(GeV)", 10, 0, 500, tausT_leptonsT_invariantMass};
 
-    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", 14, 0, 140, muonsTopMVAT_1pt};
-    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "p_{T}^{e}(GeV)", 14, 0, 140, elesTopMVAT_1pt};
+    histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", 10, 0, 140, muonsTopMVAT_1pt};
+    histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "p_{T}^{e}(GeV)", 10, 0, 140, elesTopMVAT_1pt};
 
     vectorOfVariableRegionsDouble.push_back(jets_1pt_class);
     vectorOfVariableRegionsDouble.push_back(jets_2pt_class);
@@ -289,8 +289,8 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight) * (*HLT_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight * 1.5) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
     }
 

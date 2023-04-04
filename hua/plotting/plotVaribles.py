@@ -35,8 +35,8 @@ def main():
     # for 1tau1l
     # variables = ['jets_number']
     # variables = ['tausT_leptonsTopMVA_chargeMulti']
-    variables = ['tausT_leptonsTopMVA_chargeMulti']
-    # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
+    # variables = ['tausT_leptonsTopMVA_chargeMulti']
+    variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
     # variables = ['tausT_leptonsTMVA_chargeMulti']
@@ -218,13 +218,11 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         'qcd': kOrange-2,
         # 'ttX': kPink+2,
         'ttX': TColor.GetColor("#fc9272"),
-        # 'singleTop': kGreen-4,
         'singleTop': TColor.GetColor("#91bfdb"),
         'VV': TColor.GetColor("#5ab4ac"),
-        # 'WJets': kOrange,
-        # 'fakeTau': kBlue,
         'WJets': TColor.GetColor("#998ec3"),
-        'fakeTau': kOrange,
+        # 'fakeTau': kOrange,
+        'fakeTau': TColor.GetColor("#ffeda0"),
     }
 
     doSystmatic = False
@@ -367,7 +365,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
         sumHistoData.GetXaxis().SetTitleOffset(1.25)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
-        sumHistoData.GetXaxis().SetTitleSize(0.05)
+        # sumHistoData.GetXaxis().SetTitleSize(0.05)
+        sumHistoData.GetXaxis().SetTitleSize(0.06)
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.05)
         sumHistoData.GetYaxis().SetLabelSize(0.03)
