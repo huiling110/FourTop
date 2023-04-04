@@ -13,23 +13,7 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 from writeCSVforEY import replaceBgWithGen
 
-colourPerSample = {
-    # 'tttt':kPink-9,
-    'tttt':kBlue,
-    'tt': kRed,
-    'qcd': kOrange-2,
-    'ttX': kPink+2,
-    'singleTop': kGreen-4,
-    'VV': kGreen+2,
-    # 'WJets': kOrange,
-    # 'fakeTau': kBlue,
-    'WJets': kBlue,
-    'fakeTau': kOrange,
-}
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0_basicCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v4FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
@@ -50,13 +34,15 @@ def main():
 
     # for 1tau1l
     # variables = ['jets_number']
+    # variables = ['tausT_leptonsTopMVA_chargeMulti']
+    variables = ['tausT_leptonsTopMVA_chargeMulti']
     # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
     # variables = ['tausT_leptonsTMVA_chargeMulti']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag']
-    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
-    variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
+    # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
+    # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
@@ -225,6 +211,21 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
 
+    colourPerSample = {
+        'tttt':kBlue,
+        # 'tt': kRed-2,
+        'tt': TColor.GetColor("#f03b20"),
+        'qcd': kOrange-2,
+        # 'ttX': kPink+2,
+        'ttX': TColor.GetColor("#fc9272"),
+        # 'singleTop': kGreen-4,
+        'singleTop': TColor.GetColor("#91bfdb"),
+        'VV': TColor.GetColor("#5ab4ac"),
+        # 'WJets': kOrange,
+        # 'fakeTau': kBlue,
+        'WJets': TColor.GetColor("#998ec3"),
+        'fakeTau': kOrange,
+    }
 
     doSystmatic = False
     for ipro in systHists.keys():
