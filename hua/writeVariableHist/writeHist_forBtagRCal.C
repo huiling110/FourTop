@@ -106,7 +106,7 @@ void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
     // namespace fs = std::filesystem;
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    std::vector<TString> regionsForVariables = {"baselineNoB1Tau", "baselineNoB1TauBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight"};
+    std::vector<TString> regionsForVariables = {"baselineNoB1Tau", "baselineNoB1TauBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     vectorOfVariableRegions.clear();
@@ -132,27 +132,31 @@ Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
         basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
     }
 
-    // baseline selection
     Bool_t baselineNoB = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
     if (!baselineNoB)
     {
         return kFALSE;
     }
 
-    // if (!m_isData)
-    // {
-    // be blind for data in signal region
-    Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
-    Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
-    fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
-    fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
-    fillHistsVectorMyclass(SR1tau1lNoB, 2, basicWeight);
-    fillHistsVectorMyclass(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
-    fillHistsVector(isBTagRegion, 0, basicWeight);
-    fillHistsVector(isBTagRegion, 1, basicWeight * (*btagShape_weight));
-    fillHistsVector(SR1tau1lNoB, 2, basicWeight);
-    fillHistsVector(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
-    // }
+    if (!m_isData)
+    {
+        // be blind for data in signal region
+        Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
+        Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
+        Bool_t SR1tau0lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
+        fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
+        fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
+        fillHistsVectorMyclass(SR1tau1lNoB, 2, basicWeight);
+        fillHistsVectorMyclass(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
+        fillHistsVectorMyclass(SR1tau0lNoB, 4, basicWeight);
+        fillHistsVectorMyclass(SR1tau0lNoB, 5, basicWeight * (*btagShape_weight));
+        fillHistsVector(isBTagRegion, 0, basicWeight);
+        fillHistsVector(isBTagRegion, 1, basicWeight * (*btagShape_weight));
+        fillHistsVector(SR1tau1lNoB, 2, basicWeight);
+        fillHistsVector(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
+        fillHistsVector(SR1tau0lNoB, 4, basicWeight);
+        fillHistsVector(SR1tau0lNoB, 5, basicWeight * (*btagShape_weight));
+    }
 
     return kTRUE;
 }
