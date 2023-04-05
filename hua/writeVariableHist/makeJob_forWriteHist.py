@@ -42,7 +42,8 @@ def main():
     # version = 'v4basicWeight'
     # version = 'v6allCorrectionButBtag'
     # version = 'v7btagShapeRWeight'
-    # version = 'v0CheckHLTSF1_5'
+    # version = 'v7btagShapeRWeight_checks'
+    version = 'v0CheckHLTSF1_3'
     
     #
     # version = 'v0btagRCal'

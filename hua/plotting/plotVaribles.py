@@ -29,25 +29,25 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v2HLTSFWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v4basicWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v5HLTSFWeightNoBtag/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v6allCorrectionButBtag/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v6allCorrectionButBtag/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight_checks/'
 
     # for 1tau1l
     # variables = ['jets_number']
-    # variables = ['tausT_leptonsTopMVA_chargeMulti']
-    # variables = ['tausT_leptonsTopMVA_chargeMulti']
-    variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
+    variables = ['jets_5pt']
+    # variables = ['jets_HT']
+    # variables = ['jets_4largestBscoreMulti']
+    # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['PV_npvsGood']
     # variables = ['eventCount']
-    # variables = ['tausT_leptonsTMVA_chargeMulti']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag']
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lSR', '1tau1lCR0', '1tau1lCR1','1tau1lCR2', '1tau1lCR3']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lCR0', '1tau1lCR2' , '1tau1lSR']
     # regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
@@ -219,7 +219,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         # 'ttX': kPink+2,
         'ttX': TColor.GetColor("#fc9272"),
         'singleTop': TColor.GetColor("#91bfdb"),
-        'VV': TColor.GetColor("#5ab4ac"),
+        'VV': TColor.GetColor("#ffeda0"),
         'WJets': TColor.GetColor("#998ec3"),
         # 'fakeTau': kOrange,
         'fakeTau': TColor.GetColor("#ffeda0"),
@@ -337,8 +337,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     if includeDataInStack:
         ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
-        # ratioCanvy.SetTopMargin(0.7)
         ratioCanvy.SetTopMargin(0.7)
+        ratioCanvy.SetBottomMargin(0.8)
+        
         ratioCanvy.SetFillColor(0)
         ratioCanvy.SetFillStyle(0)
         ratioCanvy.SetGridy(1)
@@ -363,9 +364,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         # sumHistoData.SetMaximum(1.2)
         sumHistoData.SetMaximum(1.5)
         sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-        sumHistoData.GetXaxis().SetTitleOffset(1.25)
+        sumHistoData.GetXaxis().SetTitleOffset(1.08)
         sumHistoData.GetXaxis().SetLabelSize(0.04)
-        # sumHistoData.GetXaxis().SetTitleSize(0.05)
         sumHistoData.GetXaxis().SetTitleSize(0.06)
         sumHistoData.GetYaxis().SetNdivisions(6)
         sumHistoData.GetYaxis().SetTitleSize(0.05)
