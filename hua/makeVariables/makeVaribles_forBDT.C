@@ -261,7 +261,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     {
         elesMVAF_1pt = eleMVAF[0].Pt();
     }
-    //???add more electron variables
 
     // SS lepton variables
     elesTopMVAT_number = elesTopMVAT.GetSize();

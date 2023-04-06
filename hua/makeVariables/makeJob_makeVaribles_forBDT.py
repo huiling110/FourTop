@@ -25,14 +25,15 @@ import usefulFunc as uf
 # inVersion = 'v54noHLTButPre'
 # inVersion = 'v54noHLTButPreMetFixed'
 # inVersion = 'v55ojectRemovalwithTight'
-inVersion = 'v55ojectRemovalwithTightNoHLT'
+# inVersion = 'v55ojectRemovalwithTightNoHLT'
+inVersion = 'v56NoHLTButPre'
 
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
 # outVersion = 'v0noCut'
 # outVersion = 'v1cut1tau1l'
-# outVersion = 'v2baslineNoHLT'
-outVersion = 'v3HLTWeightUpdated'
+outVersion = 'v2baslineNoHLT'
+# outVersion = 'v3HLTWeightUpdated'
 # outVersion = 'v3baslineNoHLTMuonTriggerAdded'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
@@ -49,14 +50,12 @@ outVersion = 'v3HLTWeightUpdated'
 # outVersion = 'v1AddTOPLepVariables'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
-year = '2016'
+# year = '2016'
 # year = '2018'
-# year = '2017'
-# selectionBit = '7'
-# selectionBit = '1'
+year = '2017'
 # selectionBit = '0'
-# selectionBit = '4'
-selectionBit = '6' # no metfilters
+selectionBit = '4'
+# selectionBit = '6' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 
