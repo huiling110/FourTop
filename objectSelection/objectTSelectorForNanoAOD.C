@@ -544,7 +544,6 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_/I");
     // 2017
     newTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_/I");
-    newTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_/I");
     newTree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080_", &HLT_PFHT430_SixJet40_BTagCSV_p080_, "HLT_PFHT430_SixJet40_BTagCSV_p080_/I");
     newTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_/I");
 }

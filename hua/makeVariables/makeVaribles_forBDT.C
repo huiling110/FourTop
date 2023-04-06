@@ -197,6 +197,11 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    // 2017
+    HLT_PFHT430_SixJet40_BTagCSV_p080 = *HLT_PFHT430_SixJet40_BTagCSV_p080_;
+    HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
+    // HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
 
     if (m_HLTSelection)
     {
@@ -842,7 +847,9 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5/I");
     newtree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59/I");
     newtree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94/I");
-    // newtree->Branch("", &, "/I");
+    newtree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080", &HLT_PFHT430_SixJet40_BTagCSV_p080, "HLT_PFHT430_SixJet40_BTagCSV_p080/I");
+    newtree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075/I");
+    newtree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2/I");
 
     newtree->Branch("PV_npvs", &PV_npvs, "PV_npvs/I");
     newtree->Branch("PV_npvsGood", &PV_npvsGood, "PV_npvsGood/I");
