@@ -198,6 +198,15 @@ Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
         is1muon = *HLT_IsoMu27 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;
         ifHLT = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFJet500 == 1;
     }
+    else if (m_era.CompareTo("2017") == 0)
+    {
+        if (entry == 0)
+        {
+            std::cout << "HLT selection for 2017\n";
+        }
+        is1muon = *HLT_IsoMu27 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;
+        ifHLT = *HLT_PFHT430_SixJet40_BTagCSV_p080 == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFJet500 == 1;
+    }
 
     Double_t basicWeight = 1.0;
     //???should not even fill data with 1.0 because it is not excactly 1 in computer

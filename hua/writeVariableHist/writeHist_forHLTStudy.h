@@ -81,6 +81,13 @@ public:
     TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = {fReader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
     TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = {fReader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
 
+    // 2017
+    //  2017
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {fReader, "HLT_PFHT430_SixJet40_BTagCSV_p080"};
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {fReader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
+    // TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = {fReader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = {fReader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
+
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
     TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight = {fReader, "EVENT_prefireWeight"};
