@@ -24,7 +24,8 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v52noHLTButPreSelection/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v52noHLTButPreSelection/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v52noHLTButPreSelection/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v54noHLTButPreMetFixed/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v54noHLTButPreMetFixed/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
     era = uf.getEraFromDir(obDir)
     checkOSJobs(obDir, era)
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
@@ -38,8 +39,8 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v46addPOGIDL/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v45newLepBugFixed/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v45newLepBugFixed/'\
-    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v52noHLTButPreSelection/'
-    checkMVJobs(mvDir)
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v52noHLTButPreSelection/'
+    # checkMVJobs(mvDir)
     
     
     
@@ -68,8 +69,44 @@ def checkOSJobs(obDir, era='2016preVFP'):
         print('os file not the same with nanofile')
     else:
         print('os file the same with nanofile')
+    check2Dic( fileDic['mc'], OSfileDic['mc'])
+    check2Dic( fileDic['data'], OSfileDic['data'])
 
-    checkLogOB(obDir)
+    # checkLogOB(obDir)
+
+def check2Dic( dict1, dict2):
+    # get the keys that are in dict1 but not in dict2
+    diff_keys_dict1 = set(dict1.keys()) - set(dict2.keys())
+    # get the keys that are in dict2 but not in dict1
+    diff_keys_dict2 = set(dict2.keys()) - set(dict1.keys())
+    # get the keys that are in both dict1 and dict2
+    common_keys = set(dict1.keys()) & set(dict2.keys())
+    # get the keys that have different values in dict1 and dict2
+    # diff_values = set(k for k in common_keys if dict1[k] != dict2[k])
+    # diff_values = set(k for k in common_keys if list(set(dict2[k])-set( dict2[k]))
+    diff_values = []
+    for k in common_keys:
+        if len(list(set(dict1[k])-set(dict2[k])))>0 or len( list(set(dict2[k])-set(dict1[k])) )>0:
+            diff_values.append(k)
+    # combine the differences into a single dictionary
+    diff_dict = {}
+    for k in diff_keys_dict1:
+        diff_dict[k] = dict1[k]
+    for k in diff_keys_dict2:
+        diff_dict[k] = dict2[k]
+    for k in diff_values:
+        diff_dict[k] = (dict1[k], dict2[k])
+    print('different: ', diff_dict)
+    # for i in diff_dict:
+    if len(diff_values)>0: 
+        
+        print('different outTree files in processes', diff_values)
+        for k in diff_values:
+            print( list(set(dict2[k])-set(dict1[k])))
+            print( list(set(dict1[k])-set(dict2[k])))
+        
+        
+    
     
 def checkLogOB(obDir):
     print('start to check log dir')
