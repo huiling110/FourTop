@@ -154,27 +154,6 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // initialize
     InitializeBranches();
 
-    // if (m_MetFilters)
-    // { // !!! not to be updated
-    //     if (!(*Flag_goodVertices_ == 1))
-    //         return kFALSE; // a branch in tree.
-    //     if (!(*Flag_globalSuperTightHalo2016Filter_ == 1))
-    //         return kFALSE;
-    //     if (!(*Flag_HBHENoiseFilter_ == 1))
-    //         return kFALSE;
-    //     if (!(*Flag_HBHENoiseIsoFilter_ == 1))
-    //         return kFALSE;
-    //     if (!(*Flag_EcalDeadCellTriggerPrimitiveFilter_ == 1))
-    //         return kFALSE; // a branch in Tree
-    //     if (!(*Flag_BadPFMuonFilter_ == 1))
-    //         return kFALSE;
-    //     if (!(*Flag_BadPFMuonDzFilter_ == 1))
-    //         return kFALSE;
-    //     if (!(*Flag_ecalBadCalibFilter_ == 1))
-    //         return kFALSE; // for UL 2016 has this flag too
-    //     if (!(*Flag_eeBadScFilter_ == 1))
-    //         return kFALSE;
-    // }
     fPassingMetFilters++;
 
     event = *event_;
@@ -227,7 +206,17 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
                 return kFALSE;
             }
         }
-        //???todo: 2018 HLT
+        else if (m_era.CompareTo("2017") == 0)
+        {
+            if (fProcessed == 1)
+            {
+                std::cout << "doing HTL selection for 2018\n";
+            }
+            if (!(*HLT_PFHT430_SixJet40_BTagCSV_p080_ == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ == 1 || *HLT_PFJet500_ == 1))
+            {
+                return kFALSE;
+            }
+        }
     }
 
     fPassingHLT++;

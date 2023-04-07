@@ -25,13 +25,12 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v52noHLTButPreSelection/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v52noHLTButPreSelection/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v54noHLTButPreMetFixed/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
-    era = uf.getEraFromDir(obDir)
-    checkOSJobs(obDir, era)
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
+    # era = uf.getEraFromDir(obDir)
+    # checkOSJobs(obDir, era)
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v45newLepBugFixed/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpJERAndTES/'
-    # checkOSJobs(obDir, '2016postVFP')
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = inputDir[:inputDir.find('mc')]
@@ -40,7 +39,8 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v45newLepBugFixed/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v45newLepBugFixed/'\
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v52noHLTButPreSelection/'
-    # checkMVJobs(mvDir)
+    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdated_v56NoHLTButPre/'
+    checkMVJobs(mvDir)
     
     
     

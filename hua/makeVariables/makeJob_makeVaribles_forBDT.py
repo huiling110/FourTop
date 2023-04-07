@@ -54,8 +54,8 @@ outVersion = 'v3HLTWeightUpdated'
 # year = '2018'
 year = '2017'
 # selectionBit = '0'
-selectionBit = '4'
-# selectionBit = '6' # no metfilters
+# selectionBit = '4'
+selectionBit = '6' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 

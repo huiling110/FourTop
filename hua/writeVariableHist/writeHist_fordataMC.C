@@ -237,9 +237,6 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     }
 
     //
-    // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/results/btagR.root", "READ");
-    // TFile *btagRFile = new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/results/btagR.root", "READ");
-    // btagRHist = (TH1D *)btagRFile->Get("btagR");
     btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
     std::cout << "b tag R file used: " << btagR_map[m_era] << "\n";
 }
@@ -284,7 +281,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     {
         // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight) * (*HLT_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
@@ -303,7 +300,7 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // be blind for data in signal region
         Bool_t is1tau0lSR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num >= 2;
         Bool_t is1tau1lSR = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num >= 2;
-        fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight) s;
+        fillHistsVectorMyclass(is1tau0lSR, 0, basicWeight);
         fillHistsVectorMyclass(is1tau1lSR, 6, basicWeight);
         fillHistsVector(is1tau0lSR, 0, basicWeight);
         fillHistsVector(is1tau1lSR, 6, basicWeight);

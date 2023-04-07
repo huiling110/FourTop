@@ -31,11 +31,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v5HLTSFWeightNoBtag/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v6allCorrectionButBtag/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight_checks/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdated_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
 
     # for 1tau1l
-    # variables = ['jets_number']
-    variables = ['jets_5pt']
+    variables = ['jets_number']
+    # variables = ['jets_5pt']
     # variables = ['jets_HT']
     # variables = ['jets_4largestBscoreMulti']
     # variables = ['jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
@@ -47,7 +47,7 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' , '1tau1lSR']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
