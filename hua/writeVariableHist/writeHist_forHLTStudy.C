@@ -110,7 +110,6 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     // }
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
     std::vector<TString>
         regionsForVariables = {
             "baseline1Muon",
@@ -156,9 +155,6 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    // getHistogramFromFile
-    // btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
-    // std::cout << "btagR file: " << btagRHist->GetName() << "\n";
 }
 
 Bool_t writeHist_forHLTStudy::Process(Long64_t entry)
