@@ -4,13 +4,7 @@
 #include "TFile.h"
 #include "TString.h"
 #include <iostream>
-
-// int main(int argc, char const *argv[])
-// {
-//     /* code */
-//     run_makeVaribles_forBDT();
-//     return 0;
-// }
+#include <boost/lexical_cast.hpp>
 
 void run_makeVaribles_forBDT(
     Bool_t istest = true,
@@ -42,14 +36,14 @@ void run_makeVaribles_forBDT(
     // get era from inputBase
     TString sub = inputBase(inputBase.Index("NanoAOD") + 8, inputBase.Length());
     TString era = sub(0, sub.First("/"));
-    cout << era << "\n";
+    std::cout << era << "\n";
     era.Remove(era.Index("UL"), 2);
     if (era.Contains("_"))
     {
         era.Remove(era.Index("_"), 1);
     }
 
-    cout << "era in run: " << era << "\n";
+    std::cout << "era in run: " << era << "\n";
 
     gROOT->ProcessLine(".L makeVaribles_forBDT.so");
 
@@ -64,7 +58,7 @@ void run_makeVaribles_forBDT(
     }
 
     TString inputFile = inputBase + inputDir + "/";
-    cout << "input file:" << inputFile << endl;
+    std::cout << "input file:" << inputFile << "\n";
 
     TChain chain("tree");
     if (ifOneSample)
@@ -77,13 +71,13 @@ void run_makeVaribles_forBDT(
         chain.Add(inputFile + "outTree*.root");
     }
 
-    cout << "entries in tree: " << chain.GetEntries() << endl;
+    std::cout << "entries in tree: " << chain.GetEntries() << "\n";
 
     // TString selection = "makeVaribles_forBDT.C";
     TString selection = "makeVaribles_forBDT";
 
     TString option = outputDir + ":" + inputDir + ":" + era + ":" + eventSelectionBit + ":";
-    cout << "option in run: " << option << "\n";
+    std::cout << "option in run: " << option << "\n";
 
     if (istest)
     {
@@ -99,10 +93,10 @@ void run_makeVaribles_forBDT(
     // add Runs tree
     if (!(inputDir.Contains("jetHT") || inputDir.Contains("singleMu")))
     {
-        cout << "--------" << endl;
-        cout << "now comes to add Runs tree stage\n";
+        std::cout << "--------\n";
+        std::cout << "now comes to add Runs tree stage\n";
         TFile *file = TFile::Open(outputDir + inputDir + ".root", "UPDATE");
-        cout << "file opened : " << file->GetName() << "\n";
+        std::cout << "file opened : " << file->GetName() << "\n";
         TChain chain2("Runs");
         if (ifOneSample)
         {
@@ -113,6 +107,38 @@ void run_makeVaribles_forBDT(
             chain2.Add(inputFile + "outTree*.root");
         }
         chain2.Merge(file, 2000);
-        cout << "done merging Runs trees\n";
+        std::cout << "done merging Runs trees\n";
     }
+}
+
+int main(int argc, char const *argv[])
+{
+
+    Bool_t istest;
+    TString inputBase;
+    TString inputDir;
+    TString outputDir;
+    TString eventSelectionBit;
+    TString ifOneSample;
+    TString singleSampleName;
+    if (argc < 6)
+    {
+        std::cout << "not enough input from command line\n";
+    }
+    else
+    {
+        istest = boost::lexical_cast<bool>(argv[1]);
+        inputBase = boost::lexical_cast<std::string>(argv[2]);
+        outputDir = boost::lexical_cast<std::string>(argv[3]);
+        inputDir = boost::lexical_cast<std::string>(argv[4]);
+        outputDir = boost::lexical_cast<std::string>(argv[5]);
+        eventSelectionBit = boost::lexical_cast<std::string>(argv[6]);
+        ifOneSample = boost::lexical_cast<std::string>(argv[7]);
+        singleSampleName = boost::lexical_cast<std::string>(argv[8]);
+        printf("istest=%i \n inputBase=%s \ninputDir=%s\n  outputDir = %s\n eventSelectionBit=%s\n ", istest, inputBase.Data(), inputDir.Data(), outputDir.Data(), eventSelectionBit.Data());
+        run_makeVaribles_forBDT(istest, inputBase, inputDir, outputDir, eventSelectionBit, ifOneSample, singleSampleName);
+    }
+    run_makeVaribles_forBDT();
+
+    return 0;
 }

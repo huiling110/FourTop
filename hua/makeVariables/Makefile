@@ -1,14 +1,15 @@
 #-----------------------------------------------------------------------------
 
 # PROGRAM = Analysis
-PROGRAM = makeVaribles_forBDT
+PROGRAM = run_makeVaribles_forBDT
+SHAREDLIBS = makeVaribles_forBDT
 
 
 HDRS = makeVaribles_forBDT.h\
 	variablesFunctions.h\
 	weightCal.h\
  
-OBJS = makeVaribles_forBDT.o\
+OBJS = 	makeVaribles_forBDT.o\
 		variablesFunctions.o\
 		weightCal.o\
         dict_$(PROGRAM).o\
@@ -50,22 +51,31 @@ LIBS += $(CORRECTIONLIB_LIB)
 GLIBS = $(ROOTGLIBS)
 
 
-%/%.o: %.C
+%/%.o: %.C $(HDRS)
 	$(CXX) -c $(CXXFLAGS) $*.C
- 
-$(PROGRAM).so: $(OBJS)
-	@echo "Linking $(PROGRAM).so ..."
-# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(ROOTLIBS) -o$(PROGRAM).so
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS)  $(OBJS) $(LIBS) -o$(PROGRAM).so
+
+
+$(PROGRAM).out: $(OBJS) $(SHAREDLIBS).so $(PROGRAM).C
+	@echo "building $(PROGRAM)......"
+	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o $(LIBS) $(SHAREDLIBS).so  -o$(PROGRAM).out
+	@echo "done building $(PROGRAM)"
+
+#The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
+$(SHAREDLIBS).so: $(OBJS) $(HDRS)
+	@echo "Linking $(SHAREDLIBS).so ..." 
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(SHAREDLIBS).so
 	@echo "linking done"
+
+
+
 
 dict_$(PROGRAM).C: $(HDRS)
 	@echo "Generating dictionary ..."
-# rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(HDRS) Linkdef.h 
 	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
 
 clean:
-	@rm -f $(OBJS) $(PROGRAM).so dict_*
+	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).o dict_*
  
 
 #------------------------------------------------------------------------
