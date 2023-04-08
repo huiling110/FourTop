@@ -33,7 +33,7 @@ inVersion = 'v56NoHLTButPre'
 # outVersion = 'v0noCut'
 # outVersion = 'v1cut1tau1l'
 # outVersion = 'v2baslineNoHLT'
-outVersion = 'v3HLTWeightUpdated'
+outVersion = 'v3HLTWeightUpdatedBugFixed'
 # outVersion = 'v3baslineNoHLTMuonTriggerAdded'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
@@ -171,7 +171,8 @@ def writeIjob( parameterList, processJob ):
     subFile.write("/bin/hostname\n")
     codeDir = os.path.dirname(os.path.abspath(__file__))
     subFile.write("cd {}\n".format(codeDir))
-    command = 'root -b -l -q \'run_makeVaribles_forBDT.C(false, \"{}\", \"{}\", \"{}\", \"{}\"   )\' '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    # command = 'root -b -l -q \'run_makeVaribles_forBDT.C(false, \"{}\", \"{}\", \"{}\", \"{}\"   )\' '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    command = './run_makeVaribles_forBDT.out 0  {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
     subFile.write(command )
     subFile.close()
 

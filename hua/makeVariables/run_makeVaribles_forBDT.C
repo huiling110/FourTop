@@ -120,9 +120,9 @@ int main(int argc, char const *argv[])
     TString inputDir;
     TString outputDir;
     TString eventSelectionBit;
-    TString ifOneSample;
-    TString singleSampleName;
-    if (argc < 8)
+    // TString ifOneSample;
+    // TString singleSampleName;
+    if (argc < 5)
     {
         std::cout << "not enough input from command line\n";
         run_makeVaribles_forBDT();
@@ -131,14 +131,12 @@ int main(int argc, char const *argv[])
     {
         istest = boost::lexical_cast<bool>(argv[1]);
         inputBase = boost::lexical_cast<std::string>(argv[2]);
-        outputDir = boost::lexical_cast<std::string>(argv[3]);
-        inputDir = boost::lexical_cast<std::string>(argv[4]);
-        outputDir = boost::lexical_cast<std::string>(argv[5]);
-        eventSelectionBit = boost::lexical_cast<std::string>(argv[6]);
-        ifOneSample = boost::lexical_cast<std::string>(argv[7]);
-        singleSampleName = boost::lexical_cast<std::string>(argv[8]);
+        inputDir = boost::lexical_cast<std::string>(argv[3]);
+        outputDir = boost::lexical_cast<std::string>(argv[4]);
+        eventSelectionBit = boost::lexical_cast<std::string>(argv[5]);
         printf("istest=%i \n inputBase=%s \ninputDir=%s\n  outputDir = %s\n eventSelectionBit=%s\n ", istest, inputBase.Data(), inputDir.Data(), outputDir.Data(), eventSelectionBit.Data());
-        run_makeVaribles_forBDT(istest, inputBase, inputDir, outputDir, eventSelectionBit, ifOneSample, singleSampleName);
+        // run_makeVaribles_forBDT(istest, inputBase, inputDir, outputDir, eventSelectionBit, ifOneSample, singleSampleName);
+        run_makeVaribles_forBDT(istest, inputBase, inputDir, outputDir, eventSelectionBit);
     }
 
     return 0;
