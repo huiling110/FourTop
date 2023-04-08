@@ -32,8 +32,8 @@ inVersion = 'v56NoHLTButPre'
 # outVersion = 'v0baseline'
 # outVersion = 'v0noCut'
 # outVersion = 'v1cut1tau1l'
-outVersion = 'v2baslineNoHLTBugFixed'
-# outVersion = 'v3HLTWeightUpdatedBugFixed'
+# outVersion = 'v2baslineNoHLTBugFixed'
+outVersion = 'v3HLTWeightUpdatedBugFixed'
 # outVersion = 'v3baslineNoHLTMuonTriggerAdded'
 # outVersion = 'v1fixedTauVariables'
 # outVersion = 'v2addVariables'
@@ -54,8 +54,8 @@ outVersion = 'v2baslineNoHLTBugFixed'
 # year = '2018'
 year = '2017'
 # selectionBit = '0'
-selectionBit = '4'
-# selectionBit = '6' # no metfilters
+# selectionBit = '4'
+selectionBit = '6' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 
