@@ -18,11 +18,11 @@ void run_makeVaribles_forBDT(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v54noHLTButPre/mc/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/mc/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "qcd_100to200",
     // TString inputDir = "jetHT_2016F",
     // TString inputDir = "singleMu_2016F",
-    // TString inputDir = "ttbar_1l",
+    TString inputDir = "ttbar_1l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // const TString eventSelectionBit = "0",
     // const TString eventSelectionBit = "6",

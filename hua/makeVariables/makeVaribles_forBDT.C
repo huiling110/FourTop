@@ -269,14 +269,14 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         elesTopMVAT_1pt = elesTopMVAT[0].Pt();
         elesTopMVAT_1eta = elesTopMVAT[0].Eta();
         elesTopMVAT_1phi = elesTopMVAT[0].Phi();
-        elesTopMVAT_1char = patElectron_charge_.At(elesTopMVAT_index[1]);
+        elesTopMVAT_1char = patElectron_charge_.At(elesTopMVAT_index[0]);
     }
     if (muonsTopMVAT_number > 0)
     {
         muonsTopMVAT_1pt = muonsTopMVAT[0].Pt();
         muonsTopMVAT_1eta = muonsTopMVAT[0].Eta();
         muonsTopMVAT_1phi = muonsTopMVAT[0].Phi();
-        muonsTopMVAT_1char = Muon_charge_.At(muonsTopMVAT_index[1]);
+        muonsTopMVAT_1char = Muon_charge_.At(muonsTopMVAT_index[0]);
     }
 
     leptonsMVAT_number = leptonsMVAT.GetSize();
