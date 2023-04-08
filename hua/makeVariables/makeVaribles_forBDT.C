@@ -706,7 +706,6 @@ void makeVaribles_forBDT::Terminate()
     eventCount_baseline->Print();
 
     outputfile->Write();
-    outputfile->Close();
 
     // Info( "Terminate," "%ld",eventCount_baseline->GetEntries() );
     Info("Terminate", "processed %lld events; genWeighted events: %lf", fProcessed, fProcessed_genWeight);
@@ -714,6 +713,7 @@ void makeVaribles_forBDT::Terminate()
     Info("Terminate", "passing HLT events: %lld; genWeighted events: %lf", fPassingHLT, fPassingHLT_genWeight);
     Info("Terminate", "passing m_baselineSelection: %lld", fPassingPreselection);
     Info("Terminate", "output file here: %s", outputfile->GetName());
+    outputfile->Close();
 }
 
 void makeVaribles_forBDT::initializeInputFiles(const TString m_era)

@@ -108,6 +108,7 @@ void run_makeVaribles_forBDT(
         }
         chain2.Merge(file, 2000);
         std::cout << "done merging Runs trees\n";
+        // file->Close();
     }
 }
 
@@ -121,9 +122,10 @@ int main(int argc, char const *argv[])
     TString eventSelectionBit;
     TString ifOneSample;
     TString singleSampleName;
-    if (argc < 6)
+    if (argc < 8)
     {
         std::cout << "not enough input from command line\n";
+        run_makeVaribles_forBDT();
     }
     else
     {
@@ -138,7 +140,6 @@ int main(int argc, char const *argv[])
         printf("istest=%i \n inputBase=%s \ninputDir=%s\n  outputDir = %s\n eventSelectionBit=%s\n ", istest, inputBase.Data(), inputDir.Data(), outputDir.Data(), eventSelectionBit.Data());
         run_makeVaribles_forBDT(istest, inputBase, inputDir, outputDir, eventSelectionBit, ifOneSample, singleSampleName);
     }
-    run_makeVaribles_forBDT();
 
     return 0;
 }
