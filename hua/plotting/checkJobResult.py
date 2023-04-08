@@ -39,7 +39,7 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0LepLAdded_v45newLepBugFixed/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v45newLepBugFixed/'\
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v52noHLTButPreSelection/'
-    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdated_v56NoHLTButPre/'
+    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLT_v56NoHLTButPre/'
     checkMVJobs(mvDir)
     
     
@@ -152,11 +152,11 @@ def getCheckNanoFile(dir, isOB=False, ifCheckNano=False):
     
     
     
-def checkMVJobs(mvDir):
+def checkMVJobs(mvDir, word='makeVaribles_forBDT::Terminate'):
     mvDic = expandDirDic(mvDir)
     for idir in mvDic.keys():
         logDir = mvDic[idir] + 'log/'
-        checkLogDir(logDir)
+        checkLogDir(logDir, word)
        
 def expandDirDic( dir):
     dirDic={}
@@ -217,11 +217,11 @@ def checkJobStatus(inputDirDic):
     checkLogDir( inputDirDic['mc'] +'/log/')    
     checkLogDir( inputDirDic['data'] +'/log/')    
             
-def checkLogDir(logDir):            
+def checkLogDir(logDir, word ):            
     print('checking log dir: ', logDir)
     for ifile in os.listdir(logDir):
         if not 'err' in ifile: continue
-        if not checkWordInFile( logDir + ifile ):
+        if not checkWordInFile( logDir + ifile , word):
             print('job not successful: ', ifile)
             
                     
