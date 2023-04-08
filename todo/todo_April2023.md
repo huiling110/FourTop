@@ -46,6 +46,7 @@
 
 ## Coding 
 - [ ] Script for removing .root file in forMVA/
+- [ ] Check for all sub processes in ploting
 - [ ] Fix the double free bug in MV
 - [ ] Add check for all samples in writecsv 
 - [ ] Modulize code: cut flow critical!!
