@@ -50,5 +50,6 @@
 - [ ] Fix the double free bug in MV
 - [ ] Add check for all samples in writecsv 
 - [ ] Modulize code: cut flow critical!!
+- [ ] Job checking and resubitting feature!!!
 
 
