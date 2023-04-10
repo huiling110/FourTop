@@ -210,7 +210,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         {
             if (fProcessed == 1)
             {
-                std::cout << "doing HTL selection for 2018\n";
+                std::cout << "doing HTL selection for 2017\n";
             }
             if (!(*HLT_PFHT430_SixJet40_BTagCSV_p080_ == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ == 1 || *HLT_PFJet500_ == 1))
             {
@@ -676,15 +676,12 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
     // !!!extra cut for faster BDT training
     // if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)) // for 1tau1l training
-    // // if (!(tausT_number == 1 && leptonsMVAT_number == 1))
-    // // if (!(tausT_number == 1))
-    // {
-    //     return kFALSE;
-    // }
-
+    if (!(tausT_number == 1 && leptonsMVAT_number == 1))
+    {
+        return kFALSE;
+    }
     fPassingPreselection++;
     eventCount_baseline->Fill(0.0, basicWeight);
-
     newtree->Fill();
 
     return kTRUE;
