@@ -4,17 +4,19 @@
 - [ ] New Tau ID SF: https://cms-talk.web.cern.ch/t/new-tau-id-scale-factors-for-ul-mc/21688
 
 ## MC correction
-- [ ] B tag r measure in 1tau lep=1 rather than lep>=1
-- [ ] B tag R measurement of all 3 years
+- [ ] B tag r measure in 1tau lep=1 rather than lep>=1(2016)
+- [ ] B tag R measurement of a 2017
+- [ ] B tag R measurement of a 2018
 - [ ] JER problem
 - [ ] Pileup reweighting, why? should we ensure sum of weights the same?
 
 
 ## HLT 
-- [ ] Trigger SF for 2017 and 2018
+- [ ] HLT SF 2018
 - [ ] Trigger efficiency unsymetric error to ensure less than 1
 - [ ] How to assign trigger SF uncertainty?
 - [ ] Graceful error handling of reading HLT branches in OS code
+- [x] HLT SF 2017
 
 
 
