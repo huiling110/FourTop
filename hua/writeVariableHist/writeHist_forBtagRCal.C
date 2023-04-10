@@ -142,8 +142,10 @@ Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
     {
         // be blind for data in signal region
         Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
-        Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
-        Bool_t SR1tau0lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
+        // Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
+        // Bool_t SR1tau0lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
+        Bool_t SR1tau1lNoB = (*tausT_number == 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
+        Bool_t SR1tau0lNoB = (*tausT_number == 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
         fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
         fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
         fillHistsVectorMyclass(SR1tau1lNoB, 2, basicWeight);
