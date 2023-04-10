@@ -25,8 +25,9 @@ import usefulFunc as uf
 # inVersion = 'v54noHLTButPre'
 # inVersion = 'v54noHLTButPreMetFixed'
 # inVersion = 'v55ojectRemovalwithTight'
-inVersion = 'v55ojectRemovalwithTightNoHLT'
+# inVersion = 'v55ojectRemovalwithTightNoHLT'
 # inVersion = 'v56NoHLTButPre'
+inVersion = 'v56preselection'
 
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
