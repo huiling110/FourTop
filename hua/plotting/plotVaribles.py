@@ -34,7 +34,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v8_noBtagCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v8_noBtagCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrectionWith1tau0L/'
 
     # for 1tau1l
     # variables = ['jets_number']
@@ -50,8 +51,8 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    # regionList = ['1tau1lSR']
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   

@@ -175,7 +175,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "m^{b jets}", 10, 0, 1000, bjetsM_invariantMass};
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "p_{T}^{1st bjet}", 10, 25, 600, bjetsM_1pt};
     histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "p_{T}^{2nd bjet}", 10, 25, 500, bjetsM_2pt};
-    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 10, 0, 5, bjetsM_minDeltaR};
+    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 6, 0, 5, bjetsM_minDeltaR};
     histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau}", 10, 20, 200, tausT_1pt};
     histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "#eta_{#tau}", 10, 0, 3, tausT_1eta};
     histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "#phi_{#tau}", 10, 0, 3, tausT_1phi};

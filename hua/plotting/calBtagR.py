@@ -16,9 +16,9 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     variable = 'jets_number'
     
-    plotBtagR(variable, inputDirDic,era)
+    # plotBtagR(variable, inputDirDic,era)
     
-    # plotBtagROverlay(variable, era, inputDirDic)
+    plotBtagROverlay(variable, era, inputDirDic)
     
 def plotBtagROverlay(variable, era, inputDirDic):
     regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight', '1tau0lNoB', '1tau0lNoBBtagWeight']
