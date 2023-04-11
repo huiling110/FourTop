@@ -151,7 +151,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "p_{T}^{2nd jet}(GeV)", 10, 40, 600, jets_2pt};
     histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "p_{T}^{3rd jet}(GeV)", 10, 40, 500, jets_3pt};
     histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "p_{T}^{4th jet}(GeV)", 10, 40, 300, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "p_{T}^{5th jet}(GeV)", 20, 40, 160, jets_5pt};
+    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "p_{T}^{5th jet}(GeV)", 10, 40, 160, jets_5pt};
     histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "p_{T}^{6th jet}(GeV)", 10, 40, 140, jets_6pt};
     histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "p_{T}^{7th jet}(GeV)", 8, 25, 145, jets_7pt};
     histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "p_{T}^{8th jet}(GeV)", 8, 25, 145, jets_8pt};
@@ -175,7 +175,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> bjetsM_invariantMass_class{"bjetsM_invariantMass", "m^{b jets}", 10, 0, 1000, bjetsM_invariantMass};
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "p_{T}^{1st bjet}", 10, 25, 600, bjetsM_1pt};
     histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "p_{T}^{2nd bjet}", 10, 25, 500, bjetsM_2pt};
-    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 10, 0, 5, bjetsM_minDeltaR};
+    histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 6, 0, 5, bjetsM_minDeltaR};
     histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau}", 10, 20, 200, tausT_1pt};
     histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "#eta_{#tau}", 10, 0, 3, tausT_1eta};
     histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "#phi_{#tau}", 10, 0, 3, tausT_1phi};
@@ -284,11 +284,10 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight) * (*HLT_weight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight * 1.3) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
     }
 
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;

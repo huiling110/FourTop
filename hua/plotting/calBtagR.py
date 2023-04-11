@@ -9,16 +9,16 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2aadTopLepWeight_v49FixedPileUpJERAndTES/mc/variableHists_v6_btagRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0btagRCal/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v8btagRMeasureWith1tau0l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHist_v6_btagRMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v6_btagRMeasure/'
 
     # plotNa
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
     variable = 'jets_number'
     
-    plotBtagR(variable, inputDirDic)
+    # plotBtagR(variable, inputDirDic,era)
     
-    # plotBtagROverlay(variable, era, inputDirDic)
+    plotBtagROverlay(variable, era, inputDirDic)
     
 def plotBtagROverlay(variable, era, inputDirDic):
     regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight', '1tau0lNoB', '1tau0lNoBBtagWeight']
@@ -47,10 +47,10 @@ def getRatio( sumProcessPerVar, variable, deRegion, nuRegion, name='btagR'):
     return h_eff
         
     
-def plotBtagR(variable, inputDirDic):
+def plotBtagR(variable, inputDirDic,era):
     # regionList = ['baseline1Tau', 'baseline1TauBTagWeight']
-    # regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight']
-    regionList = ['1tau0lNoB', '1tau0lNoBBtagWeight']
+    regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight']
+    # regionList = ['1tau0lNoB', '1tau0lNoBBtagWeight']
     
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
