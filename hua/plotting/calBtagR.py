@@ -49,8 +49,8 @@ def getRatio( sumProcessPerVar, variable, deRegion, nuRegion, name='btagR'):
     
 def plotBtagR(variable, inputDirDic,era):
     # regionList = ['baseline1Tau', 'baseline1TauBTagWeight']
-    # regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight']
-    regionList = ['1tau0lNoB', '1tau0lNoBBtagWeight']
+    regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight']
+    # regionList = ['1tau0lNoB', '1tau0lNoBBtagWeight']
     
     #sumProcessPerVar[var][region][sumedProcess] = hist
     sumProcessPerVar = {}
