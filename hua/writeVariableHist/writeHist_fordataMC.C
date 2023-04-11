@@ -151,7 +151,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> jets_2pt_class{"jets_2pt", "p_{T}^{2nd jet}(GeV)", 10, 40, 600, jets_2pt};
     histsForRegions<Double_t> jets_3pt_class{"jets_3pt", "p_{T}^{3rd jet}(GeV)", 10, 40, 500, jets_3pt};
     histsForRegions<Double_t> jets_4pt_class{"jets_4pt", "p_{T}^{4th jet}(GeV)", 10, 40, 300, jets_4pt};
-    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "p_{T}^{5th jet}(GeV)", 20, 40, 160, jets_5pt};
+    histsForRegions<Double_t> jets_5pt_class{"jets_5pt", "p_{T}^{5th jet}(GeV)", 10, 40, 160, jets_5pt};
     histsForRegions<Double_t> jets_6pt_class{"jets_6pt", "p_{T}^{6th jet}(GeV)", 10, 40, 140, jets_6pt};
     histsForRegions<Double_t> jets_7pt_class{"jets_7pt", "p_{T}^{7th jet}(GeV)", 8, 25, 145, jets_7pt};
     histsForRegions<Double_t> jets_8pt_class{"jets_8pt", "p_{T}^{8th jet}(GeV)", 8, 25, 145, jets_8pt};
