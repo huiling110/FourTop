@@ -44,6 +44,8 @@ const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA
 // const TString era_g = "2017";
 const TString era_g = "2018";
 
+const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_ ";
+
 const TCut MetFilters = "Flag_goodVertices==1 && Flag_globalSuperTightHalo2016Filter==1 && Flag_HBHENoiseFilter==1 && Flag_HBHENoiseIsoFilter==1 && Flag_EcalDeadCellTriggerPrimitiveFilter==1 && Flag_BadPFMuonFilter==1";
 const TCut HLT_2016 = "HLT_PFHT450_SixJet40_BTagCSV_p056 || HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 ||HLT_PFJet450";
 
