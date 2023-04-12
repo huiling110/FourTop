@@ -15,14 +15,6 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap,
 
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0_oldLep/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0_newLep/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v0FR_newLep/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v46addPOGIDL/mc/variableHists_v1_newLepPrefiring/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1AddTOPLepVariables_v49FixedPileUpNoJERTES/mc/variableHists_v2_newLepPileUp/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_re_v52noHLTButPreSelection/mc/variableHists_v1pileupWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_application/'
@@ -34,8 +26,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0btagRCal/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v0CheckHLTSF1_5/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
 
     # regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
@@ -54,15 +48,16 @@ def main():
     # csvName = 'channelsEY'
     # csvName = '1tau1lRegions'
     # csvName = 'btagRCalRegions'
-    # regionList = [ 'baseline', '1tau0lSR','1tau1lSR']
+    csvName = 'BDTevents'
+    regionList = [ 'baseline', '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
     ifUseFakeTau = False
     isJetHT= True
     
     
     # regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
-    regionList = ['1tau1lCR0','1tau1lCR2', '1tau1lSR', '1tau0lSR']
-    csvName = 'eventYield'
+    # regionList = ['1tau1lCR0','1tau1lCR2', '1tau1lSR', '1tau0lSR']
+    # csvName = 'eventYield'
     # ifUseFakeTau = False
     # isJetHT= True
 
@@ -110,6 +105,7 @@ def main():
     print( sumProcessPerVar )
         
     writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'.csv', False, True, ifUseFakeTau, isJetHT )
+    writeHistsToCSV( sumProcessPerVar,  inputDirDic['mc']+'results/', csvName+'Raw.csv', True, True, ifUseFakeTau, isJetHT )
 
 
 

@@ -89,10 +89,11 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
                                          TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
                                          const TString channel = "1tau1l",
+                                         const TString era = "2017",
                                          //  const TString channel = "1tau2l",
                                          //   const TString channel = "2tau0l",
-                                         Bool_t forVariables = true,
-                                         // Bool_t forVariables = false,
+                                         //  Bool_t forVariables = true,
+                                         Bool_t forVariables = false,
                                          Bool_t istest = true
                                          //   Bool_t istest = false
 )
@@ -128,16 +129,25 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     std::cout << channel << ": " << cutForSandB << endl;
 
     // Double_t allSignal = allProcesses[0].getChannelHist(cutForSandB, basicWeight)->GetEntries();
-    Double_t allSignal = allProcesses[0].getEventTree()->GetEntries() + allProcesses2016[0].getEventTree()->GetEntries() + allProcesses2017[0].getEventTree()->GetEntries();
+    // Double_t allSignal = allProcesses[0].getEventTree()->GetEntries() + allProcesses2016[0].getEventTree()->GetEntries() + allProcesses2017[0].getEventTree()->GetEntries();
     //???using jets_number for projecting for now
-    std::cout << "allSignalEvents: " << allSignal << "\n";
     // Double_t allBg = getAllBgEntries(cutForSandB, basicWeight);
+    // Double_t allBg = 0;
+    // for (UInt_t i = 1; i < allProcesses.size(); i++)
+    // {
+    //     allBg = allBg + allProcesses[i].getEventTree()->GetEntries() + allProcesses2016[i].getEventTree()->GetEntries() + allProcesses2017[i].getEventTree()->GetEntries();
+    // }
+
+    Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
     Double_t allBg = 0;
     for (UInt_t i = 1; i < allProcesses.size(); i++)
     {
-        allBg = allBg + allProcesses[i].getEventTree()->GetEntries() + allProcesses2016[i].getEventTree()->GetEntries() + allProcesses2017[i].getEventTree()->GetEntries();
+        allBg = allBg + eraProcess_Map[era][0].getEventTree()->GetEntries();
     }
+    std::cout << "allSignalEvents: " << allSignal << "\n";
     std::cout << "allBgEvents: " << allBg << "\n";
+
+
 
     TMVA::Tools::Instance();
 

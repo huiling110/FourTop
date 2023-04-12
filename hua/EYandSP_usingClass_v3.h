@@ -38,7 +38,8 @@
 // const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8Cut1tau1l_v42fixedChargeType/mc/";
 const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
 const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
-const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+// const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5extra1tau1lCut_v56NoHLTButPre/mc/";
 // const TString era_g = "2016";
 // const TString era_g = "2017";
 const TString era_g = "2018";
@@ -221,7 +222,14 @@ std::vector<Process> allProcesses2017 = {
     tZq_ll2017, ST_tW_antitop2017, ST_tW_top2017,                     // 14
 };
 
-TH1D *getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
+std::map<TString, std::vector<Process>> eraProcess_Map = {
+    {"2016", allProcesses2016},
+    {"2017", allProcesses2017},
+    {"2018", allProcesses},
+};
+
+TH1D *
+getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
 {
     TH1D *bg = new TH1D("bg", "bg", 40, 0, 40);
     for (UInt_t j = 1; j < allProcesses.size(); j++)
