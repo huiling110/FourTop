@@ -26,7 +26,8 @@ def main( ):
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/'
     # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/'
-    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/'
+    # TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/'
+    TMVAFileDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/1tau1l_v0/'
     
     print( 'TMVAFileDir: ', TMVAFileDir )
     #  plotSigOnly = True
@@ -35,7 +36,8 @@ def main( ):
     channel = uf.getChannelFromDir( TMVAFileDir)
     era = uf.getEraFromDir(TMVAFileDir) 
     print('channel: ', channel)
-    fileForVaribles = channel + 'varibleList_40.root'
+    # fileForVaribles = channel + 'varibleList_40.root'
+    fileForVaribles = channel + 'varibleList_16.root'
     plotInputVariables( TMVAFileDir , fileForVaribles )
 
 
