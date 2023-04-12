@@ -95,8 +95,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          //   const TString channel = "2tau0l",
                                          //  Bool_t forVariables = true,
                                          Bool_t forVariables = false,
-                                         //  Bool_t istest = true
-                                         Bool_t istest = false)
+                                         Bool_t istest = true)
+//  Bool_t istest = false)
 {
     std::cout << "baseDir : " << baseDir << "\n";
     std::cout << "era:" << era << "\n";

@@ -44,7 +44,7 @@ const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA
 // const TString era_g = "2017";
 const TString era_g = "2018";
 
-const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_ ";
+const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
 
 // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
 
@@ -68,7 +68,8 @@ const TCut ES2tau2os = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_
 const TCut ES2tau2ss = "tausT_number==2 && leptonsMVAT_number==2 && leptonsMVAT_2SS==1 &&  jets_number>=2 && bjetsM_num>=2 " && baselineSelection;
 
 // const TCut ES1tau1l = ES1tau1e || ES1tau1m;
-const TCut ES1tau1l = "tausT_number==1 && (elesTopMVAT_number+muonsTopMVAT_numbe==1)  &&  jets_number>=7 && bjetsM_num>=2";
+// const TCut ES1tau1l = "tausT_number==1 && (elesTopMVAT_number+muonsTopMVAT_numbe==1)  &&  jets_number>=7 && bjetsM_num>=2";
+const TCut ES1tau1l = "tausT_number==1 && (elesTopMVATop_number+muonsTopMVATop_number==1)  &&  jets_number>=7 && bjetsM_num>=2";
 const TCut ES1tau2l = ES1tau2os || ES1tau2ss;
 const TCut ES2tau1l = ES2tau1e || ES2tau1m;
 const TCut ES2tau2l = ES2tau2os || ES2tau2ss;
