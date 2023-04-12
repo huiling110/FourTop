@@ -87,7 +87,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          TString outDir = "output/",
                                          // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
                                          // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
-                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList/varibleList_10.csv",
+                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v1/variableList/varibleList_17.csv",
                                          const TString channel = "1tau1l",
                                          const TString era = "2017",
                                          //  const TString channel = "1tau2l",
@@ -99,6 +99,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
 )
 {
     std::cout << "baseDir : " << baseDir << "\n";
+    std::cout << "era:" << era << "\n";
 
     // The explicit loading of the shared libTMVA is done in TMVAlogon.C, defined in .rootrc
     // if you use your private .rootrc, or run from a different directory, please copy the
