@@ -109,7 +109,10 @@ void TMVAClassificationApplication_perSample(
     // TString s_variableNum = std::to_string(variableNum);
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
-    TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.12); // 2017 CR0
+    // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.12); //
+    TH1D *histBdt = new TH1D("1tau1lSR_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4);      //
+    TH1D *histBdt_CR0 = new TH1D("1tau1lCR0_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4); //
+    TH1D *histBdt_CR2 = new TH1D("1tau1lCR2" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4);  //
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
@@ -163,7 +166,6 @@ void TMVAClassificationApplication_perSample(
 
         theTree->GetEntry(ievt);
         // baseline selection
-        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0))
         if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
         {
             return kFALSE;
@@ -179,31 +181,6 @@ void TMVAClassificationApplication_perSample(
         // cout<<"\n";
         // channel selection
         leptonsMVAT_number = elesTopMVAT_number + muonsTopMVAT_number;
-        if (channel.CompareTo("1tau1lSR") == 0)
-        {
-            // Returns returns zero if the two strings are identical, otherwise returns the difference between the first two differing bytes
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2))
-                continue;
-        }
-        else if (channel.CompareTo("1tau1lCR0") == 0)
-        {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1))
-                continue;
-        }
-        else if (channel.CompareTo("1tau1lCR2") == 0)
-        {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2))
-                continue;
-        }
-        else if (channel.CompareTo("1tau2l") == 0)
-        {
-            if (!(tausT_number == 1 && leptonsMVAT_number == 2 && jets_number >= 6 && bjetsM_num >= 2))
-                continue;
-        }
-        else
-        {
-            std::cout << "no event selection for channel\n";
-        }
 
         // Return the MVA outputs and fill into histograms
         // Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
@@ -212,19 +189,45 @@ void TMVAClassificationApplication_perSample(
         if (Use["BDT"])
         {
             Double_t bdtScore = reader->EvaluateMVA("BDT method");
-            if (!isdata)
+            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
             {
-                histBdt->Fill(bdtScore, basicWeight);
-                // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
-                histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
-                histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
-                histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
-                histBdt_prefiring_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_down * PUweight_);
+                if (!isdata)
+                {
+
+                    histBdt->Fill(bdtScore, basicWeight);
+                }
+                else
+                {
+                    histBdt->Fill(bdtScore);
+                }
             }
-            else
+            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
             {
-                histBdt->Fill(bdtScore);
+                if (!isdata)
+                {
+                    histBdt_CR0->Fill(bdtScore, basicWeight);
+                }
+                else
+                {
+                    histBdt_CR0->Fill(bdtScore);
+                }
             }
+            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2)
+            {
+                if (!isdata)
+                {
+                    histBdt_CR2->Fill(bdtScore, basicWeight);
+                }
+                else
+                {
+                    histBdt_CR2->Fill(bdtScore);
+                }
+            }
+            // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
+            histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
+            histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
+            histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
+            histBdt_prefiring_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_down * PUweight_);
         }
     }
     delete reader;
@@ -239,6 +242,8 @@ void TMVAClassificationApplication_perSample(
         std::cout << processName << ": " << processScale << "\n";
 
         histBdt->Scale(processScale);
+        histBdt_CR0->Scale(processScale);
+        histBdt_CR2->Scale(processScale);
         histBdt_pileup_up->Scale(processScale);
         histBdt_pileup_down->Scale(processScale);
         histBdt_prefiring_up->Scale(processScale);
