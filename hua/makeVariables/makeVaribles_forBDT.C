@@ -662,7 +662,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // 	printf("Correction: %s\n", corr.first.c_str());
     // }
     btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
-    // btagShapeR =
+    btagShapeR = calBtagR(jets_number, btagRHist);
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
 
@@ -863,6 +863,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up, "tauT_IDSF_weight_new_vsele_up/D");
     newtree->Branch("tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down, "tauT_IDSF_weight_new_vsele_down/D");
     newtree->Branch("btagShape_weight", &btagShape_weight, "btagShape_weight/D");
+    newtree->Branch("btagShapeR", &btagShapeR, "btagShapeR/D");
     newtree->Branch("HLT_weight", &HLT_weight, "HLT_weight/D");
     newtree->Branch("HLT_weight_up", &HLT_weight_up, "HLT_weight_up/D");
     newtree->Branch("HLT_weight_down", &HLT_weight_down, "HLT_weight_down/D");
@@ -1267,6 +1268,7 @@ void makeVaribles_forBDT::InitializeBranches()
     tauT_IDSF_weight_new_vsele_up = -99;
     tauT_IDSF_weight_new_vsele_down = -99;
     btagShape_weight = 1.;
+    btagShapeR = 1;
     HLT_weight = 1.0;
     HLT_weight_up = 1.0;
     HLT_weight_down = 1.0;

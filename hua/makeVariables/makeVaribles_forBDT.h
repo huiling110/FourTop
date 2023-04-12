@@ -134,6 +134,7 @@ public:
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
     Double_t btagShape_weight = 1.0;
+    Double_t btagShapeR = 1.0;
     Double_t HLT_weight = 1.0;
     Double_t HLT_weight_up = 1.0;
     Double_t HLT_weight_down = 1.0;
