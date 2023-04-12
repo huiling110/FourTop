@@ -32,6 +32,7 @@
 #include "makeVaribles_forBDT.h"
 #include "weightCal.h"
 #include "inputFileClass.h"
+#include "../src_cpp/usefulFuction.h"
 
 void makeVaribles_forBDT::Begin(TTree * /*tree*/)
 {
@@ -661,6 +662,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     // 	printf("Correction: %s\n", corr.first.c_str());
     // }
     btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
+    // btagShapeR =
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
 
@@ -793,6 +795,10 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
     {
         printf("Correction: %s\n", corr.first.c_str());
     }
+    // btagR files
+    btagRHist = getHistogramFromFile(btagR_map[m_era], "btagR");
+    std::cout << "b tag R file used: " << btagR_map[m_era] << "\n";
+
     std::cout << "finished setting up input files\n";
 }
 

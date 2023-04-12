@@ -71,6 +71,7 @@ public:
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
     // std::unique_ptr<correction::CorrectionSet> cset_JES;
+    TH1D *btagRHist;
 
     // branches in the newtree
     // same order as initialize

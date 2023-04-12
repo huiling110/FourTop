@@ -153,6 +153,17 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
     return sf;
 }
 
+Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
+{
+    Double_t r = 1.0;
+    if (jets_number >= btagRHist->GetXaxis()->GetXmin() && jets_number <= btagRHist->GetXaxis()->GetXmax())
+    {
+        Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
+        r = btagRHist->GetBinContent(binx);
+    }
+    return r;
+}
+
 Double_t get2DSF(Double_t x, Double_t y, TH2D *hist)
 {
     Double_t sf = 1.0;
