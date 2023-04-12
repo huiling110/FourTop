@@ -24,7 +24,7 @@ void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5extra1tau1lCut_v56preselection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/",
     TString inputProcess = "tttt",
     // TString inputProcess = "jetHT_2016F",
     TString version = "test",
@@ -110,9 +110,9 @@ void TMVAClassificationApplication_perSample(
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
     // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.12); //
-    TH1D *histBdt = new TH1D("1tau1lSR_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4);      //
+    TH1D *histBdt = new TH1D("1tau1lSR_" + processName + "_BDT", "BDT score", 30, -0.28, 0.4);          //
     TH1D *histBdt_CR0 = new TH1D("1tau1lCR0_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4); //
-    TH1D *histBdt_CR2 = new TH1D("1tau1lCR2" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4);  //
+    TH1D *histBdt_CR2 = new TH1D("1tau1lCR2_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4); //
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
