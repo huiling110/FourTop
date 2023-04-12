@@ -4,11 +4,11 @@
 - [ ] New Tau ID SF: https://cms-talk.web.cern.ch/t/new-tau-id-scale-factors-for-ul-mc/21688
 
 ## MC correction
-- [ ] B tag r measure in 1tau lep=1 rather than lep>=1(2016)
-- [ ] B tag R measurement of a 2017
+- [ ] B tag r measure in 1tau lep=>0 rather than lep>=1(2016)
 - [ ] B tag R measurement of a 2018
 - [ ] JER problem
 - [ ] Pileup reweighting, why? should we ensure sum of weights the same?
+- [x] B tag R measurement of a 2017
 
 
 ## HLT 
