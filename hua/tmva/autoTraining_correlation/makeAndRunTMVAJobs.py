@@ -28,15 +28,16 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
-    isApp = True
-    # isApp = False
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/'
+    # isApp = True
+    isApp = False
     # appYear = '2018'
     # appYear = '2017'
     appYear = '2016'
-    # binNum = 30
+    binNum = 30
     # binNum = 20
-    binNum = 15
+    # binNum = 15
     # binNum = 10
     # binNum = 40
     
@@ -49,12 +50,13 @@ def main():
     # binNum = 20#for App only
 
     
-    
+   
+    era = uf.getEraFromDir(outputDir) 
 
     TMVACodeDir = os.path.dirname(os.path.abspath(__file__)) 
     TMVACodeDir = TMVACodeDir[:TMVACodeDir.rfind('/')]
     vListDir, outputDir = checkMakeDir( channel, outputDir, TMVACodeDir, version, isApp, binNum, appFolderName )
-    subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName )
+    subAll = makeJobScripts( vListDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName, era )
     
     #???add features of submitting jobs and reporting job status and check job results
     uf.sumbitJobs( subAll )
@@ -64,8 +66,7 @@ def main():
 
 
 
-def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName ):
-    # jobDir = ''
+def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, appFolderName,era ):
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
     subAllscriptName = ''
     if isApp:
@@ -82,7 +83,7 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, ap
         entryName = entry[:-4]
         print( entry)
         iJob = jobDirSep +  entryName + ".sh"
-        makeSingleTMVAJob( vlistDir, entry, channel, iJob, TMVACodeDir, outputDir, isApp, binNum, appFolderName )
+        makeSingleTMVAJob( vlistDir, entry, channel, iJob, TMVACodeDir, outputDir, isApp, binNum, appFolderName, era )
 
         logFile = outputDir +   "log/" + entryName + ".log"
         errFile = outputDir +  "log/" + entryName +".err"
@@ -93,7 +94,7 @@ def makeJobScripts( vlistDir, channel, outputDir, TMVACodeDir, isApp, binNum, ap
     return subAllscriptName
 
     
-def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDir, isApp, binNum, appFolderName ):
+def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDir, isApp, binNum, appFolderName , era):
     listCsv = vlistDir + entry
     output = open( jobName ,'wt')
     output.write( '#!/bin/bash' + '\n')
@@ -107,7 +108,10 @@ def makeSingleTMVAJob( vlistDir, entry, channel, jobName, TMVACodeDir , outputDi
         print( 'weightDir :', weightDir)
         output.write( 'root -b -l -q '  +'\'' + 'TMVAClassificationApplication_multipleSamples.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',\"' + weightDir+ "\","+ '\"'+ channel +'\"'  +',' +str(binNum) + ')' + '\''   )
     else:
-        output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ channel +"\""+ ', false,  false )' + '\''   )
+        # output.write( 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ channel +"\""+ ', false,  false )' + '\''   )
+        trainCommand = 'root -b -l -q '  +'\'' + 'TMVAClassification_variableFileInput.C(' + '\"\",' + '\"'+outputDir+'\",' + '\"'+listCsv+'\"' +',' + "\""+ channel +'\", '+ '\"'+era+'\"'+  ', false,  false )' + '\'' 
+
+        output.write(trainCommand   )
     output.close()
     print('written ', jobName)
 

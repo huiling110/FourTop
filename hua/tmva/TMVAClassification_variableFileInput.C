@@ -87,16 +87,16 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          TString outDir = "output/",
                                          // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
                                          // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
-                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v1/variableList/varibleList_17.csv",
+                                         //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v1/variableList/varibleList_17.csv",
+                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/1tau1l/variableList/varibleList_16.csv",
                                          const TString channel = "1tau1l",
                                          const TString era = "2017",
                                          //  const TString channel = "1tau2l",
                                          //   const TString channel = "2tau0l",
                                          //  Bool_t forVariables = true,
                                          Bool_t forVariables = false,
-                                         Bool_t istest = true
-                                         //   Bool_t istest = false
-)
+                                         //  Bool_t istest = true
+                                         Bool_t istest = false)
 {
     std::cout << "baseDir : " << baseDir << "\n";
     std::cout << "era:" << era << "\n";
@@ -140,9 +140,9 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // }
     Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
     Double_t allBg = 0;
-    for (UInt_t i = 1; i < allProcesses.size(); i++)
+    for (UInt_t i = 1; i < eraProcess_Map[era].size(); i++)
     {
-        allBg = allBg + eraProcess_Map[era][0].getEventTree()->GetEntries();
+        allBg = allBg + eraProcess_Map[era][i].getEventTree()->GetEntries();
     }
     std::cout << "allSignalEvents: " << allSignal << "\n";
     std::cout << "allBgEvents: " << allBg << "\n";
