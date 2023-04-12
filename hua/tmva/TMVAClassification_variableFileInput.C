@@ -137,7 +137,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // {
     //     allBg = allBg + allProcesses[i].getEventTree()->GetEntries() + allProcesses2016[i].getEventTree()->GetEntries() + allProcesses2017[i].getEventTree()->GetEntries();
     // }
-
     Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
     Double_t allBg = 0;
     for (UInt_t i = 1; i < allProcesses.size(); i++)
@@ -146,8 +145,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     }
     std::cout << "allSignalEvents: " << allSignal << "\n";
     std::cout << "allBgEvents: " << allBg << "\n";
-
-
 
     TMVA::Tools::Instance();
 
@@ -158,15 +155,12 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     if (forVariables)
     {
         Use["Cuts"] = 1;
-        Use["CutsSA"] = 0;
     }
     else
     {
         Use["Cuts"] = 0;
         // Use["CutsSA"]          = 1;
-        Use["CutsSA"] = 0;
     }
-    //
     // Boosted Decision Trees
     if (forVariables)
     {
@@ -185,10 +179,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
         // Use["BDTF"]            = 1; // allow usage of fisher discriminant for node splitting
         Use["BDTF"] = 0; // allow usage of fisher discriminant for node splitting
     }
-    //
-    // Friedman's RuleFit method, ie, an optimised series of cuts ("rules")
-    Use["RuleFit"] = 0;
-    // ---------------------------------------------------------------
 
     std::cout << std::endl;
     std::cout << "==> Start TMVAClassification" << std::endl;
@@ -286,12 +276,10 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
             if (num > 1)
             {
                 ivariable = line;
-                // cout<<"line: "<<line;
                 if (line.size() > 0)
                 {
                     variables.push_back(ivariable);
                 }
-                // cout<<"ivariable:"<<ivariable<<endl;
             }
             TString ivar = line;
             if (ivar.Contains("num") || ivar.Contains("number") || ivar.Contains("charge"))
@@ -398,43 +386,44 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // input variables, the response values of all trained MVAs, and the spectator variables
     // dataloader->AddSpectator( "spec1 := var1*2",  "Spectator 1", "units", 'F' );
     // dataloader->AddSpectator( "spec2 := var1*3",  "Spectator 2", "units", 'F' );
-
     // global event weights per tree (see below for setting event-wise weights)
     // You can add an arbitrary number of signal or background trees
     // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
-    dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap["2018"] * TTTT.getScale());
-    dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
-    dataloader->AddSignalTree(allProcesses2017[0].getEventTree(), lumiMap["2017"] * allProcesses2017[0].getScale());
-    for (UInt_t p = 1; p < allProcesses.size(); p++)
+    // dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap["2018"] * TTTT.getScale());
+    // dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
+    // dataloader->AddSignalTree(allProcesses2017[0].getEventTree(), lumiMap["2017"] * allProcesses2017[0].getScale());
+    dataloader->AddSignalTree(eraProcess_Map[era][0].getEventTree(), lumiMap[era] * eraProcess_Map[era][0].getScale());
+    for (UInt_t p = 1; p < eraProcess_Map[era].size(); p++)
     {
-        if (allProcesses[p].getEventTree()->GetEntries() == 0)
+        if (eraProcess_Map[era][p].getEventTree()->GetEntries() == 0)
         {
-            std::cout << "empty process: " << allProcesses[p].getProcessName() << "\n";
+            std::cout << "empty process: " << eraProcess_Map[era][p].getProcessName() << "\n";
             continue;
         }
-        std::cout << "adding background for training: " << allProcesses[p].getProcessName() << "\n";
-        dataloader->AddBackgroundTree(allProcesses[p].getEventTree(), lumiMap["2018"] * allProcesses[p].getScale());
+        std::cout << "adding background for training: " << eraProcess_Map[era][p].getProcessName() << "\n";
+        dataloader->AddBackgroundTree(eraProcess_Map[era][p].getEventTree(), lumiMap["2018"] * eraProcess_Map[era][p].getScale());
     }
-    for (UInt_t p = 1; p < allProcesses2016.size(); p++)
-    {
-        if (allProcesses2016[p].getEventTree()->GetEntries() == 0)
-        {
-            std::cout << "empty process: " << allProcesses2016[p].getProcessName() << "\n";
-            continue;
-        }
-        std::cout << "adding background for training: " << allProcesses2016[p].getProcessName() << "\n";
-        dataloader->AddBackgroundTree(allProcesses2016[p].getEventTree(), lumiMap["2016"] * allProcesses2016[p].getScale());
-    }
-    for (UInt_t p = 1; p < allProcesses2017.size(); p++)
-    {
-        if (allProcesses2017[p].getEventTree()->GetEntries() == 0)
-        {
-            std::cout << "empty process: " << allProcesses2017[p].getProcessName() << "\n";
-            continue;
-        }
-        std::cout << "adding background for training: " << allProcesses2017[p].getProcessName() << "\n";
-        dataloader->AddBackgroundTree(allProcesses2017[p].getEventTree(), lumiMap["2017"] * allProcesses2017[p].getScale());
-    }
+    // for (UInt_t p = 1; p < allProcesses2016.size(); p++)
+    // {
+    //     if (allProcesses2016[p].getEventTree()->GetEntries() == 0)
+    //     {
+    //         std::cout << "empty process: " << allProcesses2016[p].getProcessName() << "\n";
+    //         continue;
+    //     }
+    //     std::cout << "adding background for training: " << allProcesses2016[p].getProcessName() << "\n";
+    //     dataloader->AddBackgroundTree(allProcesses2016[p].getEventTree(), lumiMap["2016"] * allProcesses2016[p].getScale());
+    // }
+    // for (UInt_t p = 1; p < allProcesses2017.size(); p++)
+    // {
+    //     if (allProcesses2017[p].getEventTree()->GetEntries() == 0)
+    //     {
+    //         std::cout << "empty process: " << allProcesses2017[p].getProcessName() << "\n";
+    //         continue;
+    //     }
+    //     std::cout << "adding background for training: " << allProcesses2017[p].getProcessName() << "\n";
+    //     dataloader->AddBackgroundTree(allProcesses2017[p].getEventTree(), lumiMap["2017"] * allProcesses2017[p].getScale());
+    // }
+
     // Set individual event weights (the variables must exist in the original TTree)
     // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
     // const TCut weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
