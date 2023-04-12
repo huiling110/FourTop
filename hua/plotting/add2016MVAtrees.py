@@ -14,10 +14,6 @@ def copyData( dir ):
         output = process.stdout
         print( output )
 
-# version = 'v4baseline_v41addVertexSelection/'
-# version = 'v5baselineExtraTauLepCut_v41addVertexSelection/'
-# version = 'v4baseline_v42fixedChargeType/'
-# version = 'v6Cut1tau1lVariableFixed_v42fixedChargeType/'
 # version = 'v8Cut1tau1l_v42fixedChargeType/'
 # version = 'v9addBtagWeight_v42fixedChargeType/'
 # version = 'v10addPV_npvsGood_baseline_v42fixedChargeType/'
@@ -32,7 +28,8 @@ def copyData( dir ):
 # version = 'v5updateHLTSF_v52noHLTButPreSelection/'
 # version ='v2baslineNoHLT_v54noHLTButPreMetFixed/'
 # version = 'v2baslineNoHLT_v55ojectRemovalwithTightNoHLT/'
-version = 'v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/'
+# version = 'v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/'
+version = 'v5extra1tau1lCut_v56preselection/'
 ifJustMC = False
 
 pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'

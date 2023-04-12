@@ -35,7 +35,8 @@ inVersion = 'v56preselection'
 # outVersion = 'v1cut1tau1l'
 # outVersion = 'v2baslineNoHLTBugFixed'
 # outVersion = 'v4HLTWeightUpdatedNewSFRange'
-outVersion = 'v5extra1tau1lCut'
+# outVersion = 'v5extra1tau1lCut'
+outVersion = 'v6baseline'
 # outVersion = 'v4baseline'
 # outVersion = 'v5updateHLTSF'
 # outVersion = 'v5baselineExtraTauLepCut'
@@ -54,6 +55,7 @@ year = '2016'
 # selectionBit = '0'
 # selectionBit = '4'
 selectionBit = '6' # no metfilters
+# selectionBit = '2' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
 
