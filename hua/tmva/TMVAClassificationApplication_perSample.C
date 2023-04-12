@@ -36,8 +36,8 @@ void TMVAClassificationApplication_perSample(
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/variableList/varibleList_17.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/dataset/1tau1lvaribleList_17_weight/",
     TString outputDir = "output/",
-    // TString era = "2016"
-    TString era = "2017"
+    TString era = "2016"
+    // TString era = "2017"
     // Bool_t isTest = kTRUE
 )
 {
@@ -67,7 +67,7 @@ void TMVAClassificationApplication_perSample(
             variablesName.push_back(ivariable);
             variablesForReader.push_back(0.0);
             variablesOrigin.push_back(0.0);
-            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("chargeMulti"))
+            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
             {
                 std::cout << "reading int ivariable =" << ivariable << "\n";
                 variablesName_int.push_back(ivariable);
@@ -119,7 +119,7 @@ void TMVAClassificationApplication_perSample(
     TTree *theTree = (TTree *)input->Get("newtree");
     for (UInt_t i = 0; i < variableNum; i++)
     {
-        if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("chargeMulti"))
+        if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
             continue;
         theTree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
     }
@@ -132,7 +132,6 @@ void TMVAClassificationApplication_perSample(
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
     Double_t jets_HT, jets_6pt;
     theTree->SetBranchAddress("tausT_number", &tausT_number);
-    // theTree->SetBranchAddress("leptonsMVAT_number", &leptonsMVAT_number);
     theTree->SetBranchAddress("elesTopMVAT_number", &elesTopMVAT_number);
     theTree->SetBranchAddress("muonsTopMVAT_number", &muonsTopMVAT_number);
     theTree->SetBranchAddress("jets_number", &jets_number);
@@ -140,7 +139,7 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     theTree->SetBranchAddress("jets_HT", &jets_HT);
     theTree->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_; // btagEfficiency_weight, HLTefficiency_weight;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
     theTree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
     theTree->SetBranchAddress("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);
@@ -148,6 +147,12 @@ void TMVAClassificationApplication_perSample(
     theTree->SetBranchAddress("PUweight_", &PUweight_);
     theTree->SetBranchAddress("PUweight_up_", &PUweight_up_);
     theTree->SetBranchAddress("PUweight_down_", &PUweight_down_);
+    theTree->SetBranchAddress("HLT_weight", &HLT_weight);
+    theTree->SetBranchAddress("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
+    theTree->SetBranchAddress("elesTopMVAT_weight", &elesTopMVAT_weight);
+    theTree->SetBranchAddress("musTopMVAT_weight", &musTopMVAT_weight);
+    theTree->SetBranchAddress("btagShape_weight", &btagShape_weight);
+    theTree->SetBranchAddress("btagShapeR", &btagShapeR);
 
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
     TStopwatch sw;
@@ -158,7 +163,8 @@ void TMVAClassificationApplication_perSample(
 
         theTree->GetEntry(ievt);
         // baseline selection
-        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0))
+        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0))
+        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
         {
             return kFALSE;
         }
@@ -181,8 +187,12 @@ void TMVAClassificationApplication_perSample(
         }
         else if (channel.CompareTo("1tau1lCR0") == 0)
         {
-            // if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num == 1))
             if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1))
+                continue;
+        }
+        else if (channel.CompareTo("1tau1lCR2") == 0)
+        {
+            if (!(tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2))
                 continue;
         }
         else if (channel.CompareTo("1tau2l") == 0)
@@ -196,16 +206,16 @@ void TMVAClassificationApplication_perSample(
         }
 
         // Return the MVA outputs and fill into histograms
-        // Double_t eventWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight * btagEfficiency_weight * HLTefficiency_weight;
         // Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
+        Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
         if (Use["BDT"])
         {
             Double_t bdtScore = reader->EvaluateMVA("BDT method");
             if (!isdata)
             {
-                // histBdt->Fill(bdtScore, basicWeight);
-                histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
+                histBdt->Fill(bdtScore, basicWeight);
+                // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
                 histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
                 histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
                 histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
