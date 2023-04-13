@@ -31,10 +31,10 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    # plotEfficiencyHLT(inputDirDic)
+    plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    plotSF(inputDirDic)
+    # plotSF(inputDirDic)
     
     
    
@@ -239,7 +239,8 @@ def plotEfficiencyHLT(inputDirDic):
         legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
         # variable = list(variableDic.keys())[0]
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + '.png' 
-        plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
+        # plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
+        plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, False, [0, 1.5])
     
    
    

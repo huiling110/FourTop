@@ -76,7 +76,7 @@ def main():
     
             
 # def plotFROverlay(FRInRegionList,  era, CRnames, ifForBjet=True):
-def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBand=False,):
+def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBand=False, yRange=[]):
     print('start to plot overlay..........\n')
     # can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
     can = ROOT.TCanvas('FR overlay', 'FR_overlay', 1000, 800)
@@ -86,12 +86,10 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     # ROOT.gStyle.SetTitleSize(0.05, "Y")
     
     FRInRegionList[0].GetYaxis().SetRangeUser(FRInRegionList[0].GetMinimum()*0.6, FRInRegionList[0].GetMaximum()*1.5)
-    # FRInRegionList[0].GetYaxis().SetTitle('fake rate')
     FRInRegionList[0].GetYaxis().SetTitle(yTitle)
     FRInRegionList[0].GetYaxis().SetTitleSize(0.05)
     FRInRegionList[0].GetYaxis().SetLabelSize(0.035)
     FRInRegionList[0].GetYaxis().SetTitleOffset(1.0)
-    # FRInRegionList[0].GetXaxis().SetTitle('pt of tau mother jet')
     FRInRegionList[0].GetXaxis().SetTitle(FRInRegionList[0].GetTitle())
     FRInRegionList[0].GetXaxis().SetTitleSize(0.05)
     FRInRegionList[0].SetLineColor(ROOT.kOrange)
@@ -99,6 +97,9 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     FRInRegionList[0].SetMarkerStyle(45)
     FRInRegionList[0].SetMarkerSize(2)
     FRInRegionList[0].SetMarkerColor(ROOT.kOrange)
+    if len(yRange)>1:
+        FRInRegionList[0].GetYaxis().SetRangeUser(yRange[0], yRange[1])
+    
     FRInRegionList[0].Draw()
     print(FRInRegionList[0].GetName())
     
