@@ -110,7 +110,7 @@ void TMVAClassificationApplication_perSample(
     TString outFileName = outputDir + processName + ".root";
     TFile *out = new TFile(outFileName, "RECREATE");
     // TH1D *histBdt = new TH1D(channel + "_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.12); //
-    TH1D *histBdt = new TH1D("1tau1lSR_" + processName + "_BDT", "BDT score", 20, -0.2, 0.3);           //
+    TH1D *histBdt = new TH1D("1tau1lSR_" + processName + "_BDT", "BDT score", 10, -0.28, 0.4);           //
     TH1D *histBdt_CR0 = new TH1D("1tau1lCR0_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4); //
     TH1D *histBdt_CR2 = new TH1D("1tau1lCR2_" + processName + "_BDT", "BDT score", binNum, -0.28, 0.4); //
     TH1D *histBdt_pileup_up = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
