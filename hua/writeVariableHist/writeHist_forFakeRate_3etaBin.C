@@ -40,6 +40,7 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
     }
 }
 
+//!!! a class for doing this
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
     // might need error handling for this
@@ -370,7 +371,7 @@ void writeHist_forFakeRate_3etaBin::SlaveBegin(TTree * /*tree*/)
         {"2016", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
         // {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
-        {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}}
+        {"2018", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 
         // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1fixedTauVariables_v40addTauJetEtau/mc/variableHists_v1forFREtaRegionCorrected_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
         // {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v51TESNewLepObjectRemovalCorrected/mc/variableHists_v0FR_measure_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
@@ -396,9 +397,6 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
 
     // swich to new SS lepton
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
-    // Int_t lepNum = *elesTopMVAL_number + *muonsTopMVAL_number;
-    // Int_t lepNum = *elesTopMVALPOG_number + *muonsTopMVALPOG_number;
-    // Int_t lepNum = *elesTopMVAVPOG_number + *muonsTopMVALPOG_number;
     // leptonsMVAT_number
     if (!(*tausF_number == 1 && lepNum == 0))
     {
@@ -418,8 +416,10 @@ Bool_t writeHist_forFakeRate_3etaBin::Process(Long64_t entry)
     Double_t basicWeight = 1.0;
     if (!m_isData)
     {
+        //!!!make this the input parameter
         // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight);
-        basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
+        // basicWeight = (*PUweight_) * (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*HLT_weight);
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * (*btagShapeR);
     }
 
     Double_t FRWeight_up, FRWeight_down;

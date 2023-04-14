@@ -79,8 +79,11 @@ public:
     TTreeReaderValue<Int_t> PV_npvs = {fReader, "PV_npvs"};
     TTreeReaderValue<Int_t> PV_npvsGood = {fReader, "PV_npvsGood"};
 
-    TTreeReaderValue<Double_t> btagEfficiency_weight = {fReader, "btagEfficiency_weight"};
+    TTreeReaderValue<Double_t> btagShape_weight = {fReader, "btagShape_weight"};
+    TTreeReaderValue<Double_t> btagShapeR = {fReader, "btagShapeR"};
     TTreeReaderValue<Double_t> HLT_weight = {fReader, "HLT_weight"};
+    TTreeReaderValue<Double_t> elesTopMVAT_weight = {fReader, "elesTopMVAT_weight"};
+    TTreeReaderValue<Double_t> musTopMVAT_weight = {fReader, "musTopMVAT_weight"};
     TTreeReaderValue<Double_t> muonIDSF_weight = {fReader, "muonIDSF_weight"}; //???=1
     TTreeReaderValue<Double_t> muonIDSF_weight_up = {fReader, "muonIDSF_weight_up"};
     TTreeReaderValue<Double_t> muonIDSF_weight_down = {fReader, "muonIDSF_weight_down"};
@@ -126,13 +129,6 @@ public:
     TTreeReaderValue<Double_t> leptonsMVAT_1pt = {fReader, "leptonsMVAT_1pt"};
     TTreeReaderValue<Double_t> leptonsMVAT_1eta = {fReader, "leptonsMVAT_1eta"};
     TTreeReaderValue<Double_t> leptonsMVAT_1phi = {fReader, "leptonsMVAT_1phi"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2pt = {fReader, "leptonsMVAT_2pt"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2eta = {fReader, "leptonsMVAT_2eta"};
-    TTreeReaderValue<Double_t> leptonsMVAT_2phi = {fReader, "leptonsMVAT_2phi"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3pt = {fReader, "leptonsMVAT_3pt"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3eta = {fReader, "leptonsMVAT_3eta"};
-    TTreeReaderValue<Double_t> leptonsMVAT_3phi = {fReader, "leptonsMVAT_3phi"};
-
     TTreeReaderValue<Int_t> elesTopMVAT_number = {fReader, "elesTopMVAT_number"};
     TTreeReaderValue<Int_t> muonsTopMVAT_number = {fReader, "muonsTopMVAT_number"};
     TTreeReaderValue<Int_t> elesTopMVAL_number = {fReader, "elesTopMVAL_number"};

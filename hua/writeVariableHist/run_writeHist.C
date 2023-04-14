@@ -20,7 +20,7 @@ void run_writeHist(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4HLTWeightUpdatedNewSFRange_v56NoHLTButPre/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/",
     // TString inputProcess = "ttbar_0l",
     // TString inputProcess = "qcd_500to700",
     TString inputProcess = "tttt",
@@ -31,9 +31,9 @@ void run_writeHist(
     TString version = "test",
     // TString version = "overlapCheck",
     Bool_t isTest = kTRUE,
-    TString selector = "writeHist_fordataMC.C+") // 1tau1l)
-// TString selector = "writeHist_forFakeRate.C+" // 1tau0l
-// TString selector = "writeHist_forFakeRate_3etaBin.C+") // 1tau0l
+    // TString selector = "writeHist_fordataMC.C+") // 1tau1l)
+    // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
+    TString selector = "writeHist_forFakeRate_3etaBin.C+") // 1tau0l
 // TString selector = "writeHist_forBtagRCal.C+")
 // TString selector = "writeHist_forSystematic.C+"
 // TString selector = "writeHist_forHLT.C+") // for tttt signal study

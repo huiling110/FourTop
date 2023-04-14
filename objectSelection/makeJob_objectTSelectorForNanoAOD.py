@@ -34,8 +34,8 @@ jobVersionName = 'v56preselection/'
 
 onlyMC = False
 # era = '2016'
-era = '2016APV'
-# era = '2017'
+# era = '2016APV'
+era = '2017'
 # era = '2018'
 def main():
     # onlyMC = True
