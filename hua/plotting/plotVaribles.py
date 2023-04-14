@@ -28,14 +28,14 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v8_noBtagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrectionWith1tau0L/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0_BDT1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0_BDT1tau1lCRs/'
 
     # for 1tau1l
-    # variables = ['jets_number']
+    variables = ['jets_number']
     # variables = ['jets_5pt']
     # variables = ['jets_HT']
     # variables = ['jets_4largestBscoreMulti']
@@ -45,11 +45,11 @@ def main():
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag']
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
-    variables = ['BDT']
+    # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    regionList = ['1tau1lSR']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   
@@ -106,6 +106,7 @@ def main():
     # remove qcd for 1tau1l 
     sumProcessPerVar, legendOrder = removeQCD(sumProcessPerVar, legendOrder)
     print( sumProcessPerVar )
+    print( legendOrder)
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
@@ -122,14 +123,16 @@ def removeQCD(sumProcessPerVar, legendOrder):
     variables = list(sumProcessPerVar.keys()) 
     regionList = list(sumProcessPerVar[variables[0]].keys())
     for (i,ire) in enumerate( regionList):
-        if '1tau1l' in ire:
+        # if '1tau1l' in ire:
+        if '1tau1lSR' in ire:
             print('remove qcd for 1tau1l')
             for ivar in variables:
                 # if i==0:
                 #     legendOrder.remove('qcd')     
                 if not 'qcd' in sumProcessPerVar[ivar][ire].keys(): continue
                 sumProcessPerVar[ivar][ire].pop('qcd')
-    legendOrder.remove('qcd') 
+    # if '1tau1lSR' in regionList:
+    # legendOrder.remove('qcd') 
     return sumProcessPerVar, legendOrder
  
     
@@ -214,15 +217,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     colourPerSample = {
         'tttt':kBlue,
-        # 'tt': kRed-2,
         'tt': TColor.GetColor("#f03b20"),
         'qcd': kOrange-2,
-        # 'ttX': kPink+2,
         'ttX': TColor.GetColor("#fc9272"),
         'singleTop': TColor.GetColor("#91bfdb"),
         'VV': TColor.GetColor("#ffeda0"),
         'WJets': TColor.GetColor("#998ec3"),
-        # 'fakeTau': kOrange,
         'fakeTau': TColor.GetColor("#ffeda0"),
     }
 

@@ -28,8 +28,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
 
     # regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
@@ -44,12 +44,12 @@ def main():
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3', '1tau1lSRtau', '1tau1lSRlep', '1tau1lSRjet', '1tau1lSRbjet'] 
     # regionList = ['baselineNoB1Tau', '1tau1lNoB']
-    # csvName = '1tau0lCutflow'
     # csvName = 'channelsEY'
     # csvName = '1tau1lRegions'
     # csvName = 'btagRCalRegions'
-    csvName = 'BDTevents'
-    regionList = [ 'baseline', '1tau0lSR','1tau1lSR']
+    # csvName = 'BDTevents'
+    csvName = 'allRegions'
+    regionList = [ '1tau1lCR0', '1tau1lCR2', '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
     ifUseFakeTau = False
     isJetHT= True
