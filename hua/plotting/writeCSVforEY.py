@@ -28,17 +28,18 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v2HLTSFWeight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v1basicWeight/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/variableHists_v7btagShapeRWeight/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v1FR_application/'
 
-    # regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
+    regionList = [ "1tau0lCRc","1tau0lCRb", "1tau0lVR", "1tau0lSR"] #SR has no data region, don't put in the first
     # csvName = '1tau0lFakeRate'
     # regionList = ["1tau0lSRGen", "1tau0lCRGen", "1tau0lCRLTauGen", "1tau0lVRGen", "1tau0lVRLTauGen"]
     # csvName = '1tau0lFakeRateTauGen'
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCR2', '1tau0lCR3', '1tau0lCR4']
     # regionList = [ '1tau0lSR', '1tau1lSR', '1tau2lSR', '2tau0lSR', '2tau1lSR']
     # regionList = [ '1tau0lSR', '1tau0lCR', '1tau0lVR', '1tau0lCRa', '1tau0lCRb', '1tau0lCRc']
-    # csvName = '1tau0lCRs'
+    csvName = '1tau0lCRs'
     
     # regionList = [ '1tau1lCR0','1tau1lCR2', '1tau1lSR']
     # regionList = ['whInitial', 'baseline1', 'baseline2', 'baseline3',  '1tau0lSRmoun', '1tau0lSRele', '1tau0lSRtau', '1tau0lSRjet', '1tau0lSRbjet'] 
@@ -48,8 +49,8 @@ def main():
     # csvName = '1tau1lRegions'
     # csvName = 'btagRCalRegions'
     # csvName = 'BDTevents'
-    csvName = 'allRegions'
-    regionList = [ '1tau1lCR0', '1tau1lCR2', '1tau0lSR','1tau1lSR']
+    # csvName = 'allRegions'
+    # regionList = [ '1tau1lCR0', '1tau1lCR2', '1tau0lSR','1tau1lSR']
     # regionList = ['1tau0lSR', '1tau0lCR']
     ifUseFakeTau = False
     isJetHT= True
@@ -279,7 +280,6 @@ def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC
 
 def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     if not isdataMC:
-        # h_data = sumProcessIVar[region]['data']
         h_data = sumProcessIVar[region]['jetHT']
     else:
     #    h_data = uf.addBGHist(sumProcessIVar, var, region, True) 
