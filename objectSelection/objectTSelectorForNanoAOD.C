@@ -257,24 +257,20 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
                   << "tauTES: " << tauTES << "\n";
     }
     Bool_t deepJet = true;
-    // SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAL_top, tausL, 0);
-    // SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAL_top, tausL, 1);
-    // SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAL_top, tausL, 2);
-    SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAT_top, tausT, 0);
-    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAT_top, tausT, 1);
-    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAT_top, tausT, 2);
+    // SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAT_top, tausT, 0);
+    // SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAT_top, tausT, 1);
+    // SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAT_top, tausT, 2);
+    SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAT_top, tausF, 0);
+    SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAT_top, tausF, 1);
+    SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAT_top, tausF, 2);
     sort(jets.begin(), jets.end(), compEle);
     sort(jets_JECup.begin(), jets_JECup.end(), compEle);
     sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
     // pt are sorted in MINIAOD
-    // SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAL_top, tausL, 0);
-    // SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAL_top, tausL, 0);
-    // SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAL_top, tausL, 0);
-    // SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAL_top, tausL, 0);
-    SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAT_top, tausT, 0);
-    SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAT_top, tausT, 0);
-    SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAT_top, tausT, 0);
-    SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAT_top, tausT, 0);
+    SelectJets(ifJER, 11, deepJet, bjetsL, bjetsL_btags, bjetsL_index, bjetsL_flavour, leptonsMVAT_top, tausF, 0);
+    SelectJets(ifJER, 12, deepJet, bjetsM, bjetsM_btags, bjetsM_index, bjetsM_flavour, leptonsMVAT_top, tausF, 0);
+    SelectJets(ifJER, 13, deepJet, bjetsT, bjetsT_btags, bjetsT_index, bjetsT_flavour, leptonsMVAT_top, tausF, 0);
+    SelectJets(ifJER, 2, deepJet, forwardJets, forwardJets_btags, forwardJets_index, forwardJets_flavour, leptonsMVAT_top, tausF, 0);
     sort(bjetsL.begin(), bjetsL.end(), compEle);
     sort(bjetsM.begin(), bjetsM.end(), compEle);
     sort(bjetsT.begin(), bjetsT.end(), compEle);
