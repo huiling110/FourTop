@@ -32,12 +32,7 @@ def main():
         # 'tausF_1jetEtaAbs' : etaBins 
     }
     
-    # CRnames = ['CRa',  'CRc'] # for bjet
-    # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
-    # CRnames = ['CR', 'CRa'] # for jet
-    CRnames = ['CR'] # for jet
     etaBins = np.array([0, 0.8, 1.5, 2.3])
-    
     
   
     inputDirDic = uf.getDirDic(inputDir)
@@ -48,29 +43,31 @@ def main():
     isVR = False
     
     #measure FR in CR
-    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
-    
-    #application in AR
-    #plotVariable.py for this
-    # getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR)
+    # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
     
-    # FR_EtaListDic = {}
-    # FR_EtaListDic['1Eta'] = []
-    # FR_EtaListDic['2Eta'] = []
-    # # FR_EtaListDic['3Eta'] = []
-    # for iCR in CRnames:
-    #     iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, isVR, True, era, iCR )
-    #     FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
-    #     FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
-    #     # FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
     
-    # plotForBJet = True
-    # if 'CR' in CRnames:
-    #     plotForBJet = False
-    # for iEta in ['1Eta', '2Eta', '3Eta']:
-    #     plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
+    FR_EtaListDic = {}
+    FR_EtaListDic['1Eta'] = []
+    FR_EtaListDic['2Eta'] = []
+    FR_EtaListDic['3Eta'] = []
+    # CRnames = ['CRa',  'CRc'] # for bjet
+    # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
+    # CRnames = ['CR', 'CRa'] # for jet
+    # CRnames = ['CR'] # for jet
+    CRnames = ['CRb', 'VR'] # for jet
+    for iCR in CRnames:
+        iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, iCR )
+        FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
+        FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
+        FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
+    
+    plotForBJet = True
+    if 'CR' in CRnames:
+        plotForBJet = False
+    for iEta in ['1Eta', '2Eta', '3Eta']:
+        plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
    
     
     

@@ -98,8 +98,16 @@ def getSysList(rootFile, variable):
     # print('all hists in file: ', histList)
     return sysList
 
-# def compare2List( list1, list2):
-#     setSame =  
+def compare2List( list1, list2):
+    print('comparing lists now: ')
+    for (i, ie) in enumerate(list1):
+        list1[i] = list1[i].split('.root')[0]
+    diff1 = set(list1) -set(list2)
+    diff2 = set(list2) - set(list1)
+    print('!!!subprocess missing: ', diff2)
+    print('\n')
+    print('\n')
+    
     
 
 def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False):
@@ -108,9 +116,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     sumProcessHistsDictSys = {}
     mcFileList = os.listdir( inputDir['mc'] )
     dataFileList = os.listdir ( inputDir['data'] )
-
-    # compare2List(mcFileList+dataFileList, list(histoGramPerSample.keys()))
-    # cj.checkJobStatus(inputDir)
+    #!!!need to be optimized for checking the hists
+    compare2List(mcFileList+dataFileList, list(histoGramPerSample.keys()))
     
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
