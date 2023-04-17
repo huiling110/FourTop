@@ -25,8 +25,9 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/'
 
     # version = 'v0FR_measureVR_1prong'
+    version = 'v0FR_measureVR_1prong_Add'
     # version = 'v0FR_measureVR_3prong'
-    version = 'v1FR_application'
+    # version = 'v1FR_application'
     
     # version = 'v6_btagRMeasure'
     # version = 'v7_btagCorrection'
