@@ -31,10 +31,9 @@ import usefulFunc as uf
 inVersion = 'v57ovelapWithTausF'
 
 # outVersion = 'v0noBaseline'
-outVersion = 'v0baseline'
-# outVersion = 'v0noCut'
+# outVersion = 'v0baseline'
 # outVersion = 'v1cut1tau1l'
-# outVersion = 'v2baslineNoHLTBugFixed'
+outVersion = 'v2baslineNoHLT'
 # outVersion = 'v4HLTWeightUpdatedNewSFRange'
 # outVersion = 'v5extra1tau1lCut'
 # outVersion = 'v4baseline'
@@ -49,12 +48,12 @@ outVersion = 'v0baseline'
 # outVersion = 'v1AddTOPLepVariables'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
-# year = '2016'
+year = '2016'
 # year = '2018'
-year = '2017'
+# year = '2017'
 # selectionBit = '0'
-# selectionBit = '4'
-selectionBit = '6' # no metfilters
+selectionBit = '4'
+# selectionBit = '6' # no metfilters
 # selectionBit = '2' # no metfilters
 print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
 justMC = False
