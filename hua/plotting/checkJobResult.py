@@ -16,9 +16,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/mc/variableHists_v0_triggerSFNewRange/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHist_v6_btagRMeasure/'
 
-    inputDirDic = uf.getDirDic(inputDir) 
-    era = uf.getEraFromDir(inputDir)
-    checkJobStatus(inputDirDic)
+    # inputDirDic = uf.getDirDic(inputDir) 
+    # era = uf.getEraFromDir(inputDir)
+    # checkJobStatus(inputDirDic)
     
     #check object selection jobs 
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
@@ -28,11 +28,9 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v52noHLTButPreSelection/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v54noHLTButPreMetFixed/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
-    # era = uf.getEraFromDir(obDir)
-    # checkOSJobs(obDir, era)
-    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v46addPOGIDL/'
-    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v45newLepBugFixed/'
-    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v49FixedPileUpJERAndTES/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v57ovelapWithTausF/'
+    era = uf.getEraFromDir(obDir)
+    checkOSJobs(obDir, era)
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = inputDir[:inputDir.find('mc')]
@@ -42,7 +40,7 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0LepLAdded_v45newLepBugFixed/'\
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v52noHLTButPreSelection/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLT_v56NoHLTButPre/'
-    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/'
+    # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/'
     # checkMVJobs(mvDir)
     

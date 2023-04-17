@@ -24,6 +24,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0FR_measureVR_1prong/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0FR_measureVR_1prong_Add/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     
    
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
@@ -47,8 +48,10 @@ def main():
     # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
-    
-    
+    plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
+    plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, False)
+   
+def plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, isJet=True): 
     FR_EtaListDic = {}
     FR_EtaListDic['1Eta'] = []
     FR_EtaListDic['2Eta'] = []
@@ -56,27 +59,31 @@ def main():
     # CRnames = ['CRa',  'CRc'] # for bjet
     # CRnames = ['CRa',  'CRb', 'CRc'] # for bjet
     # CRnames = ['CR', 'CRa'] # for jet
-    # CRnames = ['CR'] # for jet
-    CRnames = ['CRb', 'VR'] # for jet
+    if isJet:
+        CRnames = ['CRb', 'VR'] # for jet
+        legendList = ['<8 jets', '>=8 jets']
+        plotUncer = False
+    else:
+        # CRnames = ['CRc', 'CRb'] # for bjet; new 'VR' and 'CR'
+        CRnames = ['CRb', 'CRc'] # for bjet; new 'VR' and 'CR'
+        legendList = [ '=1 bjet', '>=2 bjets']
+        plotUncer = True
     for iCR in CRnames:
         iFR_EtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, iCR )
         FR_EtaListDic['1Eta'].append(iFR_EtaList[0])
         FR_EtaListDic['2Eta'].append(iFR_EtaList[1])
         FR_EtaListDic['3Eta'].append(iFR_EtaList[2])
     
-    plotForBJet = True
-    if 'CR' in CRnames:
-        plotForBJet = False
-    legendList = ['<8 jets', '>=8 jets']
+    plotDir = inputDirDic['mc'] + 'results/'
     for iEta in ['1Eta', '2Eta', '3Eta']:
-        # plotFROverlay( FR_EtaListDic[iEta], iEta, plotDir, era, CRnames, plotForBJet)
-        overLayName = plotDir + 'overlay_' + iEta +'.png'
-        plotFROverlay( FR_EtaListDic[iEta], legendList, era, "FR", overLayName, False, [0, 0.35] )
+        # overLayName = plotDir + 'overlay_' + iEta +'.png'
+        overLayName = plotDir + 'overlay' + CRnames[0]+CRnames[1] + iEta +'.png'
+        # plotFROverlay( FR_EtaListDic[iEta], legendList, era, "FR", overLayName, False, [0, 0.35] )
+        plotFROverlay( FR_EtaListDic[iEta], legendList, era, "FR", overLayName, plotUncer, [0, 0.35] )
    
     
     
             
-# def plotFROverlay(FRInRegionList,  era, CRnames, ifForBjet=True):
 def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBand=False, yRange=[]):
     print('start to plot overlay..........\n')
     # can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
@@ -123,24 +130,13 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     #add uncertainty band for FR1
     if ifUncerBand:
         uncert = FRInRegionList[0].Clone()
-        # if ifForBjet:
-        uncertValue = 0.15
-        # else:
-            # uncertValue = 0.05
+        uncertValue = 0.10
         for ibin in range(1, FRInRegionList[0].GetNbinsX()+1):
             uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*uncertValue)
         uncert.SetFillStyle(3013)
         uncert.SetFillColor(ROOT.kOrange)
         uncert.Draw('same e2')
    
-    # CRlegendDic = {
-    #     'CRa': ['0 b jet', '<8 jets'],
-    #     'CRb': ['1 b jet'],
-    #     'CRc': ['2 b jets'],
-    #     'CR':  ['0 b jet', '>8 jets']
-    # } 
-    
-    # legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
     legend = ROOT.TLegend(0.55,0.7,0.9,0.9)
     for (i,iLe) in enumerate(legendList):
         legend.AddEntry(FRInRegionList[i], iLe)
@@ -156,79 +152,6 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     can.SaveAs( plotName )
     print( yTitle, ' overlay plot here:', plotName )    
     
-#only for old FR overlay, to be deleted    
-# def plotFROverlay(FRInRegionList, iEta, plotDir, era, CRnames, ifForBjet=True):
-#     print('start to plot FR overlay..........\n')
-#     can = ROOT.TCanvas('FR overlay', 'FR_overlay', 800, 600)
-#     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-#     ROOT.gStyle.SetOptTitle(0)
-    
-#     FRInRegionList[0].GetYaxis().SetRangeUser(FRInRegionList[0].GetMinimum()*0.6, FRInRegionList[0].GetMaximum()*1.5)
-#     FRInRegionList[0].GetYaxis().SetTitle('fake rate')
-#     FRInRegionList[0].GetYaxis().SetLabelSize(0.025)
-#     FRInRegionList[0].GetYaxis().SetTitleOffset(1.1)
-#     FRInRegionList[0].GetXaxis().SetTitle('pt of tau mother jet')
-#     # FRInRegionList[0].SetLineColor(ROOT.kMagenta)
-#     FRInRegionList[0].SetLineColor(ROOT.kOrange)
-#     FRInRegionList[0].SetMarkerStyle(45)
-#     FRInRegionList[0].SetMarkerSize(2)
-#     FRInRegionList[0].SetMarkerColor(ROOT.kOrange)
-#     FRInRegionList[0].Draw()
-#     print(FRInRegionList[0].GetName())
-    
-#     FRInRegionList[1].SetLineColor(ROOT.kRed)
-#     FRInRegionList[1].SetMarkerStyle(94)
-#     FRInRegionList[1].SetMarkerSize(2)
-#     FRInRegionList[1].SetMarkerColor(ROOT.kRed )
-#     FRInRegionList[1].Draw('same')
-    
-#     if len(CRnames)>2:
-#         FRInRegionList[2].SetLineColor(ROOT.kMagenta)
-#         FRInRegionList[2].SetMarkerStyle(22)
-#         FRInRegionList[2].SetMarkerSize(2)
-#         FRInRegionList[2].SetMarkerColor(ROOT.kMagenta )
-#         FRInRegionList[2].Draw('same')
-    
-#     #add uncertainty band for FR1
-#     uncert = FRInRegionList[0].Clone()
-#     if ifForBjet:
-#         uncertValue = 0.15
-#     else:
-#         uncertValue = 0.05
-#     for ibin in range(1, FRInRegionList[0].GetNbinsX()+1):
-#         uncert.SetBinError(ibin, uncert.GetBinContent(ibin)*uncertValue)
-#     uncert.SetFillStyle(3013)
-#     uncert.SetFillColor(ROOT.kOrange)
-#     uncert.Draw('same e2')
-   
-   
-#     CRlegendDic = {
-#         'CRa': ['0 b jet', '<8 jets'],
-#         'CRb': ['1 b jet'],
-#         'CRc': ['2 b jets'],
-#         'CR':  ['0 b jet', '>8 jets']
-#     } 
-    
-#     legend = ROOT.TLegend(0.6,0.7,0.9,0.9)
-#     if ifForBjet:
-#         legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][0])
-#         legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][0])
-#         if len(CRnames)>2:
-#             legend.AddEntry(FRInRegionList[2], CRlegendDic[CRnames[2]][0])
-            
-#     else:
-#         legend.AddEntry(FRInRegionList[0], CRlegendDic[CRnames[0]][1])
-#         legend.AddEntry(FRInRegionList[1], CRlegendDic[CRnames[1]][1])
-    
-#     uncerEntry = '{} % uncertainty'.format(uncertValue*100)    
-#     legend.AddEntry(uncert, uncerEntry)
-#     legend.Draw()
-    
-#     addCMSTextToCan(can, 0.18, 0.3, 0.92, era)
-    
-#     plotName =  plotDir + 'FROverlay' + '_'+iEta + CRnames[0]+CRnames[1] + '.png'
-#     can.SaveAs( plotName )
-#     print('FR overlay plot here:', plotName )    
         
 
 def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins):
@@ -447,8 +370,8 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
 
     h_efficiency = h_eff.Clone()
     if ifFixMax:
-        # rightmax = .35
-        rightmax = .2
+        rightmax = .35
+        # rightmax = .2
     else:
         rightmax = 1.7*h_efficiency.GetMaximum();
     scale = ROOT.gPad.GetUymax()/rightmax;
