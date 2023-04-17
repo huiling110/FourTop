@@ -30,7 +30,8 @@ outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
 # jobVersionName = 'v55ojectRemovalwithTightNoHLT/'
 # jobVersionName = 'v56addLepTopHLTSel/'
 # jobVersionName = 'v56NoHLTButPre/'
-jobVersionName = 'v56preselection/'
+# jobVersionName = 'v56preselection/'
+jobVersionName = 'v57ovelapWithTausF/'
 
 onlyMC = False
 # era = '2016'
@@ -39,13 +40,13 @@ era = '2017'
 # era = '2018'
 def main():
     # onlyMC = True
-    eventSelection = '7'
-    # eventSelection = ''
+    # eventSelection = '7'
+    eventSelection = '5'
     # eventSelection = '1'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     isHuiling = True
-    # dataList = [ 'jetHT', 'singleMu'] 
-    dataList = [ 'jetHT']
+    dataList = [ 'jetHT', 'singleMu'] 
+    # dataList = [ 'jetHT']
     # dataList = ['singleMu'] 
 
     print( "era: ", era, "  eventSelection: ", eventSelection )
