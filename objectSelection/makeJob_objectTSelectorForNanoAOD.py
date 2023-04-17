@@ -35,9 +35,9 @@ jobVersionName = 'v57ovelapWithTausF/'
 
 onlyMC = False
 # era = '2016'
-era = '2016APV'
+# era = '2016APV'
 # era = '2017'
-# era = '2018'
+era = '2018'
 def main():
     # onlyMC = True
     # eventSelection = '7'
