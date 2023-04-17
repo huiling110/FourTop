@@ -147,10 +147,10 @@ void writeHist_forHLTStudy::SlaveBegin(TTree * /*tree*/)
     }
 
     // 2D for SF
-    // Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
-    // Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
-    Double_t xbins[] = {500, 600, 700, 800, 900, 1000, 1200, 1600, 2500}; // HT
-    Double_t ybins[] = {40, 55, 80, 145};                                 // 6th jet pt
+    Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
+    Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
+    // Double_t xbins[] = {500, 600, 700, 800, 900, 1000, 1200, 1600, 2500}; // HT
+    // Double_t ybins[] = {40, 55, 80, 145};                                 // 6th jet pt
     b1HT6pt_de = new TH2D("baseline1Muon1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b1HT6pt_nu = new TH2D("baseline1MuonAndHLT1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6pt_de = new TH2D("baseline1Muon2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);

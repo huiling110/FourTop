@@ -22,14 +22,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLT_v56NoHLTButPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baslineNoHLT_v57ovelapWithTausF/'
 
     # version = 'v0FR_measureVR_1prong'
-    version = 'v0FR_measureVR_1prong_Add'
+    # version = 'v0FR_measureVR_1prong_Add'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
-    
+   
+    version = 'v0_HLTSFMeasure'
+
     # version = 'v6_btagRMeasure'
     # version = 'v7_btagCorrection'
     # version = 'v7_btagCorrectionWith1tau0L'
@@ -39,7 +42,6 @@ def main():
     # version = 'v1basicWeight'
     # version = 'v2HLTSFWeight'
     # version ='v3btagShapeWeight'
-    # version = 'v4basicWeight'
     # version = 'v6allCorrectionButBtag'
     # version = 'v7btagShapeRWeight'
     # version = 'v8btagRMeasureWith1tau0l'
