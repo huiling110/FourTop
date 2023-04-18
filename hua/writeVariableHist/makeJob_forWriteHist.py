@@ -29,7 +29,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v57ovelapWithTausF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_1prong_Add'
@@ -37,10 +38,9 @@ def main():
     # version = 'v1FR_application'
    
     # version = 'v0_HLTSFMeasure'
-    version = 'v1_btagRMeasure'
+    # version = 'v1_btagRMeasure'
 
-    # version = 'v7_btagCorrection'
-    # version = 'v7_btagCorrectionWith1tau0L'
+    version = 'v2_btagCorrection'
     # version = 'v8_noBtagCorrection'
     # version = 'v0_basicCorrection'
     # version = 'v0_triggerSFNewRange'

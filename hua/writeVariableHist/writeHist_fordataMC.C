@@ -31,8 +31,6 @@
 #include "writeHist_fordataMC.h"
 #include "SFfileMap.h"
 
-
-
 //???repeated in MV
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {
@@ -134,7 +132,7 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Int_t> jets_number_class{"jets_number", "n^{jet}", 7, 5.5, 12.5, jets_number};
     histsForRegions<Int_t> bjetsM_number_class{"bjetsM_num", "n^{b jet}", 8, -0.5, 7.5, bjetsM_num};
     histsForRegions<Int_t> tausT_leptonsTMVA_chargeMulti_class{"tausT_leptonsTMVA_chargeMulti", "muliplity of tau and lepton charge", 3, -1.5, 1.5, tausT_leptonsTMVA_chargeMulti};
-    histsForRegions<Int_t> tausT_leptonsTopMVA_chargeMulti_class{"tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}", 3, -1.5, 1.5, tausT_leptonsTopMVA_chargeMulti};
+    histsForRegions<Int_t> tausT_leptonsTopMVA_chargeMulti_class{"tausT_leptonsTopMVA_chargeMulti", "charge^{#tau_{h}}*charge^{lep}", 3, -1.5, 1.5, tausT_leptonsTopMVA_chargeMulti};
     // tausT_leptonsTopMVA_chargeMulti
     histsForRegions<Int_t> nonbjetsM_num_class{"nonbjetsM_num", "n^{non b jet}", 11, -0.5, 10.5, nonbjetsM_num};
     histsForRegions<Int_t> PV_npvsGood_class{"PV_npvsGood", "n^{vertex}", 10, 0, 50, PV_npvsGood};
@@ -179,12 +177,12 @@ void writeHist_fordataMC::SlaveBegin(TTree * /*tree*/)
     histsForRegions<Double_t> bjetsM_1pt_class{"bjetsM_1pt", "p_{T}^{1st bjet}", 10, 25, 600, bjetsM_1pt};
     histsForRegions<Double_t> bjetsM_2pt_class{"bjetsM_2pt", "p_{T}^{2nd bjet}", 10, 25, 500, bjetsM_2pt};
     histsForRegions<Double_t> bjetsM_minDeltaR_class{"bjetsM_minDeltaR", "min(#Delta R_{b jets})", 6, 0, 5, bjetsM_minDeltaR};
-    histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau}", 10, 20, 200, tausT_1pt};
-    histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "#eta_{#tau}", 10, 0, 3, tausT_1eta};
-    histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "#phi_{#tau}", 10, 0, 3, tausT_1phi};
-    histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT_{#tau}(GeV)", 10, 25, 300, tausT_HT};
-    histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT_{#tau}(GeV)", 10, 25, 300, tausT_MHT};
-    histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "m_{#tau and lep}(GeV)", 10, 0, 500, tausT_leptonsT_invariantMass};
+    histsForRegions<Double_t> tausT_1pt_class{"tausT_1pt", "p_{T}^{1st #tau_{h}}", 10, 20, 200, tausT_1pt};
+    histsForRegions<Double_t> tausT_1eta_class{"tausT_1eta", "#eta_{#tau_{h}}", 10, 0, 3, tausT_1eta};
+    histsForRegions<Double_t> tausT_1phi_class{"tausT_1phi", "#phi_{#tau_{h}}", 10, 0, 3, tausT_1phi};
+    histsForRegions<Double_t> tausT_HT_class{"tausT_HT", "HT_{#tau_{h}}(GeV)", 10, 25, 300, tausT_HT};
+    histsForRegions<Double_t> tausT_MHT_class{"tausT_MHT", "MHT_{#tau_{h}}(GeV)", 10, 25, 300, tausT_MHT};
+    histsForRegions<Double_t> tausT_leptonsT_invariantMass_class{"tausT_leptonsT_invariantMass", "m_{#tau_{h} and lep}(GeV)", 10, 0, 500, tausT_leptonsT_invariantMass};
 
     histsForRegions<Double_t> muonsTopMVAT_1t_class{"muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", 10, 0, 140, muonsTopMVAT_1pt};
     histsForRegions<Double_t> elesTopMVAT_1pt_class{"elesTopMVAT_1pt", "p_{T}^{e}(GeV)", 10, 0, 140, elesTopMVAT_1pt};
@@ -255,15 +253,15 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         return kFALSE;
     }
     // HLT
-    Bool_t ifHLT = kTRUE;
-    if (m_era.CompareTo("2016") == 0)
-    {
-        if (entry == 0)
-        {
-            std::cout << "HLT selection for 2016\n";
-        }
-        ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
-    }
+    // Bool_t ifHLT = kTRUE;
+    // if (m_era.CompareTo("2016") == 0)
+    // {
+    //     if (entry == 0)
+    //     {
+    //         std::cout << "HLT selection for 2016\n";
+    //     }
+    //     ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
+    // }
     // else if (m_era.CompareTo("2018") == 0)
     // {
     //     if (entry == 0)
@@ -272,10 +270,10 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
     //     }
     //     ifHLT = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFJet500 == 1;
     // }
-    if (!(ifHLT))
-    {
-        return kFALSE;
-    }
+    // if (!(ifHLT))
+    // {
+    //     return kFALSE;
+    // }
 
     Double_t btagR = calBtagR(*jets_number, btagRHist);
     Double_t basicWeight = 1.0;
@@ -285,12 +283,9 @@ Bool_t writeHist_fordataMC::Process(Long64_t entry)
         // basicWeight = (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*btagShape_weight) * (*HLT_weight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight);
-        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*tauT_IDSF_weight_new);
         // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
+        // basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * btagR;
+        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight) * (*btagShape_weight) * (*btagShapeR);
     }
 
     Int_t lepNum = *elesTopMVAT_number + *muonsTopMVAT_number;
