@@ -26,8 +26,8 @@ void run_makeVaribles_forBDT(
     // TString inputDir = "ttbar_1l",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     // const TString eventSelectionBit = "0",
-    // const TString eventSelectionBit = "6",
-    const TString eventSelectionBit = "4",
+    const TString eventSelectionBit = "6",
+    // const TString eventSelectionBit = "4",
     Bool_t ifOneSample = kFALSE,
     // Bool_t ifOneSample = kTRUE,
     TString singleSampleName = "outTree_5"

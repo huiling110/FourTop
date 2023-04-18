@@ -202,7 +202,7 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
             {
                 std::cout << "doing HTL selection for 2018\n";
             }
-            if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ == 1 || *HLT_PFJet500_ == 1))
+            if (!(*HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ == 1 || *HLT_PFJet500_ == 1))
             {
                 return kFALSE;
             }
