@@ -106,7 +106,7 @@ void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
     // namespace fs = std::filesystem;
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    std::vector<TString> regionsForVariables = {"baselineNoB1Tau", "baselineNoB1TauBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
+    std::vector<TString> regionsForVariables = {"1tauNoB1Tau", "1tauNoB1TauBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     vectorOfVariableRegions.clear();
@@ -141,7 +141,8 @@ Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
     if (!m_isData)
     {
         // be blind for data in signal region
-        Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
+        // Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
+        Bool_t isBTagRegion = *tausT_number == 1 && *jets_number >= 6;
         // Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
         // Bool_t SR1tau0lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
         Bool_t SR1tau1lNoB = (*tausT_number == 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
