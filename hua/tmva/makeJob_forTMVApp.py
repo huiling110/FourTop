@@ -18,7 +18,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/'
 
-    version = 'v0_BDT1tau1lCRs'
+    version = 'v0BDT_SR20Bins'
     # version = 'v0_BDTWithSystematics'
     region = '1tau1lCR0'
     

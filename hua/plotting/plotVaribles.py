@@ -27,7 +27,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v8_noBtagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v7_btagCorrectionWith1tau0L/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0_BDT1tau1lCRs/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v1FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
@@ -36,7 +36,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v2_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0_BDT1tau1lCRs/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0_BDT1tau1lCRs/'
 
     # for 1tau1l
     # variables = ['jets_number']
@@ -49,8 +49,8 @@ def main():
     variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    regionList = ['1tau1lCR0', '1tau1lCR2', '1tau1lSR' ]
-    # regionList = ['1tau1lSR']
+    # regionList = ['1tau1lCR0', '1tau1lCR2', '1tau1lSR' ]
+    regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   
@@ -102,15 +102,18 @@ def main():
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
    
-    #1tau0l 
-    #???should we add hists like this?
-    if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
-        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
-    
     # remove qcd for 1tau1l 
     sumProcessPerVar, legendOrder = removeQCD(sumProcessPerVar, legendOrder)
     print( sumProcessPerVar )
     print( legendOrder)
+    
+    
+    #???should we add hists like this?
+    if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
+        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
+    if (not hasFakeTau) and regionList[0]=='1tau1lSR' and 'BDT' in variables: 
+        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
+    
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
@@ -145,8 +148,8 @@ def writeTemplatesForCombine(sumProcessPerVar,sumProcessPerVaySys, inputDir, reg
                     ihistSys = sumProcessPerVaySys[ivar][region][ipro][isys].Clone(itempName+'_'+isys)
                     ihistSys.Write()
         dataHist.Write()
-    # outFile.ls()
     print('writen templates for combine here', outFile.GetName())
+    print('\n')
     outFile.Close()    
   
 
