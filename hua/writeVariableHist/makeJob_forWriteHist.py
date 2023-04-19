@@ -35,8 +35,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/'
 
     # version = 'v0FR_measureVR_1prong'
-    version = 'v0FR_measureVR_3prong'
-    # version = 'v1FR_application'
+    # version = 'v0FR_measureVR_3prong'
+    version = 'v1FR_application'
    
     # version = 'v0_HLTSFMeasure'
     # version = 'v1_btagRMeasure'
