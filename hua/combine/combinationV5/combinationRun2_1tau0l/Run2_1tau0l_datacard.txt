@@ -1,0 +1,20 @@
+Combination of SR1tau0l_2016=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt  SR1tau0l_2017=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt  SR1tau0l_2018=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/1tau0ltemplates_Sum_jets_bScore_datacard.txt
+imax 3 number of bins
+jmax 5 number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *              SR1tau0l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
+shapes *              SR1tau0l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
+shapes *              SR1tau0l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau0l_2016  SR1tau0l_2017  SR1tau0l_2018
+observation  -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau0l_2016  SR1tau0l_2016  SR1tau0l_2016  SR1tau0l_2016  SR1tau0l_2016  SR1tau0l_2016  SR1tau0l_2017  SR1tau0l_2017  SR1tau0l_2017  SR1tau0l_2017 SR1tau0l_2018  SR1tau0l_2018  SR1tau0l_2018  SR1tau0l_2018  SR1tau0l_2018  SR1tau0l_2018
+process      tttt           fakeTau        ttX            tt             VV             singleTop      tttt           fakeTau        ttX            tt            tttt           fakeTau        ttX            tt             VV             singleTop    
+process      0              1              2              3              4              5              0              1              2              3             0              1              2              3              4              5            
+rate         -1             -1             -1             -1             -1             -1             -1             -1             -1             -1           -1             -1             -1             -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+SR1tau0l_2018 autoMCStats 10 0 1
+SR1tau0l_2017 autoMCStats 10 0 1
+SR1tau0l_2016 autoMCStats 10 0 1

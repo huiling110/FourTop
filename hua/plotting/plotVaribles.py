@@ -13,6 +13,7 @@ from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 from writeCSVforEY import replaceBgWithGen
 
+
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3HLTBaseline_v54noHLTButPre/mc/variableHists_v2HLTweight/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v55ojectRemovalwithTight/mc/variableHists_v2HLTweight/'
@@ -29,13 +30,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0_BDT1tau1lCRs/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v1FR_application/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v2_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v2_btagCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v2_btagCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v3NoHLTBTagCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/variableHists_v1FR_application/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/'
 
     # for 1tau1l
@@ -55,17 +54,17 @@ def main():
     # plotName = 'dataVsMC'
   
     #1tau0l
-    # variables = ['jets_bScore' ]
+    variables = ['jets_bScore' ]
     # variables = ['bjetsM_num', 'jets_bScore']
     # variables = ['tausF_1jetPtFRWeight']
-    variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
+    # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
     # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
-    # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
+    regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     ifFR_sys = True 
     plotName = 'dataVsMC_fakeTauFromData'
 
@@ -101,8 +100,10 @@ def main():
         legendOrder.remove('qcd')
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
-    
-    # writeTemplatesForCombine(sumProcessPerVar, inputDirDic['mc'], regionList[0]) 
+   
+    #1tau0l
+    if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
+        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     
     # remove qcd for 1tau1l 
     sumProcessPerVar, legendOrder = removeQCD(sumProcessPerVar, legendOrder)
@@ -119,6 +120,34 @@ def main():
             # print(regionList)
             # sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
             makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
+
+
+
+def writeTemplatesForCombine(sumProcessPerVar,sumProcessPerVaySys, inputDir, region, channel='1tau0l') :
+    outDir = inputDir + channel + '_templatesForCombine/'
+    uf.checkMakeDir( outDir )
+    outFile = TFile( outDir+'templates.root', 'RECREATE')
+    for ivar in sumProcessPerVar.keys():
+        dataHist = TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
+        dataHist.Reset()
+        dataHist.Sumw2()
+        for ipro in sumProcessPerVar[ivar][region].keys():
+            itempName = ipro + '_' + ivar 
+            ihist = sumProcessPerVar[ivar][region][ipro].Clone(itempName)
+            ihist.Write()
+            if (not ipro=='tttt') and (not ipro=='qcd') and (not ipro=='qcd'):
+                dataHist.Add(ihist)
+                print('add data:', ihist)
+                
+                for isys in sumProcessPerVaySys[ivar][region][ipro].keys():
+                    ihistSys = sumProcessPerVaySys[ivar][region][ipro][isys].Clone(itempName+'_'+isys)
+                    ihistSys.Write()
+        dataHist.Write()
+    # outFile.ls()
+    print('writen templates for combine here', outFile.GetName())
+    outFile.Close()    
+  
+
  
 def removeQCD(sumProcessPerVar, legendOrder):
     variables = list(sumProcessPerVar.keys()) 
