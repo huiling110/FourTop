@@ -5,19 +5,20 @@
 
 ## MC correction
 - [ ] B tag r measure in 1tau lep=>0 rather than lep>=1(2016)
-- [ ] B tag R measurement of a 2018
 - [ ] B tag R systematic correlation in final fit?
 - [ ] JER problem
 - [ ] Pileup reweighting, why? should we ensure sum of weights the same?
 - [x] B tag R measurement of a 2017
+- [x] B tag R measurement of a 2018
 
 
 ## HLT 
-- [ ] HLT SF 2018
+- [ ] Optimize trigger SF binning
 - [ ] Trigger efficiency unsymetric error to ensure less than 1
 - [ ] How to assign trigger SF uncertainty?
 - [ ] Graceful error handling of reading HLT branches in OS code
 - [x] HLT SF 2017
+- [x] HLT SF 2018
 
 
 
