@@ -101,7 +101,8 @@ def main():
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
    
-    #1tau0l
+    #1tau0l 
+    #???should we add hists like this?
     if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
         writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     
