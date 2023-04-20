@@ -6,9 +6,9 @@ kmax 0 number of nuisance parameters
 shapes *              SR1tau0l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
 shapes *              SR1tau0l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
 shapes *              SR1tau0l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root $PROCESS_jets_bScore
-shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0BDT_SR20Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
-shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0BDT_SR20Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
-shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0BDT_SR20Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
+shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/variableHists_v0BDT_SR30Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
+shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0BDT_SR30Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
+shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0BDT_SR30Bins/1tau0l_templatesForCombine/templates.root $PROCESS_BDT
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          SR1tau0l_2017  SR1tau1l_2016  SR1tau1l_2017  SR1tau1l_2018  SR1tau0l_2018  SR1tau0l_2016
 observation  -1             -1             -1             -1             -1             -1           
