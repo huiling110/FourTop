@@ -279,6 +279,7 @@ public:
         genTaus;
     std::vector<ROOT::Math::PtEtaPhiMVector> genEles;
     std::vector<ROOT::Math::PtEtaPhiMVector> genMuons;
+    std::vector<ROOT::Math::PtEtaPhiMVector> genBs;
 
     // non newTree branch variables
     std::vector<Double_t> JER_SF_new;
@@ -319,6 +320,7 @@ public:
     void selectGenTaus(std::vector<ROOT::Math::PtEtaPhiMVector> &genTaus);
     void selectGenEles(std::vector<ROOT::Math::PtEtaPhiMVector> &genEles);
     void selectGenMuons(std::vector<ROOT::Math::PtEtaPhiMVector> &genMuons);
+    void selectGenParts(std::vector<ROOT::Math::PtEtaPhiMVector> &genParts, const Int_t motherID, const Int_t ID);
     void SelectElectronsMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, const Int_t type);
     void SelectEleTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedElectrons, std::vector<Int_t> &SelectedElectronsIndex, std::vector<Double_t> &SelectedEleTopMVAScore, const Int_t type);
     void SelectMuTopMVA(std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedMuons, std::vector<Int_t> &SelectedMuonsIndex, std::vector<Double_t> &SelectedMuonsLeptonScore, const Int_t type);

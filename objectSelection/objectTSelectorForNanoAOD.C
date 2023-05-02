@@ -311,6 +311,7 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
         selectGenTaus(genTaus);
         selectGenEles(genEles);
         selectGenMuons(genMuons);
+        selectGenParts(genBs, 6, 5);
     }
 
     EVENT_prefireWeight_ = *L1PreFiringWeight_Nom;
@@ -490,6 +491,7 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("genTaus", &genTaus);
     newTree->Branch("genEles", &genEles);
     newTree->Branch("genMuons", &genMuons);
+    newTree->Branch("genBs", &genBs);
 
     newTree->Branch("MET_pt_", &MET_pt_, "MET_pt_/D");
     newTree->Branch("MET_phi_", &MET_phi_, "MET_phi_/D");
@@ -1133,6 +1135,17 @@ void objectTSelectorForNanoAOD::selectGenMuons(std::vector<ROOT::Math::PtEtaPhiM
         ROOT::Math::PtEtaPhiMVector genmuon(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         // genmuon.SetPtEtaPhiM(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genMuons.push_back(genmuon);
+    }
+}
+void objectTSelectorForNanoAOD::selectGenParts(std::vector<ROOT::Math::PtEtaPhiMVector> &genParts, const Int_t motherID, const Int_t ID)
+{
+    genParts.clear();
+    for (UInt_t j = 0; j < *nGenPart; ++j)
+    {
+        if (!(abs(GenPart_genPartIdxMother.At(j)) == motherID && abs(GenPart_pdgId.At(j)) == ID))
+            continue; // tau:15; top:6;W:;muon:13; ele: 11;
+        ROOT::Math::PtEtaPhiMVector genmuon(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
+        genParts.push_back(genmuon);
     }
 }
 
