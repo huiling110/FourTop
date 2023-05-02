@@ -2,6 +2,8 @@
 
 ## Object 
 - [ ] New Tau ID SF: https://cms-talk.web.cern.ch/t/new-tau-id-scale-factors-for-ul-mc/21688
+- [ ] jet ID: maybe switch to tight
+- [ ] [Physics/TAU POG] Data/MC disagreement at high tau pT with new pt-dm-dependent scale factors
 
 ## MC correction
 - [ ] B tag r measure in 1tau lep=>0 rather than lep>=1(2016)
@@ -38,6 +40,7 @@
 ## Results
 - [ ] Further divide 1tau1l into SS and OS 
 - [ ] SR in to b jets bins
+- [ ] Check significance of 1tau3l, 2tau0l and 2tau1l channels
 
 
 
@@ -48,6 +51,7 @@
 - [ ] Use the json from cmfs /
 - [ ] Group subprocess for combine or not? no besause of the haddling the error
 - [ ] Check why 2016B_v1 data, none passing METFilters 
+- [ ] Overlap check with single lepton channel in 1tau1l
 
 
 ## Coding 
