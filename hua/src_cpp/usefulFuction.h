@@ -62,4 +62,16 @@ TH1D *getHistogramFromFile(TString filename, const char *histname)
     return hist;
 }
 
+void histFill(Bool_t ifFill, Bool_t isData, Double_t weight, Double_t variableVal, TH1D *&hist)
+{
+    if (isData && ifFill)
+    {
+        hist->Fill(variableVal);
+    };
+    if (ifFill && !isData)
+    {
+        hist->Fill(variableVal, weight);
+    };
+}
+
 #endif

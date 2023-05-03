@@ -24,7 +24,8 @@ void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepFoLepForrObjectRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v6baseline_v56preselection/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/",
     TString inputProcess = "tttt",
     // TString inputProcess = "jetHT_2016F",
     TString version = "test",
@@ -36,10 +37,9 @@ void TMVAClassificationApplication_perSample(
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/variableList/varibleList_17.csv",
     TString weightDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v0/dataset/1tau1lvaribleList_17_weight/",
     TString outputDir = "output/",
-    TString era = "2016"
+    TString era = "2016",
     // TString era = "2017"
-    // Bool_t isTest = kTRUE
-)
+    Bool_t ifSys = kTRUE)
 {
 
     // This loads the library
@@ -160,9 +160,10 @@ void TMVAClassificationApplication_perSample(
     std::cout << "--- Processing: " << theTree->GetEntries() << " events" << std::endl;
     TStopwatch sw;
     sw.Start();
-    for (Long64_t ievt = 0; ievt < theTree->GetEntries(); ievt++)
+    // for (Long64_t ievt = 0; ievt < theTree->GetEntries(); ievt++)
+    // {
+    for (Long64_t ievt = 0; ievt < 1000; ievt++)
     {
-        // for (Long64_t ievt=0; ievt<1000;ievt++) {
 
         theTree->GetEntry(ievt);
         // baseline selection
@@ -172,7 +173,6 @@ void TMVAClassificationApplication_perSample(
         }
 
         // jets_bScore = jets_bScore_origin;
-        // toptagger_MHT = toptagger_MHT_origin;
         for (UInt_t j = 0; j < variableNum; j++)
         {
             // variablesForReader[j] = variablesOrigin[j];
@@ -186,49 +186,51 @@ void TMVAClassificationApplication_perSample(
         // Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
         Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
-        if (Use["BDT"])
-        {
-            Double_t bdtScore = reader->EvaluateMVA("BDT method");
-            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
-            {
-                if (!isdata)
-                {
+        // if (Use["BDT"])
+        // {
+        Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        // }
+        Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
+        // if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
+        // {
+            histFill()
+            // if (!isdata)
+            // {
 
-                    histBdt->Fill(bdtScore, basicWeight);
-                }
-                else
-                {
-                    histBdt->Fill(bdtScore);
-                }
-            }
-            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
+            //     histBdt->Fill(bdtScore, basicWeight);
+            // }
+            // else
+            // {
+            //     histBdt->Fill(bdtScore);
+            // }
+        // }
+        if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
+        {
+            if (!isdata)
             {
-                if (!isdata)
-                {
-                    histBdt_CR0->Fill(bdtScore, basicWeight);
-                }
-                else
-                {
-                    histBdt_CR0->Fill(bdtScore);
-                }
+                histBdt_CR0->Fill(bdtScore, basicWeight);
             }
-            if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2)
+            else
             {
-                if (!isdata)
-                {
-                    histBdt_CR2->Fill(bdtScore, basicWeight);
-                }
-                else
-                {
-                    histBdt_CR2->Fill(bdtScore);
-                }
+                histBdt_CR0->Fill(bdtScore);
             }
-            // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
-            histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
-            histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
-            histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
-            histBdt_prefiring_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_down * PUweight_);
         }
+        if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2)
+        {
+            if (!isdata)
+            {
+                histBdt_CR2->Fill(bdtScore, basicWeight);
+            }
+            else
+            {
+                histBdt_CR2->Fill(bdtScore);
+            }
+        }
+        // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
+        histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
+        histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);
+        histBdt_prefiring_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_up * PUweight_);
+        histBdt_prefiring_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight_down * PUweight_);
     }
     delete reader;
     // Get elapsed time
