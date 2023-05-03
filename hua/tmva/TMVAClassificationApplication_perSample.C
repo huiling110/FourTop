@@ -16,6 +16,7 @@
 
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "../src_cpp/usefulFuction.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/writeVariableHist/histsForRegionsMap_class.C"
 
 void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
@@ -193,16 +194,16 @@ void TMVAClassificationApplication_perSample(
         Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
         // if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
         // {
-            histFill()
-            // if (!isdata)
-            // {
+        histFill(SR1tau1l, isData, basicWeight, bdtScore, histBdt);
+        // if (!isdata)
+        // {
 
-            //     histBdt->Fill(bdtScore, basicWeight);
-            // }
-            // else
-            // {
-            //     histBdt->Fill(bdtScore);
-            // }
+        //     histBdt->Fill(bdtScore, basicWeight);
+        // }
+        // else
+        // {
+        //     histBdt->Fill(bdtScore);
+        // }
         // }
         if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
         {
