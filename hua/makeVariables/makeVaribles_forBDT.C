@@ -507,6 +507,68 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
         jets_11phi = fabs(jets[10].Phi());
     }
 
+    jetsT_num = jetsT.GetSize();
+    if (jetsT_num > 0)
+    {
+        jetsT_1pt = jetsT[0].Pt();
+        jetsT_1eta = fabs(jetsT[0].Eta());
+        jetsT_1phi = fabs(jetsT[0].Phi());
+    }
+    if (jetsT_num > 1)
+    {
+        jetsT_2pt = jetsT[1].Pt();
+        jetsT_2eta = fabs(jetsT[1].Eta());
+        jetsT_2phi = fabs(jetsT[1].Phi());
+    }
+    if (jetsT_num > 2)
+    {
+        jetsT_3pt = jetsT[2].Pt();
+        jetsT_3eta = fabs(jetsT[2].Eta());
+        jetsT_3phi = fabs(jetsT[2].Phi());
+    }
+    if (jetsT_num > 3)
+    {
+        jetsT_4pt = jetsT[3].Pt();
+        jetsT_4eta = fabs(jetsT[3].Eta());
+        jetsT_4phi = fabs(jetsT[3].Phi());
+    }
+    if (jetsT_num > 4)
+    {
+        jetsT_5pt = jetsT[4].Pt();
+        jetsT_5eta = fabs(jetsT[4].Eta());
+        jetsT_5phi = fabs(jetsT[4].Phi());
+    }
+    if (jetsT_num > 5)
+    {
+        jetsT_6pt = jetsT[5].Pt();
+        jetsT_6eta = fabs(jetsT[5].Eta());
+        jetsT_6phi = fabs(jetsT[5].Phi());
+    }
+    if (jetsT_num > 6)
+    {
+        jetsT_7pt = jetsT[6].Pt();
+        jetsT_7eta = fabs(jetsT[6].Eta());
+        jetsT_7phi = fabs(jetsT[6].Phi());
+    }
+    if (jetsT_num > 7)
+    {
+        jetsT_8pt = jetsT[7].Pt();
+        jetsT_8eta = fabs(jetsT[7].Eta());
+        jetsT_8phi = fabs(jetsT[7].Phi());
+    }
+    if (jetsT_num > 8)
+    {
+        jetsT_9pt = jetsT[8].Pt();
+        jetsT_9eta = fabs(jetsT[8].Eta());
+        jetsT_9phi = fabs(jetsT[8].Phi());
+    }
+    if (jetsT_num > 9)
+    {
+        jetsT_10pt = jetsT[9].Pt();
+        jetsT_10eta = fabs(jetsT[9].Eta());
+        jetsT_10phi = fabs(jetsT[9].Phi());
+    }
+
     bjetsL_num = bjetsL.GetSize();
     bjetsM_num = bjetsM.GetSize(); //
     bjetsT_num = bjetsT.GetSize();
@@ -613,6 +675,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
 
     forwardJets_num = forwardJets.GetSize();
 
+    genBs_num = genBs.GetSize();
+
     // event information
     PV_npvs = *PV_npvs_;
     PV_npvsGood = *PV_npvsGood_;
@@ -630,15 +694,15 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     //  btagEfficiency_weight = calBTagSF( );
     // HLTefficiency_weight = getHLTweight(jets_HT, jets, TriggerSF, TriggerSFunc, m_isData);
 
-    muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
-    muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
-    muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
+    // muonIDSF_weight = calMuonIDSF(muonsT, MuonIDSF, 0, kTRUE, m_isData);
+    // muonIDSF_weight_up = calMuonIDSF(muonsT, MuonIDSF, 1, kTRUE, m_isData);
+    // muonIDSF_weight_down = calMuonIDSF(muonsT, MuonIDSF, 2, kTRUE, m_isData);
     // mounTrackerSF_weight = calMuonIDSF( muonsT, muonTrackerSF_hist, 0 );
     //???tracker file has some problems
 
-    eleMVAT_IDSF_weight_backup = calMuonIDSF(eleMVAT, EleIDSF, 0, kFALSE, m_isData);
-    eleMVAT_IDSF_weight_up = calMuonIDSF(eleMVAT, EleIDSF, 1, kFALSE, m_isData);
-    eleMVAT_IDSF_weight_down = calMuonIDSF(eleMVAT, EleIDSF, 2, false, m_isData);
+    // eleMVAT_IDSF_weight_backup = calMuonIDSF(eleMVAT, EleIDSF, 0, kFALSE, m_isData);
+    // eleMVAT_IDSF_weight_up = calMuonIDSF(eleMVAT, EleIDSF, 1, kFALSE, m_isData);
+    // eleMVAT_IDSF_weight_down = calMuonIDSF(eleMVAT, EleIDSF, 2, false, m_isData);
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 0, kFALSE, m_isData);
@@ -719,35 +783,32 @@ void makeVaribles_forBDT::initializeInputFiles(const TString m_era)
 {
     std::cout << "starting to initialize some input files\n";
     // muon ID
-    TFile *input_MuonIDSF = new TFile(MUOSF_files[m_era], "READ");
-    // input_MuonIDSF = new TFile( MUOSF_files[m_era], "READ" );
-    // input_MuonIDSF->Print();
-    MuonIDSF = (TH2D *)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
-    // TH2D* MuonIDSF = (TH2D*)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt");
-    MuonIDSF->Print();
-    MuonIDSF->SetDirectory(nullptr);
-    input_MuonIDSF->Close();
-    delete input_MuonIDSF;
+    // TFile *input_MuonIDSF = new TFile(MUOSF_files[m_era], "READ");
+    // MuonIDSF = (TH2D *)input_MuonIDSF->Get("NUM_MediumID_DEN_TrackerMuons_abseta_pt")->Clone();
+    // MuonIDSF->Print();
+    // MuonIDSF->SetDirectory(nullptr);
+    // input_MuonIDSF->Close();
+    // delete input_MuonIDSF;
 
-    // muon traker
-    TFile *muonTracerSF_file = new TFile(muonSF_tracker[m_era], "READ");
-    muonTrackerSF_hist = (TH2D *)muonTracerSF_file->Get("NUM_TrackerMuons_DEN_genTracks");
-    muonTrackerSF_hist->Print();
-    MuonIDSF->SetDirectory(nullptr);
-    muonTracerSF_file->Close();
-    delete muonTracerSF_file;
+    // // muon traker
+    // TFile *muonTracerSF_file = new TFile(muonSF_tracker[m_era], "READ");
+    // muonTrackerSF_hist = (TH2D *)muonTracerSF_file->Get("NUM_TrackerMuons_DEN_genTracks");
+    // muonTrackerSF_hist->Print();
+    // MuonIDSF->SetDirectory(nullptr);
+    // muonTracerSF_file->Close();
+    // delete muonTracerSF_file;
     // muon ISO
     //  TFile* muonIsoSF_file = new TFlie( muonSF_iso[m_era], "READ");
     //  muonIsoSF_hist = (TH2D*)muonIsoSF_file->Get()
 
     // eGamma
     //???set up error handling when there is no input
-    TFile *input_EleIDSF = new TFile(TString(EGammaSF_files[m_era]), "READ");
-    EleIDSF = (TH2D *)input_EleIDSF->Get("EGamma_SF2D");
-    EleIDSF->SetDirectory(nullptr);
-    input_EleIDSF->Close();
-    delete input_EleIDSF;
-    EleIDSF->Print();
+    // TFile *input_EleIDSF = new TFile(TString(EGammaSF_files[m_era]), "READ");
+    // EleIDSF = (TH2D *)input_EleIDSF->Get("EGamma_SF2D");
+    // EleIDSF->SetDirectory(nullptr);
+    // input_EleIDSF->Close();
+    // delete input_EleIDSF;
+    // EleIDSF->Print();
 
     // TOP Lepton MVA
     TFile *eleIDSF_topMVAFile = new TFile((topLeptonSF_files[m_era].at(0)), "READ");
@@ -1068,6 +1129,38 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("jets_11eta", &jets_11eta, "jets_11eta/D");
     newtree->Branch("jets_11phi", &jets_11phi, "jets_11phi/D");
 
+    newtree->Branch("jetsT_num", &jetsT_num, "jetsT_1pt/I");
+    newtree->Branch("jetsT_1pt", &jetsT_1pt, "jetsT_1pt/D");
+    newtree->Branch("jetsT_1eta", &jetsT_1eta, "jetsT_1eta/D");
+    newtree->Branch("jetsT_1phi", &jetsT_1phi, "jetsT_1phi/D");
+    newtree->Branch("jetsT_2pt", &jetsT_2pt, "jetsT_2pt/D");
+    newtree->Branch("jetsT_2eta", &jetsT_2eta, "jetsT_2eta/D");
+    newtree->Branch("jetsT_2phi", &jetsT_2phi, "jetsT_2phi/D");
+    newtree->Branch("jetsT_3pt", &jetsT_3pt, "jetsT_3pt/D");
+    newtree->Branch("jetsT_3eta", &jetsT_3eta, "jetsT_3eta/D");
+    newtree->Branch("jetsT_3phi", &jetsT_3phi, "jetsT_3phi/D");
+    newtree->Branch("jetsT_4pt", &jetsT_4pt, "jetsT_4pt/D");
+    newtree->Branch("jetsT_4eta", &jetsT_4eta, "jetsT_4eta/D");
+    newtree->Branch("jetsT_4phi", &jetsT_4phi, "jetsT_4phi/D");
+    newtree->Branch("jetsT_5pt", &jetsT_5pt, "jetsT_5pt/D");
+    newtree->Branch("jetsT_5eta", &jetsT_5eta, "jetsT_5eta/D");
+    newtree->Branch("jetsT_5phi", &jetsT_5phi, "jetsT_5phi/D");
+    newtree->Branch("jetsT_6pt", &jetsT_6pt, "jetsT_6pt/D");
+    newtree->Branch("jetsT_6eta", &jetsT_6eta, "jetsT_6eta/D");
+    newtree->Branch("jetsT_6phi", &jetsT_6phi, "jetsT_6phi/D");
+    newtree->Branch("jetsT_7pt", &jetsT_7pt, "jetsT_7pt/D");
+    newtree->Branch("jetsT_7eta", &jetsT_7eta, "jetsT_7eta/D");
+    newtree->Branch("jetsT_7phi", &jetsT_7phi, "jetsT_7phi/D");
+    newtree->Branch("jetsT_8pt", &jetsT_8pt, "jetsT_8pt/D");
+    newtree->Branch("jetsT_8eta", &jetsT_8eta, "jetsT_8eta/D");
+    newtree->Branch("jetsT_8phi", &jetsT_8phi, "jetsT_8phi/D");
+    newtree->Branch("jetsT_9pt", &jetsT_9pt, "jetsT_9pt/D");
+    newtree->Branch("jetsT_9eta", &jetsT_9eta, "jetsT_9eta/D");
+    newtree->Branch("jetsT_9phi", &jetsT_9phi, "jetsT_9phi/D");
+    newtree->Branch("jetsT_10pt", &jetsT_10pt, "jetsT_10pt/D");
+    newtree->Branch("jetsT_10eta", &jetsT_10eta, "jetsT_10eta/D");
+    newtree->Branch("jetsT_10phi", &jetsT_10phi, "jetsT_10phi/D");
+
     newtree->Branch("bjetsL_num", &bjetsL_num, "bjetsL_num/I");
     newtree->Branch("bjetsM_num", &bjetsM_num, "bjetsM_num/I");
     newtree->Branch("bjetsT_num", &bjetsT_num, "bjetsT_num/I");
@@ -1175,6 +1268,7 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     // newtree->Branch("nonbjetsT_4phi", &nonbjetsT_4phi, "nonbjetsT_4phi/D");
 
     newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
+    newtree->Branch("genBs_num", &genBs_num, "genBs_num/I");
 
     newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
     newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
@@ -1444,6 +1538,38 @@ void makeVaribles_forBDT::InitializeBranches()
     jets_11eta = -99;
     jets_11phi = -99;
 
+    jetsT_1pt = -99;
+    jetsT_1pt = -99;
+    jetsT_1phi = -99;
+    jetsT_1eta = -99;
+    jetsT_2pt = -99;
+    jetsT_2eta = -99;
+    jetsT_2phi = -99;
+    jetsT_3pt = -99;
+    jetsT_3eta = -99;
+    jetsT_3phi = -99;
+    jetsT_4pt = -99;
+    jetsT_4eta = -99;
+    jetsT_4phi = -99;
+    jetsT_5pt = -99;
+    jetsT_5eta = -99;
+    jetsT_5phi = -99;
+    jetsT_6pt = -99;
+    jetsT_6eta = -99;
+    jetsT_6phi = -99;
+    jetsT_7pt = -99;
+    jetsT_7eta = -99;
+    jetsT_7phi = -99;
+    jetsT_8pt = -99;
+    jetsT_8eta = -99;
+    jetsT_8phi = -99;
+    jetsT_9pt = -99;
+    jetsT_9eta = -99;
+    jetsT_9phi = -99;
+    jetsT_10pt = -99;
+    jetsT_10eta = -99;
+    jetsT_10phi = -99;
+
     bjetsL_num = -99;
     bjetsM_num = -99;
     bjetsT_num = -99;
@@ -1547,6 +1673,7 @@ void makeVaribles_forBDT::InitializeBranches()
     // nonbjetsT_4phi = -99;
 
     forwardJets_num = -99;
+    genBs_num = -99;
     toptagger_num = -99;
     toptagger_MHT = -99;
     toptagger_HT = -99;

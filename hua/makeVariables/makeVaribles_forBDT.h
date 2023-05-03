@@ -320,6 +320,38 @@ public:
     Double_t jets_11eta = -99.0;
     Double_t jets_11phi = -99.0;
 
+    Int_t jetsT_num = -99;
+    Double_t jetsT_1pt = -99.0;
+    Double_t jetsT_1phi = -99.0;
+    Double_t jetsT_1eta = -99.0;
+    Double_t jetsT_2pt = -99.0;
+    Double_t jetsT_2eta = -99.0;
+    Double_t jetsT_2phi = -99.0;
+    Double_t jetsT_3pt = -99.0;
+    Double_t jetsT_3eta = -99.0;
+    Double_t jetsT_3phi = -99.0;
+    Double_t jetsT_4pt = -99.0;
+    Double_t jetsT_4eta = -99.0;
+    Double_t jetsT_4phi = -99.0;
+    Double_t jetsT_5pt = -99.0;
+    Double_t jetsT_5eta = -99.0;
+    Double_t jetsT_5phi = -99.0;
+    Double_t jetsT_6pt = -99.0;
+    Double_t jetsT_6eta = -99.0;
+    Double_t jetsT_6phi = -99.0;
+    Double_t jetsT_7pt = -99.0;
+    Double_t jetsT_7eta = -99.0;
+    Double_t jetsT_7phi = -99.0;
+    Double_t jetsT_8pt = -99.0;
+    Double_t jetsT_8eta = -99.0;
+    Double_t jetsT_8phi = -99.0;
+    Double_t jetsT_9pt = -99.0;
+    Double_t jetsT_9eta = -99.0;
+    Double_t jetsT_9phi = -99.0;
+    Double_t jetsT_10pt = -99.0;
+    Double_t jetsT_10eta = -99.0;
+    Double_t jetsT_10phi = -99.0;
+
     Int_t bjetsL_num = -99;
     Int_t bjetsM_num = -99;
     Int_t bjetsT_num = -99;
@@ -423,6 +455,7 @@ public:
     // Double_t nonbjetsT_4phi = -99;
 
     Int_t forwardJets_num = -99;
+    Int_t genBs_num = -99;
 
     Int_t toptagger_num = -99;
     Double_t toptagger_MHT = -99.0;
@@ -519,6 +552,7 @@ public:
     TTreeReaderArray<Double_t> tausF_neutralIso = {fReader, "tausF_neutralIso"};
 
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jets = {fReader, "jets"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> jetsT = {fReader, "jetsT"};
     TTreeReaderArray<Int_t> jets_index = {fReader, "jets_index"};
     TTreeReaderArray<Int_t> jets_flavour = {fReader, "jets_flavour"};
     TTreeReaderArray<Double_t> jets_btags = {fReader, "jets_btags"};
@@ -547,7 +581,7 @@ public:
     // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genMuons = {fReader, "genMuons"};
     TTreeReaderValue<Double_t> MET_pt_ = {fReader, "MET_pt_"};
     TTreeReaderValue<Double_t> MET_phi_ = {fReader, "MET_phi_"};
-    // TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> tops_toptagger = {fReader, "tops_toptagger"};
+    TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genBs = {fReader, "genBs"};
 
     TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up_ = {fReader, "EVENT_prefireWeight_up_"};
