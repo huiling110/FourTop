@@ -4,8 +4,8 @@
 // from TChain newtree/
 //////////////////////////////////////////////////////////
 
-#ifndef writeHist_forBtagRCal_h
-#define writeHist_forBtagRCal_h
+#ifndef writeHist_BDT_h
+#define writeHist_BDT_h
 
 #include <vector>
 
@@ -80,7 +80,7 @@
 //    // }
 // };
 
-class writeHist_forBtagRCal : public TSelector
+class writeHist_BDT : public TSelector
 {
 public:
     TTreeReader fReader; //! the tree reader
@@ -417,8 +417,8 @@ public:
     // TTreeReaderValue<Double_t> toptagger_scoreAllTops = {fReader, "toptagger_scoreAllTops"};
     // TTreeReaderValue<Double_t> toptagger_leptonsMVAT_minDeltaR = {fReader, "toptagger_leptonsMVAT_minDeltaR"};
 
-    writeHist_forBtagRCal(TTree * /*tree*/ = 0) {}
-    virtual ~writeHist_forBtagRCal() {}
+    writeHist_BDT(TTree * /*tree*/ = 0) {}
+    virtual ~writeHist_BDT() {}
     virtual Int_t Version() const { return 2; }
     virtual void Begin(TTree *tree);
     virtual void SlaveBegin(TTree *tree);
@@ -437,13 +437,13 @@ public:
     void fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
     void fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight);
 
-    ClassDef(writeHist_forBtagRCal, 0);
+    ClassDef(writeHist_BDT, 0);
 };
 
 #endif
 
-#ifdef writeHist_forBtagRCal_cxx
-void writeHist_forBtagRCal::Init(TTree *tree)
+#ifdef writeHist_BDT_cxx
+void writeHist_BDT::Init(TTree *tree)
 {
     // The Init() function is called when the selector needs to initialize
     // a new tree or chain. Typically here the reader is initialized.
@@ -455,7 +455,7 @@ void writeHist_forBtagRCal::Init(TTree *tree)
     fReader.SetTree(tree);
 }
 
-Bool_t writeHist_forBtagRCal::Notify()
+Bool_t writeHist_BDT::Notify()
 {
     // The Notify() function is called when a new file is opened. This
     // can be either for a new TTree in a TChain or when when a new TTree
@@ -466,4 +466,4 @@ Bool_t writeHist_forBtagRCal::Notify()
     return kTRUE;
 }
 
-#endif // #ifdef writeHist_forBtagRCal_cxx
+#endif // #ifdef writeHist_BDT_cxx

@@ -9,11 +9,6 @@
 #include "../src_cpp/usefulFuction.h"
 
 void run_writeHist(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v55ojectRemovalwithTight/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baslineNoHLT_v55ojectRemovalwithTightNoHLT/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3HLTWeightUpdated_v55ojectRemovalwithTightNoHLT/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/",
@@ -35,11 +30,12 @@ void run_writeHist(
     Bool_t isTest = kTRUE,
     // TString selector = "writeHist_fordataMC.C+") // 1tau1l)
     // TString selector = "writeHist_forFakeRate.C+" // 1tau0l
-    TString selector = "writeHist_forFakeRate_3etaBin.C+") // 1tau0l
-// TString selector = "writeHist_forBtagRCal.C+")
-// TString selector = "writeHist_forSystematic.C+"
-// TString selector = "writeHist_forHLT.C+") // for tttt signal study
-// TString selector = "writeHist_forHLTStudy.C+") // for HLT study
+    // TString selector = "writeHist_forFakeRate_3etaBin.C+") // 1tau0l
+    // TString selector = "writeHist_forBtagRCal.C+")
+    // TString selector = "writeHist_forSystematic.C+"
+    // TString selector = "writeHist_forHLT.C+") // for tttt signal study
+    // TString selector = "writeHist_forHLTStudy.C+") // for HLT study
+    TString selector = "writeHist_BDT+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";

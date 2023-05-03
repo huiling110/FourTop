@@ -946,7 +946,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
 
 void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, const bool deepJet, std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, std::vector<Double_t> &SelectedJetsBTags, std::vector<Int_t> &SelectedJetsIndex, std::vector<Int_t> &SelectedJetsFlavor, const std::vector<ROOT::Math::PtEtaPhiMVector> LeptonsMVAF, const std::vector<ROOT::Math::PtEtaPhiMVector> SelectedTausL, const Int_t sysJEC)
 {
-    // jetType=0  -> usual jets; we use loose ID
+    // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < Jet_pt.GetSize(); ++j)
@@ -988,6 +988,11 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
+        if (jetType == 1)
+        {
+            if (!(Jet_jetId.At(j) > 1))
+                continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        }
 
         if (jetType == 11 || jetType == 12 || jetType == 13)
         {
@@ -1031,7 +1036,7 @@ void objectTSelectorForNanoAOD::SelectJets(Bool_t ifJER, const Int_t jetType, co
             }
         }
         // find mostforwardjeteta
-        if (jetType == 0)
+        if (jetType == 0 || jetType == 1)
         { // normal jet
             if (fabs(ijetEta) > MaxMostForwardJetEta)
             {

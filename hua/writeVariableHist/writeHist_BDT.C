@@ -1,5 +1,5 @@
-#define writeHist_forBtagRCal_cxx
-// The class definition in writeHist_forBtagRCal.h has been generated automatically
+#define writeHist_BDT_cxx
+// The class definition in writeHist_BDT.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
 // from the ROOT class TSelector. For more information on the TSelector
 // framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
@@ -28,9 +28,9 @@
 
 #include "../src_cpp/usefulFuction.h"
 #include "../src_cpp/lumiAndCrossSection.h"
-#include "writeHist_forBtagRCal.h"
+#include "writeHist_BDT.h"
 
-void writeHist_forBtagRCal::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_BDT::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
     if (isRegion)
     {
@@ -38,7 +38,7 @@ void writeHist_forBtagRCal::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex,
     }
 }
 
-void writeHist_forBtagRCal::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
+void writeHist_BDT::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
     if (isRegion)
     {
@@ -65,7 +65,7 @@ void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t ma
     }
 }
 
-void writeHist_forBtagRCal::Begin(TTree * /*tree*/)
+void writeHist_BDT::Begin(TTree * /*tree*/)
 {
     // The Begin() function is called at the start of the query.
     // When running with PROOF Begin() is only called on the client.
@@ -74,14 +74,14 @@ void writeHist_forBtagRCal::Begin(TTree * /*tree*/)
     TString option = GetOption();
 }
 
-void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
+void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
 {
     // The SlaveBegin() function is called after the Begin() function.
     // When running with PROOF SlaveBegin() is called on each slave server.
     // The tree argument is deprecated (on PROOF 0 is passed).
 
     TString option = GetOption();
-    std::cout << "option in writeHist_forBtagRCal: " << option << "\n";
+    std::cout << "option in writeHist_BDT: " << option << "\n";
 
     // this part could be in a function for multiple uses
     // better structure my project so that these commen functionality go to one include dir
@@ -122,7 +122,7 @@ void writeHist_forBtagRCal::SlaveBegin(TTree * /*tree*/)
     }
 }
 
-Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
+Bool_t writeHist_BDT::Process(Long64_t entry)
 {
     fReader.SetLocalEntry(entry);
 
@@ -164,14 +164,14 @@ Bool_t writeHist_forBtagRCal::Process(Long64_t entry)
     return kTRUE;
 }
 
-void writeHist_forBtagRCal::SlaveTerminate()
+void writeHist_BDT::SlaveTerminate()
 {
     // The SlaveTerminate() function is called after all entries or objects
     // have been processed. When running with PROOF SlaveTerminate() is called
     // on each slave server.
 }
 
-void writeHist_forBtagRCal::Terminate()
+void writeHist_BDT::Terminate()
 {
     // The Terminate() function is the last function to be called during
     // a query. It always runs on the client, it can be used to present
