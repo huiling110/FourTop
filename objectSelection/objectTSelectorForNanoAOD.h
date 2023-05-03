@@ -228,6 +228,10 @@ public:
     std::vector<Int_t> jets_index;
     std::vector<Int_t> jets_flavour;
     std::vector<Double_t> jets_btags;
+    std::vector<ROOT::Math::PtEtaPhiMVector> jetsT;
+    std::vector<Int_t> jetsT_index;
+    std::vector<Int_t> jetsT_flavour;
+    std::vector<Double_t> jetsT_btags;
     std::vector<ROOT::Math::PtEtaPhiMVector> jets_JERup;
     std::vector<ROOT::Math::PtEtaPhiMVector> jets_JERdown;
     std::vector<ROOT::Math::PtEtaPhiMVector> jets_JECup;   // JEC may includes JER

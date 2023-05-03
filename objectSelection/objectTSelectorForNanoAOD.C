@@ -257,13 +257,12 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
                   << "tauTES: " << tauTES << "\n";
     }
     Bool_t deepJet = true;
-    // SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAT_top, tausT, 0);
-    // SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAT_top, tausT, 1);
-    // SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAT_top, tausT, 2);
     SelectJets(ifJER, 0, deepJet, jets, jets_btags, jets_index, jets_flavour, leptonsMVAT_top, tausF, 0);
+    SelectJets(ifJER, 1, deepJet, jetsT, jetsT_btags, jetsT_index, jetsT_flavour, leptonsMVAT_top, tausF, 0);
     SelectJets(ifJER, 0, deepJet, jets_JECup, jets_btags_JECup, jets_index_JECup, jets_flavour_JECup, leptonsMVAT_top, tausF, 1);
     SelectJets(ifJER, 0, deepJet, jets_JECdown, jets_btags_JECdown, jets_index_JECdown, jets_flavour_JECdown, leptonsMVAT_top, tausF, 2);
     sort(jets.begin(), jets.end(), compEle);
+    sort(jetsT.begin(), jetsT.end(), compEle);
     sort(jets_JECup.begin(), jets_JECup.end(), compEle);
     sort(jets_JECdown.begin(), jets_JECdown.end(), compEle);
     // pt are sorted in MINIAOD
@@ -454,6 +453,10 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
     newTree->Branch("jets", &jets);
     newTree->Branch("jets_JESuncer", &jets_JESuncer);
     newTree->Branch("jets_index", &jets_index);
+    newTree->Branch("jets_flavour", &jets_flavour);
+    newTree->Branch("jets_btags", &jets_btags);
+    newTree->Branch("jetsT", &jetsT);
+    newTree->Branch("jetsT_index", &jetsT_index);
     newTree->Branch("jets_flavour", &jets_flavour);
     newTree->Branch("jets_btags", &jets_btags);
     newTree->Branch("jets_JECup", &jets_JECup);
@@ -1454,6 +1457,10 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     jets_index.clear();
     jets_flavour.clear();
     jets_btags.clear();
+    jetsT.clear();
+    jetsT_index.clear();
+    jetsT_flavour.clear();
+    jetsT_btags.clear();
     jets_JECup.clear();
     jets_index_JECup.clear();
     jets_flavour_JECup.clear();
