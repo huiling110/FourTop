@@ -84,7 +84,7 @@
 class writeHist_BDT : public TSelector
 {
 public:
-    TTreeReader fReader; //! the tree reader
+    // TTreeReader fReader; //! the tree reader
     TTree *fChain = 0;   //! pointer to the analyzed TTree or TChain
 
     // my member variables
@@ -111,7 +111,7 @@ public:
     std::vector<Double_t> variablesOrigin;
     std::vector<TString> variablesName_int{};
     std::vector<Int_t> variablesOrigin_int;
-
+/*
     // Readers to access the data (delete the ones you do not need).
     TTreeReaderValue<ULong64_t>
         event = {fReader, "event"};
@@ -399,7 +399,7 @@ public:
     // TTreeReaderValue<Double_t> toptagger_3phi = {fReader, "toptagger_3phi"};
     // TTreeReaderValue<Double_t> toptagger_scoreAllTops = {fReader, "toptagger_scoreAllTops"};
     // TTreeReaderValue<Double_t> toptagger_leptonsMVAT_minDeltaR = {fReader, "toptagger_leptonsMVAT_minDeltaR"};
-
+*/
     writeHist_BDT(TTree * /*tree*/ = 0) {}
     virtual ~writeHist_BDT() {}
     virtual Int_t Version() const { return 2; }
@@ -435,7 +435,7 @@ void writeHist_BDT::Init(TTree *tree)
     // Init() will be called many times when running on PROOF
     // (once per file to be processed).
 
-    fReader.SetTree(tree);
+    // fReader.SetTree(tree);
 }
 
 Bool_t writeHist_BDT::Notify()

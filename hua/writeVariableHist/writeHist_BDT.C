@@ -170,19 +170,19 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
 
 Bool_t writeHist_BDT::Process(Long64_t entry)
 {
-    fReader.SetLocalEntry(entry);
+    // fReader.SetLocalEntry(entry);
 
-    Double_t basicWeight = 1.0;
-    if (!m_isData)
-    {
-        basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
-    }
+    // Double_t basicWeight = 1.0;
+    // if (!m_isData)
+    // {
+    //     basicWeight = (*EVENT_prefireWeight) * (*EVENT_genWeight) * (*PUweight_) * (*HLT_weight) * (*tauT_IDSF_weight_new) * (*elesTopMVAT_weight) * (*musTopMVAT_weight);
+    // }
 
-    Bool_t baselineNoB = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
-    if (!baselineNoB)
-    {
-        return kFALSE;
-    }
+    // Bool_t baselineNoB = *jets_number >= 6 && *jets_6pt > 40.0 && *jets_HT > 500.0;
+    // if (!baselineNoB)
+    // {
+    //     return kFALSE;
+    // }
 
     return kTRUE;
 }
