@@ -119,8 +119,8 @@ void TMVAClassificationApplication_perSample(
     TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
 
-    std::array<TStrings> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
-    histForRegions<TH1D *> SR1tau1lSys{"BDT", "BDT score", 20, -0.28, 0.4, sysRegions};
+    std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    histsForRegions SR1tau1lSys{"BDT", "BDT score", processName, 20, -0.28, 0.4, sysRegions};
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");
@@ -197,7 +197,7 @@ void TMVAClassificationApplication_perSample(
         Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
         // if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
         // {
-        histFill(SR1tau1l, isData, basicWeight, bdtScore, histBdt);
+        // histFill(SR1tau1l, isdata, basicWeight, bdtScore, histBdt);
         // if (!isdata)
         // {
 

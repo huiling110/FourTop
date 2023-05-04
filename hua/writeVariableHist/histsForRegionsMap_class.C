@@ -1,21 +1,22 @@
 #include <iterator>
 
-template <typename Temp>
+// template <typename Temp>
 class histsForRegions
 {
 private:
     TString m_variableName;
     TString m_histTitle;
+    TString m_processName;
     Int_t m_binNum;
     Double_t m_binMin;
     Double_t m_binMax;
     // Double_t *m_binRange; //???need to add initialization for this
     // std::vector<TH1D *> m_histsVector;
-    std::map<TString, Temp *> m_histsVector;
+    std::map<TString, TH1D *> m_histsVector;
     // TTreeReaderValue<Temp> &m_variableRef;
 
 public:
-    histsForRegions(TString variableName, TString histTitle, Int_t bin, Double_t binMin, Double_t binMax, std::array<TString> regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
+    histsForRegions(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
     {
         for (UInt_t i = 0; i < regions.size(); i++)
         {
@@ -23,7 +24,7 @@ public:
             TH1D *temp;
             temp = new TH1D(iHistName.Data(), m_histTitle.Data(), m_binNum, m_binMin, m_binMax);
             temp->Sumw2();
-            m_histsVector[regions[i]] = temp->Clone();
+            m_histsVector[regions[i]] = temp;
         }
     };
 
@@ -39,11 +40,11 @@ public:
     //         m_histsVector[regions[i]] = temp->Clone();
     //     }
     // };
-    void fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill = kTRUE)
+    void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE)
     {
         if (ifFill)
         {
-            m_histsVector[iRegion]->Fill(*m_variableRef, weight);
+            m_histsVector[iRegion]->Fill(value, weight);
         }
     }
     // void fillHistVecAbs(UInt_t iRegion, Double_t weight)
