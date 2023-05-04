@@ -28,18 +28,6 @@ public:
         }
     };
 
-    // void initializeRegions(std::vector<TString> &regions, TString m_processName)
-    // {
-    //     for (UInt_t i = 0; i < regions.size(); i++)
-    //     {
-    //         TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
-    //         TH1D *temp;
-    //         temp = new TH1D(iHistName.Data(), m_histTitle.Data(), m_binNum, m_binMin, m_binMax);
-    //         temp->Sumw2();
-    //         // m_histsVector.push_back(temp);
-    //         m_histsVector[regions[i]] = temp->Clone();
-    //     }
-    // };
     void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE)
     {
         if (ifFill && isData)
@@ -49,6 +37,14 @@ public:
         if (ifFill && !isData)
         {
             m_histsVector[iRegion]->Fill(value);
+        }
+    }
+    void print()
+    {
+        for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
+        {
+            std::cout << it->first << " : \n";
+            it->second->Print();
         }
     }
     // void fillHistVecAbs(UInt_t iRegion, Double_t weight)

@@ -262,6 +262,8 @@ void TMVAClassificationApplication_perSample(
         std::cout << processName << ": not MC, no scaling of hist\n";
     }
 
+    SR1tau1lSys.print();
+
     histBdt->SetDirectory(out);
     // histBdt->SetDirectory(out);
     out->Write();
