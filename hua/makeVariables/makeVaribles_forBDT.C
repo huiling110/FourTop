@@ -676,6 +676,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     forwardJets_num = forwardJets.GetSize();
 
     genBs_num = genBs.GetSize();
+    copy_TTreeReaderArray_toVector(GenPart_pdgId_, GenPart_pdgId);
+    copy_TTreeReaderArray_toVector(GenPart_genPartIdxMother_, GenPart_genPartIdxMother);
 
     // event information
     PV_npvs = *PV_npvs_;
@@ -1269,24 +1271,26 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
 
     newtree->Branch("forwardJets_num", &forwardJets_num, "forwardJets_num/I");
     newtree->Branch("genBs_num", &genBs_num, "genBs_num/I");
+    newtree->Branch("GenPart_pdgId", &GenPart_pdgId);
+    newtree->Branch("GenPart_genPartIdxMother", &GenPart_genPartIdxMother);
 
-    newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
-    newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
-    newtree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
-    newtree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
-    newtree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
-    newtree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
-    newtree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
-    newtree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
-    newtree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
-    newtree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
-    newtree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
-    newtree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
-    newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
-    newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
-    newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
-    newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
-    newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
+    // newtree->Branch("toptagger_num", &toptagger_num, "toptagger_num/I");
+    // newtree->Branch("toptagger_MHT", &toptagger_MHT, "toptagger_MHT/D");
+    // newtree->Branch("toptagger_HT", &toptagger_HT, "toptagger_HT/D");
+    // newtree->Branch("toptagger_invariantMass", &toptagger_invariantMass, "toptagger_invariantMass/D");
+    // newtree->Branch("toptagger_transMass", &toptagger_transMass, "toptagger_transMass/D");
+    // newtree->Branch("toptagger_minDeltaR_v1", &toptagger_minDeltaR_v1, "toptagger_minDeltaR_v1/D");
+    // newtree->Branch("toptagger_1pt", &toptagger_1pt, "toptagger_1pt/I");
+    // newtree->Branch("toptagger_1eta", &toptagger_1eta, "toptagger_1eta/I");
+    // newtree->Branch("toptagger_1phi", &toptagger_1phi, "toptagger_1phi/I");
+    // newtree->Branch("toptagger_2pt", &toptagger_2pt, "toptagger_2pt/D");
+    // newtree->Branch("toptagger_2eta", &toptagger_2eta, "toptagger_2eta/D");
+    // newtree->Branch("toptagger_2phi", &toptagger_2phi, "toptagger_2phi/D");
+    // newtree->Branch("toptagger_3pt", &toptagger_3pt, "toptagger_3pt/D");
+    // newtree->Branch("toptagger_3eta", &toptagger_3eta, "toptagger_3eta/D");
+    // newtree->Branch("toptagger_3phi", &toptagger_3phi, "toptagger_3phi/D");
+    // newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
+    // newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 }
 /*
 void makeVaribles_forBDT::initializeBReader(){
@@ -1674,22 +1678,24 @@ void makeVaribles_forBDT::InitializeBranches()
 
     forwardJets_num = -99;
     genBs_num = -99;
-    toptagger_num = -99;
-    toptagger_MHT = -99;
-    toptagger_HT = -99;
-    toptagger_invariantMass = -99;
-    toptagger_transMass = -99;
-    toptagger_minDeltaR_v1 = -99;
+    GenPart_genPartIdxMother.clear();
+    GenPart_pdgId.clear();
+    // toptagger_num = -99;
+    // toptagger_MHT = -99;
+    // toptagger_HT = -99;
+    // toptagger_invariantMass = -99;
+    // toptagger_transMass = -99;
+    // toptagger_minDeltaR_v1 = -99;
 
-    toptagger_1pt = -99;
-    toptagger_1eta = -99;
-    toptagger_1phi = -99;
-    toptagger_2pt = -99;
-    toptagger_2eta = -99;
-    toptagger_2phi = -99;
-    toptagger_3pt = -99;
-    toptagger_3eta = -99;
-    toptagger_3phi = -99;
-    toptagger_scoreAllTops = -99;
-    toptagger_leptonsMVAT_minDeltaR = -99;
+    // toptagger_1pt = -99;
+    // toptagger_1eta = -99;
+    // toptagger_1phi = -99;
+    // toptagger_2pt = -99;
+    // toptagger_2eta = -99;
+    // toptagger_2phi = -99;
+    // toptagger_3pt = -99;
+    // toptagger_3eta = -99;
+    // toptagger_3phi = -99;
+    // toptagger_scoreAllTops = -99;
+    // toptagger_leptonsMVAT_minDeltaR = -99;
 }

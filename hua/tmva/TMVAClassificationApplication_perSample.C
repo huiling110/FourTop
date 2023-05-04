@@ -16,7 +16,7 @@
 
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "../src_cpp/usefulFuction.h"
-// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/writeVariableHist/histsForRegionsMap_class.C"
+#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/writeVariableHist/histsForRegionsMap_class.C"
 
 void TMVAClassificationApplication_perSample(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5baselineExtraTauLepCut_v41addVertexSelection/mc/",
@@ -118,6 +118,9 @@ void TMVAClassificationApplication_perSample(
     TH1D *histBdt_pileup_down = new TH1D(channel + "_" + processName + "_BDT_CMS_pileup_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_up = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_up", "BDT score", binNum, -0.22, 0.48);
     TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
+
+    std::array<TStrings> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    histForRegions<TH1D *> SR1tau1lSys{"BDT", "BDT score", 20, -0.28, 0.4, sysRegions};
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");

@@ -8,11 +8,20 @@
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
 
+void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec);
+void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec);
+// {
+// 	for (UInt_t i = 0; i < array.GetSize(); i++)
+// 	{
+// 		vec.push_back(array.At(i));
+// 	}
+// };
+
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2);
 
 Double_t deltRmin(const Double_t eta1, const Double_t phi1, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &LeptonsMVAF);
 
-void copy_TTreeReaderArray_toVector(const TTreeReaderArray<double> &array, std::vector<Double_t> &vec);
+// void copy_TTreeReaderArray_toVector(const TTreeReaderArray<double> &array, std::vector<Double_t> &vec);
 
 Double_t HTcalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);

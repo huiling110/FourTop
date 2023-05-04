@@ -35,7 +35,7 @@ void run_writeHist(
     // TString selector = "writeHist_forSystematic.C+"
     // TString selector = "writeHist_forHLT.C+") // for tttt signal study
     // TString selector = "writeHist_forHLTStudy.C+") // for HLT study
-    TString selector = "writeHist_BDT+")
+    TString selector = "writeHist_BDT.C+")
 {
     using namespace std;
     TString inputFile = inputDir + inputProcess + ".root";
@@ -74,8 +74,8 @@ void run_writeHist(
     // what if the chain is empty? it seems the selector it not run at all theu
     // chain.Print();
     std::cout << "entires in chain: " << chain.GetEntries() << "\n";
-    chain.Process(selector, option);
-    // chain.Process(selector, option, 100);
+    // chain.Process(selector, option);
+    chain.Process(selector, option, 1000);
 
     t.Stop();
     t.Print();

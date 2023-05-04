@@ -456,6 +456,8 @@ public:
 
     Int_t forwardJets_num = -99;
     Int_t genBs_num = -99;
+    std::vector<Int_t> GenPart_genPartIdxMother;
+    std::vector<Int_t> GenPart_pdgId;
 
     Int_t toptagger_num = -99;
     Double_t toptagger_MHT = -99.0;
@@ -582,6 +584,8 @@ public:
     TTreeReaderValue<Double_t> MET_pt_ = {fReader, "MET_pt_"};
     TTreeReaderValue<Double_t> MET_phi_ = {fReader, "MET_phi_"};
     TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> genBs = {fReader, "genBs"};
+    TTreeReaderArray<Int_t> GenPart_genPartIdxMother_ = {fReader, "GenPart_genPartIdxMother_"};
+    TTreeReaderArray<Int_t> GenPart_pdgId_ = {fReader, "GenPart_pdgId_"};
 
     TTreeReaderValue<Double_t> EVENT_prefireWeight_ = {fReader, "EVENT_prefireWeight_"};
     TTreeReaderValue<Double_t> EVENT_prefireWeight_up_ = {fReader, "EVENT_prefireWeight_up_"};

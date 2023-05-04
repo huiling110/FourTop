@@ -106,15 +106,13 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     // namespace fs = std::filesystem;
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    std::vector<TString> regionsForVariables = {"1tauNoB", "1tauNoBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
+    // std::vector<TString> regionsForVariables = {"1tauNoB", "1tauNoBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
+    std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown", "1tau1lPrefiringUp", "1tau1lPrefiringDown"};
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
     vectorOfVariableRegions.clear();
-    // histsForRegions eventCount_class{"eventCount", 2, -1.0, 1.0};
     histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
-    // vectorOfVariableRegions.push_back();
     vectorOfVariableRegions.push_back(jets_number_class);
-    // vectorOfVariableRegions.push_back(nonbjetsM_num_class);
 
     for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
     {
