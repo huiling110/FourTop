@@ -16,7 +16,7 @@ private:
     // TTreeReaderValue<Temp> &m_variableRef;
 
 public:
-    histsForRegions(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
+    histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
     {
         for (UInt_t i = 0; i < regions.size(); i++)
         {
@@ -40,7 +40,7 @@ public:
     //         m_histsVector[regions[i]] = temp->Clone();
     //     }
     // };
-    void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData)
+    void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE)
     {
         if (ifFill && isData)
         {
