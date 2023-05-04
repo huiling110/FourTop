@@ -299,6 +299,9 @@ Bool_t objectTSelectorForNanoAOD::Process(Long64_t entry)
     MET_pt_ = *MET_pt;
     MET_phi_ = *MET_phi;
 
+    copy_TTreeReaderArray_toVector(GenPart_pdgId, GenPart_pdgId_);
+    copy_TTreeReaderArray_toVector(GenPart_genPartIdxMother, GenPart_genPartIdxMother_);
+
     // SelectTops( tops_toptagger);
     // sort( tops_toptagger.begin(), tops_toptagger.end(), compEle);
 
@@ -498,7 +501,8 @@ void objectTSelectorForNanoAOD::makeBranch(TTree *newTree)
 
     newTree->Branch("MET_pt_", &MET_pt_, "MET_pt_/D");
     newTree->Branch("MET_phi_", &MET_phi_, "MET_phi_/D");
-    // newTree->Branch("tops_toptagger", &tops_toptagger);
+    newTree->Branch("GenPart_genPartIdxMother_", &GenPart_genPartIdxMother_);
+    newTree->Branch("GenPart_pdgId_", &GenPart_pdgId_);
 
     newTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_, "EVENT_prefireWeight_/D");
     newTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_, "EVENT_prefireWeight_up_/D");
@@ -1151,6 +1155,7 @@ void objectTSelectorForNanoAOD::selectGenParts(std::vector<ROOT::Math::PtEtaPhiM
     for (UInt_t j = 0; j < *nGenPart; ++j)
     {
         if (!(abs(GenPart_genPartIdxMother.At(j)) == motherID && abs(GenPart_pdgId.At(j)) == ID))
+            // if (!(abs(GenPart_pdgId.At(j)) == ID))
             continue; // tau:15; top:6;W:;muon:13; ele: 11;
         ROOT::Math::PtEtaPhiMVector genmuon(GenPart_pt.At(j), GenPart_eta.At(j), GenPart_phi.At(j), GenPart_mass.At(j));
         genParts.push_back(genmuon);
@@ -1528,6 +1533,9 @@ void objectTSelectorForNanoAOD::initializeBrancheValues()
     // data
     HLT_PFHT430_SixJet40_BTagCSV_p080_ = -99;
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = -99;
+
+    GenPart_pdgId_.clear();
+    GenPart_genPartIdxMother_.clear();
 }
 
 void objectTSelectorForNanoAOD::setupInputFile()

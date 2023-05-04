@@ -274,13 +274,15 @@ public:
     Double_t MET_pt_;
     Double_t MET_phi_;
 
+    std::vector<Int_t> GenPart_genPartIdxMother_;
+    std::vector<Int_t> GenPart_pdgId_;
+
     // Double_t IsoTrack_pt_;
     // Double_t IsoTrack_eta_;
     // Double_t IsoTrack_phi_;
     // Int_t IsoTrack_pdgId_;
 
-    std::vector<ROOT::Math::PtEtaPhiMVector>
-        genTaus;
+    std::vector<ROOT::Math::PtEtaPhiMVector> genTaus;
     std::vector<ROOT::Math::PtEtaPhiMVector> genEles;
     std::vector<ROOT::Math::PtEtaPhiMVector> genMuons;
     std::vector<ROOT::Math::PtEtaPhiMVector> genBs;
