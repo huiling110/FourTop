@@ -29,6 +29,33 @@
 #include "../src_cpp/usefulFuction.h"
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "writeHist_BDT.h"
+#include "SFfileMap.h"
+
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOrigin, std::vector<TString> &variablesName_int, std::vector<Int_t> &variablesOrigin_int)
+{
+    std::cout << "reading varibleList: " << variableListCsv << "\n";
+    ifstream fin(variableListCsv);
+    string line;
+    TString ivariable;
+    while (getline(fin, line))
+    {
+        ivariable = line;
+        if (line.size() > 0)
+        {
+            std::cout << "reading ivariable =" << ivariable << "\n";
+            variablesName.push_back(ivariable);
+            variablesForReader.push_back(0.0);
+            variablesOrigin.push_back(0.0);
+            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
+            {
+                std::cout << "reading int ivariable =" << ivariable << "\n";
+                variablesName_int.push_back(ivariable);
+                variablesOrigin_int.push_back(0);
+            }
+        }
+    }
+    fin.close();
+}
 
 void writeHist_BDT::fillHistsVector(Bool_t isRegion, UInt_t vectorIndex, Double_t weight)
 {
@@ -55,8 +82,6 @@ void writeHist_BDT::fillHistsVectorMyclass(Bool_t isRegion, UInt_t vectorIndex, 
 
 void push_backHists(TString variable, Int_t binNum, Double_t minBin, Double_t maxBin, std::vector<TH1D *> &histsVariable, TString m_processName, std::vector<TString> &regions)
 {
-    // std::array<TString, 11> regions = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCR2", "1tau0lCR3", "1tau0lCR4", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3"};
-    // chain.Add(inputFile + "outTree_4.root");
     for (UInt_t i = 0; i < regions.size(); i++)
     {
         TString iHistName = regions[i] + "_" + m_processName + "_" + variable;
@@ -103,21 +128,32 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     m_era = optionVect[5];
     std::cout << "m_era: " << m_era << "\n";
 
-    // namespace fs = std::filesystem;
     outputFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
 
-    // std::vector<TString> regionsForVariables = {"1tauNoB", "1tauNoBTagWeight", "1tau1lNoB", "1tau1lNoBBtagWeight", "1tau0lNoB", "1tau0lNoBBtagWeight"};
     std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown", "1tau1lPrefiringUp", "1tau1lPrefiringDown"};
     push_backHists("eventCount", 2, -1, 1, eventCount_hists, m_processName, regionsForVariables);
 
-    vectorOfVariableRegions.clear();
-    histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
-    vectorOfVariableRegions.push_back(jets_number_class);
+    // vectorOfVariableRegions.clear();
+    // histsForRegions<Int_t> jets_number_class{"jets_number", "number of jets", 6, 6, 12, jets_number};
+    // vectorOfVariableRegions.push_back(jets_number_class);
 
-    for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
+    // for (UInt_t ihistvec = 0; ihistvec < vectorOfVariableRegions.size(); ihistvec++)
+    // {
+    //     vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
+    // }
+
+    //book MVA reader
+    TString variableList = BDTTrainingMap[m_era].at(0);
+    readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
+    UInt_t variableNum = variablesName.size();
+    for (UInt_t v = 0; v < variableNum; v++)
     {
-        vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
+        reader->AddVariable(variablesName[v], &variablesForReader[v]);
+        //???it seems even for int type we have to add as float
     }
+    TString methodName = "BDT" + TString(" method");
+    TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
+    reader->BookMVA(methodName, weightfile);
 }
 
 Bool_t writeHist_BDT::Process(Long64_t entry)
@@ -134,29 +170,6 @@ Bool_t writeHist_BDT::Process(Long64_t entry)
     if (!baselineNoB)
     {
         return kFALSE;
-    }
-
-    if (!m_isData)
-    {
-        // be blind for data in signal region
-        // Bool_t isBTagRegion = *tausT_number >= 1 && *jets_number >= 6;
-        Bool_t isBTagRegion = *tausT_number == 1 && *jets_number >= 6;
-        // Bool_t SR1tau1lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
-        // Bool_t SR1tau0lNoB = (*tausT_number >= 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
-        Bool_t SR1tau1lNoB = (*tausT_number == 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 1) && (*jets_number >= 6);
-        Bool_t SR1tau0lNoB = (*tausT_number == 1) && (*elesTopMVAT_number + *muonsTopMVAT_number == 0) && (*jets_number >= 6);
-        fillHistsVectorMyclass(isBTagRegion, 0, basicWeight);
-        fillHistsVectorMyclass(isBTagRegion, 1, basicWeight * (*btagShape_weight));
-        fillHistsVectorMyclass(SR1tau1lNoB, 2, basicWeight);
-        fillHistsVectorMyclass(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
-        fillHistsVectorMyclass(SR1tau0lNoB, 4, basicWeight);
-        fillHistsVectorMyclass(SR1tau0lNoB, 5, basicWeight * (*btagShape_weight));
-        fillHistsVector(isBTagRegion, 0, basicWeight);
-        fillHistsVector(isBTagRegion, 1, basicWeight * (*btagShape_weight));
-        fillHistsVector(SR1tau1lNoB, 2, basicWeight);
-        fillHistsVector(SR1tau1lNoB, 3, basicWeight * (*btagShape_weight));
-        fillHistsVector(SR1tau0lNoB, 4, basicWeight);
-        fillHistsVector(SR1tau0lNoB, 5, basicWeight * (*btagShape_weight));
     }
 
     return kTRUE;
