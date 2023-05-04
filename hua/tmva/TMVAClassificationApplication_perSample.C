@@ -190,48 +190,14 @@ void TMVAClassificationApplication_perSample(
         // Double_t basicWeight = EVENT_genWeight * EVENT_prefireWeight * PUweight_;
         Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
-        // if (Use["BDT"])
-        // {
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        // }
+
         Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
-        // if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2)
-        // {
-        // histFill(SR1tau1l, isdata, basicWeight, bdtScore, histBdt);
-        // if (!isdata)
-        // {
 
-        //     histBdt->Fill(bdtScore, basicWeight);
-        // }
-        // else
-        // {
-        //     histBdt->Fill(bdtScore);
-        // }
-        // }
         SR1tau1lSys.fillHistVec("1tau1lSR", bdtScore, basicWeight, SR1tau1l, isdata);
+        SR1tau1lSys.fillHistVec("1tau1lPileupUp", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, isdata);
+        SR1tau1lSys.fillHistVec("1tau1lPileupDown", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, isdata);
 
-        if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
-        {
-            if (!isdata)
-            {
-                histBdt_CR0->Fill(bdtScore, basicWeight);
-            }
-            else
-            {
-                histBdt_CR0->Fill(bdtScore);
-            }
-        }
-        if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number == 6 && bjetsM_num >= 2)
-        {
-            if (!isdata)
-            {
-                histBdt_CR2->Fill(bdtScore, basicWeight);
-            }
-            else
-            {
-                histBdt_CR2->Fill(bdtScore);
-            }
-        }
         // histBdt->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_);
         histBdt_pileup_up->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_up_);
         histBdt_pileup_down->Fill(bdtScore, EVENT_genWeight * EVENT_prefireWeight * PUweight_down_);

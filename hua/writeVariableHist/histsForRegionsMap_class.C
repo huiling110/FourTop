@@ -10,10 +10,7 @@ private:
     Int_t m_binNum;
     Double_t m_binMin;
     Double_t m_binMax;
-    // Double_t *m_binRange; //???need to add initialization for this
-    // std::vector<TH1D *> m_histsVector;
     std::map<TString, TH1D *> m_histsVector;
-    // TTreeReaderValue<Temp> &m_variableRef;
 
 public:
     histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
@@ -32,11 +29,11 @@ public:
     {
         if (ifFill && isData)
         {
-            m_histsVector[iRegion]->Fill(value, weight);
+            m_histsVector[iRegion]->Fill(value);
         }
         if (ifFill && !isData)
         {
-            m_histsVector[iRegion]->Fill(value);
+            m_histsVector[iRegion]->Fill(value, weight);
         }
     }
     void print()
