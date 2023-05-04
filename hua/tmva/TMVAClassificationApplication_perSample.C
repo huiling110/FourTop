@@ -120,7 +120,7 @@ void TMVAClassificationApplication_perSample(
     TH1D *histBdt_prefiring_down = new TH1D(channel + "_" + processName + "_BDT_CMS_prefiring_2016postVFP_down", "BDT score", binNum, -0.22, 0.48);
 
     std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
-    histsForRegions SR1tau1lSys{"BDT", "BDT score", processName, 20, -0.28, 0.4, sysRegions};
+    histsForRegionsMap SR1tau1lSys{"BDT", "BDT score", processName, 20, -0.28, 0.4, sysRegions};
 
     TFile *input = new TFile(inputDir + inputProcess + ".root", "READ");
     TTree *theTree = (TTree *)input->Get("newtree");
@@ -208,6 +208,8 @@ void TMVAClassificationApplication_perSample(
         //     histBdt->Fill(bdtScore);
         // }
         // }
+        histsForRegions.fillHistVec("1tau1lSR", bdtScore, basicWeight, SR1tau1l, isdata);
+
         if (tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 6 && bjetsM_num == 1)
         {
             if (!isdata)

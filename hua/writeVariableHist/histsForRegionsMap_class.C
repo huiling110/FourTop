@@ -1,7 +1,7 @@
 #include <iterator>
 
 // template <typename Temp>
-class histsForRegions
+class histsForRegionsMap
 {
 private:
     TString m_variableName;
@@ -40,11 +40,15 @@ public:
     //         m_histsVector[regions[i]] = temp->Clone();
     //     }
     // };
-    void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE)
+    void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData)
     {
-        if (ifFill)
+        if (ifFill && isData)
         {
             m_histsVector[iRegion]->Fill(value, weight);
+        }
+        if (ifFill && !isData)
+        {
+            m_histsVector[iRegion]->Fill(value);
         }
     }
     // void fillHistVecAbs(UInt_t iRegion, Double_t weight)
