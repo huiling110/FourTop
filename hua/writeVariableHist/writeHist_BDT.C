@@ -142,7 +142,7 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     //     vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
     // }
 
-    //book MVA reader
+    // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
     readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
     UInt_t variableNum = variablesName.size();
@@ -154,6 +154,18 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     TString methodName = "BDT" + TString(" method");
     TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
     reader->BookMVA(methodName, weightfile);
+
+    // read branch from tree
+    // for (UInt_t i = 0; i < variableNum; i++)
+    // {
+    //     if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
+    //         continue;
+    //     fChain->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
+    // }
+    // for (UInt_t v = 0; v < variablesName_int.size(); v++)
+    // {
+    //     fChain->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
+    // }
 }
 
 Bool_t writeHist_BDT::Process(Long64_t entry)
