@@ -145,8 +145,6 @@ void writeHist_BDT::SlaveBegin(TTree *fChain)
 
     // read branches
     //  for selection
-    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
-    Double_t jets_HT, jets_6pt;
     fChain->SetBranchAddress("tausT_number", &tausT_number);
     fChain->SetBranchAddress("elesTopMVAT_number", &elesTopMVAT_number);
     fChain->SetBranchAddress("muonsTopMVAT_number", &muonsTopMVAT_number);
@@ -155,7 +153,6 @@ void writeHist_BDT::SlaveBegin(TTree *fChain)
     fChain->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
     fChain->SetBranchAddress("jets_HT", &jets_HT);
     fChain->SetBranchAddress("jets_6pt", &jets_6pt);
-    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
     fChain->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
     fChain->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
     fChain->SetBranchAddress("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);
@@ -198,11 +195,13 @@ void writeHist_BDT::SlaveBegin(TTree *fChain)
     std::cout << "done initializing\n";
 }
 
-Bool_t writeHist_BDT::Process(Long64_t entry, TTree *fChain)
+// Bool_t writeHist_BDT::Process(Long64_t entry, TTree *fChain)
+Bool_t writeHist_BDT::Process(Long64_t entry)
 {
     // fReader.SetLocalEntry(entry);
-    fChain->GetEntry(entry);
+    fChain->GetEntry(entry); //???can not access fChain using the Process method
 
+    std::cout << "tausT_number=" << tausT_number << "\n";
     // Double_t basicWeight = 1.0;
     // if (!m_isData)
     // {

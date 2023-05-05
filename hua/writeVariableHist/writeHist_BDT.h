@@ -22,70 +22,12 @@
 
 #include "histsForRegions_class.C"
 
-// Headers needed by this particular selector
-
-//???need to delete this to use class from histForRegions_class.C
-// template <typename Temp>
-// class histsForRegions
-// {
-// private:
-//    TString m_variableName;
-//    Int_t m_binNum;
-//    Double_t m_binMin;
-//    Double_t m_binMax;
-//    Double_t m_binRange[];
-//    std::vector<TH1D *> m_histsVector;
-//    // TTreeReaderValue<Int_t> &m_variableRef;
-//    TTreeReaderValue<Temp> &m_variableRef;
-
-// public:
-//    histsForRegions(TString variableName, Int_t bin, Double_t binMin, Double_t binMax, TTreeReaderValue<Temp> &variableRef) : m_variableName{variableName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_variableRef{variableRef} {};
-//    void initializeRegions(std::vector<TString> &regions, TString m_processName)
-//    {
-//       for (UInt_t i = 0; i < regions.size(); i++)
-//       {
-//          TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
-//          if (m_binRange.size() > 0)
-//          {
-//             TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binRange);
-//          }
-//          else
-//          {
-//             TH1D *temp = new TH1D(iHistName.Data(), iHistName.Data(), m_binNum, m_binMin, m_binMax);
-//          }
-//          temp.Sumw2();
-//          m_histsVector.push_back(temp);
-//       }
-//    };
-//    void fillHistVec(UInt_t iRegion, Double_t weight)
-//    {
-//       m_histsVector[iRegion]->Fill(*m_variableRef, weight);
-//    }
-//    void histsScale(Double_t scale)
-//    {
-//       for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-//       {
-//          m_histsVector[ire]->Scale(scale);
-//       }
-//    }
-//    void histsPrint()
-//    {
-//       for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-//       {
-//          m_histsVector[ire]->Print();
-//       }
-//    }
-
-//    // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
-//    //    m_vri
-//    // }
-// };
-
 class writeHist_BDT : public TSelector
 {
 public:
     // TTreeReader fReader; //! the tree reader
-    TTree *fChain = 0; //! pointer to the analyzed TTree or TChain
+    // TTree *fChain = 0; //! pointer to the analyzed TTree or TChain
+    TTree *fChain;
 
     // my member variables
     Bool_t m_isData;
@@ -111,6 +53,12 @@ public:
     std::vector<Double_t> variablesOrigin;
     std::vector<TString> variablesName_int{};
     std::vector<Int_t> variablesOrigin_int;
+
+    // reading tree branches
+    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
+    Double_t jets_HT, jets_6pt;
+    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
+
     /*
         // Readers to access the data (delete the ones you do not need).
         TTreeReaderValue<ULong64_t>
@@ -408,8 +356,8 @@ public:
     virtual void SlaveBegin(TTree *fChain);
     virtual void Init(TTree *tree);
     virtual Bool_t Notify();
-    // virtual Bool_t Process(Long64_t entry);
-    virtual Bool_t Process(Long64_t entry, TTree *fChain);
+    virtual Bool_t Process(Long64_t entry);
+    // virtual Bool_t Process(Long64_t entry, TTree *fChain);
     virtual Int_t GetEntry(Long64_t entry, Int_t getall = 0) { return fChain ? fChain->GetTree()->GetEntry(entry, getall) : 0; }
     virtual void SetOption(const char *option) { fOption = option; }
     virtual void SetObject(TObject *obj) { fObject = obj; }
