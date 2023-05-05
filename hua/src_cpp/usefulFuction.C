@@ -1,5 +1,3 @@
-#ifndef USEFULFUNCTION_H
-#define USEFULFUNCTION_H
 
 #include <string>
 #include <iostream>
@@ -11,6 +9,7 @@
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
+#include "usefulFuction.h"
 
 void getOption(TString option, std::vector<TString> &optionVec)
 {
@@ -85,5 +84,3 @@ void histFill(Bool_t ifFill, Bool_t isData, Double_t weight, Double_t variableVa
 //         vec.push_back(array.At(i));
 //     }
 // }
-
-#endif

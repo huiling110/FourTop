@@ -5,6 +5,7 @@
 #include "TStopwatch.h"
 
 #include <iostream>
+#include <boost/lexical_cast.hpp>
 
 #include "../src_cpp/usefulFuction.h"
 
@@ -79,4 +80,29 @@ void run_writeHist(
 
     t.Stop();
     t.Print();
+}
+
+int main(int argc, char const *argv[])
+{
+
+    TString inputDir;
+    TString inputProcess;
+    TString version;
+    Bool_t isTest;
+    if (argc < 4)
+    {
+        std::cout << "not enough input from command line\n";
+        run_writeHist();
+    }
+    else
+    {
+        inputDir = boost::lexical_cast<std::string>(argv[1]);
+        inputProcess = boost::lexical_cast<std::string>(argv[2]);
+        version = boost::lexical_cast<std::string>(argv[3]);
+        isTest = boost::lexical_cast<bool>(argv[4]);
+        // printf("istest=%i \n inputBase=%s \ninputDir=%s\n  outputDir = %s\n eventSelectionBit=%s\n ", istest, inputBase.Data(), inputDir.Data(), outputDir.Data(), eventSelectionBit.Data());
+        run_writeHist(inputDir, inputProcess, version, isTest);
+    }
+
+    return 0;
 }
