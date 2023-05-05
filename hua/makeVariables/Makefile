@@ -1,6 +1,5 @@
 #-----------------------------------------------------------------------------
 
-# PROGRAM = Analysis
 PROGRAM = run_makeVaribles_forBDT
 SHAREDLIBS = makeVaribles_forBDT
 

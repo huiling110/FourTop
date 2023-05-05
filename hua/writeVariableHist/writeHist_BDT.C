@@ -34,8 +34,8 @@
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOrigin, std::vector<TString> &variablesName_int, std::vector<Int_t> &variablesOrigin_int)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
-    ifstream fin(variableListCsv);
-    string line;
+    std::ifstream fin(variableListCsv);
+    std::string line;
     TString ivariable;
     while (getline(fin, line))
     {
@@ -142,6 +142,34 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     //     vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
     // }
 
+    //read branches
+    // for selection
+    Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
+    Double_t jets_HT, jets_6pt;
+    fChain->SetBranchAddress("tausT_number", &tausT_number);
+    fChain->SetBranchAddress("elesTopMVAT_number", &elesTopMVAT_number);
+    fChain->SetBranchAddress("muonsTopMVAT_number", &muonsTopMVAT_number);
+    fChain->SetBranchAddress("jets_number", &jets_number);
+    fChain->SetBranchAddress("bjetsM_num", &bjetsM_num);
+    fChain->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
+    fChain->SetBranchAddress("jets_HT", &jets_HT);
+    fChain->SetBranchAddress("jets_6pt", &jets_6pt);
+    Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
+    fChain->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
+    fChain->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
+    fChain->SetBranchAddress("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);
+    fChain->SetBranchAddress("EVENT_prefireWeight_down", &EVENT_prefireWeight_down);
+    fChain->SetBranchAddress("PUweight_", &PUweight_);
+    fChain->SetBranchAddress("PUweight_up_", &PUweight_up_);
+    fChain->SetBranchAddress("PUweight_down_", &PUweight_down_);
+    fChain->SetBranchAddress("HLT_weight", &HLT_weight);
+    fChain->SetBranchAddress("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
+    fChain->SetBranchAddress("elesTopMVAT_weight", &elesTopMVAT_weight);
+    fChain->SetBranchAddress("musTopMVAT_weight", &musTopMVAT_weight);
+    fChain->SetBranchAddress("btagShape_weight", &btagShape_weight);
+    fChain->SetBranchAddress("btagShapeR", &btagShapeR);
+
+
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
     readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
@@ -156,21 +184,24 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     reader->BookMVA(methodName, weightfile);
 
     // read branch from tree
-    // for (UInt_t i = 0; i < variableNum; i++)
-    // {
-    //     if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
-    //         continue;
-    //     fChain->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
-    // }
-    // for (UInt_t v = 0; v < variablesName_int.size(); v++)
-    // {
-    //     fChain->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
-    // }
+    for (UInt_t i = 0; i < variableNum; i++)
+    {
+        if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
+            continue;
+        fChain->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
+    }
+    for (UInt_t v = 0; v < variablesName_int.size(); v++)
+    {
+        fChain->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
+    }
+
+    std::cout<<"done initializing\n";
 }
 
 Bool_t writeHist_BDT::Process(Long64_t entry)
 {
     // fReader.SetLocalEntry(entry);
+    fChain->GetEntry(entry);
 
     // Double_t basicWeight = 1.0;
     // if (!m_isData)
@@ -218,11 +249,11 @@ void writeHist_BDT::Terminate()
             eventCount_hists[j]->Print();
         }
 
-        for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
-        {
-            vectorOfVariableRegions[ihists].histsScale(processScale);
-            vectorOfVariableRegions[ihists].histsPrint();
-        }
+    //     for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+    //     {
+    //         vectorOfVariableRegions[ihists].histsScale(processScale);
+    //         vectorOfVariableRegions[ihists].histsPrint();
+    //     }
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
     outputFile->Write();
