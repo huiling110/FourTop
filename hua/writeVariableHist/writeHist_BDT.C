@@ -99,7 +99,8 @@ void writeHist_BDT::Begin(TTree * /*tree*/)
     TString option = GetOption();
 }
 
-void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
+// void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
+void writeHist_BDT::SlaveBegin(TTree *fChain)
 {
     // The SlaveBegin() function is called after the Begin() function.
     // When running with PROOF SlaveBegin() is called on each slave server.
@@ -142,8 +143,8 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     //     vectorOfVariableRegions[ihistvec].initializeRegions(regionsForVariables, m_processName);
     // }
 
-    //read branches
-    // for selection
+    // read branches
+    //  for selection
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
     Double_t jets_HT, jets_6pt;
     fChain->SetBranchAddress("tausT_number", &tausT_number);
@@ -169,7 +170,6 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     fChain->SetBranchAddress("btagShape_weight", &btagShape_weight);
     fChain->SetBranchAddress("btagShapeR", &btagShapeR);
 
-
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
     readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
@@ -184,21 +184,21 @@ void writeHist_BDT::SlaveBegin(TTree * /*tree*/)
     reader->BookMVA(methodName, weightfile);
 
     // read branch from tree
-    for (UInt_t i = 0; i < variableNum; i++)
-    {
-        if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
-            continue;
-        fChain->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
-    }
-    for (UInt_t v = 0; v < variablesName_int.size(); v++)
-    {
-        fChain->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
-    }
+    // for (UInt_t i = 0; i < variableNum; i++)
+    // {
+    //     if (variablesName[i].Contains("number") || variablesName[i].Contains("num") || variablesName[i].Contains("charge"))
+    //         continue;
+    //     fChain->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
+    // }
+    // for (UInt_t v = 0; v < variablesName_int.size(); v++)
+    // {
+    //     fChain->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
+    // }
 
-    std::cout<<"done initializing\n";
+    std::cout << "done initializing\n";
 }
 
-Bool_t writeHist_BDT::Process(Long64_t entry)
+Bool_t writeHist_BDT::Process(Long64_t entry, TTree *fChain)
 {
     // fReader.SetLocalEntry(entry);
     fChain->GetEntry(entry);
@@ -249,11 +249,11 @@ void writeHist_BDT::Terminate()
             eventCount_hists[j]->Print();
         }
 
-    //     for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
-    //     {
-    //         vectorOfVariableRegions[ihists].histsScale(processScale);
-    //         vectorOfVariableRegions[ihists].histsPrint();
-    //     }
+        //     for (UInt_t ihists = 0; ihists < vectorOfVariableRegions.size(); ihists++)
+        //     {
+        //         vectorOfVariableRegions[ihists].histsScale(processScale);
+        //         vectorOfVariableRegions[ihists].histsPrint();
+        //     }
     }
     Info("Terminate", "outputFile here:%s", outputFile->GetName());
     outputFile->Write();
