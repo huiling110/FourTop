@@ -16,13 +16,16 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
         {
             std::cout << "reading ivariable =" << ivariable << "\n";
             variablesName.push_back(ivariable);
-            variablesForReader.push_back(0.0);
-            variablesOrigin.push_back(0.0);
             if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
             {
                 std::cout << "reading int ivariable =" << ivariable << "\n";
                 variablesName_int.push_back(ivariable);
                 variablesOrigin_int.push_back(0);
+            }
+            else
+            {
+                variablesForReader.push_back(0.0);
+                variablesOrigin.push_back(0.0);
             }
         }
     }
@@ -45,6 +48,9 @@ void treeAnalyzer::Init()
     TString methodName = "BDT" + TString(" method");
     TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
     reader->BookMVA(methodName, weightfile);
+
+    // regions for hists
+    std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown", "1tau1lPrefiringUp", "1tau1lPrefiringDown"};
 
     readBranch();
     std::cout << "done initializing\n";
@@ -74,6 +80,15 @@ void treeAnalyzer::readBranch()
     m_tree->SetBranchAddress("musTopMVAT_weight", &musTopMVAT_weight);
     m_tree->SetBranchAddress("btagShape_weight", &btagShape_weight);
     m_tree->SetBranchAddress("btagShapeR", &btagShapeR);
+
+    for (UInt_t i = 0; i < variablesOrigin.size(); i++)
+    {
+        m_tree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
+    }
+    for (UInt_t v = 0; v < variablesName_int.size(); v++)
+    {
+        m_tree->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
+    }
 }
 
 void treeAnalyzer::LoopTree()

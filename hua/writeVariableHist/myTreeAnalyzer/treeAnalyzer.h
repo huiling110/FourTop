@@ -10,6 +10,8 @@
 #include "TH1.h"
 #include "TMVA/Reader.h"
 
+#include "histsForRegionsMap_class.h"
+
 class treeAnalyzer
 {
 public:
@@ -46,6 +48,9 @@ private:
     std::vector<Double_t> variablesOrigin;
     std::vector<TString> variablesName_int{};
     std::vector<Int_t> variablesOrigin_int;
+
+    // hists regions
+    // histsForRegionsMap histsSys;
 
     // branch values;
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
