@@ -78,7 +78,8 @@ $(PROGRAM).out: $(OBJS)
 # 	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CXXFLAGS) $(HDRS) Linkdef.h 
 
 clean:
-	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).o dict_*
+	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).out 
+
  
 
 #------------------------------------------------------------------------
