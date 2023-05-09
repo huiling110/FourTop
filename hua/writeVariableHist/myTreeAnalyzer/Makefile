@@ -63,19 +63,6 @@ $(PROGRAM).out: $(OBJS)
 	$(CXX) -c $(CXXFLAGS) $*.C
 
 
-#The @ in front of echo is to suppress the print out of the recipe itself in the terminal window
-# $(SHAREDLIBS).so: $(OBJS) $(HDRS)
-# 	@echo "Linking $(SHAREDLIBS).so ..." 
-# 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(SOFLAGS) $(OBJS) $(LIBS) -o$(SHAREDLIBS).so
-# 	@echo "linking done"
-
-
-
-
-# dict_$(PROGRAM).C: $(HDRS)
-# 	@echo "Generating dictionary ..."
-# 	# rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CORRECTIONLIB_FLAGS) $(HDRS) Linkdef.h 
-# 	rootcint -f dict_$(PROGRAM).C -c -p -I$(HEADRDIR) $(CXXFLAGS) $(HDRS) Linkdef.h 
 
 clean:
 	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).out 

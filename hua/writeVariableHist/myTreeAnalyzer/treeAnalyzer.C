@@ -1,11 +1,51 @@
 #include <iostream>
 
 #include "treeAnalyzer.h"
+#include "../SFfileMap.h"
+
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOrigin, std::vector<TString> &variablesName_int, std::vector<Int_t> &variablesOrigin_int)
+{
+    std::cout << "reading varibleList: " << variableListCsv << "\n";
+    std::ifstream fin(variableListCsv);
+    std::string line;
+    TString ivariable;
+    while (getline(fin, line))
+    {
+        ivariable = line;
+        if (line.size() > 0)
+        {
+            std::cout << "reading ivariable =" << ivariable << "\n";
+            variablesName.push_back(ivariable);
+            variablesForReader.push_back(0.0);
+            variablesOrigin.push_back(0.0);
+            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
+            {
+                std::cout << "reading int ivariable =" << ivariable << "\n";
+                variablesName_int.push_back(ivariable);
+                variablesOrigin_int.push_back(0);
+            }
+        }
+    }
+    fin.close();
+}
 
 void treeAnalyzer::Init()
 {
     std::cout << "start to initilation\n";
-    // m_outFile = new TFile(m_outputFolder + "variableHists" + "_" + m_version + "/" + m_processName + ".root", "RECREATE");
+
+    // book MVA reader
+    TString variableList = BDTTrainingMap[m_era].at(0);
+    readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
+    UInt_t variableNum = variablesName.size();
+    for (UInt_t v = 0; v < variableNum; v++)
+    {
+        reader->AddVariable(variablesName[v], &variablesForReader[v]);
+        //???it seems even for int type we have to add as float
+    }
+    TString methodName = "BDT" + TString(" method");
+    TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
+    reader->BookMVA(methodName, weightfile);
+
     readBranch();
     std::cout << "done initializing\n";
     std::cout << "\n";

@@ -1,11 +1,14 @@
 #ifndef TREEANALYZER_H
 #define TREEANALYZER_H
 
+#include <iostream>
+#include <vector>
+
 #include "TString.h"
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1.h"
-#include <iostream>
+#include "TMVA/Reader.h"
 
 class treeAnalyzer
 {
@@ -30,11 +33,19 @@ private:
     TTree *m_tree;
     TFile *m_file;
     TString m_processName;
-    TString m_era;
+    TString m_era = "2016";
     Bool_t m_isTest = kTRUE;
     Bool_t m_isData = kFALSE;
     TString m_outputFolder;
     TFile *m_outFile;
+
+    // for TMVA reader
+    TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
+    std::vector<TString> variablesName{};
+    std::vector<Float_t> variablesForReader;
+    std::vector<Double_t> variablesOrigin;
+    std::vector<TString> variablesName_int{};
+    std::vector<Int_t> variablesOrigin_int;
 
     // branch values;
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
