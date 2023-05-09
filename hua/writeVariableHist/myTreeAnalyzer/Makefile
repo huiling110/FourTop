@@ -1,7 +1,6 @@
 #-----------------------------------------------------------------------------
 
 PROGRAM = run_treeAnalyzer
-# SHAREDLIBS = writeHist_BDT
 
 
 HDRS = treeAnalyzer.h\
@@ -59,7 +58,8 @@ $(PROGRAM).out: $(OBJS)
 	@echo "done building $(PROGRAM)"
 
 #
-%/%.o: %.C $(HDRS)
+# %/%.o: %.C $(HDRS)
+%/%.o: %.C %.h
 	$(CXX) -c $(CXXFLAGS) $*.C
 
 
