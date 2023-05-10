@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <variant>
 
 #include "TString.h"
 #include "TFile.h"
@@ -45,9 +46,10 @@ private:
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
     std::vector<TString> variablesName{};
     std::vector<Float_t> variablesForReader;
-    std::vector<Double_t> variablesOrigin;
+    std::vector<Double_t> variablesOriginDouble;
     std::vector<TString> variablesName_int{};
     std::vector<Int_t> variablesOrigin_int;
+    std::vector<std::variant<Int_t, Double_t>> variablesOriginAll;
 
     // hists regions
     // histsForRegionsMap histsSys;

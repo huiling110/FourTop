@@ -3,12 +3,14 @@
 #include "treeAnalyzer.h"
 #include "../SFfileMap.h"
 
-void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOrigin, std::vector<TString> &variablesName_int, std::vector<Int_t> &variablesOrigin_int)
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOriginDouble, std::vector<Int_t> &variablesOrigin_int, std::vector<std::variant<Int_t, Double_t>> variablesOriginAll)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
     std::ifstream fin(variableListCsv);
     std::string line;
     TString ivariable;
+    variablesName.clear();
+    variablesOriginAll.clear();
     while (getline(fin, line))
     {
         ivariable = line;
@@ -16,16 +18,20 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
         {
             std::cout << "reading ivariable =" << ivariable << "\n";
             variablesName.push_back(ivariable);
+            variablesForReader.push_back(0.0); // tree reader can only read float
+
             if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
             {
                 std::cout << "reading int ivariable =" << ivariable << "\n";
-                variablesName_int.push_back(ivariable);
+                // variablesName_int.push_back(ivariable);
                 variablesOrigin_int.push_back(0);
+                variablesOriginAll.push_back(0);
             }
             else
             {
-                variablesForReader.push_back(0.0);
-                variablesOrigin.push_back(0.0);
+                // variablesName.push_back(ivariable);
+                variablesOriginDouble.push_back(0.0);
+                variablesOriginAll.push_back(0.0);
             }
         }
     }
@@ -38,13 +44,13 @@ void treeAnalyzer::Init()
 
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
-    readVariableList(variableList, variablesName, variablesForReader, variablesOrigin, variablesName_int, variablesOrigin_int);
-    UInt_t variableNum = variablesName.size();
-    for (UInt_t v = 0; v < variableNum; v++)
+    readVariableList(variableList, variablesName, variablesForReader, variablesOriginDouble, variablesOrigin_int, variablesOriginAll);
+    for (UInt_t i = 0; i < variablesName.size(); i++)
     {
-        reader->AddVariable(variablesName[v], &variablesForReader[v]);
-        //???it seems even for int type we have to add as float
+        reader->AddVariable(variablesName[i], &variablesForReader[i]);
+        // must add all variables as floats even for int
     }
+
     TString methodName = "BDT" + TString(" method");
     TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
     reader->BookMVA(methodName, weightfile);
@@ -81,13 +87,17 @@ void treeAnalyzer::readBranch()
     m_tree->SetBranchAddress("btagShape_weight", &btagShape_weight);
     m_tree->SetBranchAddress("btagShapeR", &btagShapeR);
 
-    for (UInt_t i = 0; i < variablesOrigin.size(); i++)
+    // for (const auto &elem : variablesOriginAll)
+    for (UInt_t i = 0; i < variablesOriginAll.size(); i++)
     {
-        m_tree->SetBranchAddress(variablesName[i], &variablesOrigin[i]);
-    }
-    for (UInt_t v = 0; v < variablesName_int.size(); v++)
-    {
-        m_tree->SetBranchAddress(variablesName_int[v], &variablesOrigin_int[v]);
+        if (std::holds_alternative<Int_t>(variablesOriginAll[i]))
+        {
+            m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Int_t>(variablesOriginAll[i])));
+        }
+        else if (std::holds_alternative<Double_t>(variablesOriginAll[i]))
+        {
+            m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Double_t>(variablesOriginAll[i])));
+        }
     }
 }
 
@@ -103,7 +113,12 @@ void treeAnalyzer::LoopTree()
     for (UInt_t e = 0; e < allEvent; e++)
     {
         m_tree->GetEntry(e);
-        std::cout << tausT_number << "\n";
+        // baseline selection
+        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
+        {
+            // return kFALSE;
+            continue;
+        }
     }
 }
 
