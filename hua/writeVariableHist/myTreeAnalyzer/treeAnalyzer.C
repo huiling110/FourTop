@@ -3,7 +3,7 @@
 #include "treeAnalyzer.h"
 #include "../SFfileMap.h"
 
-void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOriginDouble, std::vector<Int_t> &variablesOrigin_int, std::vector<std::variant<Int_t, Double_t>> variablesOriginAll)
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOriginDouble, std::vector<Int_t> &variablesOrigin_int, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
     std::ifstream fin(variableListCsv);
@@ -11,6 +11,7 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
     TString ivariable;
     variablesName.clear();
     variablesOriginAll.clear();
+    variablesForReader.clear();
     while (getline(fin, line))
     {
         ivariable = line;
@@ -45,6 +46,7 @@ void treeAnalyzer::Init()
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
     readVariableList(variableList, variablesName, variablesForReader, variablesOriginDouble, variablesOrigin_int, variablesOriginAll);
+    // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
     for (UInt_t i = 0; i < variablesName.size(); i++)
     {
         reader->AddVariable(variablesName[i], &variablesForReader[i]);
@@ -118,6 +120,19 @@ void treeAnalyzer::LoopTree()
         {
             // return kFALSE;
             continue;
+        }
+
+        // need to convert the branch Int_t and Double_t for reader
+        for (UInt_t j = 0; j < variablesForReader.size(); j++)
+        {
+            if (std::holds_alternative<Int_t>(variablesOriginAll[j]))
+            {
+                variablesForReader.at(j) = std::get<Int_t>(variablesOriginAll[j]);
+            }
+            else
+            {
+                variablesForReader.at(j) = std::get<Double_t>(variablesOriginAll[j]);
+            }
         }
     }
 }
