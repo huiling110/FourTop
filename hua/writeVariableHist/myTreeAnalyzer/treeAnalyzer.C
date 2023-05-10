@@ -108,7 +108,7 @@ void treeAnalyzer::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 100;
+        allEvent = 1000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -116,11 +116,10 @@ void treeAnalyzer::LoopTree()
     {
         m_tree->GetEntry(e);
         // baseline selection
-        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
-        {
-            // return kFALSE;
-            continue;
-        }
+        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
+        // {
+        //     continue;
+        // }
 
         // need to convert the branch Int_t and Double_t for reader
         for (UInt_t j = 0; j < variablesForReader.size(); j++)
@@ -134,6 +133,8 @@ void treeAnalyzer::LoopTree()
                 variablesForReader.at(j) = std::get<Double_t>(variablesOriginAll[j]);
             }
         }
+        Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        std::cout << "BDT=" << bdtScore << "\n";
     }
 }
 
