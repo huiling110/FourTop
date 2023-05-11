@@ -101,7 +101,8 @@ void treeAnalyzer::readBranch()
 
     // bdt hists
     std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
-    SR1tau1lSys = histsForRegionsMap{"BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions};
+    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+    SR1tau1lSys.print();
 }
 
 void treeAnalyzer::LoopTree()
