@@ -1,6 +1,18 @@
 #include "histsForRegionsMap_class.h"
 
-void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE)
+void histsForRegionsMap::setHistsMap(const std::vector<TString> &regions)
+{
+    for (UInt_t i = 0; i < regions.size(); i++)
+    {
+        TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
+        TH1D *temp;
+        temp = new TH1D(iHistName.Data(), m_histTitle.Data(), m_binNum, m_binMin, m_binMax);
+        temp->Sumw2();
+        m_histsVector[regions[i]] = temp;
+    }
+}
+// void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE)
+void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill, Bool_t isData)
 {
     if (ifFill && isData)
     {
@@ -41,5 +53,5 @@ void histsForRegionsMap::print()
 // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
 //    m_vri
 // }
-}
+// }
 ;

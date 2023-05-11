@@ -3,7 +3,7 @@
 #include "treeAnalyzer.h"
 #include "../SFfileMap.h"
 
-void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<Double_t> &variablesOriginDouble, std::vector<Int_t> &variablesOrigin_int, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
     std::ifstream fin(variableListCsv);
@@ -24,14 +24,10 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
             if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
             {
                 std::cout << "reading int ivariable =" << ivariable << "\n";
-                // variablesName_int.push_back(ivariable);
-                variablesOrigin_int.push_back(0);
                 variablesOriginAll.push_back(0);
             }
             else
             {
-                // variablesName.push_back(ivariable);
-                variablesOriginDouble.push_back(0.0);
                 variablesOriginAll.push_back(0.0);
             }
         }
@@ -45,7 +41,7 @@ void treeAnalyzer::Init()
 
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
-    readVariableList(variableList, variablesName, variablesForReader, variablesOriginDouble, variablesOrigin_int, variablesOriginAll);
+    readVariableList(variableList, variablesName, variablesForReader, variablesOriginAll);
     // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
     for (UInt_t i = 0; i < variablesName.size(); i++)
     {
@@ -58,7 +54,8 @@ void treeAnalyzer::Init()
     reader->BookMVA(methodName, weightfile);
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown", "1tau1lPrefiringUp", "1tau1lPrefiringDown"};
+    // std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    // histsForRegionsMap SR1tau1lSys{"BDT", "BDT score", processName, 20, -0.28, 0.4, sysRegions};
 
     readBranch();
     std::cout << "done initializing\n";
@@ -101,6 +98,10 @@ void treeAnalyzer::readBranch()
             m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Double_t>(variablesOriginAll[i])));
         }
     }
+
+    // bdt hists
+    std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    SR1tau1lSys = histsForRegionsMap{"BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions};
 }
 
 void treeAnalyzer::LoopTree()
@@ -116,10 +117,11 @@ void treeAnalyzer::LoopTree()
     {
         m_tree->GetEntry(e);
         // baseline selection
-        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
-        // {
-        //     continue;
-        // }
+        // printf("");
+        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
+        {
+            continue;
+        }
 
         // need to convert the branch Int_t and Double_t for reader
         for (UInt_t j = 0; j < variablesForReader.size(); j++)
@@ -135,6 +137,8 @@ void treeAnalyzer::LoopTree()
         }
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
         std::cout << "BDT=" << bdtScore << "\n";
+
+        // filling hists
     }
 }
 

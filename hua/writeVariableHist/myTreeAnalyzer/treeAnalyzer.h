@@ -18,8 +18,15 @@ class treeAnalyzer
 public:
     treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", Bool_t isData = kFALSE, TString era = "2016", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_outputFolder{outputFolder}, m_isData{isData}, m_era{era}, m_isTest{isTest}
     {
-        m_file = new TFile(inputFile, "READ");
-        m_tree = (TTree *)m_file->Get(treeName);
+        m_file = new TFile(inputFile, "READ"); //???what is this initialization
+        if (!m_file || m_file->IsZombie())
+        {
+            std::cout << "Error: could not open file!" << m_file->GetName() << std::endl;
+        }
+        else
+        {
+            m_tree = (TTree *)m_file->Get(treeName);
+        }
         m_processName = inputFile(inputFile.Last('/'), inputFile.Sizeof());
         std::cout << "m_processName: " << m_processName << "\n";
         m_outFile = new TFile(m_outputFolder + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -46,13 +53,10 @@ private:
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
     std::vector<TString> variablesName{};
     std::vector<Float_t> variablesForReader;
-    std::vector<Double_t> variablesOriginDouble;
-    std::vector<TString> variablesName_int{};
-    std::vector<Int_t> variablesOrigin_int;
     std::vector<std::variant<Int_t, Double_t>> variablesOriginAll;
 
     // hists regions
-    // histsForRegionsMap histsSys;
+    histsForRegionsMap SR1tau1lSys; // calls for default constructor
 
     // branch values;
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;

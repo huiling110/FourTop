@@ -3,10 +3,10 @@
 PROGRAM = run_treeAnalyzer
 
 
-HDRS = treeAnalyzer.h\
+HDRS = treeAnalyzer.h histsForRegionsMap_class.h\
 		# ../src_cpp/usefulFuction.h\
  
-OBJS = 	treeAnalyzer.o run_treeAnalyzer.o\
+OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o run_treeAnalyzer.o  \
 		# ../src_cpp/usefulFuction.o\
         dict_$(PROGRAM).o\
 
