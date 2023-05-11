@@ -27,7 +27,8 @@ public:
         {
             m_tree = (TTree *)m_file->Get(treeName);
         }
-        m_processName = inputFile(inputFile.Last('/'), inputFile.Sizeof());
+        m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());
+        m_processName = m_processName(0, m_processName.First('.'));
         std::cout << "m_processName: " << m_processName << "\n";
         m_outFile = new TFile(m_outputFolder + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
     };
