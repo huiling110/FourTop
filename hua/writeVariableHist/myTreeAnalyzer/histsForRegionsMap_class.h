@@ -4,6 +4,7 @@
 
 #include "TString.h"
 #include "TH1D.h"
+#include "TFile.h"
 // #include ""
 
 // template <typename Temp>
@@ -20,7 +21,7 @@ private:
 
 public:
     // default constructor
-    histsForRegionsMap(TString variableName="", TString histTitle="", TString processName="", Int_t bin=0, Double_t binMin=0.0, Double_t binMax=0.0) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax} {};
+    histsForRegionsMap(TString variableName = "", TString histTitle = "", TString processName = "", Int_t bin = 0, Double_t binMin = 0.0, Double_t binMax = 0.0) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax} {};
     histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
     {
         for (UInt_t i = 0; i < regions.size(); i++)
@@ -35,6 +36,7 @@ public:
     void setHistsMap(const std::vector<TString> &regions);
     void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE);
     void print();
+    void setDir(TFile *file);
     // void fillHistVecAbs(UInt_t iRegion, Double_t weight)
     // {
     //     m_histsVector[iRegion]->Fill(TMath::Abs(*m_variableRef), weight);

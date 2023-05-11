@@ -31,6 +31,15 @@ void histsForRegionsMap::print()
         it->second->Print();
     }
 }
+
+void histsForRegionsMap::setDir(TFile *file)
+{
+    for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
+    {
+        // std::cout << it->first << " : \n";
+        it->second->SetDirectory(file);
+    }
+}
 // void fillHistVecAbs(UInt_t iRegion, Double_t weight)
 // {
 //     m_histsVector[iRegion]->Fill(TMath::Abs(*m_variableRef), weight);

@@ -54,8 +54,10 @@ void treeAnalyzer::Init()
     reader->BookMVA(methodName, weightfile);
 
     // regions for hists
-    // std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
-    // histsForRegionsMap SR1tau1lSys{"BDT", "BDT score", processName, 20, -0.28, 0.4, sysRegions};
+    std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+    SR1tau1lSys.print();
+    SR1tau1lSys.setDir(m_outFile);
 
     readBranch();
     std::cout << "done initializing\n";
@@ -98,11 +100,6 @@ void treeAnalyzer::readBranch()
             m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Double_t>(variablesOriginAll[i])));
         }
     }
-
-    // bdt hists
-    std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
-    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-    SR1tau1lSys.print();
 }
 
 void treeAnalyzer::LoopTree()
@@ -118,11 +115,11 @@ void treeAnalyzer::LoopTree()
     {
         m_tree->GetEntry(e);
         // baseline selection
-        // printf("");
-        if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
-        {
-            continue;
-        }
+        //!!!could write a event class, so that all this commen cut and weight can be in one file
+        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
+        // {
+        //     continue;
+        // }
 
         // need to convert the branch Int_t and Double_t for reader
         for (UInt_t j = 0; j < variablesForReader.size(); j++)
@@ -137,14 +134,25 @@ void treeAnalyzer::LoopTree()
             }
         }
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        std::cout << "BDT=" << bdtScore << "\n";
+        // std::cout << "BDT=" << bdtScore << "\n";
+
+        Int_t leptonsMVAT_number = elesTopMVAT_number + muonsTopMVAT_number;
+        Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
+
+        // Return the MVA outputs and fill into histograms
+        Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
         // filling hists
+        SR1tau1lSys.fillHistVec("1tau1lSR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("1tau1lPileupUp", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("1tau1lPileupDown", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
     }
 }
 
 void treeAnalyzer::Terminate()
 {
+    m_outFile->Write();
+    std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 }
 
 treeAnalyzer::~treeAnalyzer()
