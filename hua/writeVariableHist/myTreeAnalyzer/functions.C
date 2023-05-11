@@ -1,3 +1,4 @@
+#include <fstream>
 #include "functions.h"
 
 Double_t getGenSum(TString inputFile)
@@ -48,4 +49,36 @@ Bool_t getIsData(TString inputDir)
         isData = kTRUE;
     }
     return isData;
-}
+};
+
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
+{
+    std::cout << "reading varibleList: " << variableListCsv << "\n";
+    std::ifstream fin(variableListCsv);
+    std::string line;
+    TString ivariable;
+    variablesName.clear();
+    variablesOriginAll.clear();
+    variablesForReader.clear();
+    while (getline(fin, line))
+    {
+        ivariable = line;
+        if (line.size() > 0)
+        {
+            std::cout << "reading ivariable =" << ivariable << "\n";
+            variablesName.push_back(ivariable);
+            variablesForReader.push_back(0.0); // tree reader can only read float
+
+            if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
+            {
+                std::cout << "reading int ivariable =" << ivariable << "\n";
+                variablesOriginAll.push_back(0);
+            }
+            else
+            {
+                variablesOriginAll.push_back(0.0);
+            }
+        }
+    }
+    fin.close();
+};
