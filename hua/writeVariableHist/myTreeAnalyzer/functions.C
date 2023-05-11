@@ -32,8 +32,20 @@ TString getEra(TString inputDir)
     else if (inputDir.Contains("2018"))
     {
         era = "2018";
-    }else{
+    }
+    else
+    {
         std::cout << "no valid era got!!!\n";
     }
     return era;
+};
+
+Bool_t getIsData(TString inputDir)
+{
+    Bool_t isData = kFALSE;
+    if (inputDir.Contains("/data/"))
+    {
+        isData = kTRUE;
+    }
+    return isData;
 }

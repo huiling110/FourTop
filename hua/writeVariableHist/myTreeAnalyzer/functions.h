@@ -11,5 +11,6 @@
 
 Double_t getGenSum(TString inputFile);
 TString getEra(TString inputDir);
+Bool_t getIsData(TString inputDir);
 
 #endif

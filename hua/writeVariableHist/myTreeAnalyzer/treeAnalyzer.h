@@ -12,11 +12,12 @@
 #include "TMVA/Reader.h"
 
 #include "histsForRegionsMap_class.h"
+#include "functions.h"
 
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", Bool_t isData = kFALSE, TString era = "2016", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_input{inputFile}, m_outputFolder{outputFolder}, m_isData{isData}, m_era{era}, m_isTest{isTest}
+    treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_input{inputFile}, m_outputFolder{outputFolder}, m_isTest{isTest}
     {
         m_file = new TFile(inputFile, "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -28,6 +29,11 @@ public:
             std::cout << "input file: " << m_file->GetName() << "\n";
             m_tree = (TTree *)m_file->Get(treeName);
         }
+
+        m_era = getEra(inputFile);
+        m_isData = getIsData(inputFile);
+        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "\n";
+
         m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());
         m_processName = m_processName(0, m_processName.First('.'));
         std::cout << "m_processName: " << m_processName << "\n";
