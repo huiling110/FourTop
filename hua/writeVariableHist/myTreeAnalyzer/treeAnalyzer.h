@@ -25,6 +25,7 @@ public:
         }
         else
         {
+            std::cout << "input file: " << m_file->GetName() << "\n";
             m_tree = (TTree *)m_file->Get(treeName);
         }
         m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());

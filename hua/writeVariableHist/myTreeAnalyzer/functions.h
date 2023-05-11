@@ -10,5 +10,6 @@
 // common functions for WH
 
 Double_t getGenSum(TString inputFile);
+TString getEra(TString inputDir);
 
 #endif

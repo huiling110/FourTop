@@ -17,3 +17,23 @@ Double_t getGenSum(TString inputFile)
     std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
     return genWeightSumInitial;
 }
+
+TString getEra(TString inputDir)
+{
+    TString era = "2016";
+    if (inputDir.Contains("2016"))
+    {
+        era = "2016";
+    }
+    else if (inputDir.Contains("2017"))
+    {
+        era = "2017";
+    }
+    else if (inputDir.Contains("2018"))
+    {
+        era = "2018";
+    }else{
+        std::cout << "no valid era got!!!\n";
+    }
+    return era;
+}
