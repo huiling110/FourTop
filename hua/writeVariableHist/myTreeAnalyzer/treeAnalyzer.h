@@ -16,7 +16,7 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", Bool_t isData = kFALSE, TString era = "2016", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_outputFolder{outputFolder}, m_isData{isData}, m_era{era}, m_isTest{isTest}
+    treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", Bool_t isData = kFALSE, TString era = "2016", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_input{inputFile}, m_outputFolder{outputFolder}, m_isData{isData}, m_era{era}, m_isTest{isTest}
     {
         m_file = new TFile(inputFile, "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -37,10 +37,11 @@ public:
     void Init();
     void LoopTree();
     void readBranch();
-    Bool_t eventCut();
+    // Bool_t eventCut(event);
     void Terminate();
 
 private:
+    TString m_input;
     TTree *m_tree;
     TFile *m_file;
     TString m_processName;

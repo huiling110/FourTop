@@ -1,3 +1,6 @@
+#ifndef HISTFORREGIONSMAP_CLASS_H
+#define HISTFORREGIONSMAP_CLASS_H
+
 #include <iterator>
 #include <map>
 #include <iostream>
@@ -37,26 +40,7 @@ public:
     void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE);
     void print();
     void setDir(TFile *file);
-    // void fillHistVecAbs(UInt_t iRegion, Double_t weight)
-    // {
-    //     m_histsVector[iRegion]->Fill(TMath::Abs(*m_variableRef), weight);
-    // }
-    // void histsScale(Double_t scale)
-    // {
-    //     for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-    //     {
-    //         m_histsVector[ire]->Scale(scale);
-    //     }
-    // }
-    // void histsPrint()
-    // {
-    //     for (UInt_t ire = 0; ire < m_histsVector.size(); ire++)
-    //     {
-    //         m_histsVector[ire]->Print();
-    //     }
-    // }
-
-    // void initializeRef(TTreeReaderValue<Int_t>& variableInTree){
-    //    m_vri
-    // }
+    void scale(Double_t scale);
 };
+
+#endif

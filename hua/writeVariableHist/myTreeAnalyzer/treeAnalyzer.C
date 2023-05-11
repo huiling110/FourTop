@@ -2,6 +2,8 @@
 
 #include "treeAnalyzer.h"
 #include "../SFfileMap.h"
+#include "functions.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
 {
@@ -134,7 +136,6 @@ void treeAnalyzer::LoopTree()
             }
         }
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        // std::cout << "BDT=" << bdtScore << "\n";
 
         Int_t leptonsMVAT_number = elesTopMVAT_number + muonsTopMVAT_number;
         Bool_t SR1tau1l = tausT_number == 1 && leptonsMVAT_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
@@ -151,6 +152,9 @@ void treeAnalyzer::LoopTree()
 
 void treeAnalyzer::Terminate()
 {
+    Double_t genWeightSum = getGenSum(m_input);
+    Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
+
     m_outFile->Write();
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 }
