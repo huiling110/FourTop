@@ -11,7 +11,6 @@ void histsForRegionsMap::setHistsMap(const std::vector<TString> &regions)
         m_histsVector[regions[i]] = temp;
     }
 }
-// void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill = kTRUE, Bool_t isData = kFALSE)
 void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill, Bool_t isData)
 {
     if (ifFill && isData)
@@ -23,6 +22,7 @@ void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t w
         m_histsVector[iRegion]->Fill(value, weight);
     }
 }
+
 void histsForRegionsMap::print()
 {
     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)

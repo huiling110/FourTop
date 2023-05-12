@@ -24,7 +24,21 @@ void treeAnalyzer::Init()
     reader->BookMVA(methodName, weightfile);
 
     // regions for hists
-    std::vector<TString> sysRegions = {"1tau1lSR", "1tau1lPileupUp", "1tau1lPileupDown"};
+    std::vector<TString> sysRegions = {
+        "SR",
+        "CMS_pileup_" + m_era + "Up",
+        "CMS_pileup_" + m_era + "Down",
+        "CMS_prefiring_" + m_era + "Up",
+        "CMS_prefiring_" + m_era + "Down",
+        "CMS_eff_t_" + m_era + "Up",
+        "CMS_eff_t_" + m_era + "Down",
+        "CMS_tttt_eff_e_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
+        "CMS_tttt_eff_e_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
+        "CMS_tttt_eff_m_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
+        "CMS_tttt_eff_m_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
+        "CMS_btag_shape_" + m_era + "Up",
+        "CMS_btag_shape_" + m_era + "Down",
+    };
     SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
     SR1tau1lSys.print();
     SR1tau1lSys.setDir(m_outFile);
@@ -113,9 +127,9 @@ void treeAnalyzer::LoopTree()
         Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
         // filling hists
-        SR1tau1lSys.fillHistVec("1tau1lSR", bdtScore, basicWeight, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("1tau1lPileupUp", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("1tau1lPileupDown", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";

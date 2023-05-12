@@ -29,7 +29,8 @@ public:
     {
         for (UInt_t i = 0; i < regions.size(); i++)
         {
-            TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
+            // TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
+            TString iHistName = m_processName + "_" + regions[i] + "_" + m_variableName;
             TH1D *temp;
             temp = new TH1D(iHistName.Data(), m_histTitle.Data(), m_binNum, m_binMin, m_binMax);
             temp->Sumw2();
