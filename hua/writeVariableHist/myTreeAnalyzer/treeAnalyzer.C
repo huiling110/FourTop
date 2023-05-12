@@ -113,7 +113,7 @@ void treeAnalyzer::LoopTree()
         // {
         //     continue;
         // }
-        std::cout << jets_number << " " << jets_6pt << " " << jets_HT << " " << bjetsM_num << " \n";
+        // std::cout << jets_number << " " << jets_6pt << " " << jets_HT << " " << bjetsM_num << " \n";
 
         // need to convert the branch Int_t and Double_t for reader
         for (UInt_t j = 0; j < variablesForReader.size(); j++)
