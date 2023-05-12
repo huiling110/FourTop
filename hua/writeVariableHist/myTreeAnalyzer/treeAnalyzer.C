@@ -30,8 +30,8 @@ void treeAnalyzer::Init()
         "CMS_pileup_" + m_era + "Down",
         "CMS_prefiring_" + m_era + "Up",
         "CMS_prefiring_" + m_era + "Down",
-        "CMS_eff_t_" + m_era + "Up",
-        "CMS_eff_t_" + m_era + "Down",
+        "CMS_eff_t_vsJet" + m_era + "Up",
+        "CMS_eff_t_vsJet" + m_era + "Down",
         "CMS_tttt_eff_e_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_e_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_m_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
@@ -67,12 +67,20 @@ void treeAnalyzer::readBranch()
     m_tree->SetBranchAddress("PUweight_down_", &PUweight_down_);
     m_tree->SetBranchAddress("HLT_weight", &HLT_weight);
     m_tree->SetBranchAddress("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
+    m_tree->SetBranchAddress("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
+    m_tree->SetBranchAddress("tauT_IDSF_weight_new_vsjet_down", &tauT_IDSF_weight_new_vsjet_down);
     m_tree->SetBranchAddress("elesTopMVAT_weight", &elesTopMVAT_weight);
+    m_tree->SetBranchAddress("elesTopMVAT_weight_up", &elesTopMVAT_weight_up);
+    m_tree->SetBranchAddress("elesTopMVAT_weight_down", &elesTopMVAT_weight_down);
     m_tree->SetBranchAddress("musTopMVAT_weight", &musTopMVAT_weight);
+    m_tree->SetBranchAddress("musTopMVAT_weight_up", &musTopMVAT_weight_up);
+    m_tree->SetBranchAddress("musTopMVAT_weight_down", &musTopMVAT_weight_down);
     m_tree->SetBranchAddress("btagShape_weight", &btagShape_weight);
     m_tree->SetBranchAddress("btagShapeR", &btagShapeR);
 
     // for (const auto &elem : variablesOriginAll)
+    //???SetBranchAddress here could overwrite previous variables
+    //!!!bug!!!
     for (UInt_t i = 0; i < variablesOriginAll.size(); i++)
     {
         if (std::holds_alternative<Int_t>(variablesOriginAll[i]))
@@ -105,6 +113,7 @@ void treeAnalyzer::LoopTree()
         // {
         //     continue;
         // }
+        std::cout << jets_number << " " << jets_6pt << " " << jets_HT << " " << bjetsM_num << " \n";
 
         // need to convert the branch Int_t and Double_t for reader
         for (UInt_t j = 0; j < variablesForReader.size(); j++)
@@ -132,6 +141,12 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_up, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Down", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_down, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Up", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_up, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_down, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_up, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_down, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_up, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_down, SR1tau1l, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";

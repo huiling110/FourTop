@@ -73,6 +73,12 @@ private:
     Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
     Double_t jets_HT, jets_6pt;
     Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
+    Double_t tauT_IDSF_weight_new_vsjet_up;
+    Double_t tauT_IDSF_weight_new_vsjet_down;
+    Double_t elesTopMVAT_weight_up;
+    Double_t elesTopMVAT_weight_down;
+    Double_t musTopMVAT_weight_up;
+    Double_t musTopMVAT_weight_down;
 };
 
 #endif
