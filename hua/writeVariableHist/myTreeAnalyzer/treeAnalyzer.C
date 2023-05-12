@@ -74,6 +74,7 @@ void treeAnalyzer::readBranch()
 
 void treeAnalyzer::LoopTree()
 {
+    std::cout << "start to loop tree\n";
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
@@ -116,12 +117,19 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("1tau1lPileupUp", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("1tau1lPileupDown", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
     }
+    std::cout << "end of event loop\n";
+    std::cout << "\n";
 }
 
 void treeAnalyzer::Terminate()
 {
+    std::cout << "Termintate: \n";
     Double_t genWeightSum = getGenSum(m_input);
     Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
+    if (!m_isData)
+    {
+        SR1tau1lSys.scale(processScale);
+    };
 
     m_outFile->Write();
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
