@@ -14,7 +14,7 @@
 #include "histsForRegionsMap_class.h"
 #include "functions.h"
 
-#include "myEventClass.C"
+#include "myEventClass.h"
 
 class treeAnalyzer
 {

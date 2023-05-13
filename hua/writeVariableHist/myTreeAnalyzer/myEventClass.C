@@ -3,30 +3,6 @@
 #include "TString.h"
 #include "TTree.h"
 
-class myBranch
-{
-public:
-    myBranch(TString branchName) : m_branchName{branchName}
-    {
-    }
-    Int_t v()
-    {
-        return m_branchValue;
-    }
-    Int_t *a()
-    {
-        return &m_branchValue;
-    }
-    TString n()
-    {
-        return m_branchName;
-    }
-
-private:
-    TString m_branchName;
-    Int_t m_branchValue;
-};
-
 class event
 {
     // be able to access branch value with string

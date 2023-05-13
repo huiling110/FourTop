@@ -113,6 +113,9 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
 
         std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
+        // if ( !(baselineSelection(e))){
+        //     continue;
+        // }
 
         // baseline selection
         //!!!could write a event class, so that all this commen cut and weight can be in one file
