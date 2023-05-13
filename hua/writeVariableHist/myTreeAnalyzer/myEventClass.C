@@ -32,7 +32,7 @@ class event
     // be able to access branch value with string
     // can directly access memeber variable too
 public:
-    event(TTree *tree) : m_tree{tree}, tausT_number{"tausT_number"}, jets_number{"jets_number"}
+    event(TTree *tree) : m_tree{tree}
     { // how to loop through all member variables?
         m_tree->SetBranchAddress(tausT_number.n(), tausT_number.a());
         m_tree->SetBranchAddress(jets_number.n(), jets_number.a());
