@@ -13,7 +13,7 @@ void treeAnalyzer::Init()
 
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
-    readVariableList(variableList, variablesName, variablesForReader, variablesOriginAll);
+    readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
     // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
     for (UInt_t i = 0; i < variablesName.size(); i++)
     {
@@ -100,6 +100,13 @@ void treeAnalyzer::LoopTree()
         cutFlowHist->Fill(2);
 
         std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
+
+        // convert branch value to float for reader
+        // for (auto it = varForReaderMap.begin(), it != varForReaderMap.end(), ++it)
+        // {
+        //     if (branchName.Contains("num") || branchName.Contains("charge"))
+        //         it->sencond =
+        // }
 
         /*
                 // need to convert the branch Int_t and Double_t for reader

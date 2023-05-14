@@ -2,6 +2,8 @@
 // maybe have a base class with only value as member variables to save memory
 #ifndef MYEVENTCLASS_H
 #define MYEVENTCLASS_H
+#include <variant>
+#include <map>
 
 #include "TString.h"
 #include "TTree.h"
@@ -31,6 +33,7 @@ private:
     T m_branchValue;
 };
 
+// template <typename A>
 class event
 {
     // be able to access branch value with string
@@ -38,20 +41,37 @@ class event
 public:
     event(TTree *tree) : m_tree{tree}
     { // how to loop through all member variables?
-        std::cout << "initialize event class by SetBranchAddress()\n";
+        std::cout << "event: initialize event class by SetBranchAddress()\n";
         for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
         {
-            m_tree->SetBranchAddress(it->second->n(), it->second->a());
+            if (std::holds_alternative<myBranch<Int_t> *>(it->second))
+            {
+                myBranch<Int_t> *bra = std::get<myBranch<Int_t> *>(it->second);
+                m_tree->SetBranchAddress(bra->n(), bra->a());
+            }
+            else
+            {
+                myBranch<Double_t> *bra = std::get<myBranch<Double_t> *>(it->second);
+                m_tree->SetBranchAddress(bra->n(), bra->a());
+            };
         };
-        for (auto it = m_variableMapDou.begin(); it != m_variableMapDou.end(); ++it)
-        {
-            m_tree->SetBranchAddress(it->second->n(), it->second->a());
-        };
+        // for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
+        // {
+        //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
+        // };
+        // for (auto it = m_variableMapDou.begin(); it != m_variableMapDou.end(); ++it)
+        // {
+        //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
+        // };
     }
     ~event()
     {
         delete m_tree;
     }
+    // Int_t getByName(TString branchName)
+    // {
+    //     return m_variableMap[branchName];
+    // }
 
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
@@ -77,15 +97,14 @@ public:
 
 private:
     TTree *m_tree;
-    std::map<TString, myBranch<Int_t> *> m_variableMap = {
+    std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *>> m_variableMap = {
         {tausT_number.n(), &tausT_number},
         {jets_number.n(), &jets_number},
         {bjetsM_num.n(), &bjetsM_num},
         {elesTopMVAT_number.n(), &elesTopMVAT_number},
         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
-    };
-    std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
+
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},
         {jets_bScore.n(), &jets_bScore},
@@ -101,5 +120,30 @@ private:
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
     };
+    //  std::map<TString, myBranch<Int_t> *>
+    //     m_variableMap = {
+    //         {tausT_number.n(), &tausT_number},
+    //         {jets_number.n(), &jets_number},
+    //         {bjetsM_num.n(), &bjetsM_num},
+    //         {elesTopMVAT_number.n(), &elesTopMVAT_number},
+    //         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
+    //         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
+    // };
+    // std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
+    //     {jets_HT.n(), &jets_HT},
+    //     {jets_6pt.n(), &jets_6pt},
+    //     {jets_bScore.n(), &jets_bScore},
+    //     {jets_5pt.n(), &jets_5pt},
+    //     {jets_7pt.n(), &jets_7pt},
+    //     {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
+    //     {jets_1btag.n(), &jets_1btag},
+    //     {jets_transMass.n(), &jets_transMass},
+    //     {jets_average_deltaR.n(), &jets_average_deltaR},
+    //     {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
+    //     {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
+    //     {bjetsM_2pt.n(), &bjetsM_2pt},
+    //     {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
+    //     {tausT_1pt.n(), &tausT_1pt},
+    // };
 };
 #endif

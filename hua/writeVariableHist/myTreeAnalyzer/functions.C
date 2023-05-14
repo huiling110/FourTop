@@ -51,7 +51,7 @@ Bool_t getIsData(TString inputDir)
     return isData;
 };
 
-void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
     std::ifstream fin(variableListCsv);
@@ -65,13 +65,13 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
         ivariable = line;
         if (line.size() > 0)
         {
-            std::cout << "reading ivariable =" << ivariable << "\n";
+            std::cout << "ivariable =" << ivariable << "\n";
             variablesName.push_back(ivariable);
             variablesForReader.push_back(0.0); // tree reader can only read float
-
+            varForReaderMap[ivariable] = 0.0;
             if (ivariable.Contains("number") || ivariable.Contains("num") || ivariable.Contains("charge"))
             {
-                std::cout << "reading int ivariable =" << ivariable << "\n";
+                std::cout << "int ivariable =" << ivariable << "\n";
                 variablesOriginAll.push_back(0);
             }
             else

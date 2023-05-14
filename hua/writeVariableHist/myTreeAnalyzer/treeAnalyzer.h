@@ -69,6 +69,7 @@ private:
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
     std::vector<TString> variablesName{};
     std::vector<Float_t> variablesForReader;
+    std::map<TString, Float_t> varForReaderMap;
     std::vector<std::variant<Int_t, Double_t>> variablesOriginAll;
 
     // hists regions
