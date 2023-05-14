@@ -69,5 +69,5 @@ private:
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},
     };
-
+};
 #endif
