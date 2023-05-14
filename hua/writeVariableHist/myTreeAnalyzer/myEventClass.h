@@ -58,8 +58,22 @@ public:
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> elesTopMVAT_number{"elesTopMVAT_number"};
     myBranch<Int_t> muonsTopMVAT_number{"muonsTopMVAT_number"};
+    myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
+    myBranch<Double_t> jets_bScore{"jets_bScore"};
+    myBranch<Double_t> jets_5pt{"jets_5pt"};
+    myBranch<Double_t> jets_7pt{"jets_7pt"};
+    myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
+    myBranch<Double_t> jets_1btag{"jets_1btag"};
+    myBranch<Double_t> jets_transMass{"jets_transMass"};
+    myBranch<Double_t> jets_average_deltaR{"jets_average_deltaR"};
+    myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
+    myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
+    myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
+    myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
+    myBranch<Double_t> tausT_1pt{"tausT_1pt"};
+    // myBranch<Double_t>{""};
 
 private:
     TTree *m_tree;
@@ -69,10 +83,23 @@ private:
         {bjetsM_num.n(), &bjetsM_num},
         {elesTopMVAT_number.n(), &elesTopMVAT_number},
         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
+        {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
     };
     std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},
+        {jets_bScore.n(), &jets_bScore},
+        {jets_5pt.n(), &jets_5pt},
+        {jets_7pt.n(), &jets_7pt},
+        {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
+        {jets_1btag.n(), &jets_1btag},
+        {jets_transMass.n(), &jets_transMass},
+        {jets_average_deltaR.n(), &jets_average_deltaR},
+        {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
+        {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
+        {bjetsM_2pt.n(), &bjetsM_2pt},
+        {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
+        {tausT_1pt.n(), &tausT_1pt},
     };
 };
 #endif
