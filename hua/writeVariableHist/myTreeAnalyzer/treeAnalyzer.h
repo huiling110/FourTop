@@ -9,6 +9,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1.h"
+#include "TH1D.h"
 #include "TMVA/Reader.h"
 
 #include "histsForRegionsMap_class.h"
@@ -61,6 +62,7 @@ private:
     Bool_t m_isData = kFALSE;
     TString m_outputFolder;
     TFile *m_outFile;
+    TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 2, 0, 2);
     event *e;
 
     // for TMVA reader
@@ -71,19 +73,6 @@ private:
 
     // hists regions
     histsForRegionsMap SR1tau1lSys; // calls for default constructor
-
-    // branch values;
-    // maybe define a class myTreeReader for reading branches
-    // myTreeReader(TTree*)
-    // Int_t tausT_number, leptonsMVAT_number, jets_number, bjetsM_num, leptonsMVAT_2OS, elesTopMVAT_number, muonsTopMVAT_number;
-    // Double_t jets_HT, jets_6pt;
-    // Double_t EVENT_genWeight, EVENT_prefireWeight, EVENT_prefireWeight_up, EVENT_prefireWeight_down, PUweight_, PUweight_up_, PUweight_down_, HLT_weight, tauT_IDSF_weight_new, elesTopMVAT_weight, musTopMVAT_weight, btagShape_weight, btagShapeR;
-    // Double_t tauT_IDSF_weight_new_vsjet_up;
-    // Double_t tauT_IDSF_weight_new_vsjet_down;
-    // Double_t elesTopMVAT_weight_up;
-    // Double_t elesTopMVAT_weight_down;
-    // Double_t musTopMVAT_weight_up;
-    // Double_t musTopMVAT_weight_down;
 };
 
 #endif

@@ -9,6 +9,7 @@
 void treeAnalyzer::Init()
 {
     std::cout << "start to initilation\n";
+    cutFlowHist->SetDirectory(m_outFile);
 
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
@@ -50,35 +51,7 @@ void treeAnalyzer::Init()
 }
 
 void treeAnalyzer::readBranch()
-{ /*
-     m_tree->SetBranchAddress("tausT_number", &tausT_number);
-     m_tree->SetBranchAddress("elesTopMVAT_number", &elesTopMVAT_number);
-     m_tree->SetBranchAddress("muonsTopMVAT_number", &muonsTopMVAT_number);
-     m_tree->SetBranchAddress("jets_number", &jets_number);
-     m_tree->SetBranchAddress("bjetsM_num", &bjetsM_num);
-     m_tree->SetBranchAddress("leptonsMVAT_2OS", &leptonsMVAT_2OS);
-     m_tree->SetBranchAddress("jets_HT", &jets_HT);
-     m_tree->SetBranchAddress("jets_6pt", &jets_6pt);
-     m_tree->SetBranchAddress("EVENT_genWeight", &EVENT_genWeight);
-     m_tree->SetBranchAddress("EVENT_prefireWeight", &EVENT_prefireWeight);
-     m_tree->SetBranchAddress("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);
-     m_tree->SetBranchAddress("EVENT_prefireWeight_down", &EVENT_prefireWeight_down);
-     m_tree->SetBranchAddress("PUweight_", &PUweight_);
-     m_tree->SetBranchAddress("PUweight_up_", &PUweight_up_);
-     m_tree->SetBranchAddress("PUweight_down_", &PUweight_down_);
-     m_tree->SetBranchAddress("HLT_weight", &HLT_weight);
-     m_tree->SetBranchAddress("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
-     m_tree->SetBranchAddress("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
-     m_tree->SetBranchAddress("tauT_IDSF_weight_new_vsjet_down", &tauT_IDSF_weight_new_vsjet_down);
-     m_tree->SetBranchAddress("elesTopMVAT_weight", &elesTopMVAT_weight);
-     m_tree->SetBranchAddress("elesTopMVAT_weight_up", &elesTopMVAT_weight_up);
-     m_tree->SetBranchAddress("elesTopMVAT_weight_down", &elesTopMVAT_weight_down);
-     m_tree->SetBranchAddress("musTopMVAT_weight", &musTopMVAT_weight);
-     m_tree->SetBranchAddress("musTopMVAT_weight_up", &musTopMVAT_weight_up);
-     m_tree->SetBranchAddress("musTopMVAT_weight_down", &musTopMVAT_weight_down);
-     m_tree->SetBranchAddress("btagShape_weight", &btagShape_weight);
-     m_tree->SetBranchAddress("btagShapeR", &btagShapeR);
- */
+{
     // for (const auto &elem : variablesOriginAll)
     //???SetBranchAddress here could overwrite previous variables
     //!!!bug!!!
@@ -112,19 +85,16 @@ void treeAnalyzer::LoopTree()
     for (UInt_t i = 0; i < allEvent; i++)
     {
         m_tree->GetEntry(i);
+        cutFlowHist->Fill(0);
 
-        std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
+        // std::cout << e->jets_6pt.v() << " " << e->jets_HT.v() << " " << e->jets_number.v() << "\n";
         if (!(baselineSelection(e)))
         {
             continue;
         }
+        cutFlowHist->Fill(1);
 
-        // baseline selection
-        //!!!could write a event class, so that all this commen cut and weight can be in one file
-        // if (!(jets_number >= 6 && jets_6pt > 40.0 && jets_HT > 500.0 && bjetsM_num >= 1))
-        // {
-        //     continue;
-        // }
+        std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
         // std::cout << jets_number << " " << jets_6pt << " " << jets_HT << " " << bjetsM_num << " \n";
 
         /*

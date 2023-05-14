@@ -38,14 +38,15 @@ class event
 public:
     event(TTree *tree) : m_tree{tree}
     { // how to loop through all member variables?
-        // m_tree->SetBranchAddress(tausT_number.n(), tausT_number.a());
-        // m_tree->SetBranchAddress(jets_number.n(), jets_number.a());
         std::cout << "initialize event class by SetBranchAddress()\n";
         for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
         {
-            // std::cout << it->first << ": " << it->second << std::endl;
             m_tree->SetBranchAddress(it->second->n(), it->second->a());
-        }
+        };
+        for (auto it = m_variableMapDou.begin(); it != m_variableMapDou.end(); ++it)
+        {
+            m_tree->SetBranchAddress(it->second->n(), it->second->a());
+        };
     }
     ~event()
     {
