@@ -56,6 +56,8 @@ public:
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
+    myBranch<Int_t> elesTopMVAT_number{"elesTopMVAT_number"};
+    myBranch<Int_t> muonsTopMVAT_number{"muonsTopMVAT_number"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
 
@@ -65,6 +67,8 @@ private:
         {tausT_number.n(), &tausT_number},
         {jets_number.n(), &jets_number},
         {bjetsM_num.n(), &bjetsM_num},
+        {elesTopMVAT_number.n(), &elesTopMVAT_number},
+        {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
     };
     std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
         {jets_HT.n(), &jets_HT},

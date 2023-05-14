@@ -87,15 +87,19 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        // std::cout << e->jets_6pt.v() << " " << e->jets_HT.v() << " " << e->jets_number.v() << "\n";
         if (!(baselineSelection(e)))
         {
             continue;
         }
         cutFlowHist->Fill(1);
 
+        if (!(SR1tau1lSel(e)))
+        {
+            continue;
+        }
+        cutFlowHist->Fill(2);
+
         std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
-        // std::cout << jets_number << " " << jets_6pt << " " << jets_HT << " " << bjetsM_num << " \n";
 
         /*
                 // need to convert the branch Int_t and Double_t for reader
