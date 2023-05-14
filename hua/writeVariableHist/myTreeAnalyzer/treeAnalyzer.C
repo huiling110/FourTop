@@ -102,11 +102,24 @@ void treeAnalyzer::LoopTree()
         std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
 
         // convert branch value to float for reader
-        // for (auto it = varForReaderMap.begin(), it != varForReaderMap.end(), ++it)
-        // {
-        //     if (branchName.Contains("num") || branchName.Contains("charge"))
-        //         it->sencond =
-        // }
+        for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
+        {
+            Float_t ivar;
+            std::variant<Int_t, Double_t> branch = e->getByName(it->first);
+            if (std::holds_alternative<Int_t>(branch))
+            {
+                ivar = static_cast<Float_t>(std::get<Int_t>(branch));
+            }
+            else
+            {
+                ivar = static_cast<Float_t>(std::get<Double_t>(branch));
+            }
+            varForReaderMap[it->first] = ivar;
+        }
+        for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
+        {
+            std::cout << it->first << " " << it->second << "\n";
+        };
 
         /*
                 // need to convert the branch Int_t and Double_t for reader

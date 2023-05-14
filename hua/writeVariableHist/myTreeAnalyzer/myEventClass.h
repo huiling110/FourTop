@@ -63,15 +63,24 @@ public:
         // {
         //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
         // };
-    }
+    };
     ~event()
     {
         delete m_tree;
-    }
-    // Int_t getByName(TString branchName)
-    // {
-    //     return m_variableMap[branchName];
-    // }
+    };
+    std::variant<Int_t, Double_t> getByName(TString branchName)
+    {
+        std::variant<Int_t, Double_t> a;
+        if (std::holds_alternative<myBranch<Int_t> *>(m_variableMap[branchName]))
+        {
+            a = (std::get<myBranch<Int_t> *>(m_variableMap[branchName]))->v();
+        }
+        else
+        {
+            a = (std::get<myBranch<Double_t> *>(m_variableMap[branchName]))->v();
+        }
+        return a;
+    };
 
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
