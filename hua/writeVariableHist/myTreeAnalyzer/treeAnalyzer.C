@@ -116,10 +116,10 @@ void treeAnalyzer::LoopTree()
             }
             varForReaderMap[it->first] = ivar;
         }
-        for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
-        {
-            std::cout << it->first << " " << it->second << "\n";
-        };
+        // for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
+        // {
+        //     std::cout << it->first << " " << it->second << "\n";
+        // };
 
         /*
                 // need to convert the branch Int_t and Double_t for reader
