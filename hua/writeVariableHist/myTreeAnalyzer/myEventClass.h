@@ -54,14 +54,20 @@ public:
 
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
+    myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Double_t> jets_HT{"jets_HT"};
+    myBranch<Double_t> jets_6pt{"jets_6pt"};
 
 private:
     TTree *m_tree;
     std::map<TString, myBranch<Int_t> *> m_variableMap = {
         {tausT_number.n(), &tausT_number},
         {jets_number.n(), &jets_number},
+        {bjetsM_num.n(), &bjetsM_num},
     };
-};
+    std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
+        {jets_HT.n(), &jets_HT},
+        {jets_6pt.n(), &jets_6pt},
+    };
 
 #endif
