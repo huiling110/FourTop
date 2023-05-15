@@ -1,6 +1,6 @@
 imax * number of bins
 jmax * number of processes minus 1
-kmax 1 number of nuisance parameters
+kmax 6 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
 shapes *   SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
 ----------------------------------------------------------------------------------------------------------------------------------
@@ -12,5 +12,10 @@ process      tttt           singleTop      tt             ttX
 process      0              1              2              3            
 rate         -1             -1             -1             -1           
 ----------------------------------------------------------------------------------------------------------------------------------
-lumi_13TeV_2017 lnN 1.023      1.023        1.023         1.023
+lumi_13TeV_2017 lnN        1.023      1.023        1.023         1.023
+CMS_pileup_2017 shape      -          -            -             - 
+CMS_prefiring_2017 shape   -          -            -             - 
+CMS_eff_t_vsJet2017 shape  -          -            -             - 
+CMS_tttt_eff_e_2017 shape  -          -            -             - 
+CMS_tttt_eff_m_2017 shape  -          -            -             - 
 SR1tau1l_2017 autoMCStats 10 0 1

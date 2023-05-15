@@ -35,14 +35,34 @@ def main():
     
     
 
-    cardToWorkspaces( cardDir )
+    # cardToWorkspaces( cardDir )
 #
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
 # #
-    copyCombineResultsToDir( cardDir )
+    # copyCombineResultsToDir( cardDir )
+    
+    runImpact(cardDir+'workspace/datacard_1tau1lSys.root')
 
     # plot.main( cardDir+ 'combineResults/')
+    
+    
+def runImpact(wf):
+    step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1'.format(wf)
+    # runCommand(step1)
+    step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits'.format(wf)
+    step3 = 'combineTool.py -M Impacts -d  -m 125 -o impacts.json'.format(wf)
+    step4 = 'plotImpacts.py -i impacts.json -o impacts'
+    runCommand(step2)
+    runCommand(step3)
+    runCommand(step4)
+
+def runCommand(com):
+    print('run command: ', com)
+    process = subprocess.Popen( com, shell=True )
+    out = process.communicate()
+    print(out)
+    
 
 def copyCombineResultsToDir( cardDir ):
     resultsDir = cardDir+ 'combineResults/'
