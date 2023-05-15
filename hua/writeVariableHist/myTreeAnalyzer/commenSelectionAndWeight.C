@@ -13,3 +13,10 @@ Bool_t SR1tau1lSel(event *e)
     Bool_t SR1tau1l = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() >= 2;
     return SR1tau1l;
 }
+
+Double_t baseWeightCal(event *e)
+{
+    // Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
+    Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
+    return basicWeight;
+}

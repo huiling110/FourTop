@@ -26,10 +26,6 @@ void treeAnalyzer::Init()
         std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
     }
     // for map, the variables will be reordered according to their keys, not safe to add with map
-    // for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); i++)
-    // {
-    //     reader->AddVariable(it->first, it->sencond);
-    // };
 
     TString methodName = "BDT" + TString(" method");
     TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
@@ -111,11 +107,11 @@ void treeAnalyzer::LoopTree()
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
         std::cout << "bdtScore=" << bdtScore << "\n";
 
-        // Int_t leptons_number = elesTopMVAT_number + muonsTopMVAT_number;
-        // Bool_t SR1tau1l = tausT_number == 1 && leptons_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
+        Bool_t SR1tau1l = SR1tau1lSel(e);
+        Double_t basicWeight = baseWeightCal(e);
+        std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // Return the MVA outputs and fill into histograms
-        // Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
         // // filling hists
         // SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);

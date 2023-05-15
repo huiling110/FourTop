@@ -4,6 +4,7 @@
 #define MYEVENTCLASS_H
 #include <variant>
 #include <map>
+#include <cassert>
 
 #include "TString.h"
 #include "TTree.h"
@@ -69,6 +70,11 @@ public:
     };
     std::variant<Int_t, Double_t> getByName(TString branchName)
     {
+        assert(m_variableMap.count(branchName));
+        //  if (!(m_variableMap.count(branchName)))
+        // {
+        //     std::cout << "BAD!!!  branch doesn't exist in the event class object yet\n";
+        // }
         std::variant<Int_t, Double_t> a;
         if (std::holds_alternative<myBranch<Int_t> *>(m_variableMap[branchName]))
         {
@@ -80,15 +86,25 @@ public:
         }
         return a;
     };
-
+    // branches for selection and weight
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> elesTopMVAT_number{"elesTopMVAT_number"};
     myBranch<Int_t> muonsTopMVAT_number{"muonsTopMVAT_number"};
-    myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
+    myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
+    myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
+    myBranch<Double_t> PUweight_{"PUweight_"};
+    myBranch<Double_t> HLT_weight{"HLT_weight"};
+    myBranch<Double_t> tauT_IDSF_weight_new{"tauT_IDSF_weight_new"};
+    myBranch<Double_t> elesTopMVAT_weight{"elesTopMVAT_weight"};
+    myBranch<Double_t> musTopMVAT_weight{"musTopMVAT_weight"};
+    myBranch<Double_t> btagShape_weight{"btagShape_weight"};
+    myBranch<Double_t> btagShapeR{"btagShapeR"};
+    // branches for MVA
+    myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_bScore{"jets_bScore"};
     myBranch<Double_t> jets_5pt{"jets_5pt"};
     myBranch<Double_t> jets_7pt{"jets_7pt"};
@@ -112,9 +128,18 @@ private:
         {elesTopMVAT_number.n(), &elesTopMVAT_number},
         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
-
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},
+        {EVENT_genWeight.n(), &EVENT_genWeight},
+        {EVENT_prefireWeight.n(), &EVENT_prefireWeight},
+        {PUweight_.n(), &PUweight_},
+        {HLT_weight.n(), &HLT_weight},
+        {tauT_IDSF_weight_new.n(), &tauT_IDSF_weight_new},
+        {elesTopMVAT_weight.n(), &elesTopMVAT_weight},
+        {musTopMVAT_weight.n(), &musTopMVAT_weight},
+        {btagShape_weight.n(), &btagShape_weight},
+        {btagShapeR.n(), &btagShapeR},
+
         {jets_bScore.n(), &jets_bScore},
         {jets_5pt.n(), &jets_5pt},
         {jets_7pt.n(), &jets_7pt},
@@ -128,30 +153,5 @@ private:
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
     };
-    //  std::map<TString, myBranch<Int_t> *>
-    //     m_variableMap = {
-    //         {tausT_number.n(), &tausT_number},
-    //         {jets_number.n(), &jets_number},
-    //         {bjetsM_num.n(), &bjetsM_num},
-    //         {elesTopMVAT_number.n(), &elesTopMVAT_number},
-    //         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
-    //         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
-    // };
-    // std::map<TString, myBranch<Double_t> *> m_variableMapDou = {
-    //     {jets_HT.n(), &jets_HT},
-    //     {jets_6pt.n(), &jets_6pt},
-    //     {jets_bScore.n(), &jets_bScore},
-    //     {jets_5pt.n(), &jets_5pt},
-    //     {jets_7pt.n(), &jets_7pt},
-    //     {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
-    //     {jets_1btag.n(), &jets_1btag},
-    //     {jets_transMass.n(), &jets_transMass},
-    //     {jets_average_deltaR.n(), &jets_average_deltaR},
-    //     {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
-    //     {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
-    //     {bjetsM_2pt.n(), &bjetsM_2pt},
-    //     {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
-    //     {tausT_1pt.n(), &tausT_1pt},
-    // };
 };
 #endif
