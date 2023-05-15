@@ -35,7 +35,7 @@ public:
 
         m_era = getEra(m_inputDir);
         m_isData = getIsData(m_inputDir);
-        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "\n";
+        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
 
         // m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());
         // m_processName = m_processName(0, m_processName.First('.'));
