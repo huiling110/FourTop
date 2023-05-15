@@ -42,19 +42,19 @@ def main():
 # #
     # copyCombineResultsToDir( cardDir )
     
-    runImpact(cardDir+'workspace/datacard_1tau1lSys.root')
+    runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'workspace/')
 
     # plot.main( cardDir+ 'combineResults/')
     
     
-def runImpact(wf):
+def runImpact(wf, outFolder):
     step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1'.format(wf)
-    # runCommand(step1)
     step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits'.format(wf)
-    step3 = 'combineTool.py -M Impacts -d  -m 125 -o impacts.json'.format(wf)
-    step4 = 'plotImpacts.py -i impacts.json -o impacts'
-    runCommand(step2)
-    runCommand(step3)
+    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json'.format(wf, outFolder)
+    step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(outFolder, outFolder)
+    # runCommand(step1)
+    # runCommand(step2)
+    # runCommand(step3)
     runCommand(step4)
 
 def runCommand(com):
@@ -62,6 +62,7 @@ def runCommand(com):
     process = subprocess.Popen( com, shell=True )
     out = process.communicate()
     print(out)
+    print('\n')
     
 
 def copyCombineResultsToDir( cardDir ):
