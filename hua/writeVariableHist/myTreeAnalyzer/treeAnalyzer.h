@@ -20,9 +20,9 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputFile, TString treeName, TString outputFolder = "./", TString outVersion = "v0", Bool_t isTest = kTRUE) : m_input{inputFile}, m_outputFolder{outputFolder}, m_isTest{isTest}
+    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_isTest{isTest}
     {
-        m_file = new TFile(inputFile, "READ"); //???what is this initialization
+        m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
         {
             std::cout << "Error: could not open file!" << m_file->GetName() << std::endl;
@@ -30,17 +30,17 @@ public:
         else
         {
             std::cout << "input file: " << m_file->GetName() << "\n";
-            m_tree = (TTree *)m_file->Get(treeName);
+            m_tree = (TTree *)m_file->Get("newtree");
         }
 
-        m_era = getEra(inputFile);
-        m_isData = getIsData(inputFile);
+        m_era = getEra(m_inputDir);
+        m_isData = getIsData(m_inputDir);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "\n";
 
-        m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());
-        m_processName = m_processName(0, m_processName.First('.'));
+        // m_processName = inputFile(inputFile.Last('/') + 1, inputFile.Sizeof());
+        // m_processName = m_processName(0, m_processName.First('.'));
         std::cout << "m_processName: " << m_processName << "\n";
-        m_outFile = new TFile(m_outputFolder + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
+        m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
         e = new event(m_tree);
     };
@@ -53,10 +53,10 @@ public:
     void Terminate();
 
 private:
-    TString m_input;
+    TString m_inputDir;
+    TString m_processName;
     TTree *m_tree;
     TFile *m_file;
-    TString m_processName;
     TString m_era = "2016";
     Bool_t m_isTest = kTRUE;
     Bool_t m_isData = kFALSE;

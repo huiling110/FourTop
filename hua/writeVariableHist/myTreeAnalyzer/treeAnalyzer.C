@@ -129,7 +129,7 @@ void treeAnalyzer::LoopTree()
 void treeAnalyzer::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    Double_t genWeightSum = getGenSum(m_input);
+    Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
     Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
     if (!m_isData)
     {
