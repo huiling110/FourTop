@@ -118,6 +118,21 @@ public:
     myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     // myBranch<Double_t>{""};
+    // weight variations
+    myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
+    myBranch<Double_t> PUweight_up_{"PUweight_up_"};
+    myBranch<Double_t> HLT_weight_up{"HLT_weight_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsjet_up{"tauT_IDSF_weight_new_vsjet_up"};
+    myBranch<Double_t> elesTopMVAT_weight_up{"elesTopMVAT_weight_up"};
+    myBranch<Double_t> musTopMVAT_weight_up{"musTopMVAT_weight_up"};
+    // myBranch<Double_t> btagShape_weight{"btagShape_weight"};
+    // myBranch<Double_t> btagShapeR{"btagShapeR"};
+    myBranch<Double_t> EVENT_prefireWeight_down{"EVENT_prefireWeight_down"};
+    myBranch<Double_t> PUweight_down_{"PUweight_down_"};
+    myBranch<Double_t> HLT_weight_down{"HLT_weight_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsjet_down{"tauT_IDSF_weight_new_vsjet_down"};
+    myBranch<Double_t> elesTopMVAT_weight_down{"elesTopMVAT_weight_down"};
+    myBranch<Double_t> musTopMVAT_weight_down{"musTopMVAT_weight_down"};
 
 private:
     TTree *m_tree;
@@ -152,6 +167,20 @@ private:
         {bjetsM_2pt.n(), &bjetsM_2pt},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
+
+        {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
+        {PUweight_up_.n(), &PUweight_up_},
+        {HLT_weight_up.n(), &HLT_weight_up},
+        {tauT_IDSF_weight_new_vsjet_up.n(), &tauT_IDSF_weight_new_vsjet_up},
+        {elesTopMVAT_weight_up.n(), &elesTopMVAT_weight_up},
+        {musTopMVAT_weight_up.n(), &musTopMVAT_weight_up},
+        {EVENT_prefireWeight_down.n(), &EVENT_prefireWeight_down},
+        {PUweight_down_.n(), &PUweight_down_},
+        {HLT_weight_down.n(), &HLT_weight_down},
+        {tauT_IDSF_weight_new_vsjet_down.n(), &tauT_IDSF_weight_new_vsjet_down},
+        {elesTopMVAT_weight_down.n(), &elesTopMVAT_weight_down},
+        {musTopMVAT_weight_down.n(), &musTopMVAT_weight_down},
+
     };
 };
 #endif
