@@ -45,17 +45,21 @@ def main():
             print(isub+isysHist)
             # iHist = iroot.Get(isub+'_'+isysHist).Clone()
             iHist = iroot.Get(isub+'_'+isysHist).Clone()
-            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub) 
-      
+            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile) 
        
         iroot.Close() 
-        
-        
     print(summedHistDicAllSys)
     
-def addHistToDic(iHist, summedHistDic, isysHist, isub):
+    outFile.Write()
+    print('outFile here: ', outFile.GetName())
+    outFile.Close()
+    
+    
+    
+def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile):
     iHist.Sumw2()
-    iHist.SetDirectory(0)
+    # iHist.SetDirectory(0)
+    iHist.SetDirectory(outFile)
     summedName = gq.histoGramPerSampleR[isub]    
     if not gq.histoGramPerSampleR[isub] in summedHistDic.keys():
         #create first summedHist
