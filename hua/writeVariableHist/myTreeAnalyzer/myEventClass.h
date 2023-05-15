@@ -33,7 +33,6 @@ private:
     T m_branchValue;
 };
 
-// template <typename A>
 class event
 {
     // be able to access branch value with string

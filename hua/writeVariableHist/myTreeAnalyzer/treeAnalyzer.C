@@ -8,18 +8,28 @@
 
 void treeAnalyzer::Init()
 {
-    std::cout << "start to initilation\n";
+    std::cout << "start to initilation....................................................\n";
     cutFlowHist->SetDirectory(m_outFile);
-
     // book MVA reader
     TString variableList = BDTTrainingMap[m_era].at(0);
     readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
     // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
-    for (UInt_t i = 0; i < variablesName.size(); i++)
+    if (variablesName.size() == variablesForReader.size())
     {
-        reader->AddVariable(variablesName[i], &variablesForReader[i]);
-        // must add all variables as floats even for int
+        for (UInt_t i = 0; i < variablesName.size(); i++)
+        {
+            reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
+        }
     }
+    else
+    {
+        std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
+    }
+    // for map, the variables will be reordered according to their keys, not safe to add with map
+    // for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); i++)
+    // {
+    //     reader->AddVariable(it->first, it->sencond);
+    // };
 
     TString methodName = "BDT" + TString(" method");
     TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
@@ -45,31 +55,8 @@ void treeAnalyzer::Init()
     // SR1tau1lSys.print();
     SR1tau1lSys.setDir(m_outFile);
 
-    readBranch();
     std::cout << "done initializing\n";
     std::cout << "\n";
-}
-
-void treeAnalyzer::readBranch()
-{
-    // for (const auto &elem : variablesOriginAll)
-    //???SetBranchAddress here could overwrite previous variables
-    //!!!bug!!!
-    // not efficient to set up a event class with map to access each branch by string
-    // Only use map for BDT , for other variables use normal event class
-    /*
-    for (UInt_t i = 0; i < variablesOriginAll.size(); i++)
-    {
-        if (std::holds_alternative<Int_t>(variablesOriginAll[i]))
-        {
-            m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Int_t>(variablesOriginAll[i])));
-        }
-        else if (std::holds_alternative<Double_t>(variablesOriginAll[i]))
-        {
-            m_tree->SetBranchAddress(variablesName[i], std::addressof(std::get<Double_t>(variablesOriginAll[i])));
-        }
-    }
-    */
 }
 
 void treeAnalyzer::LoopTree()
@@ -121,41 +108,27 @@ void treeAnalyzer::LoopTree()
         //     std::cout << it->first << " " << it->second << "\n";
         // };
 
-        /*
-                // need to convert the branch Int_t and Double_t for reader
-                for (UInt_t j = 0; j < variablesForReader.size(); j++)
-                {
-                    if (std::holds_alternative<Int_t>(variablesOriginAll[j]))
-                    {
-                        variablesForReader.at(j) = std::get<Int_t>(variablesOriginAll[j]);
-                    }
-                    else
-                    {
-                        variablesForReader.at(j) = std::get<Double_t>(variablesOriginAll[j]);
-                    }
-                }
-                Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        std::cout << "bdtScore=" << bdtScore << "\n";
 
-                Int_t leptons_number = elesTopMVAT_number + muonsTopMVAT_number;
-                Bool_t SR1tau1l = tausT_number == 1 && leptons_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
+        // Int_t leptons_number = elesTopMVAT_number + muonsTopMVAT_number;
+        // Bool_t SR1tau1l = tausT_number == 1 && leptons_number == 1 && jets_number >= 7 && bjetsM_num >= 2;
 
-                // Return the MVA outputs and fill into histograms
-                Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
+        // // Return the MVA outputs and fill into histograms
+        // Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
 
-                // filling hists
-                SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_up, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Down", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_down, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Up", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_up, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_down, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_up, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_down, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_up, SR1tau1l, m_isData);
-                SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_down, SR1tau1l, m_isData);
-            }
-            */
+        // // filling hists
+        // SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / PUweight_) * PUweight_up_, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / PUweight_) * PUweight_down_, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_up, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Down", bdtScore, (basicWeight / EVENT_prefireWeight) * EVENT_prefireWeight_down, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Up", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_up, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / tauT_IDSF_weight_new) * tauT_IDSF_weight_new_vsjet_down, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_up, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / elesTopMVAT_weight) * elesTopMVAT_weight_down, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_up, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / musTopMVAT_weight) * musTopMVAT_weight_down, SR1tau1l, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
