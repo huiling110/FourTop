@@ -63,7 +63,7 @@ def addDataHist(summedHistSR, outFile):
     fakeData = summedHistSR[ list(summedHistSR.keys())[0]]
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
-    fakeData.SetName('data_obs')
+    fakeData.SetName('data_obs_SR_BDT')
     for ipro in summedHistSR.keys():
         fakeData.Add(summedHistSR[ipro])
     return fakeData
