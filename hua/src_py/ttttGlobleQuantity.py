@@ -1,3 +1,4 @@
+import types
 
 lumiMap = {
     "2016preVFP": 19500.,
@@ -89,6 +90,7 @@ histoGramPerSample = {
     
     
 }
+histoGramPerSampleR = types.MappingProxyType(histoGramPerSample)
 
 
 samples = [
