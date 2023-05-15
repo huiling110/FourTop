@@ -30,7 +30,8 @@ def main():
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combinationV5/comRun2_1tau1l/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combinationV5/Run2_2channels/'
     
-    cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_noSys/'
+    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_noSys/'
+    cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_sys/'
     
     
 
@@ -82,7 +83,7 @@ def cardToWorkspaces( cardDir):
         if os.path.isfile( idatacard ):
             print( 'idatacard: ', idatacard )
             iworkspaceName = en[:]
-            iworkspaceName = iworkspaceName.replace('datacard.txt', 'workspace.root' )
+            iworkspaceName = iworkspaceName.replace('.txt', '.root' )
             print('iworkspaceName; ', iworkspaceName )
             iworkspaceDir = cardDir + 'workspace/'
             if not os.path.exists(iworkspaceDir):
