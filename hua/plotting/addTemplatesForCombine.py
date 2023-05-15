@@ -33,6 +33,7 @@ def main():
     
     
     #loop through all subProcess
+    # fakeDataHist = 
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub: continue
         print(isub)
@@ -49,16 +50,29 @@ def main():
        
         iroot.Close() 
     print(summedHistDicAllSys)
-    
+   
+    fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
+     
     outFile.Write()
     print('outFile here: ', outFile.GetName())
     outFile.Close()
     
     
+def addDataHist(summedHistSR, outFile):
+    print('adding fake data hist from signal+bg MC')
+    fakeData = summedHistSR[ list(summedHistSR.keys())[0]]
+    fakeData.Reset()
+    fakeData.SetDirectory(outFile)
+    fakeData.SetName('data_obs')
+    for ipro in summedHistSR.keys():
+        fakeData.Add(summedHistSR[ipro])
+    return fakeData
+        
+         
+    
     
 def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile):
     iHist.Sumw2()
-    # iHist.SetDirectory(0)
     iHist.SetDirectory(outFile)
     summedName = gq.histoGramPerSampleR[isub]    
     if not gq.histoGramPerSampleR[isub] in summedHistDic.keys():
