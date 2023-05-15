@@ -60,7 +60,7 @@ def main():
     
 def addDataHist(summedHistSR, outFile):
     print('adding fake data hist from signal+bg MC')
-    fakeData = summedHistSR[ list(summedHistSR.keys())[0]]
+    fakeData = summedHistSR[ list(summedHistSR.keys())[0]].Clone()
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
     fakeData.SetName('data_obs_SR_BDT')
