@@ -82,8 +82,6 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(2);
 
-        std::cout << e->tausT_number.v() << e->jets_number.v() << "\n";
-
         // convert branch value to float for reader
         for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
         {
@@ -105,11 +103,11 @@ void treeAnalyzer::LoopTree()
         // };
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        std::cout << "bdtScore=" << bdtScore << "\n";
+        // std::cout << "bdtScore=" << bdtScore << "\n";
 
         Bool_t SR1tau1l = SR1tau1lSel(e);
         Double_t basicWeight = baseWeightCal(e);
-        std::cout << "basicWeight = " << basicWeight << "\n";
+        // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists
         SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
@@ -130,7 +128,7 @@ void treeAnalyzer::LoopTree()
 
 void treeAnalyzer::Terminate()
 {
-    std::cout << "Termintate: \n";
+    std::cout << "Termintate: ..........................................\n";
     Double_t genWeightSum = getGenSum(m_input);
     Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
     if (!m_isData)
