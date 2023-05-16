@@ -1,5 +1,6 @@
 #-----------------------------------------------------------------------------
 
+# PROGRAM = Analysis
 PROGRAM = run_makeVaribles_forBDT
 SHAREDLIBS = makeVaribles_forBDT
 
@@ -7,12 +8,10 @@ SHAREDLIBS = makeVaribles_forBDT
 HDRS = makeVaribles_forBDT.h\
 	variablesFunctions.h\
 	weightCal.h\
-	# ../src_cpp/usefulFuction.h\
  
 OBJS = 	makeVaribles_forBDT.o\
 		variablesFunctions.o\
 		weightCal.o\
-		# usefulFuction.o\
         dict_$(PROGRAM).o\
 
 #-----------------------------------------------------------------------------
