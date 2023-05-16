@@ -47,7 +47,8 @@ void treeAnalyzer::Init()
         "CMS_btag_shape_" + m_era + "Up",
         "CMS_btag_shape_" + m_era + "Down",
     };
-    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+    // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
     // SR1tau1lSys.print();
     SR1tau1lSys.setDir(m_outFile);
 

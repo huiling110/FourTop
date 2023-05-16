@@ -13,9 +13,10 @@ process      0              1              2              3
 rate         -1             -1             -1             -1           
 ----------------------------------------------------------------------------------------------------------------------------------
 lumi_13TeV_2017 lnN        1.023      1.023        1.023         1.023
-CMS_pileup_2017 shape      -          -            -             - 
-CMS_prefiring_2017 shape   -          -            -             - 
-CMS_eff_t_vsJet2017 shape  -          -            -             - 
-CMS_tttt_eff_e_2017 shape  -          -            -             - 
-CMS_tttt_eff_m_2017 shape  -          -            -             - 
+CMS_pileup_2017 shape      1          1            1             1 
+CMS_prefiring_2017 shape   1          1            1             1 
+CMS_eff_t_vsJet2017 shape  1          1            1             1 
+CMS_tttt_eff_e_2017 shape  1          1            1             1 
+CMS_tttt_eff_m_2017 shape  1          1            1             1 
+----------------------------------------------------------------------------------------------------------------------------------
 SR1tau1l_2017 autoMCStats 10 0 1

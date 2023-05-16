@@ -47,14 +47,14 @@ def main():
     # version = 'v6allCorrectionButBtag'
     # version = 'v7btagShapeRWeight'
     # version = 'v8btagRMeasureWith1tau0l'
-    
     #
     # version = 'v0btagRCal'
     
     #1tau1l
     # version = 'v1pileupWeight'
     # version = 'v2HLTweight'
-    version = 'v1sysVariation1tau1l'
+    # version = 'v1sysVariation1tau1l'
+    version = 'v1sysVariation1tau1l_30bins'
     
     
     justMC = False
