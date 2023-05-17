@@ -19,6 +19,7 @@ public:
         m_reader = new TTreeReader(tree);
     };
     TTreeReader *m_reader;
+
     <UInt_t> nElectron = {fReader, "nElectron"};
     std::vector<Float_t> Electron_dxy = {fReader, "Electron_dxy"};
     std::vector<Float_t> Electron_dxyErr = {fReader, "Electron_dxyErr"};
