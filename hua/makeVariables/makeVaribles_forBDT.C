@@ -723,11 +723,11 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
-    // for (auto &corr : *cset_btag)
-    // {
-    // 	printf("Correction: %s\n", corr.first.c_str());
-    // }
-    btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData);
+    btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
+    //???can not read systematic variation ???
+    // btagShape_weight_jes_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
+    // btagShape_weight_lf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lf");
+    // btagShape_weight_cferr1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
     btagShapeR = calBtagR(jets_number, btagRHist);
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
@@ -926,6 +926,22 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up, "tauT_IDSF_weight_new_vsele_up/D");
     newtree->Branch("tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down, "tauT_IDSF_weight_new_vsele_down/D");
     newtree->Branch("btagShape_weight", &btagShape_weight, "btagShape_weight/D");
+    newtree->Branch("btagShape_weight_jes_up", &btagShape_weight_jes_up, "btagShape_weight_jes_up/D");
+    newtree->Branch("btagShape_weight_jes_down", &btagShape_weight_jes_down, "btagShape_weight_jes_down/D");
+    newtree->Branch("btagShape_weight_hf_up", &btagShape_weight_hf_up, "btagShape_weight_hf_up/D");
+    newtree->Branch("btagShape_weight_hf_down", &btagShape_weight_hf_down, "btagShape_weight_hf_down/D");
+    newtree->Branch("btagShape_weight_lf_up", &btagShape_weight_lf_up, "btagShape_weight_lf_up/D");
+    newtree->Branch("btagShape_weight_lf_down", &btagShape_weight_lf_down, "btagShape_weight_lf_down/D");
+    newtree->Branch("btagShape_weight_hfstas1_up", &btagShape_weight_hfstas1_up, "btagShape_weight_hf_stas1_up/D");
+    newtree->Branch("btagShape_weight_hfstas1_down", &btagShape_weight_hfstas1_down, "btagShape_weight_hfstas1_down/D");
+    newtree->Branch("btagShape_weight_hfstas2_up", &btagShape_weight_hfstas2_up, "btagShape_weight_hf_stas2_up/D");
+    newtree->Branch("btagShape_weight_hfstas2_down", &btagShape_weight_hfstas2_down, "btagShape_weight_hfstas2_down/D");
+    newtree->Branch("btagShape_weight_lfstas1_up", &btagShape_weight_lfstas1_up, "btagShape_weight_lf_stas1_up/D");
+    newtree->Branch("btagShape_weight_lfstas1_down", &btagShape_weight_lfstas1_down, "btagShape_weight_lfstas1_down/D");
+    newtree->Branch("btagShape_weight_lfstas2_up", &btagShape_weight_lfstas2_up, "btagShape_weight_lf_stas2_up/D");
+    newtree->Branch("btagShape_weight_lfstas2_down", &btagShape_weight_lfstas2_down, "btagShape_weight_lfstas2_down/D");
+    newtree->Branch("btagShape_weight_cferr1_up", &btagShape_weight_cferr1_up, "btagShape_weight_cferr1_up/D");
+    newtree->Branch("btagShape_weight_cferr1_down", &btagShape_weight_cferr1_down, "btagShape_weight_cferr1_down/D");
     newtree->Branch("btagShapeR", &btagShapeR, "btagShapeR/D");
     newtree->Branch("HLT_weight", &HLT_weight, "HLT_weight/D");
     newtree->Branch("HLT_weight_up", &HLT_weight_up, "HLT_weight_up/D");
@@ -1292,45 +1308,6 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     // newtree->Branch("toptagger_scoreAllTops", &toptagger_scoreAllTops, "toptagger_scoreAllTops/D");
     // newtree->Branch("toptagger_leptonsMVAT_minDeltaR", &toptagger_leptonsMVAT_minDeltaR, "toptagger_leptonsMVAT_minDeltaR/D");
 }
-/*
-void makeVaribles_forBDT::initializeBReader(){
-   std::cout << "Loading the .csv file..." << "\n";
-
-   std::string inputCSVfile = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/scale_factors/DeepJet_2016LegacySF_V1.csv";
-   //?might be wrong csv file
-   std::string measType = "iterativefit";
-   std::string sysType = "central";
-   std::string sysTypeJESUp = "up_jes";
-   std::string sysTypeJESDown = "down_jes";
-   std::string sysTypeHFUp = "up_hf";
-   std::string sysTypeHFDown = "down_hf";
-   std::string sysTypeLFUp = "up_lf";
-   std::string sysTypeLFDown = "down_lf";
-   std::string sysTypehfstats1Up = "up_hfstats1";
-   std::string sysTypehfstats1Down = "down_hfstats1";
-   std::string sysTypehfstats2Up = "up_hfstats2";
-   std::string sysTypehfstats2Down = "down_hfstats2";
-   std::string sysTypelfstats1Up = "up_lfstats1";
-   std::string sysTypelfstats1Down = "down_lfstats1";
-   std::string sysTypelfstats2Up = "up_lfstats2";
-   std::string sysTypelfstats2Down = "down_lfstats2";
-   std::string sysTypecfErr1Up = "up_cferr1";
-   std::string sysTypecfErr1Down = "down_cferr1";
-   std::string sysTypecfErr2Up = "up_cferr2";
-   std::string sysTypecfErr2Down = "down_cferr2";
-
-   BTagCalibration calib("DeepJet", inputCSVfile);
-
-   // BTagCalibrationReader CSVreader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
-   CSVreader = BTagCalibrationReader(BTagEntry::OP_RESHAPING, sysType, {sysTypeJESUp, sysTypeJESDown, sysTypeHFUp, sysTypeHFDown, sysTypeLFUp, sysTypeLFDown, sysTypehfstats1Up, sysTypehfstats1Down, sysTypehfstats2Up, sysTypehfstats2Down, sysTypelfstats1Up, sysTypelfstats1Down, sysTypelfstats2Up, sysTypelfstats2Down, sysTypecfErr1Up, sysTypecfErr1Down, sysTypecfErr2Up, sysTypecfErr2Down});
-   CSVreader.load(calib, BTagEntry::FLAV_B, measType);
-   CSVreader.load(calib, BTagEntry::FLAV_C, measType);
-   CSVreader.load(calib, BTagEntry::FLAV_UDSG, measType);
-
-   std::cout << "Input CSV weight file = " << inputCSVfile << "; measurementType = " << measType << ";" << "\n";
-
-}
-*/
 
 void makeVaribles_forBDT::InitializeBranches()
 {
@@ -1366,6 +1343,23 @@ void makeVaribles_forBDT::InitializeBranches()
     tauT_IDSF_weight_new_vsele_up = -99;
     tauT_IDSF_weight_new_vsele_down = -99;
     btagShape_weight = 1.;
+    btagShape_weight_jes_up = 1.0;
+    btagShape_weight_jes_down = 1.0;
+    btagShape_weight_hf_up = 1.0;
+    btagShape_weight_hf_down = 1.0;
+    btagShape_weight_lf_up = 1.0;
+    btagShape_weight_lf_down = 1.0;
+    btagShape_weight_hfstas1_up = 1.0;
+    btagShape_weight_hfstas1_down = 1.0;
+    btagShape_weight_hfstas2_up = 1.0;
+    btagShape_weight_hfstas2_down = 1.0;
+    btagShape_weight_lfstas1_up = 1.0;
+    btagShape_weight_lfstas1_down = 1.0;
+    btagShape_weight_lfstas2_up = 1.0;
+    btagShape_weight_lfstas2_down = 1.0;
+    btagShape_weight_cferr1_up = 1.0;
+    btagShape_weight_cferr1_down = 1.0;
+
     btagShapeR = 1;
     HLT_weight = 1.0;
     HLT_weight_up = 1.0;

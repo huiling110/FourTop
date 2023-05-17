@@ -135,17 +135,28 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &ta
     return sf;
 }
 
-Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &jets, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData)
+Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &jets, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, std::string sys)
 {
     // https://twiki.cern.ch/twiki/bin/view/CMS/BTagCalibration#Using_b_tag_scale_factors_in_you
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/btvExample.py
+    /*
+    "jes": Combined JES uncertainty.
+    "jes<x>": Uncertainty due to JES source x.
+    "lf": Contamination from udsg+c jets in HF region.
+    "hf": Contamination from b+c jets in LF region.
+    Linear and quadratic statistical fluctuations:
+    "hfstats1" / "hfstats2": b jets.
+    "lfstats1" / "lfstats2": udsg jets.
+    "cferr1" / "cferr2": Uncertainty for charm jets.
+*/
     Double_t sf = 1.0;
     if (!isData)
     {
         auto corr_deepJet = cset_btag->at("deepJet_shape");
         for (UInt_t j = 0; j < jets.GetSize(); j++)
         {
-            Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            // Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            Double_t ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
             sf *= ijetSF;
         }
     }
