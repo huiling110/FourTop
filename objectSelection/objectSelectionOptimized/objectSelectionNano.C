@@ -1,30 +1,24 @@
-#include "eventReader_nano.C"
+#include "objectSelectionNano.h"
 
-class objectSelection
+ojectSelection::EventLoop()
 {
-public:
-    objectSelection()
+    ULong_t entryCount = 0;
+    ULong_t numEntries = 1000;
+    std::cout << "start event loop for " << numEntries << " ................................\n";
+    while (m_reader.Next() && entryCount < numEntries)
     {
-        e = new eventForNano{m_reader};
-    };
-    eventForNana *e;
-    TTreeReader *m_reader;
-
-    Init(){
-
-    };
-
-    EventLoop()
-    {
-        Long_int entryCount = 0;
-        while (m_reader.Next() && entryCount < numEntries)
-        {
-            muonSelection(e, m_outTree);
-            // Increment the entry count
-            entryCount++;
-        }
+        std::cout << e->nElectron << "\n";
+        // muonSelection.select(e, m_outTree);
+        // Increment the entry count
+        entryCount++;
     }
-    Terminate(){
+    std::cout << "end of event loop...................................................\n";
+};
+objectSelection::Terminate(){
 
-    };
+};
+
+objectSelection::~objectSelection()
+{
+    delete m_input;
 };
