@@ -21,8 +21,10 @@ public:
     // eventForNano(TTreeReader *reader) 
     eventForNano(TTree* tree): m_tree{tree}
     {
-        m_tree->SetBranchStatus("*", 0);
+        // m_tree->SetBranchStatus("*", 0);
         readBranch("nElectron", nElectron);
+        // readBranch("Electron_dxy", Electron_dxy);
+        m_tree->SetBranchAddress("Electron_dxy", Electron_dxy[0]);
         // tree->SetBranchStatus("nElectron", 1);
         // tree->SetBranchAddress("nElectron", &nElectron);
         // m_reader = reader;
@@ -37,15 +39,16 @@ public:
         // delete m_reader;
     };
 template <typename T>
-    void readBranch(TString branch, T& value){
+    void readBranch(TString branch, T& address){
         m_tree->SetBranchStatus(branch, 1);
-        m_tree->SetBranchAddress(branch, &value);
+        m_tree->SetBranchAddress(branch, &address);
     };
 
 
 // public:
     UInt_t nElectron;
-    // std::vector<Float_t> Electron_dxy;
+    std::vector<Float_t> Electron_dxy;//???not sure why can not read with  vector
+    // std::array<Float_t> Electrion_dxy;
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron; // I guess if m_reader is not properly initialized, this line can not work
