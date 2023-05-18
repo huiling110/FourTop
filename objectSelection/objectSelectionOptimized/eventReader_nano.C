@@ -16,11 +16,13 @@
 class eventForNano
 {
 public:
-    eventForNano(TTreeReader& reader) : m_reader{reader}, 
-    nElectron(m_reader, "nElectron")
+    // eventForNano(TTreeReader& reader) : m_reader{reader}, 
+    // nElectron(m_reader, "nElectron")
     // eventForNano(TTreeReader *reader) 
     // eventForNano(TTreeReader *reader) 
+    eventForNano(TTree* tree)
     {
+        tree->SetBranchAddress("nElectron", &nElectron);
         // m_reader = reader;
         // m_reader = new TTreeReader(tree);
         // nElectron = TTreeReaderValue<UInt_t>{reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
@@ -36,9 +38,10 @@ public:
     // private:
 
 public:
-    TTreeReader m_reader;
+    UInt_t nElectron;
+    // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
-    TTreeReaderValue<UInt_t> nElectron; // I guess if m_reader is not properly initialized, this line can not work
+    // TTreeReaderValue<UInt_t> nElectron; // I guess if m_reader is not properly initialized, this line can not work
     //???can TTreeReaderValue<> be decalred but not initialized?
     // TTreeReaderArray<Float_t> Electron_dxy;
     /*

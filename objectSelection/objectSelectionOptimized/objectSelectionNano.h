@@ -19,8 +19,11 @@ public:
         if (!m_input->IsZombie())
         {
             std::cout<<"input file: "<<m_input->GetName()<<"\n";
-            m_reader = TTreeReader("Events", m_input);
-            e = new eventForNano{m_reader};
+            m_tree = (TTree*)m_input->Get("Events");
+            // m_reader = TTreeReader("Events", m_input);
+            // m_reader = TTreeReader(tree);
+            // e = new eventForNano{m_reader};
+            e = new eventForNano{m_tree};
         }
         else
         {
@@ -38,7 +41,8 @@ public:
 
 private:
     TFile *m_input;
-    TTreeReader m_reader;
+    TTree* m_tree;
+    // TTreeReader m_reader;
     eventForNano *e;
     TFile *m_output;
 };

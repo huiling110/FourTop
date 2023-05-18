@@ -10,7 +10,8 @@ void run_objectSelection(
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     TString singleFileName = "outTree_0.root",
     TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/tttt/",
-    Bool_t istest = true, )
+    Bool_t istest = kTRUE 
+    )
 {
     TStopwatch t;
     t.Start();
