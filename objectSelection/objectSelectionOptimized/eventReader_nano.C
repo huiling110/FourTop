@@ -12,7 +12,6 @@
 //     }
 
 // }1
-
 class eventForNano
 {
 public:
@@ -20,9 +19,12 @@ public:
     // nElectron(m_reader, "nElectron")
     // eventForNano(TTreeReader *reader) 
     // eventForNano(TTreeReader *reader) 
-    eventForNano(TTree* tree)
+    eventForNano(TTree* tree): m_tree{tree}
     {
-        tree->SetBranchAddress("nElectron", &nElectron);
+        m_tree->SetBranchStatus("*", 0);
+        readBranch("nElectron", nElectron);
+        // tree->SetBranchStatus("nElectron", 1);
+        // tree->SetBranchAddress("nElectron", &nElectron);
         // m_reader = reader;
         // m_reader = new TTreeReader(tree);
         // nElectron = TTreeReaderValue<UInt_t>{reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
@@ -33,12 +35,17 @@ public:
     ~eventForNano()
     {
         // delete m_reader;
-    }
+    };
+template <typename T>
+    void readBranch(TString branch, T& value){
+        m_tree->SetBranchStatus(branch, 1);
+        m_tree->SetBranchAddress(branch, &value);
+    };
 
-    // private:
 
-public:
+// public:
     UInt_t nElectron;
+    // std::vector<Float_t> Electron_dxy;
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron; // I guess if m_reader is not properly initialized, this line can not work
@@ -212,6 +219,8 @@ public:
     <Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {m_reader, "Flag_goodVertices"};
     <Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {m_reader, "Flag_goodVertices"};
     */
+    private:
+    TTree* m_tree;
 };
 
 #endif
