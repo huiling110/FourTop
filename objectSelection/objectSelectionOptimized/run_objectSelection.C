@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
     if (argc < 4)
     {
         std::cout << "not enough input from command line\n";
-        run_treeAnalyzer();
+        run_objectSelection();
     }
     else
     {
@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         version = boost::lexical_cast<std::string>(argv[3]);
         isTest = boost::lexical_cast<Bool_t>(argv[4]);
-        run_treeAnalyzer(inputDir, inputProcess, version, isTest);
+        // run_treeAnalyzer(inputDir, inputProcess, version, isTest);
     }
 
     return 0;

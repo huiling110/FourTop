@@ -1,6 +1,8 @@
 #ifndef EVENTREADER_NANO_H
 #define EVENTREADER_NANO_H
 
+// #include "TTreeReader.h"
+// #include "TTreeReaderArray.h"
 // class branch
 // {
 // public:
@@ -9,20 +11,37 @@
 //         tree->SetBranchAddress(branchName, m_value);
 //     }
 
-// }
+// }1
 
 class eventForNano
 {
 public:
-    eventForNano(TTree *tree)
+    eventForNano(TTreeReader& reader) : m_reader{reader}, 
+    nElectron(m_reader, "nElectron")
+    // eventForNano(TTreeReader *reader) 
+    // eventForNano(TTreeReader *reader) 
     {
-        m_reader = new TTreeReader(tree);
-    };
-    TTreeReader *m_reader;
+        // m_reader = reader;
+        // m_reader = new TTreeReader(tree);
+        // nElectron = TTreeReaderValue<UInt_t>{reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
+        // nElectron = {reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
 
+        // Electron_dxy = (m_reader, "Electron_dxy");
+    }
+    ~eventForNano()
+    {
+        // delete m_reader;
+    }
+
+    // private:
+
+public:
+    TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
-    <UInt_t> nElectron = {m_reader, "nElectron"};
-    std::vector<Float_t> Electron_dxy = {m_reader, "Electron_dxy"};
+    TTreeReaderValue<UInt_t> nElectron; // I guess if m_reader is not properly initialized, this line can not work
+    //???can TTreeReaderValue<> be decalred but not initialized?
+    // TTreeReaderArray<Float_t> Electron_dxy;
+    /*
     std::vector<Float_t> Electron_dxyErr = {m_reader, "Electron_dxyErr"};
     std::vector<Float_t> Electron_dz = {m_reader, "Electron_dz"};
     std::vector<Float_t> Electron_eta = {m_reader, "Electron_eta"};
@@ -189,6 +208,7 @@ public:
     // data
     <Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {m_reader, "Flag_goodVertices"};
     <Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {m_reader, "Flag_goodVertices"};
-}
+    */
+};
 
 #endif
