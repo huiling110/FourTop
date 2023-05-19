@@ -6,16 +6,16 @@ void objectSelection::EventLoop()
     // ULong_t numEntries = 1000;
     ULong_t numEntries = 10;
     std::cout << "start event loop for " << numEntries << " ................................\n";
-    // while (m_reader.Next() && entryCount < numEntries)
-    std::cout<<m_tree->GetBranch("Electron_dxy")->GetClassName()<<"\n";
-    for(UInt_t i=0; i<numEntries; i++)
+    while (m_reader.Next() && entryCount < numEntries)
+    // std::cout<<m_tree->GetBranch("Electron_dxy")->GetClassName()<<"\n";
+    // for(UInt_t i=0; i<numEntries; i++)
     {
-        m_tree->GetEntry(i);
-        // std::cout << *(e->nElectron) << "\n";
-        std::cout << e->nElectron<< "\n";
-        for (UInt_t j=0; e->Electron_dxy->size(); j++){
-            std::cout<<"dxy: "<<e->Electron_dxy->at(j)<<" ";
-        };
+        // m_tree->GetEntry(i);
+        std::cout << *(e->nElectron) << "\n";
+        // std::cout << e->nElectron<< "\n";
+        // for (UInt_t j=0; e->Electron_dxy->size(); j++){
+        //     std::cout<<"dxy: "<<e->Electron_dxy->at(j)<<" ";
+        // };
         // muonSelection.select(e, m_outTree);
         // Increment the entry count
         entryCount++;
