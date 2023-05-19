@@ -48,7 +48,8 @@ public:
 
     // public:
     UInt_t nElectron;
-    std::vector<Float_t> Electron_dxy; //???not sure why can not read with  vector
+    // std::vector<Float_t> Electron_dxy; //???not sure why can not read with  vector
+    Float_t Electron_dxy[20];
     // std::array<Float_t> Electrion_dxy;
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
