@@ -1,6 +1,7 @@
 #ifndef EVENTREADER_NANO_H
 #define EVENTREADER_NANO_H
 
+#include <vector>
 // #include "TTreeReader.h"
 // #include "TTreeReaderArray.h"
 // class branch
@@ -15,16 +16,17 @@
 class eventForNano
 {
 public:
-    // eventForNano(TTreeReader& reader) : m_reader{reader}, 
+    // eventForNano(TTreeReader& reader) : m_reader{reader},
     // nElectron(m_reader, "nElectron")
-    // eventForNano(TTreeReader *reader) 
-    // eventForNano(TTreeReader *reader) 
-    eventForNano(TTree* tree): m_tree{tree}
+    // eventForNano(TTreeReader *reader)
+    // eventForNano(TTreeReader *reader)
+    eventForNano(TTree *tree) : m_tree{tree}
     {
         // m_tree->SetBranchStatus("*", 0);
         readBranch("nElectron", nElectron);
         // readBranch("Electron_dxy", Electron_dxy);
-        m_tree->SetBranchAddress("Electron_dxy", Electron_dxy[0]);
+        // m_tree->SetBranchAddress("Electron_dxy", &Electron_dxy);
+        m_tree->SetBranchAddress("Electron_dxy", &Electron_dxy);
         // tree->SetBranchStatus("nElectron", 1);
         // tree->SetBranchAddress("nElectron", &nElectron);
         // m_reader = reader;
@@ -34,20 +36,19 @@ public:
 
         // Electron_dxy = (m_reader, "Electron_dxy");
     }
-    ~eventForNano()
-    {
+    ~eventForNano(){
         // delete m_reader;
     };
-template <typename T>
-    void readBranch(TString branch, T& address){
+    template <typename T>
+    void readBranch(TString branch, T &address)
+    {
         m_tree->SetBranchStatus(branch, 1);
         m_tree->SetBranchAddress(branch, &address);
     };
 
-
-// public:
+    // public:
     UInt_t nElectron;
-    std::vector<Float_t> Electron_dxy;//???not sure why can not read with  vector
+    std::vector<Float_t> Electron_dxy; //???not sure why can not read with  vector
     // std::array<Float_t> Electrion_dxy;
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
@@ -222,8 +223,8 @@ template <typename T>
     <Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080 = {m_reader, "Flag_goodVertices"};
     <Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = {m_reader, "Flag_goodVertices"};
     */
-    private:
-    TTree* m_tree;
+private:
+    TTree *m_tree;
 };
 
 #endif
