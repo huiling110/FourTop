@@ -157,8 +157,9 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
         for (UInt_t j = 0; j < jets.GetSize(); j++)
         {
             // Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
-            Double_t ijetSF = corr_deepJet->evaluate({"up_cferr1", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
-            // Double_t ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            // Double_t ijetSF = corr_deepJet->evaluate({"up_cferr1", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            // Double_t ijetSF = corr_deepJet->evaluate({"up_hfstats2", 5, std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            Double_t ijetSF = corr_deepJet->evaluate({sys, 5, std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
             sf *= ijetSF;
         }
     }
