@@ -2,7 +2,7 @@
 
 PROGRAM = run_treeAnalyzer
 
-OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o functions.o\
+OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o functions.o run_treeAnalyzer.o\
 
 #-----------------------------------------------------------------------------
 ObjSuf = o
@@ -42,22 +42,26 @@ LIBS += $(TMVALIBS)
 GLIBS = $(ROOTGLIBS)
 
 
-
-$(PROGRAM).out: $(OBJS) $(PROGRAM).o
+$(PROGRAM).out: $(OBJS) 
 	@echo "building $(PROGRAM)......"
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS)   $(LIBS) -o$(PROGRAM).out
 	@echo "done building $(PROGRAM)"
 
+# $(PROGRAM).out: $(OBJS) $(PROGRAM).o
+# 	@echo "building $(PROGRAM)......"
+# 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
+# 	@echo "done building $(PROGRAM)"
+
 #% Wildcard
-# %/%.o: %.C %.h
-# 	$(CXX) -c $(CXXFLAGS) $*.C
+%/%.o: %.C %.h
+	$(CXX) -c $(CXXFLAGS) $*.C
 
 #static pattern rule 
-$(OBJS): %.o: %.C %.h
-	$(CXX) -c $(CXXFLAGS) -o $@ $^ 
+# $(OBJS): %.o: %.C %.h
+# 	$(CXX) -c $(CXXFLAGS) -o $@ $^ 
 
-$(PROGRAM).o: $(PROGRAM).C
-	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
+# $(PROGRAM).o: $(PROGRAM).C
+# 	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
 
 
 clean:
