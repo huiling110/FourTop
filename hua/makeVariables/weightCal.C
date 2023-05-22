@@ -168,7 +168,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
                 if (jets_flavour.At(j) == 4)
                 {
                     // c jet
-                    if (sys == "cferr1" || sys == "cferr2")
+                    if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
                     {
                         ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
                     }
@@ -176,7 +176,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
                 else
                 {
                     // b and light jets
-                    if (!(sys == "cferr1" || sys == "cferr2"))
+                    if (!(sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos))
                     {
                         ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
                     }

@@ -739,7 +739,8 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     btagShape_weight_lfstats1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
     btagShape_weight_lfstats2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
     btagShape_weight_lfstats2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
-    // btagShape_weight_cferr1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
+    btagShape_weight_cferr1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
+    btagShape_weight_cferr1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr1");
     btagShapeR = calBtagR(jets_number, btagRHist);
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData);
