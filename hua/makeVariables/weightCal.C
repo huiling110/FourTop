@@ -147,7 +147,8 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
     Linear and quadratic statistical fluctuations:
     "hfstats1" / "hfstats2": b jets.
     "lfstats1" / "lfstats2": udsg jets.
-    "cferr1" / "cferr2": Uncertainty for charm jets.
+    "cferr1" / "cferr2": Uncertainty for charm jets. //???the only uncertainty to consider for charm jets???
+
 */
     Double_t sf = 1.0;
     if (!isData)
@@ -157,9 +158,30 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
         for (UInt_t j = 0; j < jets.GetSize(); j++)
         {
             // Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
-            // Double_t ijetSF = corr_deepJet->evaluate({"up_cferr1", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
-            // Double_t ijetSF = corr_deepJet->evaluate({"up_hfstats2", 5, std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
-            Double_t ijetSF = corr_deepJet->evaluate({sys, 5, std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            Double_t ijetSF = 1.0;
+            if (sys == "central")
+            {
+                ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+            }
+            else
+            {
+                if (jets_flavour.At(j) == 4)
+                {
+                    // c jet
+                    if (sys == "cferr1" || sys == "cferr2")
+                    {
+                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+                    }
+                }
+                else
+                {
+                    // b and light jets
+                    if (!(sys == "cferr1" || sys == "cferr2"))
+                    {
+                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
+                    }
+                }
+            };
             sf *= ijetSF;
         }
     }
