@@ -40,6 +40,10 @@ void treeAnalyzer::Init()
         "CMS_prefiring_" + m_era + "Down",
         "CMS_eff_t_vsJet" + m_era + "Up",
         "CMS_eff_t_vsJet" + m_era + "Down",
+        "CMS_eff_t_vsMu" + m_era + "Up",
+        "CMS_eff_t_vsMu" + m_era + "Down",
+        "CMS_eff_t_vsEle" + m_era + "Up",
+        "CMS_eff_t_vsEle" + m_era + "Down",
         "CMS_tttt_eff_e_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_e_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_m_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
@@ -98,10 +102,6 @@ void treeAnalyzer::LoopTree()
             }
             varForReaderMap[it->first] = ivar;
         }
-        // for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
-        // {
-        //     std::cout << it->first << " " << it->second << "\n";
-        // };
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
         // std::cout << "bdtScore=" << bdtScore << "\n";
@@ -118,6 +118,8 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Down", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_up.v(), SR1tau1l, m_isData);

@@ -125,14 +125,34 @@ public:
     myBranch<Double_t> tauT_IDSF_weight_new_vsjet_up{"tauT_IDSF_weight_new_vsjet_up"};
     myBranch<Double_t> elesTopMVAT_weight_up{"elesTopMVAT_weight_up"};
     myBranch<Double_t> musTopMVAT_weight_up{"musTopMVAT_weight_up"};
-    // myBranch<Double_t> btagShape_weight{"btagShape_weight"};
-    // myBranch<Double_t> btagShapeR{"btagShapeR"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsmu_up{"tauT_IDSF_weight_new_vsmu_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsele_up{"tauT_IDSF_weight_new_vsele_up"};
+    myBranch<Double_t> btagShape_weight_jes_up{"btagShape_weight_jes_up"};
+    myBranch<Double_t> btagShape_weight_hf_up{"btagShape_weight_hf_up"};
+    myBranch<Double_t> btagShape_weight_lf_up{"btagShape_weight_lf_up"};
+    myBranch<Double_t> btagShape_weight_hfstats1_up{"btagShape_weight_hfstats1_up"};
+    myBranch<Double_t> btagShape_weight_hfstats2_up{"btagShape_weight_hfstats2_up"};
+    myBranch<Double_t> btagShape_weight_lfstats1_up{"btagShape_weight_lfstats1_up"};
+    myBranch<Double_t> btagShape_weight_lfstats2_up{"btagShape_weight_lfstats2_up"};
+    myBranch<Double_t> btagShape_weight_cferr1_up{"btagShape_weight_cferr1_up"};
+    myBranch<Double_t> btagShape_weight_cferr2_up{"btagShape_weight_cferr2_up"};
     myBranch<Double_t> EVENT_prefireWeight_down{"EVENT_prefireWeight_down"};
     myBranch<Double_t> PUweight_down_{"PUweight_down_"};
     myBranch<Double_t> HLT_weight_down{"HLT_weight_down"};
     myBranch<Double_t> tauT_IDSF_weight_new_vsjet_down{"tauT_IDSF_weight_new_vsjet_down"};
     myBranch<Double_t> elesTopMVAT_weight_down{"elesTopMVAT_weight_down"};
     myBranch<Double_t> musTopMVAT_weight_down{"musTopMVAT_weight_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsmu_down{"tauT_IDSF_weight_new_vsmu_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsele_down{"tauT_IDSF_weight_new_vsele_down"};
+    myBranch<Double_t> btagShape_weight_jes_down{"btagShape_weight_jes_down"};
+    myBranch<Double_t> btagShape_weight_hf_down{"btagShape_weight_hf_down"};
+    myBranch<Double_t> btagShape_weight_lf_down{"btagShape_weight_lf_down"};
+    myBranch<Double_t> btagShape_weight_hfstats1_down{"btagShape_weight_hfstats1_down"};
+    myBranch<Double_t> btagShape_weight_hfstats2_down{"btagShape_weight_hfstats2_down"};
+    myBranch<Double_t> btagShape_weight_lfstats1_down{"btagShape_weight_lfstats1_down"};
+    myBranch<Double_t> btagShape_weight_lfstats2_down{"btagShape_weight_lfstats2_down"};
+    myBranch<Double_t> btagShape_weight_cferr1_down{"btagShape_weight_cferr1_down"};
+    myBranch<Double_t> btagShape_weight_cferr2_down{"btagShape_weight_cferr2_down"};
 
 private:
     TTree *m_tree;
