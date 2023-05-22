@@ -726,7 +726,19 @@ Bool_t makeVaribles_forBDT::Process(Long64_t entry)
     btagShape_weight = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
     //???can not read systematic variation ???
     btagShape_weight_jes_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
-    // btagShape_weight_lf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lf");
+    btagShape_weight_jes_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_jes");
+    btagShape_weight_lf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lf");
+    btagShape_weight_lf_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lf");
+    btagShape_weight_hf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hf");
+    btagShape_weight_hf_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hf");
+    btagShape_weight_hfstats1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats1");
+    btagShape_weight_hfstats1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats1");
+    btagShape_weight_hfstats2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats2");
+    btagShape_weight_hfstats2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats2");
+    btagShape_weight_lfstats1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats1");
+    btagShape_weight_lfstats1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
+    btagShape_weight_lfstats2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
+    btagShape_weight_lfstats2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
     // btagShape_weight_cferr1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
     btagShapeR = calBtagR(jets_number, btagRHist);
 
@@ -932,14 +944,14 @@ void makeVaribles_forBDT::makeBranchForTree(/*TTree* newtree*/)
     newtree->Branch("btagShape_weight_hf_down", &btagShape_weight_hf_down, "btagShape_weight_hf_down/D");
     newtree->Branch("btagShape_weight_lf_up", &btagShape_weight_lf_up, "btagShape_weight_lf_up/D");
     newtree->Branch("btagShape_weight_lf_down", &btagShape_weight_lf_down, "btagShape_weight_lf_down/D");
-    newtree->Branch("btagShape_weight_hfstas1_up", &btagShape_weight_hfstas1_up, "btagShape_weight_hf_stas1_up/D");
-    newtree->Branch("btagShape_weight_hfstas1_down", &btagShape_weight_hfstas1_down, "btagShape_weight_hfstas1_down/D");
-    newtree->Branch("btagShape_weight_hfstas2_up", &btagShape_weight_hfstas2_up, "btagShape_weight_hf_stas2_up/D");
-    newtree->Branch("btagShape_weight_hfstas2_down", &btagShape_weight_hfstas2_down, "btagShape_weight_hfstas2_down/D");
-    newtree->Branch("btagShape_weight_lfstas1_up", &btagShape_weight_lfstas1_up, "btagShape_weight_lf_stas1_up/D");
-    newtree->Branch("btagShape_weight_lfstas1_down", &btagShape_weight_lfstas1_down, "btagShape_weight_lfstas1_down/D");
-    newtree->Branch("btagShape_weight_lfstas2_up", &btagShape_weight_lfstas2_up, "btagShape_weight_lf_stas2_up/D");
-    newtree->Branch("btagShape_weight_lfstas2_down", &btagShape_weight_lfstas2_down, "btagShape_weight_lfstas2_down/D");
+    newtree->Branch("btagShape_weight_hfstats1_up", &btagShape_weight_hfstats1_up, "btagShape_weight_hf_stats1_up/D");
+    newtree->Branch("btagShape_weight_hfstats1_down", &btagShape_weight_hfstats1_down, "btagShape_weight_hfstats1_down/D");
+    newtree->Branch("btagShape_weight_hfstats2_up", &btagShape_weight_hfstats2_up, "btagShape_weight_hf_stats2_up/D");
+    newtree->Branch("btagShape_weight_hfstats2_down", &btagShape_weight_hfstats2_down, "btagShape_weight_hfstats2_down/D");
+    newtree->Branch("btagShape_weight_lfstats1_up", &btagShape_weight_lfstats1_up, "btagShape_weight_lf_stats1_up/D");
+    newtree->Branch("btagShape_weight_lfstats1_down", &btagShape_weight_lfstats1_down, "btagShape_weight_lfstats1_down/D");
+    newtree->Branch("btagShape_weight_lfstats2_up", &btagShape_weight_lfstats2_up, "btagShape_weight_lf_stats2_up/D");
+    newtree->Branch("btagShape_weight_lfstats2_down", &btagShape_weight_lfstats2_down, "btagShape_weight_lfstats2_down/D");
     newtree->Branch("btagShape_weight_cferr1_up", &btagShape_weight_cferr1_up, "btagShape_weight_cferr1_up/D");
     newtree->Branch("btagShape_weight_cferr1_down", &btagShape_weight_cferr1_down, "btagShape_weight_cferr1_down/D");
     newtree->Branch("btagShapeR", &btagShapeR, "btagShapeR/D");
@@ -1349,14 +1361,14 @@ void makeVaribles_forBDT::InitializeBranches()
     btagShape_weight_hf_down = 1.0;
     btagShape_weight_lf_up = 1.0;
     btagShape_weight_lf_down = 1.0;
-    btagShape_weight_hfstas1_up = 1.0;
-    btagShape_weight_hfstas1_down = 1.0;
-    btagShape_weight_hfstas2_up = 1.0;
-    btagShape_weight_hfstas2_down = 1.0;
-    btagShape_weight_lfstas1_up = 1.0;
-    btagShape_weight_lfstas1_down = 1.0;
-    btagShape_weight_lfstas2_up = 1.0;
-    btagShape_weight_lfstas2_down = 1.0;
+    btagShape_weight_hfstats1_up = 1.0;
+    btagShape_weight_hfstats1_down = 1.0;
+    btagShape_weight_hfstats2_up = 1.0;
+    btagShape_weight_hfstats2_down = 1.0;
+    btagShape_weight_lfstats1_up = 1.0;
+    btagShape_weight_lfstats1_down = 1.0;
+    btagShape_weight_lfstats2_up = 1.0;
+    btagShape_weight_lfstats2_down = 1.0;
     btagShape_weight_cferr1_up = 1.0;
     btagShape_weight_cferr1_down = 1.0;
 

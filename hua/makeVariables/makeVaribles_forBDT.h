@@ -141,14 +141,14 @@ public:
     Double_t btagShape_weight_hf_down = 1.0;
     Double_t btagShape_weight_lf_up = 1.0;
     Double_t btagShape_weight_lf_down = 1.0;
-    Double_t btagShape_weight_hfstas1_up = 1.0;
-    Double_t btagShape_weight_hfstas1_down = 1.0;
-    Double_t btagShape_weight_hfstas2_up = 1.0;
-    Double_t btagShape_weight_hfstas2_down = 1.0;
-    Double_t btagShape_weight_lfstas1_up = 1.0;
-    Double_t btagShape_weight_lfstas1_down = 1.0;
-    Double_t btagShape_weight_lfstas2_up = 1.0;
-    Double_t btagShape_weight_lfstas2_down = 1.0;
+    Double_t btagShape_weight_hfstats1_up = 1.0;
+    Double_t btagShape_weight_hfstats1_down = 1.0;
+    Double_t btagShape_weight_hfstats2_up = 1.0;
+    Double_t btagShape_weight_hfstats2_down = 1.0;
+    Double_t btagShape_weight_lfstats1_up = 1.0;
+    Double_t btagShape_weight_lfstats1_down = 1.0;
+    Double_t btagShape_weight_lfstats2_up = 1.0;
+    Double_t btagShape_weight_lfstats2_down = 1.0;
     Double_t btagShape_weight_cferr1_up = 1.0;
     Double_t btagShape_weight_cferr1_down = 1.0;
 
