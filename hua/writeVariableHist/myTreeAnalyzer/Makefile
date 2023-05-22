@@ -2,12 +2,7 @@
 
 PROGRAM = run_treeAnalyzer
 
-
-HDRS = treeAnalyzer.h histsForRegionsMap_class.h functions.h\
-		# ../src_cpp/usefulFuction.h\
- 
-OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o run_treeAnalyzer.o  functions.o\
-		# ../src_cpp/usefulFuction.o\
+OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o functions.o\
 
 #-----------------------------------------------------------------------------
 ObjSuf = o
@@ -48,19 +43,21 @@ GLIBS = $(ROOTGLIBS)
 
 
 
-# $(PROGRAM).out: $(OBJS) $(PROGRAM).C
-# $(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
-# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o $(LIBS) -o$(PROGRAM).out
-$(PROGRAM).out: $(OBJS) 
+$(PROGRAM).out: $(OBJS) $(PROGRAM).o
 	@echo "building $(PROGRAM)......"
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS)  $(LIBS) -o$(PROGRAM).out
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
 	@echo "done building $(PROGRAM)"
 
-#
-# %/%.o: %.C $(HDRS)
-%/%.o: %.C %.h
-	$(CXX) -c $(CXXFLAGS) $*.C
+#% Wildcard
+# %/%.o: %.C %.h
+# 	$(CXX) -c $(CXXFLAGS) $*.C
 
+#static pattern rule 
+$(OBJS): %.o: %.C %.h
+	$(CXX) -c $(CXXFLAGS) -o $@ $^ 
+
+$(PROGRAM).o: $(PROGRAM).C
+	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
 
 
 clean:
