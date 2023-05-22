@@ -28,8 +28,8 @@ import usefulFunc as uf
 # inVersion = 'v55ojectRemovalwithTightNoHLT'
 # inVersion = 'v56NoHLTButPre'
 # inVersion = 'v56preselection'
-inVersion = 'v57ovelapWithTausF'
-# inVersion = 'v58addGenBranches'
+# inVersion = 'v57ovelapWithTausF'
+inVersion = 'v58addGenBranches'
 
 # outVersion = 'v0noBaseline'
 # outVersion = 'v0baseline'
