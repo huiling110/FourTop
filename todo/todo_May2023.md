@@ -33,16 +33,17 @@
 
 
 ## BDT
-- [ ] BDT training, veto training data?
 - [ ] Hyper parameter optimization
+- [x] BDT training, veto training data?
 
 ## Systematic study
 
 ## Results
-- [ ] Investigate the effect of moving bscore but use both medium b jets and tight b jet
-- [ ] Investigate the effect of HT of bjets
+- [ ] **Investigate the effect of moving bscore but use both medium b jets and tight b jet**
+- [ ] **Investigate the effect of HT of bjets**
 - [ ] Other channels
 - [ ] Further divide 1tau1l into SS and OS 
+- [ ] **E/mu spliting**
 - [ ] SR in to b jets bins
 - [ ] Check significance of 1tau3l, 2tau0l and 2tau1l channels
 
