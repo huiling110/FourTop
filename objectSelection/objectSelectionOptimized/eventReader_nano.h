@@ -28,11 +28,17 @@ public:
     // TTreeReaderValue<UInt_t> *nElectron;
     TTreeReaderValue<UInt_t> nElectron;
     //???can TTreeReaderValue<> be decalred but not initialized?
-    // TTreeReaderArray<Float_t> Electron_dxy;
-    /*
-    std::vector<Float_t> Electron_dxyErr = {m_reader, "Electron_dxyErr"};
-    std::vector<Float_t> Electron_dz = {m_reader, "Electron_dz"};
-    */
+    TTreeReaderArray<Float_t> Electron_dxy;
+
+    TTreeReaderArray<Float_t> Moun_pt;
+    TTreeReaderArray<Float_t> Moun_eta;
+    TTreeReaderArray<Float_t> Moun_dz;
+    TTreeReaderArray<Float_t> Moun_dxy;
+    TTreeReaderArray<Float_t> Moun_looseId;
+    TTreeReaderArray<Float_t> Moun_miniIsoId;
+    TTreeReaderArray<Float_t> Moun_mediumId;
+    TTreeReaderArray<Float_t> Moun_ip3d;
+    TTreeReaderArray<Float_t> Moun_tightCharge;
 };
 
 #endif
