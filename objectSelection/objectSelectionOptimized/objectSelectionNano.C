@@ -23,8 +23,8 @@ void objectSelection::EventLoop()
             // Increment the entry count
             entryCount++;
         }
-        std::cout << "end of event loop...................................................\n";
     };
+    std::cout << "end of event loop...................................................\n";
 };
 void objectSelection::Terminate(){
 

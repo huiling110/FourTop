@@ -22,8 +22,7 @@ public:
         // delete m_reader;
     };
 
-    // public:
-    TTreeReader m_reader;
+    // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
     // TTreeReaderValue<UInt_t> *nElectron;
@@ -34,8 +33,6 @@ public:
     std::vector<Float_t> Electron_dxyErr = {m_reader, "Electron_dxyErr"};
     std::vector<Float_t> Electron_dz = {m_reader, "Electron_dz"};
     */
-    // private:
-    //     TTree *m_tree;
 };
 
 #endif
