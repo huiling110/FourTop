@@ -121,7 +121,7 @@ public:
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
     myBranch<Double_t> PUweight_up_{"PUweight_up_"};
-    myBranch<Double_t> HLT_weight_up{"HLT_weight_up"};
+    myBranch<Double_t> HLT_weight_stats_up{"HLT_weight_stats_up"};
     myBranch<Double_t> tauT_IDSF_weight_new_vsjet_up{"tauT_IDSF_weight_new_vsjet_up"};
     myBranch<Double_t> elesTopMVAT_weight_up{"elesTopMVAT_weight_up"};
     myBranch<Double_t> musTopMVAT_weight_up{"musTopMVAT_weight_up"};
@@ -138,7 +138,7 @@ public:
     myBranch<Double_t> btagShape_weight_cferr2_up{"btagShape_weight_cferr2_up"};
     myBranch<Double_t> EVENT_prefireWeight_down{"EVENT_prefireWeight_down"};
     myBranch<Double_t> PUweight_down_{"PUweight_down_"};
-    myBranch<Double_t> HLT_weight_down{"HLT_weight_down"};
+    myBranch<Double_t> HLT_weight_stats_down{"HLT_weight_stats_down"};
     myBranch<Double_t> tauT_IDSF_weight_new_vsjet_down{"tauT_IDSF_weight_new_vsjet_down"};
     myBranch<Double_t> elesTopMVAT_weight_down{"elesTopMVAT_weight_down"};
     myBranch<Double_t> musTopMVAT_weight_down{"musTopMVAT_weight_down"};
@@ -190,17 +190,39 @@ private:
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
-        {HLT_weight_up.n(), &HLT_weight_up},
+        {HLT_weight_stats_up.n(), &HLT_weight_stats_up},
         {tauT_IDSF_weight_new_vsjet_up.n(), &tauT_IDSF_weight_new_vsjet_up},
         {elesTopMVAT_weight_up.n(), &elesTopMVAT_weight_up},
         {musTopMVAT_weight_up.n(), &musTopMVAT_weight_up},
+        {tauT_IDSF_weight_new_vsmu_up.n(), &tauT_IDSF_weight_new_vsmu_up},
+        {tauT_IDSF_weight_new_vsele_up.n(), &tauT_IDSF_weight_new_vsele_up},
+        {btagShape_weight_jes_up.n(), &btagShape_weight_jes_up},
+        {btagShape_weight_hf_up.n(), &btagShape_weight_hf_up},
+        {btagShape_weight_lf_up.n(), &btagShape_weight_lf_up},
+        {btagShape_weight_hfstats1_up.n(), &btagShape_weight_hfstats1_up},
+        {btagShape_weight_hfstats2_up.n(), &btagShape_weight_hfstats2_up},
+        {btagShape_weight_lfstats1_up.n(), &btagShape_weight_lfstats1_up},
+        {btagShape_weight_lfstats2_up.n(), &btagShape_weight_lfstats2_up},
+        {btagShape_weight_cferr1_up.n(), &btagShape_weight_cferr1_up},
+        {btagShape_weight_cferr2_up.n(), &btagShape_weight_cferr2_up},
+
         {EVENT_prefireWeight_down.n(), &EVENT_prefireWeight_down},
         {PUweight_down_.n(), &PUweight_down_},
-        {HLT_weight_down.n(), &HLT_weight_down},
+        {HLT_weight_stats_down.n(), &HLT_weight_stats_down},
         {tauT_IDSF_weight_new_vsjet_down.n(), &tauT_IDSF_weight_new_vsjet_down},
         {elesTopMVAT_weight_down.n(), &elesTopMVAT_weight_down},
         {musTopMVAT_weight_down.n(), &musTopMVAT_weight_down},
-
+        {tauT_IDSF_weight_new_vsmu_down.n(), &tauT_IDSF_weight_new_vsmu_down},
+        {tauT_IDSF_weight_new_vsele_down.n(), &tauT_IDSF_weight_new_vsele_down},
+        {btagShape_weight_jes_down.n(), &btagShape_weight_jes_down},
+        {btagShape_weight_hf_down.n(), &btagShape_weight_hf_down},
+        {btagShape_weight_lf_down.n(), &btagShape_weight_lf_down},
+        {btagShape_weight_hfstats1_down.n(), &btagShape_weight_hfstats1_down},
+        {btagShape_weight_hfstats2_down.n(), &btagShape_weight_hfstats2_down},
+        {btagShape_weight_lfstats1_down.n(), &btagShape_weight_lfstats1_down},
+        {btagShape_weight_lfstats2_down.n(), &btagShape_weight_lfstats2_down},
+        {btagShape_weight_cferr1_down.n(), &btagShape_weight_cferr1_down},
+        {btagShape_weight_cferr2_down.n(), &btagShape_weight_cferr2_down},
     };
 };
 #endif

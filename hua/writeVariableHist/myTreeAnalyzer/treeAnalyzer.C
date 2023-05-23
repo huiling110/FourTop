@@ -48,8 +48,26 @@ void treeAnalyzer::Init()
         "CMS_tttt_eff_e_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_m_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
         "CMS_tttt_eff_m_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
-        "CMS_btag_shape_" + m_era + "Up",
-        "CMS_btag_shape_" + m_era + "Down",
+        "CMS_btag_shape_jes" + m_era + "Up",
+        "CMS_btag_shape_jes" + m_era + "Down",
+        "CMS_btag_shape_hf" + m_era + "Up",
+        "CMS_btag_shape_hf" + m_era + "Down",
+        "CMS_btag_shape_lf" + m_era + "Up",
+        "CMS_btag_shape_lf" + m_era + "Down",
+        "CMS_btag_shape_hfstats1" + m_era + "Up",
+        "CMS_btag_shape_hfstats1" + m_era + "Down",
+        "CMS_btag_shape_hfstats2" + m_era + "Up",
+        "CMS_btag_shape_hfstats2" + m_era + "Down",
+        "CMS_btag_shape_lfstats1" + m_era + "Up",
+        "CMS_btag_shape_lfstats1" + m_era + "Down",
+        "CMS_btag_shape_lfstats2" + m_era + "Up",
+        "CMS_btag_shape_lfstats2" + m_era + "Down",
+        "CMS_btag_shape_cferr1" + m_era + "Up",
+        "CMS_btag_shape_cferr1" + m_era + "Down",
+        "CMS_btag_shape_cferr2" + m_era + "Up",
+        "CMS_btag_shape_cferr2" + m_era + "Down",
+        "CMS_tttt_eff_hlt_stats" + m_era + "Up",
+        "CMS_tttt_eff_hlt_stats" + m_era + "Down",
     };
     // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
     SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
@@ -120,10 +138,35 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsEle" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_t_vsEle" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_down.v(), SR1tau1l, m_isData);
+        //
+
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_jes" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_jes" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hf" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hf" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lf" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lf" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
+
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
