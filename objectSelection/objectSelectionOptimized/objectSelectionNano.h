@@ -6,8 +6,10 @@
 #include "TTree.h"
 #include "TTreeReader.h"
 #include "TTreeReaderArray.h"
+#include <TTreeReaderValue.h>
 
-#include "eventReader_nano.C"
+// #include "eventReader_nano.C"
+#include "eventReader_nano.h" //use ttreeReader to construct event
 
 class objectSelection
 {
@@ -20,7 +22,10 @@ public:
         {
             std::cout << "input file: " << m_input->GetName() << "\n";
             m_tree = (TTree *)m_input->Get("Events");
-            e = new eventForNano{m_tree};
+            // e = new eventForNano{m_tree};
+            // m_reader = TTreeReader(m_tree);
+            m_reader.SetTree(m_tree);
+            e = new eventForNano(m_reader);
         }
         else
         {
@@ -39,7 +44,7 @@ public:
 private:
     TFile *m_input;
     TTree *m_tree;
-    // TTreeReader m_reader;
+    TTreeReader m_reader;
     eventForNano *e;
     TFile *m_output;
 };

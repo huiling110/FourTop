@@ -6,23 +6,26 @@ void objectSelection::EventLoop()
     // ULong_t numEntries = 1000;
     ULong_t numEntries = 10;
     std::cout << "start event loop for " << numEntries << " ................................\n";
-    std::cout << m_tree->GetBranch("Electron_dxy")->GetClassName() << "\n";
-    for (UInt_t i = 0; i < numEntries; i++)
+    // std::cout << m_tree->GetBranch("Electron_dxy")->GetClassName() << "\n";
+    while (m_reader.Next() && entryCount < numEntries)
     {
-        m_tree->GetEntry(i);
-        std::cout << e->nElectron << "\n";
-        // for (UInt_t j = 0; e->Electron_dxy->size(); j++)
-        for (UInt_t j = 0; sizeof(e->Electron_dxy); j++)
+        // for (UInt_t i = 0; i < numEntries; i++)
         {
-            std::cout << "dxy: " << e->Electron_dxy[j] << " ";
-        };
-        // muonSelection.select(e, m_outTree);
-        // Increment the entry count
-        entryCount++;
-    }
-    std::cout << "end of event loop...................................................\n";
+            // m_tree->GetEntry(i);
+            // std::cout << *(*(e->nElectron)) << "\n";
+            std::cout << *e->nElectron << "\n";
+            // for (UInt_t j = 0; e->Electron_dxy->size(); j++)
+            // for (UInt_t j = 0; sizeof(e->Electron_dxy); j++)
+            // {
+            //     std::cout << "dxy: " << e->Electron_dxy[j] << " ";
+            // };
+            // muonSelection.select(e, m_outTree);
+            // Increment the entry count
+            entryCount++;
+        }
+        std::cout << "end of event loop...................................................\n";
+    };
 };
-
 void objectSelection::Terminate(){
 
 };
