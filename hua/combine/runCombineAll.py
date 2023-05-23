@@ -10,12 +10,6 @@ sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/h
 
 
 def main():
-    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/combination1/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v41addVertexSelection/mc/combination/combination2/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v42fixedChargeType/mc/variableHists_v0forVariables1tau0l/1tau0l_templatesForCombine/datacard/sumDC_10/'
-    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/combinationRun2_1tau0l/'
-    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/comRun2_1tau1l/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/combination/Run2_2channels/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v6Cut1tau1lVariableFixed_v42fixedChargeType/1tau1l_v0/AppResults_2016_30bins/datacard/sumDC_10/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v8Cut1tau1l_v42fixedChargeType/1tau1l_v0/AppResults_2017_15bins/datacard/sumDC_10/'
@@ -33,14 +27,15 @@ def main():
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_noSys/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_sys/'
     # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_previousBugVer/'
-    cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_pre30bins/'
+    # cardDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/combine/datacards/1tau1l2017_pre30bins/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/combine/datacard/'
     
     
 
     cardToWorkspaces( cardDir )
 #
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
 # #
     # copyCombineResultsToDir( cardDir )
     
@@ -98,10 +93,10 @@ def runCombineSig( cardDir, isLimit ):
 
 
 def cardToWorkspaces( cardDir):
+    print('start to turn datacard into workspace.........................\n')
     for en in os.listdir( cardDir ):
         if not '.txt' in en: continue
         idatacard = en
-            #  idatacard = 'TMVApp_1tau1l_11var_datacard.txt'
         idatacard = cardDir +  idatacard
         if os.path.isfile( idatacard ):
             print( 'idatacard: ', idatacard )
@@ -120,7 +115,7 @@ def cardToWorkspaces( cardDir):
             output = iprocess.communicate()[0]
             # output = iprocess.communicate()
             print( output)
-    print( 'workpace transformation done!' )
+    print( 'workpace transformation done!...............................\n' )
     print('\n')
     print('\n')
 

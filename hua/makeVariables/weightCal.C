@@ -234,15 +234,15 @@ Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D
     {
         if (bjets_num == 1)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist1b);
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist1b, sys);
         }
         else if (bjets_num == 2)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist2b);
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist2b, sys);
         }
         else if (bjets_num > 2 and bjets_num < 8)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist3b);
+            weight = get2DSF(jets_HT, jets_6pt, triggerHist3b, sys);
         }
     }
     return weight;
