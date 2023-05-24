@@ -2,6 +2,8 @@ import os
 import subprocess
 import sys
 
+import usefulFunc as uf
+
 sys.path.insert(1, '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/autoTraining_correlation/')
 # import plotCombineResults as plot
 
@@ -32,9 +34,9 @@ def main():
     
     
 
-    cardToWorkspaces( cardDir )
+    # cardToWorkspaces( cardDir )
 #
-    # runCombineSig( cardDir, True )
+    runCombineSig( cardDir, True )
     # runCombineSig( cardDir, False )
 # #
     # copyCombineResultsToDir( cardDir )
@@ -75,13 +77,16 @@ def copyCombineResultsToDir( cardDir ):
 
 def runCombineSig( cardDir, isLimit ):
     workspaceDir =  cardDir + 'workspace/'
+    resultDir = workspaceDir+'results/'
+    uf.checkMakeDir(resultDir)
     for ifile in os.listdir( workspaceDir ):
         if ifile.find( 'root')>0:
-            iname = ifile[:-15]
+            iname = '_'+ ifile.split('.root')[0]
             irootF = workspaceDir + ifile
             print("iname: ", iname)
             if isLimit:
                 significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
+                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name} -n {outDir}'.format( rootFile=irootF, name=iname, outDir=resultDir )
             else:
                 significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
             print( significanceCommand )
