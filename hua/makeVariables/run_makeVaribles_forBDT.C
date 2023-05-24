@@ -31,8 +31,8 @@ void run_makeVaribles_forBDT(
     // const TString eventSelectionBit = "0",
     const TString eventSelectionBit = "6",
     // const TString eventSelectionBit = "4",
-    Bool_t ifOneSample = kFALSE,
-    // Bool_t ifOneSample = kTRUE,
+    // Bool_t ifOneSample = kFALSE,
+    Bool_t ifOneSample = kTRUE,
     TString singleSampleName = "outTree_5"
     // 1 for MetFilters, 2 for HLTSelection, 4 for baseline. so 7 if all selection; 0 if no selection
 )
