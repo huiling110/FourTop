@@ -10,6 +10,7 @@
 
 // #include "eventReader_nano.C"
 #include "eventReader_nano.h" //use ttreeReader to construct event
+#include "muonSelector.h"
 
 class objectSelection
 {
@@ -33,7 +34,7 @@ public:
             TString outName = outputDir + singleFileName;
             m_output = new TFile(outName, "RECREATE");
             m_outTree->SetDirectory(m_output);
-        }
+                }
         else
         {
             std::cout << "BAD!!! file not correctly open\n";
@@ -55,6 +56,7 @@ private:
     eventForNano *e;
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
+    osBase muonSelection(m_outTree);
 };
 
 #endif

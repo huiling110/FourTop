@@ -15,7 +15,7 @@ void objectSelection::EventLoop()
         // {
         //     std::cout << "dxy: " << e->Electron_dxy[j] << " ";
         // };
-        muonSelection.select(e, m_outTree);
+        muonSelection.select(e);
         // Increment the entry count
         entryCount++;
     };
