@@ -14,10 +14,12 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputFile, TString outputDir)
+    // objectSelection(TString inputFile, TString outputDir)
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir)
     {
         std::cout << "initialize objectSelection class\n";
-        m_input = new TFile(inputFile, "READ");
+        // m_input = new TFile(inputFile, "READ");
+        m_input = new TFile(inputDir + singleFileName, "READ");
         if (!m_input->IsZombie())
         {
             std::cout << "input file: " << m_input->GetName() << "\n";
@@ -26,6 +28,11 @@ public:
             // m_reader = TTreeReader(m_tree);
             m_reader.SetTree(m_tree);
             e = new eventForNano(m_reader);
+
+            // set up output
+            TString outName = outputDir + singleFileName;
+            m_output = new TFile(outName, "RECREATE");
+            m_outTree->SetDirectory(m_output);
         }
         else
         {
@@ -47,6 +54,7 @@ private:
     TTreeReader m_reader;
     eventForNano *e;
     TFile *m_output;
+    TTree *m_outTree = new TTree("tree", "tree after object selection");
 };
 
 #endif

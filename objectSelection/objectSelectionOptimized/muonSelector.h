@@ -1,7 +1,7 @@
 #ifndef MUONSELECTOR_H
 #def MUONSELECTOR_H
 
-#include "eventReader_nano.C"
+#include "eventReader_nano.h"
 
 class osBase
 {
@@ -18,7 +18,7 @@ public:
     init(){
 
     };
-    Select()
+    void Select()
     {
         for (UInt_t j = 0; j < e->Muon_pt.GetSize(); ++j)
         {
@@ -28,8 +28,8 @@ public:
         m_outTree->Fill();
     };
 
-private:
-    TTree *m_outTree;
+    // private:
+    //     TTree *m_outTree;
 };
 
 #endif

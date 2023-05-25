@@ -21,8 +21,13 @@ void objectSelection::EventLoop()
     };
     std::cout << "end of event loop...................................................\n";
 };
-void objectSelection::Terminate(){
 
+void objectSelection::Terminate()
+{
+    std::cout << "Terminate phase.......................................................\n";
+    m_output->Write();
+    std::cout << "outFile here: " << m_output->GetName() << "\n";
+    m_output->Close();
 };
 
 objectSelection::~objectSelection(){
