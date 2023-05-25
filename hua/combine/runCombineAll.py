@@ -36,12 +36,12 @@ def main():
 
     # cardToWorkspaces( cardDir )
 #
-    runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, True )
     # runCombineSig( cardDir, False )
 # #
     # copyCombineResultsToDir( cardDir )
     
-    # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'workspace/')
+    runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'workspace/')
 
     # plot.main( cardDir+ 'combineResults/')
     
@@ -86,7 +86,7 @@ def runCombineSig( cardDir, isLimit ):
             print("iname: ", iname)
             if isLimit:
                 significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
-                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name} -n {outDir}'.format( rootFile=irootF, name=iname, outDir=resultDir )
+                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name} -S {outDir}'.format( rootFile=irootF, name=iname, outDir=resultDir )
             else:
                 significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
             print( significanceCommand )
