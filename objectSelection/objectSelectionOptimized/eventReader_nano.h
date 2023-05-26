@@ -8,7 +8,8 @@ public:
     // eventForNano(TTreeReader reader) : nElectron{reader, "nElectron"}
     // eventForNano(TTreeReader *reader)
     // eventForNano(TTreeReader reader) : m_reader{reader}
-    eventForNano(TTreeReader &reader) : nElectron(reader, "nElectron")
+    eventForNano(TTreeReader &reader) : nElectron(reader, "nElectron"),
+                                        Muon_pt(reader, "Muon_pt")
     {
     }
 
@@ -30,7 +31,7 @@ public:
     //???can TTreeReaderValue<> be decalred but not initialized?
     // TTreeReaderArray<Float_t> Electron_dxy;//must be initialized when definiing!
 
-    // TTreeReaderArray<Float_t> Moun_pt;
+    TTreeReaderArray<Float_t> Muon_pt;
     // TTreeReaderArray<Float_t> Moun_eta;
     // TTreeReaderArray<Float_t> Moun_dz;
     // TTreeReaderArray<Float_t> Moun_dxy;

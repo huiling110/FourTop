@@ -16,7 +16,7 @@ class objectSelection
 {
 public:
     // objectSelection(TString inputFile, TString outputDir)
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir)
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
     {
         std::cout << "initialize objectSelection class\n";
         // m_input = new TFile(inputFile, "READ");
@@ -34,7 +34,7 @@ public:
             TString outName = outputDir + singleFileName;
             m_output = new TFile(outName, "RECREATE");
             m_outTree->SetDirectory(m_output);
-                }
+        }
         else
         {
             std::cout << "BAD!!! file not correctly open\n";
@@ -56,7 +56,7 @@ private:
     eventForNano *e;
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
-    osBase muonSelection(m_outTree);
+    osBase muonSelection{m_outTree};
 };
 
 #endif

@@ -10,7 +10,10 @@ class osBase
 public:
     osBase(TTree *outTree) : m_outTree{outTree}
     {
-        m_outTree->Branch("Muon_pt", &Muon_pt);
+        m_outTree->Branch("Muon_pt_", &Muon_pt_);
+    };
+    ~osBase(){
+
     };
     // init(){
 
@@ -20,15 +23,15 @@ public:
         clearBranch();
         for (UInt_t j = 0; j < e->Muon_pt.GetSize(); ++j)
         {
-            if (!(Muon_pt.At(j) > 10))
+            if (!(e->Muon_pt.At(j) > 10))
                 continue;
-            Muon_pt_.push_back(Muon_pt);
+            Muon_pt_.push_back(e->Muon_pt.At(j));
         }
         m_outTree->Fill();
     };
     void clearBranch()
     {
-        Muon_pt.clear();
+        Muon_pt_.clear();
     }
     // void
 

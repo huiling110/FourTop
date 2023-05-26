@@ -9,15 +9,15 @@
 void run_objectSelection(
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     TString singleFileName = "outTree_0.root",
-    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/crossCheck_noOverlap/tttt/",
-    Bool_t istest = kTRUE 
-    )
+    TString outputDir = "./output/",
+    Bool_t istest = kTRUE)
 {
     TStopwatch t;
     t.Start();
 
-    objectSelection os(inputDir + singleFileName, outputDir);
+    objectSelection os(inputDir, singleFileName, outputDir, kTRUE);
     os.EventLoop();
+    os.Terminate();
 
     t.Stop();
     t.Print();
