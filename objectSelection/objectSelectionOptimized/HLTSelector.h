@@ -3,14 +3,14 @@
 
 #include "eventReader_nano.h"
 
-class osBase
+class HLTSelector
 {
 public:
-    osBase(TTree *outTree) : m_outTree{outTree}
+    HLTSelector(TTree *outTree) : m_outTree{outTree}
     {
         m_outTree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_);
     };
-    ~osBase(){
+    ~HLTSelector(){
 
     };
     // init(){
@@ -20,11 +20,15 @@ public:
     {
         clearBranch();
 
+        // if (!(e->HLT_PFHT450_SixJet40_BTagCSV_p056->IsValid()))
+        // {
+        // }
+
         m_outTree->Fill();
     };
     void clearBranch()
     {
-        HLT_PFHT450_SixJet40_BTagCSV_p056_.clear();
+        // HLT_PFHT450_SixJet40_BTagCSV_p056_.clear();
     }
     // void
 

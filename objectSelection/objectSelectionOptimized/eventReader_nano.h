@@ -17,11 +17,22 @@ public:
                                         Muon_miniIsoId(reader, "Muon_miniIsoId"),
                                         Muon_mediumId(reader, "Muon_mediumId"),
                                         Muon_ip3d(reader, "Muon_ip3d"),
-                                        Muon_tightCharge(reader, "Muon_tightCharge"),
+                                        Muon_tightCharge(reader, "Muon_tightCharge")
 
-                                        HLT_PFHT450_SixJet40_BTagCSV_p056(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056")
+    // HLT_PFHT450_SixJet40_BTagCSV_p056(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056")
     {
-    }
+        // dealing with case: HLT branch not existing in this nanofile;
+        // assing the reader branch 0 if the branch not existing
+        // it seems to reader can not run at all if assosiated with not existing branch
+        // if (!(HLT_PFHT450_SixJet40_BTagCSV_p056.IsValid()))
+        // {
+        //     std::cout << "branch not existing in input\n ";
+        // }
+        if (reader.GetTree()->FindBranch("HLT_PFHT450_SixJet40_BTagCSV_p056"))
+        {
+            HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
+        };
+    };
 
     // eventForNano(TTreeReader &reader)
     // {
@@ -29,8 +40,10 @@ public:
     //     //!!! the pointer initialization is okay but too lengthy to access
     // }
 
-    ~eventForNano(){
+    ~eventForNano()
+    {
         // delete m_reader;
+        delete HLT_PFHT450_SixJet40_BTagCSV_p056;
     };
 
     // TTreeReader m_reader;
@@ -55,7 +68,8 @@ public:
     // for some files the trigger not present, trigger branch not exsit
     // for some files cross the run range of trigger validity, trigger branch exsit but the subset invalid range is set to 0. need to further check this through
     // 2016 trigger
-    TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056;
+    // TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056;
+    TTreeReaderValue<Bool_t> *HLT_PFHT450_SixJet40_BTagCSV_p056 = nullptr;
 };
 
 #endif
