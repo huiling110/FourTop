@@ -8,7 +8,7 @@
 class osBase
 {
 public:
-    osBase(TTree *outTree)
+    osBase(TTree *outTree) : m_outTree{outTree}
     {
         m_outTree->Branch("Muon_pt", &Muon_pt);
     };
@@ -33,11 +33,12 @@ public:
     // void
 
 private:
+    TTree *m_outTree;
     // output branches
-    std::vector Muon_pt_;
-    std::vector Muon_eta_;
-    std::vector Muon_phi_;
-    std::vector Muon_mass_;
+    std::vector<Double_t> Muon_pt_;
+    std::vector<Double_t> Muon_eta_;
+    std::vector<Double_t> Muon_phi_;
+    std::vector<Double_t> Muon_mass_;
 };
 
 #endif
