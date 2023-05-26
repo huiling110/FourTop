@@ -8,15 +8,10 @@ void objectSelection::EventLoop()
     std::cout << "start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
-        // std::cout << *(*(e->nElectron)) << "\n";
-        std::cout << *e->nElectron << "\n";
-        // for (UInt_t j = 0; e->Electron_dxy->size(); j++)
-        // for (UInt_t j = 0; sizeof(e->Electron_dxy); j++)
-        // {
-        //     std::cout << "dxy: " << e->Electron_dxy[j] << " ";
-        // };
+        if (!(HLTselection.Select(e)))
+            continue; // contains event selection!!!
+
         muonSelection.Select(e);
-        // HLTselection.Select(e);
         // Increment the entry count
         entryCount++;
     };

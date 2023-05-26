@@ -20,7 +20,7 @@ public:
     // objectSelection(TString inputFile, TString outputDir)
     objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
     {
-        std::cout << "initialize objectSelection class\n";
+        std::cout << "initialize objectSelection class..................................\n";
         // m_input = new TFile(inputFile, "READ");
         m_input = new TFile(inputDir + singleFileName, "READ");
         if (!m_input->IsZombie())
@@ -41,7 +41,7 @@ public:
         {
             std::cout << "BAD!!! file not correctly open\n";
         }
-        std::cout << "done initializing objectSelection class\n";
+        std::cout << "done initializing objectSelection class................................\n";
     };
     ~objectSelection();
     // osBase muonSelection(e, m_outTree);
@@ -59,7 +59,7 @@ private:
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
     osBase muonSelection{m_outTree};
-    // HLTSelector HLTselection{m_outTree};
+    HLTSelector HLTselection{m_outTree};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

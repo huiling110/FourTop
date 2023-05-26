@@ -29,7 +29,16 @@ public:
         //     std::cout << "branch not existing in input\n ";
         // }
         readPointer(HLT_PFHT450_SixJet40_BTagCSV_p056, reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
-    }
+        readPointer(HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, reader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056");
+        readPointer(HLT_PFJet450, reader, "HLT_PFJet450");
+
+        readPointer(HLT_PFJet500, reader, "HLT_PFJet500");
+        readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94");
+        readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59");
+        readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2");
+        readPointer(HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5, reader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5");
+        readPointer(HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5, reader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5");
+    };
 
     // eventForNano(TTreeReader &reader)
     // {
@@ -51,15 +60,16 @@ public:
         {
             // HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
             branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
+        }
+        else
+        {
+            std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
         };
     }
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
-    // TTreeReaderValue<UInt_t> *nElectron;
     TTreeReaderValue<UInt_t> nElectron;
-    //???can TTreeReaderValue<> be decalred but not initialized?
-    // TTreeReaderArray<Float_t> Electron_dxy;//must be initialized when definiing!
 
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
@@ -77,6 +87,19 @@ public:
     // 2016 trigger
     // TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056;
     TTreeReaderValue<Bool_t> *HLT_PFHT450_SixJet40_BTagCSV_p056 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFJet450 = nullptr;
+    // TTreeReaderValue<Bool_t> * = nullptr;
+    // 2018
+    TTreeReaderValue<Bool_t> *HLT_PFJet500 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = nullptr;
+    // TRIGGERS FOR 2018 data A
+    TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = nullptr;
+    // 2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
+    TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = nullptr;
 };
 
 #endif
