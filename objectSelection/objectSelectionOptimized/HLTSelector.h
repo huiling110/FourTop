@@ -20,9 +20,7 @@ public:
     {
         clearBranch();
 
-        // if (!(e->HLT_PFHT450_SixJet40_BTagCSV_p056->IsValid()))
-        // {
-        // }
+        // the HLT branch pointer null pointer is not exist in a file
 
         m_outTree->Fill();
     };

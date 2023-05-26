@@ -28,16 +28,14 @@ public:
         // {
         //     std::cout << "branch not existing in input\n ";
         // }
-        if (reader.GetTree()->FindBranch("HLT_PFHT450_SixJet40_BTagCSV_p056"))
-        {
-            HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
-        };
-    };
+        readPointer(HLT_PFHT450_SixJet40_BTagCSV_p056, reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
+    }
 
     // eventForNano(TTreeReader &reader)
     // {
     //     nElectron = new TTreeReaderValue<UInt_t>(reader, "nElectron");
     //     //!!! the pointer initialization is okay but too lengthy to access
+
     // }
 
     ~eventForNano()
@@ -46,6 +44,15 @@ public:
         delete HLT_PFHT450_SixJet40_BTagCSV_p056;
     };
 
+    void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    {
+        // if (reader.GetTree()->FindBranch("HLT_PFHT450_SixJet40_BTagCSV_p056"))
+        if (reader.GetTree()->FindBranch(branchName))
+        {
+            // HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
+            branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
+        };
+    }
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
