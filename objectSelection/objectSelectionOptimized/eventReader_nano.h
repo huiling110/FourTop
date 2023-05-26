@@ -9,7 +9,15 @@ public:
     // eventForNano(TTreeReader *reader)
     // eventForNano(TTreeReader reader) : m_reader{reader}
     eventForNano(TTreeReader &reader) : nElectron(reader, "nElectron"),
-                                        Muon_pt(reader, "Muon_pt")
+                                        Muon_pt(reader, "Muon_pt"),
+                                        Muon_eta(reader, "Muon_eta"),
+                                        Muon_dz(reader, "Muon_dz"),
+                                        Muon_dxy(reader, "Muon_dxy"),
+                                        Muon_looseId(reader, "Muon_looseId"),
+                                        Muon_miniIsoId(reader, "Muon_miniIsoId"),
+                                        Muon_mediumId(reader, "Muon_mediumId"),
+                                        Muon_ip3d(reader, "Muon_ip3d"),
+                                        Muon_tightCharge(reader, "Muon_tightCharge")
     {
     }
 
@@ -32,14 +40,14 @@ public:
     // TTreeReaderArray<Float_t> Electron_dxy;//must be initialized when definiing!
 
     TTreeReaderArray<Float_t> Muon_pt;
-    // TTreeReaderArray<Float_t> Moun_eta;
-    // TTreeReaderArray<Float_t> Moun_dz;
-    // TTreeReaderArray<Float_t> Moun_dxy;
-    // TTreeReaderArray<Float_t> Moun_looseId;
-    // TTreeReaderArray<Float_t> Moun_miniIsoId;
-    // TTreeReaderArray<Float_t> Moun_mediumId;
-    // TTreeReaderArray<Float_t> Moun_ip3d;
-    // TTreeReaderArray<Float_t> Moun_tightCharge;
+    TTreeReaderArray<Float_t> Muon_eta;
+    TTreeReaderArray<Float_t> Muon_dz;
+    TTreeReaderArray<Float_t> Muon_dxy;
+    TTreeReaderArray<Bool_t> Muon_looseId;
+    TTreeReaderArray<UChar_t> Muon_miniIsoId;
+    TTreeReaderArray<Bool_t> Muon_mediumId;
+    TTreeReaderArray<Float_t> Muon_ip3d;
+    TTreeReaderArray<Bool_t> Muon_tightCharge;
 };
 
 #endif
