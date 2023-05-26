@@ -17,7 +17,9 @@ public:
                                         Muon_miniIsoId(reader, "Muon_miniIsoId"),
                                         Muon_mediumId(reader, "Muon_mediumId"),
                                         Muon_ip3d(reader, "Muon_ip3d"),
-                                        Muon_tightCharge(reader, "Muon_tightCharge")
+                                        Muon_tightCharge(reader, "Muon_tightCharge"),
+
+                                        HLT_PFHT450_SixJet40_BTagCSV_p056(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056")
     {
     }
 
@@ -47,7 +49,13 @@ public:
     TTreeReaderArray<UChar_t> Muon_miniIsoId;
     TTreeReaderArray<Bool_t> Muon_mediumId;
     TTreeReaderArray<Float_t> Muon_ip3d;
-    TTreeReaderArray<Bool_t> Muon_tightCharge;
+    TTreeReaderArray<Int_t> Muon_tightCharge;
+
+    // HLT reading: tricky!!!
+    // for some files the trigger not present, trigger branch not exsit
+    // for some files cross the run range of trigger validity, trigger branch exsit but the subset invalid range is set to 0. need to further check this through
+    // 2016 trigger
+    TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056;
 };
 
 #endif
