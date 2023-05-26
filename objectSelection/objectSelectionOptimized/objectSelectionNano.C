@@ -8,11 +8,12 @@ void objectSelection::EventLoop()
     std::cout << "start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
-        if (!(HLTselection.Select(e)))
-            continue; // contains event selection!!!
+        // if (!(HLTselection.Select(e)))
+        // continue; // contains event selection!!!
 
         muonSelection.Select(e);
         // Increment the entry count
+        m_outTree->Fill();
         entryCount++;
     };
     std::cout << "end of event loop...................................................\n";

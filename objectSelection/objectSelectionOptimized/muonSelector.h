@@ -10,7 +10,9 @@ class osBase
 public:
     osBase(TTree *outTree) : m_outTree{outTree}
     {
+        std::cout << "Initializing muonSelector\n";
         m_outTree->Branch("Muon_pt_", &Muon_pt_);
+        std::cout << "muonSelector initialization done\n";
     };
     ~osBase(){
 
@@ -66,7 +68,7 @@ public:
 
             Muon_pt_.push_back(e->Muon_pt.At(j));
         }
-        m_outTree->Fill();
+        // m_outTree->Fill();
     };
     void clearBranch()
     {

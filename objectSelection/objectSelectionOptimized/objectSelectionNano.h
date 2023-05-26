@@ -59,7 +59,7 @@ private:
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
     osBase muonSelection{m_outTree};
-    HLTSelector HLTselection{m_outTree};
+    // HLTSelector HLTselection{m_outTree};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
