@@ -8,7 +8,7 @@ void objectSelection::EventLoop()
     std::cout << "start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
-        if (!(HLTselection.Select(e, m_era, m_isData)))
+        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
             continue; // contains event selection!!!
 
         muonSelection.Select(e);
