@@ -1,6 +1,10 @@
 #ifndef EVENTREADER_NANO_H
 #define EVENTREADER_NANO_H
 
+#include <TTreeReader.h>
+#include <TTreeReaderArray.h>
+#include <TTreeReaderValue.h>
+
 // #include <vector>
 class eventForNano
 {
