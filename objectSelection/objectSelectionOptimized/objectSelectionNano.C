@@ -10,12 +10,11 @@ void objectSelection::EventLoop()
     {
         entryCount++;
         h_forEY_initial->Fill(0);
-        Bool_t ifHLT = HLTselection.Select(e, m_era, m_isData, kTRUE);
-        // if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
-        if( !ifHLT ){
+
+        //HLT selection and HLT branch filling
+        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE))){
             continue; // contains event selection!!!
         }
-
         h_forEY_HLT->Fill(0);
 
         muonSelection.Select(e);
