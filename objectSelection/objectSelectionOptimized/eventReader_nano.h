@@ -17,7 +17,8 @@ public:
                                         Muon_miniIsoId(reader, "Muon_miniIsoId"),
                                         Muon_mediumId(reader, "Muon_mediumId"),
                                         Muon_ip3d(reader, "Muon_ip3d"),
-                                        Muon_tightCharge(reader, "Muon_tightCharge")
+                                        Muon_tightCharge(reader, "Muon_tightCharge"),
+                                        run(reader, "run")
 
     // HLT_PFHT450_SixJet40_BTagCSV_p056(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056")
     {
@@ -38,6 +39,10 @@ public:
         readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2");
         readPointer(HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5, reader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5");
         readPointer(HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5, reader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5");
+        // 2017
+        readPointer(HLT_PFHT430_SixJet40_BTagCSV_p080, reader, "HLT_PFHT430_SixJet40_BTagCSV_p080");
+        readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
+        readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -81,6 +86,7 @@ public:
     TTreeReaderArray<Float_t> Muon_ip3d;
     TTreeReaderArray<Int_t> Muon_tightCharge;
 
+    TTreeReaderValue<UInt_t> run;
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit
     // for some files cross the run range of trigger validity, trigger branch exsit but the subset invalid range is set to 0. need to further check this through
@@ -100,6 +106,14 @@ public:
     // 2018 for only some small slices of 2018 A (CSV b tag instead of DeepCSV btag)
     TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
     // TTreeReaderValue<Bool_t> *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = nullptr;
+    // 2017
+    TTreeReaderValue<Bool_t> *HLT_PFHT430_SixJet40_BTagCSV_p080 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = nullptr; // run<299329
+    // TTreeReaderValue<Bool_t> *HLT_PFJet500 = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
+    // TTreeReaderValue<Bool_t> * = nullptr;
+    // TTreeReaderValue<Bool_t> * = nullptr;
 };
 
 #endif

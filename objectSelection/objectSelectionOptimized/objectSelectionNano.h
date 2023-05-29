@@ -13,6 +13,7 @@
 #include "eventReader_nano.h" //use ttreeReader to construct event
 #include "muonSelector.h"
 #include "HLTSelector.h"
+#include "usefulFunc.h"
 
 class objectSelection
 {
@@ -36,6 +37,11 @@ public:
             TString outName = outputDir + singleFileName;
             m_output = new TFile(outName, "RECREATE");
             m_outTree->SetDirectory(m_output);
+
+            // set up
+            m_isData = getIsData(inputDir);
+            m_era = getEra(inputDir);
+            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "\n";
         }
         else
         {
@@ -58,8 +64,10 @@ private:
     eventForNano *e;
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
+    TString m_era;
+    Bool_t m_isData;
     osBase muonSelection{m_outTree};
-    // HLTSelector HLTselection{m_outTree};
+    HLTSelector HLTselection{m_outTree};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
