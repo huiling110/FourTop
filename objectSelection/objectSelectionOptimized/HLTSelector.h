@@ -28,7 +28,8 @@ public:
     // init(){
 
     // };
-    Bool_t Select(const eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE)
+    Bool_t Select(eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE)
+    // Bool_t Select(const eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE)
     {
         clearBranch();
         Bool_t ifPass = kFALSE;
@@ -46,10 +47,12 @@ public:
             }
             else
             {
-                if (*e->run >= 297050 && *e->run <= 306460)
+                if ((*e->run) >= 297050 && (*e->run) <= 306460)
+                // if (e->run->Get() >= 297050 && e->run->Get() <= 306460)
                 {
                     // 2017 data
                     if (*e->run < 299329)
+                    // if (e->run->Get() < 299329)
                     {
                         ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
                     }

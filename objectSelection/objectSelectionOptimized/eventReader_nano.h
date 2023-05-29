@@ -19,8 +19,6 @@ public:
                                         Muon_ip3d(reader, "Muon_ip3d"),
                                         Muon_tightCharge(reader, "Muon_tightCharge"),
                                         run(reader, "run")
-
-    // HLT_PFHT450_SixJet40_BTagCSV_p056(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
