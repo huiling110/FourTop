@@ -39,11 +39,13 @@ public:
         // the HLT branch pointer null pointer is not exist in a file
         if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
         {
+            // std::cout<<"HLT 2016\n";
             ifPass = **e->HLT_PFHT450_SixJet40_BTagCSV_p056 || **e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 || **e->HLT_PFJet450;
             // ifPass = **(e->HLT_PFJet450);
         }
         else if (era.CompareTo("2017") == 0)
         {
+            // std::cout<<"HLT 2017\n";
             HLT_PFJet500_ = **e->HLT_PFJet500;
             if (!isData)
             {
@@ -81,6 +83,7 @@ public:
         {
             ifPass = kTRUE;
         }
+        // std::cout<<"ifHLT="<<ifPass<<"\n";
         return ifPass;
     };
     void clearBranch()
