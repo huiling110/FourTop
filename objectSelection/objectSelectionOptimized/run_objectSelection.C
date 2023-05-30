@@ -8,8 +8,8 @@
 #include "usefulFunc.h"
 
 void run_objectSelection(
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     TString singleFileName = "outTree_0.root",
     TString outputDir = "./output/",
     Bool_t istest = kTRUE)
