@@ -19,7 +19,8 @@ public:
 
 private:
     Int_t m_type = 2;
-    BoosterHandle m_booster[2];
+    // BoosterHandle m_booster[2];
+    BoosterHandle m_booster[1];
     // output branches
     std::vector<Double_t> elesTopMVAT_pt;
     std::vector<Double_t> elesTopMVAT_eta;

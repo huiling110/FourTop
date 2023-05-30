@@ -8,19 +8,19 @@
         //
         // set up xgboost booster
         TString eleWeight = TopMVALeptonMap[era].at(0);
-        TString muWeight = TopMVALeptonMap[era].at(1);
-        std::cout << "muonWeight: " << muWeight << "\n";
+        // TString muWeight = TopMVALeptonMap[era].at(1);
+        std::cout << "eleWeight: " << eleWeight << "\n";
         // BoosterHandle booster;
         XGBoosterCreate(NULL, 0, &m_booster[0]);
         XGBoosterLoadModel(m_booster[0], eleWeight.Data());
-        XGBoosterCreate(NULL, 0, &m_booster[1]);
-        XGBoosterLoadModel(m_booster[1], muWeight.Data());
+        // XGBoosterCreate(NULL, 0, &m_booster[1]);
+        // XGBoosterLoadModel(m_booster[1], muWeight.Data());
         std::cout << "Done EleTopMVASel initialization......\n";
     };
 
     EleTopMVASel::~EleTopMVASel(){
         XGBoosterFree(m_booster[0]);
-        XGBoosterFree(m_booster[1]);
+        // XGBoosterFree(m_booster[1]);
     };
 
     void EleTopMVASel::Select(const eventForNano *e)
