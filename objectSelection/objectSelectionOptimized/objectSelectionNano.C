@@ -12,6 +12,9 @@ void objectSelection::EventLoop()
         h_forEY_initial->Fill(0);
 
         // good lumi and good PV selection
+        if(!(lumiAndPVSelection.Select(m_isData, e))){
+            continue;
+        };
 
         //MET filters
 
