@@ -11,11 +11,18 @@ void objectSelection::EventLoop()
         entryCount++;
         h_forEY_initial->Fill(0);
 
-        //HLT selection and HLT branch filling
-        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE))){
+        // good lumi and good PV selection
+
+        // HLT selection and HLT branch filling
+        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
+        {
             continue; // contains event selection!!!
         }
         h_forEY_HLT->Fill(0);
+
+        // pile up weight cal
+
+        // TOPMVA lepton selection
 
         muonSelection.Select(e);
         // Increment the entry count
