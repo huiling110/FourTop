@@ -15,6 +15,7 @@
 #include "HLTSelector.h"
 #include "usefulFunc.h"
 #include "goodLumiAndPVSel.h"
+#include "METfilter.h"
 
 class objectSelection
 {
@@ -71,7 +72,9 @@ private:
     TH1D *h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
     Bool_t m_isData;
     TString m_era;
+
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
+    METFilter metFilter{};
     osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
 

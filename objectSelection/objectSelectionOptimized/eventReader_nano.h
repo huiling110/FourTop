@@ -24,7 +24,16 @@ public:
                                         Muon_tightCharge(reader, "Muon_tightCharge"),
                                         run(reader, "run"),
                                         luminosityBlock(reader, "luminosityBlock"),
-                                        PV_npvsGood(reader, "PV_npvsGood")
+                                        PV_npvsGood(reader, "PV_npvsGood"),
+     Flag_goodVertices(reader, "Flag_goodVertices"),
+     Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
+     Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
+     Flag_HBHENoiseIsoFilter(reader, "Flag_HBHENoiseIsoFilter"),
+     Flag_EcalDeadCellTriggerPrimitiveFilter(reader, "Flag_EcalDeadCellTriggerPrimitiveFilter"),
+     Flag_BadPFMuonFilter(reader, "Flag_BadPFMuonFilter"),
+     Flag_BadPFMuonDzFilter(reader, "Flag_BadPFMuonDzFilter"),
+     Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
+     Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -93,6 +102,7 @@ public:
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
     TTreeReaderValue<Int_t> PV_npvsGood;
+
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit
     // for some files cross the run range of trigger validity, trigger branch exsit but the subset invalid range is set to 0. need to further check this through
@@ -120,6 +130,19 @@ public:
     TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
     // TTreeReaderValue<Bool_t> * = nullptr;
     // TTreeReaderValue<Bool_t> * = nullptr;
+
+    //METFilters
+    TTreeReaderValue<Bool_t> Flag_goodVertices ;
+    TTreeReaderValue<Bool_t> Flag_globalSuperTightHalo2016Filter;
+    TTreeReaderValue<Bool_t> Flag_HBHENoiseFilter;
+    TTreeReaderValue<Bool_t> Flag_HBHENoiseIsoFilter;
+    TTreeReaderValue<Bool_t> Flag_EcalDeadCellTriggerPrimitiveFilter;
+    TTreeReaderValue<Bool_t> Flag_BadPFMuonFilter;
+    TTreeReaderValue<Bool_t> Flag_BadPFMuonDzFilter;
+    TTreeReaderValue<Bool_t> Flag_eeBadScFilter;
+    TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilter;
+
+
 };
 
 #endif

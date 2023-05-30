@@ -17,6 +17,9 @@ void objectSelection::EventLoop()
         };
 
         //MET filters
+        if(!(metFilter.Select(m_era, e))){
+            continue;
+        }
 
         // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
