@@ -54,6 +54,8 @@ public:
      Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
      Electron_sip3d(reader, "Electron_sip3d"),
      Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
+     Electron_phi(reader, "Electron_phi"),
+     Electron_mass(reader, "Electron_mass"),
      //
      Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
     {
@@ -179,7 +181,8 @@ public:
     TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
     TTreeReaderArray<Float_t> Electron_sip3d;
     TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;
-    // TTreeReaderArray<Float_t>;
+    TTreeReaderArray<Float_t> Electron_phi;
+    TTreeReaderArray<Float_t> Electron_mass;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
 };

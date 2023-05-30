@@ -5,7 +5,13 @@
     { // type for different electrons
         std::cout << "Initializing EleTopMVASel......\n";
         outTree->Branch("elesTopMVAT_pt", &elesTopMVAT_pt);
-        //
+        outTree->Branch("elesTopMVAT_eta", &elesTopMVAT_eta);
+        outTree->Branch("elesTopMVAT_phi", &elesTopMVAT_phi);
+        outTree->Branch("elesTopMVAT_mass", &elesTopMVAT_mass);
+        outTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
+        outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
+        // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
+        
         // set up xgboost booster
         TString eleWeight = TopMVALeptonMap[era].at(0);
         // TString muWeight = TopMVALeptonMap[era].at(1);
@@ -97,6 +103,11 @@
             // SelectedElectronsIndex.push_back(j);
             // SelectedEleTopMVAScore.push_back(topMVAScore);
             elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
+            elesTopMVAT_eta.push_back(e->Electron_eta.At(j));
+            elesTopMVAT_phi.push_back(e->Electron_phi.At(j));
+            elesTopMVAT_mass.push_back(e->Electron_mass.At(j));
+            elesTopMVAT_index.push_back(j);
+            elesTopMVAT_topMVAScore.push_back(topMVAScore);
         } //
     };
 

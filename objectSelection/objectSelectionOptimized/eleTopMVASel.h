@@ -26,7 +26,7 @@ private:
     std::vector<Double_t> elesTopMVAT_eta;
     std::vector<Double_t> elesTopMVAT_phi;
     std::vector<Double_t> elesTopMVAT_mass;
-    std::vector<Double_t> elesTopMVAT_index;
+    std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;
 };
 
