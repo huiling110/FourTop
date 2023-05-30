@@ -22,7 +22,9 @@ public:
                                         Muon_mediumId(reader, "Muon_mediumId"),
                                         Muon_ip3d(reader, "Muon_ip3d"),
                                         Muon_tightCharge(reader, "Muon_tightCharge"),
-                                        run(reader, "run")
+                                        run(reader, "run"),
+                                        luminosityBlock(reader, "luminosityBlock"),
+                                        PV_npvsGood(reader, "PV_npvsGood")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -89,6 +91,8 @@ public:
     TTreeReaderArray<Int_t> Muon_tightCharge;
 
     TTreeReaderValue<UInt_t> run;
+    TTreeReaderValue<UInt_t> luminosityBlock;
+    TTreeReaderValue<Int_t> PV_npvsGood;
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit
     // for some files cross the run range of trigger validity, trigger branch exsit but the subset invalid range is set to 0. need to further check this through

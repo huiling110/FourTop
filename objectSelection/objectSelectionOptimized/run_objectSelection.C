@@ -5,6 +5,7 @@
 #include "TString.h"
 
 #include "objectSelectionNano.h"
+#include "usefulFunc.h"
 
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
@@ -16,7 +17,10 @@ void run_objectSelection(
     TStopwatch t;
     t.Start();
 
-    objectSelection os(inputDir, singleFileName, outputDir, kTRUE);
+
+    Bool_t isData = getIsData(inputDir);
+    TString era = getEra(inputDir);
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, kTRUE);
     os.EventLoop();
     os.Terminate();
 

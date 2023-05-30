@@ -13,6 +13,8 @@ void objectSelection::EventLoop()
 
         // good lumi and good PV selection
 
+        //MET filters
+
         // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
         {

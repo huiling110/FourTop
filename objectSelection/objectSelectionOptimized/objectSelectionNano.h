@@ -14,12 +14,14 @@
 #include "muonSelector.h"
 #include "HLTSelector.h"
 #include "usefulFunc.h"
+#include "goodLumiAndPVSel.h"
 
 class objectSelection
 {
 public:
     // objectSelection(TString inputFile, TString outputDir)
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
+    // objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest): m_isData{isData}, m_era{era}
     {
         std::cout << "initialize objectSelection class..................................\n";
         // m_input = new TFile(inputFile, "READ");
@@ -39,8 +41,8 @@ public:
             m_outTree->SetDirectory(m_output);
 
             // set up
-            m_isData = getIsData(inputDir);
-            m_era = getEra(inputDir);
+            // m_isData = getIsData(inputDir);
+            // m_era = getEra(inputDir);
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "\n";
         }
         else
@@ -67,8 +69,9 @@ private:
     TH1D *h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
     TH1D *h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
     TH1D *h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
-    TString m_era;
     Bool_t m_isData;
+    TString m_era;
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
     osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
 
