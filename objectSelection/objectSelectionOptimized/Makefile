@@ -18,9 +18,12 @@ ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
-# CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
-# CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
+CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
+CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 TMVALIBS = -lTMVA
+
+XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
+XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/
 
 # Directories
 HEADRDIR = .
@@ -39,9 +42,11 @@ ARCHFLAGS =
 #
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 CXXFLAGS += $(CORRECTIONLIB_FLAGS)
+CXXFLAGS += $(XGBOOST_FLAGS)
 LIBS = $(ROOTLIBS)
 LIBS += $(CORRECTIONLIB_LIB)
 LIBS += $(TMVALIBS)
+LIBS += $(XGBOOST_LIB)
 GLIBS = $(ROOTGLIBS)
 
 

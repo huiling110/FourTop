@@ -16,6 +16,7 @@
 #include "usefulFunc.h"
 #include "goodLumiAndPVSel.h"
 #include "METfilter.h"
+#include "eleTopMVASel.h"
 
 class objectSelection
 {
@@ -77,6 +78,7 @@ private:
     METFilter metFilter{};
     osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
+    EleTopMVASel eleTopMVATSel{m_outTree, m_era};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

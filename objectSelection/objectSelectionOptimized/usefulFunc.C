@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>  
+#include <sstream>
+#include <cmath>
 
 #include <TString.h>
 #include "TObjString.h"
@@ -103,4 +104,46 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
             }
         } // end if JSON file
     }
+}
+
+Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, const BoosterHandle &booster)
+{
+
+    float boosterVars[1][13];
+    boosterVars[0][0] = inputFeatures["pt"];
+    boosterVars[0][1] = inputFeatures["eta"];
+    boosterVars[0][2] = inputFeatures["jetNDauCharged"];
+    boosterVars[0][3] = inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][4] = inputFeatures["miniPFRelIso_all"] - inputFeatures["miniPFRelIso_chg"];
+    boosterVars[0][5] = inputFeatures["jetPtRelv2"];
+    boosterVars[0][6] = inputFeatures["jetPtRatio"];
+    boosterVars[0][7] = inputFeatures["pfRelIso03_all"];
+    boosterVars[0][8] = inputFeatures["jetBTag"];
+    boosterVars[0][9] = inputFeatures["sip3d"];
+    boosterVars[0][10] = TMath::Log(TMath::Abs(inputFeatures["dxy"]));
+    boosterVars[0][11] = TMath::Log(TMath::Abs(inputFeatures["dz"]));
+    boosterVars[0][12] = inputFeatures["mvaFall17V2noIso"];
+
+    // for (Int_t i = 0; i < 13; i++)
+    // {
+    //     std::cout << "inputFeatures: " << boosterVars[0][i] << "\n";
+    // }
+
+    // BoosterHandle booster;
+    // XGBoosterCreate(NULL, 0, &booster);
+    // XGBoosterLoadModel(booster, muonWeight.Data());
+
+    DMatrixHandle dtest;
+    int nfeat = 13;
+    XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
+    bst_ulong out_len;
+    const float *f;
+    XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
+    // XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
+    XGDMatrixFree(dtest);
+    // XGBoosterFree(booster);
+    // std::cout << "Top lepton score = " << f[0] << "\n";
+    Double_t score = f[0];
+
+    return score;
 }

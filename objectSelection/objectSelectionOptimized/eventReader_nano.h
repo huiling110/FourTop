@@ -12,7 +12,7 @@ public:
     // eventForNano(TTreeReader reader) : nElectron{reader, "nElectron"}
     // eventForNano(TTreeReader *reader)
     // eventForNano(TTreeReader reader) : m_reader{reader}
-    eventForNano(TTreeReader &reader) : nElectron(reader, "nElectron"),
+    eventForNano(TTreeReader &reader):
                                         Muon_pt(reader, "Muon_pt"),
                                         Muon_eta(reader, "Muon_eta"),
                                         Muon_dz(reader, "Muon_dz"),
@@ -25,23 +25,41 @@ public:
                                         run(reader, "run"),
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"),
-     Flag_goodVertices(reader, "Flag_goodVertices"),
-     Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
-     Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
-     Flag_HBHENoiseIsoFilter(reader, "Flag_HBHENoiseIsoFilter"),
-     Flag_EcalDeadCellTriggerPrimitiveFilter(reader, "Flag_EcalDeadCellTriggerPrimitiveFilter"),
-     Flag_BadPFMuonFilter(reader, "Flag_BadPFMuonFilter"),
-     Flag_BadPFMuonDzFilter(reader, "Flag_BadPFMuonDzFilter"),
-     Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
-     Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter")
+                                        Flag_goodVertices(reader, "Flag_goodVertices"),
+                                        Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
+                                        Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
+                                        Flag_HBHENoiseIsoFilter(reader, "Flag_HBHENoiseIsoFilter"),
+                                        Flag_EcalDeadCellTriggerPrimitiveFilter(reader, "Flag_EcalDeadCellTriggerPrimitiveFilter"),
+                                        Flag_BadPFMuonFilter(reader, "Flag_BadPFMuonFilter"),
+                                        Flag_BadPFMuonDzFilter(reader, "Flag_BadPFMuonDzFilter"),
+                                        Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
+                                        Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter"),
+                                        //
+     nElectron(reader, "nElectron"),
+     Electron_pt(reader, "Electron_pt"),
+     Electron_eta(reader, "Electron_eta"),
+     Electron_cutBased(reader, "Electron_cutBased"),
+     Electron_dxy(reader, "Electron_dxy"),
+     Electron_dz(reader, "Electron_dz"),
+     Electron_ip3d(reader, "Electron_ip3d"),
+     Electron_miniPFRelIso_all(reader, "Electron_miniPFRelIso_all"),
+     Electron_lostHits(reader, "Electron_lostHits"),
+     Electron_convVeto(reader, "Electron_convVeto"),
+     Electron_tightCharge(reader, "Electron_tightCharge"),
+     Electron_jetRelIso(reader, "Electron_jetRelIso"),
+     Electron_jetIdx(reader, "Electron_jetIdx"),
+     Electron_jetNDauCharged(reader, "Electron_jetNDauCharged"),
+     Electron_miniPFRelIso_chg(reader, "Electron_miniPFRelIso_chg"),
+     Electron_jetPtRelv2(reader, "Electron_jetPtRelv2"),
+     Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
+     Electron_sip3d(reader, "Electron_sip3d"),
+     Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
+     //
+     Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
         // it seems to reader can not run at all if assosiated with not existing branch
-        // if (!(HLT_PFHT450_SixJet40_BTagCSV_p056.IsValid()))
-        // {
-        //     std::cout << "branch not existing in input\n ";
-        // }
         readPointer(HLT_PFHT450_SixJet40_BTagCSV_p056, reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
         readPointer(HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, reader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056");
         readPointer(HLT_PFJet450, reader, "HLT_PFJet450");
@@ -87,7 +105,6 @@ public:
     // TTreeReader m_reader;
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
-    TTreeReaderValue<UInt_t> nElectron;
 
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
@@ -131,8 +148,8 @@ public:
     // TTreeReaderValue<Bool_t> * = nullptr;
     // TTreeReaderValue<Bool_t> * = nullptr;
 
-    //METFilters
-    TTreeReaderValue<Bool_t> Flag_goodVertices ;
+    // METFilters
+    TTreeReaderValue<Bool_t> Flag_goodVertices;
     TTreeReaderValue<Bool_t> Flag_globalSuperTightHalo2016Filter;
     TTreeReaderValue<Bool_t> Flag_HBHENoiseFilter;
     TTreeReaderValue<Bool_t> Flag_HBHENoiseIsoFilter;
@@ -142,7 +159,29 @@ public:
     TTreeReaderValue<Bool_t> Flag_eeBadScFilter;
     TTreeReaderValue<Bool_t> Flag_ecalBadCalibFilter;
 
+    //
+    TTreeReaderValue<UInt_t> nElectron;
+    TTreeReaderArray<Float_t> Electron_pt;
+    TTreeReaderArray<Float_t> Electron_eta;
+    TTreeReaderArray<Int_t> Electron_cutBased;
+    TTreeReaderArray<Float_t> Electron_dxy;
+    TTreeReaderArray<Float_t> Electron_dz;
+    TTreeReaderArray<Float_t> Electron_ip3d;
+    TTreeReaderArray<Float_t> Electron_miniPFRelIso_all;
+    TTreeReaderArray<UChar_t> Electron_lostHits;
+    TTreeReaderArray<Bool_t> Electron_convVeto;
+    TTreeReaderArray<Int_t> Electron_tightCharge;
+    TTreeReaderArray<Float_t> Electron_jetRelIso;
+    TTreeReaderArray<Int_t> Electron_jetIdx;
+    TTreeReaderArray<UChar_t> Electron_jetNDauCharged;
+    TTreeReaderArray<Float_t> Electron_miniPFRelIso_chg;
+    TTreeReaderArray<Float_t> Electron_jetPtRelv2;
+    TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
+    TTreeReaderArray<Float_t> Electron_sip3d;
+    TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;
+    // TTreeReaderArray<Float_t>;
 
+    TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
 };
 
 #endif

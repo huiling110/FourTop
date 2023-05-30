@@ -31,6 +31,15 @@ void objectSelection::EventLoop()
         // pile up weight cal
 
         // TOPMVA lepton selection
+        eleTopMVATSel.Select(e);
+
+        //tau selection
+
+        //jet and bjet selection:w
+
+
+        //copy some nanoAOD branches
+
 
         muonSelection.Select(e);
         // Increment the entry count
