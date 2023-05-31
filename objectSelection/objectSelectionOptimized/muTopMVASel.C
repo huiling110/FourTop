@@ -106,3 +106,10 @@ void MuTopMVASel::clearBranch()
     muonsTopMVAT_index.clear();
     muonsTopMVAT_topMVAScore.clear();
 };
+
+std::vector<Double_t>& MuTopMVASel::getEtaVec(){
+    return muonsTopMVAT_eta;
+};
+std::vector<Double_t>& MuTopMVASel::getPhiVec(){
+    return muonsTopMVAT_phi;
+};

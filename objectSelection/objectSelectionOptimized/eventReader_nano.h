@@ -74,6 +74,17 @@ public:
                                         Muon_sip3d(reader, "Muon_sip3d"),
                                         Muon_mass(reader, "Muon_mass"),
                                         Muon_phi(reader, "Muon_phi"),
+                                        //tau
+        Tau_pt(reader, "Tau_pt"),
+        Tau_mass(reader, "Tau_mass"),
+        Tau_eta(reader, "Tau_eta"),
+        Tau_phi(reader, "Tau_phi"),
+        Tau_dz(reader, "Tau_dz"),
+        Tau_idDeepTau2017v2p1VSjet(reader, "Tau_idDeepTau2017v2p1VSjet"),
+        Tau_idDeepTau2017v2p1VSe(reader, "Tau_idDeepTau2017v2p1VSe"),
+        Tau_idDeepTau2017v2p1VSmu(reader, "Tau_idDeepTau2017v2p1VSmu"),
+        Tau_decayMode(reader, "Tau_decayMode"),
+        Tau_genPartFlav(reader, "Tau_genPartFlav"),
                                         // jet
                                         Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
     {
@@ -204,7 +215,7 @@ public:
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
-    TTreeReaderArray<Boolt_t> Muon_looseId;
+    TTreeReaderArray<Bool_t> Muon_looseId;
     TTreeReaderArray<Float_t> Muon_dxy;
     TTreeReaderArray<Float_t> Muon_dz;
     TTreeReaderArray<Float_t> Muon_ip3d;
@@ -220,6 +231,18 @@ public:
     TTreeReaderArray<Float_t> Muon_sip3d;
     TTreeReaderArray<Float_t> Muon_mass;
     TTreeReaderArray<Float_t> Muon_phi;
+    //tau
+    TTreeReaderArray<Float_t> Tau_pt;
+    TTreeReaderArray<Float_t> Tau_mass;
+    TTreeReaderArray<Float_t> Tau_eta;
+    TTreeReaderArray<Float_t> Tau_phi;
+    TTreeReaderArray<Float_t> Tau_dz;
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSjet;
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSe;
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSmu;
+    TTreeReaderArray<Int_t> Tau_decayMode;
+    TTreeReaderArray<UChar_t> Tau_genPartFlav;
+
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
 };

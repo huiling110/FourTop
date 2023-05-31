@@ -14,8 +14,8 @@ public:
     MuTopMVASel(TTree *outTree, const TString era, const Int_t type = 2);
     ~MuTopMVASel();
     void Select(const eventForNano *e);
-    void getEtaVec();//for later object removal
-    // void getEtaVec();
+    std::vector<Double_t>& getEtaVec();
+    std::vector<Double_t>& getPhiVec();
 
     void clearBranch();
 

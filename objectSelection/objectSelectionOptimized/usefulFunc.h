@@ -22,4 +22,6 @@ void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std
 
 Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, const BoosterHandle &booster);
 
+Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) ;
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Double_t>& lepEtaVec, const std::vector<Double_t>& lepPhiVec);
 #endif

@@ -1,0 +1,156 @@
+#include "tauSel.h"
+
+TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}
+{ // m_type for different electrons
+    std::cout << "Initializing TauSel......\n";
+
+    TString jsonBase = "../../../jsonpog-integration/POG/";
+    cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
+    std::cout<<"tau energy sf file: "<<(jsonBase + json_map[era].at(1)).Data()<<"\n";
+
+    outTree->Branch("taus_pt", &taus_pt);
+    outTree->Branch("taus_eta", &taus_eta);
+    outTree->Branch("taus_phi", &taus_phi);
+    outTree->Branch("taus_mass", &taus_mass);
+    // outTree->Branch("taus_", &taus_);
+
+    std::cout << "Done TauSel initialization......\n";
+};
+
+TauSel::~TauSel()
+{
+};
+
+void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t>& lepEtaVec, const std::vector<Double_t>& lepPhiVec,const Int_t sysTES)
+{
+    // this is tau ID in ttH
+    // 1:loose;2:fakeble;3:tight
+    clearBranch();
+    calTauSF_new(e,isData);
+    for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
+    {
+        Double_t itau_pt = e->Tau_pt.At(j);
+        Double_t itau_mass = e->Tau_mass.At(j);
+        switch (sysTES)
+        {
+        case 0:
+            itau_pt *= taus_TES[j];
+            itau_mass *= taus_TES[j];
+            break;
+        case 1:
+            itau_pt *= taus_TES_up[j];
+            itau_mass *= taus_TES_up[j];
+            break;
+        case 2:
+            itau_pt *= taus_TES_down[j];
+            itau_mass *= taus_TES_down[j];
+            break;
+        default:
+            // std::cout << "tau pt and mass not corrected!!!"
+            //           << "\n";
+            break;
+        }
+
+        if (!(itau_pt > 20))
+            // if (!(itau_pt > 30))
+            continue;
+        if (!(e->Tau_eta.At(j) < 2.3 && e->Tau_eta.At(j) > -2.3))
+            continue;
+        if (!(TMath::Abs(e->Tau_dz.At(j)) < 0.2))
+            continue;
+        //???why no dxy requirement?
+        // if (!(e->Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
+        if (m_tauWP == 1)
+        {
+            Bool_t isVSjetVVLoose = e->Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            // bitwise shift operators are the right-shift operator (>>
+            //&: bitwise and operator; only 1&1=1; 0&anything = 0
+            // 1<<1 = 2 = 00000010
+            // converting unsigned char to Bool_t: uchar_t ->int->Bool_t; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
+            if (!isVSjetVVLoose)
+                continue;
+            // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
+        }
+        if (m_tauWP == 2)
+        {
+            Bool_t isVSjetVVLoose = e->Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            Bool_t isVSeVVVLoose = e->Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
+            Bool_t isVSmuVLoose = e->Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
+            if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
+                continue;
+        }
+        if (m_tauWP == 3)
+        { // channel specific in ttH. use the tight from 1t 1l
+
+            Bool_t isVSjetM = e->Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4);    // check if the 5th bit (Medium WP) is 1
+            Bool_t isVSeVVVLoose = e->Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
+            Bool_t isVSmuVLoose = e->Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); // check if the 1st bit (VLoose WP) is 1
+            if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
+                continue;
+        }
+        // overlap removal
+        Double_t minDeltaR_lep;
+        if (lepEtaVec.size() > 0)
+        {
+            // minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), LeptonsMVAL);
+            minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
+            if (!(minDeltaR_lep >= 0.4))
+            {
+                continue;
+            }
+        }
+
+        // ROOT::Math::PtEtaPhiMVector tau(itau_pt, e->Tau_eta.At(j), e->Tau_phi.At(j), itau_mass);
+        // SelectedTaus.push_back(tau);
+        // SelectedTausIndex.push_back(j);
+        // SelectedTausDecayMode.push_back(e->Tau_decayMode.At(j));
+        // Selectede->TausGenPartFlav.push_back(Tau_genPartFlav.At(j));
+        // selectede->TausJetPt.push_back(Jet_pt.At(Tau_jetIdx.At(j)));
+        // selectedTausJetEta.push_back(Jet_eta.At(e->Tau_jetIdx.At(j)));
+        // selectedTausCharge.push_back(e->Tau_charge.At(j));
+        // selectedTausNeutralIso.push_back(Tau_neutralIso.At(j));
+        taus_pt.push_back(itau_pt);
+    }
+};
+
+void TauSel::calTauSF_new(const eventForNano* e, const Bool_t isData){
+    // https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
+    auto corr_tauES = cset_tauSF->at("tau_energy_scale");
+    //???i assume it contains the correction to genuine tau and genuine electrons?
+    Double_t iTES_sf = 1.0;
+    Double_t iTES_sf_up = 1.0;
+    Double_t iTES_sf_down = 1.0;
+    for (UInt_t i = 0; i < e->Tau_pt.GetSize(); i++)
+    {
+        if (!isData)
+        {
+            // corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
+            // no sf for decaymode 5 and 6
+            if (!(e->Tau_decayMode.At(i) == 5 || e->Tau_decayMode.At(i) == 6))
+            {
+                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav.At(i), "DeepTau2017v2p1", "nom"});
+                iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav.At(i), "DeepTau2017v2p1", "up"});
+                iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav.At(i), "DeepTau2017v2p1", "down"});
+            }
+            // std::cout << "iTES_sf: " << iTES_sf << "\n";
+            // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
+            // std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";
+        }
+        taus_TES.push_back(iTES_sf);
+        taus_TES_up.push_back(iTES_sf_up);
+        taus_TES_down.push_back(iTES_sf_down);
+    }
+};
+
+void TauSel::clearBranch()
+{
+    taus_pt.clear();
+    taus_eta.clear();
+    taus_phi.clear();
+    taus_mass.clear();
+    
+};

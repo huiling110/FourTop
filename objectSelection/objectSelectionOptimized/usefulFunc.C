@@ -147,3 +147,22 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, const Boos
 
     return score;
 }
+
+
+Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2) {
+  Double_t deltaPhi = TMath::Abs(phi1 - phi2);
+  Double_t deltaEta = eta1 - eta2;
+  if (deltaPhi > TMath::Pi())
+    deltaPhi = TMath::TwoPi() - deltaPhi;
+  return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
+}
+
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Double_t>& lepEtaVec, const std::vector<Double_t>& lepPhiVec){
+    Double_t deltaR = 0;
+    Double_t minDeltaR = 100;
+    for (UInt_t lep = 0; lep < lepEtaVec.size(); lep++){
+        deltaR =  DeltaR( lepEtaVec[lep], eta1, lepPhiVec[lep], phi1);
+        if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
+    }
+    return minDeltaR; 
+}
