@@ -204,15 +204,15 @@ public:
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
-    TTreeReaderArray<Float_t> Muon_looseId;
+    TTreeReaderArray<Boolt_t> Muon_looseId;
     TTreeReaderArray<Float_t> Muon_dxy;
     TTreeReaderArray<Float_t> Muon_dz;
     TTreeReaderArray<Float_t> Muon_ip3d;
     TTreeReaderArray<Float_t> Muon_miniPFRelIso_all;
-    TTreeReaderArray<Float_t> Muon_mediumId;
+    TTreeReaderArray<Bool_t> Muon_mediumId;
     TTreeReaderArray<Float_t> Muon_jetRelIso;
-    TTreeReaderArray<Float_t> Muon_jetIdx;
-    TTreeReaderArray<Float_t> Muon_jetNDauCharged;
+    TTreeReaderArray<Int_t> Muon_jetIdx;
+    TTreeReaderArray<UChar_t> Muon_jetNDauCharged;
     TTreeReaderArray<Float_t> Muon_miniPFRelIso_chg;
     TTreeReaderArray<Float_t> Muon_jetPtRelv2;
     TTreeReaderArray<Float_t> Muon_pfRelIso03_all;
