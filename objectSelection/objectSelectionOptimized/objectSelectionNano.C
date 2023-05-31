@@ -36,21 +36,15 @@ void objectSelection::EventLoop()
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
         muTopMVATSel.Select(e);
+        std::vector<Double_t> lepEtaVec;
+        std::vector<Double_t> lepPhiVec;
+        getLepEtaPhi(lepEtaVec, lepPhiVec);
 
         // tau selection
         Int_t sysTES = 0;
-        const std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
-        const std::vector<Double_t>& muPhiVec= muTopMVATSel.getPhiVec();
-        std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
-        const std::vector<Double_t>& eleEtaVec= eleTopMVATSel.getEtaVec();
-        const std::vector<Double_t>& elePhiVec= eleTopMVATSel.getPhiVec();
-        std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
-        std::vector<Double_t> lepEtaVec;
-        addTwoObjs( muEtaVec, eleEtaVec, lepEtaVec);
-        std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 
-        tauSel.Select(e, m_isData, muEtaVec, muPhiVec, sysTES);
-        // tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        // tauSel.Select(e, m_isData, muEtaVec, muPhiVec, sysTES);
+        tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
 
         // jet and bjet selection:w
 
@@ -76,4 +70,16 @@ objectSelection::~objectSelection(){
     // delete m_input;
     // delete e;
     // delete m_output;
+};
+
+void objectSelection::getLepEtaPhi(std::vector<Double_t>& lepEtaVec, std::vector<Double_t>& lepPhiVec ){
+    const std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
+    const std::vector<Double_t>& muPhiVec= muTopMVATSel.getPhiVec();
+    std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+    const std::vector<Double_t>& eleEtaVec= eleTopMVATSel.getEtaVec();
+    const std::vector<Double_t>& elePhiVec= eleTopMVATSel.getPhiVec();
+    std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+    addTwoObjs( muEtaVec, eleEtaVec, lepEtaVec);
+    addTwoObjs( muPhiVec, elePhiVec, lepPhiVec);
+    std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 };

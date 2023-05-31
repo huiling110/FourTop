@@ -62,6 +62,7 @@ public:
 
     void EventLoop();
     void Terminate();
+    void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec);
 
 private:
     TFile *m_input;

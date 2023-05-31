@@ -14,6 +14,10 @@
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 #include <TString.h>
 
+// #include "muTopMVASel.h"//circular include 
+// #include "eleTopMVASel.h"
+
+
 Bool_t getIsData(TString inputDir);
 
 TString getEra(TString inputDir);
@@ -27,5 +31,6 @@ Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Do
 
 Bool_t descendingComparator(const Double_t& a, const Double_t& b);
 void addTwoObjs(const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &eleEtaVec, std::vector<Double_t> &lepEtaVec);
+// void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec, EleTopMVASel &eleTopMVATSel, MuTopMVASel &muTopMVATSel);
 
 #endif

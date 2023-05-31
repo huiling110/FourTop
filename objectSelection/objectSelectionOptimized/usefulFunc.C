@@ -11,6 +11,7 @@
 #include "TObjString.h"
 #include <TObjArray.h>
 
+
 Bool_t getIsData(TString inputDir)
 {
     Bool_t isData;
@@ -177,4 +178,17 @@ void addTwoObjs( const std::vector<Double_t>& muEtaVec, const std::vector<Double
 Bool_t descendingComparator(const Double_t& a, const Double_t& b) {
     return a > b;
 };
+
+// void getLepEtaPhi(std::vector<Double_t>& lepEtaVec, std::vector<Double_t>& lepPhiVec,const std::vector<Double_t>& muEtaVec, const std::vector<Double_t>& muPhiVec,  const std::vector<Double_t>& eleEtaVec, const std::vector<Double_t>& elePhiVec){
+// void getLepEtaPhi(std::vector<Double_t>& lepEtaVec, std::vector<Double_t>& lepPhiVec,  EleTopMVASel& eleTopMVATSel, MuTopMVASel& muTopMVATSel ){
+//     const std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
+//     const std::vector<Double_t>& muPhiVec= muTopMVATSel.getPhiVec();
+//     std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+//     const std::vector<Double_t>& eleEtaVec= eleTopMVATSel.getEtaVec();
+//     const std::vector<Double_t>& elePhiVec= eleTopMVATSel.getPhiVec();
+//     std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+//     addTwoObjs( muEtaVec, eleEtaVec, lepEtaVec);
+//     addTwoObjs( muPhiVec, elePhiVec, lepPhiVec);
+//     std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
+// };
 
