@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <cmath>
+#include <algorithm>
 
 #include <TString.h>
 #include "TObjString.h"
@@ -165,4 +166,15 @@ Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Do
         if ( deltaR < minDeltaR ) minDeltaR = deltaR ;//The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
     return minDeltaR; 
-}
+};
+
+void addTwoObjs( const std::vector<Double_t>& muEtaVec, const std::vector<Double_t>& eleEtaVec, std::vector<Double_t>& lepEtaVec){
+   lepEtaVec = muEtaVec;
+   lepEtaVec.insert(lepEtaVec.end(), eleEtaVec.begin(), eleEtaVec.end());
+   std::sort(lepEtaVec.begin(), lepEtaVec.end(), descendingComparator);
+};
+
+Bool_t descendingComparator(const Double_t& a, const Double_t& b) {
+    return a > b;
+};
+

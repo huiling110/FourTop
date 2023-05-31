@@ -14,8 +14,8 @@ public:
     EleTopMVASel(TTree *outTree, const TString era, const Int_t type = 2);
     ~EleTopMVASel();
     void Select(const eventForNano *e);
-    void getEtaVec();
-    // void getEtaVec();
+    std::vector<Double_t>& getEtaVec();
+    std::vector<Double_t> &getPhiVec();
 
     void clearBranch();
 

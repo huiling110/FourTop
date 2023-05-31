@@ -121,3 +121,9 @@
         elesTopMVAT_topMVAScore.clear();
     };
 
+std::vector<Double_t>& EleTopMVASel::getEtaVec(){
+    return elesTopMVAT_eta;
+};
+std::vector<Double_t>& EleTopMVASel::getPhiVec(){
+    return elesTopMVAT_phi;
+};

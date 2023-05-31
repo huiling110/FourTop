@@ -1,4 +1,5 @@
 #include "objectSelectionNano.h"
+#include "usefulFunc.h"
 
 void objectSelection::EventLoop()
 {
@@ -41,6 +42,12 @@ void objectSelection::EventLoop()
         const std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
         const std::vector<Double_t>& muPhiVec= muTopMVATSel.getPhiVec();
         std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+        const std::vector<Double_t>& eleEtaVec= eleTopMVATSel.getEtaVec();
+        const std::vector<Double_t>& elePhiVec= eleTopMVATSel.getPhiVec();
+        std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+        std::vector<Double_t> lepEtaVec;
+        addTwoObjs( muEtaVec, eleEtaVec, lepEtaVec);
+        std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 
         tauSel.Select(e, m_isData, muEtaVec, muPhiVec, sysTES);
         // tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
