@@ -39,7 +39,7 @@ void objectSelection::EventLoop()
         // tau selection
         Int_t sysTES = 0;
         std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
-        std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+        // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
 
         // tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
 

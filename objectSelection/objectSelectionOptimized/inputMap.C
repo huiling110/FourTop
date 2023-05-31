@@ -37,10 +37,10 @@ std::map<TString, std::array<TString, 4>> pileUpFileMap = {
 };
 
 std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
-    {"2016postVFP", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
-    {"2016preVFP", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
-    {"2017", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
-    {"2018", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "./TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
+    {"2016postVFP", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL16_XGB.weights.bin", ".../TopLeptonMVA/mvaWeights_new/mu_TOPUL16_XGB.weights.bin"}},
+    {"2016preVFP", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL16APV_XGB.weights.bin", "../TopLeptonMVA/mvaWeights_new/mu_TOPUL16APV_XGB.weights.bin"}},
+    {"2017", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "../TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
+    {"2018", {"../TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "../TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
 };
 
 std::map<TString, double> DeepJetL = {
