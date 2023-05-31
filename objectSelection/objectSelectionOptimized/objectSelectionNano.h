@@ -11,19 +11,20 @@
 
 // #include "eventReader_nano.C"
 #include "eventReader_nano.h" //use ttreeReader to construct event
-#include "muonSelector.h"
+// #include "muonSelector.h"
 #include "HLTSelector.h"
 #include "usefulFunc.h"
 #include "goodLumiAndPVSel.h"
 #include "METfilter.h"
 #include "eleTopMVASel.h"
+#include "muTopMVASel.h"
 
 class objectSelection
 {
 public:
     // objectSelection(TString inputFile, TString outputDir)
     // objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest): m_isData{isData}, m_era{era}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
     {
         std::cout << "initialize objectSelection class..................................\n";
         // m_input = new TFile(inputFile, "READ");
@@ -76,9 +77,10 @@ private:
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
     METFilter metFilter{};
-    osBase muonSelection{m_outTree};
+    // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era};
+    MuTopMVASel muTopMVATSel{m_outTree, m_era};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

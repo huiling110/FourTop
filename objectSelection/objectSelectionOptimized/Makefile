@@ -5,7 +5,7 @@ PROGRAM = run_objectSelection
 
 HDRS = objectSelectionNano.h
  
-OBJS = eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o run_objectSelection.o 
+OBJS = muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o run_objectSelection.o 
 
 #-----------------------------------------------------------------------------
 ObjSuf = o

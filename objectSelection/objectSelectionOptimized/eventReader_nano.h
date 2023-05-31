@@ -12,16 +12,15 @@ public:
     // eventForNano(TTreeReader reader) : nElectron{reader, "nElectron"}
     // eventForNano(TTreeReader *reader)
     // eventForNano(TTreeReader reader) : m_reader{reader}
-    eventForNano(TTreeReader &reader):
-                                        Muon_pt(reader, "Muon_pt"),
-                                        Muon_eta(reader, "Muon_eta"),
-                                        Muon_dz(reader, "Muon_dz"),
-                                        Muon_dxy(reader, "Muon_dxy"),
-                                        Muon_looseId(reader, "Muon_looseId"),
-                                        Muon_miniIsoId(reader, "Muon_miniIsoId"),
-                                        Muon_mediumId(reader, "Muon_mediumId"),
-                                        Muon_ip3d(reader, "Muon_ip3d"),
-                                        Muon_tightCharge(reader, "Muon_tightCharge"),
+    eventForNano(TTreeReader &reader) : // Muon_pt(reader, "Muon_pt"),
+                                        //                                     Muon_eta(reader, "Muon_eta"),
+                                        //                                     Muon_dz(reader, "Muon_dz"),
+                                        //                                     Muon_dxy(reader, "Muon_dxy"),
+                                        //                                     Muon_looseId(reader, "Muon_looseId"),
+                                        //                                     Muon_miniIsoId(reader, "Muon_miniIsoId"),
+                                        //                                     Muon_mediumId(reader, "Muon_mediumId"),
+                                        //                                     Muon_ip3d(reader, "Muon_ip3d"),
+                                        //                                     Muon_tightCharge(reader, "Muon_tightCharge"),
                                         run(reader, "run"),
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"),
@@ -35,29 +34,48 @@ public:
                                         Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
                                         Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter"),
                                         //
-     nElectron(reader, "nElectron"),
-     Electron_pt(reader, "Electron_pt"),
-     Electron_eta(reader, "Electron_eta"),
-     Electron_cutBased(reader, "Electron_cutBased"),
-     Electron_dxy(reader, "Electron_dxy"),
-     Electron_dz(reader, "Electron_dz"),
-     Electron_ip3d(reader, "Electron_ip3d"),
-     Electron_miniPFRelIso_all(reader, "Electron_miniPFRelIso_all"),
-     Electron_lostHits(reader, "Electron_lostHits"),
-     Electron_convVeto(reader, "Electron_convVeto"),
-     Electron_tightCharge(reader, "Electron_tightCharge"),
-     Electron_jetRelIso(reader, "Electron_jetRelIso"),
-     Electron_jetIdx(reader, "Electron_jetIdx"),
-     Electron_jetNDauCharged(reader, "Electron_jetNDauCharged"),
-     Electron_miniPFRelIso_chg(reader, "Electron_miniPFRelIso_chg"),
-     Electron_jetPtRelv2(reader, "Electron_jetPtRelv2"),
-     Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
-     Electron_sip3d(reader, "Electron_sip3d"),
-     Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
-     Electron_phi(reader, "Electron_phi"),
-     Electron_mass(reader, "Electron_mass"),
-     //
-     Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
+                                        nElectron(reader, "nElectron"),
+                                        Electron_pt(reader, "Electron_pt"),
+                                        Electron_eta(reader, "Electron_eta"),
+                                        Electron_cutBased(reader, "Electron_cutBased"),
+                                        Electron_dxy(reader, "Electron_dxy"),
+                                        Electron_dz(reader, "Electron_dz"),
+                                        Electron_ip3d(reader, "Electron_ip3d"),
+                                        Electron_miniPFRelIso_all(reader, "Electron_miniPFRelIso_all"),
+                                        Electron_lostHits(reader, "Electron_lostHits"),
+                                        Electron_convVeto(reader, "Electron_convVeto"),
+                                        Electron_tightCharge(reader, "Electron_tightCharge"),
+                                        Electron_jetRelIso(reader, "Electron_jetRelIso"),
+                                        Electron_jetIdx(reader, "Electron_jetIdx"),
+                                        Electron_jetNDauCharged(reader, "Electron_jetNDauCharged"),
+                                        Electron_miniPFRelIso_chg(reader, "Electron_miniPFRelIso_chg"),
+                                        Electron_jetPtRelv2(reader, "Electron_jetPtRelv2"),
+                                        Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
+                                        Electron_sip3d(reader, "Electron_sip3d"),
+                                        Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
+                                        Electron_phi(reader, "Electron_phi"),
+                                        Electron_mass(reader, "Electron_mass"),
+                                        // muon
+                                        Muon_pt(reader, "Muon_pt"),
+                                        Muon_eta(reader, "Muon_eta"),
+                                        Muon_looseId(reader, "Muon_looseId"),
+                                        Muon_dxy(reader, "Muon_dxy"),
+                                        Muon_dz(reader, "Muon_dz"),
+                                        Muon_ip3d(reader, "Muon_ip3d"),
+                                        Muon_miniPFRelIso_all(reader, "Muon_miniPFRelIso_all"),
+                                        Muon_mediumId(reader, "Muon_mediumId"),
+                                        Muon_jetRelIso(reader, "Muon_jetRelIso"),
+                                        Muon_jetIdx(reader, "Muon_jetIdx"),
+                                        Muon_jetNDauCharged(reader, "Muon_jetNDauCharged"),
+                                        Muon_miniPFRelIso_chg(reader, "Muon_miniPFRelIso_chg"),
+                                        Muon_jetPtRelv2(reader, "Muon_jetPtRelv2"),
+                                        Muon_pfRelIso03_all(reader, "Muon_pfRelIso03_all"),
+                                        Muon_segmentComp(reader, "Muon_segmentComp"),
+                                        Muon_sip3d(reader, "Muon_sip3d"),
+                                        Muon_mass(reader, "Muon_mass"),
+                                        Muon_phi(reader, "Muon_phi"),
+                                        // jet
+                                        Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -108,15 +126,15 @@ public:
     //???how to solve the challange that some branches only exist in some files?
     // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
 
-    TTreeReaderArray<Float_t> Muon_pt;
-    TTreeReaderArray<Float_t> Muon_eta;
-    TTreeReaderArray<Float_t> Muon_dz;
-    TTreeReaderArray<Float_t> Muon_dxy;
-    TTreeReaderArray<Bool_t> Muon_looseId;
-    TTreeReaderArray<UChar_t> Muon_miniIsoId;
-    TTreeReaderArray<Bool_t> Muon_mediumId;
-    TTreeReaderArray<Float_t> Muon_ip3d;
-    TTreeReaderArray<Int_t> Muon_tightCharge;
+    // TTreeReaderArray<Float_t> Muon_pt;
+    // TTreeReaderArray<Float_t> Muon_eta;
+    // TTreeReaderArray<Float_t> Muon_dz;
+    // TTreeReaderArray<Float_t> Muon_dxy;
+    // TTreeReaderArray<Bool_t> Muon_looseId;
+    // TTreeReaderArray<UChar_t> Muon_miniIsoId;
+    // TTreeReaderArray<Bool_t> Muon_mediumId;
+    // TTreeReaderArray<Float_t> Muon_ip3d;
+    // TTreeReaderArray<Int_t> Muon_tightCharge;
 
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
@@ -183,6 +201,25 @@ public:
     TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
+    // muon
+    TTreeReaderArray<Float_t> Muon_pt;
+    TTreeReaderArray<Float_t> Muon_eta;
+    TTreeReaderArray<Float_t> Muon_looseId;
+    TTreeReaderArray<Float_t> Muon_dxy;
+    TTreeReaderArray<Float_t> Muon_dz;
+    TTreeReaderArray<Float_t> Muon_ip3d;
+    TTreeReaderArray<Float_t> Muon_miniPFRelIso_all;
+    TTreeReaderArray<Float_t> Muon_mediumId;
+    TTreeReaderArray<Float_t> Muon_jetRelIso;
+    TTreeReaderArray<Float_t> Muon_jetIdx;
+    TTreeReaderArray<Float_t> Muon_jetNDauCharged;
+    TTreeReaderArray<Float_t> Muon_miniPFRelIso_chg;
+    TTreeReaderArray<Float_t> Muon_jetPtRelv2;
+    TTreeReaderArray<Float_t> Muon_pfRelIso03_all;
+    TTreeReaderArray<Float_t> Muon_segmentComp;
+    TTreeReaderArray<Float_t> Muon_sip3d;
+    TTreeReaderArray<Float_t> Muon_mass;
+    TTreeReaderArray<Float_t> Muon_phi;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
 };

@@ -11,9 +11,11 @@
 class EleTopMVASel
 {
 public:
-    EleTopMVASel(TTree *outTree, const TString era, const Int_t type=2);
+    EleTopMVASel(TTree *outTree, const TString era, const Int_t type = 2);
     ~EleTopMVASel();
     void Select(const eventForNano *e);
+    void getEtaVec();
+    // void getEtaVec();
 
     void clearBranch();
 

@@ -5,19 +5,21 @@ void objectSelection::EventLoop()
     ULong_t entryCount = 0;
     ULong_t numEntries = 1000;
     // ULong_t numEntries = 10;
-    std::cout << "start event loop for " << numEntries << " ................................\n";
+    std::cout << "Start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
         h_forEY_initial->Fill(0);
 
         // good lumi and good PV selection
-        if(!(lumiAndPVSelection.Select(m_isData, e))){
+        if (!(lumiAndPVSelection.Select(m_isData, e)))
+        {
             continue;
         };
 
-        //MET filters
-        if(!(metFilter.Select(m_era, e))){
+        // MET filters
+        if (!(metFilter.Select(m_era, e)))
+        {
             continue;
         }
 
@@ -32,20 +34,19 @@ void objectSelection::EventLoop()
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
+        muTopMVATSel.Select(e);
 
-        //tau selection
+        // tau selection
 
-        //jet and bjet selection:w
+        // jet and bjet selection:w
 
+        // copy some nanoAOD branches
 
-        //copy some nanoAOD branches
-
-
-        muonSelection.Select(e);
+        // muonSelection.Select(e);
         // Increment the entry count
         m_outTree->Fill();
     };
-    std::cout << "end of event loop...................................................\n";
+    std::cout << "End of event loop...................................................\n";
 };
 
 void objectSelection::Terminate()
