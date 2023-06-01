@@ -1,4 +1,5 @@
 #include "tauSel.h"
+#include <map>
 
 TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}
 { // m_type for different electrons
@@ -9,15 +10,21 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
     std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
 
-    outTree->Branch("taus_pt", &taus_pt);
-    outTree->Branch("taus_eta", &taus_eta);
-    outTree->Branch("taus_phi", &taus_phi);
-    outTree->Branch("taus_mass", &taus_mass);
-    outTree->Branch("taus_decayMode", &taus_decayMode);
-    outTree->Branch("taus_genPartFlav", &taus_genPartFlav);
-    outTree->Branch("taus_jetIdx", &taus_jetIdx);
-    outTree->Branch("taus_charge", &taus_charge);
-    outTree->Branch("taus_neutralIso", &taus_neutralIso);
+    std::map<Int_t, TString> tauWPMap = {
+        {1, "L"},
+        {2, "F"},
+        {3, "T"},
+    };
+
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_pt", &taus_pt);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_eta", &taus_eta);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_phi", &taus_phi);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_mass", &taus_mass);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_decayMode", &taus_decayMode);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_genPartFlav", &taus_genPartFlav);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_jetIdx", &taus_jetIdx);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_charge", &taus_charge);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_neutralIso", &taus_neutralIso);
 
     std::cout << "Done TauSel initialization......\n";
 };
