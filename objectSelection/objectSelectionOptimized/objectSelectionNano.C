@@ -42,16 +42,12 @@ void objectSelection::EventLoop()
 
         // tau selection
         Int_t sysTES = 0;
-
-        // tauSel.Select(e, m_isData, muEtaVec, muPhiVec, sysTES);
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
 
         // jet and bjet selection:w
 
         // copy some nanoAOD branches
 
-        // muonSelection.Select(e);
-        // Increment the entry count
         m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n";
@@ -75,11 +71,11 @@ objectSelection::~objectSelection(){
 void objectSelection::getLepEtaPhi(std::vector<Double_t>& lepEtaVec, std::vector<Double_t>& lepPhiVec ){
     const std::vector<Double_t>& muEtaVec= muTopMVATSel.getEtaVec();
     const std::vector<Double_t>& muPhiVec= muTopMVATSel.getPhiVec();
-    std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+    // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
     const std::vector<Double_t>& eleEtaVec= eleTopMVATSel.getEtaVec();
     const std::vector<Double_t>& elePhiVec= eleTopMVATSel.getPhiVec();
-    std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+    // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
     addTwoObjs( muEtaVec, eleEtaVec, lepEtaVec);
     addTwoObjs( muPhiVec, elePhiVec, lepPhiVec);
-    std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
+    // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 };

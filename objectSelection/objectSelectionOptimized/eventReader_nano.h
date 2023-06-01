@@ -74,17 +74,20 @@ public:
                                         Muon_sip3d(reader, "Muon_sip3d"),
                                         Muon_mass(reader, "Muon_mass"),
                                         Muon_phi(reader, "Muon_phi"),
-                                        //tau
-        Tau_pt(reader, "Tau_pt"),
-        Tau_mass(reader, "Tau_mass"),
-        Tau_eta(reader, "Tau_eta"),
-        Tau_phi(reader, "Tau_phi"),
-        Tau_dz(reader, "Tau_dz"),
-        Tau_idDeepTau2017v2p1VSjet(reader, "Tau_idDeepTau2017v2p1VSjet"),
-        Tau_idDeepTau2017v2p1VSe(reader, "Tau_idDeepTau2017v2p1VSe"),
-        Tau_idDeepTau2017v2p1VSmu(reader, "Tau_idDeepTau2017v2p1VSmu"),
-        Tau_decayMode(reader, "Tau_decayMode"),
-        Tau_genPartFlav(reader, "Tau_genPartFlav"),
+                                        // tau
+                                        Tau_pt(reader, "Tau_pt"),
+                                        Tau_mass(reader, "Tau_mass"),
+                                        Tau_eta(reader, "Tau_eta"),
+                                        Tau_phi(reader, "Tau_phi"),
+                                        Tau_dz(reader, "Tau_dz"),
+                                        Tau_idDeepTau2017v2p1VSjet(reader, "Tau_idDeepTau2017v2p1VSjet"),
+                                        Tau_idDeepTau2017v2p1VSe(reader, "Tau_idDeepTau2017v2p1VSe"),
+                                        Tau_idDeepTau2017v2p1VSmu(reader, "Tau_idDeepTau2017v2p1VSmu"),
+                                        Tau_decayMode(reader, "Tau_decayMode"),
+                                        Tau_genPartFlav(reader, "Tau_genPartFlav"),
+                                        Tau_jetIdx(reader, "Tau_jetIdx"),
+                                        Tau_charge(reader, "Tau_charge"),
+                                        Tau_neutralIso(reader, "Tau_neutralIso"),
                                         // jet
                                         Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
     {
@@ -231,7 +234,7 @@ public:
     TTreeReaderArray<Float_t> Muon_sip3d;
     TTreeReaderArray<Float_t> Muon_mass;
     TTreeReaderArray<Float_t> Muon_phi;
-    //tau
+    // tau
     TTreeReaderArray<Float_t> Tau_pt;
     TTreeReaderArray<Float_t> Tau_mass;
     TTreeReaderArray<Float_t> Tau_eta;
@@ -242,7 +245,9 @@ public:
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSmu;
     TTreeReaderArray<Int_t> Tau_decayMode;
     TTreeReaderArray<UChar_t> Tau_genPartFlav;
-
+    TTreeReaderArray<Int_t> Tau_jetIdx;
+    TTreeReaderArray<Bool_t> Tau_charge;
+    TTreeReaderArray<Float_t> Tau_neutralIso;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
 };

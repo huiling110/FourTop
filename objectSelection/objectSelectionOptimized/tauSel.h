@@ -1,7 +1,6 @@
 #ifndef TAUSEL_H
 #define TAUSEL_H
 
-
 #include "eventReader_nano.h"
 #include "usefulFunc.h"
 #include "inputMap.h"
@@ -12,7 +11,7 @@ class TauSel
 public:
     TauSel(TTree *outTree, const TString era, const Int_t tauWP = 3);
     ~TauSel();
-    void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES=0);
+    void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES = 0);
     void getEtaVec(); // for later object removal
     // void getEtaVec();
 
@@ -31,6 +30,12 @@ private:
     std::vector<Double_t> taus_eta;
     std::vector<Double_t> taus_phi;
     std::vector<Double_t> taus_mass;
+
+    std::vector<Int_t> taus_decayMode;
+    std::vector<UChar_t> taus_genPartFlav;
+    std::vector<Int_t> taus_jetIdx;
+    std::vector<Int_t> taus_charge;
+    std::vector<Double_t> taus_neutralIso;
 };
 
 #endif

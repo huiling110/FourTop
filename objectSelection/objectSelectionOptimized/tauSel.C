@@ -2,31 +2,34 @@
 
 TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}
 { // m_type for different electrons
+    // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
 
     TString jsonBase = "../../../jsonpog-integration/POG/";
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
-    std::cout<<"tau energy sf file: "<<(jsonBase + json_map[era].at(1)).Data()<<"\n";
+    std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
 
     outTree->Branch("taus_pt", &taus_pt);
     outTree->Branch("taus_eta", &taus_eta);
     outTree->Branch("taus_phi", &taus_phi);
     outTree->Branch("taus_mass", &taus_mass);
-    // outTree->Branch("taus_", &taus_);
+    outTree->Branch("taus_decayMode", &taus_decayMode);
+    outTree->Branch("taus_genPartFlav", &taus_genPartFlav);
+    outTree->Branch("taus_jetIdx", &taus_jetIdx);
+    outTree->Branch("taus_charge", &taus_charge);
+    outTree->Branch("taus_neutralIso", &taus_neutralIso);
 
     std::cout << "Done TauSel initialization......\n";
 };
 
-TauSel::~TauSel()
-{
-};
+TauSel::~TauSel(){};
 
-void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t>& lepEtaVec, const std::vector<Double_t>& lepPhiVec,const Int_t sysTES)
+void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES)
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
     clearBranch();
-    calTauSF_new(e,isData);
+    calTauSF_new(e, isData);
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
         Double_t itau_pt = e->Tau_pt.At(j);
@@ -104,20 +107,20 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             }
         }
 
-        // ROOT::Math::PtEtaPhiMVector tau(itau_pt, e->Tau_eta.At(j), e->Tau_phi.At(j), itau_mass);
-        // SelectedTaus.push_back(tau);
-        // SelectedTausIndex.push_back(j);
-        // SelectedTausDecayMode.push_back(e->Tau_decayMode.At(j));
-        // Selectede->TausGenPartFlav.push_back(Tau_genPartFlav.At(j));
-        // selectede->TausJetPt.push_back(Jet_pt.At(Tau_jetIdx.At(j)));
-        // selectedTausJetEta.push_back(Jet_eta.At(e->Tau_jetIdx.At(j)));
-        // selectedTausCharge.push_back(e->Tau_charge.At(j));
-        // selectedTausNeutralIso.push_back(Tau_neutralIso.At(j));
         taus_pt.push_back(itau_pt);
+        taus_eta.push_back(e->Tau_eta.At(j));
+        taus_phi.push_back(e->Tau_phi.At(j));
+        taus_mass.push_back(itau_mass);
+        taus_decayMode.push_back(e->Tau_decayMode.At(j));
+        taus_genPartFlav.push_back(e->Tau_genPartFlav.At(j));
+        taus_jetIdx.push_back(e->Tau_jetIdx.At(j));
+        taus_charge.push_back(e->Tau_charge.At(j));
+        taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
     }
 };
 
-void TauSel::calTauSF_new(const eventForNano* e, const Bool_t isData){
+void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
+{
     // https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
     //???i assume it contains the correction to genuine tau and genuine electrons?
@@ -152,5 +155,9 @@ void TauSel::clearBranch()
     taus_eta.clear();
     taus_phi.clear();
     taus_mass.clear();
-    
+    taus_decayMode.clear();
+    taus_genPartFlav.clear();
+    taus_jetIdx.clear();
+    taus_charge.clear();
+    taus_neutralIso.clear();
 };
