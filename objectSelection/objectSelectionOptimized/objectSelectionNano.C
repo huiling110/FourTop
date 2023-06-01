@@ -46,7 +46,7 @@ void objectSelection::EventLoop()
         tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
 
-        // jet and bjet selection:w
+        // jet and bjet selection
 
         // copy some nanoAOD branches
 
