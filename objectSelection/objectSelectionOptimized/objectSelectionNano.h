@@ -84,6 +84,8 @@ private:
     EleTopMVASel eleTopMVATSel{m_outTree, m_era};
     MuTopMVASel muTopMVATSel{m_outTree, m_era};
     TauSel tauSel{m_outTree, m_era};
+    TauSel tauSelF{m_outTree, m_era, 2};
+    TauSel tauSelL{m_outTree, m_era, 1};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

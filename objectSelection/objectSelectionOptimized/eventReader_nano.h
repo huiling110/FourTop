@@ -246,7 +246,7 @@ public:
     TTreeReaderArray<Int_t> Tau_decayMode;
     TTreeReaderArray<UChar_t> Tau_genPartFlav;
     TTreeReaderArray<Int_t> Tau_jetIdx;
-    TTreeReaderArray<Bool_t> Tau_charge;
+    TTreeReaderArray<Int_t> Tau_charge;
     TTreeReaderArray<Float_t> Tau_neutralIso;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;

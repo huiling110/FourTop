@@ -12,11 +12,11 @@ public:
     TauSel(TTree *outTree, const TString era, const Int_t tauWP = 3);
     ~TauSel();
     void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES = 0);
-    void getEtaVec(); // for later object removal
-    // void getEtaVec();
 
     void calTauSF_new(const eventForNano *e, const Bool_t isData);
     void clearBranch();
+    std::vector<Double_t> &getEtaVec();
+    std::vector<Double_t> &getPhiVec();
 
 private:
     Int_t m_tauWP = 3;

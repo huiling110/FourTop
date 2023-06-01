@@ -168,3 +168,10 @@ void TauSel::clearBranch()
     taus_charge.clear();
     taus_neutralIso.clear();
 };
+
+std::vector<Double_t>& TauSel::getEtaVec(){
+    return taus_eta;
+};
+std::vector<Double_t>& TauSel::getPhiVec(){
+    return taus_phi;
+};
