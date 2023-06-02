@@ -85,12 +85,12 @@ Bool_t vectorInBranch(TString branchName, std::vector<TRegexp> &variableList)
 ///???root interpretation running locally a bit slow
 int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          TString outDir = "output/",
-                                         // TString outputDir  = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/trainWith40Cutbin/",
-                                         // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3correctBjetsvariable_fromV9/1tau1l_v1/variableList_check/varibleList_10-3.csv",
                                          //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v1/variableList/varibleList_17.csv",
-                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/1tau1l/variableList/varibleList_16.csv",
+                                        //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/1tau1l/variableList/varibleList_16.csv",//same for all 3 years
+                                        TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v5extra1tau1lCut_v56preselection/1tau1l_v1WithoutBtagShape/variableList/varibleList_16.csv",
                                          const TString channel = "1tau1l",
-                                         const TString era = "2017",
+                                        //  const TString era = "2017",
+                                         const TString era = "2016",
                                          //  const TString channel = "1tau2l",
                                          //   const TString channel = "2tau0l",
                                          //  Bool_t forVariables = true,
