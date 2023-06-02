@@ -45,6 +45,8 @@ void objectSelection::EventLoop()
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
+        const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
 
         // jet and bjet selection
 

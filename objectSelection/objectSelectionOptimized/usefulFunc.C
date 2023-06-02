@@ -192,3 +192,33 @@ Bool_t descendingComparator(const Double_t& a, const Double_t& b) {
 //     std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 // };
 
+
+Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt, Double_t jet_resolution)
+{
+    // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h#L61
+    Double_t matched_genJetIndex = -99;
+    double min_dR = std::numeric_limits<double>::infinity();
+    for (UInt_t i = 0; i <= genEta.GetSize(); i++)
+    {
+        // Try to find a gen jet matching
+        // dR < m_dR_max
+        // dPt < m_dPt_max_factor * resolution
+        // resolution = jet.pt() * jet_resolution
+
+        Double_t dR = DeltaR(recoEta, genEta.At(i), recoPhi, genPhi.At(i));
+
+        if (dR > min_dR)
+            continue;
+        if (dR < 0.2)
+        { // m_dR_max = 0.2
+            Double_t dPt = std::abs(genPt[i] - recoPt);
+            // if (TMath::Abs(recoPt - genPt[i]) > 3 * recoPt * jet_resolution)
+            // if (dPt > m_dPt_max_factor * resolution)
+            if (dPt > 3 * recoPt * jet_resolution)
+                continue;
+            min_dR = dR;
+            matched_genJetIndex = i;
+        }
+    }
+    return matched_genJetIndex;
+}

@@ -89,7 +89,15 @@ public:
                                         Tau_charge(reader, "Tau_charge"),
                                         Tau_neutralIso(reader, "Tau_neutralIso"),
                                         // jet
-                                        Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB")
+                                        Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB"),
+     Jet_pt(reader, "Jet_pt"),
+     Jet_mass(reader, "Jet_mass"),
+     Jet_eta(reader, "Jet_eta"),
+     Jet_phi(reader, "Jet_phi"),
+     Jet_jetId(reader, "Jet_jetId"),
+     Jet_btagDeepB(reader, "Jet_btagDeepB"),
+     Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
+     fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -108,6 +116,10 @@ public:
         readPointer(HLT_PFHT430_SixJet40_BTagCSV_p080, reader, "HLT_PFHT430_SixJet40_BTagCSV_p080");
         readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
         readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
+        //gen
+        readPointer(GenJet_eta, reader, "GenJet_eta");
+        readPointer(GenJet_phi, reader, "GenJet_phi");
+        readPointer(GenJet_pt, reader, "GenJet_pt");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -129,6 +141,17 @@ public:
         if (reader.GetTree()->FindBranch(branchName))
         {
             // HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
+            branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
+        }
+        else
+        {
+            std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
+        };
+    }
+    void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    {
+        if (reader.GetTree()->FindBranch(branchName))
+        {
             branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
         }
         else
@@ -180,7 +203,9 @@ public:
     // TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
     // TTreeReaderValue<Bool_t> * = nullptr;
-    // TTreeReaderValue<Bool_t> * = nullptr;
+    TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
+    TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
+    TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
 
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;
@@ -250,6 +275,15 @@ public:
     TTreeReaderArray<Float_t> Tau_neutralIso;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
+    TTreeReaderArray<Float_t> Jet_pt;
+    TTreeReaderArray<Float_t> Jet_mass;
+    TTreeReaderArray<Float_t> Jet_eta;
+    TTreeReaderArray<Float_t> Jet_phi;
+    TTreeReaderArray<Float_t> Jet_jetId;
+    TTreeReaderArray<Float_t> Jet_btagDeepB;
+    TTreeReaderArray<Float_t> Jet_hadronFlavour;
+    // TTreeReaderArray<Float_t> Jet_;
+    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;
 };
 
 #endif
