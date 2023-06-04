@@ -27,7 +27,7 @@ public:
     // objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
     objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
     {
-        std::cout << "initialize objectSelection class..................................\n";
+        std::cout << "Initialize objectSelection class..................................\n";
         // m_input = new TFile(inputFile, "READ");
         m_input = new TFile(inputDir + singleFileName, "READ");
         if (!m_input->IsZombie())
@@ -53,7 +53,8 @@ public:
         {
             std::cout << "BAD!!! file not correctly open\n";
         }
-        std::cout << "done initializing objectSelection class................................\n";
+        std::cout << "Done initializing objectSelection class................................\n";
+        std::cout << "\n";
     };
     ~objectSelection();
     // osBase muonSelection(e, m_outTree);
@@ -87,8 +88,12 @@ private:
     TauSel tauSelF{m_outTree, m_era, 2};
     TauSel tauSelL{m_outTree, m_era, 1};
     JetSel jetSel{m_outTree, m_era, 0};
+    JetSel jetTSel{m_outTree, m_era, 1};
+    JetSel bjetLSel{m_outTree, m_era, 11};
+    JetSel bjetMSel{m_outTree, m_era, 12};
+    JetSel bjetTSel{m_outTree, m_era, 13};
 
-    TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
+    // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
 
 #endif
