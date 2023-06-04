@@ -49,6 +49,9 @@ void objectSelection::EventLoop()
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
 
         // jet and bjet selection
+        const Bool_t ifJER = kFALSE;
+        const Int_t sysJEC = 0;
+        jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
 
         // copy some nanoAOD branches
 

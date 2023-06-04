@@ -11,7 +11,6 @@
 
 // #include "eventReader_nano.C"
 #include "eventReader_nano.h" //use ttreeReader to construct event
-// #include "muonSelector.h"
 #include "HLTSelector.h"
 #include "usefulFunc.h"
 #include "goodLumiAndPVSel.h"
@@ -19,6 +18,7 @@
 #include "eleTopMVASel.h"
 #include "muTopMVASel.h"
 #include "tauSel.h"
+#include "jetSel.h"
 
 class objectSelection
 {
@@ -86,6 +86,7 @@ private:
     TauSel tauSel{m_outTree, m_era};
     TauSel tauSelF{m_outTree, m_era, 2};
     TauSel tauSelL{m_outTree, m_era, 1};
+    JetSel jetSel{m_outTree, m_era, 0};
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

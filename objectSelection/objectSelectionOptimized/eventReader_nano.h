@@ -279,10 +279,9 @@ public:
     TTreeReaderArray<Float_t> Jet_mass;
     TTreeReaderArray<Float_t> Jet_eta;
     TTreeReaderArray<Float_t> Jet_phi;
-    TTreeReaderArray<Float_t> Jet_jetId;
+    TTreeReaderArray<Int_t> Jet_jetId;
     TTreeReaderArray<Float_t> Jet_btagDeepB;
-    TTreeReaderArray<Float_t> Jet_hadronFlavour;
-    // TTreeReaderArray<Float_t> Jet_;
+    TTreeReaderArray<Int_t> Jet_hadronFlavour;
     TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;
 };
 

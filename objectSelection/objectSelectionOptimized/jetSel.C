@@ -4,11 +4,11 @@
 JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetType{jetType}, m_era{era}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel......\n";
+    std::cout << "Initializing JetSel: m_jetType="<<m_jetType<<"......\n";
 
     TString jsonBase = "../../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
-    std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
+    std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
 
     std::map<Int_t, TString> jetTypeMap = {
         {0, "jets"},
@@ -33,7 +33,7 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
 
 JetSel::~JetSel(){};
 
-void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
+void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
