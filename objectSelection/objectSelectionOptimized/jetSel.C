@@ -4,7 +4,7 @@
 JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetType{jetType}, m_era{era}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType="<<m_jetType<<"......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType << "......\n";
 
     TString jsonBase = "../../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
@@ -26,6 +26,8 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
     outTree->Branch(jetTypeMap[m_jetType] + "_eta", &jets_eta);
     outTree->Branch(jetTypeMap[m_jetType] + "_phi", &jets_phi);
     outTree->Branch(jetTypeMap[m_jetType] + "_mass", &jets_mass);
+    outTree->Branch(jetTypeMap[m_jetType] + "_flavour", &jets_flavour);
+    outTree->Branch(jetTypeMap[m_jetType] + "_btags", &jets_btags);
 
     std::cout << "Done JetSel initialization......\n";
     std::cout << "\n";
@@ -192,6 +194,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         //     SelectedJetsBTags.push_back(e->Jet_btagDeepB.At(j));
         // }
         jets_pt.push_back(jetpt);
+        jets_eta.push_back(ijetEta);
+        jets_phi.push_back(ijetPhi);
+        jets_mass.push_back(ijetMass);
+        jets_flavour.push_back(e->Jet_hadronFlavour.At(j));
+        jets_btags.push_back(e->Jet_btagDeepB.At(j));
     }
 };
 
@@ -288,6 +295,8 @@ void JetSel::clearBranch()
     jets_eta.clear();
     jets_phi.clear();
     jets_mass.clear();
+    jets_flavour.clear();
+    jets_btags.clear();
 };
 
 std::vector<Double_t> &JetSel::getEtaVec()

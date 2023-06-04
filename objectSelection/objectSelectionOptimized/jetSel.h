@@ -35,6 +35,8 @@ private:
     std::vector<Double_t> jets_eta;
     std::vector<Double_t> jets_phi;
     std::vector<Double_t> jets_mass;
+    std::vector<Int_t> jets_flavour;
+    std::vector<Double_t> jets_btags;
 };
 
 #endif
