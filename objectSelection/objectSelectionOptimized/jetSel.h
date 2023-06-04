@@ -13,8 +13,8 @@ class JetSel
 public:
     JetSel(TTree *outTree, const TString era, const Int_t tauWP = 3);
     ~JetSel();
-    void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC);
-    void calJER_SF(const eventForNano *e, const Bool_t isData);
+    void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC);
+    void calJER_SF(eventForNano *e, const Bool_t isData);
 
     void calTauSF_new(const eventForNano *e, const Bool_t isData);
     void clearBranch();

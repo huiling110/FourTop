@@ -90,6 +90,7 @@ public:
     myBranch<Int_t> tausT_number{"tausT_number"};
     myBranch<Int_t> jets_number{"jets_number"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
+    myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_number{"elesTopMVAT_number"};
     myBranch<Int_t> muonsTopMVAT_number{"muonsTopMVAT_number"};
     myBranch<Double_t> jets_HT{"jets_HT"};
@@ -115,6 +116,8 @@ public:
     myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
     myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
     myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
+    myBranch<Double_t> bjetsM_HT{"bjetsM_HT"};
+    myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
     myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     // myBranch<Double_t>{""};
@@ -160,6 +163,7 @@ private:
         {tausT_number.n(), &tausT_number},
         {jets_number.n(), &jets_number},
         {bjetsM_num.n(), &bjetsM_num},
+        {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_number.n(), &elesTopMVAT_number},
         {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
@@ -185,6 +189,8 @@ private:
         {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
         {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
         {bjetsM_2pt.n(), &bjetsM_2pt},
+        {bjetsM_HT.n(), &bjetsM_HT},
+        {bjetsT_HT.n(), &bjetsT_HT},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
 

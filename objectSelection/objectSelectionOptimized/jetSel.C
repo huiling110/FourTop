@@ -33,7 +33,7 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
 
 JetSel::~JetSel(){};
 
-void JetSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
+void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -195,7 +195,8 @@ void JetSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
     }
 };
 
-void JetSel::calJER_SF(const eventForNano *e, const Bool_t isData)
+// void JetSel::calJER_SF(const eventForNano *e, const Bool_t isData)
+void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
 {
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
@@ -235,14 +236,14 @@ void JetSel::calJER_SF(const eventForNano *e, const Bool_t isData)
         // what is this rho? average energy density , for a event
 
         // find gen matching
-        Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
+        Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
         // Int_t genMatchIndex = genMatchForJER(ieta, iphi, rawJetPt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
         if (!isData)
         {
             if (genMatchIndex > 0)
             {
                 // Case 1: we have a "good" generator level jet matched to the reconstructed jet
-                Double_t dPt = ipt - GenJet_pt[genMatchIndex];
+                Double_t dPt = ipt - (*e->GenJet_pt)[genMatchIndex];
                 // Double_t dPt = rawJetPt - GenJet_pt[genMatchIndex];
                 iSF = 1 + (ijet_sf - 1.) * dPt / ipt;
                 // iSF = 1 + (ijet_sf - 1.) * dPt / rawJetPt;

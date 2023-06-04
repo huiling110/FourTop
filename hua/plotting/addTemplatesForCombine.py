@@ -6,14 +6,17 @@ import usefulFunc as uf
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l_30bins/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v2traingWithBtag/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/'
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
     
-    allSubPro = list(gq.histoGramPerSampleR.keys())
+    # allSubPro = list(gq.histoGramPerSampleR.keys())
+    allSubPro = list(gq.histoGramPerSample.keys())
 
     summedHistDicAllSys = {}
    
@@ -76,8 +79,8 @@ def addDataHist(summedHistSR, outFile):
 def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile):
     iHist.Sumw2()
     iHist.SetDirectory(outFile)
-    summedName = gq.histoGramPerSampleR[isub]    
-    if not gq.histoGramPerSampleR[isub] in summedHistDic.keys():
+    summedName = gq.histoGramPerSample[isub]    
+    if not gq.histoGramPerSample[isub] in summedHistDic.keys():
         #create first summedHist
         summedHistDic[summedName] = iHist
         summedHistDic[summedName].SetName(summedName+'_'+isysHist)

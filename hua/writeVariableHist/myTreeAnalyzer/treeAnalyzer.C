@@ -109,6 +109,7 @@ void treeAnalyzer::LoopTree()
         for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
         {
             Float_t ivar;
+            // std::cout<<"ivar: "<<it->first<<"\n";
             std::variant<Int_t, Double_t> branch = e->getByName(it->first);
             if (std::holds_alternative<Int_t>(branch))
             {

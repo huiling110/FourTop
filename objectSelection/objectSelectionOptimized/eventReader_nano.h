@@ -90,14 +90,14 @@ public:
                                         Tau_neutralIso(reader, "Tau_neutralIso"),
                                         // jet
                                         Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB"),
-     Jet_pt(reader, "Jet_pt"),
-     Jet_mass(reader, "Jet_mass"),
-     Jet_eta(reader, "Jet_eta"),
-     Jet_phi(reader, "Jet_phi"),
-     Jet_jetId(reader, "Jet_jetId"),
-     Jet_btagDeepB(reader, "Jet_btagDeepB"),
-     Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
-     fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+                                        Jet_pt(reader, "Jet_pt"),
+                                        Jet_mass(reader, "Jet_mass"),
+                                        Jet_eta(reader, "Jet_eta"),
+                                        Jet_phi(reader, "Jet_phi"),
+                                        Jet_jetId(reader, "Jet_jetId"),
+                                        Jet_btagDeepB(reader, "Jet_btagDeepB"),
+                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
+                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -116,7 +116,7 @@ public:
         readPointer(HLT_PFHT430_SixJet40_BTagCSV_p080, reader, "HLT_PFHT430_SixJet40_BTagCSV_p080");
         readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
         readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
-        //gen
+        // gen
         readPointer(GenJet_eta, reader, "GenJet_eta");
         readPointer(GenJet_phi, reader, "GenJet_phi");
         readPointer(GenJet_pt, reader, "GenJet_pt");
@@ -135,13 +135,13 @@ public:
         delete HLT_PFHT450_SixJet40_BTagCSV_p056;
     };
 
-    void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    void readPointer(TTreeReaderArray<Float_t> *&branchPointer, TTreeReader &reader, TString branchName)
     {
         // if (reader.GetTree()->FindBranch("HLT_PFHT450_SixJet40_BTagCSV_p056"))
         if (reader.GetTree()->FindBranch(branchName))
         {
             // HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
-            branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
+            branchPointer = new TTreeReaderArray<Float_t>(reader, branchName);
         }
         else
         {

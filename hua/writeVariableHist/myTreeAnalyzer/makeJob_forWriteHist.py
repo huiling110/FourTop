@@ -54,8 +54,10 @@ def main():
     #1tau1l
     # version = 'v1pileupWeight'
     # version = 'v2HLTweight'
-    version = 'v1sysVariation1tau1l'
+    # version = 'v1sysVariation1tau1l'
     # version = 'v1sysVariation1tau1l_30bins'
+    # version = 'v2traingWithBtag'
+    version = 'v3withBjetT'
     
     
     justMC = False
