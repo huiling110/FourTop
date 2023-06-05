@@ -18,10 +18,14 @@ export LD_LIBRARY_PATH=$ROOTSYS/lib/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/extern
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/lib/  #this means the latets the xgboost lib that doesn't work # but it's essential for python3.9 to work
+
 #for xgboost
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/
 export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/:$PATH
 # export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/py3-correctionlib/2.0.0-0c4f44c8dd5561d8c0660135feeb81f4/lib/python3.9/site-packages/correctionlib/lib/:$LD_LIBRARY_PATH
+
+#for cmake
+export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/cmake/3.18.2/bin/:$PATH
 
 #might need in futu
 # source /afs/ihep.ac.cn/soft/CMS/64bit/root/rootenv-6 #this and next line should be used together
