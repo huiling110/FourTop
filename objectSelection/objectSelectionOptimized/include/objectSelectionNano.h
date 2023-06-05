@@ -19,6 +19,7 @@
 #include "muTopMVASel.h"
 #include "tauSel.h"
 #include "jetSel.h"
+#include "copyBranch.h"
 
 class objectSelection
 {
@@ -92,6 +93,7 @@ private:
     JetSel bjetLSel{m_outTree, m_era, 11};
     JetSel bjetMSel{m_outTree, m_era, 12};
     JetSel bjetTSel{m_outTree, m_era, 13};
+    CopyBranch copyBranch{m_outTree};
 
     // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

@@ -58,6 +58,7 @@ void objectSelection::EventLoop()
         bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
 
         // copy some nanoAOD branches
+        copyBranch.Select(e);
 
         m_outTree->Fill();
     };
