@@ -1,6 +1,7 @@
 
 # Source directory
 SRC_DIR = src
+INC_DIR = include
 # Object directory
 OBJ_DIR = obj
 # Executable directory
@@ -60,7 +61,8 @@ all: $(TARGET)
 $(TARGET): $(OBJECTS) apps/run_objectSelection.C
 	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_objectSelection.C -o $(TARGET)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.C
+# $(OBJ_DIR)/%.o: $(SRC_DIR)/%.C
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.C $(wildcard $(INC_DIR)/*.h)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:

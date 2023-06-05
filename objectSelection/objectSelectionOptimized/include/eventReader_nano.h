@@ -24,6 +24,7 @@ public:
                                         run(reader, "run"),
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"),
+                                        event(reader, "event"),
                                         Flag_goodVertices(reader, "Flag_goodVertices"),
                                         Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
                                         Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
@@ -176,6 +177,7 @@ public:
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
     TTreeReaderValue<Int_t> PV_npvsGood;
+    TTreeReaderValue<ULong64_t> event;
 
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit
