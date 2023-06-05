@@ -27,6 +27,7 @@ XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-i
 
 # Directories
 HEADRDIR = .
+SOURCE = src/
 
 # debug option: -g
 # no exceptions: -fno-exceptions
@@ -60,8 +61,8 @@ $(PROGRAM).out: $(OBJS)
 	@echo "done building $(PROGRAM)"
 
 #
-# %/%.o: %.C $(HDRS)
-%/%.o: %.C %.h
+# %/%.o: %.C %.h
+%/%.o: SOURCE%.C %.h
 	$(CXX) -c $(CXXFLAGS) $*.C
 
 
