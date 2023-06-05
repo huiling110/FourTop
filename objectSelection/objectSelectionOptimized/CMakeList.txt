@@ -1,7 +1,0 @@
-cmake_minimum_required(VERSION 3.18)
-
-project(
-    run_objectSelection
-    VERSION 0.0
-    LANGUAGE CXX
-)
