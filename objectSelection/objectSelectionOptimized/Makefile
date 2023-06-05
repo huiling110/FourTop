@@ -1,11 +1,12 @@
 #-----------------------------------------------------------------------------
 
-PROGRAM = run_objectSelection
+PROGRAM = apps/run_objectSelection
 
 
 HDRS = objectSelectionNano.h
  
-OBJS = jetSel.o tauSel.o muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o run_objectSelection.o 
+# OBJS = jetSel.o tauSel.o muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o run_objectSelection.o 
+OBJS = jetSel.o tauSel.o muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o 
 
 #-----------------------------------------------------------------------------
 ObjSuf = o
@@ -52,19 +53,18 @@ GLIBS = $(ROOTGLIBS)
 
 
 
-# $(PROGRAM).out: $(OBJS) $(PROGRAM).C
-# $(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
-# $(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o $(LIBS) -o$(PROGRAM).out
-$(PROGRAM).out: $(OBJS) 
+$(PROGRAM).out: $(SOURCE)$(OBJS) $(PROGRAM).o
 	@echo "building $(PROGRAM)......"
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS)  $(LIBS) -o$(PROGRAM).out
+	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
 	@echo "done building $(PROGRAM)"
 
 #
 # %/%.o: %.C %.h
-%/%.o: SOURCE%.C %.h
-	$(CXX) -c $(CXXFLAGS) $*.C
+%/%.o: $(SOURCE)%.C %.h
+	$(CXX) -c $(CXXFLAGS) $(SOURCE)$*.C
 
+$(PROGRAM).o: $(PROGRAM).C
+	$(CXX) -c $(CXXFLAGS) $(PROGRAM).C -o $(PROGRAM).o
 
 
 clean:

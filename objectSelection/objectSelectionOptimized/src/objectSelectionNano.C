@@ -1,5 +1,5 @@
-#include "objectSelectionNano.h"
-#include "usefulFunc.h"
+#include "../include/objectSelectionNano.h"
+#include "../include/usefulFunc.h"
 
 void objectSelection::EventLoop()
 {

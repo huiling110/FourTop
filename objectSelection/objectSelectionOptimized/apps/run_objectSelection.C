@@ -4,8 +4,8 @@
 #include "TStopwatch.h"
 #include "TString.h"
 
-#include "objectSelectionNano.h"
-#include "usefulFunc.h"
+#include "../include/objectSelectionNano.h"
+#include "../include/usefulFunc.h"
 
 void run_objectSelection(
     TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
