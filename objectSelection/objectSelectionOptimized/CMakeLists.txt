@@ -77,16 +77,36 @@ set(TMVALIBS -lTMVA)
 file(GLOB SOURCES "src/*.C")
 
 # Create a library from the source files
-add_library(objecSelection ${SOURCES})
-# target_link_libraries(objecSelection PUBLIC ROOT::Physics ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
-target_compile_options(objecSelection PRIVATE ${CXXFLAGS}  ${ROOTCFLAGS} ${XGBOOST_FLAGS} ${CORRECTIONLIB_FLAGS})
-target_link_libraries(objecSelection PUBLIC ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+# add_library(objecSelection ${SOURCES})
+# target_compile_options(objecSelection PRIVATE ${CXXFLAGS}  ${ROOTCFLAGS} ${XGBOOST_FLAGS} ${CORRECTIONLIB_FLAGS})
+# target_link_libraries(objecSelection PUBLIC ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+
+# Create an executable from each source file
+foreach(SOURCE ${SOURCES})
+    # Get the base name of the source file without extension
+    get_filename_component(EXECUTABLE_NAME ${SOURCE} NAME_WE)
+
+    # Create an executable from the source file
+    add_executable(${EXECUTABLE_NAME} ${SOURCE})
+
+    # Add compile options for g++
+    # target_compile_options(${EXECUTABLE_NAME} PRIVATE -Wall -Wextra)
+    target_compile_options(${EXECUTABLE_NAME} PRIVATE ${CXXFLAGS}  ${ROOTCFLAGS} ${XGBOOST_FLAGS} ${CORRECTIONLIB_FLAGS})
+    target_link_libraries(${EXECUTABLE_NAME} PUBLIC ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+    # Optionally, link any additional libraries to the executable
+    # target_link_libraries(${EXECUTABLE_NAME} YourLibraryName)
+endforeach()
 
 add_compile_options(-O3 -Wall -fPIC -g -std=c++17)
-add_compile_options(-pthread -m64)
+# add_compile_options(-pthread -m64)
 
 # Specify the executable for the test code
 add_executable(run_objectSelection apps/run_objectSelection.C)
 # target_compile_options(run_objectSelection PRIVATE ${ROOTCFLAGS})
 target_compile_options(run_objectSelection PRIVATE ${CXXFLAGS} ${ROOTCFLAGS} ${XGBOOST_FLAGS})
-target_link_libraries(run_objectSelection PRIVATE objecSelection ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+# target_link_libraries(run_objectSelection PRIVATE objecSelection ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+target_link_libraries(run_objectSelection PRIVATE ${ROOTLIBS} ${ROOTGLIBS} ${XGBOOST_LIB} ${CORRECTIONLIB_LIB} ${TMVALIBS})
+foreach(SOURCE_FILE ${SOURCES})
+    get_filename_component(EXECUTABLE_NAME ${SOURCES} NAME_WE)
+    target_link_libraries(run_objectSelection PRIVATE ${EXECUTABLE_NAME})
+endforeach()
