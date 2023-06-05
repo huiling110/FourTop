@@ -1,19 +1,19 @@
-#-----------------------------------------------------------------------------
 
-PROGRAM = apps/run_objectSelection
+# Source directory
+SRC_DIR = src
+# Object directory
+OBJ_DIR = obj
+# Executable directory
+BIN_DIR = apps
 
+# Source files
+SOURCES := $(wildcard $(SRC_DIR)/*.C)
+# Object files
+OBJECTS := $(patsubst $(SRC_DIR)/%.C, $(OBJ_DIR)/%.o, $(SOURCES))
 
-HDRS = objectSelectionNano.h
- 
-# OBJS = jetSel.o tauSel.o muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o run_objectSelection.o 
-OBJS = jetSel.o tauSel.o muTopMVASel.o eleTopMVASel.o METfilter.o goodLumiAndPVSel.o inputMap.o HLTSelector.o  usefulFunc.o	objectSelectionNano.o 
+# Final executable
+TARGET = $(BIN_DIR)/run_objectSelection.out
 
-#-----------------------------------------------------------------------------
-ObjSuf = o
-SrcSuf = C
-ExeSuf = exe
-DllSuf = so
-OutPutOpt = -o
 
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
@@ -53,23 +53,21 @@ GLIBS = $(ROOTGLIBS)
 
 
 
-$(PROGRAM).out: $(SOURCE)$(OBJS) $(PROGRAM).o
-	@echo "building $(PROGRAM)......"
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
-	@echo "done building $(PROGRAM)"
+.PHONY: all clean
 
-#
-# %/%.o: %.C %.h
-%/%.o: $(SOURCE)%.C %.h
-	$(CXX) -c $(CXXFLAGS) $(SOURCE)$*.C
+all: $(TARGET)
 
-$(PROGRAM).o: $(PROGRAM).C
-	$(CXX) -c $(CXXFLAGS) $(PROGRAM).C -o $(PROGRAM).o
+$(TARGET): $(OBJECTS) apps/run_objectSelection.C
+	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_objectSelection.C -o $(TARGET)
 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.C
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).out 
+	rm -f $(OBJECTS) $(TARGET)
 
- 
 
-#------------------------------------------------------------------------
+
+
+
+
