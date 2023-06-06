@@ -1,3 +1,10 @@
+/**
+ * @author Huiling Hua
+ * @email huahl@ihep.ac.cn
+ * @create date 2023-06-06 21:01:27
+ * @modify date 2023-06-06 21:01:27
+ * @desc [description]
+ */
 #include <iostream>
 
 #include "treeAnalyzer.h"
@@ -8,28 +15,8 @@
 
 void treeAnalyzer::Init()
 {
-    std::cout << "start to initilation....................................................\n";
+    std::cout << "Start to initilation....................................................\n";
     cutFlowHist->SetDirectory(m_outFile);
-    // book MVA reader
-    TString variableList = BDTTrainingMap[m_era].at(0);
-    readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
-    // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
-    if (variablesName.size() == variablesForReader.size())
-    {
-        for (UInt_t i = 0; i < variablesName.size(); i++)
-        {
-            reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
-        }
-    }
-    else
-    {
-        std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
-    }
-    // for map, the variables will be reordered according to their keys, not safe to add with map
-
-    TString methodName = "BDT" + TString(" method");
-    TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
-    reader->BookMVA(methodName, weightfile);
 
     // regions for hists
     std::vector<TString> sysRegions = {
@@ -69,8 +56,43 @@ void treeAnalyzer::Init()
         "CMS_tttt_eff_hlt_stats" + m_era + "Up",
         "CMS_tttt_eff_hlt_stats" + m_era + "Down",
     };
-    // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-    SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
+
+
+    if(m_channel==0){
+
+        std::cout << "initializing for 1tau1l\n";
+        // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+        SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
+
+        // book MVA reader
+        TString variableList = BDTTrainingMap[m_era].at(0);
+        readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
+        // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
+        if (variablesName.size() == variablesForReader.size())
+        {
+            for (UInt_t i = 0; i < variablesName.size(); i++)
+            {
+                reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
+            }
+        }
+        else
+        {
+            std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
+        }
+        // for map, the variables will be reordered according to their keys, not safe to add with map
+
+        TString methodName = "BDT" + TString(" method");
+        TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
+        reader->BookMVA(methodName, weightfile);
+    }else if(m_channel==1){
+
+        std::cout << "1tau0l \n";
+        SR1tau1lSys = histsForRegionsMap("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 20, 0, 4.5, sysRegions);
+
+    }else{
+        std::cout << "WARNING!! channel not spefified\n";
+    }
+
     // SR1tau1lSys.print();
     SR1tau1lSys.setDir(m_outFile);
 
@@ -99,7 +121,9 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        if (!(SR1tau1lSel(e)))
+        Bool_t channelSel = SR1tau1lSel(e, m_channel);
+
+        if (!(channelSel))
         {
             continue;
         }
@@ -122,10 +146,15 @@ void treeAnalyzer::LoopTree()
             varForReaderMap[it->first] = ivar;
         }
 
-        Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        Double_t bdtScore = -99;
+        if(m_channel==0){
+             bdtScore = reader->EvaluateMVA("BDT method");
+        }else if(m_channel==1){
+             bdtScore = e->jets_bScore.v();
+        }
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
-        Bool_t SR1tau1l = SR1tau1lSel(e);
+        Bool_t SR1tau1l = channelSel;
         Double_t basicWeight = baseWeightCal(e);
         // std::cout << "basicWeight = " << basicWeight << "\n";
 

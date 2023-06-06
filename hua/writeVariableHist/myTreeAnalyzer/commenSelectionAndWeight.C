@@ -7,10 +7,21 @@ Bool_t baselineSelection(event *event)
     return pass;
 }
 
-Bool_t SR1tau1lSel(event *e)
+Bool_t SR1tau1lSel(event *e, const Int_t channel=0)
 {
     Int_t lepNum = e->elesTopMVAT_number.v() + e->muonsTopMVAT_number.v();
-    Bool_t SR1tau1l = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() >= 2;
+    Bool_t SR1tau1l =kFALSE;
+    switch (channel)
+    {
+    case 0:
+        SR1tau1l = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() >= 2;
+        break;
+    case 1:
+        SR1tau1l = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 8 && e->bjetsM_num.v() >= 2;
+        break;
+    default:
+        break;
+    }
     return SR1tau1l;
 }
 
