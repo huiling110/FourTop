@@ -1,7 +1,7 @@
 #include "../include/objectSelectionNano.h"
 #include "../include/usefulFunc.h"
 
-void objectSelection::EventLoop()
+void objectSelection::EventLoop(Bool_t preSelection )
 {
     ULong_t entryCount = 0;
     ULong_t numEntries = 1000;
@@ -57,10 +57,18 @@ void objectSelection::EventLoop()
         bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
 
         // copy some nanoAOD branches
-        copyBranch.Select(e);
+        copyBranch.Select(e, m_isData);
 
         // pile up weight cal
         puWeightCal.Select(e, m_isData);
+
+        //pre selection
+        if (preSelection)
+        {
+            if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
+                continue;;
+        }
+        h_forEY_preSelection->Fill(0);
 
         m_outTree->Fill();
     };
@@ -72,7 +80,7 @@ void objectSelection::Terminate()
     std::cout << "Terminate phase.......................................................\n";
     m_output->Write();
     std::cout << "outFile here: " << m_output->GetName() << "\n";
-    std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << "\n";
+    std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
     m_output->Close();
 };
 

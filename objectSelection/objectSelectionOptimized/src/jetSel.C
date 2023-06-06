@@ -307,3 +307,7 @@ std::vector<Double_t> &JetSel::getPhiVec()
 {
     return jets_phi;
 };
+
+Int_t JetSel::getSize(){
+    return jets_pt.size();
+}

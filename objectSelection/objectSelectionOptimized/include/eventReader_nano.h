@@ -25,6 +25,9 @@ public:
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"),
                                         event(reader, "event"),
+                                        L1PreFiringWeight_Nom(reader, "L1PreFiringWeight_Nom"),
+                                        L1PreFiringWeight_Up(reader, "L1PreFiringWeight_Up"),
+                                        L1PreFiringWeight_Dn(reader, "L1PreFiringWeight_Dn"),
                                         Flag_goodVertices(reader, "Flag_goodVertices"),
                                         Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
                                         Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
@@ -123,6 +126,8 @@ public:
         readPointer(GenJet_eta, reader, "GenJet_eta");
         readPointer(GenJet_phi, reader, "GenJet_phi");
         readPointer(GenJet_pt, reader, "GenJet_pt");
+        readPointer(GenPart_pdgId, reader, "GenPart_pdgId");
+        readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
     };
 
@@ -139,19 +144,18 @@ public:
         delete HLT_PFHT450_SixJet40_BTagCSV_p056;
     };
 
-    void readPointer(TTreeReaderArray<Float_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    template <typename T>
+    void readPointer(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)
     {
-        // if (reader.GetTree()->FindBranch("HLT_PFHT450_SixJet40_BTagCSV_p056"))
         if (reader.GetTree()->FindBranch(branchName))
         {
-            // HLT_PFHT450_SixJet40_BTagCSV_p056 = new TTreeReaderValue<Bool_t>(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
-            branchPointer = new TTreeReaderArray<Float_t>(reader, branchName);
+            branchPointer = new TTreeReaderArray<T>(reader, branchName);
         }
         else
         {
             std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
         };
-    }
+    };
     template <typename T>
     // void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
     void readPointer(TTreeReaderValue<T> *&branchPointer, TTreeReader &reader, TString branchName)
@@ -164,12 +168,15 @@ public:
         {
             std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
         };
-    }
+    };
 
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
     TTreeReaderValue<Int_t> PV_npvsGood;
     TTreeReaderValue<ULong64_t> event;
+    TTreeReaderValue<Float_t> L1PreFiringWeight_Nom;
+    TTreeReaderValue<Float_t> L1PreFiringWeight_Up;
+    TTreeReaderValue<Float_t> L1PreFiringWeight_Dn;
 
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit
@@ -200,6 +207,8 @@ public:
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
+    TTreeReaderArray<Int_t>* GenPart_pdgId = nullptr;
+    TTreeReaderArray<Int_t>* GenPart_genPartIdxMother = nullptr;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
 
     // METFilters

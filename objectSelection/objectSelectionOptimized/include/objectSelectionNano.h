@@ -63,7 +63,7 @@ public:
 
     void Init();
 
-    void EventLoop();
+    void EventLoop(Bool_t preSelection = kTRUE);
     void Terminate();
     void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec);
 
