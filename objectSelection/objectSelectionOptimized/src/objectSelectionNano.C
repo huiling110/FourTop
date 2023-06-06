@@ -31,7 +31,6 @@ void objectSelection::EventLoop()
         }
         h_forEY_HLT->Fill(0);
 
-        // pile up weight cal
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
@@ -59,6 +58,9 @@ void objectSelection::EventLoop()
 
         // copy some nanoAOD branches
         copyBranch.Select(e);
+
+        // pile up weight cal
+        puWeightCal.Select(e, m_isData);
 
         m_outTree->Fill();
     };

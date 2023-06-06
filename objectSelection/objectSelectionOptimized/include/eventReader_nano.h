@@ -56,6 +56,7 @@ public:
                                         Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
                                         Electron_phi(reader, "Electron_phi"),
                                         Electron_mass(reader, "Electron_mass"),
+                                        Electron_charge(reader, "Electron_charge"),
                                         // muon
                                         Muon_pt(reader, "Muon_pt"),
                                         Muon_eta(reader, "Muon_eta"),
@@ -75,6 +76,7 @@ public:
                                         Muon_sip3d(reader, "Muon_sip3d"),
                                         Muon_mass(reader, "Muon_mass"),
                                         Muon_phi(reader, "Muon_phi"),
+                                        Muon_charge(reader, "Muon_charge"),
                                         // tau
                                         Tau_pt(reader, "Tau_pt"),
                                         Tau_mass(reader, "Tau_mass"),
@@ -233,6 +235,7 @@ public:
     TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
+    TTreeReaderArray<Int_t> Electron_charge;
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
@@ -252,6 +255,7 @@ public:
     TTreeReaderArray<Float_t> Muon_sip3d;
     TTreeReaderArray<Float_t> Muon_mass;
     TTreeReaderArray<Float_t> Muon_phi;
+    TTreeReaderArray<Int_t> Muon_charge;
     // tau
     TTreeReaderArray<Float_t> Tau_pt;
     TTreeReaderArray<Float_t> Tau_mass;

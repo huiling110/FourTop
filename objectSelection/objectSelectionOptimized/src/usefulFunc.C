@@ -224,4 +224,5 @@ Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeR
         }
     }
     return matched_genJetIndex;
-}
+};
+

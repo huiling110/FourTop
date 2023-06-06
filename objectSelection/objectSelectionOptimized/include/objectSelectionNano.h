@@ -20,6 +20,7 @@
 #include "tauSel.h"
 #include "jetSel.h"
 #include "copyBranch.h"
+#include "PUWeightCal.h"
 
 class objectSelection
 {
@@ -94,6 +95,7 @@ private:
     JetSel bjetMSel{m_outTree, m_era, 12};
     JetSel bjetTSel{m_outTree, m_era, 13};
     CopyBranch copyBranch{m_outTree};
+    PUWeightCal puWeightCal{m_outTree, m_isData, m_era};
 
     // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };

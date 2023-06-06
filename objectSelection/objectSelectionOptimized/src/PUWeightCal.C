@@ -29,6 +29,7 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era)
     outTree->Branch("PUWeight_up", &PUWeight_up);
     outTree->Branch("PUWeight_down", &PUWeight_down);
     std::cout << "Done initializing ...............\n";
+    std::cout << "\n";
 };
 
 void PUWeightCal::Select(eventForNano *e, Bool_t isData)

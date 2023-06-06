@@ -20,9 +20,9 @@ private:
     TH1F *dataPileupProfileDown;
     TH1F *MCPileupProfile;
     // output branches
-    Double_t PUWeight;
-    Double_t PUWeight_up;
-    Double_t PUWeight_down;
+    Double_t PUWeight=1.;
+    Double_t PUWeight_up=1.;
+    Double_t PUWeight_down=1.;
 };
 
 #endif

@@ -34,4 +34,14 @@ void addTwoObjs(const std::vector<Double_t> &muEtaVec, const std::vector<Double_
 // void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec, EleTopMVASel &eleTopMVATSel, MuTopMVASel &muTopMVATSel);
 Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt, Double_t jet_resolution);
 
+template <typename T>
+void copy_TTreeReaderArray_toVector(const TTreeReaderArray<T> &array, std::vector<T> &vec)
+{
+    for (UInt_t i = 0; i < array.GetSize(); i++)
+    {
+        vec.push_back(array.At(i));
+    }
+};
+
+
 #endif
