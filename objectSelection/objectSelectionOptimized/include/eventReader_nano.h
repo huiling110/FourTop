@@ -121,6 +121,7 @@ public:
         readPointer(GenJet_eta, reader, "GenJet_eta");
         readPointer(GenJet_phi, reader, "GenJet_phi");
         readPointer(GenJet_pt, reader, "GenJet_pt");
+        readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -149,30 +150,19 @@ public:
             std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
         };
     }
-    void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    template <typename T>
+    // void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
+    void readPointer(TTreeReaderValue<T> *&branchPointer, TTreeReader &reader, TString branchName)
     {
         if (reader.GetTree()->FindBranch(branchName))
         {
-            branchPointer = new TTreeReaderValue<Bool_t>(reader, branchName);
+            branchPointer = new TTreeReaderValue<T>(reader, branchName);
         }
         else
         {
             std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
         };
     }
-    // TTreeReader m_reader;
-    //???how to solve the challange that some branches only exist in some files?
-    // TTreeReaderValue<UInt_t> nElectron = {m_reader, "nElectron"}; // I guess if m_reader is not properly initialized, this line can not work
-
-    // TTreeReaderArray<Float_t> Muon_pt;
-    // TTreeReaderArray<Float_t> Muon_eta;
-    // TTreeReaderArray<Float_t> Muon_dz;
-    // TTreeReaderArray<Float_t> Muon_dxy;
-    // TTreeReaderArray<Bool_t> Muon_looseId;
-    // TTreeReaderArray<UChar_t> Muon_miniIsoId;
-    // TTreeReaderArray<Bool_t> Muon_mediumId;
-    // TTreeReaderArray<Float_t> Muon_ip3d;
-    // TTreeReaderArray<Int_t> Muon_tightCharge;
 
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
@@ -208,6 +198,7 @@ public:
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
+    TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
 
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;
