@@ -39,20 +39,25 @@ def main():
 # #
     # copyCombineResultsToDir( cardDir )
     
-    runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'workspace/')
+    # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'workspace/')
+    runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
 
     # plot.main( cardDir+ 'combineResults/')
     
     
 def runImpact(wf, outFolder):
+    impacDir = outFolder+ 'impactResult/'
+    uf.checkMakeDir(impacDir)
     step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1'.format(wf)
     step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits'.format(wf)
-    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json'.format(wf, outFolder)
-    step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(outFolder, outFolder)
-    runCommand(step1)
-    runCommand(step2)
-    runCommand(step3)
-    runCommand(step4)
+    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json'.format(wf, impacDir)
+    step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
+    mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
+    # runCommand(step1)
+    # runCommand(step2)
+    # runCommand(step3)
+    # runCommand(step4)
+    runCommand(mv)
 
 def runCommand(com):
     print('run command: ', com)
