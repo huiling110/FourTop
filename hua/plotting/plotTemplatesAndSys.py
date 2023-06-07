@@ -1,3 +1,4 @@
+from array import array
 import ROOT
 import usefulFunc as uf
 
@@ -11,18 +12,30 @@ def main():
     nominalHist = file.Get(process+'_SR_jets_bScore') 
     sysUp  = file.Get(process+ '_'+ sysName + 'Up_jets_bScore')
     sysDown  = file.Get(process+ '_'+ sysName + 'Down_jets_bScore')
+    
+    inputDir = inputTemp[: inputTemp.rfind('/')+1] 
+    outDir = inputDir+'templatesPlots/'
+    uf.checkMakeDir(outDir)
+    
+    plotSysVariaction(nominalHist, sysUp, sysDown, outDir)
 
     
-    
+def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR'): 
     canvy = ROOT.TCanvas( 'canva', 'canva', 1000,800)
     myStyle = myPlotStyle()
     ROOT.gROOT.SetStyle("myStyle")
     
+    pad1 = ROOT.TPad("pad1", "Upper Pad", 0, 0.5, 1, 1)
+    pad1.Draw()
+    pad2 = ROOT.TPad("pad2", "Lower Pad", 0, 0, 1, 0.5)
+    pad2.Draw()
+    
     nominalHist.SetLineColor(ROOT.kBlack)
     sysUp.SetLineColor(ROOT.kRed)
     sysDown.SetLineColor(ROOT.kBlue)
+    nominalHist.GetXaxis().SetTitle(nominalHist.GetTitle())
 
-    
+    pad1.cd() 
     nominalHist.Draw('HIST')
     sysUp.Draw('HIST SAME')
     sysDown.Draw('HIST SAME')
@@ -37,14 +50,55 @@ def main():
     leggy.AddEntry(sysDown, 'down')
     leggy.Draw()
     
-    inputDir = inputTemp[: inputTemp.rfind('/')+1] 
-    outDir = inputDir+'templatesPlots/'
-    uf.checkMakeDir(outDir)
-    plotName =  outDir +'sysVariation.png' 
+    pad2.cd()
+    graph = getSysRatio(nominalHist, sysUp, sysDown)
+    # Set the marker color and style
+    # graph.SetMarkerStyle(20)
+    graph.SetMinimum(-0.13)
+
+    # Draw the histogram with variations
+    graph.Draw()
+    
+    plotName =  outDir + sysName +'_sysVariation.png' 
     
     canvy.SaveAs( plotName)
     print('plot saved here: ', plotName )
+  
    
+def getSysRatio(nominalHist, sysUp, sysDown):
+    bin_centers = []
+    bin_values = []
+    binUp = []
+    binDown = []
+    for bin in range(1, nominalHist.GetNbinsX() + 1): 
+        bin_centers.append(nominalHist.GetBinCenter(bin))
+        bin_values.append(0.0)
+        nomi = nominalHist.GetBinContent(bin)
+        if not nomi==0:
+            binUp.append((sysUp.GetBinContent(bin)-nomi)/nomi)
+            # binDown.append((sysDown.GetBinContent(bin)-nomi)/nomi)
+            binDown.append((nomi-sysDown.GetBinContent(bin))/nomi)
+        else:
+            binUp.append(0)
+            binDown.append(0)
+  
+    num_bins = len(bin_centers)
+    x_values = array("d", bin_centers)
+    y_values = array("d", bin_values)
+
+# Create arrays to store the upper and lower errors
+    x_err_up = array("d", [0] * num_bins)
+    x_err_down = array("d", [0] * num_bins)
+    y_err_up = array("d", binUp)
+    y_err_down = array("d", binDown) 
+    print(y_err_down)
+    
+    graph = ROOT.TGraphAsymmErrors(num_bins, x_values, y_values, x_err_down, x_err_up, y_err_down, y_err_up)
+    return graph
+
+        
+    
+    
 
     
    
