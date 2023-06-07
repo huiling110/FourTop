@@ -64,11 +64,28 @@ def main():
   
     # fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
     fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
+    
+    addFakeTauSys(outFile, channel)
      
     outFile.Write()
     print('outFile here: ', outFile.GetName())
     outFile.Close()
     
+def addFakeTauSys(outFile, channel):
+    print('start to add fake tau and sys into outfile')
+    tempatesWithFT = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root'
+    FTFile = ROOT.TFile(tempatesWithFT, 'READ')
+    fakeTau = FTFile.Get('fakeTau_jets_bScore')
+    fakeTau_up = FTFile.Get('fakeTau_jets_bScore_FR_up')
+    fakeTau_down = FTFile.Get('fakeTau_jets_bScore_FR_down')
+    fakeTau_up.SetName('fakeTau_tttt_FR_shape_stats_2017Up')
+    fakeTau_down.SetName('fakeTau_tttt_FR_shape_stats_2017Down')
+    fakeTau.SetName('fakeTau_SR_jets_bScore')
+    fakeTau.SetDirectory(outFile)
+    fakeTau_up.SetDirectory(outFile)
+    fakeTau_down.SetDirectory(outFile)
+    
+
     
 def addDataHist(summedHistSR, outFile, channel):
     print('adding fake data hist from signal+bg MC')
