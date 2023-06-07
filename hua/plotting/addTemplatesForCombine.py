@@ -3,12 +3,18 @@ import ROOT
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
 
+channelDic = {
+    '1tau0l': 'jets_bScore',
+    '1tau1l': 'BDT',
+}
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l_30bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v2traingWithBtag/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/'
+    channel = '1tau0l' # 1tau0l
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
@@ -55,20 +61,22 @@ def main():
        
         iroot.Close() 
     print(summedHistDicAllSys)
-   
-    fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
+  
+    # fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
+    fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
      
     outFile.Write()
     print('outFile here: ', outFile.GetName())
     outFile.Close()
     
     
-def addDataHist(summedHistSR, outFile):
+def addDataHist(summedHistSR, outFile, channel):
     print('adding fake data hist from signal+bg MC')
     fakeData = summedHistSR[ list(summedHistSR.keys())[0]].Clone()
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
-    fakeData.SetName('data_obs_SR_BDT')
+    # fakeData.SetName('data_obs_SR_BDT')
+    fakeData.SetName('data_obs_SR_'+channelDic[channel])
     for ipro in summedHistSR.keys():
         fakeData.Add(summedHistSR[ipro])
     return fakeData
