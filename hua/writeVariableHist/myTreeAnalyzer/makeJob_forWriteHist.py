@@ -61,6 +61,7 @@ def main():
     
     #
     version = 'v41tau0lGenTauSys'
+    channel = 1 
     
     
     justMC = False
@@ -84,14 +85,14 @@ def main():
         inputDirDic['data'] = inputDir + 'data/'
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, isTest, subAllProcess, Jobsubmitpath )
+        makeJobsforDir( inputDirDic[i], version, channel, isTest, subAllProcess, Jobsubmitpath )
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
-def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
+def makeJobsforDir( inputDir, version, channel, isTest, subAllProcess, Jobsubmitpath ):
 
     # jobDir = 'jobSH/'
     jobDir = Jobsubmitpath +'jobSH/'
@@ -108,7 +109,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
             print(iProcess)
             # iJobFile = jobDir + iProcess +'.sh' 
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess, isTest, inputDir, version, Jobsubmitpath )  
+            makeIjob( iJobFile, iProcess, isTest, inputDir, version, channel, Jobsubmitpath )  
 
             logFile = outputDir +   "log/" + iProcess + ".log"
             errFile = outputDir +  "log/" + iProcess +".err"
@@ -121,13 +122,13 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
 
 
 
-def makeIjob( shFile, iProcess, isTest, inputDir, version, Jobsubmitpath ):
+def makeIjob( shFile, iProcess, isTest, inputDir, version,  channel,Jobsubmitpath ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ Jobsubmitpath + '\n' )
-    run = './run_treeAnalyzer.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+    # run = './run_treeAnalyzer.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+    run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
     subFile.write(run) 
-    # subFile.write( 'root -q -b \'run_writeHist.C( \"{}\", \"{}\", \"{}\", {} )\' '.format( inputDir, iProcess, version, isTest ) )
     print( 'done writing: ', shFile)
 
 

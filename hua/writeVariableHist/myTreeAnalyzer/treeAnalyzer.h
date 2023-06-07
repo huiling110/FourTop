@@ -20,7 +20,7 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", Int_t channel=0,Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}
+    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", Int_t channel=0, Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -37,7 +37,7 @@ public:
         m_isData = getIsData(m_inputDir);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
 
-        std::cout << "m_processName: " << m_processName << "\n";
+        std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
         e = new event(m_tree);
