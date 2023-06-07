@@ -34,12 +34,12 @@ def main():
 
     cardToWorkspaces( cardDir )
 #
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
 # #
-    copyCombineResultsToDir( cardDir )
+    # copyCombineResultsToDir( cardDir )
     
-    # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'workspace/')
+    runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'workspace/')
 
     # plot.main( cardDir+ 'combineResults/')
     

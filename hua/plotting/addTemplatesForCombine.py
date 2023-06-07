@@ -62,16 +62,18 @@ def main():
         iroot.Close() 
     print(summedHistDicAllSys)
   
+    addFakeTauSys(outFile, channel, summedHistDicAllSys)
+    print(summedHistDicAllSys)
+    
     # fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
     fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
     
-    addFakeTauSys(outFile, channel)
      
     outFile.Write()
     print('outFile here: ', outFile.GetName())
     outFile.Close()
     
-def addFakeTauSys(outFile, channel):
+def addFakeTauSys(outFile, channel, summedHistDicAllSys):
     print('start to add fake tau and sys into outfile')
     tempatesWithFT = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root'
     FTFile = ROOT.TFile(tempatesWithFT, 'READ')
@@ -84,6 +86,8 @@ def addFakeTauSys(outFile, channel):
     fakeTau.SetDirectory(outFile)
     fakeTau_up.SetDirectory(outFile)
     fakeTau_down.SetDirectory(outFile)
+    if channel=='1tau0l':
+        summedHistDicAllSys['SR_' + channelDic[channel]] ['faketau']= fakeTau
     
 
     
