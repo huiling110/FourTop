@@ -7,20 +7,40 @@ def main():
     
     file = ROOT.TFile(inputTemp, 'READ')
     
-    sysName = 'CMS_tttt_FR_shape_stats2017'
-    process = 'fakeTau'
-    nominalHist = file.Get(process+'_SR_jets_bScore') 
-    sysUp  = file.Get(process+ '_'+ sysName + 'Up_jets_bScore')
-    sysDown  = file.Get(process+ '_'+ sysName + 'Down_jets_bScore')
+    # sysName = 'CMS_tttt_FR_shape_stats2017'
+    # process = 'fakeTau'
+    # nominalHist = file.Get(process+'_SR_jets_bScore') 
+    # sysUp  = file.Get(process+ '_'+ sysName + 'Up_jets_bScore')
+    # sysDown  = file.Get(process+ '_'+ sysName + 'Down_jets_bScore')
     
+    sysDic = {} 
+    for key in file.GetListOfKeys():
+        hist = key.ReadObj()
+        if not isinstance(hist, ROOT.TH1): continue
+        hist.Print()
+        histName = hist.GetName()
+        if 'tttt' in histName: continue
+        
+        sysName = getSysName(histName) 
+        print('sysName: ', sysName)
+        
+   
     inputDir = inputTemp[: inputTemp.rfind('/')+1] 
     outDir = inputDir+'templatesPlots/'
     uf.checkMakeDir(outDir)
     
-    plotSysVariaction(nominalHist, sysUp, sysDown, outDir)
+    # plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName, process)
 
+def getSysName(histName):
+    if 'SR' in histName:
+        sys = histName[histName.find('SR')+3:]
+    if 'Up' in histName :
+        sys = histName[histName.find('up')+3:] 
+    if 'Down' in histName:
+        sys = histName[histName.find('Down')+5:] 
+    return sys
     
-def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR'): 
+def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR', process='fakeTau'): 
     canvy = ROOT.TCanvas( 'canva', 'canva', 1000,800)
     myStyle = myPlotStyle()
     ROOT.gROOT.SetStyle("myStyle")
@@ -45,9 +65,9 @@ def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR'):
     
   
     leggy = ROOT.TLegend(0.6,0.75,0.92,0.94)
-    leggy.AddEntry(nominalHist, 'nominal')
-    leggy.AddEntry(sysUp, 'up')
-    leggy.AddEntry(sysDown, 'down')
+    leggy.AddEntry(nominalHist, 'nominal: '+ process)
+    leggy.AddEntry(sysUp, 'up: '+sysName)
+    leggy.AddEntry(sysDown, 'down: ' + sysName)
     leggy.Draw()
     
     pad2.cd()
