@@ -122,6 +122,9 @@ void treeAnalyzer::LoopTree()
         cutFlowHist->Fill(1);
 
         Bool_t channelSel = SR1tau1lSel(e, m_channel);
+        if(m_channel==1){
+            channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
+        }
 
         if (!(channelSel))
         {

@@ -88,6 +88,8 @@ public:
     };
     // branches for selection and weight
     myBranch<Int_t> tausT_number{"tausT_number"};
+    myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
+    myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
     myBranch<Int_t> jets_number{"jets_number"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
@@ -161,6 +163,8 @@ private:
     TTree *m_tree;
     std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *>> m_variableMap = {
         {tausT_number.n(), &tausT_number},
+        {tausF_genTauNum.n(), &tausF_genTauNum},
+        {tausT_genTauNum.n(), &tausT_genTauNum},
         {jets_number.n(), &jets_number},
         {bjetsM_num.n(), &bjetsM_num},
         {bjetsT_num.n(), &bjetsT_num},

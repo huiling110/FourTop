@@ -57,7 +57,10 @@ def main():
     # version = 'v1sysVariation1tau1l'
     # version = 'v1sysVariation1tau1l_30bins'
     # version = 'v2traingWithBtag'
-    version = 'v3withBjetT'
+    # version = 'v3withBjetT'
+    
+    #
+    version = 'v41tau0lGenTauSys'
     
     
     justMC = False
