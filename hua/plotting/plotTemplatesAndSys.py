@@ -14,6 +14,7 @@ def main():
     # sysDown  = file.Get(process+ '_'+ sysName + 'Down_jets_bScore')
     
     sysDic = {} 
+    SRDic = {}
     for key in file.GetListOfKeys():
         hist = key.ReadObj()
         if not isinstance(hist, ROOT.TH1): continue
@@ -21,36 +22,67 @@ def main():
         histName = hist.GetName()
         if 'tttt' in histName: continue
         if 'data' in histName: continue
+        if 'qcd' in histName: continue
         print(histName) 
         processName = histName[:histName.find('_')]
         print('processName: ', processName)
         sysName = getSysName(histName) 
         print('sysName: ', sysName)
-        if not sysName in sysDic.keys():
+        if not sysName in sysDic.keys() and (len(sysName)>0):
             sysDic[sysName] = {}
         
         if 'SR' in histName:
-            if not 'nominal' in sysDic[sysName].keys():
-                sysDic[sysName]['nominal'] = hist.Clone()
-                sysDic[sysName]['nominal'].SetName(processName)
-            else:
-                sysDic[sysName]['nominal'].Add(hist)
-                sysDic[sysName]['nominal'].SetName(sysDic[sysName]['nominal'].GetName()+processName)
-        # elif 'Up' in histName:
-       
+            # addToSysDic(sysDic, 'SR', 'nominal', processName, hist)
+            SRDic[processName] =  hist.Clone()
+        elif 'Up' in histName:
+            addToSysDic(sysDic, sysName, 'up', processName, hist)
+        elif 'Down' in histName:
+            addToSysDic(sysDic, sysName, 'dn', processName, hist)
         print('\n') 
-   
+    
+    print(sysDic)
+    addSRtoSysDic(sysDic, SRDic) 
+    print(sysDic)
+    
     inputDir = inputTemp[: inputTemp.rfind('/')+1] 
     outDir = inputDir+'templatesPlots/'
     uf.checkMakeDir(outDir)
+    for isys in sysDic.keys():
+       plotSysVariaction(sysDic[isys]['nominal'], sysDic[isys]['up'], sysDic[isys]['dn'], outDir, isys, sysDic[isys]['up'].GetName() ) 
     
-    # plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName, process)
+    
+    
+    
+
+def    addSRtoSysDic(sysDic, SRDic) :
+    for isys in sysDic.keys():
+        # print(isys)
+        name = sysDic[isys]['up'].GetName()
+        # print(name)
+        processList = name.split('+')
+        # print(processList)
+        for ipro in processList:
+            if not 'nominal' in sysDic[isys].keys():
+                sysDic[isys]['nominal'] = SRDic[ipro].Clone()
+            else:
+                sysDic[isys]['nominal'].Add(SRDic[ipro])
+    
+    
+    
+def addToSysDic(sysDic, sysName, sysVari, processName, hist):
+    if not sysVari in sysDic[sysName].keys():
+        sysDic[sysName][sysVari] = hist.Clone()
+        sysDic[sysName][sysVari].SetName(processName)
+    else:
+        sysDic[sysName][sysVari].Add(hist)
+        sysDic[sysName][sysVari].SetName(sysDic[sysName][sysVari].GetName()+'+'+processName)
+
 
 def getSysName(histName):
     if 'SR' in histName:
         sys = ''
     if 'Up' in histName :
-        sys = histName[histName.find('_'):histName.find('up')] 
+        sys = histName[histName.find('_')+1:histName.find('Up')] 
     if 'Down' in histName:
         sys = histName[histName.find('_')+1:histName.find('Down')] 
     return sys
