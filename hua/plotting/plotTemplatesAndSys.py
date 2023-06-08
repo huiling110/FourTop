@@ -17,13 +17,28 @@ def main():
     for key in file.GetListOfKeys():
         hist = key.ReadObj()
         if not isinstance(hist, ROOT.TH1): continue
-        hist.Print()
+        # hist.Print()
         histName = hist.GetName()
         if 'tttt' in histName: continue
-        
+        if 'data' in histName: continue
+        print(histName) 
+        processName = histName[:histName.find('_')]
+        print('processName: ', processName)
         sysName = getSysName(histName) 
         print('sysName: ', sysName)
+        if not sysName in sysDic.keys():
+            sysDic[sysName] = {}
         
+        if 'SR' in histName:
+            if not 'nominal' in sysDic[sysName].keys():
+                sysDic[sysName]['nominal'] = hist.Clone()
+                sysDic[sysName]['nominal'].SetName(processName)
+            else:
+                sysDic[sysName]['nominal'].Add(hist)
+                sysDic[sysName]['nominal'].SetName(sysDic[sysName]['nominal'].GetName()+processName)
+        # elif 'Up' in histName:
+       
+        print('\n') 
    
     inputDir = inputTemp[: inputTemp.rfind('/')+1] 
     outDir = inputDir+'templatesPlots/'
@@ -33,11 +48,11 @@ def main():
 
 def getSysName(histName):
     if 'SR' in histName:
-        sys = histName[histName.find('SR')+3:]
+        sys = ''
     if 'Up' in histName :
-        sys = histName[histName.find('up')+3:] 
+        sys = histName[histName.find('_'):histName.find('up')] 
     if 'Down' in histName:
-        sys = histName[histName.find('Down')+5:] 
+        sys = histName[histName.find('_')+1:histName.find('Down')] 
     return sys
     
 def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR', process='fakeTau'): 
