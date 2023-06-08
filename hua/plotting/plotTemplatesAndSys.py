@@ -49,7 +49,8 @@ def main():
     outDir = inputDir+'templatesPlots/'
     uf.checkMakeDir(outDir)
     for isys in sysDic.keys():
-       plotSysVariaction(sysDic[isys]['nominal'], sysDic[isys]['up'], sysDic[isys]['dn'], outDir, isys, sysDic[isys]['up'].GetName() ) 
+        if not isys=='CMS_btag_shape_cferr22017': continue
+        plotSysVariaction(sysDic[isys]['nominal'], sysDic[isys]['up'], sysDic[isys]['dn'], outDir, isys, sysDic[isys]['up'].GetName() ) 
     
     
     
@@ -143,9 +144,8 @@ def getSysRatio(nominalHist, sysUp, sysDown):
         bin_values.append(0.0)
         nomi = nominalHist.GetBinContent(bin)
         if not nomi==0:
-            binUp.append((sysUp.GetBinContent(bin)-nomi)/nomi)
-            # binDown.append((sysDown.GetBinContent(bin)-nomi)/nomi)
-            binDown.append((nomi-sysDown.GetBinContent(bin))/nomi)
+            binUp.append((abs(sysUp.GetBinContent(bin)-nomi)/nomi))
+            binDown.append(abs((nomi-sysDown.GetBinContent(bin))/nomi))
         else:
             binUp.append(0)
             binDown.append(0)
@@ -162,7 +162,6 @@ def getSysRatio(nominalHist, sysUp, sysDown):
     print(y_err_down)
     
     graph = ROOT.TGraphAsymmErrors(num_bins, x_values, y_values, x_err_down, x_err_up, y_err_down, y_err_up)
-    # graph.GetXaxis().SetMaximum(nominalHist.GetXaxis().GetMaximum())
     graph.GetXaxis().SetRangeUser(nominalHist.GetXaxis().GetXmin(), nominalHist.GetXaxis().GetXmax())
     return graph
 
