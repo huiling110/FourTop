@@ -112,7 +112,7 @@ def plotSysVariaction(nominalHist, sysUp, sysDown, outDir, sysName='FR', process
     nominalHist.SetMaximum(yMax*1.3)
     
   
-    leggy = ROOT.TLegend(0.6,0.75,0.92,0.94)
+    leggy = ROOT.TLegend(0.6,0.75,0.92,0.99)
     leggy.AddEntry(nominalHist, 'nominal: '+ process)
     leggy.AddEntry(sysUp, 'up: '+sysName)
     leggy.AddEntry(sysDown, 'down: ' + sysName)
@@ -162,6 +162,8 @@ def getSysRatio(nominalHist, sysUp, sysDown):
     print(y_err_down)
     
     graph = ROOT.TGraphAsymmErrors(num_bins, x_values, y_values, x_err_down, x_err_up, y_err_down, y_err_up)
+    # graph.GetXaxis().SetMaximum(nominalHist.GetXaxis().GetMaximum())
+    graph.GetXaxis().SetRangeUser(nominalHist.GetXaxis().GetXmin(), nominalHist.GetXaxis().GetXmax())
     return graph
 
         
