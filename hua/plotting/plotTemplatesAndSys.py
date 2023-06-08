@@ -20,11 +20,12 @@ def main():
         if not isinstance(hist, ROOT.TH1): continue
         # hist.Print()
         histName = hist.GetName()
-        if 'tttt' in histName: continue
         if 'data' in histName: continue
-        if 'qcd' in histName: continue
         print(histName) 
         processName = histName[:histName.find('_')]
+        if processName=='qcd' : continue
+        if processName=='tttt' : continue
+        if processName=='WJetsToLNu' : continue
         print('processName: ', processName)
         sysName = getSysName(histName) 
         print('sysName: ', sysName)
