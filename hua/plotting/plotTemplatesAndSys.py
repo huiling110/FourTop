@@ -49,7 +49,7 @@ def main():
     outDir = inputDir+'templatesPlots/'
     uf.checkMakeDir(outDir)
     for isys in sysDic.keys():
-        if not isys=='CMS_btag_shape_cferr22017': continue
+        # if not isys=='CMS_btag_shape_cferr22017': continue
         plotSysVariaction(sysDic[isys]['nominal'], sysDic[isys]['up'], sysDic[isys]['dn'], outDir, isys, sysDic[isys]['up'].GetName() ) 
     
     
@@ -159,7 +159,7 @@ def getSysRatio(nominalHist, sysUp, sysDown):
     x_err_down = array("d", [0] * num_bins)
     y_err_up = array("d", binUp)
     y_err_down = array("d", binDown) 
-    print(y_err_down)
+    # print(y_err_down)
     
     graph = ROOT.TGraphAsymmErrors(num_bins, x_values, y_values, x_err_down, x_err_up, y_err_down, y_err_up)
     graph.GetXaxis().SetRangeUser(nominalHist.GetXaxis().GetXmin(), nominalHist.GetXaxis().GetXmax())
