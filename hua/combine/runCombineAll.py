@@ -27,22 +27,22 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v2traingWithBtag/combine/datacardNoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/combine/datacardNoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/combine/datacardNoSys/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/datacard/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/datacard/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/datacardNoSys/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/datacardAllButBtag/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/datacardAllButBtag/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/combine/datacardSys/'
 
     
     
 
-    cardToWorkspaces( cardDir )
-#
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-# # #
-    copyCombineResultsToDir( cardDir )
+#     cardToWorkspaces( cardDir )
+# #
+#     runCombineSig( cardDir, True )
+#     runCombineSig( cardDir, False )
+# # # #
+#     copyCombineResultsToDir( cardDir )
     
-    # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
+    runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
 
     # plot.main( cardDir+ 'combineResults/')
@@ -51,9 +51,9 @@ def main():
 def runImpact(wf, outFolder):
     impacDir = outFolder+ 'impactResult/'
     uf.checkMakeDir(impacDir)
-    step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1'.format(wf)
-    step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits'.format(wf)
-    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json'.format(wf, impacDir)
+    step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1  --rMin -10 --rMax 10'.format(wf)
+    step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits  --rMin -10 --rMax 10'.format(wf)
+    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json --rMin -10 --rMax 10'.format(wf, impacDir)
     step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
     mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
     runCommand(step1)
