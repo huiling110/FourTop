@@ -16,12 +16,12 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/'
     channel = '1tau0l' # 1tau0l
     
-    outDir = inputDir+'combine/'
+    # outDir = inputDir+'combine/'
+    outDir = inputDir+'combine_test/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
     
-    # allSubPro = list(gq.histoGramPerSampleR.keys())
     allSubPro = list(gq.histoGramPerSample.keys())
 
     summedHistDicAllSys = {}
@@ -92,14 +92,16 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys):
 
     
 def addDataHist(summedHistSR, outFile, channel):
-    print('adding fake data hist from signal+bg MC')
+    print('adding fake data hist from signal+bg MC......')
     fakeData = summedHistSR[ list(summedHistSR.keys())[0]].Clone()
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
-    # fakeData.SetName('data_obs_SR_BDT')
     fakeData.SetName('data_obs_SR_'+channelDic[channel])
     for ipro in summedHistSR.keys():
+        if ipro=='qcd': continue
+        print(ipro)
         fakeData.Add(summedHistSR[ipro])
+    print('done adding fake data............\n')
     return fakeData
         
          
