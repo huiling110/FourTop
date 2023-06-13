@@ -157,7 +157,6 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
         // std::cout << jets.GetSize() << " " << jets_flavour.GetSize() << " " << jets_btag.GetSize() << "\n";
         for (UInt_t j = 0; j < jets.GetSize(); j++)
         {
-            // Double_t ijetSF = corr_deepJet->evaluate({"central", jets_flavour.At(j), std::abs(jets.At(j).Eta()), jets.At(j).Pt(), jets_btag.At(j)});
             Double_t ijetSF = 1.0;
             if (sys == "central")
             {
