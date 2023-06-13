@@ -1,4 +1,5 @@
 import ROOT
+import math
 
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
@@ -17,7 +18,8 @@ def main():
     channel = '1tau0l' # 1tau0l
     
     # outDir = inputDir+'combine/'
-    outDir = inputDir+'combine_test/'
+    # outDir = inputDir+'combine_test/'
+    outDir = inputDir+'combine_modifyFakeDataError/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
@@ -101,6 +103,10 @@ def addDataHist(summedHistSR, outFile, channel):
         if ipro=='qcd': continue
         print(ipro)
         fakeData.Add(summedHistSR[ipro])
+
+    for bin in range(1, fakeData.GetNbinsX()+1):
+        fakeData.SetBinError(bin, math.sqrt(bin))
+        
     print('done adding fake data............\n')
     return fakeData
         
