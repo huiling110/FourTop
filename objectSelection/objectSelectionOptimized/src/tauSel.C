@@ -1,7 +1,7 @@
 #include "../include/tauSel.h"
 #include <map>
 
-TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}
+TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}, m_era{era}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
@@ -9,6 +9,7 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     TString jsonBase = "../../../jsonpog-integration/POG/";
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
     std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
+
 
     std::map<Int_t, TString> tauWPMap = {
         {1, "L"},
@@ -36,7 +37,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
     clearBranch();
-    calTauSF_new(e, isData);
+    // calTauSF_new(e, isData);//for 2022???
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
         Double_t itau_pt = e->Tau_pt.At(j);

@@ -37,13 +37,14 @@ void objectSelection::EventLoop(Bool_t preSelection )
         // // TOPMVA lepton selection
         // eleTopMVATSel.Select(e);
         // muTopMVATSel.Select(e);
-        // std::vector<Double_t> lepEtaVec;
-        // std::vector<Double_t> lepPhiVec;
-        // getLepEtaPhi(lepEtaVec, lepPhiVec);
+        std::vector<Double_t> lepEtaVec;
+        std::vector<Double_t> lepPhiVec;
+        getLepEtaPhi(lepEtaVec, lepPhiVec);
 
         // // tau selection
         // Int_t sysTES = 0;
-        // tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        Int_t sysTES = 4; //no tau energy correction
+        tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         // tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         // tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
@@ -92,15 +93,15 @@ objectSelection::~objectSelection(){
     // delete m_output;
 };
 
-// void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
-// {
-//     const std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
-//     const std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
-//     // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
-//     const std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
-//     const std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
-//     // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
-//     addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
-//     addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
-//     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
-// };
+void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
+{
+    const std::vector<Double_t> &muEtaVec = muSel.getEtaVec();
+    const std::vector<Double_t> &muPhiVec = muSel.getPhiVec();
+    // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+    const std::vector<Double_t> &eleEtaVec = eleMVASel.getEtaVec();
+    const std::vector<Double_t> &elePhiVec = eleMVASel.getPhiVec();
+    // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+    addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
+    addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
+    // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
+};
