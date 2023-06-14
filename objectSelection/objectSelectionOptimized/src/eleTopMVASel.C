@@ -21,7 +21,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     // XGBoosterCreate(NULL, 0, &m_booster[1]);
     // XGBoosterLoadModel(m_booster[1], muWeight.Data());
     std::cout << "Done EleTopMVASel initialization......\n";
-    std::cout<<"\n";
+    std::cout << "\n";
 };
 
 EleTopMVASel::~EleTopMVASel()
@@ -94,10 +94,10 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
                 // {"mvaFall17V2noIso", e->Electron_mvaFall17V2noIso[j]}};//???how to make the code consistent even when the branch not exist??
-                {"mvaFall17V2noIso", e->Electron_mvaNoIso_Fall17V2[j]}};//only for 2022
+                {"mvaFall17V2noIso", e->Electron_mvaNoIso_Fall17V2[j]}}; // only for 2022
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            if (!(topMVAScore > 0.81))
-                continue;
+            // if (!(topMVAScore > 0.81))
+            //     continue;
         }
 
         // ROOT::Math::PtEtaPhiMVector electron(e->Electron_pt.At(j), e->Electron_eta.At(j), e->Electron_phi.At(j), Electron_mass.At(j));
