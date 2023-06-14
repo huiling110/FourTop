@@ -4,7 +4,7 @@
 void objectSelection::EventLoop(Bool_t preSelection )
 {
     ULong_t entryCount = 0;
-    ULong_t numEntries = 3000;
+    ULong_t numEntries = 5000;
     // ULong_t numEntries = 10000;
     std::cout << "Start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
@@ -33,7 +33,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
 
 
         // // TOPMVA lepton selection
-        // eleTopMVATSel.Select(e);
+        eleTopMVATSel.Select(e);
         // muTopMVATSel.Select(e);
         // std::vector<Double_t> lepEtaVec;
         // std::vector<Double_t> lepPhiVec;
