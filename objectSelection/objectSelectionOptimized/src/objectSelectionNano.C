@@ -13,61 +13,61 @@ void objectSelection::EventLoop(Bool_t preSelection )
         h_forEY_initial->Fill(0);
 
         // good lumi and good PV selection
-        if (!(lumiAndPVSelection.Select(m_isData, e)))
-        {
-            continue;
-        };
+        // if (!(lumiAndPVSelection.Select(m_isData, e)))
+        // {
+        //     continue;
+        // };
 
-        // MET filters
-        if (!(metFilter.Select(m_era, e)))
-        {
-            continue;
-        }
+        // // MET filters
+        // if (!(metFilter.Select(m_era, e)))
+        // {
+        //     continue;
+        // }
 
-        // HLT selection and HLT branch filling
-        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
-        {
-            continue; // contains event selection!!!
-        }
-        h_forEY_HLT->Fill(0);
+        // // HLT selection and HLT branch filling
+        // if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
+        // {
+        //     continue; // contains event selection!!!
+        // }
+        // h_forEY_HLT->Fill(0);
 
 
-        // TOPMVA lepton selection
-        eleTopMVATSel.Select(e);
-        muTopMVATSel.Select(e);
-        std::vector<Double_t> lepEtaVec;
-        std::vector<Double_t> lepPhiVec;
-        getLepEtaPhi(lepEtaVec, lepPhiVec);
+        // // TOPMVA lepton selection
+        // eleTopMVATSel.Select(e);
+        // muTopMVATSel.Select(e);
+        // std::vector<Double_t> lepEtaVec;
+        // std::vector<Double_t> lepPhiVec;
+        // getLepEtaPhi(lepEtaVec, lepPhiVec);
 
-        // tau selection
-        Int_t sysTES = 0;
-        tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
-        const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
+        // // tau selection
+        // Int_t sysTES = 0;
+        // tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        // tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        // tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
+        // const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
 
-        // jet and bjet selection
-        const Bool_t ifJER = kFALSE;
-        const Int_t sysJEC = 0;
-        jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        // // jet and bjet selection
+        // const Bool_t ifJER = kFALSE;
+        // const Int_t sysJEC = 0;
+        // jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        // jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        // bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        // bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        // bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
 
-        // copy some nanoAOD branches
-        copyBranch.Select(e, m_isData);
+        // // copy some nanoAOD branches
+        // copyBranch.Select(e, m_isData);
 
-        // pile up weight cal
-        puWeightCal.Select(e, m_isData);
+        // // pile up weight cal
+        // puWeightCal.Select(e, m_isData);
 
-        //pre selection
-        if (preSelection)
-        {
-            if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
-                continue;;
-        }
+        // //pre selection
+        // if (preSelection)
+        // {
+        //     if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
+        //         continue;;
+        // }
         h_forEY_preSelection->Fill(0);
 
         m_outTree->Fill();
@@ -90,15 +90,15 @@ objectSelection::~objectSelection(){
     // delete m_output;
 };
 
-void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
-{
-    const std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
-    const std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
-    // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
-    const std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
-    const std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
-    // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
-    addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
-    addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
-    // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
-};
+// void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
+// {
+//     const std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
+//     const std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
+//     // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
+//     const std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
+//     const std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
+//     // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+//     addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
+//     addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
+//     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
+// };

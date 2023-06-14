@@ -43,6 +43,8 @@ TString getEra(TString inputDir)
     else if (inputDir.Contains("2016"))
     {
         era = "2016postVFP";
+    }else if(inputDir.Contains("2022")){
+        era = "2022";
     }
     else
     {

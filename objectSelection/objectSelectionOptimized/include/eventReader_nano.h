@@ -187,6 +187,9 @@ public:
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFJet450 = nullptr;
     // TTreeReaderValue<Bool_t> * = nullptr;
+    //2022
+    // HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94
+    //HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59
     // 2018
     TTreeReaderValue<Bool_t> *HLT_PFJet500 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = nullptr;
