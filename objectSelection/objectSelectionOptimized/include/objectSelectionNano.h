@@ -101,6 +101,12 @@ private:
     // CopyBranch copyBranch{m_outTree};
     // PUWeightCal puWeightCal{m_outTree, m_isData, m_era};
 
+    ULong_t m_elesTotal=0;
+    ULong_t m_musTotal=0;
+    ULong_t m_tausTotal=0;
+    ULong_t m_jetsTotal=0;
+
+
     // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
 

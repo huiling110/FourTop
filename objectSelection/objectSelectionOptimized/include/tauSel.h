@@ -17,6 +17,7 @@ public:
     void clearBranch();
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
+    Int_t getSize();
 
 private:
     Int_t m_tauWP = 3;
