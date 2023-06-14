@@ -238,7 +238,8 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
         // iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
         // iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
-        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // jet_resolution
+        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // jet_resolution
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
         // Double_t ijet_res = corr_jerResolution->evaluate({{rawJetPt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
         // what is this rho? average energy density , for a event
 

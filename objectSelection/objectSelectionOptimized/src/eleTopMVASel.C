@@ -92,7 +92,8 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"sip3d", e->Electron_sip3d[j]},
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
-                {"mvaFall17V2noIso", e->Electron_mvaFall17V2noIso[j]}};
+                // {"mvaFall17V2noIso", e->Electron_mvaFall17V2noIso[j]}};//???how to make the code consistent even when the branch not exist??
+                {"mvaFall17V2noIso", 0.4}};
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
             if (!(topMVAScore > 0.81))
                 continue;

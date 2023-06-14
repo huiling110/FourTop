@@ -56,7 +56,7 @@ public:
                                         Electron_jetPtRelv2(reader, "Electron_jetPtRelv2"),
                                         Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
                                         Electron_sip3d(reader, "Electron_sip3d"),
-                                        Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
+                                        // Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
                                         Electron_phi(reader, "Electron_phi"),
                                         Electron_mass(reader, "Electron_mass"),
                                         Electron_charge(reader, "Electron_charge"),
@@ -102,8 +102,8 @@ public:
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
-                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour")
+                                        // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -122,6 +122,9 @@ public:
         readPointer(HLT_PFHT430_SixJet40_BTagCSV_p080, reader, "HLT_PFHT430_SixJet40_BTagCSV_p080");
         readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
         readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
+        //2022
+        readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94");
+        readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59");
         // gen
         readPointer(GenJet_eta, reader, "GenJet_eta");
         readPointer(GenJet_phi, reader, "GenJet_phi");
@@ -187,9 +190,6 @@ public:
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFJet450 = nullptr;
     // TTreeReaderValue<Bool_t> * = nullptr;
-    //2022
-    // HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94
-    //HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59
     // 2018
     TTreeReaderValue<Bool_t> *HLT_PFJet500 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = nullptr;
@@ -206,6 +206,11 @@ public:
     // TTreeReaderValue<Bool_t> *HLT_PFJet500 = nullptr;
     // TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
+
+    //2022
+    TTreeReaderValue<Bool_t> * HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94= nullptr;
+    TTreeReaderValue<Bool_t> * HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = nullptr;
+
     // TTreeReaderValue<Bool_t> * = nullptr;
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
@@ -244,7 +249,7 @@ public:
     TTreeReaderArray<Float_t> Electron_jetPtRelv2;
     TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
     TTreeReaderArray<Float_t> Electron_sip3d;
-    TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;
+    // TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;//??? not vailable
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
     TTreeReaderArray<Int_t> Electron_charge;
@@ -291,7 +296,7 @@ public:
     TTreeReaderArray<Int_t> Jet_jetId;
     TTreeReaderArray<Float_t> Jet_btagDeepB;
     TTreeReaderArray<Int_t> Jet_hadronFlavour;
-    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;
+    // TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
 };
 
 #endif

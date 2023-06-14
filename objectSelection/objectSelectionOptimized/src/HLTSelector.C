@@ -3,6 +3,7 @@
 // HLTSelector(TTree *outTree) : m_outTree{outTree}
 HLTSelector::HLTSelector(TTree *outTree)
 {
+    std::cout<<"Initializing HLTSelector...........\n";
     outTree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_);
     outTree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_);
     outTree->Branch("HLT_PFJet450_", &HLT_PFJet450_);
@@ -16,6 +17,8 @@ HLTSelector::HLTSelector(TTree *outTree)
     outTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_);
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_);
     // outTree->Branch("", &);
+    std::cout<<"Done HLTSelector initializing .............\n";
+    std::cout<<"\n";
 };
 // HLTSelector::~HLTSelector(){};
 
@@ -106,6 +109,9 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
                 std::cout << "ERROR!!! 2018 data out of range for HLT \n";
             }
         }
+    }else if(era.CompareTo("2022")==0){
+        ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
+
     }
     // m_outTree->Fill(); //??? should we fill in every Selector or no need?
     // inconsistent fill could cause strange things

@@ -25,11 +25,11 @@ void objectSelection::EventLoop(Bool_t preSelection )
         // }
 
         // // HLT selection and HLT branch filling
-        // if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
-        // {
-        //     continue; // contains event selection!!!
-        // }
-        // h_forEY_HLT->Fill(0);
+        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
+        {
+            continue; // contains event selection!!!
+        }
+        h_forEY_HLT->Fill(0);
 
 
         // // TOPMVA lepton selection
