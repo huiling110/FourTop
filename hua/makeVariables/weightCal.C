@@ -148,6 +148,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
     "hfstats1" / "hfstats2": b jets.
     "lfstats1" / "lfstats2": udsg jets.
     "cferr1" / "cferr2": Uncertainty for charm jets. //???the only uncertainty to consider for charm jets???
+    variations due to "jes", "lf", "hf", "hfstats1/2", and "lfstats1/2" are applied to both b and udsg jets. For c-flavored jets, only "cferr1/2" is applied.
 
 */
     Double_t sf = 1.0;
@@ -166,6 +167,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
             {
                 if (jets_flavour.At(j) == 4)
                 {
+                    //???is this way of accessing correct?
                     // c jet
                     if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
                     {
@@ -208,7 +210,7 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
     Int_t ybins = hist->GetYaxis()->GetNbins();
     Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
     Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
-    if (x >= xmin && x <xmax && y >= ymin && y < ymax)
+    if (x >= xmin && x < xmax && y >= ymin && y < ymax)
     {
         Int_t binx = hist->GetXaxis()->FindBin(x);
         Int_t biny = hist->GetYaxis()->FindBin(y);
