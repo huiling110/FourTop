@@ -32,9 +32,10 @@ void objectSelection::EventLoop(Bool_t preSelection )
         h_forEY_HLT->Fill(0);
 
         muSel.Select(e);
+        eleMVASel.Select(e);
 
         // // TOPMVA lepton selection
-        eleTopMVATSel.Select(e);
+        // eleTopMVATSel.Select(e);
         // muTopMVATSel.Select(e);
         // std::vector<Double_t> lepEtaVec;
         // std::vector<Double_t> lepPhiVec;

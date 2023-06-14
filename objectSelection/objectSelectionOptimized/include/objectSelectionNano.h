@@ -22,6 +22,7 @@
 #include "copyBranch.h"
 #include "PUWeightCal.h"
 #include "muMVASel.h"
+#include "eleMVASel.h"
 
 class objectSelection
 {
@@ -85,8 +86,9 @@ private:
     // METFilter metFilter{};//??? for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
-    EleTopMVASel eleTopMVATSel{m_outTree, m_era};
+    // EleTopMVASel eleTopMVATSel{m_outTree, m_era};
     MuSel muSel{m_outTree, m_era};
+    EleMVASel eleMVASel{m_outTree, m_era};
     // MuTopMVASel muTopMVATSel{m_outTree, m_era};
     // TauSel tauSel{m_outTree, m_era};
     // TauSel tauSelF{m_outTree, m_era, 2};
