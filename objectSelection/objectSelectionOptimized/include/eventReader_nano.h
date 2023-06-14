@@ -81,6 +81,8 @@ public:
                                         Muon_mass(reader, "Muon_mass"),
                                         Muon_phi(reader, "Muon_phi"),
                                         Muon_charge(reader, "Muon_charge"),
+                                        Muon_miniIsoId(reader, "Muon_miniIsoId"),
+                                        Muon_tightCharge(reader, "Muon_tightCharge"),
                                         // tau
                                         Tau_pt(reader, "Tau_pt"),
                                         Tau_mass(reader, "Tau_mass"),
@@ -275,6 +277,10 @@ public:
     TTreeReaderArray<Float_t> Muon_mass;
     TTreeReaderArray<Float_t> Muon_phi;
     TTreeReaderArray<Int_t> Muon_charge;
+    TTreeReaderArray<UChar_t> Muon_miniIsoId;
+    TTreeReaderArray<Int_t> Muon_tightCharge;
+    // TTreeReaderArray<Int_t> ;
+    // TTreeReaderArray<Int_t> ;
     // tau
     TTreeReaderArray<Float_t> Tau_pt;
     TTreeReaderArray<Float_t> Tau_mass;

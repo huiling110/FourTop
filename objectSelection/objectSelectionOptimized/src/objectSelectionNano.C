@@ -31,6 +31,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
         }
         h_forEY_HLT->Fill(0);
 
+        muSel.Select(e);
 
         // // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
