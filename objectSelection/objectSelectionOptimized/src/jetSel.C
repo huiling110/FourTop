@@ -45,7 +45,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
-        Double_t jetpt = static_cast<Double_t>(e->Jet_pt.At(j));
+        // Double_t jetpt = static_cast<Double_t>(e->Jet_pt.At(j));//???
+        Double_t jetpt = e->Jet_pt.At(j);
         Double_t ijetMass = e->Jet_mass.At(j);
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);

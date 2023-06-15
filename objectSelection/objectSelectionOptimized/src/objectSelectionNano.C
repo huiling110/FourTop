@@ -60,6 +60,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
         // bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         // bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         // bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        m_jetsTotal += jetSel.getSize();
 
         // // copy some nanoAOD branches
         // copyBranch.Select(e, m_isData);
@@ -87,7 +88,7 @@ void objectSelection::Terminate()
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
     m_output->Close();
-    std::cout<<"elesTotal="<<m_elesTotal<<";   musTotal="<<m_musTotal<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<"\n";
+    std::cout<<"elesTotal="<<m_elesTotal<<";   musTotal="<<m_musTotal<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<";  jets="<<m_jetsTotal<<"\n";
     std::cout<<"Termination done .....................................................\n";
 };
 
