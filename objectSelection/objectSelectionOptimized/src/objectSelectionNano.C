@@ -1,11 +1,11 @@
 #include "../include/objectSelectionNano.h"
 #include "../include/usefulFunc.h"
 
-void objectSelection::EventLoop(Bool_t preSelection )
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
 {
     ULong_t entryCount = 0;
     // ULong_t numEntries = 5000;
-    ULong_t numEntries = 10000;
+    // ULong_t numEntries = 10000;
     std::cout << "Start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {

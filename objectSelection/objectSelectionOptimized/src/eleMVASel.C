@@ -1,6 +1,6 @@
 #include "../include/eleMVASel.h"
 
-EleMVASel::EleMVASel(TTree *outTree, const TString era, const Int_t m_type) : m_type{m_type}
+EleMVASel::EleMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}, m_era{era}
 { // m_type for different electrons
     std::cout << "Initializing EleMVASel......\n";
     outTree->Branch("elesMVAT_pt", &muonsTopMVAT_pt);
@@ -30,8 +30,14 @@ void EleMVASel::Select(const eventForNano *e)
             continue;
         if (!(pt > 10))
             continue;
-        // if (!e->Electron_mvaFall17V2Iso_WP90.At(j))
-        if (!e->Electron_mvaIso_Fall17V2_WP90->At(j))//???  2022: Electron_mvaIso_Fall17V2_WP90
+        Bool_t mvaIso;
+        if(m_era.CompareTo("2022")==0){
+          mvaIso = e->Electron_mvaIso_Fall17V2_WP90->At(j);
+        }else{
+          mvaIso = e->Electron_mvaFall17V2Iso_WP90->At(j);
+        }
+        // if (!e->Electron_mvaFall17V2Iso_WP90.At(j))//run2
+        if (!mvaIso)//???  2022: Electron_mvaIso_Fall17V2_WP90
             continue; // note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
         // note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
         if (!e->Electron_convVeto.At(j))

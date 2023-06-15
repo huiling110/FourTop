@@ -92,9 +92,9 @@ public:
                                         Tau_idDeepTau2017v2p1VSjet(reader, "Tau_idDeepTau2017v2p1VSjet"),
                                         Tau_idDeepTau2017v2p1VSe(reader, "Tau_idDeepTau2017v2p1VSe"),
                                         Tau_idDeepTau2017v2p1VSmu(reader, "Tau_idDeepTau2017v2p1VSmu"),
-                                        Tau_idDeepTau2018v2p5VSjet(reader, "Tau_idDeepTau2018v2p5VSjet"),
-                                        Tau_idDeepTau2018v2p5VSe(reader, "Tau_idDeepTau2018v2p5VSe"),
-                                        Tau_idDeepTau2018v2p5VSmu(reader, "Tau_idDeepTau2018v2p5VSmu"),
+                                        // Tau_idDeepTau2018v2p5VSjet(reader, "Tau_idDeepTau2018v2p5VSjet"),
+                                        // Tau_idDeepTau2018v2p5VSe(reader, "Tau_idDeepTau2018v2p5VSe"),
+                                        // Tau_idDeepTau2018v2p5VSmu(reader, "Tau_idDeepTau2018v2p5VSmu"),
                                         Tau_decayMode(reader, "Tau_decayMode"),
                                         Tau_genPartFlav(reader, "Tau_genPartFlav"),
                                         Tau_jetIdx(reader, "Tau_jetIdx"),
@@ -144,6 +144,9 @@ public:
         readPointer(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
         readPointer(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
         readPointer(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
+        readPointer(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
+        readPointer(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
+        readPointer(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -302,9 +305,9 @@ public:
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSjet;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSe;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSmu;
-    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSjet;//!!!run3
-    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSe;
-    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSmu;
+    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSjet;//!!!run3
+    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSe;
+    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSmu;
     TTreeReaderArray<Int_t> Tau_decayMode;
     TTreeReaderArray<UChar_t> Tau_genPartFlav;
     TTreeReaderArray<Int_t> Tau_jetIdx;

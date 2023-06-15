@@ -71,13 +71,17 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             continue;
         //???why no dxy requirement?
         // if (!(e->Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
-        UChar_t tauID_vsJet =  e->Tau_idDeepTau2017v2p1VSjet.At(j);
-        UChar_t tauID_vsEle =  e->Tau_idDeepTau2017v2p1VSe.At(j);
-        UChar_t tauID_vsMu =  e->Tau_idDeepTau2017v2p1VSmu.At(j);
+        UChar_t tauID_vsJet;
+        UChar_t tauID_vsEle;
+        UChar_t tauID_vsMu;
         if(m_era.CompareTo("2022")==0){
-             tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet.At(j);
-             tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe.At(j);
-             tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu.At(j);
+             tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
+             tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
+             tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
+        }else{
+            tauID_vsJet =  e->Tau_idDeepTau2017v2p1VSjet.At(j);
+            tauID_vsEle =  e->Tau_idDeepTau2017v2p1VSe.At(j);
+            tauID_vsMu =  e->Tau_idDeepTau2017v2p1VSmu.At(j);
         }
         if (m_tauWP == 1)
         {

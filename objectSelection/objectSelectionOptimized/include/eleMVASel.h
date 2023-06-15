@@ -21,6 +21,7 @@ public:
 
 private:
     Int_t m_type = 2;
+    TString m_era;
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
     std::vector<Double_t> muonsTopMVAT_eta;
