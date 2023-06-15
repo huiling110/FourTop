@@ -22,6 +22,7 @@ public:
 private:
     Int_t m_tauWP = 3;
     TString m_era;
+    Bool_t m_isRun3=kFALSE;
     std::unique_ptr<correction::CorrectionSet> cset_tauSF;
     std::vector<Double_t> taus_TES;
     std::vector<Double_t> taus_TES_up;

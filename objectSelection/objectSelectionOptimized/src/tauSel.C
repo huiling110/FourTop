@@ -27,6 +27,14 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     outTree->Branch("taus" + tauWPMap[tauWP] + "_charge", &taus_charge);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_neutralIso", &taus_neutralIso);
 
+    //
+    if(m_era.CompareTo("2022")==0){
+        m_isRun3 = kTRUE;
+    }else{
+        m_isRun3 = kFALSE;
+    }
+    std::cout<<"m_isRun3 = "<<m_isRun3<<"\n";
+
     std::cout << "Done TauSel initialization......\n";
 };
 
@@ -82,10 +90,21 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             tauID_vsJet =  e->Tau_idDeepTau2017v2p1VSjet.At(j);
             tauID_vsEle =  e->Tau_idDeepTau2017v2p1VSe.At(j);
             tauID_vsMu =  e->Tau_idDeepTau2017v2p1VSmu.At(j);
+            //!!! for nanoAOD v11, tau id has no bit mast!!!
+            //byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
         // }
+
+        Bool_t isVSjetVVLoose=kFALSE;
+        Bool_t isVSeVVVLoose = kFALSE;
+        Bool_t isVSmuVLoose = kFALSE;
+        Bool_t isVSjetM = kFALSE;
         if (m_tauWP == 1)
         {
-            Bool_t isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            if(m_isRun3){
+                isVSjetVVLoose = tauID_vsJet >=2; // check if the 2nd bit (VVLoose WP) is 1
+            }else{
+                isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+            }
             // bitwise shift operators are the right-shift operator (>>
             //&: bitwise and operator; only 1&1=1; 0&anything = 0
             // 1<<1 = 2 = 00000010
@@ -96,10 +115,15 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         if (m_tauWP == 2)
         {
-            Bool_t isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
-            Bool_t isVSeVVVLoose = tauID_vsEle & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
-            Bool_t isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
-            // std::cout<<"tau:"<<isVSjetVVLoose<<isVSeVVVLoose<<isVSmuVLoose<<"\n";
+            if(m_isRun3){
+                 isVSjetVVLoose = tauID_vsJet>=2; // check if the 2nd bit (VVLoose WP) is 1
+                 isVSeVVVLoose = tauID_vsEle >=1;    // check if the 1st bit (VVVLoose WP) is 1
+                 isVSmuVLoose = tauID_vsMu >=3;    // check if the 1st bit (VLoose WP) is 1
+            }else{
+                 isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+                 isVSeVVVLoose = tauID_vsEle & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
+                 isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
+            }
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
@@ -107,10 +131,15 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         if (m_tauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
-
-            Bool_t isVSjetM = tauID_vsJet & (1 << 4);    // check if the 5th bit (Medium WP) is 1
-            Bool_t isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
-            Bool_t isVSmuVLoose = tauID_vsMu & (1 << 0); // check if the 1st bit (VLoose WP) is 1
+            if(m_isRun3){
+                 isVSjetM = tauID_vsJet >=5;    // check if the 5th bit (Medium WP) is 1
+                 isVSeVVVLoose = tauID_vsEle >=1; // check if the 1st bit (VVVLoose WP) is 1
+                 isVSmuVLoose = tauID_vsMu >=3; // check if the 1st bit (VLoose WP) is 1
+            }else{
+                 isVSjetM = tauID_vsJet & (1 << 4);    // check if the 5th bit (Medium WP) is 1
+                 isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
+                 isVSmuVLoose = tauID_vsMu & (1 << 0); // check if the 1st bit (VLoose WP) is 1
+            }
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)

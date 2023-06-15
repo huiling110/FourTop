@@ -10,8 +10,8 @@ def main():
     rootF2 = ROOT.TFile(nanoFileRun2, 'READ')
     tree2 = rootF2.Get('Events')
    
-    get3Hist( tree, tree2)
-    get3Hist( tree, tree2, 'VSe')
+    # get3Hist( tree, tree2)
+    # get3Hist( tree, tree2, 'VSe')
     get3Hist( tree, tree2, 'VSmu')
     
     
@@ -38,6 +38,7 @@ def drawHistoOverLay(hist1, hist2, hist3, tauID):
     hist1.Scale(1.0 / hist1.Integral()) 
     hist2.Scale(1.0 / hist2.Integral()) 
     hist3.Scale(1.0 / hist3.Integral()) 
+    hist1.SetMaximum(1)
     
     hist1.SetLineColor(ROOT.kRed)
     hist2.SetLineColor(ROOT.kBlue)
