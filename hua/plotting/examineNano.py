@@ -11,6 +11,8 @@ def main():
     tree2 = rootF2.Get('Events')
    
     get3Hist( tree, tree2)
+    get3Hist( tree, tree2, 'VSe')
+    get3Hist( tree, tree2, 'VSmu')
     
     
 def get3Hist( tree, tree2, tauID='VSjet'): 
@@ -20,7 +22,7 @@ def get3Hist( tree, tree2, tauID='VSjet'):
     hist1.Print()
     hist2.Print()
     
-    drawHistoOverLay(hist1, hist2, hist3)
+    drawHistoOverLay(hist1, hist2, hist3, tauID)
    
 def getHist(tree, branchName, year): 
     tree.Draw(branchName)
@@ -30,7 +32,7 @@ def getHist(tree, branchName, year):
     ROOT.gDirectory.Delete('htemp')
     return hist1
     
-def drawHistoOverLay(hist1, hist2, hist3): 
+def drawHistoOverLay(hist1, hist2, hist3, tauID): 
     canvas = ROOT.TCanvas("canvas", "Tree Branch Canvas", 800, 600)
     
     hist1.Scale(1.0 / hist1.Integral()) 
@@ -51,7 +53,8 @@ def drawHistoOverLay(hist1, hist2, hist3):
     legend.Draw('same')
     
     
-    canvas.SaveAs('output/tauID.png') 
+    # canvas.SaveAs('output/tauID.png') 
+    canvas.SaveAs('output/tauID_'+tauID+ '.png') 
    
    
    
