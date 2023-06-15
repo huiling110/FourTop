@@ -31,7 +31,7 @@ void EleMVASel::Select(const eventForNano *e)
         if (!(pt > 10))
             continue;
         // if (!e->Electron_mvaFall17V2Iso_WP90.At(j))
-        if (!e->Electron_mvaNoIso_Fall17V2.At(j))//???  2022
+        if (!e->Electron_mvaIso_Fall17V2_WP90->At(j))//???  2022: Electron_mvaIso_Fall17V2_WP90
             continue; // note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
         // note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
         if (!e->Electron_convVeto.At(j))

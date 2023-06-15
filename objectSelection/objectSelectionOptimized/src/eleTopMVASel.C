@@ -1,6 +1,6 @@
 #include "../include/eleTopMVASel.h"
 
-EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}
+EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}, m_era{era}
 { // type for different electrons
     std::cout << "Initializing EleTopMVASel......\n";
     outTree->Branch("elesTopMVAT_pt", &elesTopMVAT_pt);
@@ -80,6 +80,10 @@ void EleTopMVASel::Select(const eventForNano *e)
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
+            Float_t mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); //run2
+            if(m_era.CompareTo("2022")==0){
+                 mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); //run3
+            }
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},
                 {"eta", e->Electron_eta[j]},
@@ -94,10 +98,10 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
                 // {"mvaFall17V2noIso", e->Electron_mvaFall17V2noIso[j]}};//???how to make the code consistent even when the branch not exist??
-                {"mvaFall17V2noIso", e->Electron_mvaNoIso_Fall17V2[j]}}; // only for 2022
+                {"mvaFall17V2noIso", mvaFall17V2noIso}}; // only for 2022
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            // if (!(topMVAScore > 0.81))
-            //     continue;
+            if (!(topMVAScore > 0.81))
+                continue;
         }
 
         // ROOT::Math::PtEtaPhiMVector electron(e->Electron_pt.At(j), e->Electron_eta.At(j), e->Electron_phi.At(j), Electron_mass.At(j));

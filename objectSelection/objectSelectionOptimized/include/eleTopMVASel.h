@@ -21,6 +21,7 @@ public:
 
 private:
     Int_t m_type = 2;
+    TString m_era ;
     // BoosterHandle m_booster[2];
     BoosterHandle m_booster[1];
     // output branches

@@ -57,7 +57,7 @@ public:
                                         Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
                                         Electron_sip3d(reader, "Electron_sip3d"),
                                         // Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
-                                        Electron_mvaNoIso_Fall17V2(reader, "Electron_mvaNoIso_Fall17V2"),
+                                        // Electron_mvaNoIso_Fall17V2(reader, "Electron_mvaNoIso_Fall17V2"),
                                         Electron_phi(reader, "Electron_phi"),
                                         Electron_mass(reader, "Electron_mass"),
                                         Electron_charge(reader, "Electron_charge"),
@@ -92,6 +92,9 @@ public:
                                         Tau_idDeepTau2017v2p1VSjet(reader, "Tau_idDeepTau2017v2p1VSjet"),
                                         Tau_idDeepTau2017v2p1VSe(reader, "Tau_idDeepTau2017v2p1VSe"),
                                         Tau_idDeepTau2017v2p1VSmu(reader, "Tau_idDeepTau2017v2p1VSmu"),
+                                        Tau_idDeepTau2018v2p5VSjet(reader, "Tau_idDeepTau2018v2p5VSjet"),
+                                        Tau_idDeepTau2018v2p5VSe(reader, "Tau_idDeepTau2018v2p5VSe"),
+                                        Tau_idDeepTau2018v2p5VSmu(reader, "Tau_idDeepTau2018v2p5VSmu"),
                                         Tau_decayMode(reader, "Tau_decayMode"),
                                         Tau_genPartFlav(reader, "Tau_genPartFlav"),
                                         Tau_jetIdx(reader, "Tau_jetIdx"),
@@ -136,6 +139,11 @@ public:
         readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         readPointer(genWeight, reader, "genWeight");
+        //other branch not consistent between run2 and run3
+        readPointer(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
+        readPointer(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
+        readPointer(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
+        readPointer(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -254,8 +262,10 @@ public:
     TTreeReaderArray<Float_t> Electron_jetPtRelv2;
     TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
     TTreeReaderArray<Float_t> Electron_sip3d;
-    // TTreeReaderArray<Float_t> Electron_mvaFall17V2noIso;//??? not vailable
-    TTreeReaderArray<Float_t> Electron_mvaNoIso_Fall17V2;//??? not vailable
+    TTreeReaderArray<Float_t>* Electron_mvaFall17V2noIso;//??? not vailable in Run3
+    TTreeReaderArray<Float_t>* Electron_mvaNoIso_Fall17V2;//??? not vailable in run2
+    TTreeReaderArray<Bool_t>* Electron_mvaFall17V2Iso_WP90;//!!!run2
+    TTreeReaderArray<Bool_t>* Electron_mvaIso_Fall17V2_WP90;//!!!run3
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
     TTreeReaderArray<Int_t> Electron_charge;
@@ -292,6 +302,9 @@ public:
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSjet;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSe;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSmu;
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSjet;//!!!run3
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSe;
+    TTreeReaderArray<UChar_t> Tau_idDeepTau2018v2p5VSmu;
     TTreeReaderArray<Int_t> Tau_decayMode;
     TTreeReaderArray<UChar_t> Tau_genPartFlav;
     TTreeReaderArray<Int_t> Tau_jetIdx;
