@@ -105,6 +105,7 @@ private:
     ULong_t m_musTotal=0;
     ULong_t m_tausTotal=0;
     ULong_t m_tausFTotal=0;
+    ULong_t m_tausLTotal=0;
     ULong_t m_jetsTotal=0;
     ULong_t m_bjetsM = 0;
 

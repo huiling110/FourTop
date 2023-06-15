@@ -61,6 +61,7 @@ void EleMVASel::Select(const eventForNano *e)
         muonsTopMVAT_mass.push_back(e->Electron_mass.At(j));
         muonsTopMVAT_index.push_back(j);
     }
+    m_objTotal+=muonsTopMVAT_pt.size();
 };
 
 void EleMVASel::clearBranch()
@@ -80,3 +81,7 @@ std::vector<Double_t> &EleMVASel::getPhiVec()
 {
     return muonsTopMVAT_phi;
 };
+
+ULong_t EleMVASel::getTotal(){
+    return m_objTotal;
+}

@@ -15,6 +15,7 @@ public:
     void Select(const eventForNano *e);
     std::vector<Double_t>& getEtaVec();
     std::vector<Double_t>& getPhiVec();
+    ULong_t getTotal();
 
     void clearBranch();
 
@@ -26,6 +27,7 @@ private:
     std::vector<Double_t> muonsTopMVAT_phi;
     std::vector<Double_t> muonsTopMVAT_mass;
     std::vector<Int_t> muonsTopMVAT_index;
+    ULong_t m_objTotal=0;
 };
 
 #endif

@@ -51,6 +51,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal+=tauSel.getSize();
         m_tausFTotal+=tauSelF.getSize();
+        m_tausLTotal+=tauSelL.getSize();
 
         // // jet and bjet selection
         const Bool_t ifJER = kFALSE;
@@ -89,7 +90,7 @@ void objectSelection::Terminate()
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
     m_output->Close();
-    std::cout<<"elesTotal="<<m_elesTotal<<";   musTotal="<<m_musTotal<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<";  jets="<<m_jetsTotal<<";  bjetsM="<<m_bjetsM<<"\n";
+    std::cout<<"elesTotal="<<eleMVASel.getTotal()<<";   musTotal="<<muSel.getTotal()<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<"; tausL="<<m_tausLTotal<<";  jets="<<m_jetsTotal<<";  bjetsM="<<m_bjetsM<<"\n";
     std::cout<<"Termination done .....................................................\n";
 };
 
