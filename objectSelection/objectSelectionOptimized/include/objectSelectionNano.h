@@ -91,9 +91,9 @@ private:
     EleMVASel eleMVASel{m_outTree, m_era};
     // MuTopMVASel muTopMVATSel{m_outTree, m_era};
     TauSel tauSel{m_outTree, m_era};
-    // TauSel tauSelF{m_outTree, m_era, 2};
+    TauSel tauSelF{m_outTree, m_era, 2};
     // TauSel tauSelL{m_outTree, m_era, 1};
-    // JetSel jetSel{m_outTree, m_era, 0};
+    JetSel jetSel{m_outTree, m_era, 0};
     // JetSel jetTSel{m_outTree, m_era, 1};
     // JetSel bjetLSel{m_outTree, m_era, 11};
     // JetSel bjetMSel{m_outTree, m_era, 12};
@@ -104,6 +104,7 @@ private:
     ULong_t m_elesTotal=0;
     ULong_t m_musTotal=0;
     ULong_t m_tausTotal=0;
+    ULong_t m_tausFTotal=0;
     ULong_t m_jetsTotal=0;
 
 

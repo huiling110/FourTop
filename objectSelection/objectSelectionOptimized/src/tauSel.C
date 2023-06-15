@@ -98,8 +98,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             Bool_t isVSjetM = e->Tau_idDeepTau2017v2p1VSjet.At(j) & (1 << 4);    // check if the 5th bit (Medium WP) is 1
             Bool_t isVSeVVVLoose = e->Tau_idDeepTau2017v2p1VSe.At(j) & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
             Bool_t isVSmuVLoose = e->Tau_idDeepTau2017v2p1VSmu.At(j) & (1 << 0); // check if the 1st bit (VLoose WP) is 1
-            // if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
-                // continue;
+            if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
+                continue;
             if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
                 continue;
         }

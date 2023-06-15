@@ -8,6 +8,7 @@ std::map<TString, std::array<TString, 3>> corr_SF_map{
     {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs"}},
     {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs"}},
     {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
+    {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
 };
 std::map<TString, std::array<TString, 3>> json_map = {
     {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json"}},
@@ -51,6 +52,7 @@ std::map<TString, double> DeepJetL = {
     {"2016preVFP", 0.0508},
     {"2017", 0.0532},
     {"2018", 0.0490},
+    {"2022", 0.0490},
 };
 
 std::map<TString, double> DeepJetM = {
@@ -60,6 +62,7 @@ std::map<TString, double> DeepJetM = {
     {"2016preVFP", 0.2598},
     {"2017", 0.3040},
     {"2018", 0.2783},
+    {"2022", 0.2783},
 
 };
 
@@ -70,6 +73,7 @@ std::map<TString, double> DeepJetT = {
     {"2016preVFP", 0.6502},
     {"2017", 0.7476},
     {"2018", 0.7100},
+    {"2022", 0.7100},
 
 };
 
