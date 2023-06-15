@@ -46,7 +46,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
         Int_t sysTES = 4; //no tau energy correction
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        // tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal+=tauSel.getSize();
@@ -56,11 +56,12 @@ void objectSelection::EventLoop(Bool_t preSelection )
         const Bool_t ifJER = kFALSE;
         const Int_t sysJEC = 0;
         jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         m_jetsTotal += jetSel.getSize();
+        m_bjetsM+=bjetMSel.getSize();
 
         // // copy some nanoAOD branches
         // copyBranch.Select(e, m_isData);
@@ -88,7 +89,7 @@ void objectSelection::Terminate()
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
     m_output->Close();
-    std::cout<<"elesTotal="<<m_elesTotal<<";   musTotal="<<m_musTotal<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<";  jets="<<m_jetsTotal<<"\n";
+    std::cout<<"elesTotal="<<m_elesTotal<<";   musTotal="<<m_musTotal<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<";  jets="<<m_jetsTotal<<";  bjetsM="<<m_bjetsM<<"\n";
     std::cout<<"Termination done .....................................................\n";
 };
 

@@ -92,12 +92,12 @@ private:
     // MuTopMVASel muTopMVATSel{m_outTree, m_era};
     TauSel tauSel{m_outTree, m_era};
     TauSel tauSelF{m_outTree, m_era, 2};
-    // TauSel tauSelL{m_outTree, m_era, 1};
+    TauSel tauSelL{m_outTree, m_era, 1};
     JetSel jetSel{m_outTree, m_era, 0};
-    // JetSel jetTSel{m_outTree, m_era, 1};
-    // JetSel bjetLSel{m_outTree, m_era, 11};
-    // JetSel bjetMSel{m_outTree, m_era, 12};
-    // JetSel bjetTSel{m_outTree, m_era, 13};
+    JetSel jetTSel{m_outTree, m_era, 1};
+    JetSel bjetLSel{m_outTree, m_era, 11};
+    JetSel bjetMSel{m_outTree, m_era, 12};
+    JetSel bjetTSel{m_outTree, m_era, 13};
     // CopyBranch copyBranch{m_outTree};
     // PUWeightCal puWeightCal{m_outTree, m_isData, m_era};
 
@@ -106,6 +106,7 @@ private:
     ULong_t m_tausTotal=0;
     ULong_t m_tausFTotal=0;
     ULong_t m_jetsTotal=0;
+    ULong_t m_bjetsM = 0;
 
 
     // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
