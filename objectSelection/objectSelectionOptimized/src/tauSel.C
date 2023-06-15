@@ -74,15 +74,15 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         UChar_t tauID_vsJet;
         UChar_t tauID_vsEle;
         UChar_t tauID_vsMu;
-        if(m_era.CompareTo("2022")==0){
-             tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
-             tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
-             tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
-        }else{
+        // if(m_era.CompareTo("2022")==0){
+            //  tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
+            //  tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
+            //  tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
+        // }else{
             tauID_vsJet =  e->Tau_idDeepTau2017v2p1VSjet.At(j);
             tauID_vsEle =  e->Tau_idDeepTau2017v2p1VSe.At(j);
             tauID_vsMu =  e->Tau_idDeepTau2017v2p1VSmu.At(j);
-        }
+        // }
         if (m_tauWP == 1)
         {
             Bool_t isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
