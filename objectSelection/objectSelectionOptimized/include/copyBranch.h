@@ -21,6 +21,7 @@ private:
     Double_t EVENT_prefireWeight_;
     Double_t EVENT_prefireWeight_up_;
     Double_t EVENT_prefireWeight_down_;
+    Double_t EVENT_genWeight_;
     std::vector<Int_t> Electron_charge_;
     std::vector<Int_t> Muon_charge_;
     std::vector<Int_t> GenPart_genPartIdxMother_;

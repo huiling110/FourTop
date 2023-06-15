@@ -16,6 +16,7 @@ CopyBranch::CopyBranch(TTree *outTree)
     outTree->Branch("EVENT_prefireWeight_down_", &EVENT_prefireWeight_down_);
     outTree->Branch("GenPart_pdgId_", &GenPart_pdgId_);
     outTree->Branch("GenPart_genPartIdxMother_", &GenPart_genPartIdxMother_);
+    outTree->Branch("EVENT_genWeight_", &EVENT_genWeight_);
     std::cout<<"Done intializing ...........\n";
     std::cout<<"\n";
 };
@@ -29,6 +30,7 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     EVENT_prefireWeight_ = *e->L1PreFiringWeight_Nom;
     EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
     EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
+    EVENT_genWeight_ = **e->genWeight;
     copy_TTreeReaderArray_toVector(e->Electron_charge, Electron_charge_);
     copy_TTreeReaderArray_toVector(e->Muon_charge, Muon_charge_);
     if (!isData){

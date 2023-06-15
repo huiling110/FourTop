@@ -135,6 +135,7 @@ public:
         readPointer(GenPart_pdgId, reader, "GenPart_pdgId");
         readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
+        readPointer(genWeight, reader, "genWeight");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -221,6 +222,7 @@ public:
     TTreeReaderArray<Int_t>* GenPart_pdgId = nullptr;
     TTreeReaderArray<Int_t>* GenPart_genPartIdxMother = nullptr;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
+    TTreeReaderValue<Float_t> *genWeight = nullptr;
 
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;

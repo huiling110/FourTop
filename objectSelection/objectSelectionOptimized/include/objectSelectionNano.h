@@ -98,7 +98,7 @@ private:
     JetSel bjetLSel{m_outTree, m_era, 11};
     JetSel bjetMSel{m_outTree, m_era, 12};
     JetSel bjetTSel{m_outTree, m_era, 13};
-    // CopyBranch copyBranch{m_outTree};
+    CopyBranch copyBranch{m_outTree};
     // PUWeightCal puWeightCal{m_outTree, m_isData, m_era};
 
     ULong_t m_elesTotal=0;

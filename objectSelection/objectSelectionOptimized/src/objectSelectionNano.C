@@ -64,7 +64,7 @@ void objectSelection::EventLoop(Bool_t preSelection )
         m_bjetsM+=bjetMSel.getSize();
 
         // // copy some nanoAOD branches
-        // copyBranch.Select(e, m_isData);
+        copyBranch.Select(e, m_isData);
 
         // // pile up weight cal
         // puWeightCal.Select(e, m_isData);
