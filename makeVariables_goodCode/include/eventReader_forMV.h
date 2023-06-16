@@ -11,7 +11,11 @@ public:
     EventForMV(TTreeReader &reader) : HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
                                       HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_")
 
-                                          {};
+                                          {
+                                            std::cout<<"Initializing EventForMV..\n";
+                                            std::cout<<"Done initialization.......\n";
+                                            std::cout<<"\n";
+                                          };
 
     ~EventForMV(){};
 

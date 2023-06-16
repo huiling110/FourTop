@@ -16,18 +16,18 @@ class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
-    MakeVariablesMain(TString inputDir)
+    MakeVariablesMain(TString inputDir, TChain *chain): m_reader(chain)
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         // m_input = new TFile(inputDir + singleFileName, "READ");
         // if (!m_input->IsZombie())
         // {
         // set up input and event object
-        TChain chain("tree");
-        chain.Add(inputDir + "outTree*.root");
-        std::cout<<"all entries in chain: "<<chain.GetEntries()<<"\n";
-        // m_reader.SetChain(&chain);
-        // e = new EventForMV(m_reader);
+        // TChain chain("tree");
+        // chain.Add(inputDir + "outTree*.root");
+        // std::cout<<"all entries in chain: "<<chain.GetEntries()<<"\n";
+        // m_reader.SetChain(chain);
+        e = new EventForMV(m_reader);
 
         // set up output
         // TString outName = outputDir + singleFileName;

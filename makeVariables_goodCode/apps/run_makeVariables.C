@@ -3,6 +3,7 @@
 
 #include "TStopwatch.h"
 #include "TString.h"
+#include "TChain.h"
 
 #include "../include/makeVariablesMain.h"
 // #include "../include/usefulFunc.h"
@@ -22,7 +23,11 @@ void run_objectSelection(
     // os.EventLoop(kTRUE, 5000);
     // os.Terminate();
     TString inputDir1 = inputBase + inputDir +"/";
-    MakeVariablesMain mv(inputDir1);
+    TChain *chain = new TChain("tree");
+    chain->Add(inputDir1 + "outTree*.root");
+    std::cout<<"all entries in chain: "<<chain->GetEntries()<<"\n";
+    std::cout<<"all trees in chain: "<<chain->GetNtrees()<<"\n";
+    MakeVariablesMain mv(inputDir1, chain);
 
 
     t.Stop();
