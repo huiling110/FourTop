@@ -109,7 +109,7 @@ public:
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
                                         Jet_hadronFlavour(reader, "Jet_hadronFlavour")
-                                        // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+    // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -128,7 +128,7 @@ public:
         readPointer(HLT_PFHT430_SixJet40_BTagCSV_p080, reader, "HLT_PFHT430_SixJet40_BTagCSV_p080");
         readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
         readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
-        //2022
+        // 2022
         readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94");
         readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59");
         // gen
@@ -139,7 +139,7 @@ public:
         readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         readPointer(genWeight, reader, "genWeight");
-        //other branch not consistent between run2 and run3
+        // other branch not consistent between run2 and run3
         readPointer(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
         readPointer(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
         readPointer(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
@@ -160,6 +160,7 @@ public:
     {
         // delete m_reader;
         delete HLT_PFHT450_SixJet40_BTagCSV_p056;
+        //!!!delete other pointers
     };
 
     template <typename T>
@@ -222,16 +223,16 @@ public:
     // TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
 
-    //2022
-    TTreeReaderValue<Bool_t> * HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94= nullptr;
-    TTreeReaderValue<Bool_t> * HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = nullptr;
+    // 2022
+    TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = nullptr;
 
     // TTreeReaderValue<Bool_t> * = nullptr;
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
-    TTreeReaderArray<Int_t>* GenPart_pdgId = nullptr;
-    TTreeReaderArray<Int_t>* GenPart_genPartIdxMother = nullptr;
+    TTreeReaderArray<Int_t> *GenPart_pdgId = nullptr;
+    TTreeReaderArray<Int_t> *GenPart_genPartIdxMother = nullptr;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
 
@@ -265,10 +266,10 @@ public:
     TTreeReaderArray<Float_t> Electron_jetPtRelv2;
     TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
     TTreeReaderArray<Float_t> Electron_sip3d;
-    TTreeReaderArray<Float_t>* Electron_mvaFall17V2noIso;//??? not vailable in Run3
-    TTreeReaderArray<Float_t>* Electron_mvaNoIso_Fall17V2;//??? not vailable in run2
-    TTreeReaderArray<Bool_t>* Electron_mvaFall17V2Iso_WP90;//!!!run2
-    TTreeReaderArray<Bool_t>* Electron_mvaIso_Fall17V2_WP90;//!!!run3
+    TTreeReaderArray<Float_t> *Electron_mvaFall17V2noIso;    //??? not vailable in Run3
+    TTreeReaderArray<Float_t> *Electron_mvaNoIso_Fall17V2;   //??? not vailable in run2
+    TTreeReaderArray<Bool_t> *Electron_mvaFall17V2Iso_WP90;  //!!!run2
+    TTreeReaderArray<Bool_t> *Electron_mvaIso_Fall17V2_WP90; //!!!run3
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
     TTreeReaderArray<Int_t> Electron_charge;
@@ -305,9 +306,9 @@ public:
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSjet;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSe;
     TTreeReaderArray<UChar_t> Tau_idDeepTau2017v2p1VSmu;
-    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSjet;//!!!run3
-    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSe;
-    TTreeReaderArray<UChar_t>* Tau_idDeepTau2018v2p5VSmu;
+    TTreeReaderArray<UChar_t> *Tau_idDeepTau2018v2p5VSjet; //!!!run3
+    TTreeReaderArray<UChar_t> *Tau_idDeepTau2018v2p5VSe;
+    TTreeReaderArray<UChar_t> *Tau_idDeepTau2018v2p5VSmu;
     TTreeReaderArray<Int_t> Tau_decayMode;
     TTreeReaderArray<UChar_t> Tau_genPartFlav;
     TTreeReaderArray<Int_t> Tau_jetIdx;
