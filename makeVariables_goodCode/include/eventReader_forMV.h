@@ -8,8 +8,13 @@
 class EventForMV
 {
 public:
-    EventForMV(TTreeReader &reader) : HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
-                                      HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_")
+    EventForMV(TTreeReader &reader) : 
+    // HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
+                                    //   HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_")
+                                    muonsT_pt(reader, "muonsT_pt"),
+                                    muonsT_eta(reader, "muonsT_eta"),
+                                    muonsT_phi(reader, "muonsT_phi"),
+                                    muonsT_mass(reader, "muonsT_mass")
 
                                           {
                                             std::cout<<"Initializing EventForMV..\n";
@@ -20,8 +25,12 @@ public:
     ~EventForMV(){};
 
     // event branches reading
-    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
-    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    // TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;//!!!add in OS
+    // TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    TTreeReaderArray<Double_t> muonsT_pt;
+    TTreeReaderArray<Double_t> muonsT_eta;
+    TTreeReaderArray<Double_t> muonsT_phi;
+    TTreeReaderArray<Double_t> muonsT_mass;
 };
 
 #endif

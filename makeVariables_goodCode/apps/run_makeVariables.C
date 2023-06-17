@@ -9,26 +9,27 @@
 // #include "../include/usefulFunc.h"
 
 void run_objectSelection(
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
-    TString inputDir = "ttZ",
-    TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
+    // TString inputDir = "ttZ",
+    TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectSelectionOptimized/",
+    TString inputDir = "output",
+    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
+    TString outputDir = "output/",
     Bool_t istest = kTRUE)
 {
     TStopwatch t;
     t.Start();
 
-    // Bool_t isData = getIsData(inputDir);
-    // TString era = getEra(inputDir);
-    // objectSelection os(inputDir, singleFileName, outputDir, isData, era, kTRUE);
-    // os.EventLoop(kTRUE, 5000);
-    // os.Terminate();
-    TString inputDir1 = inputBase + inputDir +"/";
+    TString inputDir1 = inputBase + inputDir + "/";
     TChain *chain = new TChain("tree");
-    chain->Add(inputDir1 + "outTree*.root");
-    std::cout<<"all entries in chain: "<<chain->GetEntries()<<"\n";
-    std::cout<<"all trees in chain: "<<chain->GetNtrees()<<"\n";
-    MakeVariablesMain mv(inputDir1, chain);
-
+    // chain->Add(inputDir1 + "outTree*.root");
+    chain->Add(inputDir1 + "outTree_temp.root");
+    std::cout << "all entries in chain: " << chain->GetEntries() << "\n";
+    std::cout << "all trees in chain: " << chain->GetNtrees() << "\n";
+    TString processName = "ttbar_2l";
+    MakeVariablesMain mv(inputDir1, chain, outputDir, processName);
+    mv.EventLoop(kTRUE, 50);
+    mv.Terminate();
 
     t.Stop();
     t.Print();

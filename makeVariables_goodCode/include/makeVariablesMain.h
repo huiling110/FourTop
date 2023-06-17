@@ -11,12 +11,13 @@
 #include <TChain.h>
 
 #include "eventReader_forMV.h" //use ttreeReader to construct event
+#include "muonVarMaker.h"
 
 class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
-    MakeVariablesMain(TString inputDir, TChain *chain): m_reader(chain)
+    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_reader(chain), m_processName{processName}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         // m_input = new TFile(inputDir + singleFileName, "READ");
@@ -30,9 +31,8 @@ public:
         e = new EventForMV(m_reader);
 
         // set up output
-        // TString outName = outputDir + singleFileName;
-        // m_output = new TFile(outName, "RECREATE");
-        // m_outTree->SetDirectory(m_output);
+        m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
+        m_outTree->SetDirectory(m_output);
 
         // set up
         // m_isData = getIsData(inputDir);
@@ -57,10 +57,14 @@ public:
 private:
     TTreeReader m_reader;
     EventForMV *e;
+    TString m_processName;
     TFile *m_output;
-    TTree *m_outTree = new TTree("tree", "tree after object selection");
+    TTree *m_outTree = new TTree("newtree", "tree for BDT");
     Bool_t m_isData;
     TString m_era;
+
+    //
+    MuonVarMaker muVarMaker{m_outTree};
 };
 
 #endif
