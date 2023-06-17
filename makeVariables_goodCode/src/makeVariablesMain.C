@@ -8,7 +8,10 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
-        // h_forEY_initial->Fill(0);
+        muVarMaker.makeVariables(e);
+
+        //
+        m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n";
 };
