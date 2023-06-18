@@ -17,7 +17,8 @@ public:
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
                                       tausT_phi(reader, "tausT_phi"),
-                                      tausT_mass(reader, "tausT_mass")
+                                      tausT_mass(reader, "tausT_mass"),
+                                      tausT_genPartFlav(reader, "tausT_genPartFlav")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -38,6 +39,7 @@ public:
     TTreeReaderArray<Double_t> tausT_eta;
     TTreeReaderArray<Double_t> tausT_phi;
     TTreeReaderArray<Double_t> tausT_mass;
+    TTreeReaderArray<UChar_t> tausT_genPartFlav;
 };
 
 #endif

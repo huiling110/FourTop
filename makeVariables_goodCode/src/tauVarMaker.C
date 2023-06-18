@@ -11,6 +11,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName) : ObjVarMaker{outTree,
     outTree->Branch(objName + "_HT", &taus_HT);
     outTree->Branch(objName + "invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
+    outTree->Branch(objName + "_taus_genTauNum", &taus_genTauNum);
 
     std::cout << "Done initialization.............\n";
 };
@@ -32,6 +33,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     taus_HT = HTcalculator(objsLorentz);
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
     // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
+    // taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
 }
 
 void TauVarMaker::clearBranch()
@@ -41,6 +43,7 @@ void TauVarMaker::clearBranch()
     taus_HT = -99;
     taus_invariantMass = -99;
     taus_minDeltaR = -99;
+    taus_genTauNum = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
