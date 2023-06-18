@@ -6,8 +6,7 @@
 class ObjVarMaker
 {
 public:
-    // ObjVarMaker(TTree *outTree, const Int_t type = 0);
-    ObjVarMaker(TTree *outTree, const Int_t type, TString objName);
+    ObjVarMaker(TTree *outTree,  TString objName);
     ~ObjVarMaker();
     void makeVariables(const EventForMV *e);
     void clearBranch();

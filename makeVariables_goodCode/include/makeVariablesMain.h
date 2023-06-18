@@ -12,6 +12,7 @@
 
 #include "eventReader_forMV.h" //use ttreeReader to construct event
 #include "muonVarMaker.h"
+#include "objVarMaker.h"
 
 class MakeVariablesMain
 {
@@ -64,7 +65,9 @@ private:
     TString m_era;
 
     //
-    MuonVarMaker muVarMaker{m_outTree};
+    // MuonVarMaker muVarMaker{m_outTree};
+    ObjVarMaker muVarMaker{m_outTree, "muonsT"};
+
 };
 
 #endif
