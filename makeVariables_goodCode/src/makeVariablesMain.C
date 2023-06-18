@@ -16,7 +16,7 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
         m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n";
-    stc::cout<<"\n";
+    std::cout << "\n";
 };
 
 void MakeVariablesMain::Terminate()

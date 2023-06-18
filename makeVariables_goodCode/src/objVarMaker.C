@@ -58,6 +58,7 @@ void ObjVarMaker::clearBranch()
     muons_1pt = -99;
     muons_1eta = -99;
     muons_1phi = -99;
+    objsLorentz.clear();
 };
 
 void ObjVarMaker::setupLorentzObjs(const EventForMV* e){
