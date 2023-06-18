@@ -26,17 +26,29 @@ ObjVarMaker::ObjVarMaker(TTree *outTree,  TString objName)
 };
 
 void ObjVarMaker::makeVariables(const EventForMV *e)
+// void ObjVarMaker::makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     //Answer: write the same function in derived class and then call the base part with base::function()
+    //it would be much convenient if we can have a object collection: muonsT
+    //or I make a map of object name and object lorentz in this class
+
     clearBranch();
 
-    muons_num = e->muonsT_pt.GetSize();
+    setupLorentzObjs(e);
+    // muons_num = e->muonsT_pt.GetSize();
+    // if (muons_num > 0)
+    // {
+    //     muons_1pt = e->muonsT_pt.At(0);
+    //     muons_1eta = e->muonsT_eta.At(0);
+    //     muons_1phi = e->muonsT_phi.At(0);
+    // }
+    muons_num = objsLorentz.size();
     if (muons_num > 0)
     {
-        muons_1pt = e->muonsT_pt.At(0);
-        muons_1eta = e->muonsT_eta.At(0);
-        muons_1phi = e->muonsT_phi.At(0);
+        muons_1pt = objsLorentz[0].Pt();
+        muons_1eta = fabs(objsLorentz[0].Eta());
+        muons_1phi = fabs(objsLorentz[0].Phi());
     }
 }
 
@@ -46,6 +58,14 @@ void ObjVarMaker::clearBranch()
     muons_1pt = -99;
     muons_1eta = -99;
     muons_1phi = -99;
+};
+
+void ObjVarMaker::setupLorentzObjs(const EventForMV* e){
+    // to be overiden by derived class
+    for(UInt_t i=0; i<e->muonsT_pt.GetSize(); i++){
+        ROOT::Math::PtEtaPhiMVector muLorentz{e->muonsT_pt.At(i), e->muonsT_eta.At(i), e->muonsT_phi[i], e->muonsT_mass[i]};
+        objsLorentz.push_back(muLorentz);
+    }
 };
 
 ObjVarMaker::~ObjVarMaker(){};
