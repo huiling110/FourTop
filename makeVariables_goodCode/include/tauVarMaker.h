@@ -18,6 +18,9 @@ public:
 
 private:
     Double_t taus_MHT = -99;
+    Double_t taus_HT = -99;
+    Double_t taus_invariantMass = -99;
+    Double_t taus_minDeltaR = -99;
 };
 
 #endif
