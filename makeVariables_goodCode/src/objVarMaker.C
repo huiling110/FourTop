@@ -36,13 +36,10 @@ void ObjVarMaker::makeVariables(const EventForMV *e)
     clearBranch();
 
     setupLorentzObjs(e);
-    // muons_num = e->muonsT_pt.GetSize();
-    // if (muons_num > 0)
-    // {
-    //     muons_1pt = e->muonsT_pt.At(0);
-    //     muons_1eta = e->muonsT_eta.At(0);
-    //     muons_1phi = e->muonsT_phi.At(0);
-    // }
+    basicVariables();
+};
+
+void ObjVarMaker::basicVariables(){
     muons_num = objsLorentz.size();
     if (muons_num > 0)
     {

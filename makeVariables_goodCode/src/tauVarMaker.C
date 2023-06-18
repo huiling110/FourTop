@@ -1,11 +1,16 @@
 #include <map>
 
 #include "../include/tauVarMaker.h"
+#include "../include/variablesFunctions.h"
 
-TauVarMaker::TauVarMaker(TTree *outTree, TString objName) : ObjVarMaker{outTree, objName} {};
+TauVarMaker::TauVarMaker(TTree *outTree, TString objName) : ObjVarMaker{outTree, objName}
+{
+    std::cout << "Initialzing the derived TauVarMaker........\n";
+    outTree->Branch(objName + "_MHT", &taus_MHT);
+    std::cout << "Done initialization.............\n";
+};
 
 void TauVarMaker::makeVariables(const EventForMV *e)
-// void TauVarMaker::makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -14,19 +19,22 @@ void TauVarMaker::makeVariables(const EventForMV *e)
 
     clearBranch();
 
-    setupLorentzObjs(e);
-    muons_num = objsLorentz.size();
-    if (muons_num > 0)
-    {
-        muons_1pt = objsLorentz[0].Pt();
-        muons_1eta = fabs(objsLorentz[0].Eta());
-        muons_1phi = fabs(objsLorentz[0].Phi());
-    }
+    setupLorentzObjs(e); // crucial to overide base class!!!
+
+    ObjVarMaker::basicVariables();
+
+    taus_MHT = MHTcalculator(objsLorentz); // 900;return the pt sum of,vetctor sum
+}
+
+void TauVarMaker::clearBranch()
+{
+    ObjVarMaker::clearBranch();
+    taus_MHT = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
 {
-    // to be overiden by derived class
+    // overide base ObjValMaker
     for (UInt_t i = 0; i < e->tausT_pt.GetSize(); i++)
     {
         ROOT::Math::PtEtaPhiMVector muLorentz{e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};

@@ -14,6 +14,7 @@ public:
     // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
+    void basicVariables();
 
     // private:
 protected:

@@ -1,5 +1,5 @@
-#ifndef VARIABLESFUNCTIONS_H
-#define VARIABLESFUNCTIONS_H
+#ifndef VARIABLESFUNCTION_H
+#define VARIABLESFUNCTION_H
 
 #include <TROOT.h>
 #include "TLorentzVector.h"

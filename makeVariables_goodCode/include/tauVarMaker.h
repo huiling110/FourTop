@@ -13,8 +13,11 @@ public:
     ~TauVarMaker();
     void makeVariables(const EventForMV *e);
     // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
-    // void clearBranch();
+    void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
+
+private:
+    Double_t taus_MHT = -99;
 };
 
 #endif
