@@ -1,13 +1,14 @@
-#ifndef MUONVARMAKER_H
-#define MUONVARMAKER_H
+#ifndef OBJVARMAKER_H
+#define OBJVARMAKER_H
 
 #include "eventReader_forMV.h"
 
-class MuonVarMaker
+class ObjVarMaker
 {
 public:
-    MuonVarMaker(TTree *outTree, const Int_t type = 0);
-    ~MuonVarMaker();
+    // ObjVarMaker(TTree *outTree, const Int_t type = 0);
+    ObjVarMaker(TTree *outTree, const Int_t type, TString objName);
+    ~ObjVarMaker();
     void makeVariables(const EventForMV *e);
     void clearBranch();
 

@@ -1,25 +1,31 @@
 #include <map>
 
-#include "../include/muonVarMaker.h"
+#include "../include/objVarMaker.h"
 
-MuonVarMaker::MuonVarMaker(TTree *outTree, const Int_t type) : m_type{type}
+ObjVarMaker::ObjVarMaker(TTree *outTree, const Int_t type, TString objName) : m_type{type}
 {
     //!!!maybe make these basic variables for all object as base class
-    std::cout << "Initializing MuonVarMaker.....\n";
-    std::map<Int_t, TString> typeObjMap = {
-        {0, "T"},
-        {1, "F"},
-        {2, "L"},
-    };
+    std::cout << "Initializing ObjVarMaker.....\n";
+    // std::map<Int_t, TString> typeObjMap = {
+    //     {0, "T"},
+    //     {1, "F"},
+    //     {2, "L"},
+    // };
 
-    outTree->Branch("muons" + typeObjMap[m_type] + "_num", &muons_num);
-    outTree->Branch("muons" + typeObjMap[m_type] + "_1pt", &muons_1pt);
+    // outTree->Branch("muons" + typeObjMap[m_type] + "_num", &muons_num);
+    // outTree->Branch("muons" + typeObjMap[m_type] + "_1pt", &muons_1pt);
+    // outTree->Branch("muons" + typeObjMap[m_type] + "_1eta", &muons_1eta);
+    // outTree->Branch("muons" + typeObjMap[m_type] + "_1phi", &muons_1phi);
+    outTree->Branch(objName + "_num", &muons_num);
+    outTree->Branch(objName + "_1pt", &muons_1pt);
+    outTree->Branch(objName + "_1eta", &muons_1eta);
+    outTree->Branch(objName + "_1phi", &muons_1phi);
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
 };
 
-void MuonVarMaker::makeVariables(const EventForMV *e)
+void ObjVarMaker::makeVariables(const EventForMV *e)
 {
     clearBranch();
 
@@ -32,7 +38,7 @@ void MuonVarMaker::makeVariables(const EventForMV *e)
     }
 }
 
-void MuonVarMaker::clearBranch()
+void ObjVarMaker::clearBranch()
 {
     muons_num = -99;
     muons_1pt = -99;
@@ -40,4 +46,4 @@ void MuonVarMaker::clearBranch()
     muons_1phi = -99;
 };
 
-MuonVarMaker::~MuonVarMaker(){};
+ObjVarMaker::~ObjVarMaker(){};
