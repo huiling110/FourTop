@@ -27,7 +27,8 @@ void run_objectSelection(
     TString era = getEra(inputDir);
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, kTRUE);
     // os.EventLoop(kTRUE, 5000);
-    os.EventLoop(kTRUE, 1000);
+    // os.EventLoop(kTRUE, 1000);
+    os.EventLoop(kTRUE, 10000);
     os.Terminate();
 
     t.Stop();
@@ -40,7 +41,7 @@ int main(int argc, char const *argv[])
     TString inputDir;
     TString inputProcess;
     TString version;
-    Bool_t isTest = kFALSE;
+    // Bool_t isTest = kFALSE;
     if (argc < 4)
     {
         std::cout << "not enough input from command line\n";
@@ -52,11 +53,10 @@ int main(int argc, char const *argv[])
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         version = boost::lexical_cast<std::string>(argv[3]);
-        isTest = boost::lexical_cast<Bool_t>(argv[4]);
+        // isTest = boost::lexical_cast<Bool_t>(argv[4]);
         // run_treeAnalyzer(inputDir, inputProcess, version, isTest);
     }
 
-    //!!!all events tree
 
     return 0;
 }

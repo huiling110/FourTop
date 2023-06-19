@@ -49,7 +49,9 @@ public:
     bjetsT_pt(reader, "bjetsT_pt"),
     bjetsT_eta(reader, "bjetsT_eta"),
     bjetsT_phi(reader, "bjetsT_phi"),
-    bjetsT_mass(reader, "bjetsT_mass")
+    bjetsT_mass(reader, "bjetsT_mass"),
+
+    PV_npvsGood_(reader, "PV_npvsGood_")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -102,6 +104,8 @@ public:
     TTreeReaderArray<Double_t> bjetsT_eta;
     TTreeReaderArray<Double_t> bjetsT_phi;
     TTreeReaderArray<Double_t> bjetsT_mass;
+
+    TTreeReaderValue<Int_t> PV_npvsGood_;
 };
 
 #endif

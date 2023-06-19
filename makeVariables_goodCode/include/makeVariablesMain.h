@@ -15,6 +15,7 @@
 #include "objVarMaker.h"
 #include "tauVarMaker.h"
 #include "jetVarMaker.h"
+#include "copyBranches.h"
 
 class MakeVariablesMain
 {
@@ -77,6 +78,8 @@ private:
     JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};
     JetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 3};
     JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
+
+    CopyBranches copyBranches{m_outTree};
 };
 
 #endif

@@ -11,7 +11,7 @@
 void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
     // TString inputDir = "ttZ",
-    TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelection/objectSelectionOptimized/",
+    TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
     TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
@@ -23,12 +23,12 @@ void run_objectSelection(
     TString inputDir1 = inputBase + inputDir + "/";
     TChain *chain = new TChain("tree");
     // chain->Add(inputDir1 + "outTree*.root");
-    chain->Add(inputDir1 + "outTree_temp.root");
+    chain->Add(inputDir1 + "outTree_0.root");
     std::cout << "all entries in chain: " << chain->GetEntries() << "\n";
     std::cout << "all trees in chain: " << chain->GetNtrees() << "\n";
-    TString processName = "ttbar_2l";
+    TString processName = "ttbar_1l";
     MakeVariablesMain mv(inputDir1, chain, outputDir, processName);
-    mv.EventLoop(kTRUE, 50);
+    mv.EventLoop(kTRUE, 100);
     mv.Terminate();
 
     t.Stop();
