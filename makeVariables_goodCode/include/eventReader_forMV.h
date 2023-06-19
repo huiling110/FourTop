@@ -18,7 +18,17 @@ public:
                                       tausT_eta(reader, "tausT_eta"),
                                       tausT_phi(reader, "tausT_phi"),
                                       tausT_mass(reader, "tausT_mass"),
-                                      tausT_genPartFlav(reader, "tausT_genPartFlav")
+                                      tausT_genPartFlav(reader, "tausT_genPartFlav"),
+                                      tausF_pt(reader, "tausF_pt"),
+                                      tausF_eta(reader, "tausF_eta"),
+                                      tausF_phi(reader, "tausF_phi"),
+                                      tausF_mass(reader, "tausF_mass"),
+                                      tausF_genPartFlav(reader, "tausF_genPartFlav"),
+                                      tausL_pt(reader, "tausL_pt"),
+                                      tausL_eta(reader, "tausL_eta"),
+                                      tausL_phi(reader, "tausL_phi"),
+                                      tausL_mass(reader, "tausL_mass"),
+                                      tausL_genPartFlav(reader, "tausL_genPartFlav")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -40,6 +50,16 @@ public:
     TTreeReaderArray<Double_t> tausT_phi;
     TTreeReaderArray<Double_t> tausT_mass;
     TTreeReaderArray<UChar_t> tausT_genPartFlav;
+    TTreeReaderArray<Double_t> tausF_pt;
+    TTreeReaderArray<Double_t> tausF_eta;
+    TTreeReaderArray<Double_t> tausF_phi;
+    TTreeReaderArray<Double_t> tausF_mass;
+    TTreeReaderArray<UChar_t> tausF_genPartFlav;
+    TTreeReaderArray<Double_t> tausL_pt;
+    TTreeReaderArray<Double_t> tausL_eta;
+    TTreeReaderArray<Double_t> tausL_phi;
+    TTreeReaderArray<Double_t> tausL_mass;
+    TTreeReaderArray<UChar_t> tausL_genPartFlav;
 };
 
 #endif

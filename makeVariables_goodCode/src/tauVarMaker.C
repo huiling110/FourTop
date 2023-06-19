@@ -51,7 +51,20 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
     // overide base ObjValMaker
     for (UInt_t i = 0; i < e->tausT_pt.GetSize(); i++)
     {
-        ROOT::Math::PtEtaPhiMVector muLorentz{e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};
+        ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
+        switch (m_type)
+        {
+        case 0:
+            muLorentz = {e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};
+            break;
+        case 1:
+            muLorentz = {e->tausF_pt.At(i), e->tausF_eta.At(i), e->tausF_phi[i], e->tausF_mass[i]};
+            break;
+        case 2:
+            muLorentz = {e->tausL_pt.At(i), e->tausL_eta.At(i), e->tausL_phi[i], e->tausL_mass[i]};
+            break;
+        }
+        // ROOT::Math::PtEtaPhiMVector muLorentz{e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};
         objsLorentz.push_back(muLorentz);
     }
 };
