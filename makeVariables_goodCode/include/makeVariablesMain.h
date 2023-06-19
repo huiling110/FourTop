@@ -16,6 +16,7 @@
 #include "tauVarMaker.h"
 #include "jetVarMaker.h"
 #include "copyBranches.h"
+#include "weightVarMaker.h"
 
 class MakeVariablesMain
 {
@@ -80,6 +81,7 @@ private:
     JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
 
     CopyBranches copyBranches{m_outTree};
+    WeightVarMaker weightVarMaker{m_outTree};
 };
 
 #endif
