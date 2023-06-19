@@ -27,8 +27,6 @@
 class objectSelection
 {
 public:
-    // objectSelection(TString inputFile, TString outputDir)
-    // objectSelection(TString inputDir, TString singleFileName, TString outputDir, Bool_t m_isTest)
     objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
     {
         std::cout << "Initialize objectSelection class..................................\n";
@@ -82,7 +80,7 @@ private:
     Bool_t m_isData;
     TString m_era;
 
-    // LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
     // METFilter metFilter{};//??? for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
@@ -110,7 +108,7 @@ private:
     ULong_t m_bjetsM = 0;
 
 
-    // TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
+    TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
 
 #endif

@@ -20,6 +20,7 @@ public:
     Bool_t Select(const Bool_t isData, eventForNano *e);
 
 private:
+    TString m_era;
     std::map<Int_t, std::vector<UInt_t>> m_goodLumis;
     // output branches
 };

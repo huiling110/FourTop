@@ -11,18 +11,20 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
     {
         entryCount++;
         h_forEY_initial->Fill(0);
+        m_cutflow->Fill(0);
 
         // good lumi and good PV selection
-        // if (!(lumiAndPVSelection.Select(m_isData, e)))
-        // {
-        //     continue;
-        // };
+        if (!(lumiAndPVSelection.Select(m_isData, e)))
+        {
+            continue;
+        };
 
         // // MET filters
         // if (!(metFilter.Select(m_era, e)))
         // {
         //     continue;
         // }
+        m_cutflow->Fill(1);
 
         // // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
@@ -30,6 +32,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
             continue; // contains event selection!!!
         }
         h_forEY_HLT->Fill(0);
+        m_cutflow->Fill(2);
 
         muSel.Select(e);
         eleMVASel.Select(e);
@@ -77,6 +80,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         //         continue;;
         // }
         h_forEY_preSelection->Fill(0);
+        m_cutflow->Fill(3);
 
         m_outTree->Fill();
     };

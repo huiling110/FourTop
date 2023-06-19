@@ -1,19 +1,16 @@
 #include "../include/goodLumiAndPVSel.h"
 
-    LumiAndPVSel::LumiAndPVSel(const Bool_t isData, const TString era)
+    LumiAndPVSel::LumiAndPVSel(const Bool_t isData, const TString era): m_era{era}
     {
         std::cout << "initialize LumiAndPVSel class........\n";
+        std::cout<<"m_era="<<m_era<<"\n";
         readJSON(isData, GoldenJSONs[era], m_goodLumis);
         std::cout << "done LumiAndPVSel initializing.........\n";
     };
 
-    // Bool_t Select(const Bool_t isData, const eventForNano *e)//??? can not dereference a  const pointer?
     Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
     {
-
-
         // https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile
-
         Bool_t ifGoodLumi = kTRUE;
         if (isData)
         {
@@ -46,7 +43,15 @@
         {
             ifPV = kTRUE;
         }
-        return ifGoodLumi&& ifPV;
+
+        Bool_t ifPass = ifGoodLumi&& ifPV;
+        //!!! temparorily set ifPass=true for 2022
+        if(m_era.CompareTo("2022")==0){
+            ifPass = kTRUE;
+        }
+
+
+        return ifPass;
 
     };
 
