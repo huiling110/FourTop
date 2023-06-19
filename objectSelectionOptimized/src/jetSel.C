@@ -6,7 +6,7 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing JetSel: m_jetType=" << m_jetType << "......\n";
 
-    TString jsonBase = "../../../jsonpog-integration/POG/";
+    TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
 

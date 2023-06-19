@@ -6,7 +6,7 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
 
-    TString jsonBase = "../../../jsonpog-integration/POG/";
+    TString jsonBase = "../../jsonpog-integration/POG/";
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
     std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
 
