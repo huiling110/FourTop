@@ -28,6 +28,9 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94);
 
+    outTree->Branch("MET_pt", &MET_pt);
+    outTree->Branch("MET_phi", &MET_phi);
+
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
 };
