@@ -40,14 +40,6 @@ public:
         m_outTree->SetDirectory(m_output);
 
         // set up
-        // m_isData = getIsData(inputDir);
-        // m_era = getEra(inputDir);
-        // std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "\n";
-        // }
-        // else
-        // {
-        //     std::cout << "BAD!!! file not correctly open\n";
-        // }
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";
     };
