@@ -228,3 +228,11 @@ Int_t genMatchForJER(Double_t recoEta, Double_t recoPhi, Double_t recoPt, TTreeR
     return matched_genJetIndex;
 };
 
+Bool_t isRun3(TString era){
+    Bool_t isRun3 = kFALSE;
+    if(era.CompareTo("2022")==0){
+        isRun3 = kTRUE;
+    }
+    return isRun3;
+}
+

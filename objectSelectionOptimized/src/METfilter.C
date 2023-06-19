@@ -1,7 +1,13 @@
 #include "../include/METfilter.h"
 
-METFilter::METFilter(){
-    std::cout<<"initialize METFilter ......\n";
+METFilter::METFilter(TString era){
+    std::cout<<"Initialize METFilter ......\n";
+
+    m_isRun3 = isRun3(era);
+    std::cout<<"m_isRun3="<<m_isRun3<<"\n";
+
+    std::cout<<"Done initializing METFiler....\n";
+
 }
 
 
@@ -12,6 +18,12 @@ Bool_t METFilter::Select(const TString era, eventForNano *e){
     {
         isPass = *e->Flag_ecalBadCalibFilter&&isPass;
     }
+
+    if(m_isRun3){
+        //!!!
+        isPass = kTRUE;
+    }
+
     return isPass;
 
 }

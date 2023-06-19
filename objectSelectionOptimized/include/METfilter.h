@@ -13,12 +13,13 @@
 class METFilter
 {
 public:
-    METFilter();
+    METFilter(TString era);
     ~METFilter(){};
 
     Bool_t Select(const TString era, eventForNano *e);
 
 private:
+    Bool_t m_isRun3 = kFALSE;
     // output branches
 };
 

@@ -43,5 +43,6 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<T> &array, std::vecto
     }
 };
 
+Bool_t isRun3(TString era);
 
 #endif

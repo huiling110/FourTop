@@ -6,6 +6,7 @@
         std::cout<<"m_era="<<m_era<<"\n";
         readJSON(isData, GoldenJSONs[era], m_goodLumis);
         std::cout << "done LumiAndPVSel initializing.........\n";
+        std::cout<<"\n";
     };
 
     Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
