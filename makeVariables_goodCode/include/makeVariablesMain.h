@@ -70,6 +70,7 @@ private:
     ObjVarMaker muVarMaker{m_outTree, "muonsT"};
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
+    TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
 };
 
 #endif

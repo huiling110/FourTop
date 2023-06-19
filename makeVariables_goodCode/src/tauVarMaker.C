@@ -14,6 +14,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_taus_genTauNum", &taus_genTauNum);
 
     std::cout << "Done initialization.............\n";
+    std::cout << "\n";
 };
 
 void TauVarMaker::makeVariables(const EventForMV *e)
@@ -49,7 +50,22 @@ void TauVarMaker::clearBranch()
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
 {
     // overide base ObjValMaker
-    for (UInt_t i = 0; i < e->tausT_pt.GetSize(); i++)
+    UInt_t objNum = 0;
+    switch (m_type)
+    {
+    case 0:
+        objNum = e->tausT_pt.GetSize();
+         break;
+    case 1:
+        objNum = e->tausF_pt.GetSize();
+         break;
+    case 2:
+        objNum = e->tausL_pt.GetSize();
+         break;
+    }
+
+    // for (UInt_t i = 0; i < e->tausT_pt.GetSize(); i++)
+    for (UInt_t i = 0; i < objNum; i++)
     {
         ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
         switch (m_type)

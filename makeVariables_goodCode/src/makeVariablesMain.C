@@ -14,6 +14,7 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
 
         tauVarMaker.makeVariables(e);//tight tau
         tauFVarMaker.makeVariables(e);
+        tauLVarMaker.makeVariables(e);
 
         //
         m_outTree->Fill();
