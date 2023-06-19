@@ -9,7 +9,7 @@
 class TauVarMaker : public ObjVarMaker
 {
 public:
-    TauVarMaker(TTree *outTree, TString objName);
+    TauVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TauVarMaker();
     void makeVariables(const EventForMV *e);
     // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);

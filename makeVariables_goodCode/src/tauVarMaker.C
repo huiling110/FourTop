@@ -3,7 +3,7 @@
 #include "../include/tauVarMaker.h"
 #include "../include/variablesFunctions.h"
 
-TauVarMaker::TauVarMaker(TTree *outTree, TString objName) : ObjVarMaker{outTree, objName}
+TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMaker{outTree, objName, type}
 {
     std::cout << "Initialzing the derived TauVarMaker........\n";
 

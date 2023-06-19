@@ -8,7 +8,7 @@
 class ObjVarMaker
 {
 public:
-    ObjVarMaker(TTree *outTree, TString objName);
+    ObjVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~ObjVarMaker();
     void makeVariables(const EventForMV *e);
     // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
