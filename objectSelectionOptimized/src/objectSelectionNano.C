@@ -38,14 +38,14 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         muSel.Select(e);
         eleMVASel.Select(e);
 
-        // // TOPMVA lepton selection
+        // TOPMVA lepton selection
         // eleTopMVATSel.Select(e);
         // muTopMVATSel.Select(e);
         std::vector<Double_t> lepEtaVec;
         std::vector<Double_t> lepPhiVec;
         getLepEtaPhi(lepEtaVec, lepPhiVec);
 
-        // // tau selection
+        // tau selection
         // Int_t sysTES = 0;
         Int_t sysTES = 4; //no tau energy correction
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
@@ -57,7 +57,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_tausFTotal+=tauSelF.getSize();
         m_tausLTotal+=tauSelL.getSize();
 
-        // // jet and bjet selection
+        // jet and bjet selection
         const Bool_t ifJER = kFALSE;
         const Int_t sysJEC = 0;
         jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
@@ -68,18 +68,18 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_jetsTotal += jetSel.getSize();
         m_bjetsM+=bjetMSel.getSize();
 
-        // // copy some nanoAOD branches
+        // copy some nanoAOD branches
         copyBranch.Select(e, m_isData);
 
-        // // pile up weight cal
+        // pile up weight cal
         // puWeightCal.Select(e, m_isData);
 
-        // //pre selection
-        // if (preSelection)
-        // {
-        //     if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
-        //         continue;;
-        // }
+        //pre selection
+        if (preSelection)
+        {
+            if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
+                continue;;
+        }
         h_forEY_preSelection->Fill(0);
         m_cutflow->Fill(3);
 
