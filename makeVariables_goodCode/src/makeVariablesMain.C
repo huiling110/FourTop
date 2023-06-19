@@ -40,7 +40,4 @@ void MakeVariablesMain::Terminate()
 };
 
 MakeVariablesMain::~MakeVariablesMain(){
-    // delete m_input;
-    // delete e;
-    // delete m_output;
 };
