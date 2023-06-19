@@ -69,6 +69,7 @@ private:
     // MuonVarMaker muVarMaker{m_outTree};
     ObjVarMaker muVarMaker{m_outTree, "muonsT"};
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
+    TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
 };
 
 #endif
