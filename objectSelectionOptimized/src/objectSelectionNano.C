@@ -20,13 +20,13 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         };
 
         // MET filters
-        // if (!(metFilter.Select(m_era, e)))
-        // {
-        //     continue;
-        // }
+        if (!(metFilter.Select(m_era, e)))
+        {
+            continue;
+        }
         m_cutflow->Fill(1);
 
-        // // HLT selection and HLT branch filling
+        // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
         {
             continue; // contains event selection!!!

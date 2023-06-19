@@ -50,6 +50,9 @@ public:
             // m_isData = getIsData(inputDir);
             // m_era = getEra(inputDir);
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "\n";
+
+            //
+            m_cutflow->SetDirectory(m_output);
         }
         else
         {
@@ -80,8 +83,8 @@ private:
     Bool_t m_isData;
     TString m_era;
 
-    LumiAndPVSel lumiAndPVSelection{m_isData, m_era};
-    // METFilter metFilter{};//??? for run3
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era};//!!!
+    METFilter metFilter{m_era};//!!! for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
     // EleTopMVASel eleTopMVATSel{m_outTree, m_era};
