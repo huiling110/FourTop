@@ -12,6 +12,16 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
     outTree->Branch(objName + "_taus_genTauNum", &taus_genTauNum);
+    outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass);
+    outTree->Branch(objName + "_leptonsT_invariantMass", &taus_leptonsT_invariantMass);
+    outTree->Branch(objName + "_leptonsTMVA_minDeltaR", &taus_leptonsTMVA_minDeltaR);
+    outTree->Branch(objName + "_leptonsTopMVA_chargeMulti", &taus_leptonsTopMVA_chargeMulti);
+    outTree->Branch(objName + "_prongNum", &taus_prongNum);
+    outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
+    outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
+    outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
+    outTree->Branch(objName + "_1charge", &taus_1charge);
+    outTree->Branch(objName + "_1neutralIso", &taus_1neutralIso);
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
@@ -21,8 +31,6 @@ void TauVarMaker::makeVariables(const EventForMV *e)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
-    // it would be much convenient if we can have a object collection: muonsT
-    // or I make a map of object name and object lorentz in this class
 
     clearBranch();
 
