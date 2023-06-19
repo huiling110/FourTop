@@ -18,6 +18,10 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
 
         //jet
         jetVarMaker.makeVariables(e);
+        jetTVarMaker.makeVariables(e);
+        bjetMVarMaker.makeVariables(e);
+        bjetLVarMaker.makeVariables(e);
+        bjetTVarMaker.makeVariables(e);
 
         //
         m_outTree->Fill();
