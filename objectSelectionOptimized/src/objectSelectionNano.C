@@ -91,11 +91,25 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
 void objectSelection::Terminate()
 {
     std::cout << "Terminate phase.......................................................\n";
-    m_output->Write();
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
-    m_output->Close();
     std::cout<<"elesTotal="<<eleMVASel.getTotal()<<";   musTotal="<<muSel.getTotal()<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<"; tausL="<<m_tausLTotal<<";  jets="<<m_jetsTotal<<";  bjetsM="<<m_bjetsM<<"\n";
+
+    // get Runs tree
+    if (!m_isData)
+    {
+        std::cout<<"copy Runs tree\n";
+        TTree *runs = (TTree *)m_input->Get("Runs");
+        runs->SetBranchStatus("*", 0);
+        runs->SetBranchStatus("genEventSumw", 1);
+
+        TTree *runsForOut = runs->CloneTree();
+        runsForOut->SetDirectory(m_output);
+    }
+
+    m_output->Write();
+    m_output->Close();
+
     std::cout<<"Termination done .....................................................\n";
 };
 
