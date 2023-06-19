@@ -16,14 +16,14 @@ HLTSelector::HLTSelector(TTree *outTree)
     outTree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080_", &HLT_PFHT430_SixJet40_BTagCSV_p080_);
     outTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_);
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_);
+    outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_);
+    outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
     // outTree->Branch("", &);
     std::cout<<"Done HLTSelector initializing .............\n";
     std::cout<<"\n";
 };
 // HLTSelector::~HLTSelector(){};
 
-// Bool_t Select(const eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE)
-// Bool_t HLTSelector::Select(eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE, Bool_t isHLTSel = kTRUE)
 Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isData, Bool_t isHLTSel)
 {
     // Here I manully set the branch value = nanoAOD value only when the trigger is supposed to work in the run period;
@@ -111,10 +111,10 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
         }
     }else if(era.CompareTo("2022")==0){
         ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
-
+        HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59;
+        HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94;
+        HLT_PFJet500_ = **e->HLT_PFJet500;
     }
-    // m_outTree->Fill(); //??? should we fill in every Selector or no need?
-    // inconsistent fill could cause strange things
     if (!isHLTSel)
     {
         ifPass = kTRUE;

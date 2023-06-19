@@ -14,7 +14,6 @@ public:
     void clearBranch();
 
 private:
-    // TTree *m_outTree;
     // output branches
     Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056_ = kFALSE;
     Bool_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = kFALSE;
@@ -30,6 +29,9 @@ private:
     Bool_t HLT_PFHT430_SixJet40_BTagCSV_p080_ = kFALSE;
     Bool_t HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = kFALSE;    // run<299329
     Bool_t HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = kFALSE; // run<=306460 2017 end
+    //2022
+    Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ = kFALSE;
+    Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ = kFALSE;
 };
 
 #endif
