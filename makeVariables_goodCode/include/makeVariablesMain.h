@@ -14,6 +14,7 @@
 #include "muonVarMaker.h"
 #include "objVarMaker.h"
 #include "tauVarMaker.h"
+#include "jetVarMaker.h"
 
 class MakeVariablesMain
 {
@@ -71,6 +72,7 @@ private:
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
+    JetVarMaker jetVarMaker{m_outTree, "jets", 0};
 };
 
 #endif

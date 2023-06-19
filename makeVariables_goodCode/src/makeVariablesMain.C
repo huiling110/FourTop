@@ -16,6 +16,9 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
         tauFVarMaker.makeVariables(e);
         tauLVarMaker.makeVariables(e);
 
+        //jet
+        jetVarMaker.makeVariables(e);
+
         //
         m_outTree->Fill();
     };

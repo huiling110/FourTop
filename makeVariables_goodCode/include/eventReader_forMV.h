@@ -28,7 +28,28 @@ public:
                                       tausL_eta(reader, "tausL_eta"),
                                       tausL_phi(reader, "tausL_phi"),
                                       tausL_mass(reader, "tausL_mass"),
-                                      tausL_genPartFlav(reader, "tausL_genPartFlav")
+                                      tausL_genPartFlav(reader, "tausL_genPartFlav"),
+
+    jets_pt(reader, "jets_pt"),
+    jets_eta(reader, "jets_eta"),
+    jets_phi(reader, "jets_phi"),
+    jets_mass(reader, "jets_mass"),
+    jetsT_pt(reader, "jetsT_pt"),
+    jetsT_eta(reader, "jetsT_eta"),
+    jetsT_phi(reader, "jetsT_phi"),
+    jetsT_mass(reader, "jetsT_mass"),
+    bjetsM_pt(reader, "bjetsM_pt"),
+    bjetsM_eta(reader, "bjetsM_eta"),
+    bjetsM_phi(reader, "bjetsM_phi"),
+    bjetsM_mass(reader, "bjetsM_mass"),
+    bjetsL_pt(reader, "bjetsL_pt"),
+    bjetsL_eta(reader, "bjetsL_eta"),
+    bjetsL_phi(reader, "bjetsL_phi"),
+    bjetsL_mass(reader, "bjetsL_mass"),
+    bjetsT_pt(reader, "bjetsT_pt"),
+    bjetsT_eta(reader, "bjetsT_eta"),
+    bjetsT_phi(reader, "bjetsT_phi"),
+    bjetsT_mass(reader, "bjetsT_mass")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -60,6 +81,27 @@ public:
     TTreeReaderArray<Double_t> tausL_phi;
     TTreeReaderArray<Double_t> tausL_mass;
     TTreeReaderArray<UChar_t> tausL_genPartFlav;
+
+    TTreeReaderArray<Double_t> jets_pt;
+    TTreeReaderArray<Double_t> jets_eta;
+    TTreeReaderArray<Double_t> jets_phi;
+    TTreeReaderArray<Double_t> jets_mass;
+    TTreeReaderArray<Double_t> jetsT_pt;
+    TTreeReaderArray<Double_t> jetsT_eta;
+    TTreeReaderArray<Double_t> jetsT_phi;
+    TTreeReaderArray<Double_t> jetsT_mass;
+    TTreeReaderArray<Double_t> bjetsM_pt;
+    TTreeReaderArray<Double_t> bjetsM_eta;
+    TTreeReaderArray<Double_t> bjetsM_phi;
+    TTreeReaderArray<Double_t> bjetsM_mass;
+    TTreeReaderArray<Double_t> bjetsL_pt;
+    TTreeReaderArray<Double_t> bjetsL_eta;
+    TTreeReaderArray<Double_t> bjetsL_phi;
+    TTreeReaderArray<Double_t> bjetsL_mass;
+    TTreeReaderArray<Double_t> bjetsT_pt;
+    TTreeReaderArray<Double_t> bjetsT_eta;
+    TTreeReaderArray<Double_t> bjetsT_phi;
+    TTreeReaderArray<Double_t> bjetsT_mass;
 };
 
 #endif
