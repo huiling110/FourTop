@@ -205,3 +205,13 @@ samplesCrossSection = {
     "WJetsToLNu_HT-1200To2500": 1.023,
     "WJetsToLNu_HT-2500ToInf": 0.0248,
 }
+
+
+Run3Samples = {
+    
+    'TTto2L2Nu': 'tt',
+    'TTto4Q': 'tt',
+    'TTtoLNu2Q': 'tt',
+    
+    'JetMET_G': 'jetHT',
+}
