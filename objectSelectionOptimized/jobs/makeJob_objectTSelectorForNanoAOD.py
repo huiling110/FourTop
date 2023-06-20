@@ -24,26 +24,29 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v56NoHLTButPre/'
 # jobVersionName = 'v56preselection/'
 # jobVersionName = 'v57ovelapWithTausF/'
-jobVersionName = 'v58addGenBranches/'
+# jobVersionName = 'v58addGenBranches/'
+
+#run3
+jobVersionName = 'v0Testing/'
 
 onlyMC = False
-# era = '2016'
-# era = '2016APV'
-# era = '2017'
-# era = '2018'
-era = '13p6TeV/2022'
 
 
 def main():
+    # era = '2016'
+    # era = '2016APV'
+    # era = '2017'
+    # era = '2018'
+    era = '13p6TeV/2022'
     # onlyMC = True
     eventSelection = '7'
     # eventSelection = '5'
     # eventSelection = '1'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
-    isHuiling = True
     # dataList = [ 'jetHT', 'singleMu'] 
-    dataList = [ 'jetHT']
+    # dataList = [ 'jetHT']
     # dataList = ['singleMu'] 
+    dataList = ['JetMET']
 
     print( "era: ", era, "  eventSelection: ", eventSelection )
 
@@ -51,7 +54,7 @@ def main():
 
 ###########################################
 #better not modify anything afer this
-    inputDir, outputDir, eraOut = getInputOutDir(jobVersionName)
+    inputDir, outputDir, eraOut = getInputOutDir(jobVersionName, era)
 
     jobsDir = codePath + 'jobs_eachYear/'
     uf.checkMakeDir(jobsDir)
@@ -59,18 +62,18 @@ def main():
 
     inputDirMC = inputDir + 'mc/'
     # makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling, era )
-    makeJobsInDir( inputDirMC, outputDir , False, '', eventSelection, isHuiling, eraOut )
+    makeJobsInDir( inputDirMC, outputDir , False, '',  eraOut )
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
             # makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling, era )
-            makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling, eraOut )
+            makeJobsInDir( inputDirData, outputDir, True, idata,  eraOut )
 
-    makeSubAllJobs( jobsDir )
-    subprocess.run('chmod 777 '+ jobsDir+ era+ "/*sh", shell=True )
+    makeSubAllJobs( jobsDir , eraOut)
+    subprocess.run('chmod 777 '+ jobsDir+ eraOut+ "/*sh", shell=True )
 
 
-def getInputOutDir( jobVersionName):
+def getInputOutDir( jobVersionName, era):
     eraDic = {
         '2016':'UL2016_postVFP',
         '2016APV': 'UL2016_preVFP',
@@ -89,8 +92,7 @@ def getInputOutDir( jobVersionName):
 
 
 
-def makeSubAllJobs( jobsDir ):
-    # subAllFile = codePath+"subAllJobs.sh"
+def makeSubAllJobs( jobsDir , era):
     subAllFile = jobsDir+"subAllJobs"+era+ ".sh"
     if os.path.exists(subAllFile):
         subprocess.run('rm -fr '+subAllFile , shell=True)
@@ -113,7 +115,7 @@ def makeSubAllJobs( jobsDir ):
 
 
 
-def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuiling , era):
+def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
     allProcesses = os.listdir( inputDir )
     if isData:
         outputDir = outputDir + 'data/'
@@ -130,7 +132,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
         if not '2022' in era:
             if not k in gq.samples:  continue
         else:
-            if not k in gq.Run3samples.keys():  continue
+            if not k in gq.Run3Samples.keys():  continue
             
         print(k)
         sample_k = k
@@ -165,7 +167,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
                 smallFile = entry.replace( ".root", "")
                 iSmallJobName = 'OS_'+ era + sample_k + '_' + smallFile + ".sh"
                 smallFilejob = jobScriptsFolder +sample_k + "/" + iSmallJobName   
-                prepareCshJob( sampleDir, koutputDir, smallFilejob, entry, eventSelection, isHuiling )
+                prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
@@ -179,13 +181,15 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, eventSelection, isHuili
 
 
 
-def prepareCshJob( inputDir, koutputDir, shFile, singleFile, eventSelection):
+# def prepareCshJob( inputDir, koutputDir, shFile, singleFile, eventSelection):
+def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     subFile = open( shFile, 'w')
     subFile.write( "#!/bin/bash\n" )
-    appDir = codePath.rsplit('/', 1)[0]
+    appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
-    subFile.write('./run_objectTSelectorForNanoAOD.out ' + '0' +' '+ inputDir + ' ' + koutputDir + ' ' + singleFile + ' '  + eventSelection  )
+    # subFile.write('./run_objectTSelectorForNanoAOD.out ' + '0' +' '+ inputDir + ' ' + koutputDir + ' ' + singleFile + ' '  + eventSelection  )
+    subFile.write('./apps/run_objectSelection.out ' + inputDir +' ' + singleFile +' '+ koutputDir  + ' 0' )
     subFile.close()
     print( 'done writing the iJob for kProcess: ', shFile )
 
