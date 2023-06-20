@@ -37,5 +37,8 @@ export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/cmake/3.18.2/bin/:$PAT
 #for the vscode to run python due to limited process in IHEP cluster
  export OPENBLAS_NUM_THREADS=10
 
+#
+export VALGRIND_LIB=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/valgrind/3.15.0/lib/valgrind
+
 
 # export FOURTOPSHOME="/workfs2/cms/huahuil/4topCode/CMSSW_10_6_27/src/FourTop"
