@@ -35,7 +35,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         h_forEY_HLT->Fill(0);
         m_cutflow->Fill(2);
 
-/*
         muSel.Select(e);
         eleMVASel.Select(e);
 
@@ -46,6 +45,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         std::vector<Double_t> lepPhiVec;
         getLepEtaPhi(lepEtaVec, lepPhiVec);
 
+/*
         // tau selection
         // Int_t sysTES = 0;
         Int_t sysTES = 4; //no tau energy correction
