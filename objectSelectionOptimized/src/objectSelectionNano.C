@@ -20,7 +20,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
             continue;
         };
 
-/*
         // MET filters
         if (!(metFilter.Select(m_era, e)))
         {
@@ -36,6 +35,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         h_forEY_HLT->Fill(0);
         m_cutflow->Fill(2);
 
+/*
         muSel.Select(e);
         eleMVASel.Select(e);
 
