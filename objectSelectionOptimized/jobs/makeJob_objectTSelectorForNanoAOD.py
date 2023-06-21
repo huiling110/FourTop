@@ -172,7 +172,8 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
                 # sub_oneProcess.write( "hep_sub "+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
-                sub_oneProcess.write( "hep_sub "+ '-m 20000 '+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                # sub_oneProcess.write( "hep_sub "+ '-m 50000 '+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                sub_oneProcess.write( "hep_sub " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()

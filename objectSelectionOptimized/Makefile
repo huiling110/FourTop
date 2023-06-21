@@ -36,7 +36,6 @@ SOURCE = src/
 
 CXX = g++
 CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
-# CXXFLAGS = -O3 -Wall -fPIC -g 
 LD = g++
 LDFLAGS = -O3 -Wall -g 
 SOFLAGS = -shared

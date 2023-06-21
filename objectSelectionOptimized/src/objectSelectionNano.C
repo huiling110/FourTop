@@ -20,6 +20,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
             continue;
         };
 
+/*
         // MET filters
         if (!(metFilter.Select(m_era, e)))
         {
@@ -80,6 +81,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;;
         }
+        */
         h_forEY_preSelection->Fill(0);
         m_cutflow->Fill(3);
 
@@ -114,8 +116,8 @@ void objectSelection::Terminate()
 };
 
 objectSelection::~objectSelection(){
-    // delete m_input;
-    // delete e;
+    delete m_input;
+    delete e;
     // delete m_output;
 };
 
