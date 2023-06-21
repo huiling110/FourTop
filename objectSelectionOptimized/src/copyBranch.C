@@ -31,12 +31,13 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
     EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
     EVENT_genWeight_ = **e->genWeight;
-    copy_TTreeReaderArray_toVector(e->Electron_charge, Electron_charge_);
-    copy_TTreeReaderArray_toVector(e->Muon_charge, Muon_charge_);
-    if (!isData){
-    copy_TTreeReaderArray_toVector(*e->GenPart_genPartIdxMother, GenPart_genPartIdxMother_ );
-    copy_TTreeReaderArray_toVector(*e->GenPart_pdgId, GenPart_pdgId_ );
-    }
+    //!!!causing too much memory consumption!!!???
+    // copy_TTreeReaderArray_toVector(e->Electron_charge, Electron_charge_);
+    // copy_TTreeReaderArray_toVector(e->Muon_charge, Muon_charge_);
+    // if (!isData){
+    // copy_TTreeReaderArray_toVector(*e->GenPart_genPartIdxMother, GenPart_genPartIdxMother_ );
+    // copy_TTreeReaderArray_toVector(*e->GenPart_pdgId, GenPart_pdgId_ );
+    // }
 
 };
 void CopyBranch::clearBranch(){
