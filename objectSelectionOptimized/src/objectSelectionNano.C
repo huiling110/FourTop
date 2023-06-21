@@ -68,12 +68,11 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_jetsTotal += jetSel.getSize();
         m_bjetsM+=bjetMSel.getSize();
 
-/*
         // copy some nanoAOD branches
         copyBranch.Select(e, m_isData);
 
         // pile up weight cal
-        // puWeightCal.Select(e, m_isData);
+        // puWeightCal.Select(e, m_isData);//!!!to do
 
         //pre selection
         if (preSelection)
@@ -81,7 +80,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;;
         }
-        */
         h_forEY_preSelection->Fill(0);
         m_cutflow->Fill(3);
 
