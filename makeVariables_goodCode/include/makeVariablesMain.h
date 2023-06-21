@@ -17,6 +17,7 @@
 #include "jetVarMaker.h"
 #include "copyBranches.h"
 #include "weightVarMaker.h"
+// #include "usefulFun"
 
 class MakeVariablesMain
 {
@@ -38,8 +39,10 @@ public:
         // set up output
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
+        if(inputDir.Contains("data")){
+            m_isData = kTRUE;
+        }
 
-        // set up
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";
     };
@@ -58,7 +61,7 @@ private:
     TString m_processName;
     TFile *m_output;
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
-    Bool_t m_isData;
+    Bool_t m_isData = kFALSE;
     TString m_era;
 
     //

@@ -12,11 +12,14 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
     // TString inputDir = "ttZ",
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
-    TString inputDir = "TTto2L2Nu",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
+    // TString inputDir = "TTto2L2Nu",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
+    TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
-    TString outputDir = "output/")
+    TString outputDir = "output/",
+    Int_t numEntries = 1000)
 {
     TStopwatch t;
     t.Start();
@@ -29,7 +32,7 @@ void run_objectSelection(
     std::cout << "all trees in chain: " << chain->GetNtrees() << "\n";
     TString processName = inputDir;
     MakeVariablesMain mv(inputDir1, chain, outputDir, processName);
-    mv.EventLoop(kTRUE, 100);
+    mv.EventLoop(kTRUE, numEntries);
     mv.Terminate();
 
     t.Stop();
@@ -41,8 +44,8 @@ int main(int argc, char const *argv[])
 {
     TString inputDir;
     TString inputProcess;
-    TString version;
-    Bool_t isTest = kFALSE;
+    TString outputDir;
+    Int_t numEntries = 0;
     if (argc < 4)
     {
         std::cout << "not enough input from command line\n";
@@ -53,9 +56,9 @@ int main(int argc, char const *argv[])
         std::cout << "using input from command line\n";
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
-        version = boost::lexical_cast<std::string>(argv[3]);
-        isTest = boost::lexical_cast<Bool_t>(argv[4]);
-        // run_treeAnalyzer(inputDir, inputProcess, version, isTest);
+        outputDir = boost::lexical_cast<std::string>(argv[3]);
+        numEntries = boost::lexical_cast<Int_t>(argv[4]);
+        run_objectSelection( inputDir, inputProcess, outputDir, numEntries);
     }
 
     return 0;

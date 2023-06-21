@@ -11,6 +11,7 @@
 #include "TObjString.h"
 #include <TObjArray.h>
 
+//!!!should be make a library so that all sub projects can use
 Bool_t getIsData(TString inputDir)
 {
     Bool_t isData;
