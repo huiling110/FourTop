@@ -45,7 +45,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         std::vector<Double_t> lepPhiVec;
         getLepEtaPhi(lepEtaVec, lepPhiVec);
 
-/*
         // tau selection
         // Int_t sysTES = 0;
         Int_t sysTES = 4; //no tau energy correction
@@ -58,6 +57,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_tausFTotal+=tauSelF.getSize();
         m_tausLTotal+=tauSelL.getSize();
 
+/*
         // jet and bjet selection
         const Bool_t ifJER = kFALSE;
         const Int_t sysJEC = 0;
