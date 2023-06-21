@@ -22,7 +22,7 @@ class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
-    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_reader(chain), m_processName{processName}
+    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         // m_input = new TFile(inputDir + singleFileName, "READ");
@@ -52,6 +52,7 @@ public:
     void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec);
 
 private:
+    TString m_inputDir;
     TTreeReader m_reader;
     EventForMV *e;
     TString m_processName;

@@ -12,21 +12,21 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
         // muVarMaker.makeVariables(e);
         muVarMaker.makeVariables(e);
 
-        tauVarMaker.makeVariables(e);//tight tau
+        tauVarMaker.makeVariables(e); // tight tau
         tauFVarMaker.makeVariables(e);
         tauLVarMaker.makeVariables(e);
 
-        //jet
+        // jet
         jetVarMaker.makeVariables(e);
         jetTVarMaker.makeVariables(e);
         bjetMVarMaker.makeVariables(e);
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
 
-        //copy some branches
+        // copy some branches
         copyBranches.makeVariables(e);
 
-        //SF and systematic calculation
+        // SF and systematic calculation
 
         m_outTree->Fill();
     };
@@ -38,18 +38,20 @@ void MakeVariablesMain::Terminate()
 {
     std::cout << "Terminate phase.......................................................\n";
 
-    //add Runs tree
-    // if (!(m_isData))
-    // {
-    //     std::cout << "--------\n";
-    //     std::cout << "now comes to add Runs tree stage\n";
-    //     TChain chain2("Runs");
-    //     chain2.Add(inputFile + "outTree*.root");
-    //     chain2.Merge(file, 2000);
-    //     chain2.SetDirectory(m_output)
-    //     std::cout << "done merging Runs trees\n";
-    //     // file->Close();
-    // }
+    // add Runs tree
+    if (!(m_isData))
+    {
+        std::cout << "--------\n";
+        std::cout << "now comes to add Runs tree stage\n";
+        TChain chain2("Runs");
+        chain2.Add(m_inputDir + "outTree*.root");
+        // chain2.Merge(m_output, 2000);
+        TTree* Runs = chain2.CloneTree();
+        Runs->SetDirectory(m_output);
+        std::cout
+            << "done merging Runs trees\n";
+        std::cout << "\n";
+    }
 
     m_output->Write();
     m_output->Close();
@@ -57,5 +59,4 @@ void MakeVariablesMain::Terminate()
     std::cout << "Termination done .....................................................\n";
 };
 
-MakeVariablesMain::~MakeVariablesMain(){
-};
+MakeVariablesMain::~MakeVariablesMain(){};
