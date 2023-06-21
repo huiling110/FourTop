@@ -57,7 +57,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_tausFTotal+=tauSelF.getSize();
         m_tausLTotal+=tauSelL.getSize();
 
-/*
         // jet and bjet selection
         const Bool_t ifJER = kFALSE;
         const Int_t sysJEC = 0;
@@ -69,6 +68,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         m_jetsTotal += jetSel.getSize();
         m_bjetsM+=bjetMSel.getSize();
 
+/*
         // copy some nanoAOD branches
         copyBranch.Select(e, m_isData);
 
