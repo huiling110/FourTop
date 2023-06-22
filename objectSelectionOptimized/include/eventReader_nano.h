@@ -4,6 +4,7 @@
 #include <TTreeReader.h>
 #include <TTreeReaderArray.h>
 #include <TTreeReaderValue.h>
+#include "usefulFunc.h"
 
 // #include <vector>
 class eventForNano
@@ -132,24 +133,24 @@ public:
         readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94");
         readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59");
         // gen
-        readPointer(GenJet_eta, reader, "GenJet_eta");
-        readPointer(GenJet_phi, reader, "GenJet_phi");
-        readPointer(GenJet_pt, reader, "GenJet_pt");
-        readPointer(GenPart_pdgId, reader, "GenPart_pdgId");
-        readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
+        readPointerArray(GenJet_eta, reader, "GenJet_eta");
+        readPointerArray(GenJet_phi, reader, "GenJet_phi");
+        readPointerArray(GenJet_pt, reader, "GenJet_pt");
+        readPointerArray(GenPart_pdgId, reader, "GenPart_pdgId");
+        readPointerArray(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         readPointer(genWeight, reader, "genWeight");
-        readPointer(Tau_genPartFlav, reader, "Tau_genPartFlav");
-        readPointer(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
+        readPointerArray(Tau_genPartFlav, reader, "Tau_genPartFlav");
+        readPointerArray(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
 
         // other branch not consistent between run2 and run3
-        readPointer(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
-        readPointer(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
-        readPointer(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
-        readPointer(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
-        readPointer(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
-        readPointer(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
-        readPointer(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
+        readPointerArray(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
+        readPointerArray(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
+        readPointerArray(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
+        readPointerArray(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
+        readPointerArray(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
+        readPointerArray(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
+        readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -163,32 +164,6 @@ public:
         //!!! seems to cause problem together with delete e
         // delete HLT_PFHT450_SixJet40_BTagCSV_p056;
         //!!!delete other pointers
-    };
-
-    template <typename T>
-    void readPointer(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)
-    {
-        if (reader.GetTree()->FindBranch(branchName))
-        {
-            branchPointer = new TTreeReaderArray<T>(reader, branchName);
-        }
-        else
-        {
-            std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
-        };
-    };
-    template <typename T>
-    // void readPointer(TTreeReaderValue<Bool_t> *&branchPointer, TTreeReader &reader, TString branchName)
-    void readPointer(TTreeReaderValue<T> *&branchPointer, TTreeReader &reader, TString branchName)
-    {
-        if (reader.GetTree()->FindBranch(branchName))
-        {
-            branchPointer = new TTreeReaderValue<T>(reader, branchName);
-        }
-        else
-        {
-            std::cout << "WARNINIG!!! " << branchName << " not exsit in input nano file\n";
-        };
     };
 
     TTreeReaderValue<UInt_t> run;
