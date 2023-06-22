@@ -11,19 +11,18 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_1l/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTtoLNu2Q/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTtoLNu2Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/data/JetMET_G/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/data/JetMET_G/",
     TString singleFileName = "outTree_0.root",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
     Int_t eventNum = 1000)
-    // Bool_t istest = kTRUE)
+// Bool_t istest = kTRUE)
 {
     TStopwatch t;
     t.Start();
-
 
     Bool_t isData = getIsData(inputDir);
     TString era = getEra(inputDir);
@@ -56,7 +55,6 @@ int main(int argc, char const *argv[])
         eventNum = boost::lexical_cast<Int_t>(argv[4]);
         run_objectSelection(inputDir, singleFileName, outputDir, eventNum);
     }
-
 
     return 0;
 }
