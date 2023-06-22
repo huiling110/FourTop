@@ -2,6 +2,21 @@
 import ROOT
 
 def main():
+    run3Folder='/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTto4Q/'
+    # run3Folder='/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_0l/'
+    
+    # Create a TChain and add files to it
+    chain = ROOT.TChain("Events")
+    chain.Add( run3Folder+"outTree_30.root")
+
+    # Get the number of entries in the TChain
+    num_entries = chain.GetEntries()
+
+    print("Number of entries in the TChain:", num_entries)
+    
+
+
+def examineSomeBranches():
     nanoFile = '/publicfs/cms/data/TopQuark/nanoAOD/2022/0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root'
     nanoFileRun2 = '/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/outTree_0.root'
     

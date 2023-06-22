@@ -7,8 +7,11 @@ def main():
     # Specify the directory and threshold time in seconds
     # directory_path = "/path/to/directory"
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
-    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-    threshold_time = time.time() - (100 * 24 * 60 * 60)  # Delete folders older than 7 days
+    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
+    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
+    threshold_time = time.time() - (200 * 24 * 60 * 60)  # Delete folders older than 7 days
     # ifDryRun = True
     ifDryRun = False #!!!careful setting this!!!
 
@@ -31,10 +34,10 @@ def delete_folders(directory, threshold_time, ifDryRun = True):
     
 def delete_files_with_extension(folder_path, extension, ifDryRun=True):
     for root, dirs, files in os.walk(folder_path):
-        if 'results' in dirs: continue
         for file in files:
             if file.endswith(extension):
                 file_path = os.path.join(root, file)
+                if 'results' in file_path: continue
                 if 'variableHists' in file : continue
                 if 'template' in file : continue
                 print('going to remove: ', file_path)
