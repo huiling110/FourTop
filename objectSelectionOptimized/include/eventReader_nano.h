@@ -96,7 +96,7 @@ public:
                                         // Tau_idDeepTau2018v2p5VSe(reader, "Tau_idDeepTau2018v2p5VSe"),
                                         // Tau_idDeepTau2018v2p5VSmu(reader, "Tau_idDeepTau2018v2p5VSmu"),
                                         Tau_decayMode(reader, "Tau_decayMode"),
-                                        Tau_genPartFlav(reader, "Tau_genPartFlav"),
+                                        // Tau_genPartFlav(reader, "Tau_genPartFlav"),
                                         Tau_jetIdx(reader, "Tau_jetIdx"),
                                         Tau_charge(reader, "Tau_charge"),
                                         Tau_neutralIso(reader, "Tau_neutralIso"),
@@ -139,6 +139,8 @@ public:
         readPointer(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         readPointer(genWeight, reader, "genWeight");
+        readPointer(Tau_genPartFlav, reader, "Tau_genPartFlav");
+
         // other branch not consistent between run2 and run3
         readPointer(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
         readPointer(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
@@ -236,6 +238,9 @@ public:
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
 
+    TTreeReaderArray<UChar_t>* Tau_genPartFlav = nullptr;
+
+
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;
     TTreeReaderValue<Bool_t> Flag_globalSuperTightHalo2016Filter;
@@ -310,7 +315,6 @@ public:
     TTreeReaderArray<UChar_t> *Tau_idDeepTau2018v2p5VSe;
     TTreeReaderArray<UChar_t> *Tau_idDeepTau2018v2p5VSmu;
     TTreeReaderArray<Int_t> Tau_decayMode;
-    TTreeReaderArray<UChar_t> Tau_genPartFlav;
     TTreeReaderArray<Int_t> Tau_jetIdx;
     TTreeReaderArray<Int_t> Tau_charge;
     TTreeReaderArray<Float_t> Tau_neutralIso;
