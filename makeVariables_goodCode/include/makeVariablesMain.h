@@ -40,11 +40,9 @@ public:
         // set up output
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
-        // if(inputDir.Contains("data")){
-        //     m_isData = kTRUE;
-        // }
         m_isData = getIsData(m_inputDir);
-        std::cout << "m_isData=" << m_isData << "\n";
+        m_era = getEra(m_inputDir);
+        std::cout << "m_isData=" << m_isData <<"  m_era="<<m_era<< "\n";
 
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";

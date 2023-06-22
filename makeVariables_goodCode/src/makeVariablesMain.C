@@ -4,6 +4,9 @@
 void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
+    if( numEntries<=0){
+        numEntries = m_reader.GetEntries();
+    }
     std::cout << "Start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
