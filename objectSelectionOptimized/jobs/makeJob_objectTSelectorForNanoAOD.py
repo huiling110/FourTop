@@ -39,7 +39,7 @@ def main():
     # era = '2018'
     era = '13p6TeV/2022'
     # onlyMC = True
-    eventSelection = '7'
+    # eventSelection = '7'
     # eventSelection = '5'
     # eventSelection = '1'
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
@@ -48,7 +48,7 @@ def main():
     # dataList = ['singleMu'] 
     dataList = ['JetMET']
 
-    print( "era: ", era, "  eventSelection: ", eventSelection )
+    print( "era: ", era )
 
 
 
@@ -171,8 +171,8 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
-                # sub_oneProcess.write( "hep_sub "+ '-m 50000 '+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
-                sub_oneProcess.write( "hep_sub " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                sub_oneProcess.write( "hep_sub "+ '-m 6000 '+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                # sub_oneProcess.write( "hep_sub " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()
@@ -189,7 +189,6 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
-    # subFile.write('./run_objectTSelectorForNanoAOD.out ' + '0' +' '+ inputDir + ' ' + koutputDir + ' ' + singleFile + ' '  + eventSelection  )
     subFile.write('./apps/run_objectSelection.out ' + inputDir +' ' + singleFile +' '+ koutputDir  + ' 0' )
     subFile.close()
     print( 'done writing the iJob for kProcess: ', shFile )
