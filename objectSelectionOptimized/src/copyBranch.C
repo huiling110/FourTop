@@ -30,7 +30,14 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     EVENT_prefireWeight_ = *e->L1PreFiringWeight_Nom;
     EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
     EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
-    EVENT_genWeight_ = **e->genWeight;
+    if (!isData)
+    {
+        EVENT_genWeight_ = **e->genWeight;
+    }
+    else
+    {
+        EVENT_genWeight_ = 1;
+    }
     //!!!causing too much memory consumption!!!???
     // maybe template argument deduction  is not working well, not the culprit
     copy_TTreeReaderArray_toVector<Int_t>(e->Electron_charge, Electron_charge_); // this line is fine

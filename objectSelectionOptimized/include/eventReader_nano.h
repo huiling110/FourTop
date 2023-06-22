@@ -107,8 +107,8 @@ public:
                                         Jet_eta(reader, "Jet_eta"),
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
-                                        Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour")
+                                        Jet_btagDeepB(reader, "Jet_btagDeepB")
+    // Jet_hadronFlavour(reader, "Jet_hadronFlavour")
     // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
@@ -140,6 +140,7 @@ public:
         readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         readPointer(genWeight, reader, "genWeight");
         readPointer(Tau_genPartFlav, reader, "Tau_genPartFlav");
+        readPointer(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
 
         // other branch not consistent between run2 and run3
         readPointer(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
@@ -158,10 +159,9 @@ public:
 
     // }
 
-    ~eventForNano()
-    {
-        // delete m_reader;
-        delete HLT_PFHT450_SixJet40_BTagCSV_p056;
+    ~eventForNano(){
+        //!!! seems to cause problem together with delete e
+        // delete HLT_PFHT450_SixJet40_BTagCSV_p056;
         //!!!delete other pointers
     };
 
@@ -238,8 +238,7 @@ public:
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
 
-    TTreeReaderArray<UChar_t>* Tau_genPartFlav = nullptr;
-
+    TTreeReaderArray<UChar_t> *Tau_genPartFlav = nullptr;
 
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;
@@ -326,7 +325,7 @@ public:
     TTreeReaderArray<Float_t> Jet_phi;
     TTreeReaderArray<Int_t> Jet_jetId;
     TTreeReaderArray<Float_t> Jet_btagDeepB;
-    TTreeReaderArray<Int_t> Jet_hadronFlavour;
+    TTreeReaderArray<Int_t> *Jet_hadronFlavour;
     // TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
 };
 

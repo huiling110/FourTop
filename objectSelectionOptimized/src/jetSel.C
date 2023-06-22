@@ -198,7 +198,14 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         jets_eta.push_back(ijetEta);
         jets_phi.push_back(ijetPhi);
         jets_mass.push_back(ijetMass);
-        jets_flavour.push_back(e->Jet_hadronFlavour.At(j));
+        if (!isData)
+        {
+            jets_flavour.push_back(e->Jet_hadronFlavour->At(j));
+        }
+        else
+        {
+            jets_flavour.push_back(-99);
+        }
         jets_btags.push_back(e->Jet_btagDeepB.At(j));
     }
 };
@@ -245,10 +252,9 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
         // what is this rho? average energy density , for a event
 
         // find gen matching
-        Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
-        // Int_t genMatchIndex = genMatchForJER(ieta, iphi, rawJetPt, GenJet_eta, GenJet_phi, GenJet_pt, ijet_res);
         if (!isData)
         {
+            Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
             if (genMatchIndex > 0)
             {
                 // Case 1: we have a "good" generator level jet matched to the reconstructed jet
@@ -284,11 +290,6 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
         // jer_sf_down.push_back(iSF_down);
         jets_JESuncer.push_back(iSF_JESuncer);
     }
-    // for (UInt_t i = 0; i < JER_SF_new.size(); i++)
-    // {
-    //     std::cout << i << "jerSF=" << JER_SF_new[i] << "  ";
-    // }
-    // std::cout << "\n";
 };
 
 void JetSel::clearBranch()
@@ -310,6 +311,7 @@ std::vector<Double_t> &JetSel::getPhiVec()
     return jets_phi;
 };
 
-Int_t JetSel::getSize(){
+Int_t JetSel::getSize()
+{
     return jets_pt.size();
 }
