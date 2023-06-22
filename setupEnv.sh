@@ -18,6 +18,7 @@ export LD_LIBRARY_PATH=$ROOTSYS/lib/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/extern
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/lib/  #this means the latets the xgboost lib that doesn't work # but it's essential for python3.9 to work
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/myLibrary/
 
 #for xgboost
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/
