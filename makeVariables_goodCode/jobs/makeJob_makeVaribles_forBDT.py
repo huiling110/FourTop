@@ -194,8 +194,7 @@ def writeIjob( parameterList, processJob ):
     codeDir = os.path.dirname(os.path.abspath(__file__))
     codeDir = codeDir.rsplit('/',1)[0]
     subFile.write("cd {}\n".format(codeDir))
-    # command = './run_makeVaribles_forBDT.out 0  {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
-    command = './apps/run_makeVaribles.out {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    command = './apps/run_makeVariables.out {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
     subFile.write(command )
     subFile.close()
 
