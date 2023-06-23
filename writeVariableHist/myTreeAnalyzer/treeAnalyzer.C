@@ -10,7 +10,7 @@
 #include "treeAnalyzer.h"
 #include "../SFfileMap.h"
 #include "functions.h"
-#include "../../src_cpp/lumiAndCrossSection.h"
+#include "../src_cpp/lumiAndCrossSection.h"
 #include "commenSelectionAndWeight.C"
 
 void treeAnalyzer::Init()
