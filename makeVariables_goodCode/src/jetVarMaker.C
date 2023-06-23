@@ -201,4 +201,20 @@ void JetVarMaker::clearBranch()
     jets_tausT_minDeltaR = -99.0;
     jets_tausT_invariantMass = -99.0;
 }
+
+Double_t JetVarMaker::getHT()
+{
+    return jets_HT;
+};
+
+Double_t JetVarMaker::getJet_6t()
+{
+    return jets_6pt;
+}
+
+Int_t JetVarMaker::getJet_num()
+{
+    return muons_num;
+}
+
 JetVarMaker::~JetVarMaker(){};

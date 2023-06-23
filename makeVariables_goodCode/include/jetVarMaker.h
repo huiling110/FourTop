@@ -12,6 +12,9 @@ public:
     // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
+    Double_t getHT();
+    Double_t getJet_6t();
+    Int_t getJet_num();
 
 private:
     Double_t jets_MHT = -99;
@@ -23,10 +26,10 @@ private:
     Double_t jets_bScoreMultiply = -99;
     Double_t jets_average_deltaR = -99;
     Double_t jets_4largestBscoreSum = -99;
-    Double_t jets_4largestBscoreMulti= -99;
-    Double_t jets_HTDividedByMet= -99;
-    Double_t jets_MetDividedByHT= -99;
-    Double_t jets_MHTDividedByMet= -99;
+    Double_t jets_4largestBscoreMulti = -99;
+    Double_t jets_HTDividedByMet = -99;
+    Double_t jets_MetDividedByHT = -99;
+    Double_t jets_MHTDividedByMet = -99;
     Double_t jets_spherilty = -99.0;
     Double_t jets_aplanarity = -99.0;
     Double_t jets_1btag = -99.0;
@@ -67,11 +70,10 @@ private:
     Double_t jets_11eta = -99.0;
     Double_t jets_11phi = -99.0;
 
-    Double_t jets_leptonsMVAT_minDeltaR= -99;
-    Double_t jets_tausF_minDeltaR= -99;
+    Double_t jets_leptonsMVAT_minDeltaR = -99;
+    Double_t jets_tausF_minDeltaR = -99;
     Double_t jets_tausT_minDeltaR = -99.0;
     Double_t jets_tausT_invariantMass = -99.0;
-
 };
 
 #endif
