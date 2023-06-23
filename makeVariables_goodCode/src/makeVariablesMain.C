@@ -1,10 +1,11 @@
 // #include "../include/usefulFunc.h"
 #include "../include/makeVariablesMain.h"
 
-void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
+void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
-    if( numEntries<=0){
+    if (numEntries <= 0)
+    {
         numEntries = m_reader.GetEntries();
     }
     std::cout << "Start event loop for " << numEntries << " ................................\n";
@@ -31,6 +32,9 @@ void MakeVariablesMain::EventLoop(Bool_t preSelection, ULong_t numEntries)
 
         // SF and systematic calculation
 
+        // baseline selection
+        //  if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6 && bjetsM_num >= 1))
+
         m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n";
@@ -49,7 +53,7 @@ void MakeVariablesMain::Terminate()
         TChain chain2("Runs");
         chain2.Add(m_inputDir + "outTree*.root");
         // chain2.Merge(m_output, 2000);
-        TTree* Runs = chain2.CloneTree();
+        TTree *Runs = chain2.CloneTree();
         Runs->SetDirectory(m_output);
         std::cout
             << "done merging Runs trees\n";
