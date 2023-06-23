@@ -7,28 +7,29 @@
  */
 #include <iostream>
 
-#include "../include/treeAnalyzer.h"
-#include "../SFfileMap.h"
+#include "../include/writeHist_forDataMC.h"
+// #include "../SFfileMap.h"
 #include "../include/functions.h"
-#include "../../src_cpp/lumiAndCrossSection.h"
+// #include "../../src_cpp/lumiAndCrossSection.h"//!!!
 #include "../include/commenSelectionAndWeight.h"
 
-void treeAnalyzer::Init()
+void WH_forDataMC::Init()
 {
     std::cout << "Start to initilation....................................................\n";
-    cutFlowHist->SetDirectory(m_outFile);
 
     // regions for hists
     std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
 
-    // SR1tau1lSys.print();
-    SR1tau1lSys.setDir(m_outFile);
+    jets_HT_class = histsForRegionsMap{"jets_HT", "HT(GeV)", m_processName,  10, 500, 1800, regionsForVariables, e->jets_HT};
+
+    jets_HT_class.print();
+    jets_HT_class.setDir(m_outFile);
 
     std::cout << "done initializing\n";
     std::cout << "\n";
 }
 
-void treeAnalyzer::LoopTree()
+void WH_forDataMC::LoopTree()
 {
     std::cout << "start to loop tree\n";
     Long64_t allEvent = m_tree->GetEntries();
@@ -41,122 +42,43 @@ void treeAnalyzer::LoopTree()
     for (UInt_t i = 0; i < allEvent; i++)
     {
         m_tree->GetEntry(i);
-        cutFlowHist->Fill(0);
 
         if (!(baselineSelection(e)))
         {
             continue;
         }
-        cutFlowHist->Fill(1);
 
         Bool_t channelSel = SR1tau1lSel(e, m_channel);
-        if(m_channel==1){
-            channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
-        }
-
         if (!(channelSel))
         {
             continue;
         }
-        cutFlowHist->Fill(2);
 
-        // convert branch value to float for reader
-        for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
-        {
-            Float_t ivar;
-            // std::cout<<"ivar: "<<it->first<<"\n";
-            std::variant<Int_t, Double_t> branch = e->getByName(it->first);
-            if (std::holds_alternative<Int_t>(branch))
-            {
-                ivar = static_cast<Float_t>(std::get<Int_t>(branch));
-            }
-            else
-            {
-                ivar = static_cast<Float_t>(std::get<Double_t>(branch));
-            }
-            varForReaderMap[it->first] = ivar;
-        }
-
-        Double_t bdtScore = -99;
-        if(m_channel==0){
-             bdtScore = reader->EvaluateMVA("BDT method");
-        }else if(m_channel==1){
-             bdtScore = e->jets_bScore.v();
-        }
-        // std::cout << "bdtScore=" << bdtScore << "\n";
-
-        Bool_t SR1tau1l = channelSel;
         Double_t basicWeight = baseWeightCal(e);
-        // std::cout << "basicWeight = " << basicWeight << "\n";
 
-        // // filling hists
-        SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Down", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsJet" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsMu" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsEle" + m_era + "Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_eff_t_vsEle" + m_era + "Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_down.v(), SR1tau1l, m_isData);
-        //
-
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_jes" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_jes" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hf" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hf" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lf" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lf" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_hfstats2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_lfstats2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr1" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
-        //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
-        if (e->HLT_weight.v() == 0)
-        {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
-        }
-        else
-        {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
-        }
+        //filling hists
+        // jets_HT_class.fillHistVect();
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
 };
 
-void treeAnalyzer::Terminate()
+void WH_forDataMC::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
-    Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
-    if (!m_isData)
-    {
-        SR1tau1lSys.scale(processScale);
-    };
-    SR1tau1lSys.print();
+    // Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+    // Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
+    // if (!m_isData)
+    // {
+    //     jets_HT_class.scale(processScale);
+    // };
+    jets_HT_class.print();
 
     m_outFile->Write();
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 }
 
-treeAnalyzer::~treeAnalyzer()
+WH_forDataMC::~WH_forDataMC()
 {
     // code to free any dynamically allocated resources
     m_file->Close();

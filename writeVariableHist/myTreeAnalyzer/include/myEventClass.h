@@ -14,7 +14,7 @@ template <typename T>
 class myBranch
 {
 public:
-    myBranch(TString branchName) : m_branchName{branchName}
+    myBranch(TString branchName="") : m_branchName{branchName}
     {
     }
     T v()

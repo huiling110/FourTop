@@ -59,11 +59,10 @@ private:
     Bool_t m_isData = kFALSE;
     TString m_outputFolder;
     TFile *m_outFile;
-    // TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 3, 0, 3);
     event *e;
 
     // hists regions
-    histsForRegionsMap SR1tau1lSys; // calls for default constructor
+    histsForRegionsMap jets_HT_class; // calls for default constructor
 };
 
 #endif
