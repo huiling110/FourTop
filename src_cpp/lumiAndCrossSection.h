@@ -1,13 +1,18 @@
+#ifndef LUMIANDCROSSCESTION_H
+#define LUMIANDCROSSCESTION_H
+
 #include <TString.h>
 #include <map>
-
+//???how to deal with global variables?
 std::map<TString, Double_t> lumiMap = {
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TWikiLUM
+    //https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun3Analysis#Year_2022
     {"2016preVFP", 19500}, //"UL2016_preVFP", 19500.0 from Fabio
     {"2016postVFP", 16810},
     {"2016", 36310},
     {"2017", 41480.0},
     {"2018", 59830.0},
+    {"2022", 	3055}, //!!! only for 2022G
 };
 
 std::map<TString, Double_t> crossSectionMap = {
@@ -44,4 +49,11 @@ std::map<TString, Double_t> crossSectionMap = {
     {"WJetsToLNu_HT-800To1200", 5.77},
     {"WJetsToLNu_HT-1200To2500", 1.023},
     {"WJetsToLNu_HT-2500ToInf", 0.0248},
+
+    //2022
+    {"TTto2L2Nu", 762.1},
+    {"TTtoLNu2Q", 762.1},
+    {"TTto4Q", 741.8	},
 };
+
+#endif
