@@ -12,6 +12,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
+        m_cutflow->Fill(0);
 
         // muVarMaker.makeVariables(e);
         muVarMaker.makeVariables(e);
@@ -33,7 +34,12 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         // SF and systematic calculation
 
         // baseline selection
-        //  if (!(jets_HT > 500 && jets_6pt > 40.0 && jets_number >= 6 && bjetsM_num >= 1))
+        if(baselineSel){
+            if(!(jetVarMaker.getHT()>500 && jetVarMaker.getJet_6pt()>40 && jetVarMaker.getJet_num()>=6 && bjetMVarMaker.getJet_num()>=1)){
+                continue;
+            }
+        }
+        m_cutflow->Fill(1);
 
         m_outTree->Fill();
     };
@@ -59,6 +65,8 @@ void MakeVariablesMain::Terminate()
             << "done merging Runs trees\n";
         std::cout << "\n";
     }
+
+    std::cout << "MV initial=" << m_cutflow->GetBinContent(1) << "  baseline=" << m_cutflow->GetBinContent(2) << "\n";
 
     m_output->Write();
     m_output->Close();

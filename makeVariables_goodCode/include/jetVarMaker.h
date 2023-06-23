@@ -13,7 +13,7 @@ public:
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     Double_t getHT();
-    Double_t getJet_6t();
+    Double_t getJet_6pt();
     Int_t getJet_num();
 
 private:

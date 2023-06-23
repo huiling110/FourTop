@@ -207,7 +207,7 @@ Double_t JetVarMaker::getHT()
     return jets_HT;
 };
 
-Double_t JetVarMaker::getJet_6t()
+Double_t JetVarMaker::getJet_6pt()
 {
     return jets_6pt;
 }

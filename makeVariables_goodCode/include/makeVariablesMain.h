@@ -40,6 +40,7 @@ public:
         // set up output
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
+        m_cutflow->SetDirectory(m_output);
         m_isData = getIsData(m_inputDir);
         m_era = getEra(m_inputDir);
         std::cout << "m_isData=" << m_isData <<"  m_era="<<m_era<< "\n";
@@ -64,6 +65,7 @@ private:
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
     Bool_t m_isData = kFALSE;
     TString m_era;
+    TH1D* m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
 
     //
     // MuonVarMaker muVarMaker{m_outTree};
