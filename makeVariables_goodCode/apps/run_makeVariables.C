@@ -12,10 +12,10 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
     // TString inputDir = "ttZ",
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
-    TString inputDir = "TTto2L2Nu",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
-    // TString inputDir = "JetMET_G",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
+    // TString inputDir = "TTto2L2Nu",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
+    TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         outputDir = boost::lexical_cast<std::string>(argv[3]);
         numEntries = boost::lexical_cast<Int_t>(argv[4]);
-        run_objectSelection( inputDir, inputProcess, outputDir, numEntries);
+        run_objectSelection(inputDir, inputProcess, outputDir, numEntries);
     }
 
     return 0;
