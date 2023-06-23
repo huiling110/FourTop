@@ -22,6 +22,17 @@ void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t w
         m_histsVector[iRegion]->Fill(value, weight);
     }
 }
+void histsForRegionsMap::fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t isData)
+{
+    if (ifFill && isData)
+    {
+        m_histsVector[iRegion]->Fill(m_branch->v());
+    }
+    if (ifFill && !isData)
+    {
+        m_histsVector[iRegion]->Fill(m_branch->v(), weight);
+    }
+}
 
 void histsForRegionsMap::print()
 {
@@ -46,4 +57,8 @@ void histsForRegionsMap::scale(Double_t scale)
     {
         it->second->Scale(scale);
     }
+}
+
+histsForRegionsMap::~histsForRegionsMap(){
+    // delete m_histsVector;
 }

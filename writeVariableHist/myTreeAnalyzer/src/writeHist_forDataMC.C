@@ -2,7 +2,7 @@
  * @author Huiling Hua
  * @email huahl@ihep.ac.cn
  * @create date 2023-06-06 21:01:27
- * @modify date 2023-06-06 21:01:27
+ * @modify date 2023-06-23 23:19:32
  * @desc [description]
  */
 #include <iostream>
@@ -20,7 +20,7 @@ void WH_forDataMC::Init()
     // regions for hists
     std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
 
-    jets_HT_class = histsForRegionsMap{"jets_HT", "HT(GeV)", m_processName,  10, 500, 1800, regionsForVariables, e->jets_HT};
+    jets_HT_class = histsForRegionsMap("jets_HT", "HT(GeV)", m_processName,  10, 500, 1800, regionsForVariables, &(e->jets_HT));
 
     jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
@@ -35,7 +35,7 @@ void WH_forDataMC::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 1000;
+        allEvent = 10000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -57,7 +57,9 @@ void WH_forDataMC::LoopTree()
         Double_t basicWeight = baseWeightCal(e);
 
         //filling hists
-        // jets_HT_class.fillHistVect();
+        // jets_HT_class.fillHistVec("1tau1lCR0", basicWeight, kTRUE, m_isData);
+        jets_HT_class.fillHistVec( "1tau1lCR0", basicWeight, kTRUE, m_isData);
+        std::cout << e->jets_HT.v() << "\n";
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
