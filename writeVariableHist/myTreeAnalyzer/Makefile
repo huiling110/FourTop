@@ -1,33 +1,43 @@
-#-----------------------------------------------------------------------------
 
 PROGRAM = run_treeAnalyzer
 
-OBJS = 	treeAnalyzer.o histsForRegionsMap_class.o functions.o run_treeAnalyzer.o\
 
-#-----------------------------------------------------------------------------
-ObjSuf = o
-SrcSuf = C
-ExeSuf = exe
-DllSuf = so
-OutPutOpt = -o
+
+
+TARGET = $(BIN_DIR)/$(PROGRAM).out
+
+# Source directory
+SRC_DIR = src
+INC_DIR = include
+# Object directory
+OBJ_DIR = obj
+# Executable directory
+BIN_DIR = apps
+
+# Source files
+SOURCES := $(wildcard $(SRC_DIR)/*.C)
+# Object files
+OBJECTS := $(patsubst $(SRC_DIR)/%.C, $(OBJ_DIR)/%.o, $(SOURCES))
+
+# Final executable
+
 
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
-# CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
-# CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 TMVALIBS = -lTMVA
+
+MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/myLibrary/ -lcommenFunction
+
 
 # Directories
 HEADRDIR = .
+SOURCE = src/
 
-# debug option: -g
-# no exceptions: -fno-exceptions
 
 CXX = g++
 CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
-# CXXFLAGS = -O3 -Wall -fPIC -g 
 LD = g++
 LDFLAGS = -O3 -Wall -g 
 SOFLAGS = -shared
@@ -35,38 +45,24 @@ ARCHFLAGS =
 
 #
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
-CXXFLAGS += $(CORRECTIONLIB_FLAGS)
 LIBS = $(ROOTLIBS)
-LIBS += $(CORRECTIONLIB_LIB)
 LIBS += $(TMVALIBS)
-GLIBS = $(ROOTGLIBS)
+LIBS += $(MYLIB)
 
 
-$(PROGRAM).out: $(OBJS) 
-	@echo "building $(PROGRAM)......"
-	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS)   $(LIBS) -o$(PROGRAM).out
-	@echo "done building $(PROGRAM)"
 
-# $(PROGRAM).out: $(OBJS) $(PROGRAM).o
-# 	@echo "building $(PROGRAM)......"
-# 	$(LD) $(ARCHFLAGS) $(LDFLAGS) $(OBJS) $(PROGRAM).o  $(LIBS) -o$(PROGRAM).out
-# 	@echo "done building $(PROGRAM)"
+.PHONY: all clean
 
-#% Wildcard
-%/%.o: %.C %.h
-	$(CXX) -c $(CXXFLAGS) $*.C
+all: $(TARGET)
 
-#static pattern rule 
-# $(OBJS): %.o: %.C %.h
-# 	$(CXX) -c $(CXXFLAGS) -o $@ $^ 
+$(TARGET): $(OBJECTS) apps/$(PROGRAM).C
+	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/$(PROGRAM).C -o $(TARGET)
 
-# $(PROGRAM).o: $(PROGRAM).C
-# 	$(CXX) -c $(CXXFLAGS) -o $(PROGRAM).o $(PROGRAM).C
-
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.C $(INC_DIR)/%.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(SHAREDLIBS).so $(PROGRAM).out 
-
+	rm -f $(OBJECTS) $(TARGET)
  
 
 #------------------------------------------------------------------------

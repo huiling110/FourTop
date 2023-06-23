@@ -1,5 +1,5 @@
 #include <fstream>
-#include "functions.h"
+#include "../include/functions.h"
 
 Double_t getGenSum(TString inputFile)
 {

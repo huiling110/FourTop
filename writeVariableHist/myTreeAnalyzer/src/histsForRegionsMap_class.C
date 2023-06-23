@@ -1,4 +1,4 @@
-#include "histsForRegionsMap_class.h"
+#include "../include/histsForRegionsMap_class.h"
 
 void histsForRegionsMap::setHistsMap(const std::vector<TString> &regions)
 {

@@ -1,5 +1,5 @@
 
-#include "myEventClass.h"
+#include "../include/commenSelectionAndWeight.h"
 
 Bool_t baselineSelection(event *event)
 {
@@ -7,7 +7,7 @@ Bool_t baselineSelection(event *event)
     return pass;
 }
 
-Bool_t SR1tau1lSel(event *e, const Int_t channel=0)
+Bool_t SR1tau1lSel(event *e, const Int_t channel)
 {
     Int_t lepNum = e->elesTopMVAT_number.v() + e->muonsTopMVAT_number.v();
     Bool_t SR1tau1l =kFALSE;

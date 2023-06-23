@@ -7,11 +7,11 @@
  */
 #include <iostream>
 
-#include "treeAnalyzer.h"
+#include "../include/treeAnalyzer.h"
 #include "../SFfileMap.h"
-#include "functions.h"
+#include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
-#include "commenSelectionAndWeight.C"
+#include "../include/commenSelectionAndWeight.h"
 
 void treeAnalyzer::Init()
 {

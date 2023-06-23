@@ -3,8 +3,8 @@
 
 #include "TStopwatch.h"
 
-#include "treeAnalyzer.h"
-#include "functions.h"
+#include "../include/treeAnalyzer.h"
+#include "../include/functions.h"
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
