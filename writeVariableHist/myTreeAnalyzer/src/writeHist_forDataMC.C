@@ -58,8 +58,18 @@ void WH_forDataMC::LoopTree()
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
         }
 
-        //filling hists
-        jets_HT_class.fillHistVec( "1tau1lCR0", basicWeight, kTRUE, m_isData);
+        // 1tau0l CR
+        Bool_t is1tau0lCR = SR1tau1lSel(e, 6);
+        Bool_t is1tau0lVR = SR1tau1lSel(e, 7);
+        Bool_t is1tau0lCRc = SR1tau1lSel(e, 8);
+        Bool_t is1tau0lCRb = SR1tau1lSel(e, 9);
+        Bool_t is1tau0lCRa = SR1tau1lSel(e, 10);
+        jets_HT_class.fillHistVec("1tau0lCR", basicWeight, is1tau0lCR, m_isData);
+        jets_HT_class.fillHistVec("1tau0lVR", basicWeight, is1tau0lVR, m_isData);
+        jets_HT_class.fillHistVec("1tau0lCRc", basicWeight, is1tau0lCRc, m_isData);
+        jets_HT_class.fillHistVec("1tau0lCRb", basicWeight, is1tau0lCRb, m_isData);
+        jets_HT_class.fillHistVec("1tau0lCRa", basicWeight, is1tau0lCRa, m_isData);
+
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";

@@ -43,7 +43,7 @@ public:
     event(TTree *tree) : m_tree{tree}
     { // how to loop through all member variables?
         std::cout << "event: initialize event class by SetBranchAddress()\n";
-        m_tree->SetBranchAddress("*", 0);
+        // m_tree->SetBranchStatus("*", 0);
         for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
         {
             if (std::holds_alternative<myBranch<Int_t> *>(it->second))
