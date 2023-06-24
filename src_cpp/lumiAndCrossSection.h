@@ -3,8 +3,11 @@
 
 #include <TString.h>
 #include <map>
-//???how to deal with global variables?
-std::map<TString, Double_t> lumiMap = {
+//how to deal with global variables? inline with c++17
+
+namespace TTTT{
+
+inline const std::map<TString, Double_t> lumiMap = {
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TWikiLUM
     //https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun3Analysis#Year_2022
     {"2016preVFP", 19500}, //"UL2016_preVFP", 19500.0 from Fabio
@@ -15,7 +18,7 @@ std::map<TString, Double_t> lumiMap = {
     {"2022", 	3055}, //!!! only for 2022G
 };
 
-std::map<TString, Double_t> crossSectionMap = {
+inline const std::map<TString, Double_t> crossSectionMap = {
     {"tttt", 0.01197},
     {"ttbar_2l", 88.29},
     {"ttbar_0l", 377.96},
@@ -56,4 +59,5 @@ std::map<TString, Double_t> crossSectionMap = {
     {"TTto4Q", 741.8	},
 };
 
+};
 #endif

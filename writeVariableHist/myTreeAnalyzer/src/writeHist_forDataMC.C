@@ -10,7 +10,7 @@
 #include "../include/writeHist_forDataMC.h"
 // #include "../SFfileMap.h"
 #include "../include/functions.h"
-// #include "../../src_cpp/lumiAndCrossSection.h"//!!!
+#include "../../src_cpp/lumiAndCrossSection.h"//!!!
 #include "../include/commenSelectionAndWeight.h"
 
 void WH_forDataMC::Init()
@@ -66,12 +66,12 @@ void WH_forDataMC::LoopTree()
 void WH_forDataMC::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    // Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
-    // Double_t processScale = ((lumiMap[m_era] * crossSectionMap[m_processName]) / genWeightSum);
-    // if (!m_isData)
-    // {
-    //     jets_HT_class.scale(processScale);
-    // };
+    Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+    Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+    if (!m_isData)
+    {
+        jets_HT_class.scale(processScale);
+    };
     jets_HT_class.print();
 
     m_outFile->Write();
