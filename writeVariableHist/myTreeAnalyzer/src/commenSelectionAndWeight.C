@@ -19,6 +19,11 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel)
     case 1:
         SR1tau1l = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() >= 8 && e->bjetsM_num.v() >= 2;
         break;
+    // Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 6 && *bjetsM_num == 1; // CR1 in slides
+    // Bool_t is1tau1lCR1 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 0;
+    // Bool_t is1tau1lCR2 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num >= 2;
+    // // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num < 2;
+    // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num == 1;
     default:
         break;
     }

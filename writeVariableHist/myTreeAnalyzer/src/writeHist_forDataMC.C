@@ -25,7 +25,7 @@ void WH_forDataMC::Init()
     jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
 
-    std::cout << "done initializing\n";
+    std::cout << "Done initializing\n";
     std::cout << "\n";
 }
 
@@ -57,9 +57,7 @@ void WH_forDataMC::LoopTree()
         Double_t basicWeight = baseWeightCal(e);
 
         //filling hists
-        // jets_HT_class.fillHistVec("1tau1lCR0", basicWeight, kTRUE, m_isData);
         jets_HT_class.fillHistVec( "1tau1lCR0", basicWeight, kTRUE, m_isData);
-        std::cout << e->jets_HT.v() << "\n";
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
