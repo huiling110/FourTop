@@ -10,7 +10,7 @@
 #include "../include/writeHist_forDataMC.h"
 // #include "../SFfileMap.h"
 #include "../include/functions.h"
-#include "../../src_cpp/lumiAndCrossSection.h"//!!!
+#include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/commenSelectionAndWeight.h"
 
 void WH_forDataMC::Init()
@@ -22,7 +22,7 @@ void WH_forDataMC::Init()
 
     jets_HT_class = histsForRegionsMap("jets_HT", "HT(GeV)", m_processName,  10, 500, 1800, regionsForVariables, &(e->jets_HT));
 
-    jets_HT_class.print();
+    // jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
 
     std::cout << "Done initializing\n";
@@ -31,11 +31,11 @@ void WH_forDataMC::Init()
 
 void WH_forDataMC::LoopTree()
 {
-    std::cout << "start to loop tree\n";
+    std::cout << "Start to loop tree\n";
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 10000;
+        allEvent = 100000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -48,13 +48,15 @@ void WH_forDataMC::LoopTree()
             continue;
         }
 
-        Bool_t channelSel = SR1tau1lSel(e, m_channel);
-        if (!(channelSel))
-        {
-            continue;
-        }
-
         Double_t basicWeight = baseWeightCal(e);
+
+        //SR
+        if(!m_isData){
+            Bool_t is1tau0lSR = SR1tau1lSel(e, 1) ;
+            Bool_t is1tau1lSR = SR1tau1lSel(e, 0);
+            jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
+            jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
+        }
 
         //filling hists
         jets_HT_class.fillHistVec( "1tau1lCR0", basicWeight, kTRUE, m_isData);

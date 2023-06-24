@@ -10,24 +10,56 @@ Bool_t baselineSelection(event *event)
 Bool_t SR1tau1lSel(event *e, const Int_t channel)
 {
     Int_t lepNum = e->elesTopMVAT_number.v() + e->muonsTopMVAT_number.v();
-    Bool_t SR1tau1l =kFALSE;
+    Bool_t isPass = kFALSE;
     switch (channel)
     {
-    case 0:
-        SR1tau1l = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() >= 2;
+    case 0://1tau1lSR
+        isPass = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() >= 2;
         break;
-    case 1:
-        SR1tau1l = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() >= 8 && e->bjetsM_num.v() >= 2;
+    case 1://1tau0lSR
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() >= 8 && e->bjetsM_num.v() >= 2;
         break;
+    case 2: //1tau1lCR0
     // Bool_t is1tau1lCR0 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 6 && *bjetsM_num == 1; // CR1 in slides
+        isPass =  e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 6 && e->bjetsM_num.v() == 1;
+        break;
+    case 3: //1tau1lCR1
     // Bool_t is1tau1lCR1 = *tausT_number == 1 && lepNum == 1 && *jets_number >= 7 && *bjetsM_num == 0;
+        isPass = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() >= 7 && e->bjetsM_num.v() == 0;
+        break;
+    case 4: //1tau1lCR2
     // Bool_t is1tau1lCR2 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num >= 2;
-    // // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num < 2;
+        isPass = e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() == 6 && e->bjetsM_num.v() >= 2;
+        break;
+    case 5: //1tau1lCR3
     // Bool_t is1tau1lCR3 = *tausT_number == 1 && lepNum == 1 && *jets_number == 6 && *bjetsM_num == 1;
+        isPass =  e->tausT_number.v() == 1 && lepNum == 1 && e->jets_number.v() == 6 && e->bjetsM_num.v() == 1;
+        break;
+    case 6://1tau0lCR
+    // Bool_t is1tau0lCR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 0;
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() >= 8 && e->bjetsM_num.v() == 0;
+        break;
+    case 7://1tau0lVR 
+    // Bool_t is1tau0lVR = *tausT_number == 1 && lepNum == 0 && *jets_number >= 8 && *bjetsM_num == 1;
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() >= 8 && e->bjetsM_num.v() == 1;
+        break;
+    case 8://1tau0lCRc
+    // Bool_t is1tau0lCRc = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num >= 2;
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() < 8 && e->bjetsM_num.v() >= 2;
+        break;
+    case 9: //1tau0lCRb
+    // Bool_t is1tau0lCRb = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num == 1;
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() < 8 && e->bjetsM_num.v() == 1;
+        break;
+    case 10: //1tau0lCRa
+    // Bool_t is1tau0lCRa = *tausT_number == 1 && lepNum == 0 && *jets_number < 8 && *bjetsM_num= 0;
+        isPass = e->tausT_number.v() == 1 && lepNum == 0 && e->jets_number.v() < 8 && e->bjetsM_num.v()== 0;
+        break;
+        
     default:
         break;
     }
-    return SR1tau1l;
+    return isPass;
 }
 
 Double_t baseWeightCal(event *e)
