@@ -89,14 +89,14 @@ public:
         return a;
     };
     // branches for selection and weight
-    myBranch<Int_t> tausT_number{"tausT_number"};
+    myBranch<Int_t> tausT_num{"tausT_num"};
     myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
-    myBranch<Int_t> jets_number{"jets_number"};
+    myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
-    myBranch<Int_t> elesTopMVAT_number{"elesTopMVAT_number"};
-    myBranch<Int_t> muonsTopMVAT_number{"muonsTopMVAT_number"};
+    myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
+    myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
@@ -164,14 +164,14 @@ public:
 private:
     TTree *m_tree;
     std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *>> m_variableMap = {
-        {tausT_number.n(), &tausT_number},
+        {tausT_num.n(), &tausT_num},
         {tausF_genTauNum.n(), &tausF_genTauNum},
         {tausT_genTauNum.n(), &tausT_genTauNum},
-        {jets_number.n(), &jets_number},
+        {jets_num.n(), &jets_num},
         {bjetsM_num.n(), &bjetsM_num},
         {bjetsT_num.n(), &bjetsT_num},
-        {elesTopMVAT_number.n(), &elesTopMVAT_number},
-        {muonsTopMVAT_number.n(), &muonsTopMVAT_number},
+        {elesTopMVAT_num.n(), &elesTopMVAT_num},
+        {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},

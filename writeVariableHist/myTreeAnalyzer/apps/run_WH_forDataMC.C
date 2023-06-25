@@ -8,9 +8,11 @@
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
-    TString process = "tttt",
-    // TString process = "ttZ",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
+    // TString process = "tttt",
+    // TString process = "tZ",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/mc/",
+    TString process = "TTto4Q",
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
     Int_t channel = 1,//0: 1tau1l; 1: 1tau0l
