@@ -14,6 +14,19 @@ public:
                                       muonsT_eta(reader, "muonsT_eta"),
                                       muonsT_phi(reader, "muonsT_phi"),
                                       muonsT_mass(reader, "muonsT_mass"),
+                                      muonsTopMVAT_pt(reader, "muonsTopMVAT_pt"),
+                                      muonsTopMVAT_eta(reader, "muonsTopMVAT_eta"),
+                                      muonsTopMVAT_phi(reader, "muonsTopMVAT_phi"),
+                                      muonsTopMVAT_mass(reader, "muonsTopMVAT_mass"),
+                                      elesMVAT_pt(reader, "elesMVAT_pt"),
+                                      elesMVAT_eta(reader, "elesMVAT_eta"),
+                                      elesMVAT_phi(reader, "elesMVAT_phi"),
+                                      elesMVAT_mass(reader, "elesMVAT_mass"),
+                                      elesTopMVAT_pt(reader, "elesTopMVAT_pt"),
+                                      elesTopMVAT_eta(reader, "elesTopMVAT_eta"),
+                                      elesTopMVAT_phi(reader, "elesTopMVAT_phi"),
+                                      elesTopMVAT_mass(reader, "elesTopMVAT_mass"),
+
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
                                       tausT_phi(reader, "tausT_phi"),
@@ -30,28 +43,28 @@ public:
                                       tausL_mass(reader, "tausL_mass"),
                                       tausL_genPartFlav(reader, "tausL_genPartFlav"),
 
-    jets_pt(reader, "jets_pt"),
-    jets_eta(reader, "jets_eta"),
-    jets_phi(reader, "jets_phi"),
-    jets_mass(reader, "jets_mass"),
-    jetsT_pt(reader, "jetsT_pt"),
-    jetsT_eta(reader, "jetsT_eta"),
-    jetsT_phi(reader, "jetsT_phi"),
-    jetsT_mass(reader, "jetsT_mass"),
-    bjetsM_pt(reader, "bjetsM_pt"),
-    bjetsM_eta(reader, "bjetsM_eta"),
-    bjetsM_phi(reader, "bjetsM_phi"),
-    bjetsM_mass(reader, "bjetsM_mass"),
-    bjetsL_pt(reader, "bjetsL_pt"),
-    bjetsL_eta(reader, "bjetsL_eta"),
-    bjetsL_phi(reader, "bjetsL_phi"),
-    bjetsL_mass(reader, "bjetsL_mass"),
-    bjetsT_pt(reader, "bjetsT_pt"),
-    bjetsT_eta(reader, "bjetsT_eta"),
-    bjetsT_phi(reader, "bjetsT_phi"),
-    bjetsT_mass(reader, "bjetsT_mass"),
+                                      jets_pt(reader, "jets_pt"),
+                                      jets_eta(reader, "jets_eta"),
+                                      jets_phi(reader, "jets_phi"),
+                                      jets_mass(reader, "jets_mass"),
+                                      jetsT_pt(reader, "jetsT_pt"),
+                                      jetsT_eta(reader, "jetsT_eta"),
+                                      jetsT_phi(reader, "jetsT_phi"),
+                                      jetsT_mass(reader, "jetsT_mass"),
+                                      bjetsM_pt(reader, "bjetsM_pt"),
+                                      bjetsM_eta(reader, "bjetsM_eta"),
+                                      bjetsM_phi(reader, "bjetsM_phi"),
+                                      bjetsM_mass(reader, "bjetsM_mass"),
+                                      bjetsL_pt(reader, "bjetsL_pt"),
+                                      bjetsL_eta(reader, "bjetsL_eta"),
+                                      bjetsL_phi(reader, "bjetsL_phi"),
+                                      bjetsL_mass(reader, "bjetsL_mass"),
+                                      bjetsT_pt(reader, "bjetsT_pt"),
+                                      bjetsT_eta(reader, "bjetsT_eta"),
+                                      bjetsT_phi(reader, "bjetsT_phi"),
+                                      bjetsT_mass(reader, "bjetsT_mass"),
 
-    PV_npvsGood_(reader, "PV_npvsGood_")
+                                      PV_npvsGood_(reader, "PV_npvsGood_")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -68,6 +81,19 @@ public:
     TTreeReaderArray<Double_t> muonsT_eta;
     TTreeReaderArray<Double_t> muonsT_phi;
     TTreeReaderArray<Double_t> muonsT_mass;
+    TTreeReaderArray<Double_t> muonsTopMVAT_pt;
+    TTreeReaderArray<Double_t> muonsTopMVAT_eta;
+    TTreeReaderArray<Double_t> muonsTopMVAT_phi;
+    TTreeReaderArray<Double_t> muonsTopMVAT_mass;
+    TTreeReaderArray<Double_t> elesMVAT_pt;
+    TTreeReaderArray<Double_t> elesMVAT_eta;
+    TTreeReaderArray<Double_t> elesMVAT_phi;
+    TTreeReaderArray<Double_t> elesMVAT_mass;
+    TTreeReaderArray<Double_t> elesTopMVAT_pt;
+    TTreeReaderArray<Double_t> elesTopMVAT_eta;
+    TTreeReaderArray<Double_t> elesTopMVAT_phi;
+    TTreeReaderArray<Double_t> elesTopMVAT_mass;
+
     TTreeReaderArray<Double_t> tausT_pt;
     TTreeReaderArray<Double_t> tausT_eta;
     TTreeReaderArray<Double_t> tausT_phi;

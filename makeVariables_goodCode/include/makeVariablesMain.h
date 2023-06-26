@@ -11,13 +11,13 @@
 #include <TChain.h>
 
 #include "eventReader_forMV.h" //use ttreeReader to construct event
-#include "muonVarMaker.h"
+// #include "muonVarMaker.h"
 #include "objVarMaker.h"
+#include "eleVarMaker.h"
 #include "tauVarMaker.h"
 #include "jetVarMaker.h"
 #include "copyBranches.h"
 #include "weightVarMaker.h"
-// #include "usefulFun"
 #include "../../myLibrary/commenFunction.h"
 
 class MakeVariablesMain
@@ -41,9 +41,9 @@ public:
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
         m_cutflow->SetDirectory(m_output);
-        m_isData = getIsData(m_inputDir);
-        m_era = getEra(m_inputDir);
-        std::cout << "m_isData=" << m_isData <<"  m_era="<<m_era<< "\n";
+        m_isData = TTTT::getIsData(m_inputDir);
+        m_era = TTTT::getEra(m_inputDir);
+        std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "\n";
 
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";
@@ -65,11 +65,13 @@ private:
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
     Bool_t m_isData = kFALSE;
     TString m_era;
-    TH1D* m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
+    TH1D *m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
 
     //
     // MuonVarMaker muVarMaker{m_outTree};
     ObjVarMaker muVarMaker{m_outTree, "muonsT"};
+    EleVarMaker eleVarMaker{m_outTree, "eleMVAT", 0};
+    EleVarMaker eleTopVarMaker{m_outTree, "eleTopMVAT", 1};
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};

@@ -14,8 +14,9 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         entryCount++;
         m_cutflow->Fill(0);
 
-        // muVarMaker.makeVariables(e);
         muVarMaker.makeVariables(e);
+        eleVarMaker.makeVariables(e);
+        eleTopVarMaker.makeVariables(e);
 
         tauVarMaker.makeVariables(e); // tight tau
         tauFVarMaker.makeVariables(e);

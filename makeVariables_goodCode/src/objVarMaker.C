@@ -7,16 +7,7 @@ ObjVarMaker::ObjVarMaker(TTree *outTree, TString objName, Int_t type) : m_type{t
     //!!!maybe make these basic variables for all object as base class
     std::cout << "Initializing ObjVarMaker.....\n";
     std::cout << "m_type: " << m_type << "\n";
-    // std::map<Int_t, TString> typeObjMap = {
-    //     {0, "T"},
-    //     {1, "F"},
-    //     {2, "L"},
-    // };
 
-    // outTree->Branch("muons" + typeObjMap[m_type] + "_num", &muons_num);
-    // outTree->Branch("muons" + typeObjMap[m_type] + "_1pt", &muons_1pt);
-    // outTree->Branch("muons" + typeObjMap[m_type] + "_1eta", &muons_1eta);
-    // outTree->Branch("muons" + typeObjMap[m_type] + "_1phi", &muons_1phi);
     outTree->Branch(objName + "_num", &muons_num);
     outTree->Branch(objName + "_1pt", &muons_1pt);
     outTree->Branch(objName + "_1eta", &muons_1eta);
