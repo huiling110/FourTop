@@ -71,8 +71,8 @@ private:
     // MuonVarMaker muVarMaker{m_outTree};
     ObjVarMaker muVarMaker{m_outTree, "muonsT", 0};
     ObjVarMaker muTopTVarMaker{m_outTree, "muonsTopMVAT", 1};
-    EleVarMaker eleVarMaker{m_outTree, "eleMVAT", 0};
-    EleVarMaker eleTopVarMaker{m_outTree, "eleTopMVAT", 1};
+    EleVarMaker eleVarMaker{m_outTree, "elesMVAT", 0};
+    EleVarMaker eleTopVarMaker{m_outTree, "elesTopMVAT", 1};
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};

@@ -34,8 +34,8 @@ public:
             m_tree = (TTree *)m_file->Get("newtree");
         }
 
-        m_era = getEra(m_inputDir);
-        m_isData = getIsData(m_inputDir);
+        m_era = TTTT::getEra(m_inputDir);
+        m_isData = TTTT::getIsData(m_inputDir);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
