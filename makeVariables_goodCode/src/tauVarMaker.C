@@ -11,7 +11,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_HT", &taus_HT);
     outTree->Branch(objName + "invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
-    outTree->Branch(objName + "_taus_genTauNum", &taus_genTauNum);
+    outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
     outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass);
     outTree->Branch(objName + "_leptonsT_invariantMass", &taus_leptonsT_invariantMass);
     outTree->Branch(objName + "_leptonsTMVA_minDeltaR", &taus_leptonsTMVA_minDeltaR);
@@ -63,13 +63,13 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
     {
     case 0:
         objNum = e->tausT_pt.GetSize();
-         break;
+        break;
     case 1:
         objNum = e->tausF_pt.GetSize();
-         break;
+        break;
     case 2:
         objNum = e->tausL_pt.GetSize();
-         break;
+        break;
     }
 
     // for (UInt_t i = 0; i < e->tausT_pt.GetSize(); i++)
