@@ -78,9 +78,6 @@ private:
     eventForNano *e;
     TFile *m_output;
     TTree *m_outTree = new TTree("tree", "tree after object selection");
-    TH1D *h_forEY_initial = new TH1D("h_initial", "h_initial", 2, -1, 1);
-    TH1D *h_forEY_HLT = new TH1D("h_afterHLT", "h_afterHLT", 2, -1, 1);
-    TH1D *h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
     Bool_t m_isData;
     TString m_era;
     Bool_t m_isRun3 = kFALSE;
