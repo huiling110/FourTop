@@ -1,17 +1,17 @@
 #include "../include/objectSelectionNano.h"
 #include "../include/usefulFunc.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
-    if(numEntries<=0){
+    if (numEntries <= 0)
+    {
         numEntries = m_reader.GetEntries();
     }
     std::cout << "Start event loop for " << numEntries << " ................................\n";
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
-        h_forEY_initial->Fill(0);
         m_cutflow->Fill(0);
 
         // good lumi and good PV selection
@@ -32,30 +32,29 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         {
             continue; // contains event selection!!!
         }
-        h_forEY_HLT->Fill(0);
         m_cutflow->Fill(2);
 
         muSel.Select(e);
         eleMVASel.Select(e);
-
-        // TOPMVA lepton selection
-        // eleTopMVATSel.Select(e);
-        // muTopMVATSel.Select(e);
         std::vector<Double_t> lepEtaVec;
         std::vector<Double_t> lepPhiVec;
         getLepEtaPhi(lepEtaVec, lepPhiVec);
 
+        // TOPMVA lepton selection
+        eleTopMVATSel.Select(e);
+        // muTopMVATSel.Select(e);
+
         // tau selection
         // Int_t sysTES = 0;
-        Int_t sysTES = 4; //no tau energy correction
+        Int_t sysTES = 4; // no tau energy correction
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
-        m_tausTotal+=tauSel.getSize();
-        m_tausFTotal+=tauSelF.getSize();
-        m_tausLTotal+=tauSelL.getSize();
+        m_tausTotal += tauSel.getSize();
+        m_tausFTotal += tauSelF.getSize();
+        m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
         const Bool_t ifJER = kFALSE;
@@ -66,7 +65,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         m_jetsTotal += jetSel.getSize();
-        m_bjetsM+=bjetMSel.getSize();
+        m_bjetsM += bjetMSel.getSize();
 
         // copy some nanoAOD branches
         copyBranch.Select(e, m_isData);
@@ -74,13 +73,13 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries )
         // pile up weight cal
         // puWeightCal.Select(e, m_isData);//!!!to do
 
-        //pre selection
+        // pre selection
         if (preSelection)
         {
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
-                continue;;
+                continue;
+            ;
         }
-        h_forEY_preSelection->Fill(0);
         m_cutflow->Fill(3);
 
         m_outTree->Fill();
@@ -92,13 +91,13 @@ void objectSelection::Terminate()
 {
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
-    std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: "<<h_forEY_preSelection->GetEntries()<<"\n";
-    std::cout<<"elesTotal="<<eleMVASel.getTotal()<<";   musTotal="<<muSel.getTotal()<<";   tausTotal="<<m_tausTotal<<"; tausF="<<m_tausFTotal<<"; tausL="<<m_tausLTotal<<";  jets="<<m_jetsTotal<<";  bjetsM="<<m_bjetsM<<"\n";
+    std::cout << "initial events:" << h_forEY_initial->GetEntries() << ";   HLT: " << h_forEY_HLT->GetEntries() << " preSelection: " << h_forEY_preSelection->GetEntries() << "\n";
+    std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";
 
     // get Runs tree
     if (!m_isData)
     {
-        std::cout<<"copy Runs tree\n";
+        std::cout << "copy Runs tree\n";
         TTree *runs = (TTree *)m_input->Get("Runs");
         runs->SetBranchStatus("*", 0);
         runs->SetBranchStatus("genEventSumw", 1);
@@ -110,10 +109,11 @@ void objectSelection::Terminate()
     m_output->Write();
     m_output->Close();
 
-    std::cout<<"Termination done .....................................................\n";
+    std::cout << "Termination done .....................................................\n";
 };
 
-objectSelection::~objectSelection(){
+objectSelection::~objectSelection()
+{
     delete m_input;
     delete e;
     // delete m_output;

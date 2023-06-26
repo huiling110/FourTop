@@ -11,15 +11,14 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
     // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
 
-    // set up xgboost booster
-    TString eleWeight = TopMVALeptonMap[era].at(0);
-    // TString muWeight = TopMVALeptonMap[era].at(1);
+    m_isRun3 =
+
+        // set up xgboost booster
+        TString eleWeight = TopMVALeptonMap[m_era].at(0);
     std::cout << "eleWeight: " << eleWeight << "\n";
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
     XGBoosterLoadModel(m_booster[0], eleWeight.Data());
-    // XGBoosterCreate(NULL, 0, &m_booster[1]);
-    // XGBoosterLoadModel(m_booster[1], muWeight.Data());
     std::cout << "Done EleTopMVASel initialization......\n";
     std::cout << "\n";
 };
@@ -27,7 +26,6 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
 EleTopMVASel::~EleTopMVASel()
 {
     XGBoosterFree(m_booster[0]);
-    // XGBoosterFree(m_booster[1]);
 };
 
 void EleTopMVASel::Select(const eventForNano *e)
@@ -80,9 +78,10 @@ void EleTopMVASel::Select(const eventForNano *e)
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
-            Float_t mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); //run2
-            if(m_era.CompareTo("2022")==0){
-                 mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); //run3
+            Float_t mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
+            if (m_era.CompareTo("2022") == 0)
+            {
+                mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3
             }
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},

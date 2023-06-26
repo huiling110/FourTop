@@ -84,11 +84,11 @@ private:
     Bool_t m_isData;
     TString m_era;
 
-    LumiAndPVSel lumiAndPVSelection{m_isData, m_era};//!!!
-    METFilter metFilter{m_era};//!!! for run3
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era}; //!!!
+    METFilter metFilter{m_era};                       //!!! for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};
-    // EleTopMVASel eleTopMVATSel{m_outTree, m_era};
+    EleTopMVASel eleTopMVATSel{m_outTree, m_era};
     MuSel muSel{m_outTree, m_era};
     EleMVASel eleMVASel{m_outTree, m_era};
     // MuTopMVASel muTopMVATSel{m_outTree, m_era};
@@ -103,14 +103,13 @@ private:
     CopyBranch copyBranch{m_outTree};
     // PUWeightCal puWeightCal{m_outTree, m_isData, m_era};
 
-    ULong_t m_elesTotal=0;
-    ULong_t m_musTotal=0;
-    ULong_t m_tausTotal=0;
-    ULong_t m_tausFTotal=0;
-    ULong_t m_tausLTotal=0;
-    ULong_t m_jetsTotal=0;
+    ULong_t m_elesTotal = 0;
+    ULong_t m_musTotal = 0;
+    ULong_t m_tausTotal = 0;
+    ULong_t m_tausFTotal = 0;
+    ULong_t m_tausLTotal = 0;
+    ULong_t m_jetsTotal = 0;
     ULong_t m_bjetsM = 0;
-
 
     TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
