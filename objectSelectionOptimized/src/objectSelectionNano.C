@@ -42,7 +42,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
-        // muTopMVATSel.Select(e);
+        muTopMVATSel.Select(e);
 
         // tau selection
         // Int_t sysTES = 0;

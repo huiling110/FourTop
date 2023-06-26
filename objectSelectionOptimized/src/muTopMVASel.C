@@ -12,7 +12,6 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Int_t m_type) 
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
     // set up xgboost booster
-    // TString eleWeight = TopMVALeptonMap[era].at(0);
     TString muWeight = TopMVALeptonMap[era].at(1);
     std::cout << "muWeight: " << muWeight << "\n";
     // BoosterHandle booster;
@@ -24,7 +23,6 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Int_t m_type) 
 MuTopMVASel::~MuTopMVASel()
 {
     XGBoosterFree(m_booster[0]);
-    // XGBoosterFree(m_booster[1]);
 };
 
 void MuTopMVASel::Select(const eventForNano *e)
@@ -71,7 +69,7 @@ void MuTopMVASel::Select(const eventForNano *e)
                 {"miniPFRelIso_chg", e->Muon_miniPFRelIso_chg[j]},
                 {"miniPFRelIso_all", e->Muon_miniPFRelIso_all[j]},
                 {"jetPtRelv2", e->Muon_jetPtRelv2[j]},         // Relative momentum of the lepton with respect to the closest jet after subtracting the lepton;
-                {"jetPtRatio", jetPtRatio},                 // ; Ratio between the lepton and jet transverse momenta
+                {"jetPtRatio", jetPtRatio},                    // ; Ratio between the lepton and jet transverse momenta
                 {"pfRelIso03_all", e->Muon_pfRelIso03_all[j]}, // 44
                 {"jetBTag", jetBTag},
                 {"sip3d", e->Muon_sip3d[j]},
@@ -83,10 +81,6 @@ void MuTopMVASel::Select(const eventForNano *e)
             if (!(topLeptonScore > 0.64))
                 continue;
         }
-        // ROOT::Math::PtEtaPhiMVector muon(Muon_pt.At(j), Muon_eta.At(j), Muon_phi.At(j), Muon_mass.At(j));
-        // SelectedMuons.push_back(muon);
-        // SelectedMuonsIndex.push_back(j);
-        // SelectedMuonsLeptonScore.push_back(topLeptonScore);
 
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));
@@ -107,9 +101,11 @@ void MuTopMVASel::clearBranch()
     muonsTopMVAT_topMVAScore.clear();
 };
 
-std::vector<Double_t>& MuTopMVASel::getEtaVec(){
+std::vector<Double_t> &MuTopMVASel::getEtaVec()
+{
     return muonsTopMVAT_eta;
 };
-std::vector<Double_t>& MuTopMVASel::getPhiVec(){
+std::vector<Double_t> &MuTopMVASel::getPhiVec()
+{
     return muonsTopMVAT_phi;
 };
