@@ -97,6 +97,8 @@ public:
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
+    myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
+    myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
@@ -172,6 +174,8 @@ private:
         {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
+        {elesMVAT_num.n(), &elesTopMVAT_num},
+        {muonsT_num.n(), &muonsT_num},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},

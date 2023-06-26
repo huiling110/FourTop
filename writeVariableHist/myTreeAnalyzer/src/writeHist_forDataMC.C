@@ -48,22 +48,22 @@ void WH_forDataMC::LoopTree()
             continue;
         }
 
-        Double_t basicWeight = baseWeightCal(e);
+        Double_t basicWeight = baseWeightCal(e, m_isRun3);
 
         //SR
         if(!m_isData){
-            Bool_t is1tau0lSR = SR1tau1lSel(e, 1) ;
-            Bool_t is1tau1lSR = SR1tau1lSel(e, 0);
+            Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3) ;
+            Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
             jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
         }
 
         // 1tau0l CR
-        Bool_t is1tau0lCR = SR1tau1lSel(e, 6);
-        Bool_t is1tau0lVR = SR1tau1lSel(e, 7);
-        Bool_t is1tau0lCRc = SR1tau1lSel(e, 8);
-        Bool_t is1tau0lCRb = SR1tau1lSel(e, 9);
-        Bool_t is1tau0lCRa = SR1tau1lSel(e, 10);
+        Bool_t is1tau0lCR = SR1tau1lSel(e, 6, m_isRun3);
+        Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
+        Bool_t is1tau0lCRc = SR1tau1lSel(e, 8, m_isRun3);
+        Bool_t is1tau0lCRb = SR1tau1lSel(e, 9, m_isRun3);
+        Bool_t is1tau0lCRa = SR1tau1lSel(e, 10, m_isRun3);
         jets_HT_class.fillHistVec("1tau0lCR", basicWeight, is1tau0lCR, m_isData);
         jets_HT_class.fillHistVec("1tau0lVR", basicWeight, is1tau0lVR, m_isData);
         jets_HT_class.fillHistVec("1tau0lCRc", basicWeight, is1tau0lCRc, m_isData);
@@ -71,10 +71,10 @@ void WH_forDataMC::LoopTree()
         jets_HT_class.fillHistVec("1tau0lCRa", basicWeight, is1tau0lCRa, m_isData);
 
         // 1tau1lCR
-        Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2); // CR1 in slides
-        Bool_t is1tau1lCR1 =  SR1tau1lSel(e, 3);
-        Bool_t is1tau1lCR2 =  SR1tau1lSel(e, 4);
-        Bool_t is1tau1lCR3 =  SR1tau1lSel(e, 5);
+        Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
+        Bool_t is1tau1lCR1 =  SR1tau1lSel(e, 3, m_isRun3);
+        Bool_t is1tau1lCR2 =  SR1tau1lSel(e, 4, m_isRun3);
+        Bool_t is1tau1lCR3 =  SR1tau1lSel(e, 5, m_isRun3);
         jets_HT_class.fillHistVec("1tau1lCR0", basicWeight, is1tau1lCR0, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR1", basicWeight, is1tau1lCR1, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR2", basicWeight, is1tau1lCR2, m_isData);

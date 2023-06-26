@@ -5,8 +5,8 @@
 
 Bool_t baselineSelection(event *event);
 
-Bool_t SR1tau1lSel(event *e, const Int_t channel=0);
+Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 = kFALSE);
 
-Double_t baseWeightCal(event *e);
+Double_t baseWeightCal(event *e, const Bool_t isRun3 = kFALSE);
 
 #endif
