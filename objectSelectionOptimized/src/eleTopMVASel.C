@@ -80,10 +80,14 @@ void EleTopMVASel::Select(const eventForNano *e)
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
-            Float_t mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
-            if (m_era.CompareTo("2022") == 0)
+            Float_t mvaFall17V2noIso = -99;
+            if (m_isRun3)
             {
                 mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3
+            }
+            else
+            {
+                mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
             }
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},
