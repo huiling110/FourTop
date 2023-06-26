@@ -34,6 +34,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         copyBranches.makeVariables(e);
 
         // SF and systematic calculation
+        weightVarMaker.makeVariables(e);
+
 
         // baseline selection
         if (baselineSel)

@@ -69,9 +69,9 @@ void WeightVarMaker::makeVariables(EventForMV *e)
 {
     // clearBranch();
     //!!! to be done
-
+    EVENT_prefireWeight = *e->EVENT_prefireWeight_;
+    EVENT_genWeight = *e->EVENT_genWeight_;
 };
-
 
 void WeightVarMaker::clearBranch()
 { //??? derived class should also have a clearBranch()
