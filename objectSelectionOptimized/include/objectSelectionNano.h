@@ -83,6 +83,7 @@ private:
     TH1D *h_forEY_preSelection = new TH1D("h_afterpreSelection", "h_afterpreSelection", 2, -1, 1);
     Bool_t m_isData;
     TString m_era;
+    Bool_t m_isRun3 = kFALSE;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era}; //!!!
     METFilter metFilter{m_era};                       //!!! for run3

@@ -14,14 +14,15 @@ public:
     EleTopMVASel(TTree *outTree, const TString era, const Int_t type = 2);
     ~EleTopMVASel();
     void Select(const eventForNano *e);
-    std::vector<Double_t>& getEtaVec();
+    std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
 
     void clearBranch();
 
 private:
     Int_t m_type = 2;
-    TString m_era ;
+    TString m_era;
+    Bool_t m_isRun3 = kFALSE;
     // BoosterHandle m_booster[2];
     BoosterHandle m_booster[1];
     // output branches

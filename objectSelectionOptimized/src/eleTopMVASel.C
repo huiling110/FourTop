@@ -1,4 +1,5 @@
 #include "../include/eleTopMVASel.h"
+#include "../myLibrary/commenFunction.h"
 
 EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}, m_era{era}
 { // type for different electrons
@@ -11,10 +12,11 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
     // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
 
-    m_isRun3 =
+    m_isRun3 = TTTT::isRun3(m_era);
+    std::cout << "m_era=" << m_era << "  ;m_isRun3" << m_isRun3 << "\n";
 
-        // set up xgboost booster
-        TString eleWeight = TopMVALeptonMap[m_era].at(0);
+    // set up xgboost booster
+    TString eleWeight = TopMVALeptonMap[m_era].at(0);
     std::cout << "eleWeight: " << eleWeight << "\n";
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
