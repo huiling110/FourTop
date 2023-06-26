@@ -7,6 +7,7 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
 {
     std::cout << "Initialzing the derived JetVarMaker........\n";
 
+    outTree->Branch(objName + "_rationHT_4toRest", &jets_rationHT_4toRest);
     outTree->Branch(objName + "_MHT", &jets_MHT);
     outTree->Branch(objName + "_HT", &jets_HT);
     outTree->Branch(objName + "_invariantMass", &jets_invariantMass);
@@ -143,6 +144,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
 void JetVarMaker::clearBranch()
 {
     ObjVarMaker::clearBranch();
+    jets_rationHT_4toRest = -99;
     jets_MHT = -99;
     jets_HT = -99;
     jets_invariantMass = -99;

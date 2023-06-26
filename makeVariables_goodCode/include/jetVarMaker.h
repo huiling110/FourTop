@@ -17,6 +17,7 @@ public:
     Int_t getJet_num();
 
 private:
+    Double_t jets_rationHT_4toRest = -99;
     Double_t jets_MHT = -99;
     Double_t jets_HT = -99;
     Double_t jets_invariantMass = -99;
