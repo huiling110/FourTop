@@ -15,6 +15,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         m_cutflow->Fill(0);
 
         muVarMaker.makeVariables(e);
+        muTopTVarMaker.makeVariables(e);
         eleVarMaker.makeVariables(e);
         eleTopVarMaker.makeVariables(e);
 
@@ -35,8 +36,10 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         // SF and systematic calculation
 
         // baseline selection
-        if(baselineSel){
-            if(!(jetVarMaker.getHT()>500 && jetVarMaker.getJet_6pt()>40 && jetVarMaker.getJet_num()>=6 && bjetMVarMaker.getJet_num()>=1)){
+        if (baselineSel)
+        {
+            if (!(jetVarMaker.getHT() > 500 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >= 6 && bjetMVarMaker.getJet_num() >= 1))
+            {
                 continue;
             }
         }
