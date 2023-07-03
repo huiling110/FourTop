@@ -17,14 +17,13 @@ void run_treeAnalyzer(
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/makeVariables_goodCode/output/"
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
-    Int_t channel = 1, // 0: 1tau1l; 1: 1tau0l
     Bool_t isTest = kTRUE)
 // Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
     t.Start();
-    WH_forDataMC writeHist(inputDir, process, histVersion, channel, isTest);
+    WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
     writeHist.Init();
     writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
@@ -38,7 +37,6 @@ int main(int argc, char const *argv[])
     TString inputDir;
     TString inputProcess;
     TString version;
-    Int_t channel;
     Bool_t isTest = kFALSE;
     if (argc < 4)
     {
@@ -51,9 +49,8 @@ int main(int argc, char const *argv[])
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         version = boost::lexical_cast<std::string>(argv[3]);
-        channel = boost::lexical_cast<Int_t>(argv[4]);
         isTest = boost::lexical_cast<Bool_t>(argv[5]);
-        run_treeAnalyzer(inputDir, inputProcess, version, channel, isTest);
+        run_treeAnalyzer(inputDir, inputProcess, version, isTest);
     }
 
     return 0;

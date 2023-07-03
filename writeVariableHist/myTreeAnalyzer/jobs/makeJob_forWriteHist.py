@@ -88,7 +88,7 @@ def main():
         makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath )
     subAllProcess.close()
 
-    # uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
+    uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 

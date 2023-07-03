@@ -20,7 +20,7 @@
 class WH_forDataMC
 {
 public:
-    WH_forDataMC(const TString inputDir, const TString process, TString outVersion = "v0", Int_t channel = 0, Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process},  m_isTest{isTest}
+    WH_forDataMC(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process},  m_isTest{isTest}
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
