@@ -13,13 +13,14 @@ void run_objectSelection(
     // TString inputDir = "ttZ",
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
-    TString inputDir = "TTto2L2Nu",
+    // TString inputDir = "TTto2L2Nu",
+    TString inputDir = "TTto4Q",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
-    Int_t numEntries = 1000)
+    Int_t numEntries = 100000)
 {
     TStopwatch t;
     t.Start();
