@@ -36,7 +36,7 @@ public:
         m_era = TTTT::getEra(m_inputDir);
         m_isData = TTTT::getIsData(m_inputDir);
         m_isRun3 = TTTT::isRun3(m_era);
-        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
+        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest <<"  m_isRun3="<<m_isRun3<< "\n";
 
         std::cout << "m_processName: " << m_processName << "  m_channel: " << m_channel << "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");

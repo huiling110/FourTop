@@ -49,6 +49,7 @@ void WH_forDataMC::LoopTree()
         }
 
         Double_t basicWeight = baseWeightCal(e, m_isRun3);
+        // std::cout <<e->tausT_num.v() <<e->jets_num.v()  << e->bjetsM_num.v()<<"\n";
 
         //SR
         if(!m_isData){
