@@ -1,4 +1,4 @@
-
+// 
 #include "../include/commenSelectionAndWeight.h"
 
 Bool_t baselineSelection(event *event)
@@ -10,11 +10,11 @@ Bool_t baselineSelection(event *event)
 Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
 {
     Int_t lepNum= 1;
-    // if(!isRun3){
-    //    lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
-    // }else{
-    //    lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
-    // }
+    if(!isRun3){
+       lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+    }else{
+       lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
+    }
     Bool_t isPass = kFALSE;
     switch (channel)
     {

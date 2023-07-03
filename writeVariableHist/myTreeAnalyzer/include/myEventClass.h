@@ -174,7 +174,7 @@ private:
         {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
-        {elesMVAT_num.n(), &elesTopMVAT_num},
+        {elesMVAT_num.n(), &elesMVAT_num},
         {muonsT_num.n(), &muonsT_num},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {jets_HT.n(), &jets_HT},
