@@ -3,13 +3,7 @@ import subprocess
 
 import usefulFunc as uf
 
-# from pathlib import Path
 
-
-# import sys
-
-
-#???make all job subscrison more modulized
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baseline_v54noHLTButPreMetFixed/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2baslineNoHLT_v55ojectRemovalwithTightNoHLT/'
@@ -28,7 +22,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -60,8 +55,12 @@ def main():
     # version = 'v3withBjetT'
     
     #
-    version = 'v41tau0lGenTauSys'
-    channel = 1 
+    # version = 'v41tau0lGenTauSys'
+    # channel = 1 
+    
+    #run3
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/'
+    version = 'v0allRegions'
     
     
     justMC = False
@@ -74,45 +73,45 @@ def main():
 
 
     Jobsubmitpath = os.path.dirname( os.path.abspath(__file__) ) +'/'
-    print( Jobsubmitpath)
+    print('JobsubmitPath: ' ,Jobsubmitpath)
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
     #important to add the full path so that it can be ran in any folder
     subAllProcess.write('#!/bin/bash\n')
-    subAllProcess.write('cd '+ Jobsubmitpath +'\n')
+    # subAllProcess.write('cd '+ Jobsubmitpath +'\n')
     inputDirDic={}
     inputDirDic['mc'] = inputDir + 'mc/'
     if not justMC:
         inputDirDic['data'] = inputDir + 'data/'
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, channel, isTest, subAllProcess, Jobsubmitpath )
+        # makeJobsforDir( inputDirDic[i], version, channel, isTest, subAllProcess, Jobsubmitpath )
+        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath )
     subAllProcess.close()
 
-    uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
+    # uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
-def makeJobsforDir( inputDir, version, channel, isTest, subAllProcess, Jobsubmitpath ):
-
-    # jobDir = 'jobSH/'
+def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
     jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
-    if not os.path.exists( jobDir ):
-        os.mkdir( jobDir )
-    if not os.path.exists( outputDir ): os.mkdir( outputDir)
+    logDir = outputDir+'log/'
+    uf.checkMakeDir(jobDir)
+    uf.checkMakeDir(outputDir)
+    uf.checkMakeDir(logDir)
+    
+    exeDir = Jobsubmitpath.rsplit('/', 2)[0]+'/apps/'
 
-    if not os.path.exists(outputDir +"/log/" ):
-        os.mkdir( outputDir  +"/log/")
     for iFile in os.listdir( inputDir ):
         if '.root' in iFile:
             iProcess = iFile.split('.root')[0]
             print(iProcess)
-            # iJobFile = jobDir + iProcess +'.sh' 
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            makeIjob( iJobFile, iProcess, isTest, inputDir, version, channel, Jobsubmitpath )  
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
-            logFile = outputDir +   "log/" + iProcess + ".log"
-            errFile = outputDir +  "log/" + iProcess +".err"
+            logFile = logDir + iProcess + ".log"
+            errFile = logDir + iProcess +".err"
             subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)
@@ -122,12 +121,12 @@ def makeJobsforDir( inputDir, version, channel, isTest, subAllProcess, Jobsubmit
 
 
 
-def makeIjob( shFile, iProcess, isTest, inputDir, version,  channel,Jobsubmitpath ):
+def makeIjob( shFile, Jobsubmitpath, run, exeDir ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
-    subFile.write('cd '+ Jobsubmitpath + '\n' )
-    # run = './run_treeAnalyzer.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-    run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+    # subFile.write('cd '+ Jobsubmitpath + '\n' )
+    subFile.write('cd '+ exeDir + '\n' )
+    # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest
     subFile.write(run) 
     print( 'done writing: ', shFile)
 
