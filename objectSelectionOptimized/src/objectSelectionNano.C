@@ -127,7 +127,7 @@ void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector
     const std::vector<Double_t> &eleEtaVec = eleMVASel.getEtaVec();
     const std::vector<Double_t> &elePhiVec = eleMVASel.getPhiVec();
     // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
-    addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
-    addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
+    OS::addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
+    OS::addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
 };

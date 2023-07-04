@@ -103,7 +103,7 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
                 {"mvaFall17V2noIso", mvaFall17V2noIso}}; // only for 2022
-            topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
+            topMVAScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
             // if (!(topMVAScore > 0.81))
             // continue;
         }

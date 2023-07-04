@@ -155,7 +155,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // overlap removal
         if (lepEtaVec.size() > 0)
         {
-            Double_t minDeltaR_lep = deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), lepEtaVec, lepPhiVec);
+            Double_t minDeltaR_lep = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), lepEtaVec, lepPhiVec);
             // Double_t deltaR = 0;
             // Double_t minDeltaR = 100;
             // for (UInt_t lep = 0; lep < lepEtaVec.size(); lep++)
@@ -169,7 +169,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         }
         if (tauEtaVec.size() > 0)
         {
-            Double_t minDeltaR_tau = deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
+            Double_t minDeltaR_tau = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
             // Double_t deltaR_tau = 0;
             // Double_t minDeltaR_tau = 100;
             // for (UInt_t tau = 0; tau < SelectedTausL.size(); tau++)
@@ -254,7 +254,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
         // find gen matching
         if (!isData)
         {
-            Int_t genMatchIndex = genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
+            Int_t genMatchIndex = OS::genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
             if (genMatchIndex > 0)
             {
                 // Case 1: we have a "good" generator level jet matched to the reconstructed jet

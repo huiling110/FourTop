@@ -77,7 +77,7 @@ void MuTopMVASel::Select(const eventForNano *e)
                 {"dz", e->Muon_dz[j]},
                 {"mvaFall17V2noIso", e->Muon_segmentComp[j]},
             }; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
-            topLeptonScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
+            topLeptonScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
             if (!(topLeptonScore > 0.64))
                 continue;
         }

@@ -10,7 +10,6 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
     std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
 
-
     std::map<Int_t, TString> tauWPMap = {
         {1, "L"},
         {2, "F"},
@@ -28,12 +27,15 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     outTree->Branch("taus" + tauWPMap[tauWP] + "_neutralIso", &taus_neutralIso);
 
     //
-    if(m_era.CompareTo("2022")==0){
+    if (m_era.CompareTo("2022") == 0)
+    {
         m_isRun3 = kTRUE;
-    }else{
+    }
+    else
+    {
         m_isRun3 = kFALSE;
     }
-    std::cout<<"m_isRun3 = "<<m_isRun3<<"\n";
+    std::cout << "m_isRun3 = " << m_isRun3 << "\n";
 
     std::cout << "Done TauSel initialization......\n";
 };
@@ -83,26 +85,29 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         UChar_t tauID_vsEle;
         UChar_t tauID_vsMu;
         // if(m_era.CompareTo("2022")==0){
-            //  tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
-            //  tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
-            //  tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
+        //  tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
+        //  tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
+        //  tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
         // }else{
-            tauID_vsJet =  e->Tau_idDeepTau2017v2p1VSjet.At(j);
-            tauID_vsEle =  e->Tau_idDeepTau2017v2p1VSe.At(j);
-            tauID_vsMu =  e->Tau_idDeepTau2017v2p1VSmu.At(j);
-            //!!! for nanoAOD v11, tau id has no bit mast!!!
-            //byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
+        tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);
+        tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);
+        tauID_vsMu = e->Tau_idDeepTau2017v2p1VSmu.At(j);
+        //!!! for nanoAOD v11, tau id has no bit mast!!!
+        // byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
         // }
 
-        Bool_t isVSjetVVLoose=kFALSE;
+        Bool_t isVSjetVVLoose = kFALSE;
         Bool_t isVSeVVVLoose = kFALSE;
         Bool_t isVSmuVLoose = kFALSE;
         Bool_t isVSjetM = kFALSE;
         if (m_tauWP == 1)
         {
-            if(m_isRun3){
-                isVSjetVVLoose = tauID_vsJet >=2; // check if the 2nd bit (VVLoose WP) is 1
-            }else{
+            if (m_isRun3)
+            {
+                isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
+            }
+            else
+            {
                 isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
             }
             // bitwise shift operators are the right-shift operator (>>
@@ -115,14 +120,17 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         if (m_tauWP == 2)
         {
-            if(m_isRun3){
-                 isVSjetVVLoose = tauID_vsJet>=2; // check if the 2nd bit (VVLoose WP) is 1
-                 isVSeVVVLoose = tauID_vsEle >=1;    // check if the 1st bit (VVVLoose WP) is 1
-                 isVSmuVLoose = tauID_vsMu >=3;    // check if the 1st bit (VLoose WP) is 1
-            }else{
-                 isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
-                 isVSeVVVLoose = tauID_vsEle & (1 << 0);    // check if the 1st bit (VVVLoose WP) is 1
-                 isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
+            if (m_isRun3)
+            {
+                isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
+                isVSeVVVLoose = tauID_vsEle >= 1;  // check if the 1st bit (VVVLoose WP) is 1
+                isVSmuVLoose = tauID_vsMu >= 3;    // check if the 1st bit (VLoose WP) is 1
+            }
+            else
+            {
+                isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+                isVSeVVVLoose = tauID_vsEle & (1 << 0);  // check if the 1st bit (VVVLoose WP) is 1
+                isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
             }
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
@@ -131,14 +139,17 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         if (m_tauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
-            if(m_isRun3){
-                 isVSjetM = tauID_vsJet >=5;    // check if the 5th bit (Medium WP) is 1
-                 isVSeVVVLoose = tauID_vsEle >=1; // check if the 1st bit (VVVLoose WP) is 1
-                 isVSmuVLoose = tauID_vsMu >=3; // check if the 1st bit (VLoose WP) is 1
-            }else{
-                 isVSjetM = tauID_vsJet & (1 << 4);    // check if the 5th bit (Medium WP) is 1
-                 isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
-                 isVSmuVLoose = tauID_vsMu & (1 << 0); // check if the 1st bit (VLoose WP) is 1
+            if (m_isRun3)
+            {
+                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1
+                isVSeVVVLoose = tauID_vsEle >= 1; // check if the 1st bit (VVVLoose WP) is 1
+                isVSmuVLoose = tauID_vsMu >= 3;   // check if the 1st bit (VLoose WP) is 1
+            }
+            else
+            {
+                isVSjetM = tauID_vsJet & (1 << 4);      // check if the 5th bit (Medium WP) is 1
+                isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
+                isVSmuVLoose = tauID_vsMu & (1 << 0);   // check if the 1st bit (VLoose WP) is 1
             }
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
@@ -150,7 +161,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         if (lepEtaVec.size() > 0)
         {
             // minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), LeptonsMVAL);
-            minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
+            minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
             if (!(minDeltaR_lep >= 0.4))
             {
                 continue;
@@ -162,9 +173,12 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         taus_phi.push_back(e->Tau_phi.At(j));
         taus_mass.push_back(itau_mass);
         taus_decayMode.push_back(e->Tau_decayMode.At(j));
-        if(!isData){
+        if (!isData)
+        {
             taus_genPartFlav.push_back(e->Tau_genPartFlav->At(j));
-        }else{
+        }
+        else
+        {
             taus_genPartFlav.push_back(-99);
         }
         taus_jetIdx.push_back(e->Tau_jetIdx.At(j));
@@ -216,13 +230,16 @@ void TauSel::clearBranch()
     taus_neutralIso.clear();
 };
 
-std::vector<Double_t>& TauSel::getEtaVec(){
+std::vector<Double_t> &TauSel::getEtaVec()
+{
     return taus_eta;
 };
-std::vector<Double_t>& TauSel::getPhiVec(){
+std::vector<Double_t> &TauSel::getPhiVec()
+{
     return taus_phi;
 };
 //!!!this could all be put in a base class
-Int_t TauSel::getSize(){
+Int_t TauSel::getSize()
+{
     return taus_pt.size();
 };
