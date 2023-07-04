@@ -3,8 +3,10 @@ import subprocess
 
 import pandas as pd
 import ROOT
-from ttttGlobleQuantity import (histoGramPerSample, lumiMap, summedProcessList,
-                                samplesCrossSection)
+# from ttttGlobleQuantity import (histoGramPerSample, lumiMap, summedProcessList,
+                                # samplesCrossSection)
+                                
+import ttttGlobleQuantity as tg                                
 
 
 def checkMakeDir( folder ):
@@ -110,7 +112,11 @@ def compare2List( list1, list2):
     
     
 
-def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False):
+def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False, isRun3=False):
+    if not isRun3:
+        histoGramPerSample = tg.histoGramPerSample
+    else:
+        histoGramPerSample = tg.Run3Samples
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
     sumProcessHistsDictSys = {}
@@ -121,7 +127,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
-        if ('singleMu' in ifileName) or ('jetHT' in ifileName):
+        if ('singleMu' in ifileName) or ('jetHT' in ifileName) or ('JetMET' in ifileName):
             isdata = True
         else:
             isdata = False
@@ -146,9 +152,10 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         for iRegion in regionsList:
             # if 'SR' in iRegion and isdata: continue
             if (iRegion=='1tau1lSR' or iRegion=='1tau0lSR') and isdata: continue
-            iHistName = iRegion + '_' + ifileName + '_' + variable
-            # for (index,isys) in enumerate(sysList):
-            #     sysList[index] = iHistName +'_'+ isys
+            if not isRun3:
+                iHistName = iRegion + '_' + ifileName + '_' + variable
+            else:
+                iHistName = ifileName +'_' +iRegion+ '_' + variable
             
             if iRegion not in sumProcessHistsDict.keys(): 
                 sumProcessHistsDict[iRegion]={}

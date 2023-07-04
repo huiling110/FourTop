@@ -30,7 +30,6 @@ public:
     objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
     {
         std::cout << "Initialize objectSelection class..................................\n";
-        // m_input = new TFile(inputFile, "READ");
         m_input = new TFile(inputDir + singleFileName, "READ");
         if (!m_input->IsZombie())
         {
