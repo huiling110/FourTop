@@ -11,8 +11,8 @@ void run_objectTSelectorForNanoAOD(
     Bool_t istest = true,
     // Bool_t istest = false,
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/scratchfs/cms/huahuil/tauOfTTTT_NanoAOD/nanoAOD/2018/mc/tttt/",
@@ -83,8 +83,8 @@ void run_objectTSelectorForNanoAOD(
     if (istest)
     {
         outputDir = "output/";
-        // eventNum = 100;
-        eventNum = 1000;
+        eventNum = 100;
+        // eventNum = 1000;
         // eventNum = 10000;
     }
     TString outputFile;

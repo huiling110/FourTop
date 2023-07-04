@@ -16,7 +16,8 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
 
     // set up xgboost booster
-    TString eleWeight = TopMVALeptonMap[m_era].at(0);
+    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+    TString eleWeight = baseDir+ TopMVALeptonMap[m_era].at(0);
     std::cout << "eleWeight: " << eleWeight << "\n";
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
@@ -106,8 +107,8 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"mvaFall17V2noIso", mvaFall17V2noIso},
             }; // only for 2022
             topMVAScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            // if (!(topMVAScore > 0.81))
-            // continue;
+            if (!(topMVAScore > 0.81))
+            continue;
         }
 
         // ROOT::Math::PtEtaPhiMVector electron(e->Electron_pt.At(j), e->Electron_eta.At(j), e->Electron_phi.At(j), Electron_mass.At(j));

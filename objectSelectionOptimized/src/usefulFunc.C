@@ -90,8 +90,9 @@ namespace OS
 
         // for (Int_t i = 0; i < 13; i++)
         // {
-        //     std::cout << "inputFeatures: " << boosterVars[0][i] << "\n";
+        //     std::cout << "inputFeatures: "<<i<<" " << boosterVars[0][i] << "\n";
         // }
+        // std::cout<<"\n";
 
         // BoosterHandle booster;
         // XGBoosterCreate(NULL, 0, &booster);
@@ -108,6 +109,7 @@ namespace OS
         // XGBoosterFree(booster);
         // std::cout << "Top lepton score = " << f[0] << "\n";
         Double_t score = f[0];
+        // std::cout<<"MVAscore="<<score<<"\n";
 
         return score;
     }
