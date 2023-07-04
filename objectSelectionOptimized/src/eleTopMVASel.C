@@ -88,7 +88,8 @@ void EleTopMVASel::Select(const eventForNano *e)
             else
             {
                 mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
-            }
+            };
+            // std::cout <<"mvaFall="<< mvaFall17V2noIso << "\n";
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},
                 {"eta", e->Electron_eta[j]},
@@ -102,7 +103,8 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"sip3d", e->Electron_sip3d[j]},
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
-                {"mvaFall17V2noIso", mvaFall17V2noIso}}; // only for 2022
+                {"mvaFall17V2noIso", mvaFall17V2noIso},
+            }; // only for 2022
             topMVAScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
             // if (!(topMVAScore > 0.81))
             // continue;
