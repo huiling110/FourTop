@@ -13,7 +13,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
 
     m_isRun3 = TTTT::isRun3(m_era);
-    std::cout << "m_era=" << m_era << "  ;m_isRun3" << m_isRun3 << "\n";
+    std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
 
     // set up xgboost booster
     TString eleWeight = TopMVALeptonMap[m_era].at(0);
@@ -102,11 +102,10 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"sip3d", e->Electron_sip3d[j]},
                 {"dxy", e->Electron_dxy[j]},
                 {"dz", e->Electron_dz[j]},
-                // {"mvaFall17V2noIso", e->Electron_mvaFall17V2noIso[j]}};//???how to make the code consistent even when the branch not exist??
                 {"mvaFall17V2noIso", mvaFall17V2noIso}}; // only for 2022
             topMVAScore = TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            if (!(topMVAScore > 0.81))
-                continue;
+            // if (!(topMVAScore > 0.81))
+            // continue;
         }
 
         // ROOT::Math::PtEtaPhiMVector electron(e->Electron_pt.At(j), e->Electron_eta.At(j), e->Electron_phi.At(j), Electron_mass.At(j));
