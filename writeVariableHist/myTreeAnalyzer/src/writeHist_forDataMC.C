@@ -20,7 +20,7 @@ void WH_forDataMC::Init()
     // regions for hists
     std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
 
-    jets_HT_class = histsForRegionsMap("jets_HT", "HT(GeV)", m_processName,  10, 500, 1800, regionsForVariables, &(e->jets_HT));
+    jets_HT_class = histsForRegionsMap("jets_HT", "HT(GeV)", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_HT));
 
     // jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
@@ -51,9 +51,10 @@ void WH_forDataMC::LoopTree()
         Double_t basicWeight = baseWeightCal(e, m_isRun3);
         // std::cout <<e->tausT_num.v() <<e->jets_num.v()  << e->bjetsM_num.v()<<"\n";
 
-        //SR
-        if(!m_isData){
-            Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3) ;
+        // SR
+        if (!m_isData)
+        {
+            Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
             Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
             jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
@@ -73,15 +74,13 @@ void WH_forDataMC::LoopTree()
 
         // 1tau1lCR
         Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
-        Bool_t is1tau1lCR1 =  SR1tau1lSel(e, 3, m_isRun3);
-        Bool_t is1tau1lCR2 =  SR1tau1lSel(e, 4, m_isRun3);
-        Bool_t is1tau1lCR3 =  SR1tau1lSel(e, 5, m_isRun3);
+        Bool_t is1tau1lCR1 = SR1tau1lSel(e, 3, m_isRun3);
+        Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3);
+        Bool_t is1tau1lCR3 = SR1tau1lSel(e, 5, m_isRun3);
         jets_HT_class.fillHistVec("1tau1lCR0", basicWeight, is1tau1lCR0, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR1", basicWeight, is1tau1lCR1, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR2", basicWeight, is1tau1lCR2, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR3", basicWeight, is1tau1lCR3, m_isData);
-
-
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
@@ -90,10 +89,10 @@ void WH_forDataMC::LoopTree()
 void WH_forDataMC::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
-    Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
     if (!m_isData)
     {
+        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         jets_HT_class.scale(processScale);
     };
     jets_HT_class.print();

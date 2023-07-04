@@ -54,6 +54,7 @@ public:
             else
             {
                 myBranch<Double_t> *bra = std::get<myBranch<Double_t> *>(it->second);
+                // std::cout << bra->n() << "\n";
                 m_tree->SetBranchAddress(bra->n(), bra->a());
             };
         };
@@ -65,6 +66,7 @@ public:
         // {
         //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
         // };
+        std::cout << "Done initializing event class \n";
     };
     ~event()
     {
