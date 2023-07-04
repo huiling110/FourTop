@@ -14,7 +14,7 @@ template <typename T>
 class myBranch
 {
 public:
-    myBranch(TString branchName="") : m_branchName{branchName}
+    myBranch(TString branchName = "") : m_branchName{branchName}
     {
     }
     T v()
@@ -43,18 +43,20 @@ public:
     event(TTree *tree) : m_tree{tree}
     { // how to loop through all member variables?
         std::cout << "event: initialize event class by SetBranchAddress()\n";
-        // m_tree->SetBranchStatus("*", 0);
+        m_tree->SetBranchStatus("*", 0);
         for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
         {
             if (std::holds_alternative<myBranch<Int_t> *>(it->second))
             {
                 myBranch<Int_t> *bra = std::get<myBranch<Int_t> *>(it->second);
+                m_tree->SetBranchStatus(bra->n(), 1);
                 m_tree->SetBranchAddress(bra->n(), bra->a());
             }
             else
             {
                 myBranch<Double_t> *bra = std::get<myBranch<Double_t> *>(it->second);
                 // std::cout << bra->n() << "\n";
+                m_tree->SetBranchStatus(bra->n(), 1);
                 m_tree->SetBranchAddress(bra->n(), bra->a());
             };
         };
