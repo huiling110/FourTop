@@ -78,6 +78,7 @@ def main():
     
     
     era = uf.getEraFromDir(inputDir)
+    print('era=', era)
     regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     inputDirDic = uf.getInputDicNew( inputDir)
@@ -96,7 +97,8 @@ def main():
     sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    # legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    legendOrder = ['tt']
     
     hasFakeTau = checkRegionGen(regionList)
     if hasFakeTau:
@@ -364,7 +366,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         stack.GetXaxis().SetTitleSize(0.04)
 
     #scale tttt
-    signal = nominal['tttt'].Clone()
+    if 'tttt' in nominal.keys():
+        signal = nominal['tttt'].Clone()
+    else:
+        signal = nominal['tt'].Clone()
+        signal.Reset()
+        
     # signal.Scale(1000)
     signal.Scale(signalScale)
     # signal.SetLineColor(kMagenta)
