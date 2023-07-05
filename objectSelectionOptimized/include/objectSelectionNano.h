@@ -23,6 +23,7 @@
 #include "PUWeightCal.h"
 #include "muMVASel.h"
 #include "eleMVASel.h"
+#include "../../myLibrary/commenFunction.h"
 
 class objectSelection
 {
@@ -46,9 +47,9 @@ public:
             m_outTree->SetDirectory(m_output);
 
             // set up
-            // m_isData = getIsData(inputDir);
-            // m_era = getEra(inputDir);
-            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "\n";
+            m_isRun3 = TTTT::isRun3(m_era);
+            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; isRun3="<<m_isRun3
+                      << "\n";
 
             //
             m_cutflow->SetDirectory(m_output);
@@ -108,7 +109,7 @@ private:
     ULong_t m_jetsTotal = 0;
     ULong_t m_bjetsM = 0;
 
-    TH1D *m_cutflow = new TH1D("cutflowOS", "initial: Met: HLT: preSelection", 4, 0, 4);
+    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: preSelection", 4, 0, 4);
 };
 
 #endif
