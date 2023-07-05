@@ -23,6 +23,7 @@ CopyBranch::CopyBranch(TTree *outTree)
 
 void CopyBranch::Select(eventForNano *e, Bool_t isData)
 {
+    clearBranch();//!!!important
 
     run_ = *e->run;
     event_ = *e->event;

@@ -317,11 +317,11 @@ Double_t TopLeptonEvaluate(std::map<TString, Float_t> &inputFeatures, const Boos
     boosterVars[0][11] = TMath::Log(TMath::Abs(inputFeatures["dz"]));
     boosterVars[0][12] = inputFeatures["mvaFall17V2noIso"];
 
-    for (Int_t i = 0; i < 13; i++)
-    {
-        std::cout << "inputFeatures: "<<i<<" " << boosterVars[0][i] << "\n";
-    }
-    std::cout << "\n";
+    // for (Int_t i = 0; i < 13; i++)
+    // {
+    //     std::cout << "inputFeatures: "<<i<<" " << boosterVars[0][i] << "\n";
+    // }
+    // std::cout << "\n";
 
     // BoosterHandle booster;
     // XGBoosterCreate(NULL, 0, &booster);
