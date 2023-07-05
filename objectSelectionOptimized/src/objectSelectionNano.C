@@ -78,7 +78,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         {
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;
-            ;
         }
         m_cutflow->Fill(3);
 
