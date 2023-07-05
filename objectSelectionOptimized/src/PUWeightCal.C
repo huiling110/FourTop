@@ -8,10 +8,12 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era)
 
     if (!isData)
     { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
-        TFile *inputPUFile_data = new TFile(pileUpFileMap[era].at(0).Data(), "READ");
-        TFile *inputPUFile_dataUp = new TFile(pileUpFileMap[era].at(1).Data(), "READ");
-        TFile *inputPUFile_dataDown = new TFile(pileUpFileMap[era].at(2).Data(), "READ");
-        TFile *inputPUFile_mc = new TFile(pileUpFileMap[era].at(3).Data(), "READ");
+        //???what's the best way to provide input file path? relative path or abosolute path?
+        TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+        TFile *inputPUFile_data = new TFile((baseDir+pileUpFileMap[era].at(0)).Data(), "READ");
+        TFile *inputPUFile_dataUp = new TFile((baseDir+pileUpFileMap[era].at(1)).Data(), "READ");
+        TFile *inputPUFile_dataDown = new TFile((baseDir+pileUpFileMap[era].at(2)).Data(), "READ");
+        TFile *inputPUFile_mc = new TFile((baseDir+pileUpFileMap[era].at(3)).Data(), "READ");
         std::cout << "pileup file used : " << inputPUFile_data->GetName() << "\n";
         // Get needed histograms
         dataPileupProfile = (TH1F *)inputPUFile_data->Get("pileup");
