@@ -8,13 +8,14 @@
 class PUWeightCal
 {
 public:
-    PUWeightCal(TTree *outTree, Bool_t isData, TString era);
+    PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3=kFALSE);
     ~PUWeightCal(){};
 
     void Select(eventForNano *e, Bool_t isData);
     void clearBranch();
 
 private:
+    Bool_t m_isRun3 = kFALSE;
     TH1F *dataPileupProfile;
     TH1F *dataPileupProfileUp;
     TH1F *dataPileupProfileDown;

@@ -2,11 +2,11 @@
 #include "../include/inputMap.h"
 #include <TFile.h>
 
-PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era)
+PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3): m_isRun3{isRun3}
 {
     std::cout << "Initializing PUWeightCal...........\n";
-
-    if (!isData)
+    // if (!isData )
+    if ((!isData) && (!m_isRun3) )
     { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
         //???what's the best way to provide input file path? relative path or abosolute path?
         TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
@@ -30,6 +30,7 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era)
     outTree->Branch("PUWeight", &PUWeight);
     outTree->Branch("PUWeight_up", &PUWeight_up);
     outTree->Branch("PUWeight_down", &PUWeight_down);
+    std::cout << "m_isRun3=" << m_isRun3 << "\n";
     std::cout << "Done initializing ...............\n";
     std::cout << "\n";
 };
@@ -37,7 +38,7 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era)
 void PUWeightCal::Select(eventForNano *e, Bool_t isData)
 {
     clearBranch();
-    if (!isData)
+    if ((!isData) && (!m_isRun3))
     {
         if (MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(**e->Pileup_nTrueInt)) > 0)
         { //???why do it this way???
