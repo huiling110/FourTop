@@ -12,7 +12,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
-        m_cutflow->Fill(0);
+        m_cutflow->Fill(0 );
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))
@@ -121,12 +121,16 @@ objectSelection::~objectSelection()
 
 void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
 {
-    const std::vector<Double_t> &muEtaVec = muSel.getEtaVec();
-    const std::vector<Double_t> &muPhiVec = muSel.getPhiVec();
-    // std::cout<<"muEtaVec = "<< muEtaVec.size()<<"\n";
-    const std::vector<Double_t> &eleEtaVec = eleMVASel.getEtaVec();
-    const std::vector<Double_t> &elePhiVec = eleMVASel.getPhiVec();
-    // std::cout<<"eleEtaVec = "<< eleEtaVec.size()<<"\n";
+    std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
+    std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
+    std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
+    std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
+    if(m_isRun3){
+        muEtaVec = muSel.getEtaVec();
+        muPhiVec = muSel.getPhiVec();
+        eleEtaVec = eleMVASel.getEtaVec();
+        elePhiVec = eleMVASel.getPhiVec();
+        }
     OS::addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
     OS::addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";

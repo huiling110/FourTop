@@ -37,7 +37,7 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     }
     std::cout << "m_isRun3 = " << m_isRun3 << "\n";
 
-    std::cout << "Done TauSel initialization......\n";
+    std::cout << "Done TauSel initialization......\n\n";
 };
 
 TauSel::~TauSel(){};

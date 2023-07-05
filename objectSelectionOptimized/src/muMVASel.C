@@ -11,6 +11,7 @@ MuSel::MuSel(TTree *outTree, const TString era, const Int_t m_type) : m_type{m_t
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
     std::cout << "Done MuSel initialization......\n";
+    std::cout << "\n";
 };
 
 MuSel::~MuSel()

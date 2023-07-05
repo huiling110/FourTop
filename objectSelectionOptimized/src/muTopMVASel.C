@@ -18,7 +18,7 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Int_t m_type) 
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
     XGBoosterLoadModel(m_booster[0], muWeight.Data());
-    std::cout << "Done MuTopMVASel initialization......\n";
+    std::cout << "Done MuTopMVASel initialization......\n\n";
 };
 
 MuTopMVASel::~MuTopMVASel()

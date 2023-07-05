@@ -47,7 +47,7 @@ public:
             m_outTree->SetDirectory(m_output);
 
             // set up
-            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; isRun3="<<m_isRun3
+            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3
                       << "\n";
 
             //

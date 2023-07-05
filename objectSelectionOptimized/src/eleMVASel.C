@@ -10,7 +10,7 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, const Int_t type) : m_ty
     outTree->Branch("elesMVAT_index", &muonsTopMVAT_index);
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
-    std::cout << "Done EleMVASel initialization......\n";
+    std::cout << "Done EleMVASel initialization......\n\n";
 };
 
 EleMVASel::~EleMVASel()
@@ -23,7 +23,7 @@ void EleMVASel::Select(const eventForNano *e)
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
     // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
-    { /*{{{*/
+    { 
         Double_t pt = e->Electron_pt.At(j);
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))
