@@ -71,7 +71,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         copyBranch.Select(e, m_isData);
 
         // pile up weight cal
-        // puWeightCal.Select(e, m_isData);//!!!to do
+        puWeightCal.Select(e, m_isData);//!!!to do
 
         // pre selection
         if (preSelection)
