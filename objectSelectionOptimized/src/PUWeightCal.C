@@ -5,6 +5,7 @@
 PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3): m_isRun3{isRun3}
 {
     std::cout << "Initializing PUWeightCal...........\n";
+    std::cout << "m_isRun3=" << m_isRun3 << "\n";
     // if (!isData )
     if ((!isData) && (!m_isRun3) )
     { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
@@ -30,7 +31,6 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRu
     outTree->Branch("PUWeight", &PUWeight);
     outTree->Branch("PUWeight_up", &PUWeight_up);
     outTree->Branch("PUWeight_down", &PUWeight_down);
-    std::cout << "m_isRun3=" << m_isRun3 << "\n";
     std::cout << "Done initializing ...............\n";
     std::cout << "\n";
 };

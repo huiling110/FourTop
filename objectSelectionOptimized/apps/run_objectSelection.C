@@ -8,11 +8,11 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_1l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTtoLNu2Q/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTto4Q/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/data/JetMET_G/",
     // TString singleFileName = "outTree_30.root",
@@ -30,7 +30,8 @@ void run_objectSelection(
 
     Bool_t isData = TTTT::getIsData(inputDir);
     TString era = TTTT::getEra(inputDir);
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, kTRUE);
+    const Bool_t isRun3 = TTTT::isRun3(tera);
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
     os.EventLoop(kTRUE, eventNum);
     os.Terminate();
 

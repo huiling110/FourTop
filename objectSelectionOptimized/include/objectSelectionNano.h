@@ -28,7 +28,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t isRun3, Bool_t m_isTest) : m_isData{isData}, m_era{era}, m_isRun3{isRun3}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -47,7 +47,6 @@ public:
             m_outTree->SetDirectory(m_output);
 
             // set up
-            m_isRun3 = TTTT::isRun3(m_era);
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; isRun3="<<m_isRun3
                       << "\n";
 
