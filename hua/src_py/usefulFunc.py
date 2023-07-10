@@ -33,6 +33,14 @@ def sumbitJobs(  jobsh):
     print('jobs submitted')
 
 
+def runCommand(command):
+    print('runing command: ', command)
+    command = 'bash {}.'.format(command)
+    process = subprocess.run( command, shell=True ) 
+    output = process.stdout
+    print(output)
+    print('Done running command\n\n')
+
 def getInputDic( inVersion, histVersion, era):
     '''
     for final hists folder structure
