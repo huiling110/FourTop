@@ -29,7 +29,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         {
             continue;
         }
-        // m_cutflow->Fill(1., genWeight);
         TTTT::fillHist(m_cutflow, 1., genWeight, m_isData);
 
         // HLT selection and HLT branch filling
@@ -37,7 +36,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         {
             continue; // contains event selection!!!
         }
-        // m_cutflow->Fill(2. , genWeight);
         TTTT::fillHist(m_cutflow, 2., genWeight, m_isData);
 
         muSel.Select(e);
@@ -85,7 +83,6 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;
         }
-        // m_cutflow->Fill(3., genWeight);
         TTTT::fillHist(m_cutflow, 3., genWeight, m_isData);
 
         m_outTree->Fill();
