@@ -214,5 +214,9 @@ Run3Samples = {
     'TTto4Q': 'tt',
     'TTtoLNu2Q': 'tt',
     
-    'JetMET_G': 'jetHT',
+    # 'JetMET_G': 'jetHT',
+    'JetHT2022C': 'jetHT',
+    'JetMet2022C': 'jetHT',
+    'JetMet2022D': 'jetHT',
+    
 }
