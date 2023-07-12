@@ -23,27 +23,32 @@
 class MakeVariablesMain
 {
 public:
-    // MakeVariablesMain(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t m_isTest) : m_isData{isData}, m_era{era}
-    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
+    // MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
+    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_processName{processName}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
-        // m_input = new TFile(inputDir + singleFileName, "READ");
-        // if (!m_input->IsZombie())
-        // {
-        // set up input and event object
-        // TChain chain("tree");
-        // chain.Add(inputDir + "outTree*.root");
-        // std::cout<<"all entries in chain: "<<chain.GetEntries()<<"\n";
-        // m_reader.SetChain(chain);
+
+        m_isData = TTTT::getIsData(m_inputDir);
+        m_era = TTTT::getEra(m_inputDir);
+        m_isRun3 = TTTT::isRun3(m_era);
+
+        TChain *chain1 = new TChain("tree");
+        if(m_isRun3){
+            chain1->Add(inputDir + "tree*.root");
+        }else{
+            chain1->Add(inputDir + "outTree*.root");
+        }
+        std::cout << "all entries in chain: " << chain1->GetEntries() << "\n";
+        std::cout << "all trees in chain: " << chain1->GetNtrees() << "\n";
+        m_reader.SetTree(chain1);
+
         e = new EventForMV(m_reader);
 
         // set up output
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
         m_cutflow->SetDirectory(m_output);
-        m_isData = TTTT::getIsData(m_inputDir);
-        m_era = TTTT::getEra(m_inputDir);
-        std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "\n";
+        std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
 
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";
@@ -58,13 +63,14 @@ public:
 
 private:
     TString m_inputDir;
+    Bool_t m_isData = kFALSE;
+    TString m_era;
+    Bool_t m_isRun3 = kFALSE;
     TTreeReader m_reader;
     EventForMV *e;
     TString m_processName;
     TFile *m_output;
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
-    Bool_t m_isData = kFALSE;
-    TString m_era;
     TH1D *m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
 
     //

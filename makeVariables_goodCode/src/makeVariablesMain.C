@@ -36,7 +36,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         // SF and systematic calculation
         weightVarMaker.makeVariables(e);
 
-
         // baseline selection
         if (baselineSel)
         {
@@ -63,7 +62,14 @@ void MakeVariablesMain::Terminate()
         std::cout << "--------\n";
         std::cout << "now comes to add Runs tree stage\n";
         TChain chain2("Runs");
-        chain2.Add(m_inputDir + "outTree*.root");
+        if (!m_isRun3)
+        {
+            chain2.Add(m_inputDir + "outTree*.root");
+        }
+        else
+        {
+            chain2.Add(m_inputDir + "tree*.root");
+        }
         // chain2.Merge(m_output, 2000);
         TTree *Runs = chain2.CloneTree();
         Runs->SetDirectory(m_output);

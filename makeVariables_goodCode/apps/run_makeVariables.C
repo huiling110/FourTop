@@ -6,13 +6,14 @@
 #include "TChain.h"
 
 #include "../include/makeVariablesMain.h"
-// #include "../include/usefulFunc.h"
+#include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
     // TString inputDir = "ttZ",
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/ReReco2022PreEE/v1newCrab/mc/",
     // TString inputDir = "TTto2L2Nu",
     TString inputDir = "TTto4Q",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
@@ -20,7 +21,7 @@ void run_objectSelection(
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
-    Int_t numEntries = 100000)
+    Int_t numEntries = 10000)
 {
     TStopwatch t;
     t.Start();
