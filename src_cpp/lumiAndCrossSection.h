@@ -15,7 +15,7 @@ inline const std::map<TString, Double_t> lumiMap = {
     {"2016", 36310},
     {"2017", 41480.0},
     {"2018", 59830.0},
-    {"2022", 	3055}, //!!! only for 2022G
+    {"2022", 	9600}, //!!! only for 2022G
 };
 
 inline const std::map<TString, Double_t> crossSectionMap = {
