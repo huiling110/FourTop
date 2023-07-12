@@ -73,7 +73,8 @@ import usefulFunc as uf
 
 def main():
     year = '2022'
-    inVersion = 'v0Testing'
+    # inVersion = 'v0Testing'
+    inVersion = 'v1newCrab'
     outVersion = 'v0NewMV'
     
     isRun3 = True
@@ -126,7 +127,8 @@ def getInOutDic( year, inVersion, outVersion, justMC ):
         '2016preVFP': 'UL2016_preVFP',
         '2017': 'UL2017',
         '2018': 'UL2018',
-        '2022': 'Prompt2022',
+        # '2022': 'Prompt2022',
+        '2022': 'ReReco2022PreEE'
     }
     inOutDirMap = {}
 #python dict
