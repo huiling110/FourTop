@@ -12,8 +12,11 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
-        Double_t genWeight = **e->genWeight;
-        m_cutflow->Fill(0., genWeight);
+        Double_t genWeight = 1.0;
+        if(!m_isData){
+            genWeight = **e->genWeight;
+        }
+        TTTT::fillHist(m_cutflow, 0., genWeight, m_isData);
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))

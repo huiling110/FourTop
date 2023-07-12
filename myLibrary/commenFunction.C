@@ -59,4 +59,12 @@ namespace TTTT
         return isRun3;
     }
 
+    void fillHist(TH1D*& hist, Double_t value, Double_t weight, Bool_t isData){
+        if( !isData){
+            hist->Fill(value, weight);
+        }else{
+            hist->Fill(value);
+        }
+    }
+
 }
