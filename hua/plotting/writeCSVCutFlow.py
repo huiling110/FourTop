@@ -3,14 +3,21 @@ import ROOT
 
 def main():
     osDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/ReReco2022PreEE/v1newCrab/'
+   
+   
+    proHistDic = {}  
+    getCutFlowForDir(osDir+'mc/', proHistDic)
+    getCutFlowForDir(osDir+'data/', proHistDic)
+    print(proHistDic)    
     
-    mcDir = osDir+'mc/'
-    for ipro in os.listdir(osDir+'mc/'):
+def getCutFlowForDir(indir, proHistDic):
+    # mcDir = osDir+'mc/'
+    for ipro in os.listdir(indir):
         print(ipro)
-        iCutflowHist = getCutFlowHist(mcDir+ipro+'/')
+        iCutflowHist = getCutFlowHist(indir+ipro+'/')
         iCutflowHist.Print()
-        
-        
+        proHistDic[ipro] = iCutflowHist
+     
   
 def getCutFlowHist(dir):
     print('getting cutflow hist for: ', dir)
