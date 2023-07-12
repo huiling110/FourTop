@@ -77,7 +77,7 @@ Double_t baseWeightCal(event *e, const Bool_t isRun3 )
     }
     else
     {
-        basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v();
+        basicWeight = e->EVENT_genWeight.v();
     }
     return basicWeight;
 }

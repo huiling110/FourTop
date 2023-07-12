@@ -137,7 +137,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
-        if ('singleMu' in ifileName) or ('jetHT' in ifileName) or ('JetMET' in ifileName):
+        if ('singleMu' in ifileName) or ('jetHT' in ifileName) or ('JetMet' in ifileName) or ('JetHT' in ifileName):
             isdata = True
         else:
             isdata = False

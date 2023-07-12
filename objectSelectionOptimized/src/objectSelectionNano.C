@@ -12,7 +12,8 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
-        m_cutflow->Fill(0 );
+        Double_t genWeight = **e->genWeight;
+        m_cutflow->Fill(0., genWeight);
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))
@@ -25,14 +26,14 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         {
             continue;
         }
-        m_cutflow->Fill(1);
+        m_cutflow->Fill(1., genWeight);
 
         // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
         {
             continue; // contains event selection!!!
         }
-        m_cutflow->Fill(2);
+        m_cutflow->Fill(2. , genWeight);
 
         muSel.Select(e);
         eleMVASel.Select(e);
@@ -79,7 +80,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;
         }
-        m_cutflow->Fill(3);
+        m_cutflow->Fill(3., genWeight);
 
         m_outTree->Fill();
     };
