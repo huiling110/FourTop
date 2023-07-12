@@ -84,7 +84,7 @@ def getInputOutDir( jobVersionName, era):
         '2017': 'UL2017',
         '2018': 'UL2018',
         '13p6TeV/2022':'Prompt2022',
-        '2022_13p6/NanoPost': 'ReReco2022',
+        '2022_13p6/NanoPost': 'ReReco2022PreEE',
     }
     inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
