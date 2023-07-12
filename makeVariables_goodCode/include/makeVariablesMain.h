@@ -24,7 +24,7 @@ class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
-    MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_processName{processName}
+    MakeVariablesMain(TString inputDir, TString outDir, TString processName) : m_inputDir{inputDir}, m_processName{processName}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
 

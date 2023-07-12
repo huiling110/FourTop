@@ -27,12 +27,8 @@ void run_objectSelection(
     t.Start();
 
     TString inputDir1 = inputBase + inputDir + "/";
-    TChain *chain = new TChain("tree");
-    chain->Add(inputDir1 + "outTree*.root");
-    std::cout << "all entries in chain: " << chain->GetEntries() << "\n";
-    std::cout << "all trees in chain: " << chain->GetNtrees() << "\n";
     TString processName = inputDir;
-    MakeVariablesMain mv(inputDir1, chain, outputDir, processName);
+    MakeVariablesMain mv(inputDir1, outputDir, processName);
     mv.EventLoop(kTRUE, numEntries);
     mv.Terminate();
 
