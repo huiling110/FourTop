@@ -41,7 +41,6 @@ public:
             m_reader.SetTree(m_tree);
             e = new eventForNano(m_reader);
             TString temp = inputDir(0, inputDir.Last('/'));
-            // std::cout<<temp<<"\n";
             m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
             // set up output
