@@ -35,7 +35,7 @@ void WH_forDataMC::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 100000;
+        allEvent = 10000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -93,6 +93,7 @@ void WH_forDataMC::Terminate()
     {
         Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+        std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
         jets_HT_class.scale(processScale);
     };
     jets_HT_class.print();

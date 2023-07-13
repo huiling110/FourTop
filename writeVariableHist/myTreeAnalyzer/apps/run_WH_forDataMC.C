@@ -11,16 +11,16 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
     // TString process = "tttt",
     // TString process = "tZ",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/",
-    // TString process = "TTto4Q",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/",
+    TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/data/",
-    TString process = "JetMet2022D",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/data/",
+    // TString process = "JetMet2022D",
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/makeVariables_goodCode/output/"
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
-    // Bool_t isTest = kTRUE)
-Bool_t isTest = kFALSE)
+    Bool_t isTest = kTRUE)
+// Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;

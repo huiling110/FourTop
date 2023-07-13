@@ -79,6 +79,7 @@ def getCutFlowHist(dir,proName, isData=False):
         rootf.Close()
         count+=1
     scaleHist(summedHist, proName, summedSumWeight, '2022', isData) 
+    print('\n')
     
     return summedHist
 
