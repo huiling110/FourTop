@@ -111,7 +111,6 @@ void objectSelection::Terminate()
     }
 
     //scale cutflow hist
-    // TString processName = 
     if(!m_isData){
         Double_t genWeightSum = TTTT::getGenSum(m_input->GetName());
         // std::cout<<genWeightSum<<"\n";
