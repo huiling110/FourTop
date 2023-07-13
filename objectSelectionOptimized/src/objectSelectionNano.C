@@ -111,12 +111,13 @@ void objectSelection::Terminate()
     }
 
     //scale cutflow hist
-    if(!m_isData){
-        Double_t genWeightSum = TTTT::getGenSum(m_input->GetName());
-        // std::cout<<genWeightSum<<"\n";
-        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
-        m_cutflow->Scale(processScale);
-    }
+    //!!!I don't think we can scale individial tree like this
+    // if(!m_isData){
+    //     Double_t genWeightSum = TTTT::getGenSum(m_input->GetName());
+    //     // std::cout<<genWeightSum<<"\n";
+    //     Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+    //     m_cutflow->Scale(processScale);
+    // }
 
 
     m_output->Write();

@@ -59,6 +59,7 @@ def getDataFrameFromHistDic(histDic):
 def getCutFlowForDir(indir, proHistDic):
     # mcDir = osDir+'mc/'
     for ipro in os.listdir(indir):
+        if ipro=='results': continue
         print(ipro)
         iCutflowHist = getCutFlowHist(indir+ipro+'/')
         iCutflowHist.Print()
