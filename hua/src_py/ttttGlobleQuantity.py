@@ -7,7 +7,7 @@ lumiMap = {
     "2017": 41480.0,
     "2018": 59830.0,
     "Run2" : 137620.0,
-    "2022": 3055.0,  
+    "2022": 9600,  
 }
 
 
@@ -205,6 +205,12 @@ samplesCrossSection = {
     "WJetsToLNu_HT-800To1200": 5.77,
     "WJetsToLNu_HT-1200To2500": 1.023,
     "WJetsToLNu_HT-2500ToInf": 0.0248,
+    
+    
+    #2022
+    "TTto2L2Nu": 762.1,
+    "TTtoLNu2Q": 762.1,
+    "TTto4Q": 741.8	,
 }
 
 
