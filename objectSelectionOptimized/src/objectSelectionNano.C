@@ -109,6 +109,10 @@ void objectSelection::Terminate()
         runsForOut->SetDirectory(m_output);
     }
 
+    //scale cutflow hist
+    // TString processName = 
+
+
     m_output->Write();
     m_output->Close();
 

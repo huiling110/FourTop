@@ -40,6 +40,9 @@ public:
             // m_reader = TTreeReader(m_tree);
             m_reader.SetTree(m_tree);
             e = new eventForNano(m_reader);
+            TString temp = inputDir(0, inputDir.Last('/'));
+            // std::cout<<temp<<"\n";
+            m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
             // set up output
             TString outName = outputDir + singleFileName;
@@ -47,8 +50,7 @@ public:
             m_outTree->SetDirectory(m_output);
 
             // set up
-            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3
-                      << "\n";
+            std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3<<"  m_processName="<<m_processName<< "\n";
 
             //
             m_cutflow->SetDirectory(m_output);
@@ -80,6 +82,7 @@ private:
     Bool_t m_isData;
     TString m_era;
     Bool_t m_isRun3 = kFALSE;
+    TString m_processName = "default";
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era}; //!!!
     METFilter metFilter{m_era};                       //!!! for run3
