@@ -1,5 +1,6 @@
 #include "../include/objectSelectionNano.h"
 #include "../include/usefulFunc.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 
 void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
 {
@@ -112,7 +113,10 @@ void objectSelection::Terminate()
     //scale cutflow hist
     // TString processName = 
     if(!m_isData){
-        Double_t genWeightSum = TTTT::getGenSum(m_input.GetName());
+        Double_t genWeightSum = TTTT::getGenSum(m_input->GetName());
+        // std::cout<<genWeightSum<<"\n";
+        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+        m_cutflow->Scale(processScale);
     }
 
 
