@@ -208,9 +208,12 @@ samplesCrossSection = {
     
     
     #2022
-    "TTto2L2Nu": 762.1,
-    "TTtoLNu2Q": 762.1,
-    "TTto4Q": 741.8	,
+    # "TTto2L2Nu": 762.1,
+    # "TTtoLNu2Q": 762.1,
+    # "TTto4Q": 741.8	,
+    "TTto2L2Nu": 97.8, #!!!to be updated, calculated with the same BR as 13TeV
+    "TTtoLNu2Q": 404, #
+    "TTto4Q": 377.96, #
 }
 
 
