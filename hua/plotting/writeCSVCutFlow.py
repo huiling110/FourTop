@@ -66,7 +66,7 @@ def getCutFlowForDir(indir, proHistDic):
         proHistDic[ipro] = iCutflowHist
      
   
-def getCutFlowHist(dir):
+def getCutFlowHist(dir, proName):
     print('getting cutflow hist for: ', dir)
     summedHist = ROOT.TH1D()
     count = 0
@@ -82,8 +82,11 @@ def getCutFlowHist(dir):
             summedHist.Add(iHist)
         rootf.Close()
         count+=1
+    scaleHist(summedHist, proName) 
     return summedHist
-       
+      
+def scaleHist(summedHist, proName):
+     
    
 if __name__=='__main__':
     main() 
