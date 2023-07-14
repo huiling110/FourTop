@@ -8,12 +8,12 @@
 #include "TFile.h"
 #include "TTree.h"
 
+#include "histsForRegionsMap_class.h"
+
 // common functions for WH
 
 Double_t getGenSum(TString inputFile);
-// TString getEra(TString inputDir);
-// Bool_t getIsData(TString inputDir);
-// void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll);
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll);
 
+void histRegionVectFill( std::vector<histForRegionsBase *> &histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData = kFALSE);
 #endif

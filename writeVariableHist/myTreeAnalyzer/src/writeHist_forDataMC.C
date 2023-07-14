@@ -29,6 +29,10 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(&jets_1pt_class);
     histsForRegion_vec.push_back(&jets_num_class);
 
+    for(auto & histRe: histsForRegion_vec){
+        histRe->print();
+    }
+
     // jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
 
@@ -65,6 +69,7 @@ void WH_forDataMC::LoopTree()
             Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
             jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
+            // histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
         }
 
         // 1tau0l CR
