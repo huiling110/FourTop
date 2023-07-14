@@ -59,8 +59,7 @@ public:
         std::cout << "m_branch" << m_branch->n() << "\n";
     };
 
-    ~histsForRegionsMap(){
-
+    virtual ~histsForRegionsMap(){
     };
 
     // void setHistsMap(const std::vector<TString> &regions);
@@ -91,7 +90,7 @@ public:
 //         m_histsVector[iRegion]->Fill(value, weight);
 //     }
 // }
-void fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t isData)
+virtual void fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t isData)
 {
     if (ifFill && isData)
     {
