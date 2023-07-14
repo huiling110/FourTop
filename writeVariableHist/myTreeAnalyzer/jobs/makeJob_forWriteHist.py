@@ -60,7 +60,8 @@ def main():
     # channel = 1 
     
     #run3
-    version = 'v0allRegions'
+    # version = 'v0allRegions'
+    version = 'v1dataMC'
     
     
     justMC = False

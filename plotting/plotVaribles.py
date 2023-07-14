@@ -41,7 +41,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0BDT_SR30Bins/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/mc/variableHists_v0allRegions/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v0allRegions/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v0allRegions/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v1dataMC/'
     isRun3 = True
 
     # for 1tau1l
@@ -54,8 +55,8 @@ def main():
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
-    # regionList = ['1tau1lCR2']
-    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lCR2']
+    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
     ifFR_sys = False
     plotName = 'dataVsMCNew'
@@ -250,12 +251,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
     setTDRStyle()
+    
     canvasName = '{}_{}'.format( region, name )
-    canvy = TCanvas( canvasName, canvasName, 1000,800)
-    # canvy = TCanvas( canvasName, canvasName, 1000,1000)
+    # canvy = TCanvas( canvasName, canvasName, 1000,800)
+    canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
     canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
+    # if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
+    if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
     colourPerSample = {
         'tttt':kBlue,
@@ -269,11 +272,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         'fakeTau': TColor.GetColor("#fec44f"),
     }
 
-    doSystmatic = False
-    for ipro in systHists.keys():
-        if systHists[ipro]:
-            doSystmatic = True
-    print( 'doSystmatic: ', doSystmatic )
+    doSystmatic = ifDoSystmatic( systHists)
 
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list
@@ -459,7 +458,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
 
-
+def ifDoSystmatic(systHists):
+    doSystmatic = False
+    for ipro in systHists.keys():
+        if systHists[ipro]:
+            doSystmatic = True
+    print( 'doSystmatic: ', doSystmatic )
+    return doSystmatic
     
 
 
