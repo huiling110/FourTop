@@ -24,15 +24,18 @@ void WH_forDataMC::Init()
 
     // histsForRegionsMap<Double_t> jets_1pt_class{"jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 40, 700, regionsForVariables, &(e->jets_1pt)};
     // std::make_shared<histsForRegionsMap<Double_t>> jets_1pt_class{"jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 40, 700, regionsForVariables, &(e->jets_1pt)};
-    histsForRegionsMap<Double_t> jets_bScore_class{"jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore)};
-    histsForRegionsMap<Int_t> jets_num_class{"jets_number", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num)};
+    // histsForRegionsMap<Double_t> jets_bScore_class{"jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore)};
+    // histsForRegionsMap<Int_t> jets_num_class{"jets_number", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num)};
 
-     std::shared_ptr<histsForRegionsMap<Double_t>> jets_1pt_class =std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 40, 700, regionsForVariables, &(e->jets_1pt) );
-    // histsForRegion_vec.push_back(std::make_shared<histsForRegionsMap<Double_t>>jets_1pt_class);
-    // histsForRegion_vec.push_back(&jets_num_class);
+    using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
+    using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
+    std::shared_ptr<histsForRegionsMap<Double_t>> jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 40, 700, regionsForVariables, &(e->jets_1pt));
+    SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
+    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_number", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     //I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
-    // histsForRegion_vec.push_back(jets_num_class);
+    histsForRegion_vec.push_back(jets_bScore_class);
+    histsForRegion_vec.push_back(jets_num_class);
 
     for(auto & histRe: histsForRegion_vec){
         histRe->print();
@@ -77,8 +80,7 @@ void WH_forDataMC::LoopTree()
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
             // histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             for (auto& obj : histsForRegion_vec){
-                // obj->print();
-                obj->fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData); //???not running???
+                obj->fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData); 
             }
         }
 
