@@ -43,6 +43,7 @@ void WH_forDataMC::Init()
 
     // jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);
+    histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
     std::cout << "Done initializing\n";
     std::cout << "\n";
@@ -78,9 +79,6 @@ void WH_forDataMC::LoopTree()
             jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
-            // for (auto& obj : histsForRegion_vec){
-            //     obj->fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData); 
-            // }
         }
 
         // 1tau0l CR

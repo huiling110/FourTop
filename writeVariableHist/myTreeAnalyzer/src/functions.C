@@ -62,6 +62,8 @@ void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>>& histFo
     }
 }
 
-// void histRegionsVectSetDir(){
-
-// }
+void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, TFile*& file){
+    for (auto& obj : histForRegion_vec){
+        obj->setDir(file);
+    }
+}

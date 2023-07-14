@@ -17,4 +17,6 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
 
 void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData );
 
+void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, TFile*& file);
+
 #endif
