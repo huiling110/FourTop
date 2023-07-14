@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <variant>
+#include <memory>
 
 #include "TString.h"
 #include "TFile.h"
@@ -65,7 +66,7 @@ private:
     // hists regions
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>
-    std::vector<histForRegionsBase*> histsForRegion_vec;
+    std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;
 
 
 };
