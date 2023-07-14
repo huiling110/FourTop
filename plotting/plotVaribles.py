@@ -260,58 +260,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
     if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
-    colourPerSample = {
-        'tttt':kBlue,
-        'tt': TColor.GetColor("#f03b20"),
-        'qcd': TColor.GetColor("#ffeda0"),
-        'ttX': TColor.GetColor("#fc9272"),
-        'singleTop': TColor.GetColor("#91bfdb"),
-        'VV': TColor.GetColor("#edf8b1"),
-        'WJets': TColor.GetColor("#998ec3"),
-        # 'fakeTau': TColor.GetColor("#ffeda0"),
-        'fakeTau': TColor.GetColor("#fec44f"),
-    }
 
     doSystmatic = ifDoSystmatic( systHists)
 
-    #here we get dataHist and add all MC for sumHist    
-    keyList = list(nominal.keys()) #process list
-    sumHist = nominal[keyList[0]].Clone()
-    sumHist.Reset()
-    systsUp = nominal[keyList[0]].Clone("systsUp")
-    systsUp.Reset()
-    systsDown = nominal[keyList[0]].Clone("systsDown")
-    systsDown.Reset()
-    dataHist = 0
-    hasDataHist = True
-    if not 'jetHT' in nominal.keys():
-        hasDataHist = False
-    for i in nominal.keys():
-        # i is i summed MC
-        if i == "jetHT" and hasDataHist:
-            dataHist = nominal["jetHT"]
-            dataHist.SetMarkerStyle(20)
-            dataHist.SetMarkerSize(1.2)
-            dataHist.SetMarkerColor(kBlack)
-            dataHist.SetLineColor(kBlack)
-            continue
-        if ifFakeTau and i=='qcd': 
-            continue
-        if i == 'tttt' or i=='singleMu':
-            continue
-        nominal[i].SetFillColor(colourPerSample[i])
-        nominal[i].SetLineColor(kBlack)
-        nominal[i].SetLineWidth(1)
-        nominal[i].GetXaxis().SetLabelSize(0.01)
-        # nominal[i].GetXaxis().SetTitle(name)
-        sumHist.Add(nominal[i]) #sumHist is bg+signal
-        #???need systsUp and systsDown calculation
-        if doSystmatic and  systHists[i]:
-            # tempUp,tempDown = getSystVariation_my(nominal[i],systHists[i] ) #for i process
-            print('cal sys for: ', i)
-            tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
-            systsUp.Add(tempUp) #adding various processes, 
-            systsDown.Add(tempDown)
+    dataHist, systsUp, systsDown, sumHist, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
 
     #add sytematic uncertainty
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
@@ -321,7 +273,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
-
 
 
     #add bgs for stack
@@ -466,6 +417,56 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
+def getHists(nominal, systHists, doSystmatic, ifFakeTau):
+    #here we get dataHist and add all MC for sumHist    
+    keyList = list(nominal.keys()) #process list
+    colourPerSample = {
+        'tttt':kBlue,
+        'tt': TColor.GetColor("#f03b20"),
+        'qcd': TColor.GetColor("#ffeda0"),
+        'ttX': TColor.GetColor("#fc9272"),
+        'singleTop': TColor.GetColor("#91bfdb"),
+        'VV': TColor.GetColor("#edf8b1"),
+        'WJets': TColor.GetColor("#998ec3"),
+        # 'fakeTau': TColor.GetColor("#ffeda0"),
+        'fakeTau': TColor.GetColor("#fec44f"),
+    }
+    
+    sumHist = nominal[keyList[0]].Clone()
+    sumHist.Reset()
+    systsUp = nominal[keyList[0]].Clone("systsUp")
+    systsUp.Reset()
+    systsDown = nominal[keyList[0]].Clone("systsDown")
+    systsDown.Reset()
+    dataHist = 0
+    hasDataHist = True
+    if not 'jetHT' in nominal.keys():
+        hasDataHist = False
+    for i in nominal.keys():
+        # i is i summed MC
+        if i == "jetHT" and hasDataHist:
+            dataHist = nominal["jetHT"].Clone()
+            dataHist.SetMarkerStyle(20)
+            dataHist.SetMarkerSize(1.2)
+            dataHist.SetMarkerColor(kBlack)
+            dataHist.SetLineColor(kBlack)
+            continue
+        if ifFakeTau and i=='qcd': 
+            continue
+        if i == 'tttt' or i=='singleMu':
+            continue
+        nominal[i].SetFillColor(colourPerSample[i])
+        nominal[i].SetLineColor(kBlack)
+        nominal[i].SetLineWidth(1)
+        nominal[i].GetXaxis().SetLabelSize(0.01)
+        sumHist.Add(nominal[i]) #sumHist is all bg
+        if doSystmatic and  systHists[i]:
+            print('cal sys for: ', i)
+            tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
+            systsUp.Add(tempUp) #adding various processes, 
+            systsDown.Add(tempDown)
+            
+    return dataHist, systsUp, systsDown, sumHist, hasDataHist 
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
