@@ -1,6 +1,7 @@
-#include "../include/histsForRegionsMap_class.h"
+// #include "../include/histsForRegionsMap_class.h"
 
-void histsForRegionsMap::setHistsMap(const std::vector<TString> &regions)
+template <typename T>
+void histsForRegionsMap<T>::setHistsMap(const std::vector<TString> &regions)
 {
     for (UInt_t i = 0; i < regions.size(); i++)
     {
@@ -11,7 +12,7 @@ void histsForRegionsMap::setHistsMap(const std::vector<TString> &regions)
         m_histsVector[regions[i]] = temp;
     }
 }
-void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill, Bool_t isData)
+void histsForRegionsMap<T>::fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill, Bool_t isData)
 {
     if (ifFill && isData)
     {
@@ -22,7 +23,7 @@ void histsForRegionsMap::fillHistVec(TString iRegion, Double_t value, Double_t w
         m_histsVector[iRegion]->Fill(value, weight);
     }
 }
-void histsForRegionsMap::fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t isData)
+void histsForRegionsMap<T>::fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t isData)
 {
     if (ifFill && isData)
     {
@@ -34,7 +35,7 @@ void histsForRegionsMap::fillHistVec(TString iRegion, Double_t weight, Bool_t if
     }
 }
 
-void histsForRegionsMap::print()
+void histsForRegionsMap<T>::print()
 {
     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
     {
@@ -43,7 +44,7 @@ void histsForRegionsMap::print()
     }
 }
 
-void histsForRegionsMap::setDir(TFile *file)
+void histsForRegionsMap<T>::setDir(TFile *file)
 {
     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
     {
@@ -51,7 +52,7 @@ void histsForRegionsMap::setDir(TFile *file)
     }
 }
 
-void histsForRegionsMap::scale(Double_t scale)
+void histsForRegionsMap<T>::scale(Double_t scale)
 {
     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
     {
@@ -59,6 +60,6 @@ void histsForRegionsMap::scale(Double_t scale)
     }
 }
 
-histsForRegionsMap::~histsForRegionsMap(){
+histsForRegionsMap<T>::~histsForRegionsMap<T>(){
     // delete m_histsVector;
 }

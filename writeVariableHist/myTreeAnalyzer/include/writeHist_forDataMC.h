@@ -63,7 +63,7 @@ private:
     event *e;
 
     // hists regions
-    histsForRegionsMap jets_HT_class; // calls for default constructor
+    histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>
 };
 

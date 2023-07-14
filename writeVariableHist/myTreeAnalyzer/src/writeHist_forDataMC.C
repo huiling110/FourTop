@@ -20,7 +20,7 @@ void WH_forDataMC::Init()
     // regions for hists
     std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
 
-    jets_HT_class = histsForRegionsMap("jets_HT", "HT(GeV)", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_HT));
+    jets_HT_class = histsForRegionsMap<Double_t>("jets_HT", "HT(GeV)", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_HT));
 
     // jets_HT_class.print();
     jets_HT_class.setDir(m_outFile);

@@ -62,7 +62,8 @@ void treeAnalyzer::Init()
 
         std::cout << "initializing for 1tau1l\n";
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-        SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
+        // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
 
         // book MVA reader
         TString variableList = BDTTrainingMap[m_era].at(0);
@@ -87,7 +88,8 @@ void treeAnalyzer::Init()
     }else if(m_channel==1){
 
         std::cout << "1tau0l \n";
-        SR1tau1lSys = histsForRegionsMap("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 20, 0, 4.5, sysRegions);
+        // SR1tau1lSys = histsForRegionsMap("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 20, 0, 4.5, sysRegions);
+        SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 20, 0, 4.5, sysRegions);
 
     }else{
         std::cout << "WARNING!! channel not spefified\n";

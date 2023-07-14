@@ -73,7 +73,8 @@ private:
     std::vector<std::variant<Int_t, Double_t>> variablesOriginAll;
 
     // hists regions
-    histsForRegionsMap SR1tau1lSys; // calls for default constructor
+    // histsForRegionsMap<Double_t> SR1tau1lSys; // calls for default constructor
+    histForRegionsBase SR1tau1lSys; // calls for default constructor
 };
 
 #endif
