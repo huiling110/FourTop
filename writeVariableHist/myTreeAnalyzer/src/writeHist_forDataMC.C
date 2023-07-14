@@ -79,6 +79,7 @@ void WH_forDataMC::LoopTree()
             jets_HT_class.fillHistVec("1tau0lSR", basicWeight, is1tau0lSR, m_isData);
             jets_HT_class.fillHistVec("1tau1lSR", basicWeight, is1tau1lSR, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
+            histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
         }
 
         // 1tau0l CR
@@ -92,6 +93,11 @@ void WH_forDataMC::LoopTree()
         jets_HT_class.fillHistVec("1tau0lCRc", basicWeight, is1tau0lCRc, m_isData);
         jets_HT_class.fillHistVec("1tau0lCRb", basicWeight, is1tau0lCRb, m_isData);
         jets_HT_class.fillHistVec("1tau0lCRa", basicWeight, is1tau0lCRa, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRa, "1tau0lCRa", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
 
         // 1tau1lCR
         Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
@@ -102,6 +108,10 @@ void WH_forDataMC::LoopTree()
         jets_HT_class.fillHistVec("1tau1lCR1", basicWeight, is1tau1lCR1, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR2", basicWeight, is1tau1lCR2, m_isData);
         jets_HT_class.fillHistVec("1tau1lCR3", basicWeight, is1tau1lCR3, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR0", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau1lCR1, "1tau1lCR1", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau1lCR3, "1tau1lCR3", basicWeight, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
@@ -116,8 +126,12 @@ void WH_forDataMC::Terminate()
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
         jets_HT_class.scale(processScale);
+        histRegionsVectScale(histsForRegion_vec, processScale);
     };
     jets_HT_class.print();
+    for(auto & histRe: histsForRegion_vec){
+        histRe->print();
+    }
 
     m_outFile->Write();
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";

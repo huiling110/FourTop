@@ -67,3 +67,8 @@ void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>>& his
         obj->setDir(file);
     }
 }
+void histRegionsVectScale(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, Double_t scale){
+    for (auto& obj : histForRegion_vec){
+        obj->scale(scale);
+    }
+}
