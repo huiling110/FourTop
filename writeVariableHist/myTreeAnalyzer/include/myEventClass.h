@@ -130,6 +130,7 @@ public:
     myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
     myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
+    myBranch<Double_t> jets_1pt{"jets_1pt"};
     // myBranch<Double_t>{""};
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
