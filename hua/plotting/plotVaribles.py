@@ -1,7 +1,6 @@
 
 import math
 import os
-# import sys
 from array import array
 
 import numpy as np
@@ -89,7 +88,6 @@ def main():
     sumProcessPerVar = {}
     sumProcessPerVarSys = {}
     for ivar in variables:
-        # sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar )       
         sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar , False, era, False, isRun3)       
     print( sumProcessPerVar )
     print( sumProcessPerVarSys )
@@ -107,7 +105,6 @@ def main():
         print('has fake')
         for ivar in sumProcessPerVar:
             replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
-            # replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 1 )
         legendOrder.remove('qcd')
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
