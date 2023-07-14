@@ -64,6 +64,7 @@ private:
 
     // hists regions
     histsForRegionsMap jets_HT_class; // calls for default constructor
+    // std::vector<histsForRegionsMap>
 };
 
 #endif
