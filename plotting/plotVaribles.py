@@ -383,27 +383,16 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
     
     #legend
-    #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    # leggy = TLegend(0.8,0.7,0.9,0.94)
-    # leggy = TLegend(0.68,0.8,0.92,0.94)
-    # leggy = TLegend(0.6,0.75,0.92,0.94)
-    # leggy.SetNColumns(2) 
-    # leggy.SetFillStyle(1001)
-    # leggy.SetBorderSize(1)
-    # leggy.SetFillColor(0)
-    # leggy.SetLineColor(0)
-    # leggy.SetShadowColor(0)
-    # leggy.SetFillColor(kWhite)
-    # # if "data" in nominal.keys():
-    # if "jetHT" in nominal.keys():
-    #     # leggy.AddEntry(nominal['data'],"Data","p")
-    #     leggy.AddEntry(nominal['jetHT'],"Data","p")
-    # for entry in legendOrder:
-    #     leggy.AddEntry(nominal[entry],entry,"f")
-    # leggy.AddEntry(assymErrorPlot,"totalUncer","f")
-    # signalEntry = 'tttt*{}'.format(signalScale)
-    # leggy.AddEntry( signal, signalEntry, 'l')
-    # leggy.Draw()
+    leggy =  getLegend(nominal, assymErrorPlot, signal, signalScale, legendOrder)
+    # leggy.SetNColumns(4) 
+    leggy.SetNColumns(2) 
+    leggy.SetFillStyle(1001)
+    leggy.SetBorderSize(1)
+    leggy.SetFillColor(0)
+    leggy.SetLineColor(0)
+    leggy.SetShadowColor(0)
+    leggy.SetFillColor(kWhite)
+    leggy.Draw()
     
     #text above the plot
     ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     
@@ -414,6 +403,20 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
+    
+def getLegend(nominal, assymErrorPlot, signal, signalScale, legendOrder):
+    # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
+    leggy = TLegend(0.2,0.82,0.90,0.90)
+    if "jetHT" in nominal.keys():
+        leggy.AddEntry(nominal['jetHT'],"Data","p")
+    for entry in legendOrder:
+        leggy.AddEntry(nominal[entry],entry,"f")
+    leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
+    signalEntry = 'tttt*{}'.format(signalScale)
+    leggy.AddEntry( signal, signalEntry, 'l')
+    return leggy
+   
+    
 
 def ifDoSystmatic(systHists):
     doSystmatic = False
