@@ -408,14 +408,19 @@ def getLegend(nominal, assymErrorPlot, signal, signalScale, legendOrder):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     leggy = TLegend(0.2,0.82,0.90,0.90)
     if "jetHT" in nominal.keys():
-        leggy.AddEntry(nominal['jetHT'],"Data","p")
+        leggy.AddEntry(nominal['jetHT'],"Data[{:.1f}]".format(getIntegral(nominal['jetHT'])),"p")
     for entry in legendOrder:
-        leggy.AddEntry(nominal[entry],entry,"f")
+        legText = '{}[{:.1f}]'.format(entry, getIntegral(nominal[entry]))
+        # leggy.AddEntry(nominal[entry],entry,"f")
+        leggy.AddEntry(nominal[entry], legText,"f")
     leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
     signalEntry = 'tttt*{}'.format(signalScale)
     leggy.AddEntry( signal, signalEntry, 'l')
     return leggy
-   
+  
+def getIntegral(histogram):
+    integral = histogram.Integral(0, histogram.GetNbinsX() + 1, "overflow") 
+    return integral
     
 
 def ifDoSystmatic(systHists):
