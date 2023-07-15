@@ -259,7 +259,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy.cd()
     if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
-
     doSystmatic = ifDoSystmatic( systHists)
 
     dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
