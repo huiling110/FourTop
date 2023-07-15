@@ -143,6 +143,8 @@ def setMyStyle():
 
   myStyle.SetPadBorderMode(0)
   myStyle.SetPadColor(ROOT.kWhite)
+  myStyle.SetPadGridX(ROOT.kFALSE)
+  myStyle.SetPadGridY(ROOT.kTRUE) 
 
   myStyle.SetFrameBorderMode(0)
   myStyle.SetFrameBorderSize(1)
