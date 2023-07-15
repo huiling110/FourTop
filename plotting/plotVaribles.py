@@ -255,15 +255,15 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # tdrStyle = setTDRStyle()
     # tdrStyle.cd()
     myStyle = ss.setMyStyle()
-    myStyle.cd()
+    myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
     # canvy = TCanvas( canvasName, canvasName, 1000,800)
     canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
     #it seems text size  is scaled to pad size
-    upPad = TPad('up', 'up', 0, 0., 1, 0.95)
-    downPad = TPad('down', 'down', 0., 0, 1, 0.95)
+    upPad = TPad('up', 'up', 0, 0., 1, 1)
+    downPad = TPad('down', 'down', 0., 0, 1, 1)
     upPad.SetBottomMargin(0.3)
     downPad.SetTopMargin(0.72)
     # downPad.SetBottomMargin(0.2)
@@ -304,7 +304,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
-    # stack.GetXaxis().SetLabelSize(0.0)
+    stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle("Events")
     # stack.GetYaxis().SetTitleOffset(1.3)
     # stack.GetYaxis().SetLabelSize(0.04)
@@ -346,6 +346,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # SetOwnership(ratioCanvy,False)
 
     downPad.cd()
+    # myStyle.cd()
+    print('x tile: ', gStyle.GetTitleSize("X"))
     
     # downPad.Draw()
     # tdrStyle.cd()
@@ -366,12 +368,11 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # sumHistoData.SetMaximum(1.2)
     sumHistoData.SetMaximum(1.5)
     sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-    # sumHistoData.GetXaxis().SetTitleOffset(1.08)
-    # sumHistoData.GetXaxis().SetLabelSize(0.04)
-    # sumHistoData.GetXaxis().SetTitleSize(0.12)
+    sumHistoData.GetXaxis().SetLabelSize(0.04)
+    sumHistoData.GetXaxis().SetTitleSize(0.06)
     sumHistoData.GetYaxis().SetNdivisions(6)
-    # sumHistoData.GetYaxis().SetTitleSize(0.05)
-    # sumHistoData.GetYaxis().SetLabelSize(0.03)
+    sumHistoData.GetYaxis().SetTitleSize(0.05)
+    sumHistoData.GetYaxis().SetLabelSize(0.04)
     sumHistoData.Draw("E1X0")
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
 
@@ -410,6 +411,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy.Update()
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
+    myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
 
