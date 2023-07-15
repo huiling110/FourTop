@@ -7,10 +7,12 @@ import numpy as np
 import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
-from setTDRStyle import addCMSTextToCan, setTDRStyle
+# from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
 from writeCSVforEY import replaceBgWithGen
+
+import setTDRStyle as ss
 
 
 def main():
@@ -250,14 +252,31 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    setTDRStyle()
+    # tdrStyle = setTDRStyle()
+    # tdrStyle.cd()
+    myStyle = ss.setMyStyle()
+    myStyle.cd()
     
     canvasName = '{}_{}'.format( region, name )
     # canvy = TCanvas( canvasName, canvasName, 1000,800)
     canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
-    canvy.cd()
-    if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
+    #it seems text size  is scaled to pad size
+    upPad = TPad('up', 'up', 0, 0., 1, 0.95)
+    downPad = TPad('down', 'down', 0., 0, 1, 0.95)
+    upPad.SetBottomMargin(0.3)
+    downPad.SetTopMargin(0.72)
+    # downPad.SetBottomMargin(0.2)
+    upPad.Draw()
+    # downPad.Draw()
+    downPad.SetFillColor(0)
+    downPad.SetFillStyle(0) #set the empty space to be empty, so that not cover the upPad
+    downPad.SetGridy(1)
+    downPad.Draw()
+    
+    # canvy.cd()
+    upPad.cd() #???cd() pad causing stack to be not accessble???
+    # if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
     doSystmatic = ifDoSystmatic( systHists)
 
@@ -285,18 +304,18 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
-    stack.GetXaxis().SetLabelSize(0.0)
+    # stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle("Events")
-    stack.GetYaxis().SetTitleOffset(1.3)
-    stack.GetYaxis().SetLabelSize(0.04)
-    stack.GetYaxis().SetTitleSize(0.05)
+    # stack.GetYaxis().SetTitleOffset(1.3)
+    # stack.GetYaxis().SetLabelSize(0.04)
+    # stack.GetYaxis().SetTitleSize(0.05)
 
     if includeDataInStack and hasDataHist:
         dataHist.Draw("e0 same")
     else:
-        stack.GetXaxis().SetLabelSize(0.03)
+        # stack.GetXaxis().SetLabelSize(0.03)
         stack.GetXaxis().SetTitle(name)
-        stack.GetXaxis().SetTitleSize(0.04)
+        # stack.GetXaxis().SetTitleSize(0.04)
         
     # signal.Scale(1000)
     signal.Scale(signalScale)
@@ -311,48 +330,54 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
     assymErrorPlot.Draw("e2 SAME")
+    
+    upPad.Update()
 
-    if includeDataInStack:
-        ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
-        ratioCanvy.SetTopMargin(0.7)
-        ratioCanvy.SetBottomMargin(0.8)
-        
-        ratioCanvy.SetFillColor(0)
-        ratioCanvy.SetFillStyle(0)
-        ratioCanvy.SetGridy(1)
-        ratioCanvy.Draw()
-        ratioCanvy.cd(0)
-        SetOwnership(ratioCanvy,False)
+    # if includeDataInStack:
+    # ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
+    # ratioCanvy.SetTopMargin(0.7)
+    # ratioCanvy.SetBottomMargin(0.8)
+    
+    # ratioCanvy.SetFillColor(0)
+    # ratioCanvy.SetFillStyle(0)
+    # ratioCanvy.SetGridy(1)
+    # ratioCanvy.Draw()
+    # ratioCanvy.cd(0)
+    # SetOwnership(ratioCanvy,False)
 
-        # if hasDataHist:
-        # print( 'hist title: ', dataHist.GetTitle())
-        if hasDataHist:
-            sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
-            sumHistoData.Sumw2()
-            sumHistoData.Divide(sumHist)
-        else:
-            sumHistoData = sumHist.Clone() 
-            sumHistoData.Reset()
-        sumHistoData.GetYaxis().SetTitle("Data/pred.")
-        sumHistoData.GetYaxis().SetTitleOffset(1.3)
-        ratioCanvy.cd()
-        SetOwnership(sumHistoData,False)
-        sumHistoData.SetMinimum(0.5)
-        # sumHistoData.SetMaximum(1.2)
-        sumHistoData.SetMaximum(1.5)
-        sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-        sumHistoData.GetXaxis().SetTitleOffset(1.08)
-        sumHistoData.GetXaxis().SetLabelSize(0.04)
-        sumHistoData.GetXaxis().SetTitleSize(0.06)
-        sumHistoData.GetYaxis().SetNdivisions(6)
-        sumHistoData.GetYaxis().SetTitleSize(0.05)
-        sumHistoData.GetYaxis().SetLabelSize(0.03)
-        sumHistoData.Draw("E1X0")
-        assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
+    downPad.cd()
+    
+    # downPad.Draw()
+    # tdrStyle.cd()
+    # if hasDataHist:
+    # print( 'hist title: ', dataHist.GetTitle())
+    if hasDataHist:
+        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
+        sumHistoData.Sumw2()
+        sumHistoData.Divide(sumHist)
+    else:
+        sumHistoData = sumHist.Clone() 
+        sumHistoData.Reset()
+    sumHistoData.GetYaxis().SetTitle("Data/pred.")
+    # sumHistoData.GetYaxis().SetTitleOffset(1.3)
+    # ratioCanvy.cd()
+    # SetOwnership(sumHistoData,False)
+    sumHistoData.SetMinimum(0.5)
+    # sumHistoData.SetMaximum(1.2)
+    sumHistoData.SetMaximum(1.5)
+    sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
+    # sumHistoData.GetXaxis().SetTitleOffset(1.08)
+    # sumHistoData.GetXaxis().SetLabelSize(0.04)
+    # sumHistoData.GetXaxis().SetTitleSize(0.12)
+    sumHistoData.GetYaxis().SetNdivisions(6)
+    # sumHistoData.GetYaxis().SetTitleSize(0.05)
+    # sumHistoData.GetYaxis().SetLabelSize(0.03)
+    sumHistoData.Draw("E1X0")
+    assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
 
-        assymErrorPlotRatio.SetFillStyle(3013)
-        assymErrorPlotRatio.SetFillColor(14) 
-        assymErrorPlotRatio.Draw("e2 same")
+    assymErrorPlotRatio.SetFillStyle(3013)
+    assymErrorPlotRatio.SetFillColor(14) 
+    assymErrorPlotRatio.Draw("e2 same")
 
     
     
@@ -360,27 +385,29 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     # leggy = TLegend(0.8,0.7,0.9,0.94)
     # leggy = TLegend(0.68,0.8,0.92,0.94)
-    leggy = TLegend(0.6,0.75,0.92,0.94)
-    leggy.SetNColumns(2) 
-    leggy.SetFillStyle(1001)
-    leggy.SetBorderSize(1)
-    leggy.SetFillColor(0)
-    leggy.SetLineColor(0)
-    leggy.SetShadowColor(0)
-    leggy.SetFillColor(kWhite)
-    # if "data" in nominal.keys():
-    if "jetHT" in nominal.keys():
-        # leggy.AddEntry(nominal['data'],"Data","p")
-        leggy.AddEntry(nominal['jetHT'],"Data","p")
-    for entry in legendOrder:
-        leggy.AddEntry(nominal[entry],entry,"f")
-    leggy.AddEntry(assymErrorPlot,"totalUncer","f")
-    signalEntry = 'tttt*{}'.format(signalScale)
-    leggy.AddEntry( signal, signalEntry, 'l')
-    leggy.Draw()
+    # leggy = TLegend(0.6,0.75,0.92,0.94)
+    # leggy.SetNColumns(2) 
+    # leggy.SetFillStyle(1001)
+    # leggy.SetBorderSize(1)
+    # leggy.SetFillColor(0)
+    # leggy.SetLineColor(0)
+    # leggy.SetShadowColor(0)
+    # leggy.SetFillColor(kWhite)
+    # # if "data" in nominal.keys():
+    # if "jetHT" in nominal.keys():
+    #     # leggy.AddEntry(nominal['data'],"Data","p")
+    #     leggy.AddEntry(nominal['jetHT'],"Data","p")
+    # for entry in legendOrder:
+    #     leggy.AddEntry(nominal[entry],entry,"f")
+    # leggy.AddEntry(assymErrorPlot,"totalUncer","f")
+    # signalEntry = 'tttt*{}'.format(signalScale)
+    # leggy.AddEntry( signal, signalEntry, 'l')
+    # leggy.Draw()
     
     #text above the plot
-    addCMSTextToCan(canvy, 0.23, 0.35, 0.96, era)     
+    # addCMSTextToCan(canvy, 0.23, 0.35, 0.96, era)     
+    
+    canvy.Update()
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
     print( 'done plotting data/mc plot for {}\n'.format(name))

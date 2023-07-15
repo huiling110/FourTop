@@ -91,8 +91,10 @@ def setTDRStyle() :
   tdrStyle.SetOptLogz(0)
 
   tdrStyle.SetPaperSize(20.,20.)
+  
 
   tdrStyle.cd()
+  return tdrStyle
 
 def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
     can = canvas
@@ -127,3 +129,95 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
     
 
 
+def setMyStyle():
+  myStyle = ROOT.TStyle("tdrStyle","Style for P-TDR")
+
+  myStyle.SetCanvasBorderMode(0)
+  myStyle.SetCanvasColor(ROOT.kWhite)
+  myStyle.SetCanvasDefH(600)
+  myStyle.SetCanvasDefW(600)
+  myStyle.SetCanvasDefX(0)
+  myStyle.SetCanvasDefY(0)
+
+  myStyle.SetPadBorderMode(0)
+  myStyle.SetPadColor(ROOT.kWhite)
+
+  myStyle.SetFrameBorderMode(0)
+  myStyle.SetFrameBorderSize(1)
+  myStyle.SetFrameFillColor(0)
+  myStyle.SetFrameFillStyle(0)
+  myStyle.SetFrameLineColor(1)
+  myStyle.SetFrameLineStyle(1)
+  myStyle.SetFrameLineWidth(1)
+
+#   myStyle.SetHistLineColor(ROOT.kBlack)
+#   myStyle.SetHistLineStyle(0)
+#   myStyle.SetHistLineWidth(2)
+
+#   myStyle.SetEndErrorSize(2)
+#   myStyle.SetErrorX(0.)
+  
+#   myStyle.SetMarkerStyle(20)
+#   myStyle.SetMarkerSize(2)
+
+#   myStyle.SetOptFit(1)
+#   myStyle.SetFitFormat("5.4g")
+#   myStyle.SetFuncColor(2)
+#   myStyle.SetFuncStyle(1)
+#   myStyle.SetFuncWidth(1)
+
+#   myStyle.SetOptDate(0)
+
+#   myStyle.SetOptFile(0)
+#   myStyle.SetOptStat(0) 
+#   myStyle.SetStatColor(ROOT.kWhite)
+#   myStyle.SetStatFont(42)
+#   myStyle.SetStatFontSize(0.025)
+#   myStyle.SetStatTextColor(1)
+#   myStyle.SetStatFormat("6.4g")
+#   myStyle.SetStatBorderSize(1)
+#   myStyle.SetStatH(0.1)
+#   myStyle.SetStatW(0.15)
+
+#   myStyle.SetPadTopMargin(0.07)
+#   myStyle.SetPadBottomMargin(0.13)
+#   myStyle.SetPadLeftMargin(0.16)
+#   myStyle.SetPadRightMargin(0.03)
+
+#   myStyle.SetOptTitle(0)
+#   myStyle.SetTitleFont(42)
+#   myStyle.SetTitleColor(1)
+#   myStyle.SetTitleTextColor(1)
+#   myStyle.SetTitleFillColor(10)
+#   myStyle.SetTitleFontSize(0.05)
+
+#  # //Axis titles:
+#   myStyle.SetTitleColor(1,"XYZ")
+#   myStyle.SetTitleFont(42,"XYZ")
+#   myStyle.SetTitleSize(0.06,"XYZ")
+#   myStyle.SetTitleXOffset(0.9)
+#   myStyle.SetTitleYOffset(1.25)
+ 
+
+#   myStyle.SetLabelColor(1, "XYZ")
+#   myStyle.SetLabelFont(42,"XYZ")
+#   myStyle.SetLabelOffset(0.007, "XYZ")
+#   myStyle.SetLabelSize(0.05, "XYZ")
+
+#   myStyle.SetAxisColor(1, "XYZ")
+#   myStyle.SetStripDecimals(ROOT.kTRUE)
+#   myStyle.SetTickLength(0.03, "XYZ")
+#   myStyle.SetNdivisions(510, "XYZ")
+#   myStyle.SetPadTickX(1)  
+#   myStyle.SetPadTickY(1)
+
+
+#   myStyle.SetOptLogx(0)
+#   myStyle.SetOptLogy(0)
+#   myStyle.SetOptLogz(0)
+
+#   myStyle.SetPaperSize(20.,20.)
+  
+#   myStyle.cd()
+  return myStyle
+    
