@@ -96,13 +96,13 @@ def setTDRStyle() :
   tdrStyle.cd()
   return tdrStyle
 
-def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
+def addCMSTextToCan(canvas, x1=0.23, x2=0.35,x3=0.7, y=0.96, era = '2016'):
     can = canvas
      
     cmsTextFont = 61
     extraTextFont = 52
     cmsText = "CMS"
-    extraText = "Preliminary"
+    extraText = "Preliminary " + era
     
     latex = ROOT.TLatex()
     latex.SetNDC()
@@ -116,7 +116,6 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
   
     lumiText = lumiMap[era] /1000
     lumiText_s = '{0:.1f}'.format(lumiText)
-    # lumiText_s = str(lumiText)
     lumiText_s = lumiText_s + ' fb^{-1}(13TeV)'
     # print(lumiText)
     latex2 = ROOT.TLatex()
@@ -125,7 +124,7 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35, y=0.96, era = '2016'):
     latex2.SetTextAlign(31)
     latex2.SetTextFont(42)  
     # latex2.DrawLatex(x2+0.6, y, lumiText_s )
-    latex2.DrawLatex(x2+0.56, y, lumiText_s )
+    latex2.DrawLatex( x3, y, lumiText_s )
     
 
 

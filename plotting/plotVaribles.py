@@ -406,7 +406,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # leggy.Draw()
     
     #text above the plot
-    # addCMSTextToCan(canvy, 0.23, 0.35, 0.96, era)     
+    ss.addCMSTextToCan(canvy, 0.24, 0.45, 0.9,0.94, era)     
     
     canvy.Update()
 
