@@ -257,13 +257,12 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
     canvy.cd()
-    # if includeDataInStack: canvy.SetBottomMargin(0.35)#set margion for ratio plot
     if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
 
     doSystmatic = ifDoSystmatic( systHists)
 
-    dataHist, systsUp, systsDown, sumHist, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
+    dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
 
     #add sytematic uncertainty
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
@@ -271,28 +270,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     #get the uncertainty for stack MC
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
-    assymErrorPlot.SetFillStyle(3013)
-    assymErrorPlot.SetFillColor(14)
 
-
-    #add bgs for stack
-    legendOrder.reverse()
-    for ipro in legendOrder:
-        if not ipro in nominal.keys():
-            print( 'this prcess not get: ', ipro )
-            legendOrder.remove(ipro)
-    stack = THStack( canvasName, canvasName )
-    for entry in legendOrder:
-        stack.Add(nominal[entry])
-    legendOrder.reverse()
-    # maxi = 1.2* sumHist.GetMaximum()
     if hasDataHist:
         if dataHist.GetMaximum()>0:
-            maxi = 1.4* dataHist.GetMaximum()
+            maxi = 1.8* dataHist.GetMaximum()
         else:
-            maxi = 1.4* sumHist.GetMaximum()
+            maxi = 1.8* sumHist.GetMaximum()
     else:
-        maxi = 1.4* sumHist.GetMaximum()
+        maxi = 1.8* sumHist.GetMaximum()
     if maxi<=0 :
         print(name, ' variable empty')
         print('\n')
@@ -313,13 +298,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         stack.GetXaxis().SetLabelSize(0.03)
         stack.GetXaxis().SetTitle(name)
         stack.GetXaxis().SetTitleSize(0.04)
-
-    #scale tttt
-    if 'tttt' in nominal.keys():
-        signal = nominal['tttt'].Clone()
-    else:
-        signal = nominal['tt'].Clone()
-        signal.Reset()
         
     # signal.Scale(1000)
     signal.Scale(signalScale)
@@ -331,7 +309,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # signal.SetFillColor(kMagenta)
     signal.Draw("SAME HIST ")
     
-    
+    assymErrorPlot.SetFillStyle(3013)
+    assymErrorPlot.SetFillColor(14)
     assymErrorPlot.Draw("e2 SAME")
 
     if includeDataInStack:
@@ -398,7 +377,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         leggy.AddEntry(nominal[entry],entry,"f")
     leggy.AddEntry(assymErrorPlot,"totalUncer","f")
     signalEntry = 'tttt*{}'.format(signalScale)
-    # leggy.AddEntry( signal, 'tttt*1000', 'l')
     leggy.AddEntry( signal, signalEntry, 'l')
     leggy.Draw()
     
@@ -466,7 +444,29 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau):
             systsUp.Add(tempUp) #adding various processes, 
             systsDown.Add(tempDown)
             
-    return dataHist, systsUp, systsDown, sumHist, hasDataHist 
+    #add bgs for stack
+    legendOrder = ['tt']
+    legendOrder.reverse()
+    for ipro in legendOrder:
+        if not ipro in nominal.keys():
+            print( 'this prcess not get: ', ipro )
+            legendOrder.remove(ipro)
+    # stack = THStack( canvasName, canvasName )
+    stack = THStack( 'stack', 'stack' )
+    for entry in legendOrder:
+        stack.Add(nominal[entry])
+    legendOrder.reverse()
+    
+    
+    #scale tttt
+    if 'tttt' in nominal.keys():
+        signal = nominal['tttt'].Clone()
+    else:
+        signal = nominal['tt'].Clone()
+        signal.Reset()
+    
+            
+    return dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist 
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
