@@ -311,6 +311,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # stack.GetYaxis().SetTitleSize(0.05)
 
     if includeDataInStack and hasDataHist:
+        dataHist.SetLineWidth(1)
+        dataHist.SetMarkerSize(1.5)
         dataHist.Draw("e0 same")
     else:
         # stack.GetXaxis().SetLabelSize(0.03)
@@ -383,15 +385,16 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
     
     #legend
-    leggy =  getLegend(nominal, assymErrorPlot, signal, signalScale, legendOrder)
+    leggy =  getLegend(nominal, dataHist, assymErrorPlot, signal, signalScale, legendOrder)
     # leggy.SetNColumns(4) 
     leggy.SetNColumns(2) 
-    leggy.SetFillStyle(1001)
+    # leggy.SetFillStyle(1001)
     leggy.SetBorderSize(1)
     leggy.SetFillColor(0)
     leggy.SetLineColor(0)
     leggy.SetShadowColor(0)
     leggy.SetFillColor(kWhite)
+    # leggy.SetMarkerSize(2)
     leggy.Draw()
     
     #text above the plot
@@ -404,11 +407,13 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
     
-def getLegend(nominal, assymErrorPlot, signal, signalScale, legendOrder):
+def getLegend(nominal,  dataHist, assymErrorPlot, signal, signalScale, legendOrder):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    leggy = TLegend(0.2,0.82,0.90,0.90)
+    leggy = TLegend(0.2,0.82,0.89,0.90)
     if "jetHT" in nominal.keys():
-        leggy.AddEntry(nominal['jetHT'],"Data[{:.1f}]".format(getIntegral(nominal['jetHT'])),"p")
+        # nominal['jetHT'].SetMarkerSize(2)
+        # leggy.AddEntry(nominal['jetHT'],"Data[{:.1f}]".format(getIntegral(nominal['jetHT'])),"ep")
+        leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"ep")
     for entry in legendOrder:
         legText = '{}[{:.1f}]'.format(entry, getIntegral(nominal[entry]))
         # leggy.AddEntry(nominal[entry],entry,"f")
