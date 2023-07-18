@@ -85,11 +85,23 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
 
+    if (muons_num > 4)
+    {
+        jets_5pt = objsLorentz[4].Pt();
+        jets_5eta = fabs(objsLorentz[4].Eta());
+        jets_5phi = fabs(objsLorentz[4].Phi());
+        if(m_type==0){
+            jets_5btag = e->jets_btags.At(4);
+        }
+    }
     if (muons_num > 5)
     {
         jets_6pt = objsLorentz[5].Pt();
         jets_6eta = fabs(objsLorentz[5].Eta());
         jets_6phi = fabs(objsLorentz[5].Phi());
+        if(m_type==0){
+            jets_6btag = e->jets_btags.At(5);
+        }
     }
 }
 

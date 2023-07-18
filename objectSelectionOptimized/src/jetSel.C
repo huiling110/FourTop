@@ -156,44 +156,15 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         if (lepEtaVec.size() > 0)
         {
             Double_t minDeltaR_lep = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), lepEtaVec, lepPhiVec);
-            // Double_t deltaR = 0;
-            // Double_t minDeltaR = 100;
-            // for (UInt_t lep = 0; lep < lepEtaVec.size(); lep++)
-            // {
-            //     deltaR = DeltaR(LeptonsMVAF[lep].Eta(), ijetEta, LeptonsMVAF[lep].Phi(), ijetPhi);
-            //     if (deltaR < minDeltaR)
-            //         minDeltaR = deltaR; // The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
-            // }
             if (!(minDeltaR_lep >= 0.4))
                 continue;
         }
         if (tauEtaVec.size() > 0)
         {
             Double_t minDeltaR_tau = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
-            // Double_t deltaR_tau = 0;
-            // Double_t minDeltaR_tau = 100;
-            // for (UInt_t tau = 0; tau < SelectedTausL.size(); tau++)
-            // {
-            //     deltaR_tau = DeltaR(SelectedTausL[tau].Eta(), ijetEta, SelectedTausL[tau].Phi(), ijetPhi);
-            //     if (deltaR_tau < minDeltaR_tau)
-            //         minDeltaR_tau = deltaR_tau;
-            // }
             if (!(minDeltaR_tau >= 0.4))
                 continue;
         }
-        // ROOT::Math::PtEtaPhiMVector jet_prov(jetpt, ijetEta, ijetPhi, ijetMass);
-        // SelectedJets.push_back(jet_prov);
-        // SelectedJetsIndex.push_back(j);
-        // // CHANGE HERE TO RUN ON DATA
-        // SelectedJetsFlavor.push_back(e->Jet_hadronFlavour.At(j));
-        // if (deepJet)
-        // {
-        //     SelectedJetsBTags.push_back(e->Jet_btagDeepFlavB.At(j));
-        // }
-        // else
-        // {
-        //     SelectedJetsBTags.push_back(e->Jet_btagDeepB.At(j));
-        // }
         jets_pt.push_back(jetpt);
         jets_eta.push_back(ijetEta);
         jets_phi.push_back(ijetPhi);
