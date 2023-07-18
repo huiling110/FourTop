@@ -206,7 +206,14 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             jets_flavour.push_back(-99);
         }
-        jets_btags.push_back(e->Jet_btagDeepB.At(j));
+        if (deepJet)
+        {
+            jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
+        }
+        else
+        {
+            jets_btags.push_back(e->Jet_btagDeepB.At(j));
+        }
     }
 };
 
