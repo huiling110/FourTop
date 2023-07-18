@@ -74,6 +74,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
+    //!!!need to sort the jet pt after JEC
 
     clearBranch();
 
@@ -85,36 +86,41 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
 
-    getJetLeadingVars(e, 2, jets_2pt);
-    if (muons_num > 4)
-    {
-        jets_5pt = objsLorentz[4].Pt();
-        jets_5eta = fabs(objsLorentz[4].Eta());
-        jets_5phi = fabs(objsLorentz[4].Phi());
-        if(m_type==0){
-            jets_5btag = e->jets_btags.At(4);
-        }
-    }
-    if (muons_num > 5)
-    {
-        jets_6pt = objsLorentz[5].Pt();
-        jets_6eta = fabs(objsLorentz[5].Eta());
-        jets_6phi = fabs(objsLorentz[5].Phi());
-        if(m_type==0){
-            jets_6btag = e->jets_btags.At(5);
-        }
-    }
+    getJetLeadingVars(e, 2, jets_2pt, jets_2eta, jets_2phi, jets_2btag);
+    getJetLeadingVars(e, 3, jets_3pt, jets_3eta, jets_3phi, jets_3btag);
+    getJetLeadingVars(e, 4, jets_4pt, jets_4eta, jets_4phi, jets_4btag);
+    getJetLeadingVars(e, 5, jets_5pt, jets_5eta, jets_5phi, jets_5btag);
+    getJetLeadingVars(e, 6, jets_6pt, jets_6eta, jets_6phi, jets_6btag);
+    getJetLeadingVars(e, 7, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
+    // if (muons_num > 4)
+    // {
+    //     jets_5pt = objsLorentz[4].Pt();
+    //     jets_5eta = fabs(objsLorentz[4].Eta());
+    //     jets_5phi = fabs(objsLorentz[4].Phi());
+    //     if(m_type==0){
+    //         jets_5btag = e->jets_btags.At(4);
+    //     }
+    // }
+    // if (muons_num > 5)
+    // {
+    //     jets_6pt = objsLorentz[5].Pt();
+    //     jets_6eta = fabs(objsLorentz[5].Eta());
+    //     jets_6phi = fabs(objsLorentz[5].Phi());
+    //     if(m_type==0){
+    //         jets_6btag = e->jets_btags.At(5);
+    //     }
+    // }
 }
 
-void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t& jets_pt){
+void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t& jets_pt, Double_t& jets_eta, Double_t& jets_phi, Double_t& jets_btag){
     if (muons_num > jetRank)
     {
         jets_pt = objsLorentz[jetRank].Pt();
-        // jets_5eta = fabs(objsLorentz[jetRank].Eta());
-        // jets_5phi = fabs(objsLorentz[jetRank].Phi());
-        // if(m_type==0){
-        //     jets_5btag = e->jets_btags.At(jetRank);
-        // }
+        jets_eta = fabs(objsLorentz[jetRank].Eta());
+        jets_phi = fabs(objsLorentz[jetRank].Phi());
+        if(m_type==0){
+            jets_btag = e->jets_btags.At(jetRank);
+        }
     }
 }
 

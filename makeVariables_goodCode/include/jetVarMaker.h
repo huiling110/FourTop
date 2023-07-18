@@ -14,7 +14,7 @@ public:
     Double_t getHT();
     Double_t getJet_6pt();
     Int_t getJet_num();
-    void getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t &jets_pt);
+    void getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t &jets_pt, Double_t &jets_eta, Double_t &jets_phi, Double_t &jets_btag);
 
 private:
     Double_t jets_rationHT_4toRest = -99;
