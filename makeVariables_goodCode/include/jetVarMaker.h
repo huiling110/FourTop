@@ -9,12 +9,12 @@ public:
     JetVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~JetVarMaker();
     void makeVariables(const EventForMV *e);
-    // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     Double_t getHT();
     Double_t getJet_6pt();
     Int_t getJet_num();
+    void getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t &jets_pt);
 
 private:
     Double_t jets_rationHT_4toRest = -99;

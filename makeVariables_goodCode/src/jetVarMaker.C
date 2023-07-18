@@ -85,6 +85,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
 
+    getJetLeadingVars(e, 2, jets_2pt);
     if (muons_num > 4)
     {
         jets_5pt = objsLorentz[4].Pt();
@@ -102,6 +103,18 @@ void JetVarMaker::makeVariables(const EventForMV *e)
         if(m_type==0){
             jets_6btag = e->jets_btags.At(5);
         }
+    }
+}
+
+void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t& jets_pt){
+    if (muons_num > jetRank)
+    {
+        jets_pt = objsLorentz[jetRank].Pt();
+        // jets_5eta = fabs(objsLorentz[jetRank].Eta());
+        // jets_5phi = fabs(objsLorentz[jetRank].Phi());
+        // if(m_type==0){
+        //     jets_5btag = e->jets_btags.At(jetRank);
+        // }
     }
 }
 
