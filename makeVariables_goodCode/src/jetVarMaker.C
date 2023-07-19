@@ -94,6 +94,9 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
 
+    if(muons_num>1 && m_type==0){
+        jets_1btag = e->jets_btags.At(1);
+    }
     getJetLeadingVars(e, 2, jets_2pt, jets_2eta, jets_2phi, jets_2btag);
     getJetLeadingVars(e, 3, jets_3pt, jets_3eta, jets_3phi, jets_3btag);
     getJetLeadingVars(e, 4, jets_4pt, jets_4eta, jets_4phi, jets_4btag);
