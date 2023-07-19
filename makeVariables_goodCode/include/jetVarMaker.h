@@ -41,10 +41,10 @@ private:
     Double_t jets_6btag = -99.0;
     Double_t jets_7btag = -99.0;
     Double_t jets_8btag = -99.0;//???what the fuck? I can not add a variable?
-    // Double_t jets_9btag = -99.0;
-    // Double_t jets_10btag = -99.0;
-    // Double_t jets_11btag = -99.0;
-    // Double_t jets_12btag = -99.0;
+    Double_t jets_9btag = -99.0;
+    Double_t jets_10btag = -99.0;
+    Double_t jets_11btag = -99.0;
+    Double_t jets_12btag = -99.0;
     Double_t jets_2pt = -99.0;
     Double_t jets_2eta = -99.0;
     Double_t jets_2phi = -99.0;
