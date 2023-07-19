@@ -65,6 +65,9 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_11pt", &jets_11pt);
     outTree->Branch(objName + "_11eta", &jets_11eta);
     outTree->Branch(objName + "_11phi", &jets_11phi);
+    outTree->Branch(objName + "_12pt", &jets_12pt);
+    outTree->Branch(objName + "_12eta", &jets_12eta);
+    outTree->Branch(objName + "_12phi", &jets_12phi);
 
     outTree->Branch(objName + "_leptonsMVAT_minDeltaR);", &jets_leptonsMVAT_minDeltaR);
     outTree->Branch(objName + "_tausF_minDeltaR", &jets_tausF_minDeltaR);
@@ -97,24 +100,12 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     getJetLeadingVars(e, 5, jets_5pt, jets_5eta, jets_5phi, jets_5btag);
     getJetLeadingVars(e, 6, jets_6pt, jets_6eta, jets_6phi, jets_6btag);
     getJetLeadingVars(e, 7, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
-    // if (muons_num > 4)
-    // {
-    //     jets_5pt = objsLorentz[4].Pt();
-    //     jets_5eta = fabs(objsLorentz[4].Eta());
-    //     jets_5phi = fabs(objsLorentz[4].Phi());
-    //     if(m_type==0){
-    //         jets_5btag = e->jets_btags.At(4);
-    //     }
-    // }
-    // if (muons_num > 5)
-    // {
-    //     jets_6pt = objsLorentz[5].Pt();
-    //     jets_6eta = fabs(objsLorentz[5].Eta());
-    //     jets_6phi = fabs(objsLorentz[5].Phi());
-    //     if(m_type==0){
-    //         jets_6btag = e->jets_btags.At(5);
-    //     }
-    // }
+    getJetLeadingVars(e, 8, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
+    getJetLeadingVars(e, 9, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
+    getJetLeadingVars(e, 10, jets_10pt, jets_10eta, jets_10phi, jets_10btag);
+    getJetLeadingVars(e, 11, jets_11pt, jets_11eta, jets_11phi, jets_11btag);
+    getJetLeadingVars(e, 12, jets_12pt, jets_12eta, jets_12phi, jets_12btag);
+
 }
 
 void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t& jets_pt, Double_t& jets_eta, Double_t& jets_phi, Double_t& jets_btag){
@@ -238,6 +229,9 @@ void JetVarMaker::clearBranch()
     jets_11pt = -99.0;
     jets_11eta = -99.0;
     jets_11phi = -99.0;
+    jets_12pt = -99.0;
+    jets_12eta = -99.0;
+    jets_12phi = -99.0;
 
     jets_leptonsMVAT_minDeltaR = -99;
     jets_tausF_minDeltaR = -99;

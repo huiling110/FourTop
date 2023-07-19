@@ -75,6 +75,9 @@ private:
     Double_t jets_11pt = -99.0;
     Double_t jets_11eta = -99.0;
     Double_t jets_11phi = -99.0;
+    Double_t jets_12pt = -99.0;
+    Double_t jets_12eta = -99.0;
+    Double_t jets_12phi = -99.0;
 
     Double_t jets_leptonsMVAT_minDeltaR = -99;
     Double_t jets_tausF_minDeltaR = -99;
