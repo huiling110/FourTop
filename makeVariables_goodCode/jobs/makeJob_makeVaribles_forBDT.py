@@ -51,9 +51,6 @@ import usefulFunc as uf
 # outVersion = 'v1AddTOPLepVariables'
 # outVersion = 'v2aadTopLepWeight'
 # outVersion = 'v3addjetBtagVar'
-# year = '2016'
-# year = '2018'
-# year = '2017'
 # selectionBit = '0'
 # selectionBit = '4'
 # selectionBit = '6' # no metfilters
@@ -62,23 +59,18 @@ import usefulFunc as uf
 # justMC = False
 
 
-
-
-
-
-
-
-
-
-
 def main():
-    year = '2022'
+    # year = '2022'
+    # year = '2016'
+    # year = '2018'
+    year = '2017'
     # inVersion = 'v0Testing'
-    inVersion = 'v1newCrab'
+    # inVersion = 'v1newCrab'
+    inVersion = 'v59newOScode'
     outVersion = 'v0NewMV'
     
-    isRun3 = True
-    
+    # isRun3 = True
+    isRun3 = False
     justMC = False
     
     
