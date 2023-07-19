@@ -30,7 +30,7 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_5btag", &jets_5btag);
     outTree->Branch(objName + "_6btag", &jets_6btag);
     outTree->Branch(objName + "_7btag", &jets_7btag);
-    // outTree->Branch(objName + "_8btag", &jets_8btag);
+    outTree->Branch(objName + "_8btag", &jets_8btag);
     // outTree->Branch(objName + "_9btag", &jets_9btag);
     // outTree->Branch(objName + "_10btag", &jets_10btag);
     // outTree->Branch(objName + "_11btag", &jets_11btag);
@@ -203,7 +203,7 @@ void JetVarMaker::clearBranch()
     jets_5btag = -99.0;
     jets_6btag = -99.0;
     jets_7btag = -99.0;
-    // jets_8btag = -99.0;
+    jets_8btag = -99.0;
     // jets_9btag = -99.0;
     // jets_10btag = -99.0;
     // jets_11btag = -99.0;
