@@ -206,11 +206,11 @@ Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Selec
     return transE;
 }
 
-Double_t TransMassCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     Double_t MHT = MHTcalculator(SelectedJets);
     Double_t transE = 0;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j)
     {
         transE += TransEnergyCal(SelectedJets[j]);
     }

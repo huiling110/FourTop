@@ -93,6 +93,14 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_MHT = MHTcalculator(objsLorentz); // 900;return the pt sum of,vetctor sum
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
+    jets_transMass = TransMassCal(objsLorentz);
+    // jets_minDeltaR = MinDeltaRSingleCal(jets);
+    // jets_centrality = jets_HT / jets_invariantMass;
+    // jets_bScore = BScoreAllJetsCal(jets_btags); // sum of btags
+    // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
+    // jets_average_deltaR = AverageDeltaRCal(jets);
+    // jets_4largestBscoreSum = bscoreSumOf4largestCal(jets_btags);
+    // jets_4largestBscoreMulti = bscoreMultiOf4largestCal(jets_btags);
 
     if(muons_num>1 && m_type==0){
         jets_1btag = e->jets_btags.At(1);

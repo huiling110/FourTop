@@ -34,7 +34,6 @@ Double_t pzCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets
 
 /// it seems we cant not use TTreeReaderArray as input parameter
 // yes we can , just have to pass by address
-Double_t MHTcalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 Double_t rationHT_4toRestCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 // Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets) ;
@@ -65,7 +64,7 @@ Double_t TransEnergySysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &
 
 Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t TransMassCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
