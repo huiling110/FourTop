@@ -103,8 +103,8 @@ void WeightVarMaker::makeVariables(EventForMV *e)
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta
-    // elesTopMVAT_weight_up = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 1, kFALSE, m_isData);
-    // elesTopMVAT_weight_down = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 2, kFALSE, m_isData);
+    elesTopMVAT_weight_up = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
+    elesTopMVAT_weight_down = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
     // musTopMVAT_weight = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 0, kTRUE, m_isData);
     // musTopMVAT_weight_up = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 1, kTRUE, m_isData);
     // musTopMVAT_weight_down = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 2, kTRUE, m_isData);
