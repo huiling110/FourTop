@@ -2,6 +2,9 @@
 #define WEIGHTVARMAKER_H
 
 #include <TH2D.h>
+#include <TH1D.h>
+#include "correction.h"
+
 #include "eventReader_forMV.h"
 
 
@@ -75,6 +78,12 @@ private:
     const Bool_t m_isData;
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
+
+    std::unique_ptr<correction::CorrectionSet> cset;
+    std::unique_ptr<correction::CorrectionSet> cset_btag;
+    TH1D *btagRHist;
+
+
 };
 
 #endif

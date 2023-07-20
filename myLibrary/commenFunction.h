@@ -16,5 +16,8 @@ void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
 
     Double_t getGenSum(TString inputFile);
 
-}
+
+TH1D *getHistogramFromFile(TString filename, const char *histname);
+
+};
 #endif

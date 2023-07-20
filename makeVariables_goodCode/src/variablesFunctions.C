@@ -1,5 +1,6 @@
 #include "../include/variablesFunctions.h"
 
+#include "correction.h"
 #include <TMatrixDSymEigen.h>
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec)
@@ -611,3 +612,32 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     }
     return muonIDSF;
 }
+
+// Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
+Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
+{
+    // read from official json file
+    // syst='nom', 'up' or  'down'.
+    Double_t sf = 1.0;
+    if (!isData)
+    {
+        auto corr_vsjet = cset->at("DeepTau2017v2p1VSjet");
+        auto corr_vsmu = cset->at("DeepTau2017v2p1VSmu");
+        auto corr_vsele = cset->at("DeepTau2017v2p1VSe");
+        for (UInt_t i = 0; i < taus_pt.GetSize(); i++)
+        {
+            Double_t ipt = taus_pt.At(i);
+            Int_t idecayMode = tausT_decayMode.At(i);
+            Int_t igenMatch = tausT_genPartFlav.At(i);
+            Double_t ieta = taus_eta.At(i);
+            Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
+            Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
+            Double_t sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+            sf *= sf_vsJet;
+            sf *= sf_vsmu;
+            sf *= sf_vsele;
+        }
+    }
+    return sf;
+}
+
