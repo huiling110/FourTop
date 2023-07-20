@@ -34,6 +34,7 @@ void run_objectSelection(
     Bool_t    isData = TTTT::getIsData(inputDir1);
     TString    era = TTTT::getEra(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
+    // std::cout << "isRun3=" << isRun3 << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     mv.EventLoop(kTRUE, numEntries);

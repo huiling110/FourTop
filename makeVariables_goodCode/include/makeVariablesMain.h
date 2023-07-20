@@ -25,9 +25,10 @@ class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
-    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, TString isRun3) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}
+    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, Bool_t isRun3) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
+        std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
 
         // m_isData = TTTT::getIsData(m_inputDir);
         // m_era = TTTT::getEra(m_inputDir);
@@ -49,7 +50,6 @@ public:
         m_output = new TFile(outDir + m_processName + ".root", "RECREATE");
         m_outTree->SetDirectory(m_output);
         m_cutflow->SetDirectory(m_output);
-        std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
 
         //
         createHist = CreateHist(m_output);
@@ -69,9 +69,9 @@ private:
     TString m_inputDir;
     TString m_processName;
     // m_isData, m_era and m_isRun3 should be properly initialized from beginning, because other classes depend on it
-    Bool_t m_isData;
-    TString m_era;
-    Bool_t m_isRun3;
+    const Bool_t m_isData;
+    const TString m_era;
+    const Bool_t m_isRun3;
     TTreeReader m_reader;
     EventForMV *e;
     TFile *m_output;
