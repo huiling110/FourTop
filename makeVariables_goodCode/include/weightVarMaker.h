@@ -13,7 +13,8 @@ class WeightVarMaker
 public:
     WeightVarMaker(TTree *outTree, TString era, Bool_t isData);
     ~WeightVarMaker();
-    void makeVariables(EventForMV *e);
+    // void makeVariables(EventForMV *e);
+    void makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetM_num);
     void clearBranch();
 
 private:
@@ -82,6 +83,10 @@ private:
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
     TH1D *btagRHist;
+
+    TH2D* triggerHist1b;
+    TH2D* triggerHist2b;
+    TH2D* triggerHist3b;
 
 
 };

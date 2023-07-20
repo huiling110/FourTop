@@ -104,11 +104,26 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     btagRHist = TTTT::getHistogramFromFile(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
 
+    // trigger
+    TString trigger1b = MV::triggerSF_map.at(m_era);
+    TFile *triggerSFFile = new TFile(trigger1b, "READ");
+    triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1MuonAndHLT1b_SF");
+    TString triggerSFName2b = trigger1b.ReplaceAll("1b", "2b");
+    TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
+    triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1MuonAndHLT2b_SF");
+    TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b_", "3b_");
+    TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
+    triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1MuonAndHLT3b_SF");
+    std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";
+    std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
+    std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
+
+
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
 };
 
-void WeightVarMaker::makeVariables(EventForMV *e)
+void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetsM_num)
 {
     // clearBranch();
     //!!! to be done
@@ -157,6 +172,9 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
 
+    HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
+    HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
+    HLT_weight_stats_down = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 2);
 
 
 };

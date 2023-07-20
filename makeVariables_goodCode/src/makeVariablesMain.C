@@ -34,7 +34,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         copyBranches.makeVariables(e);
 
         // SF and systematic calculation
-        weightVarMaker.makeVariables(e);
+        weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), bjetMVarMaker.getJet_num());
 
         //create hists for b tag efficiency measurement
         createHist.fillHist(e);
