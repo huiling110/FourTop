@@ -137,24 +137,24 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "central");
-    // btagShape_weight_jes_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
-    // btagShape_weight_jes_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_jes");
-    // btagShape_weight_lf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lf");
-    // btagShape_weight_lf_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lf");
-    // btagShape_weight_hf_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hf");
-    // btagShape_weight_hf_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hf");
-    // btagShape_weight_hfstats1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats1");
-    // btagShape_weight_hfstats1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats1");
-    // btagShape_weight_hfstats2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats2");
-    // btagShape_weight_hfstats2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats2");
-    // btagShape_weight_lfstats1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats1");
-    // btagShape_weight_lfstats1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
-    // btagShape_weight_lfstats2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
-    // btagShape_weight_lfstats2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
-    // btagShape_weight_cferr1_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
-    // btagShape_weight_cferr1_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr1");
-    // btagShape_weight_cferr2_up = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr2");
-    // btagShape_weight_cferr2_down = calBtagShapeWeight(jets, jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr2");
+    btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_jes");
+    btagShape_weight_jes_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_jes");
+    btagShape_weight_lf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lf");
+    btagShape_weight_lf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lf");
+    btagShape_weight_hf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hf");
+    btagShape_weight_hf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hf");
+    btagShape_weight_hfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hfstats1");
+    btagShape_weight_hfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hfstats1");
+    btagShape_weight_hfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hfstats2");
+    btagShape_weight_hfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hfstats2");
+    btagShape_weight_lfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lfstats1");
+    btagShape_weight_lfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
+    btagShape_weight_lfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
+    btagShape_weight_lfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
+    btagShape_weight_cferr1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr1");
+    btagShape_weight_cferr1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr1");
+    btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr2");
+    btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     // btagShapeR = calBtagR(jets_number, btagRHist);
 
 
