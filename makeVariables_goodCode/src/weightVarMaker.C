@@ -129,12 +129,12 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
-    // tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
-    // tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData);
-    // tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom", m_isData);
-    // tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
-    // tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
-    // tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
+    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
+    tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData);
+    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "up", "nom", m_isData);
+    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
+    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
+    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
 };
 
