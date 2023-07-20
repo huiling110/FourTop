@@ -70,7 +70,13 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     // clearBranch();
     //!!! to be done
     EVENT_prefireWeight = *e->EVENT_prefireWeight_;
+    EVENT_prefireWeight_up = *e->EVENT_prefireWeight_up_;
+    EVENT_prefireWeight_down = *e->EVENT_prefireWeight_down_;
     EVENT_genWeight = *e->EVENT_genWeight_;
+    PUweight_ = *e->PUWeight;
+    PUweight_up_ = *e->PUWeight_up;
+    PUweight_down_ = *e->PUWeight_down;
+
 };
 
 void WeightVarMaker::clearBranch()
