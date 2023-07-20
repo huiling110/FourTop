@@ -641,3 +641,57 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
     return sf;
 }
 
+Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t>& jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys)
+{
+    // https://twiki.cern.ch/twiki/bin/view/CMS/BTagCalibration#Using_b_tag_scale_factors_in_you
+    // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/btvExample.py
+    /*
+    "jes": Combined JES uncertainty.
+    "jes<x>": Uncertainty due to JES source x.
+    "lf": Contamination from udsg+c jets in HF region.
+    "hf": Contamination from b+c jets in LF region.
+    Linear and quadratic statistical fluctuations:
+    "hfstats1" / "hfstats2": b jets.
+    "lfstats1" / "lfstats2": udsg jets.
+    "cferr1" / "cferr2": Uncertainty for charm jets. //???the only uncertainty to consider for charm jets???
+    variations due to "jes", "lf", "hf", "hfstats1/2", and "lfstats1/2" are applied to both b and udsg jets. For c-flavored jets, only "cferr1/2" is applied.
+
+*/
+    Double_t sf = 1.0;
+    if (!isData)
+    {
+        auto corr_deepJet = cset_btag->at("deepJet_shape");
+        // std::cout << jets.GetSize() << " " << jets_flavour.GetSize() << " " << jets_btag.GetSize() << "\n";
+        for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
+        {
+            Double_t ijetSF = 1.0;
+            if (sys == "central")
+            {
+                ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+            }
+            else
+            {
+                if (jets_flavour.At(j) == 4)
+                {
+                    //???is this way of accessing correct?
+                    // c jet
+                    if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
+                    {
+                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+                    }
+                }
+                else
+                {
+                    // b and light jets
+                    if (!(sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos))
+                    {
+                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+                    }
+                }
+            };
+            sf *= ijetSF;
+        }
+    }
+    // std::cout << "btagSF = " << sf << "\n";
+    return sf;
+}
