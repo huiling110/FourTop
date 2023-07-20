@@ -1,7 +1,12 @@
+#include <TFile.h>
+#include <TCanvas.h>
+
 
 #include "../include/weightVarMaker.h"
+#include "../include/variablesFunctions.h"
+#include "../include/inputMap_MV.h"
 
-WeightVarMaker::WeightVarMaker(TTree *outTree)
+WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_era{era}, m_isData{isData}
 {
     std::cout << "Initializing WeightVarMaker.....\n";
 
@@ -61,6 +66,25 @@ WeightVarMaker::WeightVarMaker(TTree *outTree)
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
 
+
+    // TOP Lepton MVA
+    // TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files[m_era].at(0)), "READ");
+    TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
+    std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
+    eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
+    eleIDSF_topMVA->SetDirectory(nullptr);
+    eleIDSF_topMVAFile->Close();
+    delete eleIDSF_topMVAFile;
+    TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
+    std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
+    TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    // muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA->Print();
+    muIDSF_topMVA->SetDirectory(nullptr);
+    muIDSF_topMVAFile->Close();
+    delete muIDSF_topMVAFile;
+
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
 };
@@ -76,6 +100,15 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     PUweight_ = *e->PUWeight;
     PUweight_up_ = *e->PUWeight_up;
     PUweight_down_ = *e->PUWeight_down;
+
+    // lepton SF for top mva leptons
+    elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta
+    // elesTopMVAT_weight_up = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 1, kFALSE, m_isData);
+    // elesTopMVAT_weight_down = calMuonIDSF(elesTopMVAT, eleIDSF_topMVA, 2, kFALSE, m_isData);
+    // musTopMVAT_weight = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 0, kTRUE, m_isData);
+    // musTopMVAT_weight_up = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 1, kTRUE, m_isData);
+    // musTopMVAT_weight_down = calMuonIDSF(muonsTopMVAT, muIDSF_topMVA, 2, kTRUE, m_isData);
+
 
 };
 

@@ -5,6 +5,7 @@
 #include "TLorentzVector.h"
 #include <Math/Vector4D.h>
 #include "TH1D.h"
+#include "TH2D.h"
 #include <vector>
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
@@ -88,6 +89,7 @@ Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t
 
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
 
+Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> & muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& SelectedTops) ;
 // Double_t init = 0;
 // for (UInt_t j = 0; j < SelectedTops.GetSize(); ++j) {

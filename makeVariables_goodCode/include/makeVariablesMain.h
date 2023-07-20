@@ -25,13 +25,13 @@ class MakeVariablesMain
 {
 public:
     // MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
-    MakeVariablesMain(TString inputDir, TString outDir, TString processName) : m_inputDir{inputDir}, m_processName{processName}
+    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, TString isRun3) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
 
-        m_isData = TTTT::getIsData(m_inputDir);
-        m_era = TTTT::getEra(m_inputDir);
-        m_isRun3 = TTTT::isRun3(m_era);
+        // m_isData = TTTT::getIsData(m_inputDir);
+        // m_era = TTTT::getEra(m_inputDir);
+        // m_isRun3 = TTTT::isRun3(m_era);
 
         TChain *chain1 = new TChain("tree");
         if(m_isRun3){
@@ -67,12 +67,13 @@ public:
 
 private:
     TString m_inputDir;
-    Bool_t m_isData = kFALSE;
+    TString m_processName;
+    // m_isData, m_era and m_isRun3 should be properly initialized from beginning, because other classes depend on it
+    Bool_t m_isData;
     TString m_era;
-    Bool_t m_isRun3 = kFALSE;
+    Bool_t m_isRun3;
     TTreeReader m_reader;
     EventForMV *e;
-    TString m_processName;
     TFile *m_output;
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
     TH1D *m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
@@ -95,7 +96,7 @@ private:
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};
     CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
-    WeightVarMaker weightVarMaker{m_outTree};
+    WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData};
 };
 
 #endif

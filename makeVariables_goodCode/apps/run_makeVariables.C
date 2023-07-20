@@ -31,7 +31,11 @@ void run_objectSelection(
 
     TString inputDir1 = inputBase + inputDir + "/";
     TString processName = inputDir;
-    MakeVariablesMain mv(inputDir1, outputDir, processName);
+    Bool_t    isData = TTTT::getIsData(inputDir1);
+    TString    era = TTTT::getEra(inputDir1);
+    Bool_t isRun3 = TTTT::isRun3(era);
+
+    MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     mv.EventLoop(kTRUE, numEntries);
     mv.Terminate();
 

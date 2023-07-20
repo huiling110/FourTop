@@ -1,12 +1,14 @@
 #ifndef WEIGHTVARMAKER_H
 #define WEIGHTVARMAKER_H
 
+#include <TH2D.h>
 #include "eventReader_forMV.h"
+
 
 class WeightVarMaker
 {
 public:
-    WeightVarMaker(TTree *outTree);
+    WeightVarMaker(TTree *outTree, TString era, Bool_t isData);
     ~WeightVarMaker();
     void makeVariables(EventForMV *e);
     void clearBranch();
@@ -69,6 +71,10 @@ private:
     Double_t HLT_weight_stats_up = 1.0;
     Double_t HLT_weight_stats_down = 1.0;
 
+    TString m_era;
+    const Bool_t m_isData;
+    TH2D *eleIDSF_topMVA;
+    TH2D *muIDSF_topMVA;
 };
 
 #endif

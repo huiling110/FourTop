@@ -5,6 +5,7 @@
 
 #include "../include/writeHist_forDataMC.h"
 #include "../include/functions.h"
+#include "../../myLibrary/commenFunction.h"
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
@@ -25,6 +26,10 @@ void run_treeAnalyzer(
 
     TStopwatch t;
     t.Start();
+    // Bool_t    isData = TTTT::getIsData(inputDir);
+    // TString    era = TTTT::getEra(inputDir);
+    // Bool_t    isRun3 = TTTT::isRun3(era);
+
     WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
     writeHist.Init();
     writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here

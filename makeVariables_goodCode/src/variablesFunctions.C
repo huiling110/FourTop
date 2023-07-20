@@ -567,3 +567,46 @@ void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
 // }
 // return init;
 // }
+
+
+
+
+// Double_t calMuonIDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &muonsT, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData)
+Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> & muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData)
+{
+    Double_t muonIDSF = 1.0;
+    if (!isData)
+    {
+        for (UInt_t i = 0; i < muons_pt.GetSize(); i++)
+        {
+            Int_t binx;
+            if (isMuon)
+            {
+                binx = MuonIDSF->GetXaxis()->FindBin(fabs(muons_eta.At(i))); // fabs for muons, no abs for electron
+            }
+            else
+            {
+                binx = MuonIDSF->GetXaxis()->FindBin((muons_eta.At(i))); // fabs for muons, no abs for electron
+            }
+            Int_t biny = MuonIDSF->GetYaxis()->FindBin(muons_pt.At(i));
+            Double_t iMuonSF = MuonIDSF->GetBinContent(binx, biny);
+            Double_t iMuonSF_up = iMuonSF + MuonIDSF->GetBinError(binx, biny);
+            Double_t iMuonSF_down = iMuonSF - MuonIDSF->GetBinError(binx, biny);
+            if (type == 0)
+            {
+                muonIDSF *= iMuonSF;
+            }
+            else if (type == 1)
+            {
+                muonIDSF *= iMuonSF_up;
+            }
+            else if (type == 2)
+            {
+                muonIDSF *= iMuonSF_down;
+            }
+        }
+        if (muonIDSF == 0)
+            muonIDSF = 1.0;
+    }
+    return muonIDSF;
+}
