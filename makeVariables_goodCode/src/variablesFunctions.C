@@ -575,6 +575,7 @@ void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> & muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData)
 {
     Double_t muonIDSF = 1.0;
+    // std::cout<<"muonSize="<<muons_pt.GetSize()<<"\n";
     if (!isData)
     {
         for (UInt_t i = 0; i < muons_pt.GetSize(); i++)
