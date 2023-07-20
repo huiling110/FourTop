@@ -695,3 +695,14 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     // std::cout << "btagSF = " << sf << "\n";
     return sf;
 }
+
+Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
+{
+    Double_t r = 1.0;
+    if (jets_number >= btagRHist->GetXaxis()->GetXmin() && jets_number <= btagRHist->GetXaxis()->GetXmax())
+    {
+        Int_t binx = btagRHist->GetXaxis()->FindBin(jets_number);
+        r = btagRHist->GetBinContent(binx);
+    }
+    return r;
+}

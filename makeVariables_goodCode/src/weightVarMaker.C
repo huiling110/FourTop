@@ -155,7 +155,7 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     btagShape_weight_cferr1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr1");
     btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
-    // btagShapeR = calBtagR(jets_number, btagRHist);
+    btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
 
 
 
