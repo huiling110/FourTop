@@ -5,6 +5,7 @@
 #include "../include/weightVarMaker.h"
 #include "../include/variablesFunctions.h"
 #include "../include/inputMap_MV.h"
+#include "../../myLibrary/commenFunction.h"
 
 WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_era{era}, m_isData{isData}
 {
@@ -100,7 +101,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
         printf("Correction: %s\n", corr.first.c_str());
     }
     // btagR files
-    btagRHist = getHistogramFromFile(MV::btagR_map.at(m_era), "btagR");
+    btagRHist = TTTT::getHistogramFromFile(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
 
     std::cout << "Done initializing ............\n";
@@ -127,13 +128,13 @@ void WeightVarMaker::makeVariables(EventForMV *e)
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
 
-    tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
-    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
-    tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData);
-    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom", m_isData);
-    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
-    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
-    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
+    // tauT_IDSF_weight_new = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
+    // tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
+    // tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData);
+    // tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "up", "nom", m_isData);
+    // tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData);
+    // tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
+    // tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(tausT, tausT_decayMode, tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
 };
 
