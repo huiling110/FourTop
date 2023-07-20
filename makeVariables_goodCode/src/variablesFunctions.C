@@ -614,7 +614,7 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
 }
 
 // Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
-Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
+Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
 {
     // read from official json file
     // syst='nom', 'up' or  'down'.
