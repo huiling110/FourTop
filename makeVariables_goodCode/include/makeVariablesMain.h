@@ -18,6 +18,7 @@
 #include "jetVarMaker.h"
 #include "copyBranches.h"
 #include "weightVarMaker.h"
+#include "createHists.h"
 #include "../../myLibrary/commenFunction.h"
 
 class MakeVariablesMain
@@ -49,6 +50,9 @@ public:
         m_outTree->SetDirectory(m_output);
         m_cutflow->SetDirectory(m_output);
         std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
+
+        //
+        createHist = CreateHist(m_output);
 
         std::cout << "Done initializing MakeVariablesMain class................................\n";
         std::cout << "\n";
@@ -89,6 +93,8 @@ private:
     JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
 
     CopyBranches copyBranches{m_outTree};
+    // CreateHist createHists{m_output};
+    CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
     WeightVarMaker weightVarMaker{m_outTree};
 };
 

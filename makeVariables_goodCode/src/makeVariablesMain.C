@@ -36,6 +36,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         // SF and systematic calculation
         weightVarMaker.makeVariables(e);
 
+        //create hists for b tag efficiency measurement 
+
         // baseline selection
         if (baselineSel)
         {
