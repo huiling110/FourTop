@@ -62,7 +62,13 @@ public:
         };
 
         m_tree->SetBranchStatus("jets_pt_", 1);
+        m_tree->SetBranchStatus("jets_eta_", 1);
+        m_tree->SetBranchStatus("jets_btags_", 1);
+        m_tree->SetBranchStatus("jets_flavour_", 1);
         m_tree->SetBranchAddress("jets_pt_", &jets_pt_);
+        m_tree->SetBranchAddress("jets_eta_", &jets_eta_);
+        m_tree->SetBranchAddress("jets_btags_", &jets_btags_);
+        m_tree->SetBranchAddress("jets_flavour_", &jets_flavour_);
 
 
         std::cout << "Done initializing event class \n";
@@ -167,7 +173,10 @@ public:
 
 
     //for btag eff study
-    std::vector<Double_t>* jets_pt_=nullptr;
+    std::vector<Double_t>* jets_pt_=nullptr;//???not sure why it has to be a pointer to read branch
+    std::vector<Double_t>* jets_eta_=nullptr;
+    std::vector<Double_t>* jets_btags_=nullptr;
+    std::vector<Double_t>* jets_flavour_=nullptr;
 
 
 private:

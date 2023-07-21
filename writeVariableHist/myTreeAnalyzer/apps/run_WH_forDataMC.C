@@ -34,9 +34,9 @@ void run_treeAnalyzer(
 
     // WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
     WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
-    // writeHist.Init();
-    // writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
-    // writeHist.Terminate();
+    writeHist.Init();
+    writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
+    writeHist.Terminate();
 
 
     t.Stop();

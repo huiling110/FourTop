@@ -54,6 +54,8 @@ void WriteHist_btagEff::LoopTree(){
         }
 
         for(UInt_t i=0; i<e->jets_pt_->size(); i++){
+            Double_t ipt = e->jets_pt_->at(i);
+            // std::cout << "jetPt=" <<ipt<<"\n";
             // Int_t jetFlavour = e->jets_flavour.At(i); 
             // Double_t jetPt = e->jets_pt.At(i);
             // Double_t jetEta = std::abs(e->jets_eta.At(i));
@@ -73,6 +75,13 @@ void WriteHist_btagEff::LoopTree(){
             // }
         }
     }
+}
+
+void WriteHist_btagEff::Terminate(){
+    std::cout << "Termintate: ..........................................\n";
+    m_outFile->Write();
+    std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
+
 }
 
 WriteHist_btagEff::~WriteHist_btagEff()

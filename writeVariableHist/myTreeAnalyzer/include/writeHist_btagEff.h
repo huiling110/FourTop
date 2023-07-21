@@ -34,7 +34,7 @@ WriteHist_btagEff(const TString inputDir, const TString process, TString outVers
     ~WriteHist_btagEff();
 void Init();
 void LoopTree();
-
+void Terminate();
 };
 
 
