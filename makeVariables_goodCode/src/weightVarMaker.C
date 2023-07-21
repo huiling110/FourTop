@@ -90,6 +90,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     TString base = "../../jsonpog-integration/POG/";
     TString tauSF_json = base + MV::json_map.at(m_era).at(1);
     TString btagSF_json = base + MV::json_map.at(m_era).at(2);
+    std::cout<<"tauSF json="<<tauSF_json<<"\n";
+    std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
     for (auto &corr : *cset)

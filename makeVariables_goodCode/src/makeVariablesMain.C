@@ -30,15 +30,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
 
-        // copy some branches
-        copyBranches.makeVariables(e);
-
-        // SF and systematic calculation
-        weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), bjetMVarMaker.getJet_num());
-
-        //create hists for b tag efficiency measurement
-        createHist.fillHist(e);
-
         // baseline selection
         if (baselineSel)
         {
@@ -47,6 +38,14 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
                 continue;
             }
         }
+
+        //create hists for b tag efficiency measurement
+        createHist.fillHist(e);
+        // copy some branches
+        copyBranches.makeVariables(e);
+        // SF and systematic calculation
+        weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), bjetMVarMaker.getJet_num());
+
         m_cutflow->Fill(1);
 
         m_outTree->Fill();

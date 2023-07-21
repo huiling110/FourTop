@@ -1,6 +1,7 @@
 #include <map>
 
 #include "../include/copyBranches.h"
+#include "../include/variablesFunctions.h"
 
 CopyBranches::CopyBranches(TTree *outTree)
 {
@@ -24,12 +25,14 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080", &HLT_PFHT430_SixJet40_BTagCSV_p080);
     outTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075);
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2);
-    //2022
+    // 2022
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94);
 
     outTree->Branch("MET_pt", &MET_pt);
     outTree->Branch("MET_phi", &MET_phi);
+
+    outTree->Branch("jets_pt_", &jets_pt_);
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
@@ -37,15 +40,17 @@ CopyBranches::CopyBranches(TTree *outTree)
 
 void CopyBranches::makeVariables(EventForMV *e)
 {
-    // clearBranch();
+    clearBranch();
     PV_npvsGood = *e->PV_npvsGood_;
 
+    copy_TTreeReaderArray_toVector(e->jets_pt, jets_pt_);
+
 };
 
-
-void CopyBranches::clearBranch()
-{ //??? derived class should also have a clearBranch()
+void CopyBranches::clearBranch(){
+    //??? derived class should also have a clearBranch()
+    jets_pt_.clear();
 };
 
-
-CopyBranches::~CopyBranches(){};
+CopyBranches::~CopyBranches(){
+};

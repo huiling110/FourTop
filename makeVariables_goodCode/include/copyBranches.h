@@ -38,6 +38,7 @@ private:
     Double_t MET_pt = -99;
     Double_t MET_phi = -99;
 
+    std::vector<Double_t> jets_pt_;
 };
 
 #endif

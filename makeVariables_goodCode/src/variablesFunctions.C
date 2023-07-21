@@ -5,6 +5,7 @@
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec)
 {
+    vec.clear();
     for (UInt_t i = 0; i < array.GetSize(); i++)
     {
         vec.push_back(array.At(i));
@@ -12,6 +13,7 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::v
 };
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec)
 {
+    vec.clear();
     for (UInt_t i = 0; i < array.GetSize(); i++)
     {
         vec.push_back(array.At(i));
@@ -753,3 +755,13 @@ Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D
     }
     return weight;
 }
+
+
+// void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec)
+// {
+//     vec.clear();
+//     for (UInt_t i = 0; i < array.GetSize(); i++)
+//     {
+//         vec.push_back(array.At(i));
+//     }
+// };
