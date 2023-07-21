@@ -6,15 +6,17 @@
 #include "../include/writeHist_forDataMC.h"
 #include "../include/functions.h"
 #include "../../myLibrary/commenFunction.h"
+#include "../include/writeHist_btagEff.h"
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
-    // TString process = "tttt",
     // TString process = "tZ",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/",
-    TString process = "TTto4Q",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/",
+    // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
+    TString process = "tttt",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/data/",
     // TString process = "JetMet2022D",
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/makeVariables_goodCode/output/"
@@ -30,10 +32,12 @@ void run_treeAnalyzer(
     // TString    era = TTTT::getEra(inputDir);
     // Bool_t    isRun3 = TTTT::isRun3(era);
 
-    WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
-    writeHist.Init();
-    writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
-    writeHist.Terminate();
+    // WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
+    WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
+    // writeHist.Init();
+    // writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
+    // writeHist.Terminate();
+
 
     t.Stop();
     t.Print();

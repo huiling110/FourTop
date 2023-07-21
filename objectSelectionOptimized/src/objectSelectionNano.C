@@ -50,8 +50,8 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         muTopMVATSel.Select(e);
 
         // tau selection
-        // Int_t sysTES = 0;
-        Int_t sysTES = 4; // no tau energy correction
+        Int_t sysTES = 0;
+        // Int_t sysTES = 4; // no tau energy correction
         tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
         tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
@@ -63,6 +63,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
 
         // jet and bjet selection
         const Bool_t ifJER = kFALSE;
+        // const Bool_t ifJER = kTRUE;
         const Int_t sysJEC = 0;
         jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
@@ -96,6 +97,8 @@ void objectSelection::Terminate()
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) << " preSelection: " << m_cutflow->GetBinContent(4) << "\n";
+    std::cout << "initial events:" << m_cutflow->GetBinContent(1) / m_cutflow->GetBinError(1) << "\n";
+    //";   HLT: " << m_cutflow->GetEntries(3) << " preSelection: " << m_cutflow->GetEntries(4) << "\n";
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";
 
     // get Runs tree
@@ -112,12 +115,6 @@ void objectSelection::Terminate()
 
     //scale cutflow hist
     //!!!I don't think we can scale individial tree like this
-    // if(!m_isData){
-    //     Double_t genWeightSum = TTTT::getGenSum(m_input->GetName());
-    //     // std::cout<<genWeightSum<<"\n";
-    //     Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
-    //     m_cutflow->Scale(processScale);
-    // }
 
 
     m_output->Write();

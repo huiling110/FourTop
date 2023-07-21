@@ -47,7 +47,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
     clearBranch();
-    // calTauSF_new(e, isData);//!!!for 2022???
+    calTauSF_new(e, isData);//!!!for 2022???
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
         Double_t itau_pt = e->Tau_pt.At(j);
@@ -192,6 +192,10 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
     // https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
     //???i assume it contains the correction to genuine tau and genuine electrons?
+    taus_TES.clear();
+    taus_TES_up.clear();
+    taus_TES_down.clear();
+
     Double_t iTES_sf = 1.0;
     Double_t iTES_sf_up = 1.0;
     Double_t iTES_sf_down = 1.0;
