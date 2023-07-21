@@ -2,6 +2,7 @@
 #include "../include/writeHist_btagEff.h"
 #include "../../myLibrary/commenFunction.h"
 #include "../include/commenSelectionAndWeight.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 
 WriteHist_btagEff::WriteHist_btagEff(const TString inputDir, const TString process, TString outVersion , Bool_t isTest ) : m_inputDir{inputDir}, m_processName{process},  m_isTest{isTest}
 {
@@ -32,6 +33,9 @@ void WriteHist_btagEff::Init(){
     m_h2D_jets_ptEta_b->SetDirectory(m_outFile);
     m_h2D_jets_ptEta_c->SetDirectory(m_outFile);
     m_h2D_jets_ptEta_l->SetDirectory(m_outFile);
+    m_h2D_jets_ptEta_b_nu->SetDirectory(m_outFile);
+    m_h2D_jets_ptEta_c_nu->SetDirectory(m_outFile);
+    m_h2D_jets_ptEta_l_nu->SetDirectory(m_outFile);
     std::cout<<"Done initialization........\n";
 
 }
@@ -54,25 +58,35 @@ void WriteHist_btagEff::LoopTree(){
         }
 
         for(UInt_t i=0; i<e->jets_pt_->size(); i++){
-            Double_t ipt = e->jets_pt_->at(i);
-            // std::cout << "jetPt=" <<ipt<<"\n";
-            // Int_t jetFlavour = e->jets_flavour.At(i); 
-            // Double_t jetPt = e->jets_pt.At(i);
-            // Double_t jetEta = std::abs(e->jets_eta.At(i));
-            // switch (jetFlavour)
-            // {
-            // case 5: // b jet
-            //     m_h2D_jets_ptEta_b->Fill( jetPt, jetEta);
-            //     break;
-            // case 4: //c jet
-            //     m_h2D_jets_ptEta_c->Fill( jetPt, jetEta);
-            //     break;
-            // case 0: //c jet
-            //     m_h2D_jets_ptEta_l->Fill( jetPt, jetEta);
-            //     break;
-            // default:
-            //     break;
-            // }
+            Int_t jetFlavour = e->jets_flavour_->at(i); 
+            Double_t jetPt = e->jets_pt_->at(i);
+            Double_t jetEta = std::abs(e->jets_eta_->at(i));
+            Double_t jetBtag = e->jets_btags_->at(i);
+            Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
+
+            switch (jetFlavour)
+            {
+            case 5: // b jet
+                m_h2D_jets_ptEta_b->Fill( jetPt, jetEta);
+                if(ifPassBtagM){
+                    m_h2D_jets_ptEta_b_nu->Fill( jetPt, jetEta);
+                }
+                break;
+            case 4: //c jet
+                m_h2D_jets_ptEta_c->Fill( jetPt, jetEta);
+                if(ifPassBtagM){
+                    m_h2D_jets_ptEta_c_nu->Fill( jetPt, jetEta);
+                }
+                break;
+            case 0: //c jet
+                m_h2D_jets_ptEta_l->Fill( jetPt, jetEta);
+                if(ifPassBtagM){
+                    m_h2D_jets_ptEta_c_nu->Fill( jetPt, jetEta);
+                }
+                break;
+            default:
+                break;
+            }
         }
     }
 }

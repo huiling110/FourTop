@@ -16,7 +16,8 @@ void run_treeAnalyzer(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/",
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
-    TString process = "tttt",
+    // TString process = "tttt",
+    TString process = "ttbar_0l",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/data/",
     // TString process = "JetMet2022D",
     // TString inputDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/makeVariables_goodCode/output/"

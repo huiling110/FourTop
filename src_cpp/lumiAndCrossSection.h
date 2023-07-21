@@ -64,5 +64,17 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"TTto4Q", 377.96	},
 };
 
+inline const std::map<TString, double> DeepJetM = {
+    // std::map of medium WPs for DeepJet
+
+    {"2016postVFP", 0.2489},
+    {"2016preVFP", 0.2598},
+    {"2017", 0.3040},
+    {"2018", 0.2783},
+    {"2022", 0.2783},
+
+};
+
+
 };
 #endif
