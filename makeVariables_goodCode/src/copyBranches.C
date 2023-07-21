@@ -33,6 +33,9 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("MET_phi", &MET_phi);
 
     outTree->Branch("jets_pt_", &jets_pt_);
+    outTree->Branch("jets_eta_", &jets_eta_);
+    outTree->Branch("jets_btags_", &jets_btags_);
+    outTree->Branch("jets_flavour_", &jets_flavour_);
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
@@ -44,12 +47,18 @@ void CopyBranches::makeVariables(EventForMV *e)
     PV_npvsGood = *e->PV_npvsGood_;
 
     copy_TTreeReaderArray_toVector(e->jets_pt, jets_pt_);
+    copy_TTreeReaderArray_toVector(e->jets_eta, jets_eta_);
+    copy_TTreeReaderArray_toVector(e->jets_btags, jets_btags_);
+    copy_TTreeReaderArray_toVector(e->jets_flavour, jets_flavour_);
 
 };
 
 void CopyBranches::clearBranch(){
     //??? derived class should also have a clearBranch()
     jets_pt_.clear();
+    jets_eta_.clear();
+    jets_btags_.clear();
+    jets_flavour_.clear();
 };
 
 CopyBranches::~CopyBranches(){
