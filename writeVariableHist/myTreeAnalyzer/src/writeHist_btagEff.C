@@ -56,6 +56,9 @@ void WriteHist_btagEff::LoopTree(){
         {
             continue;
         }
+        // Double_t eventWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
+        Double_t eventWeight =  e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
+        // std::cout << eventWeight << "\n";
 
         for(UInt_t i=0; i<e->jets_pt_->size(); i++){
             Int_t jetFlavour = e->jets_flavour_->at(i); 
@@ -67,21 +70,21 @@ void WriteHist_btagEff::LoopTree(){
             switch (jetFlavour)
             {
             case 5: // b jet
-                m_h2D_jets_ptEta_b->Fill( jetPt, jetEta);
+                m_h2D_jets_ptEta_b->Fill( jetPt, jetEta, eventWeight );
                 if(ifPassBtagM){
-                    m_h2D_jets_ptEta_b_nu->Fill( jetPt, jetEta);
+                    m_h2D_jets_ptEta_b_nu->Fill( jetPt, jetEta, eventWeight );
                 }
                 break;
             case 4: //c jet
-                m_h2D_jets_ptEta_c->Fill( jetPt, jetEta);
+                m_h2D_jets_ptEta_c->Fill( jetPt, jetEta, eventWeight );
                 if(ifPassBtagM){
-                    m_h2D_jets_ptEta_c_nu->Fill( jetPt, jetEta);
+                    m_h2D_jets_ptEta_c_nu->Fill( jetPt, jetEta, eventWeight );
                 }
                 break;
             case 0: //c jet
-                m_h2D_jets_ptEta_l->Fill( jetPt, jetEta);
+                m_h2D_jets_ptEta_l->Fill( jetPt, jetEta, eventWeight );
                 if(ifPassBtagM){
-                    m_h2D_jets_ptEta_c_nu->Fill( jetPt, jetEta);
+                    m_h2D_jets_ptEta_l_nu->Fill( jetPt, jetEta, eventWeight );
                 }
                 break;
             default:
