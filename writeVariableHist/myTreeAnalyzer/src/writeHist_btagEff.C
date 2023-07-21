@@ -1,6 +1,7 @@
 
 #include "../include/writeHist_btagEff.h"
 #include "../../myLibrary/commenFunction.h"
+#include "../include/commenSelectionAndWeight.h"
 
 WriteHist_btagEff::WriteHist_btagEff(const TString inputDir, const TString process, TString outVersion , Bool_t isTest ) : m_inputDir{inputDir}, m_processName{process},  m_isTest{isTest}
 {
@@ -24,6 +25,54 @@ WriteHist_btagEff::WriteHist_btagEff(const TString inputDir, const TString proce
     m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
     e = new event(m_tree);
+}
+
+void WriteHist_btagEff::Init(){
+    std::cout<<"Initializing WriteHist_btagEff........\n";
+    m_h2D_jets_ptEta_b->SetDirectory(m_outFile);
+    m_h2D_jets_ptEta_c->SetDirectory(m_outFile);
+    m_h2D_jets_ptEta_l->SetDirectory(m_outFile);
+    std::cout<<"Done initialization........\n";
+
+}
+
+void WriteHist_btagEff::LoopTree(){
+    std::cout << "Start to loop tree\n";
+    Long64_t allEvent = m_tree->GetEntries();
+    if (m_isTest)
+    {
+        allEvent = 10000;
+    }
+
+    for (UInt_t i = 0; i < allEvent; i++)
+    {
+        m_tree->GetEntry(i);
+
+        if (!(baselineSelection(e)))
+        {
+            continue;
+        }
+
+        for(UInt_t i=0; i<e->jets_pt_->size(); i++){
+            // Int_t jetFlavour = e->jets_flavour.At(i); 
+            // Double_t jetPt = e->jets_pt.At(i);
+            // Double_t jetEta = std::abs(e->jets_eta.At(i));
+            // switch (jetFlavour)
+            // {
+            // case 5: // b jet
+            //     m_h2D_jets_ptEta_b->Fill( jetPt, jetEta);
+            //     break;
+            // case 4: //c jet
+            //     m_h2D_jets_ptEta_c->Fill( jetPt, jetEta);
+            //     break;
+            // case 0: //c jet
+            //     m_h2D_jets_ptEta_l->Fill( jetPt, jetEta);
+            //     break;
+            // default:
+            //     break;
+            // }
+        }
+    }
 }
 
 WriteHist_btagEff::~WriteHist_btagEff()

@@ -60,14 +60,11 @@ public:
                 m_tree->SetBranchAddress(bra->n(), bra->a());
             };
         };
-        // for (auto it = m_variableMap.begin(); it != m_variableMap.end(); ++it)
-        // {
-        //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
-        // };
-        // for (auto it = m_variableMapDou.begin(); it != m_variableMapDou.end(); ++it)
-        // {
-        //     m_tree->SetBranchAddress(it->second->n(), it->second->a());
-        // };
+
+        m_tree->SetBranchStatus("jets_pt_", 1);
+        m_tree->SetBranchAddress("jets_pt_", &jets_pt_);
+
+
         std::cout << "Done initializing event class \n";
     };
     ~event()
@@ -168,6 +165,11 @@ public:
     myBranch<Double_t> btagShape_weight_cferr1_down{"btagShape_weight_cferr1_down"};
     myBranch<Double_t> btagShape_weight_cferr2_down{"btagShape_weight_cferr2_down"};
 
+
+    //for btag eff study
+    std::vector<Double_t>* jets_pt_=nullptr;
+
+
 private:
     TTree *m_tree;
     std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *>> m_variableMap = {
@@ -245,5 +247,8 @@ private:
         {btagShape_weight_cferr1_down.n(), &btagShape_weight_cferr1_down},
         {btagShape_weight_cferr2_down.n(), &btagShape_weight_cferr2_down},
     };
+
+
+
 };
 #endif
