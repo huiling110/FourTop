@@ -5,6 +5,10 @@ def main():
     inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1_btagEffMeasure/ttbar_0l.root'
     
     eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_ptEta1_de', 'b_jets_ptEta1_nu'])
+    eff_c_eta1 = getEffFromFile(inputDirFile,  ['c_jets_ptEta1_de', 'c_jets_ptEta1_nu'])
+    eff_l_eta1 = getEffFromFile(inputDirFile,  ['l_jets_ptEta1_de', 'l_jets_ptEta1_nu'])
+    
+    
    
 def getEffFromFile(inputDirFile, Histlist):   
     b_eta1List= getHistFromFile( inputDirFile, Histlist) 

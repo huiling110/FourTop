@@ -46,6 +46,10 @@ void WriteHist_btagEff::Init()
     nu_jetsPt_eta1_l->SetDirectory(m_outFile);
     de_jetsPt_eta2_l->SetDirectory(m_outFile);
     nu_jetsPt_eta2_l->SetDirectory(m_outFile);
+    de_jetsPt_eta1_c->SetDirectory(m_outFile);
+    nu_jetsPt_eta1_c->SetDirectory(m_outFile);
+    de_jetsPt_eta2_c->SetDirectory(m_outFile);
+    nu_jetsPt_eta2_c->SetDirectory(m_outFile);
     std::cout << "Done initialization........\n";
 }
 
