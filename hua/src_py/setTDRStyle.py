@@ -164,7 +164,7 @@ def setMyStyle():
 #   myStyle.SetHistLineStyle(0)
   myStyle.SetHistLineWidth(2)
   myStyle.SetEndErrorSize(2)
-  myStyle.SetErrorX(0.) #error bar no x 
+#   myStyle.SetErrorX(0.) #error bar no x 
   myStyle.SetMarkerStyle(20)
   myStyle.SetMarkerSize(2)
 
