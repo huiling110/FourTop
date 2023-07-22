@@ -7,6 +7,7 @@ def main():
     
     era = uf.getEraFromDir(inputDirFile)
     plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
    
 def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):   
     
@@ -18,20 +19,20 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     
     inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
+    uf.checkMakeDir(plotDir)
     plotName = plotDir+'/overlay_'+eta+'.png'
-    plotOverlay(histList, legendList, era, 'B tag efficiency', plotName , [0, 0.2])
+    plotOverlay(histList, legendList, era, 'B tag efficiency', plotName )
     
-def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[0, 1] ):
+def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
     print('start to plot overlay plot')
     mySty =  st.setMyStyle()
     mySty.cd()
     can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
     
     legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)  # Create a legend to label the histograms
-
-    # histList[0].Draw()
     
-    # histList[1].Draw('same')
+    yMax = getYmax(histList)
+
     for i, histogram in enumerate(histList):
         if i == 0:
             histogram.Draw()  # Draw the first histogram without any options
@@ -44,14 +45,24 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[0, 1] ):
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         if len(yRange)>1:
             histList[i].GetYaxis().SetRangeUser(yRange[0], yRange[1])
+        else:
+            histList[i].GetYaxis().SetRangeUser(0, yMax*1.3)
 
         legend.AddEntry(histogram, legenList[i], "l")  # Add an entry to the legend
         legend.Draw() 
-    
-    
-    can.SaveAs(plotName)
         
-    
+    can.SaveAs(plotName)
+    print('Done overlay plotting\n\n')
+        
+def getYmax(histograms):
+    max_y = -1.0
+    for hist in histograms:
+        if hist:
+            current_max_y = hist.GetMaximum()
+            if current_max_y > max_y:
+                max_y = current_max_y
+
+    return max_y    
 
     
    
