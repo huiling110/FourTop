@@ -72,3 +72,10 @@ void histRegionsVectScale(std::vector<std::shared_ptr<histForRegionsBase>>& hist
         obj->scale(scale);
     }
 }
+
+void fillDeNu(Bool_t ifPass, TH1D*& de, TH1D*& nu, Double_t var, Double_t weight){
+    de->Fill(var, weight);
+    if( ifPass){
+        nu->Fill(var, weight);
+    }
+}

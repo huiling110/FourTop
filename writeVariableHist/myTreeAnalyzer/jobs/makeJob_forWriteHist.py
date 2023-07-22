@@ -33,6 +33,7 @@ def main():
    
     # version = 'v0_HLTSFMeasure'
     # version = 'v1_btagRMeasure'
+    version = 'v1_btagEffMeasure'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'
@@ -62,7 +63,7 @@ def main():
     
     #run3
     # version = 'v0allRegions'
-    version = 'v1dataMC'
+    # version = 'v1dataMC'
     
    
     justMC = False
