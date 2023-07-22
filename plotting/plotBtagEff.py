@@ -32,6 +32,13 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
     legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)  # Create a legend to label the histograms
     
     yMax = getYmax(histList)
+    #plot style
+    LineColorDic={
+        0: ROOT.kOrange,
+        1: ROOT.TColor.GetColor("#f03b20"),
+        2: ROOT.TColor.GetColor("#fc9272"),
+    }
+    
 
     for i, histogram in enumerate(histList):
         if i == 0:
@@ -39,8 +46,11 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
         else:
             histogram.Draw("same")  # Draw subsequent histograms with "same" option to overlay
 
-        histogram.SetLineColor(i + 1)  # Set line color for each histogram
+        # histogram.SetLineColor(i + 1)  # Set line color for each histogram
+        histogram.SetLineColor(LineColorDic[i])
+        histogram.SetMarkerColor(LineColorDic[i])
         histogram.SetLineWidth(2)  # Set line width for each histogram
+        histogram.SetMarkerSize(4)
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         if len(yRange)>1:
