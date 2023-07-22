@@ -12,22 +12,14 @@ def main():
     # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
     # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    hist = getHistFromFile(inputDirFile, ['jets_ptEta_genB'])
-    file = ROOT.TFile.Open(inputDirFile)
-    # file.ls()
-    # hist1 = ROOT.TH2D(file.Get('jets_ptEta_genB_nu'))
-    # hist1.Print()
-    # can = ROOT.TCanvas('SF', 'SF', 1000, 800)
-    # hist1.Draw()
-    # can.SaveAs('output/test.png')
      
-    # hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_genB', 'jets_ptEta_genB_nu'])
-    # hist2d_b.Print()
-    # inputDir = inputDirFile.rsplit('/',1)[0]
-    # plotDir = inputDir+'/results/'
-    # uf.checkMakeDir(plotDir)
-    # plotName = plotDir+'/bEff_b.png'
-    # plot2D(hist2d_b, plotName, 'b tag efficiency', True)
+    hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_genB', 'jets_ptEta_genB_nu'])
+    hist2d_b.Print()
+    inputDir = inputDirFile.rsplit('/',1)[0]
+    plotDir = inputDir+'/results/'
+    uf.checkMakeDir(plotDir)
+    plotName = plotDir+'/bEff_b.png'
+    plot2D(hist2d_b, plotName, 'b tag efficiency', True)
     
 def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     #!!!basically same as that of plotHLT but more generic
