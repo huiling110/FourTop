@@ -83,29 +83,32 @@ void WriteHist_btagEff::LoopTree()
             switch (jetFlavour)
             {
             case 5: // b jet
-                m_h2D_jets_ptEta_b->Fill(jetPt, jetEta, eventWeight);
-                if (ifPassBtagM)
-                {
-                    m_h2D_jets_ptEta_b_nu->Fill(jetPt, jetEta, eventWeight);
-                }
+                // m_h2D_jets_ptEta_b->Fill(jetPt, jetEta, eventWeight);
+                // if (ifPassBtagM)
+                // {
+                //     m_h2D_jets_ptEta_b_nu->Fill(jetPt, jetEta, eventWeight);
+                // }
+                fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_b, m_h2D_jets_ptEta_b_nu, jetPt, jetEta, eventWeight);
                 fillDeNu(ifEta1, de_jetsPt_eta1_b, nu_jetsPt_eta1_b, jetPt, eventWeight);
                 fillDeNu(ifEta2, de_jetsPt_eta2_b, nu_jetsPt_eta2_b, jetPt, eventWeight);
                 break;
             case 4: // c jet
-                m_h2D_jets_ptEta_c->Fill(jetPt, jetEta, eventWeight);
-                if (ifPassBtagM)
-                {
-                    m_h2D_jets_ptEta_c_nu->Fill(jetPt, jetEta, eventWeight);
-                }
+                // m_h2D_jets_ptEta_c->Fill(jetPt, jetEta, eventWeight);
+                // if (ifPassBtagM)
+                // {
+                //     m_h2D_jets_ptEta_c_nu->Fill(jetPt, jetEta, eventWeight);
+                // }
+                fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_c, m_h2D_jets_ptEta_c_nu, jetPt, jetEta, eventWeight);
                 fillDeNu(ifEta1, de_jetsPt_eta1_c, nu_jetsPt_eta1_c, jetPt, eventWeight);
                 fillDeNu(ifEta2, de_jetsPt_eta2_c, nu_jetsPt_eta2_c, jetPt, eventWeight);
                 break;
             case 0: // c jet
-                m_h2D_jets_ptEta_l->Fill(jetPt, jetEta, eventWeight);
-                if (ifPassBtagM)
-                {
-                    m_h2D_jets_ptEta_l_nu->Fill(jetPt, jetEta, eventWeight);
-                }
+                // m_h2D_jets_ptEta_l->Fill(jetPt, jetEta, eventWeight);
+                // if (ifPassBtagM)
+                // {
+                //     m_h2D_jets_ptEta_l_nu->Fill(jetPt, jetEta, eventWeight);
+                // eN}
+                fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_l, m_h2D_jets_ptEta_l_nu, jetPt, jetEta, eventWeight);
                 fillDeNu(ifEta1, de_jetsPt_eta1_l, nu_jetsPt_eta1_l, jetPt, eventWeight);
                 fillDeNu(ifEta2, de_jetsPt_eta2_l, nu_jetsPt_eta2_l, jetPt, eventWeight);
                 break;

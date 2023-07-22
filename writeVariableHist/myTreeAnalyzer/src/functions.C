@@ -79,9 +79,9 @@ void fillDeNu(Bool_t ifPass, TH1D*& de, TH1D*& nu, Double_t var, Double_t weight
         nu->Fill(var, weight);
     }
 }
-void fillDeNu(Bool_t ifPass, TH1D*& de, TH1D*& nu, Double_t var, Double_t weight){
-    de->Fill(var, weight);
+void fillDeNu(Bool_t ifPass, TH2D*& de, TH2D*& nu, Double_t varX, Double_t varY, Double_t weight){
+    de->Fill(varX, varY, weight);
     if( ifPass){
-        nu->Fill(var, weight);
+        nu->Fill(varX, varY, weight);
     }
 }
