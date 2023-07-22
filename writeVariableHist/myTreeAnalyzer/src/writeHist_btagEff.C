@@ -40,6 +40,12 @@ void WriteHist_btagEff::Init()
     m_h2D_jets_ptEta_l_nu->SetDirectory(m_outFile);
     de_jetsPt_eta1_b->SetDirectory(m_outFile);
     nu_jetsPt_eta1_b->SetDirectory(m_outFile);
+    de_jetsPt_eta2_b->SetDirectory(m_outFile);
+    nu_jetsPt_eta2_b->SetDirectory(m_outFile);
+    de_jetsPt_eta1_l->SetDirectory(m_outFile);
+    nu_jetsPt_eta1_l->SetDirectory(m_outFile);
+    de_jetsPt_eta2_l->SetDirectory(m_outFile);
+    nu_jetsPt_eta2_l->SetDirectory(m_outFile);
     std::cout << "Done initialization........\n";
 }
 
@@ -72,6 +78,7 @@ void WriteHist_btagEff::LoopTree()
             Double_t jetBtag = e->jets_btags_->at(i);
             Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
             Bool_t ifEta1 = jetEta > 1.5;
+            Bool_t ifEta2 = jetEta<=1.5 ;
 
             switch (jetFlavour)
             {
@@ -82,6 +89,7 @@ void WriteHist_btagEff::LoopTree()
                     m_h2D_jets_ptEta_b_nu->Fill(jetPt, jetEta, eventWeight);
                 }
                 fillDeNu(ifEta1, de_jetsPt_eta1_b, nu_jetsPt_eta1_b, jetPt, eventWeight);
+                fillDeNu(ifEta2, de_jetsPt_eta2_b, nu_jetsPt_eta2_b, jetPt, eventWeight);
                 break;
             case 4: // c jet
                 m_h2D_jets_ptEta_c->Fill(jetPt, jetEta, eventWeight);
@@ -89,6 +97,8 @@ void WriteHist_btagEff::LoopTree()
                 {
                     m_h2D_jets_ptEta_c_nu->Fill(jetPt, jetEta, eventWeight);
                 }
+                fillDeNu(ifEta1, de_jetsPt_eta1_c, nu_jetsPt_eta1_c, jetPt, eventWeight);
+                fillDeNu(ifEta2, de_jetsPt_eta2_c, nu_jetsPt_eta2_c, jetPt, eventWeight);
                 break;
             case 0: // c jet
                 m_h2D_jets_ptEta_l->Fill(jetPt, jetEta, eventWeight);
@@ -96,6 +106,8 @@ void WriteHist_btagEff::LoopTree()
                 {
                     m_h2D_jets_ptEta_l_nu->Fill(jetPt, jetEta, eventWeight);
                 }
+                fillDeNu(ifEta1, de_jetsPt_eta1_l, nu_jetsPt_eta1_l, jetPt, eventWeight);
+                fillDeNu(ifEta2, de_jetsPt_eta2_l, nu_jetsPt_eta2_l, jetPt, eventWeight);
                 break;
             default:
                 break;
