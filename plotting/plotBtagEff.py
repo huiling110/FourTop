@@ -6,15 +6,20 @@ def main():
     inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1_btagEffMeasure/ttbar_0l.root'
     
     era = uf.getEraFromDir(inputDirFile)
+    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+   
+def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):   
     
-    eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_ptEta1_de', 'b_jets_ptEta1_nu'])
-    eff_c_eta1 = getEffFromFile(inputDirFile,  ['c_jets_ptEta1_de', 'c_jets_ptEta1_nu'])
-    eff_l_eta1 = getEffFromFile(inputDirFile,  ['l_jets_ptEta1_de', 'l_jets_ptEta1_nu'])
+    eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_pt'+eta+'_de', 'b_jets_pt'+eta+'_nu'])
+    eff_c_eta1 = getEffFromFile(inputDirFile,  ['c_jets_pt'+eta+'_de', 'c_jets_pt'+eta+'_nu'])
+    eff_l_eta1 = getEffFromFile(inputDirFile,  ['l_jets_pt'+eta+'_de', 'l_jets_pt'+eta+'_nu'])
     histList = [eff_b_eta1, eff_c_eta1, eff_l_eta1]
     legendList = ['b', 'c', 'light']
+    
     inputDir = inputDirFile.rsplit('/',1)[0]
-    plotName = inputDir+'overlay_eta1.png'
-    plotOverlay(histList, legendList, era, 'Efficiency', plotName , [0, 0.4])
+    plotDir = inputDir+'/results/'
+    plotName = plotDir+'/overlay_'+eta+'.png'
+    plotOverlay(histList, legendList, era, 'B tag efficiency', plotName , [0, 0.2])
     
 def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[0, 1] ):
     print('start to plot overlay plot')
