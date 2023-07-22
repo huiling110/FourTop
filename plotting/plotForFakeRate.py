@@ -340,7 +340,7 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 
-
+#!!!making it more generic
 def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
     # setTDRStyle()#???not sure why no content line
     # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
