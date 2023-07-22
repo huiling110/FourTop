@@ -2,12 +2,28 @@ import ROOT
 
 
 def main():
-   inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1_btagEffMeasure/ttbar_0l.root'
-  
-#    eff_b_eta1 = getEff(de_b_eta1, nu_b_eta2) 
-   b_eta1List= getHistFromFile( inputDirFile, ['b_jets_ptEta1_de', 'b_jets_ptEta1_nu']) 
-   print(b_eta1List)
-  
+    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1_btagEffMeasure/ttbar_0l.root'
+    
+    eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_ptEta1_de', 'b_jets_ptEta1_nu'])
+   
+def getEffFromFile(inputDirFile, Histlist):   
+    b_eta1List= getHistFromFile( inputDirFile, Histlist) 
+    #    print(b_eta1List)
+    eff_b_eta1 = getEff( b_eta1List[0], b_eta1List[1] )
+    eff_b_eta1.Print() 
+    return eff_b_eta1
+ 
+ 
+def getEff(de, nu) :
+    #!!! use maybe TEfficiency later to calculate efficiency
+    de.Sumw2()
+    nu.Sumw2()
+    eff = de.Clone()
+    eff.Reset()
+    eff.Divide(nu, de)
+    return eff
+    
+     
   
  
 def getHistFromFile(file_name, histogram_name):
