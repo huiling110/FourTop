@@ -34,18 +34,18 @@ private:
     TH2D *m_h2D_jets_ptEta_c_nu = new TH2D("jets_ptEta_genC_nu", "jets_ptEta_genC_nu", std::size(bins) - 1, bins, std::size(binsEta) - 1, binsEta);
     TH2D *m_h2D_jets_ptEta_l_nu = new TH2D("jets_ptEta_genL_nu", "jets_ptEta_genL_nu", std::size(bins) - 1, bins, std::size(binsEta) - 1, binsEta);
 
-    TH1D *de_jetsPt_eta1_b = new TH1D("b_jets_ptEta1_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta1_b = new TH1D("b_jets_ptEta1_nu", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *de_jetsPt_eta2_b = new TH1D("b_jets_ptEta2_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta2_b = new TH1D("b_jets_ptEta2_nu", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *de_jetsPt_eta1_c = new TH1D("c_jets_ptEta1_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta1_c = new TH1D("c_jets_ptEta1_nu", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *de_jetsPt_eta2_c = new TH1D("c_jets_ptEta2_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta2_c = new TH1D("c_jets_ptEta2_nu", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *de_jetsPt_eta1_l = new TH1D("l_jets_ptEta1_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta1_l = new TH1D("l_jets_ptEta1_nu", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *de_jetsPt_eta2_l = new TH1D("l_jets_ptEta2_de", "jet_pt", std::size(bins) - 1, bins);
-    TH1D *nu_jetsPt_eta2_l = new TH1D("l_jets_ptEta2_nu", "jet_pt", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta1_b = new TH1D("b_jets_ptEta1_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta1_b = new TH1D("b_jets_ptEta1_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta2_b = new TH1D("b_jets_ptEta2_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta2_b = new TH1D("b_jets_ptEta2_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta1_c = new TH1D("c_jets_ptEta1_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta1_c = new TH1D("c_jets_ptEta1_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta2_c = new TH1D("c_jets_ptEta2_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta2_c = new TH1D("c_jets_ptEta2_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta1_l = new TH1D("l_jets_ptEta1_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta1_l = new TH1D("l_jets_ptEta1_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *de_jetsPt_eta2_l = new TH1D("l_jets_ptEta2_de", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
+    TH1D *nu_jetsPt_eta2_l = new TH1D("l_jets_ptEta2_nu", "p_{T}^{jet}(GeV)", std::size(bins) - 1, bins);
 
 public:
     WriteHist_btagEff(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE);
