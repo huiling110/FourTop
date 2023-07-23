@@ -33,7 +33,8 @@ def main():
    
     # version = 'v0_HLTSFMeasure'
     # version = 'v1_btagRMeasure'
-    version = 'v1_btagEffMeasure'
+    # version = 'v1_btagEffMeasure'
+    version = 'v2_btagEffBugFixed'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'
