@@ -108,6 +108,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     btagRHist = TTTT::getHistogramFromFile(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
 
+    //btag WP efficieny files
+    btagEffHist_b = TTTT::getHistogramFromFile(MV::btagWPEff_map.at(m_era), "jets_ptEta_genB");
+    std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";
+
     // trigger
     TString trigger1b = MV::triggerSF_map.at(m_era);
     TFile *triggerSFFile = new TFile(trigger1b, "READ");
@@ -176,7 +180,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
     //btag WorkingPoint
-    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour,  cset_btag.get(), m_isData, "central") ;
+    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "central") ;
     // btagWPMAndT_weight = ;
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);

@@ -86,6 +86,8 @@ private:
     std::unique_ptr<correction::CorrectionSet> cset_btag;
     TH1D *btagRHist;
 
+    TH2D *btagEffHist_b;
+
     TH2D* triggerHist1b;
     TH2D* triggerHist2b;
     TH2D* triggerHist3b;
