@@ -713,7 +713,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             Double_t ijetFlav = jets_flavour.At(j);
             Double_t ijetEta = std::abs(jets_eta.At(j));
             Double_t ijetPt = jets_pt.At(j);
-            Double_t ijetBtag = jets_btags.At(j);
+            Double_t ijetBtag = jets_btag.At(j);
             if (ijetFlav == 4 || ijetFlav == 5)
             {
                 //b and c
