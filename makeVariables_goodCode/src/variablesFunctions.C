@@ -703,6 +703,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 {//https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
 //https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
 
+
     Double_t sf = 1.0;
     if (!isData)
     {
@@ -727,7 +728,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 
             //sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
             Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);
-            Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav);
+            Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
             if (ifBtagged)
             {
                 sf = sf*ijetSF;
@@ -745,8 +746,13 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 }
 
 
-Double_t getBtagEff( TH2D* btagEff_b, TH2D* btagEff_c, TH2D* btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor){
-    Double_t btagEff=1.0;
+Double_t getBtagEff( TH2D* btagEff_b, TH2D* btagEff_c, TH2D* btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys){
+    // std::map<std::string, Int_t> sysMap = {
+    //     {"central", 0},
+    //     {"up", 1},
+    //     {"down", 2},
+    // };
+    Double_t btagEff = 1.0;
     switch(jetFlavor){
     case 4: //c
         btagEff = get2DSF(jetPt, jetEta, btagEff_c, 0);
