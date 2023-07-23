@@ -67,7 +67,8 @@ def main():
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     inVersion = 'v59newOScode'
-    outVersion = 'v0NewMV'
+    # outVersion = 'v0NewMV'
+    outVersion = 'v1btagWPWeightAdded'
     
     
     # isRun3 = True
