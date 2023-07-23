@@ -9,12 +9,12 @@ def main():
     
     era = uf.getEraFromDir(inputDirFile)
     
-    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    # plotBEffFromFile(inputDirFile )
-    # plotBEffFromFile(inputDirFile, 'C' )
-    # plotBEffFromFile(inputDirFile, 'L' )
+    plotBEffFromFile(inputDirFile )
+    plotBEffFromFile(inputDirFile, 'C' )
+    plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
@@ -24,8 +24,10 @@ def plotBEffFromFile(inputDirFile, gen='B'):
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
     plotName = plotDir+'bEff_'+gen+'.png'
+    plotName2 = plotDir+'bEff_'+gen+'_compareOneSelf.png'
     outName = plotDir + 'bEff_'+gen+ '.root'
-    plot2D(hist2d_b, plotName, 'b tag efficiency', True)
+    plot2D(hist2d_b, plotName, 'b tag efficiency', True, [0., 0.9])
+    plot2D(hist2d_b, plotName2, 'b tag efficiency', True)
     saveHistToFile(hist2d_b, outName)
     
 def saveHistToFile(hist, outFile):
@@ -35,7 +37,7 @@ def saveHistToFile(hist, outFile):
     print('file saved here: ', rootF.GetName())
     rootF.Close()
     
-def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
+def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     #!!!basically same as that of plotHLT but more generic
     print('start plot 2D plot')
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
@@ -92,12 +94,13 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     histToDraw.GetXaxis().SetTickLength(0.02)
     # histToDraw.GetXaxis().SetLabelAngle(45)
     # histToDraw.GetXaxis().SetLabelSize(0.02)
-    # histToDraw.SetMinimum(0.65)
-    # histToDraw.SetMaximum(1.35)
     histToDraw.LabelsOption("v") 
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
     # histToDraw.SetContour(10)
+    if len(yrange)>1:
+        histToDraw.SetMinimum(yrange[0])
+        histToDraw.SetMaximum(yrange[1])
      
     can.SetLeftMargin(0.20)
     can.SetRightMargin(0.15)
