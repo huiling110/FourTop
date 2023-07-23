@@ -69,8 +69,10 @@ private:
     Double_t btagShape_weight_cferr1_down = 1.0;
     Double_t btagShape_weight_cferr2_up = 1.0;
     Double_t btagShape_weight_cferr2_down = 1.0;
-
     Double_t btagShapeR = 1.0;
+
+    Double_t btagWPMedium_weight = 1.0;
+
     Double_t HLT_weight = 1.0;
     Double_t HLT_weight_stats_up = 1.0;
     Double_t HLT_weight_stats_down = 1.0;

@@ -61,8 +61,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     outTree->Branch("btagShape_weight_cferr1_down", &btagShape_weight_cferr1_down);
     outTree->Branch("btagShape_weight_cferr2_up", &btagShape_weight_cferr2_up);
     outTree->Branch("btagShape_weight_cferr2_down", &btagShape_weight_cferr2_down);
-
     outTree->Branch("btagShapeR", &btagShapeR);
+    //
+    outTree->Branch("btagWPMedium_weight", &btagWPMedium_weight);
+
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
@@ -173,6 +175,9 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
+    //btag WorkingPoint
+    // btagWPMedium_weight = ;
+    // btagWPMAndT_weight = ;
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
     HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
