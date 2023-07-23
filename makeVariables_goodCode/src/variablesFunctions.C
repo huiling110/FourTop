@@ -734,8 +734,9 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             }
             else
             {
-                if ((1.-btagEff)>std::numeric_limits<double>::epsilon() )
-                sf = sf*(1. - ijetSF * btagEff) / (1. - btagEff);
+                if ((1.-btagEff)>std::numeric_limits<double>::epsilon() ){
+                    sf = sf*(1. - ijetSF * btagEff) / (1. - btagEff);
+                }
             }
         }
     }
