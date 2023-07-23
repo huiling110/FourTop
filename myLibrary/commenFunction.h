@@ -21,7 +21,7 @@ void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
 
 // TH1D *getHistogramFromFile(TString filename, const char *histname);
 template <typename T>
-T *getHistogramFromFile(TString filename, const char *histname)
+T* getHistogramFromFile(TString filename, const char *histname)
 {
     TFile *file = TFile::Open(filename);
     if (!file || file->IsZombie())
@@ -29,7 +29,7 @@ T *getHistogramFromFile(TString filename, const char *histname)
         std::cerr << "Error: could not open file " << filename << std::endl;
         return nullptr;
     }
-    TH1D *hist = (T *)(file->Get(histname));
+    T* hist = (T* )(file->Get(histname));
     if (!hist)
     {
         std::cerr << "Error: could not retrieve histogram " << histname << " from file " << filename << std::endl;
