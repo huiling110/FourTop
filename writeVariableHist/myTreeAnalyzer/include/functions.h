@@ -22,7 +22,9 @@ void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>> &his
 void histRegionsVectScale(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Double_t scale);
 
 void fillDeNu(Bool_t ifPass, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight);
-void fillDeNu(Bool_t ifPass, TH2D*& de, TH2D*& nu, Double_t varX, Double_t varY, Double_t weight);
+void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY, Double_t weight);
+void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight);
+
 // template <T>
 // void fillDeNu(Bool_t ifPass, T *&de, T *&nu, std::vector<Double_t> varWeight)
 // {

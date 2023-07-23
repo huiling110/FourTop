@@ -52,36 +52,57 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
 };
 
 // void histRegionVectFill(std::vector<histForRegionsBase*>& histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData ){
-void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData ){
+void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData)
+{
     // for (UInt_t i = 0; i < histForRegion_vec.size(); i++)
     // {
     //     histForRegion_vec[i]->fillHistVec(region, weight, isRegion, isData);
     // }
-    for (auto& obj : histForRegion_vec){
+    for (auto &obj : histForRegion_vec)
+    {
         obj->fillHistVec(region, weight, isRegion, isData);
     }
 }
 
-void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, TFile*& file){
-    for (auto& obj : histForRegion_vec){
+void histRegionsVectSetDir(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, TFile *&file)
+{
+    for (auto &obj : histForRegion_vec)
+    {
         obj->setDir(file);
     }
 }
-void histRegionsVectScale(std::vector<std::shared_ptr<histForRegionsBase>>& histForRegion_vec, Double_t scale){
-    for (auto& obj : histForRegion_vec){
+void histRegionsVectScale(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Double_t scale)
+{
+    for (auto &obj : histForRegion_vec)
+    {
         obj->scale(scale);
     }
 }
 
-void fillDeNu(Bool_t ifPass, TH1D*& de, TH1D*& nu, Double_t var, Double_t weight){
+void fillDeNu(Bool_t ifPass, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight)
+{
     de->Fill(var, weight);
-    if( ifPass){
+    if (ifPass)
+    {
         nu->Fill(var, weight);
     }
 }
-void fillDeNu(Bool_t ifPass, TH2D*& de, TH2D*& nu, Double_t varX, Double_t varY, Double_t weight){
+void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight)
+{
+    if (ifPassDe)
+    {
+        de->Fill(var, weight);
+    }
+    if (ifPassNu&&ifPassDe)
+    {
+        nu->Fill(var, weight);
+    }
+}
+void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY, Double_t weight)
+{
     de->Fill(varX, varY, weight);
-    if( ifPass){
+    if (ifPass)
+    {
         nu->Fill(varX, varY, weight);
     }
 }

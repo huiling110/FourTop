@@ -12,19 +12,52 @@ def main():
     # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
     # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
+    plotBEffFromFile(inputDirFile )
+    plotBEffFromFile(inputDirFile, 'C' )
+    plotBEffFromFile(inputDirFile, 'L' )
+    
+
+def plotBEffFromFile(inputDirFile, gen='B'):    
      
-    hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_genB', 'jets_ptEta_genB_nu'])
-    hist2d_b.Print()
+    hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_gen'+gen, 'jets_ptEta_gen'+gen+'_nu'])
     inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
-    plotName = plotDir+'/bEff_b.png'
+    plotName = plotDir+'bEff_'+gen+'.png'
+    outName = plotDir + 'bEff_'+gen+ '.root'
     plot2D(hist2d_b, plotName, 'b tag efficiency', True)
+    saveHistToFile(hist2d_b, outName)
+    
+def saveHistToFile(hist, outFile):
+    rootF = ROOT.TFile(outFile, 'RECREATE')
+    hist.SetDirectory(rootF)
+    rootF.Write()
+    print('file saved here: ', rootF.GetName())
+    rootF.Close()
     
 def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     #!!!basically same as that of plotHLT but more generic
     print('start plot 2D plot')
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetPaintTextFormat(".2f")
+    ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
+    ROOT.gStyle.SetTitleSize(0.07, "Y")
+    # levels = [i*1 for i in range(30, 39)]
+    # print('colors: ', levels)
+    # print(int(ROOT.kRed)) 
+    # palette = array.array('i', levels)
+    # ROOT.gStyle.SetPalette(len(levels), palette)
+    # ROOT.gStyle.SetPalette(ROOT.kCherry)
+    # ROOT.gStyle.SetPalette(ROOT.kSunset)
+    # ROOT.gStyle.SetPalette(ROOT.kGreenRedViolet)
+    # ROOT.gStyle.SetPalette(ROOT.kSolar)
+    # ROOT.gStyle.SetPalette(53)
+    # ROOT.gStyle.SetPalette(55)
+    # ROOT.gStyle.SetPalette(56)
+    # ROOT.gStyle.SetPalette(57) #default
+    # ROOT.gStyle.SetPalette(69)
+    ROOT.gStyle.SetPalette(70)
     
     if ifPlotEven:
         xbin_edges = hist2D.GetXaxis().GetXbins() 
@@ -59,8 +92,8 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
     histToDraw.GetXaxis().SetTickLength(0.02)
     # histToDraw.GetXaxis().SetLabelAngle(45)
     # histToDraw.GetXaxis().SetLabelSize(0.02)
-    histToDraw.SetMinimum(0.65)
-    histToDraw.SetMaximum(1.35)
+    # histToDraw.SetMinimum(0.65)
+    # histToDraw.SetMaximum(1.35)
     histToDraw.LabelsOption("v") 
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
