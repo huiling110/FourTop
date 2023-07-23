@@ -697,6 +697,58 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys)
+{//https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
+//https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
+
+    Double_t sf = 1.0;
+    if (!isData)
+    {
+        auto corr_deepJet = cset_btag->at("deepJet_comb"); //b and c jet
+        auto corr_deepJet_light = cset_btag->at("deepJet_incl"); //for light jet
+        for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
+        {
+            Double_t ijetSF = 1.0;
+            Double_t ijetFlav = jets_flavour.At(j);
+            Double_t ijetEta = std::abs(jets_eta.At(j));
+            Double_t ijetPt = jets_pt.At(j);
+            if(ijetFlav ==4 || ijetFlav==5){
+                //b and c
+                ijetSF = corr_deepJet->evaluate({sys, "M",jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+            }else{
+                ijetSF = corr_deepJet_light->evaluate({sys, "M",jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+            }
+            // if (sys == "central")
+            // {
+            //     ijetSF = corr_deepJet->evaluate({sys, "M",jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+            // }
+            // else
+            // {
+            //     if (jets_flavour.At(j) == 4)
+            //     {// c jet
+            //         if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
+            //         {
+            //             ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+            //         }
+            //     }
+            //     else
+            //     {    // b and light jets
+            //         if (!(sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos))
+            //         {
+            //             ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+            //         }
+            //     }
+            // }
+            // std::cout << "ijetSF=" << ijetSF << "\n";
+            // sf *= ijetSF;
+            sf = sf * ijetSF;
+        }
+    }
+    // std::cout << "btagSF = " << sf << "\n";
+    return sf;
+}
+
+
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {
     Double_t r = 1.0;

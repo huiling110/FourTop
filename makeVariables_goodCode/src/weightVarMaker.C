@@ -176,7 +176,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
     //btag WorkingPoint
-    // btagWPMedium_weight = ;
+    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour,  cset_btag.get(), m_isData, "central") ;
     // btagWPMAndT_weight = ;
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
