@@ -87,6 +87,8 @@ private:
     TH1D *btagRHist;
 
     TH2D *btagEffHist_b;
+    TH2D *btagEffHist_c;
+    TH2D *btagEffHist_l;
 
     TH2D* triggerHist1b;
     TH2D* triggerHist2b;

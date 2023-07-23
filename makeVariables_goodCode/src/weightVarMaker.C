@@ -111,6 +111,11 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     //btag WP efficieny files
     btagEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPEff_map.at(m_era), "jets_ptEta_genB");
     std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";
+    TString btagEff_b = MV::btagWPEff_map.at(m_era);
+    TString btagEff_c = btagEff_b.ReplaceAll("bEff_B", "bEff_C");
+    TString btagEff_l = btagEff_b.ReplaceAll("bEff_B", "bEff_L");
+    btagEffHist_c = TTTT::getHistogramFromFile<TH2D>(btagEff_c, "jets_ptEta_genC");
+    btagEffHist_l = TTTT::getHistogramFromFile<TH2D>(btagEff_l, "jets_ptEta_genL");
 
     // trigger
     TString trigger1b = MV::triggerSF_map.at(m_era);
