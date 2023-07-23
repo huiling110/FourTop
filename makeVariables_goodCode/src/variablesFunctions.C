@@ -3,6 +3,7 @@
 
 #include "correction.h"
 #include <TMatrixDSymEigen.h>
+#include <limits>
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec)
 {
@@ -698,7 +699,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, TString era, const std::string sys)
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag,  TH2D* btagEff_b,  TH2D* btagEff_c,  TH2D* btagEff_l, Bool_t isData, TString era, const std::string sys)
 {//https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
 //https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
 
@@ -726,14 +727,14 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 
             //sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
             Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);
-            Double_t btagEff = 0.5;
-            // Double_t btagEff = getBtagEff();
+            Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav);
             if (ifBtagged)
             {
                 sf = sf*ijetSF;
             }
             else
             {
+                if ((1.-btagEff)>std::numeric_limits<double>::epsilon() )
                 sf = sf*(1. - ijetSF * btagEff) / (1. - btagEff);
             }
         }
@@ -743,10 +744,23 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 }
 
 
-// Double_t getBtagEff(TH2D* eff2D, Double_t jetPt, Double_t jetEta){
+Double_t getBtagEff( TH2D* btagEff_b, TH2D* btagEff_c, TH2D* btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor){
+    Double_t btagEff=1.0;
+    switch(jetFlavor){
+    case 4: //c
+        btagEff = get2DSF(jetPt, jetEta, btagEff_c, 0);
+        break;
+    case 5: //b
+        btagEff = get2DSF(jetPt, jetEta, btagEff_b, 0);
+        break;
+    default: //b
+        btagEff = get2DSF(jetPt, jetEta, btagEff_l, 0);
+        break;
 
+    }
+    return btagEff;
 
-// }
+}
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
 {

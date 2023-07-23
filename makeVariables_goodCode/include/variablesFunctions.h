@@ -96,7 +96,9 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
 
 Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t>& jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys);
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, TString era, const std::string sys);
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag,  TH2D* btagEff_b,  TH2D* btagEff_c,  TH2D* btagEff_l, Bool_t isData, TString era, const std::string sys);
+Double_t getBtagEff(TH2D* btagEff_b, TH2D* btagEff_c,  TH2D* btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor);
+Double_t get2DSF(Double_t x, Double_t y,  TH2D *hist, UInt_t sys);
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist);
 Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys);

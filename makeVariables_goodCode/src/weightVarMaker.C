@@ -96,7 +96,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
-    for (auto &corr : *cset)
+    for (auto &corr : *cset)  
     {
         printf("Correction: %s\n", corr.first.c_str());
     }
@@ -113,9 +113,12 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";
     TString btagEff_b = MV::btagWPEff_map.at(m_era);
     TString btagEff_c = btagEff_b.ReplaceAll("bEff_B", "bEff_C");
-    TString btagEff_l = btagEff_b.ReplaceAll("bEff_B", "bEff_L");
+    TString btagEff_l = btagEff_b.ReplaceAll("bEff_C", "bEff_L");
     btagEffHist_c = TTTT::getHistogramFromFile<TH2D>(btagEff_c, "jets_ptEta_genC");
     btagEffHist_l = TTTT::getHistogramFromFile<TH2D>(btagEff_l, "jets_ptEta_genL");
+    btagEffHist_b->Print();
+    btagEffHist_c->Print();
+    btagEffHist_l->Print();
 
     // trigger
     TString trigger1b = MV::triggerSF_map.at(m_era);
@@ -185,7 +188,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
     //btag WorkingPoint
-    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, m_era, "central") ;
+    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "central") ;
     // btagWPMAndT_weight = ;
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
