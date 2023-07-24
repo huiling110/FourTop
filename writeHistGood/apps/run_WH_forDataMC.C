@@ -7,6 +7,7 @@
 #include "../include/functions.h"
 #include "../../myLibrary/commenFunction.h"
 #include "../include/writeHist_btagEff.h"
+#include "../include/writeHist_btagShapeR.h"
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
@@ -37,8 +38,10 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
+    // WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
+    WriteHist_btagShapeR writeHist(inputDir, process, histVersion,  isTest);
+
     writeHist.Init();
     writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
