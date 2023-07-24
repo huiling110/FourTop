@@ -23,6 +23,7 @@ def main():
     print(jets_numList)
     
     btagR = pb.getEff(jets_numList[1], jets_numList[0]) #de before, nu: after; before/after
+    btagR.SetName('btagR')
     
     
     inputDir = inputFile.rsplit('/',1)[0]
