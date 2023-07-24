@@ -138,9 +138,13 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
     yMax = getYmax(histList)
     #plot style
     LineColorDic={
-        0: ROOT.kOrange,
+        # 0: ROOT.TColor.GetColor("#fdae61"),
+        0: ROOT.TColor.GetColor("#fd8d3c"),
         1: ROOT.TColor.GetColor("#f03b20"),
-        2: ROOT.TColor.GetColor("#fc9272"),
+        2: ROOT.TColor.GetColor("#2ca25f"),
+        #2ca25f green
+        #d01c8b purple
+        ##fdae61 fc9272" orange
     }
     
 
@@ -152,10 +156,13 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
 
         histogram.SetLineColor(LineColorDic[i])
         histogram.SetMarkerColor(LineColorDic[i])
-        histogram.SetLineWidth(2)  # Set line width for each histogram
-        histogram.SetMarkerSize(4)
+        histogram.SetLineWidth(3)  # Set line width for each histogram
+        histogram.SetMarkerSize(2)
+        histogram.SetMarkerStyle(45)
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
+        histogram.GetXaxis().SetTitleSize(0.05)
+        histogram.GetYaxis().SetTitleSize(0.05)
         if len(yRange)>1:
             histList[i].GetYaxis().SetRangeUser(yRange[0], yRange[1])
         else:
@@ -163,6 +170,8 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
 
         legend.AddEntry(histogram, legenList[i], "l")  # Add an entry to the legend
         legend.Draw() 
+        
+    st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
         
     can.SaveAs(plotName)
     print('Done overlay plotting\n\n')
