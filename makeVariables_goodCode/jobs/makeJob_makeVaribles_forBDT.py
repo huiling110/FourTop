@@ -72,7 +72,8 @@ def main():
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
     # outVersion = 'v4repeatv3'
-    outVersion = 'v5newBtagEff'
+    # outVersion = 'v5newBtagEff'
+    outVersion = 'v6updatedBtagR'
     
     
     # isRun3 = True
