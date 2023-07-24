@@ -10,8 +10,8 @@ def main():
     
     era = uf.getEraFromDir(inputDirFile)
     
-    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
     # plotBEffFromFile(inputDirFile )
     # plotBEffFromFile(inputDirFile, 'C' )
@@ -133,7 +133,7 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
     mySty.cd()
     can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
     
-    legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)  # Create a legend to label the histograms
+    legend = ROOT.TLegend(0.65, 0.8, 0.9, 0.93)  # Create a legend to label the histograms
     
     yMax = getYmax(histList)
     #plot style

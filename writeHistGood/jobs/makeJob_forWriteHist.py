@@ -27,7 +27,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -36,8 +37,9 @@ def main():
     # version = 'v0_HLTSFMeasure'
     # version = 'v1_btagRMeasure'
     # version = 'v1_btagEffMeasure'
-    version = 'v2_btagEffBugFixed'
-    # version = 'v0_dataMCBeforeBtagWP'
+    # version = 'v2_btagEffBugFixed'
+    # version = 'v3_btag'
+    version = 'v0_dataMCBeforeBtagWP'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'

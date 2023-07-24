@@ -16,7 +16,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/data/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/",
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
     // TString process = "tttt",
@@ -37,8 +38,8 @@ void run_treeAnalyzer(
     // TString    era = TTTT::getEra(inputDir);
     // Bool_t    isRun3 = TTTT::isRun3(era);
 
-    // WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
-    WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
+    WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
+    // WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
     writeHist.Init();
     writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
