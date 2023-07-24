@@ -45,7 +45,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/mc/variableHists_v0allRegions/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v0allRegions/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v1dataMC/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1dataMC/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1dataMC/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/variableHists_v0_dataMCBeforeBtagWP/'
     # isRun3 = True
     isRun3 = False
 
@@ -103,8 +104,8 @@ def main():
     sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    # legendOrder = [ 'qcd', 'tt', 'ttX', 'singleTop', 'VV', 'WJets']
-    legendOrder = ['tt']
+    legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    # legendOrder = ['tt']
     
     hasFakeTau = checkRegionGen(regionList)
     if hasFakeTau:
@@ -283,7 +284,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
 
     doSystmatic = ifDoSystmatic( systHists)
 
-    dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
+    dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder)
 
     #add sytematic uncertainty
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
@@ -292,6 +293,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
 
+    # dataHist.Print()
     if hasDataHist:
         if dataHist.GetMaximum()>0:
             maxi = 1.8* dataHist.GetMaximum()
@@ -439,7 +441,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal, systHists, doSystmatic, ifFakeTau):
+def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list
     colourPerSample = {
@@ -489,7 +491,7 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau):
             systsDown.Add(tempDown)
             
     #add bgs for stack
-    legendOrder = ['tt']
+    # legendOrder = ['tt']
     legendOrder.reverse()
     for ipro in legendOrder:
         if not ipro in nominal.keys():
