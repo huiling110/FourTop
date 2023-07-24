@@ -66,9 +66,11 @@ def main():
     year = '2017'
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
-    inVersion = 'v59newOScode'
+    # inVersion = 'v59newOScode'
+    inVersion = 'v60fixeJetBtagBug'
     # outVersion = 'v0NewMV'
-    outVersion = 'v1btagWPWeightAdded'
+    # outVersion = 'v1btagWPWeightAdded'
+    outVersion = 'v2btagShapeWeightCorrected'
     
     
     # isRun3 = True

@@ -663,7 +663,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     if (!isData)
     {
         auto corr_deepJet = cset_btag->at("deepJet_shape");
-        std::cout << "sys=" << sys << "\n";
+        // std::cout << "sys=" << sys << "\n";
         for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
         {
             Double_t ijetSF = 1.0;
@@ -708,16 +708,16 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
             //         }
             //     }
             // }
-            std::cout << "ijetSF=" << ijetSF << "n";
+            // std::cout << "ijetSF=" << ijetSF << "n";
             // sf *= ijetSF;
             if(ijetSF>0){
                 sf = sf * ijetSF;
             }
-            std::cout << "sf=" << sf << "\n";
+            // std::cout << "sf=" << sf << "\n";
         }
     }
-    std::cout << "btagSF = " << sf << "sys="<<sys<<"\n";
-    std::cout << "\n";
+    // std::cout << "btagSF = " << sf << "sys="<<sys<<"\n";
+    // std::cout << "\n";
     return sf;
 }
 
