@@ -103,19 +103,19 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // jets_4largestBscoreMulti = bscoreMultiOf4largestCal(jets_btags);
 
     if(muons_num>1 && m_type==0){
-        jets_1btag = e->jets_btags.At(1);
+        jets_1btag = e->jets_btags.At(0);
     }
-    getJetLeadingVars(e, 2, jets_2pt, jets_2eta, jets_2phi, jets_2btag);
-    getJetLeadingVars(e, 3, jets_3pt, jets_3eta, jets_3phi, jets_3btag);
-    getJetLeadingVars(e, 4, jets_4pt, jets_4eta, jets_4phi, jets_4btag);
-    getJetLeadingVars(e, 5, jets_5pt, jets_5eta, jets_5phi, jets_5btag);
-    getJetLeadingVars(e, 6, jets_6pt, jets_6eta, jets_6phi, jets_6btag);
-    getJetLeadingVars(e, 7, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
-    getJetLeadingVars(e, 8, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
-    getJetLeadingVars(e, 9, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
-    getJetLeadingVars(e, 10, jets_10pt, jets_10eta, jets_10phi, jets_10btag);
-    getJetLeadingVars(e, 11, jets_11pt, jets_11eta, jets_11phi, jets_11btag);
-    getJetLeadingVars(e, 12, jets_12pt, jets_12eta, jets_12phi, jets_12btag);
+    getJetLeadingVars(e, 1, jets_2pt, jets_2eta, jets_2phi, jets_2btag);
+    getJetLeadingVars(e, 2, jets_3pt, jets_3eta, jets_3phi, jets_3btag);
+    getJetLeadingVars(e, 3, jets_4pt, jets_4eta, jets_4phi, jets_4btag);
+    getJetLeadingVars(e, 4, jets_5pt, jets_5eta, jets_5phi, jets_5btag);
+    getJetLeadingVars(e, 5, jets_6pt, jets_6eta, jets_6phi, jets_6btag);
+    getJetLeadingVars(e, 6, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
+    getJetLeadingVars(e, 7, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
+    getJetLeadingVars(e, 8, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
+    getJetLeadingVars(e, 9, jets_10pt, jets_10eta, jets_10phi, jets_10btag);
+    getJetLeadingVars(e, 10, jets_11pt, jets_11eta, jets_11phi, jets_11btag);
+    getJetLeadingVars(e, 11, jets_12pt, jets_12eta, jets_12phi, jets_12btag);
 
 }
 

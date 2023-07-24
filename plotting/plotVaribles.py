@@ -46,7 +46,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v0allRegions/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1dataMC/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/variableHists_v0_dataMCBeforeBtagWP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/variableHists_v0_dataMCBeforeBtagWP/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v0_dataMCBeforeBtagWP/'
     # isRun3 = True
     isRun3 = False
 
@@ -60,8 +61,8 @@ def main():
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = ['BDT']
-    regionList = ['1tau1lCR0']
-    # regionList = ['1tau1lCR2']
+    # regionList = ['1tau1lCR0']
+    regionList = ['1tau1lCR2']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
     ifFR_sys = False
