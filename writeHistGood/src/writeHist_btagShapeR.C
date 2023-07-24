@@ -60,38 +60,10 @@ void WriteHist_btagShapeR::LoopTree()
         // Double_t eventWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
         Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();
         // std::cout << eventWeight << "\n";
+        Int_t jetNum = e->jets_num.v();
+        jets_num_de->Fill(jetNum, eventWeight);
+        jets_num_nu->Fill(jetNum, eventWeight*(e->btagShape_weight.v()));
 
-        for (UInt_t i = 0; i < e->jets_pt_->size(); i++)
-        {
-            Int_t jetFlavour = e->jets_flavour_->at(i);
-            Double_t jetPt = e->jets_pt_->at(i);
-            Double_t jetEta = std::abs(e->jets_eta_->at(i));
-            Double_t jetBtag = e->jets_btags_->at(i);
-            Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
-            Bool_t ifEta1 = jetEta <= 1.5;
-            Bool_t ifEta2 = jetEta > 1.5;
-
-            // switch (jetFlavour)
-            // {
-            // case 5: // b jet
-            //     fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_b, m_h2D_jets_ptEta_b_nu, jetPt, jetEta, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta1, de_jetsPt_eta1_b, nu_jetsPt_eta1_b, jetPt, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta2, de_jetsPt_eta2_b, nu_jetsPt_eta2_b, jetPt, eventWeight);
-            //     break;
-            // case 4: // c jet
-            //     fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_c, m_h2D_jets_ptEta_c_nu, jetPt, jetEta, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta1, de_jetsPt_eta1_c, nu_jetsPt_eta1_c, jetPt, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta2, de_jetsPt_eta2_c, nu_jetsPt_eta2_c, jetPt, eventWeight);
-            //     break;
-            // case 0: // c jet
-            //     fillDeNu(ifPassBtagM, m_h2D_jets_ptEta_l, m_h2D_jets_ptEta_l_nu, jetPt, jetEta, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta1, de_jetsPt_eta1_l, nu_jetsPt_eta1_l, jetPt, eventWeight);
-            //     fillDeNu(ifPassBtagM, ifEta2, de_jetsPt_eta2_l, nu_jetsPt_eta2_l, jetPt, eventWeight);
-            //     break;
-            // default:
-            //     break;
-            // }
-        }
     }
     std::cout << "Done event loop..........\n";
 }
