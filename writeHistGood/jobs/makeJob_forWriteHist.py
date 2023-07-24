@@ -43,7 +43,8 @@ def main():
     # version = 'v1_dataMCafterBtagWP'
     # version = 'v2AllButBtagWP'
     # version ='v3btagEffNewRegion'
-    version = 'v4newBtagEff'
+    # version = 'v4newBtagEff'
+    version = 'v5OldBtagR'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'
