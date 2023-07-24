@@ -408,7 +408,7 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     legend.AddEntry(h_efficiency, h_efficiency.GetName())
     legend.Draw()
     
-    addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
+    # addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
 
     can.SaveAs(plotName)
 

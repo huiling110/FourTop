@@ -3,6 +3,8 @@ import ROOT
 import usefulFunc as uf
 from plotForFakeRate import plotEfficiency, plotFROverlay
 
+import plotBtagEff as pb
+
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/'
@@ -12,16 +14,38 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHists_v6_btagRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/mc/variableHists_v1_btagRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/mc/variableHists_v1_btagRMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/mc/variableHists_v1_btagRMeasure/'
-
-    # plotNa
-    era = uf.getEraFromDir(inputDir)
-    inputDirDic = uf.getInputDicNew( inputDir)
-    variable = 'jets_number'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/mc/variableHists_v1_btagRMeasure/'
     
-    plotBtagR(variable, inputDirDic,era)
+    inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/mc/variableHists_v6forBtagRMeasure/ttbar_0l.root'
+
+    era = uf.getEraFromDir(inputFile)
+    jets_numList = pb.getHistFromFile(inputFile, ['jets_num_de', 'jets_num_nu'])
+    print(jets_numList)
+    
+    btagR = pb.getEff(jets_numList[1], jets_numList[0]) #de before, nu: after; before/after
+    
+    
+    inputDir = inputFile.rsplit('/',1)[0]
+    plotDir = inputDir+'/results/'
+    uf.checkMakeDir(plotDir)
+    plotName = plotDir+'bShapeR.png'
+    outFile = plotDir+'bShapeR.root'
+    # plotEfficiency(jets_numList[1], jets_numList[0], btagR, plotName, era, True, 'B tag shape R')
+    
+    pb.saveHistToFile(btagR, outFile )
+    
+    
+    # plotNa
+    # era = uf.getEraFromDir(inputDir)
+    # inputDirDic = uf.getInputDicNew( inputDir)
+    # variable = 'jets_number'
+    
+    # plotBtagR(variable, inputDirDic,era)
     
     # plotBtagROverlay(variable, era, inputDirDic)
+    
+    
+    
     
 def plotBtagROverlay(variable, era, inputDirDic):
     regionList = ['1tau1lNoB', '1tau1lNoBBtagWeight', '1tau0lNoB', '1tau0lNoBBtagWeight']

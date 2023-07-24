@@ -44,7 +44,8 @@ def main():
     # version = 'v2AllButBtagWP'
     # version ='v3btagEffNewRegion'
     # version = 'v4newBtagEff'
-    version = 'v5OldBtagR'
+    # version = 'v5OldBtagR'
+    version = 'v6forBtagRMeasure'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'
