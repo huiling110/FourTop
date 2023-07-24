@@ -69,8 +69,8 @@ def main():
     # inVersion = 'v59newOScode'
     inVersion = 'v60fixeJetBtagBug'
     # outVersion = 'v0NewMV'
-    # outVersion = 'v1btagWPWeightAdded'
-    outVersion = 'v2btagShapeWeightCorrected'
+    # outVersion = 'v2btagShapeWeightCorrected'
+    outVersion = 'v3btagWPWeightGood'
     
     
     # isRun3 = True
