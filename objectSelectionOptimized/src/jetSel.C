@@ -83,9 +83,10 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
+        // std::cout << "jetID=" << e->Jet_jetId.At(j) << "\n";
         if (m_jetType == 1)
         {
-            if (!(e->Jet_jetId.At(j) > 1))
+            if (!(e->Jet_jetId.At(j) > 2))
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
