@@ -10,12 +10,11 @@
 
 void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v59newOScode/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v59newOScode/data/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v59newOScode/mc/",
     // TString inputDir = "ttZ",
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
-    TString inputDir = "jetHT_2017f",
+    // TString inputDir = "jetHT_2017f",
     // TString inputDir = "ttbar_1l",
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
@@ -27,7 +26,7 @@ void run_objectSelection(
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
-    Int_t numEntries = 10000)
+    Int_t numEntries = 100)
 {
     TStopwatch t;
     t.Start();

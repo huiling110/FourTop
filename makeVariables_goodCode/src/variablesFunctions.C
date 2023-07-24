@@ -690,9 +690,12 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
                     }
                 }
             }
-            // std::cout << "ijetSF=" << ijetSF << "\n";
+            // std::cout << "ijetSF=" << ijetSF << "n";
             // sf *= ijetSF;
-            sf = sf * ijetSF;
+            if(ijetSF>0){
+                sf = sf * ijetSF;
+            }
+            // std::cout << "sf=" << sf << "\n";
         }
     }
     // std::cout << "btagSF = " << sf << "\n";
