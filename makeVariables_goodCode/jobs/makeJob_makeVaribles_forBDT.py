@@ -70,7 +70,8 @@ def main():
     inVersion = 'v60fixeJetBtagBug'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
-    outVersion = 'v3btagWPWeightGood'
+    # outVersion = 'v3btagWPWeightGood'
+    outVersion = 'v4repeatv3'
     
     
     # isRun3 = True

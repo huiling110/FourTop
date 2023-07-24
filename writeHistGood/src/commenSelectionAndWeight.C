@@ -4,6 +4,7 @@
 Bool_t baselineSelection(event *event)
 {
     Bool_t pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
+    // Bool_t pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_7pt.v() > 40.;
     return pass;
 }
 

@@ -117,6 +117,7 @@ public:
     myBranch<Double_t> musTopMVAT_weight{"musTopMVAT_weight"};
     myBranch<Double_t> btagShape_weight{"btagShape_weight"};
     myBranch<Double_t> btagShapeR{"btagShapeR"};
+    myBranch<Double_t> btagWPMedium_weight{"btagWPMedium_weight"};
     // branches for MVA
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_bScore{"jets_bScore"};
@@ -204,6 +205,7 @@ private:
         {musTopMVAT_weight.n(), &musTopMVAT_weight},
         {btagShape_weight.n(), &btagShape_weight},
         {btagShapeR.n(), &btagShapeR},
+        {btagWPMedium_weight.n(), &btagWPMedium_weight},
 
         {jets_bScore.n(), &jets_bScore},
         {jets_5pt.n(), &jets_5pt},

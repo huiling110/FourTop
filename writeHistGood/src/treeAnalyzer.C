@@ -8,7 +8,8 @@
 #include <iostream>
 
 #include "../include/treeAnalyzer.h"
-#include "../SFfileMap.h"
+// #include "../SFfileMap.h"
+#include "../include/inputFileMap.h"
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/commenSelectionAndWeight.h"
@@ -66,7 +67,7 @@ void treeAnalyzer::Init()
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
 
         // book MVA reader
-        TString variableList = BDTTrainingMap[m_era].at(0);
+        TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
         readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
         // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
         if (variablesName.size() == variablesForReader.size())
@@ -83,7 +84,7 @@ void treeAnalyzer::Init()
         // for map, the variables will be reordered according to their keys, not safe to add with map
 
         TString methodName = "BDT" + TString(" method");
-        TString weightfile = BDTTrainingMap[m_era].at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
+        TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
         reader->BookMVA(methodName, weightfile);
     }else if(m_channel==1){
 

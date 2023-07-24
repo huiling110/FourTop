@@ -47,26 +47,29 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/variableHists_v0_dataMCBeforeBtagWP/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v0_dataMCBeforeBtagWP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v0_dataMCBeforeBtagWP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v1_dataMCafterBtagWP/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v2AllButBtagWP/'
     # isRun3 = True
     isRun3 = False
 
     # for 1tau1l
     # variables = ['jets_number']
     # variables = ['jets_5pt']
-    variables = ['jets_HT']
-    # variables = ['jets_6pt', 'jets_num', 'bjetsM_num']
+    # variables = ['jets_HT']
+    # variables = ['bjetsM_num']
+    variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = ['jets_4largestBscoreMulti']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", "jets_8pt" , 'jets_number',  "jets_bScore", "jets_rationHT_4toRest", "jets_leading2invariantMass", "jets_transMass", "jets_average_deltaR", "jets_4largestBscoreMulti", 'jets_bScoreMultiply' , 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['tausT_leptonsTMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'PV_npvsGood'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'nonbjetsM_num', 'bjetsM_num', 'bjetsM_1pt']
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
-    regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lCR2']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
     # regionList = ['1tau1lSR']
     ifFR_sys = False
-    plotName = 'dataVsMCNew'
+    plotName = 'dataVsMC'
   
     #1tau0l
     # variables = ['jets_bScore' ]
@@ -297,11 +300,11 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     # dataHist.Print()
     if hasDataHist:
         if dataHist.GetMaximum()>0:
-            maxi = 1.8* dataHist.GetMaximum()
+            maxi = 1.7* dataHist.GetMaximum()
         else:
-            maxi = 1.8* sumHist.GetMaximum()
+            maxi = 1.7* sumHist.GetMaximum()
     else:
-        maxi = 1.8* sumHist.GetMaximum()
+        maxi = 1.7* sumHist.GetMaximum()
     if maxi<=0 :
         print(name, ' variable empty')
         print('\n')
@@ -399,7 +402,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.SetFillColor(0)
     leggy.SetLineColor(0)
     leggy.SetShadowColor(0)
-    leggy.SetFillColor(kWhite)
+    # leggy.SetFillColor(kWhite)
     # leggy.SetMarkerSize(2)
     leggy.Draw()
     
@@ -415,7 +418,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
 def getLegend(nominal,  dataHist, assymErrorPlot, signal, signalScale, legendOrder):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
-    leggy = TLegend(0.2,0.82,0.89,0.90)
+    leggy = TLegend(0.18,0.75,0.89,0.90)
     if "jetHT" in nominal.keys():
         # nominal['jetHT'].SetMarkerSize(2)
         # leggy.AddEntry(nominal['jetHT'],"Data[{:.1f}]".format(getIntegral(nominal['jetHT'])),"ep")
