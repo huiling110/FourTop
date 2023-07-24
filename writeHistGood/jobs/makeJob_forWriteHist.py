@@ -38,10 +38,10 @@ def main():
     # version = 'v1_btagRMeasure'
     # version = 'v1_btagEffMeasure'
     # version = 'v2_btagEffBugFixed'
-    # version = 'v3_btag'
     # version = 'v0_dataMCBeforeBtagWP'
     # version = 'v1_dataMCafterBtagWP'
-    version = 'v2AllButBtagWP'
+    # version = 'v2AllButBtagWP'
+    version ='v3btagEffNewRegion'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'

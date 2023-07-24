@@ -6,16 +6,17 @@ import usefulFunc as uf
 
 def main():
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
-    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
+    # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
+    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v3btagEffNewRegion/ttbar_0l.root'
     
     era = uf.getEraFromDir(inputDirFile)
     
-    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    # plotBEffFromFile(inputDirFile )
-    # plotBEffFromFile(inputDirFile, 'C' )
-    # plotBEffFromFile(inputDirFile, 'L' )
+    plotBEffFromFile(inputDirFile )
+    plotBEffFromFile(inputDirFile, 'C' )
+    plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
