@@ -658,47 +658,66 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     variations due to "jes", "lf", "hf", "hfstats1/2", and "lfstats1/2" are applied to both b and udsg jets. For c-flavored jets, only "cferr1/2" is applied.
 
 */
+//I guess for sys variation, for c jets uncertainty, other jets SF should be "central"
     Double_t sf = 1.0;
     if (!isData)
     {
         auto corr_deepJet = cset_btag->at("deepJet_shape");
-        // std::cout << jets.GetSize() << " " << jets_flavour.GetSize() << " " << jets_btag.GetSize() << "\n";
+        std::cout << "sys=" << sys << "\n";
         for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
         {
             Double_t ijetSF = 1.0;
+            Double_t ijetPt = jets_pt.At(j);
+            Double_t ijetEta = std::abs(jets_eta.At(j));
+            Double_t ijetBtag = jets_btag.At(j);
+            Int_t ijetFlav = jets_flavour.At(j);
             if (sys == "central")
             {
                 ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
             }
-            else
-            {
-                if (jets_flavour.At(j) == 4)
-                {
-                    //???is this way of accessing correct?
-                    // c jet
-                    if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
-                    {
-                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
-                    }
-                }
-                else
-                {
-                    // b and light jets
-                    if (!(sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos))
-                    {
-                        ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
-                    }
+            else if(sys.find("cferr") != std::string::npos){
+                if(ijetFlav==4){
+                    ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
+                }else{
+                    ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
                 }
             }
-            // std::cout << "ijetSF=" << ijetSF << "n";
+            else if(!(sys.find("cferr") != std::string::npos)){
+                if(!(ijetFlav==4)){
+                    ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
+                }else{
+                    ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
+                }
+            }
+            // {
+            //     if (jets_flavour.At(j) == 4)
+            //     {
+            //         //???is this way of accessing correct?
+            //         // c jet
+            //         if (sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos)
+            //         {
+            //             ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+            //         }
+            //     }
+            //     else
+            //     {
+            //         // b and light jets
+            //         if (!(sys.find("cferr1") != std::string::npos || sys.find("cferr2") != std::string::npos))
+            //         {
+            //             ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
+            //         }
+            //     }
+            // }
+            std::cout << "ijetSF=" << ijetSF << "n";
             // sf *= ijetSF;
             if(ijetSF>0){
                 sf = sf * ijetSF;
             }
-            // std::cout << "sf=" << sf << "\n";
+            std::cout << "sf=" << sf << "\n";
         }
     }
-    // std::cout << "btagSF = " << sf << "\n";
+    std::cout << "btagSF = " << sf << "sys="<<sys<<"\n";
+    std::cout << "\n";
     return sf;
 }
 
