@@ -301,19 +301,20 @@ Double_t MinDeltaRSingleCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
     return min_3;
 }
 
-Double_t AverageDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+// Double_t AverageDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     Double_t eta_1;
     Double_t phi_1;
     Double_t eta_2;
     Double_t phi_2;
     Double_t sum_delta_R = 0.0;
-    const Int_t num = SelectedJets.GetSize();
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
+    const Int_t num = SelectedJets.size();
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j)
     {
         eta_1 = SelectedJets[j].Eta();
         phi_1 = SelectedJets[j].Phi();
-        for (UInt_t k = 0; k < SelectedJets.GetSize(); ++k)
+        for (UInt_t k = 0; k < SelectedJets.size(); ++k)
         {
             if (k != j)
             {

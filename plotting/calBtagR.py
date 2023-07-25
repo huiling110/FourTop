@@ -30,10 +30,10 @@ def main():
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
     plotName = plotDir+'bShapeR.png'
-    outFile = plotDir+'bShapeR.root'
-    # plotEfficiency(jets_numList[1], jets_numList[0], btagR, plotName, era, True, 'B tag shape R')
+    plotEfficiency(jets_numList[1], jets_numList[0], btagR, plotName, era, True, 'B tag shape R')
     
-    pb.saveHistToFile(btagR, outFile )
+    # outFile = plotDir+'bShapeR.root'
+    # pb.saveHistToFile(btagR, outFile )
     
     
     # plotNa
@@ -45,7 +45,9 @@ def main():
     
     # plotBtagROverlay(variable, era, inputDirDic)
     
-    
+ #more generic than that of plotForFakeRate   
+def plotEff(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
+        
     
     
 def plotBtagROverlay(variable, era, inputDirDic):

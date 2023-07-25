@@ -98,7 +98,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // jets_centrality = jets_HT / jets_invariantMass;
     // jets_bScore = BScoreAllJetsCal(jets_btags); // sum of btags
     // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
-    // jets_average_deltaR = AverageDeltaRCal(jets);
+    jets_average_deltaR = AverageDeltaRCal(objsLorentz);
     // jets_4largestBscoreSum = bscoreSumOf4largestCal(jets_btags);
     // jets_4largestBscoreMulti = bscoreMultiOf4largestCal(jets_btags);
 

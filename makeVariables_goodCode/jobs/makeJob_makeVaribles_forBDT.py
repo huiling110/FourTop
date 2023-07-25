@@ -67,7 +67,7 @@ def main():
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
-    inVersion = 'v60fixeJetBtagBug'
+    inVersion = 'v6fixeJetBtagBug'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
