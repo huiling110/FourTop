@@ -67,13 +67,14 @@ def main():
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
-    inVersion = 'v6fixeJetBtagBug'
+    inVersion = 'v60fixeJetBtagBug'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
     # outVersion = 'v4repeatv3'
     # outVersion = 'v5newBtagEff'
-    outVersion = 'v6updatedBtagR'
+    # outVersion = 'v6updatedBtagR'
+    outVersion = 'v7forBDT'
     
     
     # isRun3 = True
