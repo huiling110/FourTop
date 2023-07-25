@@ -329,15 +329,16 @@ Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Select
     sum_delta_R = sum_delta_R / ((num - 1) * num);
     return sum_delta_R;
 }
-Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
+// Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
+Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
-    // copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
-    TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
+    copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    // TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = -99;
-    if (SelectedJetsBTags.size() > 3)
+    if (SelectedJetsBTags.GetSize() > 3)
     {
         sum = jetsBtags[0] + jetsBtags[1] + jetsBtags[2] + jetsBtags[3];
     }
@@ -348,15 +349,15 @@ Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
     return sum;
 }
 
-Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
+Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
-    // copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
-    TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
+    copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    // TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = 1;
-    if (SelectedJetsBTags.size() > 3)
+    if (SelectedJetsBTags.GetSize() > 3)
     {
         // sum = jetsBtags[0]*jetsBtags[1]*jetsBtags[2]*jetsBtags[3];
         sum = TMath::Sqrt(jetsBtags[0] * jetsBtags[1] * jetsBtags[2] * jetsBtags[3]);

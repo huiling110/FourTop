@@ -99,8 +99,28 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
     // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
-    // jets_4largestBscoreSum = bscoreSumOf4largestCal(jets_btags);
-    // jets_4largestBscoreMulti = bscoreMultiOf4largestCal(jets_btags);
+    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);
+    jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
+
+    //!!! todo later
+    // if (*MET_pt_ == 0)
+    // {
+    //     jets_HTDividedByMet = 0;
+    // }
+    // else
+    // {
+    //     jets_HTDividedByMet = jets_HT / *MET_pt_;
+    // }
+    // MetDividedByHT = *MET_pt_ / jets_HT;
+    // jets_MHTDividedByMet = jets_MHT / *MET_pt_;
+    // std::vector<ROOT::Math::PtEtaPhiMVector> = {e->}
+    // jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
+    // jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
+    // jets_tausT_minDeltaR = MinDeltaRCal(jets, tausT);
+    // jets_tausT_invariantMass = InvariantMass2SysCal(jets, tausT);
+
+    //    // aplanarity and sphericity
+    // SpheriltyAplanarityCal(jets, jets_spherilty, jets_aplanarity);
 
     if(muons_num>1 && m_type==0){
         jets_1btag = e->jets_btags.At(0);

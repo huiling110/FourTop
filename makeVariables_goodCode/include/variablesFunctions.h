@@ -75,8 +75,8 @@ Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets
 
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
-Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
+Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
