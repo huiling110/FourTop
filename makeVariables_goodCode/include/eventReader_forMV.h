@@ -33,6 +33,7 @@ public:
                                       tausT_mass(reader, "tausT_mass"),
                                       tausT_genPartFlav(reader, "tausT_genPartFlav"),
                                       tausT_decayMode(reader, "tausT_decayMode"),
+                                      tausT_charge(reader, "tausT_charge"),
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
                                       tausF_phi(reader, "tausF_phi"),
@@ -111,6 +112,7 @@ public:
     TTreeReaderArray<Double_t> tausT_mass;
     TTreeReaderArray<UChar_t> tausT_genPartFlav;
     TTreeReaderArray<Int_t> tausT_decayMode;
+    TTreeReaderArray<Int_t> tausT_charge;
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;
     TTreeReaderArray<Double_t> tausF_phi;
