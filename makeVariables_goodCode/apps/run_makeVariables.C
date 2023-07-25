@@ -40,7 +40,7 @@ void run_objectSelection(
     // std::cout << "isRun3=" << isRun3 << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
-    mv.EventLoop(kTRUE, numEntries);
+    mv.EventLoop(kTRUE,kTRUE, numEntries);
     mv.Terminate();
 
     t.Stop();

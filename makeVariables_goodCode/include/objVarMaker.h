@@ -15,6 +15,7 @@ public:
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     void basicVariables();
+    Int_t getNum();
 
     // private:
 protected:

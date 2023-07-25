@@ -1,7 +1,7 @@
 // #include "../include/usefulFunc.h"
 #include "../include/makeVariablesMain.h"
 
-void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
+void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -36,6 +36,11 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, ULong_t numEntries)
         {
             if (!(jetVarMaker.getHT() > 500 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
             {
+                continue;
+            }
+        }
+        if(tau1e1Sel){
+            if(!(jetVarMaker.getJet_num()>=7 && bjetMVarMaker.getJet_num() >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){
                 continue;
             }
         }

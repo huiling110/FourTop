@@ -129,15 +129,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     outfile = channel + csvListName;
     std::cout << channel << ": " << cutForSandB << endl;
 
-    // Double_t allSignal = allProcesses[0].getChannelHist(cutForSandB, basicWeight)->GetEntries();
-    // Double_t allSignal = allProcesses[0].getEventTree()->GetEntries() + allProcesses2016[0].getEventTree()->GetEntries() + allProcesses2017[0].getEventTree()->GetEntries();
-    //???using jets_number for projecting for now
-    // Double_t allBg = getAllBgEntries(cutForSandB, basicWeight);
-    // Double_t allBg = 0;
-    // for (UInt_t i = 1; i < allProcesses.size(); i++)
-    // {
-    //     allBg = allBg + allProcesses[i].getEventTree()->GetEntries() + allProcesses2016[i].getEventTree()->GetEntries() + allProcesses2017[i].getEventTree()->GetEntries();
-    // }
     Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
     Double_t allBg = 0;
     for (UInt_t i = 1; i < eraProcess_Map[era].size(); i++)

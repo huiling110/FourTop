@@ -96,4 +96,8 @@ void ObjVarMaker::setupLorentzObjs(const EventForMV *e)
     }
 };
 
+Int_t ObjVarMaker::getNum(){
+    return muons_num;
+}
+
 ObjVarMaker::~ObjVarMaker(){};
