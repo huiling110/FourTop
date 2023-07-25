@@ -368,24 +368,27 @@ Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags
     return sum;
 }
 
-Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags)
+// Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags)
+Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 0;
-    for (UInt_t j = 0; j < SelectedJetsBTags.size(); ++j)
+    for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j)
     {
         initB = initB + SelectedJetsBTags[j];
     }
     return initB;
 }
 
-Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
+// Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
+// Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
+Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 1;
-    for (UInt_t j = 0; j < SelectedJetsBTags.size(); ++j)
+    for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j)
     {
         initB = initB * SelectedJetsBTags[j];
     }
-    if (SelectedJetsBTags.size() < 1)
+    if (SelectedJetsBTags.GetSize() < 1)
     {
         initB = 0;
     }

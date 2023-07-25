@@ -78,8 +78,8 @@ Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Select
 Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
 Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
 
-Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags);
-Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags);
+Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
 
 Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode);

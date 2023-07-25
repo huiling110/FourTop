@@ -94,9 +94,9 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_HT = HTcalculator(objsLorentz);
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
     jets_transMass = TransMassCal(objsLorentz);
-    // jets_minDeltaR = MinDeltaRSingleCal(jets);
+    jets_minDeltaR = MinDeltaRSingleCal(objsLorentz);
     // jets_centrality = jets_HT / jets_invariantMass;
-    // jets_bScore = BScoreAllJetsCal(jets_btags); // sum of btags
+    jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
     // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
     // jets_4largestBscoreSum = bscoreSumOf4largestCal(jets_btags);
