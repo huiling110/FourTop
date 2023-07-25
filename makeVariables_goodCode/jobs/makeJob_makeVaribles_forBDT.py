@@ -74,7 +74,8 @@ def main():
     # outVersion = 'v4repeatv3'
     # outVersion = 'v5newBtagEff'
     # outVersion = 'v6updatedBtagR'
-    outVersion = 'v7forBDT'
+    # outVersion = 'v7forBDT'
+    outVersion = 'v8tau1elCut'
     
     
     # isRun3 = True

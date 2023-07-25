@@ -27,7 +27,7 @@ void run_objectSelection(
     // TString inputDir = "output",
     // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
-    Int_t numEntries = 100)
+    Int_t numEntries = 1000)
 {
     TStopwatch t;
     t.Start();
@@ -41,6 +41,7 @@ void run_objectSelection(
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     mv.EventLoop(kTRUE,kTRUE, numEntries);
+    // mv.EventLoop(kTRUE,kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
