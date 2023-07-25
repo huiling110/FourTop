@@ -114,6 +114,9 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
 
+    jets_rationHT_4toRest = rationHT_4toRestCal(objsLorentz);
+
+
     //!!! todo later
     // if (*MET_pt_ == 0)
     // {
