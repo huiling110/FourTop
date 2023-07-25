@@ -14,12 +14,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v1sysVariation1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v2traingWithBtag/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v3withBjetT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/'
-    channel = '1tau0l' # 1tau0l
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v0trainingWithBtagShape/'
     
-    # outDir = inputDir+'combine/'
+    
+    
+    # channel = '1tau0l' # 1tau0l
+    channel = '1tau1l' # 1tau0l
+    
+    outDir = inputDir+'combine/'
     # outDir = inputDir+'combine_test/'
-    outDir = inputDir+'combine_modifyFakeDataError/'
+    # outDir = inputDir+'combine_modifyFakeDataError/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
@@ -64,8 +69,8 @@ def main():
         iroot.Close() 
     print(summedHistDicAllSys)
   
-    addFakeTauSys(outFile, channel, summedHistDicAllSys)
-    print(summedHistDicAllSys)
+    # addFakeTauSys(outFile, channel, summedHistDicAllSys)
+    # print(summedHistDicAllSys)
     
     # fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
     fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)

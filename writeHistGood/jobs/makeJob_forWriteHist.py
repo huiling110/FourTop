@@ -30,7 +30,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6updatedBtagR_v60fixeJetBtagBug/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6updatedBtagR_v60fixeJetBtagBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -47,7 +48,7 @@ def main():
     # version = 'v4newBtagEff'
     # version = 'v5OldBtagR'
     # version = 'v6forBtagRMeasure'
-    version = 'v7newBtagRApp'
+    # version = 'v7newBtagRApp'
 
     # version = 'v2_btagCorrection'
     # version = 'v3NoHLTBTagCorrection'
@@ -70,6 +71,8 @@ def main():
     # version = 'v1sysVariation1tau1l_30bins'
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
+    version = 'v0trainingWithBtagShape'
+    channel = 0
     
     #
     # version = 'v41tau0lGenTauSys'
@@ -102,14 +105,14 @@ def main():
 
     for i in inputDirDic.keys():
         # makeJobsforDir( inputDirDic[i], version, channel, isTest, subAllProcess, Jobsubmitpath )
-        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath )
+        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel )
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
-def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
+def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , channel):
     jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
     logDir = outputDir+'log/'
@@ -124,7 +127,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath ):
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
