@@ -87,10 +87,12 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                          TString outDir = "output/",
                                          //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/Run2/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/1tau1l_v1/variableList/varibleList_17.csv",
                                         //  TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v5extra1tau1lCut_v56NoHLTButPre/1tau1l/variableList/varibleList_16.csv",//same for all 3 years
-                                        TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v5extra1tau1lCut_v56preselection/1tau1l_v1WithoutBtagShape/variableList/varibleList_16.csv",
+                                        // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v5extra1tau1lCut_v56preselection/1tau1l_v1WithoutBtagShape/variableList/varibleList_16.csv",
+                                        // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v7forBDT_v60fixeJetBtagBug/1tau1l_withBtagShape/variableList/varibleList_16.csv",
+                                        TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v7forBDT_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
                                          const TString channel = "1tau1l",
-                                        //  const TString era = "2017",
-                                         const TString era = "2016",
+                                         const TString era = "2017",
+                                        //  const TString era = "2016",
                                          //  const TString channel = "1tau2l",
                                          //   const TString channel = "2tau0l",
                                          //  Bool_t forVariables = true,
@@ -291,12 +293,12 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
         // for generating initial variable list
         std::vector<TString> branchNames;
         TString branchName;
-        UInt_t nbr = TTTT.getEventTree()->GetListOfBranches()->GetEntries();
+        UInt_t nbr = tttt.getEventTree()->GetListOfBranches()->GetEntries();
         cout << "number of branches: " << nbr << endl;
         Int_t chosenVariable = 0;
         for (UInt_t i = 0; i < nbr; i++)
         {
-            branchName = TTTT.getEventTree()->GetListOfBranches()->At(i)->GetName();
+            branchName = tttt.getEventTree()->GetListOfBranches()->At(i)->GetName();
 
             std::vector<TRegexp> commanVarToAvoid = {
                 "Flag",
@@ -384,7 +386,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap["2018"] * TTTT.getScale());
     // dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
     // dataloader->AddSignalTree(allProcesses2017[0].getEventTree(), lumiMap["2017"] * allProcesses2017[0].getScale());
-    dataloader->AddSignalTree(eraProcess_Map[era][0].getEventTree(), lumiMap[era] * eraProcess_Map[era][0].getScale());
+    dataloader->AddSignalTree(eraProcess_Map[era][0].getEventTree(), TTTT::lumiMap.at(era) * eraProcess_Map[era][0].getScale());
     for (UInt_t p = 1; p < eraProcess_Map[era].size(); p++)
     {
         if (eraProcess_Map[era][p].getEventTree()->GetEntries() == 0)
@@ -393,34 +395,9 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
             continue;
         }
         std::cout << "adding background for training: " << eraProcess_Map[era][p].getProcessName() << "\n";
-        dataloader->AddBackgroundTree(eraProcess_Map[era][p].getEventTree(), lumiMap[era] * eraProcess_Map[era][p].getScale());
+        dataloader->AddBackgroundTree(eraProcess_Map[era][p].getEventTree(), TTTT::lumiMap.at(era) * eraProcess_Map[era][p].getScale());
     }
-    // for (UInt_t p = 1; p < allProcesses2016.size(); p++)
-    // {
-    //     if (allProcesses2016[p].getEventTree()->GetEntries() == 0)
-    //     {
-    //         std::cout << "empty process: " << allProcesses2016[p].getProcessName() << "\n";
-    //         continue;
-    //     }
-    //     std::cout << "adding background for training: " << allProcesses2016[p].getProcessName() << "\n";
-    //     dataloader->AddBackgroundTree(allProcesses2016[p].getEventTree(), lumiMap["2016"] * allProcesses2016[p].getScale());
-    // }
-    // for (UInt_t p = 1; p < allProcesses2017.size(); p++)
-    // {
-    //     if (allProcesses2017[p].getEventTree()->GetEntries() == 0)
-    //     {
-    //         std::cout << "empty process: " << allProcesses2017[p].getProcessName() << "\n";
-    //         continue;
-    //     }
-    //     std::cout << "adding background for training: " << allProcesses2017[p].getProcessName() << "\n";
-    //     dataloader->AddBackgroundTree(allProcesses2017[p].getEventTree(), lumiMap["2017"] * allProcesses2017[p].getScale());
-    // }
 
-    // Set individual event weights (the variables must exist in the original TTree)
-    // -  for background: `dataloader->SetBackgroundWeightExpression("weight1*weight2");`
-    // const  weight = "EVENT_genWeight*EVENT_prefireWeight*PUWeight";
-    // dataloader->SetSignalWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
-    // dataloader->SetBackgroundWeightExpression("EVENT_genWeight*EVENT_prefireWeight*PUweight_");
     dataloader->SetSignalWeightExpression(g_weight.GetTitle());
     dataloader->SetBackgroundWeightExpression(g_weight.GetTitle());
 

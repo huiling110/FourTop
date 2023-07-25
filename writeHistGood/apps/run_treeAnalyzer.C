@@ -8,19 +8,19 @@
 
 void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v7forBDT_v60fixeJetBtagBug/mc/",
     TString process = "tttt",
     // TString process = "ttZ",
     TString histVersion = "v0_test",
-    // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
-    Int_t channel = 1,//0: 1tau1l; 1: 1tau0l
+    Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
+    // Int_t channel = 1,//0: 1tau1l; 1: 1tau0l
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
     t.Start();
-    // treeAnalyzer writeBDTHist(inputDir, process, histVersion, isTest);
     treeAnalyzer writeBDTHist(inputDir, process, histVersion, channel, isTest);
     writeBDTHist.Init();
     writeBDTHist.LoopTree(); //!!!maybe provide cut and weight as parameter here

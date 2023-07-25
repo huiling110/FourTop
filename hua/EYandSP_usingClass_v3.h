@@ -19,7 +19,8 @@
 #include "TCut.h"
 #include "TPRegexp.h"
 
-#include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/src_cpp/lumiAndCrossSection.h"
+// #include "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/src_cpp/lumiAndCrossSection.h"
+#include "../src_cpp/lumiAndCrossSection.h"
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
@@ -40,10 +41,11 @@ const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/201
 // const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
 const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5extra1tau1lCut_v56preselection/mc/";
 // const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
-const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5extra1tau1lCut_v56NoHLTButPre/mc/";
+// const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5extra1tau1lCut_v56NoHLTButPre/mc/";
+const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/";
 // const TString era_g = "2016";
-// const TString era_g = "2017";
-const TString era_g = "2018";
+const TString era_g = "2017";
+// const TString era_g = "2018";
 
 const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
 
@@ -113,10 +115,10 @@ std::map<TString, TCut> regions_1tau0l = {
 };
 
 // 2018
-Process TTTT{baseDir + "tttt.root", crossSectionMap["tttt"]};
-Process TTTo2L2Nu{baseDir + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
-Process TTToHadronic{baseDir + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
-Process TTToSemiLeptonic{baseDir + "ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process tttt{baseDir + "tttt.root", TTTT::crossSectionMap.at("tttt")};
+Process TTTo2L2Nu{baseDir + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
+Process TTToHadronic{baseDir + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
+Process TTToSemiLeptonic{baseDir + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
 Process TTGJets{baseDir + "ttG.root", 4.62};          // 3.773
 Process ttZJets{baseDir + "ttZ.root", 0.783};         // 0.6559
 Process ttWJets{baseDir + "ttW.root", 0.611};         // 0.2014 changed to 611
@@ -162,7 +164,7 @@ Process QCD_HT1500to2000{baseDir + "qcd_1500to2000.root", 1.20e+02};  // 1.201e+
 Process QCD_HT2000toInf{baseDir + "qcd_2000toInf.root", 2.525e+01};   // 2.524e+01 +- 2.436e-02 pb
 
 std::vector<Process> allProcesses = {
-    TTTT,                                         // 0
+    tttt,                                         // 0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,    // 3
     TTGJets, ttZJets, ttWJets, ttH_bb, ttH_nonbb, // 8
     WZ, WW, ZZ,                                   // 11
@@ -172,10 +174,10 @@ std::vector<Process> allProcesses = {
 };
 
 // 2016
-Process TTTT2016{baseDir2016 + "tttt.root", crossSectionMap["tttt"]};
-Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
-Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
-Process TTToSemiLeptonic2016{baseDir2016 + "ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTTT2016{baseDir2016 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
+Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
+Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
+Process TTToSemiLeptonic2016{baseDir2016 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
 Process TTGJets2016{baseDir2016 + "ttG.root", 4.62};          // 3.773
 Process ttZJets2016{baseDir2016 + "ttZ.root", 0.783};         // 0.6559
 Process ttWJets2016{baseDir2016 + "ttW.root", 0.611};         // 0.2014 changed to 611
@@ -200,10 +202,10 @@ std::vector<Process> allProcesses2016 = {
 };
 
 // 2017
-Process TTTT2017{baseDir2017 + "tttt.root", crossSectionMap["tttt"]};
-Process TTTo2L2Nu2017{baseDir2017 + "ttbar_2l.root", crossSectionMap["ttbar_2l"]};
-Process TTToHadronic2017{baseDir2017 + "ttbar_0l.root", crossSectionMap["ttbar_0l"]};
-Process TTToSemiLeptonic2017{baseDir2017 + "ttbar_1l.root", crossSectionMap["ttbar_1l"]};
+Process TTTT2017{baseDir2017 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
+Process TTTo2L2Nu2017{baseDir2017 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
+Process TTToHadronic2017{baseDir2017 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
+Process TTToSemiLeptonic2017{baseDir2017 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
 Process TTGJets2017{baseDir2017 + "ttG.root", 4.62};          // 3.773
 Process ttZJets2017{baseDir2017 + "ttZ.root", 0.783};         // 0.6559
 Process ttWJets2017{baseDir2017 + "ttW.root", 0.611};         // 0.2014 changed to 611
@@ -233,18 +235,18 @@ std::map<TString, std::vector<Process>> eraProcess_Map = {
     {"2018", allProcesses},
 };
 
-TH1D *
-getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
-{
-    TH1D *bg = new TH1D("bg", "bg", 40, 0, 40);
-    for (UInt_t j = 1; j < allProcesses.size(); j++)
-    {
-        // if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
-        if (j > 0)
-            bg->Add(allProcesses[j].getChannelHist(cut, weight), lumiMap[era] * allProcesses[j].getScale());
-    }
-    return bg;
-}
+// TH1D *
+// getBackHist(std::vector<Process> &allProcesses, const TCut cut, const TCut weight, TString era)
+// {
+//     TH1D *bg = new TH1D("bg", "bg", 40, 0, 40);
+//     for (UInt_t j = 1; j < allProcesses.size(); j++)
+//     {
+//         // if(j > 0) bg->Add( allProcesses[j].getChannelHist( cut, weight) , LUMI*allProcesses[j].getScale() );
+//         if (j > 0)
+//             bg->Add(allProcesses[j].getChannelHist(cut, weight), lumiMap[era] * allProcesses[j].getScale());
+//     }
+//     return bg;
+// }
 
 TH1D *addHistChannel(const TCut cut, const TCut weight, TString branchName, const Int_t binNum, const Double_t binMin, const Double_t binMax, Int_t fromProcess, UInt_t toProcess, TString histName)
 {
