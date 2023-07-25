@@ -22,6 +22,7 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std
     }
 };
 
+
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2)
 {
     Double_t deltaPhi = TMath::Abs(phi1 - phi2);
@@ -67,6 +68,39 @@ Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJe
     }
     return HTprov;
 } /*}}}*/
+// Double_t MHTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+// {
+//     /*{{{*/
+//     ROOT::Math::PtEtaPhiMVector SumJets(0, 0, 0, 0);
+//     Double_t MHTprov = 0;
+//     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
+//     {
+//         SumJets = SumJets + SelectedJets[j];
+//     }
+//     MHTprov = SumJets.Pt();
+//     return MHTprov;
+// } /*}}}*/
+Double_t energyCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+{
+    Double_t sumE = 0;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j)
+    {
+        sumE = sumE + SelectedJets[j].E();
+    }
+    return sumE;
+}
+Double_t pzCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+{
+    Double_t sumE = 0;
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j)
+    {
+        sumE = sumE + SelectedJets[j].Pz();
+    }
+    return sumE;
+}
+
+/// it seems we cant not use std::vector as input parameter
+// yes we can , just have to pass by address
 Double_t MHTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     /*{{{*/
@@ -79,51 +113,18 @@ Double_t MHTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJ
     MHTprov = SumJets.Pt();
     return MHTprov;
 } /*}}}*/
-Double_t energyCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-{
-    Double_t sumE = 0;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
-    {
-        sumE = sumE + SelectedJets[j].E();
-    }
-    return sumE;
-}
-Double_t pzCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-{
-    Double_t sumE = 0;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
-    {
-        sumE = sumE + SelectedJets[j].Pz();
-    }
-    return sumE;
-}
-
-/// it seems we cant not use TTreeReaderArray as input parameter
-// yes we can , just have to pass by address
-Double_t MHTcalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-{
-    /*{{{*/
-    ROOT::Math::PtEtaPhiMVector SumJets(0, 0, 0, 0);
-    Double_t MHTprov = 0;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
-    {
-        SumJets = SumJets + SelectedJets[j];
-    }
-    MHTprov = SumJets.Pt();
-    return MHTprov;
-} /*}}}*/
-Double_t rationHT_4toRestCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+Double_t rationHT_4toRestCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     std::vector<ROOT::Math::PtEtaPhiMVector> leading4;
     std::vector<ROOT::Math::PtEtaPhiMVector> rest;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
+    for (UInt_t j = 0; j < SelectedJets.size(); ++j)
     {
         if (j < 4)
             leading4.push_back(SelectedJets[j]);
         if (j >= 4)
             rest.push_back(SelectedJets[j]);
     }
-    if (SelectedJets.GetSize() > 4)
+    if (SelectedJets.size() > 4)
     {
         return HTcalculator(leading4) / HTcalculator(rest);
     }
@@ -132,17 +133,7 @@ Double_t rationHT_4toRestCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>
 }
 
 // Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets) {
-Double_t InvariantMassCalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-{
-    ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
-    {
-        jet_sum = jet_sum + SelectedJets[j];
-    }
-    Double_t InMass = jet_sum.M();
-    return InMass;
-}
-Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets)
+Double_t InvariantMassCalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
@@ -152,9 +143,19 @@ Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> Select
     Double_t InMass = jet_sum.M();
     return InMass;
 }
+// Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets)
+// {
+//     ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
+//     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
+//     {
+//         jet_sum = jet_sum + SelectedJets[j];
+//     }
+//     Double_t InMass = jet_sum.M();
+//     return InMass;
+// }
 
-Double_t InvariantMass2SysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &a,
-                              const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &b)
+Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
+                              const std::vector<ROOT::Math::PtEtaPhiMVector> &b)
 {
     std::vector<ROOT::Math::PtEtaPhiMVector> vector_sum(a.begin(), a.end());
     vector_sum.insert(vector_sum.end(), b.begin(), b.end());
@@ -184,7 +185,7 @@ Double_t InvariantMass2SysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector
 // return charge_sum;
 // }
 
-Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector SelectedJets)
+Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector& SelectedJets)
 {
     //    TVector3 p =  SelectedJets.Vect();
     Double_t pt = SelectedJets.Pt();
@@ -192,15 +193,6 @@ Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector SelectedJets)
     return trans_energy;
 }
 
-Double_t TransEnergySysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-{
-    Double_t transE = 0;
-    for (UInt_t j = 0; j < SelectedJets.GetSize(); ++j)
-    {
-        transE += TransEnergyCal(SelectedJets[j]);
-    }
-    return transE;
-}
 Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     Double_t transE = 0;
@@ -210,6 +202,15 @@ Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Selec
     }
     return transE;
 }
+// Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
+// {
+//     Double_t transE = 0;
+//     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
+//     {
+//         transE += TransEnergyCal(SelectedJets[j]);
+//     }
+//     return transE;
+// }
 
 Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
@@ -223,17 +224,17 @@ Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJe
     return trans_mass;
 }
 
-Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
+Double_t TransMassSysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons)
 {
     Double_t transE1 = TransEnergySysCal(Jets);
     Double_t transE2 = TransEnergySysCal(Leptons);
     ROOT::Math::PtEtaPhiMVector SumJets(0, 0, 0, 0);
     ROOT::Math::PtEtaPhiMVector SumLeptons(0, 0, 0, 0);
-    for (UInt_t j = 0; j < Jets.GetSize(); ++j)
+    for (UInt_t j = 0; j < Jets.size(); ++j)
     {
         SumJets = SumJets + Jets[j];
     }
-    for (UInt_t k = 0; k < Leptons.GetSize(); ++k)
+    for (UInt_t k = 0; k < Leptons.size(); ++k)
     {
         SumLeptons = SumLeptons + Leptons[k];
     }
@@ -244,15 +245,15 @@ Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Je
     return transMass;
 }
 
-Double_t MinDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets,
-                      const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons)
+Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
+                      const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons)
 {
     Double_t deltaR_init = 10;
     Double_t min_deltar = 10;
     Double_t min_deltaR = 10;
-    for (UInt_t j = 0; j < Jets.GetSize(); ++j)
+    for (UInt_t j = 0; j < Jets.size(); ++j)
     {
-        for (UInt_t k = 0; k < Leptons.GetSize(); ++k)
+        for (UInt_t k = 0; k < Leptons.size(); ++k)
         {
             // deltaR_init = Jets[j].DeltaR(Leptons[k]);//???
             deltaR_init = DeltaR(Jets[j].Eta(), Leptons[k].Eta(), Jets[j].Phi(), Leptons[k].Phi());
@@ -265,20 +266,20 @@ Double_t MinDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets,
     }
     return min_deltaR;
 }
-Double_t MinDeltaRSingleCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets)
+Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets)
 {
     Double_t min = 10;
     // Double_t min_2 = 10;
     Double_t min_3 = 10;
     Double_t min_1 = 10;
-    for (UInt_t j = 0; j < Jets.GetSize(); ++j)
+    for (UInt_t j = 0; j < Jets.size(); ++j)
     {
-        if (Jets.GetSize() < 2)
+        if (Jets.size() < 2)
         {
             min_3 = 0.;
             break;
         }
-        for (UInt_t k = j + 1; k < Jets.GetSize(); ++k)
+        for (UInt_t k = j + 1; k < Jets.size(); ++k)
         {
             // min_1 = Jets[j].DeltaR(Jets[k]);
             min_1 = DeltaR(Jets[j].Eta(), Jets[k].Eta(), Jets[j].Phi(), Jets[k].Phi());
@@ -327,14 +328,14 @@ Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Select
     sum_delta_R = sum_delta_R / ((num - 1) * num);
     return sum_delta_R;
 }
-Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
+Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
     copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = -99;
-    if (SelectedJetsBTags.GetSize() > 3)
+    if (SelectedJetsBTags.size() > 3)
     {
         sum = jetsBtags[0] + jetsBtags[1] + jetsBtags[2] + jetsBtags[3];
     }
@@ -345,14 +346,14 @@ Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBT
     return sum;
 }
 
-Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
+Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
     copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = 1;
-    if (SelectedJetsBTags.GetSize() > 3)
+    if (SelectedJetsBTags.size() > 3)
     {
         // sum = jetsBtags[0]*jetsBtags[1]*jetsBtags[2]*jetsBtags[3];
         sum = TMath::Sqrt(jetsBtags[0] * jetsBtags[1] * jetsBtags[2] * jetsBtags[3]);
@@ -364,24 +365,24 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJets
     return sum;
 }
 
-Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
+Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 0;
-    for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j)
+    for (UInt_t j = 0; j < SelectedJetsBTags.size(); ++j)
     {
         initB = initB + SelectedJetsBTags[j];
     }
     return initB;
 }
 
-Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
+Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 1;
-    for (UInt_t j = 0; j < SelectedJetsBTags.GetSize(); ++j)
+    for (UInt_t j = 0; j < SelectedJetsBTags.size(); ++j)
     {
         initB = initB * SelectedJetsBTags[j];
     }
-    if (SelectedJetsBTags.GetSize() < 1)
+    if (SelectedJetsBTags.size() < 1)
     {
         initB = 0;
     }

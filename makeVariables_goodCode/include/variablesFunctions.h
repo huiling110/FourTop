@@ -24,27 +24,26 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std
 
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2);
 
-Double_t deltRmin(const Double_t eta1, const Double_t phi1, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &LeptonsMVAF);
+Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<ROOT::Math::PtEtaPhiMVector> &LeptonsMVAF);
 
 
-Double_t HTcalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 Double_t MHTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
-Double_t energyCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t energyCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t pzCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t pzCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 /// it seems we cant not use TTreeReaderArray as input parameter
 // yes we can , just have to pass by address
-Double_t rationHT_4toRestCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t rationHT_4toRestCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 // Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets) ;
-Double_t InvariantMassCalculator(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
+Double_t InvariantMassCalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets);
 
-Double_t InvariantMass2SysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &a,
-                              const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &b);
+Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
+                              const std::vector<ROOT::Math::PtEtaPhiMVector> &b);
 
 // Int_t ChargeSum(const std::vector<Int_t> SelectedElectronsMVATIndex, Int_t type) ;
 // Int_t charge_sum = 0;
@@ -60,35 +59,34 @@ Double_t InvariantMass2SysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector
 // return charge_sum;
 // }
 
-Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector SelectedJets);
+Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector& SelectedJets);
 
-Double_t TransEnergySysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
 Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t TransMassSysCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets, const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons);
+Double_t TransMassSysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
-Double_t MinDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets,
-                      const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Leptons);
+Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
+                      const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
-Double_t MinDeltaRSingleCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &Jets);
+Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets);
 
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
+Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
 
-Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags);
+Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags);
 Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
 
 Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode);
 
 Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index);
 
-void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
+void SpheriltyAplanarityCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
 
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> & muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 

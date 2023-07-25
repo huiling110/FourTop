@@ -5,6 +5,7 @@
 #include <TH1D.h>
 #include <TFile.h>
 #include <iostream>
+#include <vector>
 
 namespace TTTT{
 
@@ -40,6 +41,15 @@ T* getHistogramFromFile(TString filename, const char *histname)
     file->Close();
     return hist;
 }
+
+template <typename T>
+void copyVecToVec(const std::vector<T> &inVec, std::vector<T> &outVec  ){
+    outVec.clear();
+    for (UInt_t i=0; i<inVec.size(); i++){
+        outVec.push_back(inVec.at(i));
+    }
+}
+
 
 };
 #endif
