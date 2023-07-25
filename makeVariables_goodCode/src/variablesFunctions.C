@@ -1,9 +1,10 @@
-#include "../include/variablesFunctions.h"
-#include "../src_cpp/lumiAndCrossSection.h"
 
 #include "correction.h"
 #include <TMatrixDSymEigen.h>
 #include <limits>
+#include "../include/variablesFunctions.h"
+#include "../src_cpp/lumiAndCrossSection.h"
+#include "../../myLibrary/commenFunction.h"
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Int_t> &array, std::vector<Int_t> &vec)
 {
@@ -331,7 +332,8 @@ Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Select
 Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
-    copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    // copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = -99;
@@ -349,7 +351,8 @@ Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
     std::vector<Double_t> jetsBtags;
-    copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    // copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
+    TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
     sort(jetsBtags.begin(), jetsBtags.end());
     reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = 1;
