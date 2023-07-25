@@ -4,7 +4,7 @@ import usefulFunc as uf
 from plotForFakeRate import plotEfficiency, plotFROverlay
 
 import plotBtagEff as pb
-
+import setTDRStyle as st
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v9addBtagWeight_v42fixedChargeType/mc/variableHists_v3forBTagR/'
@@ -30,7 +30,7 @@ def main():
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
     plotName = plotDir+'bShapeR.png'
-    plotEfficiency(jets_numList[1], jets_numList[0], btagR, plotName, era, True, 'B tag shape R')
+    plotEff(jets_numList[1], jets_numList[0], btagR, ['before btag SF', 'after btag SF', 'b tag r'], plotName, era, False, 'B tag shape R')
     
     # outFile = plotDir+'bShapeR.root'
     # pb.saveHistToFile(btagR, outFile )
@@ -46,7 +46,72 @@ def main():
     # plotBtagROverlay(variable, era, inputDirDic)
     
  #more generic than that of plotForFakeRate   
-def plotEff(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
+def plotEff(h_numeritor, h_dinominator, h_eff, legendL, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
+    myStyle = st.setMyStyle()
+    myStyle.SetPadRightMargin(0.12)
+    myStyle.SetPadLeftMargin(0.12)
+    myStyle.SetPadTopMargin(0.12)
+    myStyle.cd()
+    can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
+
+    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    h_dinominator.GetYaxis().SetTitle('Events')
+    h_dinominator.GetYaxis().SetTitleSize(0.05)
+    h_dinominator.GetYaxis().SetLabelSize(0.03)
+    h_dinominator.GetYaxis().SetTitleOffset(1.1)
+    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
+    h_dinominator.GetXaxis().SetTitleSize(0.05)
+    h_dinominator.SetLineWidth(3)
+    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
+    
+    h_dinominator.Draw()
+    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
+    h_numeritor.SetLineWidth(3)
+    # h_numeritor.SetLineStyle(8)
+    h_numeritor.Draw('same')
+    can.Update()
+
+    h_efficiency = h_eff.Clone()
+    if ifFixMax:
+        rightmax = .35
+        # rightmax = .2
+    else:
+        rightmax = 1.7*h_efficiency.GetMaximum();
+    scale = ROOT.gPad.GetUymax()/rightmax;
+    h_efficiency.SetLineColor(ROOT.kRed)
+    h_efficiency.SetLineWidth(4)
+    # h_efficiency.SetMarkerStyle(3)
+    h_efficiency.SetLineStyle(1)
+    h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
+    h_efficiency.Draw("same")
+    
+    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    # axis.SetRangeUser(0, rightmax*1.4)
+    axis.SetLineColor(ROOT.kRed)
+    axis.SetLabelColor(ROOT.kRed)
+    # axis.SetTitle('fake rate')
+    # axis.SetTitle('efficiency')
+    axis.SetTitle(rightTitle)
+    axis.SetTitleSize(0.05)
+    axis.SetTitleColor(ROOT.kRed)
+    # axis.SetRangeUser(0, 0.4)
+    axis.Draw()
+
+
+    legend = ROOT.TLegend(0.5,0.68,0.88,0.88)
+    # legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
+    # legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
+    # legend.AddEntry(h_efficiency, h_efficiency.GetName())
+    legend.AddEntry(h_dinominator, legendL[0])
+    legend.AddEntry(h_numeritor, legendL[1])
+    legend.AddEntry(h_efficiency, legendL[2])
+    legend.Draw()
+    
+    st.addCMSTextToCan(can, 0.23, 0.41, 0.88 ,0.89, era)     
+
+    can.SaveAs(plotName)
         
     
     
