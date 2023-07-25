@@ -83,6 +83,10 @@ private:
     Double_t jets_tausF_minDeltaR = -99;
     Double_t jets_tausT_minDeltaR = -99.0;
     Double_t jets_tausT_invariantMass = -99.0;
+
+    
+
+
 };
 
 #endif

@@ -859,6 +859,15 @@ Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D
     return weight;
 }
 
+void getLorentzVec(const TTreeReaderArray<Double_t>& ptVec, const TTreeReaderArray<Double_t>& etaVec, const TTreeReaderArray<Double_t>& phiVec, const TTreeReaderArray<Double_t>& massVec, std::vector<ROOT::Math::PtEtaPhiMVector>& outLorVec ){
+    outLorVec.clear();
+    for (UInt_t i = 0; i < ptVec.GetSize(); i++)
+    {
+        ROOT::Math::PtEtaPhiMVector iLorentz{ptVec.At(i), etaVec.At(i), phiVec.At(i), massVec.At(i)};
+        outLorVec.push_back(iLorentz);
+    }
+}
+
 
 // void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec)
 // {

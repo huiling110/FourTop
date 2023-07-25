@@ -96,11 +96,23 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_transMass = TransMassCal(objsLorentz);
     jets_minDeltaR = MinDeltaRSingleCal(objsLorentz);
     // jets_centrality = jets_HT / jets_invariantMass;
-    jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
     // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
+
+    // const TTreeReaderArray<Double_t> &jets_btags{e->jets_btags};
+    // switch(m_type){
+    // case 0:
+    //     jets_btags = e->jets_btags;
+    //     break;
+    // case 1:
+    //     jets_btags = e->jetsT_btags;
+    //     break;
+    // default:
+    //     break;
+    // }
     jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
+    jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
 
     //!!! todo later
     // if (*MET_pt_ == 0)
@@ -197,6 +209,9 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
         }
         objsLorentz.push_back(muLorentz);
     }
+
+    //set up jets_btags accoruding to m_type
+
 };
 
 void JetVarMaker::clearBranch()
