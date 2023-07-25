@@ -29,7 +29,8 @@ public:
                                       elesTopMVAT_mass(reader, "elesTopMVAT_mass"),
                                       elesTopMVAT_index(reader, "elesTopMVAT_index"),
 
-                                      patElectron_charge_(reader, "patElectron_charge_"),
+                                      Electron_charge_(reader, "Electron_charge_"),
+                                      Muon_charge_(reader, "Muon_charge_"),
 
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
@@ -112,7 +113,8 @@ public:
     TTreeReaderArray<Double_t> elesTopMVAT_mass;
     TTreeReaderArray<Int_t> elesTopMVAT_index;
 
-    TTreeReaderArray<Int_t> patElectron_charge_;
+    TTreeReaderArray<Int_t> Electron_charge_;
+    TTreeReaderArray<Int_t> Muon_charge_;
 
     TTreeReaderArray<Double_t> tausT_pt;
     TTreeReaderArray<Double_t> tausT_eta;

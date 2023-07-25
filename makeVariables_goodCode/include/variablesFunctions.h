@@ -84,7 +84,8 @@ Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
 
 Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode);
 
-Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index);
+// Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index);
+Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReaderArray<Int_t> &Muon_charge_, const TTreeReaderArray<Int_t> &muonsT_index, const TTreeReaderArray<Int_t> &patElectron_charge_, const TTreeReaderArray<Int_t> &eleMVAT_index);
 
 void SpheriltyAplanarityCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
 

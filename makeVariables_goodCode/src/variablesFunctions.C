@@ -428,7 +428,7 @@ Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
     return prongNum;
 }
 
-Int_t chargeMulCalSingle(TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index)
+Int_t chargeMulCalSingle(const TTreeReaderArray<Int_t> &Muon_charge_, const TTreeReaderArray<Int_t> &muonsT_index)
 {
     Int_t chargeMul = 1;
     for (UInt_t i = 0; i < muonsT_index.GetSize(); ++i)
@@ -438,7 +438,7 @@ Int_t chargeMulCalSingle(TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray
     return chargeMul;
 }
 
-Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index)
+Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReaderArray<Int_t> &Muon_charge_, const TTreeReaderArray<Int_t> &muonsT_index, const TTreeReaderArray<Int_t> &patElectron_charge_, const TTreeReaderArray<Int_t> &eleMVAT_index)
 {
     Int_t muonsCharge = chargeMulCalSingle(Muon_charge_, muonsT_index);
     Int_t eleCharge = chargeMulCalSingle(patElectron_charge_, eleMVAT_index);

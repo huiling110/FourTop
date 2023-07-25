@@ -53,7 +53,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
 
-    // tausT_leptonsTopMVA_chargeulti = chargeMulCal(tausT_charge, Muon_charge_, muonsTopMVAT_index, patElectron_charge_, elesTopMVAT_index);
+    taus_leptonsTopMVA_chargeMulti = chargeMulCal(e->tausT_charge, e->Muon_charge_, e->muonsTopMVAT_index, e->Electron_charge_, e->elesTopMVAT_index);
 
 }
 
@@ -65,6 +65,7 @@ void TauVarMaker::clearBranch()
     taus_invariantMass = -99;
     taus_minDeltaR = -99;
     taus_genTauNum = -99;
+    taus_leptonsTopMVA_chargeMulti = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
