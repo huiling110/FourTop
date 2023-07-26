@@ -71,7 +71,8 @@ def main():
     # version = 'v1sysVariation1tau1l_30bins'
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
-    version = 'v0trainingWithBtagShape'
+    # version = 'v0trainingWithBtagShape'
+    version = 'v1traingWithBtagWP'
     channel = 0
     
     #

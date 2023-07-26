@@ -15,8 +15,8 @@ import usefulFunc as uf
 def main():
     channel = '1tau1l'
     # channel = '1tau2l'
-    version = 0 # with b tag shape
-    # version = 1 #with b tag WP 
+    # version = 0 # with b tag shape
+    version = 1 #with b tag WP 
     # version = 3 # add bjetT variables
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'

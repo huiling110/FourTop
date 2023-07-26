@@ -118,6 +118,8 @@ public:
     myBranch<Double_t> btagShape_weight{"btagShape_weight"};
     myBranch<Double_t> btagShapeR{"btagShapeR"};
     myBranch<Double_t> btagWPMedium_weight{"btagWPMedium_weight"};
+    myBranch<Double_t> btagWPMedium_weight_up{"btagWPMedium_weight_up"};
+    myBranch<Double_t> btagWPMedium_weight_down{"btagWPMedium_weight_down"};
     // branches for MVA
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_bScore{"jets_bScore"};
@@ -206,6 +208,8 @@ private:
         {btagShape_weight.n(), &btagShape_weight},
         {btagShapeR.n(), &btagShapeR},
         {btagWPMedium_weight.n(), &btagWPMedium_weight},
+        {btagWPMedium_weight_up.n(), &btagWPMedium_weight_up},
+        {btagWPMedium_weight_down.n(), &btagWPMedium_weight_down},
 
         {jets_bScore.n(), &jets_bScore},
         {jets_5pt.n(), &jets_5pt},

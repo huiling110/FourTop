@@ -56,6 +56,8 @@ void treeAnalyzer::Init()
         "CMS_btag_shape_cferr2" + m_era + "Down",
         "CMS_tttt_eff_hlt_stats" + m_era + "Up",
         "CMS_tttt_eff_hlt_stats" + m_era + "Down",
+        "CMS_eff_bWPM" + m_era + "Up",
+        "CMS_eff_bWPM" + m_era + "Down",
     };
 
 
@@ -161,7 +163,8 @@ void treeAnalyzer::LoopTree()
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
         Bool_t SR1tau1l = channelSel;
-        Double_t basicWeight = baseWeightCal(e);
+        // Double_t basicWeight = baseWeightCal(e);
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists
@@ -200,6 +203,11 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr1" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_btag_shape_cferr2" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
+        //!!!temporarily for b WPM
+        SR1tau1lSys.fillHistVec("CMS_eff_bWPM" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_eff_bWPM" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
+
+
         //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
         if (e->HLT_weight.v() == 0)
         {
