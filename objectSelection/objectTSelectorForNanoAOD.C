@@ -926,15 +926,15 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
                 continue;
         }
         // overlap removal
-        // Double_t minDeltaR_lep;
-        // if (LeptonsMVAL.size() > 0)
-        // {
-        //     minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
-        //     if (!(minDeltaR_lep >= 0.4))
-        //     {
-        //         continue;
-        //     }
-        // }
+        Double_t minDeltaR_lep;
+        if (LeptonsMVAL.size() > 0)
+        {
+            minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
+            if (!(minDeltaR_lep >= 0.4))
+            {
+                continue;
+            }
+        }
 
         //?need err handling
         ROOT::Math::PtEtaPhiMVector tau(itau_pt, Tau_eta.At(j), Tau_phi.At(j), itau_mass);

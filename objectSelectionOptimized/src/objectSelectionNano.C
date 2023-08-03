@@ -45,13 +45,13 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
 
         muSel.Select(e);
         eleMVASel.Select(e);
-        std::vector<Double_t> lepEtaVec;
-        std::vector<Double_t> lepPhiVec;
-        getLepEtaPhi(lepEtaVec, lepPhiVec);
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
         muTopMVATSel.Select(e);
+        std::vector<Double_t> lepEtaVec;
+        std::vector<Double_t> lepPhiVec;
+        getLepEtaPhi(lepEtaVec, lepPhiVec);
 
         // tau selection
         // Int_t tauTES = 0;
