@@ -66,7 +66,7 @@ public:
 
     void Init();
 
-    void EventLoop(Bool_t preSelection = kTRUE, ULong_t numEntries = 0, const Int_t tauTES = 0);
+    void EventLoop(Bool_t preSelection = kTRUE, ULong_t numEntries = 0, const Int_t tauTES = 0, const Bool_t ifJER = kFALSE);
 
     void Terminate();
     void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec);
@@ -91,7 +91,7 @@ private:
     MuSel muSel{m_outTree, m_era};
     EleMVASel eleMVASel{m_outTree, m_era};
     MuTopMVASel muTopMVATSel{m_outTree, m_era};
-    TauSel tauSel{m_outTree, m_era};
+    TauSel tauSel{m_outTree, m_era, 3};
     TauSel tauSelF{m_outTree, m_era, 2};
     TauSel tauSelL{m_outTree, m_era, 1};
     JetSel jetSel{m_outTree, m_era, 0};

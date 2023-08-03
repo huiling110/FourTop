@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES)
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Bool_t ifJER)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -13,6 +13,10 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
+        if(entryCount==1){
+            std::cout << "tauTES=" << tauTES << ";  ifJER=" << ifJER << ";  preSelection="<<preSelection<<"\n";
+        }
+
         Double_t genWeight = 1.0;
         if(!m_isData){
             genWeight = **e->genWeight;
@@ -62,7 +66,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
-        const Bool_t ifJER = kFALSE;
+        // const Bool_t ifJER = kFALSE;
         // const Bool_t ifJER = kTRUE;
         const Int_t sysJEC = 0;
         jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
