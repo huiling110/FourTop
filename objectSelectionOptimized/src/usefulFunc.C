@@ -118,8 +118,9 @@ namespace OS
     {
         Double_t deltaPhi = TMath::Abs(phi1 - phi2);
         Double_t deltaEta = eta1 - eta2;
-        if (deltaPhi > TMath::Pi())
+        if (deltaPhi > TMath::Pi()){
             deltaPhi = TMath::TwoPi() - deltaPhi;
+        }
         return TMath::Sqrt(deltaEta * deltaEta + deltaPhi * deltaPhi);
     }
 
@@ -137,7 +138,9 @@ namespace OS
     };
 
     void addTwoObjs(const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &eleEtaVec, std::vector<Double_t> &lepEtaVec)
+
     {
+        lepEtaVec.clear();
         lepEtaVec = muEtaVec;
         lepEtaVec.insert(lepEtaVec.end(), eleEtaVec.begin(), eleEtaVec.end());
         std::sort(lepEtaVec.begin(), lepEtaVec.end(), descendingComparator);
