@@ -158,16 +158,16 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
                 continue;
         }
         // overlap removal
-        Double_t minDeltaR_lep;
-        if (lepEtaVec.size() > 0)
-        {
-            // minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), LeptonsMVAL);
-            minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
-            if (!(minDeltaR_lep >= 0.4))
-            {
-                continue;
-            }
-        }
+        // Double_t minDeltaR_lep;
+        // if (lepEtaVec.size() > 0)
+        // {
+        //     // minDeltaR_lep = deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), LeptonsMVAL);
+        //     minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
+        //     if (!(minDeltaR_lep >= 0.4))
+        //     {
+        //         continue;
+        //     }
+        // }
 
         taus_pt.push_back(itau_pt);
         taus_eta.push_back(e->Tau_eta.At(j));
