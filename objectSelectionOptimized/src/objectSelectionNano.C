@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -17,7 +17,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         if(!m_isData){
             genWeight = **e->genWeight;
         }
-        TTTT::fillHist(m_cutflow, 0., genWeight, m_isData);
+        m_cutflow->Fill(0);
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))
@@ -30,14 +30,14 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         {
             continue;
         }
-        TTTT::fillHist(m_cutflow, 1., genWeight, m_isData);
+        m_cutflow->Fill(1);
 
         // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
         {
             continue; // contains event selection!!!
         }
-        TTTT::fillHist(m_cutflow, 2., genWeight, m_isData);
+        m_cutflow->Fill(2);
 
         muSel.Select(e);
         eleMVASel.Select(e);
@@ -50,11 +50,11 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
         muTopMVATSel.Select(e);
 
         // tau selection
-        Int_t sysTES = 0;
-        // Int_t sysTES = 4; // no tau energy correction
-        tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
-        tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, sysTES);
+        // Int_t tauTES = 0;
+        // Int_t tauTES = 4; // no tau energy correction
+        tauSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tauTES);
+        tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, tauTES);
+        tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, tauTES);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal += tauSel.getSize();
@@ -85,7 +85,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries)
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;
         }
-        TTTT::fillHist(m_cutflow, 3., genWeight, m_isData);
+        m_cutflow->Fill(3);
 
         m_outTree->Fill();
     };
@@ -97,7 +97,6 @@ void objectSelection::Terminate()
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) << " preSelection: " << m_cutflow->GetBinContent(4) << "\n";
-    std::cout << "initial events:" << m_cutflow->GetBinContent(1) / m_cutflow->GetBinError(1) << "\n";
     //";   HLT: " << m_cutflow->GetEntries(3) << " preSelection: " << m_cutflow->GetEntries(4) << "\n";
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";
 
