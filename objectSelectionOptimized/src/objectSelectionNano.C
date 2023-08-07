@@ -49,14 +49,9 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
         muTopMVATSel.Select(e);
-        // std::vector<Double_t> lepEtaVec;
-        // std::vector<Double_t> lepPhiVec;
-        // getLepEtaPhi(lepEtaVec, lepPhiVec);
 
 
         // tau selection
-        // Int_t tauTES = 0;
-        // Int_t tauTES = 4; // no tau energy correction
         tauSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
         tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
         tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
@@ -67,14 +62,12 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
-        // const Bool_t ifJER = kFALSE;
-        // const Bool_t ifJER = kTRUE;
         const Int_t sysJEC = 0;
-        // jetSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // jetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetMSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetLSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
-        // bjetTSel.Select(e, m_isData, lepEtaVec, lepPhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        jetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetLSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        bjetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
 
@@ -134,19 +127,19 @@ objectSelection::~objectSelection()
     // delete m_output;
 };
 
-void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
-{
-    std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
-    std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
-    std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
-    std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
-    if(m_isRun3){
-        muEtaVec = muSel.getEtaVec();
-        muPhiVec = muSel.getPhiVec();
-        eleEtaVec = eleMVASel.getEtaVec();
-        elePhiVec = eleMVASel.getPhiVec();
-        }
-    OS::addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
-    OS::addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
-    // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
-};
+// void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
+// {
+//     std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
+//     std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
+//     std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
+//     std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
+//     if(m_isRun3){
+//         muEtaVec = muSel.getEtaVec();
+//         muPhiVec = muSel.getPhiVec();
+//         eleEtaVec = eleMVASel.getEtaVec();
+//         elePhiVec = eleMVASel.getPhiVec();
+//         }
+//     OS::addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
+//     OS::addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
+//     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
+// };

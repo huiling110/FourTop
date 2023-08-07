@@ -35,7 +35,7 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
 
 JetSel::~JetSel(){};
 
-void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
+void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -154,18 +154,13 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             }
         }
         // overlap removal
-        if (lepEtaVec.size() > 0)
-        {
-            Double_t minDeltaR_lep = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), lepEtaVec, lepPhiVec);
-            if (!(minDeltaR_lep >= 0.4))
-                continue;
+        Bool_t removeMu = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), muEtaVec, muPhiVec);
+        Bool_t removeE = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), eEtaVec, ePhiVec);
+        Bool_t removeTau = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
+        if(removeE||removeMu|| removeTau){
+            continue;
         }
-        if (tauEtaVec.size() > 0)
-        {
-            Double_t minDeltaR_tau = OS::deltRmin(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
-            if (!(minDeltaR_tau >= 0.4))
-                continue;
-        }
+
         jets_pt.push_back(jetpt);
         jets_eta.push_back(ijetEta);
         jets_phi.push_back(ijetPhi);
