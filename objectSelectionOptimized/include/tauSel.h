@@ -11,7 +11,8 @@ class TauSel
 public:
     TauSel(TTree *outTree, const TString era, const Int_t tauWP = 3);
     ~TauSel();
-    void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES = 0);
+    // void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES = 0);
+    void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES);
 
     void calTauSF_new(const eventForNano *e, const Bool_t isData);
     void clearBranch();

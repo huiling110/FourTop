@@ -132,11 +132,20 @@ namespace OS
         for (UInt_t lep = 0; lep < lepEtaVec.size(); lep++)
         {
             deltaR = DeltaR(lepEtaVec[lep], eta1, lepPhiVec[lep], phi1);
-            std::cout << lepEtaVec[lep]<< eta1<< lepPhiVec[lep]<< phi1 << " "<<deltaR<< "\n";
+            // std::cout << lepEtaVec[lep]<< eta1<< lepPhiVec[lep]<< phi1 << " "<<deltaR<< "\n";
             if (deltaR < minDeltaR)
                 minDeltaR = deltaR; // The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
         }
         return minDeltaR;
+    };
+
+    Bool_t overlapRemove(Double_t tauEta, Double_t tauPhi, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec ){
+        Bool_t removeTau = kFALSE;
+        Double_t min = deltRmin(tauEta, tauPhi, lepEtaVec, lepPhiVec);
+        if (min < 0.4) {
+            removeTau = kTRUE;
+        }
+        return removeTau;
     };
 
     void addTwoObjs(const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &eleEtaVec, std::vector<Double_t> &lepEtaVec)

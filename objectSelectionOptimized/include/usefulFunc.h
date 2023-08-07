@@ -23,6 +23,8 @@ namespace OS
     Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2);
     Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec);
 
+    Bool_t overlapRemove(Double_t tauEta, Double_t tauPhi, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec);
+
     Bool_t descendingComparator(const Double_t &a, const Double_t &b);
     void addTwoObjs(const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &eleEtaVec, std::vector<Double_t> &lepEtaVec);
     // void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec, EleTopMVASel &eleTopMVATSel, MuTopMVASel &muTopMVATSel);

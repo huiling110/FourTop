@@ -43,7 +43,8 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
 
 TauSel::~TauSel(){};
 
-void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES)
+// void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES)
+void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES)
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
@@ -158,15 +159,20 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
                 continue;
         }
         // overlap removal
-        Double_t minDeltaR_lep;
-        std::cout<<"lepSize="<<lepEtaVec.size()<<"\n";
-        if (lepEtaVec.size() > 0)
-        {
-            minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
-            if (!(minDeltaR_lep >= 0.4))
-            {
-                continue;
-            }
+        Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
+        Bool_t removeTauWithE = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), eEtaVec, ePhiVec);
+        // Double_t minDeltaR_lep;
+        // std::cout<<"lepSize="<<lepEtaVec.size()<<"\n";
+        // if (lepEtaVec.size() > 0)
+        // {
+        //     minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
+        //     if (!(minDeltaR_lep >= 0.4))
+        //     {
+        //         continue;
+        //     }
+        // }
+        if(removeTau || removeTauWithE){
+            continue;
         }
 
         taus_pt.push_back(itau_pt);
