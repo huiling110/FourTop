@@ -7,16 +7,17 @@ import usefulFunc as uf
 def main():
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2btagShapeWeightCorrected_v60fixeJetBtagBug/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
-    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v3btagEffNewRegion/ttbar_0l.root'
+    # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/mc/variableHists_v3btagEffNewRegion/ttbar_0l.root'
+    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
     
     era = uf.getEraFromDir(inputDirFile)
     
-    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    plotBEffFromFile(inputDirFile )
-    plotBEffFromFile(inputDirFile, 'C' )
-    plotBEffFromFile(inputDirFile, 'L' )
+    # plotBEffFromFile(inputDirFile )
+    # plotBEffFromFile(inputDirFile, 'C' )
+    # plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
@@ -158,8 +159,9 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
         histogram.SetLineColor(LineColorDic[i])
         histogram.SetMarkerColor(LineColorDic[i])
         histogram.SetLineWidth(3)  # Set line width for each histogram
-        histogram.SetMarkerSize(2)
-        histogram.SetMarkerStyle(45)
+        histogram.SetMarkerSize(1.5)
+        # histogram.SetMarkerStyle(45)
+        histogram.SetMarkerStyle(64)
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         histogram.GetXaxis().SetTitleSize(0.05)

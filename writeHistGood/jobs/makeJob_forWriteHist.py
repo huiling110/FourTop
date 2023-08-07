@@ -31,7 +31,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3btagWPWeightGood_v60fixeJetBtagBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6updatedBtagR_v60fixeJetBtagBug/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -63,6 +64,7 @@ def main():
     # version = 'v8btagRMeasureWith1tau0l'
     #
     # version = 'v0btagRCal'
+    version = 'v0btagEff'
     
     #1tau1l
     # version = 'v1pileupWeight'
@@ -72,7 +74,7 @@ def main():
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
     # version = 'v0trainingWithBtagShape'
-    version = 'v1traingWithBtagWP'
+    # version = 'v1traingWithBtagWP'
     channel = 0
     
     #
@@ -128,8 +130,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
