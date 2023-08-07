@@ -26,7 +26,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v57ovelapWithTausF/'
 # jobVersionName = 'v58addGenBranches/'
 # jobVersionName = 'v59newOScode/'
-jobVersionName = 'v60fixeJetBtagBug/'
+# jobVersionName = 'v60fixeJetBtagBug/'
+jobVersionName = 'v61fixesLepRemovalBug/'
 
 #run3
 # jobVersionName = 'v0Testing/'
