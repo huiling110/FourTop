@@ -12,12 +12,12 @@ def main():
     
     era = uf.getEraFromDir(inputDirFile)
     
-    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    # plotBEffFromFile(inputDirFile )
-    # plotBEffFromFile(inputDirFile, 'C' )
-    # plotBEffFromFile(inputDirFile, 'L' )
+    plotBEffFromFile(inputDirFile )
+    plotBEffFromFile(inputDirFile, 'C' )
+    plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
