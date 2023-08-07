@@ -29,8 +29,8 @@ void run_objectTSelectorForNanoAOD(
     TString singleFileName = "outTree_0.root",
     // TString singleFileName = "outTree_1.root",
     // 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection
-    TString eventSelectionBit = "3")
-    // TString eventSelectionBit = "7")
+    // TString eventSelectionBit = "3")
+    TString eventSelectionBit = "7")
 {
     using namespace std;
     // gROOT->SetMacroPath("/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/src/FourTophua/objectSelection/");
@@ -83,8 +83,8 @@ void run_objectTSelectorForNanoAOD(
     if (istest)
     {
         outputDir = "output/";
-        eventNum = 100;
-        // eventNum = 1000;
+        // eventNum = 100;
+        eventNum = 1000;
         // eventNum = 10000;
     }
     TString outputFile;

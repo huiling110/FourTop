@@ -52,7 +52,7 @@ Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<RO
     for (UInt_t lep = 0; lep < LeptonsMVAF.size(); lep++)
     {
         deltaR = DeltaR(LeptonsMVAF[lep].Eta(), eta1, LeptonsMVAF[lep].Phi(), phi1);
-            std::cout << LeptonsMVAF[lep].Eta()<< eta1<< LeptonsMVAF[lep].Phi()<< phi1 << " "<<deltaR<< "\n";
+            // std::cout << LeptonsMVAF[lep].Eta()<< eta1<< LeptonsMVAF[lep].Phi()<< phi1 << " "<<deltaR<< "\n";
         if (deltaR < minDeltaR)
             minDeltaR = deltaR; // The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
     }
