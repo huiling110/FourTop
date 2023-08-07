@@ -77,7 +77,8 @@ def main():
     # outVersion = 'v6updatedBtagR'
     # outVersion = 'v7forBDT'
     # outVersion = 'v8tau1elCut'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
+    outVersion = 'v1btagWPWeightUpdated'
     
     # isRun3 = True
     isRun3 = False
