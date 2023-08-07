@@ -22,6 +22,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
             genWeight = **e->genWeight;
         }
         m_cutflow->Fill(0);
+        CF_initial->Fill(0., genWeight);
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))
@@ -35,6 +36,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
             continue;
         }
         m_cutflow->Fill(1);
+        CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
         if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
@@ -42,6 +44,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
             continue; // contains event selection!!!
         }
         m_cutflow->Fill(2);
+        CF_HLT->Fill(0., genWeight);
 
         muSel.Select(e);
         eleMVASel.Select(e);
@@ -84,6 +87,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
                 continue;
         }
         m_cutflow->Fill(3);
+        CF_pre->Fill(0., genWeight);
 
         m_outTree->Fill();
     };
