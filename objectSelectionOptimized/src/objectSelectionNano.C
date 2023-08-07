@@ -58,8 +58,8 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         // Int_t tauTES = 0;
         // Int_t tauTES = 4; // no tau energy correction
         tauSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        // tauSelF.Select(e, m_isData, lepEtaVec, lepPhiVec, tauTES);
-        // tauSelL.Select(e, m_isData, lepEtaVec, lepPhiVec, tauTES);
+        tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
+        tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal += tauSel.getSize();
