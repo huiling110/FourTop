@@ -9,10 +9,14 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         numEntries = m_reader.GetEntries();
     }
     std::cout << "Start event loop for " << numEntries << " ................................\n";
+
     while (m_reader.Next() && entryCount < numEntries)
     {
         entryCount++;
         m_cutflow->Fill(0);
+        if(entryCount==1){
+            std::cout << "baselineSel=" << baselineSel << "  tau1e1Sel=" << tau1e1Sel << "\n";
+        }
 
         muVarMaker.makeVariables(e);
         muTopTVarMaker.makeVariables(e);

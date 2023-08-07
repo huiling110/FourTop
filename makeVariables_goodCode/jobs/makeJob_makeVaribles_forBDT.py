@@ -67,7 +67,8 @@ def main():
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
-    inVersion = 'v60fixeJetBtagBug'
+    # inVersion = 'v60fixeJetBtagBug'
+    inVersion = 'v61fixesLepRemovalBug'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -75,7 +76,8 @@ def main():
     # outVersion = 'v5newBtagEff'
     # outVersion = 'v6updatedBtagR'
     # outVersion = 'v7forBDT'
-    outVersion = 'v8tau1elCut'
+    # outVersion = 'v8tau1elCut'
+    outVersion = 'v0baseline'
     
     
     # isRun3 = True

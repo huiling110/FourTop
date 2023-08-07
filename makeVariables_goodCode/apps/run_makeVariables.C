@@ -11,7 +11,8 @@
 void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v58addGenBranches/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v59newOScode/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v60fixeJetBtagBug/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v60fixeJetBtagBug/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v61fixesLepRemovalBug/mc/",
     // TString inputDir = "ttZ",
     TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
@@ -40,8 +41,8 @@ void run_objectSelection(
     // std::cout << "isRun3=" << isRun3 << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
-    mv.EventLoop(kTRUE,kTRUE, numEntries);
-    // mv.EventLoop(kTRUE,kFALSE, numEntries);
+    // mv.EventLoop(kTRUE,kTRUE, numEntries);
+    mv.EventLoop(kTRUE,kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
