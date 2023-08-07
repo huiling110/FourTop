@@ -53,6 +53,10 @@ public:
 
             //
             m_cutflow->SetDirectory(m_output);
+            CF_initial->SetDirectory(m_output);
+            CF_met->SetDirectory(m_output);
+            CF_HLT->SetDirectory(m_output);
+            CF_pre->SetDirectory(m_output);
         }
         else
         {

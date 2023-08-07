@@ -91,7 +91,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
 
         m_outTree->Fill();
     };
-    std::cout << "End of event loop...................................................\n";
+    std::cout << "End of event loop...................................................\n\n";
 };
 
 void objectSelection::Terminate()
