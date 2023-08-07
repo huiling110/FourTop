@@ -126,11 +126,13 @@ namespace OS
 
     Double_t deltRmin(const Double_t eta1, const Double_t phi1, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec)
     {
+        //???what if lep size=0?
         Double_t deltaR = 0;
         Double_t minDeltaR = 100;
         for (UInt_t lep = 0; lep < lepEtaVec.size(); lep++)
         {
             deltaR = DeltaR(lepEtaVec[lep], eta1, lepPhiVec[lep], phi1);
+            std::cout << lepEtaVec[lep]<< eta1<< lepPhiVec[lep]<< phi1 << " "<<deltaR<< "\n";
             if (deltaR < minDeltaR)
                 minDeltaR = deltaR; // The continue statement provides a convenient way to jump to the end of the loop body for the current iteration.
         }

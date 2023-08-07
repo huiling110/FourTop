@@ -159,6 +159,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         // overlap removal
         Double_t minDeltaR_lep;
+        std::cout<<"lepSize="<<lepEtaVec.size()<<"\n";
         if (lepEtaVec.size() > 0)
         {
             minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);

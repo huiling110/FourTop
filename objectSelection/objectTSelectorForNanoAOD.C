@@ -927,6 +927,7 @@ void objectTSelectorForNanoAOD::SelectTaus(std::vector<ROOT::Math::PtEtaPhiMVect
         }
         // overlap removal
         Double_t minDeltaR_lep;
+            std::cout<<"lepSize="<<LeptonsMVAL.size()<<"\n";
         if (LeptonsMVAL.size() > 0)
         {
             minDeltaR_lep = deltRmin(Tau_eta.At(j), Tau_phi.At(j), LeptonsMVAL);
