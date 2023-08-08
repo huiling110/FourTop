@@ -23,6 +23,7 @@ namespace TTTT
 
     TString getEra(TString inputDir)
     {
+        //for 2016 this only works for nanoaod input DIr
         TString era;
         if (inputDir.Contains("2017"))
         {
@@ -39,6 +40,40 @@ namespace TTTT
         else if (inputDir.Contains("2016"))
         {
             era = "2016postVFP";
+        }
+        else if (inputDir.Contains("2022"))
+        {
+            era = "2022";
+        }
+        else
+        {
+            std::cout << "ERROR!!! get era not success!!!\n";
+        }
+        return era;
+    }
+    TString getEra2(TString inputDir)
+    {
+        //for 2016 this only works for nanoaod input DIr
+        TString era;
+        if (inputDir.Contains("2017"))
+        {
+            era = "2017";
+        }
+        else if (inputDir.Contains("2018"))
+        {
+            era = "2018";
+        }
+        else if (inputDir.Contains("2016preVFP"))
+        {
+            era = "2016preVFP";
+        }
+        else if (inputDir.Contains("2016postVFP"))
+        {
+            era = "2016postVFP";
+        }
+        else if (inputDir.Contains("2016"))
+        {
+            era = "2016";
         }
         else if (inputDir.Contains("2022"))
         {

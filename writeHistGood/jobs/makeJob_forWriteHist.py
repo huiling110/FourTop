@@ -66,8 +66,10 @@ def main():
     # version = 'v8btagRMeasureWith1tau0l'
     #
     # version = 'v0btagEff'
-    version = 'v1btagRCal'
-    # version = 'v0btagWPCorrection'
+    # version = 'v1btagRCal'
+    # version = 'v2btagWPCorrection'
+    version = 'v3basicWeight'
+    
     
     #1tau1l
     # version = 'v1pileupWeight'

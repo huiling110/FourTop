@@ -34,7 +34,7 @@ public:
             m_tree = (TTree *)m_file->Get("newtree");
         }
 
-        m_era = TTTT::getEra(m_inputDir);
+        m_era = TTTT::getEra2(m_inputDir);
         m_isData = TTTT::getIsData(m_inputDir);
         m_isRun3 = TTTT::isRun3(m_era);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest <<"  m_isRun3="<<m_isRun3<< "\n";
