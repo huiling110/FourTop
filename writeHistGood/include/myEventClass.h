@@ -107,7 +107,6 @@ public:
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> jets_HT{"jets_HT"};
-    myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
     myBranch<Double_t> PUweight_{"PUweight_"};
@@ -123,8 +122,6 @@ public:
     // branches for MVA
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_bScore{"jets_bScore"};
-    myBranch<Double_t> jets_5pt{"jets_5pt"};
-    myBranch<Double_t> jets_7pt{"jets_7pt"};
     myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
     myBranch<Double_t> jets_1btag{"jets_1btag"};
     myBranch<Double_t> jets_transMass{"jets_transMass"};
@@ -137,6 +134,12 @@ public:
     myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     myBranch<Double_t> jets_1pt{"jets_1pt"};
+    myBranch<Double_t> jets_2pt{"jets_2pt"};
+    myBranch<Double_t> jets_3pt{"jets_3pt"};
+    myBranch<Double_t> jets_4pt{"jets_4pt"};
+    myBranch<Double_t> jets_5pt{"jets_5pt"};
+    myBranch<Double_t> jets_6pt{"jets_6pt"};
+    myBranch<Double_t> jets_7pt{"jets_7pt"};
     // myBranch<Double_t>{""};
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -212,8 +215,6 @@ private:
         {btagWPMedium_weight_down.n(), &btagWPMedium_weight_down},
 
         {jets_bScore.n(), &jets_bScore},
-        {jets_5pt.n(), &jets_5pt},
-        {jets_7pt.n(), &jets_7pt},
         {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
         {jets_1btag.n(), &jets_1btag},
         {jets_transMass.n(), &jets_transMass},
@@ -225,6 +226,13 @@ private:
         {bjetsT_HT.n(), &bjetsT_HT},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
+        {jets_1pt.n(), &jets_1pt},
+        {jets_2pt.n(), &jets_2pt},
+        {jets_3pt.n(), &jets_3pt},
+        {jets_4pt.n(), &jets_4pt},
+        {jets_5pt.n(), &jets_5pt},
+        {jets_6pt.n(), &jets_6pt},
+        {jets_7pt.n(), &jets_7pt},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
