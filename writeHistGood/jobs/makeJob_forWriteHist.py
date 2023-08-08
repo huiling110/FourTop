@@ -67,8 +67,8 @@ def main():
     #
     # version = 'v0btagEff'
     # version = 'v1btagRCal'
-    # version = 'v2btagWPCorrection'
-    version = 'v3basicWeight'
+    version = 'v2btagWPCorrection'
+    # version = 'v3basicWeight'
     
     
     #1tau1l
