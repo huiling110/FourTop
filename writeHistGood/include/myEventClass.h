@@ -35,6 +35,7 @@ private:
     T m_branchValue;
 };
 
+
 class event
 {
     // be able to access branch value with string
@@ -142,7 +143,7 @@ public:
     myBranch<Double_t> jets_7pt{"jets_7pt"};
     // myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
     myBranch<Double_t> jets_leading2invariantMass{"jets_leading2invariantMass"};
-    // myBranch<Double_t>{"jets_transMass`"};
+    myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
     // myBranch<Double_t> jets_average_deltaR{"jets_average_deltaR"};
     myBranch<Double_t> jets_2btag{"jets_2btag"};
     myBranch<Double_t> jets_3btag{"jets_3btag"};
@@ -253,6 +254,7 @@ private:
         {jets_6pt.n(), &jets_6pt},
         {jets_7pt.n(), &jets_7pt},
         {jets_leading2invariantMass.n(), &jets_leading2invariantMass},
+        {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
         {jets_2btag.n(), &jets_2btag},
         {jets_3btag.n(), &jets_3btag},
         {jets_4btag.n(), &jets_4btag},
@@ -264,7 +266,7 @@ private:
         {tausT_1eta.n(), &tausT_1eta},
         {tausT_1phi.n(), &tausT_1phi},
         {tausT_HT.n(), &tausT_HT},
-        {tausT_MHT.n(), tausT_MHT},
+        {tausT_MHT.n(), &tausT_MHT},
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
