@@ -140,7 +140,26 @@ public:
     myBranch<Double_t> jets_5pt{"jets_5pt"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> jets_7pt{"jets_7pt"};
+    // myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
+    myBranch<Double_t> jets_leading2invariantMass{"jets_leading2invariantMass"};
+    // myBranch<Double_t>{"jets_transMass`"};
+    // myBranch<Double_t> jets_average_deltaR{"jets_average_deltaR"};
+    myBranch<Double_t> jets_2btag{"jets_2btag"};
+    myBranch<Double_t> jets_3btag{"jets_3btag"};
+    myBranch<Double_t> jets_4btag{"jets_4btag"};
+    myBranch<Double_t> jets_5btag{"jets_5btag"};
+    myBranch<Double_t> jets_6btag{"jets_6btag"};
+    myBranch<Double_t> MET_pt{"MET_pt"};
+    myBranch<Double_t> bjetsM_MHT{"bjetsM_MHT"};
+    myBranch<Double_t> bjetsM_1pt{"bjetsM_1pt"};
+    myBranch<Double_t> tausT_1eta{"tausT_1eta"};
+    myBranch<Double_t> tausT_1phi{"tausT_1phi"};
+    myBranch<Double_t> tausT_HT{"tausT_HT"};
+    myBranch<Double_t> tausT_MHT{"tausT_MHT"};
+    myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
+    myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
     // myBranch<Double_t>{""};
+
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
     myBranch<Double_t> PUweight_up_{"PUweight_up_"};
@@ -233,6 +252,21 @@ private:
         {jets_5pt.n(), &jets_5pt},
         {jets_6pt.n(), &jets_6pt},
         {jets_7pt.n(), &jets_7pt},
+        {jets_leading2invariantMass.n(), &jets_leading2invariantMass},
+        {jets_2btag.n(), &jets_2btag},
+        {jets_3btag.n(), &jets_3btag},
+        {jets_4btag.n(), &jets_4btag},
+        {jets_5btag.n(), &jets_5btag},
+        {jets_6btag.n(), &jets_6btag},
+        {MET_pt.n(), &MET_pt},
+        {bjetsM_MHT.n(), &bjetsM_MHT},
+        {bjetsM_1pt.n(), &bjetsM_1pt},
+        {tausT_1eta.n(), &tausT_1eta},
+        {tausT_1phi.n(), &tausT_1phi},
+        {tausT_HT.n(), &tausT_HT},
+        {tausT_MHT.n(), tausT_MHT},
+        {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
+        {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
