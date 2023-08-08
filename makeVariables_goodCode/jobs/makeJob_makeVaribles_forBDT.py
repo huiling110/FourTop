@@ -79,7 +79,8 @@ def main():
     # outVersion = 'v8tau1elCut'
     # outVersion = 'v0baseline'
     # outVersion = 'v1btagWPWeightUpdated'
-    outVersion = 'v1btagWPandRUpdated'
+    # outVersion = 'v1btagWPandRUpdated'
+    outVersion = 'v2eraBugFixed'
     
     # isRun3 = True
     isRun3 = False
