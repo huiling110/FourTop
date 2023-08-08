@@ -141,10 +141,8 @@ public:
     myBranch<Double_t> jets_5pt{"jets_5pt"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> jets_7pt{"jets_7pt"};
-    // myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
-    myBranch<Double_t> jets_leading2invariantMass{"jets_leading2invariantMass"};
-    myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
-    // myBranch<Double_t> jets_average_deltaR{"jets_average_deltaR"};
+    // myBranch<Double_t> jets_leading2invariantMass{"jets_leading2invariantMass"};//not in tree
+    // myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
     myBranch<Double_t> jets_2btag{"jets_2btag"};
     myBranch<Double_t> jets_3btag{"jets_3btag"};
     myBranch<Double_t> jets_4btag{"jets_4btag"};
@@ -253,8 +251,8 @@ private:
         {jets_5pt.n(), &jets_5pt},
         {jets_6pt.n(), &jets_6pt},
         {jets_7pt.n(), &jets_7pt},
-        {jets_leading2invariantMass.n(), &jets_leading2invariantMass},
-        {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
+        // {jets_leading2invariantMass.n(), &jets_leading2invariantMass},
+        // {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
         {jets_2btag.n(), &jets_2btag},
         {jets_3btag.n(), &jets_3btag},
         {jets_4btag.n(), &jets_4btag},
