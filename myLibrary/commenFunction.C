@@ -63,11 +63,11 @@ namespace TTTT
         {
             era = "2018";
         }
-        else if (inputDir.Contains("2016preVFP"))
+        else if (inputDir.Contains("2016") && inputDir.Contains("preVFP"))
         {
             era = "2016preVFP";
         }
-        else if (inputDir.Contains("2016postVFP"))
+        else if (inputDir.Contains("2016") && inputDir.Contains("postVFP"))
         {
             era = "2016postVFP";
         }

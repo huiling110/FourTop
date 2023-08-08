@@ -30,10 +30,7 @@ public:
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
 
-        // m_isData = TTTT::getIsData(m_inputDir);
-        // m_era = TTTT::getEra(m_inputDir);
-        // m_isRun3 = TTTT::isRun3(m_era);
-
+        std::cout<<"inputDir="<<inputDir<<"\n";
         TChain *chain1 = new TChain("tree");
         if(m_isRun3){
             chain1->Add(inputDir + "tree*.root");
