@@ -38,20 +38,21 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v0trainingWithBtagShape/combine/datacardNoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v1traingWithBtagWP/combine/datacardNoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v0trainingWithBtagShape/combine/datacardSys/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/'
 
     
     
 
     cardToWorkspaces( cardDir )
 # # #
-#     runCombineSig( cardDir, True )
-#     runCombineSig( cardDir, False )
-# # # # # #
-#     copyCombineResultsToDir( cardDir )
+    runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
+# # # # #
+    copyCombineResultsToDir( cardDir )
     
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
-    runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
+    # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
 
     # plot.main( cardDir+ 'combineResults/')
     
