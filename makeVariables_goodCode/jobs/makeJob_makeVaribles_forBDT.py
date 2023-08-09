@@ -80,7 +80,8 @@ def main():
     # outVersion = 'v0baseline'
     # outVersion = 'v1btagWPWeightUpdated'
     # outVersion = 'v1btagWPandRUpdated'
-    outVersion = 'v2eraBugFixed'
+    # outVersion = 'v2eraBugFixed'
+    outVersion = 'v3btagWeightGood'
     
     # isRun3 = True
     isRun3 = False
