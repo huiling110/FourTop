@@ -226,11 +226,11 @@ void treeAnalyzer::LoopTree()
 void treeAnalyzer::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
-    // const Double_t processScale = ((TTTT::lumiMap[m_era] * TTTT::crossSectionMap[m_processName]) / genWeightSum);
-    const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+
     if (!m_isData)
     {
+        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         SR1tau1lSys.scale(processScale);
     };
     SR1tau1lSys.print();
