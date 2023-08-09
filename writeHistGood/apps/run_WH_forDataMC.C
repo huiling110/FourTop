@@ -21,7 +21,9 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/",
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
     // TString process = "tttt",
@@ -34,20 +36,19 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
     // Bool_t isTest = kTRUE)
-Bool_t isTest = kFALSE)
+    Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
     t.Start();
 
-    WH_forDataMC writeHist(inputDir, process, histVersion,  isTest);
-    // WriteHist_btagEff writeHist(inputDir, process, histVersion,  isTest);
+    // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
+    WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion,  isTest);
 
     writeHist.Init();
     writeHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
-
 
     t.Stop();
     t.Print();
