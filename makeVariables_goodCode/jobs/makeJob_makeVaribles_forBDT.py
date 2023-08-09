@@ -81,7 +81,8 @@ def main():
     # outVersion = 'v1btagWPWeightUpdated'
     # outVersion = 'v1btagWPandRUpdated'
     # outVersion = 'v2eraBugFixed'
-    outVersion = 'v3btagWeightGood'
+    # outVersion = 'v3btagWeightGood'
+    outVersion = 'v4forBDT1tau1lCut'
     
     # isRun3 = True
     isRun3 = False
