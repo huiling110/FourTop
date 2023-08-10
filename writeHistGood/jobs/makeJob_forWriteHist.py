@@ -61,8 +61,8 @@ def main():
     # version = 'v7btagShapeRWeight'
     # version = 'v8btagRMeasureWith1tau0l'
     #
-    version = 'v0btagEff'
-    # version = 'v1btagRCal'
+    # version = 'v0btagEff'
+    version = 'v1btagRCal'
     # version = 'v2btagWPCorrection'
     # version = 'v3basicWeight'
     

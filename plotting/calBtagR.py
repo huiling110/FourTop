@@ -19,7 +19,8 @@ def main():
     # inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/mc/variableHists_v6forBtagRMeasure/ttbar_0l.root'
     # inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/ttbar_0l.root'
     # inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/ttbar_0l.root'
-    inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/ttbar_0l.root'
+    # inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/ttbar_0l.root'
+    inputFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/ttbar_0l.root'
 
     era = uf.getEraFromDir(inputFile)
     jets_numList = pb.getHistFromFile(inputFile, ['jets_num_de', 'jets_num_nu'])
