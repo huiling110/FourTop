@@ -14,11 +14,6 @@ import usefulFunc as uf
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
-# inVersion = 'v49FixedPileUpOnlyJER'
-# inVersion = 'v49FixedPileUpJERAndTES'
-# inVersion = 'v50switchRawPtJERNoTES'
-# inVersion = 'v51TESNoJER'
-# inVersion = 'v51TESNewLepFoLepForrObjectRemoval
 # inVersion = 'v51TESNewLepObjectRemovalCorrected'
 # inVersion =  'v52noHLTSelection'
 # inVersion = 'v52noHLTButPreSelection'
@@ -31,12 +26,6 @@ import usefulFunc as uf
 # inVersion = 'v57ovelapWithTausF'
 # inVersion = 'v58addGenBranches'
 
-# outVersion = 'v0noBaseline'
-# outVersion = 'v0baseline'
-# outVersion = 'v0baselineAddMoreSys'
-# outVersion = 'v1cut1tau1l'
-# outVersion = 'v2baslineNoHLT'
-# outVersion = 'v3baselineNoBCutHLTWeightUpdated'
 # outVersion = 'v4baselineBtagRUpdated'
 # outVersion = 'v5extra1tau1lCut'
 # outVersion = 'v4baseline'
@@ -62,8 +51,8 @@ import usefulFunc as uf
 def main():
     # year = '2022'
     # year = '2016'
-    # year = '2018'
-    year = '2017'
+    year = '2018'
+    # year = '2017'
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
@@ -77,12 +66,11 @@ def main():
     # outVersion = 'v6updatedBtagR'
     # outVersion = 'v7forBDT'
     # outVersion = 'v8tau1elCut'
-    # outVersion = 'v0baseline'
-    # outVersion = 'v1btagWPWeightUpdated'
+    outVersion = 'v0baseline'
     # outVersion = 'v1btagWPandRUpdated'
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
-    outVersion = 'v4forBDT1tau1lCut'
+    # outVersion = 'v4forBDT1tau1lCut'
     
     # isRun3 = True
     isRun3 = False

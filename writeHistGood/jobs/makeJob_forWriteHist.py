@@ -62,19 +62,16 @@ def main():
     #
     # version = 'v0btagEff'
     # version = 'v1btagRCal'
-    version = 'v2btagWPCorrection'
+    # version = 'v2btagWPCorrection'
     # version = 'v3basicWeight'
     
     
     #1tau1l
     # version = 'v1pileupWeight'
-    # version = 'v2HLTweight'
-    # version = 'v1sysVariation1tau1l'
-    # version = 'v1sysVariation1tau1l_30bins'
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
     # version = 'v0trainingWithBtagShape'
-    # version = 'v1traingWithBtagWP'
+    version = 'v1traingWithBtagWP'
     channel = 0
     
     #
@@ -130,8 +127,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
