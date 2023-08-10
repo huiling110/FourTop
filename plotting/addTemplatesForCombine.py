@@ -24,9 +24,8 @@ def main():
     # channel = '1tau0l' # 1tau0l
     channel = '1tau1l' # 1tau0l
     
-    outDir = inputDir+'combine/'
-    # outDir = inputDir+'combine_test/'
-    # outDir = inputDir+'combine_modifyFakeDataError/'
+    # outDir = inputDir+'combine/'
+    outDir = inputDir+'combine_test/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
@@ -53,7 +52,6 @@ def main():
     
     
     #loop through all subProcess
-    # fakeDataHist = 
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub: continue
         print(isub)
@@ -108,7 +106,7 @@ def addDataHist(summedHistSR, outFile, channel):
     fakeData.SetName('data_obs_SR_'+channelDic[channel])
     for ipro in summedHistSR.keys():
         if ipro=='qcd': continue
-        print(ipro)
+        print('add fakeData: ',ipro)
         fakeData.Add(summedHistSR[ipro])
 
     for bin in range(1, fakeData.GetNbinsX()+1):
