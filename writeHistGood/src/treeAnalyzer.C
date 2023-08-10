@@ -210,13 +210,13 @@ void treeAnalyzer::LoopTree()
         //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
         if (e->HLT_weight.v() == 0)
         {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
         }
         else
         {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
         }
     }
     std::cout << "end of event loop\n";
