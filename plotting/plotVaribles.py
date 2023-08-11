@@ -275,7 +275,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     downPad.SetFillColor(0)
     downPad.SetFillStyle(0) #set the empty space to be empty, so that not cover the upPad
     downPad.SetGridy(1)
-    downPad.Draw()
+    # downPad.Draw()
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
