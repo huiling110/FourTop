@@ -275,7 +275,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     downPad.SetFillColor(0)
     downPad.SetFillStyle(0) #set the empty space to be empty, so that not cover the upPad
     downPad.SetGridy(1)
-    # downPad.Draw()
+    downPad.Draw()
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
@@ -305,14 +305,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
-    stack.GetYaxis().SetTitle("Events")
 
     if includeDataInStack and hasDataHist:
         dataHist.SetLineWidth(1)
         dataHist.SetMarkerSize(1.5)
         dataHist.Draw("e0 same")
-    else:
-        stack.GetXaxis().SetTitle(name)
+    # else:
+        # stack.GetXaxis().SetTitle(name)
+        # stack.GetXaxis().SetLabelSize(0.0)
         
     signal.Scale(signalScale)
     # signal.SetLineColor(kMagenta)
@@ -451,6 +451,7 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
             dataHist.SetMarkerSize(1.2)
             dataHist.SetMarkerColor(kBlack)
             dataHist.SetLineColor(kBlack)
+            dataHist.SetTitleSize(0.0)
             continue
         if ifFakeTau and i=='qcd': 
             continue
@@ -459,7 +460,8 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
-        nominal[i].GetXaxis().SetLabelSize(0.01)
+        nominal[i].GetXaxis().SetTitleSize(0.01)
+        nominal[i].GetXaxis().SetLabelSize(0.0)
         sumHist.Add(nominal[i]) #sumHist is all bg
         if doSystmatic and  systHists[i]:
             print('cal sys for: ', i)
