@@ -44,10 +44,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # isRun3 = True
     isRun3 = False
 
@@ -55,17 +55,18 @@ def main():
     # variables = ['jets_num']
     # variables = ['tausT_1pt']
     # variables = ['jets_HT']
-    # variables = ['bjetsM_num']
+    variables = ['bjetsM_num']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = ['jets_4largestBscoreMulti']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt']
-    variables = ['BDT']
+    # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
     # regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    regionList = ['SR']
+    regionList = ['1tau1lSR']
+    # regionList = ['SR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   
@@ -258,13 +259,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    # tdrStyle = setTDRStyle()
-    # tdrStyle.cd()
     myStyle = ss.setMyStyle()
     myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
-    # canvy = TCanvas( canvasName, canvasName, 1000,800)
     canvy = TCanvas( canvasName, canvasName, 1000,1000)
     
     #it seems text size  is scaled to pad size
@@ -274,18 +272,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     downPad.SetTopMargin(0.72)
     # downPad.SetBottomMargin(0.2)
     upPad.Draw()
-    # downPad.Draw()
     downPad.SetFillColor(0)
     downPad.SetFillStyle(0) #set the empty space to be empty, so that not cover the upPad
     downPad.SetGridy(1)
     downPad.Draw()
     
-    # canvy.cd()
     upPad.cd() #???cd() pad causing stack to be not accessble???
-    # if includeDataInStack: canvy.SetBottomMargin(0.32)#set margion for ratio plot
 
     doSystmatic = ifDoSystmatic( systHists)
-
     dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder)
 
     #add sytematic uncertainty
@@ -295,7 +289,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
 
-    # dataHist.Print()
     if hasDataHist:
         if dataHist.GetMaximum()>0:
             maxi = 1.7* dataHist.GetMaximum()
@@ -313,53 +306,34 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle("Events")
-    # stack.GetYaxis().SetTitleOffset(1.3)
-    # stack.GetYaxis().SetLabelSize(0.04)
-    # stack.GetYaxis().SetTitleSize(0.05)
 
     if includeDataInStack and hasDataHist:
         dataHist.SetLineWidth(1)
         dataHist.SetMarkerSize(1.5)
         dataHist.Draw("e0 same")
     else:
-        # stack.GetXaxis().SetLabelSize(0.03)
         stack.GetXaxis().SetTitle(name)
-        # stack.GetXaxis().SetTitleSize(0.04)
         
-    # signal.Scale(1000)
     signal.Scale(signalScale)
     # signal.SetLineColor(kMagenta)
     signal.SetLineColor(kBlue)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(3)
     signal.SetFillStyle(0)
-    # signal.SetFillColor(kMagenta)
-    signal.Draw("SAME HIST ")
     signal.GetXaxis().SetLabelSize(0.0)
+    signal.Draw("SAME HIST ")
     
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
+    assymErrorPlot.GetXaxis().SetLabelSize(0.0)
     assymErrorPlot.Draw("e2 SAME")
     
     upPad.Update()
 
-    # if includeDataInStack:
-    # ratioCanvy = TPad("{0}_ratio".format(name),"{0}_ratio".format(name),0.0,0.0,1.0,1.0)
-    # ratioCanvy.SetTopMargin(0.7)
-    # ratioCanvy.SetBottomMargin(0.8)
-    
-    # ratioCanvy.SetFillColor(0)
-    # ratioCanvy.SetFillStyle(0)
-    # ratioCanvy.SetGridy(1)
-    # ratioCanvy.Draw()
-    # ratioCanvy.cd(0)
-    # SetOwnership(ratioCanvy,False)
 
     downPad.cd()
     myStyle.cd()
-    # print('x tile: ', gStyle.GetTitleSize("X"))
-    # if hasDataHist:
-    # print( 'hist title: ', dataHist.GetTitle())
+    myStyle.SetOptTitle(0)
     if hasDataHist:
         sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
         sumHistoData.Sumw2()
@@ -380,11 +354,14 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     sumHistoData.GetYaxis().SetNdivisions(6)
     sumHistoData.GetYaxis().SetTitleSize(0.05)
     sumHistoData.GetYaxis().SetLabelSize(0.04)
+    sumHistoData.SetTitle("")
     sumHistoData.Draw("E1X0")
+    
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
 
     assymErrorPlotRatio.SetFillStyle(3013)
     assymErrorPlotRatio.SetFillColor(14) 
+    assymErrorPlotRatio.SetTitle("")
     assymErrorPlotRatio.Draw("e2 same")
 
     

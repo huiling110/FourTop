@@ -3,9 +3,9 @@ imax 3 number of bins
 jmax 4 number of processes minus 1
 kmax 30 number of nuisance parameters
 ----------------------------------------------------------------------------------------------------------------------------------
-shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys//publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
-shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys//publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
-shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys//publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
 ----------------------------------------------------------------------------------------------------------------------------------
 bin          SR1tau1l_2018  SR1tau1l_2017  SR1tau1l_2016
 observation  -1             -1             -1           
