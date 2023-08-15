@@ -27,11 +27,12 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v58addGenBranches/'
 # jobVersionName = 'v59newOScode/'
 # jobVersionName = 'v60fixeJetBtagBug/'
-jobVersionName = 'v61fixesLepRemovalBug/'
+# jobVersionName = 'v61fixesLepRemovalBug/'
 
 #run3
 # jobVersionName = 'v0Testing/'
 # jobVersionName = 'v1newCrab/'
+jobVersionName = 'v0preSel/'
 
 onlyMC = False
 
@@ -47,10 +48,10 @@ def main():
     # onlyMC = True
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
     # dataList = [ 'jetHT', 'singleMu'] 
-    # dataList = [ 'JetHT', 'JetMet']
+    dataList = [ 'JetHT', 'JetMet'] # 2022
     # dataList = ['singleMu'] 
     # dataList = ['JetMET']
-    dataList = ['jetHT']
+    # dataList = ['jetHT']
 
     print( "era: ", era )
 

@@ -227,5 +227,9 @@ Run3Samples = {
     'JetHT2022C': 'jetHT',
     'JetMet2022C': 'jetHT',
     'JetMet2022D': 'jetHT',
+    #2022postEE
+    'JetMet2022E': 'jetHT',
+    'JetMet2022F': 'jetHT',
+    'JetMet2022G': 'jetHT',
     
 }
