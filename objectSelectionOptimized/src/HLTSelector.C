@@ -109,7 +109,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
                 std::cout << "ERROR!!! 2018 data out of range for HLT \n";
             }
         }
-    }else if(era.CompareTo("2022")==0){
+    }else if(era.CompareTo("2022")==0 || era.CompareTo("2022postEE")==0 || era.CompareTo("2022preEE")==0){
         ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
         HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59;
         HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94;

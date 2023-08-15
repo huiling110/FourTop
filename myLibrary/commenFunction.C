@@ -41,6 +41,14 @@ namespace TTTT
         {
             era = "2016postVFP";
         }
+        else if (inputDir.Contains("2022preEE"))
+        {
+            era = "2022preEE";
+        }
+        else if (inputDir.Contains("2022postEE"))
+        {
+            era = "2022postEE";
+        }
         else if (inputDir.Contains("2022"))
         {
             era = "2022";
@@ -89,7 +97,8 @@ namespace TTTT
     Bool_t isRun3(TString era)
     {
         Bool_t isRun3 = kFALSE;
-        if (era.CompareTo("2022") == 0)
+        // if (era.CompareTo("2022") == 0)
+        if (era.Contains("2022"))
         {
             isRun3 = kTRUE;
         }

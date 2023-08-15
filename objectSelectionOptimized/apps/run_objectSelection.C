@@ -10,7 +10,7 @@
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_1l/",
@@ -19,9 +19,10 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/NanoPost/mc/TTto4Q/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/TTto4Q/",
     // TString singleFileName = "outTree_30.root",
-    TString singleFileName = "outTree_0.root",
-    // TString singleFileName = "tree_1.root",
+    // TString singleFileName = "outTree_0.root",
+    TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
@@ -41,6 +42,7 @@ void run_objectSelection(
     os.EventLoop(kTRUE, eventNum, 0, kTRUE);
     os.Terminate();
     // os.EventLoop(kFALSE, eventNum);
+
 
     t.Stop();
     t.Print();

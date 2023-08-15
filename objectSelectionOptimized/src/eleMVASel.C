@@ -1,8 +1,10 @@
 #include "../include/eleMVASel.h"
 
-EleMVASel::EleMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}, m_era{era}
+EleMVASel::EleMVASel(TTree *outTree, const TString era, Bool_t isRun3,const Int_t type) : m_type{type}, m_era{era}, m_isRun3{isRun3}
 { // m_type for different electrons
     std::cout << "Initializing EleMVASel......\n";
+    std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << "\n";
+
     outTree->Branch("elesMVAT_pt", &muonsTopMVAT_pt);
     outTree->Branch("elesMVAT_eta", &muonsTopMVAT_eta);
     outTree->Branch("elesMVAT_phi", &muonsTopMVAT_phi);
@@ -19,6 +21,9 @@ EleMVASel::~EleMVASel()
 
 void EleMVASel::Select(const eventForNano *e)
 {
+    if(m_entry==0){
+        std::cout << "running EleMVASel::Select()\n";
+    }
     clearBranch();
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
     // 2016 - MVANoIso94XV2, from SUSY
@@ -31,10 +36,11 @@ void EleMVASel::Select(const eventForNano *e)
         if (!(pt > 10))
             continue;
         Bool_t mvaIso;
-        if(m_era.CompareTo("2022")==0){
-          mvaIso = e->Electron_mvaIso_Fall17V2_WP90->At(j);
+        // if(m_era.CompareTo("2022")==0){
+        if(m_isRun3){
+            mvaIso = e->Electron_mvaIso_Fall17V2_WP90->At(j);
         }else{
-          mvaIso = e->Electron_mvaFall17V2Iso_WP90->At(j);
+            mvaIso = e->Electron_mvaFall17V2Iso_WP90->At(j);
         }
         // if (!e->Electron_mvaFall17V2Iso_WP90.At(j))//run2
         if (!mvaIso)//???  2022: Electron_mvaIso_Fall17V2_WP90
@@ -68,6 +74,8 @@ void EleMVASel::Select(const eventForNano *e)
         muonsTopMVAT_index.push_back(j);
     }
     m_objTotal+=muonsTopMVAT_pt.size();
+
+    m_entry ++ ;
 };
 
 void EleMVASel::clearBranch()

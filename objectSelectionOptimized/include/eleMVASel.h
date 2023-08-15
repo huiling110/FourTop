@@ -10,7 +10,7 @@
 class EleMVASel
 {
 public:
-    EleMVASel(TTree *outTree, const TString era, const Int_t type = 2);
+    EleMVASel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t type = 2);
     ~EleMVASel();
     void Select(const eventForNano *e);
     std::vector<Double_t>& getEtaVec();
@@ -22,6 +22,8 @@ public:
 private:
     Int_t m_type = 2;
     TString m_era;
+    Bool_t m_isRun3 = kFALSE;
+    ULong_t m_entry = 0;
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
     std::vector<Double_t> muonsTopMVAT_eta;
