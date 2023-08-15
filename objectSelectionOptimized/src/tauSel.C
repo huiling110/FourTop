@@ -1,11 +1,11 @@
 #include "../include/tauSel.h"
 #include <map>
 
-TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{tauWP}, m_era{era}
+TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP) : m_tauWP{tauWP}, m_era{era}, m_isRun3{isRun3}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
-    std::cout << "m_tauWP=" << m_tauWP << "\n";
+    std::cout << "m_tauWP=" << m_tauWP<<" m_era="<<m_era<<" m_isRun3="<<m_isRun3 << "\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
@@ -26,17 +26,6 @@ TauSel::TauSel(TTree *outTree, const TString era, const Int_t tauWP) : m_tauWP{t
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetIdx", &taus_jetIdx);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_charge", &taus_charge);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_neutralIso", &taus_neutralIso);
-
-    //
-    if (m_era.CompareTo("2022") == 0)
-    {
-        m_isRun3 = kTRUE;
-    }
-    else
-    {
-        m_isRun3 = kFALSE;
-    }
-    std::cout << "m_isRun3 = " << m_isRun3 << "\n";
 
     std::cout << "Done TauSel initialization......\n\n";
 };
