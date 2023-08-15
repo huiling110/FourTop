@@ -1,9 +1,9 @@
 #include "../include/goodLumiAndPVSel.h"
 
-LumiAndPVSel::LumiAndPVSel(const Bool_t isData, const TString era) : m_era{era}
+LumiAndPVSel::LumiAndPVSel(const Bool_t isData, const TString era, Bool_t isRun3) : m_era{era}, m_isRun3{isRun3}
 {
     std::cout << "initialize LumiAndPVSel class........\n";
-    std::cout << "m_era=" << m_era << "\n";
+    std::cout << "m_era=" << m_era <<" m_isRun3="<<m_isRun3<< "\n";
     OS::readJSON(isData, GoldenJSONs[era], m_goodLumis);
     std::cout << "done LumiAndPVSel initializing.........\n";
     std::cout << "\n";
@@ -12,8 +12,12 @@ LumiAndPVSel::LumiAndPVSel(const Bool_t isData, const TString era) : m_era{era}
 Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
 {
     // https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideGoodLumiSectionsJSONFile
+    if(m_entry==0){
+        std::cout<<"running LumiAndPVSel::Select()\n";
+    }
     Bool_t ifGoodLumi = kTRUE;
-    if (isData)
+    // if (isData)
+    if (isData&&(!m_isRun3))
     {
         if (m_goodLumis.find(*e->run) == m_goodLumis.end())
         {
@@ -37,7 +41,6 @@ Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
             }
         }
     }
-
     //
     Bool_t ifPV = kFALSE;
     if (*e->PV_npvsGood > 0)
@@ -47,10 +50,12 @@ Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
 
     Bool_t ifPass = ifGoodLumi && ifPV;
     //!!! temparorily set ifPass=true for 2022
-    if (m_era.CompareTo("2022") == 0)
-    {
-        ifPass = kTRUE;
-    }
+    // if (m_isRun3)
+    // {
+    //     ifPass = kTRUE;
+    // }
+
+    m_entry++;
 
     return ifPass;
 };

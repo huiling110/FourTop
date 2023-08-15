@@ -87,7 +87,7 @@ private:
     Bool_t m_isRun3 = kFALSE;
     TString m_processName = "default";
 
-    LumiAndPVSel lumiAndPVSelection{m_isData, m_era}; //!!!
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
     METFilter metFilter{m_era};                       //!!! for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree};

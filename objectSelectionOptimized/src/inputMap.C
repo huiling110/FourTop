@@ -9,7 +9,9 @@ std::map<TString, std::array<TString, 3>> corr_SF_map{
     {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs"}},
     {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs"}},
     {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
-    {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
+    {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},//!!!
+    {"2022preEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},//!!!
+    {"2022postEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}}, //!!!1
 };
 std::map<TString, std::array<TString, 3>> json_map = {
     {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json"}},
@@ -26,6 +28,8 @@ std::map<TString, TString> GoldenJSONs = {
     {"2017", "./input/golden_JSONs/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"},
     {"2018", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},
     {"2022", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},//!!!
+    {"2022preEE", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},//!!!
+    {"2022postEE", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},//!!!
 
 };
 std::map<TString, std::array<TString, 2>> oldFileMap = {
@@ -48,6 +52,8 @@ std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
     {"2017", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL17_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL17_XGB.weights.bin"}},
     {"2018", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
     {"2022", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
+    {"2022preEE", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
+    {"2022postEE", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
 };
 
 std::map<TString, double> DeepJetL = {
@@ -57,6 +63,8 @@ std::map<TString, double> DeepJetL = {
     {"2017", 0.0532},
     {"2018", 0.0490},
     {"2022", 0.0490},
+    {"2022preEE", 0.0490},
+    {"2022postEE", 0.0490},
 };
 
 std::map<TString, double> DeepJetM = {
@@ -67,6 +75,8 @@ std::map<TString, double> DeepJetM = {
     {"2017", 0.3040},
     {"2018", 0.2783},
     {"2022", 0.2783},
+    {"2022preEE", 0.2783},
+    {"2022postEE", 0.2783},
 
 };
 
@@ -78,6 +88,8 @@ std::map<TString, double> DeepJetT = {
     {"2017", 0.7476},
     {"2018", 0.7100},
     {"2022", 0.7100},
+    {"2022postEE", 0.7100},
+    {"2022postEE", 0.7100},
 
 };
 

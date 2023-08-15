@@ -13,7 +13,7 @@
 class LumiAndPVSel
 {
 public:
-    LumiAndPVSel(const Bool_t isData, const TString era);
+    LumiAndPVSel(const Bool_t isData, const TString era, Bool_t isRun3);
     ~LumiAndPVSel(){};
 
     // Bool_t Select(const Bool_t isData, const eventForNano *e)//??? can not dereference a  const pointer?
@@ -21,6 +21,8 @@ public:
 
 private:
     TString m_era;
+    Bool_t m_isRun3=kFALSE;
+    ULong_t m_entry = 0;
     std::map<Int_t, std::vector<UInt_t>> m_goodLumis;
     // output branches
 };
