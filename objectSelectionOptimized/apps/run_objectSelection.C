@@ -41,7 +41,8 @@ void run_objectSelection(
     const Bool_t isRun3 = TTTT::isRun3(era);
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
     // os.EventLoop(kTRUE, eventNum);
-    os.EventLoop(kTRUE, eventNum, 0, kTRUE);
+    // os.EventLoop(kTRUE, eventNum, 0, kTRUE);
+    os.EventLoop(kTRUE, eventNum, 4, kFALSE); //no JER, no TES
     os.Terminate();
     // os.EventLoop(kFALSE, eventNum);
 
