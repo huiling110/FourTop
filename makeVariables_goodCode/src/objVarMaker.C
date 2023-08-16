@@ -24,12 +24,20 @@ void ObjVarMaker::makeVariables(const EventForMV *e)
     // Answer: write the same function in derived class and then call the base part with base::function()
     // it would be much convenient if we can have a object collection: muonsT
     // or I make a map of object name and object lorentz in this class
+    reportEntry("ObjVarMaker::makeVariables");
 
     clearBranch();
 
     setupLorentzObjs(e);
     basicVariables();
 };
+
+void ObjVarMaker::reportEntry(TString className){
+    if(m_entry==0){
+        std::cout<<"running "<<className<<"\n";
+    }
+    m_entry++;
+}
 
 void ObjVarMaker::basicVariables()
 {

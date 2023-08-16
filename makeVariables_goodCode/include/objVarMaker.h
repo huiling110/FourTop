@@ -11,15 +11,16 @@ public:
     ObjVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~ObjVarMaker();
     void makeVariables(const EventForMV *e);
-    // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     void basicVariables();
     Int_t getNum();
+    void reportEntry(TString className);
 
     // private:
 protected:
     Int_t m_type = 0;
+    ULong_t m_entry = 0;
     // output branches
     Int_t muons_num = -99;
     Double_t muons_1pt = -99;
