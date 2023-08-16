@@ -77,7 +77,12 @@ def getEraFromDir(inputDir):
     elif 'Run2' in inputDir:
         era = 'Run2'
     elif '2022' in inputDir:
-        era = '2022'
+        if '2022preEE' in inputDir:
+            era = '2022preEE'
+        elif '2022postEE' in inputDir:
+            era = '2022postEE'
+        else:
+            era = '2022' 
     return era
 
 def getChannelFromDir( dir ):

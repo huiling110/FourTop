@@ -44,12 +44,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    # isRun3 = True
-    isRun3 = False
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/mc/variableHists_v1dataMC/'
+    isRun3 = True
+    # isRun3 = False
 
     # for 1tau1l
     # variables = ['jets_num']
@@ -64,8 +65,8 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
-    regionList = ['1tau1lSR']
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # regionList = ['1tau1lSR']
     # regionList = ['SR']
     ifFR_sys = False
     plotName = 'dataVsMC'
@@ -107,8 +108,8 @@ def main():
     sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets']
-    # legendOrder = ['tt']
+    # legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets']
+    legendOrder = ['tt'] #!!!need to improve here
     
     hasFakeTau = checkRegionGen(regionList)
     if hasFakeTau:
@@ -380,7 +381,9 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.Draw()
     
     #text above the plot
-    ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     
+    # ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
+    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era, isRun3=True)     # good for 2022
+    
     
     canvy.Update()
 
