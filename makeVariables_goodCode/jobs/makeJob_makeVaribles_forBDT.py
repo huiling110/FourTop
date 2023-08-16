@@ -73,7 +73,8 @@ def main():
     # outVersion = 'v4forBDT1tau1lCut'
     
     #2022
-    year = '2022postEE'
+    # year = '2022postEE'
+    year = '2022preEE'
     inVersion = 'v0preSel'
     outVersion = 'v0baseline'
     
