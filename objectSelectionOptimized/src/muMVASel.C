@@ -3,6 +3,8 @@
 MuSel::MuSel(TTree *outTree, const TString era, const Int_t m_type) : m_type{m_type}
 { // m_type for different electrons
     std::cout << "Initializing MuSel......\n";
+    std::cout << "m_type=" << m_type << "\n";
+
     outTree->Branch("muonsT_pt", &muonsTopMVAT_pt);
     outTree->Branch("muonsT_eta", &muonsTopMVAT_eta);
     outTree->Branch("muonsT_phi", &muonsTopMVAT_phi);
