@@ -17,6 +17,8 @@ inline const std::map<TString, Double_t> lumiMap = {
     {"2017", 41480.0},
     {"2018", 59830.0},
     {"2022", 	9600}, //!!! only for 2022CD 
+    {"2022preEE", 	9600}, //!!! only for 2022CD 
+    {"2022postEE", 	27700}, //!!! only for 2022CD 
 };
 
 inline const std::map<TString, Double_t> crossSectionMap = {
@@ -71,7 +73,8 @@ inline const std::map<TString, double> DeepJetM = {
     {"2016preVFP", 0.2598},
     {"2017", 0.3040},
     {"2018", 0.2783},
-    {"2022", 0.2783},
+    {"2022preEE", 0.2783},
+    {"2022postEE", 0.2783},
 
 };
 
