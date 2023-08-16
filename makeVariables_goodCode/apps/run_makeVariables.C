@@ -23,7 +23,9 @@ void run_objectSelection(
     // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/ReReco2022PreEE/v1newCrab/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022postEE/v0preSel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022postEE/v0preSel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022preEE/v0preSel/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/ReReco2022preEE/v0preSel/mc/",
     TString inputDir = "TTto2L2Nu",
     // TString inputDir = "TTto4Q",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
@@ -41,7 +43,7 @@ void run_objectSelection(
     Bool_t    isData = TTTT::getIsData(inputDir1);
     TString    era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
-    // std::cout << "isRun3=" << isRun3 << "\n";
+    std::cout << "isRun3=" << isRun3 <<" era="<<era<< "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
