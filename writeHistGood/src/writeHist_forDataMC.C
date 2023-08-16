@@ -146,19 +146,19 @@ void WH_forDataMC::LoopTree()
             continue;
         }
 
-        // Double_t basicWeight = baseWeightCal(e, m_isRun3);
-        // std::cout <<e->tausT_num.v() <<e->jets_num.v()  << e->bjetsM_num.v()<<"\n";
-        Double_t basicWeight = 1.0;
-        if (!m_isData){
+        Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData);
+        //experimenting
+        // Double_t basicWeight = 1.0;
+        // if (!m_isData){
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v();//HLT weight should be used together with b tag weight
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v();
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v();
-            basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v();
+            // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v();
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v();
 
             //try b tag R from previous measurement
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
-        }
+        // }
 
         // SR
         if (!m_isData)
@@ -205,8 +205,14 @@ void WH_forDataMC::Terminate()
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
         histRegionsVectScale(histsForRegion_vec, processScale);
     };
-    for(auto & histRe: histsForRegion_vec){
-        histRe->print();
+    // for(auto & histRe: histsForRegion_vec){
+    //     histRe->print();
+    // }
+    for(UInt_t i=0; i<histsForRegion_vec.size(); i++){
+        if(i>0){
+            continue;
+        }
+        histsForRegion_vec.at(i)->print();
     }
 
     m_outFile->Write();
