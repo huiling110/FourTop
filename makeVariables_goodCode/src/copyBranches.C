@@ -43,6 +43,8 @@ CopyBranches::CopyBranches(TTree *outTree)
 
 void CopyBranches::makeVariables(EventForMV *e)
 {
+    reportEntry("CopyBranch::makeVariables()");
+
     clearBranch();
     PV_npvsGood = *e->PV_npvsGood_;
 
@@ -51,6 +53,13 @@ void CopyBranches::makeVariables(EventForMV *e)
     copy_TTreeReaderArray_toVector(e->jets_btags, jets_btags_);
     copy_TTreeReaderArray_toVector(e->jets_flavour, jets_flavour_);
 
+};
+
+void CopyBranches::reportEntry(TString className){
+    if(m_entry==0){
+    std::cout << "running " << className << "\n";
+    }
+    m_entry++;
 };
 
 void CopyBranches::clearBranch(){

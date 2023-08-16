@@ -10,8 +10,10 @@ public:
     ~CopyBranches();
     void makeVariables(EventForMV *e);
     void clearBranch();
+    void reportEntry(TString className);
 
 private:
+    ULong_t m_entry = 0;
     // output branches
     Int_t PV_npvsGood;
     //HLT

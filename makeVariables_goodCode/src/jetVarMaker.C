@@ -83,6 +83,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
     //!!!need to sort the jet pt after JEC
+    ObjVarMaker::reportEntry("JetVarMaker::makeVariables()");
 
     clearBranch();
 

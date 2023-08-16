@@ -142,6 +142,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
 
 void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetsM_num)
 {
+    reportEntry("WeightVarMaker::makeVariables()");
     // clearBranch();
     //!!! to be done
     EVENT_prefireWeight = *e->EVENT_prefireWeight_;
@@ -204,5 +205,11 @@ void WeightVarMaker::clearBranch()
 { //??? derived class should also have a clearBranch()
 };
 
+void WeightVarMaker::reportEntry(TString className){
+    if(m_entry==0){
+        std::cout<<"running "<<className<<"\n";
+    }
+    m_entry++;
+}
 
 WeightVarMaker::~WeightVarMaker(){};

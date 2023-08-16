@@ -16,8 +16,10 @@ public:
     // void makeVariables(EventForMV *e);
     void makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetM_num);
     void clearBranch();
+    void reportEntry(TString className);
 
 private:
+    ULong64_t m_entry = 0;
     // output branches
     Double_t EVENT_prefireWeight;
     Double_t EVENT_prefireWeight_up;
