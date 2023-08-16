@@ -73,7 +73,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
 
 
     // TOP Lepton MVA
-    // TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files[m_era].at(0)), "READ");
     TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
     std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
     eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");

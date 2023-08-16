@@ -7,9 +7,6 @@ import usefulFunc as uf
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #
-# jobVersionName = 'v49FixedPileUpOnlyJER/'
-# jobVersionName = 'v49FixedPileUpJERAndTES/'
-# jobVersionName = 'v50switchRawPtJERNoTES/'
 # jobVersionName = 'v51TESNoJER/'
 # jobVersionName = 'v51TESNewLepObjectRemovalCorrected/'
 # jobVersionName = 'v52noHLTSelection/'

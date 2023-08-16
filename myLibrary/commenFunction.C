@@ -85,7 +85,15 @@ namespace TTTT
         }
         else if (inputDir.Contains("2022"))
         {
+            if(inputDir.Contains("2022preEE")){
+                era = "2022preEE";
+            }
+            else if (inputDir.Contains("2022postEE"))
+            {
+                era = "2022postEE";
+            }else{
             era = "2022";
+            }
         }
         else
         {
