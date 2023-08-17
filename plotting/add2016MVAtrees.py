@@ -37,12 +37,17 @@ def copyData( dir ):
 # version = 'v0baseline_v61fixesLepRemovalBug/'
 # version = 'v2eraBugFixed_v61fixesLepRemovalBug/'
 # version = 'v3btagWeightGood_v61fixesLepRemovalBug/'
-version = 'v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+# version = 'v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+version = 'v0baseline_v0preSel/' #2022
 ifJustMC = False
 
-pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-merged_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+# pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
+# post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+# merged_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+pre_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/'
+post_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/'
+merged_dir_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/'
+
 pre_dir = pre_dir_base + version
 post_dir = post_dir_base + version
 merged_dir = merged_dir_base + version

@@ -36,7 +36,8 @@ public:
 
         m_era = TTTT::getEra2(m_inputDir);
         m_isData = TTTT::getIsData(m_inputDir);
-        std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
+        m_isRun3 = TTTT::isRun3(m_era);
+        std::cout << "m_era=" << m_era <<" m_isRun3="<<m_isRun3<< " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -60,6 +61,7 @@ private:
     TFile *m_file;
     TString m_era = "2016";
     Bool_t m_isData = kFALSE;
+    Bool_t m_isRun3 = kFALSE;
     TString m_outputFolder;
     TFile *m_outFile;
     TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 3, 0, 3);

@@ -110,7 +110,7 @@ void treeAnalyzer::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 1000;
+        allEvent = 10000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -125,7 +125,7 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        Bool_t channelSel = SR1tau1lSel(e, m_channel);
+        Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
         if(m_channel==1){
             channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
         }
@@ -163,7 +163,8 @@ void treeAnalyzer::LoopTree()
 
         Bool_t SR1tau1l = channelSel;
         // Double_t basicWeight = baseWeightCal(e);
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
+        Double_t basicWeight = e->EVENT_genWeight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists
