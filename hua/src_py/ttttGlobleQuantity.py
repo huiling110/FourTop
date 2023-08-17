@@ -7,7 +7,7 @@ lumiMap = {
     "2017": 41480.0,
     "2018": 59830.0,
     "Run2" : 137620.0,
-    "2022": 9600,  
+    "2022": 37300,  
     "2022preEE": 9600,  
     "2022postEE": 27700,  
 }
@@ -220,7 +220,8 @@ samplesCrossSection = {
 
 
 Run3Samples = {
-    
+   
+    'tttt': 'tttt', 
     'TTto2L2Nu': 'tt',
     'TTto4Q': 'tt',
     'TTtoLNu2Q': 'tt',
