@@ -93,6 +93,11 @@ def getChannelFromDir( dir ):
         cha = '1tau0l'
     return cha
 
+def isRun3(inputDir):
+    isRun3 = False
+    if '2022' in inputDir:
+        isRun3 = True
+    return isRun3
 
 def getDirDic(inputMC):
     inputDirDic = {

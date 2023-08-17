@@ -19,32 +19,40 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8tau1elCut_v60fixeJetBtagBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/variableHists_v2SR1tau1l/' #!copied tttt.root from 2018
     
     
     
     # channel = '1tau0l' # 1tau0l
     channel = '1tau1l' # 1tau0l
     
+    isRun3 = uf.isRun3(inputDir)
+    print('isRun3=', isRun3)
+    
+    
     outDir = inputDir+'combine/'
     # outDir = inputDir+'combine_test/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
+   
+    if not isRun3:
+        allSubList = gq.histoGramPerSample.keys()
+    else:
+        allSubList = gq.Run3Samples.keys()
     
-    allSubPro = list(gq.histoGramPerSample.keys())
+    # allSubPro = list(gq.histoGramPerSample.keys())
+    allSubPro = list(allSubList)
 
     summedHistDicAllSys = {}
    
     ttttFile = ROOT.TFile(inputDir+'tttt.root', 'READ' )
     for key in ttttFile.GetListOfKeys():
         obj = key.ReadObj()
-        # if isinstance(obj, ROOT.TH1):
-        #     hist = obj.Clone()
-        #     print("Found histogram:", hist.GetName())
-        # print(obj.GetName())
         histName = obj.GetName()
         sysName = histName[histName.find('_')+1: ]
+        if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
         print('sysName: ', sysName)
         if 'cutFlow' in sysName: continue
         summedHistDicAllSys[sysName] = {}
@@ -55,7 +63,7 @@ def main():
     
     #loop through all subProcess
     for isub in allSubPro:
-        if 'jetHT' in isub or 'singleMu' in isub: continue
+        if 'jetHT' in isub or 'singleMu' in isub or 'Jet' in isub: continue
         print(isub)
         ifile = inputDir + isub + '.root'
         iroot = ROOT.TFile(ifile, 'READ')
@@ -64,9 +72,8 @@ def main():
        
         for isysHist in summedHistDicAllSys.keys():
             print(isub+isysHist)
-            # iHist = iroot.Get(isub+'_'+isysHist).Clone()
             iHist = iroot.Get(isub+'_'+isysHist).Clone()
-            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile) 
+            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
        
         iroot.Close() 
     print(summedHistDicAllSys)
@@ -120,11 +127,15 @@ def addDataHist(summedHistSR, outFile, channel):
          
     
     
-def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile):
+def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
     iHist.Sumw2()
     iHist.SetDirectory(outFile)
-    summedName = gq.histoGramPerSample[isub]    
-    if not gq.histoGramPerSample[isub] in summedHistDic.keys():
+    if not isRun3:
+        summedName = gq.histoGramPerSample[isub]    
+    else:
+       summedName = gq.Run3Samples[isub] 
+    # if not gq.histoGramPerSample[isub] in summedHistDic.keys():
+    if not summedName in summedHistDic.keys():
         #create first summedHist
         summedHistDic[summedName] = iHist
         summedHistDic[summedName].SetName(summedName+'_'+isysHist)
