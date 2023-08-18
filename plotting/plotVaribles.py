@@ -43,11 +43,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v2btagWPCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/mc/variableHists_v1dataMC/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v0preSel/mc/variableHists_v1dataMC/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/variableHists_v2SR1tau1l/' #!copied tttt.root from 2016
-    isRun3 = True
-    # isRun3 = False
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/variableHists_v2SR1tau1l/' #!copied tttt.root from 2016
 
     # for 1tau1l
     # variables = ['jets_num']
@@ -56,15 +54,15 @@ def main():
     # variables = ['bjetsM_num']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = ['jets_4largestBscoreMulti']
-    # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
+    variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt'] #for 1tau1l BDT input
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt']
-    variables = ['BDT']
     # regionList = ['1tau1lCR0']
     # regionList = ['1tau1lCR2']
-    # regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    regionList = ['1tau1lCR0', '1tau1lCR2' ]
+    # variables = ['BDT']
     # regionList = ['1tau1lSR']
-    regionList = ['SR']
+    # regionList = ['SR']
     ifFR_sys = False
     plotName = 'dataVsMC'
   
@@ -88,6 +86,8 @@ def main():
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)
+    isRun3 = uf.isRun3(inputDir)
+    # isRun3 = False
     regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     inputDirDic = uf.getInputDicNew( inputDir)
@@ -303,6 +303,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
+    stack.GetYaxis().SetTitle('Events')
 
     if includeDataInStack and hasDataHist:
         dataHist.SetLineWidth(1)
@@ -459,6 +460,7 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
         nominal[i].SetLineWidth(1)
         nominal[i].GetXaxis().SetTitleSize(0.01)
         nominal[i].GetXaxis().SetLabelSize(0.0)
+        nominal[i].GetYaxis().SetTitle('Events')
         sumHist.Add(nominal[i]) #sumHist is all bg
         if doSystmatic and  systHists[i]:
             print('cal sys for: ', i)

@@ -92,6 +92,10 @@ void MakeVariablesMain::Terminate()
 
     std::cout << "MV initial=" << m_cutflow->GetBinContent(1) << "  baseline=" << m_cutflow->GetBinContent(2) << "\n";
 
+    //add the cutflow hists from OS rootfile
+    //???when you add 2 histograms, will both the entries and bin content and bin error be dealt with correctly? 
+
+
     m_output->Write();
     m_output->Close();
     std::cout << "output file here: " << m_output->GetName() << "\n";

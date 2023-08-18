@@ -1,5 +1,6 @@
 # Instructon for implemention
-* install 
+
+* install
   <!-- * export SCRAM_ARCH=slc7_amd64_gcc900 -->
   <!-- * cmsrel CMSSW_12_2_4 -->
   <!-- * cd CMSSW_12_2_4/src -->
@@ -9,8 +10,8 @@
   * cd FourTop
  * run
    <!-- * cmsenv -->
-   * cd objectSelection
-   * mkdir output
+  * cd objectSelection
+* mkdir output
    <!-- * make clean -->
    * make 
    * ./run_objectTSelectorForNanoAOD.out
@@ -39,15 +40,6 @@
     * curl -s https://raw.githubusercontent.com/cms-analysis/CombineHarvester/master/CombineTools/scripts/sparse-checkout-https.sh
     * scramv1 b clean; scramv1 b
 
- * tips for Fabio to uptade his branch with master
-    * before Huiling's merge:
-       * git push origin --delete fabio_developing
-       * git push origin fabio_developing
-    * after Huiling has merged:
-       * git checkout master
-       * git pull origin master
-       * git branch -D fabio_developing
-       * git checkout -b fabio_developing
 
        
     * if you want to change the shared code and expriment you'd better make another branch out of it and do it in the expriment branch.
