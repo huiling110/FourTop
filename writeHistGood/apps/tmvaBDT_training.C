@@ -20,11 +20,18 @@ int tmvaBDT_training(TString myMethodList = "",
                                          Bool_t forVariables = false,
                                          Bool_t istest = true){
 
-
-
-    // std::cout << "baseDir : " << baseDir << "\n";
-
     std::cout << "era:" << era << "\n";
+
+    TObjArray* tokens = variableListCsv.Tokenize("/");
+    TString csvListName = ((TObjString*)tokens->Last())->GetString();
+    tokens->Delete();
+    std::cout << "csvName=" << csvListName << "\n";
+
+    TString outfile = channel + csvListName;
+    TString   outfileName = outDir + outfile + ".root";
+    TFile *outputFile = TFile::Open(outfileName, "RECREATE");
+
+    TMVA::Factory *factory = new TMVA::Factory("TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification");
 
     return 0;
 }
