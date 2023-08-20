@@ -112,7 +112,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     //     mylinux~> root -l TMVAClassification.C\(\"myMethod1,myMethod2,myMethod3\"\)
 
     //---------------------------------------------------------------
-    TString outfile;
     // Apply additional cuts on the signal and background samples (can be different)
     TString csvListName;
     if (forVariables)
@@ -128,7 +127,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     cout << "csvListName: " << csvListName << "\n";
 
     TCut cutForSandB = channelCutMap[channel];
-    outfile = channel + csvListName;
+    TString outfile = outfile = channel + csvListName;
     std::cout << channel << ": " << cutForSandB << endl;
 
     Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
