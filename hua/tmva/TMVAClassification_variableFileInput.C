@@ -127,7 +127,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     cout << "csvListName: " << csvListName << "\n";
 
     TCut cutForSandB = channelCutMap[channel];
-    TString outfile = outfile = channel + csvListName;
     std::cout << channel << ": " << cutForSandB << endl;
 
     Double_t allSignal = eraProcess_Map[era][0].getEventTree()->GetEntries();
@@ -205,6 +204,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // Register the training and test trees
 
     // Create a ROOT output file where TMVA will store ntuples, histograms, etc.
+    TString outfile = channel + csvListName;
     TString outfileName;
     if (istest)
     {
