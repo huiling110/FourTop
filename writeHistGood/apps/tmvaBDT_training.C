@@ -1,4 +1,7 @@
 
+
+#include <fstream>
+
 #include "TChain.h"
 #include "TFile.h"
 #include "TTree.h"
@@ -11,6 +14,25 @@
 #include "TMVA/DataLoader.h"
 #include "TMVA/Tools.h"
 #include "TMVA/TMVAGui.h"
+
+void readVariableList(TString variableListCsv, std::vector<TString>& variablesName){
+    std::cout << "reading varibleList: " << variableListCsv << "\n";
+    std::ifstream fin(variableListCsv);
+    std::string line;
+    TString ivariable;
+    variablesName.clear();
+    while (getline(fin, line))
+    {
+        ivariable = line;
+        if (line.size() > 0)
+        {
+            // std::cout << "ivariable =" << ivariable << "\n";
+            variablesName.push_back(ivariable);
+        }
+    }
+    fin.close();
+
+}
 
 int tmvaBDT_training(TString myMethodList = "",
                                          TString outDir = "output/",
@@ -32,6 +54,27 @@ int tmvaBDT_training(TString myMethodList = "",
     TFile *outputFile = TFile::Open(outfileName, "RECREATE");
 
     TMVA::Factory *factory = new TMVA::Factory("TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification");
+    TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
+    (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
+    TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
+    (TMVA::gConfig().GetIONames()).fWeightFileDir = outfile + "_weight/";
+    TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
+
+    //read input variables from csv
+    std::vector<TString> variableList;
+    readVariableList(variableListCsv, variableList);
+    for (UInt_t i = 0; i < variableList.size(); i++){
+        TString ivar = variableList.at(i);
+        std::cout << "adding input variable: " << ivar << "\n";
+        if (ivar.Contains("num") || ivar.Contains("charge"))
+        {
+            dataloader->AddVariable(variableList.at(i), 'I');
+        }
+        else
+        {
+            dataloader->AddVariable(variableList.at(i), 'F');
+        }
+    }
 
     return 0;
 }
