@@ -34,13 +34,13 @@ void readVariableList(TString variableListCsv, std::vector<TString>& variablesNa
 
 }
 
-int tmvaBDT_training(TString myMethodList = "",
-                                         TString outDir = "output/",
-                                        TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
-                                         const TString channel = "1tau1l",
-                                         const TString era = "2017",
-                                         Bool_t forVariables = false,
-                                         Bool_t istest = true){
+int tmvaBDT_training(TString inputDir = "",
+                    TString outDir = "output/",
+                                TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
+                                    const TString channel = "1tau1l",
+                                    const TString era = "2017",
+                                    Bool_t forVariables = false,
+                                    Bool_t istest = true){
 
     std::cout << "era:" << era << "\n";
 
@@ -75,6 +75,11 @@ int tmvaBDT_training(TString myMethodList = "",
             dataloader->AddVariable(variableList.at(i), 'F');
         }
     }
+
+
+
+
+
 
     return 0;
 }
