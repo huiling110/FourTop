@@ -162,9 +162,11 @@ void treeAnalyzer::LoopTree()
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
         Bool_t SR1tau1l = channelSel;
-        // Double_t basicWeight = baseWeightCal(e);
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
-        Double_t basicWeight = e->EVENT_genWeight.v();
+        //!!!have to output weight; make weight an input
+                // Double_t basicWeight = baseWeightCal(e);
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
+        // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists

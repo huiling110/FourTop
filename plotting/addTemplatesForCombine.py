@@ -20,7 +20,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/variableHists_v2SR1tau1l/' #!copied tttt.root from 2018
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/variableHists_v2SR1tau1l/' #!copied tttt.root from 2018
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v4forBtagWPShape_WP/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v5forBtagWPShape_shape/'
     
     
     
@@ -42,7 +44,6 @@ def main():
     else:
         allSubList = gq.Run3Samples.keys()
     
-    # allSubPro = list(gq.histoGramPerSample.keys())
     allSubPro = list(allSubList)
 
     summedHistDicAllSys = {}
@@ -52,7 +53,7 @@ def main():
         obj = key.ReadObj()
         histName = obj.GetName()
         sysName = histName[histName.find('_')+1: ]
-        if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
+        # if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
         print('sysName: ', sysName)
         if 'cutFlow' in sysName: continue
         summedHistDicAllSys[sysName] = {}
@@ -63,7 +64,7 @@ def main():
     
     #loop through all subProcess
     for isub in allSubPro:
-        if 'jetHT' in isub or 'singleMu' in isub or 'Jet' in isub: continue
+        if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
         print(isub)
         ifile = inputDir + isub + '.root'
         iroot = ROOT.TFile(ifile, 'READ')

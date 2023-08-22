@@ -29,12 +29,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v0preSel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -73,8 +73,10 @@ def main():
     #1tau1l
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
-    # version = 'v0trainingWithBtagShape'
-    # version = 'v1traingWithBtagWP'
+    # version = 'v0trainingWithBtagShape' #for btagWP or shape
+    # version = 'v1traingWithBtagWP' e
+    version = 'v4forBtagWPShape_WP'#for btagWP or shape
+    # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     channel = 0
     
     #
@@ -83,7 +85,7 @@ def main():
     #run3
     # version = 'v0allRegions'
     # version = 'v1dataMC'
-    version = 'v2SR1tau1l'
+    # version = 'v2SR1tau1l'
     
    
     justMC = False

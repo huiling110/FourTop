@@ -15,9 +15,10 @@ import usefulFunc as uf
 def main():
     channel = '1tau1l'
     # channel = '1tau2l'
-    # version = 0 # with b tag shape
-    version = 1 #with b tag WP 
-    # version = 3 # add bjetT variables
+    # version = 0 # 
+    # version = 1 #with b tag WP 
+    version = 3 # with btag WP, training with 2017 itself
+    # version =4 # with btag shape
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v1fixedTauVariables_v40addTauJetEtau/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v3extra1tau1lCut_v41addVertexSelection/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/'
@@ -31,13 +32,13 @@ def main():
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v5extra1tau1lCut_v56preselection/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v7forBDT_v60fixeJetBtagBug/'
     # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/'
-    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+    # outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2016/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
     # isApp = True
     isApp = False
     # appYear = '2018'
-    # appYear = '2017'
-    appYear = '2016'
+    appYear = '2017'
+    # appYear = '2016'
     binNum = 30
     # binNum = 20
     # binNum = 15
