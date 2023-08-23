@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "../include/treeAnalyzer.h"
-// #include "../SFfileMap.h"
 #include "../include/inputFileMap.h"
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"

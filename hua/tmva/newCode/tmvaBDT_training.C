@@ -15,7 +15,10 @@
 #include "TMVA/Tools.h"
 #include "TMVA/TMVAGui.h"
 
-void readVariableList(TString variableListCsv, std::vector<TString>& variablesName){
+#include "processClass.h"
+
+void readVariableList(TString variableListCsv, std::vector<TString> &variablesName)
+{
     std::cout << "reading varibleList: " << variableListCsv << "\n";
     std::ifstream fin(variableListCsv);
     std::string line;
@@ -31,26 +34,27 @@ void readVariableList(TString variableListCsv, std::vector<TString>& variablesNa
         }
     }
     fin.close();
-
 }
 
-int tmvaBDT_training(TString inputDir = "",
-                    TString outDir = "output/",
-                                TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
-                                    const TString channel = "1tau1l",
-                                    const TString era = "2017",
-                                    Bool_t forVariables = false,
-                                    Bool_t istest = true){
+int tmvaBDT_training(
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/",
+    TString outDir = "output/",
+    TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
+    const TString channel = "1tau1l",
+    const TString era = "2017",
+    Bool_t forVariables = false,
+    Bool_t istest = true)
+{
 
     std::cout << "era:" << era << "\n";
 
-    TObjArray* tokens = variableListCsv.Tokenize("/");
-    TString csvListName = ((TObjString*)tokens->Last())->GetString();
+    TObjArray *tokens = variableListCsv.Tokenize("/");
+    TString csvListName = ((TObjString *)tokens->Last())->GetString();
     tokens->Delete();
     std::cout << "csvName=" << csvListName << "\n";
 
     TString outfile = channel + csvListName;
-    TString   outfileName = outDir + outfile + ".root";
+    TString outfileName = outDir + outfile + ".root";
     TFile *outputFile = TFile::Open(outfileName, "RECREATE");
 
     TMVA::Factory *factory = new TMVA::Factory("TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification");
@@ -60,10 +64,11 @@ int tmvaBDT_training(TString inputDir = "",
     (TMVA::gConfig().GetIONames()).fWeightFileDir = outfile + "_weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
 
-    //read input variables from csv
+    // read input variables from csv
     std::vector<TString> variableList;
     readVariableList(variableListCsv, variableList);
-    for (UInt_t i = 0; i < variableList.size(); i++){
+    for (UInt_t i = 0; i < variableList.size(); i++)
+    {
         TString ivar = variableList.at(i);
         std::cout << "adding input variable: " << ivar << "\n";
         if (ivar.Contains("num") || ivar.Contains("charge"))
@@ -76,14 +81,14 @@ int tmvaBDT_training(TString inputDir = "",
         }
     }
 
-
-
-
-
+    // add signal and bg trees
+    //  allProcessMap
+    Process tttt{inputDir + "tttt.root"};
 
     return 0;
 }
 
-// in main(){
-//     TMVAClassification_variableFileInput();
-// }
+int main()
+{
+    tmvaBDT_training();
+}
