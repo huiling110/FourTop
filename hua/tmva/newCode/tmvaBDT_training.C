@@ -17,6 +17,7 @@
 
 #include "processClass.h"
 
+
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName)
 {
     std::cout << "reading varibleList: " << variableListCsv << "\n";
@@ -34,6 +35,53 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
         }
     }
     fin.close();
+}
+
+void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
+{
+    std::vector<TString> allProcesses = {
+    "tttt", 
+    "ttbar_0l",
+    "ttbar_2l",
+    "ttbar_1l",
+    "qcd_50to100",
+    "qcd_100to200",
+    "qcd_200to300",
+    "qcd_300to500",
+    "qcd_500to700",
+    "qcd_700to1000",
+    "qcd_1000to1500",
+    "qcd_1500to2000",
+    "qcd_2000toInf",
+
+    "ttG",
+    "ttZ",  
+    "ttW",
+    "ttH_bb", 
+    "ttH_nonbb", 
+
+    "wz",
+    "ww",
+    "zz",
+
+    "st_tZq",
+    "st_tW_antitop",
+    "st_tW_top",
+
+    "WJetsToLNu_HT-200To400",
+    "WJetsToLNu_HT-400To600",
+    "WJetsToLNu_HT-600To800",
+    "WJetsToLNu_HT-800To1200",
+    "WJetsToLNu_HT-1200To2500",
+    "WJetsToLNu_HT-2500ToInf",
+    };
+
+    processVec.clear();
+    for(UInt_t i=0; i<allProcesses.size(); i++){
+        Process iPro{inputDir+allProcesses.at(i)+".root"};
+        processVec.push_back(iPro);
+    }
+
 }
 
 int tmvaBDT_training(
@@ -83,7 +131,21 @@ int tmvaBDT_training(
 
     // add signal and bg trees
     //  allProcessMap
-    Process tttt{inputDir + "tttt.root"};
+    // Process tttt{inputDir + "tttt.root"};
+    // Process ttbar_0l{inputDir + "ttbar_0l.root"};
+    // Process ttbar_1l{inputDir + "ttbar_1l.root"};
+    // Process ttbar_2l{inputDir + "ttbar_2l.root"};
+    std::vector<Process> processVec;
+    getProcessesVec(inputDir, processVec);
+    for (UInt_t i=0;i<processVec.size(); i++){
+        if(i==0){
+            dataloader->AddSignalTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+        }
+        else{
+            dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+        }
+    }
+    std::cout << "signal and bg tree added \n";
 
     return 0;
 }

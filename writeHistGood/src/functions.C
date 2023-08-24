@@ -1,6 +1,7 @@
 #include <fstream>
 #include "../include/functions.h"
 
+//put in myLib
 Double_t getGenSum(TString inputFile)
 {
     Double_t genWeightSumInitial = 1.0;
