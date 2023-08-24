@@ -1,5 +1,5 @@
 
-
+#include <boost/lexical_cast.hpp>
 #include <fstream>
 
 #include "TChain.h"
@@ -9,6 +9,7 @@
 #include "TObjString.h"
 #include "TSystem.h"
 #include "TROOT.h"
+#include "TCut.h"
 
 #include "TMVA/Factory.h"
 #include "TMVA/DataLoader.h"
@@ -89,22 +90,18 @@ int tmvaBDT_training(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/",
     TString outDir = "output/",
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
-    const TString channel = "1tau1l",
-    const TString era = "2017",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
-    const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
+    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
     Bool_t istest = true)
 {
-
-    std::cout << "era:" << era << "\n";
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
     TString csvListName = ((TObjString *)tokens->Last())->GetString();
     tokens->Delete();
     std::cout << "csvName=" << csvListName << "\n";
 
-    TString outfile = channel + csvListName;
-    TString outfileName = outDir + outfile + ".root";
+    // TString outfile = channel + csvListName;
+    TString outfileName = outDir + csvListName + ".root";
     TFile *outputFile = TFile::Open(outfileName, "RECREATE");
 
     TMVA::Factory *factory = new TMVA::Factory("TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification");
@@ -112,7 +109,8 @@ int tmvaBDT_training(
     TMVA::Tools::Instance();
     (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
     TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
-    (TMVA::gConfig().GetIONames()).fWeightFileDir = outfile + "_weight/";
+    // (TMVA::gConfig().GetIONames()).fWeightFileDir = outDir + "_weight/";
+    (TMVA::gConfig().GetIONames()).fWeightFileDir =  "weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
 
     // read input variables from csv
@@ -149,8 +147,10 @@ int tmvaBDT_training(
         }
     }
     std::cout << "signal and bg tree added \n";
-    dataloader->SetSignalWeightExpression(g_weight.GetTitle());
-    dataloader->SetBackgroundWeightExpression(g_weight.GetTitle());
+    // dataloader->SetSignalWeightExpression(g_weight.GetTitle());
+    // dataloader->SetBackgroundWeightExpression(g_weight.GetTitle());
+    dataloader->SetSignalWeightExpression(g_weight);
+    dataloader->SetBackgroundWeightExpression(g_weight);
 
 
     //training setup
@@ -184,7 +184,18 @@ int tmvaBDT_training(
     return 0;
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-    tmvaBDT_training();
+    TString inputDir, outDir, variableList;
+    TString weight;
+    if(argc<3){
+        std::cout<<"not enough input\n";
+        tmvaBDT_training();
+    }else{
+        inputDir = boost::lexical_cast<TString>(argv[0]) ;
+        outDir = boost::lexical_cast<TString>(argv[1]);
+        variableList = boost::lexical_cast<TString>(argv[2]);
+        weight = boost::lexical_cast<TString>(argv[3]);
+        tmvaBDT_training(inputDir, outDir, variableList, weight);
+    }
 }
