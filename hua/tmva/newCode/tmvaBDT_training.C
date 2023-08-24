@@ -140,10 +140,13 @@ int tmvaBDT_training(
     std::vector<Process> processVec;
     getProcessesVec(inputDir, processVec);
     for (UInt_t i=0;i<processVec.size(); i++){
+        if(processVec.at(i).getTree()->GetEntries()<=0) continue;
         if(i==0){
+            std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddSignalTree(processVec.at(i).getTree(), processVec.at(i).getScale());
         }
         else{
+            std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
         }
     }
