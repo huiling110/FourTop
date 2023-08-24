@@ -92,7 +92,7 @@ int tmvaBDT_training(
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
-    Bool_t istest = true)
+    Bool_t isTest = true)
 {
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
@@ -131,7 +131,7 @@ int tmvaBDT_training(
     }
 
     // add signal and bg trees
-    Double_t allBg = 0;
+    Double_t allBg = 1000;
     std::vector<Process> processVec;
     getProcessesVec(inputDir, processVec);
     for (UInt_t i=0;i<processVec.size(); i++){
@@ -143,7 +143,9 @@ int tmvaBDT_training(
         else{
             std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
-            allBg = allBg + processVec.at(i).getTree()->GetEntries();
+            if(!isTest){
+                allBg = allBg + processVec.at(i).getTree()->GetEntries();
+            }
         }
     }
     std::cout << "signal and bg tree added \n";
@@ -154,7 +156,10 @@ int tmvaBDT_training(
 
 
     //training setup
-    Double_t allSignal = processVec.at(0).getTree()->GetEntries();
+    Double_t allSignal = 1000;
+    if(!isTest){
+        allSignal= processVec.at(0).getTree()->GetEntries();
+    }
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
     char trainingSetup[60];
@@ -188,14 +193,19 @@ int main(int argc, char const *argv[])
 {
     TString inputDir, outDir, variableList;
     TString weight;
-    if(argc<3){
+    Bool_t isTest;
+    if (argc < 3)
+    {
         std::cout<<"not enough input\n";
         tmvaBDT_training();
-    }else{
-        inputDir = boost::lexical_cast<TString>(argv[0]) ;
-        outDir = boost::lexical_cast<TString>(argv[1]);
-        variableList = boost::lexical_cast<TString>(argv[2]);
-        weight = boost::lexical_cast<TString>(argv[3]);
-        tmvaBDT_training(inputDir, outDir, variableList, weight);
+    }
+    else
+    {
+        inputDir = boost::lexical_cast<std::string>(argv[1]) ;
+        outDir = boost::lexical_cast<std::string>(argv[2]);
+        variableList = boost::lexical_cast<std::string>(argv[3]);
+        weight = boost::lexical_cast<std::string>(argv[4]);
+        isTest = boost::lexical_cast<Bool_t>(argv[5]);
+        tmvaBDT_training(inputDir, outDir, variableList, weight, isTest);
     }
 }
