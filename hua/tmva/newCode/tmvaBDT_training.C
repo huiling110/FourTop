@@ -91,7 +91,8 @@ int tmvaBDT_training(
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
     const TString channel = "1tau1l",
     const TString era = "2017",
-    Bool_t forVariables = false,
+// const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
+    const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
     Bool_t istest = true)
 {
 
@@ -132,11 +133,7 @@ int tmvaBDT_training(
     }
 
     // add signal and bg trees
-    //  allProcessMap
-    // Process tttt{inputDir + "tttt.root"};
-    // Process ttbar_0l{inputDir + "ttbar_0l.root"};
-    // Process ttbar_1l{inputDir + "ttbar_1l.root"};
-    // Process ttbar_2l{inputDir + "ttbar_2l.root"};
+    Double_t allBg = 0;
     std::vector<Process> processVec;
     getProcessesVec(inputDir, processVec);
     for (UInt_t i=0;i<processVec.size(); i++){
@@ -148,9 +145,41 @@ int tmvaBDT_training(
         else{
             std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+            allBg = allBg + processVec.at(i).getTree()->GetEntries();
         }
     }
     std::cout << "signal and bg tree added \n";
+    dataloader->SetSignalWeightExpression(g_weight.GetTitle());
+    dataloader->SetBackgroundWeightExpression(g_weight.GetTitle());
+
+
+    //training setup
+    Double_t allSignal = processVec.at(0).getTree()->GetEntries();
+    std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
+
+    char trainingSetup[60];
+    sprintf(trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal * 0.6, allBg * 0.6);
+    std::cout << trainingSetup << "\n";
+    dataloader->PrepareTrainingAndTestTree("", "", trainingSetup); // 60% goes to training, 1tau1l
+
+    factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
+                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
+                            "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
+    factory->TrainAllMethods();
+
+    // Evaluate all MVAs using the set of test events
+    factory->TestAllMethods();
+
+    // Evaluate and compare performance of all configured MVAs
+    factory->EvaluateAllMethods();
+
+    // Save the output
+    outputFile->Close();
+    std::cout << "==> Wrote root file: " << outputFile->GetName() << std::endl;
+    std::cout << "==> TMVAClassification is done!" << std::endl;
+
+    delete factory;
+    delete dataloader;
 
     return 0;
 }
