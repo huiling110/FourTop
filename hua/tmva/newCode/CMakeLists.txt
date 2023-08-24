@@ -11,7 +11,7 @@ add_executable(YourExecutableName tmvaBDT_training.C)  # Replace with your desir
 
 # Link the ROOT libraries
 target_link_libraries(YourExecutableName ROOT::Core)
-target_link_libraries(YourExecutableName TMVA)
+# target_link_libraries(YourExecutableName TMVA)
 
 # Optional: Set C++ standard
 set_target_properties(YourExecutableName PROPERTIES CXX_STANDARD 14)  # Adjust to your desired C++ standard

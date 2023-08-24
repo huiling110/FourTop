@@ -14,6 +14,7 @@
 #include "TMVA/DataLoader.h"
 #include "TMVA/Tools.h"
 #include "TMVA/TMVAGui.h"
+#include "TMVA/Config.h"
 
 #include "processClass.h"
 
@@ -107,6 +108,7 @@ int tmvaBDT_training(
 
     TMVA::Factory *factory = new TMVA::Factory("TMVAClassification", outputFile, "!V:!Silent:Color:DrawProgressBar:Transformations=I:AnalysisType=Classification");
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("dataset");
+    TMVA::Tools::Instance();
     (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
     TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
     (TMVA::gConfig().GetIONames()).fWeightFileDir = outfile + "_weight/";
