@@ -3,7 +3,9 @@ import ROOT
 import usefulFunc as uf
 
 def main():
-    inputTemp = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/templatesForCombine1tau1l.root'
+    # inputTemp = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/variableHists_v41tau0lGenTauSys/combine/templatesForCombine1tau1l.root'
+    # inputTemp = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017//v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/variableHists_v5forBtagWPShape_shape/combine/templatesForCombine1tau1l.root'
+    inputTemp = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/variableHists_v4forBtagWPShape_WP/combine/templatesForCombine1tau1l.root'
     
     file = ROOT.TFile(inputTemp, 'READ')
     

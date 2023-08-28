@@ -94,6 +94,8 @@ int tmvaBDT_training(
     const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
     Bool_t isTest = true)
 {
+    std::cout<<"event weight="<<g_weight<<"\n";
+
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
     TString csvListName = ((TObjString *)tokens->Last())->GetString();

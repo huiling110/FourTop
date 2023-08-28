@@ -80,7 +80,8 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJets
 
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
+// Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
+Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav);
 
 Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode);
 

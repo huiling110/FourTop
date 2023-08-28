@@ -96,7 +96,6 @@ void treeAnalyzer::Init()
         std::cout << "WARNING!! channel not spefified\n";
     }
 
-    // SR1tau1lSys.print();
     SR1tau1lSys.setDir(m_outFile);
 
     std::cout << "done initializing\n";
@@ -163,8 +162,8 @@ void treeAnalyzer::LoopTree()
         Bool_t SR1tau1l = channelSel;
         //!!!have to output weight; make weight an input
                 // Double_t basicWeight = baseWeightCal(e);
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
-        // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
+        Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";
 

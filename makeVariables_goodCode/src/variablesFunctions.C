@@ -400,12 +400,15 @@ Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
     return initB;
 }
 
-Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
+// Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
+Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav)
 {
     Int_t genNum = 0;
     for (UInt_t i = 0; i < tausT_genPartFlav.GetSize(); ++i)
     {
-        if (tausT_genPartFlav[i] == 5)
+        Int_t itau = static_cast<int>(tausT_genPartFlav.At(i));
+        // if (tausT_genPartFlav[i] == 5)
+        if (itau == 5)
         // Flavour of genParticle for MC matching to status==2 taus: 1 = prompt electron, 2 = prompt muon, 3 = tau->e decay, 4 = tau->mu decay, 5 = hadronic tau decay, 0 = unknown or unmatched
         {
             genNum++;

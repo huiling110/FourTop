@@ -174,11 +174,10 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
             # if (iRegion=='1tau1lSR' or iRegion=='1tau0lSR') and isdata: continue
             if 'SR' in iRegion and isdata: continue
             if not isRun3:
-                # iHistName = iRegion + '_' + ifileName + '_' + variable
-                iHistName = ifileName +'_' +iRegion+ '_' + variable
+                iHistName = iRegion + '_' + ifileName + '_' + variable  #!!!old WH code
+                # iHistName = ifileName +'_' +iRegion+ '_' + variable
             else:
-                iHistName = ifileName +'_' +iRegion+ '_' + variable
-                # iHistName = iRegion + '_' + ifileName + '_' + variable
+                iHistName = ifileName +'_' +iRegion+ '_' + variable#!!!new WH code
             
             if iRegion not in sumProcessHistsDict.keys(): 
                 sumProcessHistsDict[iRegion]={}

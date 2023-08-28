@@ -42,7 +42,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     taus_HT = HTcalculator(objsLorentz);
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
     // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
-    // taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
+    taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
 
     std::vector<ROOT::Math::PtEtaPhiMVector> muonTopMVAT;
     getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, muonTopMVAT);
