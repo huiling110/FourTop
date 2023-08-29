@@ -39,7 +39,8 @@ def main():
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
-    templateFile = outDir + 'templatesForCombine1tau1l.root'
+    # templateFile = outDir + 'templatesForCombine1tau1l.root'
+    templateFile = outDir + 'templatesForCombine'+channel+'.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
    
     if not isRun3:
@@ -96,6 +97,7 @@ def main():
 def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     print('start to add fake tau and sys into outfile')
     
+    #!!! the fakeTau needs to be updated, the previous one is using wrong btag 
     fakeTauDic = {
         '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
         '2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
