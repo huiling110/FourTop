@@ -24,19 +24,20 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v4forBtagWPShape_WP/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v5forBtagWPShape_shape/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/variableHists_v4forBtagWPShape_WP/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/variableHists_v5forBtagWPShape_shape/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/variableHists_v5forBtagWPShape_shape/'
+    
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     
     
-    
-    # channel = '1tau0l' # 1tau0l
-    channel = '1tau1l' # 1tau0l
+    channel = '1tau0l' # 1tau0l
+    # channel = '1tau1l' # 1tau0l
     
     isRun3 = uf.isRun3(inputDir)
+    era = uf.getEraFromDir(inputDir)
     print('isRun3=', isRun3)
     
     
     outDir = inputDir+'combine/'
-    # outDir = inputDir+'combine_test/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine1tau1l.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
@@ -56,8 +57,8 @@ def main():
         histName = obj.GetName()
         sysName = histName[histName.find('_')+1: ]
         # if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
-        print('sysName: ', sysName)
         if 'cutFlow' in sysName: continue
+        print('sysName: ', sysName)
         summedHistDicAllSys[sysName] = {}
         obj.Delete()
     ttttFile.Close()
@@ -80,11 +81,11 @@ def main():
        
         iroot.Close() 
     print(summedHistDicAllSys)
-  
-    # addFakeTauSys(outFile, channel, summedHistDicAllSys)
-    # print(summedHistDicAllSys)
+ 
+    if channel=='1tau0l':
+        addFakeTauSys(outFile, channel, summedHistDicAllSys)
+        print(summedHistDicAllSys)
     
-    # fakeData = addDataHist(summedHistDicAllSys['SR_BDT'], outFile)
     fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
     
      
@@ -92,11 +93,18 @@ def main():
     print('outFile here: ', outFile.GetName())
     outFile.Close()
     
-def addFakeTauSys(outFile, channel, summedHistDicAllSys):
+def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     print('start to add fake tau and sys into outfile')
-    tempatesWithFT = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root'
+    
+    fakeTauDic = {
+        '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
+        '2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
+    }
+    # tempatesWithFT = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root'
     #/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine
-    FTFile = ROOT.TFile(tempatesWithFT, 'READ')
+    templatesWithFT = fakeTauDic[era]
+    print('using fakeTau file: ', templatesWithFT)
+    FTFile = ROOT.TFile(templatesWithFT, 'READ')
     fakeTau = FTFile.Get('fakeTau_jets_bScore')
     fakeTau_up = FTFile.Get('fakeTau_jets_bScore_FR_up')
     fakeTau_down = FTFile.Get('fakeTau_jets_bScore_FR_down')

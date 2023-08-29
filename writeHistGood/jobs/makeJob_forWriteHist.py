@@ -31,7 +31,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v0preSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_addTauGenNum_v61fixesLepRemovalBug/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -73,11 +74,12 @@ def main():
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     # version = 'v1traingWithBtagWP' e
     # version = 'v4forBtagWPShape_WP'#for btagWP or shape
-    version = 'v5forBtagWPShape_shape'#for btagWP or shape
-    channel = 0
+    # version = 'v5forBtagWPShape_shape'#for btagWP or shape
+    # channel = 0
     
-    #
-    # channel = 1 
+    #1tau0l systematic
+    channel = 1
+    version = 'v0systematic1tau0l' 
     
     #run3
     # version = 'v0allRegions'
