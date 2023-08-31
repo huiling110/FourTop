@@ -133,7 +133,7 @@ void WH_forDataMC::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 10000;
+        allEvent = 100000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -146,7 +146,7 @@ void WH_forDataMC::LoopTree()
             continue;
         }
 
-        Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData);
+        Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData, i);
         //experimenting
         // Double_t basicWeight = 1.0;
         // if (!m_isData){
