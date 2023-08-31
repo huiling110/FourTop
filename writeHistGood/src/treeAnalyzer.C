@@ -123,14 +123,14 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        // Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
-        // if(m_channel==1){
-        //     channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
-        // }
+        Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
+        if(m_channel==1){
+            channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
+        }
         //testing
-        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
-        // Bool_t channelSel = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
-        Bool_t channelSel = (lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2);
+        // Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+        // // Bool_t channelSel = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
+        // Bool_t channelSel = (lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2);
 
         if (!(channelSel))
         {

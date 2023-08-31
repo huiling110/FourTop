@@ -171,8 +171,8 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
         
         for iRegion in regionsList:
             # if 'SR' in iRegion and isdata: continue
-            # if (iRegion=='1tau1lSR' or iRegion=='1tau0lSR') and isdata: continue
-            if 'SR' in iRegion and isdata: continue
+            if (iRegion=='1tau1lSR' or iRegion=='1tau0lSR') and isdata: continue
+            # if 'SR' in iRegion and isdata: continue
             if not isRun3:
                 iHistName = iRegion + '_' + ifileName + '_' + variable  #!!!old WH code
                 # iHistName = ifileName +'_' +iRegion+ '_' + variable
@@ -223,7 +223,7 @@ def getProcessScale( processName, era ):
 
 
 def addBGHist(sumProcessIVar,  region, includeQCD=False):
-    # sumHist = sumProcessIVar[region][summedProcessList[0]]
+    summedProcessList = list(sumProcessIVar[region].keys())
     sumHist = sumProcessIVar[region][summedProcessList[0]].Clone()
     sumHist.Reset()
     sumHist.Sumw2()
@@ -235,7 +235,6 @@ def addBGHist(sumProcessIVar,  region, includeQCD=False):
         else:
             if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
         sumHist.Add( sumProcessIVar[region][ipro])
-    # sumHist.SetName(region+ '_allBG_' + var)
     return sumHist
 
 # def getPathDir()

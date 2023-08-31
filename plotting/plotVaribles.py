@@ -10,7 +10,8 @@ from ROOT import *
 # from setTDRStyle import addCMSTextToCan, setTDRStyle
 from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
                                 samplesCrossSection, summedProcessList)
-from writeCSVforEY import replaceBgWithGen
+# from writeCSVforEY import replaceBgWithGen
+import writeCSVforEY as wc
 
 import setTDRStyle as ss
 
@@ -111,7 +112,7 @@ def main():
     if hasFakeTau:
         print('has fake')
         for ivar in sumProcessPerVar:
-            replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
+            wc.replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
         legendOrder.remove('qcd')
         legendOrder.insert(0, 'fakeTau')
         sumProcessPerVar[ivar][regionList[0]].pop('qcd')
@@ -204,14 +205,14 @@ def checkRegionGen(regionList):
     return hasFakeTau
                 
 
-
-def appendSYSRegions( ifFR_sys, regionList) :
-    if ifFR_sys:
-        regionList.append(regionList[2]+'_up')
-        regionList.append(regionList[2]+'_down')
-        regionList.append(regionList[3]+'_up')
-        regionList.append(regionList[3]+'_down')
-    return regionList 
+#moved to 1tau0l plotting
+# def appendSYSRegions( ifFR_sys, regionList) :
+#     if ifFR_sys:
+#         regionList.append(regionList[2]+'_up')
+#         regionList.append(regionList[2]+'_down')
+#         regionList.append(regionList[3]+'_up')
+#         regionList.append(regionList[3]+'_down')
+#     return regionList 
  
  
 def getShapeFromData( inputDirDic, var, isVR=False):
