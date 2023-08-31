@@ -399,7 +399,7 @@ def getLegend(nominal,  dataHist, assymErrorPlot, signal, signalScale, legendOrd
         # leggy.AddEntry(nominal[entry],entry,"f")
         leggy.AddEntry(nominal[entry], legText,"f")
     leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
-    signalEntry = 'tttt*{}'.format(signalScale)
+    signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
     leggy.AddEntry( signal, signalEntry, 'l')
     return leggy
   
