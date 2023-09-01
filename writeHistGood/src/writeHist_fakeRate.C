@@ -1,5 +1,46 @@
 
 #include "../include/writeHist_fakeRate.h"
+#include "../include/inputFileMap.h"
+#include "../include/commenSelectionAndWeight.h"
+
+
+Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
+{
+    // might need error handling for this
+    // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
+    // set the default FRWeight to the last bin
+    TH2D *FR_TH2D;
+    if (taus_1prongNum == 1)
+    {
+        FR_TH2D = FR_TH2D_1prong;
+    }
+    else
+    {
+        FR_TH2D = FR_TH2D_3prong;
+    }
+    Int_t binxNum = FR_TH2D->GetNbinsX();
+    Int_t binyNum = FR_TH2D->GetNbinsY();
+    Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
+    Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
+    if (taus_1pt > 20.0 && taus_1pt <= 300.0)
+    {
+
+        Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
+        Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
+        FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+        FR_sigma = FR_TH2D->GetBinError(binx, biny);
+        //???need better error handling
+        // if (FR < 0.000001)
+        // {
+        // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+        // std::exit(1);
+        // }
+    }
+    Double_t FRWeight = FR / (1 - FR);
+    FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
+    FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
+    return FRWeight;
+}
 
 void pushBackHiscVec( std::vector<std::shared_ptr<histForRegionsBase>>& histsForRegion_vec, const std::vector<TString>& regionsForVariables, TString m_processName, event* e){
     histsForRegion_vec.clear();
@@ -147,9 +188,50 @@ void WH_fakeRate::Init(){
     };
     pushBackHiscVec(histsForRegion_vec, regionsForFRWeighting, m_processName, e);
 
+    //get FR hists
+    TFile *FRFile = new TFile(WH::FRfileMap.at(m_era).at(0).Data(), "READ");
+    FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
+    TFile *FRFile_3prong = new TFile(WH::FRfileMap.at(m_era).at(1).Data(), "READ");
+    FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
+    printf("Reading FR file:%s \n", FRFile->GetName());
+
+
     std::cout << "Initialization done\n\n";
 }
 
+
+void WH_fakeRate::LoopTree(UInt_t entry){
+    Long64_t allEvent = m_tree->GetEntries();
+    if (entry > 0)
+    {
+        allEvent = entry;
+    }
+    std::cout << "looping over trees of " << allEvent << "\n";
+
+    for (UInt_t i = 0; i < allEvent; i++)
+    {
+        m_tree->GetEntry(i);
+
+        if (!(baselineSelection(e)))
+        {
+            continue;
+        }
+
+    }
+
+    Double_t FRWeight_up, FRWeight_down;
+    Double_t FRWeight = 1.0;
+    if (!m_ifMeasurement)
+    {
+        FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+    }
+
+
+
+
+    std::cout << "end of event loop\n\n";
+
+}
 
 
 WH_fakeRate::~WH_fakeRate(){

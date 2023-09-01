@@ -47,7 +47,7 @@ public:
     ~WH_fakeRate();
 
     void Init();
-    void LoopTree();
+    void LoopTree(UInt_t entry);
     void Terminate();
 
 private:
@@ -67,6 +67,10 @@ private:
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>
     std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;
+
+    TH2D *FR_hist;
+    TH2D *FR_hist_3prong;
+
 
 
 };

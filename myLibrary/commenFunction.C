@@ -163,6 +163,35 @@ namespace TTTT
 // }
 
 
+Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
+{ // sys =0: normal; sys=1: up; sys=2: down
+    Double_t sf = 1.0;
+    Int_t xbins = hist->GetXaxis()->GetNbins();
+    Double_t xmin = hist->GetXaxis()->GetBinLowEdge(1);
+    Double_t xmax = hist->GetXaxis()->GetBinUpEdge(xbins);
+    Int_t ybins = hist->GetYaxis()->GetNbins();
+    Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
+    Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
+    if (x >= xmin && x < xmax && y >= ymin && y < ymax)
+    {
+        Int_t binx = hist->GetXaxis()->FindBin(x);
+        Int_t biny = hist->GetYaxis()->FindBin(y);
+        sf = hist->GetBinContent(binx, biny);
+        Double_t err = hist->GetBinError(binx, biny);
+        if (sys == 1)
+        {
+            sf = sf + err;
+        }
+        if (sys == 2)
+        {
+            sf = sf - err;
+        }
+        if(sys==5){
+            sf = err;
+        }
+    }
+    return sf;
+}
 
 
 
