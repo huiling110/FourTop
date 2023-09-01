@@ -2,6 +2,7 @@
 #include "../include/writeHist_fakeRate.h"
 #include "../include/inputFileMap.h"
 #include "../include/commenSelectionAndWeight.h"
+#include "../../myLibrary/commenFunction.h"
 
 
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
@@ -18,24 +19,31 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
     {
         FR_TH2D = FR_TH2D_3prong;
     }
-    Int_t binxNum = FR_TH2D->GetNbinsX();
-    Int_t binyNum = FR_TH2D->GetNbinsY();
-    Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
-    Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
-    if (taus_1pt > 20.0 && taus_1pt <= 300.0)
-    {
-
-        Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
-        Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-        FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
-        FR_sigma = FR_TH2D->GetBinError(binx, biny);
-        //???need better error handling
-        // if (FR < 0.000001)
-        // {
-        // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-        // std::exit(1);
-        // }
+    Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 0);
+    Double_t FR_sigma = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 5);
+    if(FR>0.5){
+        FR = 0.1;
+        FR_sigma = 0.1;
     }
+
+    // Int_t binxNum = FR_TH2D->GetNbinsX();
+    // Int_t binyNum = FR_TH2D->GetNbinsY();
+    // Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
+    // Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
+    // if (taus_1pt > 20.0 && taus_1pt <= 300.0)
+    // {
+
+    //     Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
+    //     Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
+    //     FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+    //     FR_sigma = FR_TH2D->GetBinError(binx, biny);
+    //     //???need better error handling
+    //     // if (FR < 0.000001)
+    //     // {
+    //     // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+    //     // std::exit(1);
+    //     // }
+    // }
     Double_t FRWeight = FR / (1 - FR);
     FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
@@ -221,10 +229,10 @@ void WH_fakeRate::LoopTree(UInt_t entry){
 
     Double_t FRWeight_up, FRWeight_down;
     Double_t FRWeight = 1.0;
-    if (!m_ifMeasurement)
-    {
-        FRWeight = calFRWeight(*tausF_1jetPt, *tausF_1eta, *tausF_prongNum, FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
-    }
+    // if (!m_ifMeasurement)
+    // {
+        FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+    // }
 
 
 

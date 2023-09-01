@@ -159,6 +159,11 @@ public:
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
     // myBranch<Double_t>{""};
 
+    // branches for fakeTau;
+    myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
+    myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
+    myBranch<Double_t> tausF_1eta{"tausF_1eta"};
+
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
     myBranch<Double_t> PUweight_up_{"PUweight_up_"};
@@ -267,6 +272,10 @@ private:
         {tausT_MHT.n(), &tausT_MHT},
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
+
+        {tausF_prongNum.n(), &tausF_prongNum},
+        {tausF_1jetPt.n(), &tausF_1jetPt},
+        {tausF_1eta.n(), &tausF_1eta},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
