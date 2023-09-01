@@ -18,7 +18,8 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+    // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline"};
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
@@ -170,26 +171,18 @@ void WH_forDataMC::LoopTree()
         }
 
         // 1tau0l CR
-        Bool_t is1tau0lCR = SR1tau1lSel(e, 6, m_isRun3);
         Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
         Bool_t is1tau0lCRc = SR1tau1lSel(e, 8, m_isRun3);
         Bool_t is1tau0lCRb = SR1tau1lSel(e, 9, m_isRun3);
-        Bool_t is1tau0lCRa = SR1tau1lSel(e, 10, m_isRun3);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRa, "1tau0lCRa", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lMR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lVR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCR", basicWeight, m_isData);
 
         // 1tau1lCR
         Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
-        Bool_t is1tau1lCR1 = SR1tau1lSel(e, 3, m_isRun3);
         Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3);
-        Bool_t is1tau1lCR3 = SR1tau1lSel(e, 5, m_isRun3);
-        histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR0", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau1lCR1, "1tau1lCR1", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR1", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau1lCR3, "1tau1lCR3", basicWeight, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
