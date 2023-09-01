@@ -55,6 +55,27 @@ void TauVarMaker::makeVariables(const EventForMV *e)
 
     taus_leptonsTopMVA_chargeMulti = chargeMulCal(e->tausT_charge, e->Muon_charge_, e->muonsTopMVAT_index, e->Electron_charge_, e->elesTopMVAT_index);
 
+    switch (m_type)
+    {
+    case 0:
+        if(e->tausT_jetPt.GetSize()>0){
+            taus_1jetPt = e->tausT_jetPt.At(0);
+        }
+        break;
+    case 1:
+        if(e->tausF_jetPt.GetSize()>0){
+            taus_1jetPt = e->tausF_jetPt.At(0);
+        }
+        break;
+    case 2:
+        if(e->tausL_jetPt.GetSize()>0){
+            taus_1jetPt = e->tausL_jetPt.At(0);
+        }
+        break;
+    default:
+        break;
+    }
+
 }
 
 void TauVarMaker::clearBranch()
@@ -66,6 +87,8 @@ void TauVarMaker::clearBranch()
     taus_minDeltaR = -99;
     taus_genTauNum = -99;
     taus_leptonsTopMVA_chargeMulti = -99;
+
+    taus_1jetPt = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
