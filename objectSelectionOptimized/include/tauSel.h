@@ -39,6 +39,8 @@ private:
     std::vector<Int_t> taus_jetIdx;
     std::vector<Int_t> taus_charge;
     std::vector<Double_t> taus_neutralIso;
+    std::vector<Double_t> taus_jetPt;
+    std::vector<Double_t> taus_jetEta;
 };
 
 #endif
