@@ -52,6 +52,9 @@ public:
                                       tausT_jetPt(reader, "tausT_jetPt"),
                                       tausF_jetPt(reader, "tausF_jetPt"),
                                       tausL_jetPt(reader, "tausL_jetPt"),
+                                      tausT_jetEta(reader, "tausT_jetEta"),
+                                      tausF_jetEta(reader, "tausF_jetEta"),
+                                      tausL_jetEta(reader, "tausL_jetEta"),
 
     jets_pt(reader, "jets_pt"),
         jets_eta(reader, "jets_eta"),
@@ -139,6 +142,9 @@ public:
     TTreeReaderArray<Double_t> tausT_jetPt;
     TTreeReaderArray<Double_t> tausF_jetPt;
     TTreeReaderArray<Double_t> tausL_jetPt;
+    TTreeReaderArray<Double_t> tausT_jetEta;
+    TTreeReaderArray<Double_t> tausF_jetEta;
+    TTreeReaderArray<Double_t> tausL_jetEta;
 
     TTreeReaderArray<Double_t> jets_pt;
     TTreeReaderArray<Double_t> jets_eta;
