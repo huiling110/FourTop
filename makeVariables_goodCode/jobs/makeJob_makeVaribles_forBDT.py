@@ -45,7 +45,6 @@ import usefulFunc as uf
 # selectionBit = '6' # no metfilters
 # selectionBit = '2' # no metfilters
 # print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
-# justMC = False
 
 
 def main():
