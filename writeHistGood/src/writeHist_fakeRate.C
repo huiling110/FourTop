@@ -224,9 +224,10 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         {
             continue;
         }
-
+        // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
         // Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
         if(!(e->tausF_num.v()==1 && (e->elesTopMVAT_num.v()+e->muonsTopMVAT_num.v()==0) )){
+        // if(!(e->tausF_num.v()==1  )){
             continue;
         }
 
