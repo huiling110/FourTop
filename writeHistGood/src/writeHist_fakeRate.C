@@ -225,19 +225,25 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             continue;
         }
 
-    }
+        // Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
+        if(!(e->tausF_num.v()==1 && (e->elesTopMVAT_num.v()+e->muonsTopMVAT_num.v()==0) )){
+            continue;
+        }
 
-    Double_t FRWeight_up, FRWeight_down;
-    Double_t FRWeight = 1.0;
+        Double_t FRWeight_up, FRWeight_down;
+        Double_t FRWeight = 1.0;
     // if (!m_ifMeasurement)
     // {
         FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
     // }
+        std::cout << "FRWeight=" << FRWeight << "\n";
 
 
 
 
-    std::cout << "end of event loop\n\n";
+
+        std::cout << "end of event loop\n\n";
+    }
 
 }
 

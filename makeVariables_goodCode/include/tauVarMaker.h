@@ -26,11 +26,11 @@ private:
     Double_t taus_leptonsT_invariantMass = -99;
     Double_t taus_leptonsTMVA_minDeltaR = -99;
     Int_t taus_leptonsTopMVA_chargeMulti = -99;
-    Double_t taus_prongNum = -99;
-    Double_t taus_1decayMode = -99;
+    Int_t taus_prongNum = -99;
+    Int_t taus_1decayMode = -99;
     Double_t taus_1jetPt = -99;
     Double_t taus_1jetEtaAbs = -99;
-    Bool_t taus_1charge = -99;
+    Int_t taus_1charge = -99;
     Double_t taus_1neutralIso = -99;
 };
 

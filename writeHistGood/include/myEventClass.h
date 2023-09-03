@@ -163,6 +163,7 @@ public:
     myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
+    myBranch<Int_t> tausF_num{"tausF_num"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -276,6 +277,7 @@ private:
         {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
+        {tausF_num.n(), &tausF_num},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},

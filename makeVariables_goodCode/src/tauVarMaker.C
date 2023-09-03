@@ -42,7 +42,6 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     taus_HT = HTcalculator(objsLorentz);
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
     // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
-    taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
 
     std::vector<ROOT::Math::PtEtaPhiMVector> muonTopMVAT;
     getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, muonTopMVAT);
@@ -61,18 +60,21 @@ void TauVarMaker::makeVariables(const EventForMV *e)
         if(e->tausT_jetPt.GetSize()>0){
             taus_1jetPt = e->tausT_jetPt.At(0);
             taus_1jetEtaAbs = e->tausT_jetEta.At(0);
+            taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
         }
         break;
     case 1:
         if(e->tausF_jetPt.GetSize()>0){
             taus_1jetPt = e->tausF_jetPt.At(0);
             taus_1jetEtaAbs = e->tausF_jetEta.At(0);
+            taus_genTauNum = calGenTauNum(e->tausF_genPartFlav);//!!!
         }
         break;
     case 2:
         if(e->tausL_jetPt.GetSize()>0){
             taus_1jetPt = e->tausL_jetPt.At(0);
             taus_1jetEtaAbs = e->tausL_jetEta.At(0);
+            taus_genTauNum = calGenTauNum(e->tausL_genPartFlav);//!!!
         }
         break;
     default:
