@@ -225,7 +225,6 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             continue;
         }
         // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
-        // Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
         if(!(e->tausF_num.v()==1 && (e->elesTopMVAT_num.v()+e->muonsTopMVAT_num.v()==0) )){
         // if(!(e->tausF_num.v()==1  )){
             continue;
@@ -237,15 +236,42 @@ void WH_fakeRate::LoopTree(UInt_t entry){
     // {
         FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
     // }
-        std::cout << "FRWeight=" << FRWeight << "\n";
+        // std::cout << "FRWeight=" << FRWeight << "\n";
+
+        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+        Bool_t isTauLNum = (e->tausF_num.v() == 1);
+        Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
+        Bool_t noTauT = (e->tausT_num.v() == 0);
+        // 1tau0l
+        Bool_t is1tau0lCR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
+        Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
+        Bool_t is1tau0lVR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lVRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lCRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
+        // SR
+        Bool_t is1tau0lSR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
+        Bool_t is1tau0lSRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 2;
+        // CRc and CRa
+        Bool_t is1tau0lCRc = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
+        Bool_t is1tau0lCRcLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
+        Bool_t is1tau0lCRa = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 0;
+        Bool_t is1tau0lCRaLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 0;
+        Bool_t is1tau0lCRb = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
+
+        // if(!m_isData){
+
+        // }else{
+            
+        // }
 
 
 
 
 
-        std::cout << "end of event loop\n\n";
     }
-
+        std::cout << "end of event loop\n\n";
 }
 
 
