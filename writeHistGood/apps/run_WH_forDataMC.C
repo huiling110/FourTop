@@ -56,7 +56,8 @@ void run_treeAnalyzer(
     WH_fakeRate writeHist(inputDir, process, histVersion, isTest); 
 
     writeHist.Init();
-    writeHist.LoopTree(1000); //!!!maybe provide cut and weight as parameter here
+    // writeHist.LoopTree(1000); //!!!maybe provide cut and weight as parameter here
+    writeHist.LoopTree(0); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
 
     t.Stop();

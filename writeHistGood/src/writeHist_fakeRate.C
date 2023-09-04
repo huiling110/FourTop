@@ -275,14 +275,15 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lCRbLTauNotTGen = is1tau0lCRbLTau && noTauT && isTauLNumGen;
 
+        histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
+
         if(!m_isData){
-            histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lSR && isTauTNumGen, "1tau0lSRGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lVR && isTauTNumGen, "1tau0lVRGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRc && isTauTNumGen, "1tau0lCRcGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRb && isTauTNumGen, "1tau0lCRbGen", basicWeight, m_isData);
 
             histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
@@ -312,6 +313,7 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted", FRWeight, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_down", FRWeight_down, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
+            //actual data
         }
     }
         std::cout << "end of event loop\n\n";
