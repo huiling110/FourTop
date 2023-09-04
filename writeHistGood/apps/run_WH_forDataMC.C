@@ -57,7 +57,7 @@ void run_treeAnalyzer(
 
     writeHist.Init();
     writeHist.LoopTree(1000); //!!!maybe provide cut and weight as parameter here
-    // writeHist.Terminate();
+    writeHist.Terminate();
 
     t.Stop();
     t.Print();
