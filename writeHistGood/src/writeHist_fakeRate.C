@@ -3,6 +3,7 @@
 #include "../include/inputFileMap.h"
 #include "../include/commenSelectionAndWeight.h"
 #include "../../myLibrary/commenFunction.h"
+#include "../include/functions.h"
 
 
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
@@ -230,6 +231,8 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             continue;
         }
 
+        //event weight
+        Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData, i);
         Double_t FRWeight_up, FRWeight_down;
         Double_t FRWeight = 1.0;
     // if (!m_ifMeasurement)
@@ -243,33 +246,34 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
         Bool_t noTauT = (e->tausT_num.v() == 0);
         // 1tau0l
-        Bool_t is1tau0lCR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
-        Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
-        Bool_t is1tau0lVR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lVR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1; //new MR
         Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lVRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
-        Bool_t is1tau0lCRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
+        Bool_t is1tau0lVRLTauNotTGen = is1tau0lVRLTauNotT && isTauLNumGen;
         // SR
         Bool_t is1tau0lSR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
         Bool_t is1tau0lSRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 2;
-        // CRc and CRa
-        Bool_t is1tau0lCRc = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
+        Bool_t is1tau0lSRLTauNotTGen = is1tau0lSRLTauNotT && isTauLNumGen;
+        // CRc 
+        Bool_t is1tau0lCRc = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;//new VR
         Bool_t is1tau0lCRcLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
-        Bool_t is1tau0lCRa = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 0;
-        Bool_t is1tau0lCRaLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 0;
-        Bool_t is1tau0lCRb = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lCRcLTauNotTGen = is1tau0lCRcLTau && noTauT && isTauLNumGen;
+        // Bool_t is1tau0lCRcLTauNotTGen
+
+        //
+        Bool_t is1tau0lCRb = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;// new CR
         Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
+        Bool_t is1tau0lCRbLTauNotTGen = is1tau0lCRbLTau && noTauT && isTauLNumGen;
 
-        // if(!m_isData){
-
-        // }else{
-            
-        // }
-
-
-
-
-
+        if(!m_isData){
+            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+        }
+        else
+        {
+        }
     }
         std::cout << "end of event loop\n\n";
 }
