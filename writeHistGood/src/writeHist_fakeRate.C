@@ -313,7 +313,6 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted", FRWeight, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_down", FRWeight_down, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-            //actual data
         }
     }
         std::cout << "end of event loop\n\n";
