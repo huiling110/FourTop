@@ -42,7 +42,7 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
     Bool_t isTest = kTRUE)
-    // Bool_t isTest = kFALSE)
+// Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
@@ -53,11 +53,15 @@ void run_treeAnalyzer(
     // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
-    WH_fakeRate writeHist(inputDir, process, histVersion, isTest); 
+    WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
-    // writeHist.LoopTree(1000); //!!!maybe provide cut and weight as parameter here
-    writeHist.LoopTree(0); //!!!maybe provide cut and weight as parameter here
+    UInt_t entry = 0;
+    if (isTest)
+    {
+        entry = 10000;
+    }
+    writeHist.LoopTree(entry); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
 
     t.Stop();

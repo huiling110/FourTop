@@ -17,8 +17,8 @@ def main():
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
-    # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
+    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
+    regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     ifFR_sys = True 
@@ -41,25 +41,51 @@ def main():
     print( sumProcessPerVarSys )
     print('\n')
    
-    legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets']
     
-    for ivar in sumProcessPerVar:
-        wc.replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
-    legendOrder.insert(0, 'fakeTau')
-    sumProcessPerVar[ivar][regionList[0]].pop('qcd')
+    # for ivar in sumProcessPerVar:
+    #     wc.replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
+    replaceBgWithGen(sumProcessPerVar, regionList)
+    getFakeTau(sumProcessPerVar, sumProcessPerVarSys, regionList)
 
     if regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
         pv.writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
+    
+    
+    legendOrder = ['fakeTau', 'tt', 'ttX', 'singleTop', 'VV', 'WJets' ]
     for variable in variables:
         # print(regionList)
         # sumProcessPerVar[variable][regionList[0]]['jetHT'].Print()
         pv.makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
 
+
+def replaceBgWithGen(sumProcessPerVar, regionList):    
+    for ivar in sumProcessPerVar:
+        sumProcessIvar = sumProcessPerVar[ivar]
+        # regionList = list(sumProcessIvar.keys())
+        for ipro in sumProcessIvar[regionList[0]].keys():
+            if ipro=='jetHT': continue
+            sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
+            # sumProcessIvar[regionList[0]].pop('qcd')
+    print('replaced bg MC with bg MC genTau')
     
-    
+   
+def getFakeTau(sumProcessPerVar, sumProcessPerVarSys, regionList, ifFR_syst = True):   
+    for ivar in sumProcessPerVar:
+        sumProcessIvar = sumProcessPerVar[ivar]
+        sumProcessIvarSys = sumProcessPerVarSys[ivar]
+         #get fake tau from FR weighted VVLNotT data - VVLNotTGen MC
+        sumProcessIvar[regionList[0]]['fakeTau'] = wc.histDateMinusGenBG( ivar, sumProcessIvar, regionList[2], regionList[3]) 
+        #FR sytematic
+        if ifFR_syst:
+            sumProcessIvarSys[regionList[0]]['fakeTau']={}
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_up'] = wc.histDateMinusGenBG( ivar, sumProcessIvar, regionList[4], regionList[6] ) 
+            sumProcessIvarSys[regionList[0]]['fakeTau']['FR_down'] = wc.histDateMinusGenBG( ivar, sumProcessIvar, regionList[5], regionList[7] ) 
+    print('added fakeTau bg')
+            
+            
     
 def appendSYSRegions( ifFR_sys, regionList) :
     if ifFR_sys:

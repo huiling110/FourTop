@@ -234,7 +234,7 @@ def writeHistsToCSV( sumProcessPerVal, outDir , csvName, isRawEntries=False, wri
 
 
 
-
+#!!!movded to plotVariables1tau0l.py
 def replaceBgWithGen(  inputDirDic, sumProcessIvar, var, regionList, ifGetFromMC=2, ifFR_syst=False, sumProcessIvarSys={}):
     #1tau0lCR relace with 1tauCRGen
     for ipro in sumProcessIvar[regionList[0]].keys():
@@ -285,7 +285,10 @@ def histDateMinusGenBG(var, sumProcessIVar, region, genRegion, isdataMC=False):
     #    h_data = uf.addBGHist(sumProcessIVar, var, region, True) 
        h_data = uf.addBGHist(sumProcessIVar, region, True) 
     h_data.Sumw2()
+    h_data.Print()
+    
     h_bgGen = uf.addBGHist(sumProcessIVar,  genRegion) #???no requiring gen here???
+    h_bgGen.Print()
     h_dataMBG = h_data - h_bgGen
     return h_dataMBG
 
