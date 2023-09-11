@@ -50,7 +50,7 @@ import usefulFunc as uf
 def main():
     # year = '2022'
     # year = '2016'
-    # year = '2018'
+    year = '2018'
     year = '2017'
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
