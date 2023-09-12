@@ -16,7 +16,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v61fixesLepRemovalBug/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v61fixesLepRemovalBug/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v61fixesLepRemovalBug/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v62addTauJetVars/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v62addTauJetVars/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v62addTauJetVars/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
@@ -42,14 +43,14 @@ void run_objectSelection(
 
     TString inputDir1 = inputBase + inputDir + "/";
     TString processName = inputDir;
-    Bool_t    isData = TTTT::getIsData(inputDir1);
-    TString    era = TTTT::getEra2(inputDir1);
+    Bool_t isData = TTTT::getIsData(inputDir1);
+    TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
-    std::cout << "isRun3=" << isRun3 <<" era="<<era<< "\n";
+    std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
-    mv.EventLoop(kTRUE,kFALSE, numEntries);
+    mv.EventLoop(kTRUE, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
