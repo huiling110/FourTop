@@ -6,21 +6,37 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-/*
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
     // might need error handling for this
     // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
     // set the default FRWeight to the last bin
     TH2D *FR_TH2D;
-    if (taus_1prongNum == 1)
+    // if (taus_1prongNum == 1)
+    // {
+    //     FR_TH2D = FR_TH2D_1prong;
+    // }
+    // else
+    // {
+    //     FR_TH2D = FR_TH2D_3prong;
+    // }
+    //sanity check very important for functions!!!
+    switch (taus_1prongNum)
     {
+    case 1:
         FR_TH2D = FR_TH2D_1prong;
-    }
-    else
-    {
+        break;
+    case 2:
         FR_TH2D = FR_TH2D_3prong;
+        break;
+    case 3:
+        FR_TH2D = FR_TH2D_3prong;
+        break;
+    default:
+        std::cout<<"BAD!!! FR have to applied to events with fake tau!!!\n";
+        break;
     }
+
     Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 0);
     Double_t FR_sigma = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 5);
     if (FR > 0.5)
@@ -52,47 +68,46 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
     return FRWeight;
 }
-*/
 
 
 //old code
-Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
-{
-    // might need error handling for this
-    // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
-    // set the default FRWeight to the last bin
-    TH2D *FR_TH2D;
-    if (taus_1prongNum == 1)
-    {
-        FR_TH2D = FR_TH2D_1prong;
-    }
-    else
-    {
-        FR_TH2D = FR_TH2D_3prong;
-    }
-    Int_t binxNum = FR_TH2D->GetNbinsX();
-    Int_t binyNum = FR_TH2D->GetNbinsY();
-    Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
-    Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
-    if (taus_1pt > 20.0 && taus_1pt <= 300.0)
-    {
+// Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
+// {
+//     // might need error handling for this
+//     // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
+//     // set the default FRWeight to the last bin
+//     TH2D *FR_TH2D;
+//     if (taus_1prongNum == 1)
+//     {
+//         FR_TH2D = FR_TH2D_1prong;
+//     }
+//     else
+//     {
+//         FR_TH2D = FR_TH2D_3prong;
+//     }
+//     Int_t binxNum = FR_TH2D->GetNbinsX();
+//     Int_t binyNum = FR_TH2D->GetNbinsY();
+//     Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
+//     Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
+//     if (taus_1pt > 20.0 && taus_1pt <= 300.0)
+//     {
 
-        Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
-        Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-        FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
-        FR_sigma = FR_TH2D->GetBinError(binx, biny);
-        //???need better error handling
-        // if (FR < 0.000001)
-        // {
-        // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-        // std::exit(1);
-        // }
-    }
-    Double_t FRWeight = FR / (1 - FR);
-    FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
-    FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
-    return FRWeight;
-}
+//         Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
+//         Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
+//         FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+//         FR_sigma = FR_TH2D->GetBinError(binx, biny);
+//         //???need better error handling
+//         // if (FR < 0.000001)
+//         // {
+//         // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+//         // std::exit(1);
+//         // }
+//     }
+//     Double_t FRWeight = FR / (1 - FR);
+//     FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
+//     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
+//     return FRWeight;
+// }
 
 
 void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForRegion_vec, const std::vector<TString> &regionsForVariables, TString m_processName, event *e)
