@@ -70,7 +70,8 @@ def main():
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
+    outVersion = 'v1fixedTauProng'
     
     #2022
     # year = '2022postEE'
