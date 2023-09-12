@@ -38,6 +38,8 @@ public:
                                       tausT_mass(reader, "tausT_mass"),
                                       tausT_genPartFlav(reader, "tausT_genPartFlav"),
                                       tausT_decayMode(reader, "tausT_decayMode"),
+                                      tausF_decayMode(reader, "tausF_decayMode"),
+                                      tausL_decayMode(reader, "tausL_decayMode"),
                                       tausT_charge(reader, "tausT_charge"),
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
@@ -56,38 +58,38 @@ public:
                                       tausF_jetEta(reader, "tausF_jetEta"),
                                       tausL_jetEta(reader, "tausL_jetEta"),
 
-    jets_pt(reader, "jets_pt"),
-        jets_eta(reader, "jets_eta"),
-        jets_phi(reader, "jets_phi"),
-        jets_mass(reader, "jets_mass"),
-        jets_btags(reader, "jets_btags"),
-        jets_flavour(reader, "jets_flavour"),
-        jetsT_pt(reader, "jetsT_pt"),
-        jetsT_eta(reader, "jetsT_eta"),
-        jetsT_phi(reader, "jetsT_phi"),
-        jetsT_mass(reader, "jetsT_mass"),
-        jetsT_btags(reader, "jetsT_btags"),
-        bjetsM_pt(reader, "bjetsM_pt"),
-        bjetsM_eta(reader, "bjetsM_eta"),
-        bjetsM_phi(reader, "bjetsM_phi"),
-        bjetsM_mass(reader, "bjetsM_mass"),
-        bjetsL_pt(reader, "bjetsL_pt"),
-        bjetsL_eta(reader, "bjetsL_eta"),
-        bjetsL_phi(reader, "bjetsL_phi"),
-        bjetsL_mass(reader, "bjetsL_mass"),
-        bjetsT_pt(reader, "bjetsT_pt"),
-        bjetsT_eta(reader, "bjetsT_eta"),
-        bjetsT_phi(reader, "bjetsT_phi"),
-        bjetsT_mass(reader, "bjetsT_mass"),
+                                      jets_pt(reader, "jets_pt"),
+                                      jets_eta(reader, "jets_eta"),
+                                      jets_phi(reader, "jets_phi"),
+                                      jets_mass(reader, "jets_mass"),
+                                      jets_btags(reader, "jets_btags"),
+                                      jets_flavour(reader, "jets_flavour"),
+                                      jetsT_pt(reader, "jetsT_pt"),
+                                      jetsT_eta(reader, "jetsT_eta"),
+                                      jetsT_phi(reader, "jetsT_phi"),
+                                      jetsT_mass(reader, "jetsT_mass"),
+                                      jetsT_btags(reader, "jetsT_btags"),
+                                      bjetsM_pt(reader, "bjetsM_pt"),
+                                      bjetsM_eta(reader, "bjetsM_eta"),
+                                      bjetsM_phi(reader, "bjetsM_phi"),
+                                      bjetsM_mass(reader, "bjetsM_mass"),
+                                      bjetsL_pt(reader, "bjetsL_pt"),
+                                      bjetsL_eta(reader, "bjetsL_eta"),
+                                      bjetsL_phi(reader, "bjetsL_phi"),
+                                      bjetsL_mass(reader, "bjetsL_mass"),
+                                      bjetsT_pt(reader, "bjetsT_pt"),
+                                      bjetsT_eta(reader, "bjetsT_eta"),
+                                      bjetsT_phi(reader, "bjetsT_phi"),
+                                      bjetsT_mass(reader, "bjetsT_mass"),
 
-        PV_npvsGood_(reader, "PV_npvsGood_"),
-        EVENT_genWeight_(reader, "EVENT_genWeight_"),
-        EVENT_prefireWeight_(reader, "EVENT_prefireWeight_"),
-        EVENT_prefireWeight_up_(reader, "EVENT_prefireWeight_up_"),
-        EVENT_prefireWeight_down_(reader, "EVENT_prefireWeight_down_"),
-        PUWeight(reader, "PUWeight"),
-        PUWeight_up(reader, "PUWeight_up"),
-        PUWeight_down(reader, "PUWeight_down")
+                                      PV_npvsGood_(reader, "PV_npvsGood_"),
+                                      EVENT_genWeight_(reader, "EVENT_genWeight_"),
+                                      EVENT_prefireWeight_(reader, "EVENT_prefireWeight_"),
+                                      EVENT_prefireWeight_up_(reader, "EVENT_prefireWeight_up_"),
+                                      EVENT_prefireWeight_down_(reader, "EVENT_prefireWeight_down_"),
+                                      PUWeight(reader, "PUWeight"),
+                                      PUWeight_up(reader, "PUWeight_up"),
+                                      PUWeight_down(reader, "PUWeight_down")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -128,6 +130,8 @@ public:
     TTreeReaderArray<Double_t> tausT_mass;
     TTreeReaderArray<UChar_t> tausT_genPartFlav;
     TTreeReaderArray<Int_t> tausT_decayMode;
+    TTreeReaderArray<Int_t> tausF_decayMode;
+    TTreeReaderArray<Int_t> tausL_decayMode;
     TTreeReaderArray<Int_t> tausT_charge;
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;

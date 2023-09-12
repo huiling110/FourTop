@@ -23,7 +23,6 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std
     }
 };
 
-
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2)
 {
     Double_t deltaPhi = TMath::Abs(phi1 - phi2);
@@ -186,7 +185,7 @@ Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
 // return charge_sum;
 // }
 
-Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector& SelectedJets)
+Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector &SelectedJets)
 {
     //    TVector3 p =  SelectedJets.Vect();
     Double_t pt = SelectedJets.Pt();
@@ -417,7 +416,7 @@ Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav)
     return genNum;
 }
 
-Int_t getTauProng(TTreeReaderArray<Int_t> &tausT_decayMode)
+Int_t getTauProng(const TTreeReaderArray<Int_t> &tausT_decayMode)
 {
     // DM = 5*(Nc-1)+Np,
     Int_t prongNum = 0;
@@ -670,7 +669,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     variations due to "jes", "lf", "hf", "hfstats1/2", and "lfstats1/2" are applied to both b and udsg jets. For c-flavored jets, only "cferr1/2" is applied.
 
 */
-//I guess for sys variation, for c jets uncertainty, other jets SF should be "central"
+    // I guess for sys variation, for c jets uncertainty, other jets SF should be "central"
     Double_t sf = 1.0;
     if (!isData)
     {
@@ -687,17 +686,25 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
             {
                 ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
             }
-            else if(sys.find("cferr") != std::string::npos){
-                if(ijetFlav==4){
+            else if (sys.find("cferr") != std::string::npos)
+            {
+                if (ijetFlav == 4)
+                {
                     ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
-                }else{
+                }
+                else
+                {
                     ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
                 }
             }
-            else if(!(sys.find("cferr") != std::string::npos)){
-                if(!(ijetFlav==4)){
+            else if (!(sys.find("cferr") != std::string::npos))
+            {
+                if (!(ijetFlav == 4))
+                {
                     ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
-                }else{
+                }
+                else
+                {
                     ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
                 }
             }
@@ -722,7 +729,8 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
             // }
             // std::cout << "ijetSF=" << ijetSF << "n";
             // sf *= ijetSF;
-            if(ijetSF>0){
+            if (ijetSF > 0)
+            {
                 sf = sf * ijetSF;
             }
             // std::cout << "sf=" << sf << "\n";
@@ -733,16 +741,15 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag,  TH2D* btagEff_b,  TH2D* btagEff_c,  TH2D* btagEff_l, Bool_t isData, TString era, const std::string sys)
-{//https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
-//https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
-
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys)
+{ // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
+    // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
 
     Double_t sf = 1.0;
     if (!isData)
     {
-        auto corr_deepJet = cset_btag->at("deepJet_comb"); //b and c jet
-        auto corr_deepJet_light = cset_btag->at("deepJet_incl"); //for light jet
+        auto corr_deepJet = cset_btag->at("deepJet_comb");       // b and c jet
+        auto corr_deepJet_light = cset_btag->at("deepJet_incl"); // for light jet
         for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
         {
             Double_t ijetSF = 1.0;
@@ -752,25 +759,26 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             Double_t ijetBtag = jets_btag.At(j);
             if (ijetFlav == 4 || ijetFlav == 5)
             {
-                //b and c
-                ijetSF = corr_deepJet->evaluate({sys, "M",jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+                // b and c
+                ijetSF = corr_deepJet->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
             }
             else
             {
-                ijetSF = corr_deepJet_light->evaluate({sys, "M",jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+                ijetSF = corr_deepJet_light->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
             }
 
-            //sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
+            // sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
             Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);
             Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
             if (ifBtagged)
             {
-                sf = sf*ijetSF;
+                sf = sf * ijetSF;
             }
             else
             {
-                if ((1.-btagEff)>std::numeric_limits<double>::epsilon() ){
-                    sf = sf*(1. - ijetSF * btagEff) / (1. - btagEff);
+                if ((1. - btagEff) > std::numeric_limits<double>::epsilon())
+                {
+                    sf = sf * (1. - ijetSF * btagEff) / (1. - btagEff);
                 }
             }
         }
@@ -779,28 +787,27 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     return sf;
 }
 
-
-Double_t getBtagEff( TH2D* btagEff_b, TH2D* btagEff_c, TH2D* btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys){
+Double_t getBtagEff(TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys)
+{
     // std::map<std::string, Int_t> sysMap = {
     //     {"central", 0},
     //     {"up", 1},
     //     {"down", 2},
     // };
     Double_t btagEff = 1.0;
-    switch(jetFlavor){
-    case 4: //c
+    switch (jetFlavor)
+    {
+    case 4: // c
         btagEff = get2DSF(jetPt, jetEta, btagEff_c, 0);
         break;
-    case 5: //b
+    case 5: // b
         btagEff = get2DSF(jetPt, jetEta, btagEff_b, 0);
         break;
-    default: //b
+    default: // b
         btagEff = get2DSF(jetPt, jetEta, btagEff_l, 0);
         break;
-
     }
     return btagEff;
-
 }
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
@@ -863,7 +870,8 @@ Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D
     return weight;
 }
 
-void getLorentzVec(const TTreeReaderArray<Double_t>& ptVec, const TTreeReaderArray<Double_t>& etaVec, const TTreeReaderArray<Double_t>& phiVec, const TTreeReaderArray<Double_t>& massVec, std::vector<ROOT::Math::PtEtaPhiMVector>& outLorVec ){
+void getLorentzVec(const TTreeReaderArray<Double_t> &ptVec, const TTreeReaderArray<Double_t> &etaVec, const TTreeReaderArray<Double_t> &phiVec, const TTreeReaderArray<Double_t> &massVec, std::vector<ROOT::Math::PtEtaPhiMVector> &outLorVec)
+{
     outLorVec.clear();
     for (UInt_t i = 0; i < ptVec.GetSize(); i++)
     {
@@ -871,7 +879,6 @@ void getLorentzVec(const TTreeReaderArray<Double_t>& ptVec, const TTreeReaderArr
         outLorVec.push_back(iLorentz);
     }
 }
-
 
 // void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec)
 // {

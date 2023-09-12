@@ -51,36 +51,40 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     leptonsMVAT.insert(leptonsMVAT.end(), eleTopMVAT.begin(), eleTopMVAT.end());
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
-
     taus_leptonsTopMVA_chargeMulti = chargeMulCal(e->tausT_charge, e->Muon_charge_, e->muonsTopMVAT_index, e->Electron_charge_, e->elesTopMVAT_index);
 
     switch (m_type)
     {
     case 0:
-        if(e->tausT_jetPt.GetSize()>0){
+        if (e->tausT_jetPt.GetSize() > 0)
+        {
             taus_1jetPt = e->tausT_jetPt.At(0);
             taus_1jetEtaAbs = e->tausT_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausT_genPartFlav);//!!!
+            taus_genTauNum = calGenTauNum(e->tausT_genPartFlav); //!!!
+            taus_prongNum = getTauProng(e->tausT_decayMode);
         }
         break;
     case 1:
-        if(e->tausF_jetPt.GetSize()>0){
+        if (e->tausF_jetPt.GetSize() > 0)
+        {
             taus_1jetPt = e->tausF_jetPt.At(0);
             taus_1jetEtaAbs = e->tausF_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausF_genPartFlav);//!!!
+            taus_genTauNum = calGenTauNum(e->tausF_genPartFlav); //!!!
+            taus_prongNum = getTauProng(e->tausF_decayMode);
         }
         break;
     case 2:
-        if(e->tausL_jetPt.GetSize()>0){
+        if (e->tausL_jetPt.GetSize() > 0)
+        {
             taus_1jetPt = e->tausL_jetPt.At(0);
             taus_1jetEtaAbs = e->tausL_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausL_genPartFlav);//!!!
+            taus_genTauNum = calGenTauNum(e->tausL_genPartFlav); //!!!
+            taus_prongNum = getTauProng(e->tausL_decayMode);
         }
         break;
     default:
         break;
     }
-
 }
 
 void TauVarMaker::clearBranch()
@@ -92,6 +96,7 @@ void TauVarMaker::clearBranch()
     taus_minDeltaR = -99;
     taus_genTauNum = -99;
     taus_leptonsTopMVA_chargeMulti = -99;
+    taus_prongNum = -99;
 
     taus_1jetPt = -99;
     taus_1jetEtaAbs = -99;
