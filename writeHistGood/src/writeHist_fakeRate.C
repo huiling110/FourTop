@@ -6,6 +6,7 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
+/*
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
     // might need error handling for this
@@ -22,7 +23,8 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
     }
     Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 0);
     Double_t FR_sigma = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 5);
-    if(FR>0.5){
+    if (FR > 0.5)
+    {
         FR = 0.1;
         FR_sigma = 0.1;
     }
@@ -50,8 +52,51 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
     return FRWeight;
 }
+*/
 
-void pushBackHiscVec( std::vector<std::shared_ptr<histForRegionsBase>>& histsForRegion_vec, const std::vector<TString>& regionsForVariables, TString m_processName, event* e){
+
+//old code
+Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
+{
+    // might need error handling for this
+    // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
+    // set the default FRWeight to the last bin
+    TH2D *FR_TH2D;
+    if (taus_1prongNum == 1)
+    {
+        FR_TH2D = FR_TH2D_1prong;
+    }
+    else
+    {
+        FR_TH2D = FR_TH2D_3prong;
+    }
+    Int_t binxNum = FR_TH2D->GetNbinsX();
+    Int_t binyNum = FR_TH2D->GetNbinsY();
+    Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
+    Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
+    if (taus_1pt > 20.0 && taus_1pt <= 300.0)
+    {
+
+        Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
+        Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
+        FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
+        FR_sigma = FR_TH2D->GetBinError(binx, biny);
+        //???need better error handling
+        // if (FR < 0.000001)
+        // {
+        // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
+        // std::exit(1);
+        // }
+    }
+    Double_t FRWeight = FR / (1 - FR);
+    FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
+    FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
+    return FRWeight;
+}
+
+
+void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForRegion_vec, const std::vector<TString> &regionsForVariables, TString m_processName, event *e)
+{
     histsForRegion_vec.clear();
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
@@ -73,12 +118,12 @@ void pushBackHiscVec( std::vector<std::shared_ptr<histForRegionsBase>>& histsFor
     SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_transMass));
     SP_d jets_avaregeDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_average_deltaR", "average(#Delta R)^{jets}", m_processName, 10, 1.2, 3.2, regionsForVariables, &(e->jets_average_deltaR));
     // SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "#sqrt{#prod_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 0.3, regionsForVariables, &(e->jets_4largestBscoreMulti));
-    SP_d jets_1btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1btag", "btag^{1st jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_1btag));
-    SP_d jets_2btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2btag", "btag^{2nd jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_2btag));
-    SP_d jets_3btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3btag", " btag^{3rd jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_3btag));
-    SP_d jets_4btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4btag", "btag^{4th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_4btag));
-    SP_d jets_5btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5btag", "btag^{5th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_5btag));
-    SP_d jets_6btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6btag", "6th jet btag",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_6btag));
+    SP_d jets_1btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1btag", "btag^{1st jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_1btag));
+    SP_d jets_2btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2btag", "btag^{2nd jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_2btag));
+    SP_d jets_3btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3btag", " btag^{3rd jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_3btag));
+    SP_d jets_4btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4btag", "btag^{4th jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_4btag));
+    SP_d jets_5btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5btag", "btag^{5th jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_5btag));
+    SP_d jets_6btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6btag", "6th jet btag", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_6btag));
     // SP_d = std::make_shared<histsForRegionsMap<Double_t>>("", 10));
 
     SP_d MET_pt_class = std::make_shared<histsForRegionsMap<Double_t>>("MET_pt", "MET", m_processName, 10, 0, 500, regionsForVariables, &(e->MET_pt));
@@ -98,12 +143,11 @@ void pushBackHiscVec( std::vector<std::shared_ptr<histForRegionsBase>>& histsFor
     SP_d muonsTopMVAT_1t_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->muonsTopMVAT_1pt));
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->elesTopMVAT_1pt));
 
-
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
-    SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}",m_processName, 3, -1.5, 1.5, regionsForVariables,  &(e->tausT_leptonsTopMVA_chargeMulti));
+    SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->tausT_leptonsTopMVA_chargeMulti));
 
-    //I guess jets_1pt_class goes out range and destroyed after this function
+    // I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
     histsForRegion_vec.push_back(jets_bScore_class);
     histsForRegion_vec.push_back(jets_num_class);
@@ -143,14 +187,12 @@ void pushBackHiscVec( std::vector<std::shared_ptr<histForRegionsBase>>& histsFor
     histsForRegion_vec.push_back(elesTopMVAT_1pt_class);
     // histsForRegion_vec.push_back();
 
-
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(tausT_leptonsTopMVA_chargeMulti_class);
-
 }
 
-
-void WH_fakeRate::Init(){
+void WH_fakeRate::Init()
+{
     std::cout << "Start to initilation....................................................\n";
 
     // FR weighted
@@ -180,20 +222,20 @@ void WH_fakeRate::Init(){
         "1tau0lCRcGen",
         "1tau0lCRcLTauNotT_Weighted",    // 29
         "1tau0lCRcLTauNotTGen_Weighted", // 30
-        //CRb
+        // CRb
         "1tau0lCRb", // 27
         "1tau0lCRbGen",
         "1tau0lCRbLTauNotT_Weighted",    // 29
         "1tau0lCRbLTauNotTGen_Weighted", // 30
         // FR uncertainty variation
-        "1tau0lVRLTauNotT_Weighted_up",      // 19
-        "1tau0lVRLTauNotT_Weighted_down",    //
-        "1tau0lVRLTauNotTGen_Weighted_up",   //
-        "1tau0lVRLTauNotTGen_Weighted_down", //
-        "1tau0lSRLTauNotT_Weighted_up",      // 23
-        "1tau0lSRLTauNotT_Weighted_down",    // 24
-        "1tau0lSRLTauNotTGen_Weighted_up",   // 25
-        "1tau0lSRLTauNotTGen_Weighted_down", // 26
+        "1tau0lVRLTauNotT_Weighted_up",       // 19
+        "1tau0lVRLTauNotT_Weighted_down",     //
+        "1tau0lVRLTauNotTGen_Weighted_up",    //
+        "1tau0lVRLTauNotTGen_Weighted_down",  //
+        "1tau0lSRLTauNotT_Weighted_up",       // 23
+        "1tau0lSRLTauNotT_Weighted_down",     // 24
+        "1tau0lSRLTauNotTGen_Weighted_up",    // 25
+        "1tau0lSRLTauNotTGen_Weighted_down",  // 26
         "1tau0lCRcLTauNotT_Weighted_up",      // 15
         "1tau0lCRcLTauNotT_Weighted_down",    // 16
         "1tau0lCRcLTauNotTGen_Weighted_up",   //
@@ -206,19 +248,19 @@ void WH_fakeRate::Init(){
     };
     pushBackHiscVec(histsForRegion_vec, regionsForFRWeighting, m_processName, e);
 
-    //get FR hists
+    // get FR hists
     TFile *FRFile = new TFile(WH::FRfileMap.at(m_era).at(0).Data(), "READ");
     FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
     TFile *FRFile_3prong = new TFile(WH::FRfileMap.at(m_era).at(1).Data(), "READ");
     FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
-    printf("Reading FR file:%s \n", FRFile->GetName());
-
+    printf("Reading FR file 1prong: %s \n", FRFile->GetName());
+    printf("Reading FR file 3prong: %s \n", FRFile_3prong->GetName());
 
     std::cout << "Initialization done\n\n";
 }
 
-
-void WH_fakeRate::LoopTree(UInt_t entry){
+void WH_fakeRate::LoopTree(UInt_t entry)
+{
     Long64_t allEvent = m_tree->GetEntries();
     if (entry > 0)
     {
@@ -235,19 +277,20 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             continue;
         }
         // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
-        if(!(e->tausF_num.v()==1 && (e->elesTopMVAT_num.v()+e->muonsTopMVAT_num.v()==0) )){
-        // if(!(e->tausF_num.v()==1  )){
+        if (!(e->tausF_num.v() == 1 && (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v() == 0)))
+        {
+            // if(!(e->tausF_num.v()==1  )){
             continue;
         }
 
-        //event weight
+        // event weight
         Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData, i);
         Double_t FRWeight_up, FRWeight_down;
         Double_t FRWeight = 1.0;
-    // if (!m_ifMeasurement)
-    // {
+        // if (!m_ifMeasurement)
+        // {
         FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
-    // }
+        // }
         // std::cout << "FRWeight=" << FRWeight << "\n";
 
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
@@ -256,7 +299,7 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
         Bool_t noTauT = (e->tausT_num.v() == 0);
         // 1tau0l
-        Bool_t is1tau0lVR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1; //new MR
+        Bool_t is1tau0lVR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1; // new MR
         Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lVRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lVRLTauNotTGen = is1tau0lVRLTauNotT && isTauLNumGen;
@@ -264,14 +307,14 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         Bool_t is1tau0lSR = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
         Bool_t is1tau0lSRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
         Bool_t is1tau0lSRLTauNotTGen = is1tau0lSRLTauNotT && isTauLNumGen;
-        // CRc 
-        Bool_t is1tau0lCRc = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;//new VR
+        // CRc
+        Bool_t is1tau0lCRc = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2; // new VR
         Bool_t is1tau0lCRcLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
         Bool_t is1tau0lCRcLTauNotTGen = is1tau0lCRcLTau && noTauT && isTauLNumGen;
         // Bool_t is1tau0lCRcLTauNotTGen
 
         //
-        Bool_t is1tau0lCRb = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;// new CR
+        Bool_t is1tau0lCRb = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1; // new CR
         Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lCRbLTauNotTGen = is1tau0lCRbLTau && noTauT && isTauLNumGen;
 
@@ -280,7 +323,8 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
 
-        if(!m_isData){
+        if (!m_isData)
+        {
             histRegionVectFill(histsForRegion_vec, is1tau0lSR && isTauTNumGen, "1tau0lSRGen", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lVR && isTauTNumGen, "1tau0lVRGen", basicWeight, m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lCRc && isTauTNumGen, "1tau0lCRcGen", basicWeight, m_isData);
@@ -301,9 +345,9 @@ void WH_fakeRate::LoopTree(UInt_t entry){
         }
         else
         {
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);//to fill weight for data
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_up", FRWeight_up, !m_isData);//to fill weight for data
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_down", FRWeight_down, !m_isData);//to fill weight for data
+            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);           // to fill weight for data
+            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_up", FRWeight_up, !m_isData);     // to fill weight for data
+            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_down", FRWeight_down, !m_isData); // to fill weight for data
             histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted", FRWeight, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_up", FRWeight_up, !m_isData);
             histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_down", FRWeight_down, !m_isData);
@@ -315,7 +359,7 @@ void WH_fakeRate::LoopTree(UInt_t entry){
             histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
         }
     }
-        std::cout << "end of event loop\n\n";
+    std::cout << "end of event loop\n\n";
 }
 
 void WH_fakeRate::Terminate()
@@ -325,11 +369,13 @@ void WH_fakeRate::Terminate()
     {
         Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
-        std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
+        std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
         histRegionsVectScale(histsForRegion_vec, processScale);
     };
-    for(UInt_t i=0; i<histsForRegion_vec.size(); i++){
-        if(i>0){
+    for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
+    {
+        if (i > 0)
+        {
             continue;
         }
         histsForRegion_vec.at(i)->print();
@@ -339,7 +385,8 @@ void WH_fakeRate::Terminate()
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 }
 
-WH_fakeRate::~WH_fakeRate(){
+WH_fakeRate::~WH_fakeRate()
+{
     m_file->Close();
     m_outFile->Close();
 }
