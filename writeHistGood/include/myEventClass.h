@@ -148,6 +148,10 @@ public:
     myBranch<Double_t> jets_4btag{"jets_4btag"};
     myBranch<Double_t> jets_5btag{"jets_5btag"};
     myBranch<Double_t> jets_6btag{"jets_6btag"};
+    myBranch<Double_t> jets_bScoreMultiply{"jets_bScoreMultiply"};
+    myBranch<Double_t> jets_4largestBscoreSum{"jets_4largestBscoreSum"};
+    myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
+
     myBranch<Double_t> MET_pt{"MET_pt"};
     myBranch<Double_t> bjetsM_MHT{"bjetsM_MHT"};
     myBranch<Double_t> bjetsM_1pt{"bjetsM_1pt"};
@@ -166,6 +170,7 @@ public:
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
+    myBranch<Double_t> tausF_1pt{"tausF_1pt"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -266,6 +271,9 @@ private:
         {jets_4btag.n(), &jets_4btag},
         {jets_5btag.n(), &jets_5btag},
         {jets_6btag.n(), &jets_6btag},
+        {jets_bScoreMultiply.n(), &jets_bScoreMultiply},
+        {jets_4largestBscoreSum.n(), &jets_4largestBscoreSum},
+        {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
         {MET_pt.n(), &MET_pt},
         {bjetsM_MHT.n(), &bjetsM_MHT},
         {bjetsM_1pt.n(), &bjetsM_1pt},
@@ -282,6 +290,7 @@ private:
         {tausF_num.n(), &tausF_num},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
+        {tausF_1pt.n(), &tausF_1pt},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
