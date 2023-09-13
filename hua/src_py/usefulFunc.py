@@ -99,6 +99,13 @@ def isRun3(inputDir):
         isRun3 = True
     return isRun3
 
+def isRun3Era(era):
+    isRun3 = False
+    if '2022' in era:
+        isRun3 = True
+    return isRun3    
+    
+
 def getDirDic(inputMC):
     inputDirDic = {
         'mc': inputMC,

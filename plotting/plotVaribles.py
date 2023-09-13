@@ -306,6 +306,10 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle('Events')
+    stack.GetYaxis().SetTitleOffset(1.2)
+    stack.GetYaxis().SetTitleSize(0.06)
+    stack.GetYaxis().SetLabelSize(0.033)
+
 
     if includeDataInStack and hasDataHist:
         dataHist.SetLineWidth(1)
@@ -379,7 +383,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     
     #text above the plot
     # ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
-    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era, isRun3=True)     # good for 2022
+    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
     
     
     canvy.Update()

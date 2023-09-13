@@ -1,5 +1,7 @@
 import ROOT
+
 from ttttGlobleQuantity import lumiMap
+import usefulFunc as uf
 
 
 def setTDRStyle() :
@@ -96,7 +98,7 @@ def setTDRStyle() :
   tdrStyle.cd()
   return tdrStyle
 
-def addCMSTextToCan(canvas, x1=0.23, x2=0.35,x3=0.7, y=0.96, era = '2016', isRun3=False):
+def addCMSTextToCan(canvas, x1=0.23, x2=0.35,x3=0.7, y=0.96, era = '2016'):
     can = canvas
      
     cmsTextFont = 61
@@ -116,6 +118,7 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35,x3=0.7, y=0.96, era = '2016', isRun
   
     lumiText = lumiMap[era] /1000
     lumiText_s = '{0:.1f}'.format(lumiText)
+    isRun3 = uf.isRun3Era(era)
     energy = '13'
     if isRun3:
         energy = '13.6'
