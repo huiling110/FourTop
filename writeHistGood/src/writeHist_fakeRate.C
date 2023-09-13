@@ -6,7 +6,7 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
+Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Int_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
     // might need error handling for this
     // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
@@ -37,7 +37,7 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Do
         break;
     }
 
-    Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 0);
+    Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta)IntH2D, 0);
     Double_t FR_sigma = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 5);
     if (FR > 0.5)
     {
