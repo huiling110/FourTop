@@ -389,6 +389,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     canvy.Update()
 
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
+    canvy.SaveAs(outDir+"{}_{}_{}.pdf".format(region,name, savePost))
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
