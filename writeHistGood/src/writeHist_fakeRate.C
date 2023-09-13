@@ -37,7 +37,7 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
         break;
     }
 
-    Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta)IntH2D, 0);
+    Double_t FR = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 0);
     Double_t FR_sigma = TTTT::get2DSF(taus_1pt, std::abs(taus_1eta), FR_TH2D, 5);
     if (FR > 0.5)
     {
@@ -67,48 +67,7 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
     FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
     return FRWeight;
-}
-
-
-//old code
-// Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Double_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
-// {
-//     // might need error handling for this
-//     // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
-//     // set the default FRWeight to the last bin
-//     TH2D *FR_TH2D;
-//     if (taus_1prongNum == 1)
-//     {
-//         FR_TH2D = FR_TH2D_1prong;
-//     }
-//     else
-//     {
-//         FR_TH2D = FR_TH2D_3prong;
-//     }
-//     Int_t binxNum = FR_TH2D->GetNbinsX();
-//     Int_t binyNum = FR_TH2D->GetNbinsY();
-//     Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
-//     Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
-//     if (taus_1pt > 20.0 && taus_1pt <= 300.0)
-//     {
-
-//         Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
-//         Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-//         FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
-//         FR_sigma = FR_TH2D->GetBinError(binx, biny);
-//         //???need better error handling
-//         // if (FR < 0.000001)
-//         // {
-//         // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-//         // std::exit(1);
-//         // }
-//     }
-//     Double_t FRWeight = FR / (1 - FR);
-//     FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
-//     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
-//     return FRWeight;
-// }
-
+};
 
 void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForRegion_vec, const std::vector<TString> &regionsForVariables, TString m_processName, event *e)
 {
@@ -121,7 +80,6 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
     SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
     SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_HT));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 10, 40, 140, regionsForVariables, &(e->jets_6pt));
-    // SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 40, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 10, 40, 600, regionsForVariables, &(e->jets_2pt));
     SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 10, 40, 140, regionsForVariables, &(e->jets_3pt));
     SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 10, 40, 300, regionsForVariables, &(e->jets_4pt));
@@ -154,6 +112,8 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
     SP_d tausT_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_HT", "HT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_HT));
     SP_d tausT_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_MHT", "MHT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_MHT));
     SP_d tausT_leptonsT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_leptonsT_invariantMass", "m_{#tau and lep}(GeV)", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_leptonsT_invariantMass));
+    SP_d tausF_1eta_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1eta", "#eta^{ #tau}", m_processName, 24, -2.4, 2.4, regionsForVariables, &(e->tausF_1eta));
+    SP_d tausF_1jetPtFR_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1jetPtFRWeight", " #tau's mother jet  p_{T}(GeV)", m_processName, 28, 20, 300, regionsForVariables, &(e->tausF_1jetPt));
 
     SP_d muonsTopMVAT_1t_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->muonsTopMVAT_1pt));
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->elesTopMVAT_1pt));
@@ -161,6 +121,9 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->tausT_leptonsTopMVA_chargeMulti));
+    SP_i tausF_prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_prongNum", " #tau prong", m_processName, 3, 1, 4, regionsForVariables, &(e->tausF_prongNum));
+    SP_i tausF_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_charge", " #tau charge", m_processName, 2, -2, 2, regionsForVariables, &(e->tausF_1charge));
+    SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", " #tau decay mode", m_processName, 12, 0, 12, regionsForVariables, &(e->tausF_1decayMode));
 
     // I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
