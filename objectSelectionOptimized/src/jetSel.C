@@ -225,6 +225,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
             break;
         case 2:
             ijet_sf = corr_jerSF->evaluate({ieta, "down"});
+            break;
         default:
             std::cout << "!!!JER sf not getting correctly\n";
             break;

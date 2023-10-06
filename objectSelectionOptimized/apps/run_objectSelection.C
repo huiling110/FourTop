@@ -43,6 +43,7 @@ void run_objectSelection(
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
 
     Int_t JER = 0; //0 : JER nominal
+    // Int_t JER = 2; 
     Int_t TES = 0; //0: nominal
     os.EventLoop(kTRUE, eventNum, TES, JER);
 
