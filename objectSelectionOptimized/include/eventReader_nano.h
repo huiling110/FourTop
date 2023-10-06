@@ -108,9 +108,8 @@ public:
                                         Jet_eta(reader, "Jet_eta"),
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
-                                        Jet_btagDeepB(reader, "Jet_btagDeepB")
-    // Jet_hadronFlavour(reader, "Jet_hadronFlavour")
-    // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+                                        Jet_btagDeepB(reader, "Jet_btagDeepB"),
+                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -301,7 +300,7 @@ public:
     TTreeReaderArray<Int_t> Jet_jetId;
     TTreeReaderArray<Float_t> Jet_btagDeepB;
     TTreeReaderArray<Int_t> *Jet_hadronFlavour;
-    // TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
+    TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
 };
 
 #endif

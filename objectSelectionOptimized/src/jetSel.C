@@ -191,19 +191,18 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
     // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
+    //https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetSmearer.py
     auto corr_jerSF = cset_jerSF->at(corr_SF_map[m_era].at(0).Data());
     auto corr_jerResolution = cset_jerSF->at(corr_SF_map[m_era].at(2).Data());
 
-    //???not sure how to get the JEC uncertainty for data yet?
     // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
     auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
+    //???not sure how to get the JEC uncertainty for data yet?
 
     JER_SF_new.clear();
 
-    Double_t iSF = 1.0;
-    // Double_t iSF_up = 1.0;
-    // Double_t iSF_down = 1.0;
+    Double_t iSF = 1.0; //SF for JER, I think JER is derived on top of JES
     Double_t iSF_JESuncer = 0.0;
     const Double_t MIN_JET_ENERGY = 1e-2;
     for (UInt_t i = 0; i < e->Jet_pt.GetSize(); i++)
@@ -218,11 +217,8 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
 
         Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"}); // JER_SF_new
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
-        // iSF_up = corr_jerSF->evaluate({Jet_eta.At(i), "up"});
-        // iSF_down = corr_jerSF->evaluate({Jet_eta.At(i), "down"});
-        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // jet_resolution
-        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
-        // Double_t ijet_res = corr_jerResolution->evaluate({{rawJetPt, ieta, *fixedGridRhoFastjetAll}}); // jet_resolution
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
         // what is this rho? average energy density , for a event
 
         // find gen matching
@@ -233,14 +229,11 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
             {
                 // Case 1: we have a "good" generator level jet matched to the reconstructed jet
                 Double_t dPt = ipt - (*e->GenJet_pt)[genMatchIndex];
-                // Double_t dPt = rawJetPt - GenJet_pt[genMatchIndex];
                 iSF = 1 + (ijet_sf - 1.) * dPt / ipt;
-                // iSF = 1 + (ijet_sf - 1.) * dPt / rawJetPt;
             }
             else
             { // Case 2: we don't have a gen jet. Smear jet pt using a random gaussian variation
                 Double_t sigma = ijet_res * std::sqrt(ijet_sf * ijet_sf - 1);
-
                 std::normal_distribution<> d(0, sigma);
                 iSF = 1. + d(m_random_generator); // m_random_generator = std::mt19937(seed) //std::uint32_t>("seed", 37428479);
             }
