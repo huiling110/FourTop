@@ -35,27 +35,26 @@ JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetTy
 
 JetSel::~JetSel(){};
 
-void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
+// void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
+void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
+    // JER: 0: nominal, 1: up, 2: down; 3: no JER
     clearBranch();
-    calJER_SF(e, isData);
+    calJER_SF(e, isData, JER);
 
     Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
-        // Double_t jetpt = static_cast<Double_t>(e->Jet_pt.At(j));//???
         Double_t jetpt = e->Jet_pt.At(j);
         Double_t ijetMass = e->Jet_mass.At(j);
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
-        if (ifJER)
+        if (JER<3)
         {
             jetpt = jetpt * JER_SF_new.at(j);
             ijetMass = ijetMass * JER_SF_new.at(j);
-            // jetpt *= jetSmearingFactors[j];
-            // ijetMass *= jetSmearingFactors[j];
         }
         // maybe scaling only changes pt and mass? yes!
         switch (sysJEC)
@@ -78,7 +77,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue;
         if (!(fabs(ijetEta) < 5.0))
             continue;
-        // cout << "jetId = " << e->Jet_jetId.At(j)<<"\n";
         if (!(e->Jet_jetId.At(j) > 0))
             continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
@@ -184,8 +182,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     }
 };
 
-// void JetSel::calJER_SF(const eventForNano *e, const Bool_t isData)
-void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
+void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
 {
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
     // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
@@ -215,8 +212,24 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData)
         // std::cout << "Jet_rawFactor=" << Jet_rawFactor[i] << "\n";
         // Double_t rawJetPt = ipt * (1 - Jet_rawFactor[i]);
 
-        Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"}); // JER_SF_new
+        // Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"}); // JER_SF_new
+        Double_t ijet_sf = 1.0; // JER_SF_new
         // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+        switch (sys)
+        {
+        case 0:
+            ijet_sf = corr_jerSF->evaluate({ieta, "nom"});
+            break;
+        case 1:
+            ijet_sf = corr_jerSF->evaluate({ieta, "up"});
+            break;
+        case 2:
+            ijet_sf = corr_jerSF->evaluate({ieta, "down"});
+        default:
+            std::cout << "!!!JER sf not getting correctly\n";
+            break;
+        }
+
         Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
         // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
         // what is this rho? average energy density , for a event

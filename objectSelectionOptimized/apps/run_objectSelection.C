@@ -29,7 +29,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    Int_t eventNum = 5000)
+    Int_t eventNum = 1000)
 // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 // Bool_t istest = kTRUE)
@@ -41,8 +41,13 @@ void run_objectSelection(
     TString era = TTTT::getEra(inputDir);
     const Bool_t isRun3 = TTTT::isRun3(era);
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
+
+    Int_t JER = 0; //0 : JER nominal
+    Int_t TES = 0; //0: nominal
+    os.EventLoop(kTRUE, eventNum, TES, JER);
+
     // os.EventLoop(kTRUE, eventNum);
-    os.EventLoop(kTRUE, eventNum, 0, kTRUE);
+    // os.EventLoop(kTRUE, eventNum, 0, kTRUE);
     // os.EventLoop(kTRUE, eventNum, 4, kFALSE); //no JER, no TES
     os.Terminate();
     // os.EventLoop(kFALSE, eventNum);

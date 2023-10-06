@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Bool_t ifJER)
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
