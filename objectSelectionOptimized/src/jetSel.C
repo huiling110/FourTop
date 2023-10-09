@@ -41,6 +41,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     // JER: 0: nominal, 1: up, 2: down; 3: no JER
+    // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
     calJER_SF(e, isData, JER);
 
@@ -51,11 +52,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t ijetMass = e->Jet_mass.At(j);
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
-        if (JER<3)
-        {
-            jetpt = jetpt * JER_SF_new.at(j);
-            ijetMass = ijetMass * JER_SF_new.at(j);
-        }
         // maybe scaling only changes pt and mass? yes!
         switch (sysJEC)
         {
@@ -72,6 +68,13 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         default:
             break;
         }
+        //first JES and then JER
+        if (JER<3)
+        {
+            jetpt = jetpt * JER_SF_new.at(j);
+            ijetMass = ijetMass * JER_SF_new.at(j);
+        }
+
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
             continue;
@@ -195,7 +198,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
     // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
     auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
-    //???not sure how to get the JEC uncertainty for data yet?
+    //!!!not sure how to get the JEC uncertainty for data yet?
 
     JER_SF_new.clear();
 
@@ -260,9 +263,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
                 iSF = newSmearFactor;
             }
 
-            // iSF_JES = corr_jesSF_L1->evaluate({ieta, ipt, "nom"});
-            // iSF_JES = corr_jesSF_L1->evaluate({ Jet_area.At(i), ieta, ipt, 0.0 });
-            iSF_JESuncer = corr_jesUncer->evaluate({ieta, ipt});
+            iSF_JESuncer = corr_jesUncer->evaluate({ieta, ipt}); //!!! do you need the pt to be raw?
         }
         // std::cout << "iJERSF: " << iSF << "\n";
         // std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
