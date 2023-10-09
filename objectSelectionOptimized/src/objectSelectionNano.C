@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER)
+void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER, const Int_t sysJEC)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -14,7 +14,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
     {
         entryCount++;
         if(entryCount==1){
-            std::cout << "tauTES=" << tauTES << ";  ifJER=" << ifJER << ";  preSelection="<<preSelection<<"\n";
+            std::cout << "tauTES=" << tauTES << ";  JER=" << ifJER << "; JES="<<sysJEC<<";  preSelection="<< preSelection << "\n";
         }
 
         Double_t genWeight = 1.0;
@@ -65,7 +65,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
-        const Int_t sysJEC = 0;
+        // const Int_t sysJEC = 0;
         jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         jetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         bjetMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
