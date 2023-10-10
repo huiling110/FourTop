@@ -32,6 +32,42 @@ WH_HLTeff::WH_HLTeff(const TString inputDir, const TString process, TString outV
 void WH_HLTeff::Init()
 {
     std::cout << "Start to initilation....................................................\n";
+
+    std::vector<TString>
+        regionsForVariables = {
+            "baseline1Muon",
+            "baseline1MuonAndHLT",
+            "baseline",       // for MC true efficiency
+            "baselineAndHLT", // for MC true efficiency
+        };
+
+
+    using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
+    using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
+    SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 625, regionsForVariables, &(e->jets_1pt));
+    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 8, 25, 145, regionsForVariables, &(e->jets_6pt));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 40, 500, 2500, regionsForVariables, &(e->jets_HT));
+    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 13, -0.5, 12.5, regionsForVariables, &(e->jets_num));
+    SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
+
+    histsForRegion_vec.clear();
+    histsForRegion_vec.push_back(jets_1pt_class);
+    histsForRegion_vec.push_back(jets_6pt_class);
+    histsForRegion_vec.push_back(jets_HT_class);
+    histsForRegion_vec.push_back(jets_num_class);
+    histsForRegion_vec.push_back(bjetsM_num_class);
+
+    // 2D for SF
+    Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
+    Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
+    // Double_t xbins[] = {500, 600, 700, 800, 900, 1000, 1200, 1600, 2500}; // HT
+    // Double_t ybins[] = {40, 55, 80, 145};                                 // 6th jet pt
+    b1HT6pt_de = new TH2D("baseline1Muon1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_nu = new TH2D("baseline1MuonAndHLT1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_de = new TH2D("baseline1Muon2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
 }
 
 void WH_HLTeff::LoopTree(UInt_t entry)

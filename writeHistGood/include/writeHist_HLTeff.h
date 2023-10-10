@@ -9,6 +9,7 @@
 #include <TH2D.h>
 
 #include "myEventClass.h"
+#include "histsForRegionsMap_class.h"
 
 class WH_HLTeff
 {
@@ -24,6 +25,15 @@ private:
     TString m_outputFolder;
     TFile *m_outFile;
     event *e;
+
+    std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;
+
+    TH2D *b1HT6pt_de;
+    TH2D *b1HT6pt_nu;
+    TH2D *b2HT6pt_de;
+    TH2D *b2HT6pt_nu;
+    TH2D *b3HT6pt_de;
+    TH2D *b3HT6pt_nu;
 
 
 public:
