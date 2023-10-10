@@ -4,6 +4,8 @@
 
 PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3): m_isRun3{isRun3}
 {
+    //!!!don't understand this pileup correction and not sure if it's correct
+    //https://cms-talk.web.cern.ch/t/pileup-reweighting-questions/30405
     std::cout << "Initializing PUWeightCal...........\n";
     std::cout << "m_isRun3=" << m_isRun3 << "\n";
     // if (!isData )
