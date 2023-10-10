@@ -11,10 +11,11 @@ def main():
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
     directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-    threshold_time = time.time() - (200 * 24 * 60 * 60)  # Delete folders older than 7 days
+    removeOlderDays = 60
     # ifDryRun = True
     ifDryRun = False #!!!careful setting this!!!
 
+    threshold_time = time.time() - (removeOlderDays * 24 * 60 * 60)  # Delete folders older than 7 days
     delete_folders(directory_path, threshold_time, ifDryRun)
 
 

@@ -25,7 +25,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v59newOScode/'
 # jobVersionName = 'v60fixeJetBtagBug/'
 # jobVersionName = 'v61fixesLepRemovalBug/'
-jobVersionName = 'v62addTauJetVars/'
+# jobVersionName = 'v62addTauJetVars/'
+jobVersionName = 'v63smallFixJER/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -45,10 +46,10 @@ def main():
     # era = '2022_13p6/NanoPost/2022preEE'
     # onlyMC = True
    # 1 for MetFilters, 2 for HLTSelection, 4 for preSelection. so 7 if all selection; 0 if no selection 
-    # dataList = [ 'jetHT', 'singleMu'] 
+    dataList = [ 'jetHT', 'singleMu'] 
     # dataList = [ 'JetHT', 'JetMet'] # 2022
     # dataList = ['singleMu'] 
-    dataList = ['jetHT']
+    # dataList = ['jetHT']
 
     print( "era: ", era )
 
