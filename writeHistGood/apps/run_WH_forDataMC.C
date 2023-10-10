@@ -9,12 +9,9 @@
 #include "../include/writeHist_btagEff.h"
 #include "../include/writeHist_btagShapeR.h"
 #include "../include/writeHist_fakeRate.h"
+#include "../include/writeHist_HLTeff.h"
 
 void run_treeAnalyzer(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineAddMoreSys_v58addGenBranches/mc/",
-    // TString process = "tZ",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightAdded_v59newOScode/data/",
@@ -52,12 +49,12 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    // std::vector<TString> eventWeight = ;
 
     // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
-    WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
+    // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
+    WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
     UInt_t entry = 0;
