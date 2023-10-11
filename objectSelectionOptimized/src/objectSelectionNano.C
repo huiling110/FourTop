@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER, const Int_t sysJEC)
+void objectSelection::EventLoop(Bool_t preSelection, Bool_t ifHLT, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER, const Int_t sysJEC)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -14,7 +14,7 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
     {
         entryCount++;
         if(entryCount==1){
-            std::cout << "tauTES=" << tauTES << ";  JER=" << ifJER << "; JES="<<sysJEC<<";  preSelection="<< preSelection << "\n";
+            std::cout << "tauTES=" << tauTES << ";  JER=" << ifJER << "; JES="<<sysJEC<<";  preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
         }
 
         Double_t genWeight = 1.0;
@@ -39,9 +39,11 @@ void objectSelection::EventLoop(Bool_t preSelection, ULong_t numEntries, const I
         CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
-        if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
-        {
-            continue; // contains event selection!!!
+        if(ifHLT){
+            if (!(HLTselection.Select(e, m_era, m_isData, kTRUE)))
+            {
+                continue; // contains event selection!!!
+            }
         }
         m_cutflow->Fill(2);
         CF_HLT->Fill(0., genWeight);

@@ -82,50 +82,78 @@ void WH_HLTeff::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        if (!(baselineSelection(e)))
+        const Bool_t baseline = baselineSelection(e);
+        // if (!(baselineSelection(e)))
+        if (!(baseline))
         {
             continue;
         }
 
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = kTRUE;
-        // if (m_era.CompareTo("2016") == 0)
-        // {
-        //     if (entry == 0)
-        //     {
-        //         std::cout << "HLT selection for 2016";
-        //     }
-        //     is1muon = *HLT_IsoMu24 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;                                   // 2016
-        //     ifHLT = *HLT_PFHT450_SixJet40_BTagCSV_p056 == 1 || *HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 == 1 || *HLT_PFJet450 == 1; // 2016
-        // }
-        // else if (m_era.CompareTo("2018") == 0)
-        // {
-        //     if (entry == 0)
-        //     {
-        //         std::cout << "HLT selection for 2018";
-        //     }
-        //     is1muon = *HLT_IsoMu27 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;
-        //     ifHLT = *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 == 1 || *HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 == 1 || *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 == 1 || *HLT_PFJet500 == 1;
-        // }
-        // else if (m_era.CompareTo("2017") == 0)
-        // {
-        //     if (entry == 0)
-        //     {
-        //         std::cout << "HLT selection for 2017\n";
-        //     }
-        //     is1muon = *HLT_IsoMu27 == 1 && *muonsTopMVAT_number == 1 && *muonsTopMVAT_1pt >= 30.;
-        //     ifHLT = *HLT_PFHT430_SixJet40_BTagCSV_p080 == 1 || *HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 == 1 || *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 == 1 || *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 == 1 || *HLT_PFJet500 == 1;
-        // }
+        if (m_era.CompareTo("2016") == 0)
+        {
+            if (i == 0)
+            {
+                std::cout << "HLT selection for 2016\n";
+            }
+            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
+            ifHLT = e->HLT_PFHT450_SixJet40_BTagCSV_p056.v() == 1 || e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.v() == 1 || e->HLT_PFJet450.v() == 1; // 2016
+        }
+        else if (m_era.CompareTo("2018") == 0)
+        {
+            if (i == 0)
+            {
+                std::cout << "HLT selection for 2018\n";
+            }
+            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+            ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() == 1 || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() == 1 || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() == 1 || e->HLT_PFJet500.v() == 1;
+        }
+        else if (m_era.CompareTo("2017") == 0)
+        {
+            if (i == 0)
+            {
+                std::cout << "HLT selection for 2017\n";
+            }
+            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+            ifHLT = e->HLT_PFHT430_SixJet40_BTagCSV_p080.v() == 1 || e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.v() == 1 || e->HLT_PFJet500.v() == 1;
+        }
 
+        Double_t basicWeight = 1.0;
+        if (!m_isData)
+        {
+            basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->musTopMVAT_weight.v()) * (e->btagWPMedium_weight.v());
+        }
 
-
-
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon, "baseline1Muon", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
     }
 
     std::cout << "end of event loop\n\n";
 };
 
 void WH_HLTeff::Terminate(){
+    std::cout << "Termintate: ..........................................\n";
+    if (!m_isData)
+    {
+        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+        std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
+        histRegionsVectScale(histsForRegion_vec, processScale);
+    };
+    for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
+    {
+        if (i > 0)
+        {
+            continue;
+        }
+        histsForRegion_vec.at(i)->print();
+    }
+
+    m_outFile->Write();
+    std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 
 };
 
