@@ -208,6 +208,23 @@ public:
     myBranch<Double_t> btagShape_weight_cferr1_down{"btagShape_weight_cferr1_down"};
     myBranch<Double_t> btagShape_weight_cferr2_down{"btagShape_weight_cferr2_down"};
 
+    //for HLT efficiency
+    myBranch<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056{"HLT_PFHT450_SixJet40_BTagCSV_p056"};
+    myBranch<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056{"HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+    myBranch<Int_t> HLT_PFJet450{"HLT_PFJet450"};
+    myBranch<Int_t> HLT_IsoMu24{"HLT_IsoMu24"};
+    myBranch<Int_t> HLT_IsoMu27{"HLT_IsoMu27"};
+
+    myBranch<Int_t> HLT_PFJet500{"HLT_PFJet500"};
+    myBranch<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+    myBranch<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+    myBranch<Int_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+    myBranch<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+    myBranch<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
+    //  2017
+    myBranch<Int_t> HLT_PFHT430_SixJet40_BTagCSV_p080{"HLT_PFHT430_SixJet40_BTagCSV_p080"};
+    myBranch<Int_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075{"HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
+    myBranch<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
 
     //for btag eff study
     std::vector<Double_t>* jets_pt_=nullptr;//???not sure why it has to be a pointer to read branch
@@ -327,6 +344,24 @@ private:
         {btagShape_weight_lfstats2_down.n(), &btagShape_weight_lfstats2_down},
         {btagShape_weight_cferr1_down.n(), &btagShape_weight_cferr1_down},
         {btagShape_weight_cferr2_down.n(), &btagShape_weight_cferr2_down},
+
+        {HLT_PFHT450_SixJet40_BTagCSV_p056.n(), &HLT_PFHT450_SixJet40_BTagCSV_p056},
+        {HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.n(), &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056},
+        {HLT_PFJet450.n(), &HLT_PFJet450},
+        {HLT_IsoMu24.n(), &HLT_IsoMu24},
+        {HLT_IsoMu27.n(), &HLT_IsoMu27},
+
+        {HLT_PFJet500.n(), &HLT_PFJet500},
+        {HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.n(), &HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5},
+        {HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.n(), &HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2},
+        {HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.n(), &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5},
+        {HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.n(), &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59},
+        {HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.n(), &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94},
+        //  2017
+        {HLT_PFHT430_SixJet40_BTagCSV_p080.n(), &HLT_PFHT430_SixJet40_BTagCSV_p080},
+        {HLT_PFHT380_SixJet32_DoubleBTagCSV_p075.n(), &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075},
+        {HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.n(), &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2},
+
     };
 
 
