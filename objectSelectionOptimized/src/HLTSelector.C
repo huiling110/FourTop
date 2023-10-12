@@ -35,7 +35,8 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     {
         // std::cout<<"HLT 2016\n";
         ifPass = **e->HLT_PFHT450_SixJet40_BTagCSV_p056 || **e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 || **e->HLT_PFJet450;
-        // ifPass = **(e->HLT_PFJet450);
+        HLT_PFHT450_SixJet40_BTagCSV_p056_ = **e->HLT_PFHT450_SixJet40_BTagCSV_p056;
+        HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = **e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
     }
     else if (era.CompareTo("2017") == 0)
     {

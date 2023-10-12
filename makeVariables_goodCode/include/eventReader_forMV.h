@@ -8,8 +8,27 @@
 class EventForMV
 {
 public:
-    EventForMV(TTreeReader &reader) : // HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
-                                      //   HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_")
+    EventForMV(TTreeReader &reader) :
+     HLT_PFHT450_SixJet40_BTagCSV_p056_(reader, "HLT_PFHT450_SixJet40_BTagCSV_p056_"),
+     HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_(reader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_"),
+     HLT_PFJet450_(reader, "HLT_PFJet450_"),
+     HLT_IsoMu24_(reader, "HLT_IsoMu24_"),
+     HLT_IsoMu27_(reader, "HLT_IsoMu27_"),
+     HLT_PFJet500_(reader, "HLT_PFJet500_"),
+     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_(reader, "HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_"),
+     HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_(reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_"),
+     HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_(reader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_"),
+     HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_"),
+     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_"),
+    // 2017
+     HLT_PFHT430_SixJet40_BTagCSV_p080_(reader, "HLT_PFHT430_SixJet40_BTagCSV_p080_"),
+     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_(reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_"),
+     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_(reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_"),
+    //2022
+     HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_"),
+     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
+
+
                                       muonsT_pt(reader, "muonsT_pt"),
                                       muonsT_eta(reader, "muonsT_eta"),
                                       muonsT_phi(reader, "muonsT_phi"),
@@ -100,8 +119,25 @@ public:
     ~EventForMV(){};
 
     // event branches reading
-    // TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;//!!!add in OS
-    // TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+    TTreeReaderValue<Int_t> HLT_PFJet450_;
+    TTreeReaderValue<Int_t> HLT_IsoMu24_;
+    TTreeReaderValue<Int_t> HLT_IsoMu27_;
+    TTreeReaderValue<Int_t> HLT_PFJet500_;
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    // 2017
+    TTreeReaderValue<Int_t> HLT_PFHT430_SixJet40_BTagCSV_p080_;
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
+    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
+    //2022
+    TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
+
     TTreeReaderArray<Double_t> muonsT_pt;
     TTreeReaderArray<Double_t> muonsT_eta;
     TTreeReaderArray<Double_t> muonsT_phi;

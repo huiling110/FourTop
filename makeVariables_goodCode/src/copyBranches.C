@@ -48,6 +48,27 @@ void CopyBranches::makeVariables(EventForMV *e)
     clearBranch();
     PV_npvsGood = *e->PV_npvsGood_;
 
+    //
+    HLT_PFHT450_SixJet40_BTagCSV_p056 = *e->HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = *e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+    HLT_PFJet450 = *e->HLT_PFJet450_;
+    HLT_IsoMu24 = *e->HLT_IsoMu24_;
+    HLT_IsoMu27 = *e->HLT_IsoMu27_;
+    HLT_PFJet500 = *e->HLT_PFJet500_;
+    HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = *e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = *e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = *e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = *e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = *e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    // 2017
+    HLT_PFHT430_SixJet40_BTagCSV_p080 = *e->HLT_PFHT430_SixJet40_BTagCSV_p080_;
+    HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = *e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
+    HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = *e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
+    //2022
+    HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = *e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = *e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
+
+
     copy_TTreeReaderArray_toVector(e->jets_pt, jets_pt_);
     copy_TTreeReaderArray_toVector(e->jets_eta, jets_eta_);
     copy_TTreeReaderArray_toVector(e->jets_btags, jets_btags_);
