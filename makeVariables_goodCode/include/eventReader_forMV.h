@@ -119,24 +119,24 @@ public:
     ~EventForMV(){};
 
     // event branches reading
-    TTreeReaderValue<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056_;
-    TTreeReaderValue<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
-    TTreeReaderValue<Int_t> HLT_PFJet450_;
-    TTreeReaderValue<Int_t> HLT_IsoMu24_;
-    TTreeReaderValue<Int_t> HLT_IsoMu27_;
-    TTreeReaderValue<Int_t> HLT_PFJet500_;
-    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
-    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
-    TTreeReaderValue<Int_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
-    TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
-    TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+    TTreeReaderValue<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056_;
+    TTreeReaderValue<Bool_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_;
+    TTreeReaderValue<Bool_t> HLT_PFJet450_;
+    TTreeReaderValue<Bool_t> HLT_IsoMu24_;
+    TTreeReaderValue<Bool_t> HLT_IsoMu27_;
+    TTreeReaderValue<Bool_t> HLT_PFJet500_;
+    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_;
+    TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+    TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
+    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
+    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
     // 2017
-    TTreeReaderValue<Int_t> HLT_PFHT430_SixJet40_BTagCSV_p080_;
-    TTreeReaderValue<Int_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
-    TTreeReaderValue<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
+    TTreeReaderValue<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080_;
+    TTreeReaderValue<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
+    TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
     //2022
-    TTreeReaderValue<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
-    TTreeReaderValue<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
+    TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
+    TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
 
     TTreeReaderArray<Double_t> muonsT_pt;
     TTreeReaderArray<Double_t> muonsT_eta;

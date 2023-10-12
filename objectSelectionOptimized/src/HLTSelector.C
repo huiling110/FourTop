@@ -18,7 +18,8 @@ HLTSelector::HLTSelector(TTree *outTree)
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_);
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
-    // outTree->Branch("", &);
+    outTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_);
+    outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
     std::cout<<"Done HLTSelector initializing .............\n";
     std::cout<<"\n";
 };
@@ -29,6 +30,8 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     // Here I manully set the branch value = nanoAOD value only when the trigger is supposed to work in the run period;
     // otherwise trigger=false;
     clearBranch();
+    HLT_IsoMu24_ = **e->HLT_IsoMu24;
+    HLT_IsoMu27_ = **e->HLT_IsoMu27;
     Bool_t ifPass = kFALSE;
     // the HLT branch pointer null pointer is not exist in a file
     if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
