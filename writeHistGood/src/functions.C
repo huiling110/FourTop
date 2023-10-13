@@ -99,11 +99,19 @@ void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t v
         nu->Fill(var, weight);
     }
 }
-void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY, Double_t weight)
+void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY, Double_t weight, const Bool_t isData)
 {
-    de->Fill(varX, varY, weight);
-    if (ifPass)
-    {
-        nu->Fill(varX, varY, weight);
+    if( !isData){
+        de->Fill(varX, varY, weight);
+        if (ifPass)
+        {
+            nu->Fill(varX, varY, weight);
+        }
+    }else{
+        de->Fill(varX, varY);
+        if (ifPass)
+        {
+            nu->Fill(varX, varY);
+        }
     }
 }

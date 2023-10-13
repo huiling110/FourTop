@@ -129,9 +129,25 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
+
+        // 2D
+        if (baseline && is1muon)
+        {
+            if (e->bjetsM_num.v() == 1)
+            {
+                fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+            }
+            if (e->bjetsM_num.v() == 2)
+            {
+                fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+            }
+            if (e->bjetsM_num.v() >= 3 && e->bjetsM_num.v() <= 7)
+            {
+                fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+            }
+        }
+
     }
-
-
     std::cout << "end of event loop\n\n";
 };
 
@@ -143,6 +159,14 @@ void WH_HLTeff::Terminate(){
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
         histRegionsVectScale(histsForRegion_vec, processScale);
+
+        b1HT6pt_de->Scale(processScale);
+        b1HT6pt_nu->Scale(processScale);
+        b2HT6pt_de->Scale(processScale);
+        b2HT6pt_nu->Scale(processScale);
+        b3HT6pt_de->Scale(processScale);
+        b3HT6pt_nu->Scale(processScale);
+
     };
     for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
     {
