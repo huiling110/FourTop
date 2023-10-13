@@ -82,8 +82,8 @@ void WH_HLTeff::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        const Bool_t baseline = baselineSelection(e);
-        // if (!(baselineSelection(e)))
+        Bool_t baseline = baselineSelection(e);
+        baseline = baseline && e->jets_6pt.v()>45.;
         if (!(baseline))
         {
             continue;

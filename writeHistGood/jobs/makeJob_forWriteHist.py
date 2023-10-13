@@ -45,7 +45,10 @@ def main():
     # version = 'v1FR_application'
     # version = 'v1FR_application_MCBtagShape'
    
-    version = 'v0_HLTSFMeasure'
+    # version = 'v0_HLTSFMeasure'
+    version = 'v0_HLTSFMeasure_6thJet45'
+    
+    
     # version = 'v1_btagRMeasure'
     # version = 'v1_btagEffMeasure'
     # version = 'v2_btagEffBugFixed'

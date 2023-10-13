@@ -3,6 +3,7 @@ import ROOT
 from ttttGlobleQuantity import lumiMap
 import usefulFunc as uf
 
+#https://twiki.cern.ch/twiki/bin/view/CMS/Internal/FigGuidelines
 
 def setTDRStyle() :
   tdrStyle = ROOT.TStyle("tdrStyle","Style for P-TDR")
