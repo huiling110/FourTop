@@ -53,13 +53,18 @@ public:
                 m_tree->SetBranchStatus(bra->n(), 1);
                 m_tree->SetBranchAddress(bra->n(), bra->a());
             }
-            else
+            else if (std::holds_alternative<myBranch<Double_t> *>(it->second))
             {
                 myBranch<Double_t> *bra = std::get<myBranch<Double_t> *>(it->second);
-                // std::cout << bra->n() << "\n";
                 m_tree->SetBranchStatus(bra->n(), 1);
                 m_tree->SetBranchAddress(bra->n(), bra->a());
-            };
+            }
+            else if (std::holds_alternative<myBranch<Bool_t> *>(it->second))
+            {
+                myBranch<Bool_t> *bra = std::get<myBranch<Bool_t> *>(it->second);
+                m_tree->SetBranchStatus(bra->n(), 1);
+                m_tree->SetBranchAddress(bra->n(), bra->a());
+            }
         };
 
         m_tree->SetBranchStatus("jets_pt_", 1);
@@ -78,21 +83,24 @@ public:
     {
         delete m_tree;
     };
-    std::variant<Int_t, Double_t> getByName(TString branchName)
+    std::variant<Int_t, Double_t, Bool_t> getByName(TString branchName)
     {
         assert(m_variableMap.count(branchName));
         //  if (!(m_variableMap.count(branchName)))
         // {
         //     std::cout << "BAD!!!  branch doesn't exist in the event class object yet\n";
         // }
-        std::variant<Int_t, Double_t> a;
+        std::variant<Int_t, Double_t, Bool_t> a;
         if (std::holds_alternative<myBranch<Int_t> *>(m_variableMap[branchName]))
         {
             a = (std::get<myBranch<Int_t> *>(m_variableMap[branchName]))->v();
         }
-        else
+        else if (std::holds_alternative<myBranch<Double_t> *>(m_variableMap[branchName]))
         {
             a = (std::get<myBranch<Double_t> *>(m_variableMap[branchName]))->v();
+        }else if (std::holds_alternative<myBranch<Bool_t> *>(m_variableMap[branchName]))
+        {
+            a = (std::get<myBranch<Bool_t> *>(m_variableMap[branchName]))->v();
         }
         return a;
     };
@@ -209,22 +217,22 @@ public:
     myBranch<Double_t> btagShape_weight_cferr2_down{"btagShape_weight_cferr2_down"};
 
     //for HLT efficiency
-    myBranch<Int_t> HLT_PFHT450_SixJet40_BTagCSV_p056{"HLT_PFHT450_SixJet40_BTagCSV_p056"};
-    myBranch<Int_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056{"HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
-    myBranch<Int_t> HLT_PFJet450{"HLT_PFJet450"};
-    myBranch<Int_t> HLT_IsoMu24{"HLT_IsoMu24"};
-    myBranch<Int_t> HLT_IsoMu27{"HLT_IsoMu27"};
+    myBranch<Bool_t> HLT_PFHT450_SixJet40_BTagCSV_p056{"HLT_PFHT450_SixJet40_BTagCSV_p056"};
+    myBranch<Bool_t> HLT_PFHT400_SixJet30_DoubleBTagCSV_p056{"HLT_PFHT400_SixJet30_DoubleBTagCSV_p056"};
+    myBranch<Bool_t> HLT_PFJet450{"HLT_PFJet450"};
+    myBranch<Bool_t> HLT_IsoMu24{"HLT_IsoMu24"};
+    myBranch<Bool_t> HLT_IsoMu27{"HLT_IsoMu27"};
 
-    myBranch<Int_t> HLT_PFJet500{"HLT_PFJet500"};
-    myBranch<Int_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
-    myBranch<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
-    myBranch<Int_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
-    myBranch<Int_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
-    myBranch<Int_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
+    myBranch<Bool_t> HLT_PFJet500{"HLT_PFJet500"};
+    myBranch<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5"};
+    myBranch<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2"};
+    myBranch<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5{"HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5"};
+    myBranch<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59"};
+    myBranch<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94"};
     //  2017
-    myBranch<Int_t> HLT_PFHT430_SixJet40_BTagCSV_p080{"HLT_PFHT430_SixJet40_BTagCSV_p080"};
-    myBranch<Int_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075{"HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
-    myBranch<Int_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
+    myBranch<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080{"HLT_PFHT430_SixJet40_BTagCSV_p080"};
+    myBranch<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075{"HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
+    myBranch<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
 
     //for btag eff study
     std::vector<Double_t>* jets_pt_=nullptr;//???not sure why it has to be a pointer to read branch
@@ -235,7 +243,7 @@ public:
 
 private:
     TTree *m_tree;
-    std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *>> m_variableMap = {
+    std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *, myBranch<Bool_t> *>> m_variableMap = {
         {tausT_num.n(), &tausT_num},
         {tausF_genTauNum.n(), &tausF_genTauNum},
         {tausT_genTauNum.n(), &tausT_genTauNum},

@@ -17,24 +17,24 @@ private:
     // output branches
     Int_t PV_npvsGood;
     //HLT
-    Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056 = -99;
-    Bool_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = -99;
-    Bool_t HLT_PFJet450 = -99;
-    Bool_t HLT_IsoMu24 = -99;
-    Bool_t HLT_IsoMu27 = -99;
-    Bool_t HLT_PFJet500 = -99;
-    Bool_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = -99;
-    Bool_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = -99;
-    Bool_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = -99;
-    Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = -99;
-    Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = -99;
+    Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056 = kFALSE;
+    Bool_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 = kFALSE;
+    Bool_t HLT_PFJet450 = kFALSE;
+    Bool_t HLT_IsoMu24 = kFALSE;
+    Bool_t HLT_IsoMu27 = kFALSE;
+    Bool_t HLT_PFJet500 = kFALSE;
+    Bool_t HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = kFALSE;
+    Bool_t HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 = kFALSE;
+    Bool_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = kFALSE;
+    Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = kFALSE;
+    Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = kFALSE;
     // 2017
-    Bool_t HLT_PFHT430_SixJet40_BTagCSV_p080 = -99;
-    Bool_t HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = -99;
-    Bool_t HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = -99;
+    Bool_t HLT_PFHT430_SixJet40_BTagCSV_p080 = kFALSE;
+    Bool_t HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = kFALSE;
+    Bool_t HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = kFALSE;
     //2022
-    Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = -99;
-    Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = -99;
+    Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = kFALSE;
+    Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = kFALSE;
 
 
     //

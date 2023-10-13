@@ -107,7 +107,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
                 std::cout << "HLT selection for 2018\n";
             }
             is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
-            // ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() == 1 || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() == 1 || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() == 1 || e->HLT_PFJet500.v() == 1;
+            ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() == 1 || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() == 1 || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() == 1 || e->HLT_PFJet500.v() == 1;
         }
         else if (m_era.CompareTo("2017") == 0)
         {
