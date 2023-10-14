@@ -47,7 +47,7 @@ public:
     ~WH_forDataMC();
 
     void Init();
-    void LoopTree();
+    void LoopTree(UInt_t entry =0);
     void Terminate();
 
 private:

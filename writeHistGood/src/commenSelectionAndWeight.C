@@ -8,7 +8,7 @@ Bool_t baselineSelection(event *event)
     return pass;
 }
 
-Bool_t HLTSel(event *event, const TString m_era){
+Bool_t HLTSel(event *e, const TString m_era){
         // Bool_t is1muon = kTRUE;
         Bool_t ifHLT = kTRUE;
         if (m_era.CompareTo("2016") == 0)

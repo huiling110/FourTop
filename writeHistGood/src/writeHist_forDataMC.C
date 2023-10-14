@@ -128,14 +128,15 @@ void WH_forDataMC::Init()
 
 
 
-void WH_forDataMC::LoopTree()
+void WH_forDataMC::LoopTree(UInt_t entry)
 {
     std::cout << "Start to loop tree\n";
     Long64_t allEvent = m_tree->GetEntries();
-    if (m_isTest)
+    if (entry > 0)
     {
-        allEvent = 100000;
+        allEvent = entry;
     }
+
     std::cout << "looping over trees of " << allEvent << "\n";
 
     for (UInt_t i = 0; i < allEvent; i++)
