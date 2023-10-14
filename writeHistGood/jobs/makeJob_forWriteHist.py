@@ -46,7 +46,7 @@ def main():
     # version = 'v1FR_application_MCBtagShape'
    
     # version = 'v0_HLTSFMeasure'
-    version = 'v0_HLTSFMeasure_6thJet45'
+    # version = 'v0_HLTSFMeasure_6thJet45'
     
     
     # version = 'v1_btagRMeasure'
@@ -60,24 +60,14 @@ def main():
     # version = 'v5OldBtagR'
     # version = 'v6forBtagRMeasure'
     # version = 'v7newBtagRApp'
-
-    # version = 'v2_btagCorrection'
-    # version = 'v3NoHLTBTagCorrection'
-    # version = 'v8_noBtagCorrection'
-    # version = 'v0_basicCorrection'
-    # version = 'v0_triggerSFNewRange'
-    # version = 'v1basicWeight'
-    # version = 'v2HLTSFWeight'
-    # version ='v3btagShapeWeight'
-    # version = 'v6allCorrectionButBtag'
-    # version = 'v7btagShapeRWeight'
-    # version = 'v8btagRMeasureWith1tau0l'
-    #
     # version = 'v0btagEff'
     # version = 'v1btagRCal'
     # version = 'v2btagWPCorrection'
     
     # version = 'v0dataMC_btagWPsf'
+    version = 'v0dataMC_jets6pt45'
+    # version = 'v0dataMC_jets6pt40'
+    # version = 'v0dataMC_jets6pt42'
     # channel = 0
     
     
@@ -89,10 +79,10 @@ def main():
     # version = 'v1traingWithBtagWP' e
     # version = 'v4forBtagWPShape_WP'#for btagWP or shape
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
-    # channel = 0
+    channel = 0
     
     #1tau0l systematic
-    channel = 1
+    # channel = 1
     # version = 'v0systematic1tau0l' 
     
     #run3
