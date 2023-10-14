@@ -5,6 +5,8 @@ import usefulFunc as uf
 
 #https://twiki.cern.ch/twiki/bin/view/CMS/Internal/FigGuidelines
 
+#https://twiki.cern.ch/twiki/pub/CMS/Internal/FigGuidelines/tdrstyle.py.txt
+
 def setTDRStyle() :
   tdrStyle = ROOT.TStyle("tdrStyle","Style for P-TDR")
 

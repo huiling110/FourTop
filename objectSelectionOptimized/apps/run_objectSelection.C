@@ -47,13 +47,13 @@ void run_objectSelection(
     // Int_t JER = 2; 
     Int_t TES = 0; //0: nominal
     Int_t JES = 0;
-    os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
+    // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
+    os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
 
     // os.EventLoop(kTRUE, eventNum);
     // os.EventLoop(kTRUE, eventNum, 0, kTRUE);
     // os.EventLoop(kTRUE, eventNum, 4, kFALSE); //no JER, no TES
     os.Terminate();
-    // os.EventLoop(kFALSE, eventNum);
 
     t.Stop();
     t.Print();

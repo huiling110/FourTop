@@ -142,6 +142,11 @@ void WH_forDataMC::LoopTree()
     {
         m_tree->GetEntry(i);
 
+        //!!!testing
+        if(!HLTSel(e, m_era)){
+            continue;
+        }
+
         if (!(baselineSelection(e)))
         {
             continue;

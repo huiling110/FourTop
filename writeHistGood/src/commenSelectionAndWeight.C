@@ -8,6 +8,39 @@ Bool_t baselineSelection(event *event)
     return pass;
 }
 
+Bool_t HLTSel(event *event, const TString m_era){
+        // Bool_t is1muon = kTRUE;
+        Bool_t ifHLT = kTRUE;
+        if (m_era.CompareTo("2016") == 0)
+        {
+            // if (i == 0)
+            // {
+            //     std::cout << "HLT selection for 2016\n";
+            // }
+            ifHLT = e->HLT_PFHT450_SixJet40_BTagCSV_p056.v() == 1 || e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.v() == 1 || e->HLT_PFJet450.v() == 1; // 2016
+        }
+        else if (m_era.CompareTo("2018") == 0)
+        {
+            // if (i == 0)
+            // {
+            //     std::cout << "HLT selection for 2018\n";
+            // }
+            ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() == 1 || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() == 1 || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() == 1 || e->HLT_PFJet500.v() == 1;
+        }
+        else if (m_era.CompareTo("2017") == 0)
+        {
+            // if (i == 0)
+            // {
+            //     std::cout << "HLT selection for 2017\n";
+            // }
+            ifHLT = e->HLT_PFHT430_SixJet40_BTagCSV_p080.v() == 1 || e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.v() == 1 || e->HLT_PFJet500.v() == 1;
+        }else{
+            std::cout<<"!!! no HLT selection\n";
+        }
+
+    return ifHLT;
+}
+
 Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
 {
     Int_t lepNum= 1;
