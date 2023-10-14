@@ -147,6 +147,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         if(!HLTSel(e, m_era)){
             continue;
         }
+        //!!!testing
+        if(!(e->jets_6pt.v()>45)){
+            continue;
+        }
 
         if (!(baselineSelection(e)))
         {
