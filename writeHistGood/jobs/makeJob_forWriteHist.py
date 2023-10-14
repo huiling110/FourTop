@@ -47,6 +47,9 @@ def main():
    
     # version = 'v0_HLTSFMeasure'
     # version = 'v0_HLTSFMeasure_6thJet45'
+    version = 'v0_HLTSFMeasure_6thJet45b1'
+    # version = 'v0_HLTSFMeasure_6thJet45b2'
+    # version = 'v0_HLTSFMeasure_6thJet45b3'
     
     
     # version = 'v1_btagRMeasure'
@@ -65,7 +68,7 @@ def main():
     # version = 'v2btagWPCorrection'
     
     # version = 'v0dataMC_btagWPsf'
-    version = 'v0dataMC_jets6pt45'
+    # version = 'v0dataMC_jets6pt45'
     # version = 'v0dataMC_jets6pt40'
     # version = 'v0dataMC_jets6pt42'
     # channel = 0

@@ -7,6 +7,7 @@ import ROOT
                                 # samplesCrossSection)
                                 
 import ttttGlobleQuantity as tg                                
+import setTDRStyle as st
 
 
 def checkMakeDir( folder ):
@@ -244,4 +245,73 @@ def addBGHist(sumProcessIVar,  region, includeQCD=False):
         sumHist.Add( sumProcessIVar[region][ipro])
     return sumHist
 
-# def getPathDir()
+
+
+def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
+    print('start to plot efficiency')
+    mySty =  st.setMyStyle()
+    mySty.cd()
+    
+    can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
+
+    # h_dinominator.SetLineColor(ROOT.kOrange)
+    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    h_dinominator.GetYaxis().SetTitle('Events')
+    h_dinominator.GetYaxis().SetTitleSize(0.05)
+    h_dinominator.GetYaxis().SetLabelSize(0.03)
+    h_dinominator.GetYaxis().SetTitleOffset(1.1)
+    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
+    h_dinominator.GetXaxis().SetTitleSize(0.05)
+    h_dinominator.SetLineWidth(3)
+    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
+    
+    h_dinominator.Draw()
+    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
+    h_numeritor.SetLineWidth(3)
+    # h_numeritor.SetLineStyle(8)
+    h_numeritor.Draw('same')
+    can.Update()
+
+    h_efficiency = h_eff.Clone()
+    if ifFixMax:
+        rightmax = .35
+        # rightmax = .2
+    else:
+        rightmax = 1.7*h_efficiency.GetMaximum();
+    scale = ROOT.gPad.GetUymax()/rightmax;
+    h_efficiency.SetLineColor(ROOT.kRed)
+    h_efficiency.SetLineWidth(4)
+    # h_efficiency.SetMarkerStyle(3)
+    h_efficiency.SetLineStyle(1)
+    h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
+    h_efficiency.Draw("same")
+    
+    #print
+    # for i in range(1,h_efficiency.GetNbinsX()+1):
+    #     print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
+    
+    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    # axis.SetRangeUser(0, rightmax*1.4)
+    axis.SetLineColor(ROOT.kRed)
+    axis.SetLabelColor(ROOT.kRed)
+    # axis.SetTitle('fake rate')
+    # axis.SetTitle('efficiency')
+    axis.SetTitle(rightTitle)
+    axis.SetTitleSize(0.05)
+    axis.SetTitleColor(ROOT.kRed)
+    # axis.SetRangeUser(0, 0.4)
+    axis.Draw()
+
+
+    # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
+    legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
+    legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
+    legend.AddEntry(h_efficiency, h_efficiency.GetName())
+    legend.Draw()
+    
+    # addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
+
+    can.SaveAs(plotName)

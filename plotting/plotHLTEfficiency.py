@@ -9,11 +9,6 @@ from plotForFakeRate import plotEfficiency, plotFROverlay
 import plotBtagEff as pB
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v2baslineNoHLT_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEff/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v0triggerEffBugFixed/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v1triggerEffMuonSel/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v3MuonSelUpdatedNoJetHLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v4MuonSelUpdated/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v5addBjetToBaseline/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v6oneBjetToBaseline/'
@@ -31,7 +26,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v57ovelapWithTausF/mc/variableHists_v0_HLTSFMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v57ovelapWithTausF/mc/variableHists_v3btagEffNewRegion/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45b1/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -198,7 +194,6 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     
     
 def plotEfficiencyHLT(inputDirDic):
-    # variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_number', 'jets_1pt']
     variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_num', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     
@@ -209,21 +204,6 @@ def plotEfficiencyHLT(inputDirDic):
         'jets_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
-    # variableDic = {
-    #     'bjetsM_num': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-    # }
-    
-    # variableDic = {
-    #     'jets_6pt': np.array([25.0, 40, 55, 70, 85, 115, 145])
-    # }
-    # variableDic = {
-    #     'jets_number': np.array([-0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5,12.5])
-    # } 
-    
-    # variableDic = {
-    #     'jets_1pt': np.array([25.0, 55,  85, 145, 175, 235, 295, 355, 415, 490, 625])
-    # }
-    
          
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
@@ -234,8 +214,7 @@ def plotEfficiencyHLT(inputDirDic):
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(plotDir)   
-    # eff_ttTruth = plotEffHLT(variableDic, 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-    # eff_ttTruth = plotEffHLT('jets_number', variableDic['jets_number'], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+    
     for ivar in variableDic.keys():
         eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline', 'baselineAndHLT', sumProcessPerVar, 'ttTruthEff', plotDir, 3)
         eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon', 'baseline1MuonAndHLT', sumProcessPerVar,  'ttRefEff', plotDir, 3)
@@ -245,10 +224,7 @@ def plotEfficiencyHLT(inputDirDic):
         eff_ttRef.Print()
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
-        # variable = list(variableDic.keys())[0]
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + '.png' 
-        # plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName)
-        # plotFROverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, False, [0, 1.5])
         pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
    
@@ -257,7 +233,6 @@ def plotEfficiencyHLT(inputDirDic):
     
 
 
-# def plotEffHLT(variableDic,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
 def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
     if  ifData==0:
         print('plot for all bg')
@@ -291,13 +266,11 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
-    # eff_MCTrueth.SetName('eff_MCTrueth')
     eff_MCTrueth.SetName(plotName)
-    # eff_MCTrueth.SetTitle('efficiency')
     eff_MCTrueth.Print()
     plotName = plotDir + variable + plotName + '.png'
     era = uf.getEraFromDir(plotDir)
-    plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
+    uf.plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
     return eff_MCTrueth
 
     
