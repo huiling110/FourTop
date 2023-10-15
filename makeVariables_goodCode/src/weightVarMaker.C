@@ -123,17 +123,23 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
 
     // trigger
     TString trigger1b = MV::triggerSF_map.at(m_era);
-    TFile *triggerSFFile = new TFile(trigger1b, "READ");
-    triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1MuonAndHLT1b_SF");
+    // TFile *triggerSFFile = new TFile(trigger1b, "READ");
+    // triggerHist1b = (TH2D *)triggerSFFile->Get("baseline1MuonAndHLT1b_SF");
+    triggerHist1b = TTTT::getHistogramFromFile<TH2D>(trigger1b, "singleMu_SF");
     TString triggerSFName2b = trigger1b.ReplaceAll("1b", "2b");
-    TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
-    triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1MuonAndHLT2b_SF");
+    // TFile *triggerSFFile2b = new TFile(triggerSFName2b, "READ");
+    // triggerHist2b = (TH2D *)triggerSFFile2b->Get("baseline1MuonAndHLT2b_SF");
+    triggerHist2b = TTTT::getHistogramFromFile<TH2D>(triggerSFName2b, "singleMu_SF");
     TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b_", "3b_");
-    TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
-    triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1MuonAndHLT3b_SF");
-    std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";
-    std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
-    std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
+    // TFile *triggerSFFile3b = new TFile(triggerSFName3b, "READ");
+    // triggerHist3b = (TH2D *)triggerSFFile3b->Get("baseline1MuonAndHLT3b_SF");
+    triggerHist3b = TTTT::getHistogramFromFile<TH2D>(triggerSFName3b, "singleMu_SF");
+    // std::cout << "getting 1b trigger SF file: " << triggerSFFile->GetName() << "\n";
+    // std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
+    // std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
+    std::cout << "getting 1b trigger SF file: " << trigger1b << "\n";
+    // std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
+    // std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
 
 
     std::cout << "Done initializing ............\n";
