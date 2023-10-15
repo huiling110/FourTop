@@ -26,8 +26,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v57ovelapWithTausF/mc/variableHists_v0_HLTSFMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baslineNoHLT_v57ovelapWithTausF/mc/variableHists_v3btagEffNewRegion/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40Mu35/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet45_binningB/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -35,16 +36,14 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    # plotEfficiencyHLT(inputDirDic)
+    plotEfficiencyHLT(inputDirDic)
     
     #plotSF
-    plotSF(inputDirDic)
+    # plotSF(inputDirDic)
     
     
    
 def plotSF(inputDirDic):
-    # file = ROOT.TFile(inputDir+'tt') 
-    # tt_1b = 
     variableList = ['jetsHTAnd6pt']
     regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
@@ -58,7 +57,6 @@ def plotSF(inputDirDic):
     uf.checkMakeDir(plotDir)
   
     bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
-    # bRegions = ['baseline1Muon1b']
     regionTitleDic = {
         'baseline1Muon1b': 'b jets number = 1',
         'baseline1Muon2b': 'b jets number = 2',

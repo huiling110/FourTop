@@ -144,21 +144,22 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         m_tree->GetEntry(i);
 
         //!!!testing
-        if(!HLTSel(e, m_era)){
-            continue;
-        }
+        // if(!HLTSel(e, m_era)){
+        //     continue;
+        // }
         //!!!testing
-        if(!(e->jets_6pt.v()>45)){
+        // if(!(e->jets_6pt.v()>45)){
         // if(!(e->jets_6pt.v()>42)){
-            continue;
-        }
+            // continue;
+        // }
 
         if (!(baselineSelection(e)))
         {
             continue;
         }
 
-        Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData, i);
+        // Double_t basicWeight = baseWeightCal(e, m_isRun3, m_isData, i);
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v();
         //experimenting
         // Double_t basicWeight = 1.0;
         // if (!m_isData){
