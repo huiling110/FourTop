@@ -39,6 +39,19 @@ void WH_HLTeff::Init()
             "baseline1MuonAndHLT",
             "baseline",       // for MC true efficiency
             "baselineAndHLT", // for MC true efficiency
+            //1b
+            "baseline1Muon1b",
+            "baseline1MuonAndHLT1b",
+            "baseline1b",       // for MC true efficiency
+            "baselineAndHLT1b", // for MC true efficiency
+            "baseline1Muon2b",
+            "baseline1MuonAndHLT2b",
+            "baseline2b",       // for MC true efficiency
+            "baselineAndHLT2b", // for MC true efficiency
+            "baseline1Muon3b",
+            "baseline1MuonAndHLT3b",
+            "baseline3b",       // for MC true efficiency
+            "baselineAndHLT3b", // for MC true efficiency
         };
 
 
@@ -97,6 +110,9 @@ void WH_HLTeff::LoopTree(UInt_t entry)
 
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);
+        const Bool_t is1b = e->bjetsM_num.v() == 1;
+        const Bool_t is2b = e->bjetsM_num.v() == 2;
+        const Bool_t is3b = e->bjetsM_num.v() > 2;
 
         if (m_era.CompareTo("2016") == 0)
         {
@@ -134,6 +150,21 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
         histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
+        //seperate by b-jets
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is1b, "baseline1Muon1b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is1b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is1b , "baseline1b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is1b, "baselineAndHLT1b", basicWeight, m_isData);
+        //2b
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1MuonAndHLT2b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is2b , "baseline2b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is2b, "baselineAndHLT2b", basicWeight, m_isData);
+        //>=3bs
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is3b, "baseline1Muon3b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is3b, "baseline1MuonAndHLT3b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && is3b , "baseline3b", basicWeight, m_isData);
+        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baselineAndHLT3b", basicWeight, m_isData);
 
         // 2D
         if (baseline && is1muon)
