@@ -168,7 +168,7 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         histogram.GetXaxis().SetTitleSize(0.05)
-        histogram.GetYaxis().SetTitleSize(0.05)
+        histogram.GetYaxis().SetTitleSize(0.06)
         if len(yRange)>1:
             histList[i].GetYaxis().SetRangeUser(yRange[0], yRange[1])
         else:

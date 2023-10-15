@@ -62,12 +62,12 @@ void WH_HLTeff::Init()
     Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
     // Double_t xbins[] = {500, 600, 700, 800, 900, 1000, 1200, 1600, 2500}; // HT
     // Double_t ybins[] = {40, 55, 80, 145};                                 // 6th jet pt
-    b1HT6pt_de = new TH2D("baseline1Muon1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b1HT6pt_nu = new TH2D("baseline1MuonAndHLT1b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b2HT6pt_de = new TH2D("baseline1Muon2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b2HT6pt_nu = new TH2D("baseline1MuonAndHLT2b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b3HT6pt_de = new TH2D("baseline1Muon3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b3HT6pt_nu = new TH2D("baseline1MuonAndHLT3b_" + m_processName + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_de = new TH2D(m_processName + "_baseline1Muon2b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT2b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_de = new TH2D(m_processName + "_baseline1Muon3b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT3b_" + "_jetsHTAnd6pt", "HT:6th jet pt", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
 }
 
 void WH_HLTeff::LoopTree(UInt_t entry)
@@ -89,9 +89,11 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             continue;
         }
         //!!!testing 
-        if(!(e->bjetsM_num.v() == 1)){
-            continue;
-        }
+        // if(!(e->bjetsM_num.v() == 1)){
+        // if(!(e->bjetsM_num.v() == 2)){
+        // if(!(e->bjetsM_num.v() > 2)){
+        //     continue;
+        // }
 
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);
@@ -111,6 +113,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
                 std::cout << "HLT selection for 2018\n";
             }
             is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+            // is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 35.; //!!!testing
         }
         else if (m_era.CompareTo("2017") == 0)
         {
