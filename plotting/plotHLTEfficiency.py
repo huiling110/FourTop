@@ -184,15 +184,12 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     ratioName = ratio.GetName().split('_')[0]+'_SF'
     ratio.SetName(ratioName)
     
-    plot2D(ratio, plotName, canTitle, True)
+    
+    # plot2D(ratio, plotName, canTitle, True)
+    pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
     
     SFfileName = plotName.replace('.png', '.root')
-    file = ROOT.TFile(SFfileName, 'recreate') 
-    ratio.SetDirectory(file)
-    ratio.Write()
-    file.Write()
-    file.Close()
-    print('trigger SF file here: ', file.GetName())
+    pB.saveHistToFile(ratio, SFfileName)
     
     
     
