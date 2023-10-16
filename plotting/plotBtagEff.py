@@ -75,14 +75,15 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
             hist2DPlot.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
         for y in range(1, hist2DPlot.GetNbinsY()+1):
             hist2DPlot.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
-        hist2DPlot_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
+        # hist2DPlot_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
+        hist2DPlot_even = ROOT.TH2D(hist2DPlot.GetName(), hist2DPlot.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
         for x in range(1, hist2DPlot_even.GetNbinsX()+1):
-            hist2DPlot_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 
+            hist2DPlot_even.GetXaxis().SetBinLabel(x, hist2DPlot.GetXaxis().GetBinLabel(x)) 
             for y in range(1, hist2DPlot_even.GetNbinsY()+1):
-                hist2DPlot_even.SetBinContent(x,y, hist2D.GetBinContent(x,y))
-                hist2DPlot_even.SetBinError(x,y, hist2D.GetBinError(x,y))
+                hist2DPlot_even.SetBinContent(x,y, hist2DPlot.GetBinContent(x,y))
+                hist2DPlot_even.SetBinError(x,y, hist2DPlot.GetBinError(x,y))
                 if x==1:
-                    hist2DPlot_even.GetYaxis().SetBinLabel(y, hist2D.GetYaxis().GetBinLabel(y)) 
+                    hist2DPlot_even.GetYaxis().SetBinLabel(y, hist2DPlot.GetYaxis().GetBinLabel(y)) 
         hist2DPlot_even.Print()
     
     if not ifPlotEven:
