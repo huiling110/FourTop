@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 import pandas as pd
 import ROOT
@@ -315,3 +316,22 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     # addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
 
     can.SaveAs(plotName)
+
+
+def getSameValues(diction, value):
+    subList = []
+    for ikey, ivalue in diction.items():
+        if ivalue==value:
+            subList.append(ikey)
+    return subList
+            
+    
+def getSumBG(inputDir, sumBG, regionList, ivar):
+    if not sumBG in tg.histoGramPerSample: 
+        print(sumBG, ' not exist!!!')
+        sys.exit()
+    subprocesses = getSameValues(tg.histoGramPerSample, sumBG)
+    # for ifile in os.listdir(inputDir):
+        
+    
+    

@@ -73,7 +73,8 @@ void WH_HLTeff::Init()
     // 2D for SF
     // Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
     // Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
-    Double_t xbins[] = {500, 550, 650, 800, 950, 1200,  2500}; // HT
+    // Double_t xbins[] = {500, 550, 650, 800, 950, 1200,  2500}; // HT
+    Double_t xbins[] = {500, 600, 700, 950, 1200,  2500}; // HT
     // Double_t ybins[] = {40, 55, 75, 100, 150};                                   // 6th jet pt
     Double_t ybins[] = {40, 60, 90, 150};                                   // 6th jet pt
     b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
@@ -98,7 +99,8 @@ void WH_HLTeff::LoopTree(UInt_t entry)
 
         Bool_t baseline = baselineSelection(e);
         // baseline = baseline && e->jets_6pt.v()>45.; //!!!testing
-        baseline = baseline && e->jets_HT.v()>550.; //!!!testing
+        // baseline = baseline && e->jets_HT.v()>550.; //!!!testing
+        baseline = baseline && e->jets_HT.v()>600.; //!!!testing
         if (!(baseline))
         {
             continue;
