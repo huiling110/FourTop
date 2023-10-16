@@ -41,6 +41,7 @@ void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
             return nullptr;
         }
         hist->SetDirectory(nullptr); // detach histogram from file to prevent it from being deleted
+        std::cout << "Getting hist: " << hist->GetName() << " from: " << file->GetName() << "\n";
         file->Close();
         return hist;
 }
