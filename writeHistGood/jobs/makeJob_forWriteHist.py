@@ -41,6 +41,7 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSF_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinA_v64PreAndHLTSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinD_v64PreAndHLTSel/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -57,7 +58,8 @@ def main():
     # version = 'v0_HLTSFMeasure_6thJet40HT600BinA'
     # version = 'v0_HLTSFMeasure_6thJet40HT600BinB'
     # version = 'v0_HLTSFMeasure_6thJet40HT600BinC'
-    version = 'v0_HLTSFMeasure_6thJet40HT600BinD'
+    # version = 'v0_HLTSFMeasure_6thJet40HT600BinD'
+    version = 'v0_HLTSFMeasure_6thJet40HT600BinE'
     
     
     # version = 'v1_btagRMeasure'
@@ -83,6 +85,7 @@ def main():
     # version = 'v2dataMC_HT600HLTSF'
     # version = 'v3dataMC_HT600HLTSFBinA'
     # version = 'v3dataMC_HT600HLTSFBinB'
+    # version = 'v3dataMC_HT600HLTSFBinD'
     # channel = 0
     
     

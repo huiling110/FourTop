@@ -87,7 +87,10 @@ void WH_HLTeff::Init()
     // Double_t ybins[] = {40, 45., 55, 80,  150};                                   // 6th jet pt
     // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
     //BinD
-    Double_t ybins[] = {40, 45., 55,  150};                                   // 6th jet pt
+    // Double_t ybins[] = {40, 45., 55,  150};                                   // 6th jet pt
+    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
+    //BinE
+    Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
     Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
     b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
