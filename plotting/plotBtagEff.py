@@ -66,28 +66,29 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # ROOT.gStyle.SetPalette(57) #default
     # ROOT.gStyle.SetPalette(69)
     ROOT.gStyle.SetPalette(70)
-    
+   
+    hist2DPlot = hist2D.Clone() 
     if ifPlotEven:
-        xbin_edges = hist2D.GetXaxis().GetXbins() 
-        ybin_edges = hist2D.GetYaxis().GetXbins() 
-        for x in range(1, hist2D.GetNbinsX()+1):
-            hist2D.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
-        for y in range(1, hist2D.GetNbinsY()+1):
-            hist2D.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
-        hist2D_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
-        for x in range(1, hist2D_even.GetNbinsX()+1):
-            hist2D_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 
-            for y in range(1, hist2D_even.GetNbinsY()+1):
-                hist2D_even.SetBinContent(x,y, hist2D.GetBinContent(x,y))
-                hist2D_even.SetBinError(x,y, hist2D.GetBinError(x,y))
+        xbin_edges = hist2DPlot.GetXaxis().GetXbins() 
+        ybin_edges = hist2DPlot.GetYaxis().GetXbins() 
+        for x in range(1, hist2DPlot.GetNbinsX()+1):
+            hist2DPlot.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
+        for y in range(1, hist2DPlot.GetNbinsY()+1):
+            hist2DPlot.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
+        hist2DPlot_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
+        for x in range(1, hist2DPlot_even.GetNbinsX()+1):
+            hist2DPlot_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 
+            for y in range(1, hist2DPlot_even.GetNbinsY()+1):
+                hist2DPlot_even.SetBinContent(x,y, hist2D.GetBinContent(x,y))
+                hist2DPlot_even.SetBinError(x,y, hist2D.GetBinError(x,y))
                 if x==1:
-                    hist2D_even.GetYaxis().SetBinLabel(y, hist2D.GetYaxis().GetBinLabel(y)) 
-        hist2D_even.Print()
+                    hist2DPlot_even.GetYaxis().SetBinLabel(y, hist2D.GetYaxis().GetBinLabel(y)) 
+        hist2DPlot_even.Print()
     
     if not ifPlotEven:
-        histToDraw = hist2D
+        histToDraw = hist2DPlot
     else:
-        histToDraw = hist2D_even
+        histToDraw = hist2DPlot_even
         
     histTitle = histToDraw.GetTitle() 
     xtitle = histToDraw.GetTitle().split(":")[0]
@@ -115,7 +116,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # can.SetTitle(canTitle)
     can.Draw("g")
     can.SaveAs(plotName)
-    hist2D.SetTitle(histTitle)
+    hist2DPlot.SetTitle(histTitle)
     
    
 def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):   
