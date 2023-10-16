@@ -46,11 +46,11 @@ def main():
     # version = 'v1FR_application'
     # version = 'v1FR_application_MCBtagShape'
    
-    # version = 'v0_HLTSFMeasure'
+    version = 'v0_HLTSFMeasure'
     # version = 'v0_HLTSFMeasure_6thJet45'
     # version = 'v0_HLTSFMeasure_6thJet40Mu35'
     # version = 'v0_HLTSFMeasure_6thJet40HT550'
-    version = 'v0_HLTSFMeasure_6thJet40HT600'
+    # version = 'v0_HLTSFMeasure_6thJet40HT600'
     # version = 'v0_HLTSFMeasure_6thJet45_binningA'
     # version = 'v0_HLTSFMeasure_6thJet45_binningB'
     
