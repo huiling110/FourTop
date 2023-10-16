@@ -74,7 +74,7 @@ def main():
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
     # outVersion = 'v0baseline'
-    outVersion = 'v1fixedTauProng'
+    outVersion = 'v0NewHLTSF'
     
     #2022
     # year = '2022postEE'
