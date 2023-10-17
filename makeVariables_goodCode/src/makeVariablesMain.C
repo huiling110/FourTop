@@ -38,7 +38,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         // std::cout<<"jetsNum="<<jetVarMaker.getJet_num()<<"\n";
         if (baselineSel)
         {
-            if (!(jetVarMaker.getHT() > 500 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
+            // if (!(jetVarMaker.getHT() > 500 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
+            if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
             {
                 continue;
             }

@@ -8,10 +8,11 @@ def main():
     # directory_path = "/path/to/directory"
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
-    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
-    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-    removeOlderDays = 60
+    # removeOlderDays = 60
+    removeOlderDays = 30
     ifDryRun = True
     # ifDryRun = False #!!!careful setting this!!!
 
@@ -27,7 +28,7 @@ def delete_folders(directory, threshold_time, ifDryRun = True):
         time = os.path.getmtime(entry_path)
         # print(time)
         if time < threshold_time:
-            print(f"Deleting folder: {entry}")
+            print(f"Deleting folder: {entry}\n")
             delete_files_with_extension(entry_path, '.root', ifDryRun)
              
             deleteList.append(entry)
