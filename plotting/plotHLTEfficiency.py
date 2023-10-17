@@ -101,66 +101,6 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle)
     
     return dataEff1b
     
-def plot2D(hist2D, plotName, canTitle, ifPlotEven=False):
-    print('start plot 2D plot')
-    can = ROOT.TCanvas('SF', 'SF', 1000, 800)
-    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-    ROOT.gStyle.SetPaintTextFormat(".2f")
-    ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
-    ROOT.gStyle.SetTitleSize(0.07, "Y")
-    ROOT.gStyle.SetPalette(70)
-   
-    hist2DPlot = hist2D.Clone() 
-    if ifPlotEven:
-        xbin_edges = hist2DPlot.GetXaxis().GetXbins() 
-        ybin_edges = hist2DPlot.GetYaxis().GetXbins() 
-        for x in range(1, hist2DPlot.GetNbinsX()+1):
-            hist2DPlot.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
-        for y in range(1, hist2DPlot.GetNbinsY()+1):
-            hist2DPlot.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
-        hist2DPlot_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
-        for x in range(1, hist2DPlot_even.GetNbinsX()+1):
-            hist2DPlot_even.GetXaxis().SetBinLabel(x, hist2D.GetXaxis().GetBinLabel(x)) 
-            for y in range(1, hist2DPlot_even.GetNbinsY()+1):
-                hist2DPlot_even.SetBinContent(x,y, hist2D.GetBinContent(x,y))
-                hist2DPlot_even.SetBinError(x,y, hist2D.GetBinError(x,y))
-                if x==1:
-                    hist2DPlot_even.GetYaxis().SetBinLabel(y, hist2D.GetYaxis().GetBinLabel(y)) 
-        hist2DPlot_even.Print()
-    
-    if not ifPlotEven:
-        histToDraw = hist2DPlot
-    else:
-        histToDraw = hist2DPlot_even
-        
-    histTitle = histToDraw.GetTitle() 
-    xtitle = histToDraw.GetTitle().split(":")[0]
-    ytitle = histToDraw.GetTitle().split(":")[1]
-    histToDraw.GetXaxis().SetTitle(xtitle)
-    histToDraw.GetYaxis().SetTitle(ytitle)
-    histToDraw.GetYaxis().SetTitleSize(0.05)
-    histToDraw.GetXaxis().SetTitleSize(0.05)
-    histToDraw.GetXaxis().SetTitleOffset(1.0)
-    histToDraw.GetXaxis().SetTickLength(0.02)
-    # histToDraw.GetXaxis().SetLabelAngle(45)
-    # histToDraw.GetXaxis().SetLabelSize(0.02)
-    histToDraw.SetMinimum(0.65)
-    histToDraw.SetMaximum(1.35)
-    histToDraw.LabelsOption("v") 
-    histToDraw.Draw("colzetext")
-    histToDraw.SetTitle(canTitle)
-    # histToDraw.SetContour(10)
-    
-    
-     
-    can.SetLeftMargin(0.20)
-    can.SetRightMargin(0.15)
-    can.SetBottomMargin(0.20) 
-    # can.SetTopMargin(0.2) 
-    # can.SetTitle(canTitle)
-    can.Draw("g")
-    can.SaveAs(plotName)
-    hist2DPlot.SetTitle(histTitle)
      
     
 def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
@@ -174,7 +114,6 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     ratio.SetName(ratioName)
     
     
-    # plot2D(ratio, plotName, canTitle, True)
     pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
     
     SFfileName = plotName.replace('.png', '.root')
