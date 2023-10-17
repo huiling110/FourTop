@@ -55,14 +55,6 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # print('colors: ', levels)
     # print(int(ROOT.kRed)) 
     # palette = array.array('i', levels)
-    # ROOT.gStyle.SetPalette(len(levels), palette)
-    # ROOT.gStyle.SetPalette(ROOT.kCherry)
-    # ROOT.gStyle.SetPalette(ROOT.kSunset)
-    # ROOT.gStyle.SetPalette(ROOT.kGreenRedViolet)
-    # ROOT.gStyle.SetPalette(ROOT.kSolar)
-    # ROOT.gStyle.SetPalette(53)
-    # ROOT.gStyle.SetPalette(55)
-    # ROOT.gStyle.SetPalette(56)
     # ROOT.gStyle.SetPalette(57) #default
     # ROOT.gStyle.SetPalette(69)
     ROOT.gStyle.SetPalette(70)
@@ -75,7 +67,6 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
             hist2DPlot.GetXaxis().SetBinLabel(x, str(xbin_edges[x-1]) + '-'+ str(xbin_edges[x]) )
         for y in range(1, hist2DPlot.GetNbinsY()+1):
             hist2DPlot.GetYaxis().SetBinLabel(y, str(ybin_edges[y-1]) + '-'+ str(ybin_edges[y])  )
-        # hist2DPlot_even = ROOT.TH2D(hist2D.GetName(), hist2D.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
         hist2DPlot_even = ROOT.TH2D(hist2DPlot.GetName(), hist2DPlot.GetTitle(), len(xbin_edges)-1, 0, len(xbin_edges)-1, len(ybin_edges)-1, 0, len(ybin_edges)-1) 
         for x in range(1, hist2DPlot_even.GetNbinsX()+1):
             hist2DPlot_even.GetXaxis().SetBinLabel(x, hist2DPlot.GetXaxis().GetBinLabel(x)) 
@@ -100,8 +91,8 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     histToDraw.GetXaxis().SetTitleSize(0.05)
     histToDraw.GetXaxis().SetTitleOffset(1.0)
     histToDraw.GetXaxis().SetTickLength(0.02)
-    # histToDraw.GetXaxis().SetLabelAngle(45)
-    # histToDraw.GetXaxis().SetLabelSize(0.02)
+    # histToDraw.GetXaxis().SetLabelOffset(0.02)  # Offset of X-axis labels from the axis (in multiples of text size)
+    # histToDraw.GetXaxis().SetLabelSize(0.03)    # S
     histToDraw.LabelsOption("v") 
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
@@ -116,7 +107,9 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # can.SetTopMargin(0.2) 
     # can.SetTitle(canTitle)
     can.Draw("g")
-    can.SaveAs(plotName)
+    # can.SaveAs(plotName)
+    can.SaveAs(plotName + '.png')
+    can.SaveAs(plotName + '.pdf')
     hist2DPlot.SetTitle(histTitle)
     
    

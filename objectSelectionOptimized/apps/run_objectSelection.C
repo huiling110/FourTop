@@ -8,9 +8,9 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_1l/",
@@ -47,8 +47,8 @@ void run_objectSelection(
     // Int_t JER = 2; 
     Int_t TES = 0; //0: nominal
     Int_t JES = 0;
-    // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
-    os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
+    os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
+    // os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
 
     // os.EventLoop(kTRUE, eventNum);
     // os.EventLoop(kTRUE, eventNum, 0, kTRUE);

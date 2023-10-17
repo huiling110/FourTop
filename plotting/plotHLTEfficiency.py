@@ -33,9 +33,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinA/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinB/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinE/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinE/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinE/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -80,7 +80,8 @@ def plotSF(inputDirDic):
         dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle) 
         ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
-        plotName = plotDir + ibR + '_triggerSF.png'
+        # plotName = plotDir + ibR + '_triggerSF.png'
+        plotName = plotDir + ibR + '_triggerSFTest'
         plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
@@ -97,7 +98,6 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle)
     
         
     pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle, True, [0.65, 1.35])
-    # plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle, True)
     
     return dataEff1b
     
@@ -116,7 +116,8 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     
     pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
     
-    SFfileName = plotName.replace('.png', '.root')
+    # SFfileName = plotName.replace('.png', '.root')
+    SFfileName = plotName + '.root'
     pB.saveHistToFile(ratio, SFfileName)
     
     
