@@ -114,8 +114,8 @@ void WH_HLTeff::LoopTree(UInt_t entry)
 
         Bool_t baseline = baselineSelection(e);
         // baseline = baseline && e->jets_6pt.v()>45.; //!!!testing
-        // baseline = baseline && e->jets_HT.v()>550.; //!!!testing
-        baseline = baseline && e->jets_HT.v()>600.; //!!!testing
+        baseline = baseline && e->jets_HT.v()>550.; //!!!testing
+        // baseline = baseline && e->jets_HT.v()>600.; //!!!testing
         if (!(baseline))
         {
             continue;
