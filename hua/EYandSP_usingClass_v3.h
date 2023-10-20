@@ -24,11 +24,6 @@
 #include "Process_Class.C"
 // #include "Process_Class.h"
 
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0preselection_fromV14/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baselineSelection_fromV15/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1fixedTauVariables_v40addTauJetEtau/mc/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3extra1tau1lCut_v41addVertexSelection/mc/";
-// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v41addVertexSelection/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3extra1tau1lCut_v42fixedChargeType/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v6Cut1tau1lVariableFixed_v42fixedChargeType/mc/";
@@ -37,7 +32,8 @@
 // const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v8Cut1tau1l_v42fixedChargeType/mc/";
 // const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v8Cut1tau1l_v42fixedChargeType/mc/";
 // const TString baseDir2017 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v8Cut1tau1l_v42fixedChargeType/mc/";
-const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+// const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
+const TString baseDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/";
 // const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/mc/";
 // const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v5extra1tau1lCut_v56preselection/mc/";
 const TString baseDir2016 = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/";
@@ -171,7 +167,7 @@ std::vector<Process> allProcesses = {
     tttt,                                         // 0
     TTTo2L2Nu, TTToHadronic, TTToSemiLeptonic,    // 3
     TTGJets, ttZJets, ttWJets, ttH_bb, ttH_nonbb, // 8
-    WZ, WW, ZZ,                                   // 11
+    // WZ, WW, ZZ,                                   // 11
     tZq_ll, ST_tW_antitop, ST_tW_top,             // 14
     // QCD_HT50to100, QCD_HT100to200, QCD_HT200to300, QCD_HT300to500, QCD_HT500to700, QCD_HT700to1000, QCD_HT1000to1500, QCD_HT1500to2000, QCD_HT2000toInf, // 23
     //???WJets not added yet
@@ -201,7 +197,7 @@ std::vector<Process> allProcesses2016 = {
     TTTT2016,                                                         // 0
     TTTo2L2Nu2016, TTToHadronic2016, TTToSemiLeptonic2016,            // 3
     TTGJets2016, ttZJets2016, ttWJets2016, ttH_bb2016, ttH_nonbb2016, // 8
-    WZ2016, WW2016, ZZ2016,                                           // 11
+    // WZ2016, WW2016, ZZ2016,                                           // 11
     tZq_ll2016, ST_tW_antitop2016, ST_tW_top2016,                     // 14
 };
 
@@ -229,7 +225,7 @@ std::vector<Process> allProcesses2017 = {
     TTTT2017,                                                         // 0
     TTTo2L2Nu2017, TTToHadronic2017, TTToSemiLeptonic2017,            // 3
     TTGJets2017, ttZJets2017, ttWJets2017, ttH_bb2017, ttH_nonbb2017, // 8
-    WZ2017, WW2017, ZZ2017,                                           // 11
+    // WZ2017, WW2017, ZZ2017,                                           // 11
     tZq_ll2017, ST_tW_antitop2017, ST_tW_top2017,                     // 14
 };
 

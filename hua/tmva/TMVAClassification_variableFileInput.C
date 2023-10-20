@@ -91,7 +91,8 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
                                         // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v7forBDT_v60fixeJetBtagBug/1tau1l_withBtagShape/variableList/varibleList_16.csv",
                                         TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
                                          const TString channel = "1tau1l",
-                                         const TString era = "2017",
+                                        //  const TString era = "2017",
+                                         const TString era = "2018",
                                         //  const TString era = "2016",
                                          //  const TString channel = "1tau2l",
                                          //   const TString channel = "2tau0l",
@@ -165,7 +166,7 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     else
     {
         Use["BDT"] = 1;
-        Use["BDTG"] = 0;
+        Use["BDTG"] = 1;
         Use["BDTB"] = 0; // uses Bagging
         Use["BDTD"] = 0; // decorrelation + Adaptive Boost
         // Use["BDTF"]            = 1; // allow usage of fisher discriminant for node splitting
@@ -381,7 +382,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     // dataloader->AddSpectator( "spec2 := var1*3",  "Spectator 2", "units", 'F' );
     // global event weights per tree (see below for setting event-wise weights)
     // You can add an arbitrary number of signal or background trees
-    // dataloader->AddSignalTree      ( TTTT.getEventTree() , LUMI* TTTT.getScale() );
     // dataloader->AddSignalTree(TTTT.getEventTree(), lumiMap["2018"] * TTTT.getScale());
     // dataloader->AddSignalTree(allProcesses2016[0].getEventTree(), lumiMap["2016"] * allProcesses2016[0].getScale());
     // dataloader->AddSignalTree(allProcesses2017[0].getEventTree(), lumiMap["2017"] * allProcesses2017[0].getScale());
@@ -644,12 +644,6 @@ int TMVAClassification_variableFileInput(TString myMethodList = "",
     if (Use["BDTF"]) // Allow Using Fisher discriminant in node splitting for (strong) linearly correlated variables
         factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDTF",
                             "!H:!V:NTrees=50:MinNodeSize=2.5%:UseFisherCuts:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:SeparationType=GiniIndex:nCuts=20");
-
-    // RuleFit -- TMVA implementation of Friedman's method
-    if (Use["RuleFit"])
-        factory->BookMethod(dataloader, TMVA::Types::kRuleFit, "RuleFit",
-                            "H:!V:RuleFitModule=RFTMVA:Model=ModRuleLinear:MinImp=0.001:RuleMinDist=0.001:NTrees=20:fEventsMin=0.01:fEventsMax=0.5:GDTau=-1.0:GDTauPrec=0.01:GDStep=0.01:GDNSteps=10000:GDErrScale=1.02");
-
     // For an example of the category classifier usage, see: TMVAClassificationCategory
     //
     // --------------------------------------------------------------------------------------------------

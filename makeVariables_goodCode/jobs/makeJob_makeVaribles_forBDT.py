@@ -79,7 +79,8 @@ def main():
     # outVersion = 'v0NewHLTSFBinD'
     # outVersion = 'v0NewHLTSFBinE'
     # outVersion = 'v0NewHLTSFHT500BinE'
-    outVersion = 'v0NewHLTSFHT550BinF'
+    # outVersion = 'v0NewHLTSFHT550BinF'
+    outVersion = 'v1NewHLTSF1tau1lCut'
     
     #2022
     # year = '2022postEE'
