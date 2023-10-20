@@ -175,64 +175,62 @@ std::vector<Process> allProcesses = {
 };
 
 // 2016
-Process TTTT2016{baseDir2016 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
-Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
-Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
-Process TTToSemiLeptonic2016{baseDir2016 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
-Process TTGJets2016{baseDir2016 + "ttG.root", 4.62};          // 3.773
-Process ttZJets2016{baseDir2016 + "ttZ.root", 0.783};         // 0.6559
-Process ttWJets2016{baseDir2016 + "ttW.root", 0.611};         // 0.2014 changed to 611
-Process ttH_bb2016{baseDir2016 + "ttH_bb.root", 0.2897};      // 0.2897
-Process ttH_nonbb2016{baseDir2016 + "ttH_nonbb.root", 0.209}; // 0.209
-// VV
-Process WZ2016{baseDir2016 + "wz.root", 2.343};
-Process WW2016{baseDir2016 + "ww.root", 6.430};
-Process ZZ2016{baseDir2016 + "zz.root", 1.016}; // ZZ
-// Single Top
-Process tZq_ll2016{baseDir2016 + "st_tZq.root", 0.07358};
-// Process tZq_nunu2016{baseDir2016+".root", 0.1379 };//???
-Process ST_tW_antitop2016{baseDir2016 + "st_tW_antitop.root", 35.85}; // 38.06
-Process ST_tW_top2016{baseDir2016 + "st_tW_top.root", 35.85};         // 38.09
+// Process TTTT2016{baseDir2016 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
+// Process TTTo2L2Nu2016{baseDir2016 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
+// Process TTToHadronic2016{baseDir2016 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
+// Process TTToSemiLeptonic2016{baseDir2016 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
+// Process TTGJets2016{baseDir2016 + "ttG.root", 4.62};          // 3.773
+// Process ttZJets2016{baseDir2016 + "ttZ.root", 0.783};         // 0.6559
+// Process ttWJets2016{baseDir2016 + "ttW.root", 0.611};         // 0.2014 changed to 611
+// Process ttH_bb2016{baseDir2016 + "ttH_bb.root", 0.2897};      // 0.2897
+// Process ttH_nonbb2016{baseDir2016 + "ttH_nonbb.root", 0.209}; // 0.209
+// // VV
+// Process WZ2016{baseDir2016 + "wz.root", 2.343};
+// Process WW2016{baseDir2016 + "ww.root", 6.430};
+// Process ZZ2016{baseDir2016 + "zz.root", 1.016}; // ZZ
+// // Single Top
+// Process tZq_ll2016{baseDir2016 + "st_tZq.root", 0.07358};
+// // Process tZq_nunu2016{baseDir2016+".root", 0.1379 };//???
+// Process ST_tW_antitop2016{baseDir2016 + "st_tW_antitop.root", 35.85}; // 38.06
+// Process ST_tW_top2016{baseDir2016 + "st_tW_top.root", 35.85};         // 38.09
 
-std::vector<Process> allProcesses2016 = {
-    TTTT2016,                                                         // 0
-    TTTo2L2Nu2016, TTToHadronic2016, TTToSemiLeptonic2016,            // 3
-    TTGJets2016, ttZJets2016, ttWJets2016, ttH_bb2016, ttH_nonbb2016, // 8
-    // WZ2016, WW2016, ZZ2016,                                           // 11
-    tZq_ll2016, ST_tW_antitop2016, ST_tW_top2016,                     // 14
-};
+// std::vector<Process> allProcesses2016 = {
+//     TTTT2016,                                                         // 0
+//     TTTo2L2Nu2016, TTToHadronic2016, TTToSemiLeptonic2016,            // 3
+//     TTGJets2016, ttZJets2016, ttWJets2016, ttH_bb2016, ttH_nonbb2016, // 8
+//     // WZ2016, WW2016, ZZ2016,                                           // 11
+//     tZq_ll2016, ST_tW_antitop2016, ST_tW_top2016,                     // 14
+// };
 
 // 2017
-Process TTTT2017{baseDir2017 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
-Process TTTo2L2Nu2017{baseDir2017 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
-Process TTToHadronic2017{baseDir2017 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
-Process TTToSemiLeptonic2017{baseDir2017 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
-Process TTGJets2017{baseDir2017 + "ttG.root", 4.62};          // 3.773
-Process ttZJets2017{baseDir2017 + "ttZ.root", 0.783};         // 0.6559
-Process ttWJets2017{baseDir2017 + "ttW.root", 0.611};         // 0.2014 changed to 611
-Process ttH_bb2017{baseDir2017 + "ttH_bb.root", 0.2897};      // 0.2897
-Process ttH_nonbb2017{baseDir2017 + "ttH_nonbb.root", 0.209}; // 0.209
-// VV
-Process WZ2017{baseDir2017 + "wz.root", 2.343};
-Process WW2017{baseDir2017 + "ww.root", 6.430};
-Process ZZ2017{baseDir2017 + "zz.root", 1.016}; // ZZ
-// Single Top
-Process tZq_ll2017{baseDir2017 + "st_tZq.root", 0.07358};
-// Process tZq_nunu2017{baseDir2017+".root", 0.1379 };//???
-Process ST_tW_antitop2017{baseDir2017 + "st_tW_antitop.root", 35.85}; // 38.06
-Process ST_tW_top2017{baseDir2017 + "st_tW_top.root", 35.85};         // 38.09
+// Process TTTT2017{baseDir2017 + "tttt.root", TTTT::crossSectionMap.at("tttt")};
+// Process TTTo2L2Nu2017{baseDir2017 + "ttbar_2l.root", TTTT::crossSectionMap.at("ttbar_2l")};
+// Process TTToHadronic2017{baseDir2017 + "ttbar_0l.root", TTTT::crossSectionMap.at("ttbar_0l")};
+// Process TTToSemiLeptonic2017{baseDir2017 + "ttbar_1l.root", TTTT::crossSectionMap.at("ttbar_1l")};
+// Process TTGJets2017{baseDir2017 + "ttG.root", 4.62};          // 3.773
+// Process ttZJets2017{baseDir2017 + "ttZ.root", 0.783};         // 0.6559
+// Process ttWJets2017{baseDir2017 + "ttW.root", 0.611};         // 0.2014 changed to 611
+// Process ttH_bb2017{baseDir2017 + "ttH_bb.root", 0.2897};      // 0.2897
+// Process ttH_nonbb2017{baseDir2017 + "ttH_nonbb.root", 0.209}; // 0.209
+// // VV
+// Process WZ2017{baseDir2017 + "wz.root", 2.343};
+// Process WW2017{baseDir2017 + "ww.root", 6.430};
+// Process ZZ2017{baseDir2017 + "zz.root", 1.016}; // ZZ
+// // Single Top
+// Process tZq_ll2017{baseDir2017 + "st_tZq.root", 0.07358};
+// Process ST_tW_antitop2017{baseDir2017 + "st_tW_antitop.root", 35.85}; // 38.06
+// Process ST_tW_top2017{baseDir2017 + "st_tW_top.root", 35.85};         // 38.09
 
-std::vector<Process> allProcesses2017 = {
-    TTTT2017,                                                         // 0
-    TTTo2L2Nu2017, TTToHadronic2017, TTToSemiLeptonic2017,            // 3
-    TTGJets2017, ttZJets2017, ttWJets2017, ttH_bb2017, ttH_nonbb2017, // 8
-    // WZ2017, WW2017, ZZ2017,                                           // 11
-    tZq_ll2017, ST_tW_antitop2017, ST_tW_top2017,                     // 14
-};
+// std::vector<Process> allProcesses2017 = {
+//     TTTT2017,                                                         // 0
+//     TTTo2L2Nu2017, TTToHadronic2017, TTToSemiLeptonic2017,            // 3
+//     TTGJets2017, ttZJets2017, ttWJets2017, ttH_bb2017, ttH_nonbb2017, // 8
+//     tZq_ll2017, ST_tW_antitop2017, ST_tW_top2017,                     // 14
+// };
 
 std::map<TString, std::vector<Process>> eraProcess_Map = {
-    {"2016", allProcesses2016},
-    {"2017", allProcesses2017},
+    // {"2016", allProcesses2016},
+    // {"2017", allProcesses2017},
     {"2018", allProcesses},
 };
 
