@@ -91,12 +91,13 @@ int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/",
     TString outDir = "output/",
+    Bool_t isTest = true,
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
-    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
-    Bool_t isTest = true)
+    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
 {
     std::cout<<"event weight="<<g_weight<<"\n";
+    std::cout << "inputDir=" << inputDir << "\n";
 
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
@@ -168,8 +169,6 @@ int tmvaBDT_training(
     }
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
-    // char trainingSetup[100];
-    // sprintf(trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal * 0.6, allBg * 0.6);
 
     // std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V";
     std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=" + std::to_string(allSignal * 0.4)+":nTest_Background=" + std::to_string(allBg * 0.4) + ":SplitMode=Random:NormMode=EqualNumEvents:!V";
@@ -216,9 +215,10 @@ int main(int argc, char const *argv[])
     {
         inputDir = boost::lexical_cast<std::string>(argv[1]) ;
         outDir = boost::lexical_cast<std::string>(argv[2]);
-        variableList = boost::lexical_cast<std::string>(argv[3]);
-        weight = boost::lexical_cast<std::string>(argv[4]);
-        isTest = boost::lexical_cast<Bool_t>(argv[5]);
-        tmvaBDT_training(inputDir, outDir, variableList, weight, isTest);
+        isTest = boost::lexical_cast<Bool_t>(argv[3]);
+        variableList = boost::lexical_cast<std::string>(argv[4]);
+        weight = boost::lexical_cast<std::string>(argv[5]);
+        // tmvaBDT_training(inputDir, outDir, variableList, weight, isTest);
+        tmvaBDT_training(inputDir, outDir, isTest, variableList, weight);
     }
 }

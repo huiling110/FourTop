@@ -3,21 +3,23 @@ import subprocess
 
 def main():
     # inputDir  = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/'
-    inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/",
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/'
    
    
-    # g_weight = "EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight" 
+    g_weight = "EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight" 
     # varDir = inputDir + 'tmvaTraining/btagWP/'
     # varList = varDir + 'variableList_15.csv'
+    varList = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv"
     
     # g_weight = "EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagShape_weight*btagShapeR"
-    varDir = inputDir + 'tmvaTraining/btagShape/'
-    varList = varDir + 'variableList_16.csv'
+    # varDir = inputDir + 'tmvaTraining/btagShape/'
+    # varList = varDir + 'variableList_16.csv'
     
-    outDir = varDir 
+    outDir = inputDir + 'BDTTrain/' 
     uf.checkMakeDir(outDir)
     
-    command = './my_program {} {} {} {} 0'.format(inputDir, outDir, varList, g_weight ) 
+    # command = './my_program {} {} {} {} 0'.format(inputDir, outDir, varList, g_weight ) 
+    command = './my_program {} {} 0 {} {}'.format(inputDir, outDir, varList, g_weight) 
     logFile = outDir + 'training.log'
     print(command)
     try:
