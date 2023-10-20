@@ -1,6 +1,7 @@
 #include "commenFunction.h"
 
 #include <iostream>
+#include <fstream>
 #include <TFile.h>
 #include <TTree.h>
 
@@ -194,6 +195,24 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
 }
 
 
+void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName)
+{
+    std::cout << "reading varibleList: " << variableListCsv << "\n";
+    std::ifstream fin(variableListCsv);
+    std::string line;
+    TString ivariable;
+    variablesName.clear();
+    while (getline(fin, line))
+    {
+        ivariable = line;
+        if (line.size() > 0)
+        {
+            std::cout << "ivariable =" << ivariable << "\n";
+            variablesName.push_back(ivariable);
+        }
+    }
+    fin.close();
+};
 
 
 

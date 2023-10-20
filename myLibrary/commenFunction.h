@@ -46,6 +46,8 @@ void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
         return hist;
 }
 
+void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName);
+
 template <typename T>
 void copyVecToVec(const std::vector<T> &inVec, std::vector<T> &outVec  ){
     outVec.clear();
@@ -53,6 +55,7 @@ void copyVecToVec(const std::vector<T> &inVec, std::vector<T> &outVec  ){
         outVec.push_back(inVec.at(i));
     }
 }
+
 
 
 };
