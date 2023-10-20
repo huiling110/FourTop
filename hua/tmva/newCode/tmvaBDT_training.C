@@ -136,7 +136,8 @@ int tmvaBDT_training(
     }
 
     // add signal and bg trees
-    Double_t allBg = 1000;
+    // Double_t allBg = 1000;
+    Long64_t allBg = 2000;
     std::vector<Process> processVec;
     getProcessesVec(inputDir, processVec);
     for (UInt_t i=0;i<processVec.size(); i++){
@@ -161,14 +162,18 @@ int tmvaBDT_training(
 
 
     //training setup
-    Double_t allSignal = 1000;
+    Long64_t allSignal = 2000;
     if(!isTest){
         allSignal= processVec.at(0).getTree()->GetEntries();
     }
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
-    char trainingSetup[60];
-    sprintf(trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal * 0.6, allBg * 0.6);
+    // char trainingSetup[100];
+    // sprintf(trainingSetup, "nTrain_Signal=%f:nTrain_Background=%f:nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V", allSignal * 0.6, allBg * 0.6);
+
+    // std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V";
+    std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=" + std::to_string(allSignal * 0.4)+":nTest_Background=" + std::to_string(allBg * 0.4) + ":SplitMode=Random:NormMode=EqualNumEvents:!V";
+
     std::cout << trainingSetup << "\n";
     dataloader->PrepareTrainingAndTestTree("", "", trainingSetup); // 60% goes to training, 1tau1l
 
