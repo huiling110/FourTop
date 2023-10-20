@@ -18,26 +18,27 @@
 #include "TMVA/Config.h"
 
 #include "processClass.h"
+#include "../../../myLibrary/commenFunction.h"
 
 
-void readVariableList(TString variableListCsv, std::vector<TString> &variablesName)
-{
-    std::cout << "reading varibleList: " << variableListCsv << "\n";
-    std::ifstream fin(variableListCsv);
-    std::string line;
-    TString ivariable;
-    variablesName.clear();
-    while (getline(fin, line))
-    {
-        ivariable = line;
-        if (line.size() > 0)
-        {
-            // std::cout << "ivariable =" << ivariable << "\n";
-            variablesName.push_back(ivariable);
-        }
-    }
-    fin.close();
-}
+// void readVariableList(TString variableListCsv, std::vector<TString> &variablesName)
+// {
+//     std::cout << "reading varibleList: " << variableListCsv << "\n";
+//     std::ifstream fin(variableListCsv);
+//     std::string line;
+//     TString ivariable;
+//     variablesName.clear();
+//     while (getline(fin, line))
+//     {
+//         ivariable = line;
+//         if (line.size() > 0)
+//         {
+//             // std::cout << "ivariable =" << ivariable << "\n";
+//             variablesName.push_back(ivariable);
+//         }
+//     }
+//     fin.close();
+// }
 
 void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
 {
@@ -46,15 +47,15 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     "ttbar_0l",
     "ttbar_2l",
     "ttbar_1l",
-    "qcd_50to100",
-    "qcd_100to200",
-    "qcd_200to300",
-    "qcd_300to500",
-    "qcd_500to700",
-    "qcd_700to1000",
-    "qcd_1000to1500",
-    "qcd_1500to2000",
-    "qcd_2000toInf",
+    // "qcd_50to100",
+    // "qcd_100to200",
+    // "qcd_200to300",
+    // "qcd_300to500",
+    // "qcd_500to700",
+    // "qcd_700to1000",
+    // "qcd_1000to1500",
+    // "qcd_1500to2000",
+    // "qcd_2000toInf",
 
     "ttG",
     "ttZ",  
@@ -62,9 +63,9 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     "ttH_bb", 
     "ttH_nonbb", 
 
-    "wz",
-    "ww",
-    "zz",
+    // "wz",
+    // "ww",
+    // "zz",
 
     "st_tZq",
     "st_tW_antitop",
@@ -88,7 +89,7 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
 
 int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/";
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/",
     TString outDir = "output/",
     TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
@@ -118,7 +119,8 @@ int tmvaBDT_training(
 
     // read input variables from csv
     std::vector<TString> variableList;
-    readVariableList(variableListCsv, variableList);
+    // readVariableList(variableListCsv, variableList);
+    TTTT::getVarFromFile(variableListCsv, variableList);
     for (UInt_t i = 0; i < variableList.size(); i++)
     {
         TString ivar = variableList.at(i);
@@ -173,6 +175,9 @@ int tmvaBDT_training(
     factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
                             "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
+    factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDTD",
+                            "!H:!V:NTrees=400:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=20:VarTransform=Decorrelate");
+
     factory->TrainAllMethods();
 
     // Evaluate all MVAs using the set of test events

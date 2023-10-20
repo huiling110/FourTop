@@ -10,8 +10,8 @@ def main():
     # varList = varDir + 'variableList_15.csv'
     
     # g_weight = "EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagShape_weight*btagShapeR"
-    # varDir = inputDir + 'tmvaTraining/btagShape/'
-    # varList = varDir + 'variableList_16.csv'
+    varDir = inputDir + 'tmvaTraining/btagShape/'
+    varList = varDir + 'variableList_16.csv'
     
     outDir = varDir 
     uf.checkMakeDir(outDir)
