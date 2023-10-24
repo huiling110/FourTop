@@ -20,7 +20,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v62addTauJetVars/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v63smallFixJER/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64noHLTSel/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v64noHLTSel/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
@@ -52,8 +53,8 @@ void run_objectSelection(
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
-    mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
-    // mv.EventLoop(kTRUE, kFALSE, numEntries);
+    // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
+    mv.EventLoop(kTRUE, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
