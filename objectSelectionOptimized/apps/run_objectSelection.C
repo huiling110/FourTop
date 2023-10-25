@@ -43,8 +43,8 @@ void run_objectSelection(
     const Bool_t isRun3 = TTTT::isRun3(era);
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
 
-    // Int_t JER = 0; //0 : JER nominal
-    Int_t JER = 2; 
+    Int_t JER = 0; //0 : JER nominal
+    // Int_t JER = 2; 
     // Int_t JER = 1; 
     Int_t TES = 0; //0: nominal
     Int_t JES = 0;
