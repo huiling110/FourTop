@@ -38,10 +38,10 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    plotEfficiencyHLT(inputDirDic)
+    # plotEfficiencyHLT(inputDirDic)
     plotEfficiencyHLT(inputDirDic, '1b')
-    plotEfficiencyHLT(inputDirDic, '2b')
-    plotEfficiencyHLT(inputDirDic, '3b')
+    # plotEfficiencyHLT(inputDirDic, '2b')
+    # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
     # plotSF(inputDirDic)
@@ -151,8 +151,9 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         eff_ttRef.Print()
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
-        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'.png' 
-        pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
+        # overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'.png' 
+        overlayName = plotDir + 'HLTefficiencyOverlay_testing' + ivar  + bjet+'.png' 
+        # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
    
    
@@ -196,9 +197,11 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
     eff_MCTrueth.SetName(plotName)
     # eff_MCTrueth.Print()
     
-    plotName = plotDir + variable + plotName + '.png'
+    # plotName = plotDir + variable + plotName + '.png'
+    plotName = plotDir + variable + plotName + '_testing'
     era = uf.getEraFromDir(plotDir)
-    uf.plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
+    # uf.plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
+    uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era)
     return eff_MCTrueth
 
     

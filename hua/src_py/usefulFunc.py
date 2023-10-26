@@ -280,13 +280,14 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
         rightmax = .35
         # rightmax = .2
     else:
-        rightmax = 1.7*h_efficiency.GetMaximum();
-    scale = ROOT.gPad.GetUymax()/rightmax;
+        rightmax = 1.7*h_efficiency.GetMaximum()
+    scale = ROOT.gPad.GetUymax()/rightmax
     h_efficiency.SetLineColor(ROOT.kRed)
     h_efficiency.SetLineWidth(4)
     # h_efficiency.SetMarkerStyle(3)
     h_efficiency.SetLineStyle(1)
     h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
+    # h_efficiency.Scale(4000) #!!!need to consider this scaling effect on uncertainty
     h_efficiency.Draw("same")
     
     #print
@@ -334,4 +335,68 @@ def getSumBG(inputDir, sumBG, regionList, ivar):
     # for ifile in os.listdir(inputDir):
         
     
+def plotEffTEff(h_numeritor, h_dinominator, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
+   #plot efficiency with TEfficiency   
+    print('start to plot efficiency')
+    mySty =  st.setMyStyle()
+    mySty.cd()
     
+    can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
+    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
+    ROOT.gStyle.SetOptTitle(0)
+    
+    # leftmax  = h_dinominator.GetMaximum() *1.5 
+    # scale = ROOT.gPad.GetUymax()/rightmax
+    
+    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    h_dinominator.GetYaxis().SetTitle('Events')
+    h_dinominator.GetYaxis().SetTitleSize(0.05)
+    h_dinominator.GetYaxis().SetLabelSize(0.03)
+    h_dinominator.GetYaxis().SetTitleOffset(1.1)
+    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
+    h_dinominator.GetXaxis().SetTitleSize(0.05)
+    h_dinominator.SetLineWidth(3)
+    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
+    
+    h_dinominator.Draw()
+    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
+    h_numeritor.SetLineWidth(3)
+    h_numeritor.Draw('same')
+    can.Update()
+    
+    if ifFixMax:
+        rightmax = 1.0
+    else:
+        rightmax = 1.7*h_efficiency.GetTotalHistogram().GetMaximum()
+        
+    h_efficiency =  ROOT.TEfficiency(h_numeritor, h_dinominator)
+    h_efficiency.SetStatisticOption(ROOT.TEfficiency.kFCP) # Clopper-Pearson #!!!might not be working for weighted histograms, https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
+    scale = ROOT.gPad.GetUymax()/rightmax
+    # h_efficiency.GetTotalHistogram().Scale(scale)
+    # h_efficiency.GetTotalHistogram().Scale(5000)
+    h_efficiency.Draw('same')
+
+    
+    
+    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    axis.SetLineColor(ROOT.kRed)
+    axis.SetLabelColor(ROOT.kRed)
+    axis.SetTitle(rightTitle)
+    axis.SetTitleSize(0.05)
+    axis.SetTitleColor(ROOT.kRed)
+    axis.Draw()
+
+
+    # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
+    legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
+    legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
+    legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
+    # legend.AddEntry(h_efficiency, h_efficiency.GetName())
+    legend.Draw()
+    
+    can.SaveAs(plotName+'.png')
+    can.SaveAs(plotName+'.pdf')
+    print('done plot efficiency \n\n')
+    
+    
+   
