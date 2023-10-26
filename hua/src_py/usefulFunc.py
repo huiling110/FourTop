@@ -142,6 +142,7 @@ def compare2List( list1, list2):
     
 
 def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False, isRun3=False):
+#return sum[var][region][summedPro]    
     if not isRun3:
         histoGramPerSample = tg.histoGramPerSample
     else:
@@ -327,7 +328,7 @@ def getSameValues(diction, value):
     return subList
             
     
-def getSumBG(inputDir, sumBG, regionList, ivar):
+def getSumnedPro(inputDir, sumBG, regionList, ivar):
     if not sumBG in tg.histoGramPerSample: 
         print(sumBG, ' not exist!!!')
         sys.exit()
@@ -335,7 +336,7 @@ def getSumBG(inputDir, sumBG, regionList, ivar):
     # for ifile in os.listdir(inputDir):
         
     
-def plotEffTEff(h_numeritor, h_dinominator, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
+def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
    #plot efficiency with TEfficiency   
     print('start to plot efficiency')
     mySty =  st.setMyStyle()
@@ -345,54 +346,55 @@ def plotEffTEff(h_numeritor, h_dinominator, plotName, era, ifFixMax=True, rightT
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
     
-    # leftmax  = h_dinominator.GetMaximum() *1.5 
-    # scale = ROOT.gPad.GetUymax()/rightmax
+    eff = ROOT.TGraphAsymmErrors()
+    eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
+    eff.Draw("AP")
     
-    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
-    h_dinominator.GetYaxis().SetTitle('Events')
-    h_dinominator.GetYaxis().SetTitleSize(0.05)
-    h_dinominator.GetYaxis().SetLabelSize(0.03)
-    h_dinominator.GetYaxis().SetTitleOffset(1.1)
-    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
-    h_dinominator.GetXaxis().SetTitleSize(0.05)
-    h_dinominator.SetLineWidth(3)
-    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
+    # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
+    # h_dinominator.GetYaxis().SetTitle('Events')
+    # h_dinominator.GetYaxis().SetTitleSize(0.05)
+    # h_dinominator.GetYaxis().SetLabelSize(0.03)
+    # h_dinominator.GetYaxis().SetTitleOffset(1.1)
+    # h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
+    # h_dinominator.GetXaxis().SetTitleSize(0.05)
+    # h_dinominator.SetLineWidth(3)
+    # h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
     
-    h_dinominator.Draw()
-    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
-    h_numeritor.SetLineWidth(3)
-    h_numeritor.Draw('same')
-    can.Update()
+    # h_dinominator.Draw()
+    # h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
+    # h_numeritor.SetLineWidth(3)
+    # h_numeritor.Draw('same')
+    # can.Update()
     
-    if ifFixMax:
-        rightmax = 1.0
-    else:
-        rightmax = 1.7*h_efficiency.GetTotalHistogram().GetMaximum()
+    # if ifFixMax:
+    #     rightmax = 1.5
+    # else:
+    #     rightmax = 1.7*h_efficiency.GetTotalHistogram().GetMaximum()
         
-    h_efficiency =  ROOT.TEfficiency(h_numeritor, h_dinominator)
-    h_efficiency.SetStatisticOption(ROOT.TEfficiency.kFCP) # Clopper-Pearson #!!!might not be working for weighted histograms, https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
-    scale = ROOT.gPad.GetUymax()/rightmax
+    # h_efficiency =  ROOT.TEfficiency(h_numeritor, h_dinominator)
+    # h_efficiency.SetStatisticOption(ROOT.TEfficiency.kFCP) # Clopper-Pearson #!!!might not be working for weighted histograms, https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
+    # scale = ROOT.gPad.GetUymax()/rightmax
     # h_efficiency.GetTotalHistogram().Scale(scale)
     # h_efficiency.GetTotalHistogram().Scale(5000)
-    h_efficiency.Draw('same')
+    # h_efficiency.Draw('same')
 
     
     
-    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
-    axis.SetLineColor(ROOT.kRed)
-    axis.SetLabelColor(ROOT.kRed)
-    axis.SetTitle(rightTitle)
-    axis.SetTitleSize(0.05)
-    axis.SetTitleColor(ROOT.kRed)
-    axis.Draw()
+    # axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
+    # axis.SetLineColor(ROOT.kRed)
+    # axis.SetLabelColor(ROOT.kRed)
+    # axis.SetTitle(rightTitle)
+    # axis.SetTitleSize(0.05)
+    # axis.SetTitleColor(ROOT.kRed)
+    # axis.Draw()
 
 
     # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
-    legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
-    legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
-    legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
-    # legend.AddEntry(h_efficiency, h_efficiency.GetName())
-    legend.Draw()
+    # legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
+    # legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
+    # legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
+    # # legend.AddEntry(h_efficiency, h_efficiency.GetName())
+    # legend.Draw()
     
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')

@@ -39,8 +39,8 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    plotEfficiencyHLT(inputDirDic, '1b')
-    # plotEfficiencyHLT(inputDirDic, '2b')
+    # plotEfficiencyHLT(inputDirDic, '1b')
+    plotEfficiencyHLT(inputDirDic, '2b')
     # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
@@ -122,41 +122,46 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     for i in range(len(regionList)):
         regionList[i] = regionList[i]+bjet
-        # print('regionName: ', ire)
     
     variableDic = {
-        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+        # 'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
         'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
-        'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
-        'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
+        # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
+        # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
-         
+    
+    varList = ['jets_6pt']     
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
-    for ivar in variableList:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+    # for ivar in variableList:
+        # sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+        # sumProcessPerVar[ivar] = 
+    sumProcessPerVar = uf.getSumnedPro(inputDirDic, regionList, varList)
+    #sumProcessPerVar[ivar][region][sumPro]
     print( sumProcessPerVar )
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
     era = uf.getEraFromDir(plotDir)   
     
-    for ivar in variableDic.keys():
-        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+    # for ivar in variableDic.keys():
+    #     eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+    #     eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
+    #     eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+    #     eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
     
-        eff_ttRef.Print()
-        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
-        # overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'.png' 
-        overlayName = plotDir + 'HLTefficiencyOverlay_testing' + ivar  + bjet+'.png' 
-        # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
+    #     eff_ttRef.Print()
+    #     overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+    #     legendList = ['tt truth eff', 'tt reference eff', 'data reference eff']
+    #     # overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'.png' 
+    #     overlayName = plotDir + 'HLTefficiencyOverlay_testing' + ivar  + bjet+'.png' 
+    #     # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
    
-   
+# def plotEffHLTNew(variable, binning, regionDe, regionNu, inputDir, sample='tttt') :
+    # if sample == 'tttt':
+    # h_de = uf.getSummedPro(inputDir, sample, [regionDe, regionNu], ivar)
     
     
 
