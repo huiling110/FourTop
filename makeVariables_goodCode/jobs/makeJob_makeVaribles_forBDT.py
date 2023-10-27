@@ -66,7 +66,6 @@ def main():
     # outVersion = 'v3btagWPWeightGood'
     # outVersion = 'v5newBtagEff'
     # outVersion = 'v6updatedBtagR'
-    # outVersion = 'v7forBDT'
     # outVersion = 'v8tau1elCut'
     # outVersion = 'v0baseline_addTauGenNum'
     # outVersion = 'v1btagWPandRUpdated'
@@ -79,8 +78,9 @@ def main():
     # outVersion = 'v0NewHLTSFBinD'
     # outVersion = 'v0NewHLTSFBinE'
     # outVersion = 'v0NewHLTSFHT500BinE'
-    outVersion = 'v0NewHLTSFHT550BinF'
+    # outVersion = 'v0NewHLTSFHT550BinF'
     # outVersion = 'v1NewHLTSF1tau1lCut'
+    outVersion = 'v2cut1tau1l'
     
     #2022
     # year = '2022postEE'

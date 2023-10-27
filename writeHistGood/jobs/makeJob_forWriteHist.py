@@ -84,13 +84,13 @@ def main():
     # version = 'v0dataMC_jets6pt40'
     # version = 'v0dataMC_jets6pt42'
     # version = 'v0dataMC_HT600'
-    # version = 'v1dataMC_noHLTSF'
+    version = 'v1dataMC_noHLTSF'
     # version = 'v2dataMC_HT600HLTSF'
     # version = 'v3dataMC_HT600HLTSFBinA'
     # version = 'v3dataMC_HT600HLTSFBinB'
     # version = 'v3dataMC_HT600HLTSFBinD'
     # version = 'v3dataMC_HT600HLTSFBinE'
-    version = 'v3dataMC_HT550HLTSFBinF'
+    # version = 'v3dataMC_HT550HLTSFBinF'
     # channel = 0
     
     
