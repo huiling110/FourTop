@@ -134,10 +134,10 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     varList = ['jets_6pt']     
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
-    # for ivar in variableList:
-        # sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
-        # sumProcessPerVar[ivar] = 
-    sumProcessPerVar = uf.getSumnedPro(inputDirDic, regionList, varList)
+    for ivar in variableList:
+        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+    # sumList = ['singleMu', 'tt', 'tttt']
+    # sumProcessPerVar = uf.getSumnedPro(inputDirDic, sumList, regionList, varList)
     #sumProcessPerVar[ivar][region][sumPro]
     print( sumProcessPerVar )
    

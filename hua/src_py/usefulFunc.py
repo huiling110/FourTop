@@ -327,11 +327,12 @@ def getSameValues(diction, value):
             subList.append(ikey)
     return subList
             
-    
-def getSumnedPro(inputDir, sumBG, regionList, ivar):
-    if not sumBG in tg.histoGramPerSample: 
-        print(sumBG, ' not exist!!!')
-        sys.exit()
+
+#!!!to be done    
+def getSumnedPro(inputDir, sumList, regionList, ivar):
+    # if not sumBG in tg.histoGramPerSample: 
+    #     print(sumBG, ' not exist!!!')
+    #     sys.exit()
     subprocesses = getSameValues(tg.histoGramPerSample, sumBG)
     # for ifile in os.listdir(inputDir):
         
