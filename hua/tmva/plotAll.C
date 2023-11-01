@@ -14,7 +14,8 @@ void plotAll(
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/1tau1lvaribleList_11.root",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/1tau1l_v1/1tau1lvaribleList_15.root",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/tmvaTraining/btagWP/variableList_15.csv.root",
-    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/BDTTrain/varibleList_16.csv.root",
+    // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/BDTTrain/varibleList_16.csv.root",
+    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau1l_v64PreAndHLTSel/mc/BDTTrain/varibleList_16.csv.root",
     Bool_t plotSigOnly = false
 
 )

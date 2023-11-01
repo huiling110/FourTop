@@ -17,7 +17,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0baseline_v0preSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0preSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/",
     TString process = "tttt",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
@@ -26,8 +27,8 @@ void run_treeAnalyzer(
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
     TString histVersion = "v0_test",
-    // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
-    Int_t channel = 1,//0: 1tau1l; 1: 1tau0l
+    Int_t channel = 0,//0: 1tau1l
+    // Int_t channel = 1,// 1: 1tau0l
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
