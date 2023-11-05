@@ -30,8 +30,6 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'
     # channel = '1tau0l' # 1tau0l
     channel = '1tau1l' 
    
@@ -109,7 +107,6 @@ def getSumSys(summedHistDicAllSys, inputDir):
 def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=False):
     print('start to add JER sys hists') 
     jerDic = {
-        # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/combine/templatesForCombine1tau1l_test.root', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/combine/templatesForCombine1tau1l_test.root'],
         '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'],
     }
     templatesWithJER = jerDic[era]
@@ -125,6 +122,7 @@ def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=Fals
         addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'CMS_JER_'+era+'Up_BDT', isub, outFile, isRun3 )
         addHistToDic(isubHistDown,summedHistDicAllSys['JER_down'], 'CMS_JER_'+era+'Down_BDT', isub, outFile, isRun3 )
     print(summedHistDicAllSys)
+    print('done adding JER sys templates\n')
 
    
     

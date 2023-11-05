@@ -109,8 +109,8 @@ public:
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll"),
-                                        LHEPdfWeight(reader, "LHEPdfWeight")
+                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+                                        // LHEPdfWeight(reader, "LHEPdfWeight")
 
     {
         // dealing with case: HLT branch not existing in this nanofile;
@@ -221,7 +221,7 @@ public:
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
     //theoretical 
-    TTreeReaderArray<Float_t> LHEPdfWeight ; //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
+    // TTreeReaderArray<Float_t> LHEPdfWeight ; //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
     //https://lhapdf.hepforge.org/pdfsets
 
     TTreeReaderArray<UChar_t> *Tau_genPartFlav = nullptr;

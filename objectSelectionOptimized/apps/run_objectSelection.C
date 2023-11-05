@@ -46,8 +46,9 @@ void run_objectSelection(
     Int_t JER = 0; //0 : JER nominal
     // Int_t JER = 2; 
     // Int_t JER = 1; 
+    // Int_t JES = 0;
+    Int_t JES = 1;//up
     Int_t TES = 0; //0: nominal
-    Int_t JES = 0;
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
     os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
 
