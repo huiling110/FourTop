@@ -124,8 +124,6 @@ def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=Fals
         isubHistDown = uf.getHistFromFile(ifileDown, [isub +'_SR_BDT'])[0]
         addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'CMS_JER_'+era+'Up_BDT', isub, outFile, isRun3 )
         addHistToDic(isubHistDown,summedHistDicAllSys['JER_down'], 'CMS_JER_'+era+'Down_BDT', isub, outFile, isRun3 )
-        # irootUp.Close()
-        # irootDown.Close()
     print(summedHistDicAllSys)
 
    
