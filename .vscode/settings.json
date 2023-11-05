@@ -101,6 +101,7 @@
     "-c",
     "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
     ],
+    "window.zoomLevel": -0.5,
 
 
 }
