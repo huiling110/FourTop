@@ -402,4 +402,31 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     print('done plot efficiency \n\n')
     
     
+def getHistFromFile(fileName, histNames):
+    file = ROOT.TFile.Open(fileName)
+
+    if not file or file.IsZombie():
+        print("Error: Unable to open the file.")
+        return []
+
+    histograms = []
+    # Loop through the list of histogram names
+    for name in histNames:
+        # Get the histogram from the file
+        histogram = file.Get(name)
+        histogram.Print()
+        if not histogram:
+            print("Error: Unable to find the histogram", name, "in the file.")
+            continue
+        # Clone the histogram to avoid potential issues when the file is closed
+        histogram1 = histogram.Clone()
+        # histogram1.Print()
+        histogram1.SetDirectory(0)
+        histograms.append(histogram1)
+    # Close the file (optional, depending on your use case)
+    file.Close()
+
+    return histograms
+    
+    
    

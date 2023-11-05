@@ -114,21 +114,18 @@ def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=Fals
     }
     templatesWithJER = jerDic[era]
     print('using JER template file: ', templatesWithJER[0], '\n', templatesWithJER[1])
-    # jerFileUp = ROOT.TFile(templatesWithJER[0], 'READ')      
-    # jerFileDown = ROOT.TFile(templatesWithJER[1], 'READ')      
-    # jerUpHist =  
     summedHistDicAllSys['JER_up'] = {}
     summedHistDicAllSys['JER_down'] = {}
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
         ifileUp = templatesWithJER[0] + isub + '.root'
-        irootUp = ROOT.TFile(ifileUp, 'READ')
-        # if iroot.IsZombie():
-        #     print('BAD!!!', ifile, 'not existing\n')
-        isubHistUp =  irootUp.Get(isub +'_SR_BDT').Clone()
-        isubHistUp.SetName(isub+'_CMS_JER_'+era+'Up_BDT' )
-        addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'JER_up', isub, outFile, isRun3 )
-        irootUp.Close()
+        ifileDown = templatesWithJER[1] + isub + '.root'
+        isubHistUp = uf.getHistFromFile(ifileUp, [isub +'_SR_BDT'])[0]
+        isubHistDown = uf.getHistFromFile(ifileDown, [isub +'_SR_BDT'])[0]
+        addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'CMS_JER_'+era+'Up_BDT', isub, outFile, isRun3 )
+        addHistToDic(isubHistDown,summedHistDicAllSys['JER_down'], 'CMS_JER_'+era+'Down_BDT', isub, outFile, isRun3 )
+        # irootUp.Close()
+        # irootDown.Close()
     print(summedHistDicAllSys)
 
    

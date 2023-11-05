@@ -234,7 +234,7 @@ def getEff(de, nu) :
 #     file.Close()
 
 #     return histogram
-    
+#!!!put this in usefulFunc.py already    
 def getHistFromFile(fileName, histNames):
     file = ROOT.TFile.Open(fileName)
 
