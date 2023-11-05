@@ -30,9 +30,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'
     # channel = '1tau0l' # 1tau0l
     channel = '1tau1l' 
-    JERDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/'
    
    
    
@@ -58,7 +59,23 @@ def main():
     #summedHistDicAllSys[sys][sumPro]
     getSumSys(summedHistDicAllSys, inputDir) 
     
+   
+    getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
+ 
+    if channel=='1tau0l':
+        addFakeTauSys(outFile, channel, summedHistDicAllSys, era)
+        print(summedHistDicAllSys)
     
+    fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
+    
+    addJERSys(outFile, summedHistDicAllSys, allSubPro, era, isRun3)
+    
+     
+    outFile.Write()
+    print('outFile here: ', outFile.GetName())
+    outFile.Close()
+  
+def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
     #loop through all subProcess
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
@@ -71,20 +88,9 @@ def main():
             print(isub+isysHist)
             iHist = iroot.Get(isub+'_'+isysHist).Clone()
             addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
-       
         iroot.Close() 
     print(summedHistDicAllSys)
- 
-    if channel=='1tau0l':
-        addFakeTauSys(outFile, channel, summedHistDicAllSys, era)
-        print(summedHistDicAllSys)
-    
-    fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
-    
-     
-    outFile.Write()
-    print('outFile here: ', outFile.GetName())
-    outFile.Close()
+      
    
 def getSumSys(summedHistDicAllSys, inputDir):
     ttttFile = ROOT.TFile(inputDir+'tttt.root', 'READ' )
@@ -99,7 +105,32 @@ def getSumSys(summedHistDicAllSys, inputDir):
         obj.Delete()
     ttttFile.Close()
     print(summedHistDicAllSys)
-       
+
+def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=False):
+    print('start to add JER sys hists') 
+    jerDic = {
+        # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/combine/templatesForCombine1tau1l_test.root', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/combine/templatesForCombine1tau1l_test.root'],
+        '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'],
+    }
+    templatesWithJER = jerDic[era]
+    print('using JER template file: ', templatesWithJER[0], '\n', templatesWithJER[1])
+    # jerFileUp = ROOT.TFile(templatesWithJER[0], 'READ')      
+    # jerFileDown = ROOT.TFile(templatesWithJER[1], 'READ')      
+    # jerUpHist =  
+    summedHistDicAllSys['JER_up'] = {}
+    summedHistDicAllSys['JER_down'] = {}
+    for isub in allSubPro:
+        if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
+        ifileUp = templatesWithJER[0] + isub + '.root'
+        irootUp = ROOT.TFile(ifileUp, 'READ')
+        # if iroot.IsZombie():
+        #     print('BAD!!!', ifile, 'not existing\n')
+        isubHistUp =  irootUp.Get(isub +'_SR_BDT').Clone()
+        isubHistUp.SetName(isub+'_CMS_JER_'+era+'Up_BDT' )
+        addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'JER_up', isub, outFile, isRun3 )
+        irootUp.Close()
+    print(summedHistDicAllSys)
+
    
     
 def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
