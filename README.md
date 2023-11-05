@@ -1,5 +1,12 @@
 # Instructon for implemention
 
+## Workflow
+* run_treeAnalyzer.out -> addTemplatesForCombine.py ->
+
+
+## To do 
+* python script for generating datacards
+
 * install
   <!-- * export SCRAM_ARCH=slc7_amd64_gcc900 -->
   <!-- * cmsrel CMSSW_12_2_4 -->
@@ -9,7 +16,7 @@
   * bash setupEnv.sh( setting up proper g++ root python and correction)
   * cd FourTop
  * run
-   <!-- * cmsenv -->
+   <!-- * cmsenv --****>
   * cd objectSelection
 * mkdir output
    <!-- * make clean -->

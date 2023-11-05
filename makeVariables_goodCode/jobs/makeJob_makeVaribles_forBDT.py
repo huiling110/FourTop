@@ -50,8 +50,8 @@ import usefulFunc as uf
 def main():
     # year = '2022'
     # year = '2016'
-    # year = '2018'
-    year = '2017'
+    year = '2018'
+    # year = '2017'
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
@@ -60,7 +60,8 @@ def main():
     # inVersion = 'v62addTauJetVars'
     # inVersion = 'v63smallFixJER'
     # inVersion = 'v64noHLTSel'
-    inVersion = 'v64PreAndHLTSel'
+    # inVersion = 'v64PreAndHLTSel'
+    inVersion = 'v64PreAndHLTSel_JERUp'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -72,7 +73,7 @@ def main():
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
-    # outVersion = 'v0baseline'
+    outVersion = 'v0baseline'
     # outVersion = 'v0NewHLTSF'
     # outVersion = 'v0NewHLTSFBinA'
     # outVersion = 'v0NewHLTSFBinD'
@@ -80,7 +81,7 @@ def main():
     # outVersion = 'v0NewHLTSFHT500BinE'
     # outVersion = 'v0NewHLTSFHT550BinF'
     # outVersion = 'v1NewHLTSF1tau1lCut'
-    outVersion = 'v2cut1tau1l'
+    # outVersion = 'v2cut1tau1l'
     
     #2022
     # year = '2022postEE'

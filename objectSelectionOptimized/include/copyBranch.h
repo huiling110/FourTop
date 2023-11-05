@@ -22,6 +22,8 @@ private:
     Double_t EVENT_prefireWeight_up_;
     Double_t EVENT_prefireWeight_down_;
     Double_t EVENT_genWeight_;
+    //therectical uncertainties
+    std::vector<Float_t> LHEPdfWeight_;
     std::vector<Int_t> Electron_charge_;
     std::vector<Int_t> Muon_charge_;
     std::vector<Int_t> GenPart_genPartIdxMother_;

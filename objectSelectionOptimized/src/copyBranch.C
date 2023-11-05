@@ -17,6 +17,7 @@ CopyBranch::CopyBranch(TTree *outTree)
     outTree->Branch("GenPart_pdgId_", &GenPart_pdgId_);
     outTree->Branch("GenPart_genPartIdxMother_", &GenPart_genPartIdxMother_);
     outTree->Branch("EVENT_genWeight_", &EVENT_genWeight_);
+    outTree->Branch("LHEPdfWeight_", &LHEPdfWeight_);
     std::cout << "Done intializing ...........\n";
     std::cout << "\n";
 };
@@ -39,10 +40,12 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     {
         EVENT_genWeight_ = 1;
     }
+    // LHEPdfWeight_ = **e->LHEPdfWeight;
     //!!!causing too much memory consumption!!!???
     // maybe template argument deduction  is not working well, not the culprit
     OS::copy_TTreeReaderArray_toVector<Int_t>(e->Electron_charge, Electron_charge_); // this line is fine
     OS::copy_TTreeReaderArray_toVector<Int_t>(e->Muon_charge, Muon_charge_);         // this okay too
+    OS::copy_TTreeReaderArray_toVector<Float_t>(e->LHEPdfWeight, LHEPdfWeight_);
     // if (!isData)
     // {
     // copy_TTreeReaderArray_toVector<Int_t>(*e->GenPart_genPartIdxMother, GenPart_genPartIdxMother_);
@@ -57,4 +60,5 @@ void CopyBranch::clearBranch()
     Muon_charge_.clear();
     GenPart_genPartIdxMother_.clear();
     GenPart_pdgId_.clear();
+    LHEPdfWeight_.clear();
 };

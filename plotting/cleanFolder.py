@@ -18,6 +18,7 @@ def main():
 
     threshold_time = time.time() - (removeOlderDays * 24 * 60 * 60)  # Delete folders older than 7 days
     delete_folders(directory_path, threshold_time, ifDryRun)
+    #!!!todo: not delete .root under combine/ and results/
 
 
 def delete_folders(directory, threshold_time, ifDryRun = True):

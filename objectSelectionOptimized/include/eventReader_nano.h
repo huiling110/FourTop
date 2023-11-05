@@ -109,7 +109,9 @@ public:
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
+                                        fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll"),
+                                        LHEPdfWeight(reader, "LHEPdfWeight")
+
     {
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
@@ -142,6 +144,7 @@ public:
         OS::readPointerArray(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         OS::readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         OS::readPointer(genWeight, reader, "genWeight");
+        // OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(Tau_genPartFlav, reader, "Tau_genPartFlav");
         OS::readPointerArray(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
 
@@ -217,6 +220,9 @@ public:
     TTreeReaderArray<Int_t> *GenPart_genPartIdxMother = nullptr;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
+    //theoretical 
+    TTreeReaderArray<Float_t> LHEPdfWeight ; //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
+    //https://lhapdf.hepforge.org/pdfsets
 
     TTreeReaderArray<UChar_t> *Tau_genPartFlav = nullptr;
 
