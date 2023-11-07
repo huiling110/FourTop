@@ -26,6 +26,7 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel_JERUp/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel_JERUp/mc/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel_JESUp/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v64noHLTSel/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
@@ -42,7 +43,6 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
-    // TString outputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/cutflowCheck/",
     TString outputDir = "output/",
     Int_t numEntries = 1000)
 {
