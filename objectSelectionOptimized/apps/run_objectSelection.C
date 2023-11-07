@@ -50,7 +50,8 @@ void run_objectSelection(
     // Int_t JES = 1;//up
     // Int_t JES = 2;//down
     // Int_t TES = 0; //0: nominal
-    Int_t TES = 1;//up
+    // Int_t TES = 1;//up
+    Int_t TES = 2; //down
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES);
     os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
 
