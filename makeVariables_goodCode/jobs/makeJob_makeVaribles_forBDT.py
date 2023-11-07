@@ -14,39 +14,6 @@ import usefulFunc as uf
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
-# inVersion = 'v51TESNewLepObjectRemovalCorrected'
-# inVersion =  'v52noHLTSelection'
-# inVersion = 'v52noHLTButPreSelection'
-# inVersion = 'v54noHLTButPre'
-# inVersion = 'v54noHLTButPreMetFixed'
-# inVersion = 'v55ojectRemovalwithTight'
-# inVersion = 'v55ojectRemovalwithTightNoHLT'
-# inVersion = 'v56NoHLTButPre'
-# inVersion = 'v56preselection'
-# inVersion = 'v57ovelapWithTausF'
-# inVersion = 'v58addGenBranches'
-
-# outVersion = 'v4baselineBtagRUpdated'
-# outVersion = 'v5extra1tau1lCut'
-# outVersion = 'v4baseline'
-# outVersion = 'v5updateHLTSF'
-# outVersion = 'v5baselineExtraTauLepCut'
-# outVersion = 'v6Cut1tau1lVariableFixed'
-# outVersion = 'v7baselineExtraTauCut'
-# outVersion = 'v8Cut1tau1l'
-# outVersion = 'v9addBtagWeight'
-# outVersion = 'v10addPV_npvsGood_baseline'
-# outVersion = 'v0LepLAdded'
-# outVersion = 'v1AddTOPLepVariables'
-# outVersion = 'v2aadTopLepWeight'
-# outVersion = 'v3addjetBtagVar'
-# selectionBit = '0'
-# selectionBit = '4'
-# selectionBit = '6' # no metfilters
-# selectionBit = '2' # no metfilters
-# print('version: {}_{},  selection:{}'.format(outVersion, inVersion, selectionBit))
-
-
 def main():
     # year = '2022'
     # year = '2016'
