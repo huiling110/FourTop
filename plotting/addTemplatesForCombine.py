@@ -66,7 +66,11 @@ def main():
     
     fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
     
-    addJERSys(outFile, summedHistDicAllSys, allSubPro, era, isRun3)
+    
+    jerDic = {
+        '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/', 'JER'],
+    }
+    addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era, isRun3)
     
      
     outFile.Write()
@@ -104,25 +108,30 @@ def getSumSys(summedHistDicAllSys, inputDir):
     ttttFile.Close()
     print(summedHistDicAllSys)
 
-def addJERSys(outFile, summedHistDicAllSys, allSubPro, era = '2018', isRun3=False):
+def addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era = '2018', isRun3=False):
     print('start to add JER sys hists') 
-    jerDic = {
-        '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'],
-    }
+    # jerDic = {
+    #     '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/'],
+    # }
     templatesWithJER = jerDic[era]
-    print('using JER template file: ', templatesWithJER[0], '\n', templatesWithJER[1])
-    summedHistDicAllSys['JER_up'] = {}
-    summedHistDicAllSys['JER_down'] = {}
+    sysName = templatesWithJER[2]
+    print('using ', sysName, ' template file: ', templatesWithJER[0], '\n', templatesWithJER[1])
+    # summedHistDicAllSys['JER_up'] = {}
+    # summedHistDicAllSys['JER_down'] = {}
+    summedHistDicAllSys[ sysName+'_up'] = {}
+    summedHistDicAllSys[ sysName+'_down'] = {}
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
         ifileUp = templatesWithJER[0] + isub + '.root'
         ifileDown = templatesWithJER[1] + isub + '.root'
         isubHistUp = uf.getHistFromFile(ifileUp, [isub +'_SR_BDT'])[0]
         isubHistDown = uf.getHistFromFile(ifileDown, [isub +'_SR_BDT'])[0]
-        addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'CMS_JER_'+era+'Up_BDT', isub, outFile, isRun3 )
-        addHistToDic(isubHistDown,summedHistDicAllSys['JER_down'], 'CMS_JER_'+era+'Down_BDT', isub, outFile, isRun3 )
+        # addHistToDic(isubHistUp,summedHistDicAllSys['JER_up'], 'CMS_JER_'+era+'Up_BDT', isub, outFile, isRun3 )
+        # addHistToDic(isubHistDown,summedHistDicAllSys['JER_down'], 'CMS_JER_'+era+'Down_BDT', isub, outFile, isRun3 )
+        addHistToDic(isubHistUp,summedHistDicAllSys[sysName+'_up'], 'CMS_'+sysName+'_'+era+'Up_BDT', isub, outFile, isRun3 )
+        addHistToDic(isubHistDown,summedHistDicAllSys[sysName+'_down'], 'CMS_'+sysName+'_'+era+'Down_BDT', isub, outFile, isRun3 )
     print(summedHistDicAllSys)
-    print('done adding JER sys templates\n')
+    print('done adding sys templates\n')
 
    
     

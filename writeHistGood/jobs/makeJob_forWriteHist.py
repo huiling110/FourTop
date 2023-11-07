@@ -38,7 +38,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESDown/'
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
@@ -96,7 +98,9 @@ def main():
     channel = 0
     # version = 'v0BasicSystematic'
     # version = 'v1JERup'
-    version = 'v1JERdown'
+    # version = 'v1JERdown'
+    version = 'v1JESDown'
+    # version = 'v1JESDown'
     # version = 'v2traingWithBtag'
     # version = 'v3withBjetT'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
