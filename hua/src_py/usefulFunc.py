@@ -428,5 +428,37 @@ def getHistFromFile(fileName, histNames):
 
     return histograms
     
+def getHistFromFileDic(fileName, regionList, varList, subPro):
+    file = ROOT.TFile.Open(fileName)
+    if not file or file.IsZombie():
+        print("Error: Unable to open the file.")
+        return []
+    subProHist = {} 
+    histNames =  getHistName(regionList, varList, subPro)
+    for ivar in varList:
+        subProHist[ivar] = {}
+        for ire in regionList:
+            histName = subPro + '_' + ire + '_' + ivar 
+            subProHist[ivar][ire] = getHistFromFile(fileName, [histName])[0]
+    return subProHist
+            
+             
+    # for name in histNames:
+    #     histogram = file.Get(name)
+    #     histogram.Print()
+    #     if not histogram:
+    #         print("Error: Unable to find the histogram", name, "in the file.")
+    #         continue
+    #     # Clone the histogram to avoid potential issues when the file is closed
+    #     histogram1 = histogram.Clone()
+    #     histogram1.SetDirectory(0)
+        
     
    
+def getHistName(regionList, varList, isub):
+    histNames = []
+    for iRe in regionList:
+        for ivar in varList:
+            iHist = isub + '_' + iRe + '_' + ivar
+            histNames.append(iHist)
+    return histNames

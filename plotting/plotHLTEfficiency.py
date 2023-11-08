@@ -25,8 +25,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinE/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinE/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -161,12 +161,31 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
     print('start to get hists and add them from root files')
     allSubPro = list(gq.histoGramPerSample.keys() )
     allDic =  gq.histoGramPerSample
-    # toGetSubPro = 
+    # toGetSubPro =
+    toGetSubHist = {} 
     for isub in allSubPro:
         if not allDic[isub] in sumProList: continue # not getting
         if not era in isub: continue #not getting data from other year
         print('getting: ', isub)
-       
+        isdata = isData(isub)
+        if isdata:
+            rootFile = inputDirDic['data'] + isub + '.root'
+        else:
+            rootFile = inputDirDic['mc'] + isub +'.root'
+        print('opening file:', rootFile)
+        isubProHist = uf.getHistFromFileDic(rootFile, regionList, varList, isub)
+        # toGetSumHist[]
+        print(isubProHist)
+        
+
+                
+        
+def isData(subPro):
+    isdata = False
+    if ('jetHT' in subPro) or ('singleMu' in subPro):
+        isdata = True
+    return isdata
+    
        
        
     
