@@ -157,14 +157,15 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     #     # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
   
-def getSumHist(inputDirDic, regionList, sumProList, varList, isRun3=False):
+def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=False):
     print('start to get hists and add them from root files')
     allSubPro = list(gq.histoGramPerSample.keys() )
     allDic =  gq.histoGramPerSample
     # toGetSubPro = 
     for isub in allSubPro:
         if not allDic[isub] in sumProList: continue # not getting
-        print('getting ', isub)
+        if not era in isub: continue #not getting data from other year
+        print('getting: ', isub)
        
        
        
