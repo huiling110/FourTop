@@ -1,10 +1,11 @@
 import numpy as np
 import array
 import ROOT
-
+ 
+import ttttGlobleQuantity as gq 
 import usefulFunc as uf
 
-from plotForFakeRate import plotEfficiency, plotFROverlay
+# from plotForFakeRate import plotEfficiency, plotFROverlay
 
 import plotBtagEff as pB
 
@@ -129,11 +130,13 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     varList = ['jets_6pt']     
     sumProcessPerVar = {}
     sumProcessPerVarSys = {} 
-    for ivar in variableList:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
-    # sumList = ['singleMu', 'tt', 'tttt']
+    # for ivar in variableList:
+    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+    sumList = ['singleMu', 'tt', 'tttt']
     # sumProcessPerVar = uf.getSumnedPro(inputDirDic, sumList, regionList, varList)
     #sumProcessPerVar[ivar][region][sumPro]
+    
+    getSumHist(inputDirDic, regionList, sumList, varList )
     print( sumProcessPerVar )
    
     plotDir = inputDirDic['mc'] + 'results/'
@@ -153,10 +156,18 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     #     overlayName = plotDir + 'HLTefficiencyOverlay_testing' + ivar  + bjet+'.png' 
     #     # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
-   
-# def plotEffHLTNew(variable, binning, regionDe, regionNu, inputDir, sample='tttt') :
-    # if sample == 'tttt':
-    # h_de = uf.getSummedPro(inputDir, sample, [regionDe, regionNu], ivar)
+  
+def getSumHist(inputDirDic, regionList, sumProList, varList, isRun3=False):
+    print('start to get hists and add them from root files')
+    allSubPro = list(gq.histoGramPerSample.keys() )
+    allDic =  gq.histoGramPerSample
+    # toGetSubPro = 
+    for isub in allSubPro:
+        if not allDic[isub] in sumProList: continue # not getting
+        print('getting ', isub)
+       
+       
+       
     
     
 

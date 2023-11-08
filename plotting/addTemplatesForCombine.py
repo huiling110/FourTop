@@ -75,6 +75,10 @@ def main():
         '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES'],
     }
     addJERSys(outFile, summedHistDicAllSys, allSubPro, jesDic, era, isRun3)
+    jesDic = {
+        '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown/', 'TES'],
+    }
+    addJERSys(outFile, summedHistDicAllSys, allSubPro, jesDic, era, isRun3)
     
      
     outFile.Write()
