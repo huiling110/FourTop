@@ -469,3 +469,14 @@ def print_dict_structure(dictionary, indent=0):
         print("\t" * indent + str(key))
         if isinstance(value, dict):
             print_dict_structure(value, indent + 1)
+
+# def sumSubPro(subHists):
+#     grouped_dict = {}
+#     for key1, subdict1 in subHists.items():
+#         for key2, subdict2 in subdict1.items():
+#             for subsubkey, value in subdict2.items():
+#                 if subsubkey not in grouped_dict:
+#                     grouped_dict[subsubkey] = {}
+#                 if key1 not in grouped_dict[subsubkey]:
+#                     grouped_dict[subsubkey][key1] = {}
+#                 grouped_dict[subsubkey][key1][key2] = value

@@ -174,18 +174,16 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
             rootFile = inputDirDic['mc'] + isub +'.root'
         print('opening file:', rootFile)
         isubProHist = uf.getHistFromFileDic(rootFile, regionList, varList, isub) #isubProHist[var][region][subPro]
-        
+        uf.print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
-        # if not toGetSubHist:
-        #     toGetSubHist = isubProHist 
-        # else:
-        #     toGetSubHist[va]
-        # toGetSubHist.update(isubProHist.copy())
-        print(isubProHist, '\n')
-        # print(toGetSubHist)    
     uf.print_dict_structure(toGetSubHist)
+    
+    # sumProHists = sumSuxPro(toGetSubHist)
+    sumProHist =  group_third_layer(toGetSubHist, allDic)
+    uf.print_dict_structure(sumProList)
 
 def merge_dicts(dict1, dict2):
+    #to study
     merged_dict = {}
     for key in dict1.keys() | dict2.keys():
         if key in dict1 and key in dict2:
@@ -198,7 +196,44 @@ def merge_dicts(dict1, dict2):
         else:
             merged_dict[key] = dict2[key]
     return merged_dict
+   
+def group_third_layer(dictionary, grouping_dict):
+    #dictionary[ivar][ire][subPro] 
+    grouped_dict = {}
+    for key, value in dictionary.items(): #(1var:dic[ire])->(1re:dic[isub])->(1sub:hist)
+        if isinstance(value, dict): #if value is a dictionary
+            grouped_subdict = group_third_layer(value, grouping_dict)
+            if key in grouped_dict:
+                grouped_dict[key].update(grouped_subdict)
+            else:
+                grouped_dict[key] = grouped_subdict
+        else: #in the last layer, subPro: hist
+            if key in grouping_dict:
+                group_key = grouping_dict[key]
+                if group_key not in grouped_dict:
+                    grouped_dict[group_key] = {}
+                if key in grouped_dict[group_key]:
+                    grouped_dict[group_key][key].append(value)
+                else:
+                    grouped_dict[group_key][key] = [value]
+            else:
+                if key in grouped_dict:
+                    grouped_dict[key].append(value)
+                else:
+                    grouped_dict[key] = [value]
+    return grouped_dict   
+    
+# def sumSubPro(subHists):
+#     sumHists = {}
+#     for ivar in subHists.keys():
+#         # sumHists[ivar]={}
+#         for ire in subHists[ivar].keys():
+#             # sumHist
+#             for isubPro in subHists[ivar][ire].keys():
                 
+                
+#     return sumHists
+                                
         
 def isData(subPro):
     isdata = False

@@ -44,8 +44,8 @@ void run_objectSelection(
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
 
     // Int_t JER = 0; //0 : JER nominal
-    // Int_t JER = 2; 
-    Int_t JER = 1; 
+    Int_t JER = 2; 
+    // Int_t JER = 1; 
     Int_t JES = 0;
     // Int_t JES = 1;//up
     // Int_t JES = 2;//down
