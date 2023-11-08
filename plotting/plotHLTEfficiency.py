@@ -182,7 +182,8 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
         #     toGetSubHist[va]
         # toGetSubHist.update(isubProHist.copy())
         print(isubProHist, '\n')
-        print(toGetSubHist)    
+        # print(toGetSubHist)    
+    uf.print_dict_structure(toGetSubHist)
 
 def merge_dicts(dict1, dict2):
     merged_dict = {}

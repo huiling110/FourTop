@@ -463,3 +463,9 @@ def getHistName(regionList, varList, isub):
             iHist = isub + '_' + iRe + '_' + ivar
             histNames.append(iHist)
     return histNames
+
+def print_dict_structure(dictionary, indent=0):
+    for key, value in dictionary.items():
+        print("\t" * indent + str(key))
+        if isinstance(value, dict):
+            print_dict_structure(value, indent + 1)
