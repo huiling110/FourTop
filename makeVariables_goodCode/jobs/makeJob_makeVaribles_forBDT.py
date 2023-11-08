@@ -32,7 +32,7 @@ def main():
     # inVersion = 'v64PreAndHLTSel_JERDown'
     # inVersion = 'v64PreAndHLTSel_JESUp'
     # inVersion = 'v64PreAndHLTSel_JESDown'
-    inVersion = 'v64PreAndHLTSel_TESUp'
+    inVersion = 'v64PreAndHLTSel_TESDown'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'

@@ -57,12 +57,12 @@ def main():
     
     
 
-    cardToWorkspaces( cardDir )
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-    copyCombineResultsToDir( cardDir )
+    # cardToWorkspaces( cardDir )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
+    # copyCombineResultsToDir( cardDir )
     
-    # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
+    runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau1l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau0l.root', cardDir+'combineResults/')
