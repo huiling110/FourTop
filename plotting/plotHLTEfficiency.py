@@ -173,11 +173,30 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
         else:
             rootFile = inputDirDic['mc'] + isub +'.root'
         print('opening file:', rootFile)
-        isubProHist = uf.getHistFromFileDic(rootFile, regionList, varList, isub)
-        # toGetSumHist[]
-        print(isubProHist)
+        isubProHist = uf.getHistFromFileDic(rootFile, regionList, varList, isub) #isubProHist[var][region][subPro]
         
+        toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
+        # if not toGetSubHist:
+        #     toGetSubHist = isubProHist 
+        # else:
+        #     toGetSubHist[va]
+        # toGetSubHist.update(isubProHist.copy())
+        print(isubProHist, '\n')
+        print(toGetSubHist)    
 
+def merge_dicts(dict1, dict2):
+    merged_dict = {}
+    for key in dict1.keys() | dict2.keys():
+        if key in dict1 and key in dict2:
+            if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+                merged_dict[key] = merge_dicts(dict1[key], dict2[key])
+            else:
+                merged_dict[key] = [dict1[key], dict2[key]]
+        elif key in dict1:
+            merged_dict[key] = dict1[key]
+        else:
+            merged_dict[key] = dict2[key]
+    return merged_dict
                 
         
 def isData(subPro):

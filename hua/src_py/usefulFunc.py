@@ -439,7 +439,8 @@ def getHistFromFileDic(fileName, regionList, varList, subPro):
         subProHist[ivar] = {}
         for ire in regionList:
             histName = subPro + '_' + ire + '_' + ivar 
-            subProHist[ivar][ire] = getHistFromFile(fileName, [histName])[0]
+            subProHist[ivar][ire] = {}
+            subProHist[ivar][ire][subPro] = getHistFromFile(fileName, [histName])[0]
     return subProHist
             
              
