@@ -177,10 +177,27 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
         uf.print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
     uf.print_dict_structure(toGetSubHist)
+    print('\n')
     
     # sumProHists = sumSuxPro(toGetSubHist)
-    sumProHist =  group_third_layer(toGetSubHist, allDic)
-    uf.print_dict_structure(sumProList)
+    # sumProHists =  group_third_layer(toGetSubHist, allDic)
+    sumProHists =  sumProDic(toGetSubHist, allDic)
+    uf.print_dict_structure(sumProHists)
+    # print(sumProHist)
+    
+def sumProDic(subProHists, sumProDic):
+    sumProHists = {}
+    for ivar, reDic in subProHists.items():
+        sumProHists[ivar] = {}
+        for ire, subProDic in reDic.items():
+            sumProHists[ivar][ire] = {}
+            for isub, hist in subProDic.items():
+                if sumProDic[isub] not in sumProHists.keys():
+                    sumProHists[ivar][ire][sumProDic[isub]] = hist.Clone()
+                else:
+                    sumProHists[ivar][ire][sumProDic[isub]].Add(hist)
+    return sumProHists
+                
 
 def merge_dicts(dict1, dict2):
     #to study
@@ -197,11 +214,12 @@ def merge_dicts(dict1, dict2):
             merged_dict[key] = dict2[key]
     return merged_dict
    
-def group_third_layer(dictionary, grouping_dict):
+def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
     #dictionary[ivar][ire][subPro] 
     grouped_dict = {}
     for key, value in dictionary.items(): #(1var:dic[ire])->(1re:dic[isub])->(1sub:hist)
-        if isinstance(value, dict): #if value is a dictionary
+        if isinstance(value, dict): #if value is a dictionary, can go into second layer
+            #first layer: put dic[re] back into funtion->dic[subPro]->(sub:hist)=grouped_dict[sub]->Return to call from fist layer here
             grouped_subdict = group_third_layer(value, grouping_dict)
             if key in grouped_dict:
                 grouped_dict[key].update(grouped_subdict)

@@ -465,10 +465,12 @@ def getHistName(regionList, varList, isub):
     return histNames
 
 def print_dict_structure(dictionary, indent=0):
+    # print(name, )
     for key, value in dictionary.items():
         print("\t" * indent + str(key))
         if isinstance(value, dict):
             print_dict_structure(value, indent + 1)
+    # print('\n')
 
 # def sumSubPro(subHists):
 #     grouped_dict = {}
