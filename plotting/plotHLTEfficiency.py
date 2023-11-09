@@ -136,8 +136,7 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     # sumProcessPerVar = uf.getSumnedPro(inputDirDic, sumList, regionList, varList)
     #sumProcessPerVar[ivar][region][sumPro]
     
-    getSumHist(inputDirDic, regionList, sumList, varList )
-    print( sumProcessPerVar )
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumList, varList )
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
@@ -157,62 +156,6 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     #     # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
     
   
-def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=False):
-    print('start to get hists and add them from root files')
-    allSubPro = list(gq.histoGramPerSample.keys() )
-    allDic =  gq.histoGramPerSample
-    # toGetSubPro =
-    toGetSubHist = {} 
-    for isub in allSubPro:
-        if not allDic[isub] in sumProList: continue # not getting
-        if not era in isub: continue #not getting data from other year
-        print('getting: ', isub)
-        isdata = isData(isub)
-        if isdata:
-            rootFile = inputDirDic['data'] + isub + '.root'
-        else:
-            rootFile = inputDirDic['mc'] + isub +'.root'
-        print('opening file:', rootFile)
-        isubProHist = uf.getHistFromFileDic(rootFile, regionList, varList, isub) #isubProHist[var][region][subPro]
-        uf.print_dict_structure(isubProHist)
-        toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
-    uf.print_dict_structure(toGetSubHist)
-    print('\n')
-    
-    # sumProHists = sumSuxPro(toGetSubHist)
-    # sumProHists =  group_third_layer(toGetSubHist, allDic)
-    sumProHists =  sumProDic(toGetSubHist, allDic)
-    uf.print_dict_structure(sumProHists)
-    # print(sumProHist)
-    
-def sumProDic(subProHists, sumProDic):
-    sumProHists = {}
-    for ivar, reDic in subProHists.items():
-        sumProHists[ivar] = {}
-        for ire, subProDic in reDic.items():
-            sumProHists[ivar][ire] = {}
-            for isub, hist in subProDic.items():
-                if sumProDic[isub] not in sumProHists.keys():
-                    sumProHists[ivar][ire][sumProDic[isub]] = hist.Clone()
-                else:
-                    sumProHists[ivar][ire][sumProDic[isub]].Add(hist)
-    return sumProHists
-                
-
-def merge_dicts(dict1, dict2):
-    #to study
-    merged_dict = {}
-    for key in dict1.keys() | dict2.keys():
-        if key in dict1 and key in dict2:
-            if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
-                merged_dict[key] = merge_dicts(dict1[key], dict2[key])
-            else:
-                merged_dict[key] = [dict1[key], dict2[key]]
-        elif key in dict1:
-            merged_dict[key] = dict1[key]
-        else:
-            merged_dict[key] = dict2[key]
-    return merged_dict
    
 def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
     #dictionary[ivar][ire][subPro] 
@@ -253,11 +196,6 @@ def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
 #     return sumHists
                                 
         
-def isData(subPro):
-    isdata = False
-    if ('jetHT' in subPro) or ('singleMu' in subPro):
-        isdata = True
-    return isdata
     
        
        

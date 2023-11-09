@@ -7,7 +7,7 @@ import ROOT
 # from ttttGlobleQuantity import (histoGramPerSample, lumiMap, summedProcessList,
                                 # samplesCrossSection)
                                 
-import ttttGlobleQuantity as tg                                
+import ttttGlobleQuantity as gq                                
 import setTDRStyle as st
 
 
@@ -144,9 +144,9 @@ def compare2List( list1, list2):
 def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', ifScale=False, era = '2016postVFP' , ifGetSys=False, isRun3=False):
 #return sum[var][region][summedPro]    
     if not isRun3:
-        histoGramPerSample = tg.histoGramPerSample
+        histoGramPerSample = gq.histoGramPerSample
     else:
-        histoGramPerSample = tg.Run3Samples
+        histoGramPerSample = gq.Run3Samples
     allSubProcess = histoGramPerSample.keys()
     sumProcessHistsDict = {}
     sumProcessHistsDictSys = {}
@@ -329,11 +329,11 @@ def getSameValues(diction, value):
             
 
 #!!!to be done    
-def getSumnedPro(inputDir, sumList, regionList, ivar):
-    # if not sumBG in tg.histoGramPerSample: 
+# def getSumnedPro(inputDir, sumList, regionList, ivar):
+    # if not sumBG in gq.histoGramPerSample: 
     #     print(sumBG, ' not exist!!!')
-    #     sys.exit()
-    subprocesses = getSameValues(tg.histoGramPerSample, sumBG)
+        # sys.exit()
+    # subprocesses = getSameValues(gq.histoGramPerSample, sumBG)
     # for ifile in os.listdir(inputDir):
         
     
@@ -472,13 +472,65 @@ def print_dict_structure(dictionary, indent=0):
             print_dict_structure(value, indent + 1)
     # print('\n')
 
-# def sumSubPro(subHists):
-#     grouped_dict = {}
-#     for key1, subdict1 in subHists.items():
-#         for key2, subdict2 in subdict1.items():
-#             for subsubkey, value in subdict2.items():
-#                 if subsubkey not in grouped_dict:
-#                     grouped_dict[subsubkey] = {}
-#                 if key1 not in grouped_dict[subsubkey]:
-#                     grouped_dict[subsubkey][key1] = {}
-#                 grouped_dict[subsubkey][key1][key2] = value
+#!new and better
+def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=False):
+    print('start to get hists and add them from root files')
+    allSubPro = list(gq.histoGramPerSample.keys() )
+    allDic =  gq.histoGramPerSample
+    # toGetSubPro =
+    toGetSubHist = {} 
+    for isub in allSubPro:
+        if not allDic[isub] in sumProList: continue # not getting
+        if not era in isub: continue #not getting data from other year
+        print('getting: ', isub)
+        isdata = isData(isub)
+        if isdata:
+            rootFile = inputDirDic['data'] + isub + '.root'
+        else:
+            rootFile = inputDirDic['mc'] + isub +'.root'
+        print('opening file:', rootFile)
+        isubProHist = getHistFromFileDic(rootFile, regionList, varList, isub) #isubProHist[var][region][subPro]
+        print_dict_structure(isubProHist)
+        toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
+    print_dict_structure(toGetSubHist)
+    print('\n')
+    
+    # sumProHists =  group_third_layer(toGetSubHist, allDic)
+    sumProHists =  sumProDic(toGetSubHist, allDic)
+    print_dict_structure(sumProHists)
+    return sumProHists
+    
+def sumProDic(subProHists, sumProDic):
+    sumProHists = {}
+    for ivar, reDic in subProHists.items():
+        sumProHists[ivar] = {}
+        for ire, subProDic in reDic.items():
+            sumProHists[ivar][ire] = {}
+            for isub, hist in subProDic.items():
+                if sumProDic[isub] not in sumProHists.keys():
+                    sumProHists[ivar][ire][sumProDic[isub]] = hist.Clone()
+                else:
+                    sumProHists[ivar][ire][sumProDic[isub]].Add(hist)
+    return sumProHists
+                
+
+def merge_dicts(dict1, dict2):
+    #to study
+    merged_dict = {}
+    for key in dict1.keys() | dict2.keys():
+        if key in dict1 and key in dict2:
+            if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
+                merged_dict[key] = merge_dicts(dict1[key], dict2[key])
+            else:
+                merged_dict[key] = [dict1[key], dict2[key]]
+        elif key in dict1:
+            merged_dict[key] = dict1[key]
+        else:
+            merged_dict[key] = dict2[key]
+    return merged_dict
+
+def isData(subPro):
+    isdata = False
+    if ('jetHT' in subPro) or ('singleMu' in subPro):
+        isdata = True
+    return isdata
