@@ -146,9 +146,9 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
     
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        legendList = ['tt truth eff', 'tt orthogonal eff', 'data orthogonal eff']
+        legendList = ['tt true eff', 'tt orthogonal eff', 'data orthogonal eff']
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New.png' 
-        pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName,  [0, 1.5])
+        pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
     
   
    

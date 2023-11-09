@@ -127,13 +127,17 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     plotName = plotDir+'/overlay_'+eta+'.png'
     plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, [0., 1.2] )
     
-def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
+def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
     print('start to plot overlay plot')
     mySty =  st.setMyStyle()
     mySty.cd()
     can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
     
-    legend = ROOT.TLegend(0.65, 0.8, 0.9, 0.93)  # Create a legend to label the histograms
+    # legend = ROOT.TLegend(0.65, 0.8, 0.9, 0.93)  # Create a legend to label the histograms
+    legend = ROOT.TLegend(legendPos[0], legendPos[1], legendPos[2], legendPos[3])  # Create a legend to label the histograms
+    legend.SetBorderSize(0)
+    legend.SetFillStyle(0) 
+    legend.SetTextFont(42)
     
     yMax = getYmax(histList)
     #plot style
@@ -169,7 +173,7 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, yRange=[]):
         else:
             histList[i].GetYaxis().SetRangeUser(0, yMax*1.3)
 
-        legend.AddEntry(histogram, legenList[i], "l")  # Add an entry to the legend
+        legend.AddEntry(histogram, legenList[i], "lep")  # Add an entry to the legend
         legend.Draw() 
         
     # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
