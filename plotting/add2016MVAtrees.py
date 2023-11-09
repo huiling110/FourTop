@@ -38,7 +38,8 @@ def copyData( dir ):
 # version = 'v2eraBugFixed_v61fixesLepRemovalBug/'
 # version = 'v3btagWeightGood_v61fixesLepRemovalBug/'
 # version = 'v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
-version = 'v0baseline_addTauGenNum_v61fixesLepRemovalBug/'
+# version = 'v0baseline_addTauGenNum_v61fixesLepRemovalBug/'
+version = 'v0baseline_v64noHLTSel/'
 
 # version = 'v0baseline_v0preSel/' #2022
 ifJustMC = False
