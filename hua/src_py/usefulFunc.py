@@ -507,7 +507,7 @@ def sumProDic(subProHists, sumProDic):
         for ire, subProDic in reDic.items():
             sumProHists[ivar][ire] = {}
             for isub, hist in subProDic.items():
-                if sumProDic[isub] not in sumProHists.keys():
+                if sumProDic[isub] not in sumProHists[ivar][ire].keys():
                     sumProHists[ivar][ire][sumProDic[isub]] = hist.Clone()
                 else:
                     sumProHists[ivar][ire][sumProDic[isub]].Add(hist)
