@@ -177,7 +177,7 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8
         legend.Draw() 
         
     # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
-    st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era)
+    st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
         
     can.SaveAs(plotName)
     print('Done overlay plotting\n\n')
