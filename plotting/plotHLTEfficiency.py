@@ -49,11 +49,14 @@ def plotSF(inputDirDic):
     variableList = ['jetsHTAnd6pt']
     regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
-    sumProcessPerVar = {}
-    sumProcessPerVarSys = {} 
-    for ivar in variableList:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
-    print( sumProcessPerVar )
+    # sumProcessPerVar = {}
+    # sumProcessPerVarSys = {} 
+    # for ivar in variableList:
+    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
+    # print( sumProcessPerVar )
+    sumProList = ['tt', 'singleMu']
+    era = uf.getEraFromDir(inputDirDic['mc'])
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era)
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
@@ -73,7 +76,7 @@ def plotSF(inputDirDic):
         ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
         # plotName = plotDir + ibR + '_triggerSF.png'
-        plotName = plotDir + ibR + '_triggerSFTest'
+        plotName = plotDir + ibR + '_triggerSF_new.png'
         plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
