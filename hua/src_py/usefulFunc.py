@@ -480,10 +480,10 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
     # toGetSubPro =
     toGetSubHist = {} 
     for isub in allSubPro:
-        if not allDic[isub] in sumProList: continue # not getting
-        if not era in isub: continue #not getting data from other year
-        print('getting: ', isub)
         isdata = isData(isub)
+        if not allDic[isub] in sumProList: continue # not getting
+        if not era in isub and (isdata): continue #not getting data from other year
+        print('getting: ', isub)
         if isdata:
             rootFile = inputDirDic['data'] + isub + '.root'
         else:
