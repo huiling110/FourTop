@@ -81,6 +81,16 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
         histToDraw = hist2DPlot
     else:
         histToDraw = hist2DPlot_even
+    
+    #
+    box_width = histToDraw.GetXaxis().GetBinWidth(1)
+    box_height = histToDraw.GetYaxis().GetBinWidth(1)
+    font_size = min(box_width, box_height) * 0.8
+    # Increase the font size inside each box
+    # histToDraw.GetZaxis().SetLabelSize(0.08)
+    histToDraw.SetMarkerSize(0.05)
+
+
         
     histTitle = histToDraw.GetTitle() 
     xtitle = histToDraw.GetTitle().split(":")[0]
@@ -100,6 +110,11 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     if len(yrange)>1:
         histToDraw.SetMinimum(yrange[0])
         histToDraw.SetMaximum(yrange[1])
+        
+    ROOT.gPad.Update()
+    palette_axis = ROOT.TPaletteAxis(histToDraw.GetListOfFunctions().FindObject("palette"))
+    # palette_axis.SetLabelSize(0.1) #this set the size in the left axis rather than the text 
+    # palette_axis.SetTitleSize(0.1) #wrong too
      
     can.SetLeftMargin(0.20)
     can.SetRightMargin(0.15)
