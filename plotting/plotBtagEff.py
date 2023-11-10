@@ -82,7 +82,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     else:
         histToDraw = hist2DPlot_even
     
-    #
+    #!!!not working for senting font size
     box_width = histToDraw.GetXaxis().GetBinWidth(1)
     box_height = histToDraw.GetYaxis().GetBinWidth(1)
     font_size = min(box_width, box_height) * 0.8
