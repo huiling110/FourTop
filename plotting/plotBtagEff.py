@@ -49,6 +49,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetPaintTextFormat(".2f")
+    # ROOT.gStyle.SetTextSize(0.08)
     ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     ROOT.gStyle.SetTitleSize(0.07, "Y")
     # levels = [i*1 for i in range(30, 39)]
@@ -83,12 +84,12 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
         histToDraw = hist2DPlot_even
     
     #!!!not working for senting font size
-    box_width = histToDraw.GetXaxis().GetBinWidth(1)
-    box_height = histToDraw.GetYaxis().GetBinWidth(1)
-    font_size = min(box_width, box_height) * 0.8
+    # box_width = histToDraw.GetXaxis().GetBinWidth(1)
+    # box_height = histToDraw.GetYaxis().GetBinWidth(1)
+    # font_size = min(box_width, box_height) * 0.8
     # Increase the font size inside each box
     # histToDraw.GetZaxis().SetLabelSize(0.08)
-    # histToDraw.SetMarkerSize(0.04) #not working, nothing shows in the plot
+    histToDraw.SetMarkerSize(5.0) #not working, nothing shows in the plot
 
 
         
@@ -111,10 +112,11 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
         histToDraw.SetMinimum(yrange[0])
         histToDraw.SetMaximum(yrange[1])
         
-    ROOT.gPad.Update()
-    palette_axis = ROOT.TPaletteAxis(histToDraw.GetListOfFunctions().FindObject("palette"))
+    # ROOT.gPad.Update()
+    # palette_axis = ROOT.TPaletteAxis(histToDraw.GetListOfFunctions().FindObject("palette"))
     # palette_axis.SetLabelSize(0.1) #this set the size in the left axis rather than the text 
     # palette_axis.SetTitleSize(0.1) #wrong too
+    # hist
      
     can.SetLeftMargin(0.20)
     can.SetRightMargin(0.15)

@@ -44,8 +44,8 @@ jobVersionName = 'v64PreAndHLTSel/'
 
 
 def main():
-    era = '2016'
-    # era = '2016APV'
+    # era = '2016'
+    era = '2016APV'
     # era = '2017'
     # era = '2018'
     # era = '13p6TeV/2022'

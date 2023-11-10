@@ -41,7 +41,7 @@ def main():
     # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
-    plotSF(inputDirDic)
+    plotSF(inputDirDic, True)
     
     
    
