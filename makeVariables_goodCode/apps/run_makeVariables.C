@@ -27,7 +27,7 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel_JERUp/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel_JESUp/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v64noHLTSel/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v64PreAndHLTSel_JESUp/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v64PreAndHLTSel_JESUp/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",

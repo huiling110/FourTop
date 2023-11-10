@@ -45,7 +45,7 @@ def main():
     
     
    
-def plotSF(inputDirDic):
+def plotSF(inputDirDic, ifOnlyDraw=False):
     variableList = ['jetsHTAnd6pt']
     regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
@@ -76,8 +76,8 @@ def plotSF(inputDirDic):
         ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
         # plotName = plotDir + ibR + '_triggerSF.png'
-        plotName = plotDir + ibR + '_triggerSF_new.png'
-        plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle)
+        plotName = plotDir + ibR + '_triggerSF_new'
+        plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle, ifOnlyDraw)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
@@ -98,7 +98,7 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle)
     
      
     
-def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
+def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     de = de_2D.Clone()
     nu = nu_2D.Clone()
     de.Sumw2()
@@ -113,7 +113,8 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle):
     
     # SFfileName = plotName.replace('.png', '.root')
     SFfileName = plotName + '.root'
-    pB.saveHistToFile(ratio, SFfileName)
+    if not ifOnlyDraw:
+        pB.saveHistToFile(ratio, SFfileName)
     
     
     

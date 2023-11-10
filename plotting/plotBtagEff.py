@@ -88,7 +88,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     font_size = min(box_width, box_height) * 0.8
     # Increase the font size inside each box
     # histToDraw.GetZaxis().SetLabelSize(0.08)
-    histToDraw.SetMarkerSize(0.05)
+    # histToDraw.SetMarkerSize(0.04) #not working, nothing shows in the plot
 
 
         
