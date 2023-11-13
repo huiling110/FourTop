@@ -31,7 +31,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinA_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/",
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
     TString process = "tttt",
@@ -51,11 +52,11 @@ void run_treeAnalyzer(
     t.Start();
 
 
-    // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
+    WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
     // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
-    WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
+    // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
     UInt_t entry = 0;

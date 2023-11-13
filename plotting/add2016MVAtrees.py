@@ -14,10 +14,6 @@ def copyData( dir ):
         output = process.stdout
         print( output )
 
-# version = 'v8Cut1tau1l_v42fixedChargeType/'
-# version = 'v9addBtagWeight_v42fixedChargeType/'
-# version = 'v10addPV_npvsGood_baseline_v42fixedChargeType/'
-# version = 'v0baseline_v44addSSLeptons/'
 # version = 'v0LepLAdded_v45newLepBugFixed/'
 # version = 'v0LepLAdded_v46addPOGIDL/'
 # version = 'v1cut1tau1l_v51TESNewLepObjectRemovalCorrected/'
@@ -39,7 +35,8 @@ def copyData( dir ):
 # version = 'v3btagWeightGood_v61fixesLepRemovalBug/'
 # version = 'v4forBDT1tau1lCut_v61fixesLepRemovalBug/'
 # version = 'v0baseline_addTauGenNum_v61fixesLepRemovalBug/'
-version = 'v0baseline_v64noHLTSel/'
+# version = 'v0baseline_v64noHLTSel/'
+version = 'v0baseline_v64PreAndHLTSel/'
 
 # version = 'v0baseline_v0preSel/' #2022
 ifJustMC = False
