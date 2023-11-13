@@ -48,7 +48,7 @@ def main():
 
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
-    # version = 'v1FR_application'
+    version = 'v1FR_application'
     # version = 'v1FR_application_MCBtagShape'
    
     # version = 'v0_HLTSFMeasure'
@@ -93,7 +93,7 @@ def main():
     # version = 'v3dataMC_HT600HLTSFBinB'
     # version = 'v3dataMC_HT600HLTSFBinD'
     # version = 'v3dataMC_HT600HLTSFBinE'
-    version = 'v3dataMC_HT550HLTSFBinF'
+    # version = 'v3dataMC_HT550HLTSFBinF'
     # channel = 0
     
     
