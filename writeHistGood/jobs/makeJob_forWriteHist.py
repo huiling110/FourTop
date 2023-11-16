@@ -117,7 +117,9 @@ def main():
     
     #1tau0l systematic
     channel = 1
-    version = 'v0systematic1tau0l_bScore' 
+    # version = 'v0systematic1tau0l_bScore' 
+    # version = 'v0systematic1tau0lBjet3_bScore' 
+    version = 'v0systematic1tau0lBjet3_bHT' 
     
     #run3
     # version = 'v0allRegions'

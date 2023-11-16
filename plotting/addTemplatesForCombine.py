@@ -5,7 +5,8 @@ import ttttGlobleQuantity as gq
 import usefulFunc as uf
 
 channelDic = {
-    '1tau0l': 'jets_bScore',
+    # '1tau0l': 'jets_bScore',
+    '1tau0l': 'bjetsM_HT',
     '1tau1l': 'BDT',
 }
 def main():
@@ -30,7 +31,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_addTauGenNum_v61fixesLepRemovalBug/mc/variableHists_v0systematic1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0systematic1tau0l_bScore/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0systematic1tau0l_bScore/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0systematic1tau0lBjet3_bScore/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0systematic1tau0lBjet3_bHT/'
     channel = '1tau0l' # 1tau0l
     # channel = '1tau1l' 
    
@@ -151,7 +154,8 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     #!!! the fakeTau needs to be updated, the previous one is using wrong btag 
     fakeTauDic = {
         # '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
-        '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1FR_application_correctWeight/1tau0l_templatesForCombine/templates.root', #just different binning
+        # '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1FR_application_correctWeight/1tau0l_templatesForCombine/templates.root', #just different binning
+        '2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1FR_application_correctWeight_bjets3/1tau0l_templatesForCombine/templates.root', #just different binning
         '2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
         '2016': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1FR_application/1tau0l_templatesForCombine/templates.root',
     }
@@ -160,9 +164,12 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     templatesWithFT = fakeTauDic[era]
     print('using fakeTau file: ', templatesWithFT)
     FTFile = ROOT.TFile(templatesWithFT, 'READ')
-    fakeTau = FTFile.Get('fakeTau_jets_bScore')
-    fakeTau_up = FTFile.Get('fakeTau_jets_bScore_FR_up')
-    fakeTau_down = FTFile.Get('fakeTau_jets_bScore_FR_down')
+    # fakeTau = FTFile.Get('fakeTau_jets_bScore')
+    # fakeTau_up = FTFile.Get('fakeTau_jets_bScore_FR_up')
+    # fakeTau_down = FTFile.Get('fakeTau_jets_bScore_FR_down')
+    fakeTau = FTFile.Get('fakeTau_'+channelDic[channel])
+    fakeTau_up = FTFile.Get('fakeTau_'+channelDic[channel]+'_FR_up')
+    fakeTau_down = FTFile.Get('fakeTau_'+channelDic[channel]+'_FR_down')
     fakeTau_up.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+era+'Up_' + channelDic[channel])
     fakeTau_down.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+ era+'Down_'+channelDic[channel])
     fakeTau.SetName('fakeTau_SR_jets_bScore')
