@@ -62,7 +62,7 @@ void run_treeAnalyzer(
     UInt_t entry = 0;
     if (isTest)
     {
-        entry = 10000;
+        entry = 100000;
     }
     writeHist.LoopTree(entry); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();
