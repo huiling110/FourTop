@@ -50,7 +50,7 @@ def main():
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
     # version = 'v1FR_application_correctWeight'
-    version = 'v1FR_application_correctWeight_bjets3'
+    # version = 'v1FR_application_correctWeight_bjets3'
     # version = 'v1FR_application_MCBtagShape'
    
     # version = 'v0_HLTSFMeasure'
@@ -101,7 +101,7 @@ def main():
     
     
     #1tau1l
-    channel = 0
+    # channel = 0
     # version = 'v0BasicSystematic'
     # version = 'v1JERup'
     # version = 'v1JERdown'
@@ -116,8 +116,8 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    # channel = 1
-    # version = 'v0systematic1tau0l' 
+    channel = 1
+    version = 'v0systematic1tau0l_bScore' 
     
     #run3
     # version = 'v0allRegions'
@@ -166,8 +166,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

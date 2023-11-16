@@ -124,7 +124,8 @@ void treeAnalyzer::LoopTree()
         cutFlowHist->Fill(1);
 
         Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
-        if(m_channel==1){
+        if(m_channel==1 ){
+        // if(m_channel==1 && m_processName.CompareTo("tttt")==0){
             channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
         }
         //testing
