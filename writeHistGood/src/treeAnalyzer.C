@@ -90,7 +90,7 @@ void treeAnalyzer::Init()
     }else if(m_channel==1){
 
         std::cout << "1tau0l \n";
-        SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 20, 0, 4.5, sysRegions);
+        SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
 
     }else{
         std::cout << "WARNING!! channel not spefified\n";
@@ -125,8 +125,9 @@ void treeAnalyzer::LoopTree()
 
         Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
         if(m_channel==1 ){
-        // if(m_channel==1 && m_processName.CompareTo("tttt")==0){
-            channelSel = channelSel && (e->tausT_genTauNum.v() == 1);
+            if(!m_isData && m_processName.CompareTo("tttt")!=0 ){//no genTau for tttt
+                channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+            }
         }
         //testing
         // Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
