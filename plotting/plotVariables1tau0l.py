@@ -70,7 +70,7 @@ def replaceBgWithGen(sumProcessPerVar, regionList):
         # regionList = list(sumProcessIvar.keys())
         for ipro in sumProcessIvar[regionList[0]].keys():
             if ipro=='jetHT': continue
-            if ipro=='tttt': continue #!!!not gentau for signal
+            # if ipro=='tttt': continue #!!!not gentau for signal
             sumProcessIvar[regionList[0]][ipro] = sumProcessIvar[regionList[1]][ipro]
             # sumProcessIvar[regionList[0]].pop('qcd')
     print('replaced bg MC with bg MC genTau')

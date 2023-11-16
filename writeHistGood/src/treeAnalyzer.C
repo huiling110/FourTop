@@ -126,9 +126,9 @@ void treeAnalyzer::LoopTree()
 
         Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
         if(m_channel==1 ){
-            if(!m_isData && m_processName.CompareTo("tttt")!=0 ){//no genTau for tttt
+            // if(!m_isData && m_processName.CompareTo("tttt")!=0 ){//no genTau for tttt
                 channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
-            }
+            // }
         }
         //!testing
         if(!(e->bjetsM_num.v()>=3)){

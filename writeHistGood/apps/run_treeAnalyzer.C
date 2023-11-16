@@ -31,8 +31,8 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l
     Int_t channel = 1,// 1: 1tau0l
-    // Bool_t isTest = kTRUE)
-    Bool_t isTest = kFALSE)
+    Bool_t isTest = kTRUE)
+    // Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
