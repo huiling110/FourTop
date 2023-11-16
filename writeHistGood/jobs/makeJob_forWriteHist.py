@@ -49,7 +49,8 @@ def main():
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
-    version = 'v1FR_application_correctWeight'
+    # version = 'v1FR_application_correctWeight'
+    version = 'v1FR_application_correctWeight_bjets3'
     # version = 'v1FR_application_MCBtagShape'
    
     # version = 'v0_HLTSFMeasure'
