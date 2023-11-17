@@ -46,6 +46,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/'
 
+    #fakerate
     # version = 'v0FR_measureVR_1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
@@ -119,7 +120,8 @@ def main():
     channel = 1
     # version = 'v0systematic1tau0l_bScore' 
     # version = 'v0systematic1tau0lBjet3_bScore' 
-    version = 'v0systematic1tau0lBjet3_bHT' 
+    # version = 'v0systematic1tau0lBjet3_bHT' 
+    version = 'v0systematic1tau0lBjet3_bMass' 
     
     #run3
     # version = 'v0allRegions'
