@@ -164,6 +164,7 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     templatesWithFT = fakeTauDic[era]
     print('using fakeTau file: ', templatesWithFT)
     FTFile = ROOT.TFile(templatesWithFT, 'READ')
+    variable = channelDic[channel]
     # fakeTau = FTFile.Get('fakeTau_jets_bScore')
     # fakeTau_up = FTFile.Get('fakeTau_jets_bScore_FR_up')
     # fakeTau_down = FTFile.Get('fakeTau_jets_bScore_FR_down')
@@ -172,7 +173,7 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     fakeTau_down = FTFile.Get('fakeTau_'+channelDic[channel]+'_FR_down')
     fakeTau_up.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+era+'Up_' + channelDic[channel])
     fakeTau_down.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+ era+'Down_'+channelDic[channel])
-    fakeTau.SetName('fakeTau_SR_jets_bScore')
+    fakeTau.SetName('fakeTau_SR_'+variable)
     fakeTau.SetDirectory(outFile)
     fakeTau_up.SetDirectory(outFile)
     fakeTau_down.SetDirectory(outFile)

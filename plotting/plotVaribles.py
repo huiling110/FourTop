@@ -307,19 +307,24 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
     #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
 
-    if hasDataHist:
-        if dataHist.GetMaximum()>0:
-            maxi = 1.7* dataHist.GetMaximum()
-        else:
-            maxi = 1.7* sumHist.GetMaximum()
-    else:
+    #set y axix maxi
+    if sumHist.GetMaximum()> signalScale*signal.GetMaximum():
         maxi = 1.7* sumHist.GetMaximum()
+    else:
+        maxi = 1.7* signalScale*signal.GetMaximum()  
+    # if hasDataHist:
+    #     if dataHist.GetMaximum()>0:
+    #         maxi = 1.7* dataHist.GetMaximum()
+    #     else:
+    #         maxi = 1.7* sumHist.GetMaximum()
+    # else:
+    #     maxi = 1.7* sumHist.GetMaximum()
     if maxi<=0 :
         print(name, ' variable empty')
         print('\n')
         return
-    if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
-        maxi = maxi*1.7
+    # if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
+    #     maxi = maxi*1.7
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
