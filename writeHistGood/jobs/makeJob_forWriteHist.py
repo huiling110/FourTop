@@ -51,7 +51,7 @@ def main():
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
     # version = 'v1FR_application_correctWeight'
-    # version = 'v1FR_application_correctWeight_bjets3'
+    version = 'v1FR_application_correctWeight_bjets3'
     # version = 'v1FR_application_MCBtagShape'
    
     # version = 'v0_HLTSFMeasure'
@@ -119,7 +119,7 @@ def main():
     #1tau0l systematic
     channel = 1
     # version = 'v0systematic1tau0l_bScore' 
-    version = 'v0systematic1tau0lBjet3_bScore' 
+    # version = 'v0systematic1tau0lBjet3_bScore' 
     # version = 'v0systematic1tau0lBjet3_bHT' 
     # version = 'v0systematic1tau0lBjet3_bMass' 
     # version = 'v0systematic1tau0l_bMass' 

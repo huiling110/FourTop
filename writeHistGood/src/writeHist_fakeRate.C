@@ -12,15 +12,6 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
     // Double_t FRWeight = 1.0; // the defaul t value for FRWeight should not be 1!!!
     // set the default FRWeight to the last bin
     TH2D *FR_TH2D;
-    // if (taus_1prongNum == 1)
-    // {
-    //     FR_TH2D = FR_TH2D_1prong;
-    // }
-    // else
-    // {
-    //     FR_TH2D = FR_TH2D_3prong;
-    // }
-    //sanity check very important for functions!!!
     switch (taus_1prongNum)
     {
     case 1:
@@ -33,6 +24,7 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
         FR_TH2D = FR_TH2D_3prong;
         break;
     default:
+        //what to do with events with 0 or more taus_1prongNum
         std::cout<<"BAD!!! FR have to applied to events with fake tau!!!\n";
         break;
     }
@@ -265,25 +257,22 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             // continue;
         // }
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
-        if (!lepNum==1){
+        if (!(lepNum==0)){
             continue;
         }
-
-
         //!testing
-        // if (!(e->bjetsM_num.v()>=3)){
-            // continue;
-        // }
+        if (!(e->bjetsM_num.v()>=3)){
+            continue;
+        }
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
         Double_t FRWeight_up, FRWeight_down;
         Double_t FRWeight = 1.0;
-        // if (!m_ifMeasurement)
-        // {
-        FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
-        // }
+        if( e->tausF_prongNum.v() ==1 || e->tausF_prongNum.v()==2 || e->tausF_prongNum.v()==3){
+            FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
+        }
         // std::cout << "FRWeight=" << FRWeight << "\n";
 
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
