@@ -261,9 +261,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             continue;
         }
         //!testing
-        if (!(e->bjetsM_num.v()>=3)){
-            continue;
-        }
+        // if (!(e->bjetsM_num.v()>=3)){
+        //     continue;
+        // }
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
