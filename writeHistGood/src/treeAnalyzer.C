@@ -90,9 +90,9 @@ void treeAnalyzer::Init()
     }else if(m_channel==1){
 
         std::cout << "1tau0l \n";
-        // SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
+        SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
         // SR1tau1lSys = histForRegionsBase("bjetsM_HT", "HT^{b-jet}", m_processName, 10, 0, 900, sysRegions); //!testing
-        SR1tau1lSys = histForRegionsBase("bjetsM_invariantMass", "m^{b jets}", m_processName, 10, 0, 1200, sysRegions );
+        // SR1tau1lSys = histForRegionsBase("bjetsM_invariantMass", "m^{b jets}", m_processName, 10, 0, 1200, sysRegions );
 
     }else{
         std::cout << "WARNING!! channel not spefified\n";
@@ -163,9 +163,9 @@ void treeAnalyzer::LoopTree()
         if(m_channel==0){
              bdtScore = reader->EvaluateMVA("BDT method");
         }else if(m_channel==1){
-            //  bdtScore = e->jets_bScore.v();
+             bdtScore = e->jets_bScore.v();
             //  bdtScore = e->bjetsM_HT.v();
-            bdtScore = e->bjetsM_invariantMass.v();
+            // bdtScore = e->bjetsM_invariantMass.v();
         }
         // std::cout << "bdtScore=" << bdtScore << "\n";
 

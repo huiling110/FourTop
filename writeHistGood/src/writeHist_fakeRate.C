@@ -259,16 +259,21 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             continue;
         }
         // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
-        if (!(e->tausF_num.v() == 1 && (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v() == 0)))
-        {
+        // if (!(e->tausF_num.v() == 1 && (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v() == 0)))//!!!shouldn't ask for tausF_num==1 because 1tau0lSR doesn't require this
+        // {
         // if(!(e->tausF_num.v()==1  )){
+            // continue;
+        // }
+        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+        if (!lepNum==1){
             continue;
         }
 
+
         //!testing
-        if (!(e->bjetsM_num.v()>=3)){
-            continue;
-        }
+        // if (!(e->bjetsM_num.v()>=3)){
+            // continue;
+        // }
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
@@ -281,7 +286,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         // }
         // std::cout << "FRWeight=" << FRWeight << "\n";
 
-        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
         Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
         Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
