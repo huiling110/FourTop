@@ -34,9 +34,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinD_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinE_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT500BinE_v64PreAndHLTSel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/'
@@ -51,8 +51,13 @@ def main():
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
     # version = 'v1FR_application_correctWeight'
+    # version = 'v1FR_application_bjets2_bShapeWeight'
+    # version = 'v1FR_application_bjets3_bShapeWeight'
     # version = 'v1FR_application_correctWeight_bjets3'
     # version = 'v1FR_application_MCBtagShape'
+    # version = 'v1FR_application_bjets3_bWPWeight'
+    # version = 'v1FR_application_bjets2_bWPWeight'
+    version = 'v1FR_application_bjets2_bShapeWeight'
    
     # version = 'v0_HLTSFMeasure'
     # version = 'v0_HLTSFMeasure_6thJet45'
@@ -119,7 +124,7 @@ def main():
     #1tau0l systematic
     channel = 1
     # version = 'v0systematic1tau0l_bScore' 
-    version = 'v0systematic1tau0lBjet3_bScore' 
+    # version = 'v0systematic1tau0lBjet3_bScore' 
     # version = 'v0systematic1tau0lBjet3_bHT' 
     # version = 'v0systematic1tau0lBjet3_bMass' 
     # version = 'v0systematic1tau0l_bMass' 
@@ -148,7 +153,6 @@ def main():
         inputDirDic['data'] = inputDir + 'data/'
 
     for i in inputDirDic.keys():
-        # makeJobsforDir( inputDirDic[i], version, channel, isTest, subAllProcess, Jobsubmitpath )
         makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel )
     subAllProcess.close()
 
@@ -171,8 +175,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

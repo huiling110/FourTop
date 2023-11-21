@@ -266,8 +266,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         // }
 
         // event weight
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!!!have to use this if bScore is the templates
         Double_t FRWeight_up, FRWeight_down;
         Double_t FRWeight = 1.0;
         if( e->tausF_prongNum.v() ==1 || e->tausF_prongNum.v()==2 || e->tausF_prongNum.v()==3){
