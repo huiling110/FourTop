@@ -67,8 +67,10 @@ void treeAnalyzer::Init()
     // if(m_channel==0){
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
+        // binning[] = {0.28, -0.1, -0.08, -0.06, -0.04, -0.02, 0., 0.02, 0.04, 0, 07, 0.1, 0.15, 0, 4};//!!!trials for later
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
 
         // book MVA reader
@@ -181,9 +183,9 @@ void treeAnalyzer::LoopTree()
 
         Bool_t SR1tau1l = channelSel;
         //!!!have to output weight; make weight an input
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!caution, for 1tau1l b-tag WP correction
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
-        Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!! for b_score, have to use btagShape
+        // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!! for 1tau0l b_score, have to use btagShape
 
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";

@@ -82,9 +82,9 @@ def main():
     # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau0lSR']
-    # regionList = ['1tau1lSR']
+    regionList = ['1tau1lSR']
     variables = ['BDT']
-    regionList = ['SR']
+    # regionList = ['SR']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     ifFR_sys = False
     plotName = 'dataVsMC'

@@ -102,7 +102,7 @@ def main():
     
         
     #1tau1l
-    channel = 0
+    channel = '1tau1l'
     # version = 'v0BasicSystematic'
     version = 'v0BasicSystematic_20bins'
     # version = 'v1JERup'
@@ -189,9 +189,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
 def makeIjob( shFile, Jobsubmitpath, run, exeDir ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
-    # subFile.write('cd '+ Jobsubmitpath + '\n' )
     subFile.write('cd '+ exeDir + '\n' )
-    # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest
     subFile.write(run) 
     print( 'done writing: ', shFile)
 
