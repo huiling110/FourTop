@@ -30,7 +30,8 @@ void run_treeAnalyzer(
     // TString process = "TTto2L2Nu",
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l
-    Int_t channel = 1,// 1: 1tau0l
+    TString channel = "1tau1l",//0: 1tau1l
+    // Int_t channel = 1,// 1: 1tau0l
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[])
     TString inputDir;
     TString inputProcess;
     TString version;
-    Int_t channel;
+    TString channel;
     Bool_t isTest = kFALSE;
     if (argc < 4)
     {
@@ -64,7 +65,7 @@ int main(int argc, char const *argv[])
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         version = boost::lexical_cast<std::string>(argv[3]);
-        channel = boost::lexical_cast<Int_t>(argv[4]);
+        channel = boost::lexical_cast<TString>(argv[4]);
         isTest = boost::lexical_cast<Bool_t>(argv[5]);
         run_treeAnalyzer(inputDir, inputProcess, version, channel, isTest);
     }

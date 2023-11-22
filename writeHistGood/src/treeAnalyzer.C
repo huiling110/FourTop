@@ -18,9 +18,13 @@ void treeAnalyzer::Init()
     std::cout << "Start to initilation....................................................\n";
     cutFlowHist->SetDirectory(m_outFile);
 
+    // std::map<Int_t, TString> channelMap = {
+    //     {0, "1tau1l"},
+    //     {1, "1tau0l"},
+    // };
     // regions for hists
     std::vector<TString> sysRegions = {
-        "SR",
+        m_channel + "SR",
         "CMS_pileup_" + m_era + "Up",
         "CMS_pileup_" + m_era + "Down",
         "CMS_prefiring_" + m_era + "Up",
@@ -60,8 +64,8 @@ void treeAnalyzer::Init()
     };
 
 
-    if(m_channel==0){
-
+    // if(m_channel==0){
+    if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
@@ -87,8 +91,8 @@ void treeAnalyzer::Init()
         TString methodName = "BDT" + TString(" method");
         TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
         reader->BookMVA(methodName, weightfile);
-    }else if(m_channel==1){
-
+    // }else if(m_channel==1){
+    }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
         SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
         // SR1tau1lSys = histForRegionsBase("bjetsM_HT", "HT^{b-jet}", m_processName, 10, 0, 900, sysRegions); //!testing
@@ -125,8 +129,14 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        Bool_t channelSel = SR1tau1lSel(e, m_channel, m_isRun3);
-        if(m_channel==1 ){
+        std::map<TString, Int_t> channelMap = {
+            {"1tau1l", 0},
+            {"1tau0l", 1},
+        };
+
+        Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
+        // if(m_channel==1 ){
+        if(channelMap.at(m_channel)==1 ){
             // if(!m_isData && m_processName.CompareTo("tttt")!=0 ){//no genTau for tttt
                 channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
             // }
@@ -160,9 +170,9 @@ void treeAnalyzer::LoopTree()
         }
 
         Double_t bdtScore = -99;
-        if(m_channel==0){
+        if(channelMap.at(m_channel)==0){
              bdtScore = reader->EvaluateMVA("BDT method");
-        }else if(m_channel==1){
+        }else if(channelMap.at(m_channel)==1){
              bdtScore = e->jets_bScore.v();
             //  bdtScore = e->bjetsM_HT.v();
             // bdtScore = e->bjetsM_invariantMass.v();
@@ -179,7 +189,8 @@ void treeAnalyzer::LoopTree()
         // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists
-        SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec("SR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);

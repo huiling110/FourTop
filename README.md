@@ -2,6 +2,10 @@
 
 ## Workflow
 * run_treeAnalyzer.out -> addTemplatesForCombine.py ->
+* 
+* 1tau0l: 
+* writeHist_fakeRate.C and plotVariables1tau0l.py for generating faketau bg and plot distribution
+* treeAnalyzer.C -> addTemplatesForCombine.py -> runCombineAll.py
 
 
 ## To do 

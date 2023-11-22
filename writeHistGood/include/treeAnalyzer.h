@@ -21,7 +21,7 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", Int_t channel=0, Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}
+    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -55,7 +55,8 @@ public:
 private:
     TString m_inputDir;
     TString m_processName;
-    Int_t m_channel;
+    // Int_t m_channel;
+    TString m_channel;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
     TFile *m_file;
