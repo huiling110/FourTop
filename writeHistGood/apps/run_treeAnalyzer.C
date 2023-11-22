@@ -65,7 +65,7 @@ int main(int argc, char const *argv[])
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         version = boost::lexical_cast<std::string>(argv[3]);
-        channel = boost::lexical_cast<TString>(argv[4]);
+        channel = boost::lexical_cast<std::string>(argv[4]);
         isTest = boost::lexical_cast<Bool_t>(argv[5]);
         run_treeAnalyzer(inputDir, inputProcess, version, channel, isTest);
     }
