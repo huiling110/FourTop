@@ -46,7 +46,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERDown/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESUp/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESDown/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESDown/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -111,7 +111,7 @@ def main():
     channel = '1tau1l'
     # version = 'v0BasicSystematic'
     # version = 'v0BasicSystematic_20bins'
-    # version = 'v1JERup'
+    # version = 'v1JERUp'
     # version = 'v1JERdown'
     # version = 'v1JESDown'
     version = 'v1TESDown'

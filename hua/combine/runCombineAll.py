@@ -70,7 +70,7 @@ def main():
     # cardDir = 'combinationV6/combinationRun2andRun3/'
 
     
-    
+        
     
 
     cardToWorkspaces( cardDir )
