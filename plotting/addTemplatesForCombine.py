@@ -82,7 +82,7 @@ def main():
         '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/', 'JER'],
         '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERDown/', 'JER']#for 1tau1l, b-tag WP weight is used
     }
-    # addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era, isRun3)
+    addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era, isRun3)
     jesDic = {
         '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES'],
         '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES']
@@ -198,7 +198,8 @@ def addDataHist(summedHistSR, outFile, channel):
     fakeData = summedHistSR[ list(summedHistSR.keys())[0]].Clone()
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
-    fakeData.SetName('data_obs_SR_'+channelDic[channel])
+    # fakeData.SetName('data_obs_SR_'+channelDic[channel])
+    fakeData.SetName('data_obs_'+channel+'SR_'+channelDic[channel])
     for ipro in summedHistSR.keys():
         if ipro=='qcd': continue
         print('add fakeData: ',ipro)
