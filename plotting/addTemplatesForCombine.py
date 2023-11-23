@@ -93,7 +93,6 @@ def main():
         '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown/', 'TES']
     }
     addJERSys(outFile, summedHistDicAllSys, allSubPro, tesDic, era, isRun3)
-    
      
     outFile.Write()
     print('outFile here: ', outFile.GetName())
