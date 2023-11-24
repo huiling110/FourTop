@@ -64,21 +64,23 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/combine/datacardJECTESAdded/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/combine/datacardNoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/combine/datacard/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/combine/datacardNoSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/combine/datacardNoSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/combine/datacard/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/combine/datacardNoSys/'
     
     #combination
     # cardDir = 'combinationV6/run2_1tau0l/'
     # cardDir = 'combinationV6/run2_bothChannels/'
     # cardDir = 'combinationV6/combinationRun2andRun3/'
+    cardDir = 'combinationV8/1tau1lCom/'
 
-   u
         
     
 
-    cardToWorkspaces( cardDir )
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-    copyCombineResultsToDir( cardDir )
+    # cardToWorkspaces( cardDir )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
+    # copyCombineResultsToDir( cardDir )
     
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
