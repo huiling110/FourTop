@@ -17,9 +17,9 @@ public:
 private:
     Bool_t m_isRun3 = kFALSE;
     // output branches
-    Double_t PUWeight=1.;
-    Double_t PUWeight_up=1.;
-    Double_t PUWeight_down=1.;
+    Double_t pdfWeight=1.;
+    Double_t pdfWeight_up=1.;
+    Double_t pdfWeight_down=1.;
 };
 
 #endif
