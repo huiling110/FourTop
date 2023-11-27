@@ -72,21 +72,24 @@ def main():
     # cardDir = 'combinationV6/run2_1tau0l/'
     # cardDir = 'combinationV6/run2_bothChannels/'
     # cardDir = 'combinationV6/combinationRun2andRun3/'
-    cardDir = 'combinationV8/1tau1lCom/'
+    # cardDir = 'combinationV8/1tau1lCom/'
+    # cardDir = 'combinationV8/run2_1tau1lAnd1tau0l/'
+    cardDir = 'combinationV8/run2_1tau0l/'
 
         
     
 
-    # cardToWorkspaces( cardDir )
-    # runCombineSig( cardDir, True )
-    # runCombineSig( cardDir, False )
-    # copyCombineResultsToDir( cardDir )
+    cardToWorkspaces( cardDir )
+    runCombineSig( cardDir, True )
+    runCombineSig( cardDir, False )
+    copyCombineResultsToDir( cardDir )
     
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau1l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau0l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_combAll.root', cardDir+'combineResults/')
+    # runImpact(cardDir+'workspace/datacard_1tau0lCom.root', cardDir+'combineResults/')
 
 
     # plot.main( cardDir+ 'combineResults/')

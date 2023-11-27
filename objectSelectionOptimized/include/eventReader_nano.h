@@ -144,7 +144,6 @@ public:
         OS::readPointerArray(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         OS::readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         OS::readPointer(genWeight, reader, "genWeight");
-        // OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(Tau_genPartFlav, reader, "Tau_genPartFlav");
         OS::readPointerArray(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
 
@@ -156,6 +155,8 @@ public:
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
+        //
+        OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -313,6 +314,8 @@ public:
     TTreeReaderArray<Float_t> Jet_btagDeepB;
     TTreeReaderArray<Int_t> *Jet_hadronFlavour;
     TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
+
+    TTreeReaderArray<Float_t> *LHEPdfWeight;
 };
 
 #endif

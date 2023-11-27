@@ -25,12 +25,14 @@ cardDic = {
     'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/combine/datacardJECTESAdded/datacard_1tau1lSys.txt',
 }
 
-cardDic.update(cardDic_1tau0l)
+# cardDic.update(cardDic_1tau0l)
 # outCard = 'combinationV8/run2_1tau1lCombination_datacard.txt'
-outCard = 'combinationV8/run2_1tau0l/datacard_1tau0lCom.txt'
+# outCard = 'combinationV8/run2_1tau0l/datacard_1tau0lCom.txt'
 
 def main():
-    comDatacard(cardDic, outCard)
+    outCard = 'combinationV8/run2_1tau0l/datacard_1tau0lCom.txt'
+    # comDatacard(cardDic, outCard)
+    comDatacard(cardDic_1tau0l, outCard)
 
 def comDatacard(cardDic, outCard):
     # command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)
