@@ -80,7 +80,10 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         copyBranch.Select(e, m_isData);
 
         // pile up weight cal
-        puWeightCal.Select(e, m_isData);//!!!to do
+        puWeightCal.Select(e, m_isData);
+
+        //systematic Weight cal
+        systWeightCal.Select(e, m_isData);
 
         // pre selection
         if (preSelection)
