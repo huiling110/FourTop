@@ -13,7 +13,14 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
 
 void SystWeightCal::Select(eventForNano *e, Bool_t isData){
     if(!isData){
-        Int_t number = e->LHEPdfWeight->GetSize();
-        std::cout<<number<<"\n";
+        // Int_t number = e->LHEPdfWeight->GetSize();
+        // Double_t pdfMean = TMath::Mean(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
+        Double_t pdfStd = TMath::StdDev(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
+        // std::cout<<number<<" mean="<<pdfMean<<" std="<<pdfStd<<"\n";
+        // Double_t pdfUnc = pdfStd/pdfMean;
+        Double_t pdfUnc = pdfStd;
+        pdfWeight = 1.;
+        pdfWeight_up = 1.+pdfUnc;
+        pdfWeight_down = 1.-pdfUnc;
     }
 };
