@@ -110,7 +110,6 @@ public:
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
                                         fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
-                                        // LHEPdfWeight(reader, "LHEPdfWeight")
 
     {
         // dealing with case: HLT branch not existing in this nanofile;
@@ -157,6 +156,7 @@ public:
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
         //
         OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
+        OS::readPointerArray(LHEScaleWeight, reader, "LHEScaleWeight");
     };
 
     // eventForNano(TTreeReader &reader)
@@ -316,6 +316,7 @@ public:
     TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
 
     TTreeReaderArray<Float_t> *LHEPdfWeight;
+    TTreeReaderArray<Float_t> *LHEScaleWeight;
 };
 
 #endif

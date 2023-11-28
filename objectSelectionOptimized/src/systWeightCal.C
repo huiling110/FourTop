@@ -7,6 +7,9 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
     outTree->Branch("pdfWeight", &pdfWeight);
     outTree->Branch("pdfWeight_up", &pdfWeight_up);
     outTree->Branch("pdfWeight_down", &pdfWeight_down);
+    outTree->Branch("scaleWeight", &scaleWeight);
+    outTree->Branch("scaleWeight_up", &scaleWeight_up);
+    outTree->Branch("scaleWeight_down", &scaleWeight_down);
 
     std::cout<<"Done SystWeightCal initialization.......\n\n";
 };
@@ -22,5 +25,11 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         pdfWeight = 1.;
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
+
+        //scale weight//???seems wrong
+        Double_t scaleUnc = TMath::StdDev(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
+        scaleWeight_up  = 1.+ scaleUnc;
+        scaleWeight_down  = 1.- scaleUnc;
+
     }
 };
