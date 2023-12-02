@@ -36,12 +36,12 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    # plotEfficiencyHLT(inputDirDic, '1b')
+    plotEfficiencyHLT(inputDirDic, '1b')
     # plotEfficiencyHLT(inputDirDic, '2b')
     # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
-    plotSF(inputDirDic, True)
+    # plotSF(inputDirDic, True)
     
     
    

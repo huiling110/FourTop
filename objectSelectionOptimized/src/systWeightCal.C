@@ -1,4 +1,6 @@
 #include "../include/systWeightCal.h"
+#include "../include/usefulFunc.h"
+#include <algorithm>
 
 SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_isRun3{isRun3}
 {
@@ -16,20 +18,31 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
 
 void SystWeightCal::Select(eventForNano *e, Bool_t isData){
     if(!isData){
-        // Int_t number = e->LHEPdfWeight->GetSize();
+        //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
+        // pdf weight from Jan:
+        // first 100 replicas of default pdf set, last 2 weights(101,102) variations of strong couplings
+        // 1) 100 weights 100 variations on templates, then quadratic sum of the residuals (*) of the 100 variations(sqrt(sum_i( (w_i-w_0)^2 )))
+        // 3) and 4) no difference if the pdf weights are all event weights?
+        // 5): seperate uncertainty of alphaS, (101,102)
+        //! I am using 4):
         // Double_t pdfMean = TMath::Mean(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
-        Double_t pdfStd = TMath::StdDev(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
-        // std::cout<<number<<" mean="<<pdfMean<<" std="<<pdfStd<<"\n";
-        // Double_t pdfUnc = pdfStd/pdfMean;
-        Double_t pdfUnc = pdfStd;
-        pdfWeight = 1.;
+        // Double_t pdfStd = TMath::StdDev(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
+        // Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), **(e->genWeight));
+        Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1.);
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
 
-        //scale weight//???seems wrong
-        Double_t scaleUnc = TMath::StdDev(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
-        scaleWeight_up  = 1.+ scaleUnc;
-        scaleWeight_down  = 1.- scaleUnc;
 
+        //scale weight//???seems wrong
+        //2: up; 0.5:down
+        //envelope to consider: upup, downdown;up or down; no up and down
+        //LHE scale variation weights (w_var / w_nominal); [0] is renscfact=0.5d0 facscfact=0.5d0 ; [1] is renscfact=0.5d0 facscfact=1d0 ; [2] is renscfact=0.5d0 facscfact=2d0 ; [3] is renscfact=1d0 facscfact=0.5d0 ; [4] is renscfact=1d0 facscfact=1d0 ; [5] is renscfact=1d0 facscfact=2d0 ; [6] is renscfact=2d0 facscfact=0.5d0 ; [7] is renscfact=2d0 facscfact=1d0 ; [8] is renscfact=2d0 facscfact=2d0
+        // std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;
+        std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
+        // std::vector<Double_t> vec={e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(2), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(6), e->LHEScaleWeight->At(8)}  ;
+        // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
+        // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
+        scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
+        scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));
     }
 };
