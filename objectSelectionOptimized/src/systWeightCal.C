@@ -9,6 +9,8 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
     outTree->Branch("pdfWeight", &pdfWeight);
     outTree->Branch("pdfWeight_up", &pdfWeight_up);
     outTree->Branch("pdfWeight_down", &pdfWeight_down);
+    outTree->Branch("pdfWeightAlphaS_up", &pdfWeightAlphaS_up);
+    outTree->Branch("pdfWeightAlphaS_down", &pdfWeightAlphaS_down);
     outTree->Branch("scaleWeight", &scaleWeight);
     outTree->Branch("scaleWeight_up", &scaleWeight_up);
     outTree->Branch("scaleWeight_down", &scaleWeight_down);
@@ -27,11 +29,11 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         //! I am using 4):
         // Double_t pdfMean = TMath::Mean(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
         // Double_t pdfStd = TMath::StdDev(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
-        // Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), **(e->genWeight));
-        Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1.);
+        Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
-
+        // pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
+        // pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
 
         //scale weight//???seems wrong
         //2: up; 0.5:down

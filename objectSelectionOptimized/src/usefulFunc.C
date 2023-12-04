@@ -215,11 +215,18 @@ namespace OS
         return isRun3;
     }
 
-    Double_t quadraticSum(TTreeReaderArray<Float_t>& vec, const Float_t nominal) {
+    Double_t quadraticSum(TTreeReaderArray<Float_t>& vec, const Float_t nominal, Int_t eleNum) {
         Double_t sum = 0.0;
-        for (Float_t element : vec) {
-            sum += std::pow(element-nominal, 2);
-            // sum += std::pow(element-1, 2);
+        Int_t count = 0;
+        for (Float_t element : vec)
+        {
+            // for (UInt_t i = 0; i < vec.GetSize(); i++){
+            // if(i<eleNum+1){
+            if(count<eleNum+1){
+                // sum += std::pow(vec.At(i)-nominal, 2);
+                sum += std::pow(element-nominal, 2);
+            }
+            count++;
         }
         return TMath::Sqrt(sum);
     }

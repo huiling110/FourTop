@@ -40,7 +40,7 @@ namespace OS
     };
 
     Bool_t isRun3(TString era);
-    Double_t quadraticSum(TTreeReaderArray<Float_t> &vec, const Float_t nominal);
+    Double_t quadraticSum(TTreeReaderArray<Float_t> &vec, const Float_t nominal, Int_t eleNum);
 
     template <typename T>
     void readPointerArray(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)

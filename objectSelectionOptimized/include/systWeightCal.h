@@ -20,6 +20,8 @@ private:
     Double_t pdfWeight=1.;
     Double_t pdfWeight_up=1.;
     Double_t pdfWeight_down=1.;
+    Double_t pdfWeightAlphaS_up=1.;
+    Double_t pdfWeightAlphaS_down=1.;
     Double_t scaleWeight=1.;
     Double_t scaleWeight_up=1.;
     Double_t scaleWeight_down=1.;
