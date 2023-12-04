@@ -14,6 +14,10 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
     outTree->Branch("scaleWeight", &scaleWeight);
     outTree->Branch("scaleWeight_up", &scaleWeight_up);
     outTree->Branch("scaleWeight_down", &scaleWeight_down);
+    outTree->Branch("scaleWeightRe_up", &scaleWeightRe_up);
+    outTree->Branch("scaleWeightRe_down", &scaleWeightRe_down);
+    outTree->Branch("scaleWeightFa_up", &scaleWeightFa_up);
+    outTree->Branch("scaleWeightFa_down", &scaleWeightFa_down);
 
     std::cout<<"Done SystWeightCal initialization.......\n\n";
 };
@@ -46,5 +50,9 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
         scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));
+        scaleWeightRe_up = e->LHEScaleWeight->At(7);
+        scaleWeightRe_down = e->LHEScaleWeight->At(1);
+        scaleWeightFa_up = e->LHEScaleWeight->At(5);
+        scaleWeightFa_down = e->LHEScaleWeight->At(3);
     }
 };
