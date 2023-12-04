@@ -32,8 +32,8 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
-        // pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
-        // pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
+        pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
+        pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
 
         //scale weight//???seems wrong
         //2: up; 0.5:down
