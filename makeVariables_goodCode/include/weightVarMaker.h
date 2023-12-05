@@ -85,6 +85,12 @@ private:
     Double_t pdfWeight_down_ = 1.0;
     Double_t pdfWeightAlphaS_up_ = 1.0;
     Double_t pdfWeightAlphaS_down_ = 1.0;
+    Double_t scaleWeight_up_ =1.;
+    Double_t scaleWeight_down_ =1.;
+    Double_t scaleWeightRe_up_ =1.;
+    Double_t scaleWeightRe_down_ =1.;
+    Double_t scaleWeightFa_up_ =1.;
+    Double_t scaleWeightFa_down_ =1.;
 
     TString m_era;
     const Bool_t m_isData;

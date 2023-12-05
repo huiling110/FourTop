@@ -76,8 +76,12 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     outTree->Branch("pdfWeight_down_", &pdfWeight_down_);
     outTree->Branch("pdfWeightAlphaS_up_", &pdfWeightAlphaS_up_);
     outTree->Branch("pdfWeightAlphaS_down_", &pdfWeightAlphaS_down_);
-
-
+    outTree->Branch("scaleWeight_up_", &scaleWeight_up_);
+    outTree->Branch("scaleWeight_down_", &scaleWeight_down_);
+    outTree->Branch("scaleWeightRe_up_", &scaleWeightRe_up_);
+    outTree->Branch("scaleWeightRe_down_", &scaleWeightRe_down_);
+    outTree->Branch("scaleWeightFa_up_", &scaleWeightFa_up_);
+    outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
 
     // TOP Lepton MVA
     TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
@@ -159,6 +163,15 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
 
     //copy
     pdfWeight_up_ = *e->pdfWeight_up;
+    pdfWeight_down_ = *e->pdfWeight_down;
+    pdfWeightAlphaS_up_ = *e->pdfWeightAlphaS_up;
+    pdfWeightAlphaS_down_ = *e->pdfWeightAlphaS_down;
+    scaleWeight_up_ = *e->scaleWeight_up;
+    scaleWeight_down_ = *e->scaleWeight_down;
+    scaleWeightRe_up_ = *e->scaleWeightRe_up;
+    scaleWeightRe_down_ = *e->scaleWeightRe_down;
+    scaleWeightFa_up_ = *e->scaleWeightFa_up;
+    scaleWeightFa_down_ = *e->scaleWeightFa_down;
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta
