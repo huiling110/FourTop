@@ -108,7 +108,17 @@ public:
                                       EVENT_prefireWeight_down_(reader, "EVENT_prefireWeight_down_"),
                                       PUWeight(reader, "PUWeight"),
                                       PUWeight_up(reader, "PUWeight_up"),
-                                      PUWeight_down(reader, "PUWeight_down")
+                                      PUWeight_down(reader, "PUWeight_down"),
+                                      pdfWeight_up(reader, "pdfWeight_up"),
+                                      pdfWeight_down(reader, "pdfWeight_down"),
+                                      pdfWeightAlphaS_up(reader, "pdfWeightAlphaS_up"),
+                                      pdfWeightAlphaS_down(reader, "pdfWeightAlphaS_down"),
+                                      scaleWeight_up(reader, "scaleWeight_up"),
+                                      scaleWeight_down(reader, "scaleWeight_down"),
+                                      scaleWeightRe_up(reader, "scaleWeightRe_up"),
+                                      scaleWeightRe_down(reader, "scaleWeightRe_down"),
+                                      scaleWeightFa_up(reader, "scaleWeightFa_up"),
+                                      scaleWeightFa_down(reader, "scaleWeightFa_down")
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -220,6 +230,16 @@ public:
     TTreeReaderValue<Double_t> PUWeight_up;
     TTreeReaderValue<Double_t> PUWeight_down;
     // TTreeReaderValue<Double_t> ;
+    TTreeReaderValue<Double_t> pdfWeight_up;
+    TTreeReaderValue<Double_t> pdfWeight_down;
+    TTreeReaderValue<Double_t> pdfWeightAlphaS_up;
+    TTreeReaderValue<Double_t> pdfWeightAlphaS_down;
+    TTreeReaderValue<Double_t> scaleWeight_up;
+    TTreeReaderValue<Double_t> scaleWeight_down;
+    TTreeReaderValue<Double_t> scaleWeightRe_up;
+    TTreeReaderValue<Double_t> scaleWeightRe_down;
+    TTreeReaderValue<Double_t> scaleWeightFa_up;
+    TTreeReaderValue<Double_t> scaleWeightFa_down;
 };
 
 #endif

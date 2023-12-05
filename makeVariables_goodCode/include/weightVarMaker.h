@@ -81,6 +81,11 @@ private:
     Double_t HLT_weight_stats_up = 1.0;
     Double_t HLT_weight_stats_down = 1.0;
 
+    Double_t pdfWeight_up_ = 1.0;
+    Double_t pdfWeight_down_ = 1.0;
+    Double_t pdfWeightAlphaS_up_ = 1.0;
+    Double_t pdfWeightAlphaS_down_ = 1.0;
+
     TString m_era;
     const Bool_t m_isData;
     TH2D *eleIDSF_topMVA;

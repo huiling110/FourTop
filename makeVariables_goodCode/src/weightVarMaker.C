@@ -71,6 +71,13 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_er
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
 
+    //theory weight
+    outTree->Branch("pdfWeight_up_", &pdfWeight_up_);
+    outTree->Branch("pdfWeight_down_", &pdfWeight_down_);
+    outTree->Branch("pdfWeightAlphaS_up_", &pdfWeightAlphaS_up_);
+    outTree->Branch("pdfWeightAlphaS_down_", &pdfWeightAlphaS_down_);
+
+
 
     // TOP Lepton MVA
     TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
@@ -149,6 +156,9 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     PUweight_ = *e->PUWeight;
     PUweight_up_ = *e->PUWeight_up;
     PUweight_down_ = *e->PUWeight_down;
+
+    //copy
+    pdfWeight_up_ = *e->pdfWeight_up;
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta
