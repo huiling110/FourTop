@@ -128,6 +128,18 @@ public:
     myBranch<Double_t> btagWPMedium_weight{"btagWPMedium_weight"};
     myBranch<Double_t> btagWPMedium_weight_up{"btagWPMedium_weight_up"};
     myBranch<Double_t> btagWPMedium_weight_down{"btagWPMedium_weight_down"};
+    //
+    myBranch<Double_t> pdfWeight_up_{"pdfWeight_up_"};
+    myBranch<Double_t> pdfWeight_down_{"pdfWeight_down_"};
+    myBranch<Double_t> pdfWeightAlphaS_up_{"pdfWeightAlphaS_up_"};
+    myBranch<Double_t> pdfWeightAlphaS_down_{"pdfWeightAlphaS_down_"};
+    myBranch<Double_t> scaleWeight_up_{"scaleWeight_up_"};
+    myBranch<Double_t> scaleWeight_down_{"scaleWeight_down_"};
+    myBranch<Double_t> scaleWeightRe_up_{"scaleWeightRe_up_"};
+    myBranch<Double_t> scaleWeightRe_down_{"scaleWeightRe_down_"};
+    myBranch<Double_t> scaleWeightFa_up_{"scaleWeightFa_up_"};
+    myBranch<Double_t> scaleWeightFa_down_{"scaleWeightFa_down_"};
+
     // branches for MVA
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
     myBranch<Double_t> jets_bScore{"jets_bScore"};
@@ -269,6 +281,18 @@ private:
         {btagWPMedium_weight.n(), &btagWPMedium_weight},
         {btagWPMedium_weight_up.n(), &btagWPMedium_weight_up},
         {btagWPMedium_weight_down.n(), &btagWPMedium_weight_down},
+
+        {pdfWeight_up_.n(), &pdfWeight_up_},
+        {pdfWeight_down_.n(), &pdfWeight_down_},
+        {pdfWeightAlphaS_up_.n(), &pdfWeightAlphaS_up_},
+        {pdfWeightAlphaS_down_.n(), &pdfWeightAlphaS_down_},
+        {scaleWeight_up_.n(), &scaleWeight_up_},
+        {scaleWeight_down_.n(), &scaleWeight_down_},
+        {scaleWeightRe_up_.n(), &scaleWeightRe_up_},
+        {scaleWeightRe_down_.n(), &scaleWeightRe_down_},
+        {scaleWeightFa_up_.n(), &scaleWeightFa_up_},
+        {scaleWeightFa_down_.n(), &scaleWeightFa_down_},
+
 
         {jets_bScore.n(), &jets_bScore},
         {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
