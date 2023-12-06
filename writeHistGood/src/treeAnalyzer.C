@@ -61,6 +61,14 @@ void treeAnalyzer::Init()
         "CMS_tttt_eff_hlt_stats_" + m_era + "Down",
         "CMS_eff_bWPM_" + m_era + "Up",
         "CMS_eff_bWPM_" + m_era + "Down",
+        "pdf_" + m_era + "Up",
+        "pdf_" + m_era + "Down",
+        "pdfAlphaS_" + m_era + "Up",
+        "pdfAlphaS_" + m_era + "Down",
+        "QCDscale_Re_" + m_era + "Up",
+        "QCDscale_Re_" + m_era + "Down",
+        "QCDscale_Fa_" + m_era + "Up",
+        "QCDscale_Fa_" + m_era + "Down",
     };
 
 
@@ -243,6 +251,17 @@ void treeAnalyzer::LoopTree()
             SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
             SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
         }
+
+        //theorectical uncertainties
+        SR1tau1lSys.fillHistVec("pdf_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("pdf_" + m_era + "Down", bdtScore, basicWeight* e->pdfWeight_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("pdfAlphaS_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("pdfAlphaS_" + m_era + "Down", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("QCDscale_Re_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("QCDscale_Re_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("QCDscale_Fa_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("QCDscale_Fa_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
+
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
