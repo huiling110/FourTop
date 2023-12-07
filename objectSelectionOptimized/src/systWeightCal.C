@@ -36,6 +36,7 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         Double_t pdfUnc = 0.;
         if (e->LHEPdfWeight != nullptr)
         {//!!!some files like wz don't have LHE branches, assign nominal 1 to them
+        //!!!https://cms-talk.web.cern.ch/t/lhepdfweights-in-nanoaodv9/17688/4?u=akapoor
             pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
             pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
             pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
