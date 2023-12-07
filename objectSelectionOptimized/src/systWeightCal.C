@@ -33,26 +33,32 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         //! I am using 4):
         // Double_t pdfMean = TMath::Mean(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
         // Double_t pdfStd = TMath::StdDev(e->LHEPdfWeight->begin(), e->LHEPdfWeight->end());
-        Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
+        Double_t pdfUnc = 0.;
+        if (e->LHEPdfWeight != nullptr)
+        {//!!!some files like wz don't have LHE branches, assign nominal 1 to them
+            pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
+            pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
+            pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
+        }
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
-        pdfWeightAlphaS_up = e->LHEPdfWeight->At(101);
-        pdfWeightAlphaS_down = e->LHEPdfWeight->At(102);
 
         //scale weight//???seems wrong
         //2: up; 0.5:down
         //envelope to consider: upup, downdown;up or down; no up and down
         //LHE scale variation weights (w_var / w_nominal); [0] is renscfact=0.5d0 facscfact=0.5d0 ; [1] is renscfact=0.5d0 facscfact=1d0 ; [2] is renscfact=0.5d0 facscfact=2d0 ; [3] is renscfact=1d0 facscfact=0.5d0 ; [4] is renscfact=1d0 facscfact=1d0 ; [5] is renscfact=1d0 facscfact=2d0 ; [6] is renscfact=2d0 facscfact=0.5d0 ; [7] is renscfact=2d0 facscfact=1d0 ; [8] is renscfact=2d0 facscfact=2d0
         // std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;
-        std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
         // std::vector<Double_t> vec={e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(2), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(6), e->LHEScaleWeight->At(8)}  ;
         // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
-        scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
-        scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));
-        scaleWeightRe_up = e->LHEScaleWeight->At(7);
-        scaleWeightRe_down = e->LHEScaleWeight->At(1);
-        scaleWeightFa_up = e->LHEScaleWeight->At(5);
-        scaleWeightFa_down = e->LHEScaleWeight->At(3);
+        if (e->LHEScaleWeight!=nullptr){
+            std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
+            scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
+            scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));
+            scaleWeightRe_up = e->LHEScaleWeight->At(7);
+            scaleWeightRe_down = e->LHEScaleWeight->At(1);
+            scaleWeightFa_up = e->LHEScaleWeight->At(5);
+            scaleWeightFa_down = e->LHEScaleWeight->At(3);
+        }
     }
 };

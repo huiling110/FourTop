@@ -315,8 +315,8 @@ public:
     TTreeReaderArray<Int_t> *Jet_hadronFlavour;
     TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//???
 
-    TTreeReaderArray<Float_t> *LHEPdfWeight;
-    TTreeReaderArray<Float_t> *LHEScaleWeight;
+    TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;
+    TTreeReaderArray<Float_t> *LHEScaleWeight = nullptr;
 };
 
 #endif
