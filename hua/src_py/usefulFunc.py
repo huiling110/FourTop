@@ -354,6 +354,9 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     eff.GetYaxis().SetTitle('HLT efficiency')
     eff.GetXaxis().SetTitle(h_de.GetTitle())
     
+    eff.SetMarkerSize(0.4)
+    eff.SetLineWidth(4)
+    
     # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     # h_dinominator.GetYaxis().SetTitle('Events')
     # h_dinominator.GetYaxis().SetTitleSize(0.05)
