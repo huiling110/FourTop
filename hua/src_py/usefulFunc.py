@@ -337,7 +337,7 @@ def getSameValues(diction, value):
         
     
 def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
-   #plot efficiency with TEfficiency, might not work with MC with event weights    
+   #plot efficiency with TEfficiency, might not work with MC with event weights ;https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
     print('start to plot efficiency')
     mySty =  st.setMyStyle()
     mySty.cd()
@@ -354,46 +354,37 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     eff.GetYaxis().SetTitle('HLT efficiency')
     eff.GetXaxis().SetTitle(h_de.GetTitle())
     
-    eff.SetMarkerSize(0.4)
-    eff.SetLineWidth(4)
-    
-    # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
-    # h_dinominator.GetYaxis().SetTitle('Events')
-    # h_dinominator.GetYaxis().SetTitleSize(0.05)
-    # h_dinominator.GetYaxis().SetLabelSize(0.03)
-    # h_dinominator.GetYaxis().SetTitleOffset(1.1)
-    # h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
-    # h_dinominator.GetXaxis().SetTitleSize(0.05)
-    # h_dinominator.SetLineWidth(3)
-    # h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
-    
-    # h_dinominator.Draw()
-    # h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
-    # h_numeritor.SetLineWidth(3)
-    # h_numeritor.Draw('same')
+    eff.SetMarkerSize(0.8)
+    eff.SetMarkerColor(ROOT.kRed)
+    eff.SetLineWidth(2)
+    eff.SetLineColor(ROOT.kRed)
+   
+    # #draw the denominator and numerator hists 
+    #  # Create a transparent pad for the second histogram
+    # pad = ROOT.TPad("pad", "pad", 0, 0, 1, 1)
+    # pad.SetFillStyle(4000)  # will be transparent
+    # pad.SetFillColor(0)
+    # pad.Draw()
+    # pad.cd()
+
+    # # Draw the second histogram using the right Y axis
+    # h_de.SetLineColor(ROOT.kRed+1)
+    # h_de.Draw("same")
+
+    # # Create a new Y axis for the second histogram
+    # # The range should be set according to h_de's scale
+    # ymax = h_de.GetMaximum()
+    # ymin = h_de.GetMinimum()
+    # axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),  ymin, ymax, 510, "+L")
+    # axis.SetLineColor(h_de.GetLineColor())
+    # axis.SetLabelColor(h_de.GetLineColor())
+    # axis.SetTitle("Right Axis Title")
+    # axis.Draw()
+    # # Go back to the main pad and draw
+    # can.cd()
+    # can.Draw()
     # can.Update()
     
-    # if ifFixMax:
-    #     rightmax = 1.5
-    # else:
-    #     rightmax = 1.7*h_efficiency.GetTotalHistogram().GetMaximum()
-        
-    # h_efficiency =  ROOT.TEfficiency(h_numeritor, h_dinominator)
-    # h_efficiency.SetStatisticOption(ROOT.TEfficiency.kFCP) # Clopper-Pearson #!!!might not be working for weighted histograms, https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
-    # scale = ROOT.gPad.GetUymax()/rightmax
-    # h_efficiency.GetTotalHistogram().Scale(scale)
-    # h_efficiency.GetTotalHistogram().Scale(5000)
-    # h_efficiency.Draw('same')
-
-    
-    
-    # axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
-    # axis.SetLineColor(ROOT.kRed)
-    # axis.SetLabelColor(ROOT.kRed)
-    # axis.SetTitle(rightTitle)
-    # axis.SetTitleSize(0.05)
-    # axis.SetTitleColor(ROOT.kRed)
-    # axis.Draw()
 
 
     # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
