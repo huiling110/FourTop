@@ -350,6 +350,10 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
     eff.Draw("AP")
     
+    eff.GetYaxis().SetRangeUser(0, 1.4)
+    eff.GetYaxis().SetTitle('HLT efficiency')
+    eff.GetXaxis().SetTitle(h_de.GetTitle())
+    
     # h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
     # h_dinominator.GetYaxis().SetTitle('Events')
     # h_dinominator.GetYaxis().SetTitleSize(0.05)

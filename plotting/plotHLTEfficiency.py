@@ -125,10 +125,10 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     
     variableDic = {
         'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-        'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
-        'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
-        'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
+        # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+        # 'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
+        # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
+        # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
     
     varList = list(variableDic.keys())     
@@ -140,15 +140,16 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     uf.checkMakeDir(plotDir)
     
     for ivar in variableDic.keys():
-        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+        # eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
+        # eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
+        # eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
         eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+        # eff_tttt = uf.plotEffTEff(sumProcessPerVar[ivar]['baseline'+bjet]['tttt'], sumProcessPerVar[ivar]['baselineAndHLT'+bjet]['tttt'], 'ttttTruthEff', era)
     
-        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        legendList = ['tt true eff', 'tt orthogonal eff', 'data orthogonal eff']
-        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
-        pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
+        # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+        # legendList = ['tt true eff', 'tt orthogonal eff', 'data orthogonal eff']
+        # overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
+        # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
     
   
    
@@ -226,19 +227,18 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
         binLowEges = binning
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
         MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
-    # MCTrueth_de.Print()
-    # MCTrueth_nu.Print()
     eff_MCTrueth = MCTrueth_de.Clone()
     eff_MCTrueth.Reset()
     eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
     eff_MCTrueth.SetName(plotName)
-    # eff_MCTrueth.Print()
     
-    # plotName = plotDir + variable + plotName + '.png'
-    plotName = plotDir + variable + plotName + '_testing'
+    plotName = plotDir + variable + plotName + '_testing2'
     era = uf.getEraFromDir(plotDir)
-    # uf.plotEfficiency(MCTrueth_nu, MCTrueth_de, eff_MCTrueth, plotName, era, False)
-    uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era)
+    # uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era)
+    
+    uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era) 
+    
+    
     return eff_MCTrueth
 
     
