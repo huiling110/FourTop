@@ -119,7 +119,6 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     
     
 def plotEfficiencyHLT(inputDirDic, bjet = ''):
-    variableList = ['jets_HT', 'bjetsM_num', 'jets_6pt', 'jets_num', 'jets_1pt']
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     for i in range(len(regionList)):
         regionList[i] = regionList[i]+bjet
@@ -133,10 +132,6 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     }
     
     varList = list(variableDic.keys())     
-    # sumProcessPerVar = {}
-    # sumProcessPerVarSys = {} 
-    # for ivar in variableList:
-    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
     sumList = ['singleMu', 'tt', 'tttt']
     era = uf.getEraFromDir(inputDirDic['mc'])   
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumList, varList, era )#sumProcessPerVar[ivar][region][sumPro]
@@ -152,7 +147,7 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         legendList = ['tt true eff', 'tt orthogonal eff', 'data orthogonal eff']
-        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New.png' 
+        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
         pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
     
   

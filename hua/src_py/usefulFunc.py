@@ -337,7 +337,7 @@ def getSameValues(diction, value):
         
     
 def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
-   #plot efficiency with TEfficiency   
+   #plot efficiency with TEfficiency, might not work with MC with event weights    
     print('start to plot efficiency')
     mySty =  st.setMyStyle()
     mySty.cd()
