@@ -337,6 +337,9 @@ def getSameValues(diction, value):
         
     
 def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
+    '''
+    to do: add the plotting of denominator and numerator too
+    '''
    #plot efficiency with TEfficiency, might not work with MC with event weights ;https://root-forum.cern.ch/t/tefficiency-with-weighted-events/18067
     print('start to plot efficiency')
     mySty =  st.setMyStyle()
@@ -385,15 +388,13 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     # can.Draw()
     # can.Update()
 
-    # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
-    legend = st.getMyLegend(0.6,0.2,0.9,0.4)
+    legend = st.getMyLegend(0.6,0.25,0.9,0.4)
     legend.AddEntry(eff, 'tttt', 'lep')
     # legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
     # legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
     # legend.AddEntry(h_efficiency, h_efficiency.GetName())
     legend.Draw()
     
-    # st.addCMSTextToCan(can, 0.23, 0.35, 0.7, 0.96, era) 
     st.addCMSTextToPad(can, era) 
     
     can.SaveAs(plotName+'.png')
