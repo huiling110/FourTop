@@ -36,9 +36,9 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    # plotEfficiencyHLT(inputDirDic, '1b')
+    plotEfficiencyHLT(inputDirDic, '1b')
     # plotEfficiencyHLT(inputDirDic, '2b')
-    plotEfficiencyHLT(inputDirDic, '3b')
+    # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
     # plotSF(inputDirDic, True)
@@ -125,10 +125,10 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     
     variableDic = {
         'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-        # 'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
-        # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
-        # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
+        'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+        'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
+        'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
+        'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
     
     varList = list(variableDic.keys())     
