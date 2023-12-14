@@ -350,13 +350,13 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
     eff.Draw("AP")
     
-    eff.GetYaxis().SetRangeUser(0, 1.4)
+    eff.GetYaxis().SetRangeUser(0, 1.2)
     eff.GetYaxis().SetTitle('HLT efficiency')
     eff.GetXaxis().SetTitle(h_de.GetTitle())
     
     eff.SetMarkerSize(0.8)
     eff.SetMarkerColor(ROOT.kRed)
-    eff.SetLineWidth(2)
+    eff.SetLineWidth(3)
     eff.SetLineColor(ROOT.kRed)
    
     # #draw the denominator and numerator hists 
@@ -384,15 +384,16 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     # can.cd()
     # can.Draw()
     # can.Update()
-    
-
 
     # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
-    # legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
+    legend = st.getMyLegend(0.6,0.2,0.9,0.4)
+    legend.AddEntry(eff, 'tttt', 'lep')
     # legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
     # legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
-    # # legend.AddEntry(h_efficiency, h_efficiency.GetName())
-    # legend.Draw()
+    # legend.AddEntry(h_efficiency, h_efficiency.GetName())
+    legend.Draw()
+    
+    st.addCMSTextToCan(can, 0.23, 0.35, 0.7, 0.96, era) 
     
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')

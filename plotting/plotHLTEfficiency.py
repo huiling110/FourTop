@@ -124,10 +124,10 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         regionList[i] = regionList[i]+bjet
     
     variableDic = {
-        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        # 'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
         # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
         # 'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
-        # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
+        'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
     
@@ -142,8 +142,8 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     for ivar in variableDic.keys():
         # eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
         # eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
-        # eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
+        # eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
         # eff_tttt = uf.plotEffTEff(sumProcessPerVar[ivar]['baseline'+bjet]['tttt'], sumProcessPerVar[ivar]['baselineAndHLT'+bjet]['tttt'], 'ttttTruthEff', era)
     
         # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]

@@ -230,4 +230,16 @@ def setMyStyle():
   
 #   myStyle.cd()
   return myStyle
+
+
+def getMyLegend(x1, x2, y1, y2):
+    legend = ROOT.TLegend(x1, x2, y1, y2)
+    legend.SetFillColor(0)  # transparent
+    # legend.SetBorderSize(1)  # border size
+    legend.SetBorderSize(0)  # border size
+    legend.SetTextSize(0.05)  # text size
+    legend.SetTextFont(42)  # font style
+    legend.SetFillColor(0)
+    legend.SetFillStyle(0) 
+    return legend
     
