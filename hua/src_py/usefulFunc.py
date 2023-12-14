@@ -393,7 +393,8 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     # legend.AddEntry(h_efficiency, h_efficiency.GetName())
     legend.Draw()
     
-    st.addCMSTextToCan(can, 0.23, 0.35, 0.7, 0.96, era) 
+    # st.addCMSTextToCan(can, 0.23, 0.35, 0.7, 0.96, era) 
+    st.addCMSTextToPad(can, era) 
     
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')

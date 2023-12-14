@@ -135,6 +135,47 @@ def addCMSTextToCan(canvas, x1=0.23, x2=0.35,x3=0.7, y=0.96, era = '2016'):
     # latex2.DrawLatex(x2+0.6, y, lumiText_s )
     latex2.DrawLatex( x3, y, lumiText_s )
     
+def addCMSTextToPad(canvas,  era = '2016'):
+    # can = canvas
+    canvas.Update()
+   
+    # x1 = ROOT.gPad.GetUxmin()
+    # y =  ROOT.gPad.GetUymax()
+    x1 = canvas.GetLeftMargin() + 0.06
+    y = 1- canvas.GetTopMargin() + 0.01
+    x2 = x1+0.17
+    x3 = x1+0.685
+    
+    cmsTextFont = 61
+    extraTextFont = 52
+    cmsText = "CMS"
+    extraText = "Preliminary " + era
+    
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextAlign(31)
+    latex.SetTextSize(0.04)
+    latex.SetTextFont(cmsTextFont)
+    latex.DrawLatex(x1, y, cmsText )
+    latex.SetTextFont(extraTextFont)
+    latex.SetTextSize(0.04*0.76)
+    latex.DrawLatex(x2, y , extraText )
+  
+    lumiText = lumiMap[era] /1000
+    lumiText_s = '{0:.1f}'.format(lumiText)
+    isRun3 = uf.isRun3Era(era)
+    energy = '13'
+    if isRun3:
+        energy = '13.6'
+    lumiText_s = lumiText_s + ' fb^{-1}('+ energy +'TeV)'
+    latex2 = ROOT.TLatex()
+    latex2.SetNDC()
+    latex2.SetTextSize(0.04)
+    latex2.SetTextAlign(31)
+    latex2.SetTextFont(42)  
+    latex2.DrawLatex( x3, y, lumiText_s )
+    
+    canvas.Update()
 
 
 def setMyStyle():
