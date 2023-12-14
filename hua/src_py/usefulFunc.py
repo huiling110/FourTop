@@ -392,6 +392,7 @@ def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle
 
     legend = st.getMyLegend(0.6,0.25,0.9,0.4)
     legend.AddEntry(eff, 'tttt', 'lep')
+    legend.SetTextSize(0.06)
     legend.Draw()
     
     st.addCMSTextToPad(can, era) 
@@ -558,9 +559,10 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
     #plot style
     LineColorDic={
         # 0: ROOT.TColor.GetColor("#fdae61"),
-        0: ROOT.TColor.GetColor("#fd8d3c"),
-        1: ROOT.TColor.GetColor("#f03b20"),
-        2: ROOT.TColor.GetColor("#2ca25f"),
+        0: [ROOT.TColor.GetColor("#fd8d3c"), 8],
+        1: [ROOT.TColor.GetColor("#f03b20"), 64],
+        # 2: [ROOT.TColor.GetColor("#2ca25f"), 101],
+        2: [ROOT.TColor.GetColor("#2ca25f"), 1],
         #2ca25f green
         #d01c8b purple
         ##fdae61 fc9272" orange
@@ -572,20 +574,22 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
         else:
             histogram.Draw('P same')  # Draw subsequent histograms with "same" option to overlay
         if not 'singleMu' in histogram.GetName(): # keep data black
-            histogram.SetLineColor(LineColorDic[i])
-            histogram.SetMarkerColor(LineColorDic[i])
+            histogram.SetLineColor(LineColorDic[i][0])
+            histogram.SetMarkerColor(LineColorDic[i][0])
         else:
             histogram.SetLineColor(ROOT.kBlack)
             histogram.SetMarkerColor(ROOT.kBlack)
-            histogram.SetMarkerStyle(64)
+            # histogram.SetMarkerStyle(64)
             # histogram.SetLineWidth(3)  # Set line width for each histogram
         # histogram.SetLineColor(LineColorDic[i])
         # histogram.SetMarkerColor(LineColorDic[i])
             
-        histogram.SetLineWidth(4)  # Set line width for each histogram
-        histogram.SetMarkerSize(1.0)
+        # histogram.SetLineWidth(4)  # Set line width for each histogram
+        # histogram.SetMarkerSize(1.0)
+        histogram.SetLineWidth(3)  # Set line width for each histogram
+        histogram.SetMarkerSize(1.5)
         # histogram.SetMarkerStyle(45)
-        # histogram.SetMarkerStyle(64)
+        histogram.SetMarkerStyle(LineColorDic[i][1])
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         histogram.GetXaxis().SetTitleSize(0.05)
@@ -598,8 +602,8 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
         legend.AddEntry(histogram, legenList[i], "lep")  # Add an entry to the legend
         legend.Draw() 
         
-    # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
-    st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
+    # st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
+    st.addCMSTextToPad(can, era)
         
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')

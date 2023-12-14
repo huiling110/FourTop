@@ -124,8 +124,8 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         regionList[i] = regionList[i]+bjet
     
     variableDic = {
-        # 'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
         # 'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
         # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
@@ -148,8 +148,9 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
         legendList = ['data: orthogonal', 'tt: true', 'tt: orthogonal' ]
-        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2' 
-        uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.3, 0.3, 0.9, 0.5],  [0, 1.2])
+        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'_v0' 
+        # uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.3, 0.3, 0.9, 0.5],  [0.8, 1.05])
+        uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.4, 0.3, 0.9, 0.5],  [0, 1.2])
     
   
    
@@ -228,7 +229,7 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
         MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
     
-    plotName = plotDir + variable + plotName + '_testing2'
+    plotName = plotDir + variable + plotName + '_v0'
     era = uf.getEraFromDir(plotDir)
     
     eff = uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era, legendName) 

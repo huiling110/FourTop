@@ -144,7 +144,7 @@ def addCMSTextToPad(canvas,  era = '2016'):
     x1 = canvas.GetLeftMargin() + 0.06
     y = 1- canvas.GetTopMargin() + 0.01
     x2 = x1+0.17
-    x3 = x1+0.685
+    x3 = x1+0.69
     
     cmsTextFont = 61
     extraTextFont = 52
@@ -248,7 +248,7 @@ def setMyStyle():
 #   myStyle.SetTitleFont(42,"XYZ")
   myStyle.SetTitleSize(0.06,"XYZ")
 #   myStyle.SetTitleXOffset(0.9)
-#   myStyle.SetTitleYOffset(1.25)
+  myStyle.SetTitleYOffset(.9)
  
 
   myStyle.SetLabelColor(1, "XYZ")
@@ -279,8 +279,9 @@ def getMyLegend(x1, x2, y1, y2):
     legend.SetFillColor(0)  # transparent
     # legend.SetBorderSize(1)  # border size
     legend.SetBorderSize(0)  # border size
-    legend.SetTextSize(0.07)  # text size
+    # legend.SetTextSize(0.07)  # text size
     legend.SetTextFont(42)  # font style
+    # legend.SetTextFont(82)  # font style
     legend.SetFillColor(0)
     legend.SetFillStyle(0) 
     return legend
