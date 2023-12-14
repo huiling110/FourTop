@@ -140,16 +140,16 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     uf.checkMakeDir(plotDir)
     
     for ivar in variableDic.keys():
-        # eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTruthEff', plotDir, 3)
-        # eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttRefEff', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataRefEff', plotDir, ifData=1)
-        # eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttHLTEff', plotDir, 2)
-        # eff_tttt = uf.plotEffTEff(sumProcessPerVar[ivar]['baseline'+bjet]['tttt'], sumProcessPerVar[ivar]['baselineAndHLT'+bjet]['tttt'], 'ttttTruthEff', era)
+        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff', 'tt', plotDir, 3)
+        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff', 'tt', plotDir, 3)
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff', 'data', plotDir, ifData=1)
+        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff', 'tttt',plotDir, 2)
     
-        # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        # legendList = ['tt true eff', 'tt orthogonal eff', 'data orthogonal eff']
-        # overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
+        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+        legendList = ['tt: true efficiency', 'tt: orthogonal efficiency', 'data: orthogonal efficiency']
+        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
         # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
+        uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
     
   
    
@@ -199,7 +199,7 @@ def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
     
 
 
-def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, plotDir, ifData=0): 
+def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, ifData=0): 
     if  ifData==0:
         print('plot for all bg')
         MCTrueth_de = uf.addBGHist(sumProcessPerVar[variable], regionDe, includeQCD=True)
@@ -236,10 +236,11 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
     era = uf.getEraFromDir(plotDir)
     # uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era)
     
-    uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era) 
+    eff = uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era, legendName) 
     
     
-    return eff_MCTrueth
+    # return eff_MCTrueth
+    return eff
 
     
 if __name__=='__main__':

@@ -202,8 +202,9 @@ def setMyStyle():
   myStyle.SetFrameLineWidth(1)
 
   myStyle.SetPadTopMargin(0.07)
-  myStyle.SetPadBottomMargin(0.13)
-  myStyle.SetPadLeftMargin(0.16)
+#   myStyle.SetPadBottomMargin(0.13)
+  myStyle.SetPadBottomMargin(0.16)
+  myStyle.SetPadLeftMargin(0.15)
   myStyle.SetPadRightMargin(0.1)
   
     #hist settings

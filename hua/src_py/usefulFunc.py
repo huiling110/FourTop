@@ -336,7 +336,7 @@ def getSameValues(diction, value):
     # for ifile in os.listdir(inputDir):
         
     
-def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency'):
+def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle='Efficiency'):
     '''
     to do: add the plotting of denominator and numerator too
     '''
@@ -352,6 +352,7 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     eff = ROOT.TGraphAsymmErrors()
     eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
     eff.Draw("AP")
+    eff.SetTitle(h_de.GetTitle())
     
     eff.GetYaxis().SetRangeUser(0, 1.2)
     eff.GetYaxis().SetTitle('HLT efficiency')
@@ -390,9 +391,6 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
 
     legend = st.getMyLegend(0.6,0.25,0.9,0.4)
     legend.AddEntry(eff, 'tttt', 'lep')
-    # legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
-    # legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
-    # legend.AddEntry(h_efficiency, h_efficiency.GetName())
     legend.Draw()
     
     st.addCMSTextToPad(can, era) 
@@ -400,6 +398,8 @@ def plotEffTEff(h_nu, h_de, plotName, era, ifFixMax=True, rightTitle='Efficiency
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')
     print('done plot efficiency \n\n')
+    
+    return eff
     
     
 def getHistFromFile(fileName, histNames):
@@ -534,3 +534,66 @@ def isData(subPro):
     if ('jetHT' in subPro) or ('singleMu' in subPro):
         isdata = True
     return isdata
+
+def getYmax(histograms):
+    max_y = -1.0
+    for hist in histograms:
+        if hist:
+            current_max_y = hist.GetMaximum()
+            if current_max_y > max_y:
+                max_y = current_max_y
+
+    return max_y    
+
+def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
+    print('start to plot overlay plot')
+    mySty =  st.setMyStyle()
+    mySty.cd()
+    can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
+    
+    legend = ROOT.TLegend(legendPos[0], legendPos[1], legendPos[2], legendPos[3])  # Create a legend to label the histograms
+    legend.SetBorderSize(0)
+    legend.SetFillStyle(0) 
+    legend.SetTextFont(42)
+    
+    yMax = getYmax(histList)
+    #plot style
+    LineColorDic={
+        # 0: ROOT.TColor.GetColor("#fdae61"),
+        0: ROOT.TColor.GetColor("#fd8d3c"),
+        1: ROOT.TColor.GetColor("#f03b20"),
+        2: ROOT.TColor.GetColor("#2ca25f"),
+        #2ca25f green
+        #d01c8b purple
+        ##fdae61 fc9272" orange
+    }
+
+    for i, histogram in enumerate(histList):
+        if i == 0:
+            histogram.Draw()  # Draw the first histogram without any options
+        else:
+            histogram.Draw("same")  # Draw subsequent histograms with "same" option to overlay
+
+        histogram.SetLineColor(LineColorDic[i])
+        histogram.SetMarkerColor(LineColorDic[i])
+        histogram.SetLineWidth(3)  # Set line width for each histogram
+        histogram.SetMarkerSize(1.5)
+        # histogram.SetMarkerStyle(45)
+        histogram.SetMarkerStyle(64)
+        histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
+        histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
+        histogram.GetXaxis().SetTitleSize(0.05)
+        histogram.GetYaxis().SetTitleSize(0.06)
+        if len(yRange)>1:
+            histList[i].GetYaxis().SetRangeUser(yRange[0], yRange[1])
+        else:
+            histList[i].GetYaxis().SetRangeUser(0, yMax*1.3)
+
+        legend.AddEntry(histogram, legenList[i], "lep")  # Add an entry to the legend
+        legend.Draw() 
+        
+    # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
+    st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
+        
+    can.SaveAs(plotName)
+    print('Done overlay plotting\n\n')

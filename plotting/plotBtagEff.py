@@ -143,7 +143,8 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     uf.checkMakeDir(plotDir)
     plotName = plotDir+'/overlay_'+eta+'.png'
     plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, [0., 1.2] )
-    
+   
+#!!!new version in usefulFunc, keep this here just for now    
 def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
     print('start to plot overlay plot')
     mySty =  st.setMyStyle()
@@ -199,15 +200,6 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8
     can.SaveAs(plotName)
     print('Done overlay plotting\n\n')
         
-def getYmax(histograms):
-    max_y = -1.0
-    for hist in histograms:
-        if hist:
-            current_max_y = hist.GetMaximum()
-            if current_max_y > max_y:
-                max_y = current_max_y
-
-    return max_y    
 
     
    
