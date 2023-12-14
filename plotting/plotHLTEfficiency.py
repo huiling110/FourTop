@@ -36,9 +36,9 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    plotEfficiencyHLT(inputDirDic, '1b')
+    # plotEfficiencyHLT(inputDirDic, '1b')
     # plotEfficiencyHLT(inputDirDic, '2b')
-    # plotEfficiencyHLT(inputDirDic, '3b')
+    plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
     # plotSF(inputDirDic, True)
@@ -125,9 +125,9 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     
     variableDic = {
         # 'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        # 'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
+        'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
         # 'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
-        'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
+        # 'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         # 'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }
     
@@ -145,11 +145,11 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
         eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff', 'data', plotDir, ifData=1)
         eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff', 'tttt',plotDir, 2)
     
-        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        legendList = ['tt: true efficiency', 'tt: orthogonal efficiency', 'data: orthogonal efficiency']
-        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2.png' 
-        # pB.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
-        uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, [0.5, 0.2, 0.9, 0.4],  [0, 1.2])
+        # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+        overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
+        legendList = ['data: orthogonal', 'tt: true', 'tt: orthogonal' ]
+        overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'New2' 
+        uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.3, 0.3, 0.9, 0.5],  [0, 1.2])
     
   
    
@@ -208,35 +208,31 @@ def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotNam
         print('plot for data')
         MCTrueth_de = sumProcessPerVar[variable][regionDe]['singleMu'].Clone()
         MCTrueth_nu = sumProcessPerVar[variable][regionNu]['singleMu'].Clone()
-        MCTrueth_de.SetName(regionDe)
-        MCTrueth_nu.SetName(regionNu)
+        # MCTrueth_de.SetName(regionDe)
+        # MCTrueth_nu.SetName(regionNu)
     elif ifData==2:
         print('plot for tttt')
         MCTrueth_de = sumProcessPerVar[variable][regionDe]['tttt'].Clone()
         MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tttt'].Clone()
-        MCTrueth_de.SetName(regionDe)
-        MCTrueth_nu.SetName(regionNu)
+        # MCTrueth_de.SetName(regionDe)
+        # MCTrueth_nu.SetName(regionNu)
     elif ifData==3:
         print('plot for tt')
         MCTrueth_de = sumProcessPerVar[variable][regionDe]['tt'].Clone()
         MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tt'].Clone()
-        MCTrueth_de.SetName(regionDe)
-        MCTrueth_nu.SetName(regionNu)
+        # MCTrueth_de.SetName(regionDe)
+        # MCTrueth_nu.SetName(regionNu)
         
     if len( binning ) >0:
         binLowEges = binning
         MCTrueth_de = MCTrueth_de.Rebin(len(binLowEges)-1, '', binLowEges)
         MCTrueth_nu = MCTrueth_nu.Rebin(len(binLowEges)-1, '', binLowEges)
-    eff_MCTrueth = MCTrueth_de.Clone()
-    eff_MCTrueth.Reset()
-    eff_MCTrueth.Divide(MCTrueth_nu, MCTrueth_de)
-    eff_MCTrueth.SetName(plotName)
     
     plotName = plotDir + variable + plotName + '_testing2'
     era = uf.getEraFromDir(plotDir)
-    # uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era)
     
     eff = uf.plotEffTEff(MCTrueth_nu, MCTrueth_de, plotName, era, legendName) 
+    print(eff.GetName())
     
     
     # return eff_MCTrueth

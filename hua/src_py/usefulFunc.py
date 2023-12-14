@@ -353,6 +353,7 @@ def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle
     eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
     eff.Draw("AP")
     eff.SetTitle(h_de.GetTitle())
+    eff.SetName(h_de.GetName())
     
     eff.GetYaxis().SetRangeUser(0, 1.2)
     eff.GetYaxis().SetTitle('HLT efficiency')
@@ -545,16 +546,13 @@ def getYmax(histograms):
 
     return max_y    
 
-def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
+def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
     print('start to plot overlay plot')
     mySty =  st.setMyStyle()
     mySty.cd()
     can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
     
-    legend = ROOT.TLegend(legendPos[0], legendPos[1], legendPos[2], legendPos[3])  # Create a legend to label the histograms
-    legend.SetBorderSize(0)
-    legend.SetFillStyle(0) 
-    legend.SetTextFont(42)
+    legend = st.getMyLegend(legendPos[0], legendPos[1], legendPos[2], legendPos[3])
     
     yMax = getYmax(histList)
     #plot style
@@ -570,16 +568,24 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8
 
     for i, histogram in enumerate(histList):
         if i == 0:
-            histogram.Draw()  # Draw the first histogram without any options
+            histogram.Draw(drawOp)  # Draw the first histogram without any options
         else:
-            histogram.Draw("same")  # Draw subsequent histograms with "same" option to overlay
-
-        histogram.SetLineColor(LineColorDic[i])
-        histogram.SetMarkerColor(LineColorDic[i])
-        histogram.SetLineWidth(3)  # Set line width for each histogram
-        histogram.SetMarkerSize(1.5)
+            histogram.Draw('P same')  # Draw subsequent histograms with "same" option to overlay
+        if not 'singleMu' in histogram.GetName(): # keep data black
+            histogram.SetLineColor(LineColorDic[i])
+            histogram.SetMarkerColor(LineColorDic[i])
+        else:
+            histogram.SetLineColor(ROOT.kBlack)
+            histogram.SetMarkerColor(ROOT.kBlack)
+            histogram.SetMarkerStyle(64)
+            # histogram.SetLineWidth(3)  # Set line width for each histogram
+        # histogram.SetLineColor(LineColorDic[i])
+        # histogram.SetMarkerColor(LineColorDic[i])
+            
+        histogram.SetLineWidth(4)  # Set line width for each histogram
+        histogram.SetMarkerSize(1.0)
         # histogram.SetMarkerStyle(45)
-        histogram.SetMarkerStyle(64)
+        # histogram.SetMarkerStyle(64)
         histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
         histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
         histogram.GetXaxis().SetTitleSize(0.05)
@@ -595,5 +601,6 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8
     # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
     st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
         
-    can.SaveAs(plotName)
+    can.SaveAs(plotName+'.png')
+    can.SaveAs(plotName+'.pdf')
     print('Done overlay plotting\n\n')
