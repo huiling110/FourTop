@@ -46,12 +46,14 @@ def saveHistToFile(hist, outFile):
 def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     #!!!basically same as that of plotHLT but more generic
     print('start plot 2D plot')
+    # mystyle = st.setMyStyle() 
+    # mystyle.cd()
     can = ROOT.TCanvas('SF', 'SF', 1000, 800)
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetPaintTextFormat(".2f")
-    # ROOT.gStyle.SetTextSize(0.08)
-    ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
-    ROOT.gStyle.SetTitleSize(0.07, "Y")
+    # ROOT.gStyle.SetOptTitle(1) #title of the histogram
+    # ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
+    # ROOT.gStyle.SetTitleSize(0.07, "Y")
     # levels = [i*1 for i in range(30, 39)]
     # print('colors: ', levels)
     # print(int(ROOT.kRed)) 
@@ -88,7 +90,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # font_size = min(box_width, box_height) * 0.8
     # Increase the font size inside each box
     # histToDraw.GetZaxis().SetLabelSize(0.08)
-    histToDraw.SetMarkerSize(3.0) #works! for seting the number inside the box
+    histToDraw.SetMarkerSize(2.5) #works! for seting the number inside the box
 
 
         
