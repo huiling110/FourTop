@@ -83,13 +83,12 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     else:
         histToDraw = hist2DPlot_even
     
-    #!!!not working for senting font size
     # box_width = histToDraw.GetXaxis().GetBinWidth(1)
     # box_height = histToDraw.GetYaxis().GetBinWidth(1)
     # font_size = min(box_width, box_height) * 0.8
     # Increase the font size inside each box
     # histToDraw.GetZaxis().SetLabelSize(0.08)
-    histToDraw.SetMarkerSize(5.0) #not working, nothing shows in the plot
+    histToDraw.SetMarkerSize(3.0) #works! for seting the number inside the box
 
 
         

@@ -558,11 +558,10 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
     yMax = getYmax(histList)
     #plot style
     LineColorDic={
-        # 0: ROOT.TColor.GetColor("#fdae61"),
-        0: [ROOT.TColor.GetColor("#fd8d3c"), 8],
-        1: [ROOT.TColor.GetColor("#f03b20"), 64],
+        0: [ROOT.TColor.GetColor("#f03b20"), 8], #rea
+        1: [ROOT.TColor.GetColor("#fd8d3c"), 41], #orange
         # 2: [ROOT.TColor.GetColor("#2ca25f"), 101],
-        2: [ROOT.TColor.GetColor("#2ca25f"), 1],
+        2: [ROOT.TColor.GetColor("#2ca25f"), 1], #green
         #2ca25f green
         #d01c8b purple
         ##fdae61 fc9272" orange
@@ -573,16 +572,14 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
             histogram.Draw(drawOp)  # Draw the first histogram without any options
         else:
             histogram.Draw('P same')  # Draw subsequent histograms with "same" option to overlay
-        if not 'singleMu' in histogram.GetName(): # keep data black
-            histogram.SetLineColor(LineColorDic[i][0])
-            histogram.SetMarkerColor(LineColorDic[i][0])
-        else:
-            histogram.SetLineColor(ROOT.kBlack)
-            histogram.SetMarkerColor(ROOT.kBlack)
-            # histogram.SetMarkerStyle(64)
-            # histogram.SetLineWidth(3)  # Set line width for each histogram
-        # histogram.SetLineColor(LineColorDic[i])
-        # histogram.SetMarkerColor(LineColorDic[i])
+        # if not 'singleMu' in histogram.GetName(): # keep data black
+        #     histogram.SetLineColor(LineColorDic[i][0])
+        #     histogram.SetMarkerColor(LineColorDic[i][0])
+        # else:
+        #     histogram.SetLineColor(ROOT.kBlack)
+        #     histogram.SetMarkerColor(ROOT.kBlack)
+        histogram.SetLineColor(LineColorDic[i][0])
+        histogram.SetMarkerColor(LineColorDic[i][0])
             
         # histogram.SetLineWidth(4)  # Set line width for each histogram
         # histogram.SetMarkerSize(1.0)

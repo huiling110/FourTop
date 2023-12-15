@@ -25,9 +25,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinE/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinE/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
@@ -36,12 +36,12 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    plotEfficiencyHLT(inputDirDic, '1b')
+    # plotEfficiencyHLT(inputDirDic, '1b')
     # plotEfficiencyHLT(inputDirDic, '2b')
     # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
-    # plotSF(inputDirDic, True)
+    plotSF(inputDirDic, True)
     
     
    
@@ -49,11 +49,6 @@ def plotSF(inputDirDic, ifOnlyDraw=False):
     variableList = ['jetsHTAnd6pt']
     regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
-    # sumProcessPerVar = {}
-    # sumProcessPerVarSys = {} 
-    # for ivar in variableList:
-    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar]= uf.getSummedHists( inputDirDic, regionList, ivar )
-    # print( sumProcessPerVar )
     sumProList = ['tt', 'singleMu']
     era = uf.getEraFromDir(inputDirDic['mc'])
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era)
@@ -75,8 +70,8 @@ def plotSF(inputDirDic, ifOnlyDraw=False):
         dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle) 
         ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
     
-        # plotName = plotDir + ibR + '_triggerSF.png'
-        plotName = plotDir + ibR + '_triggerSF_new'
+        # plotName = plotDir + ibR + '_triggerSF_new'
+        plotName = plotDir + ibR + '_triggerSF_v0'
         plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle, ifOnlyDraw)
    
 def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
@@ -140,14 +135,14 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     uf.checkMakeDir(plotDir)
     
     for ivar in variableDic.keys():
-        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff', 'tt', plotDir, 3)
-        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff', 'tt', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff', 'data', plotDir, ifData=1)
-        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff', 'tttt',plotDir, 2)
+        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
+        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
+        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
     
-        # overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
-        legendList = ['data: orthogonal', 'tt: true', 'tt: orthogonal' ]
+        overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
+        # overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
+        legendList = [ 'tt: true', 'tt: orthogonal', 'data: orthogonal' ]
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'_v0' 
         # uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.3, 0.3, 0.9, 0.5],  [0.8, 1.05])
         uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.4, 0.3, 0.9, 0.5],  [0, 1.2])
