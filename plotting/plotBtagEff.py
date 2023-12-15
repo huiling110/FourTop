@@ -54,6 +54,8 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # ROOT.gStyle.SetOptTitle(1) #title of the histogram
     # ROOT.gStyle.SetTitleSize(0.07, "X")#???not working
     # ROOT.gStyle.SetTitleSize(0.07, "Y")
+    ROOT.gStyle.SetLabelSize(0.05, "Y")
+    ROOT.gStyle.SetLabelSize(0.05, "X")
     # levels = [i*1 for i in range(30, 39)]
     # print('colors: ', levels)
     # print(int(ROOT.kRed)) 
@@ -92,8 +94,6 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     # histToDraw.GetZaxis().SetLabelSize(0.08)
     histToDraw.SetMarkerSize(2.5) #works! for seting the number inside the box
 
-
-        
     histTitle = histToDraw.GetTitle() 
     xtitle = histToDraw.GetTitle().split(":")[0]
     ytitle = histToDraw.GetTitle().split(":")[1]
@@ -105,7 +105,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     histToDraw.GetXaxis().SetTickLength(0.02)
     # histToDraw.GetXaxis().SetLabelOffset(0.02)  # Offset of X-axis labels from the axis (in multiples of text size)
     # histToDraw.GetXaxis().SetLabelSize(0.03)    # S
-    histToDraw.LabelsOption("v") 
+    # histToDraw.LabelsOption("v")  #labels drawn vetically
     histToDraw.Draw("colzetext")
     histToDraw.SetTitle(canTitle)
     # histToDraw.SetContour(10)
