@@ -47,12 +47,14 @@ void EleTopMVASel::Select(const eventForNano *e)
             continue;
         if (m_type == 5)
         {
-            if (!(e->Electron_cutBased[j] >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            // if (!(e->Electron_cutBased[j] >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            // if (!(e->Electron_cutBased->GetValue().At(j) >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight
                 continue;
         }
         if (m_type == 4)
         {
-            if (!(e->Electron_cutBased[j] >= 1)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            // if (!(e->Electron_cutBased[j] >= 1)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
+            // if (!(e->Electron_cutBased->GetValue().At(j) >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight
                 continue;
         }
         if (m_type == 0 || m_type == 2)
@@ -75,12 +77,13 @@ void EleTopMVASel::Select(const eventForNano *e)
         {
             if (!e->Electron_convVeto.At(j))
                 continue;                             // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-            if (!(e->Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
-                continue;
+            // if (!(e->Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+                // continue;
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
-            Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
+            // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
+            Float_t jetBTag = 0.4;//!!!important
             Float_t mvaFall17V2noIso = -99;
             if (m_isRun3)
             {

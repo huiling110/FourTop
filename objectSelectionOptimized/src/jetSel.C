@@ -80,15 +80,15 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue;
         if (!(fabs(ijetEta) < 5.0))
             continue;
-        if (!(e->Jet_jetId.At(j) > 0))
-            continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        // if (!(e->Jet_jetId.At(j) > 0))//!!!
+            // continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
         // std::cout << "jetID=" << e->Jet_jetId.At(j) << "\n";
         if (m_jetType == 1)
         {
-            if (!(e->Jet_jetId.At(j) > 2))
-                continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+            // if (!(e->Jet_jetId.At(j) > 2))//!!!
+                // continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
         if (m_jetType == 11 || m_jetType == 12 || m_jetType == 13)
@@ -118,17 +118,17 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             if (m_jetType == 11)
             {
-                if (!(e->Jet_btagDeepB.At(j) > DeepCSVL[m_era]))
+                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVL[m_era]))//!!!
                     continue;
             }
             if (m_jetType == 12)
             {
-                if (!(e->Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
+                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
                     continue;
             }
             if (m_jetType == 13)
             {
-                if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
+                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
                     continue;
             }
         }
@@ -168,7 +168,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         jets_mass.push_back(ijetMass);
         if (!isData)
         {
-            jets_flavour.push_back(e->Jet_hadronFlavour->At(j));
+            // jets_flavour.push_back(e->Jet_hadronFlavour->At(j));//!!!
         }
         else
         {
@@ -180,7 +180,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         }
         else
         {
-            jets_btags.push_back(e->Jet_btagDeepB.At(j));
+            // jets_btags.push_back(e->Jet_btagDeepB.At(j));
         }
     }
 };
@@ -234,7 +234,8 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
             break;
         }
 
-        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
         // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
         // what is this rho? average energy density , for a event
 

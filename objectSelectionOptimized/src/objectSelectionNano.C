@@ -25,11 +25,12 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         CF_initial->Fill(0., genWeight);
 
         // good lumi and good PV selection
-        if (!(lumiAndPVSelection.Select(m_isData, e)))
-        {
-            continue;
-        };
+        // if (!(lumiAndPVSelection.Select(m_isData, e)))
+        // {
+        //     continue;
+        // };
 
+        /*
         // MET filters
         if (!(metFilter.Select(m_era, e)))
         {
@@ -75,10 +76,11 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         bjetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
-
+        */
         // copy some nanoAOD branches
         copyBranch.Select(e, m_isData);
 
+        /*
         // pile up weight cal
         puWeightCal.Select(e, m_isData);
 
@@ -91,6 +93,8 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
             if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
                 continue;
         }
+        */
+
         m_cutflow->Fill(3);
         CF_pre->Fill(0., genWeight);
 
@@ -105,7 +109,7 @@ void objectSelection::Terminate()
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) << " preSelection: " << m_cutflow->GetBinContent(4) << "\n";
     //";   HLT: " << m_cutflow->GetEntries(3) << " preSelection: " << m_cutflow->GetEntries(4) << "\n";
-    std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";
+    // std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";
 
     // get Runs tree
     if (!m_isData)

@@ -14,6 +14,8 @@
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 #include <TString.h>
 
+#include "TTreeReaderValueDerived.h"
+
 namespace OS
 {
     void readJSON(const Bool_t isdata, const TString jsonInFile, std::map<Int_t, std::vector<UInt_t>> &_goodLumis);
@@ -68,4 +70,7 @@ namespace OS
     };
 
 };
+
+std::unique_ptr<AbstractTTreeReaderValue> CreateTTreeReaderValue(TTreeReader &reader, const char *branchName);
+
 #endif

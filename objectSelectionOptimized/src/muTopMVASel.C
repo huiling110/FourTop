@@ -62,7 +62,8 @@ void MuTopMVASel::Select(const eventForNano *e)
         if (m_type == 2)
         {
             Float_t jetPtRatio = 1. / (e->Muon_jetRelIso[j] + 1.);
-            Float_t jetBTag = e->Jet_btagDeepFlavB[e->Muon_jetIdx[j]];
+            // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Muon_jetIdx[j]];//!!!
+            Float_t jetBTag = 0.4;
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Muon_pt[j]},
                 {"eta", e->Muon_eta[j]},

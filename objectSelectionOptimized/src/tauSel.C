@@ -127,8 +127,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             }
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
-            if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
-                continue;
+            // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
+                // continue;
         }
         if (m_tauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
@@ -146,8 +146,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             }
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
-            if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)
-                continue;
+            // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
+            //     continue;
         }
         // overlap removal
         Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
@@ -170,7 +170,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         taus_eta.push_back(e->Tau_eta.At(j));
         taus_phi.push_back(e->Tau_phi.At(j));
         taus_mass.push_back(itau_mass);
-        taus_decayMode.push_back(e->Tau_decayMode.At(j));
+        // taus_decayMode.push_back(e->Tau_decayMode.At(j));//!!!
         if (!isData)
         {
             taus_genPartFlav.push_back(e->Tau_genPartFlav->At(j));
@@ -179,11 +179,11 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         {
             taus_genPartFlav.push_back(-99);
         }
-        taus_jetIdx.push_back(e->Tau_jetIdx.At(j));
-        taus_charge.push_back(e->Tau_charge.At(j));
+        // taus_jetIdx.push_back(e->Tau_jetIdx.At(j));//!!!
+        // taus_charge.push_back(e->Tau_charge.At(j));//!!!
         taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
-        taus_jetPt.push_back(e->Jet_pt.At(e->Tau_jetIdx.At(j)));
-        taus_jetEta.push_back(e->Jet_eta.At(e->Tau_jetIdx.At(j)));
+        // taus_jetPt.push_back(e->Jet_pt.At(e->Tau_jetIdx.At(j)));//!!!
+        // taus_jetEta.push_back(e->Jet_eta.At(e->Tau_jetIdx.At(j)));//!!!
     }
 };
 
@@ -205,12 +205,12 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
         {
             // corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
             // no sf for decaymode 5 and 6
-            if (!(e->Tau_decayMode.At(i) == 5 || e->Tau_decayMode.At(i) == 6))
-            {
-                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
-                iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
-                iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
-            }
+            // if (!(e->Tau_decayMode.At(i) == 5 || e->Tau_decayMode.At(i) == 6))//!!!
+            // {
+                // iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
+                // iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
+                // iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
+            // }
             // std::cout << "iTES_sf: " << iTES_sf << "\n";
             // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
             // std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";

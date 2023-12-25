@@ -28,10 +28,14 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 
     run_ = *e->run;
     event_ = *e->event;
-    PV_npvsGood_ = *e->PV_npvsGood;
-    EVENT_prefireWeight_ = *e->L1PreFiringWeight_Nom;
-    EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
-    EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
+
+    // PV_npvsGood_ = *e->PV_npvsGood;
+    // PV_npvsGood_ = e->PV_npvsGood;
+    e->PV_npvsGood.Print();
+
+    // EVENT_prefireWeight_ = *e->L1PreFiringWeight_Nom;
+    // EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
+    // EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
     if (!isData)
     {
         EVENT_genWeight_ = **e->genWeight;

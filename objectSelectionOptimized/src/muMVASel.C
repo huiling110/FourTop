@@ -55,8 +55,8 @@ void MuSel::Select(const eventForNano *e)
                 continue;
             if (!(fabs(e->Muon_ip3d.At(j)) < 4))
                 continue;
-            if (!(e->Muon_tightCharge.At(j) == 2))
-                continue;
+            // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
+                // continue;
         }
         if (m_type == 2)
         {
@@ -66,8 +66,8 @@ void MuSel::Select(const eventForNano *e)
                 continue;
             if (!(fabs(e->Muon_ip3d.At(j)) < 4))
                 continue;
-            if (!(e->Muon_tightCharge.At(j) == 2))
-                continue;
+            // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
+                // continue;
         }
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));

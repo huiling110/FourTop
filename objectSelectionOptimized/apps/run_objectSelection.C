@@ -8,7 +8,7 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/wz/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
@@ -25,13 +25,14 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/TTto2L2Nu/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/JetMet2022E/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/NanoPost/2022preEE/mc/TTto4Q/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/2022postEE_v3/tttt/",
     // TString singleFileName = "outTree_30.root",
-    TString singleFileName = "outTree_0.root",
-    // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
+    // TString singleFileName = "outTree_0.root",
+    TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    Int_t eventNum = 5000)
+    Int_t eventNum = 100)
 // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 // Bool_t istest = kTRUE)
@@ -46,7 +47,7 @@ void run_objectSelection(
 
     Int_t JER = 0; //0 : JER nominal
     // Int_t JER = 2; 
-    // Int_t JER = 1; 
+    // Int_t JER = 1;
     Int_t JES = 0;
     // Int_t JES = 1;//up
     // Int_t JES = 2;//down

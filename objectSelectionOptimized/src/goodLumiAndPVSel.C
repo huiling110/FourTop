@@ -43,10 +43,11 @@ Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
     }
     //
     Bool_t ifPV = kFALSE;
-    if (*e->PV_npvsGood > 0)
-    {
-        ifPV = kTRUE;
-    }
+    // if (*e->PV_npvsGood > 0)
+    // // if (e->PV_npvsGood > 0) //!!!
+    // {
+    //     ifPV = kTRUE;
+    // }
 
     Bool_t ifPass = ifGoodLumi && ifPV;
     //!!! temparorily set ifPass=true for 2022
