@@ -145,7 +145,8 @@ public:
         // OS::readPointerArray(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
         OS::readPointerArray(Electron_mvaNoIso, reader, "Electron_mvaNoIso");
         OS::readPointerArray(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
-        OS::readPointerArray(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
+        // OS::readPointerArray(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
+        OS::readPointerArray(Electron_mvaIso_WP90, reader, "Electron_mvaIso_WP90");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
@@ -272,7 +273,8 @@ public:
     // TTreeReaderArray<Float_t> *Electron_mvaNoIso_Fall17V2;   //??? not vailable in run2
     TTreeReaderArray<Float_t> *Electron_mvaNoIso = nullptr; //!!!nanoAODv12, MVA noIso ID score, Winter22V1
     TTreeReaderArray<Bool_t> *Electron_mvaFall17V2Iso_WP90;  //!!!run2
-    TTreeReaderArray<Bool_t> *Electron_mvaIso_Fall17V2_WP90; //!!!run3
+    // TTreeReaderArray<Bool_t> *Electron_mvaIso_Fall17V2_WP90; //!!!run3 not available in nanoAODv12
+    TTreeReaderArray<Bool_t> *Electron_mvaIso_WP90 = nullptr; //!!!nanoAODv12, MVA Iso ID WP90, Winter22V1
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
     TTreeReaderArray<Int_t> Electron_charge;
