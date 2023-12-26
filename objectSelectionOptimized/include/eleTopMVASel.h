@@ -11,7 +11,7 @@
 class EleTopMVASel
 {
 public:
-    EleTopMVASel(TTree *outTree, const TString era, const Int_t type = 2);
+    EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun3=kFALSE, const Int_t type = 2);
     ~EleTopMVASel();
     void Select(const eventForNano *e);
     std::vector<Double_t> &getEtaVec();

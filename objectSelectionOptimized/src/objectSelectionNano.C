@@ -53,7 +53,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
-        // muTopMVATSel.Select(e);
+        muTopMVATSel.Select(e);
 
 
         // // tau selection

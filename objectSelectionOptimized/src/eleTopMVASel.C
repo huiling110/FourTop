@@ -1,7 +1,7 @@
 #include "../include/eleTopMVASel.h"
 #include "../myLibrary/commenFunction.h"
 
-EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) : m_type{type}, m_era{era}
+EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t type) : m_type{type}, m_era{era}, m_isRun3{isRun3}
 { // type for different electrons
     std::cout << "Initializing EleTopMVASel......\n";
     outTree->Branch("elesTopMVAT_pt", &elesTopMVAT_pt);
@@ -12,7 +12,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Int_t type) 
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
     // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
 
-    m_isRun3 = TTTT::isRun3(m_era);
+    // m_isRun3 = TTTT::isRun3(m_era);
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
 
     // set up xgboost booster
@@ -46,7 +46,7 @@ void EleTopMVASel::Select(const eventForNano *e)
         Int_t iE_cutBased = 0;
         Int_t iE_tightCharge = 0;
         Int_t iE_jetIdx = 0;
-        Float_t mvaFall17V2noIso = -99; //!!!problem
+        Float_t mvaFall17V2noIso = -99; 
         if (m_isRun3){
             iE_cutBased = std::any_cast<UChar_t>(e->Electron_cutBased.at(j));//!!!hope for the correct implicit type conversion
             iE_tightCharge = std::any_cast<UChar_t>(e->Electron_tightCharge.at(j));
@@ -104,15 +104,6 @@ void EleTopMVASel::Select(const eventForNano *e)
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
             Float_t jetBTag = e->Jet_btagDeepFlavB[iE_jetIdx];
-            // if (m_isRun3)
-            // {
-            //     mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3
-            // }
-            // else
-            // {
-            //     mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
-            // };
-            // std::cout <<"mvaFall="<< mvaFall17V2noIso << "\n";
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},
                 {"eta", e->Electron_eta[j]},
@@ -133,10 +124,6 @@ void EleTopMVASel::Select(const eventForNano *e)
             continue;
         }
 
-        // ROOT::Math::PtEtaPhiMVector electron(e->Electron_pt.At(j), e->Electron_eta.At(j), e->Electron_phi.At(j), Electron_mass.At(j));
-        // SelectedElectrons.push_back(electron);
-        // SelectedElectronsIndex.push_back(j);
-        // SelectedEleTopMVAScore.push_back(topMVAScore);
         elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
         elesTopMVAT_eta.push_back(e->Electron_eta.At(j));
         elesTopMVAT_phi.push_back(e->Electron_phi.At(j));

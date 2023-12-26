@@ -1,8 +1,9 @@
 #include "../include/muTopMVASel.h"
 
-MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Int_t m_type) : m_type{m_type}
+MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isRun3{isRun3}
 { // m_type for different electrons
     std::cout << "Initializing MuTopMVASel......\n";
+    std::cout << "m_era=" << m_era << "; m_isRun3=" << m_isRun3 << "; m_type=" << m_type<< "\n";
     outTree->Branch("muonsTopMVAT_pt", &muonsTopMVAT_pt);
     outTree->Branch("muonsTopMVAT_eta", &muonsTopMVAT_eta);
     outTree->Branch("muonsTopMVAT_phi", &muonsTopMVAT_phi);
@@ -34,6 +35,14 @@ void MuTopMVASel::Select(const eventForNano *e)
     Double_t topLeptonScore = -99.;
     for (UInt_t j = 0; j < e->Muon_pt.GetSize(); ++j)
     {
+        //dealing with differences of nanoAODv9 and nanoAODv12
+        Int_t iMu_jetIdx = 0;
+        if(m_isRun3){
+            iMu_jetIdx = std::any_cast<Short_t>(e->Muon_jetIdx.at(j));
+        }else{
+            iMu_jetIdx = std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
+        }
+
         if (!(e->Muon_pt.At(j) > 10))
             continue;
         if (!(fabs(e->Muon_eta.At(j)) < 2.4))
@@ -63,7 +72,7 @@ void MuTopMVASel::Select(const eventForNano *e)
         {
             Float_t jetPtRatio = 1. / (e->Muon_jetRelIso[j] + 1.);
             // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Muon_jetIdx[j]];//!!!
-            Float_t jetBTag = 0.4;
+            Float_t jetBTag = e->Jet_btagDeepFlavB[iMu_jetIdx];
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Muon_pt[j]},
                 {"eta", e->Muon_eta[j]},
