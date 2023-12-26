@@ -2,26 +2,29 @@
 #define DYNAMICBRANCHREADER_H
 #include "TTreeReader.h"
 
+#include <any>
+//!!! virtual function + temlate = super complicated
+
 // base class
 class IBranchReader {
 public:
     virtual ~IBranchReader() = default;
     virtual void Print() const = 0; // A method to print the value for demonstration
+    virtual UInt_t GetSize() const = 0; //, it specifies that the function is a constant member function. This means that the function is not allowed to modify any member variables of the object (except those marked as mutable) or call any non-const member functions on the object. 
+    virtual std::any GetValue()  = 0;
+    // virtual std::any GetValue() const = 0;
 };
 
 
 template<typename T>
 class BranchReader : public IBranchReader {
-// class BranchReader{
-
-public:
     TTreeReaderValue<T> readerValue;
-    BranchReader(TTreeReader& reader, const char* branchName) : readerValue(reader, branchName) {}
+public:
+    BranchReader(TTreeReader& reader, const char* branchName) : readerValue(reader, branchName) {
+        std::cout << "initializing type: "<<typeid(T).name()<<"\n";
+    }
     void Print() const override {
         if (readerValue.IsValid()) {
-            // std::cout << *readerValue << std::endl;
-            // unsigned char value = *readerValue;
-            // std::cout << static_cast<int>(value) << std::endl;
             std::cout << "valid\n";
         }
         else
@@ -29,25 +32,39 @@ public:
             std::cerr << "Invalid TTreeReaderValue for branch: " << readerValue.GetBranchName() << std::endl;
         }
     }
+    UInt_t GetSize() const override {
+        return 1;
+    }
+    // std::any GetValue() const override {
+    std::any GetValue() override {
+        return std::any(*readerValue);
+        // return std::any(*(readerValue.Get()));
+        // return std::any(*(readerValue.Get()));
+        // return *readerValue;
+    }
 
 };
 
 template<typename Y>
 class BranchReaderArray : public IBranchReader {
-public:
     TTreeReaderArray<Y> readerArray;
+public:
     BranchReaderArray(TTreeReader& reader, const char* branchName) : readerArray(reader, branchName) {}
     void Print() const override {
         if (readerArray.IsValid()) {
-            // std::cout << *readerValue << std::endl;
-            // unsigned char value = *readerValue;
-            // std::cout << static_cast<int>(value) << std::endl;
             std::cout << "valid\n";
         }
         else
         {
             std::cerr << "Invalid TTreeReaderArray for branch: " << readerArray.GetBranchName() << std::endl;
         }
+    }
+    UInt_t GetSize() const override {
+        return readerArray.GetSize();
+    }
+    // std::any GetValue() const override {
+    std::any GetValue()  override {
+        return std::any(&readerArray);
     }
 
 };
@@ -143,6 +160,16 @@ public:
     void Print() {
         if (branchReader) {
             branchReader->Print();
+        }
+    }
+
+    std::any GetValue() {
+        if (branchReader) {
+            return branchReader->GetValue();
+        }
+        else
+        {
+            return std::any();
         }
     }
 };
