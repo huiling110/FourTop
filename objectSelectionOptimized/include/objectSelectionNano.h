@@ -94,7 +94,7 @@ private:
     // osBase muonSelection{m_outTree};
     // HLTSelector HLTselection{m_outTree};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};
-    // MuSel muSel{m_outTree, m_era};
+    MuSel muSel{m_outTree, m_era, m_isRun3, 2};
     // EleMVASel eleMVASel{m_outTree, m_era, m_isRun3};
     MuTopMVASel muTopMVATSel{m_outTree, m_era, m_isRun3};
     // TauSel tauSel{m_outTree, m_era, m_isRun3, 3};

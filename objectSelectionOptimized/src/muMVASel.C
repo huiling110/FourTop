@@ -1,8 +1,9 @@
 #include "../include/muMVASel.h"
 
-MuSel::MuSel(TTree *outTree, const TString era, const Int_t m_type) : m_type{m_type}
+MuSel::MuSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t m_type) : m_era{era}, m_isRun3{isRun3}, m_type{m_type}
 { // m_type for different electrons
     std::cout << "Initializing MuSel......\n";
+    std::cout<<"m_era="<<m_era<<"; m_isRun3="<<m_isRun3<<"\n";
     std::cout << "m_type=" << m_type << "\n";
 
     outTree->Branch("muonsT_pt", &muonsTopMVAT_pt);
@@ -27,7 +28,12 @@ void MuSel::Select(const eventForNano *e)
     // 0 for Loose; 1 fakeble; 2 tight
     for (UInt_t j = 0; j < e->Muon_pt.GetSize(); ++j)
     {
-        // in objectSelection.h e->Muon_pt_ is global variable
+        Int_t iMu_tightCharge = 0;
+        if(m_isRun3){
+            iMu_tightCharge = std::any_cast<UChar_t>(e->Muon_tightCharge.at(j));
+        }else{
+            iMu_tightCharge = std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
+        }
 
         if (!(e->Muon_pt.At(j) > 10))
             continue;
@@ -56,7 +62,8 @@ void MuSel::Select(const eventForNano *e)
             if (!(fabs(e->Muon_ip3d.At(j)) < 4))
                 continue;
             // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
-                // continue;
+            if (!(iMu_tightCharge == 2))
+                continue;
         }
         if (m_type == 2)
         {
@@ -67,7 +74,8 @@ void MuSel::Select(const eventForNano *e)
             if (!(fabs(e->Muon_ip3d.At(j)) < 4))
                 continue;
             // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
-                // continue;
+            if (!(iMu_tightCharge == 2))
+                continue;
         }
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));

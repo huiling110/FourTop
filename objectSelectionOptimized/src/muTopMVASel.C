@@ -37,10 +37,13 @@ void MuTopMVASel::Select(const eventForNano *e)
     {
         //dealing with differences of nanoAODv9 and nanoAODv12
         Int_t iMu_jetIdx = 0;
+        Int_t iMu_tightCharge = 0;
         if(m_isRun3){
             iMu_jetIdx = std::any_cast<Short_t>(e->Muon_jetIdx.at(j));
+            iMu_tightCharge = std::any_cast<UChar_t>(e->Muon_tightCharge.at(j));
         }else{
             iMu_jetIdx = std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
+            iMu_tightCharge = std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
         }
 
         if (!(e->Muon_pt.At(j) > 10))
