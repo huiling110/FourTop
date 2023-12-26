@@ -121,6 +121,10 @@ public:
         // dealing with case: HLT branch not existing in this nanofile;
         // assing the reader branch 0 if the branch not existing
         // it seems to reader can not run at all if assosiated with not existing branch
+        OS::readPointer(L1PreFiringWeight_Nom, reader, "L1PreFiringWeight_Nom");
+        OS::readPointer(L1PreFiringWeight_Up, reader, "L1PreFiringWeight_Up");
+        OS::readPointer(L1PreFiringWeight_Dn, reader, "L1PreFiringWeight_Dn");
+
         OS::readPointer(HLT_PFHT450_SixJet40_BTagCSV_p056, reader, "HLT_PFHT450_SixJet40_BTagCSV_p056");
         OS::readPointer(HLT_PFHT400_SixJet30_DoubleBTagCSV_p056, reader, "HLT_PFHT400_SixJet30_DoubleBTagCSV_p056");
         OS::readPointer(HLT_PFJet450, reader, "HLT_PFJet450");
@@ -200,9 +204,9 @@ public:
     DynamicBranchReader PV_npvsGood;
 
     TTreeReaderValue<ULong64_t> event;
-    // TTreeReaderValue<Float_t> L1PreFiringWeight_Nom;//!!!
-    // TTreeReaderValue<Float_t> L1PreFiringWeight_Up;
-    // TTreeReaderValue<Float_t> L1PreFiringWeight_Dn;
+    TTreeReaderValue<Float_t>* L1PreFiringWeight_Nom = nullptr;//!!!
+    TTreeReaderValue<Float_t>* L1PreFiringWeight_Up = nullptr;
+    TTreeReaderValue<Float_t>* L1PreFiringWeight_Dn = nullptr;
 
     // HLT reading: tricky!!!
     // for some files the trigger not present, trigger branch not exsit

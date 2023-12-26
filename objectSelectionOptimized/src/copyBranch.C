@@ -32,16 +32,16 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     event_ = *e->event;
 
     // PV_npvsGood_ = *e->PV_npvsGood;
-    // PV_npvsGood_ = e->PV_npvsGood;
-    e->PV_npvsGood.Print();
-    // std::cout<<"PV_npvsGood="<<e->PV_npvsGood.branchReader->GetSize()<<"\n";
+    // e->PV_npvsGood.Print();
     // PV_npvsGood_ = *(std::any_cast<TTreeReaderValue<UChar_t>>(e->PV_npvsGood.GetValue()));
     PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());
-    std::cout<<"PV_npvsGood_="<<PV_npvsGood_<<"\n";
+    // std::cout<<"PV_npvsGood_="<<PV_npvsGood_<<"\n";
 
-    // EVENT_prefireWeight_ = *e->L1PreFiringWeight_Nom;
-    // EVENT_prefireWeight_up_ = *e->L1PreFiringWeight_Up;
-    // EVENT_prefireWeight_down_ = *e->L1PreFiringWeight_Dn;
+    if (e->L1PreFiringWeight_Nom){
+        EVENT_prefireWeight_ = **e->L1PreFiringWeight_Nom;
+        EVENT_prefireWeight_up_ = **e->L1PreFiringWeight_Up;
+        EVENT_prefireWeight_down_ = **e->L1PreFiringWeight_Dn;
+    }
     if (!isData)
     {
         EVENT_genWeight_ = **e->genWeight;
