@@ -13,25 +13,11 @@
 class eventForNano
 {
 public:
-    // eventForNano(TTreeReader reader) : nElectron{reader, "nElectron"}
-    // eventForNano(TTreeReader *reader)
-    // eventForNano(TTreeReader reader) : m_reader{reader}
     eventForNano(TTreeReader &reader) : // Muon_pt(reader, "Muon_pt"),
-                                        //                                     Muon_eta(reader, "Muon_eta"),
-                                        //                                     Muon_dz(reader, "Muon_dz"),
-                                        //                                     Muon_dxy(reader, "Muon_dxy"),
-                                        //                                     Muon_looseId(reader, "Muon_looseId"),
-                                        //                                     Muon_miniIsoId(reader, "Muon_miniIsoId"),
-                                        //                                     Muon_mediumId(reader, "Muon_mediumId"),
-                                        //                                     Muon_ip3d(reader, "Muon_ip3d"),
-                                        //                                     Muon_tightCharge(reader, "Muon_tightCharge"),
                                         run(reader, "run"),
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"), //initializing for type dynamicBranchReader
                                         event(reader, "event"),
-                                        // L1PreFiringWeight_Nom(reader, "L1PreFiringWeight_Nom"),
-                                        // L1PreFiringWeight_Up(reader, "L1PreFiringWeight_Up"),
-                                        // L1PreFiringWeight_Dn(reader, "L1PreFiringWeight_Dn"),
                                         Flag_goodVertices(reader, "Flag_goodVertices"),
                                         Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
                                         Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
