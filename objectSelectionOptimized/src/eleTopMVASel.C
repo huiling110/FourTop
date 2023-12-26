@@ -44,10 +44,19 @@ void EleTopMVASel::Select(const eventForNano *e)
         Double_t topMVAScore = -99.;
         //branches different between run2 and run3
         Int_t iE_cutBased = 0;
+        Int_t iE_tightCharge = 0;
+        Int_t iE_jetIdx = 0;
+        Float_t mvaFall17V2noIso = -99; //!!!problem
         if (m_isRun3){
             iE_cutBased = std::any_cast<UChar_t>(e->Electron_cutBased.at(j));//!!!hope for the correct implicit type conversion
+            iE_tightCharge = std::any_cast<UChar_t>(e->Electron_tightCharge.at(j));
+            iE_jetIdx = std::any_cast<Short_t>(e->Electron_jetIdx.at(j));
+            mvaFall17V2noIso = e->Electron_mvaNoIso->At(j);
         }else{
             iE_cutBased = std::any_cast<Int_t>(e->Electron_cutBased.at(j));
+            iE_tightCharge = std::any_cast<Int_t>(e->Electron_tightCharge.at(j));
+            iE_jetIdx = std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
+            mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j);
         }
         // std::cout<<"iE_cutBased="<<iE_cutBased<<"\n";
 
@@ -58,13 +67,13 @@ void EleTopMVASel::Select(const eventForNano *e)
         if (m_type == 5)
         {
             // if (!(e->Electron_cutBased[j] >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
-            // if (!(e->Electron_cutBased->GetValue().At(j) >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight
+            if(!(iE_cutBased >= 2))
                 continue;
         }
         if (m_type == 4)
         {
             // if (!(e->Electron_cutBased[j] >= 1)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
-            // if (!(e->Electron_cutBased->GetValue().At(j) >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight
+            if (!(iE_cutBased >= 1))
                 continue;
         }
         if (m_type == 0 || m_type == 2)
@@ -88,13 +97,13 @@ void EleTopMVASel::Select(const eventForNano *e)
             if (!e->Electron_convVeto.At(j))
                 continue;                             // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
             // if (!(e->Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
-                // continue;
+            if (!(iE_tightCharge > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
+                continue;
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
-            Float_t jetBTag = 0.4;//!!!important
-            Float_t mvaFall17V2noIso = -99; //!!!problem
+            Float_t jetBTag = e->Jet_btagDeepFlavB[iE_jetIdx];
             // if (m_isRun3)
             // {
             //     mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3

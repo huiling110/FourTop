@@ -60,8 +60,6 @@ public:
                                         Electron_jetPtRelv2(reader, "Electron_jetPtRelv2"),
                                         Electron_pfRelIso03_all(reader, "Electron_pfRelIso03_all"),
                                         Electron_sip3d(reader, "Electron_sip3d"),
-                                        // Electron_mvaFall17V2noIso(reader, "Electron_mvaFall17V2noIso"),
-                                        // Electron_mvaNoIso_Fall17V2(reader, "Electron_mvaNoIso_Fall17V2"),
                                         Electron_phi(reader, "Electron_phi"),
                                         Electron_mass(reader, "Electron_mass"),
                                         Electron_charge(reader, "Electron_charge"),
@@ -158,7 +156,8 @@ public:
 
         // other branch not consistent between run2 and run3
         OS::readPointerArray(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
-        OS::readPointerArray(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
+        // OS::readPointerArray(Electron_mvaNoIso_Fall17V2, reader, "Electron_mvaNoIso_Fall17V2");
+        OS::readPointerArray(Electron_mvaNoIso, reader, "Electron_mvaNoIso");
         OS::readPointerArray(Electron_mvaFall17V2Iso_WP90, reader, "Electron_mvaFall17V2Iso_WP90");
         OS::readPointerArray(Electron_mvaIso_Fall17V2_WP90, reader, "Electron_mvaIso_Fall17V2_WP90");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
@@ -283,8 +282,9 @@ public:
     TTreeReaderArray<Float_t> Electron_jetPtRelv2;
     TTreeReaderArray<Float_t> Electron_pfRelIso03_all;
     TTreeReaderArray<Float_t> Electron_sip3d;
-    TTreeReaderArray<Float_t> *Electron_mvaFall17V2noIso;    //??? not vailable in Run3
-    TTreeReaderArray<Float_t> *Electron_mvaNoIso_Fall17V2;   //??? not vailable in run2
+    TTreeReaderArray<Float_t> *Electron_mvaFall17V2noIso=nullptr;    //??? not vailable in Run3
+    // TTreeReaderArray<Float_t> *Electron_mvaNoIso_Fall17V2;   //??? not vailable in run2
+    TTreeReaderArray<Float_t> *Electron_mvaNoIso = nullptr; //!!!nanoAODv12, MVA noIso ID score, Winter22V1
     TTreeReaderArray<Bool_t> *Electron_mvaFall17V2Iso_WP90;  //!!!run2
     TTreeReaderArray<Bool_t> *Electron_mvaIso_Fall17V2_WP90; //!!!run3
     TTreeReaderArray<Float_t> Electron_phi;
