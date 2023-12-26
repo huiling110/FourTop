@@ -3,7 +3,7 @@
 #include "TTreeReader.h"
 
 #include <any>
-//!!! virtual function + temlate = super complicated
+//virtual function + temlate = complicated, actually not necessryily
 
 // base class
 class IBranchReader {
@@ -12,7 +12,7 @@ public:
     virtual void Print() const = 0; // A method to print the value for demonstration
     virtual UInt_t GetSize() const = 0; //, it specifies that the function is a constant member function. This means that the function is not allowed to modify any member variables of the object (except those marked as mutable) or call any non-const member functions on the object. 
     virtual std::any GetValue()  = 0;
-    // virtual std::any GetValue() const = 0;
+    virtual std::any at(UInt_t idx) const = 0;
 };
 
 
@@ -42,6 +42,9 @@ public:
         // return std::any(*(readerValue.Get()));
         // return *readerValue;
     }
+    std::any at(UInt_t idx) const { //!!! it seems every derived class needs to implement this function
+        return std::any(0);
+    }
 
 };
 
@@ -65,6 +68,9 @@ public:
     // std::any GetValue() const override {
     std::any GetValue()  override {
         return std::any(&readerArray);
+    }
+    std::any at(UInt_t idx) const{
+        return std::any(readerArray.At(idx));
     }
 
 };
@@ -166,6 +172,15 @@ public:
     std::any GetValue() {
         if (branchReader) {
             return branchReader->GetValue();
+        }
+        else
+        {
+            return std::any();
+        }
+    }
+    std::any at(UInt_t idx) const {
+        if (branchReader) {
+            return std::any(branchReader->at(idx));
         }
         else
         {

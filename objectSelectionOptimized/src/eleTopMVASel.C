@@ -36,11 +36,21 @@ void EleTopMVASel::Select(const eventForNano *e)
     clearBranch();
     // 0: loose, 2: tight;
     // POG: 4: veto; 5:POG loose
+    //
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
         Double_t pt = e->Electron_pt.At(j);
         Double_t eta = e->Electron_eta.At(j);
         Double_t topMVAScore = -99.;
+        //branches different between run2 and run3
+        Int_t iE_cutBased = 0;
+        if (m_isRun3){
+            iE_cutBased = std::any_cast<UChar_t>(e->Electron_cutBased.at(j));//!!!hope for the correct implicit type conversion
+        }else{
+            iE_cutBased = std::any_cast<Int_t>(e->Electron_cutBased.at(j));
+        }
+        // std::cout<<"iE_cutBased="<<iE_cutBased<<"\n";
+
         if (!(fabs(eta) < 2.5))
             continue;
         if (!(pt > 10))
@@ -84,15 +94,15 @@ void EleTopMVASel::Select(const eventForNano *e)
             // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
             // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
             Float_t jetBTag = 0.4;//!!!important
-            Float_t mvaFall17V2noIso = -99;
-            if (m_isRun3)
-            {
-                mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3
-            }
-            else
-            {
-                mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
-            };
+            Float_t mvaFall17V2noIso = -99; //!!!problem
+            // if (m_isRun3)
+            // {
+            //     mvaFall17V2noIso = e->Electron_mvaNoIso_Fall17V2->At(j); // run3
+            // }
+            // else
+            // {
+            //     mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j); // run2
+            // };
             // std::cout <<"mvaFall="<< mvaFall17V2noIso << "\n";
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},

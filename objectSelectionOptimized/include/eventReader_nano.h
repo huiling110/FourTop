@@ -238,7 +238,6 @@ public:
     TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr;
 
-    // TTreeReaderValue<Bool_t> * = nullptr;
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
