@@ -198,13 +198,10 @@ public:
     TTreeReaderValue<UInt_t> run;
     TTreeReaderValue<UInt_t> luminosityBlock;
     // TTreeReaderValue<Int_t> PV_npvsGood;
-    // DynamicBranchReader PV_npvsGood; //!!! UChar_t in nanoAOD v12
-    // TTreeReaderValueDerived PV_npvsGood;
-    // DynamicBranchReader PV_npvsGood;
-    DynamicBranchReader PV_npvsGood;
+    DynamicBranchReader PV_npvsGood; ////!!! UChar_t in nanoAOD v12
 
     TTreeReaderValue<ULong64_t> event;
-    TTreeReaderValue<Float_t>* L1PreFiringWeight_Nom = nullptr;//!!!
+    TTreeReaderValue<Float_t>* L1PreFiringWeight_Nom = nullptr;//!!!not existing in nanoAOD v12
     TTreeReaderValue<Float_t>* L1PreFiringWeight_Up = nullptr;
     TTreeReaderValue<Float_t>* L1PreFiringWeight_Dn = nullptr;
 
@@ -272,7 +269,7 @@ public:
     TTreeReaderArray<Float_t> Electron_pt;
     TTreeReaderArray<Float_t> Electron_eta;
     // TTreeReaderArray<Int_t> Electron_cutBased;//!!!
-    DynamicBranchReader Electron_cutBased;//!!!
+    DynamicBranchReader Electron_cutBased;//!!!UChar_t in nanoAOD v12
     TTreeReaderArray<Float_t> Electron_dxy;
     TTreeReaderArray<Float_t> Electron_dz;
     TTreeReaderArray<Float_t> Electron_ip3d;

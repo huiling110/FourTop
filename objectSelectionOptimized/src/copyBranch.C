@@ -3,10 +3,11 @@
 #include <iostream>
 #include <any>
 
-// CopyBranch(TTree *outTree) : m_outTree{outTree}
-CopyBranch::CopyBranch(TTree *outTree)
+CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
+:m_isRun3{isRun3}
 {
     std::cout << "Initializing CopyBranch .........\n";
+    std::cout<<"m_isRun3="<<m_isRun3<<"\n";
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
@@ -33,8 +34,11 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 
     // PV_npvsGood_ = *e->PV_npvsGood;
     // e->PV_npvsGood.Print();
-    // PV_npvsGood_ = *(std::any_cast<TTreeReaderValue<UChar_t>>(e->PV_npvsGood.GetValue()));
-    PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());
+    if (m_isRun3){
+        PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());//nanoAODv12
+    }else{
+        PV_npvsGood_ = std::any_cast<Int_t>(e->PV_npvsGood.GetValue());//nanoAODv9
+    }
     // std::cout<<"PV_npvsGood_="<<PV_npvsGood_<<"\n";
 
     if (e->L1PreFiringWeight_Nom){

@@ -6,7 +6,7 @@
 class CopyBranch
 {
 public:
-    CopyBranch(TTree *outTree);
+    CopyBranch(TTree *outTree, const Bool_t isRun3=kFALSE);
     ~CopyBranch(){};
 
     void Select(eventForNano *e, Bool_t isData);
@@ -14,6 +14,7 @@ public:
 
 private:
     // output branches
+    Bool_t m_isRun3;
     UInt_t run_;
     ULong64_t event_;
     Int_t PV_npvsGood_;
