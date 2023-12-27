@@ -44,7 +44,19 @@ namespace OS
     Bool_t isRun3(TString era);
     Double_t quadraticSum(TTreeReaderArray<Float_t> &vec, const Float_t nominal, Int_t eleNum);
 
-    Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader &reader, const UInt_t i);
+    // Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader &reader, const UInt_t i);
+    template <typename Y>
+    Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader& reader, const UInt_t i){
+        Int_t val = 0;
+        if(isRun3){
+            // val = std::any_cast<UChar_t>(reader.at(i));
+            val = std::any_cast<Y>(reader.at(i));
+        }else
+        {
+            val = std::any_cast<Int_t>(reader.at(i));
+        }
+        return val;
+    };
 
     template <typename T>
     void readPointerArray(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)

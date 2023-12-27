@@ -233,16 +233,16 @@ namespace OS
         return TMath::Sqrt(sum);
     }
 
-    Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader& reader, const UInt_t i){
-        Int_t val = 0;
-        if(isRun3){
-            val = std::any_cast<UChar_t>(reader.at(i));
-        }else
-        {
-            val = std::any_cast<Int_t>(reader.at(i));
-        }
-        return val;
-    }
+    // Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader& reader, const UInt_t i){
+    //     Int_t val = 0;
+    //     if(isRun3){
+    //         val = std::any_cast<UChar_t>(reader.at(i));
+    //     }else
+    //     {
+    //         val = std::any_cast<Int_t>(reader.at(i));
+    //     }
+    //     return val;
+    // }
 
 
 

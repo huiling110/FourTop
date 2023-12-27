@@ -43,6 +43,12 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
     calTauSF_new(e, isData);//!!!for 2022???
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
+        //branches different in nanoAODv9 and nanoAODv12
+        // itau_decayMode = OS::getValForDynamicReader(m_isRun3, e->Tau_decayMode, j);
+        Int_t itau_decayMode = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Tau_decayMode, j);
+        Int_t itau_jetIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_jetIdx, j);//Short_t for Tau_jetIdx
+        Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
+
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t itau_mass = e->Tau_mass.At(j);
         switch (sysTES)
@@ -127,7 +133,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
-                // continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
         }
         if (m_tauWP == 3)
         { // channel specific in ttH. use the tight from 1t 1l
@@ -146,7 +153,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
-            //     continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
         }
         // overlap removal
         Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
@@ -170,6 +178,7 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         taus_phi.push_back(e->Tau_phi.At(j));
         taus_mass.push_back(itau_mass);
         // taus_decayMode.push_back(e->Tau_decayMode.At(j));//!!!
+        taus_decayMode.push_back(itau_decayMode);
         if (!isData)
         {
             taus_genPartFlav.push_back(e->Tau_genPartFlav->At(j));
@@ -180,6 +189,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
         // taus_jetIdx.push_back(e->Tau_jetIdx.At(j));//!!!
         // taus_charge.push_back(e->Tau_charge.At(j));//!!!
+        taus_jetIdx.push_back(itau_jetIdx);
+        taus_charge.push_back(itau_charge);
         taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
         // taus_jetPt.push_back(e->Jet_pt.At(e->Tau_jetIdx.At(j)));//!!!
         // taus_jetEta.push_back(e->Jet_eta.At(e->Tau_jetIdx.At(j)));//!!!
@@ -204,7 +215,8 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
         {
             // corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
             // no sf for decaymode 5 and 6
-            Int_t itau_decayMode = OS::getValForDynamicReader(m_isRun3, e->Tau_decayMode, i);
+            // Int_t itau_decayMode = OS::getValForDynamicReader(m_isRun3, e->Tau_decayMode, i);
+            Int_t itau_decayMode = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Tau_decayMode, i);
 
             if (!(itau_decayMode == 5 || itau_decayMode == 6))//!!!
             {
