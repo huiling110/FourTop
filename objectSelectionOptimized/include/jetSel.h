@@ -11,10 +11,9 @@
 class JetSel
 {
 public:
-    JetSel(TTree *outTree, const TString era, const Int_t jetType = 0);
+    JetSel(TTree *outTree, const TString era, const Bool_t isRun3=kFALSE, const Int_t jetType = 0);
 
     ~JetSel();
-    // void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC);
 
     void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t ifJER, const Int_t sysJEC);
 
@@ -29,6 +28,7 @@ public:
 private:
     Int_t m_jetType = 0;
     TString m_era;
+    const Bool_t m_isRun3;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
     std::vector<Double_t> JER_SF_new;
     std::vector<Double_t> jets_JESuncer;

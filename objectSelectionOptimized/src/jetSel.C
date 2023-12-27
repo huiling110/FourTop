@@ -1,7 +1,7 @@
 #include "../include/jetSel.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const Int_t jetType) : m_jetType{jetType}, m_era{era}
+JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_isRun3{isRun3}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing JetSel: m_jetType=" << m_jetType << "......\n";
@@ -48,6 +48,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
+        Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
+
         Double_t jetpt = e->Jet_pt.At(j);
         Double_t ijetMass = e->Jet_mass.At(j);
         Double_t ijetEta = e->Jet_eta.At(j);
@@ -81,14 +83,16 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         if (!(fabs(ijetEta) < 5.0))
             continue;
         // if (!(e->Jet_jetId.At(j) > 0))//!!!
-            // continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        if (!(ijet_jetID > 0))
+            continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
         // std::cout << "jetID=" << e->Jet_jetId.At(j) << "\n";
         if (m_jetType == 1)
         {
             // if (!(e->Jet_jetId.At(j) > 2))//!!!
-                // continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+            if (!(ijet_jetID > 2))
+                continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
         if (m_jetType == 11 || m_jetType == 12 || m_jetType == 13)

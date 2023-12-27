@@ -68,7 +68,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         // // jet and bjet selection
         // // const Int_t sysJEC = 0;
-        // jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
+        jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         // jetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         // bjetMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
         // bjetLSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER, sysJEC);
