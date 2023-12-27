@@ -14,7 +14,7 @@
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 #include <TString.h>
 
-#include "TTreeReaderValueDerived.h"
+#include "dynimicBranchReader.h"
 
 namespace OS
 {
@@ -44,6 +44,8 @@ namespace OS
     Bool_t isRun3(TString era);
     Double_t quadraticSum(TTreeReaderArray<Float_t> &vec, const Float_t nominal, Int_t eleNum);
 
+    Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader &reader, const UInt_t i);
+
     template <typename T>
     void readPointerArray(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)
     {
@@ -71,6 +73,5 @@ namespace OS
 
 };
 
-std::unique_ptr<AbstractTTreeReaderValue> CreateTTreeReaderValue(TTreeReader &reader, const char *branchName);
 
 #endif

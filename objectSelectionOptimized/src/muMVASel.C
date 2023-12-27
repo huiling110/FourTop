@@ -67,7 +67,7 @@ void MuSel::Select(const eventForNano *e)
         }
         if (m_type == 2)
         {
-            if (!e->Muon_mediumId.At(j))
+            if (!e->Muon_mediumId.At(j)) //!!!maybe switch to tightId
                 continue;
             if (!(int(e->Muon_miniIsoId.At(j)) >= 3))
                 continue;

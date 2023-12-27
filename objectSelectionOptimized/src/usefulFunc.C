@@ -233,23 +233,17 @@ namespace OS
         return TMath::Sqrt(sum);
     }
 
-};
-
-
-std::unique_ptr<AbstractTTreeReaderValue> CreateTTreeReaderValue(TTreeReader& reader, const char* branchName) {
-    TBranch* branch = reader.GetTree()->GetBranch(branchName);
-    if (!branch) return nullptr;
-
-    TLeaf* leaf = branch->GetLeaf(branchName);
-    if (!leaf) return nullptr;
-
-    if (leaf->GetTypeName() == std::string("Int_t")) {
-        return std::make_unique<TTreeReaderValueDerived<Int_t>>(reader, branchName);
-    } else if (leaf->GetTypeName() == std::string("Float_t")) {
-        return std::make_unique<TTreeReaderValueDerived<Float_t>>(reader, branchName);
-    } else if (leaf->GetTypeName() == std::string("UChar_t")){
-        return std::make_unique<TTreeReaderValueDerived<UChar_t>>(reader, branchName);
+    Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader& reader, const UInt_t i){
+        Int_t val = 0;
+        if(isRun3){
+            val = std::any_cast<UChar_t>(reader.at(i));
+        }else
+        {
+            val = std::any_cast<Int_t>(reader.at(i));
+        }
+        return val;
     }
-    // Add more types as necessary
-    return nullptr;
-}
+
+
+
+};

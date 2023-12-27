@@ -1,5 +1,6 @@
 #include "../include/tauSel.h"
 #include <map>
+#include "../include/usefulFunc.h"
 
 TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP) : m_tauWP{tauWP}, m_era{era}, m_isRun3{isRun3}
 { // m_type for different electrons
@@ -34,7 +35,6 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tau
 
 TauSel::~TauSel(){};
 
-// void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const Int_t sysTES)
 void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES)
 {
     // this is tau ID in ttH
@@ -66,7 +66,6 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         }
 
         if (!(itau_pt > 20))
-            // if (!(itau_pt > 30))
             continue;
         if (!(e->Tau_eta.At(j) < 2.3 && e->Tau_eta.At(j) > -2.3))
             continue;
@@ -205,12 +204,14 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
         {
             // corr4.evaluate(pt,eta,dm,5,"DeepTau2017v2p1",syst)
             // no sf for decaymode 5 and 6
-            // if (!(e->Tau_decayMode.At(i) == 5 || e->Tau_decayMode.At(i) == 6))//!!!
-            // {
-                // iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
-                // iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
-                // iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), e->Tau_decayMode.At(i), e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
-            // }
+            Int_t itau_decayMode = OS::getValForDynamicReader(m_isRun3, e->Tau_decayMode, i);
+
+            if (!(itau_decayMode == 5 || itau_decayMode == 6))//!!!
+            {
+                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
+                iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
+                iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
+            }
             // std::cout << "iTES_sf: " << iTES_sf << "\n";
             // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
             // std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";

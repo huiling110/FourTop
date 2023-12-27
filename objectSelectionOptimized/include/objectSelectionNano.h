@@ -97,7 +97,7 @@ private:
     MuSel muSel{m_outTree, m_era, m_isRun3, 2};
     EleMVASel eleMVASel{m_outTree, m_era, m_isRun3};
     MuTopMVASel muTopMVATSel{m_outTree, m_era, m_isRun3};
-    // TauSel tauSel{m_outTree, m_era, m_isRun3, 3};
+    TauSel tauSel{m_outTree, m_era, m_isRun3, 3};
     // TauSel tauSelF{m_outTree, m_era, m_isRun3, 2};
     // TauSel tauSelL{m_outTree, m_era, m_isRun3, 1};
     // JetSel jetSel{m_outTree, m_era, 0};
