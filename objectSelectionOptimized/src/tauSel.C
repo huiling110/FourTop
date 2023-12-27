@@ -35,7 +35,8 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tau
 
 TauSel::~TauSel(){};
 
-void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES)
+// void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES)
+void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES)
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
@@ -77,22 +78,23 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
             continue;
         if (!(TMath::Abs(e->Tau_dz.At(j)) < 0.2))
             continue;
-        //???why no dxy requirement?
         // if (!(e->Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
+        if (!(e->Tau_idDecayModeNewDMs.At(j)))
+            continue; // for 2022
         UChar_t tauID_vsJet;
         UChar_t tauID_vsEle;
         UChar_t tauID_vsMu;
-        // if(m_era.CompareTo("2022")==0){
-        //  tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j);
-        //  tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
-        //  tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);
-        // }else{
-        tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);
-        tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);
-        tauID_vsMu = e->Tau_idDeepTau2017v2p1VSmu.At(j);
-        //!!! for nanoAOD v11, tau id has no bit mast!!!
+        if (!m_isRun3)
+        {
+            tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);//DeepTau2017v2p1
+            tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);
+            tauID_vsMu = e->Tau_idDeepTau2017v2p1VSmu.At(j);
+        }else{
+            tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j); //DeepTauv2p5
+            tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
+            tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);//!!! for nanoAOD v12, tau id has no bit mast!!!
         // byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
-        // }
+        }
 
         Bool_t isVSjetVVLoose = kFALSE;
         Bool_t isVSeVVVLoose = kFALSE;
