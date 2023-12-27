@@ -159,16 +159,6 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         // overlap removal
         Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeTauWithE = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), eEtaVec, ePhiVec);
-        // Double_t minDeltaR_lep;
-        // std::cout<<"lepSize="<<lepEtaVec.size()<<"\n";
-        // if (lepEtaVec.size() > 0)
-        // {
-        //     minDeltaR_lep = OS::deltRmin(e->Tau_eta.At(j), e->Tau_phi.At(j), lepEtaVec, lepPhiVec);
-        //     if (!(minDeltaR_lep >= 0.4))
-        //     {
-        //         continue;
-        //     }
-        // }
         if(removeTau || removeTauWithE){
             continue;
         }
@@ -194,6 +184,8 @@ void TauSel::Select(const eventForNano *e, const Bool_t isData, const std::vecto
         taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
         // taus_jetPt.push_back(e->Jet_pt.At(e->Tau_jetIdx.At(j)));//!!!
         // taus_jetEta.push_back(e->Jet_eta.At(e->Tau_jetIdx.At(j)));//!!!
+        taus_jetPt.push_back(e->Jet_pt.At(itau_jetIdx));
+        taus_jetEta.push_back(e->Jet_eta.At(itau_jetIdx));
     }
 };
 

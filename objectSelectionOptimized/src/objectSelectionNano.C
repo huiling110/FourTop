@@ -58,13 +58,13 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         // // tau selection
         tauSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        // tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        // tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
-        // const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
-        // m_tausTotal += tauSel.getSize();
-        // m_tausFTotal += tauSelF.getSize();
-        // m_tausLTotal += tauSelL.getSize();
+        tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
+        tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
+        const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
+        const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
+        m_tausTotal += tauSel.getSize();
+        m_tausFTotal += tauSelF.getSize();
+        m_tausLTotal += tauSelL.getSize();
 
         // // jet and bjet selection
         // // const Int_t sysJEC = 0;
