@@ -1,11 +1,11 @@
 #include "../include/METfilter.h"
 #include "../../myLibrary/commenFunction.h"
 
-METFilter::METFilter(TString era)
+METFilter::METFilter(TString era, const Bool_t isRun3) : m_isRun3{isRun3}
 {
     std::cout << "Initialize METFilter ......\n";
 
-    m_isRun3 = TTTT::isRun3(era);
+    // m_isRun3 = TTTT::isRun3(era);
     std::cout << "m_isRun3=" << m_isRun3 << "\n";
 
     std::cout << "Done initializing METFiler....\n";

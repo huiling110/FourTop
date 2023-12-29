@@ -90,7 +90,7 @@ private:
     TString m_processName = "default";
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
-    // METFilter metFilter{m_era};                       //!!! for run3
+    METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
     // osBase muonSelection{m_outTree};
     // HLTSelector HLTselection{m_outTree};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};

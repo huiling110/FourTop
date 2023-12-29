@@ -12,7 +12,7 @@
 class METFilter
 {
 public:
-    METFilter(TString era);
+    METFilter(TString era, const Bool_t isRun3);
     ~METFilter(){};
 
     Bool_t Select(const TString era, eventForNano *e);

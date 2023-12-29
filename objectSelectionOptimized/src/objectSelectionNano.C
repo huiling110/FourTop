@@ -31,12 +31,12 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         };
 
         // MET filters
-        // if (!(metFilter.Select(m_era, e)))
-        // {
-        //     continue;
-        // }
-        // m_cutflow->Fill(1);
-        // CF_met->Fill(0., genWeight);
+        if (!(metFilter.Select(m_era, e)))
+        {
+            continue;
+        }
+        m_cutflow->Fill(1);
+        CF_met->Fill(0., genWeight);
 
         // // HLT selection and HLT branch filling
         // Bool_t passHLT = HLTselection.Select(e, m_era, m_isData, ifHLT);
