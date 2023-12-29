@@ -35,7 +35,6 @@ JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int
 
 JetSel::~JetSel(){};
 
-// void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Bool_t ifJER, const Int_t sysJEC)
 void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER, const Int_t sysJEC)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
@@ -87,7 +86,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
-        // std::cout << "jetID=" << e->Jet_jetId.At(j) << "\n";
         if (m_jetType == 1)
         {
             // if (!(e->Jet_jetId.At(j) > 2))//!!!

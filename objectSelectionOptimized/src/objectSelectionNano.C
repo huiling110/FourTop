@@ -25,10 +25,10 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         CF_initial->Fill(0., genWeight);
 
         // good lumi and good PV selection
-        // if (!(lumiAndPVSelection.Select(m_isData, e)))
-        // {
-        //     continue;
-        // };
+        if (!(lumiAndPVSelection.Select(m_isData, e)))
+        {
+            continue;
+        };
 
         // MET filters
         // if (!(metFilter.Select(m_era, e)))

@@ -57,6 +57,19 @@ namespace OS
         }
         return val;
     };
+    template<typename T>
+    Int_t getValForDynamicReader(const Bool_t isRun3, DynamicBranchReader& reader){
+        Int_t val = 0;
+        if (isRun3)
+        {
+            val = std::any_cast<T>(reader.GetValue());
+        }
+        else
+        {
+            val = std::any_cast<Int_t>(reader.GetValue());
+        }
+        return val;
+    }
 
     template <typename T>
     void readPointerArray(TTreeReaderArray<T> *&branchPointer, TTreeReader &reader, TString branchName)
