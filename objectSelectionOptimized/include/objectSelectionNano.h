@@ -92,7 +92,7 @@ private:
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
     // osBase muonSelection{m_outTree};
-    // HLTSelector HLTselection{m_outTree};
+    HLTSelector HLTselection{m_outTree, m_era};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};
     MuSel muSel{m_outTree, m_era, m_isRun3, 2};
     EleMVASel eleMVASel{m_outTree, m_era, m_isRun3};

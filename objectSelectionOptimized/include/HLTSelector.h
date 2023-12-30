@@ -6,14 +6,14 @@
 class HLTSelector
 {
 public:
-    // HLTSelector(TTree *outTree) : m_outTree{outTree}
-    HLTSelector(TTree *outTree);
+    HLTSelector(TTree *outTree, const TString era);
     ~HLTSelector(){};
 
     Bool_t Select(eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE, Bool_t isHLTSel = kTRUE);
     void clearBranch();
 
 private:
+    const TString m_era;
     // output branches
     Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056_ = kFALSE;
     Bool_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = kFALSE;

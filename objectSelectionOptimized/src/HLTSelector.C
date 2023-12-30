@@ -1,7 +1,6 @@
 #include "../include/HLTSelector.h"
 
-// HLTSelector(TTree *outTree) : m_outTree{outTree}
-HLTSelector::HLTSelector(TTree *outTree)
+HLTSelector::HLTSelector(TTree *outTree, const TString era): m_era{era}
 {
     std::cout<<"Initializing HLTSelector...........\n";
     outTree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_);
@@ -34,7 +33,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     HLT_IsoMu27_ = **e->HLT_IsoMu27;
     Bool_t ifPass = kFALSE;
     // the HLT branch pointer null pointer is not exist in a file
-    if (era.CompareTo("2016preVFP") == 0 || era.CompareTo("2016postVFP") == 0)
+    if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
     {
         // std::cout<<"HLT 2016\n";
         ifPass = **e->HLT_PFHT450_SixJet40_BTagCSV_p056 || **e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056 || **e->HLT_PFJet450;
@@ -42,7 +41,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
         HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = **e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056;
         HLT_PFJet450_ = **e->HLT_PFJet450;
     }
-    else if (era.CompareTo("2017") == 0)
+    else if (m_era.CompareTo("2017") == 0)
     {
         // std::cout<<"HLT 2017\n";
         HLT_PFJet500_ = **e->HLT_PFJet500;
@@ -76,7 +75,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
             }
         }
     }
-    else if (era.CompareTo("2018") == 0)
+    else if (m_era.CompareTo("2018") == 0)
     {
         HLT_PFJet500_ = **e->HLT_PFJet500;
         if (!isData)
@@ -114,7 +113,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
                 std::cout << "ERROR!!! 2018 data out of range for HLT \n";
             }
         }
-    }else if(era.CompareTo("2022")==0 || era.CompareTo("2022postEE")==0 || era.CompareTo("2022preEE")==0){
+    }else if(m_era.CompareTo("2022")==0 || m_era.CompareTo("2022postEE")==0 || m_era.CompareTo("2022preEE")==0){
         ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
         HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59;
         HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94;

@@ -39,14 +39,14 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         CF_met->Fill(0., genWeight);
 
         // // HLT selection and HLT branch filling
-        // Bool_t passHLT = HLTselection.Select(e, m_era, m_isData, ifHLT);
+        Bool_t passHLT = HLTselection.Select(e, m_era, m_isData, ifHLT);
         // // if (ifHLT && (!passHLT))
-        // if(!passHLT)
-        // {
-        //     continue; // pass on this event 
-        // }
-        // m_cutflow->Fill(2);
-        // CF_HLT->Fill(0., genWeight);
+        if(!passHLT)
+        {
+            continue; // pass on this event 
+        }
+        m_cutflow->Fill(2);
+        CF_HLT->Fill(0., genWeight);
 
         muSel.Select(e);
         eleMVASel.Select(e);
