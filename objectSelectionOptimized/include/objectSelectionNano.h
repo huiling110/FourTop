@@ -101,12 +101,12 @@ private:
     TauSel tauSelF{m_outTree, m_era, m_isRun3, 2};
     TauSel tauSelL{m_outTree, m_era, m_isRun3, 1};
     JetSel jetSel{m_outTree, m_era, m_isRun3, 0};
-    // JetSel jetTSel{m_outTree, m_era, 1};
-    // JetSel bjetLSel{m_outTree, m_era, 11};
-    // JetSel bjetMSel{m_outTree, m_era, 12};
-    // JetSel bjetTSel{m_outTree, m_era, 13};
+    JetSel jetTSel{m_outTree, m_era, m_isRun3, 1};
+    JetSel bjetLSel{m_outTree, m_era, m_isRun3, 11};
+    JetSel bjetMSel{m_outTree, m_era, m_isRun3, 12};
+    JetSel bjetTSel{m_outTree, m_era, m_isRun3, 13};
     CopyBranch copyBranch{m_outTree, m_isRun3};
-    // PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
+    PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     // SystWeightCal systWeightCal{m_outTree, m_isData};
 
     ULong_t m_elesTotal = 0;
