@@ -37,7 +37,7 @@ def main():
         'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8',
         # 'crab_TTto4Q_TuneCP5_13p6TeV_powheg-pythia81',
     ]
-    deleteT2Dir(T2Dir, notFinishedList)
+    deleteT2Dir(T2Dir, notFinishedList, False)
     
    
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/JetMET/'
@@ -71,12 +71,19 @@ def copyT2ToT3(T2Dir, T3Dir):
     uf.runCommand(command)
     print('copy done \n\n')
     
-def deleteT2Dir(T2Dir, exceptDir):
+def deleteT2Dir(T2Dir, exceptDir, ifDryRun=True):
     subDirs = getDirList(T2Dir)
     print('subDirs: ', subDirs)
+    for iDir in subDirs:
+        if iDir in exceptDir:
+            print('skip ', iDir)
+            continue
+        else:
+            print('delete ', iDir)
+            command = 'gfal-rm -r root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir +'mc/'+ iDir
+            uf.runCommand(command, ifDryRun)
     
 def getDirList(T2Dir):
-    # command = 'xrdfs root://cceos.ihep.ac.cn:1094//eos/ihep/ ls ' + T2Dir
     command = 'gfal-ls root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + 'mc/'
     sub = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
     subDirs = sub.stdout.decode('utf-8').split('\n')
