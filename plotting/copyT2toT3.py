@@ -13,8 +13,8 @@ def main():
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022PostEE/'
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022PostEE_v2/'
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022preEE_v3/mc/'
-    T2Dir = '/cms/store/user/hhua/crabNanoPost_data_v3/mc/'
-    # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022postEE_v3/mc/'
+    # T2Dir = '/cms/store/user/hhua/crabNanoPost_data_v3/mc/'
+    T2Dir = '/cms/store/user/hhua/crabNanoPost_2022postEE_v3/mc/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto2L2Nu/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto4Q/'
     outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/'
@@ -25,7 +25,7 @@ def main():
     #     ioutDir = outDir + ipro.find('_')
         
     # outDir = outDir+ 'crabNanoPost_2022PostEE_v2/'
-    # outDir = outDir+ 'crabNanoPost_2022postEE_v3/'
+    outDir = outDir+ 'crabNanoPost_2022postEE_v3/'
     finishedPros = [
     #    'TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8',
     #    'QCD_PT-50to80_TuneCP5_13p6TeV_pythia8', 
@@ -39,14 +39,16 @@ def main():
     #    'QCD_PT-1800to2400_TuneCP5_13p6TeV_pythia8', 
     #    'QCD_PT-2400to3200_TuneCP5_13p6TeV_pythia8',
     #    'QCD_PT-3200_TuneCP5_13p6TeV_pythia8',
-        'TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8', 
-        'QCD_PT-120to170_TuneCP5_13p6TeV_pythia8',
-        'QCD_PT-170to300_TuneCP5_13p6TeV_pythia8',
+        # 'TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8', 
+        # 'QCD_PT-120to170_TuneCP5_13p6TeV_pythia8',
+        # 'QCD_PT-170to300_TuneCP5_13p6TeV_pythia8',
+        'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8',
+        'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
     ]
-    # copyT2ToT3(T2Dir, outDir, finishedPros, True)
+    copyT2ToT3(T2Dir, outDir, finishedPros, True)
    
     #for data
-    outDir = outDir + 'crabNanoPost_2022preEE_v3/data/'
+    # outDir = outDir + 'crabNanoPost_2022preEE_v3/data/'
     finishedData = [
         # 'JetHT',  #'JetHT1', #B, C#!!!copied
         # 'JetMET', #'JetMET1', 'JetMET2', 'JetMET3', 'JetMET4', #C, D, E, F,G #!!!copied
@@ -57,14 +59,14 @@ def main():
      
     
     # outDir = outDir+ 'crabNanoPost_2022preEE_v3/'
-    NotFinishedList = [
+    notFinishedList = [
         # 'QCD_PT-30to50_TuneCP5_13p6TeV_pythia8', 
         # 'QCD_PT-3200_TuneCP5_13p6TeV_pythia8',
-        # 'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8',
+        'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8',
         # 'QCD_PT-800to1000_TuneCP5_13p6TeV_pythia8',
         # 'TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8',
         # 'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
-        # 'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8', #!!!only one left
+        'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8', #!!!only one left
     ]
     # deleteT2Dir(T2Dir, notFinishedList, False)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
@@ -74,21 +76,23 @@ def main():
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/' #!!!need in previous nanoAOD tool step make data MC outDir consistent!
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/' 
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/' 
-    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/'
-    mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/'
-    sortT3Dir( T3Dir, mvDir)
+    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/'
+    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/'
+    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
+    mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
+    # sortT3Dir( T3Dir, mvDir, True)
     
-def sortT3Dir( initDir, outDir):
+def sortT3Dir( initDir, outDir, isData=False):
     for ipro in os.listdir(initDir):
         if 'crab_' not in ipro:
             continue
         print('iDir: ', ipro)
-        # iproName = ipro.split('crab_')[1]
-        iproName = getProName(ipro)
+        iproName = getProName(ipro, isData)
         print('iProName: ', iproName)
         
         # fromDir = initDir+ipro +'/*/*/0000/*'
-        fromDir = initDir+ipro +'/*/0000/*'
+        # fromDir = initDir+ipro +'/*/0000/*' #!!!what if there is more folers than 0000/
+        fromDir = initDir+ipro +'/*/*/*' #!!!what if there is more folers than 0000/
         toDir = outDir +iproName
         uf.checkMakeDir(toDir)
         mvCommand = 'mv {} {}'.format(fromDir, toDir)
@@ -98,12 +102,15 @@ def sortT3Dir( initDir, outDir):
         uf.runCommand(mvCommand)
         print('done mv ', ipro, ' \n')
        
-def getProName(iDir):
+def getProName(iDir, isData=False):
     iproName = iDir.split('crab_')[1]
-    name = iproName.split('_TuneCP')[0]
-    postFix = iproName.split('_TuneCP')[1]
-    postFix = postFix.split('pythia8')[1]
-    name = name + postFix
+    if not isData:
+        name = iproName.split('_TuneCP')[0]
+        postFix = iproName.split('_TuneCP')[1]
+        postFix = postFix.split('pythia8')[1]
+        name = name + postFix
+    else: 
+        name = iproName
     return name  
         
 def copyT2ToT3(T2Dir, T3Dir, copyList, ifDelete=False):
