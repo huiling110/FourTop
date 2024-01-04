@@ -49,7 +49,9 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         CF_HLT->Fill(0., genWeight);
 
         muSel.Select(e);
+        muSelT.Select(e);
         eleMVASel.Select(e);
+        eleMVASelT.Select(e);
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);

@@ -6,11 +6,18 @@ MuSel::MuSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t
     std::cout<<"m_era="<<m_era<<"; m_isRun3="<<m_isRun3<<"\n";
     std::cout << "m_type=" << m_type << "\n";
 
-    outTree->Branch("muonsT_pt", &muonsTopMVAT_pt);
-    outTree->Branch("muonsT_eta", &muonsTopMVAT_eta);
-    outTree->Branch("muonsT_phi", &muonsTopMVAT_phi);
-    outTree->Branch("muonsT_mass", &muonsTopMVAT_mass);
-    outTree->Branch("muonsT_index", &muonsTopMVAT_index);
+    std::map<Int_t, TString> muonMap = {
+        {0, "L"},
+        {1, "F"},
+        {2, "T"},
+        {3, "TRun3"},
+    };
+
+    outTree->Branch("muons" + muonMap.at(m_type)+"_pt", &muonsTopMVAT_pt);
+    outTree->Branch("muons" + muonMap.at(m_type)+"_eta", &muonsTopMVAT_eta);
+    outTree->Branch("muons" + muonMap.at(m_type)+"_phi", &muonsTopMVAT_phi);
+    outTree->Branch("muons" + muonMap.at(m_type)+"_mass", &muonsTopMVAT_mass);
+    outTree->Branch("muons" + muonMap.at(m_type)+"_index", &muonsTopMVAT_index);
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
     std::cout << "Done MuSel initialization......\n";
@@ -75,6 +82,12 @@ void MuSel::Select(const eventForNano *e)
                 continue;
             // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
             if (!(iMu_tightCharge == 2))
+                continue;
+        }
+        if(m_type == 3){
+            if (!e->Muon_tightId.At(j))
+                continue;
+            if (!(int(e->Muon_miniIsoId.At(j)) >= 3))
                 continue;
         }
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));

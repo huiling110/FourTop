@@ -27,6 +27,7 @@ public:
                                         Flag_BadPFMuonDzFilter(reader, "Flag_BadPFMuonDzFilter"),
                                         Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
                                         Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter"),
+                                        GenPart_genPartIdxMother(reader, "GenPart_genPartIdxMother"),
                                         //
                                         // nElectron(reader, "nElectron"),
                                         Electron_pt(reader, "Electron_pt"),
@@ -58,6 +59,7 @@ public:
                                         Muon_ip3d(reader, "Muon_ip3d"),
                                         Muon_miniPFRelIso_all(reader, "Muon_miniPFRelIso_all"),
                                         Muon_mediumId(reader, "Muon_mediumId"),
+                                        Muon_tightId(reader, "Muon_tightId"),
                                         Muon_jetRelIso(reader, "Muon_jetRelIso"),
                                         Muon_jetIdx(reader, "Muon_jetIdx"),
                                         Muon_jetNDauCharged(reader, "Muon_jetNDauCharged"),
@@ -97,10 +99,9 @@ public:
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        Jet_hardonFlavour(reader, "Jet_hardonFlavour"),
+                                        Jet_hardonFlavour(reader, "Jet_hardonFlavour")
                                         // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
                                         //
-                                        GenPart_genPartIdxMother(reader, "GenPart_genPartIdxMother")
 
     {
         // dealing with case: HLT branch not existing in this nanofile;
@@ -288,6 +289,7 @@ public:
     TTreeReaderArray<Float_t> Muon_ip3d;
     TTreeReaderArray<Float_t> Muon_miniPFRelIso_all;
     TTreeReaderArray<Bool_t> Muon_mediumId;
+    TTreeReaderArray<Bool_t> Muon_tightId;
     TTreeReaderArray<Float_t> Muon_jetRelIso;
     DynamicBranchReader Muon_jetIdx; //!!!
     TTreeReaderArray<UChar_t> Muon_jetNDauCharged;

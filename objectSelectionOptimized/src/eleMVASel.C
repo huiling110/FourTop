@@ -5,12 +5,18 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, Bool_t isRun3,const Int_
     std::cout << "Initializing EleMVASel......\n";
     std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << "\n";
 
-    outTree->Branch("elesMVAT_pt", &muonsTopMVAT_pt);
-    outTree->Branch("elesMVAT_eta", &muonsTopMVAT_eta);
-    outTree->Branch("elesMVAT_phi", &muonsTopMVAT_phi);
-    outTree->Branch("elesMVAT_mass", &muonsTopMVAT_mass);
-    outTree->Branch("elesMVAT_index", &muonsTopMVAT_index);
-    // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
+    std::map<Int_t, TString> typeMap = {
+        {0, "L"},
+        {1, "F"},
+        {2, "T"},
+        {3, "TRun3"},
+    };
+
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_pt", &muonsTopMVAT_pt);
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_eta", &muonsTopMVAT_eta);
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_phi", &muonsTopMVAT_phi);
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_mass", &muonsTopMVAT_mass);
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_index", &muonsTopMVAT_index);
 
     std::cout << "Done EleMVASel initialization......\n\n";
 };
