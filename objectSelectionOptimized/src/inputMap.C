@@ -120,7 +120,6 @@ std::map<TString, double> DeepCSVM = {
 
 std::map<TString, double> DeepCSVT = {
     // std::map of tight WPs for DeepCSV
-
     {"2016postVFP", 0.8767},
     {"2016preVFP", 0.8819},
     {"2017", 0.7738},
