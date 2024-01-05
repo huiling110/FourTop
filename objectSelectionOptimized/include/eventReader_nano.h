@@ -153,6 +153,7 @@ public:
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
         //
         OS::readPointerArray(Jet_btagDeepB, reader, "Jet_btagDeepB");
+        OS::readPointerArray(Jet_btagPNetB, reader, "Jet_btagPNetB");
         OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(LHEScaleWeight, reader, "LHEScaleWeight");
 
@@ -312,6 +313,7 @@ public:
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
     TTreeReaderArray<Float_t>* Jet_btagDeepB = nullptr;
+    TTreeReaderArray<Float_t>* Jet_btagPNetB = nullptr;
     TTreeReaderArray<Float_t> Jet_pt;
     TTreeReaderArray<Float_t> Jet_mass;
     TTreeReaderArray<Float_t> Jet_eta;

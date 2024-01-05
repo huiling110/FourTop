@@ -40,12 +40,13 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
     //jetType 15: b-jetPNM, 16: b-jetPNT
+    //jetType: 0: normal jet is tight jetID
     // JER: 0: nominal, 1: up, 2: down; 3: no JER
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
     calJER_SF(e, isData, JER);
 
-    Double_t MaxMostForwardJetEta = -99;
+    // Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
@@ -81,10 +82,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
             continue;
-        if (!(fabs(ijetEta) < 5.0))
+        // if (!(fabs(ijetEta) < 5.0))
+        if (!(fabs(ijetEta) < 2.4))
             continue;
-        // if (!(e->Jet_jetId.At(j) > 0))//!!!
-        if (!(ijet_jetID > 0))
+        // if (!(ijet_jetID > 0))
+        if (!(ijet_jetID > 2))
             continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // Jet ID flags bit1 is loose (always ：wfalse in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
@@ -95,72 +97,69 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
-        if (m_jetType == 11 || m_jetType == 12 || m_jetType == 13)
+        // if (deepJet)
+        // {
+             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
+        if (m_jetType == 11)
         {
-            if (!(fabs(ijetEta) < 2.4))
+            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetL[m_era]))
+                continue;
+        }else if (m_jetType == 12)
+        {
+            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetM[m_era]))
+                continue;
+        }else if (m_jetType == 13 )
+        {
+            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetT[m_era]))
+                continue;
+        }else if(m_jetType == 15 && m_isRun3){
+            if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(0)))
+                continue;
+        }else if(m_jetType == 16 && m_isRun3){
+            if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(1)))
                 continue;
         }
-        if (deepJet)
-        { // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
-            if (m_jetType == 11)
-            {
-                if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetL[m_era]))
-                    continue;
-            }
-            if (m_jetType == 12)
-            {
-                if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetM[m_era]))
-                    continue;
-            }
-            if (m_jetType == 13)
-            {
-                if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetT[m_era]))
-                    continue;
-            }
-        }
-        else
-        {
-            if (m_jetType == 11)
-            {
-                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVL[m_era]))//!!!
-                    continue;
-            }
-            if (m_jetType == 12)
-            {
-                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
-                    continue;
-            }
-            if (m_jetType == 13)
-            {
-                // if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
-                    continue;
-            }
-        }
-        if(m_jetType == 15){
-
-        }
+        // }
+        // else
+        // {
+        //     if (m_jetType == 11)
+        //     {
+        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVL[m_era]))//!!!
+        //             continue;
+        //     }
+        //     if (m_jetType == 12)
+        //     {
+        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
+        //             continue;
+        //     }
+        //     if (m_jetType == 13)
+        //     {
+        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
+        //             continue;
+        //     }
+        // }
         // find mostforwardjeteta
-        if (m_jetType == 0 || m_jetType == 1)
-        { // normal jet
-            if (fabs(ijetEta) > MaxMostForwardJetEta)
-            {
-                MaxMostForwardJetEta = fabs(ijetEta);
-            } // MostForwardJetEta branch in new tree and SB.
-            if (!(fabs(ijetEta) < 2.4))
-                continue;
-        }
-        if (m_jetType == 2)
-        { // forwardjet
-            if (!(fabs(ijetEta) >= 2.4 && fabs(ijetEta) <= 5))
-                continue;
-            if (!(jetpt > 25))
-                continue;
-            if (fabs(ijetEta) >= 2.7 && fabs(ijetEta) <= 3.0)
-            {
-                if (!(jetpt > 60.0))
-                    continue;
-            }
-        }
+        // if (m_jetType == 0 || m_jetType == 1)
+        // { // normal jet
+        //     if (fabs(ijetEta) > MaxMostForwardJetEta)
+        //     {
+        //         MaxMostForwardJetEta = fabs(ijetEta);
+        //     } // MostForwardJetEta branch in new tree and SB.
+        //     if (!(fabs(ijetEta) < 2.4))
+        //         continue;
+        // }
+        // if (m_jetType == 2)
+        // { // forwardjet
+        //     if (!(fabs(ijetEta) >= 2.4 && fabs(ijetEta) <= 5))
+        //         continue;
+        //     if (!(jetpt > 25))
+        //         continue;
+        //     if (fabs(ijetEta) >= 2.7 && fabs(ijetEta) <= 3.0)
+        //     {
+        //         if (!(jetpt > 60.0))
+        //             continue;
+        //     }
+        // }
         // overlap removal
         Bool_t removeMu = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeE = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), eEtaVec, ePhiVec);
@@ -175,21 +174,24 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         jets_mass.push_back(ijetMass);
         if (!isData)
         {
-            // jets_flavour.push_back(e->Jet_hadronFlavour->At(j));//!!!
             jets_flavour.push_back(ijet_hadronFlavour);
         }
         else
         {
             jets_flavour.push_back(-99);
         }
-        if (deepJet)
-        {
+        // if (deepJet)
+        // {
+        if (m_isRun3){
+            jets_btags.push_back(e->Jet_btagPNetB->At(j));
+        }else{
             jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
         }
-        else
-        {
+        // }
+        // else
+        // {
             // jets_btags.push_back(e->Jet_btagDeepB.At(j));
-        }
+        // }
     }
 };
 
