@@ -11,7 +11,7 @@
 class WeightVarMaker
 {
 public:
-    WeightVarMaker(TTree *outTree, TString era, Bool_t isData);
+    WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3=kFALSE);
     ~WeightVarMaker();
     // void makeVariables(EventForMV *e);
     void makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetM_num);
@@ -94,6 +94,7 @@ private:
 
     TString m_era;
     const Bool_t m_isData;
+    const Bool_t m_isRun3 = kFALSE;
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
 

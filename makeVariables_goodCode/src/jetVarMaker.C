@@ -6,6 +6,7 @@
 JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMaker{outTree, objName, type}
 {
     std::cout << "Initialzing the derived JetVarMaker........\n";
+    std::cout<<"m_type"<<m_type<<"\n";
 
     outTree->Branch(objName + "_rationHT_4toRest", &jets_rationHT_4toRest);
     outTree->Branch(objName + "_MHT", &jets_MHT);
@@ -188,6 +189,8 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
     case 4:
         objNum = e->bjetsT_pt.GetSize();
         break;
+    case 5:
+        objNum = e->bjetsPNM_pt.GetSize();
     }
 
     for (UInt_t i = 0; i < objNum; i++)
@@ -209,6 +212,9 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
             break;
         case 4:
             muLorentz = {e->bjetsT_pt[i], e->bjetsT_eta[i], e->bjetsT_phi[i], e->bjetsT_mass[i]};
+            break;
+        case 5:
+            muLorentz = {e->bjetsPNM_pt[i], e->bjetsPNM_eta[i], e->bjetsPNM_phi[i], e->bjetsPNM_mass[i]};
             break;
         }
         objsLorentz.push_back(muLorentz);

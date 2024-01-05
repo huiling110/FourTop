@@ -741,7 +741,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys)
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
 
@@ -768,7 +768,17 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             }
 
             // sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
-            Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);
+            Bool_t ifBtagged = kFALSE;
+            if (!isRun3){
+                if (ijetBtag>TTTT::DeepJetM.at(era)){
+                    ifBtagged = kTRUE;
+                }
+            }else{
+                if(ijetBtag>TTTT::particleNetBMT.at(era).at(0)){
+                    ifBtagged = kTRUE;
+                }
+            }
+            // Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);//!!!need to be updated
             Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
             if (ifBtagged)
             {

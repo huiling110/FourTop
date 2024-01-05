@@ -75,7 +75,6 @@ std::map<TString, double> DeepJetL = {
 
 std::map<TString, double> DeepJetM = {
     // std::map of medium WPs for DeepJet
-
     {"2016postVFP", 0.2489},
     {"2016preVFP", 0.2598},
     {"2017", 0.3040},
@@ -83,7 +82,6 @@ std::map<TString, double> DeepJetM = {
     {"2022", 0.2783},
     {"2022preEE", 0.3086},
     {"2022postEE", 0.3196},
-
 };
 
 std::map<TString, double> DeepJetT = {

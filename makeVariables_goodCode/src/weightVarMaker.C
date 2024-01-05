@@ -7,9 +7,10 @@
 #include "../include/inputMap_MV.h"
 #include "../../myLibrary/commenFunction.h"
 
-WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData): m_era{era}, m_isData{isData}
+WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3): m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 {
     std::cout << "Initializing WeightVarMaker.....\n";
+    std::cout<<"m_era="<<m_era<<" m_isData="<<m_isData<<" m_isRun3="<<m_isRun3<<"\n";
 
     outTree->Branch("EVENT_prefireWeight", &EVENT_prefireWeight);
     outTree->Branch("EVENT_prefireWeight_up", &EVENT_prefireWeight_up);

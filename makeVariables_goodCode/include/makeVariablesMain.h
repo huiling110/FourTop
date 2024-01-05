@@ -89,11 +89,12 @@ private:
     JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};
     JetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 3};
     JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
+    JetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 5};
 
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};
     CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
-    WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData};
+    WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData, m_isRun3};
 };
 
 #endif

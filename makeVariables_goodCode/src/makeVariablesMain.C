@@ -33,6 +33,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         bjetMVarMaker.makeVariables(e);
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
+        bjetPNMVarMaker.makeVariables(e);
 
         // baseline selection
         // std::cout<<"jetsNum="<<jetVarMaker.getJet_num()<<"\n";
