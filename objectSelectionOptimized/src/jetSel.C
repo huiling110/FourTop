@@ -39,6 +39,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
+    //jetType 15: b-jetPNM, 16: b-jetPNT
     // JER: 0: nominal, 1: up, 2: down; 3: no JER
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
@@ -134,6 +135,9 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
                 // if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
                     continue;
             }
+        }
+        if(m_jetType == 15){
+
         }
         // find mostforwardjeteta
         if (m_jetType == 0 || m_jetType == 1)

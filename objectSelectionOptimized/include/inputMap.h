@@ -36,4 +36,6 @@ extern std::map<TString, double> DeepCSVM;
 
 extern std::map<TString, double> DeepCSVT;
 
+extern std::map<TString, std::array<Double_t, 2>> particleNetBMT;
+
 #endif

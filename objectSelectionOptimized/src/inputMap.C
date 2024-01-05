@@ -81,22 +81,20 @@ std::map<TString, double> DeepJetM = {
     {"2017", 0.3040},
     {"2018", 0.2783},
     {"2022", 0.2783},
-    {"2022preEE", 0.2783},
-    {"2022postEE", 0.2783},
+    {"2022preEE", 0.3086},
+    {"2022postEE", 0.3196},
 
 };
 
 std::map<TString, double> DeepJetT = {
     // std::map of tight WPs for DeepJet
-
     {"2016postVFP", 0.6377},
     {"2016preVFP", 0.6502},
     {"2017", 0.7476},
     {"2018", 0.7100},
     {"2022", 0.7100},
-    {"2022postEE", 0.7100},
-    {"2022postEE", 0.7100},
-
+    {"2022preEE", 0.7183},
+    {"2022postEE", 0.73},
 };
 
 
@@ -127,5 +125,13 @@ std::map<TString, double> DeepCSVT = {
     {"2016preVFP", 0.8819},
     {"2017", 0.7738},
     {"2018", 0.7665},
+
+};
+
+    //https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
+std::map<TString, std::array<Double_t, 2>> particleNetBMT = {
+    // https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
+    {"2022preEE", {0.245, 0.6734}},
+    {"2022postEE", {0.2605, 0.6915}},
 
 };
