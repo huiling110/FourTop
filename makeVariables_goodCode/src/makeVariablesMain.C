@@ -36,10 +36,14 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         bjetPNMVarMaker.makeVariables(e);
 
         // baseline selection
-        // std::cout<<"jetsNum="<<jetVarMaker.getJet_num()<<"\n";
+        Int_t bjetsM_num = 0;
+        if(!m_isRun3){
+            bjetsM_num = bjetMVarMaker.getJet_num();
+        }else{
+            bjetsM_num = bjetPNMVarMaker.getJet_num();
+        }
         if (baselineSel)
         {
-            // if (!(jetVarMaker.getHT() > 500 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
             if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 && bjetMVarMaker.getJet_num() >= 1))
             {
                 continue;
