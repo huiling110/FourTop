@@ -17,6 +17,8 @@ JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int
         {12, "bjetsM"},
         {13, "bjetsT"},
         {2, "forward"},
+        {15, "bjetsPNM"},
+        {16, "bjetsPNT"},
     };
 
     ULong64_t seed = 37428479;
@@ -92,7 +94,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
         if (m_jetType == 1)
         {
-            // if (!(e->Jet_jetId.At(j) > 2))//!!!
             if (!(ijet_jetID > 2))
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }

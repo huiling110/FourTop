@@ -107,6 +107,7 @@ private:
     JetSel bjetLSel{m_outTree, m_era, m_isRun3, 11};
     JetSel bjetMSel{m_outTree, m_era, m_isRun3, 12};
     JetSel bjetTSel{m_outTree, m_era, m_isRun3, 13};
+    JetSel bjetPNMSel{m_outTree, m_era, m_isRun3, 15};
     CopyBranch copyBranch{m_outTree, m_isRun3};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};
