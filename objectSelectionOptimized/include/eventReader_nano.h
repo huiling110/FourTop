@@ -18,6 +18,7 @@ public:
                                         luminosityBlock(reader, "luminosityBlock"),
                                         PV_npvsGood(reader, "PV_npvsGood"), //initializing for type dynamicBranchReader
                                         event(reader, "event"),
+                                        GenPart_genPartIdxMother(reader, "GenPart_genPartIdxMother"),
                                         Flag_goodVertices(reader, "Flag_goodVertices"),
                                         Flag_globalSuperTightHalo2016Filter(reader, "Flag_globalSuperTightHalo2016Filter"),
                                         Flag_HBHENoiseFilter(reader, "Flag_HBHENoiseFilter"),
@@ -27,7 +28,6 @@ public:
                                         Flag_BadPFMuonDzFilter(reader, "Flag_BadPFMuonDzFilter"),
                                         Flag_eeBadScFilter(reader, "Flag_eeBadScFilter"),
                                         Flag_ecalBadCalibFilter(reader, "Flag_ecalBadCalibFilter"),
-                                        GenPart_genPartIdxMother(reader, "GenPart_genPartIdxMother"),
                                         //
                                         // nElectron(reader, "nElectron"),
                                         Electron_pt(reader, "Electron_pt"),
@@ -98,8 +98,7 @@ public:
                                         Jet_eta(reader, "Jet_eta"),
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
-                                        Jet_btagDeepB(reader, "Jet_btagDeepB"),
-                                        Jet_hardonFlavour(reader, "Jet_hardonFlavour")
+                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour")
                                         // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
                                         //
 
@@ -153,21 +152,10 @@ public:
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
         //
+        OS::readPointerArray(Jet_btagDeepB, reader, "Jet_btagDeepB");
         OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(LHEScaleWeight, reader, "LHEScaleWeight");
 
-        //trying with nanoAOD v12
-        // PV_npvsGood = CreateTTreeReaderValue(reader, "PV_npvsGood");
-        // Electron_cutBased = CreateTTreeReaderValue(reader, "Electron_cutBased");
-        // Electron_tightCharge = CreateTTreeReaderValue(reader, "Electron_tightCharge");
-        // Electron_jetIdx = CreateTTreeReaderValue(reader, "Electron_jetIdx");
-        // Muon_jetIdx = CreateTTreeReaderValue(reader, "Muon_jetIdx");
-        // Muon_tightCharge = CreateTTreeReaderValue(reader, "Muon_tightCharge");
-        // Tau_decayMode = CreateTTreeReaderValue(reader, "Tau_decayMode");
-        // Tau_jetIdx = CreateTTreeReaderValue(reader, "Tau_jetIdx");
-        // Tau_charge = CreateTTreeReaderValue(reader, "Tau_charge");
-        // Jet_jetId = CreateTTreeReaderValue(reader, "Jet_jetId");
-        // Jet_btagDeepB = CreateTTreeReaderValue(reader, "Jet_btagDeepB"); //!!! 
     };
 
     // eventForNano(TTreeReader &reader)
@@ -230,7 +218,6 @@ public:
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
     TTreeReaderArray<Int_t> *GenPart_pdgId = nullptr;
-    // TTreeReaderArray<Int_t> *GenPart_genPartIdxMother = nullptr; //!!!Short_t in nanoAODv12
     DynamicBranchReader GenPart_genPartIdxMother;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;
     TTreeReaderValue<Float_t> *genWeight = nullptr;
@@ -324,14 +311,15 @@ public:
     TTreeReaderArray<Bool_t> Tau_idDecayModeNewDMs;
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
+    TTreeReaderArray<Float_t>* Jet_btagDeepB = nullptr;
     TTreeReaderArray<Float_t> Jet_pt;
     TTreeReaderArray<Float_t> Jet_mass;
     TTreeReaderArray<Float_t> Jet_eta;
     TTreeReaderArray<Float_t> Jet_phi;
     DynamicBranchReader Jet_jetId;//!!!
-    DynamicBranchReader Jet_btagDeepB;//!!! not existing
+    // DynamicBranchReader Jet_btagDeepB;//!!! not existing
     // TTreeReaderArray<Int_t> *Jet_hadronFlavour; //!!!UChar_t in nanoAOD v12
-    DynamicBranchReader Jet_hardonFlavour;
+    DynamicBranchReader Jet_hadronFlavour;
     // TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//!!!not existing in nanoAOD v12
 
     TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;

@@ -48,6 +48,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
+        Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t jetpt = e->Jet_pt.At(j);
         Double_t ijetMass = e->Jet_mass.At(j);
@@ -171,6 +172,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         if (!isData)
         {
             // jets_flavour.push_back(e->Jet_hadronFlavour->At(j));//!!!
+            jets_flavour.push_back(ijet_hadronFlavour);
         }
         else
         {
