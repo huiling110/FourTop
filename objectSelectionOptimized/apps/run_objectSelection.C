@@ -55,8 +55,8 @@ void run_objectSelection(
     Int_t TES = 0; //0: nominal
     // Int_t TES = 1;//up
     // Int_t TES = 2; //down
-    // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES); //no HLT selection, for HLT study
-    os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
+    os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES); //no HLT selection, for HLT study
+    // os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
 
     os.Terminate();
 

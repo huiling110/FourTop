@@ -220,19 +220,53 @@ samplesCrossSection = {
 
 
 Run3Samples = {
-   
-    'tttt': 'tttt', 
-    'TTto2L2Nu': 'tt',
-    'TTto4Q': 'tt',
-    'TTtoLNu2Q': 'tt',
+    'TTTT': 'tttt', 
     
-    # 'JetMET_G': 'jetHT',
+    'TTto2L2Nu': 'tt',
+    'TTto2L2Nu1': 'tt',
+    'TTto4Q': 'tt',
+    'TTto4Q1': 'tt',
+    'TTtoLNu2Q': 'tt',
+    'TTtoLNu2Q1': 'tt',
+    
+    'QCD_PT-50to80': 'qcd',
+    'QCD_PT-50to801': 'qcd',
+    'QCD_PT-80to120': 'qcd',
+    'QCD_PT-80to1201': 'qcd',
+    'QCD_PT-120to170': 'qcd',
+    'QCD_PT-120to1701': 'qcd',
+    'QCD_PT-170to300': 'qcd',
+    'QCD_PT-170to3001': 'qcd',
+    'QCD_PT-300to470': 'qcd',
+    'QCD_PT-300to4701': 'qcd',
+    'QCD_PT-470to600': 'qcd',
+    'QCD_PT-470to6001': 'qcd',
+    'QCD_PT-600to800': 'qcd',
+    'QCD_PT-600to8001': 'qcd',
+    'QCD_PT-800to1000': 'qcd',
+    'QCD_PT-800to10001': 'qcd',
+    'QCD_PT-1000to1400': 'qcd',
+    'QCD_PT-1000to14001': 'qcd',
+    'QCD_PT-1400to1800': 'qcd',
+    'QCD_PT-1400to18001': 'qcd',
+    'QCD_PT-1800to2400': 'qcd',
+    'QCD_PT-1800to24001': 'qcd',
+    'QCD_PT-2400to3200': 'qcd',
+    'QCD_PT-2400to32001': 'qcd',
+    'QCD_PT-3200': 'qcd',
+    'QCD_PT-32001': 'qcd',
+    
     'JetHT2022C': 'jetHT',
-    'JetMet2022C': 'jetHT',
-    'JetMet2022D': 'jetHT',
+    'JetMET2022C': 'jetHT',
+    'JetMET2022D': 'jetHT',
     #2022postEE
-    'JetMet2022E': 'jetHT',
-    'JetMet2022F': 'jetHT',
-    'JetMet2022G': 'jetHT',
+    'JetMET2022E': 'jetHT',
+    'JetMET2022F': 'jetHT',
+    'JetMET2022G': 'jetHT',
+    
+    #Muon
+    'Muon2022E': 'singleMu',
+    'Muon2022F': 'singleMu',
+    'Muon2022G': 'singleMu',
     
 }

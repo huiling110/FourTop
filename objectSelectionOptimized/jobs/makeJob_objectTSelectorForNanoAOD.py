@@ -36,7 +36,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v64PreAndHLTSel_TESUp/'
 # jobVersionName = 'v64PreAndHLTSel_TESDown/'
 # jobVersionName = 'v65TheoryWeightAdded/'
-jobVersionName = 'v66TheoryWeightAdded/'
+# jobVersionName = 'v66TheoryWeightAdded/'
+jobVersionName = 'v0for2022NoHLT/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -46,7 +47,7 @@ jobVersionName = 'v66TheoryWeightAdded/'
 
 
 def main():
-    era = '2016'
+    # era = '2016'
     # era = '2016APV'
     # era = '2017'
     # era = '2018'
@@ -54,11 +55,14 @@ def main():
     # era = '2022_13p6/NanoPost'
     # era = '2022_13p6/crabNanoPost_2022PostEE/2022postEE'
     # era = '2022_13p6/NanoPost/2022preEE'
+    era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # onlyMC = True
-    dataList = ['jetHT']
+    # dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
     # dataList = [ 'JetHT', 'JetMet'] # 2022
     # dataList = ['singleMu'] 
+    dataList = ['JetMET', 'Muon']
+    
 
     print( "era: ", era )
 
@@ -80,7 +84,6 @@ def main():
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
-            # makeJobsInDir( inputDirData, outputDir, True, idata, eventSelection, isHuiling, era )
             makeJobsInDir( inputDirData, outputDir, True, idata,  eraOut )
 
     makeSubAllJobs( jobsDir , eraOut)
@@ -95,7 +98,9 @@ def getInputOutDir( jobVersionName, era):
         '2018': 'UL2018',
         '13p6TeV/2022':'Prompt2022',
         '2022_13p6/NanoPost/2022preEE': 'ReReco2022PreEE',
-        '2022_13p6/crabNanoPost_2022PostEE/2022postEE': 'Prompt2022postEE'
+        '2022_13p6/crabNanoPost_2022PostEE/2022postEE': 'Prompt2022postEE',
+        '2022_13p6/crabNanoPost_2022postEE_v3': '2022postEE',
+        '2022_13p6/crabNanoPost_2022preEE_v3': '2022preEE',
     }
     inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
     outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
