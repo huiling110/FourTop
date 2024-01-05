@@ -48,7 +48,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     clearBranch();
     calJER_SF(e, isData, JER);
 
-    // Double_t MaxMostForwardJetEta = -99;
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
@@ -98,8 +97,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
-        // if (deepJet)
-        // {
              // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
         if (m_jetType == 11)
         {
@@ -120,47 +117,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(1)))
                 continue;
         }
-        // }
-        // else
-        // {
-        //     if (m_jetType == 11)
-        //     {
-        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVL[m_era]))//!!!
-        //             continue;
-        //     }
-        //     if (m_jetType == 12)
-        //     {
-        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVM[m_era]))
-        //             continue;
-        //     }
-        //     if (m_jetType == 13)
-        //     {
-        //         // if (!(e->Jet_btagDeepB.At(j) > DeepCSVT[m_era]))
-        //             continue;
-        //     }
-        // }
-        // find mostforwardjeteta
-        // if (m_jetType == 0 || m_jetType == 1)
-        // { // normal jet
-        //     if (fabs(ijetEta) > MaxMostForwardJetEta)
-        //     {
-        //         MaxMostForwardJetEta = fabs(ijetEta);
-        //     } // MostForwardJetEta branch in new tree and SB.
-        //     if (!(fabs(ijetEta) < 2.4))
-        //         continue;
-        // }
-        // if (m_jetType == 2)
-        // { // forwardjet
-        //     if (!(fabs(ijetEta) >= 2.4 && fabs(ijetEta) <= 5))
-        //         continue;
-        //     if (!(jetpt > 25))
-        //         continue;
-        //     if (fabs(ijetEta) >= 2.7 && fabs(ijetEta) <= 3.0)
-        //     {
-        //         if (!(jetpt > 60.0))
-        //             continue;
-        //     }
-        // }
         // overlap removal
         Bool_t removeMu = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeE = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), eEtaVec, ePhiVec);
