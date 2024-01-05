@@ -45,7 +45,7 @@ def main():
         'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8',
         'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
     ]
-    copyT2ToT3(T2Dir, outDir, finishedPros, True)
+    # copyT2ToT3(T2Dir, outDir, finishedPros, True)
    
     #for data
     # outDir = outDir + 'crabNanoPost_2022preEE_v3/data/'
@@ -76,11 +76,12 @@ def main():
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/' #!!!need in previous nanoAOD tool step make data MC outDir consistent!
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/' 
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/' 
-    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/'
-    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/'
-    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
-    mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
-    # sortT3Dir( T3Dir, mvDir, True)
+    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
+    mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
+    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
+    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
+    sortT3Dir( T3Dir, mvDir, True)
+    # sortT3Dir( T3Dir, mvDir, False)
     
 def sortT3Dir( initDir, outDir, isData=False):
     for ipro in os.listdir(initDir):
