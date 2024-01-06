@@ -28,14 +28,16 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v62addTauJetVars/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v63smallFixJER/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinA_v64PreAndHLTSel/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFBinA_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/",
     // TString process = "TTto4Q",
     // TString process = "TTto2L2Nu",
-    TString process = "tttt",
+    // TString process = "tttt",
+    TString process = "TTTT",
     // TString process = "jetHT_2018a",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
@@ -45,7 +47,7 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l; 1: 1tau0l
     Bool_t isTest = kTRUE)
-    // Bool_t isTest = kFALSE)
+// Bool_t isTest = kFALSE)
 {
 
     TStopwatch t;
@@ -62,7 +64,7 @@ void run_treeAnalyzer(
     UInt_t entry = 0;
     if (isTest)
     {
-        entry = 100000;
+        entry = 1000;
     }
     writeHist.LoopTree(entry); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();

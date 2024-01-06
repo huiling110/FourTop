@@ -110,6 +110,7 @@ public:
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
+    myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};

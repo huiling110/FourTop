@@ -117,7 +117,7 @@ void WH_forDataMC::Init()
 
     // jets_HT_class.print();
     // jets_HT_class.setDir(m_outFile);
-    histRegionsVectSetDir(histsForRegion_vec, m_outFile);
+    WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
     std::cout << "Done initializing\n";
     std::cout << "\n";
@@ -153,7 +153,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             // continue;
         // }
 
-        if (!(baselineSelection(e)))
+        if (!(baselineSelection(e, m_isRun3)))
         {
             continue;
         }
@@ -163,10 +163,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //     continue;
         // }
 
+        Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
         // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
         // std::cout << "basicWeight=" << basicWeight << "\n";
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // experimenting
         // Double_t basicWeight = 1.0;
         // if (!m_isData){
@@ -185,23 +186,23 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
             Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
         }
 
         // 1tau0l CR
         Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
         Bool_t is1tau0lCRc = SR1tau1lSel(e, 8, m_isRun3);
         Bool_t is1tau0lCRb = SR1tau1lSel(e, 9, m_isRun3);
-        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lMR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lVR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lMR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lVR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCR", basicWeight, m_isData);
 
         // 1tau1lCR
         Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
         Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3);
-        histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR1", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR1", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
@@ -212,10 +213,11 @@ void WH_forDataMC::Terminate()
     std::cout << "Termintate: ..........................................\n";
     if (!m_isData)
     {
-        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
+        // TString processName = 
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
-        histRegionsVectScale(histsForRegion_vec, processScale);
+        WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };
     // for(auto & histRe: histsForRegion_vec){
     //     histRe->print();

@@ -299,45 +299,45 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lCRbLTau = isTauLNum && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
         Bool_t is1tau0lCRbLTauNotTGen = is1tau0lCRbLTau && noTauT && isTauLNumGen;
 
-        histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
 
         if (!m_isData)
         {
-            histRegionVectFill(histsForRegion_vec, is1tau0lSR && isTauTNumGen, "1tau0lSRGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lVR && isTauTNumGen, "1tau0lVRGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRc && isTauTNumGen, "1tau0lCRcGen", basicWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRb && isTauTNumGen, "1tau0lCRbGen", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR && isTauTNumGen, "1tau0lSRGen", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR && isTauTNumGen, "1tau0lVRGen", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc && isTauTNumGen, "1tau0lCRcGen", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb && isTauTNumGen, "1tau0lCRbGen", basicWeight, m_isData);
 
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
         }
         else
         {
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);           // to fill weight for data
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_up", FRWeight_up, !m_isData);     // to fill weight for data
-            histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_down", FRWeight_down, !m_isData); // to fill weight for data
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted", FRWeight, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted", FRWeight, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted", FRWeight, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-            histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);           // to fill weight for data
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_up", FRWeight_up, !m_isData);     // to fill weight for data
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_down", FRWeight_down, !m_isData); // to fill weight for data
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted", FRWeight, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_up", FRWeight_up, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_down", FRWeight_down, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted", FRWeight, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_up", FRWeight_up, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_down", FRWeight_down, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted", FRWeight, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_down", FRWeight_down, !m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
         }
     }
     std::cout << "end of event loop\n\n";
@@ -348,10 +348,10 @@ void WH_fakeRate::Terminate()
     std::cout << "Termintate: ..........................................\n";
     if (!m_isData)
     {
-        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
-        histRegionsVectScale(histsForRegion_vec, processScale);
+        WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };
     for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
     {

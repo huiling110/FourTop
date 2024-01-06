@@ -83,7 +83,7 @@ void treeAnalyzer::Init()
 
         // book MVA reader
         TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
-        readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
+        WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
         // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
         if (variablesName.size() == variablesForReader.size())
         {
@@ -273,7 +273,7 @@ void treeAnalyzer::Terminate()
 
     if (!m_isData)
     {
-        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         SR1tau1lSys.scale(processScale);
     };

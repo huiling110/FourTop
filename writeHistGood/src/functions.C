@@ -1,6 +1,10 @@
 #include <fstream>
 #include "../include/functions.h"
 
+namespace WH
+{
+
+
 //put in myLib
 Double_t getGenSum(TString inputFile)
 {
@@ -114,4 +118,7 @@ void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY,
             nu->Fill(varX, varY);
         }
     }
+}
+
+
 }

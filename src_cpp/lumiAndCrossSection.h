@@ -17,8 +17,8 @@ inline const std::map<TString, Double_t> lumiMap = {
     {"2017", 41480.0},
     {"2018", 59830.0},
     {"2022", 	37300},
-    {"2022preEE", 	9600}, //!!! only for 2022CD 
-    {"2022postEE", 	27700}, //!!! only for 2022CD 
+    {"2022preEE", 	785}, 
+    {"2022postEE", 	26337}, 
 };
 
 inline const std::map<TString, Double_t> crossSectionMap = {
@@ -61,9 +61,35 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     // {"TTto2L2Nu", 762.1},
     // {"TTtoLNu2Q", 762.1},
     // {"TTto4Q", 741.8	},
-    {"TTto2L2Nu", 97.8}, //!!!to be updated, calculated with the same BR as 13TeV
-    {"TTtoLNu2Q", 404.6},
-    {"TTto4Q", 377.96	},
+    // {"TTto2L2Nu", 97.8}, //!!!to be updated, calculated with the same BR as 13TeV
+    // {"TTtoLNu2Q", 404.6},
+    // {"TTto4Q", 377.96	},
+    //https://github.com/LPC-HH/HH4b/blob/2cf6b406d71b0a4637b483c4879613f8c8eda6ef/src/HH4b/xsecs.py#L15
+    // QCD
+    // also see https://indico.cern.ch/event/1324651/contributions/5576411/attachments/2713143/4711677/2023_09_14_PPD_DijetsAndPairedDijets_JECAndMCNeeds.pdf page 22
+    {"QCD_PT-30to50", 112800000.0},
+    {"QCD_PT-50to80", 16660000.0},
+    {"QCD_PT-80to120", 2507000.0},
+    {"QCD_PT-120to170", 441100.0},
+    {"QCD_PT-170to300", 113400.0},
+    {"QCD_PT-300to470", 7589.0},
+    {"QCD_PT-470to600", 626.4},
+    {"QCD_PT-600to800", 178.6},
+    {"QCD_PT-800to1000", 30.57},
+    {"QCD_PT-1000to1400", 8.92},
+    {"QCD_PT-1400to1800", 0.8103},
+    {"QCD_PT-1800to2400", 0.1148},
+    {"QCD_PT-2400to3200", 0.007542},
+    {"QCD_PT-3200", 0.0002331},
+    // Top},
+    // https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO},
+    // cross check these?},
+    // https://cms.cern.ch/iCMS/analysisadmin/cadilines?line=TOP-22-012},
+    {"TTto4Q", 410.89 },//923.6 * 0.667 * 0.667  // = 410.89  (762.1)},
+    {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
+    {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
+    //TTTT run 3
+    {"TTTT", 0.01197},//!!!to be updated
 };
 
 // inline const std::map<TString, double> DeepJetM = {

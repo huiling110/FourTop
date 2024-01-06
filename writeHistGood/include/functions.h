@@ -13,6 +13,8 @@
 
 // common functions for WH
 
+namespace WH{
+
 Double_t getGenSum(TString inputFile);
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll);
 
@@ -37,5 +39,8 @@ void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t v
 //         }
 //     }
 // };
+
+
+}
 
 #endif

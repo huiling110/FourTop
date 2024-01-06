@@ -162,40 +162,40 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->musTopMVAT_weight.v()) * (e->btagWPMedium_weight.v());
         }
 
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon, "baseline1Muon", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon, "baseline1Muon", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
         //seperate by b-jets
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is1b, "baseline1Muon1b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is1b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is1b , "baseline1b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is1b, "baselineAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is1b, "baseline1Muon1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is1b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1b , "baseline1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is1b, "baselineAndHLT1b", basicWeight, m_isData);
         //2b
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1MuonAndHLT2b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is2b , "baseline2b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is2b, "baselineAndHLT2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1MuonAndHLT2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is2b , "baseline2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is2b, "baselineAndHLT2b", basicWeight, m_isData);
         //>=3bs
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && is3b, "baseline1Muon3b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is3b, "baseline1MuonAndHLT3b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && is3b , "baseline3b", basicWeight, m_isData);
-        histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baselineAndHLT3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is3b, "baseline1Muon3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is3b, "baseline1MuonAndHLT3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is3b , "baseline3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baselineAndHLT3b", basicWeight, m_isData);
 
         // 2D
         if (baseline && is1muon)
         {
             if (e->bjetsM_num.v() == 1)
             {
-                fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                WH::fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
             if (e->bjetsM_num.v() == 2)
             {
-                fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                WH::fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
             if (e->bjetsM_num.v() >= 3 && e->bjetsM_num.v() <= 7)
             {
-                fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                WH::fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
         }
 
@@ -207,10 +207,10 @@ void WH_HLTeff::Terminate(){
     std::cout << "Termintate: ..........................................\n";
     if (!m_isData)
     {
-        Double_t genWeightSum = getGenSum(m_inputDir + m_processName + ".root");
+        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
-        histRegionsVectScale(histsForRegion_vec, processScale);
+        WH::histRegionsVectScale(histsForRegion_vec, processScale);
 
         b1HT6pt_de->Scale(processScale);
         b1HT6pt_nu->Scale(processScale);

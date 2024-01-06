@@ -1,10 +1,15 @@
 // 
 #include "../include/commenSelectionAndWeight.h"
 
-Bool_t baselineSelection(event *event)
+Bool_t baselineSelection(event *event, const Bool_t isRun3)
 {
     // Bool_t pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
-    Bool_t pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+    Bool_t pass = kFALSE;
+    if (isRun3){
+        pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+    }else{
+        pass = event->jets_num.v() >= 6 && event->bjetsPNM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
+    }
     return pass;
 }
 
