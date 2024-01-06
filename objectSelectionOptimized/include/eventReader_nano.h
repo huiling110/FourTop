@@ -154,6 +154,9 @@ public:
         //
         OS::readPointerArray(Jet_btagDeepB, reader, "Jet_btagDeepB");
         OS::readPointerArray(Jet_btagPNetB, reader, "Jet_btagPNetB");
+        //
+        OS::readPointer(fixedGridRhoFastjetAll, reader, "fixedGridRhoFastjetAll");
+        OS::readPointer(Rho_fixedGridRhoFastjetAll, reader, "Rho_fixedGridRhoFastjetAll");
         OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(LHEScaleWeight, reader, "LHEScaleWeight");
 
@@ -322,7 +325,8 @@ public:
     // DynamicBranchReader Jet_btagDeepB;//!!! not existing
     // TTreeReaderArray<Int_t> *Jet_hadronFlavour; //!!!UChar_t in nanoAOD v12
     DynamicBranchReader Jet_hadronFlavour;
-    // TTreeReaderValue<Float_t> fixedGridRhoFastjetAll;//!!!not existing in nanoAOD v12
+    TTreeReaderValue<Float_t>* fixedGridRhoFastjetAll = nullptr;//!!!not existing in nanoAOD v12
+    TTreeReaderValue<Float_t>* Rho_fixedGridRhoFastjetAll = nullptr;//nanoAODv12
 
     TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;
     TTreeReaderArray<Float_t> *LHEScaleWeight = nullptr;

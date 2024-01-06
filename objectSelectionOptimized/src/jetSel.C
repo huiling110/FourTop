@@ -172,6 +172,12 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
     Double_t iSF = 1.0; //SF for JER, I think JER is derived on top of JES
     Double_t iSF_JESuncer = 0.0;
     const Double_t MIN_JET_ENERGY = 1e-2;
+        Double_t rho = 0.0;
+        if(!m_isRun3){
+            rho = **e->fixedGridRhoFastjetAll;
+        }else{
+            rho = **e->Rho_fixedGridRhoFastjetAll;
+        }
     for (UInt_t i = 0; i < e->Jet_pt.GetSize(); i++)
     {
         Double_t ieta = e->Jet_eta.At(i);
@@ -201,9 +207,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
             break;
         }
 
-        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, *e->fixedGridRhoFastjetAll}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
-        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
-        // Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, 0.4}}); // ????
+        Double_t ijet_res = corr_jerResolution->evaluate({{ipt, ieta, rho}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
         // what is this rho? average energy density , for a event
 
         // find gen matching
