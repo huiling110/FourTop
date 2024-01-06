@@ -17,8 +17,9 @@ import usefulFunc as uf
 def main():
     # year = '2022'
     # year = '2016'
-    year = '2018'
+    # year = '2018'
     # year = '2017'
+    year = '2022postEE'
     # inVersion = 'v0Testing'
     # inVersion = 'v1newCrab'
     # inVersion = 'v59newOScode'
@@ -35,7 +36,7 @@ def main():
     # inVersion = 'v64PreAndHLTSel_TESDown'
     # inVersion = 'v64PreAndHLTSel_TESUp'
     # inVersion = 'v65TheoryWeightAdded'
-    inVersion = 'v66TheoryWeightAdded'
+    # inVersion = 'v66TheoryWeightAdded'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -48,7 +49,7 @@ def main():
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
     # outVersion = 'v0NewHLTSF'
     # outVersion = 'v0NewHLTSFBinA'
     # outVersion = 'v0NewHLTSFBinD'
@@ -59,14 +60,15 @@ def main():
     # outVersion = 'v2cut1tau1l'
     
     #2022
-    # year = '2022postEE'
+    year = '2022postEE'
     # year = '2022preEE'
     # inVersion = 'v0preSel'
-    # outVersion = 'v0baseline'
+    inVersion = 'v0for2022baseline'
+    outVersion = 'v0baseline'
     
     
-    # isRun3 = True
-    isRun3 = False
+    isRun3 = uf.isRun3Era(year)
+    # isRun3 = False
     justMC = False
     
     
@@ -76,7 +78,6 @@ def main():
 
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
 
-    # subAllName = 'subAllofAll.sh'
     subAllName = year+'subAllofAll.sh'
     subAllofAllName = jobDir+ '/'+ subAllName
     subAllofAll = open( subAllofAllName, 'w')
@@ -117,8 +118,8 @@ def getInOutDic( year, inVersion, outVersion, justMC ):
         '2018': 'UL2018',
         # '2022': 'Prompt2022',
         '2022': 'ReReco2022PreEE',
-        '2022preEE': 'ReReco2022preEE',
-        '2022postEE': 'Prompt2022postEE',
+        '2022preEE': '2022preEE',
+        '2022postEE': '2022postEE',
     }
     inOutDirMap = {}
 #python dict

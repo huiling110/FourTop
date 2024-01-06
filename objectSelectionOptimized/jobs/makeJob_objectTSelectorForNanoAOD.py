@@ -37,7 +37,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v64PreAndHLTSel_TESDown/'
 # jobVersionName = 'v65TheoryWeightAdded/'
 # jobVersionName = 'v66TheoryWeightAdded/'
-jobVersionName = 'v0for2022NoHLT/'
+# jobVersionName = 'v0for2022NoHLT/'
+jobVersionName = 'v0for2022baseline/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -61,7 +62,8 @@ def main():
     # dataList = [ 'jetHT', 'singleMu'] 
     # dataList = [ 'JetHT', 'JetMet'] # 2022
     # dataList = ['singleMu'] 
-    dataList = ['JetMET', 'Muon']
+    # dataList = ['JetMET', 'Muon']
+    dataList = ['JetMET']
     
 
     print( "era: ", era )
