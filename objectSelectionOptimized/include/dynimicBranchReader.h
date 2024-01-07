@@ -87,7 +87,7 @@ public:
         TBranch* branch = reader.GetTree()->GetBranch(branchName);
         if (!branch) {
             // throw std::runtime_error("Branch not found");
-            std::cout << "!!!Branch not found!!!\n";
+            std::cout << "!!!Branch not found: "<<branchName<<"!!!\n";
             branchReader = nullptr;
         }
 
@@ -186,6 +186,16 @@ public:
         else
         {
             return std::any();
+        }
+    }
+
+    Bool_t isNull() const{ //const member function
+        if (branchReader)
+        {
+            return kFALSE;
+        }else
+        {
+            return kTRUE;
         }
     }
 };

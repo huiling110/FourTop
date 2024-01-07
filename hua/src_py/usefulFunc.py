@@ -157,7 +157,7 @@ def getSummedHists( inputDir, regionsList, variable='jetsNumber_forYieldCount', 
     
     for ifile in mcFileList+dataFileList:
         ifileName = ifile.split('.root')[0]
-        if ('singleMu' in ifileName) or ('jetHT' in ifileName) or ('JetMet' in ifileName) or ('JetHT' in ifileName):
+        if ('singleMu' in ifileName) or ('jetHT' in ifileName) or ('JetMET' in ifileName) or ('JetHT' in ifileName) or ('Muon' in ifileName):
             isdata = True
         else:
             isdata = False
@@ -476,10 +476,10 @@ def print_dict_structure(dictionary, indent=0):
 
 #!new and better
 def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=False):
+    #return sumProHists[var][region][sumPro]
     print('start to get hists and add them from root files')
     allSubPro = list(gq.histoGramPerSample.keys() )
     allDic =  gq.histoGramPerSample
-    # toGetSubPro =
     toGetSubHist = {} 
     for isub in allSubPro:
         isdata = isData(isub)

@@ -48,6 +48,9 @@ namespace OS
     template <typename Y>
     Int_t getValForDynamicReader(const Bool_t isRun3, const DynamicBranchReader& reader, const UInt_t i){
         Int_t val = 0;
+        if (reader.isNull()){
+            return val;
+        }
         if(isRun3){
             // val = std::any_cast<UChar_t>(reader.at(i));
             val = std::any_cast<Y>(reader.at(i));

@@ -131,8 +131,8 @@ def main():
     sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets', 'qcd']
-    # legendOrder = ['tt'] #!!!need to improve here
+    # legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets', 'qcd']
+    legendOrder = ['tt', 'qcd', 'tttt'] #!!!need to improve here
     
     hasFakeTau = checkRegionGen(regionList)
     # if hasFakeTau:
