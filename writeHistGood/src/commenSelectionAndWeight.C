@@ -49,55 +49,61 @@ Bool_t HLTSel(event *e, const TString m_era){
 Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
 {
     Int_t lepNum= 1;
-    if(!isRun3){
-       lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
-    }else{
-       lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
+    Int_t bjetsMNum = 0;
+    if (!isRun3)
+    {
+        lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+        bjetsMNum = e->bjetsM_num.v();
+    }
+    else
+    {
+        lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
+        bjetsMNum = e->bjetsPNM_num.v();
     }
     Bool_t isPass = kFALSE;
     switch (channel)
     {
     case 0: // 1tau1lSR
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 7 && e->bjetsM_num.v() >= 2;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum >= 2;
         break;
     case 1: // 1tau0lSR
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() >= 2;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 2;
         break;
     case 2: // 1tau1lCR0
         // Bool_t is1tau1lCR0 = *tausT_num == 1 && lepNum == 1 && *jets_num >= 6 && *bjetsM_num == 1; // CR1 in slides
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && e->bjetsM_num.v() == 1;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum == 1;
         break;
     case 3: // 1tau1lCR1
         // Bool_t is1tau1lCR1 = *tausT_num == 1 && lepNum == 1 && *jets_num >= 7 && *bjetsM_num == 0;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 7 && e->bjetsM_num.v() == 0;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum == 0;
         break;
     case 4: // 1tau1lCR2
         // Bool_t is1tau1lCR2 = *tausT_num == 1 && lepNum == 1 && *jets_num == 6 && *bjetsM_num >= 2;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() == 6 && e->bjetsM_num.v() >= 2;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum >= 2;
         break;
     case 5: // 1tau1lCR3
         // Bool_t is1tau1lCR3 = *tausT_num == 1 && lepNum == 1 && *jets_num == 6 && *bjetsM_num == 1;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() == 6 && e->bjetsM_num.v() == 1;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum == 1;
         break;
     case 6: // 1tau0lCR
         // Bool_t is1tau0lCR = *tausT_num == 1 && lepNum == 0 && *jets_num >= 8 && *bjetsM_num == 0;
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 0;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 0;
         break;
     case 7: // 1tau0lVR
         // Bool_t is1tau0lVR = *tausT_num == 1 && lepNum == 0 && *jets_num >= 8 && *bjetsM_num == 1;
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 1;
         break;
     case 8: // 1tau0lCRc
         // Bool_t is1tau0lCRc = *tausT_num == 1 && lepNum == 0 && *jets_num < 8 && *bjetsM_num >= 2;
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() >= 2;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 2;
         break;
     case 9: // 1tau0lCRb
         // Bool_t is1tau0lCRb = *tausT_num == 1 && lepNum == 0 && *jets_num < 8 && *bjetsM_num == 1;
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 1;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 1;
         break;
     case 10: // 1tau0lCRa
         // Bool_t is1tau0lCRa = *tausT_num == 1 && lepNum == 0 && *jets_num < 8 && *bjetsM_num= 0;
-        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && e->bjetsM_num.v() == 0;
+        isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 0;
         break;
 
     default:

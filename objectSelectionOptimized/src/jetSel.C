@@ -9,6 +9,11 @@ JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
+    for (auto &corr : *cset_jerSF)  
+    {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
+
 
     std::map<Int_t, TString> jetTypeMap = {
         {0, "jets"},

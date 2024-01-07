@@ -102,6 +102,15 @@
     "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
     ],
     "window.zoomLevel": 0.2,
+    "files.exclude": {
+        "**/*.o": true
+    },
+    "files.watcherExclude": {
+        "**.root": true,
+        "**/*.o": true,
+        "**/*.out": true,
+        "**/jobs/**/*.sh": true
+    },
 
 
 }

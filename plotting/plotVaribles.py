@@ -2,17 +2,15 @@
 import math
 import os
 from array import array
-
 import numpy as np
+
 import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
-# from setTDRStyle import addCMSTextToCan, setTDRStyle
-from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
-                                samplesCrossSection, summedProcessList)
+# from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
+                                # samplesCrossSection, summedProcessList)
 # from writeCSVforEY import replaceBgWithGen
 import writeCSVforEY as wc
-
 import setTDRStyle as ss
 
 
