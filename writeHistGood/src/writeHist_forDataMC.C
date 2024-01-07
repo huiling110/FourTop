@@ -214,14 +214,13 @@ void WH_forDataMC::Terminate()
     if (!m_isData)
     {
         Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
-        // TString processName = 
-        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
-        std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<"\n";
+        TString processName = WH::getProcessName(m_processName, m_isRun3);
+        std::cout<<"newProcessName="<<processName<<"\n";
+        // Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
+        std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
         WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };
-    // for(auto & histRe: histsForRegion_vec){
-    //     histRe->print();
-    // }
     for(UInt_t i=0; i<histsForRegion_vec.size(); i++){
         if(i>0){
             continue;

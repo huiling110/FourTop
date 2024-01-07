@@ -120,5 +120,16 @@ void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY,
     }
 }
 
+TString getProcessName(const TString processName, Bool_t isRun3){
+    TString processNameNew = processName;
+    if (isRun3){
+        //check if processNameNew ends with '1'
+        if (processNameNew.EndsWith("1")){
+            processNameNew = processNameNew(0, processNameNew.Length()-1);
+        }
+    }
+    return processNameNew;
+}
+
 
 }

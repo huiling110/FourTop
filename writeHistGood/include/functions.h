@@ -27,6 +27,7 @@ void fillDeNu(Bool_t ifPass, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight
 void fillDeNu(Bool_t ifPass, TH2D *&de, TH2D *&nu, Double_t varX, Double_t varY, Double_t weight, const Bool_t isData=kFALSE);
 void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t var, Double_t weight);
 
+TString getProcessName(const TString processName, Bool_t isRun3);
 // template <T>
 // void fillDeNu(Bool_t ifPass, T *&de, T *&nu, std::vector<Double_t> varWeight)
 // {
@@ -39,8 +40,6 @@ void fillDeNu(Bool_t ifPassNu, Bool_t ifPassDe, TH1D *&de, TH1D *&nu, Double_t v
 //         }
 //     }
 // };
-
-
 }
 
 #endif
