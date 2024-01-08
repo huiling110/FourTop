@@ -34,7 +34,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    Int_t eventNum = 1000)
+    Int_t eventNum = 100)
 // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {

@@ -58,9 +58,6 @@ inline const std::map<TString, Double_t> crossSectionMap = {
 
     //2022 923.6pb; 1pb=1000fb
     //https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
-    // {"TTto2L2Nu", 762.1},
-    // {"TTtoLNu2Q", 762.1},
-    // {"TTto4Q", 741.8	},
     // {"TTto2L2Nu", 97.8}, //!!!to be updated, calculated with the same BR as 13TeV
     // {"TTtoLNu2Q", 404.6},
     // {"TTto4Q", 377.96	},

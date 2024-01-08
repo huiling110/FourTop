@@ -18,6 +18,7 @@ public:
     void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t ifJER, const Int_t sysJEC);
 
     void calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys=0);
+    void calJES_SF(const eventForNano *e, const Int_t sys);
 
     void calTauSF_new(const eventForNano *e, const Bool_t isData);
     void clearBranch();
@@ -31,6 +32,7 @@ private:
     const Bool_t m_isRun3;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
     std::vector<Double_t> JER_SF_new;
+    std::vector<Double_t> JES_SF;
     std::vector<Double_t> jets_JESuncer;
     std::mt19937 m_random_generator;
 

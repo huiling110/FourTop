@@ -98,7 +98,8 @@ public:
                                         Jet_eta(reader, "Jet_eta"),
                                         Jet_phi(reader, "Jet_phi"),
                                         Jet_jetId(reader, "Jet_jetId"),
-                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour")
+                                        Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
+                                        Jet_area(reader, "Jet_area")
                                         // fixedGridRhoFastjetAll(reader, "fixedGridRhoFastjetAll")
                                         //
 
@@ -325,7 +326,8 @@ public:
     // DynamicBranchReader Jet_btagDeepB;//!!! not existing
     // TTreeReaderArray<Int_t> *Jet_hadronFlavour; //!!!UChar_t in nanoAOD v12
     DynamicBranchReader Jet_hadronFlavour;
-    TTreeReaderValue<Float_t>* fixedGridRhoFastjetAll = nullptr;//!!!not existing in nanoAOD v12
+    TTreeReaderArray<Float_t> Jet_area;
+    TTreeReaderValue<Float_t> *fixedGridRhoFastjetAll = nullptr;    //!!!not existing in nanoAOD v12
     TTreeReaderValue<Float_t>* Rho_fixedGridRhoFastjetAll = nullptr;//nanoAODv12
 
     TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;

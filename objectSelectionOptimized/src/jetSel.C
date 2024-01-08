@@ -50,7 +50,9 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JER: 0: nominal, 1: up, 2: down; 3: no JER
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
-    calJER_SF(e, isData, JER);
+
+    calJES_SF(e, sysJEC);
+    // calJER_SF(e, isData, JER);
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
@@ -78,11 +80,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             break;
         }
         //first JES and then JER
-        if (JER<3)
-        {
-            jetpt = jetpt * JER_SF_new.at(j);
-            ijetMass = ijetMass * JER_SF_new.at(j);
-        }
+        // if (JER<3)//!!!turn off temporarily
+        // {
+        //     jetpt = jetpt * JER_SF_new.at(j);
+        //     ijetMass = ijetMass * JER_SF_new.at(j);
+        // }
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -249,6 +251,32 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
         jets_JESuncer.push_back(iSF_JESuncer);
     }
 };
+
+void JetSel::calJES_SF(const eventForNano* e, const Int_t sys)
+{
+    JES_SF.clear();
+    Double_t iJES_SF = 1.0;
+    if (m_isRun3)
+    {
+        auto corr_JESSF_L1 = cset_jerSF->at(jesTagMC.at(m_era).at(0).Data()); //L1FastJet
+        auto corr_JESSF_L2 = cset_jerSF->at(jesTagMC.at(m_era).at(1).Data());
+        auto corr_JESSF_L3 = cset_jerSF->at(jesTagMC.at(m_era).at(2).Data());
+
+        Double_t pho = **e->Rho_fixedGridRhoFastjetAll;
+        for (UInt_t j = 0; j<e->Jet_pt.GetSize(); ++j){
+            Double_t ieta = e->Jet_eta.At(j);
+            Double_t ipt = e->Jet_pt.At(j);
+            Double_t iArea = e->Jet_area.At(j);
+            // for(auto &input: corr_JESSF->inputs()){
+            //     std::cout<<"input: "<<input.name()<<"\n";
+            // }
+            iJES_SF = corr_JESSF_L1->evaluate({ iArea, ieta, ipt, pho});//!!!seems all 1
+            Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({ ieta, ipt});
+            std::cout<< "iJES_SFL1: " << iJES_SF<<" iJES_SF_L2: "<<iJES_SF_L2 <<" L3:"<<corr_JESSF_L3->evaluate({ieta, ipt})<< "\n";
+            JES_SF.push_back(iJES_SF);
+        }
+    }
+}
 
 void JetSel::clearBranch()
 {
