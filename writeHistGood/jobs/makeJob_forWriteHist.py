@@ -103,7 +103,8 @@ def main():
     # version = 'v3dataMC_HT600HLTSFBinD'
     # version = 'v3dataMC_HT600HLTSFBinE'
     # version = 'v3dataMC_HT550HLTSFBinF'
-    version = 'v0dataMC_noCorrection'
+    # version = 'v0dataMC_noCorrection'
+    version = 'v0dataMC_noCorrection_MCHadded'
     # channel = 0
     
         
