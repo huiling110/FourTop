@@ -37,7 +37,6 @@ void run_objectSelection(
     Int_t eventNum = 1000)
 // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
-// Bool_t istest = kTRUE)
 {
     TStopwatch t;
     t.Start();
