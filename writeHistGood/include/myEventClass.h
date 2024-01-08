@@ -262,6 +262,7 @@ private:
         {tausT_genTauNum.n(), &tausT_genTauNum},
         {jets_num.n(), &jets_num},
         {bjetsM_num.n(), &bjetsM_num},
+        {bjetsPNM_num.n(), &bjetsPNM_num},
         {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},

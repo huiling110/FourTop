@@ -70,12 +70,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/variableHists_v0dataMC_noCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/variableHists_v0dataMC_noCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/variableHists_v0dataMC_noCorrection_MCHadded/'
 
     # for 1tau1l
-    variables = ['jets_num']
+    # variables = ['jets_num']
     # variables = ['tausT_1pt']
-    # variables = ['jets_HT']
+    variables = ['jets_HT']
     # variables = ['bjetsM_num']
     # variables = ['jets_6pt']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
@@ -106,8 +107,6 @@ def main():
     # ifFR_sys = True 
     # plotName = 'dataVsMC_fakeTauFromData'
 
-    
-    
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)

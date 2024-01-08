@@ -69,11 +69,11 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 1: // 1tau0lSR
         isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 2;
         break;
-    case 2: // 1tau1lCR0
+    case 2: // 1tau1lCR1
         // Bool_t is1tau1lCR0 = *tausT_num == 1 && lepNum == 1 && *jets_num >= 6 && *bjetsM_num == 1; // CR1 in slides
         isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum == 1;
         break;
-    case 3: // 1tau1lCR1
+    case 3: // 1tau1lCR1 old
         // Bool_t is1tau1lCR1 = *tausT_num == 1 && lepNum == 1 && *jets_num >= 7 && *bjetsM_num == 0;
         isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum == 0;
         break;
