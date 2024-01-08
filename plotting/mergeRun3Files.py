@@ -43,12 +43,16 @@ def main():
 def haddFiles(fileDict, outputDir):
     for ifilePair in fileDict:
         ifileList = fileDict[ifilePair]
-        if not len(ifileList) > 1:
-            continue
-        mergeFile = outputDir + ifilePair + '.root'
-        mergeCommand = 'hadd '+mergeFile + ' '+ ifileList[0]+ ' ' + ifileList[1]
-        # uf.runCommand(mergeCommand, True)
-        uf.runCommand(mergeCommand, False)
+        if  len(ifileList) > 1:
+            # continue
+            mergeFile = outputDir + ifilePair + '.root'
+            mergeCommand = 'hadd '+mergeFile + ' '+ ifileList[0]+ ' ' + ifileList[1]
+            uf.runCommand(mergeCommand, True)
+            # uf.runCommand(mergeCommand, False)
+        else:
+            mvCommand = 'mv '+ifileList[0] + ' ' + outputDir
+            # uf.runCommand(mvCommand, True)
+            uf.runCommand(mvCommand, False)
       
    
 if __name__ == '__main__':
