@@ -14,7 +14,6 @@ JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int
         printf("Correction: %s\n", corr.first.c_str());
     }
 
-
     std::map<Int_t, TString> jetTypeMap = {
         {0, "jets"},
         {1, "jetsT"},

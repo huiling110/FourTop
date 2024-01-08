@@ -34,11 +34,12 @@ SOURCE = src/
 
 # debug option: -g
 # no exceptions: -fno-exceptions
+DEBUGLEVEL = O0
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
+CXXFLAGS = -$(DEBUGLEVEL) -Wall -fPIC -g -std=c++17
 LD = g++
-LDFLAGS = -O3 -Wall -g 
+LDFLAGS = -$(DEBUGLEVEL) -Wall -g 
 SOFLAGS = -shared
 ARCHFLAGS =
 
