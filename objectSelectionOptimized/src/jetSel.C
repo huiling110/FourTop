@@ -4,7 +4,7 @@
 JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Bool_t isData, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_isRun3{isRun3}, m_isData{isData}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType << "......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<< "......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
@@ -51,13 +51,12 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
 
-    calJES_SF(e, sysJEC);
+    // calJES_SF(e, sysJEC);
     // calJER_SF(e, isData, JER);
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
-        // Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);//!!!
-        Int_t ijet_jetID = 6;
+        Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t jetpt = e->Jet_pt.At(j);
