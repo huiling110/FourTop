@@ -51,15 +51,15 @@ void EleMVASel::Select(const eventForNano *e)
         if (!mvaIso)//???  2022: Electron_mvaIso_Fall17V2_WP90
             continue; // note: after switching from SUSY ID to EGamma ID, there's no difference in ID between loose, fakeable and tight electrons
         // note bis: use *Iso* MVA discriminator, it comes from a MVA method trained with iso variables as input features. A WP on this discriminator implies ISO requirements
-        if (!e->Electron_convVeto.At(j))
-            continue;
+        // if (!e->Electron_convVeto.At(j))//!!!
+            // continue;
         // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
 
-        // IP
-        if (!(fabs(e->Electron_dxy.At(j)) < 0.05))
-            continue;
-        if (!(fabs(e->Electron_dz.At(j)) < 0.1))
-            continue;
+        // IP//!!!comment for run3
+        // if (!(fabs(e->Electron_dxy.At(j)) < 0.05))
+        //     continue;
+        // if (!(fabs(e->Electron_dz.At(j)) < 0.1))
+        //     continue;
         if (m_type == 0)
         {
             if (!(int(e->Electron_lostHits.At(j)) <= 1))

@@ -101,8 +101,18 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     muIDSF_topMVAFile->Close();
     delete muIDSF_topMVAFile;
 
-    // new SF files from
     TString base = "../../jsonpog-integration/POG/";
+    //muon 2022 SFs
+    TString muonSF_json = base + MV::json_muon2022.at(m_era).at(0); 
+    std::cout<<"muonSF json="<<muonSF_json<<"\n";
+    cset_muonLPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(0)).Data()); 
+    for (auto &corr : *cset_muonLPt)  
+    {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
+
+
+    // new SF files from
     TString tauSF_json = base + MV::json_map.at(m_era).at(1);
     TString btagSF_json = base + MV::json_map.at(m_era).at(2);
     std::cout<<"tauSF json="<<tauSF_json<<"\n";
@@ -181,6 +191,10 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     musTopMVAT_weight = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 0, kTRUE, m_isData);
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
+    //!!!normal leptons
+    eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
+    eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
+    eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
     tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);

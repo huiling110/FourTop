@@ -100,6 +100,9 @@ private:
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
+    std::unique_ptr<correction::CorrectionSet> cset_muonLPt;
+    std::unique_ptr<correction::CorrectionSet> cset_muonMPt;
+    std::unique_ptr<correction::CorrectionSet> cset_muonHPt;
     TH1D *btagRHist;
 
     TH2D *btagEffHist_b;
