@@ -87,7 +87,7 @@ void MuSel::Select(const eventForNano *e)
         if(m_type == 3){
             if (!e->Muon_tightId.At(j))
                 continue;
-            if (!(int(e->Muon_miniIsoId.At(j)) >= 3))
+            if (!(int(e->Muon_miniIsoId.At(j)) >= 3))//MiniIso ID from miniAOD selector (1=MiniIsoLoose, 2=MiniIsoMedium, 3=MiniIsoTight, 4=MiniIsoVeryTight)
                 continue;
         }
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));

@@ -625,6 +625,32 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
+Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, std::string sysMuon, Bool_t isData){
+    Double_t sf = 1.0;
+    if(isData){
+        return sf;
+    }else{
+        auto corrLPtID = csetLPt->at("NUM_TightID_DEN_TrackerMuons");//!!!no Isof for low pt
+        auto corrMPtID = csetMPt->at("NUM_TightPFIso_DEN_TightID"); //!!! for tight ID+tightIso
+        auto corrHPtID = csetHPt->at("NUM_TightID_DEN_GlobalMuonProbes");//!!!no Isof for high pt
+        for (UInt_t i = 0; i < muon_eta.GetSize(); i++)
+        {
+            Double_t ipt = muon_pt.At(i);
+            Double_t ieta = muon_eta.At(i);
+            Double_t sfLID = 1.0;
+            if (ipt<15){
+                sfLID = corrLPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+            }else if(ipt<200){
+                sfLID = corrMPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+            }else{
+                sfLID = corrHPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+            }
+            sf = sf*sfLID;
+        }
+    }
+    return sf;
+}
+
 // Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
 Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
 {

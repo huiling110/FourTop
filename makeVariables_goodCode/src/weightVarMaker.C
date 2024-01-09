@@ -104,9 +104,23 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     TString base = "../../jsonpog-integration/POG/";
     //muon 2022 SFs
     TString muonSF_json = base + MV::json_muon2022.at(m_era).at(0); 
-    std::cout<<"muonSF json="<<muonSF_json<<"\n";
+    std::cout<<"muonSF low Pt json="<<muonSF_json<<"\n";
+    std::cout<<"muonSF medium Pt json="<<base + MV::json_muon2022.at(m_era).at(1)<<"\n";
+    std::cout<<"muonSF high Pt json="<<base + MV::json_muon2022.at(m_era).at(2)<<"\n";
     cset_muonLPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(0)).Data()); 
+    cset_muonMPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(1)).Data()); 
+    cset_muonHPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(2)).Data()); 
     for (auto &corr : *cset_muonLPt)  
+    {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
+    std::cout << "\n";
+    for (auto &corr : *cset_muonMPt)
+    {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
+    std::cout << "\n";
+    for (auto &corr : *cset_muonHPt)  
     {
         printf("Correction: %s\n", corr.first.c_str());
     }
@@ -195,6 +209,9 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
     eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
+
+    //sf for run3 muonPOG ID and ISO        
+    muonIDSF_weight = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), "nominal", m_isData);//!!!check input muon collection
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
     tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
