@@ -8,6 +8,9 @@
 *.sh
 *.pyc
 *.root
+*.zip
+*.png
+*.pdf
 *\/output\/*
 *\/plots\/*
 *ACLiC*

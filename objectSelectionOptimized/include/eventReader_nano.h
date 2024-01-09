@@ -90,7 +90,7 @@ public:
                                         Tau_jetIdx(reader, "Tau_jetIdx"),
                                         Tau_charge(reader, "Tau_charge"),
                                         Tau_neutralIso(reader, "Tau_neutralIso"),
-                                        Tau_idDecayModeNewDMs(reader, "Tau_idDecayModeNewDMs"),
+                                        // Tau_idDecayModeNewDMs(reader, "Tau_idDecayModeNewDMs"),
                                         // jet
                                         Jet_btagDeepFlavB(reader, "Jet_btagDeepFlavB"),
                                         Jet_pt(reader, "Jet_pt"),
@@ -152,6 +152,7 @@ public:
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSjet, reader, "Tau_idDeepTau2018v2p5VSjet");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSe, reader, "Tau_idDeepTau2018v2p5VSe");
         OS::readPointerArray(Tau_idDeepTau2018v2p5VSmu, reader, "Tau_idDeepTau2018v2p5VSmu");
+        OS::readPointerArray(Tau_idDecayModeNewDMs, reader, "Tau_idDecayModeNewDMs");
         //
         OS::readPointerArray(Jet_btagDeepB, reader, "Jet_btagDeepB");
         OS::readPointerArray(Jet_btagPNetB, reader, "Jet_btagPNetB");
@@ -313,7 +314,7 @@ public:
     DynamicBranchReader Tau_jetIdx;//!!!
     DynamicBranchReader Tau_charge;//!!!
     TTreeReaderArray<Float_t> Tau_neutralIso;
-    TTreeReaderArray<Bool_t> Tau_idDecayModeNewDMs;
+    TTreeReaderArray<Bool_t>* Tau_idDecayModeNewDMs=nullptr;//!!!nanoAODv12
 
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
     TTreeReaderArray<Float_t>* Jet_btagDeepB = nullptr;

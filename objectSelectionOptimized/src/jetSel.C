@@ -51,8 +51,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
 
-    // calJES_SF(e, sysJEC);
-    // calJER_SF(e, isData, JER);
+    // calJES_SF(e, sysJEC);//!!!
+    calJER_SF(e, isData, JER);
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
@@ -80,11 +80,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             break;
         }
         //first JES and then JER
-        // if (JER<3)//!!!turn off temporarily
-        // {
-        //     jetpt = jetpt * JER_SF_new.at(j);
-        //     ijetMass = ijetMass * JER_SF_new.at(j);
-        // }
+        if (JER<3)//!!!turn off temporarily for testing
+        {
+            jetpt = jetpt * JER_SF_new.at(j);
+            ijetMass = ijetMass * JER_SF_new.at(j);
+        }
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))

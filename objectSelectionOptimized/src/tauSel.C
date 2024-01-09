@@ -79,8 +79,10 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         if (!(TMath::Abs(e->Tau_dz.At(j)) < 0.2))
             continue;
         // if (!(e->Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
-        if (!(e->Tau_idDecayModeNewDMs.At(j)))
-            continue; // for 2022
+        if (m_isRun3){
+            if (!(e->Tau_idDecayModeNewDMs->At(j)))
+                continue; // for 2022
+        }
         UChar_t tauID_vsJet;
         UChar_t tauID_vsEle;
         UChar_t tauID_vsMu;

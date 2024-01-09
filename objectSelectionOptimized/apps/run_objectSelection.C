@@ -12,10 +12,9 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/wz/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_2l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_1l/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/ttbar_0l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTtoLNu2Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/13p6TeV/2022/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
@@ -26,11 +25,10 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/JetMet2022E/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/NanoPost/2022preEE/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/2022postEE_v3/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTTT/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTTT/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022F/",
-    // TString singleFileName = "outTree_30.root",
-    // TString singleFileName = "outTree_0.root",
-    TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
+    TString singleFileName = "outTree_0.root",
+    // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
@@ -44,6 +42,9 @@ void run_objectSelection(
     Bool_t isData = TTTT::getIsData(inputDir);
     TString era = TTTT::getEra(inputDir);
     const Bool_t isRun3 = TTTT::isRun3(era);
+    if(eventNum >0) {
+        outputDir = outputDir + era + "/";
+    }
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
 
     Int_t JER = 0; //0 : JER nominal
