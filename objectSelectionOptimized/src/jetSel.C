@@ -1,7 +1,7 @@
 #include "../include/jetSel.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Bool_t isData, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_isRun3{isRun3}, m_isData{isData}
+JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<< "......\n";
@@ -51,8 +51,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
 
-    // calJES_SF(e, sysJEC);//!!!
-    calJER_SF(e, isData, JER);
+    calJES_SF(e, sysJEC);//!!!
+    // calJER_SF(e, isData, JER);
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
@@ -80,11 +80,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             break;
         }
         //first JES and then JER
-        if (JER<3)//!!!turn off temporarily for testing
-        {
-            jetpt = jetpt * JER_SF_new.at(j);
-            ijetMass = ijetMass * JER_SF_new.at(j);
-        }
+        // if (JER<3)//!!!turn off temporarily for testing
+        // {
+        //     jetpt = jetpt * JER_SF_new.at(j);
+        //     ijetMass = ijetMass * JER_SF_new.at(j);
+        // }
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -270,19 +270,21 @@ void JetSel::calJES_SF(const eventForNano* e, const Int_t sys)
                 // for(auto &input: corr_JESSF->inputs()){
                 //     std::cout<<"input: "<<input.name()<<"\n";
                 // }
-                Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({ iArea, ieta, ipt, pho});//!!!seems all 1
-                Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({ ieta, ipt});
-                Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({ ieta, ipt});//also all 1
-                std::cout<< "iJES_SFL1: " << iJES_SF<<" iJES_SF_L2: "<<iJES_SF_L2 <<" L3:"<<corr_JESSF_L3->evaluate({ieta, ipt})<< "\n";
+                Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({ iArea, ieta, ipt, pho});//!!!seems all 1 for data
+                Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({ ieta, ipt}); //!!!seems all larger than 1 for MC, why?
+                Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({ ieta, ipt});// all 1, dummy for data
+                // std::cout<< "iJES_SFL1: " << iJES_SF<<" iJES_SF_L2: "<<iJES_SF_L2 <<" L3:"<<corr_JESSF_L3->evaluate({ieta, ipt})<< "\n";
                 iJES_SF = iJES_SF_L1*iJES_SF_L2*iJES_SF_L3; 
 
                 JES_SF.push_back(iJES_SF);
             }
         
-        }else
-        {
+        }else{
             //Summer22EE_22Sep2023_RunE_V2_DATA_L1FastJet_AK4PFPuppi
-            // auto corr_JESSF_L1 = cset_jerSF->at(jesTagData.at(m_era).at(0).Data()); //L1FastJe
+            TString L1Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(1);
+            std::cout<<"L1Tag: "<<L1Tag<<"\n";
+            // auto corr_JESSF_L1 = cset_jerSF->at(L1Tag.Data()); // L1FastJe
+            
         }
         
     }

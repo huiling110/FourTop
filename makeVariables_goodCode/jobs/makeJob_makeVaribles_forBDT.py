@@ -36,7 +36,7 @@ def main():
     # inVersion = 'v64PreAndHLTSel_TESDown'
     # inVersion = 'v64PreAndHLTSel_TESUp'
     # inVersion = 'v65TheoryWeightAdded'
-    inVersion = 'v66TheoryWeightAdded'
+    inVersion = 'v67TheoryWeightAdded'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -60,11 +60,11 @@ def main():
     # outVersion = 'v2cut1tau1l'
     
     #2022
-    year = '2022postEE'
+    # year = '2022postEE'
     # year = '2022preEE'
     # inVersion = 'v0preSel'
-    inVersion = 'v0for2022baseline'
-    outVersion = 'v0baseline'
+    # inVersion = 'v0for2022baseline'
+    # outVersion = 'v0baseline'
    
     
     

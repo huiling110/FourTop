@@ -265,6 +265,9 @@ Run3Samples = {
     'JetMET2022G': 'jetHT',
     
     #Muon
+    'SingleMuon2022C': 'singleMu',
+    'Muon2022C': 'singleMu',
+    'Muon2022D': 'singleMu',
     'Muon2022E': 'singleMu',
     'Muon2022F': 'singleMu',
     'Muon2022G': 'singleMu',

@@ -28,15 +28,34 @@ std::map<TString, std::array<TString, 4>> jesTagMC = {
     {"2022postEE", {"Summer22EE_22Sep2023_V2_MC_L1FastJet_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_L2Relative_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_L3Absolute_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_Total_AK4PFPuppi"}},
 };
 
-std::map<TString, TString>
-    GoldenJSONs = {
-        {"2016postVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"}, {"2016preVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"}, {"2017", "./input/golden_JSONs/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"}, {"2018", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, {"2022", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, //!!!
-        {"2022preEE", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},                                                                                                                                                                                                                                                                                                                                                                                           //!!!
-        {"2022postEE", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"},                                                                                                                                                                                                                                                                                                                                                                                          //!!!
+std::map<TString, std::array<TString, 5>> jesTagData = {
+    // Summer22EE_22Sep2023_RunE_V2_DATA_L1FastJet_AK4PFPuppi
+    {"2022postEE", {"Summer22EE_22Sep2023_", "_V2_DATA_L1FastJet_AK4PFPuppi", "_V2_DATA_L2Relative_AK4PFPuppi", "_V2_DATA_L3Absolute_AK4PFPuppi", "_V2_DATA_L2L3Residual_AK4PFPuppi"}},
+};
+
+std::map<TString, TString> jesTagDataRuns ={
+    {"JetHT2022C", "RunC"},
+    {"JetMET2022C", "RunC"},
+    {"JetMET2022D", "RunD"},
+    {"JetMET2022E", "RunE"},
+    {"JetMET2022F", "RunF"},
+    {"JetMET2022G", "RunG"},
+    {"SingleMuon2022C", "RunC"},
+    {"Muon2022C", "RunC"},
+    {"Muon2022D", "RunD"},
+    {"Muon2022E", "RunE"},
+    {"Muon2022F", "RunF"},
+    {"Muon2022G", "RunG"},
+};
+
+std::map<TString, TString> GoldenJSONs = {
+        {"2016postVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
+         {"2016preVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
+          {"2017", "./input/golden_JSONs/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"},
+           {"2018", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, {"2022", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, //!!!
         // {"2022", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
         // {"2022preEE", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
         // {"2022postEE", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
-
 };
 std::map<TString, std::array<TString, 2>> oldFileMap = {
     {"2016preVFP", {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.txt"}},

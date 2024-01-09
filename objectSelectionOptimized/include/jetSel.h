@@ -11,7 +11,7 @@
 class JetSel
 {
 public:
-    JetSel(TTree *outTree, const TString era, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE, const Int_t jetType = 0);
+    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0);
 
     ~JetSel();
 
@@ -29,6 +29,7 @@ public:
 private:
     Int_t m_jetType = 0;
     TString m_era;
+    const TString m_processName;
     const Bool_t m_isRun3;
     const Bool_t m_isData;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
