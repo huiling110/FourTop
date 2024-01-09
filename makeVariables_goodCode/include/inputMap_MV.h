@@ -55,6 +55,11 @@ namespace MV
 
     inline const std::map<TString, std::array<TString, 3>> json_muon2022 = {
             {"2022postEE", {"../newRun3/muonefficiencies/Run3/2022_EE/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_EE_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022_EE/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_EE_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022_EE/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_EE_schemaV2.json"}},
+            {"2022preEE", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
+            {"2016preVFP", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
+            {"2016postVFP", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
+            {"2017", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
+            {"2018", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
         };
 
     inline const std::map<TString, TString> btagR_map = {

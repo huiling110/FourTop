@@ -625,7 +625,8 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
-Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, std::string sysMuon, Bool_t isData){
+// Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, std::string sysMuon, Bool_t isData){
+Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon, Bool_t isData){
     Double_t sf = 1.0;
     if(isData){
         return sf;
@@ -636,14 +637,33 @@ Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTre
         for (UInt_t i = 0; i < muon_eta.GetSize(); i++)
         {
             Double_t ipt = muon_pt.At(i);
-            Double_t ieta = muon_eta.At(i);
+            // Double_t ieta = muon_eta.At(i);
             Double_t sfLID = 1.0;
+            Double_t sfLID_syst = 1.0;
+            Double_t sfLID_stat = 1.0;
             if (ipt<15){
-                sfLID = corrLPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+                sfLID = corrLPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "nominal"});
+                sfLID_syst = corrLPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "syst"});
+                sfLID_stat = corrLPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "stat"});
             }else if(ipt<200){
-                sfLID = corrMPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+                sfLID = corrMPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "nominal"});
+                sfLID_syst = corrMPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "syst"});
+                sfLID_stat = corrMPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "stat"});
             }else{
-                sfLID = corrHPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), sysMuon});
+                sfLID = corrHPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "nominal"});
+                sfLID_syst = corrHPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "syst"});
+                sfLID_stat = corrHPtID->evaluate({std::abs(muon_eta.At(i)), muon_pt.At(i), "stat"});
+            }
+
+            switch (sysMuon)
+            {
+            case 1://up
+                sfLID = sfLID +TMath::Sqrt(sfLID_syst*sfLID_syst+sfLID_stat*sfLID_stat);
+                break;
+            case 2://down
+                sfLID = sfLID -TMath::Sqrt(sfLID_syst*sfLID_syst+sfLID_stat*sfLID_stat);
+            default:
+                break;
             }
             sf = sf*sfLID;
         }
