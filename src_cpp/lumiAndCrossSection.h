@@ -86,7 +86,7 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
     {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
     //TTTT run 3
-    {"TTTT", 0.01197},//!!!to be updated
+    {"TTTT", 0.01197},//!!!to be updated, using the rartio
 };
 
 // inline const std::map<TString, double> DeepJetM = {

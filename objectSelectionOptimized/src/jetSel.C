@@ -1,7 +1,7 @@
 #include "../include/jetSel.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_isRun3{isRun3}
+JetSel::JetSel(TTree *outTree, const TString era, const Bool_t isRun3, const Bool_t isData, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_isRun3{isRun3}, m_isData{isData}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing JetSel: m_jetType=" << m_jetType << "......\n";
@@ -56,7 +56,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
-        Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
+        // Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);//!!!
+        Int_t ijet_jetID = 6;
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t jetpt = e->Jet_pt.At(j);
@@ -258,23 +259,34 @@ void JetSel::calJES_SF(const eventForNano* e, const Int_t sys)
     Double_t iJES_SF = 1.0;
     if (m_isRun3)
     {
-        auto corr_JESSF_L1 = cset_jerSF->at(jesTagMC.at(m_era).at(0).Data()); //L1FastJet
-        auto corr_JESSF_L2 = cset_jerSF->at(jesTagMC.at(m_era).at(1).Data());
-        auto corr_JESSF_L3 = cset_jerSF->at(jesTagMC.at(m_era).at(2).Data());
+        if (!m_isData){
+            auto corr_JESSF_L1 = cset_jerSF->at(jesTagMC.at(m_era).at(0).Data()); //L1FastJet
+            auto corr_JESSF_L2 = cset_jerSF->at(jesTagMC.at(m_era).at(1).Data());
+            auto corr_JESSF_L3 = cset_jerSF->at(jesTagMC.at(m_era).at(2).Data());
 
-        Double_t pho = **e->Rho_fixedGridRhoFastjetAll;
-        for (UInt_t j = 0; j<e->Jet_pt.GetSize(); ++j){
-            Double_t ieta = e->Jet_eta.At(j);
-            Double_t ipt = e->Jet_pt.At(j);
-            Double_t iArea = e->Jet_area.At(j);
-            // for(auto &input: corr_JESSF->inputs()){
-            //     std::cout<<"input: "<<input.name()<<"\n";
-            // }
-            iJES_SF = corr_JESSF_L1->evaluate({ iArea, ieta, ipt, pho});//!!!seems all 1
-            Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({ ieta, ipt});
-            std::cout<< "iJES_SFL1: " << iJES_SF<<" iJES_SF_L2: "<<iJES_SF_L2 <<" L3:"<<corr_JESSF_L3->evaluate({ieta, ipt})<< "\n";
-            JES_SF.push_back(iJES_SF);
+            Double_t pho = **e->Rho_fixedGridRhoFastjetAll;
+            for (UInt_t j = 0; j<e->Jet_pt.GetSize(); ++j){
+                Double_t ieta = e->Jet_eta.At(j);
+                Double_t ipt = e->Jet_pt.At(j);
+                Double_t iArea = e->Jet_area.At(j);
+                // for(auto &input: corr_JESSF->inputs()){
+                //     std::cout<<"input: "<<input.name()<<"\n";
+                // }
+                Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({ iArea, ieta, ipt, pho});//!!!seems all 1
+                Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({ ieta, ipt});
+                Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({ ieta, ipt});//also all 1
+                std::cout<< "iJES_SFL1: " << iJES_SF<<" iJES_SF_L2: "<<iJES_SF_L2 <<" L3:"<<corr_JESSF_L3->evaluate({ieta, ipt})<< "\n";
+                iJES_SF = iJES_SF_L1*iJES_SF_L2*iJES_SF_L3; 
+
+                JES_SF.push_back(iJES_SF);
+            }
+        
+        }else
+        {
+            //Summer22EE_22Sep2023_RunE_V2_DATA_L1FastJet_AK4PFPuppi
+            // auto corr_JESSF_L1 = cset_jerSF->at(jesTagData.at(m_era).at(0).Data()); //L1FastJe
         }
+        
     }
 }
 
