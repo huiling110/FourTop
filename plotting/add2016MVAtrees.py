@@ -39,8 +39,9 @@ def copyData( dir ):
 # version = 'v0baseline_v64PreAndHLTSel/'
 # version = 'v0baseline_v64PreAndHLTSel_JESUp/'
 # version = 'v0baseline_v64PreAndHLTSel_JESDown/'
-version = 'v0baseline_v64PreAndHLTSel_JERDown/'
+# version = 'v0baseline_v64PreAndHLTSel_JERDown/'
 # version = 'v0baseline_v64PreAndHLTSel_JERUp/'
+version = 'v0baseline_v67TheoryWeightAdded/'
 
 # version = 'v0baseline_v0preSel/' #2022
 ifJustMC = False

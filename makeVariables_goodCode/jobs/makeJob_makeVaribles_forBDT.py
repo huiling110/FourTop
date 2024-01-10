@@ -1,14 +1,9 @@
 import os
 import subprocess
-import sys
 
 import ttttGlobleQuantity as GQ
 import usefulFunc as uf
 
-# import glob
-# import string
-
- #
 
 #???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
