@@ -30,7 +30,6 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         //     continue;
         // };
 
-
         // MET filters
         if (!(metFilter.Select(m_era, e)))
         {

@@ -50,6 +50,8 @@ public:
                                         Electron_phi(reader, "Electron_phi"),
                                         Electron_mass(reader, "Electron_mass"),
                                         Electron_charge(reader, "Electron_charge"),
+                                        Electron_r9(reader, "Electron_r9"),
+                                        Electron_seedGain(reader, "Electron_seedGain"),
                                         // muon
                                         Muon_pt(reader, "Muon_pt"),
                                         Muon_eta(reader, "Muon_eta"),
@@ -273,6 +275,8 @@ public:
     TTreeReaderArray<Float_t> Electron_phi;
     TTreeReaderArray<Float_t> Electron_mass;
     TTreeReaderArray<Int_t> Electron_charge;
+    TTreeReaderArray<Float_t> Electron_r9;
+    TTreeReaderArray<UChar_t> Electron_seedGain;
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;

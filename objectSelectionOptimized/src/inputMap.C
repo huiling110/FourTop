@@ -48,9 +48,10 @@ std::map<TString, TString> jesTagDataRuns ={
     {"Muon2022G", "RunG"},
 };
 
-std::map<TString, TString> eleScaleSmear = {
-    {"2022postEE", "../newRun3/eleScale/2022Re-recoBCD/electronSS.json"},
-    {"2022preEE", "../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json"},
+std::map<TString, std::array<TString, 3>> eleScaleSmear = {
+    //0: eleJsonFile; 1: scale tag; 2: smearing tag
+    {"2022preEE", {"../newRun3/eleScale/2022Re-recoBCD/electronSS.json", "2022Re-recoBCD_ScaleJSON", "2022Re-recoBCD_SmearJSON"}},
+    {"2022postEE", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearJSON"}},
 };
 
 std::map<TString, TString> GoldenJSONs = {

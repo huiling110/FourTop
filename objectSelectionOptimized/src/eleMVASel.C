@@ -1,9 +1,9 @@
 #include "../include/eleMVASel.h"
 
-EleMVASel::EleMVASel(TTree *outTree, const TString era, Bool_t isRun3,const Int_t type) : m_type{type}, m_era{era}, m_isRun3{isRun3}
+EleMVASel::EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Bool_t isRun3,const Int_t type, const UChar_t sysScale, const UChar_t sysSmear) : m_type{type}, m_era{era}, m_isData{isData},m_isRun3{isRun3}, m_Sys_scale{sysScale}, m_Sys_smear{sysSmear}
 { // m_type for different electrons
     std::cout << "Initializing EleMVASel......\n";
-    std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << "\n";
+    std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << " m_Sys_scale=" << m_Sys_scale << " m_Sys_smear=" << m_Sys_smear << "\n";
 
     std::map<Int_t, TString> typeMap = {
         {0, "L"},
@@ -20,8 +20,11 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, Bool_t isRun3,const Int_
 
     //
     TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_eleScale = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
-    std::cout<<"electron scale and smearing files: "<<jsonBase + json_map[era].at(0)<<"\n";
+    cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
+    std::cout<<"electron scale and smearing files: "<<jsonBase + eleScaleSmear.at(m_era).at(0)<<"\n";
+    for (auto const& corr : *cset_eleScale) {
+        std::cout << "eleScale: " << corr.first << "\n";
+    }
 
     std::cout << "Done EleMVASel initialization......\n\n";
 };
@@ -30,9 +33,38 @@ EleMVASel::~EleMVASel()
 {
 };
 
-// Double_t getEleScale();
+Double_t EleMVASel::getEleScale(Double_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et){
+    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3#Scale_And_Smearings_Example
+    if(!m_isRun3 ||m_isData){
+        return 1.0;
+    }else{
+        auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());
+        // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
+        //scale: gain, run,eta,r9,et
+        //can use pt for et
+        // Double_t sf = corr_eleScale->evaluate({"total_correction", gain, run, eta, r9, et});
+        Double_t sf = corr_eleScale->evaluate({"total_correction",1,362720.0,-2.5,0.5,100.0});
+        // Double_t uncer = corr_eleScale->evaluate({"total_uncertainty", gain, run, eta, r9, et});
+        Double_t uncer = 0.1;
+        switch(m_Sys_scale){
+            case 0:
+                return sf;
+                break;
+            case 1:
+                return sf+uncer;
+                break;
+            case 2:
+                return sf-uncer;
+                break;
+            default:
+                return 1.0;
+                break;
+        }
+    }
+};
 
-void EleMVASel::Select(const eventForNano *e)
+// void EleMVASel::Select(const eventForNano *e)
+void EleMVASel::Select( eventForNano *e)
 {
     if(m_entry==0){
         std::cout << "running EleMVASel::Select()\n";
@@ -42,7 +74,7 @@ void EleMVASel::Select(const eventForNano *e)
     // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        // Double_t eleScale = getEleScale();
+        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));
         Double_t pt = e->Electron_pt.At(j);
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))

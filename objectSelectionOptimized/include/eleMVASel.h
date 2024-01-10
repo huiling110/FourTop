@@ -10,9 +10,11 @@
 class EleMVASel
 {
 public:
-    EleMVASel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t type = 2);
+    EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Bool_t isRun3, const Int_t type = 2, const UChar_t eleSys = 3, const UChar_t eleSmear = 3);
     ~EleMVASel();
-    void Select(const eventForNano *e);
+
+    Double_t getEleScale(Double_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et);
+    void Select( eventForNano *e);
     std::vector<Double_t>& getEtaVec();
     std::vector<Double_t>& getPhiVec();
     ULong_t getTotal();
@@ -22,11 +24,13 @@ public:
 private:
     Int_t m_type = 2;
     TString m_era;
+    const Bool_t m_isData = kFALSE;
     Bool_t m_isRun3 = kFALSE;
     ULong_t m_entry = 0;
+    const UChar_t m_Sys_scale = 3; // 0:nominal; 1:up; 2:down; 3: none
+    const UChar_t m_Sys_smear = 3;
 
     std::unique_ptr<correction::CorrectionSet> cset_eleScale;//!!!only for run3
-    std::unique_ptr<correction::CorrectionSet> cset_eleSmear;//!!!only for run3
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
     std::vector<Double_t> muonsTopMVAT_eta;

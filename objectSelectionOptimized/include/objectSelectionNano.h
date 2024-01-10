@@ -30,7 +30,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleSale{eleScale}, m_eleSmear{eleSmear}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -42,8 +42,6 @@ public:
             // m_reader = TTreeReader(m_tree);
             m_reader.SetTree(m_tree);
             e = new eventForNano(m_reader);
-            // TString temp = inputDir(0, inputDir.Last('/'));
-            // m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
             // set up output
             TString outName = outputDir + singleFileName;
@@ -53,7 +51,6 @@ public:
             // set up
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3<<"  m_processName="<<m_processName<< "\n";
 
-            //
             m_cutflow->SetDirectory(m_output);
             CF_initial->SetDirectory(m_output);
             CF_met->SetDirectory(m_output);
@@ -88,6 +85,8 @@ private:
     TString m_era;
     Bool_t m_isRun3 = kFALSE;
     TString m_processName = "default";
+    const UChar_t m_eleSale = 3;
+    const UChar_t m_eleSmear = 3;
 
     // LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
@@ -96,8 +95,8 @@ private:
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};
     MuSel muSel{m_outTree, m_era, m_isRun3, 2};
     MuSel muSelT{m_outTree, m_era, m_isRun3, 3};
-    EleMVASel eleMVASel{m_outTree, m_era, m_isRun3};
-    EleMVASel eleMVASelT{m_outTree, m_era, m_isRun3, 3};
+    EleMVASel eleMVASel{m_outTree, m_era,m_isData, m_isRun3, 2,  };
+    EleMVASel eleMVASelT{m_outTree, m_era,m_isData, m_isRun3, 3, };
     MuTopMVASel muTopMVATSel{m_outTree, m_era, m_isRun3};
     TauSel tauSel{m_outTree, m_era, m_isRun3, 3};
     TauSel tauSelF{m_outTree, m_era, m_isRun3, 2};
