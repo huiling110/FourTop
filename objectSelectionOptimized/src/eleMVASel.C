@@ -18,12 +18,19 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, Bool_t isRun3,const Int_
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_mass", &muonsTopMVAT_mass);
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_index", &muonsTopMVAT_index);
 
+    //
+    TString jsonBase = "../../jsonpog-integration/POG/";
+    cset_eleScale = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
+    std::cout<<"electron scale and smearing files: "<<jsonBase + json_map[era].at(0)<<"\n";
+
     std::cout << "Done EleMVASel initialization......\n\n";
 };
 
 EleMVASel::~EleMVASel()
 {
 };
+
+// Double_t getEleScale();
 
 void EleMVASel::Select(const eventForNano *e)
 {
@@ -34,7 +41,8 @@ void EleMVASel::Select(const eventForNano *e)
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
     // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
-    { 
+    {
+        // Double_t eleScale = getEleScale();
         Double_t pt = e->Electron_pt.At(j);
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))

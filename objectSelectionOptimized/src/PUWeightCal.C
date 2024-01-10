@@ -39,6 +39,7 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRu
 
 void PUWeightCal::Select(eventForNano *e, Bool_t isData)
 {
+    //https://github.com/cms-jet/JMEDAS/blob/ea2e4d7234aec2b0bdf82f4d573db2855bfe1593/notebooks/master/Pileup.ipynb#L197
     clearBranch();
     if ((!isData) && (!m_isRun3))
     {

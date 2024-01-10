@@ -39,7 +39,12 @@ void run_objectSelection(
     if(eventNum >0) {
         outputDir = outputDir + era + "/";
     }
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, isRun3, kTRUE);
+    TString temp = inputDir(0, inputDir.Last('/'));
+    TString m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
+
+    Int_t eleScale = 0;
+    Int_t eleSmear = 0;
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE);
 
     Int_t JER = 0; //0 : JER nominal
     // Int_t JER = 2; 

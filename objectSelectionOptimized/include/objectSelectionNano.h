@@ -30,7 +30,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, Bool_t isRun3, Bool_t m_isTest) : m_isData{isData}, m_era{era}, m_isRun3{isRun3}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -42,8 +42,8 @@ public:
             // m_reader = TTreeReader(m_tree);
             m_reader.SetTree(m_tree);
             e = new eventForNano(m_reader);
-            TString temp = inputDir(0, inputDir.Last('/'));
-            m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
+            // TString temp = inputDir(0, inputDir.Last('/'));
+            // m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
             // set up output
             TString outName = outputDir + singleFileName;
@@ -89,7 +89,7 @@ private:
     Bool_t m_isRun3 = kFALSE;
     TString m_processName = "default";
 
-    LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
+    // LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree, m_era};

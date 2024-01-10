@@ -1,7 +1,7 @@
 #ifndef ELEMVASEL_H
 #define ELEMVASEL_H
 
-
+#include "correction.h"
 
 #include "eventReader_nano.h"
 #include "usefulFunc.h"
@@ -24,6 +24,9 @@ private:
     TString m_era;
     Bool_t m_isRun3 = kFALSE;
     ULong_t m_entry = 0;
+
+    std::unique_ptr<correction::CorrectionSet> cset_eleScale;//!!!only for run3
+    std::unique_ptr<correction::CorrectionSet> cset_eleSmear;//!!!only for run3
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
     std::vector<Double_t> muonsTopMVAT_eta;

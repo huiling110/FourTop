@@ -21,6 +21,8 @@ extern std::map<TString, std::array<TString, 4>> jesTagMC;
 extern std::map<TString, std::array<TString, 5>> jesTagData;
 extern std::map<TString, TString> jesTagDataRuns;
 
+extern std::map<TString, TString> eleScaleSmear;
+
 extern std::map<TString, TString> GoldenJSONs;
 
 extern std::map<TString, std::array<TString, 2>> oldFileMap;
