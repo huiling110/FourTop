@@ -33,7 +33,7 @@ EleMVASel::~EleMVASel()
 {
 };
 
-Double_t EleMVASel::getEleScale(Double_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et){
+Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et){
     //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3#Scale_And_Smearings_Example
     if(!m_isRun3 ||m_isData){
         return 1.0;
@@ -43,7 +43,9 @@ Double_t EleMVASel::getEleScale(Double_t gain, UInt_t run, Double_t eta, Double_
         //scale: gain, run,eta,r9,et
         //can use pt for et
         // Double_t sf = corr_eleScale->evaluate({"total_correction", gain, run, eta, r9, et});
-        Double_t sf = corr_eleScale->evaluate({"total_correction",1,362720.0,-2.5,0.5,100.0});
+        Double_t sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
+        // Double_t sf = corr_eleScale->evaluate({"total_correction", gain, 362720.0, eta, r9, et});
+        // Double_t sf = corr_eleScale->evaluate({"total_correction",1,362720.0,-2.5,0.5,100.0});
         // Double_t uncer = corr_eleScale->evaluate({"total_uncertainty", gain, run, eta, r9, et});
         Double_t uncer = 0.1;
         switch(m_Sys_scale){
