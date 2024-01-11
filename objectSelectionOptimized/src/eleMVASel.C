@@ -42,12 +42,8 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
         // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
         //scale: gain, run,eta,r9,et
         //can use pt for et
-        // Double_t sf = corr_eleScale->evaluate({"total_correction", gain, run, eta, r9, et});
         Double_t sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
-        // Double_t sf = corr_eleScale->evaluate({"total_correction", gain, 362720.0, eta, r9, et});
-        // Double_t sf = corr_eleScale->evaluate({"total_correction",1,362720.0,-2.5,0.5,100.0});
-        // Double_t uncer = corr_eleScale->evaluate({"total_uncertainty", gain, run, eta, r9, et});
-        Double_t uncer = 0.1;
+        Double_t uncer = corr_eleScale->evaluate({"total_uncertainty", gain, static_cast<Float_t>(run), eta, r9, et});
         switch(m_Sys_scale){
             case 0:
                 return sf;
