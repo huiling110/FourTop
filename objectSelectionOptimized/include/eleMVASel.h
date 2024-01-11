@@ -13,7 +13,7 @@ public:
     EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Bool_t isRun3, const Int_t type = 2, const UChar_t eleSys = 3, const UChar_t eleSmear = 3);
     ~EleMVASel();
 
-    Double_t getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et);
+    Double_t getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et, Bool_t isScale=kTRUE);
     void Select( eventForNano *e);
     std::vector<Double_t>& getEtaVec();
     std::vector<Double_t>& getPhiVec();

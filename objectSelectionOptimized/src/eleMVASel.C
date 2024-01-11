@@ -3,7 +3,7 @@
 EleMVASel::EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Bool_t isRun3,const Int_t type, const UChar_t sysScale, const UChar_t sysSmear) : m_type{type}, m_era{era}, m_isData{isData},m_isRun3{isRun3}, m_Sys_scale{sysScale}, m_Sys_smear{sysSmear}
 { // m_type for different electrons
     std::cout << "Initializing EleMVASel......\n";
-    std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << " m_Sys_scale=" << m_Sys_scale << " m_Sys_smear=" << m_Sys_smear << "\n";
+    std::cout << "m_era=" << m_era << " m_isRun3=" << m_isRun3 << " m_type=" << m_type << " m_Sys_scale=" << static_cast<unsigned int>(m_Sys_scale) << " m_Sys_smear=" << static_cast<unsigned int>(m_Sys_smear) << "\n";
 
     std::map<Int_t, TString> typeMap = {
         {0, "L"},
@@ -33,18 +33,32 @@ EleMVASel::~EleMVASel()
 {
 };
 
-Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et){
+Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et , Bool_t isScale){
     //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3#Scale_And_Smearings_Example
     if(!m_isRun3 ||m_isData){
         return 1.0;
     }else{
-        auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());
-        // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
-        //scale: gain, run,eta,r9,et
-        //can use pt for et
-        Double_t sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
-        Double_t uncer = corr_eleScale->evaluate({"total_uncertainty", gain, static_cast<Float_t>(run), eta, r9, et});
-        switch(m_Sys_scale){
+        Double_t sf = 1.0;
+        Double_t uncer = 0.0;
+        UChar_t sysScale = 0;
+        if (isScale)
+        {
+            auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
+            // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
+            //scale: gain, run,eta,r9,et//can use pt for et
+            //smearring: gain, eta,r9
+            sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
+            uncer = corr_eleScale->evaluate({"total_uncertainty", gain, static_cast<Float_t>(run), eta, r9, et});
+            sysScale = m_Sys_scale;
+        }
+        else
+        {
+            auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
+            sf = corr_eleSmear->evaluate({"rho",  eta, r9});
+            uncer = corr_eleSmear->evaluate({"err_rho",  eta, r9});
+            sysScale = m_Sys_smear;
+        }
+        switch(sysScale){
             case 0:
                 return sf;
                 break;
@@ -72,8 +86,11 @@ void EleMVASel::Select( eventForNano *e)
     // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));
-        Double_t pt = e->Electron_pt.At(j);
+        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
+        Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
+        std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
+
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))
             continue;
@@ -110,7 +127,7 @@ void EleMVASel::Select( eventForNano *e)
             if (!((e->Electron_ip3d.At(j)) < 4))
                 continue;
         }
-        muonsTopMVAT_pt.push_back(e->Electron_pt.At(j));
+        muonsTopMVAT_pt.push_back(pt);
         muonsTopMVAT_eta.push_back(e->Electron_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Electron_phi.At(j));
         muonsTopMVAT_mass.push_back(e->Electron_mass.At(j));
