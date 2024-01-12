@@ -44,9 +44,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JERUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JESUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/'
 
     #!fakerate
@@ -111,10 +111,10 @@ def main():
     
         
     #1tau1l
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # version = 'v0BasicSystematic'
     # version = 'v0BasicSystematic_20bins'
-    version = 'v0theorecticalHistsAdd'
+    # version = 'v0theorecticalHistsAdd'
     # version = 'v1JERUp_rerun'
     # version = 'v1JERDown_rerun'
     # version = 'v1TESDown_rerun'
@@ -129,12 +129,13 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    # channel = 1
+    channel = '1tau0l'
     # version = 'v0systematic1tau0l_bScore' 
     # version = 'v0systematic1tau0lBjet3_bScore' 
     # version = 'v0systematic1tau0lBjet3_bHT' 
     # version = 'v0systematic1tau0lBjet3_bMass' 
     # version = 'v0systematic1tau0l_bMass' 
+    version = 'v0theorecticalHistsAdd1tau0l'
     
     #run3
     # version = 'v0allRegions'
