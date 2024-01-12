@@ -42,7 +42,7 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
         Double_t uncer = 0.0;
         UChar_t sysScale = 0;
         if (isScale)
-        {
+        {//!!!data
             auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
             // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
             //scale: gain, run,eta,r9,et//can use pt for et

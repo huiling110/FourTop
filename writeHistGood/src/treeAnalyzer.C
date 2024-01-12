@@ -136,10 +136,11 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        std::map<TString, Int_t> channelMap = {
+        std::map<TString, Int_t> channelMap = {//!!!this coding is bullshit
             {"1tau1l", 0},
             {"1tau0l", 1},
         };
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
 
         Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
         // if(m_channel==1 ){
@@ -188,7 +189,7 @@ void treeAnalyzer::LoopTree()
 
         Bool_t SR1tau1l = channelSel;
         //!!!have to output weight; make weight an input
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!caution, for 1tau1l b-tag WP correction
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!caution, for 1tau1l b-tag WP correction
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
         // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!! for 1tau0l b_score, have to use btagShape
 
