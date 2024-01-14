@@ -130,7 +130,7 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        if (!(baselineSelection(e)))
+        if (!(baselineSelection(e, m_isRun3)))
         {
             continue;
         }
