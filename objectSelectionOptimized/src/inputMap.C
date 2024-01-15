@@ -26,11 +26,13 @@ std::map<TString, std::array<TString, 3>> json_map = {
 std::map<TString, std::array<TString, 5>> jesTagMC = {
     // MC JES: L1, L2L3; compound, and total uncertainty
     {"2022postEE", {"Summer22EE_22Sep2023_V2_MC_L1FastJet_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_L2Relative_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_L3Absolute_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_L1L2L3Res_AK4PFPuppi", "Summer22EE_22Sep2023_V2_MC_Total_AK4PFPuppi"}},
+    {"2022preEE", {"Summer22_22Sep2023_V2_MC_L1FastJet_AK4PFPuppi", "Summer22_22Sep2023_V2_MC_L2Relative_AK4PFPuppi", "Summer22_22Sep2023_V2_MC_L3Absolute_AK4PFPuppi", "Summer22_22Sep2023_V2_MC_L1L2L3Res_AK4PFPuppi", "Summer22_22Sep2023_V2_MC_Total_AK4PFPuppi"}},
 };
 
 std::map<TString, std::array<TString, 6>> jesTagData = {
     // Summer22EE_22Sep2023_RunE_V2_DATA_L1FastJet_AK4PFPuppi
     {"2022postEE", {"Summer22EE_22Sep2023_", "_V2_DATA_L1L2L3Res_AK4PFPuppi", "_V2_DATA_L1FastJet_AK4PFPuppi", "_V2_DATA_L2Relative_AK4PFPuppi", "_V2_DATA_L3Absolute_AK4PFPuppi", "_V2_DATA_L2L3Residual_AK4PFPuppi"}},
+    {"2022preEE", {"Summer22_22Sep2023_", "_V2_DATA_L1L2L3Res_AK4PFPuppi", "_V2_DATA_L1FastJet_AK4PFPuppi", "_V2_DATA_L2Relative_AK4PFPuppi", "_V2_DATA_L3Absolute_AK4PFPuppi", "_V2_DATA_L2L3Residual_AK4PFPuppi"}},
 };
 
 std::map<TString, TString> jesTagDataRuns ={
