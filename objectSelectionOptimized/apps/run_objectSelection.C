@@ -44,7 +44,8 @@ void run_objectSelection(
 
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear);
+    const UChar_t JESSys = 0;
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys);
 
     Int_t JER = 0; //0 : JER nominal
     // Int_t JER = 2; 
@@ -56,7 +57,8 @@ void run_objectSelection(
     // Int_t TES = 1;//up
     // Int_t TES = 2; //down
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES); //no HLT selection, for HLT study
-    os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
+    // os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
+    os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER); //with HLT and preselection
 
     os.Terminate();
 

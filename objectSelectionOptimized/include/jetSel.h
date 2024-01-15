@@ -11,11 +11,11 @@
 class JetSel
 {
 public:
-    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0);
+    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0, const UChar_t JESSys = 0);
 
     ~JetSel();
 
-    void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t ifJER, const Int_t sysJEC);
+    void Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t ifJER);
 
     void calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys=0);
     // void calJES_SF(const eventForNano *e, const Int_t sys);

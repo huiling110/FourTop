@@ -1,10 +1,10 @@
 #include "../include/jetSel.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}
+JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<"m_processName="<<m_processName<<m_isRun3<< "......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<"m_processName="<<m_processName<<m_isRun3<<" m_JESSys="<<m_JESSys<< "......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
@@ -46,7 +46,8 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
 
 JetSel::~JetSel(){};
 
-void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER, const Int_t sysJEC)
+// void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER, const Int_t sysJEC)
+void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
     // jetType=11 -> b-jets L, jetType=12 -> b-jets M, jetType=13 -> b-jets T, jetType=2  -> forward jets
@@ -66,26 +67,27 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 
         Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
 
-        Double_t jetpt = e->Jet_pt.At(j);
-        Double_t ijetMass = e->Jet_mass.At(j);
+        Double_t jetpt = e->Jet_pt.At(j)*JESSF;
+        Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
+        std::cout << "JESSF: " << JESSF << "\n";
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
-        switch (sysJEC)
-        {
-        case 0:
-            break;
-        case 1:
-            jetpt = jetpt * (1 + jets_JESuncer[j]);
-            ijetMass *= (1 + jets_JESuncer[j]);
-            break;
-        case 2:
-            jetpt *= (1 - jets_JESuncer[j]);
-            ijetMass *= (1 - jets_JESuncer[j]);
-            break;
-        default:
-            break;
-        }
+        // switch (sysJEC)
+        // {
+        // case 0:
+        //     break;
+        // case 1:
+        //     jetpt = jetpt * (1 + jets_JESuncer[j]);
+        //     ijetMass *= (1 + jets_JESuncer[j]);
+        //     break;
+        // case 2:
+        //     jetpt *= (1 - jets_JESuncer[j]);
+        //     ijetMass *= (1 - jets_JESuncer[j]);
+        //     break;
+        // default:
+        //     break;
+        // }
         //first JES and then JER
         // if (JER<3)//!!!turn off temporarily for testing
         // {
