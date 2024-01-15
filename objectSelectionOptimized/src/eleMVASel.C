@@ -86,10 +86,11 @@ void EleMVASel::Select( eventForNano *e)
     // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
-        Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
-        Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
-        std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
+        // Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
+        // Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        // Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
+        // std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
+        Double_t pt = e->Electron_pt.At(j);
 
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))

@@ -9,10 +9,10 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
-    // for (auto &corr : *cset_jerSF)  
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
+    for (auto &corr : *cset_jerSF)  
+    {
+        printf("Correction: %s\n", corr.first.c_str());
+    }
 
     std::map<Int_t, TString> jetTypeMap = {
         {0, "jets"},
@@ -261,19 +261,26 @@ void JetSel::calJES_SF(const eventForNano* e, const Int_t sys)
         TString L1Tag;
         TString L2Tag;
         TString L3Tag;
-        if (m_isData){
+        TString compound;
+        if (m_isData)
+        {
             L1Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(1);
             L2Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(2);
             L3Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(3);
-        }else{
-            L1Tag = jesTagMC.at(m_era).at(0).Data();
-            L2Tag = jesTagMC.at(m_era).at(1).Data();
-            L3Tag = jesTagMC.at(m_era).at(2).Data();
+        // TString compound = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + "_V2_DATA_L1L2L3Res__AK4PFPuppi";
+        }
+        else
+        {
+            L1Tag = jesTagMC.at(m_era).at(0);
+            L2Tag = jesTagMC.at(m_era).at(1);
+            L3Tag = jesTagMC.at(m_era).at(2);
+            compound = jesTagMC.at(m_era).at(3);
         }
 
         auto corr_JESSF_L1 = cset_jerSF->at(L1Tag.Data()); // L1FastJet
         auto corr_JESSF_L2 = cset_jerSF->at(L2Tag.Data()); // L2Relative
         auto corr_JESSF_L3 = cset_jerSF->at(L3Tag.Data());
+        auto corr_JESSF_compound = cset_jerSF->at(compound.Data());
 
         Double_t pho = **e->Rho_fixedGridRhoFastjetAll;
         for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
