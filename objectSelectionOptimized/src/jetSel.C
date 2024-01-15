@@ -4,17 +4,13 @@
 JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<m_isRun3<<" m_JESSys="<<m_JESSys<< "......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<m_isRun3<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< "......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
     // auto cset_jerSF_com = cset_jerSF->compound();
     std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
-    for (auto &corr : *cset_jerSF)  
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
-    // for (auto &corr : cset_jerSF_com)  
+    // for (auto &corr : *cset_jerSF)  
     // {
     //     printf("Correction: %s\n", corr.first.c_str());
     // }
@@ -57,7 +53,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
 
-    // calJES_SF(e, sysJEC);
     // calJER_SF(e, isData, JER);
 
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
@@ -69,7 +64,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
         Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
-        std::cout << "JESSF: " << JESSF << "\n";
+        // std::cout << "JESSF: " << JESSF << "\n";
+
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
@@ -151,18 +147,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             jets_flavour.push_back(-99);
         }
-        // if (deepJet)
-        // {
         if (m_isRun3){
             jets_btags.push_back(e->Jet_btagPNetB->At(j));
         }else{
             jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
         }
-        // }
-        // else
-        // {
-            // jets_btags.push_back(e->Jet_btagDeepB.At(j));
-        // }
     }
 };
 
