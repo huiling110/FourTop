@@ -47,7 +47,7 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0systematic1tau0l_bScore/combine/datacard/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/combine/datacardTheoSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/combine/datacardTheoSys/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/combine/datacardTheoSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0lNew/combine/datacardTheoSys/'
     
     #1tau1l
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/combine/datacardSys/'
@@ -69,22 +69,23 @@ def main():
     # cardDir = 'combinationV8/run2_1tau1lAnd1tau0l/'
     # cardDir = 'combinationV8/run2_1tau0l/'
     # cardDir = 'combinationV9/run2_1tau1l/'
+    # cardDir = 'combinationV9/run2_1tau0l/'
+    cardDir = 'combinationV9/run2/'
 
         
-    cardToWorkspaces( cardDir )
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-    copyCombineResultsToDir( cardDir )
+    # cardToWorkspaces( cardDir )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
+    # copyCombineResultsToDir( cardDir )
     
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau1l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau0l.root', cardDir+'combineResults/')
-    # runImpact(cardDir+'workspace/datacard_combAll.root', cardDir+'combineResults/')
+    runImpact(cardDir+'workspace/datacard.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lCom.root', cardDir+'combineResults/')
 
 
-    # plot.main( cardDir+ 'combineResults/')
     
     
 def runImpact(wf, outFolder):
