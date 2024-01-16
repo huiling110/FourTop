@@ -53,7 +53,7 @@ void run_objectSelection(
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     TString outputDir = "output/",
-    Int_t numEntries = 1000)
+    Int_t numEntries = 100000)
 {
     TStopwatch t;
     t.Start();

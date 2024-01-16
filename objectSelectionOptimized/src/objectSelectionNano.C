@@ -48,8 +48,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         m_cutflow->Fill(2);
         CF_HLT->Fill(0., genWeight);
 
-        muSel.Select(e);
-        muSelT.Select(e);
+        muSel.Select(e); //muons tight for run 3
         eleMVASel.Select(e);
         eleMVASelT.Select(e);
 

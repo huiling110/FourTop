@@ -9,7 +9,7 @@ MuSel::MuSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t
     std::map<Int_t, TString> muonMap = {
         {0, "L"},
         {1, "F"},
-        {2, "T"},
+        {2, "T"},//!!!maybe I want to keep the same name for run 2 and run 3
         {3, "TRun3"},
     };
 
@@ -74,22 +74,28 @@ void MuSel::Select(const eventForNano *e)
         }
         if (m_type == 2)
         {
-            if (!e->Muon_mediumId.At(j)) //!!!maybe switch to tightId
-                continue;
-            if (!(int(e->Muon_miniIsoId.At(j)) >= 3))
-                continue;
-            if (!(fabs(e->Muon_ip3d.At(j)) < 4))
-                continue;
-            // if (!(e->Muon_tightCharge.At(j) == 2))//!!!
-            if (!(iMu_tightCharge == 2))
-                continue;
+            if(!m_isRun3){
+                if (!e->Muon_mediumId.At(j)) //!!!maybe switch to tightId
+                    continue;
+                if (!(int(e->Muon_miniIsoId.At(j)) >= 3))
+                    continue;
+                if (!(fabs(e->Muon_ip3d.At(j)) < 4))
+                    continue;
+                if (!(iMu_tightCharge == 2))
+                    continue;
+            }else{
+                if (!e->Muon_tightId.At(j))
+                    continue;
+                if (!(int(e->Muon_miniIsoId.At(j)) >= 3))//MiniIso ID from miniAOD selector (1=MiniIsoLoose, 2=MiniIsoMedium, 3=MiniIsoTight, 4=MiniIsoVeryTight)
+                    continue;
+            }
         }
-        if(m_type == 3){
-            if (!e->Muon_tightId.At(j))
-                continue;
-            if (!(int(e->Muon_miniIsoId.At(j)) >= 3))//MiniIso ID from miniAOD selector (1=MiniIsoLoose, 2=MiniIsoMedium, 3=MiniIsoTight, 4=MiniIsoVeryTight)
-                continue;
-        }
+        // if(m_type == 3){//!!! for run3
+        //     if (!e->Muon_tightId.At(j))
+        //         continue;
+        //     if (!(int(e->Muon_miniIsoId.At(j)) >= 3))//MiniIso ID from miniAOD selector (1=MiniIsoLoose, 2=MiniIsoMedium, 3=MiniIsoTight, 4=MiniIsoVeryTight)
+        //         continue;
+        // }
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Muon_phi.At(j));

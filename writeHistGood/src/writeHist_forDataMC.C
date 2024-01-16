@@ -18,7 +18,6 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    // std::vector<TString> regionsForVariables = {"1tau0lSR", "1tau0lCR", "1tau0lVR", "1tau0lCRc", "1tau0lCRb", "1tau0lCRa", "1tau1lSR", "1tau1lCR0", "1tau1lCR1", "1tau1lCR2", "1tau1lCR3", "baseline"};
     std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline"};
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
@@ -147,20 +146,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //     continue;
         // }
         //!!!testing
-        // if(!(e->jets_6pt.v()>45)){
-        // if(!(e->jets_6pt.v()>42)){
-            // continue;
-        // }
 
         if (!(baselineSelection(e, m_isRun3)))
         {
             continue;
         }
         //!!!testing
-        // if(!(e->jets_HT.v()>600.)){
-        // if(!(e->jets_HT.v()>550.)){
-        //     continue;
-        // }
 
         Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);

@@ -211,9 +211,10 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
 
     //sf for run3 muonPOG ID and ISO        
-    muonIDSF_weight = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 0, m_isData);//!!!check input muon collection
-    muonIDSF_weight_up = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 1, m_isData);//!!!check input muon collection
-    muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
+    //!!!suspect this is causing the run time error:  what():  Index above bounds in Binning for input argument 1 value: 1064.129272
+    // muonIDSF_weight = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 0, m_isData);//!!!check input muon collection
+    // muonIDSF_weight_up = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 1, m_isData);//!!!check input muon collection
+    // muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
     tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
