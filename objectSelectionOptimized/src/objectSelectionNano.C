@@ -50,7 +50,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         muSel.Select(e); //muons tight for run 3
         eleMVASel.Select(e);
-        eleMVASelT.Select(e);
+        // eleMVASelT.Select(e);
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
