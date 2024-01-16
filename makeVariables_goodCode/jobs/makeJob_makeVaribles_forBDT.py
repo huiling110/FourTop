@@ -58,7 +58,8 @@ def main():
     year = '2022postEE'
     # year = '2022preEE'
     # inVersion = 'v0preSel'
-    inVersion = 'v1for2022preSel'
+    # inVersion = 'v1for2022preSel'
+    inVersion = 'v2leptonsNameChange'
     # inVersion = 'v0for2022baseline'
     outVersion = 'v0baseline'
    
