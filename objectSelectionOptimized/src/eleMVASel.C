@@ -82,8 +82,7 @@ void EleMVASel::Select( eventForNano *e)
         std::cout << "running EleMVASel::Select()\n";
     }
     clearBranch();
-    // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight
-    // 2016 - MVANoIso94XV2, from SUSY
+    // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
         // Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
@@ -112,21 +111,23 @@ void EleMVASel::Select( eventForNano *e)
         // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
 
         // IP//!!!comment for run3
-        // if (!(fabs(e->Electron_dxy.At(j)) < 0.05))
-        //     continue;
-        // if (!(fabs(e->Electron_dz.At(j)) < 0.1))
-        //     continue;
-        if (m_type == 0)
-        {
-            if (!(int(e->Electron_lostHits.At(j)) <= 1))
+        if (!m_isRun3){
+            if (!(fabs(e->Electron_dxy.At(j)) < 0.05))
                 continue;
-        }
-        if (m_type == 1 || m_type == 2)
-        {
-            if (!(int(e->Electron_lostHits.At(j)) == 0))
+            if (!(fabs(e->Electron_dz.At(j)) < 0.1))
                 continue;
-            if (!((e->Electron_ip3d.At(j)) < 4))
-                continue;
+            if (m_type == 0)
+            {
+                if (!(int(e->Electron_lostHits.At(j)) <= 1))
+                    continue;
+            }
+            if (m_type == 1 || m_type == 2)
+            {
+                if (!(int(e->Electron_lostHits.At(j)) == 0))
+                    continue;
+                if (!((e->Electron_ip3d.At(j)) < 4))
+                    continue;
+            }
         }
         muonsTopMVAT_pt.push_back(pt);
         muonsTopMVAT_eta.push_back(e->Electron_eta.At(j));
