@@ -11,7 +11,7 @@ import usefulFunc as uf
 
 def main():
     # year = '2022'
-    year = '2016'
+    # year = '2016'
     # year = '2018'
     # year = '2017'
     # year = '2022postEE'
@@ -31,7 +31,7 @@ def main():
     # inVersion = 'v64PreAndHLTSel_TESDown'
     # inVersion = 'v64PreAndHLTSel_TESUp'
     # inVersion = 'v65TheoryWeightAdded'
-    inVersion = 'v67TheoryWeightAdded'
+    # inVersion = 'v67TheoryWeightAdded'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -44,7 +44,7 @@ def main():
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
     # outVersion = 'v0NewHLTSF'
     # outVersion = 'v0NewHLTSFBinA'
     # outVersion = 'v0NewHLTSFBinD'
@@ -55,11 +55,12 @@ def main():
     # outVersion = 'v2cut1tau1l'
     
     #2022
-    # year = '2022postEE'
+    year = '2022postEE'
     # year = '2022preEE'
     # inVersion = 'v0preSel'
+    inVersion = 'v1for2022preSel'
     # inVersion = 'v0for2022baseline'
-    # outVersion = 'v0baseline'
+    outVersion = 'v0baseline'
    
     
     

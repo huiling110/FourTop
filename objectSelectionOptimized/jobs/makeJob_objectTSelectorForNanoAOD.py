@@ -62,10 +62,9 @@ def main():
     # onlyMC = True
     # dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
-    dataList = [ 'JetHT', 'JetMet'] # 2022
     # dataList = ['singleMu'] 
     # dataList = ['JetMET', 'Muon']
-    # dataList = ['JetMET']
+    dataList = ['JetMET']
     
 
     print( "era: ", era )
