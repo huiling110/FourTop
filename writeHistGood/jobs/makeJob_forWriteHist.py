@@ -45,9 +45,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JESUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -58,7 +58,7 @@ def main():
     # version = 'v1FR_application_bjets3_bShapeWeight'
     # version = 'v1FR_application_correctWeight_bjets3'
     # version = 'v1FR_application_MCBtagShape'
-    # version = 'v1FR_application_bjets3_bWPWeight'
+    # version = 'v1FR_application_bjets3_bWPWeight
     # version = 'v1FR_application_bjets2_bWPWeight'
     # version = 'v1FR_application_bjets2_bShapeWeight'
    
@@ -106,8 +106,8 @@ def main():
     # version = 'v3dataMC_HT600HLTSFBinE'
     # version = 'v3dataMC_HT550HLTSFBinF'
     # version = 'v0dataMC_noCorrection'
-    # version = 'v0dataMC_noCorrection_MCHadded'
-    # channel = 0
+    version = 'v1dataMC_eleSF'
+    channel = 0
     
         
     #1tau1l
@@ -129,13 +129,13 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    channel = '1tau0l'
+    # channel = '1tau0l'
     # version = 'v0systematic1tau0l_bScore' 
     # version = 'v0systematic1tau0lBjet3_bScore' 
     # version = 'v0systematic1tau0lBjet3_bHT' 
     # version = 'v0systematic1tau0lBjet3_bMass' 
     # version = 'v0systematic1tau0l_bMass' 
-    version = 'v0theorecticalHistsAdd1tau0l'
+    # version = 'v0theorecticalHistsAdd1tau0l'
     
     #run3
     # version = 'v0allRegions'
@@ -182,8 +182,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

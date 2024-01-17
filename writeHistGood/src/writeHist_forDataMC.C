@@ -141,19 +141,13 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        //!!!testing
-        // if(!HLTSel(e, m_era)){
-        //     continue;
-        // }
-        //!!!testing
-
         if (!(baselineSelection(e, m_isRun3)))
         {
             continue;
         }
-        //!!!testing
 
-        Double_t basicWeight = e->EVENT_genWeight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v();
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
         // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
         // std::cout << "basicWeight=" << basicWeight << "\n";

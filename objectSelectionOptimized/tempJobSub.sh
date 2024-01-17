@@ -1,4 +1,0 @@
-cd /workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/jobs/jobs_eachYear/Prompt2022/TTto4Q/
-
-# hep_sub OS_Prompt2022TTto2L2Nu_outTree_30.sh -o /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/TTto2L2Nu/log/outTree_30.log -e /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/TTto2L2Nu/log/outTree_30.err
-hep_sub OS_Prompt2022TTto4Q_outTree_30.sh -o /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/TTto4Q/log/outTree_30.log -e /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/mc/TTto4Q/log/outTree_30.err

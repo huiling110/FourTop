@@ -3,8 +3,9 @@ import glob
 import usefulFunc as uf
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/'
-    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mcNew/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/'
+    outputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mcNew/'
     # outputDir = '/path/to/output/directory/'  # Specify the output directory for the merged file
    
    
@@ -47,12 +48,12 @@ def haddFiles(fileDict, outputDir):
             # continue
             mergeFile = outputDir + ifilePair + '.root'
             mergeCommand = 'hadd '+mergeFile + ' '+ ifileList[0]+ ' ' + ifileList[1]
-            uf.runCommand(mergeCommand, True)
-            # uf.runCommand(mergeCommand, False)
+            # uf.runCommand(mergeCommand, True)
+            uf.runCommand(mergeCommand, False)
         else:
             mvCommand = 'mv '+ifileList[0] + ' ' + outputDir
-            # uf.runCommand(mvCommand, True)
-            uf.runCommand(mvCommand, False)
+            uf.runCommand(mvCommand, True)
+            # uf.runCommand(mvCommand, False)
       
    
 if __name__ == '__main__':
