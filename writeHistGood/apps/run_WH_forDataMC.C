@@ -54,7 +54,6 @@ void run_treeAnalyzer(
     Bool_t isTest = kTRUE)
 // Bool_t isTest = kFALSE)
 {
-
     TStopwatch t;
     t.Start();
 

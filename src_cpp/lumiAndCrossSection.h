@@ -17,7 +17,7 @@ inline const std::map<TString, Double_t> lumiMap = {
     {"2017", 41480.0},
     {"2018", 59830.0},
     {"2022", 	37300},
-    {"2022preEE", 	785}, 
+    {"2022preEE", 	7875}, 
     {"2022postEE", 	26337}, 
 };
 

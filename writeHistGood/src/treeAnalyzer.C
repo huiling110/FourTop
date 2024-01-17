@@ -140,19 +140,14 @@ void treeAnalyzer::LoopTree()
             {"1tau1l", 0},
             {"1tau0l", 1},
         };
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
+        Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
 
         Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
         // if(m_channel==1 ){
         if(channelMap.at(m_channel)==1 ){
-            // if(!m_isData && m_processName.CompareTo("tttt")!=0 ){//no genTau for tttt
-                channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
-            // }
+            channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
         }
-        //!testing
-        // if(!(e->bjetsM_num.v()>=3)){
-            // continue;
-        // }
 
         if (!(channelSel))
         {

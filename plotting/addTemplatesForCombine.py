@@ -44,10 +44,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd/' #1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd/' #1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/' #1tau1l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/' #1tau1l
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/' #1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0lNew/' #1tau0l
-    channel = '1tau0l' # 1tau0l
-    # channel = '1tau1l' 
+    
+    #run3 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
+    # channel = '1tau0l' # 1tau0l
+    channel = '1tau1l' 
    
    
    
@@ -68,6 +71,7 @@ def main():
     else:
         allSubList = gq.Run3Samples.keys()
     allSubPro = list(allSubList)
+    print(allSubPro)
 
     summedHistDicAllSys = {}
     #summedHistDicAllSys[sys][sumPro]
@@ -114,7 +118,8 @@ def main():
 def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
     #loop through all subProcess
     for isub in allSubPro:
-        if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
+        # if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
+        if 'jetHT' in isub or 'singleMu' in isub or 'JetMET' in isub or 'JetHT' in isub or 'Muon' in isub: continue
         print(isub)
         ifile = inputDir + isub + '.root'
         iroot = ROOT.TFile(ifile, 'READ')
@@ -129,12 +134,13 @@ def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
       
    
 def getSumSys(summedHistDicAllSys, inputDir):
-    ttttFile = ROOT.TFile(inputDir+'tttt.root', 'READ' )
+    # ttttFile = ROOT.TFile(inputDir+'tttt.root', 'READ' )
+    ttttFile = ROOT.TFile(inputDir+'TTTT.root', 'READ' )
     for key in ttttFile.GetListOfKeys():
         obj = key.ReadObj()
         histName = obj.GetName()
         sysName = histName[histName.find('_')+1: ]
-        # if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
+        if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
         if 'cutFlow' in sysName: continue
         print('sysName: ', sysName)
         summedHistDicAllSys[sysName] = {}
