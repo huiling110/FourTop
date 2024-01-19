@@ -18,9 +18,8 @@ std::map<TString, std::array<TString, 3>> json_map = {
     {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json"}},
     {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json"}},
     {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json"}},
-    {"2022", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json"}},//!!! to be updated!!!
-    {"2022preEE", {"JME/2022_Summer22/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json"}},//!!! to be updated!!!
-    {"2022postEE", {"/JME/2022_Summer22EE/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json"}},//!!! to be updated!!!
+    {"2022preEE", {"JME/2022_Summer22/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2018_UL/btagging.json"}},//!!! to be updated!!!
+    {"2022postEE", {"/JME/2022_Summer22EE/jet_jerc.json", "../newRun3/TAU/2022_postEE/tau_DeepTau2018v2p5_2022_postEE.json", "BTV/2018_UL/btagging.json"}},//!!! to be updated!!!
 };
 
 std::map<TString, std::array<TString, 5>> jesTagMC = {
@@ -34,6 +33,8 @@ std::map<TString, std::array<TString, 6>> jesTagData = {
     {"2022postEE", {"Summer22EE_22Sep2023_", "_V2_DATA_L1L2L3Res_AK4PFPuppi", "_V2_DATA_L1FastJet_AK4PFPuppi", "_V2_DATA_L2Relative_AK4PFPuppi", "_V2_DATA_L3Absolute_AK4PFPuppi", "_V2_DATA_L2L3Residual_AK4PFPuppi"}},
     {"2022preEE", {"Summer22_22Sep2023_", "_V2_DATA_L1L2L3Res_AK4PFPuppi", "_V2_DATA_L1FastJet_AK4PFPuppi", "_V2_DATA_L2Relative_AK4PFPuppi", "_V2_DATA_L3Absolute_AK4PFPuppi", "_V2_DATA_L2L3Residual_AK4PFPuppi"}},
 };
+
+
 
 std::map<TString, TString> jesTagDataRuns ={
     {"JetHT2022C", "RunC"},

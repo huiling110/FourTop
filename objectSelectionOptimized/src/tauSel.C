@@ -216,9 +216,13 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
 
             if (!(itau_decayMode == 5 || itau_decayMode == 6))//!!!
             {
-                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
-                iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
-                iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
+                // iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "nom"});
+                // iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
+                // iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
+                //!!!2022, diffrent format, input: pt, eta, dm, genmatch, id, wp, wp_VSe, syst
+                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2018v2p5", "Loose", "VVLoose", "nom"}); 
+                //??? "DeepTau2018v2p5VSjet working point: Loose-VTight"; "DeepTau2018v2p5VSe working point: VVLoose-Tight"
+                //!what does this mean?
             }
             // std::cout << "iTES_sf: " << iTES_sf << "\n";
             // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
