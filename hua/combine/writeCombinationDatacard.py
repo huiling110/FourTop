@@ -31,6 +31,9 @@ cardDic = {
     'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd/combine/datacardSys/datacard_1tau1lSys.txt',
     'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd/combine/datacardSys/datacard_1tau1lSys.txt',
     'SR1tau1l_2016': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd/combine/datacardSys/datacard_1tau1lSys.txt',
+    
+    'SR1tau1l_2022post': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/datacardNoSys/datacard_1tau1l.txt',
+    'SR1tau1l_2022pre': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/datacardNoSys/datacard_1tau1l.txt',
 }
 
 # outCard = 'combinationV8/run2_1tau1lCombination_datacard.txt'
@@ -41,7 +44,9 @@ def main():
     # outCard = 'combinationV8/run2_1tau0l/datacard_1tau0lCom.txt'
     # outCard = 'combinationV9/run2_1tau0l/datacard_1tau0lCom.txt'
     # outCard = 'combinationV9/run2_1tau1l/datacard_1tau1lCom.txt'
-    outCard = 'combinationV9/run2/datacard.txt'
+    # outCard = 'combinationV9/run2/datacard.txt'
+    # outCard = 'combinationV9/2022_1tau1l/datacard.txt'
+    outCard = 'combinationV9/run2AndRun3/datacard.txt'
     comDatacard(cardDic, outCard)
     # comDatacard(cardDic_1tau0l, outCard)
 

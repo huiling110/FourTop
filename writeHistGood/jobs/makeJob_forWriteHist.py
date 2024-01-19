@@ -106,14 +106,14 @@ def main():
     # version = 'v3dataMC_HT600HLTSFBinD'
     # version = 'v3dataMC_HT600HLTSFBinE'
     # version = 'v3dataMC_HT550HLTSFBinF'
-    # version = 'v0dataMC_noCorrection'
+    version = 'v0dataMC_noCorrection'
     # version = 'v1dataMC_eleSF'
-    # channel = 0
+    channel = 0
     
         
     #1tau1l
-    channel = '1tau1l'
-    version = 'v0NoSystematic'
+    # channel = '1tau1l'
+    # version = 'v0NoSystematic'
     # version = 'v0BasicSystematic'
     # version = 'v0BasicSystematic_20bins'
     # version = 'v0theorecticalHistsAdd'
@@ -184,8 +184,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
