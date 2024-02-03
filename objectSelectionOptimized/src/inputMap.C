@@ -1,5 +1,3 @@
-
-
 #include "../include/inputMap.h"
 
 std::map<TString, std::array<TString, 3>> corr_SF_map{

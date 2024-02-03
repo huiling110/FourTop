@@ -42,6 +42,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
     // 1:loose;2:fakeble;3:tight
     clearBranch();
     calTauSF_new(e, isData);//!!!for 2022???
+
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
         //branches different in nanoAODv9 and nanoAODv12
@@ -49,6 +50,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t itau_decayMode = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Tau_decayMode, j);
         Int_t itau_jetIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_jetIdx, j);//Short_t for Tau_jetIdx
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
+
+        // std::cout<<
 
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t itau_mass = e->Tau_mass.At(j);
@@ -220,11 +223,12 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
                 // iTES_sf_up = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "up"});
                 // iTES_sf_down = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2017v2p1", "down"});
                 //!!!2022, diffrent format, input: pt, eta, dm, genmatch, id, wp, wp_VSe, syst
-                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2018v2p5", "Loose", "VVLoose", "nom"}); 
+                iTES_sf = corr_tauES->evaluate({e->Tau_pt.At(i), e->Tau_eta.At(i), itau_decayMode, e->Tau_genPartFlav->At(i), "DeepTau2018v2p5", "Medium", "VVLoose", "nom"}); 
                 //??? "DeepTau2018v2p5VSjet working point: Loose-VTight"; "DeepTau2018v2p5VSe working point: VVLoose-Tight"
                 //!what does this mean?
+                //no VVVLoose vsEle
             }
-            // std::cout << "iTES_sf: " << iTES_sf << "\n";
+            std::cout << "iTES_sf: " << iTES_sf << "\n";
             // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
             // std::cout << "iTES_sf_down: " << iTES_sf_down << "\n";
         }
