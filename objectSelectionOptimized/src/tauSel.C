@@ -2,7 +2,7 @@
 #include <map>
 #include "../include/usefulFunc.h"
 
-TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isRun3{isRun3}, m_TES{TES}
+TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_TES{TES}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
@@ -41,7 +41,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
     clearBranch();
-    calTauSF_new(e, isData);//!!!for 2022???
+    // calTauSF_new(e, isData);//deprecated
 
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
@@ -51,29 +51,29 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t itau_jetIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_jetIdx, j);//Short_t for Tau_jetIdx
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
 
-        // Double_t iTES = calTES();
-
         Double_t itau_pt = e->Tau_pt.At(j);
+        Double_t iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j));//TES handled inside the function
+        itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j);
-        switch (sysTES)
-        {
-        case 0:
-            itau_pt *= taus_TES[j];
-            itau_mass *= taus_TES[j];
-            break;
-        case 1:
-            itau_pt *= taus_TES_up[j];
-            itau_mass *= taus_TES_up[j];
-            break;
-        case 2:
-            itau_pt *= taus_TES_down[j];
-            itau_mass *= taus_TES_down[j];
-            break;
-        default:
-            // std::cout << "tau pt and mass not corrected!!!"
-            //           << "\n";
-            break;
-        }
+        // switch (sysTES)
+        // {
+        // case 0:
+        //     itau_pt *= taus_TES[j];
+        //     itau_mass *= taus_TES[j];
+        //     break;
+        // case 1:
+        //     itau_pt *= taus_TES_up[j];
+        //     itau_mass *= taus_TES_up[j];
+        //     break;
+        // case 2:
+        //     itau_pt *= taus_TES_down[j];
+        //     itau_mass *= taus_TES_down[j];
+        //     break;
+        // default:
+        //     // std::cout << "tau pt and mass not corrected!!!"
+        //     //           << "\n";
+        //     break;
+        // }
 
         if (!(itau_pt > 20))
             continue;
@@ -237,6 +237,19 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
         taus_TES_up.push_back(iTES_sf_up);
         taus_TES_down.push_back(iTES_sf_down);
     }
+};
+
+
+Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav)
+{
+    auto corr_tauES = cset_tauSF->at("tau_energy_scale");
+    Double_t iTES_sf = 1.0;
+    if(!m_isData && !(itau_decayMode == 5 || itau_decayMode == 6)){
+        iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "nom"}); 
+    }
+    std::cout<<"TES_sf: "<<iTES_sf<<"\n";
+
+    return iTES_sf;
 };
 
 void TauSel::clearBranch()
