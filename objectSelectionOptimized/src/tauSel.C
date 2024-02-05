@@ -6,7 +6,7 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
-    std::cout << "m_tauWP=" << m_tauWP<<" m_era="<<m_era<<" m_isRun3="<<m_isRun3 << "\n";
+    std::cout << "m_tauWP=" << m_tauWP<<" m_era="<<m_era<<" m_isRun3="<<m_isRun3 << " m_TES"<<m_TES<<"\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
@@ -54,26 +54,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j));//TES handled inside the function
         itau_pt *= iTES;
-        Double_t itau_mass = e->Tau_mass.At(j);
-        // switch (sysTES)
-        // {
-        // case 0:
-        //     itau_pt *= taus_TES[j];
-        //     itau_mass *= taus_TES[j];
-        //     break;
-        // case 1:
-        //     itau_pt *= taus_TES_up[j];
-        //     itau_mass *= taus_TES_up[j];
-        //     break;
-        // case 2:
-        //     itau_pt *= taus_TES_down[j];
-        //     itau_mass *= taus_TES_down[j];
-        //     break;
-        // default:
-        //     // std::cout << "tau pt and mass not corrected!!!"
-        //     //           << "\n";
-        //     break;
-        // }
+        Double_t itau_mass = e->Tau_mass.At(j)*iTES;
 
         if (!(itau_pt > 20))
             continue;
@@ -184,13 +165,9 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         {
             taus_genPartFlav.push_back(-99);
         }
-        // taus_jetIdx.push_back(e->Tau_jetIdx.At(j));//!!!
-        // taus_charge.push_back(e->Tau_charge.At(j));//!!!
         taus_jetIdx.push_back(itau_jetIdx);
         taus_charge.push_back(itau_charge);
         taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
-        // taus_jetPt.push_back(e->Jet_pt.At(e->Tau_jetIdx.At(j)));//!!!
-        // taus_jetEta.push_back(e->Jet_eta.At(e->Tau_jetIdx.At(j)));//!!!
         taus_jetPt.push_back(e->Jet_pt.At(itau_jetIdx));
         taus_jetEta.push_back(e->Jet_eta.At(itau_jetIdx));
     }
@@ -245,9 +222,34 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
     Double_t iTES_sf = 1.0;
     if(!m_isData && !(itau_decayMode == 5 || itau_decayMode == 6)){
-        iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "nom"}); 
+        switch (m_TES)
+        {
+        case 0:
+            if (m_isRun3){
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "nom"}); 
+            }else{
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
+            }
+            break;
+        case 1:
+            if (m_isRun3){
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "up"}); 
+            }else{
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"});
+            }
+            break;
+        case 2:
+            if(m_isRun3){
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "down"}); 
+            }else{
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"});
+            }
+            break;
+        default:
+            break;
+        }
     }
-    std::cout<<"TES_sf: "<<iTES_sf<<"\n";
+    // std::cout<<"TES_sf: "<<iTES_sf<<"\n";
 
     return iTES_sf;
 };
