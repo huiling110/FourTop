@@ -90,6 +90,7 @@ private:
     const UChar_t m_eleScale = 0;
     const UChar_t m_eleSmear = 0;
     const UChar_t m_JESSys = 0;
+    const UChar_t m_TES = 0;
 
     // LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
@@ -101,9 +102,9 @@ private:
     EleMVASel eleMVASel{m_outTree, m_era,m_isData, m_isRun3, 2, m_eleScale, m_eleSmear };//!!!
     // EleMVASel eleMVASelT{m_outTree, m_era,m_isData, m_isRun3, 3, m_eleScale, m_eleSmear };//!!! for run3
     MuTopMVASel muTopMVATSel{m_outTree, m_era, m_isRun3};
-    TauSel tauSel{m_outTree, m_era, m_isRun3, 3};
-    TauSel tauSelF{m_outTree, m_era, m_isRun3, 2};
-    TauSel tauSelL{m_outTree, m_era, m_isRun3, 1};
+    TauSel tauSel{m_outTree, m_era, m_isRun3, 3, m_TES};
+    TauSel tauSelF{m_outTree, m_era, m_isRun3, 2, m_TES};
+    TauSel tauSelL{m_outTree, m_era, m_isRun3, 1, m_TES};
     JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys};
     JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys};
     JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys};

@@ -9,7 +9,7 @@
 class TauSel
 {
 public:
-    TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP = 3);
+    TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP = 3, const UChar_t TES = 0);
     ~TauSel();
     void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec,  const Int_t sysTES);
 
@@ -23,6 +23,7 @@ private:
     Int_t m_tauWP = 3;
     TString m_era;
     Bool_t m_isRun3=kFALSE;
+    const UChar_t m_TES = 0;
     std::unique_ptr<correction::CorrectionSet> cset_tauSF;
     std::vector<Double_t> taus_TES;
     std::vector<Double_t> taus_TES_up;

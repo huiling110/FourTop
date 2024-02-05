@@ -2,7 +2,7 @@
 #include <map>
 #include "../include/usefulFunc.h"
 
-TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP) : m_tauWP{tauWP}, m_era{era}, m_isRun3{isRun3}
+TauSel::TauSel(TTree *outTree, const TString era, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isRun3{isRun3}, m_TES{TES}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing TauSel......\n";
@@ -51,7 +51,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t itau_jetIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_jetIdx, j);//Short_t for Tau_jetIdx
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
 
-        // std::cout<<
+        // Double_t iTES = calTES();
 
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t itau_mass = e->Tau_mass.At(j);
@@ -227,6 +227,7 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
                 //??? "DeepTau2018v2p5VSjet working point: Loose-VTight"; "DeepTau2018v2p5VSe working point: VVLoose-Tight"
                 //!what does this mean?
                 //no VVVLoose vsEle
+                std::cout<<"pass tau_decayMode\n";
             }
             std::cout << "iTES_sf: " << iTES_sf << "\n";
             // std::cout << "iTES_sf_up: " << iTES_sf_up << "\n";
