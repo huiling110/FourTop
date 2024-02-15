@@ -46,13 +46,15 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
         //branches different in nanoAODv9 and nanoAODv12
-        // itau_decayMode = OS::getValForDynamicReader(m_isRun3, e->Tau_decayMode, j);
         Int_t itau_decayMode = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Tau_decayMode, j);
         Int_t itau_jetIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_jetIdx, j);//Short_t for Tau_jetIdx
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
 
         Double_t itau_pt = e->Tau_pt.At(j);
-        Double_t iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j));//TES handled inside the function
+        Double_t iTES = 1.0;
+        if(!m_isData){
+            iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+        }
         itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j)*iTES;
 
