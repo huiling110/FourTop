@@ -16,8 +16,8 @@ Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
         std::cout<<"running LumiAndPVSel::Select()\n";
     }
     Bool_t ifGoodLumi = kTRUE;
-    // if (isData)
-    if (isData&&(!m_isRun3))
+    if (isData)
+    // if (isData&&(!m_isRun3))
     {
         if (m_goodLumis.find(*e->run) == m_goodLumis.end())
         {
@@ -44,18 +44,12 @@ Bool_t LumiAndPVSel::Select(const Bool_t isData, eventForNano *e)
     //
     Bool_t ifPV = kFALSE;
     Int_t PV__npvsGood = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->PV_npvsGood);
-    // if (*e->PV_npvsGood > 0)
     if(PV__npvsGood>0)
     {
         ifPV = kTRUE;
     }
 
     Bool_t ifPass = ifGoodLumi && ifPV;
-    //!!! temparorily set ifPass=true for 2022
-    if (m_isRun3)
-    {
-        ifPass = kTRUE;
-    }
 
     m_entry++;
 

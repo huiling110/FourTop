@@ -92,7 +92,7 @@ private:
     const UChar_t m_JESSys = 0;
     const UChar_t m_TES = 0;
 
-    // LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; //!!!
+    LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
     // osBase muonSelection{m_outTree};
     HLTSelector HLTselection{m_outTree, m_era};

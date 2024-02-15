@@ -19,7 +19,6 @@ namespace OS
     {
         if (isdata)
         { // deal with Lumi JSONs only if reading data
-            //    TString jsonInFile = GoldenJSONs[era];
             if (jsonInFile)
             {
                 std::cout << "Reading JSON file " << jsonInFile << std::endl;

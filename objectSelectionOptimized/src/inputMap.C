@@ -59,10 +59,9 @@ std::map<TString, TString> GoldenJSONs = {
         {"2016postVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
          {"2016preVFP", "./input/golden_JSONs/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"},
           {"2017", "./input/golden_JSONs/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"},
-           {"2018", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, {"2022", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, //!!!
-        // {"2022", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
-        // {"2022preEE", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
-        // {"2022postEE", "./input/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
+           {"2018", "./input/golden_JSONs/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"}, 
+        {"2022preEE", "./input/golden_JSONs/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
+        {"2022postEE", "./input/golden_JSONs/Cert_Collisions2022_355100_362760_Golden.json"},//!!!
 };
 std::map<TString, std::array<TString, 2>> oldFileMap = {
     {"2016preVFP", {"../data_rootFiles/smearing/UL2016_preVFP/Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs.txt", "../data_rootFiles/smearing/UL2016_postVFP/Summer19UL16APV_JRV3_MC_SF_AK4PFchs.txt"}},
