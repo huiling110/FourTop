@@ -15,7 +15,7 @@ extern std::map<TString, std::array<TString, 3>> corr_SF_map;
 //     {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
 // };
 
-extern std::map<TString, std::array<TString, 3>> json_map;
+extern std::map<TString, std::array<TString, 4>> json_map;
 
 extern std::map<TString, std::array<TString, 5>> jesTagMC;
 extern std::map<TString, std::array<TString, 6>> jesTagData;
