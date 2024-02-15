@@ -2,12 +2,12 @@
 #include "../include/inputMap.h"
 #include <TFile.h>
 
-PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3): m_isRun3{isRun3}
+PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRun3): m_isRun3{isRun3}, m_era{era}
 {
     //!!!don't understand this pileup correction and not sure if it's correct
     //https://cms-talk.web.cern.ch/t/pileup-reweighting-questions/30405
     std::cout << "Initializing PUWeightCal...........\n";
-    std::cout << "m_isRun3=" << m_isRun3 << "\n";
+    std::cout << "m_isRun3=" << m_isRun3 <<"m_era="<<m_era<< "\n";
     // if (!isData )
     if ((!isData) && (!m_isRun3) )
     { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
@@ -29,6 +29,11 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRu
         dataPileupProfileDown->Scale(1.0 / dataPileupProfileDown->Integral());
         MCPileupProfile->Scale(1.0 / MCPileupProfile->Integral());
     }
+    if(m_isRun3){
+        TString jsonBase = "../../jsonpog-integration/POG/";
+        cset_puWeight = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(3)).Data());
+        std::cout<<"PUWeightCal: json file used: "<<jsonBase + json_map[era].at(3)<<"\n";
+    }
 
     outTree->Branch("PUWeight", &PUWeight);
     outTree->Branch("PUWeight_up", &PUWeight_up);
@@ -49,6 +54,17 @@ void PUWeightCal::Select(eventForNano *e, Bool_t isData)
             PUWeight_up = dataPileupProfileUp->GetBinContent(dataPileupProfileUp->FindBin(**e->Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(**e->Pileup_nTrueInt));
             PUWeight_down = dataPileupProfileDown->GetBinContent(dataPileupProfileDown->FindBin(**e->Pileup_nTrueInt)) / MCPileupProfile->GetBinContent(MCPileupProfile->FindBin(**e->Pileup_nTrueInt));
         }
+    }
+
+    if(!isData && m_isRun3){
+        auto corr_puWeight = cset_puWeight->at("Collisions2022_355100_357900_eraBCD_GoldenJson");
+        if(m_era.Contains("2022post")){
+            corr_puWeight = cset_puWeight->at("Collisions2022_359022_362760_eraEFG_GoldenJson");//Collisions2022_359022_362760_eraEFG_GoldenJson
+        }
+
+        PUWeight = corr_puWeight->evaluate({**e->Pileup_nTrueInt, "nominal"});
+        PUWeight_up = corr_puWeight->evaluate({**e->Pileup_nTrueInt, "up"});
+        PUWeight_down = corr_puWeight->evaluate({**e->Pileup_nTrueInt, "down"});
     }
 };
 

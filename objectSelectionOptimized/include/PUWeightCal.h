@@ -2,6 +2,7 @@
 #define PUWEIGHTCAL_H
 
 #include <TH1F.h>
+#include "correction.h"
 
 #include "eventReader_nano.h"
 
@@ -16,10 +17,12 @@ public:
 
 private:
     Bool_t m_isRun3 = kFALSE;
+    TString m_era;
     TH1F *dataPileupProfile;
     TH1F *dataPileupProfileUp;
     TH1F *dataPileupProfileDown;
     TH1F *MCPileupProfile;
+    std::unique_ptr<correction::CorrectionSet> cset_puWeight;
     // output branches
     Double_t PUWeight=1.;
     Double_t PUWeight_up=1.;
