@@ -57,10 +57,8 @@ void PUWeightCal::Select(eventForNano *e, Bool_t isData)
     }
 
     if(!isData && m_isRun3){
-        auto corr_puWeight = cset_puWeight->at("Collisions2022_355100_357900_eraBCD_GoldenJson");
-        if(m_era.Contains("2022post")){
-            corr_puWeight = cset_puWeight->at("Collisions2022_359022_362760_eraEFG_GoldenJson");//Collisions2022_359022_362760_eraEFG_GoldenJson
-        }
+        auto key = m_era.Contains("2022post") ? "Collisions2022_359022_362760_eraEFG_GoldenJson" : "Collisions2022_355100_357900_eraBCD_GoldenJson";
+        auto corr_puWeight = cset_puWeight->at(key);
 
         PUWeight = corr_puWeight->evaluate({**e->Pileup_nTrueInt, "nominal"});
         PUWeight_up = corr_puWeight->evaluate({**e->Pileup_nTrueInt, "up"});

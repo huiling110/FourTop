@@ -50,14 +50,15 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         muSel.Select(e); //muons tight for run 3
         eleMVASel.Select(e);
-        // eleMVASelT.Select(e);
 
         // TOPMVA lepton selection
         eleTopMVATSel.Select(e);
         muTopMVATSel.Select(e);
 
+        //leptons for overlap removal
+        // std::vector<Double_t> muEtaVec;
 
-        // // tau selection
+        // tau selection
         tauSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
         tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
         tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
@@ -67,8 +68,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         m_tausFTotal += tauSelF.getSize();
         m_tausLTotal += tauSelL.getSize();
 
-        // // jet and bjet selection
-        // // const Int_t sysJEC = 0;
+        // jet and bjet selection
         jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         jetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         bjetMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
