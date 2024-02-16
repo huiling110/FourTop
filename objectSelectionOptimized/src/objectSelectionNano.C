@@ -38,9 +38,8 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         m_cutflow->Fill(1);
         CF_met->Fill(0., genWeight);
 
-        // // HLT selection and HLT branch filling
+        // HLT selection and HLT branch filling
         Bool_t passHLT = HLTselection.Select(e, m_era, m_isData, ifHLT);
-        // // if (ifHLT && (!passHLT))
         if(!passHLT)
         {
             continue; // pass on this event 
@@ -56,12 +55,15 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         muTopMVATSel.Select(e);
 
         //leptons for overlap removal
-        // std::vector<Double_t> muEtaVec;
+        std::vector<Double_t> muEtaVec = m_isRun3 ? muSel.getEtaVec(): muTopMVATSel.getEtaVec();
+        std::vector<Double_t> muPhiVec = m_isRun3 ? muSel.getPhiVec(): muTopMVATSel.getPhiVec();
+        std::vector<Double_t> eleEtaVec = m_isRun3 ? eleMVASel.getEtaVec(): eleTopMVATSel.getEtaVec();
+        std::vector<Double_t> elePhiVec = m_isRun3 ? eleMVASel.getPhiVec(): eleTopMVATSel.getPhiVec();
 
         // tau selection
-        tauSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        tauSelF.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
-        tauSelL.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tauTES);
+        tauSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
+        tauSelF.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
+        tauSelL.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal += tauSel.getSize();
@@ -69,12 +71,12 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
-        jetSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        jetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetLSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetTSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetPNMSel.Select(e, m_isData, muTopMVATSel.getEtaVec(), muTopMVATSel.getPhiVec(),  eleTopMVATSel.getEtaVec(), eleTopMVATSel.getPhiVec(), tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        jetSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        jetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        bjetMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        bjetPNMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
 
