@@ -111,6 +111,7 @@ private:
     JetSel bjetMSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 12, m_JESSys};
     JetSel bjetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 13, m_JESSys};
     JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys};
+    JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys};
     CopyBranch copyBranch{m_outTree, m_isRun3};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};

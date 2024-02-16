@@ -22,8 +22,10 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
         {12, "bjetsM"},
         {13, "bjetsT"},
         {2, "forward"},
-        {15, "bjetsPNM"},
+        {15, "bjetsPNM"},//particleNet
         {16, "bjetsPNT"},
+        {17, "bjetsPTM"},//robustParticleTransformer
+        {18, "bjetsPTT"},
     };
 
     ULong64_t seed = 37428479;
@@ -42,7 +44,6 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
 
 JetSel::~JetSel(){};
 
-// void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER, const Int_t sysJEC)
 void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec, const std::vector<Double_t> &tauEtaVec, const std::vector<Double_t> &tauPhiVec, const Bool_t deepJet, const Int_t JER)
 {
     // jetType=0  -> usual jets; we use loose ID; jetType = 1: tight ID
@@ -69,27 +70,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
-        // switch (sysJEC)
-        // {
-        // case 0:
-        //     break;
-        // case 1:
-        //     jetpt = jetpt * (1 + jets_JESuncer[j]);
-        //     ijetMass *= (1 + jets_JESuncer[j]);
-        //     break;
-        // case 2:
-        //     jetpt *= (1 - jets_JESuncer[j]);
-        //     ijetMass *= (1 - jets_JESuncer[j]);
-        //     break;
-        // default:
-        //     break;
-        // }
-        //first JES and then JER
-        // if (JER<3)//!!!turn off temporarily for testing
-        // {
-        //     jetpt = jetpt * JER_SF_new.at(j);
-        //     ijetMass = ijetMass * JER_SF_new.at(j);
-        // }
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -107,7 +87,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
-             // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
+        // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
         if (m_jetType == 11)
         {
             if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetL[m_era]))
@@ -126,7 +106,15 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         }else if(m_jetType == 16 && m_isRun3){
             if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(1)))
                 continue;
+        }else if(m_jetType == 17 && m_isRun3){
+            if(!(e->Jet_btagRobustParTAK4B->At(j) > robustParticleTransformerMT.at(m_era).at(0)))
+                continue;
+        }else if(m_jetType == 18 && m_isRun3){
+            if(!(e->Jet_btagRobustParTAK4B->At(j) > robustParticleTransformerMT.at(m_era).at(1)))
+                continue;
         }
+            
+
         // overlap removal
         Bool_t removeMu = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeE = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), eEtaVec, ePhiVec);

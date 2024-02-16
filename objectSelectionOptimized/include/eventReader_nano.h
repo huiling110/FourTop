@@ -158,6 +158,7 @@ public:
         //
         OS::readPointerArray(Jet_btagDeepB, reader, "Jet_btagDeepB");
         OS::readPointerArray(Jet_btagPNetB, reader, "Jet_btagPNetB");
+        OS::readPointerArray(Jet_btagRobustParTAK4B, reader, "Jet_btagRobustParTAK4B");
         //
         OS::readPointer(fixedGridRhoFastjetAll, reader, "fixedGridRhoFastjetAll");
         OS::readPointer(Rho_fixedGridRhoFastjetAll, reader, "Rho_fixedGridRhoFastjetAll");
@@ -323,6 +324,7 @@ public:
     TTreeReaderArray<Float_t> Jet_btagDeepFlavB;
     TTreeReaderArray<Float_t>* Jet_btagDeepB = nullptr;
     TTreeReaderArray<Float_t>* Jet_btagPNetB = nullptr;
+    TTreeReaderArray<Float_t>* Jet_btagRobustParTAK4B = nullptr;
     TTreeReaderArray<Float_t> Jet_pt;
     TTreeReaderArray<Float_t> Jet_mass;
     TTreeReaderArray<Float_t> Jet_eta;

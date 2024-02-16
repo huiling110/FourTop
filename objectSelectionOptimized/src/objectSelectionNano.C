@@ -77,6 +77,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         bjetPNMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        bjetPTMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
 

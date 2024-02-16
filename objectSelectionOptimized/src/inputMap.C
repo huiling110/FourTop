@@ -153,10 +153,13 @@ std::map<TString, double> DeepCSVT = {
 
 };
 
-    //https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
+//https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
 std::map<TString, std::array<Double_t, 2>> particleNetBMT = {
-    // https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/
     {"2022preEE", {0.245, 0.6734}},
     {"2022postEE", {0.2605, 0.6915}},
+};
 
+std::map<TString, std::array<Double_t, 2>> robustParticleTransformerMT = {
+    {"2022preEE", {0.4319, 0.8482}},
+    {"2022postEE", {0.451, 0.8604}}, //80.6%, 67.2%(QCD)
 };
