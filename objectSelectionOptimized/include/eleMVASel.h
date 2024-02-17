@@ -15,7 +15,9 @@ public:
     ~EleMVASel();
 
     Double_t getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et, Bool_t isScale=kTRUE);
-    void Select( eventForNano *e);
+
+    Double_t getEleSmear(Double_t eta, Double_t r9);
+    void Select(eventForNano *e);
     std::vector<Double_t>& getEtaVec();
     std::vector<Double_t>& getPhiVec();
     ULong_t getTotal();

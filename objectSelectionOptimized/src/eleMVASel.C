@@ -35,7 +35,7 @@ EleMVASel::~EleMVASel()
 
 Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et , Bool_t isScale){
     //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3#Scale_And_Smearings_Example
-    if(!m_isRun3 ||m_isData){
+    if(!m_isRun3 ){
         return 1.0;
     }else{
         Double_t sf = 1.0;
@@ -43,6 +43,7 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
         UChar_t sysScale = 0;
         if (isScale)
         {//!!!data
+
             auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
             auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
             //scale: gain, run,eta,r9,et//can use pt for et
@@ -53,15 +54,6 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
         }
         else
         {//smearing, only for MC
-            auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
-            Double_t sf_smear = corr_eleSmear->evaluate({"rho",  eta, r9});//rho is internal scale and smearing lingo
-            uncer = corr_eleSmear->evaluate({"err_rho",  eta, r9});
-            //rng = np.random.default_rng(seed=125)  # The smearing is done statistically, so we need some random numbers
-            //smearing = rng.normal(loc=1., scale=rho)
-            std::normal_distribution<double> normal_dist(1.0, sf_smear);
-            sf = normal_dist(m_rng);
-
-            sysScale = m_Sys_smear;
         }
         switch(sysScale){
             case 0:
@@ -80,7 +72,63 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
     }
 };
 
-// void EleMVASel::Select(const eventForNano *e)
+Double_t EleMVASel::getEleSmear( Double_t eta, Double_t r9){
+    if(m_isData || !m_isRun3){
+        return 1.0;
+    }
+    auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
+    Double_t sf_smear = corr_eleSmear->evaluate({"rho",  eta, r9});//rho is internal scale and smearing lingo
+    Double_t uncer = corr_eleSmear->evaluate({"err_rho",  eta, r9});
+    //rng = np.random.default_rng(seed=125)  # The smearing is done statistically, so we need some random numbers
+    //smearing = rng.normal(loc=1., scale=rho)
+    //smearing_up = rng.normal(loc=1., scale=rho + unc_rho)
+    // std::normal_distribution<double> normal_dist(1.0, sf_smear);
+    Double_t sf = 1.0;
+    // switch (m_Sys_smear)
+    // {
+    // case 0:
+    //     std::normal_distribution<double> normal_dist(1.0, sf_smear);
+    //     sf = normal_dist(m_rng);
+    //     break;
+    // case 1:
+    //     std::normal_distribution<double> normal_dist(1.0, sf_smear+uncer);
+    //     sf = normal_dist(m_rng);
+    //     break;
+    // case 2:
+    //     std::normal_distribution<double> normal_dist(1.0, sf_smear-uncer);
+    //     sf = normal_dist(m_rng);
+    //     break;
+    // default:
+    //     break;
+    // }
+
+    std::normal_distribution<double> normal_dist(1.0, sf_smear); // Default standard deviation
+    switch (m_Sys_smear) {
+        case 0:
+            // Use the default standard deviation already set above
+            break;
+        case 1:
+            normal_dist = std::normal_distribution<double>(1.0, sf_smear + uncer);
+            break;
+        case 2:
+            normal_dist = std::normal_distribution<double>(1.0, sf_smear - uncer);
+            break;
+        default:
+            // If the default case does not need to generate a random number,
+            // you can handle it accordingly here.
+            break;
+    }
+
+    // Generate the random number using the configured distribution
+    // This assumes that 'sf' is declared somewhere in the surrounding code.
+    if (m_Sys_smear <= 2) {
+        sf = normal_dist(m_rng);
+    }
+
+    return sf;
+}
+
+
 void EleMVASel::Select( eventForNano *e)
 {
     if(m_entry==0){
@@ -91,7 +139,8 @@ void EleMVASel::Select( eventForNano *e)
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
         Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
-        Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        // Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
         // Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
         Double_t pt = e->Electron_pt.At(j);
         std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
