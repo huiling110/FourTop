@@ -33,29 +33,21 @@ EleMVASel::~EleMVASel()
 {
 };
 
-Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et , Bool_t isScale){
+Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t r9, Double_t et ){
     //https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammSFandSSRun3#Scale_And_Smearings_Example
     if(!m_isRun3 ){
         return 1.0;
     }else{
         Double_t sf = 1.0;
         Double_t uncer = 0.0;
-        UChar_t sysScale = 0;
-        if (isScale)
-        {//!!!data
 
-            auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
-            auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
-            //scale: gain, run,eta,r9,et//can use pt for et
-            //smearring: gain, eta,r9
-            sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
-            uncer = corr_eleScale->evaluate({"total_uncertainty", gain, static_cast<Float_t>(run), eta, r9, et});
-            sysScale = m_Sys_scale;
-        }
-        else
-        {//smearing, only for MC
-        }
-        switch(sysScale){
+        auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
+        //scale: gain, run,eta,r9,et//can use pt for et
+        //smearring: gain, eta,r9
+        sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
+        uncer = corr_eleScale->evaluate({"total_uncertainty", gain, static_cast<Float_t>(run), eta, r9, et});
+
+        switch(m_Sys_scale){
             case 0:
                 return sf;
                 break;
@@ -84,24 +76,6 @@ Double_t EleMVASel::getEleSmear( Double_t eta, Double_t r9){
     //smearing_up = rng.normal(loc=1., scale=rho + unc_rho)
     // std::normal_distribution<double> normal_dist(1.0, sf_smear);
     Double_t sf = 1.0;
-    // switch (m_Sys_smear)
-    // {
-    // case 0:
-    //     std::normal_distribution<double> normal_dist(1.0, sf_smear);
-    //     sf = normal_dist(m_rng);
-    //     break;
-    // case 1:
-    //     std::normal_distribution<double> normal_dist(1.0, sf_smear+uncer);
-    //     sf = normal_dist(m_rng);
-    //     break;
-    // case 2:
-    //     std::normal_distribution<double> normal_dist(1.0, sf_smear-uncer);
-    //     sf = normal_dist(m_rng);
-    //     break;
-    // default:
-    //     break;
-    // }
-
     std::normal_distribution<double> normal_dist(1.0, sf_smear); // Default standard deviation
     switch (m_Sys_smear) {
         case 0:
@@ -138,11 +112,10 @@ void EleMVASel::Select( eventForNano *e)
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
-        // Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));//sys variation taken care of in getEleScale
         Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
-        // Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
-        Double_t pt = e->Electron_pt.At(j);
+        Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
+        // Double_t pt = e->Electron_pt.At(j);
         std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
 
         Double_t eta = e->Electron_eta.At(j);
