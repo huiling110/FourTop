@@ -116,7 +116,7 @@ void EleMVASel::Select( eventForNano *e)
         Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
         Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
         // Double_t pt = e->Electron_pt.At(j);
-        std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
+        // std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
 
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))
