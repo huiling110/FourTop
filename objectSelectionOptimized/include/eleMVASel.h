@@ -1,6 +1,7 @@
 #ifndef ELEMVASEL_H
 #define ELEMVASEL_H
 
+#include <random>
 #include "correction.h"
 
 #include "eventReader_nano.h"
@@ -29,6 +30,8 @@ private:
     ULong_t m_entry = 0;
     const UChar_t m_Sys_scale = 3; // 0:nominal; 1:up; 2:down; 3: none
     const UChar_t m_Sys_smear = 3;
+    std::mt19937 m_rng{125};
+    // m_rng = std::mt19937(125);
 
     std::unique_ptr<correction::CorrectionSet> cset_eleScale;//!!!only for run3
     // output branches

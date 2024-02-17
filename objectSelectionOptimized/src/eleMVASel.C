@@ -44,7 +44,7 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
         if (isScale)
         {//!!!data
             auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
-            // auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
+            auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
             //scale: gain, run,eta,r9,et//can use pt for et
             //smearring: gain, eta,r9
             sf = corr_eleScale->evaluate({"total_correction", gain, static_cast<Float_t>(run), eta, r9, et});
@@ -52,10 +52,15 @@ Double_t EleMVASel::getEleScale(UChar_t gain, UInt_t run, Double_t eta, Double_t
             sysScale = m_Sys_scale;
         }
         else
-        {
+        {//smearing, only for MC
             auto corr_eleSmear = cset_eleScale->at(eleScaleSmear.at(m_era).at(2).Data());
-            sf = corr_eleSmear->evaluate({"rho",  eta, r9});
+            Double_t sf_smear = corr_eleSmear->evaluate({"rho",  eta, r9});//rho is internal scale and smearing lingo
             uncer = corr_eleSmear->evaluate({"err_rho",  eta, r9});
+            //rng = np.random.default_rng(seed=125)  # The smearing is done statistically, so we need some random numbers
+            //smearing = rng.normal(loc=1., scale=rho)
+            std::normal_distribution<double> normal_dist(1.0, sf_smear);
+            sf = normal_dist(m_rng);
+
             sysScale = m_Sys_smear;
         }
         switch(sysScale){
@@ -85,11 +90,11 @@ void EleMVASel::Select( eventForNano *e)
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        // Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
-        // Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
+        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kTRUE);//sys variation taken care of in getEleScale
+        Double_t eleSmear = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j), kFALSE);
         // Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
-        // std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
         Double_t pt = e->Electron_pt.At(j);
+        std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
 
         Double_t eta = e->Electron_eta.At(j);
         if (!(fabs(eta) < 2.5))
