@@ -34,6 +34,9 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
     case 3:
         objNum = e->bjetsPNM_pt.GetSize();
         break;
+    case 4:
+        objNum = e->bjetsPTM_pt.GetSize();
+        break;
     }
 
     for (UInt_t i = 0; i < objNum; i++)
@@ -52,6 +55,9 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
             break;
         case 3:
             muLorentz = {e->bjetsPNM_pt[i], e->bjetsPNM_eta[i], e->bjetsPNM_phi[i], e->bjetsPNM_mass[i]};
+            break;
+        case 4:
+            muLorentz = {e->bjetsPTM_pt[i], e->bjetsPTM_eta[i], e->bjetsPTM_phi[i], e->bjetsPTM_mass[i]};
             break;
         }
         objsLorentz.push_back(muLorentz);

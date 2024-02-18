@@ -95,6 +95,7 @@ private:
     BjetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 1};
     BjetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 2};
     BjetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 3};
+    BjetVarMaker bjetPTMVarMaker{m_outTree, "bjetsPTM", 4};
 
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};

@@ -34,6 +34,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
         bjetPNMVarMaker.makeVariables(e);
+        bjetPTMVarMaker.makeVariables(e);
 
         // baseline selection
         Int_t bjetsM_num = 0;
