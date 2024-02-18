@@ -111,6 +111,7 @@ public:
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
+    myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
@@ -264,6 +265,7 @@ private:
         {jets_num.n(), &jets_num},
         {bjetsM_num.n(), &bjetsM_num},
         {bjetsPNM_num.n(), &bjetsPNM_num},
+        {bjetsPTM_num.n(), &bjetsPTM_num},
         {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
