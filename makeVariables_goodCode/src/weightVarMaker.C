@@ -101,8 +101,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     muIDSF_topMVAFile->Close();
     delete muIDSF_topMVAFile;
 
-    TString base = "../../jsonpog-integration/POG/";
     //muon 2022 SFs
+    TString base = "../../jsonpog-integration/POG/";
     TString muonSF_json = base + MV::json_muon2022.at(m_era).at(0); 
     std::cout<<"muonSF low Pt json="<<muonSF_json<<"\n";
     std::cout<<"muonSF medium Pt json="<<base + MV::json_muon2022.at(m_era).at(1)<<"\n";
@@ -133,14 +133,14 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
-    for (auto &corr : *cset)  
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
-    for (auto &corr : *cset_btag)
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
+    // for (auto &corr : *cset)  
+    // {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
+    // for (auto &corr : *cset_btag)
+    // {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
@@ -212,9 +212,9 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
 
     //sf for run3 muonPOG ID and ISO        
     //!!!suspect this is causing the run time error:  what():  Index above bounds in Binning for input argument 1 value: 1064.129272
-    // muonIDSF_weight = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 0, m_isData);//!!!check input muon collection
-    // muonIDSF_weight_up = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 1, m_isData);//!!!check input muon collection
-    // muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
+    muonIDSF_weight = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 0, m_isData);//!!!check input muon collection
+    muonIDSF_weight_up = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 1, m_isData);//!!!check input muon collection
+    muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData);
     tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData);
