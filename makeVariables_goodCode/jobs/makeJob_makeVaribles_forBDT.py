@@ -55,18 +55,18 @@ def main():
     # outVersion = 'v2cut1tau1l'
     
     #2022
-    # year = '2022postEE'
-    year = '2022preEE'
+    year = '2022postEE'
+    # year = '2022preEE'
     # inVersion = 'v0preSel'
     # inVersion = 'v1for2022preSel'
-    inVersion = 'v2leptonsNameChange'
+    # inVersion = 'v2leptonsNameChange'
     # inVersion = 'v0for2022baseline'
+    inVersion = 'v3EnergyScaleDone'
     outVersion = 'v0baseline'
    
     
     
     isRun3 = uf.isRun3Era(year)
-    # isRun3 = False
     justMC = False
     
     
