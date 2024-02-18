@@ -104,6 +104,10 @@ public:
                                       bjetsPNM_eta(reader, "bjetsPNM_eta"),
                                       bjetsPNM_phi(reader, "bjetsPNM_phi"),
                                       bjetsPNM_mass(reader, "bjetsPNM_mass"),
+                                      bjetsPTM_pt(reader, "bjetsPTM_pt"),
+                                      bjetsPTM_eta(reader, "bjetsPTM_eta"),
+                                      bjetsPTM_phi(reader, "bjetsPTM_phi"),
+                                      bjetsPTM_mass(reader, "bjetsPTM_mass"),
 
                                       PV_npvsGood_(reader, "PV_npvsGood_"),
                                       EVENT_genWeight_(reader, "EVENT_genWeight_"),
@@ -227,6 +231,10 @@ public:
     TTreeReaderArray<Double_t> bjetsPNM_eta;
     TTreeReaderArray<Double_t> bjetsPNM_phi;
     TTreeReaderArray<Double_t> bjetsPNM_mass;
+    TTreeReaderArray<Double_t> bjetsPTM_pt;
+    TTreeReaderArray<Double_t> bjetsPTM_eta;
+    TTreeReaderArray<Double_t> bjetsPTM_phi;
+    TTreeReaderArray<Double_t> bjetsPTM_mass;
 
     TTreeReaderValue<Int_t> PV_npvsGood_;
 

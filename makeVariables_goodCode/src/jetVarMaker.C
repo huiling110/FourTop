@@ -112,7 +112,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // default:
     //     break;
     // }
-    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);
+    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!!code needs to be reconstructed 
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
 
@@ -191,6 +191,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
         break;
     case 5:
         objNum = e->bjetsPNM_pt.GetSize();
+        break;
     }
 
     for (UInt_t i = 0; i < objNum; i++)

@@ -16,6 +16,7 @@
 #include "eleVarMaker.h"
 #include "tauVarMaker.h"
 #include "jetVarMaker.h"
+#include "bjetVarMaker.h"
 #include "copyBranches.h"
 #include "weightVarMaker.h"
 #include "createHists.h"
@@ -86,10 +87,14 @@ private:
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
     JetVarMaker jetVarMaker{m_outTree, "jets", 0};
     JetVarMaker jetTVarMaker{m_outTree, "jetsT", 1};
-    JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};
-    JetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 3};
-    JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
-    JetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 5};
+    // JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};
+    // JetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 3};
+    // JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
+    // JetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 5};
+    BjetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 0};
+    BjetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 1};
+    BjetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 2};
+    BjetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 3};
 
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};
