@@ -118,23 +118,25 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     #sumProcessPerVar[var][region][sumedProcess] = hist
     #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
-    sumProcessPerVar = {}
-    sumProcessPerVarSys = {}
-    for ivar in variables:
-        sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar , False, era, False, isRun3)       
-    print( sumProcessPerVar )
-    print( sumProcessPerVarSys )
-    print('\n')
+    # sumProcessPerVar = {}
+    # sumProcessPerVarSys = {}
+    # for ivar in variables:
+    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar , False, era, False, isRun3)       
+    # print( sumProcessPerVar )
+    # print( sumProcessPerVarSys )
+    # print('\n')
+    
+    sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era )#sumProcessPerVar[ivar][region][sumPro]
 
     # remove 'singleMu'
-    sumProcessPerVar = removeSingleMu(sumProcessPerVar)
+    # sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets'] #1tau1l
     # legendOrder = ['tt', 'qcd', 'tttt'] #!!!need to improve here
     # legendOrder = ['tt', 'tttt'] #!!!need to improve here
     
-    hasFakeTau = checkRegionGen(regionList)
+    # hasFakeTau = checkRegionGen(regionList)
     # if hasFakeTau:
     #     print('has fake')
     #     for ivar in sumProcessPerVar:
@@ -156,15 +158,12 @@ def main():
     #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     
 
+    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets'] #1tau1l
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
-    for variable in variables:
-        # if not hasFakeTau:
-        for iRegion in regionList:       
-            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
-        # else:
-            # print(regionList)
-            # makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
+    # for variable in variables:
+    #     for iRegion in regionList:       
+    #         # makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
 
 
 
