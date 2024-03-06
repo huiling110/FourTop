@@ -126,15 +126,16 @@ def main():
     # print( sumProcessPerVarSys )
     # print('\n')
     
-    sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'] 
+    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    # sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'] 
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era )#sumProcessPerVar[ivar][region][sumPro]
 
-    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets', 'jetHT'] #1tau1l
+    # legendOrder = ['tt', 'ttX', 'singleTop',  'WJets', 'jetHT'] #1tau1l
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
 
 
     # hasFakeTau = checkRegionGen(regionList)
@@ -258,14 +259,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-
-
-
-
-
-   
-   
-def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -293,7 +287,7 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
-    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, False)
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, False)
 
     setUpStack(stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
     #error bar for MC stack    
@@ -327,7 +321,7 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, dataHist, assymErrorPlot, signal, signalScale)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale)
     leggy.Draw()
     
     #text above the plot
@@ -342,22 +336,22 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
  
-def addLegend(canvy, nominal, dataHist, assymErrorPlot, signal, signalScale):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
-    for ipro in nominal.keys():
+    # for ipro in nominal.keys():
+    for ipro in legendOrder:
         if ipro == 'jetHT':
             leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif ipro == 'tttt':
-            continue
+            signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
+            leggy.AddEntry( signal, signalEntry, 'l')
         else:
             legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
             leggy.AddEntry(nominal[ipro], legText,"f")
         
     leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
-    signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
-    leggy.AddEntry( signal, signalEntry, 'l')
     
     leggy.SetNColumns(2) 
     leggy.Draw()
@@ -437,7 +431,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal, doSystmatic):
+def getHists(nominal,  legendOrder, doSystmatic):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
@@ -460,10 +454,9 @@ def getHists(nominal, doSystmatic):
     systsDown.Reset()
     dataHist = 0
     stack = THStack( 'stack', 'stack' )
-    # hasDataHist = True
-    # if not 'jetHT' in nominal.keys():
-        # hasDataHist = False
-    for i in nominal.keys():
+    legendOrder.reverse()
+    # for i in nominal.keys():
+    for i in legendOrder:
         # i is i summed MC
         if i == 'jetHT':
             dataHist = nominal["jetHT"].Clone()
@@ -473,8 +466,6 @@ def getHists(nominal, doSystmatic):
             dataHist.SetLineColor(kBlack)
             dataHist.SetTitleSize(0.0)
             continue
-        # if ifFakeTau and i=='qcd': 
-            # continue
         if i == 'tttt' or i=='singleMu':
             continue
         nominal[i].SetFillColor(colourPerSample[i])
@@ -491,16 +482,14 @@ def getHists(nominal, doSystmatic):
         #     systsUp.Add(tempUp) #adding various processes, 
         #     systsDown.Add(tempDown)
             
-    #add bgs for stack
-    # legendOrder = ['tt']
-    # legendOrder.reverse()
+    #add bgs for stack, has to do it with legendOrder because dict is not ordered
     # for ipro in legendOrder:
     #     if not ipro in nominal.keys():
     #         print( 'this prcess not get: ', ipro )
     #         legendOrder.remove(ipro)
     # for entry in legendOrder:
     #     stack.Add(nominal[entry])
-    # legendOrder.reverse()
+    legendOrder.reverse()
     
     #scale tttt
     if 'tttt' in nominal.keys():
