@@ -438,6 +438,10 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, False)
 
     setUpStack(stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
+    #error bar for MC stack    
+    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )#add sytematic uncertainty
+    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
+    assymErrorPlot.Draw("e2 SAME")
 
     if includeDataInStack and dataHist:
         dataHist.SetLineWidth(1)
@@ -453,37 +457,12 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     signal.GetXaxis().SetLabelSize(0.0)
     signal.Draw("SAME HIST ")
     
-    #error bar for MC stack    
-    #add sytematic uncertainty
-    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
-    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
-    assymErrorPlot.Draw("e2 SAME")
     upPad.Update()
 
     downPad.cd()
     myStyle.cd()
     myStyle.SetOptTitle(0)
-    if dataHist:
-        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
-        sumHistoData.Sumw2()
-        sumHistoData.Divide(sumHist)
-    else:
-        sumHistoData = sumHist.Clone() 
-        sumHistoData.Reset()
-    sumHistoData.GetYaxis().SetTitle("Data/pred.")
-    # sumHistoData.GetYaxis().SetTitleOffset(1.3)
-    # ratioCanvy.cd()
-    # SetOwnership(sumHistoData,False)
-    sumHistoData.SetMinimum(0.5)
-    # sumHistoData.SetMaximum(1.2)
-    sumHistoData.SetMaximum(1.5)
-    sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-    # sumHistoData.GetXaxis().SetLabelSize(0.04)
-    sumHistoData.GetXaxis().SetTitleSize(0.05)
-    sumHistoData.GetYaxis().SetNdivisions(6)
-    # sumHistoData.GetYaxis().SetTitleSize(0.05)
-    # sumHistoData.GetYaxis().SetLabelSize(0.04)
-    sumHistoData.SetTitle("")
+    sumHistoData = getHistToData( dataHist, sumHist)
     sumHistoData.Draw("E1X0")
     
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
@@ -516,6 +495,29 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
+  
+def getHistToData( dataHist, sumHist):
+    if dataHist:
+        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
+        sumHistoData.Sumw2()
+        sumHistoData.Divide(sumHist)
+    else:
+        sumHistoData = sumHist.Clone() 
+        sumHistoData.Reset()
+    sumHistoData.GetYaxis().SetTitle("Data/pred.")
+    # sumHistoData.GetYaxis().SetTitleOffset(1.3)
+    sumHistoData.SetMinimum(0.5)
+    # sumHistoData.SetMaximum(1.2)
+    sumHistoData.SetMaximum(1.5)
+    # sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
+    sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
+    # sumHistoData.GetXaxis().SetLabelSize(0.04)
+    sumHistoData.GetXaxis().SetTitleSize(0.05)
+    sumHistoData.GetYaxis().SetNdivisions(6)
+    # sumHistoData.GetYaxis().SetTitleSize(0.05)
+    # sumHistoData.GetYaxis().SetLabelSize(0.04)
+    sumHistoData.SetTitle("")
+    return sumHistoData
    
 def setUpStack(stack, sumMax, signalMax): 
     #set y axix maxi
