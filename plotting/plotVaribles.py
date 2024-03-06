@@ -248,11 +248,6 @@ def getShapeFromData( inputDirDic, var, isVR=False):
     
     return fakeTauFromData
         
-        
-        
-        
-
-
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
         print('iProcess: ', ikey )
@@ -335,6 +330,8 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
+
+
  
 def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)

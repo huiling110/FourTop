@@ -153,13 +153,17 @@ def addCMSTextToPad(canvas,  era = '2016'):
     
     latex = ROOT.TLatex()
     latex.SetNDC()
-    latex.SetTextAlign(31)
+    latex.SetTextAlign(11) #Align the text to the top-right
     latex.SetTextSize(0.04)
     latex.SetTextFont(cmsTextFont)
-    latex.DrawLatex(x1, y, cmsText )
-    latex.SetTextFont(extraTextFont)
-    latex.SetTextSize(0.04*0.76)
-    latex.DrawLatex(x2, y , extraText )
+    # latex.DrawLatex(x1, y, cmsText )
+    latex.DrawLatexNDC(0.15, y, cmsText)
+    
+    latex1 = ROOT.TLatex()
+    latex1.SetTextFont(extraTextFont)
+    latex1.SetTextSize(0.04*0.76)
+    # latex1.DrawLatex(x2, y , extraText )
+    latex1.DrawLatexNDC(0.15+0.10, y , extraText )
   
     lumiText = lumiMap[era] /1000
     lumiText_s = '{0:.1f}'.format(lumiText)
