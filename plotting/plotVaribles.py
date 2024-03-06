@@ -7,9 +7,6 @@ import numpy as np
 import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
-# from ttttGlobleQuantity import (histoGramPerSample, lumiMap, samples,
-                                # samplesCrossSection, summedProcessList)
-# from writeCSVforEY import replaceBgWithGen
 import writeCSVforEY as wc
 import setTDRStyle as ss
 
@@ -65,7 +62,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v3dataMC_HT550HLTSFBinF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v3dataMC_HT550HLTSFBinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
@@ -77,7 +74,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0dataMC_noCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone/mc/variableHists_v1dataMC_pileupSF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone/mc/variableHists_v1dataMC_pileupSF/'
 
     # for 1tau1l
     # variables = ['jets_num']
@@ -95,7 +92,7 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     ifFR_sys = False
-    plotName = 'dataVsMC'
+    plotName = 'dataVsMC_forAN'
   
     #1tau0l
     # variables = ['jets_bScore' ]
@@ -133,9 +130,9 @@ def main():
     sumProcessPerVar = removeSingleMu(sumProcessPerVar)
 
 
-    # legendOrder = ['tt', 'ttX', 'singleTop', 'VV', 'WJets', 'qcd']
+    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets'] #1tau1l
     # legendOrder = ['tt', 'qcd', 'tttt'] #!!!need to improve here
-    legendOrder = ['tt', 'tttt'] #!!!need to improve here
+    # legendOrder = ['tt', 'tttt'] #!!!need to improve here
     
     hasFakeTau = checkRegionGen(regionList)
     # if hasFakeTau:
@@ -153,21 +150,21 @@ def main():
     
     
     #???should we add hists like this?
-    if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
-        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
-    if (not hasFakeTau) and regionList[0]=='1tau1lSR' and 'BDT' in variables: 
-        writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
+    # if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
+    #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
+    # if (not hasFakeTau) and regionList[0]=='1tau1lSR' and 'BDT' in variables: 
+    #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
     for variable in variables:
-        if not hasFakeTau:
-            for iRegion in regionList:       
-                makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
-        else:
+        # if not hasFakeTau:
+        for iRegion in regionList:       
+            makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
+        # else:
             # print(regionList)
-            makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
+            # makeStackPlot(sumProcessPerVar[variable][regionList[0]], sumProcessPerVarSys[variable][regionList[0]], variable, regionList[0], plotDir,legendOrder, True, plotName, era, True,1000)
 
 
 
