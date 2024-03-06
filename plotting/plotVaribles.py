@@ -126,16 +126,17 @@ def main():
     # print( sumProcessPerVarSys )
     # print('\n')
     
-    sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'] 
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era )#sumProcessPerVar[ivar][region][sumPro]
 
-    # remove 'singleMu'
-    # sumProcessPerVar = removeSingleMu(sumProcessPerVar)
+    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets', 'jetHT'] #1tau1l
+    plotDir = inputDirDic['mc']+'results/'
+    uf.checkMakeDir( plotDir)
+    for variable in variables:
+        for iRegion in regionList:       
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
 
 
-    # legendOrder = ['tt', 'qcd', 'tttt'] #!!!need to improve here
-    # legendOrder = ['tt', 'tttt'] #!!!need to improve here
-    
     # hasFakeTau = checkRegionGen(regionList)
     # if hasFakeTau:
     #     print('has fake')
@@ -145,11 +146,6 @@ def main():
     #     legendOrder.insert(0, 'fakeTau')
     #     sumProcessPerVar[ivar][regionList[0]].pop('qcd')
    
-    # remove qcd for 1tau1l 
-    sumProcessPerVar, legendOrder = removeQCD(sumProcessPerVar, legendOrder)
-    print( sumProcessPerVar )
-    print( legendOrder)
-    
     
     #???should we add hists like this?
     # if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
@@ -158,12 +154,6 @@ def main():
     #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
     
 
-    legendOrder = ['tt', 'ttX', 'singleTop',  'WJets'] #1tau1l
-    plotDir = inputDirDic['mc']+'results/'
-    uf.checkMakeDir( plotDir)
-    # for variable in variables:
-    #     for iRegion in regionList:       
-    #         # makeStackPlot(sumProcessPerVar[variable][iRegion], sumProcessPerVarSys[variable][iRegion], variable, iRegion, plotDir, legendOrder, False, plotName, era, True, 100 ) 
 
 
 
@@ -420,6 +410,148 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
+   
+   
+def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
+    '''
+    nominal is a dic of distribution for all processes including data
+    nominal: nominal[iprocess]
+    sysHists: sysHists[iprocess]['prefiring_up']
+    '''
+    #name is variable name
+    print( 'start plotting data/mc plot for {}'.format(name))
+    myStyle = ss.setMyStyle()
+    myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
+    
+    canvasName = '{}_{}'.format( region, name )
+    canvy = TCanvas( canvasName, canvasName, 1000,1000)
+    
+    #it seems text size  is scaled to pad size
+    upPad = TPad('up', 'up', 0, 0., 1, 1)
+    downPad = TPad('down', 'down', 0., 0, 1, 1)
+    upPad.SetBottomMargin(0.3)
+    downPad.SetTopMargin(0.72)
+    # downPad.SetBottomMargin(0.2)
+    upPad.Draw()
+    downPad.SetFillColor(0)
+    downPad.SetFillStyle(0) #set the empty space to be empty, so that not cover the upPad
+    downPad.SetGridy(1)
+    downPad.Draw()
+    
+    upPad.cd() #???cd() pad causing stack to be not accessble???
+
+    # doSystmatic = ifDoSystmatic( systHists)
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, False, ifFakeTau, legendOrder)
+
+    #add sytematic uncertainty
+    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
+
+    #get the uncertainty for stack MC
+    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
+    #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
+
+    #set y axix maxi
+    if sumHist.GetMaximum()> signalScale*signal.GetMaximum():
+        maxi = 1.7* sumHist.GetMaximum()
+    else:
+        maxi = 1.7* signalScale*signal.GetMaximum()  
+    if maxi<=0 :
+        print(name, ' variable empty')
+        print('\n')
+        return
+    # if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
+    #     maxi = maxi*1.7
+    stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
+    stack.Draw("hist")
+    stack.GetXaxis().SetLabelSize(0.0)
+    stack.GetYaxis().SetTitle('Events')
+    stack.GetYaxis().SetTitleOffset(1.2)
+    stack.GetYaxis().SetTitleSize(0.06)
+    stack.GetYaxis().SetLabelSize(0.033)
+
+    if includeDataInStack and dataHist:
+        dataHist.SetLineWidth(1)
+        dataHist.SetMarkerSize(1.5)
+        dataHist.Draw("e0 same")
+        
+    signal.Scale(signalScale)
+    # signal.SetLineColor(kMagenta)
+    signal.SetLineColor(kBlue)
+    signal.SetLineStyle(kSolid)
+    signal.SetLineWidth(3)
+    signal.SetFillStyle(0)
+    signal.GetXaxis().SetLabelSize(0.0)
+    signal.Draw("SAME HIST ")
+    
+    assymErrorPlot.SetFillStyle(3013)
+    assymErrorPlot.SetFillColor(14)
+    assymErrorPlot.GetXaxis().SetLabelSize(0.0)
+    assymErrorPlot.Draw("e2 SAME")
+    upPad.Update()
+
+    downPad.cd()
+    myStyle.cd()
+    myStyle.SetOptTitle(0)
+    # if hasDataHist:
+    if dataHist:
+        sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
+        sumHistoData.Sumw2()
+        sumHistoData.Divide(sumHist)
+    else:
+        sumHistoData = sumHist.Clone() 
+        sumHistoData.Reset()
+    sumHistoData.GetYaxis().SetTitle("Data/pred.")
+    # sumHistoData.GetYaxis().SetTitleOffset(1.3)
+    # ratioCanvy.cd()
+    # SetOwnership(sumHistoData,False)
+    sumHistoData.SetMinimum(0.5)
+    # sumHistoData.SetMaximum(1.2)
+    sumHistoData.SetMaximum(1.5)
+    sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
+    sumHistoData.GetXaxis().SetLabelSize(0.04)
+    sumHistoData.GetXaxis().SetTitleSize(0.06)
+    sumHistoData.GetYaxis().SetNdivisions(6)
+    sumHistoData.GetYaxis().SetTitleSize(0.05)
+    sumHistoData.GetYaxis().SetLabelSize(0.04)
+    sumHistoData.SetTitle("")
+    sumHistoData.Draw("E1X0")
+    
+    assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
+
+    assymErrorPlotRatio.SetFillStyle(3013)
+    assymErrorPlotRatio.SetFillColor(14) 
+    assymErrorPlotRatio.SetTitle("")
+    assymErrorPlotRatio.Draw("e2 same")
+
+    #legend
+    leggy =  getLegend(nominal, dataHist, assymErrorPlot, signal, signalScale, legendOrder)
+    leggy.SetNColumns(2) 
+    # leggy.SetFillStyle(1001)
+    leggy.SetBorderSize(1)
+    leggy.SetFillColor(0)
+    leggy.SetLineColor(0)
+    leggy.SetShadowColor(0)
+    # leggy.SetFillColor(kWhite)
+    # leggy.SetMarkerSize(2)
+    leggy.SetTextFont(42)
+    leggy.Draw()
+    
+    #text above the plot
+    # ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
+    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
+    
+    canvy.Update()
+    canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
+    canvy.SaveAs(outDir+"{}_{}_{}.pdf".format(region,name, savePost))
+    myStyle.Reset()
+    print( 'done plotting data/mc plot for {}\n'.format(name))
+    print('\n')
+   
+   
+   
+   
+   
+   
     
 def getLegend(nominal,  dataHist, assymErrorPlot, signal, signalScale, legendOrder):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
@@ -450,9 +582,9 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
+def getHists(nominal, systHists, doSystmatic, ifFakeTau):
     #here we get dataHist and add all MC for sumHist    
-    keyList = list(nominal.keys()) #process list
+    keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
         'tttt':kBlue,
         'tt': TColor.GetColor("#f03b20"),
@@ -472,12 +604,13 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
     systsDown = nominal[keyList[0]].Clone("systsDown")
     systsDown.Reset()
     dataHist = 0
-    hasDataHist = True
-    if not 'jetHT' in nominal.keys():
-        hasDataHist = False
+    stack = THStack( 'stack', 'stack' )
+    # hasDataHist = True
+    # if not 'jetHT' in nominal.keys():
+        # hasDataHist = False
     for i in nominal.keys():
         # i is i summed MC
-        if i == "jetHT" and hasDataHist:
+        if i == 'jetHT':
             dataHist = nominal["jetHT"].Clone()
             dataHist.SetMarkerStyle(20)
             dataHist.SetMarkerSize(1.2)
@@ -496,25 +629,23 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
         nominal[i].GetXaxis().SetLabelSize(0.0)
         nominal[i].GetYaxis().SetTitle('Events')
         sumHist.Add(nominal[i]) #sumHist is all bg
-        if doSystmatic and  systHists[i]:
-            print('cal sys for: ', i)
-            tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
-            systsUp.Add(tempUp) #adding various processes, 
-            systsDown.Add(tempDown)
+        stack.Add(nominal[i])
+        # if doSystmatic and  systHists[i]:
+        #     print('cal sys for: ', i)
+        #     tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
+        #     systsUp.Add(tempUp) #adding various processes, 
+        #     systsDown.Add(tempDown)
             
     #add bgs for stack
     # legendOrder = ['tt']
-    legendOrder.reverse()
-    for ipro in legendOrder:
-        if not ipro in nominal.keys():
-            print( 'this prcess not get: ', ipro )
-            legendOrder.remove(ipro)
-    # stack = THStack( canvasName, canvasName )
-    stack = THStack( 'stack', 'stack' )
-    for entry in legendOrder:
-        stack.Add(nominal[entry])
-    legendOrder.reverse()
-    
+    # legendOrder.reverse()
+    # for ipro in legendOrder:
+    #     if not ipro in nominal.keys():
+    #         print( 'this prcess not get: ', ipro )
+    #         legendOrder.remove(ipro)
+    # for entry in legendOrder:
+    #     stack.Add(nominal[entry])
+    # legendOrder.reverse()
     
     #scale tttt
     if 'tttt' in nominal.keys():
@@ -522,9 +653,8 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder):
     else:
         signal = nominal['tt'].Clone()
         signal.Reset()
-    
             
-    return dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist 
+    return dataHist, systsUp, systsDown, sumHist, stack, signal 
 
 
 def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
