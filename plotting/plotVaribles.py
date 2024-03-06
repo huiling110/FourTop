@@ -456,7 +456,6 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     signal.SetFillStyle(0)
     signal.GetXaxis().SetLabelSize(0.0)
     signal.Draw("SAME HIST ")
-    
     upPad.Update()
 
     downPad.cd()
@@ -466,22 +465,11 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     sumHistoData.Draw("E1X0")
     
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
-    assymErrorPlotRatio.SetFillStyle(3013)
-    assymErrorPlotRatio.SetFillColor(14) 
-    assymErrorPlotRatio.SetTitle("")
+    # assymErrorPlotRatio.SetTitle("")
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy =  getLegend(nominal, dataHist, assymErrorPlot, signal, signalScale, legendOrder)
-    leggy.SetNColumns(2) 
-    # leggy.SetFillStyle(1001)
-    leggy.SetBorderSize(1)
-    leggy.SetFillColor(0)
-    leggy.SetLineColor(0)
-    leggy.SetShadowColor(0)
-    # leggy.SetFillColor(kWhite)
-    # leggy.SetMarkerSize(2)
-    leggy.SetTextFont(42)
+    leggy = addLegend(canvy, nominal, dataHist, assymErrorPlot, signal, signalScale)
     leggy.Draw()
     
     #text above the plot
@@ -495,6 +483,28 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     myStyle.Reset()
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
+ 
+def addLegend(canvy, nominal, dataHist, assymErrorPlot, signal, signalScale):
+    # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
+    canvy.cd()
+    leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
+    for ipro in nominal.keys():
+        if ipro == 'jetHT':
+            leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
+        elif ipro == 'tttt':
+            continue
+        else:
+            legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
+            leggy.AddEntry(nominal[ipro], legText,"f")
+        
+    leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
+    signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
+    leggy.AddEntry( signal, signalEntry, 'l')
+    
+    leggy.SetNColumns(2) 
+    leggy.Draw()
+    canvy.Update()
+    return leggy
   
 def getHistToData( dataHist, sumHist):
     if dataHist:

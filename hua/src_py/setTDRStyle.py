@@ -277,7 +277,6 @@ def setMyStyle():
 def getMyLegend(x1, x2, y1, y2):
     legend = ROOT.TLegend(x1, x2, y1, y2)
     legend.SetFillColor(0)  # transparent
-    # legend.SetBorderSize(1)  # border size
     legend.SetBorderSize(0)  # border size
     # legend.SetTextSize(0.07)  # text size
     legend.SetTextFont(42)  # font style
