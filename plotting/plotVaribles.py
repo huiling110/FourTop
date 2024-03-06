@@ -8,7 +8,7 @@ import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
 import writeCSVforEY as wc
-import setTDRStyle as ss
+import setTDRStyle as st
 
 
 def main():
@@ -271,7 +271,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    myStyle = ss.setMyStyle()
+    myStyle = st.setMyStyle()
     myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
@@ -292,7 +292,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
     doSystmatic = ifDoSystmatic( systHists)
-    dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau, legendOrder)
+    dataHist, systsUp, systsDown, sumHist, stack, signal, hasDataHist = getHists(nominal, systHists, doSystmatic, ifFakeTau)
 
     #add sytematic uncertainty
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
@@ -334,7 +334,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
         dataHist.Draw("e0 same")
         
     signal.Scale(signalScale)
-    # signal.SetLineColor(kMagenta)
     signal.SetLineColor(kBlue)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(3)
@@ -348,8 +347,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlot.Draw("e2 SAME")
     
     upPad.Update()
-
-
     downPad.cd()
     myStyle.cd()
     myStyle.SetOptTitle(0)
@@ -383,8 +380,6 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     assymErrorPlotRatio.SetTitle("")
     assymErrorPlotRatio.Draw("e2 same")
 
-    
-    
     #legend
     leggy =  getLegend(nominal, dataHist, assymErrorPlot, signal, signalScale, legendOrder)
     leggy.SetNColumns(2) 
@@ -399,8 +394,8 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     leggy.Draw()
     
     #text above the plot
-    # ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
-    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
+    # st.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
+    st.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
     
     
     canvy.Update()
@@ -412,7 +407,7 @@ def makeStackPlot(nominal,systHists,name,region,outDir, legendOrder, ifFakeTau, 
     print('\n')
    
    
-def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
+def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -420,7 +415,7 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    myStyle = ss.setMyStyle()
+    myStyle = st.setMyStyle()
     myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
@@ -446,10 +441,6 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     #add sytematic uncertainty
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
 
-    #get the uncertainty for stack MC
-    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
-    #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
-
     #set y axix maxi
     if sumHist.GetMaximum()> signalScale*signal.GetMaximum():
         maxi = 1.7* sumHist.GetMaximum()
@@ -465,9 +456,9 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle('Events')
-    stack.GetYaxis().SetTitleOffset(1.2)
-    stack.GetYaxis().SetTitleSize(0.06)
-    stack.GetYaxis().SetLabelSize(0.033)
+    # stack.GetYaxis().SetTitleOffset(1.2)
+    stack.GetYaxis().SetTitleSize(0.05)
+    # stack.GetYaxis().SetLabelSize(0.033)
 
     if includeDataInStack and dataHist:
         dataHist.SetLineWidth(1)
@@ -483,6 +474,10 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     signal.GetXaxis().SetLabelSize(0.0)
     signal.Draw("SAME HIST ")
     
+    #error bar for MC stack    
+    #get the uncertainty for stack MC
+    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
+    #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
     assymErrorPlot.SetFillStyle(3013)
     assymErrorPlot.SetFillColor(14)
     assymErrorPlot.GetXaxis().SetLabelSize(0.0)
@@ -492,7 +487,6 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     downPad.cd()
     myStyle.cd()
     myStyle.SetOptTitle(0)
-    # if hasDataHist:
     if dataHist:
         sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
         sumHistoData.Sumw2()
@@ -508,16 +502,15 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     # sumHistoData.SetMaximum(1.2)
     sumHistoData.SetMaximum(1.5)
     sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-    sumHistoData.GetXaxis().SetLabelSize(0.04)
-    sumHistoData.GetXaxis().SetTitleSize(0.06)
+    # sumHistoData.GetXaxis().SetLabelSize(0.04)
+    sumHistoData.GetXaxis().SetTitleSize(0.05)
     sumHistoData.GetYaxis().SetNdivisions(6)
-    sumHistoData.GetYaxis().SetTitleSize(0.05)
-    sumHistoData.GetYaxis().SetLabelSize(0.04)
+    # sumHistoData.GetYaxis().SetTitleSize(0.05)
+    # sumHistoData.GetYaxis().SetLabelSize(0.04)
     sumHistoData.SetTitle("")
     sumHistoData.Draw("E1X0")
     
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
-
     assymErrorPlotRatio.SetFillStyle(3013)
     assymErrorPlotRatio.SetFillColor(14) 
     assymErrorPlotRatio.SetTitle("")
@@ -537,8 +530,9 @@ def makeStackPlotNew(nominal, name, region,outDir, legendOrder, ifFakeTau, saveP
     leggy.Draw()
     
     #text above the plot
-    # ss.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
-    ss.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
+    # st.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
+    # st.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
+    st.addCMSTextToPad(canvy, era)
     
     canvy.Update()
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
