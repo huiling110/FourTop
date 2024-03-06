@@ -435,30 +435,9 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
-    # doSystmatic = ifDoSystmatic( systHists)
-    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, False, ifFakeTau, legendOrder)
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, False)
 
-    #add sytematic uncertainty
-    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
-
-    #set y axix maxi
-    if sumHist.GetMaximum()> signalScale*signal.GetMaximum():
-        maxi = 1.7* sumHist.GetMaximum()
-    else:
-        maxi = 1.7* signalScale*signal.GetMaximum()  
-    if maxi<=0 :
-        print(name, ' variable empty')
-        print('\n')
-        return
-    # if (maxi-sumHist.GetBinContent(sumHist.GetNbinsX()))/maxi < 0.6:
-    #     maxi = maxi*1.7
-    stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
-    stack.Draw("hist")
-    stack.GetXaxis().SetLabelSize(0.0)
-    stack.GetYaxis().SetTitle('Events')
-    # stack.GetYaxis().SetTitleOffset(1.2)
-    stack.GetYaxis().SetTitleSize(0.05)
-    # stack.GetYaxis().SetLabelSize(0.033)
+    setUpStack(stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
 
     if includeDataInStack and dataHist:
         dataHist.SetLineWidth(1)
@@ -475,12 +454,9 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     signal.Draw("SAME HIST ")
     
     #error bar for MC stack    
-    #get the uncertainty for stack MC
-    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)
-    #systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
-    assymErrorPlot.SetFillStyle(3013)
-    assymErrorPlot.SetFillColor(14)
-    assymErrorPlot.GetXaxis().SetLabelSize(0.0)
+    #add sytematic uncertainty
+    systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )
+    assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
     assymErrorPlot.Draw("e2 SAME")
     upPad.Update()
 
@@ -541,7 +517,22 @@ def makeStackPlotNew(nominal, name, region, outDir, legendOrder, ifFakeTau, save
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
    
-   
+def setUpStack(stack, sumMax, signalMax): 
+    #set y axix maxi
+    if sumMax > signalMax:
+        maxi = 1.7* sumMax
+    else:
+        maxi = 1.7* signalMax  
+    if maxi<=0 :
+        # print(name, ' variable empty\n')
+        return
+    stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
+    stack.Draw("hist")
+    stack.GetXaxis().SetLabelSize(0.0)
+    stack.GetYaxis().SetTitle('Events')
+    # stack.GetYaxis().SetTitleOffset(1.2)
+    stack.GetYaxis().SetTitleSize(0.05)
+    # stack.GetYaxis().SetLabelSize(0.033)
    
    
    
@@ -576,7 +567,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal, systHists, doSystmatic, ifFakeTau):
+def getHists(nominal, doSystmatic):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
@@ -612,8 +603,8 @@ def getHists(nominal, systHists, doSystmatic, ifFakeTau):
             dataHist.SetLineColor(kBlack)
             dataHist.SetTitleSize(0.0)
             continue
-        if ifFakeTau and i=='qcd': 
-            continue
+        # if ifFakeTau and i=='qcd': 
+            # continue
         if i == 'tttt' or i=='singleMu':
             continue
         nominal[i].SetFillColor(colourPerSample[i])
@@ -679,6 +670,11 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
                 eyl.append(0)
                 eyh.append(0)
     errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
+    
+    errors.SetFillStyle(3013)
+    errors.SetFillColor(14)
+    errors.GetXaxis().SetLabelSize(0.0)
+    
     return errors
 
 
