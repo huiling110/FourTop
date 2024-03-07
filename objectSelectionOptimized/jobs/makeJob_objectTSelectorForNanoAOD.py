@@ -50,7 +50,6 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 jobVersionName = 'v3EnergyScaleDone/'
 
 
-
 def main():
     # era = '2016'
     # era = '2016APV'
