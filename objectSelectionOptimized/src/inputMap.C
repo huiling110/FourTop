@@ -35,15 +35,15 @@ std::map<TString, std::array<TString, 6>> jesTagData = {
 
 
 std::map<TString, TString> jesTagDataRuns ={
-    {"JetHT2022C", "RunC"},
-    {"JetMET2022C", "RunC"},
-    {"JetMET2022D", "RunD"},
+    {"JetHT2022C", "RunCD"},
+    {"JetMET2022C", "RunCD"},
+    {"JetMET2022D", "RunCD"},
     {"JetMET2022E", "RunE"},
     {"JetMET2022F", "RunF"},
     {"JetMET2022G", "RunG"},
-    {"SingleMuon2022C", "RunC"},
-    {"Muon2022C", "RunC"},
-    {"Muon2022D", "RunD"},
+    {"SingleMuon2022C", "RunCD"},
+    {"Muon2022C", "RunCD"},
+    {"Muon2022D", "RunCD"},
     {"Muon2022E", "RunE"},
     {"Muon2022F", "RunF"},
     {"Muon2022G", "RunG"},
