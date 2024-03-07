@@ -201,7 +201,6 @@ void WH_forDataMC::Terminate()
         Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         TString processName = WH::getProcessName(m_processName, m_isRun3);
         std::cout<<"newProcessName="<<processName<<"\n";
-        // Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
         WH::histRegionsVectScale(histsForRegion_vec, processScale);
