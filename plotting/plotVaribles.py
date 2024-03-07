@@ -62,7 +62,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v3dataMC_HT550HLTSFBinF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v3dataMC_HT550HLTSFBinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
@@ -75,17 +75,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0dataMC_noCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone/mc/variableHists_v1dataMC_pileupSF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v1dataMC_pileupSF/'
 
     # for 1tau1l
-    # variables = ['jets_num']
+    variables = ['jets_num']
     # variables = ['tausT_1pt']
-    variables = ['jets_HT']
+    # variables = ['jets_HT']
     # variables = ['bjetsM_num']
     # variables = ['jets_6pt']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt'] #for 1tau1l BDT input
-    # variables = ['bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt']
     regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau0lSR']
     # regionList = ['1tau1lSR']
@@ -126,9 +126,9 @@ def main():
     # print( sumProcessPerVarSys )
     # print('\n')
     
-    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
-    # sumProList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'] 
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era )#sumProcessPerVar[ivar][region][sumPro]
+    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
     # legendOrder = ['tt', 'ttX', 'singleTop',  'WJets', 'jetHT'] #1tau1l
     plotDir = inputDirDic['mc']+'results/'
@@ -391,7 +391,7 @@ def setUpStack(stack, sumMax, signalMax):
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle('Events')
-    # stack.GetYaxis().SetTitleOffset(1.2)
+    stack.GetYaxis().SetTitleOffset(1.2)
     stack.GetYaxis().SetTitleSize(0.05)
     # stack.GetYaxis().SetLabelSize(0.033)
    

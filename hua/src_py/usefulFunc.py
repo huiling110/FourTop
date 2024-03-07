@@ -478,13 +478,18 @@ def print_dict_structure(dictionary, indent=0):
 def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=False):
     #return sumProHists[var][region][sumPro]
     print('start to get hists and add them from root files')
-    allSubPro = list(gq.histoGramPerSample.keys() )
-    allDic =  gq.histoGramPerSample
+    allDic = gq.histoGramPerSample
+    if isRun3: 
+        allDic = gq.Run3Samples
+    # allSubPro = list(gq.histoGramPerSample.keys() )
+    # allDic =  gq.histoGramPerSample
+    allSubPro = list(allDic.keys())
     toGetSubHist = {} 
     for isub in allSubPro:
         isdata = isData(isub)
         if not allDic[isub] in sumProList: continue # not getting
-        if not era in isub and (isdata): continue #not getting data from other year
+        # if not era in isub and (isdata): continue #not getting data from other year
+        if checkIfOtherYear(isub, era, isdata): continue
         print('getting: ', isub)
         if isdata:
             rootFile = inputDirDic['data'] + isub + '.root'
@@ -501,6 +506,15 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
     sumProHists =  sumProDic(toGetSubHist, allDic)
     print_dict_structure(sumProHists)
     return sumProHists
+   
+def checkIfOtherYear(isub, era, isData):
+    if not isData:
+        return False
+    else: 
+        for isubEra in gq.dataDict[era]:
+            if isubEra in isub:
+                return False 
+        return True
     
 def sumProDic(subProHists, sumProDic):
     sumProHists = {}
@@ -534,6 +548,8 @@ def merge_dicts(dict1, dict2):
 def isData(subPro):
     isdata = False
     if ('jetHT' in subPro) or ('singleMu' in subPro):
+        isdata = True
+    if('JetHT' in subPro) or ('Muon' in subPro) or ('JetMET' in subPro):
         isdata = True
     return isdata
 
