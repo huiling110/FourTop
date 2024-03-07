@@ -63,7 +63,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v3dataMC_HT550HLTSFBinF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
@@ -74,10 +74,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0dataMC_noCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone/mc/variableHists_v1dataMC_pileupSF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone/mc/variableHists_v1dataMC_pileupSF/'
 
     # for 1tau1l
-    variables = ['jets_num']
+    # variables = ['jets_num']
     # variables = ['tausT_1pt']
     # variables = ['jets_HT']
     # variables = ['bjetsM_num']
@@ -85,10 +85,10 @@ def main():
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag']
     # variables = ['tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt'] #for 1tau1l BDT input
-    regionList = ['1tau1lCR1', '1tau1lCR2']
+    # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau0lSR']
-    # regionList = ['1tau1lSR']
-    # variables = ['BDT']
+    regionList = ['1tau1lSR']
+    variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     ifFR_sys = False
     plotName = 'dataVsMC_forAN'
@@ -125,11 +125,10 @@ def main():
     # print( sumProcessPerVarSys )
     # print('\n')
     
-    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
-    sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
+    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
-    # legendOrder = ['tt', 'ttX', 'singleTop',  'WJets', 'jetHT'] #1tau1l
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
     for variable in variables:
@@ -137,22 +136,6 @@ def main():
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
 
 
-    # hasFakeTau = checkRegionGen(regionList)
-    # if hasFakeTau:
-    #     print('has fake')
-    #     for ivar in sumProcessPerVar:
-    #         wc.replaceBgWithGen( inputDirDic, sumProcessPerVar[ivar], ivar, regionList, 2, ifFR_sys, sumProcessPerVarSys[ivar]  )
-    #     legendOrder.remove('qcd')
-    #     legendOrder.insert(0, 'fakeTau')
-    #     sumProcessPerVar[ivar][regionList[0]].pop('qcd')
-   
-    
-    #???should we add hists like this?
-    # if hasFakeTau and regionList[0]=='1tau0lSR' and 'jets_bScore' in variables: 
-    #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
-    # if (not hasFakeTau) and regionList[0]=='1tau1lSR' and 'BDT' in variables: 
-    #     writeTemplatesForCombine(sumProcessPerVar, sumProcessPerVarSys, inputDirDic['mc'], regionList[0]) 
-    
 
 
 
@@ -281,7 +264,8 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
 
-    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, False)
+    ifBlind = True if 'SR' in region else False #!!!
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False)
 
     setUpStack(stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
     #error bar for MC stack    
@@ -319,8 +303,6 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     leggy.Draw()
     
     #text above the plot
-    # st.addCMSTextToCan(canvy, 0.24, 0.46, 0.9,0.94, era, isRun3=True)     # good for run2
-    # st.addCMSTextToCan(canvy, 0.24, 0.56, 0.9,0.94, era)     # good for 2022
     st.addCMSTextToPad(canvy, era)
     
     canvy.Update()
@@ -338,8 +320,9 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
     # for ipro in nominal.keys():
     for ipro in legendOrder:
-        if ipro == 'jetHT':
-            leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
+        if ipro == 'jetHT' :
+            if dataHist:
+                leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif ipro == 'tttt':
             signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
             leggy.AddEntry( signal, signalEntry, 'l')
@@ -367,9 +350,8 @@ def getHistToData( dataHist, sumHist):
     sumHistoData.SetMinimum(0.5)
     # sumHistoData.SetMaximum(1.2)
     sumHistoData.SetMaximum(1.5)
-    # sumHistoData.GetXaxis().SetTitle(signal.GetTitle())
-    sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
-    # sumHistoData.GetXaxis().SetLabelSize(0.04)
+    # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
+    sumHistoData.GetXaxis().SetTitle(sumHist.GetTitle())
     sumHistoData.GetXaxis().SetTitleSize(0.05)
     sumHistoData.GetYaxis().SetNdivisions(6)
     # sumHistoData.GetYaxis().SetTitleSize(0.05)
@@ -427,7 +409,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal,  legendOrder, doSystmatic):
+def getHists(nominal,  legendOrder, ifBlind, doSystmatic):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
@@ -451,16 +433,16 @@ def getHists(nominal,  legendOrder, doSystmatic):
     dataHist = 0
     stack = THStack( 'stack', 'stack' )
     legendOrder.reverse()
-    # for i in nominal.keys():
     for i in legendOrder:
         # i is i summed MC
         if i == 'jetHT':
-            dataHist = nominal["jetHT"].Clone()
-            dataHist.SetMarkerStyle(20)
-            dataHist.SetMarkerSize(1.2)
-            dataHist.SetMarkerColor(kBlack)
-            dataHist.SetLineColor(kBlack)
-            dataHist.SetTitleSize(0.0)
+            if not ifBlind:
+                dataHist = nominal["jetHT"].Clone()
+                dataHist.SetMarkerStyle(20)
+                dataHist.SetMarkerSize(1.2)
+                dataHist.SetMarkerColor(kBlack)
+                dataHist.SetLineColor(kBlack)
+                dataHist.SetTitleSize(0.0)
             continue
         if i == 'tttt' or i=='singleMu':
             continue
