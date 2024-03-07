@@ -58,10 +58,8 @@ def main():
     # era = '2018'
     # era = '13p6TeV/2022'
     # era = '2022_13p6/NanoPost'
-    # era = '2022_13p6/crabNanoPost_2022PostEE/2022postEE'
-    # era = '2022_13p6/NanoPost/2022preEE'
-    era = '2022_13p6/crabNanoPost_2022postEE_v3'
-    # era = '2022_13p6/crabNanoPost_2022preEE_v3'
+    # era = '2022_13p6/crabNanoPost_2022postEE_v3'
+    era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
     # dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
