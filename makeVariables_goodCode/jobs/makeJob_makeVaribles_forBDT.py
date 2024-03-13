@@ -55,14 +55,16 @@ def main():
     # outVersion = 'v2cut1tau1l'
     
     #2022
-    # year = '2022postEE'
-    year = '2022preEE'
+    year = '2022postEE'
+    # year = '2022preEE'
     # inVersion = 'v0preSel'
     # inVersion = 'v1for2022preSel'
     # inVersion = 'v2leptonsNameChange'
     # inVersion = 'v0for2022baseline'
-    inVersion = 'v3EnergyScaleDone'
-    outVersion = 'v0baseline'
+    # inVersion = 'v3EnergyScaleDone'
+    inVersion = 'v3NoHLTNoBtagButTauSel'
+    # outVersion = 'v0baseline'
+    outVersion = 'v0NoBtagSel'
    
     
     
