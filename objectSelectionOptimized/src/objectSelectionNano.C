@@ -93,7 +93,8 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         // pre selection
         if (preSelection)
         {
-            if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0))
+            // if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0)) //!!!different b-tag for run2 and run3
+            if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
                 continue;
         }
 
