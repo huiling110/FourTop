@@ -171,57 +171,34 @@ void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Do
 void JetVarMaker::setupLorentzObjs(const EventForMV *e)
 {
     // overide base ObjValMaker
-    UInt_t objNum = 0;
+    // UInt_t objNum = 0;
     switch (m_type)
     {
     case 0:
-        objNum = e->jets_pt.GetSize();
+        // objNum = e->jets_pt.GetSize();
+        getLorentzVec(e->jets_pt, e->jets_eta, e->jets_phi, e->jets_mass, objsLorentz);
         break;
     case 1:
-        objNum = e->jetsT_pt.GetSize();
-        break;
-    case 2:
-        objNum = e->bjetsM_pt.GetSize();
-        break;
-    case 3:
-        objNum = e->bjetsL_pt.GetSize();
-        break;
-    case 4:
-        objNum = e->bjetsT_pt.GetSize();
-        break;
-    case 5:
-        objNum = e->bjetsPNM_pt.GetSize();
+        // objNum = e->jetsT_pt.GetSize();
+        getLorentzVec(e->jetsT_pt, e->jetsT_eta, e->jetsT_phi, e->jetsT_mass, objsLorentz);
         break;
     }
 
-    for (UInt_t i = 0; i < objNum; i++)
-    {
-        ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
-        switch (m_type)
-        {
-        case 0:
-            muLorentz = {e->jets_pt[i], e->jets_eta[i], e->jets_phi[i], e->jets_mass[i]};
-            break;
-        case 1:
-            muLorentz = {e->jetsT_pt[i], e->jetsT_eta[i], e->jetsT_phi[i], e->jetsT_mass[i]};
-            break;
-        case 2:
-            muLorentz = {e->bjetsM_pt[i], e->bjetsM_eta[i], e->bjetsM_phi[i], e->bjetsM_mass[i]};
-            break;
-        case 3:
-            muLorentz = {e->bjetsL_pt[i], e->bjetsL_eta[i], e->bjetsL_phi[i], e->bjetsL_mass[i]};
-            break;
-        case 4:
-            muLorentz = {e->bjetsT_pt[i], e->bjetsT_eta[i], e->bjetsT_phi[i], e->bjetsT_mass[i]};
-            break;
-        case 5:
-            muLorentz = {e->bjetsPNM_pt[i], e->bjetsPNM_eta[i], e->bjetsPNM_phi[i], e->bjetsPNM_mass[i]};
-            break;
-        }
-        objsLorentz.push_back(muLorentz);
-    }
+    // for (UInt_t i = 0; i < objNum; i++)
+    // {
+    //     ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
+    //     switch (m_type)
+    //     {
+    //     case 0:
+    //         muLorentz = {e->jets_pt[i], e->jets_eta[i], e->jets_phi[i], e->jets_mass[i]};
+    //         break;
+    //     case 1:
+    //         muLorentz = {e->jetsT_pt[i], e->jetsT_eta[i], e->jetsT_phi[i], e->jetsT_mass[i]};
+    //         break;
+    //     }
+    //     objsLorentz.push_back(muLorentz);
+    // }
 
-    //set up jets_btags accoruding to m_type
 
 };
 

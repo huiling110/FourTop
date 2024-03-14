@@ -29,7 +29,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
 
         // jet
         jetVarMaker.makeVariables(e);
-        jetTVarMaker.makeVariables(e);
+        // jetTVarMaker.makeVariables(e);
         bjetMVarMaker.makeVariables(e);
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
