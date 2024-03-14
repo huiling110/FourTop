@@ -641,3 +641,14 @@ def drop_last_one(input_string):
     else:
         # If '1' was not found, return the original string
         return input_string
+    
+def checkIfInputDic(entry, isRun3):
+    ifInDic = False
+    entryName = drop_last_one(entry) 
+    if not isRun3:
+        if  entryName in gq.samples: 
+            ifInDic = True
+    else:
+        if  entryName in gq.Run3Samples.keys(): 
+            ifInDic = True
+    return ifInDic

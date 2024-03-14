@@ -162,7 +162,7 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False):
 
     for entry in os.listdir(inOutList[0] ):
         print( 'loop over: ', entry )
-        if not checkIfInputDic(entry, isRun3): continue
+        if not uf.checkIfInputDic(entry, isRun3): continue
         
         processJob = jobsDir + 'MV_' + dirKind +'_'+ entry + ".sh"
         iParametersList = [ inOutList[0], entry, inOutList[1], 0]
@@ -177,16 +177,6 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False):
     subprocess.run( 'chmod 777 ' + subDirName, shell = True)
 
 
-def checkIfInputDic(entry, isRun3):
-    ifInDic = False
-    entryName = uf.drop_last_one(entry) 
-    if not isRun3:
-        if  entryName in GQ.samples: 
-            ifInDic = True
-    else:
-        if  entryName in GQ.Run3Samples.keys(): 
-            ifInDic = True
-    return ifInDic
             
     
 

@@ -80,14 +80,15 @@ def main():
 
     jobsDir = codePath + 'jobs_eachYear/'
     uf.checkMakeDir(jobsDir)
+    isRun3 = uf.isRun3(inputDir)
 
 
     inputDirMC = inputDir + 'mc/'
-    makeJobsInDir( inputDirMC, outputDir , False, '',  eraOut )
+    makeJobsInDir( inputDirMC, outputDir , False, '',  eraOut, isRun3 )
     if not onlyMC:
         for idata in dataList:
             inputDirData = inputDir + 'data/'
-            makeJobsInDir( inputDirData, outputDir, True, idata,  eraOut )
+            makeJobsInDir( inputDirData, outputDir, True, idata,  eraOut , isRun3)
 
     makeSubAllJobs( jobsDir , eraOut)
     subprocess.run('chmod 777 '+ jobsDir+ eraOut+ "/*sh", shell=True )
@@ -139,7 +140,7 @@ def makeSubAllJobs( jobsDir , era):
 
 
 
-def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
+def makeJobsInDir( inputDir, outputDir, isData, dataSet, era, isRun3):
     allProcesses = os.listdir( inputDir )
     if isData:
         outputDir = outputDir + 'data/'
@@ -154,12 +155,8 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
 
     for k in allProcesses:
         print( 'kProcess: ', k )
-        ipro = drop_last_one(k)
-        if not '2022' in era:
-            if not ipro in gq.samples:  continue
-        else:
-            if not ipro in gq.Run3Samples.keys():  continue
-            
+        if not uf.checkIfInputDic(k, isRun3): continue
+        
         print(k)
         sample_k = k
         if  isData:
