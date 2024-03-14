@@ -56,8 +56,6 @@ def main():
     # era = '2016APV'
     # era = '2017'
     # era = '2018'
-    # era = '13p6TeV/2022'
-    # era = '2022_13p6/NanoPost'
     era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
@@ -152,13 +150,15 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
     jobScriptsFolder = codePath + 'jobs_eachYear/'
     uf.checkMakeDir( jobScriptsFolder )
     jobScriptsFolder = jobScriptsFolder+era+'/'
-    uf.checkMakeDir(jobScriptsFolder)
+    uf.checkMakeDir(jobScriptsFolder, True)
 
     for k in allProcesses:
+        print( 'kProcess: ', k )
+        ipro = drop_last_one(k)
         if not '2022' in era:
-            if not k in gq.samples:  continue
+            if not ipro in gq.samples:  continue
         else:
-            if not k in gq.Run3Samples.keys():  continue
+            if not ipro in gq.Run3Samples.keys():  continue
             
         print(k)
         sample_k = k
@@ -166,7 +166,6 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
             if dataSet not in k:
                 print( "omitting: ", k )
                 continue
-        print( 'kProcess: ', sample_k )
 
         print( 'have made folder neccessary for out put directory' )
 
@@ -197,7 +196,6 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era):
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
-                # sub_oneProcess.write( "hep_sub "+ '-m 6000 '+ iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
                 sub_oneProcess.write( "hep_sub " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
@@ -217,7 +215,7 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     subFile.write( "cd "+appDir + "\n")
     subFile.write('./apps/run_objectSelection.out ' + inputDir +' ' + singleFile +' '+ koutputDir  + ' 0' )
     subFile.close()
-    print( 'done writing the iJob for kProcess: ', shFile )
+    # print( 'done writing the iJob for kProcess: ', shFile )
 
 
 

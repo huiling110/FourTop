@@ -11,9 +11,13 @@ import ttttGlobleQuantity as gq
 import setTDRStyle as st
 
 
-def checkMakeDir( folder ):
+def checkMakeDir( folder,ifDelete=False) :
     if not os.path.exists( folder ):
         os.mkdir( folder )
+    else:
+        if ifDelete:
+            os.system('rm -rf '+folder + '/*')
+            # os.mkdir( folder )
 
 def getGenSumDic( inputCsv, era ):
     df = pd.read_csv( inputCsv )
@@ -621,3 +625,19 @@ def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos
     can.SaveAs(plotName+'.png')
     can.SaveAs(plotName+'.pdf')
     print('Done overlay plotting\n\n')
+    
+    
+    
+    
+def drop_last_one(input_string):
+    # Find the last occurrence of '1' in the string
+    last_one_index = input_string.rfind('1')
+    
+    # Check if '1' was found in the string
+    if last_one_index != -1:
+        # If '1' was found, create a new string by removing the last occurrence of '1'
+        new_string = input_string[:last_one_index] + input_string[last_one_index+1:]
+        return new_string
+    else:
+        # If '1' was not found, return the original string
+        return input_string

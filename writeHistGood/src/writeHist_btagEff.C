@@ -74,8 +74,7 @@ void WriteHist_btagEff::LoopTree()
             continue;
         }
         // Double_t eventWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
-        Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();
-        // std::cout << eventWeight << "\n";
+        Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();//!!run2, shouldn't add HLT_weight!
 
         for (UInt_t i = 0; i < e->jets_pt_->size(); i++)
         {
