@@ -175,30 +175,12 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
     switch (m_type)
     {
     case 0:
-        // objNum = e->jets_pt.GetSize();
         getLorentzVec(e->jets_pt, e->jets_eta, e->jets_phi, e->jets_mass, objsLorentz);
         break;
     case 1:
-        // objNum = e->jetsT_pt.GetSize();
         getLorentzVec(e->jetsT_pt, e->jetsT_eta, e->jetsT_phi, e->jetsT_mass, objsLorentz);
         break;
     }
-
-    // for (UInt_t i = 0; i < objNum; i++)
-    // {
-    //     ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
-    //     switch (m_type)
-    //     {
-    //     case 0:
-    //         muLorentz = {e->jets_pt[i], e->jets_eta[i], e->jets_phi[i], e->jets_mass[i]};
-    //         break;
-    //     case 1:
-    //         muLorentz = {e->jetsT_pt[i], e->jetsT_eta[i], e->jetsT_phi[i], e->jetsT_mass[i]};
-    //         break;
-    //     }
-    //     objsLorentz.push_back(muLorentz);
-    // }
-
 
 };
 

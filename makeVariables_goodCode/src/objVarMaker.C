@@ -1,6 +1,7 @@
 #include <map>
 
 #include "../include/objVarMaker.h"
+#include "../include/variablesFunctions.h"
 
 ObjVarMaker::ObjVarMaker(TTree *outTree, TString objName, Int_t type) : m_type{type}
 {
@@ -62,46 +63,42 @@ void ObjVarMaker::clearBranch()
 void ObjVarMaker::setupLorentzObjs(const EventForMV *e)
 {
     // to be overiden by derived class
-    UInt_t objNum = 0;
+    // UInt_t objNum = 0;
     switch (m_type)
     {
     case 0:
-        objNum = e->muonsT_pt.GetSize();
+        // objNum = e->muonsT_pt.GetSize();
+        getLorentzVec(e->muonsT_pt, e->muonsT_eta, e->muonsT_phi, e->muonsT_mass, objsLorentz);
         break;
     case 1:
-        objNum = e->muonsTopMVAT_pt.GetSize();
+        // objNum = e->muonsTopMVAT_pt.GetSize();
+        getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, objsLorentz);
         break;
     }
-    for (UInt_t i = 0; i < objNum; i++)
-    {
-        Double_t objPt = -99;
-        Double_t objEta = -99;
-        Double_t objPhi = -99;
-        Double_t objMass = -99;
-        switch (m_type)
-        {
-        case 0:
-            objPt = e->muonsT_pt[i];
-            objEta = e->muonsT_eta[i];
-            objPhi = e->muonsT_phi[i];
-            objMass = e->muonsT_mass[i];
-            break;
-        case 1: //!!!loose and fake muon not in OS
-            objPt = e->muonsTopMVAT_pt[i];
-            objEta = e->muonsTopMVAT_eta[i];
-            objPhi = e->muonsTopMVAT_phi[i];
-            objMass = e->muonsTopMVAT_mass[i];
-            break;
-            // case 2:
-            //     objPt = e->muonsL_pt[i];
-            //     objEta = e->muonsL_eta[i];
-            //     objPhi = e->muonsL_phi[i];
-            //     objMass = e->muonsL_mass[i];
-            //     break;
-        }
-        ROOT::Math::PtEtaPhiMVector muLorentz{objPt, objEta, objPhi, objMass};
-        objsLorentz.push_back(muLorentz);
-    }
+    // for (UInt_t i = 0; i < objNum; i++)
+    // {
+    //     Double_t objPt = -99;
+    //     Double_t objEta = -99;
+    //     Double_t objPhi = -99;
+    //     Double_t objMass = -99;
+    //     switch (m_type)
+    //     {
+    //     case 0:
+    //         objPt = e->muonsT_pt[i];
+    //         objEta = e->muonsT_eta[i];
+    //         objPhi = e->muonsT_phi[i];
+    //         objMass = e->muonsT_mass[i];
+    //         break;
+    //     case 1: //!!!loose and fake muon not in OS
+    //         objPt = e->muonsTopMVAT_pt[i];
+    //         objEta = e->muonsTopMVAT_eta[i];
+    //         objPhi = e->muonsTopMVAT_phi[i];
+    //         objMass = e->muonsTopMVAT_mass[i];
+    //         break;
+    //     }
+    //     ROOT::Math::PtEtaPhiMVector muLorentz{objPt, objEta, objPhi, objMass};
+    //     objsLorentz.push_back(muLorentz);
+    // }
 };
 
 
