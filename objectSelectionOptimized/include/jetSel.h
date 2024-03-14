@@ -47,6 +47,8 @@ private:
     std::vector<Double_t> jets_mass;
     std::vector<Int_t> jets_flavour;
     std::vector<Double_t> jets_btags;
+    std::vector<Double_t> jets_btagsPT;
+    std::vector<Double_t> jets_btagsPN;
 };
 
 #endif

@@ -53,20 +53,22 @@ void WriteHist_btagEff::Init()
     std::cout << "Done initialization........\n";
 }
 
-void WriteHist_btagEff::LoopTree()
+void WriteHist_btagEff::LoopTree(UInt_t entry)
 {
-    std::cout << "Start to loop tree\n";
     Long64_t allEvent = m_tree->GetEntries();
-    if (m_isTest)
+    std::cout << "Start to loop tree of entries: "<<allEvent<<"\n";
+    if (entry > 0)
     {
-        allEvent = 10000;
+        allEvent = entry;
     }
+    std::cout << "looping over trees of " << allEvent << "\n";
 
     for (UInt_t i = 0; i < allEvent; i++)
     {
         m_tree->GetEntry(i);
 
-        Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 500. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
+        // Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 500. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
+        Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 550. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
 
         // if (!(baselineSelection(e)))
         if (!(pass))
@@ -81,10 +83,12 @@ void WriteHist_btagEff::LoopTree()
             Int_t jetFlavour = e->jets_flavour_->at(i);
             Double_t jetPt = e->jets_pt_->at(i);
             Double_t jetEta = std::abs(e->jets_eta_->at(i));
-            Double_t jetBtag = e->jets_btags_->at(i);
-            Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
             Bool_t ifEta1 = jetEta <= 1.5;
             Bool_t ifEta2 = jetEta > 1.5;
+
+            //!Run 2 and run 3 different
+            Double_t jetBtag = e->jets_btags_->at(i);
+            Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
 
             switch (jetFlavour)
             {

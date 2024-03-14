@@ -37,6 +37,8 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     outTree->Branch(jetTypeMap[m_jetType] + "_mass", &jets_mass);
     outTree->Branch(jetTypeMap[m_jetType] + "_flavour", &jets_flavour);
     outTree->Branch(jetTypeMap[m_jetType] + "_btags", &jets_btags);
+    outTree->Branch(jetTypeMap[m_jetType] + "_btagsPN", &jets_btagsPN);
+    outTree->Branch(jetTypeMap[m_jetType] + "_btagsPT", &jets_btagsPT);
 
     std::cout << "Done JetSel initialization......\n";
     std::cout << "\n";
@@ -74,7 +76,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
             continue;
-        // if (!(fabs(ijetEta) < 5.0))
         if (!(fabs(ijetEta) < 2.4))
             continue;
         // if (!(ijet_jetID > 0))
@@ -135,10 +136,13 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             jets_flavour.push_back(-99);
         }
+        jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
         if (m_isRun3){
-            jets_btags.push_back(e->Jet_btagPNetB->At(j));
+            jets_btagsPN.push_back(e->Jet_btagPNetB->At(j));
+            jets_btagsPT.push_back(e->Jet_btagRobustParTAK4B->At(j));
         }else{
-            jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
+            jets_btagsPN.push_back(-99);
+            jets_btagsPT.push_back(-99);
         }
     }
 };
@@ -373,6 +377,8 @@ void JetSel::clearBranch()
     jets_mass.clear();
     jets_flavour.clear();
     jets_btags.clear();
+    jets_btagsPN.clear();
+    jets_btagsPT.clear();
 };
 
 std::vector<Double_t> &JetSel::getEtaVec()

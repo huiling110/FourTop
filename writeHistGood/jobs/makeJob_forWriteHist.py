@@ -49,8 +49,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone//'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone//'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v3EnergyScaleDone/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -80,21 +81,9 @@ def main():
     # version = 'v0_HLTSFMeasure_6thJet40HT550BinE'
     # version = 'v0_HLTSFMeasure_6thJet40HT550BinF'
     
-    
+    #b-tag measurement 
     # version = 'v1_btagRMeasure'
-    # version = 'v1_btagEffMeasure'
-    # version = 'v2_btagEffBugFixed'
-    # version = 'v0_dataMCBeforeBtagWP'
-    # version = 'v1_dataMCafterBtagWP'
-    # version = 'v2AllButBtagWP'
-    # version ='v3btagEffNewRegion'
-    # version = 'v4newBtagEff'
-    # version = 'v5OldBtagR'
-    # version = 'v6forBtagRMeasure'
-    # version = 'v7newBtagRApp'
-    # version = 'v0btagEff'
-    # version = 'v1btagRCal'
-    # version = 'v2btagWPCorrection'
+    version = 'v0_btagEffMeasure'
     
     # version = 'v0dataMC_btagWPsf'
     # version = 'v0dataMC_jets6pt45'
@@ -110,7 +99,7 @@ def main():
     # version = 'v3dataMC_HT550HLTSFBinF'
     # version = 'v0dataMC_noCorrection'
     # version = 'v1dataMC_eleSF'
-    version = 'v1dataMC_pileupSF'
+    # version = 'v1dataMC_pileupSF'
     channel = 0
     
         

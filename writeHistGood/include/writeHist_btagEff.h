@@ -51,7 +51,7 @@ public:
     WriteHist_btagEff(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE);
     ~WriteHist_btagEff();
     void Init();
-    void LoopTree();
+    void LoopTree(UInt_t entry);
     void Terminate();
 };
 
