@@ -82,6 +82,8 @@ public:
                                       jets_phi(reader, "jets_phi"),
                                       jets_mass(reader, "jets_mass"),
                                       jets_btags(reader, "jets_btags"),
+                                      jets_btagsPN(reader, "jets_btagsPN"),
+                                      jets_btagsPT(reader, "jets_btagsPT"),
                                       jets_flavour(reader, "jets_flavour"),
                                       jetsT_pt(reader, "jetsT_pt"),
                                       jetsT_eta(reader, "jetsT_eta"),
@@ -209,6 +211,8 @@ public:
     TTreeReaderArray<Double_t> jets_phi;
     TTreeReaderArray<Double_t> jets_mass;
     TTreeReaderArray<Double_t> jets_btags;
+    TTreeReaderArray<Double_t> jets_btagsPN;
+    TTreeReaderArray<Double_t> jets_btagsPT;
     TTreeReaderArray<Int_t> jets_flavour;
     TTreeReaderArray<Double_t> jetsT_pt;
     TTreeReaderArray<Double_t> jetsT_eta;
